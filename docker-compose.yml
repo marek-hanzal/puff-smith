@@ -1,0 +1,21 @@
+version: '2.0'
+services:
+    vapers-dream:
+        # docker build -t marekhanzal/vapers-dream:edge .
+        image: marekhanzal/vapers-dream:edge
+        hostname: vapers-dream
+        container_name: vapers-dream
+        environment:
+            - DATABASE_URL=jdbc:postgresql://postgres:5432/vapers-dream
+            - DATABASE_USER=postgres
+            - DATABASE_PASSWORD=1234
+            - HTTP_HOST=http://localhost:9099
+        ports:
+            - "9099:9099"
+        networks:
+            # docker network create common --attachable
+            - common
+
+networks:
+    common:
+        external: true
