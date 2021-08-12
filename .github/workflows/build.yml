@@ -30,7 +30,7 @@ jobs:
             -   name: Prepare
                 id: prepare
                 run: |
-                    DOCKER_IMAGE=marekhanzal/derivean
+                    DOCKER_IMAGE=marekhanzal/vapers-dream
                     VERSION=noop
                     if [ "${{ github.event_name }}" = "schedule" ]; then
                       VERSION=nightly
