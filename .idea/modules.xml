@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/vapers-dream.iml" filepath="$PROJECT_DIR$/.idea/vapers-dream.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vapers-dream.main.iml" filepath="$PROJECT_DIR$/.idea/modules/vapers-dream.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vapers-dream.test.iml" filepath="$PROJECT_DIR$/.idea/modules/vapers-dream.test.iml" />
+    </modules>
+  </component>
+</project>
