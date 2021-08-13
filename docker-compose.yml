@@ -9,9 +9,11 @@ services:
             - DATABASE_URL=jdbc:postgresql://postgres:5432/vapers-dream
             - DATABASE_USER=postgres
             - DATABASE_PASSWORD=1234
-            - HTTP_HOST=http://localhost:9099
+            - BACKEND_HOST=http://localhost:9099
+            - CLIENT_HOST=http://localhost:9199
         ports:
             - "9099:9099"
+            - "9199:9199"
         networks:
             # docker network create common --attachable
             - common

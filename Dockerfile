@@ -1,6 +1,6 @@
-FROM node as node
+FROM node as client
 
-WORKDIR /opt/app
+WORKDIR /opt/client
 
 ADD client .
 
@@ -8,9 +8,9 @@ RUN npm i && npm run build
 
 FROM marekhanzal/buffalo as build
 
-WORKDIR /opt/app
+WORKDIR /opt/server
 
-COPY --from=node /opt/app/build /opt/app/src/main/resources/client/
+COPY --from=client /opt/client/dist /opt/client
 RUN echo "$VERSION" > /opt/app/src/main/resources/client/version.json
 ADD . .
 RUN \
@@ -22,13 +22,13 @@ FROM alpine
 
 RUN apk add --update supervisor openjdk11-jre && rm  -rf /tmp/* /var/cache/apk/*
 
-WORKDIR /opt/app
+WORKDIR /opt/server
 
 RUN adduser --disabled-password --home /opt/app app app
 
 ADD rootfs/runtime /
 
-COPY --from=build /opt/app/dist .
+COPY --from=build /opt/server/dist .
 
 RUN chown app:app -R /opt/app
 

@@ -19,10 +19,10 @@
 		"jsx": "preserve",
 		"baseUrl": "src",
 		"paths": {
-			"@/marsh": [
+			"@/vapers-dream": [
 				"."
 			],
-			"@/marsh/*": [
+			"@/vapers-dream/*": [
 				"./*"
 			]
 		}

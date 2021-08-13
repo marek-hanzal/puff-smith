@@ -9,7 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@leight-core/leight": "^0.8.43",
+		"@leight-core/leight": "^0.8.44",
 		"antd": "^4.16.11",
 		"i18next-browser-languagedetector": "^6.1.2",
 		"js-file-download": "^0.4.12",

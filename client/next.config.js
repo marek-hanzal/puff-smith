@@ -3,20 +3,15 @@ module.exports = require("next-compose-plugins")([
 	require("@next/bundle-analyzer")({
 		enabled: process.env.ANALYZE === "true",
 	}),
-	[require("next-plugin-antd-less"), {
-		modifyVars: {
-			// "@primary-color": "#002c76",
-			// "@link-color": "#002c76",
-		},
-	}],
+	require("next-plugin-antd-less"),
 ], {
 	reactStrictMode: true,
 	basePath: process.env.NEXT_PUBLIC_PUBLIC_URL,
 	async rewrites() {
 		return [
 			{
-				source: "/blackfox/:path*",
-				destination: process.env.NEXT_PUBLIC_BLACKFOX + "/blackfox/:path*",
+				source: "/api/:path*",
+				destination: process.env.NEXT_PUBLIC_BACKEND + "/api/:path*",
 				basePath: false,
 				locale: false,
 			},
