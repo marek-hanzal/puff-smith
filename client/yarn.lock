@@ -1869,11 +1869,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@leight-core/leight@npm:^0.8.44":
-  version: 0.8.44
-  resolution: "@leight-core/leight@npm:0.8.44"
+"@leight-core/leight@npm:^0.8.45":
+  version: 0.8.45
+  resolution: "@leight-core/leight@npm:0.8.45"
   dependencies:
     "@ant-design/icons": ^4.6.2
+    "@types/react": ^17.0.18
     antd: ^4.16.11
     axios: ^0.21.1
     cancelable-promise: ^4.2.1
@@ -1891,7 +1892,7 @@ __metadata:
     react-dom: ^17.0.2
     react-i18next: ^11.11.4
     react-markdown: ^6.0.3
-  checksum: 6ea49045c062e70bdbd2ea6f9a1679074e94a9db49582a06fcf4a1a40a20575b1c610119ae0194af5b80caa84e5bfb4f6ac347f64aab1488b255cc95f84f3863
+  checksum: 89b52166b64dbf370f4c4f264ade0003c8c5dec41bfe18a21c6dd0e971814cca2ee197c8848e47e68b372d0e9bcbb6bc11ae91c537d7294e563c331f0ee8bc88
   languageName: node
   linkType: hard
 
@@ -3485,7 +3486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
+"@types/react@npm:*, @types/react@npm:^17.0.18":
   version: 17.0.18
   resolution: "@types/react@npm:17.0.18"
   dependencies:
@@ -15780,7 +15781,7 @@ typescript@4.3.5:
   resolution: "vapers-dream@workspace:."
   dependencies:
     "@babel/core": ^7.15.0
-    "@leight-core/leight": ^0.8.44
+    "@leight-core/leight": ^0.8.45
     "@next/bundle-analyzer": ^11.0.1
     "@storybook/addon-actions": ^6.3.7
     "@storybook/addon-essentials": ^6.3.7

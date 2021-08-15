@@ -11,7 +11,7 @@
 		"build-storybook": "build-storybook"
 	},
 	"dependencies": {
-		"@leight-core/leight": "^0.8.44",
+		"@leight-core/leight": "^0.8.45",
 		"antd": "^4.16.11",
 		"i18next": "^20.4.0",
 		"i18next-browser-languagedetector": "^6.1.2",
