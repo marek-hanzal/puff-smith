@@ -4,7 +4,7 @@
     <command value="update" />
     <arguments value="--legacy-peer-deps" />
     <node-interpreter value="project" />
-    <package-manager value="yarn" />
+    <package-manager value="npm" />
     <envs />
     <method v="2" />
   </configuration>

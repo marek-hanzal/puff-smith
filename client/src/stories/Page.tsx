@@ -1,3 +1,4 @@
+import {Card} from "antd";
 import React from "react";
 
 import {Header} from "./Header";
@@ -12,6 +13,10 @@ interface PageProps {
 
 export const Page = ({user, onLogin, onLogout, onCreateAccount}: PageProps) => (
 	<article>
+		<Card>
+			foo bar
+		</Card>
+
 		<Header user={user} onLogin={onLogin} onLogout={onLogout} onCreateAccount={onCreateAccount}/>
 
 		<section>
