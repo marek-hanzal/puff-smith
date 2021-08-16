@@ -96,12 +96,16 @@ private fun Route.authorizedRoute(
 	all: Set<Role>? = null,
 	none: Set<Role>? = null, build: Route.() -> Unit
 ): Route {
-	val description = listOfNotNull(
-		any?.let { "anyOf (${any.joinToString(" ")})" },
-		all?.let { "allOf (${all.joinToString(" ")})" },
-		none?.let { "noneOf (${none.joinToString(" ")})" }).joinToString(",")
-	val authorizedRoute = createChild(AuthorizedRouteSelector(description))
-	application.feature(RoleBasedAuthorization).interceptPipeline(authorizedRoute, any, all, none)
-	authorizedRoute.build()
-	return authorizedRoute
+	return createChild(
+		AuthorizedRouteSelector(
+			listOfNotNull(
+				any?.let { "anyOf (${any.joinToString(" ")})" },
+				all?.let { "allOf (${all.joinToString(" ")})" },
+				none?.let { "noneOf (${none.joinToString(" ")})" }).joinToString(",")
+		)
+	).apply {
+		application.feature(RoleBasedAuthorization).interceptPipeline(this, any, all, none)
+	}.also {
+		build()
+	}
 }
