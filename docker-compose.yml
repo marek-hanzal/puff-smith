@@ -6,14 +6,17 @@ services:
         hostname: vapers-dream
         container_name: vapers-dream
         environment:
+            # good old ones
             - DATABASE_URL=jdbc:postgresql://postgres:5432/vapers-dream
             - DATABASE_USER=postgres
             - DATABASE_PASSWORD=1234
-            - BACKEND_HOST=http://localhost:9099
-            - CLIENT_HOST=http://localhost:9199
+            # setup for the client where to find Discovery index and for server where the backend is running
+            - BACKEND_HOST=http://localhost:8088
         ports:
-            - "9099:9099"
-            - "9199:9199"
+            # client web application
+            - "8080:3000"
+            # backend server
+            - "8088:8088"
         networks:
             # docker network create common --attachable
             - common

@@ -54,6 +54,9 @@ COPY --from=server-builder --chown=app:app /opt/server/dist ./
 
 RUN java -version
 
+# Client (Next.js app)
 EXPOSE 3000
+# Backend Server
+EXPOSE 8088
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
