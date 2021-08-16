@@ -4,6 +4,8 @@ import leight.http.HttpServer
 import leight.http.IHttpServer
 import leight.pool.IPool
 import leight.pool.Pool
+import leight.role.EmptyRoleService
+import leight.role.IRoleService
 import leight.storage.IStorage
 import leight.storage.Storage
 import leight.upgrade.IUpgradeManager
@@ -34,6 +36,6 @@ object ContainerFactory {
 //		service(ILinkGenerator::class) { LinkGenerator(this) }
 //		service(IPageService::class) { PageService(this) }
 //		service(IDiscoveryService::class) { DiscoveryService(this) }
-//		service(IRoleService::class) { EmptyRoleService(this) }
+		service(IRoleService::class) { EmptyRoleService(this) }
 	}
 }

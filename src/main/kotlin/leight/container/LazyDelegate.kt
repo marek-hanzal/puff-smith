@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 package leight.container
 
 import kotlin.reflect.KClass

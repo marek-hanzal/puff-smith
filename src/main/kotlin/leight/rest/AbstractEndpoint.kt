@@ -13,8 +13,9 @@ import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
 	override fun install(routing: Routing) {
-		val endpoint = this::class.qualifiedName!!
-			.replace("vapersdream", "")
+		val name = this::class.qualifiedName!!.split(".")
+		val endpoint = name.subList(1, name.size)
+			.joinToString(".")
 			.replace("endpoint.", "")
 			.replace("Endpoint", "")
 			.lowercase()
