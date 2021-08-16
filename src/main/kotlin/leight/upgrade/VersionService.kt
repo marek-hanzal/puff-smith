@@ -22,7 +22,7 @@ class VersionService(container: IContainer) : AbstractService(container), IVersi
 	}
 
 	override fun getCollection() = storage.read {
-		UpgradeEntity.all().sortedByDescending { it.stamp }.iterator().asSequence().asIterable()
+		UpgradeEntity.all().sortedByDescending { it.stamp }.asIterable()
 	}
 
 	override fun print() = storage.read {
