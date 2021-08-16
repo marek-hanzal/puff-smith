@@ -103,9 +103,8 @@ private fun Route.authorizedRoute(
 				all?.let { "allOf (${all.joinToString(" ")})" },
 				none?.let { "noneOf (${none.joinToString(" ")})" }).joinToString(",")
 		)
-	).apply {
+	).also {
 		application.feature(RoleBasedAuthorization).interceptPipeline(this, any, all, none)
-	}.also {
 		build()
 	}
 }
