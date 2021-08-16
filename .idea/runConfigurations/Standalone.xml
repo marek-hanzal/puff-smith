@@ -20,6 +20,7 @@
             </DockerPortBindingImpl>
           </list>
         </option>
+        <option name="commandLineOptions" value="--rm" />
         <option name="sourceFilePath" value="Dockerfile" />
       </settings>
     </deployment>
