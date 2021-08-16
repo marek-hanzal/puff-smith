@@ -8,7 +8,8 @@ import leight.http.HttpServerConfig
 import leight.http.IHttpServer
 import leight.pool.PoolConfig
 import leight.upgrade.IUpgradeManager
-import vapersdream.rest.user.UserHttpModule
+import vapersdream.api.discovery.DiscoveryHttpModule
+import vapersdream.api.user.UserHttpModule
 
 @ExperimentalStdlibApi
 object ServerContainer {
@@ -25,6 +26,7 @@ object ServerContainer {
 //			upgrade(u2020_11_16::class)
 		}
 		configurator(IHttpServer::class) {
+			module(DiscoveryHttpModule::class)
 			module(UserHttpModule::class)
 		}
 		block(this)

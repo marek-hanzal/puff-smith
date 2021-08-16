@@ -1,4 +1,4 @@
-package vapersdream.rest.user.driptip
+package vapersdream.api.user.driptip
 
 import io.ktor.routing.*
 import leight.container.IContainer

@@ -1,4 +1,4 @@
-package vapersdream.rest.user.battery
+package vapersdream.api.user.battery
 
 import io.ktor.routing.*
 import leight.container.IContainer

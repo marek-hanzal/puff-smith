@@ -1,4 +1,4 @@
-package vapersdream.rest.user.steeping
+package vapersdream.api.user.steeping
 
 import io.ktor.routing.*
 import leight.container.IContainer

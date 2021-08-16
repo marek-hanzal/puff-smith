@@ -1,18 +1,19 @@
-package vapersdream.rest.user
+package vapersdream.api.user
 
 import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
-import vapersdream.rest.user.atomizer.AtomizerHttpModule
-import vapersdream.rest.user.base.BaseHttpModule
-import vapersdream.rest.user.battery.BatteryHttpModule
-import vapersdream.rest.user.build.BuildHttpModule
-import vapersdream.rest.user.cotton.CottonHttpModule
-import vapersdream.rest.user.driptip.DriptipHttpModule
-import vapersdream.rest.user.liquid.LiquidHttpModule
-import vapersdream.rest.user.mod.ModHttpModule
-import vapersdream.rest.user.steeping.SteepingHttpModule
-import vapersdream.rest.user.wire.WireHttpModule
+import vapersdream.api.user.atomizer.AtomizerHttpModule
+import vapersdream.api.user.base.BaseHttpModule
+import vapersdream.api.user.battery.BatteryHttpModule
+import vapersdream.api.user.build.BuildHttpModule
+import vapersdream.api.user.cotton.CottonHttpModule
+import vapersdream.api.user.driptip.DriptipHttpModule
+import vapersdream.api.user.liquid.LiquidHttpModule
+import vapersdream.api.user.mod.ModHttpModule
+import vapersdream.api.user.ohm.OhmHttpModule
+import vapersdream.api.user.steeping.SteepingHttpModule
+import vapersdream.api.user.wire.WireHttpModule
 
 /**
  * The main user-space application part (the business of this application).
@@ -34,6 +35,7 @@ class UserHttpModule(container: IContainer) : AbstractHttpModule(container) {
 			DriptipHttpModule::class,
 			SteepingHttpModule::class,
 			WireHttpModule::class,
+			OhmHttpModule::class,
 		)
 	}
 }
