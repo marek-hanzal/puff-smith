@@ -2,6 +2,7 @@ package leight.rest
 
 import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
@@ -21,9 +22,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 		val annotation = this::class.findAnnotation<Endpoint>()
 			?: throw RestException("Endpoint [${this::class.qualifiedName}] does not have required Annotation [${Endpoint::class.qualifiedName}]! Specify the annotation or implement custom install method on the Endpoint.")
 		val build: Route.() -> Unit = {
-			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = {
-				call.respond("yaaay!")
-			}
+			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = { handle(call) }
 			when (annotation.method) {
 				EndpointMethod.GET -> get(url, body)
 				EndpointMethod.POST -> post(url, body)
@@ -39,5 +38,9 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 				withAnyRole(roles = annotation.roles, build)
 			}
 		}
+	}
+
+	open suspend fun handle(call: ApplicationCall) {
+		call.respond(HttpStatusCode.NotImplemented, "Nothing here (501)")
 	}
 }
