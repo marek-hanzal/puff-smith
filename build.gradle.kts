@@ -20,9 +20,9 @@ dependencies {
 		implementation("org.jetbrains.exposed:exposed-dao:$this")
 		implementation("org.jetbrains.exposed:exposed-jdbc:$this")
 	}
-//	with("1.3.0-alpha7") {
-//		implementation("ch.qos.logback:logback-classic:$this")
-//	}
+	with("1.3.0-alpha6") {
+		implementation("ch.qos.logback:logback-classic:$this")
+	}
 	with("2.0.10") {
 		implementation("io.github.microutils:kotlin-logging:$this")
 	}

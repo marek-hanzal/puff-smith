@@ -9,7 +9,7 @@ import kotlin.system.measureTimeMillis
 import kotlin.time.ExperimentalTime
 
 data class ServerConfig(
-	val version: String,
+	val version: String = "dev",
 	val pool: PoolConfig,
 	val httpServer: HttpServerConfig
 )
