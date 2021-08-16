@@ -43,7 +43,6 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 				anyHost()
 			}
 			install(ForwardedHeaderSupport)
-			install(SinglePageApplication)
 			install(AutoHeadResponse)
 			install(ConditionalHeaders)
 			install(PartialContent)

@@ -10,6 +10,10 @@
               <option name="name" value="BACKEND_HOST" />
               <option name="value" value="http://localhost:8088" />
             </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="VERSION" />
+              <option name="value" value="Standalone Docker" />
+            </DockerEnvVarImpl>
           </list>
         </option>
         <option name="portBindings">

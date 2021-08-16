@@ -6,6 +6,7 @@ services:
         hostname: vapers-dream
         container_name: vapers-dream
         environment:
+            - VERSION=docker-compose
             # good old ones
             - DATABASE_URL=jdbc:postgresql://postgres:5432/vapers-dream
             - DATABASE_USER=postgres

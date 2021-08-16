@@ -11,9 +11,7 @@ abstract class AbstractConfigurable : IConfigurable {
 
 	override fun configure() {
 		if (state == 0) {
-			for (configurator in configurators) {
-				configurator(this)
-			}
+			configurators.forEach { it -> it(this) }
 			state++
 		}
 	}

@@ -24,7 +24,7 @@ class Server(container: IContainer) {
 
 	fun run() {
 		measureTimeMillis {
-			logger.info { "Starting Vapers Dream Server: version: ${serverConfig.version}" }
+			logger.info { "Starting Vapers Dream Server [${serverConfig.version}]" }
 //			versionService.getCollection().toList().asReversed().apply {
 //				logger.info { if (count() > 0) "Installed upgrades:" else "Initial application state" }
 //			}.forEach {
