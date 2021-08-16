@@ -6,6 +6,7 @@ import leight.container.ContainerFactory
 import leight.container.IContainer
 import leight.http.HttpServerConfig
 import leight.pool.PoolConfig
+import leight.upgrade.IUpgradeManager
 
 @ExperimentalStdlibApi
 object ServerContainer {
@@ -18,9 +19,9 @@ object ServerContainer {
 		/**
 		 * Common services.
 		 */
-//		configurator(IUpgradeManager::class) {
+		configurator(IUpgradeManager::class) {
 //			upgrade(u2020_11_16::class)
-//		}
+		}
 //		configurator(IHttpServer::class) {
 //			module(DiscoveryHttpModule::class)
 //			module(ClientHttpModule::class)

@@ -1,5 +1,3 @@
-@file:Suppress("UNCHECKED_CAST")
-
 package leight.container
 
 import leight.config.IConfigurable
@@ -40,7 +38,7 @@ class Container : IContainer {
 		if (services.containsKey(name)) {
 			return (services[name]?.invoke(this) as T).also {
 				instances[name] = it
-				for (configurator in configurators[name] ?: listOf()) {
+				(configurators[name] ?: listOf()).forEach { configurator ->
 					configurator(it)
 				}
 				(it as IConfigurable).setup()

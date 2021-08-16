@@ -6,6 +6,10 @@ import leight.pool.IPool
 import leight.pool.Pool
 import leight.storage.IStorage
 import leight.storage.Storage
+import leight.upgrade.IUpgradeManager
+import leight.upgrade.IVersionService
+import leight.upgrade.UpgradeManager
+import leight.upgrade.VersionService
 
 object ContainerFactory {
 	fun container() = Container().apply {
@@ -16,8 +20,8 @@ object ContainerFactory {
 
 	private fun IContainer.registerSystemServices() {
 		service(IContainer::class) { this }
-//		service(IUpgradeManager::class) { UpgradeManager(this) }
-//		service(IVersionService::class) { VersionService(this) }
+		service(IUpgradeManager::class) { UpgradeManager(this) }
+		service(IVersionService::class) { VersionService(this) }
 	}
 
 	private fun IContainer.registerStorageServices() {
