@@ -10,25 +10,22 @@ FROM marekhanzal/buffalo as build
 
 WORKDIR /opt/server
 
-COPY --from=client /opt/client/dist /opt/client
-RUN echo "$VERSION" > /opt/app/src/main/resources/client/version.json
 ADD . .
 RUN \
 	gradle --no-daemon build --warning-mode all && \
 	mkdir -p dist && tar x --strip-components=1 -f build/distributions/*.tar -C dist && \
 	rm dist/bin/*.bat && mv dist/bin/* dist/bin/app
 
-FROM alpine
+FROM adoptopenjdk/openjdk16:alpine-jre
 
-RUN apk add --update supervisor openjdk11-jre && rm  -rf /tmp/* /var/cache/apk/*
-
-WORKDIR /opt/server
+RUN apk add --update supervisor && rm  -rf /tmp/* /var/cache/apk/*
 
 RUN adduser --disabled-password --home /opt/app app app
 
 ADD rootfs/runtime /
 
-COPY --from=build /opt/server/dist .
+COPY --from=client /opt/client/dist /opt/client
+COPY --from=build /opt/server/dist /opt/server
 
 RUN chown app:app -R /opt/app
 

@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	kotlin("jvm") version "1.5.21"
 	kotlin("plugin.serialization") version "1.5.21"
+	application
 }
 
 group = "me.marek.hanzal"
@@ -64,4 +65,8 @@ tasks.test {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions.jvmTarget = "16"
+}
+
+application {
+	mainClass.set("vapersdream.ServerKt")
 }

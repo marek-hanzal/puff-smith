@@ -2,10 +2,12 @@
 .github
 .gradle
 build
+client/.idea
 client/build
+client/dist
 client/node_modules
+client/.next
 gradle
-src/main/resources/client
 *.db
 *.local*
 *.log
