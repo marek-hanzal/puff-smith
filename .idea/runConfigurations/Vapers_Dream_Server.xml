@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Vapers Dream Server" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="vapersdream.ServerKt" />
+    <module name="vapers-dream.main" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

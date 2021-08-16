@@ -6,7 +6,7 @@ plugins {
 	application
 }
 
-group = "me.marek.hanzal"
+group = "vapers-dream"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -20,8 +20,11 @@ dependencies {
 		implementation("org.jetbrains.exposed:exposed-dao:$this")
 		implementation("org.jetbrains.exposed:exposed-jdbc:$this")
 	}
-	with("1.3.0-alpha7") {
-		implementation("ch.qos.logback:logback-classic:$this")
+//	with("1.3.0-alpha7") {
+//		implementation("ch.qos.logback:logback-classic:$this")
+//	}
+	with("2.0.10") {
+		implementation("io.github.microutils:kotlin-logging:$this")
 	}
 	with("5.0.0") {
 		implementation("com.zaxxer:HikariCP:$this")
@@ -31,9 +34,6 @@ dependencies {
 	}
 	with("42.2.23") {
 		implementation("org.postgresql:postgresql:$this")
-	}
-	with("2.0.10") {
-		implementation("io.github.microutils:kotlin-logging:$this")
 	}
 	with("5.5") {
 		implementation("com.beust:klaxon:$this")
@@ -56,6 +56,10 @@ dependencies {
 	with("1.2.2") {
 		implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$this")
 	}
+	with("2.10.10") {
+		implementation("joda-time:joda-time:$this")
+	}
+	implementation(kotlin("reflect"))
 	testImplementation(kotlin("test"))
 }
 

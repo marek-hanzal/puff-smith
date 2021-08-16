@@ -1,10 +1,10 @@
-FROM node as client
-
-WORKDIR /opt/client
-
-ADD client .
-
-RUN npm i && npm run build
+#FROM node as client
+#
+#WORKDIR /opt/client
+#
+#ADD client .
+#
+#RUN npm i && npm run build
 
 FROM marekhanzal/buffalo as build
 
@@ -24,8 +24,8 @@ RUN adduser --disabled-password --home /opt/app app app
 
 ADD rootfs/runtime /
 
-COPY --from=client /opt/client/dist /opt/client
-COPY --from=build /opt/server/dist /opt/server
+#COPY --from=client /opt/client/dist /opt/app/client
+COPY --from=build /opt/server/dist /opt/app/server
 
 RUN chown app:app -R /opt/app
 

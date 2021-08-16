@@ -9,23 +9,21 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.sessions.*
-import leight.config.AbstractConfigurable
+import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.Response
 import leight.rest.resolve
 import leight.role.IRoleService
 import leight.session.ISessionValidator
 import leight.session.SessionTicket
-import mu.KotlinLogging
 import java.util.*
 import kotlin.reflect.KClass
 
-class HttpServer(container: IContainer) : AbstractConfigurable(), IHttpServer {
+class HttpServer(container: IContainer) : AbstractService(container), IHttpServer {
 	private val httpServerConfig: HttpServerConfig by container.lazy()
 	private val sessionValidator: ISessionValidator by container.lazy()
 	private val roleService: IRoleService by container.lazy()
 	private var modules = arrayOf<KClass<out IHttpModule>>()
-	private val logger = KotlinLogging.logger { }
 	private lateinit var name: String
 	private val server by lazy {
 		embeddedServer(Netty, httpServerConfig.port) {

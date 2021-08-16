@@ -1,6 +1,6 @@
 .gradle
 build
-src/main/resources/client
+out
 *.log
 *.db
 *.local*

@@ -20,12 +20,6 @@ object ServerContainer {
 		 */
 //		configurator(IUpgradeManager::class) {
 //			upgrade(u2020_11_16::class)
-//			upgrade(u2020_11_17::class)
-//			upgrade(u2020_11_17_01::class)
-//			upgrade(u2020_11_17_02::class)
-//			upgrade(u2020_11_17_03::class)
-//			upgrade(u2020_11_17_04::class)
-//			upgrade(u2020_11_17_05::class)
 //		}
 //		configurator(IHttpServer::class) {
 //			module(DiscoveryHttpModule::class)
