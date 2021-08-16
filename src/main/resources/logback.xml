@@ -25,7 +25,7 @@
 	<logger name="com.zaxxer" level="error"/>
 	<logger name="ktor" level="error"/>
 	<logger name="Exposed" level="error"/>
-	<logger name="leight" level="info"/>
+	<logger name="leight" level="debug"/>
 
 	<!--
 		Level is the highest level accepted by the referenced logger:

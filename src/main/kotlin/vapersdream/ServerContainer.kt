@@ -5,8 +5,10 @@ import io.github.config4k.extract
 import leight.container.ContainerFactory
 import leight.container.IContainer
 import leight.http.HttpServerConfig
+import leight.http.IHttpServer
 import leight.pool.PoolConfig
 import leight.upgrade.IUpgradeManager
+import vapersdream.rest.user.UserHttpModule
 
 @ExperimentalStdlibApi
 object ServerContainer {
@@ -22,13 +24,9 @@ object ServerContainer {
 		configurator(IUpgradeManager::class) {
 //			upgrade(u2020_11_16::class)
 		}
-//		configurator(IHttpServer::class) {
-//			module(DiscoveryHttpModule::class)
-//			module(ClientHttpModule::class)
-//			module(PublicHttpModule::class)
-//			module(GameHttpModule::class)
-//			module(RootHttpModule::class)
-//		}
+		configurator(IHttpServer::class) {
+			module(UserHttpModule::class)
+		}
 		block(this)
 	}
 }
