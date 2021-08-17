@@ -12,7 +12,7 @@ data class LinkResponse(val href: String) {
 
 data class Response<T>(val code: HttpStatusCode, val response: T? = null)
 
-suspend inline fun <reified T> ApplicationCall.resolve(response: Response<T>) = if (response.response !== null) respond(response.code, response.response) else respond(response.code)
+suspend inline fun <T> ApplicationCall.resolve(response: Response<T>) = if (response.response !== null) respond<Any>(response.code, response.response) else respond(response.code)
 
 /**
  * send response with Bad Request status code

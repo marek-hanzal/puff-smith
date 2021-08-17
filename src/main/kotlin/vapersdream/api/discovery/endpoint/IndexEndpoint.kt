@@ -10,9 +10,7 @@ import leight.rest.*
 	roles = [],
 )
 class IndexEndpoint(container: IContainer) : AbstractEndpoint(container) {
-	override suspend fun handle(call: ApplicationCall) {
-		call.handle(logger) {
-			ok(arrayOf<String>())
-		}
+	override suspend fun handle(call: ApplicationCall): ApplicationCall.() -> Response<out Any> = {
+		ok(arrayOf<String>())
 	}
 }

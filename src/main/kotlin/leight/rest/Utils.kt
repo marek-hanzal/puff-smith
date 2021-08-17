@@ -8,10 +8,10 @@ import leight.rest.exception.ResourceLimitException
 import leight.rest.exception.UnauthorizedException
 import mu.KLogger
 
-suspend inline fun <reified TResponse, reified TException> ApplicationCall.handle(
+suspend inline fun <TResponse, TError> ApplicationCall.handle(
 	logger: KLogger,
-	block: ApplicationCall.() -> Response<TResponse>,
-	exception: (Throwable) -> Response<TException>?,
+	block: ApplicationCall.() -> Response<out TResponse>,
+	exception: (Throwable) -> Response<out TError>?,
 ) {
 	try {
 		resolve(block(this))
@@ -42,10 +42,10 @@ suspend inline fun <reified TResponse, reified TException> ApplicationCall.handl
 	}
 }
 
-suspend inline fun <reified TResponse> ApplicationCall.handle(
+suspend inline fun <TResponse> ApplicationCall.handle(
 	logger: KLogger,
-	block: ApplicationCall.() -> Response<TResponse>,
-) = handle<TResponse, Unit>(
+	block: ApplicationCall.() -> Response<out TResponse>,
+) = handle<TResponse, Any>(
 	logger,
 	block,
 ) { null }
