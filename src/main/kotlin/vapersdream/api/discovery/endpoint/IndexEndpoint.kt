@@ -8,7 +8,6 @@ import vapersdream.api.discovery.action.IndexActionMapper
 @Endpoint(
 	public = true,
 	method = EndpointMethod.GET,
-	roles = [],
 )
 class IndexEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val indexActionMapper by container.lazy<IndexActionMapper>()

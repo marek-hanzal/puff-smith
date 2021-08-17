@@ -6,19 +6,16 @@ import io.ktor.routing.*
 import io.ktor.util.pipeline.*
 import leight.container.AbstractService
 import leight.container.IContainer
+import leight.discovery.DiscoveryIndex
 import leight.http.withAnyRole
 import leight.rest.exception.RestException
 import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
+	private val discoveryIndex by container.lazy<DiscoveryIndex>()
+
 	override fun install(routing: Routing) {
-		val name = this::class.qualifiedName!!.split(".")
-		val endpoint = name.subList(1, name.size)
-			.joinToString(".")
-			.replace("endpoint.", "")
-			.replace("Endpoint", "")
-			.lowercase()
-		val url = endpoint.replace(".", "/")
+		val discoveryItem = discoveryIndex.add(this)
 		val annotation = this::class.findAnnotation<Endpoint>()
 			?: throw RestException("Endpoint [${this::class.qualifiedName}] does not have required Annotation [${Endpoint::class.qualifiedName}]! Specify the annotation or implement custom install method on the Endpoint.")
 		val build: Route.() -> Unit = {
@@ -28,11 +25,11 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 				})
 			}
 			when (annotation.method) {
-				EndpointMethod.GET -> get(url, body)
-				EndpointMethod.POST -> post(url, body)
-				EndpointMethod.PATCH -> patch(url, body)
-				EndpointMethod.PUT -> put(url, body)
-				EndpointMethod.DELETE -> delete(url, body)
+				EndpointMethod.GET -> get(discoveryItem.url, body)
+				EndpointMethod.POST -> post(discoveryItem.url, body)
+				EndpointMethod.PATCH -> patch(discoveryItem.url, body)
+				EndpointMethod.PUT -> put(discoveryItem.url, body)
+				EndpointMethod.DELETE -> delete(discoveryItem.url, body)
 			}
 		}
 		routing.authenticate(optional = annotation.public) {

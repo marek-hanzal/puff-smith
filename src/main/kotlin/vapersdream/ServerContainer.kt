@@ -4,11 +4,13 @@ import com.typesafe.config.ConfigFactory
 import io.github.config4k.extract
 import leight.container.ContainerFactory
 import leight.container.IContainer
+import leight.discovery.DiscoveryIndex
 import leight.http.HttpServerConfig
 import leight.http.IHttpServer
 import leight.pool.PoolConfig
 import leight.upgrade.IUpgradeManager
 import vapersdream.api.discovery.DiscoveryHttpModule
+import vapersdream.api.public.PublicHttpModule
 import vapersdream.api.user.UserHttpModule
 
 @ExperimentalStdlibApi
@@ -27,7 +29,18 @@ object ServerContainer {
 		}
 		configurator(IHttpServer::class) {
 			module(DiscoveryHttpModule::class)
+			module(PublicHttpModule::class)
 			module(UserHttpModule::class)
+		}
+		configurator(DiscoveryIndex::class) {
+			setIdFilter { endpoint ->
+				endpoint::class.qualifiedName!!
+					.replace("vapersdream.", "")
+					.replace("api.", "")
+					.replace("endpoint.", "")
+					.replace("Endpoint", "")
+					.lowercase()
+			}
 		}
 		block(this)
 	}

@@ -21,9 +21,6 @@ class Container : IContainer {
 
 	override fun <T : Any> configurator(name: KClass<T>, configurator: T.() -> Unit) {
 		name.qualifiedName.toString().also { fqn ->
-			if (!services.containsKey(fqn)) {
-				throw ContainerException("Cannot register configurator for an unknown service [${fqn}].")
-			}
 			if (!configurators.containsKey(fqn)) {
 				configurators[fqn] = mutableListOf()
 			}

@@ -40,6 +40,8 @@ RUN apk add --update nodejs npm supervisor && rm  -rf /tmp/* /var/cache/apk/* &&
 
 ADD rootfs/runtime /
 
+USER app
+
 WORKDIR /opt/app/client
 
 COPY --from=client-builder --chown=app:app /opt/client/next.config.js ./next.config.js
@@ -58,5 +60,9 @@ RUN java -version
 EXPOSE 3000
 # Backend Server
 EXPOSE 8088
+
+RUN ls -la /opt/app/server
+
+USER root
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

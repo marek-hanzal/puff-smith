@@ -1,3 +1,5 @@
 package vapersdream.api.discovery.action.dto.index
 
-data class IndexResponse(val index: HashMap<String, String>)
+import leight.discovery.DiscoveryItem
+
+data class IndexResponse(val index: Map<String, DiscoveryItem>)

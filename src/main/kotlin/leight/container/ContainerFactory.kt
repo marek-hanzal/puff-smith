@@ -2,6 +2,8 @@ package leight.container
 
 import leight.http.HttpServer
 import leight.http.IHttpServer
+import leight.link.ILinkGenerator
+import leight.link.LinkGenerator
 import leight.pool.IPool
 import leight.pool.Pool
 import leight.role.EmptyRoleService
@@ -33,9 +35,8 @@ object ContainerFactory {
 
 	private fun IContainer.registerHttpServices() {
 		service(IHttpServer::class) { HttpServer(this) }
-//		service(ILinkGenerator::class) { LinkGenerator(this) }
+		service(ILinkGenerator::class) { LinkGenerator(this) }
 //		service(IPageService::class) { PageService(this) }
-//		service(IDiscoveryService::class) { DiscoveryService(this) }
 		service(IRoleService::class) { EmptyRoleService(this) }
 	}
 }
