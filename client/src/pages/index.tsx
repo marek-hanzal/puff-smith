@@ -1,21 +1,19 @@
-import {LogoIcon} from "@/vapers-dream";
-import {LoaderIcon, useNavigate} from "@leight-core/leight";
-import {Result} from "antd";
+import {useSessionContext} from "@/vapers-dream";
+import {HomeOutlined} from "@ant-design/icons";
+import {Loader, useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";
-import {useTranslation} from "react-i18next";
 
 export default function Index() {
-	const {t} = useTranslation();
 	const navigate = useNavigate();
-	// const sessionContext =
+	const sessionContext = useSessionContext();
 	useEffect(() => {
 		setTimeout(() => {
-			// navigate("/" + sessionContext.session.site);
+			navigate("/" + sessionContext.session.site);
 		}, 1500);
 	}, []);
-	return <Result
-		icon={<LogoIcon/>}
-		title={t("public.site")}
-		subTitle={<LoaderIcon/>}
+	return <Loader
+		icon={<HomeOutlined/>}
+		loading
+		error={false}
 	/>;
 };

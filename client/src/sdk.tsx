@@ -25,8 +25,8 @@ export namespace vapersdream.translation.index {
 	}
 }
 
-export namespace vapersdream.user.user {
-	export interface UserDto {
+export namespace vapersdream.session {
+	export interface SessionDto {
 		id: string;
 		site: string;
 	}

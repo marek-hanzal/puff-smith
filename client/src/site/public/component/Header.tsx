@@ -6,7 +6,7 @@ export const Header = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
 			<LinkTo href={"/public"}>
-				<LogoIcon style={{width: "10em", display: "inline"}}/>
+				<LogoIcon style={{height: "3em", display: "inline"}}/>
 			</LinkTo>
 		</Col>
 		<Col span={12}>

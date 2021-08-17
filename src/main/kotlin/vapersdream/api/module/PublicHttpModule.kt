@@ -4,8 +4,8 @@ import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
 import vapersdream.api.module.discovery.DiscoveryHttpModule
+import vapersdream.api.module.session.SessionHttpModule
 import vapersdream.api.module.translation.TranslationHttpModule
-import vapersdream.api.module.user.UserHttpModule
 
 class PublicHttpModule(container: IContainer) : AbstractHttpModule(container) {
 	override fun install(routing: Routing) {
@@ -13,7 +13,7 @@ class PublicHttpModule(container: IContainer) : AbstractHttpModule(container) {
 			routing,
 			DiscoveryHttpModule::class,
 			TranslationHttpModule::class,
-			UserHttpModule::class,
+			SessionHttpModule::class,
 		)
 	}
 }
