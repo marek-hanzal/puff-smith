@@ -2,10 +2,12 @@ package vapersdream.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.auth.*
+import leight.client.Sdk
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
 
+@Sdk
 @Endpoint(
 	public = true,
 	method = EndpointMethod.GET,

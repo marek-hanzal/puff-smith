@@ -3,6 +3,7 @@ package vapersdream.api.root
 import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
+import vapersdream.api.root.module.client.ClientHttpModule
 
 /**
  * Root module has the access to the lowest part of the application going around any
@@ -10,5 +11,9 @@ import leight.http.AbstractHttpModule
  */
 class RootHttpModule(container: IContainer) : AbstractHttpModule(container) {
 	override fun install(routing: Routing) {
+		modules(
+			routing,
+			ClientHttpModule::class,
+		)
 	}
 }

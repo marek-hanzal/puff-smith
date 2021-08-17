@@ -7,7 +7,7 @@ enum class EndpointMethod {
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
 annotation class Endpoint(
-	val public: Boolean = false,
 	val method: EndpointMethod,
+	val public: Boolean = false,
 	val roles: Array<String> = [],
 )

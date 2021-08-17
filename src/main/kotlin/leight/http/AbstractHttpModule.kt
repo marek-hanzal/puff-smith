@@ -7,10 +7,13 @@ import leight.rest.IEndpoint
 import kotlin.reflect.KClass
 
 abstract class AbstractHttpModule(container: IContainer) : AbstractService(container), IHttpModule {
+	private val httpIndex by container.lazy<IHttpIndex>()
+
 	fun install(routing: Routing, vararg endpoints: KClass<out IEndpoint>) {
 		endpoints.forEach {
 			logger.debug { "Setup: Installing endpoint [${it.qualifiedName}]" }
 			container.create(it).install(routing)
+			httpIndex.endpoint(it)
 		}
 	}
 
@@ -18,6 +21,7 @@ abstract class AbstractHttpModule(container: IContainer) : AbstractService(conta
 		modules.forEach {
 			logger.debug { "Setup: Installing (sub)module [${it.qualifiedName}]" }
 			container.create(it).install(routing)
+			httpIndex.module(it)
 		}
 	}
 }

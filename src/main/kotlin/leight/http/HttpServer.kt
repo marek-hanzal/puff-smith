@@ -20,9 +20,10 @@ import java.util.*
 import kotlin.reflect.KClass
 
 class HttpServer(container: IContainer) : AbstractService(container), IHttpServer {
-	private val httpServerConfig: HttpServerConfig by container.lazy()
-	private val sessionValidator: ISessionValidator by container.lazy()
-	private val roleService: IRoleService by container.lazy()
+	private val httpServerConfig by container.lazy<HttpServerConfig>()
+	private val sessionValidator by container.lazy<ISessionValidator>()
+	private val httpIndex by container.lazy<IHttpIndex>()
+	private val roleService by container.lazy<IRoleService>()
 	private var modules = arrayOf<KClass<out IHttpModule>>()
 	private lateinit var name: String
 	private val server by lazy {
@@ -90,9 +91,8 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 //			}
 			modules.distinctBy { it.qualifiedName }.forEach {
 				logger.debug { "Setup: Installing module [${it.qualifiedName}]" }
-				routing {
-					container.create(it).install(this)
-				}
+				routing { container.create(it).install(this) }
+				httpIndex.module(it)
 			}
 			if (modules.isEmpty()) {
 				logger.warn { "Setup: There are no registered modules!" }

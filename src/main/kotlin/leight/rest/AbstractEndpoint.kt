@@ -32,16 +32,13 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 				EndpointMethod.DELETE -> delete(discoveryItem.url, body)
 			}
 		}
-		routing.authenticate(optional = annotation.public) {
-			if (annotation.public) {
+		val isPublic = annotation.public || true
+		routing.authenticate(optional = isPublic) {
+			if (isPublic) {
 				build(this)
 			} else {
 				withAnyRole(roles = annotation.roles, build)
 			}
 		}
 	}
-
-	open suspend fun handle(call: ApplicationCall): Response<*> = notImplemented("Nothing here!")
-
-	open suspend fun exception(call: ApplicationCall, exception: Throwable): Response<*>? = internalServerError("Kaboom")
 }
