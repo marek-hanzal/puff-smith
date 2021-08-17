@@ -34,13 +34,10 @@ ENV \
 	NEXT_TELEMETRY_DISABLED=1
 
 RUN adduser --disabled-password --home /opt/app app app
-RUN chown app:app -R /opt/app
 
 RUN apk add --update nodejs npm supervisor && rm  -rf /tmp/* /var/cache/apk/* && npm i -g npm
 
 ADD rootfs/runtime /
-
-USER app
 
 WORKDIR /opt/app/client
 
@@ -54,15 +51,11 @@ WORKDIR /opt/app/server
 
 COPY --from=server-builder --chown=app:app /opt/server/dist ./
 
-RUN java -version
+RUN chown app:app -R /opt/app
 
 # Client (Next.js app)
 EXPOSE 3000
 # Backend Server
 EXPOSE 8088
-
-RUN ls -la /opt/app/server
-
-USER root
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
