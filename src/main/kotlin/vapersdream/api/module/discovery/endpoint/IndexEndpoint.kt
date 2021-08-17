@@ -1,10 +1,10 @@
-package vapersdream.api.discovery.endpoint
+package vapersdream.api.module.discovery.endpoint
 
 import io.ktor.application.*
 import leight.container.IContainer
 import leight.discovery.DiscoveryIndex
 import leight.rest.*
-import vapersdream.api.discovery.dto.index.IndexResponse
+import vapersdream.api.module.discovery.dto.index.IndexResponse
 
 @Endpoint(
 	public = true,

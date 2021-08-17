@@ -1,4 +1,4 @@
-package vapersdream.api.discovery.dto.index
+package vapersdream.api.module.discovery.dto.index
 
 import leight.discovery.DiscoveryItem
 

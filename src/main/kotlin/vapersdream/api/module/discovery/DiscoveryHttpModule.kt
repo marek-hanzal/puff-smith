@@ -1,9 +1,9 @@
-package vapersdream.api.discovery
+package vapersdream.api.module.discovery
 
 import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
-import vapersdream.api.discovery.endpoint.IndexEndpoint
+import vapersdream.api.module.discovery.endpoint.IndexEndpoint
 
 /**
  * A module used to provide client-side discovery of services on this server.

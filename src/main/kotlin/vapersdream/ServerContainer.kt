@@ -9,8 +9,8 @@ import leight.http.HttpServerConfig
 import leight.http.IHttpServer
 import leight.pool.PoolConfig
 import leight.upgrade.IUpgradeManager
-import vapersdream.api.discovery.DiscoveryHttpModule
-import vapersdream.api.public.PublicHttpModule
+import vapersdream.api.module.PublicHttpModule
+import vapersdream.api.root.RootHttpModule
 import vapersdream.api.user.UserHttpModule
 
 @ExperimentalStdlibApi
@@ -28,15 +28,16 @@ object ServerContainer {
 //			upgrade(u2020_11_16::class)
 		}
 		configurator(IHttpServer::class) {
-			module(DiscoveryHttpModule::class)
 			module(PublicHttpModule::class)
 			module(UserHttpModule::class)
+			module(RootHttpModule::class)
 		}
 		configurator(DiscoveryIndex::class) {
 			setIdFilter { endpoint ->
 				endpoint::class.qualifiedName!!
 					.replace("vapersdream.", "")
 					.replace("api.", "")
+					.replace("module.", "")
 					.replace("endpoint.", "")
 					.replace("Endpoint", "")
 					.lowercase()

@@ -1,4 +1,4 @@
-package vapersdream.api.public.user.endpoint
+package vapersdream.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.auth.*
