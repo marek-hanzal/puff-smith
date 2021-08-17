@@ -1,4 +1,4 @@
-package leight.client
+package leight.client.sdk
 
 import leight.config.IConfigurable
 import leight.rest.IEndpoint

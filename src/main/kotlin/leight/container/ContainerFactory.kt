@@ -1,7 +1,7 @@
 package leight.container
 
-import leight.client.ISdkGenerator
-import leight.client.SdkGenerator
+import leight.client.sdk.ISdkGenerator
+import leight.client.sdk.SdkGenerator
 import leight.http.HttpIndex
 import leight.http.HttpServer
 import leight.http.IHttpIndex

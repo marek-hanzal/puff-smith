@@ -2,12 +2,15 @@ package vapersdream.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.auth.*
-import leight.client.Sdk
+import leight.client.sdk.Sdk
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
+import vapersdream.api.module.user.dto.user.UserDto
 
-@Sdk
+@Sdk(
+	response = UserDto::class,
+)
 @Endpoint(
 	public = true,
 	method = EndpointMethod.GET,
@@ -15,6 +18,9 @@ import leight.session.SessionTicket
 class TicketEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	override suspend fun handle(call: ApplicationCall): Response<*> {
 		val principal = call.principal<SessionTicket>()
-		return if (principal !== null) ok() else unauthorized("No ticket.")
+		if (principal !== null) {
+			return ok(UserDto(principal.id, "public"))
+		}
+		return unauthorized("No ticket.")
 	}
 }

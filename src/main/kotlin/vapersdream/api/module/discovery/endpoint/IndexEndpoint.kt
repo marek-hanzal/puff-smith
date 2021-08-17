@@ -1,13 +1,15 @@
 package vapersdream.api.module.discovery.endpoint
 
 import io.ktor.application.*
-import leight.client.Sdk
+import leight.client.sdk.Sdk
 import leight.container.IContainer
 import leight.discovery.DiscoveryIndex
 import leight.rest.*
 import vapersdream.api.module.discovery.dto.index.IndexResponse
 
-@Sdk
+@Sdk(
+	response = IndexResponse::class,
+)
 @Endpoint(
 	public = true,
 	method = EndpointMethod.GET,

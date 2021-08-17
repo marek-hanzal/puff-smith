@@ -1,7 +1,7 @@
 package vapersdream.api.root.module.client.endpoint
 
 import io.ktor.application.*
-import leight.client.ISdkGenerator
+import leight.client.sdk.ISdkGenerator
 import leight.container.IContainer
 import leight.rest.*
 

@@ -1,4 +1,6 @@
-package leight.client
+package leight.client.sdk
+
+import kotlin.reflect.KClass
 
 /**
  * When exporting client side stuff, endpoints being exported must be marked
@@ -6,4 +8,6 @@ package leight.client
  */
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
-annotation class Sdk
+annotation class Sdk(
+	val response: KClass<*>
+)
