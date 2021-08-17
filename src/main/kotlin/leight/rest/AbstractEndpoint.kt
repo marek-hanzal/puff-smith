@@ -9,6 +9,7 @@ import io.ktor.util.pipeline.*
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.withAnyRole
+import leight.rest.exception.RestException
 import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
