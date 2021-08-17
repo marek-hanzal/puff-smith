@@ -22,7 +22,11 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 		val annotation = this::class.findAnnotation<Endpoint>()
 			?: throw RestException("Endpoint [${this::class.qualifiedName}] does not have required Annotation [${Endpoint::class.qualifiedName}]! Specify the annotation or implement custom install method on the Endpoint.")
 		val build: Route.() -> Unit = {
-			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = { call.handle(logger, handle(call)) }
+			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = {
+				call.handle(logger, { handle(call) }, { throwable ->
+					exception(call, throwable)
+				})
+			}
 			when (annotation.method) {
 				EndpointMethod.GET -> get(url, body)
 				EndpointMethod.POST -> post(url, body)
@@ -40,7 +44,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 		}
 	}
 
-	open suspend fun handle(call: ApplicationCall): ApplicationCall.() -> Response<out Any> = {
-		notImplemented("Nothing here!")
-	}
+	open suspend fun handle(call: ApplicationCall): Response<*> = notImplemented("Nothing here!")
+
+	open suspend fun exception(call: ApplicationCall, exception: Throwable): Response<*>? = internalServerError("Kaboom")
 }
