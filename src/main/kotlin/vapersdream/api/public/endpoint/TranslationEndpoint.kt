@@ -1,12 +1,14 @@
 package vapersdream.api.public.endpoint
 
+import io.ktor.application.*
 import leight.container.IContainer
-import leight.rest.AbstractEndpoint
-import leight.rest.Endpoint
-import leight.rest.EndpointMethod
+import leight.rest.*
+import vapersdream.api.public.dto.translation.TranslationResponse
 
 @Endpoint(
 	public = true,
 	method = EndpointMethod.GET,
 )
-class TranslationEndpoint(container: IContainer) : AbstractEndpoint(container)
+class TranslationEndpoint(container: IContainer) : AbstractEndpoint(container) {
+	override suspend fun handle(call: ApplicationCall): Response<*> = ok(TranslationResponse(arrayOf()))
+}
