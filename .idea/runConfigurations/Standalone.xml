@@ -3,6 +3,7 @@
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="marekhanzal/vapers-dream:edge" />
+        <option name="buildKitEnabled" value="true" />
         <option name="containerName" value="vapers-dream" />
         <option name="envVars">
           <list>
