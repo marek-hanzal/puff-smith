@@ -8,9 +8,9 @@ import kotlin.reflect.full.memberProperties
 class SdkClassGenerator(container: IContainer) : AbstractService(container) {
 	private val propertyGenerator by container.lazy<SdkPropertyGenerator>()
 
-	fun exportClass(klass: KClass<*>): String {
-		return """export interface ${klass.simpleName!!} {
-		${klass.memberProperties.joinToString("\n\t\t") { "${propertyGenerator.exportProperty(klass, it)};" }}
-	}"""
+	fun exportClass(klass: KClass<*>, level: Int): String {
+		return """${"\t".repeat(level + 1)}export interface ${klass.simpleName!!} {
+${klass.memberProperties.joinToString("\n") { "${propertyGenerator.exportProperty(klass, it, level)};" }}
+${"\t".repeat(level + 1)}}"""
 	}
 }

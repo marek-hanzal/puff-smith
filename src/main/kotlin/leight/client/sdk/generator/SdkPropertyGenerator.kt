@@ -13,7 +13,7 @@ import kotlin.reflect.full.findAnnotation
 class SdkPropertyGenerator(container: IContainer) : AbstractService(container) {
 	private val sdkNameResolver by container.lazy<SdkNameResolver>()
 
-	fun exportProperty(klass: KClass<*>, property: KProperty<*>): String {
+	fun exportProperty(klass: KClass<*>, property: KProperty<*>, level: Int): String {
 		var type = "any"
 		property.findAnnotation<SdkLiteralProperty>()?.let {
 			type = it.export
@@ -24,6 +24,6 @@ class SdkPropertyGenerator(container: IContainer) : AbstractService(container) {
 		property.findAnnotation<SdkIndexProperty>()?.let {
 			type = "{ [index in string]: " + sdkNameResolver.resolveClassName(klass, it.target) + " }"
 		}
-		return property.name + ": " + type
+		return "\t".repeat(level + 2) + property.name + ": " + type
 	}
 }

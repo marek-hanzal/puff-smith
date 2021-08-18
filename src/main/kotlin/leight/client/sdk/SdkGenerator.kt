@@ -1,5 +1,6 @@
 package leight.client.sdk
 
+import leight.client.sdk.generator.SdkClassGenerator
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.IHttpIndex
@@ -10,6 +11,7 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 	private val httpIndex by container.lazy<IHttpIndex>()
 	private val sdkExtractor by container.lazy<SdkClassExtractor>()
 	private val sdkNameResolver by container.lazy<SdkNameResolver>()
+	private val sdkClassGenerator by container.lazy<SdkClassGenerator>()
 
 	private fun exportInterfaces(endpoints: List<KClass<out IEndpoint>>) {
 //				if (sdk.request !== Unit::class) {
@@ -59,10 +61,9 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 	}
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
-		return """${"\t".repeat(level)}namespace ${namespacePart.name} {
-${namespacePart.parts.values.joinToString("\n") { it(level) } + namespacePart.inner.values.joinToString("\n") { exportNamespacePart(it, level + 1) }}
-${"\t".repeat(level)}}
-"""
+		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
+${namespacePart.parts.values.joinToString("\n\n") { it(level) } + namespacePart.inner.values.joinToString("\n\n") { exportNamespacePart(it, level + 1) }}
+${"\t".repeat(level)}}"""
 	}
 
 	override fun generate(endpoints: List<KClass<out IEndpoint>>): String {
@@ -70,7 +71,7 @@ ${"\t".repeat(level)}}
 		export += "import {Server, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
 		NamespaceIndex().let { namespaceIndex ->
 			sdkExtractor.extractSdkClasses(endpoints).map { klass ->
-				namespaceIndex.ensure(sdkNameResolver.namespaceParts(klass), klass.simpleName!!) { level -> "\t".repeat(level) + "\tto export " + klass.simpleName!! }
+				namespaceIndex.ensure(sdkNameResolver.namespaceParts(klass), klass.simpleName!!) { level -> sdkClassGenerator.exportClass(klass, level) }
 			}
 
 			namespaceIndex.namespacePart.inner.values.forEach { inner ->
