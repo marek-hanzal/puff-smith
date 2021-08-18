@@ -29,6 +29,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 		</FormItem>
 		<FormItem
 			field={"password"}
+			required
 		>
 			<PasswordInput autoComplete={"current-password"}/>
 		</FormItem>
