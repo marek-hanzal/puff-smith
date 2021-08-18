@@ -9,7 +9,7 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 class SdkClassExtractor(container: IContainer) : AbstractService(container) {
-	fun extractClasses(klass: KClass<*>): List<KClass<*>> {
+	private fun extractClasses(klass: KClass<*>): List<KClass<*>> {
 		val classes = mutableListOf<KClass<*>>()
 		if (klass !== Unit::class) {
 			classes.add(klass)
@@ -28,12 +28,12 @@ class SdkClassExtractor(container: IContainer) : AbstractService(container) {
 	}
 
 	fun extractSdkClasses(classes: List<KClass<*>>) = mutableListOf<KClass<*>>().let { all ->
-		all.addAll(classes.filter { it.findAnnotation<Sdk>() !== null }.onEach { klass ->
+		classes.filter { it.findAnnotation<Sdk>() !== null }.onEach { klass ->
 			klass.findAnnotation<Sdk>()?.let { sdk ->
 				all.addAll(extractClasses(sdk.request))
 				all.addAll(extractClasses(sdk.response))
 			}
-		})
+		}
 		all
 	}.distinct()
 }
