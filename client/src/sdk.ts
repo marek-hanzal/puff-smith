@@ -1,7 +1,8 @@
-import {Server, IDiscoveryIndex} from "@leight-core/leight";
+import {IDiscoveryIndex, Server} from "@leight-core/leight";
 
 export namespace vapersdream {
 	export namespace discovery {
+		export const doIndexFetch = Server.createGet<index.IndexResponse>("vapersdreamapimodulediscoveryendpointindex");
 		export namespace index {
 			export interface IndexResponse {
 				index: IDiscoveryIndex;
@@ -10,6 +11,7 @@ export namespace vapersdream {
 	}
 
 	export namespace translation {
+		export const doIndexFetch = Server.createGet<index.IndexResponse>("vapersdreamapimoduletranslationendpointindex");
 		export namespace index {
 			export interface IndexResponse {
 				translations: TranslationDto[];
@@ -34,5 +36,11 @@ export namespace vapersdream {
 			password: string;
 			user: string;
 		}
+
+		export const doTicketFetch = Server.createGet<SessionDto>("vapersdreamapimodulesessionendpointticket");
+
+
+		export const doLogin = Server.createPost<LoginDto, SessionDto>("vapersdreamapimodulesessionendpointlogin");
+
 	}
 }

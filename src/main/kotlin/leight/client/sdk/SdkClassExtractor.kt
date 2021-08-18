@@ -4,6 +4,8 @@ import leight.client.sdk.property.SdkArrayProperty
 import leight.client.sdk.property.SdkIndexProperty
 import leight.container.AbstractService
 import leight.container.IContainer
+import leight.rest.Endpoint
+import leight.rest.IEndpoint
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
@@ -27,12 +29,14 @@ class SdkClassExtractor(container: IContainer) : AbstractService(container) {
 		return classes
 	}
 
-	fun extractSdkClasses(classes: List<KClass<*>>) = mutableListOf<KClass<*>>().let { all ->
-		classes.filter { it.findAnnotation<Sdk>() !== null }.onEach { klass ->
-			klass.findAnnotation<Sdk>()?.let { sdk ->
-				all.addAll(extractClasses(sdk.request))
-				all.addAll(extractClasses(sdk.response))
-			}
+	fun sdkClasses(classes: List<KClass<out IEndpoint>>, block: (sdk: Sdk, endpoint: Endpoint, klazz: KClass<out IEndpoint>) -> Unit) {
+		classes.filter { it.findAnnotation<Sdk>() !== null && it.findAnnotation<Endpoint>() !== null }.forEach { block(it.findAnnotation()!!, it.findAnnotation()!!, it) }
+	}
+
+	fun extractSdkClasses(classes: List<KClass<out IEndpoint>>) = mutableListOf<KClass<*>>().let { all ->
+		sdkClasses(classes) { sdk, _, _ ->
+			all.addAll(extractClasses(sdk.request))
+			all.addAll(extractClasses(sdk.response))
 		}
 		all
 	}.distinct()
