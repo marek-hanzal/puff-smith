@@ -1,9 +1,9 @@
 package vapersdream.api.module.discovery.dto.index
 
-import leight.client.sdk.property.SdkIndexProperty
+import leight.client.sdk.property.SdkLiteralProperty
 import leight.discovery.DiscoveryItem
 
 data class IndexResponse(
-	@SdkIndexProperty(DiscoveryItem::class)
+	@SdkLiteralProperty("IDiscoveryIndex")
 	val index: Map<String, DiscoveryItem>,
 )

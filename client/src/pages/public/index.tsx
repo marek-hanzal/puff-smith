@@ -1,5 +1,10 @@
-import {withPublicLayout} from "@/vapers-dream/site/public";
+import {PublicMenu, PublicPage, withPublicLayout} from "@/vapers-dream/site/public";
 
 export default withPublicLayout(function Index() {
-	return <h1>hello!, public</h1>;
+	return <PublicPage
+		name={"public.index"}
+		menu={() => <PublicMenu/>}
+		menuItems={["/public"]}
+	>
+	</PublicPage>;
 });

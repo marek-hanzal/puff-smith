@@ -6,6 +6,8 @@ import leight.client.sdk.property.SdkLiteralProperty
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.IHttpIndex
+import leight.rest.Endpoint
+import leight.rest.EndpointMethod
 import leight.rest.IEndpoint
 import leight.rest.IEndpointInfo
 import kotlin.reflect.KClass
@@ -21,8 +23,12 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 		.replace("api.", "")
 		.replace("dto.", "")
 		.replace("module.", "")
+		.replace("endpoint.", "")
+		.replace("Endpoint", "")
 
-	private fun namespaceName(klass: KClass<*>): String = filter(klass.qualifiedName!!).replace("." + klass.simpleName!!, "")
+	private fun namespaceName(klass: KClass<*>): String = filter(klass.qualifiedName!!).replace("." + klass.simpleName!!.replace("Endpoint", ""), "")
+
+	private fun resolveClassName(source: KClass<*>, target: KClass<*>): String = filter(target.qualifiedName!!).replace(namespaceName(source) + ".", "")
 
 	private fun exportProperty(klass: KClass<*>, property: KProperty<*>): String {
 		var type = "any"
@@ -33,7 +39,7 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 			type = filter(it.target.qualifiedName!!).replace(namespaceName(klass) + ".", "") + "[]"
 		}
 		property.findAnnotation<SdkIndexProperty>()?.let {
-			type = "{ [index in string]: " + filter(it.target.qualifiedName!!).replace(namespaceName(klass) + ".", "") + " }"
+			type = "{ [index in string]: " + resolveClassName(klass, it.target) + " }"
 		}
 		return property.name + ": " + type
 	}
@@ -60,21 +66,53 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 	}
 
 	private fun exportInterfaces(endpoints: List<KClass<out IEndpoint>>): String {
-		var output = ""
+		var output = "import {Server, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
 
 		var classes = arrayOf<KClass<*>>()
+		val namespaces = mutableMapOf<String, MutableList<String>>()
 
 		endpoints.forEach { endpoint ->
 			endpoint.findAnnotation<Sdk>()?.let { sdk ->
 				classes += extractClasses(sdk.response)
+				if (sdk.request !== Unit::class) {
+					classes += extractClasses(sdk.request)
+				}
+				endpoint.findAnnotation<Endpoint>()?.let { annotation ->
+					endpoint.findAnnotation<Sdk>()?.let { sdk ->
+						namespaces[namespaceName(endpoint)] = (namespaces[namespaceName(endpoint)] ?: mutableListOf()).also { namespace ->
+							when (annotation.method) {
+								EndpointMethod.GET -> {
+									namespace += "export const do" + filter(endpoint.simpleName!!) + "Fetch = Server.createGet<${
+										filter(sdk.response.qualifiedName!!).replace(
+											namespaceName(endpoint) + ".",
+											""
+										)
+									}>(\"${endpointInfo.getId(endpoint)}\");"
+								}
+								EndpointMethod.POST -> {
+									namespace += "export const do" + filter(endpoint.simpleName!!) + " = Server.createPost<${
+										filter(sdk.request.qualifiedName!!).replace(
+											namespaceName(endpoint) + ".",
+											""
+										)
+									}, ${
+										filter(sdk.response.qualifiedName!!).replace(
+											namespaceName(endpoint) + ".",
+											""
+										)
+									}>(\"${endpointInfo.getId(endpoint)}\");"
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 
 		val distinctClasses = classes.distinct()
-		val namespaces = mutableMapOf<String, MutableList<String>>()
 		distinctClasses.forEach { klass ->
-			namespaces[namespaceName(klass)] = (namespaces[namespaceName(klass)] ?: mutableListOf()).also {
-				it += exportClass(klass)
+			namespaces[namespaceName(klass)] = (namespaces[namespaceName(klass)] ?: mutableListOf()).also { namespace ->
+				namespace += exportClass(klass)
 			}
 		}
 

@@ -20,7 +20,7 @@ export default withPublicLayout(function Custom404() {
 			extra={
 				<Space split={<Divider type={"vertical"}/>}>
 					<Button icon={<BackIcon/>} onClick={() => router.back()}>{t("public.404.back")}</Button>
-					<ButtonLink size={"large"} icon={<HomeOutlined/>} href={"/"}>{t("public.404.home")}</ButtonLink>
+					<ButtonLink size={"large"} icon={<HomeOutlined/>} href={"/"} title={t("public.404.home")}/>
 				</Space>
 			}
 		/>
