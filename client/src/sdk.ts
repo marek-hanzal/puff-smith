@@ -1,4 +1,4 @@
-import {IDiscoveryIndex, Server} from "@leight-core/leight";
+import {Server, IDiscoveryIndex} from "@leight-core/leight";
 
 export namespace vapersdream {
 	export namespace discovery {
@@ -28,7 +28,12 @@ export namespace vapersdream {
 
 	export namespace session {
 		export interface SessionDto {
+			user: UserDto;
+		}
+
+		export interface UserDto {
 			id: string;
+			roles: string[];
 			site: string;
 		}
 

@@ -16,7 +16,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 		onSuccess={(navigate, values, session) => {
 			blockContext.block();
 			setSession(session);
-			navigate("/" + session.site);
+			navigate("/" + session.user.site);
 		}}
 		{...props}
 	>

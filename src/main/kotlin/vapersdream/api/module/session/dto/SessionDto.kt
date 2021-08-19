@@ -1,8 +1,8 @@
 package vapersdream.api.module.session.dto
 
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.property.SdkClassProperty
 
 data class SessionDto(
-	@SdkLiteralProperty("string")
+	@SdkClassProperty(UserDto::class)
 	val user: UserDto,
 )

@@ -2,6 +2,7 @@ package leight.client.sdk.generator
 
 import leight.client.sdk.SdkNameResolver
 import leight.client.sdk.property.SdkArrayProperty
+import leight.client.sdk.property.SdkClassProperty
 import leight.client.sdk.property.SdkIndexProperty
 import leight.client.sdk.property.SdkLiteralProperty
 import leight.container.AbstractService
@@ -20,6 +21,9 @@ class SdkPropertyGenerator(container: IContainer) : AbstractService(container) {
 		}
 		property.findAnnotation<SdkArrayProperty>()?.let {
 			type = sdkNameResolver.resolveClassName(klass, it.target) + "[]"
+		}
+		property.findAnnotation<SdkClassProperty>()?.let {
+			type = sdkNameResolver.resolveClassName(klass, it.target)
 		}
 		property.findAnnotation<SdkIndexProperty>()?.let {
 			type = "{ [index in string]: " + sdkNameResolver.resolveClassName(klass, it.target) + " }"

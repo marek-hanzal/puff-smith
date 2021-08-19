@@ -1,6 +1,7 @@
 package leight.client.sdk
 
 import leight.client.sdk.property.SdkArrayProperty
+import leight.client.sdk.property.SdkClassProperty
 import leight.client.sdk.property.SdkIndexProperty
 import leight.container.AbstractService
 import leight.container.IContainer
@@ -22,6 +23,10 @@ class SdkClassExtractor(container: IContainer) : AbstractService(container) {
 				classes.addAll(extractClasses(it.target))
 			}
 			property.findAnnotation<SdkIndexProperty>()?.let {
+				classes.add(it.target)
+				classes.addAll(extractClasses(it.target))
+			}
+			property.findAnnotation<SdkClassProperty>()?.let {
 				classes.add(it.target)
 				classes.addAll(extractClasses(it.target))
 			}

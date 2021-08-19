@@ -8,7 +8,7 @@ export default function Index() {
 	const sessionContext = useSessionContext();
 	useEffect(() => {
 		setTimeout(() => {
-			navigate("/" + sessionContext.session.site);
+			navigate("/" + sessionContext.session.user.site);
 		}, 1500);
 	}, []);
 	return <Loader
