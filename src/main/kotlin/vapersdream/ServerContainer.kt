@@ -12,6 +12,7 @@ import leight.upgrade.IUpgradeManager
 import vapersdream.api.module.PublicHttpModule
 import vapersdream.api.root.RootHttpModule
 import vapersdream.api.user.UserHttpModule
+import vapersdream.upgrade.u2021_08_19.u2021_08_19
 
 @ExperimentalStdlibApi
 object ServerContainer {
@@ -25,7 +26,7 @@ object ServerContainer {
 		 * Common services.
 		 */
 		configurator(IUpgradeManager::class) {
-//			upgrade(u2020_11_16::class)
+			upgrade(u2021_08_19::class)
 		}
 		configurator(IHttpServer::class) {
 			module(PublicHttpModule::class)

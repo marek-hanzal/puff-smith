@@ -1,13 +1,13 @@
-package vapersdream.storage.module.user.entity
+package vapersdream.upgrade.u2021_08_19.storage.module.user.entity
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import vapersdream.upgrade.u2021_08_19.storage.module.role.entity.RoleEntity
-import vapersdream.storage.module.session.entity.TicketEntity
-import vapersdream.storage.module.session.table.TicketTable
-import vapersdream.storage.module.user.table.UserRoleTable
-import vapersdream.storage.module.user.table.UserTable
+import vapersdream.upgrade.u2021_08_19.storage.module.session.entity.TicketEntity
+import vapersdream.upgrade.u2021_08_19.storage.module.session.table.TicketTable
+import vapersdream.upgrade.u2021_08_19.storage.module.user.table.UserRoleTable
+import vapersdream.upgrade.u2021_08_19.storage.module.user.table.UserTable
 import java.util.*
 
 class UserEntity(id: EntityID<UUID>) : UUIDEntity(id) {

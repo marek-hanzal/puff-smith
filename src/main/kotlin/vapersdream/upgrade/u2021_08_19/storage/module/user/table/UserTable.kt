@@ -1,4 +1,4 @@
-package vapersdream.storage.module.user.table
+package vapersdream.upgrade.u2021_08_19.storage.module.user.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.jodatime.datetime

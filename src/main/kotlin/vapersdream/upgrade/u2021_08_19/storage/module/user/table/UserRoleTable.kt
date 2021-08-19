@@ -1,8 +1,8 @@
-package vapersdream.storage.module.user.table
+package vapersdream.upgrade.u2021_08_19.storage.module.user.table
 
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
-import vapersdream.storage.module.role.table.RoleTable
+import vapersdream.upgrade.u2021_08_19.storage.module.role.table.RoleTable
 
 /**
  * Relation table for roles assigned to a user.

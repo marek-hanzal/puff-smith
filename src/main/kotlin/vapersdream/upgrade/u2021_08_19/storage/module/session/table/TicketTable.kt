@@ -1,8 +1,8 @@
-package vapersdream.storage.module.session.table
+package vapersdream.upgrade.u2021_08_19.storage.module.session.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
-import vapersdream.storage.module.user.table.UserTable
+import vapersdream.upgrade.u2021_08_19.storage.module.user.table.UserTable
 
 /**
  * Session tickets are... session IDs of various users; one user

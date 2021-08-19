@@ -6,7 +6,7 @@ import leight.container.IContainer
 import leight.rest.*
 import vapersdream.api.module.session.dto.LoginDto
 import vapersdream.api.module.session.dto.SessionDto
-import java.util.*
+import vapersdream.api.module.session.dto.UserDto
 
 @Endpoint(
 	EndpointMethod.POST,
@@ -16,5 +16,5 @@ import java.util.*
 	response = SessionDto::class,
 )
 class LoginEndpoint(container: IContainer) : AbstractEndpoint(container) {
-	override suspend fun handle(call: ApplicationCall): Response<*> = ok(SessionDto(UUID.randomUUID(), "user"))
+	override suspend fun handle(call: ApplicationCall): Response<*> = ok(SessionDto(UserDto("user", "user", arrayOf())))
 }

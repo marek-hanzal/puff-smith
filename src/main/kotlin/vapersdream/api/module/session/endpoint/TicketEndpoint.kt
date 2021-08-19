@@ -7,6 +7,7 @@ import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
 import vapersdream.api.module.session.dto.SessionDto
+import vapersdream.api.module.session.dto.UserDto
 
 @Sdk(
 	response = SessionDto::class,
@@ -19,8 +20,8 @@ class TicketEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	override suspend fun handle(call: ApplicationCall): Response<*> {
 		val principal = call.principal<SessionTicket>()
 		if (principal !== null) {
-			return ok(SessionDto(principal.id, "public"))
+			return ok(SessionDto(UserDto(principal.id.toString(), "public", arrayOf())))
 		}
-		return unauthorized("No ticket.")
+		return ok(SessionDto(UserDto("public", "public", arrayOf())))
 	}
 }

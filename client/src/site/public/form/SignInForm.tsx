@@ -10,7 +10,6 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 	const {setSession} = useSessionContext();
 	const blockContext = useLayoutBlockContext();
 	return <CommonForm<any, vapersdream.session.LoginDto, vapersdream.session.SessionDto>
-		name={"sign-in"}
 		post={vapersdream.session.doLogin}
 		size={"large"}
 		wrapperCol={{span: 24}}
@@ -23,18 +22,20 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 	>
 		<FormItem
 			field={"login"}
+			labels={["public.login.label"]}
 			required
 		>
 			<Input autoComplete={"username"}/>
 		</FormItem>
 		<FormItem
 			field={"password"}
+			labels={["public.password.label"]}
 			required
 		>
 			<PasswordInput autoComplete={"current-password"}/>
 		</FormItem>
 		<Centered>
-			<FormSubmitButton icon={<SignInIcon/>} size={"large"} label={"public.sign-in.form.submit.label"}/>
+			<FormSubmitButton icon={<SignInIcon/>} size={"large"} label={"public.sign-in.submit.label"}/>
 		</Centered>
 	</CommonForm>;
 };

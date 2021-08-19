@@ -1,4 +1,4 @@
-package vapersdream.storage.module.role.table
+package vapersdream.upgrade.u2021_08_19.storage.module.role.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 
