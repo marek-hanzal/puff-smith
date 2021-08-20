@@ -1,6 +1,6 @@
-import {useSessionContext} from "@/vapers-dream";
+import {LogoIcon, useSessionContext} from "@/vapers-dream";
 import {HomeOutlined} from "@ant-design/icons";
-import {Loader, useNavigate} from "@leight-core/leight";
+import {LoaderLayout, useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";
 
 export default function Index() {
@@ -11,7 +11,8 @@ export default function Index() {
 			navigate("/" + sessionContext.session.user.site);
 		}, 1500);
 	}, []);
-	return <Loader
+	return <LoaderLayout
+		logo={<LogoIcon/>}
 		icon={<HomeOutlined/>}
 		loading
 		error={false}

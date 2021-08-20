@@ -7,7 +7,7 @@ import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
 import vapersdream.api.module.session.dto.SessionDto
-import vapersdream.api.module.session.dto.UserDto
+import vapersdream.api.module.user.dto.UserDto
 
 @Sdk(
 	response = SessionDto::class,

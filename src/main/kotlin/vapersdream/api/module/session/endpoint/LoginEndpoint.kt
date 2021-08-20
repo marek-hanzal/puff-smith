@@ -6,10 +6,10 @@ import leight.container.IContainer
 import leight.rest.*
 import vapersdream.api.module.session.dto.LoginDto
 import vapersdream.api.module.session.dto.SessionDto
-import vapersdream.api.module.session.dto.UserDto
+import vapersdream.api.module.user.dto.UserDto
 
 @Endpoint(
-	EndpointMethod.POST,
+	method = EndpointMethod.POST,
 )
 @Sdk(
 	request = LoginDto::class,

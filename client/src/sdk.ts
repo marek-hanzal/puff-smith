@@ -1,4 +1,4 @@
-import {Server, IDiscoveryIndex} from "@leight-core/leight";
+import {IDiscoveryIndex, Server} from "@leight-core/leight";
 
 export namespace vapersdream {
 	export namespace discovery {
@@ -28,13 +28,7 @@ export namespace vapersdream {
 
 	export namespace session {
 		export interface SessionDto {
-			user: UserDto;
-		}
-
-		export interface UserDto {
-			id: string;
-			roles: string[];
-			site: string;
+			user: vapersdream.user.UserDto;
 		}
 
 		export interface LoginDto {
@@ -46,6 +40,22 @@ export namespace vapersdream {
 
 
 		export const doLogin = Server.createPost<LoginDto, SessionDto>("session.login");
+
+	}
+
+	export namespace user {
+		export interface UserDto {
+			id: string;
+			roles: string[];
+			site: string;
+		}
+
+		export interface SignUpDto {
+			login: string;
+			password: string;
+		}
+
+		export const doSignUp = Server.createPost<SignUpDto, vapersdream.session.SessionDto>("user.sign-up");
 
 	}
 }

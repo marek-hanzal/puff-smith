@@ -9,6 +9,6 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
 annotation class Sdk(
-	val response: KClass<*>,
 	val request: KClass<*> = Unit::class,
+	val response: KClass<*> = Unit::class,
 )

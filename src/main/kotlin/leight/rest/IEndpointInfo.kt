@@ -15,6 +15,6 @@ interface IEndpointInfo : IConfigurable {
 	fun getId(endpoint: KClass<out IEndpoint>): String
 	fun getId(endpoint: IEndpoint): String = getId(endpoint::class)
 
-	fun getUrl(endpoint: KClass<out IEndpoint>): String = "/api/" + getId(endpoint).trimStart('.').replace(".", "/")
+	fun getUrl(endpoint: KClass<out IEndpoint>) = "/api/" + getId(endpoint).trimStart('.').replace(".", "/")
 	fun getUrl(endpoint: IEndpoint) = getUrl(endpoint::class)
 }

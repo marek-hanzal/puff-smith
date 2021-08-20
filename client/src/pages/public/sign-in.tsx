@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 
 export default withPublicLayout(function SignIn() {
 	const {t} = useTranslation();
+
 	return <PublicPage
 		name={"public.sign-in"}
 		menu={() => <PublicMenu/>}

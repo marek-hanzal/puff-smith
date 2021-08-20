@@ -1,7 +1,6 @@
-package vapersdream.api.module.session.dto
+package vapersdream.api.module.user.dto
 
 import leight.client.sdk.property.SdkLiteralProperty
-import java.util.*
 
 data class UserDto(
 	@SdkLiteralProperty("string")

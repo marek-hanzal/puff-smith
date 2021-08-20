@@ -51,7 +51,7 @@ WORKDIR /opt/app/server
 
 COPY --from=server-builder --chown=app:app /opt/server/dist ./
 
-RUN chown app:app -R /opt/app
+RUN chown app:app -R /opt/app/server
 
 # Client (Next.js app)
 EXPOSE 3000
