@@ -1,5 +1,6 @@
 import {useSessionContext, vapersdream} from "@/vapers-dream";
 import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, PasswordInput, SignUpIcon, useLayoutBlockContext} from "@leight-core/leight";
+import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -19,6 +20,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			blockContext.block();
 			setSession(session);
 			navigate("/" + session.user.site);
+			message.success(t("public.sign-up.success"));
 		}}
 		{...props}
 	>
