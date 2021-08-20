@@ -3,11 +3,13 @@ name: Build
 on:
     schedule:
         -   cron: '0 10 * * *'
+
     push:
         branches:
             - master
         tags:
             - 'v*.*.*'
+
     pull_request:
 
 jobs:
@@ -26,7 +28,7 @@ jobs:
             -   name: Prepare
                 id: prepare
                 run: |
-                    DOCKER_IMAGE=marekhanzal/${{ github.event.repository.name }}
+                    DOCKER_IMAGE=marekhanzal/vapers-dream
                     VERSION=noop
                     if [ "${{ github.event_name }}" = "schedule" ]; then
                       VERSION=nightly
