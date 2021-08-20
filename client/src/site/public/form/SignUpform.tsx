@@ -35,7 +35,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			hasFeedback
 			required
 		>
-			<PasswordInput/>
+			<PasswordInput autoComplete={"new-password"}/>
 		</FormItem>
 		<FormItem
 			field={"password2"}
