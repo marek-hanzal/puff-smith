@@ -107,7 +107,7 @@ jobs:
                         BACKEND_HOST=http://${{ secrets.HOST }}:8080
                     script: |
                         cd /etc/app/deployment
-                        printenv 'BACKEND_HOST > .env
+                        printenv 'BACKEND_HOST' > .env
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
