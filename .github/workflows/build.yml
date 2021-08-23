@@ -103,9 +103,11 @@ jobs:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
+                    envs:
+                        BACKEND_HOST=http://${{ secrets.HOST }}:8080
                     script: |
                         cd /etc/app/deployment
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
-                        BACKEND_HOST=abcd docker-compose up -d
+                        docker-compose up -d
