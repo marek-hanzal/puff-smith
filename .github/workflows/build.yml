@@ -81,20 +81,20 @@ jobs:
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@v2
-            -   name: Tar deployment folder
-                run: |
-                    ls -la .
-                    tar -cvf deploy.tar ./deploy
+#            -   name: Tar deployment folder
+#                run: |
+#                    ls -la .
+#                    tar -cvf deploy.tar ./deploy
             -   name: Prepare deployment
                 uses: appleboy/scp-action@master
                 with:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
-                    source: "deploy.tar"
+                    source: "./deploy"
                     target: "/etc/puff-smith"
                     rm: true
             -   name: Deploy to Digital Ocean droplet via SSH action
-                uses: appleboy/ssh-action@v0.1.3
+                uses: appleboy/ssh-action@master
                 with:
                     username: root
                     host: ${{ secrets.HOST }}
