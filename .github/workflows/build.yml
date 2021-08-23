@@ -109,7 +109,7 @@ jobs:
                     envs: BACKEND_HOST,QUAQUA
                     script: |
                         echo "$QUAQUA"
-                        printenv
+                        echo "$BACKEND_HOST"
                         cd /etc/app/deployment
                         docker-compose down
                         docker system prune -f
