@@ -78,7 +78,7 @@ jobs:
 
     config:
         runs-on: ubuntu-latest
-#        needs: docker
+        #        needs: docker
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
@@ -100,18 +100,18 @@ jobs:
                 uses: appleboy/ssh-action@master
                 env:
                     BACKEND_HOST: "http://${{ secrets.HOST }}:8080"
-                    QUAQUA: "df"
                 with:
                     username: root
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
-                    envs: BACKEND_HOST,QUAQUA
+                    envs: BACKEND_HOST
                     script: |
-                        echo "$QUAQUA"
-                        echo "$BACKEND_HOST"
                         cd /etc/app/deployment
+
+                        echo "$BACKEND_HOST" > .env
+
                         docker-compose down
-                        docker system prune -f
+#                        docker system prune -f
                         docker-compose pull
                         docker-compose up -d
