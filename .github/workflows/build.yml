@@ -100,5 +100,3 @@ jobs:
                     script: |
                         cd /etc/app/docker
                         docker pull marekhanzal/puff-smith:edge
-                        docker-compose down
-                        docker-compose up -d
