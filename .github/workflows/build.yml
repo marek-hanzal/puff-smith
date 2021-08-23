@@ -79,13 +79,16 @@ jobs:
         runs-on: ubuntu-latest
 #        needs: docker
         steps:
-            -   name: Deploy necessary files
+            -   name: Tar deployment folder
+                run: |
+                    tar -cvf deploy.tar deploy
+            -   name: Prepare deployment
                 uses: appleboy/scp-action@master
                 with:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
-                    source: "deploy/**"
-                    target: "/"
+                    source: "deploy.tar"
+                    target: "/etc/puff-smith"
                     rm: true
             -   name: Deploy to Digital Ocean droplet via SSH action
                 uses: appleboy/ssh-action@v0.1.3
