@@ -1,4 +1,4 @@
-import {PublicPage, withPublicLayout} from "@/vapers-dream/site/public";
+import {PublicPage, withPublicLayout} from "@/ps/site/public";
 import {HomeOutlined} from "@ant-design/icons";
 import {BackIcon, ButtonLink} from "@leight-core/leight";
 import {Button, Divider, Result, Space} from "antd";

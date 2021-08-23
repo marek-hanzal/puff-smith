@@ -1,4 +1,4 @@
-import {LogoIcon} from "@/vapers-dream";
+import {LogoIcon} from "@/ps";
 import {LinkTo} from "@leight-core/leight";
 import {Col, Divider, Row, Space} from "antd";
 

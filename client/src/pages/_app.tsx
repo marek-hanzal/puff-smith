@@ -1,13 +1,12 @@
-import {bootstrap, LogoIcon} from "@/vapers-dream";
-import "@/vapers-dream/assets/styles/globals.css";
+import {bootstrap, LogoFullIcon} from "@/ps";
+import "@/ps/assets/styles/globals.css";
 import {App, IPageWithLayout} from "@leight-core/leight";
 import type {AppProps} from "next/app";
 
-// noinspection JSUnusedGlobalSymbols
-export default function VapersDream({Component, pageProps}: AppProps) {
+export default function ps({Component, pageProps}: AppProps) {
 	bootstrap();
 	return <App
-		logo={<LogoIcon/>}
+		logo={<LogoFullIcon/>}
 	>
 		{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
 	</App>;

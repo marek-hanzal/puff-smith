@@ -1,6 +1,6 @@
 import {IDiscoveryIndex, Server} from "@leight-core/leight";
 
-export namespace vapersdream {
+export namespace ps {
 	export namespace discovery {
 		export const doIndexFetch = Server.createGet<index.IndexResponse>("discovery.index");
 		export namespace index {
@@ -28,7 +28,7 @@ export namespace vapersdream {
 
 	export namespace session {
 		export interface SessionDto {
-			user: vapersdream.user.UserDto;
+			user: ps.user.UserDto;
 		}
 
 		export interface LoginDto {
@@ -55,7 +55,7 @@ export namespace vapersdream {
 			password: string;
 		}
 
-		export const doSignUp = Server.createPost<SignUpDto, vapersdream.session.SessionDto>("user.sign-up");
+		export const doSignUp = Server.createPost<SignUpDto, ps.session.SessionDto>("user.sign-up");
 
 	}
 }

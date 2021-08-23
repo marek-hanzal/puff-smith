@@ -6,7 +6,7 @@ plugins {
 	application
 }
 
-group = "vapers-dream"
+group = "ps"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -72,5 +72,5 @@ tasks.withType<KotlinCompile> {
 }
 
 application {
-	mainClass.set("vapersdream.ServerKt")
+	mainClass.set("ps.ServerKt")
 }

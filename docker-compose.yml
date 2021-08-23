@@ -1,14 +1,14 @@
 version: '2.0'
 services:
-    vapers-dream:
-        # docker build -t marekhanzal/vapers-dream:edge .
-        image: marekhanzal/vapers-dream:edge
-        hostname: vapers-dream
-        container_name: vapers-dream
+    puff-smith:
+        # docker build -t marekhanzal/puff-smith:edge .
+        image: marekhanzal/puff-smith:edge
+        hostname: puff-smith
+        container_name: puff-smith
         environment:
             - VERSION=docker-compose
             # good old ones
-            - DATABASE_URL=jdbc:postgresql://postgres:5432/vapers-dream
+            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
             - DATABASE_USER=postgres
             - DATABASE_PASSWORD=1234
             # setup for the client where to find Discovery index and for server where the backend is running

@@ -1,4 +1,4 @@
-import {LogoIcon, useSessionContext} from "@/vapers-dream";
+import {LogoIcon, useSessionContext} from "@/ps";
 import {HomeOutlined} from "@ant-design/icons";
 import {LoaderLayout, useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";

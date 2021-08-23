@@ -1,6 +1,6 @@
-# Vapers Dream
+# Puff Smith
 
-Vapers dream is a specialized application for Vapers with various interesting tools.
+Puff Smith is a specialized application for hunting the best puff ever! 
 
 ## Stack
 

@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Puff Smith Server" type="JetRunConfigurationType">
+    <envs>
+      <env name="VERSION" value="IntelliJ" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="ps.ServerKt" />
+    <module name="Puff_Smith.main" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

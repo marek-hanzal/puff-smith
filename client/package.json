@@ -1,7 +1,7 @@
 {
-	"name": "vapers-dream",
+	"name": "puff-smith",
 	"version": "0.5.0",
-	"repository": "git@github.com:marek-hanzal/vapers-dream.git",
+	"repository": "git@github.com:marek-hanzal/puff-smith.git",
 	"license": "Apache-2.0",
 	"scripts": {
 		"dev": "cross-env NODE_OPTIONS='--trace-warnings' next dev",

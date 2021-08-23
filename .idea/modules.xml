@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/vapers-dream.iml" filepath="$PROJECT_DIR$/.idea/vapers-dream.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vapers-dream.main.iml" filepath="$PROJECT_DIR$/.idea/modules/vapers-dream.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vapers-dream.test.iml" filepath="$PROJECT_DIR$/.idea/modules/vapers-dream.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.test.iml" />
     </modules>
   </component>
 </project>

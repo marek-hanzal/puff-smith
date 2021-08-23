@@ -1,19 +1,19 @@
-import {useSessionContext, vapersdream} from "@/vapers-dream";
+import {ps, useSessionContext} from "@/ps";
 import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, PasswordInput, SignUpIcon, useLayoutBlockContext} from "@leight-core/leight";
 import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 
-export interface ISignUpFormProps extends Partial<ICommonFormProps<any, vapersdream.user.SignUpDto, vapersdream.session.SessionDto>> {
+export interface ISignUpFormProps extends Partial<ICommonFormProps<any, ps.user.SignUpDto, ps.session.SessionDto>> {
 }
 
 export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const {setSession} = useSessionContext();
 	const blockContext = useLayoutBlockContext();
 	const {t} = useTranslation();
-	return <CommonForm<any, vapersdream.user.SignUpDto, vapersdream.session.SessionDto>
-		post={vapersdream.user.doSignUp}
+	return <CommonForm<any, ps.user.SignUpDto, ps.session.SessionDto>
+		post={ps.user.doSignUp}
 		size={"large"}
 		wrapperCol={{span: 24}}
 		onSuccess={(navigate, values, session) => {

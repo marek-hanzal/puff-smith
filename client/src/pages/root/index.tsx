@@ -1,4 +1,4 @@
-import {RootPage, withRootLayout} from "@/vapers-dream/site/root";
+import {RootPage, withRootLayout} from "@/ps/site/root";
 
 export default withRootLayout(function Index() {
 	return <RootPage name={"root.index"}>

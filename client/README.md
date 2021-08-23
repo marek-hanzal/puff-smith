@@ -1,3 +1,3 @@
 ## Client Application
 
-This is a Vapers Dream default (reference) client application.
+This is a Puff Smith default (reference) client application.

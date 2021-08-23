@@ -1,7 +1,7 @@
-import icon from "@/vapers-dream/assets/logo.svg";
-import {PublicPage, SignInForm, withPublicLayout} from "@/vapers-dream/site/public";
-import {SignUpForm} from "@/vapers-dream/site/public/form/SignUpform";
-import {Card, Col, Image, Result, Row} from "antd";
+import {LogoFullIcon} from "@/ps";
+import {PublicPage, SignInForm, withPublicLayout} from "@/ps/site/public";
+import {SignUpForm} from "@/ps/site/public/form/SignUpform";
+import {Card, Col, Result, Row} from "antd";
 import {useTranslation} from "react-i18next";
 
 export default withPublicLayout(function Index() {
@@ -11,7 +11,7 @@ export default withPublicLayout(function Index() {
 		fullwidth
 	>
 		<Result
-			icon={<Image alt={"logo"} height={110} preview={false} src={icon}/>}
+			icon={<LogoFullIcon height={320}/>}
 			status={"success"}
 			title={t("public.home.content.title")}
 			subTitle={t("public.home.content.subtitle")}

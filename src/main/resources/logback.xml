@@ -3,7 +3,7 @@
     https://logback.qos.ch/manual/appenders.html
 -->
 <configuration scan="true" scanPeriod="1 minutes">
-	<contextName>Vapers Dream</contextName>
+	<contextName>Puff Smith Server</contextName>
 	<shutdownHook/>
 	<jmxConfigurator/>
 

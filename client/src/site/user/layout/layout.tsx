@@ -1,4 +1,4 @@
-import {Footer, Header} from "@/vapers-dream/site/user";
+import {Footer, Header} from "@/ps/site/user";
 import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/leight";
 import {FC} from "react";
 

@@ -1,1 +1,1 @@
-rootProject.name = "vapers-dream"
+rootProject.name = "Puff Smith"
