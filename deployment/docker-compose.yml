@@ -2,6 +2,7 @@ version: '2.0'
 services:
     puff-smith:
         image: marekhanzal/puff-smith:edge
+        env_file: .env
         environment:
             - VERSION=production
             # good old ones
