@@ -9,7 +9,7 @@ services:
             #            - DATABASE_USER=postgres
             #            - DATABASE_PASSWORD=1234
             # setup for the client where to find Discovery index and for server where the backend is running
-            - BACKEND_HOST=http://puff-smith.rocks:8080/
+            - BACKEND_HOST=$BACKEND_HOST
         ports:
             # client web application
             - "80:3000"

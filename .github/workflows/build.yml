@@ -78,6 +78,7 @@ jobs:
 
     config:
         runs-on: ubuntu-latest
+#        needs: docker
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
@@ -107,4 +108,4 @@ jobs:
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
-                        docker-compose up -d
+                        BACKEND_HOST=${{ secrets.HOST }} docker-compose up -d
