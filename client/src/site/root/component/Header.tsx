@@ -5,7 +5,7 @@ import {Col, Divider, Row, Space} from "antd";
 export const Header = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
-			<LinkTo href={"/public"}>
+			<LinkTo href={"/root"}>
 				<LogoIcon style={{height: "3em", display: "inline"}}/>
 			</LinkTo>
 		</Col>

@@ -13,7 +13,7 @@ on:
     pull_request:
 
 jobs:
-    docker:
+    build:
         runs-on: ubuntu-latest
         steps:
             -   name: Check out the repo
@@ -78,7 +78,7 @@ jobs:
 
     config:
         runs-on: ubuntu-latest
-        needs: docker
+        needs: build
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
@@ -100,15 +100,17 @@ jobs:
                 uses: appleboy/ssh-action@master
                 env:
                     BACKEND_HOST: "http://${{ secrets.HOST }}:8080"
+                    VERSION: ${{ steps.prepare.outputs.version }}
                 with:
                     username: root
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
-                    envs: BACKEND_HOST
+                    envs: BACKEND_HOST,VERSION
                     script: |
                         cd /etc/app/deployment
                         echo "BACKEND_HOST=$BACKEND_HOST" > .env
+                        echo "VERSION=$VERSION" > .env
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
