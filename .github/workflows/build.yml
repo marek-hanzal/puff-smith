@@ -81,7 +81,7 @@ jobs:
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
-            -   name: Deploy to Docker swarm
+            -   name: Deploy Docker
                 uses: wshihadeh/docker-deployment-action@master
                 with:
                     remote_docker_host: root@${{ secrets.HOST }}
@@ -92,6 +92,7 @@ jobs:
                     keep_files: 5
                     docker_prune: true
                     pull_images_first: true
+                    args: puff-smith
 #            -   name: Prepare deployment
 #                uses: appleboy/scp-action@master
 #                with:
