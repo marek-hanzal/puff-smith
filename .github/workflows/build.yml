@@ -82,7 +82,7 @@ jobs:
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
-            -   name: Deploy Stack
+            -   name: Deploy App Config
                 uses: appleboy/scp-action@master
                 with:
                     host: ${{ secrets.HOST }}
@@ -108,4 +108,4 @@ jobs:
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
-                        BACKEND_HOST=${{ secrets.HOST }} docker-compose up -d
+                        BACKEND_HOST=abcd docker-compose up -d
