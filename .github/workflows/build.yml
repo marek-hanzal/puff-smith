@@ -108,7 +108,7 @@ jobs:
                     envs: BACKEND_HOST
                     script: |
                         cd /etc/app/deployment
-                        echo "$BACKEND_HOST" > .env
+                        echo "BACKEND_HOST=$BACKEND_HOST" > .env
                         docker-compose down
                         docker system prune -f
                         docker-compose pull
