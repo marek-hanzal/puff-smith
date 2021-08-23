@@ -89,8 +89,7 @@ jobs:
                     ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
                     copy_stack_file: true
                     deploy_path: ./docker/docker-compose.yml
-                    keep_files: 5
-                    docker_prune: true
+#                    docker_prune: true
                     pull_images_first: true
                     args: puff-smith
 #            -   name: Prepare deployment
