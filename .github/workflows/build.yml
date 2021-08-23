@@ -112,6 +112,5 @@ jobs:
                         echo "BACKEND_HOST=$BACKEND_HOST" > .env
                         echo "VERSION=$VERSION" > .env
                         docker-compose down
-                        docker system prune -f
                         docker-compose pull
                         docker-compose up -d
