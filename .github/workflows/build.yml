@@ -81,15 +81,15 @@ jobs:
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
-            -   name: Prepare deployment
-                uses: appleboy/scp-action@master
-                with:
-                    host: ${{ secrets.HOST }}
-                    username: root
-                    key: ${{ secrets.SSHKEY }}
-                    source: "./docker"
-                    target: "/etc/app"
-                    rm: true
+#            -   name: Prepare deployment
+#                uses: appleboy/scp-action@master
+#                with:
+#                    host: ${{ secrets.HOST }}
+#                    username: root
+#                    key: ${{ secrets.SSHKEY }}
+#                    source: "./docker"
+#                    target: "/etc/app"
+#                    rm: true
             -   name: Deploy Stack
                 uses: appleboy/ssh-action@master
                 with:
