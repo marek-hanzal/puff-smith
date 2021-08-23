@@ -104,7 +104,7 @@ jobs:
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
                     envs:
-                        BACKEND_HOST=http://${{ secrets.HOST }}:8080
+                        BACKEND_HOST: http://${{ secrets.HOST }}:8080
                     script: |
                         cd /etc/app/deployment
                         printenv
