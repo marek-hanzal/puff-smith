@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Puff_Smith.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Puff_Smith.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ps.iml" filepath="$PROJECT_DIR$/.idea/modules/ps.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ps.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ps.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ps.test.iml" filepath="$PROJECT_DIR$/.idea/modules/ps.test.iml" />
     </modules>
   </component>
 </project>

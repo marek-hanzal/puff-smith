@@ -1,0 +1,17 @@
+version: '2.0'
+services:
+    puff-smith:
+        image: marekhanzal/puff-smith:edge
+        environment:
+            - VERSION=production
+            # good old ones
+            #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
+            #            - DATABASE_USER=postgres
+            #            - DATABASE_PASSWORD=1234
+            # setup for the client where to find Discovery index and for server where the backend is running
+            - BACKEND_HOST=http://localhost:8080
+        ports:
+            # client web application
+            - "80:3000"
+            # backend server
+            - "8080:8088"

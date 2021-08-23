@@ -75,3 +75,26 @@ jobs:
 
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs: docker
+        steps:
+            -   name: Deploy necessary files
+                uses: appleboy/scp-action@master
+                with:
+                    host: ${{ secrets.HOST }}
+                    key: ${{ secrets.SSHKEY }}
+                    source: "deploy/"
+                    target: "/"
+            -   name: Deploy to Digital Ocean droplet via SSH action
+                uses: appleboy/ssh-action@v0.1.3
+                with:
+                    USERNAME: root
+                    HOST: ${{ secrets.HOST }}
+                    KEY: ${{ secrets.SSHKEY }}
+                    script: |
+                        cd /etc/puff-smith
+                        docker-compose pull
+                        docker-compose down
+                        docker-compose up -d
