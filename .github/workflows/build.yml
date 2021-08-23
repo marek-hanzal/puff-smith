@@ -88,10 +88,11 @@ jobs:
             -   name: Prepare deployment
                 uses: appleboy/scp-action@master
                 with:
-                    HOST: ${{ secrets.HOST }}
-                    KEY: ${{ secrets.SSHKEY }}
-                    SOURCE: "./deploy"
-                    TARGET: "/etc/puff-smith"
+                    host: ${{ secrets.HOST }}
+                    key: ${{ secrets.SSHKEY }}
+                    debug: true
+                    source: "./deploy"
+                    target: "/etc/puff-smith"
                     RM: true
             -   name: Deploy to Digital Ocean droplet via SSH action
                 uses: appleboy/ssh-action@master
