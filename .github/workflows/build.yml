@@ -99,7 +99,7 @@ jobs:
             -   name: Deploy Stack
                 uses: appleboy/ssh-action@master
                 env:
-                    BACKEND_HOST: http://${{ secrets.HOST }}:8080
+                    BACKEND_HOST: "http://${{ secrets.HOST }}:8080"
                 with:
                     username: root
                     host: ${{ secrets.HOST }}
