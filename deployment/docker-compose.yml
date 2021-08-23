@@ -3,13 +3,11 @@ services:
     puff-smith:
         image: marekhanzal/puff-smith:edge
         env_file: .env
-        environment:
-            - VERSION=production
+#        environment:
             # good old ones
             #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
             #            - DATABASE_USER=postgres
             #            - DATABASE_PASSWORD=1234
-            # setup for the client where to find Discovery index and for server where the backend is running
         ports:
             # client web application
             - "80:3000"
