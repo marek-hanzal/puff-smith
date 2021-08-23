@@ -98,7 +98,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script: |
-                        cd /etc/puff-smith/deployment
+                        #cd /etc/puff-smith/deployment
                         docker pull marekhanzal/puff-smith:edge
                         docker-compose down
                         docker-compose up -d
