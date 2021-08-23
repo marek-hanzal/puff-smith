@@ -80,20 +80,17 @@ jobs:
         #        needs: docker
         steps:
             -   name: Check out the repo
-                uses: actions/checkout@v2
-#            -   name: Tar deployment folder
-#                run: |
-#                    ls -la .
-#                    tar -cvf deploy.tar ./deploy
+                uses: actions/checkout@master
             -   name: Prepare deployment
                 uses: appleboy/scp-action@master
                 with:
                     host: ${{ secrets.HOST }}
+                    username: root
                     key: ${{ secrets.SSHKEY }}
                     debug: true
                     source: "./deploy"
                     target: "/etc/puff-smith"
-                    RM: true
+                    rm: true
             -   name: Deploy to Digital Ocean droplet via SSH action
                 uses: appleboy/ssh-action@master
                 with:
