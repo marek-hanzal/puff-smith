@@ -81,24 +81,35 @@ jobs:
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
-            -   name: Prepare deployment
-                uses: appleboy/scp-action@master
+            -   name: Deploy to Docker swarm
+                uses: wshihadeh/docker-deployment-action@master
                 with:
-                    host: ${{ secrets.HOST }}
-                    username: root
-                    key: ${{ secrets.SSHKEY }}
-                    source: "./deployment"
-                    target: "/etc/puff-smith"
-                    strip_components: 1
-                    rm: true
-            -   name: Deploy to Digital Ocean droplet via SSH action
-                uses: appleboy/ssh-action@master
-                with:
-                    username: root
-                    host: ${{ secrets.HOST }}
-                    key: ${{ secrets.SSHKEY }}
-                    script: |
-                        cd /etc/puff-smith/deployment
-                        docker pull marekhanzal/puff-smith:edge
-                        docker-compose down
-                        docker-compose up -d
+                    remote_docker_host: root@${{ secrets.HOST }}
+                    ssh_private_key: ${{ secrets.SSHKEY }}
+                    ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
+                    copy_stack_file: true
+                    deploy_path: ./docker/docker-compose.yml
+                    keep_files: 5
+                    docker_prune: true
+                    pull_images_first: true
+#            -   name: Prepare deployment
+#                uses: appleboy/scp-action@master
+#                with:
+#                    host: ${{ secrets.HOST }}
+#                    username: root
+#                    key: ${{ secrets.SSHKEY }}
+#                    source: "./deployment"
+#                    target: "/etc/puff-smith"
+#                    strip_components: 1
+#                    rm: true
+#            -   name: Deploy to Digital Ocean droplet via SSH action
+#                uses: appleboy/ssh-action@master
+#                with:
+#                    username: root
+#                    host: ${{ secrets.HOST }}
+#                    key: ${{ secrets.SSHKEY }}
+#                    script: |
+#                        cd /etc/puff-smith/deployment
+#                        docker pull marekhanzal/puff-smith:edge
+#                        docker-compose down
+#                        docker-compose up -d
