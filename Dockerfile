@@ -11,6 +11,7 @@ WORKDIR /opt/client
 
 COPY client .
 COPY --from=client-deps /opt/client/node_modules ./node_modules
+RUN echo "NEXT_PUBLIC_BUILD=$VERSION" > .env.local
 
 RUN npm run build
 
