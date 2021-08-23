@@ -96,6 +96,7 @@ jobs:
                     username: root
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
+                    script_stop: true
                     script: |
                         cd /etc/app/docker
                         docker pull marekhanzal/puff-smith:edge
