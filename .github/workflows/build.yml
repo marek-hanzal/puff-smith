@@ -81,7 +81,7 @@ jobs:
         steps:
             -   name: Tar deployment folder
                 run: |
-                    tar -cvf deploy.tar deploy
+                    tar -cvf deploy.tar ./deploy
             -   name: Prepare deployment
                 uses: appleboy/scp-action@master
                 with:
