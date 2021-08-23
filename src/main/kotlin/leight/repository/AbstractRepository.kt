@@ -18,9 +18,23 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 ) : AbstractService(container), IRepository<TTable, TEntity> {
 	protected val storage by container.lazy<IStorage>()
 
-	override fun create(block: TEntity.() -> Unit) = entity.new { block(this) }
+	override fun create(block: TEntity.() -> Unit) = try {
+		entity.new { block(this) }
+	} catch (e: Throwable) {
+		exception(e)
+	}
 
-	override fun delete(uuid: UUID) = storage.write { find(uuid).delete() }
+	override fun update(uuid: String, block: TEntity.() -> Unit) = try {
+		find(uuid).also(block)
+	} catch (e: Throwable) {
+		exception(e)
+	}
+
+	override fun delete(uuid: UUID) = try {
+		storage.write { find(uuid).delete() }
+	} catch (e: Throwable) {
+		exception(e)
+	}
 
 	override fun total(filter: EntityFilter<TEntity>?) = filter?.let { entity.all().filter(it).sumOf { 1.0 }.toLong() } ?: entity.table.slice(entity.table.id).selectAll().count()
 
@@ -47,4 +61,6 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 	override fun table() = table
 
 	override fun all() = entity.all()
+
+	fun exception(throwable: Throwable): Nothing = throw throwable
 }

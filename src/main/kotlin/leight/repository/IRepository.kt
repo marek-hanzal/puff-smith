@@ -10,7 +10,7 @@ import java.util.*
 interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
 	fun create(block: TEntity.() -> Unit): TEntity
 
-	fun update(uuid: String, block: TEntity.() -> Unit) = find(uuid).also(block)
+	fun update(uuid: String, block: TEntity.() -> Unit): TEntity
 
 	fun delete(uuid: UUID)
 

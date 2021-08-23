@@ -41,4 +41,8 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 			}
 		}
 	}
+
+	override suspend fun exception(call: ApplicationCall, exception: Throwable): Response<*>? {
+		return super.exception(call, exception)
+	}
 }

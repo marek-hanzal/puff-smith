@@ -7,6 +7,11 @@ RUN npm install && npm ci --only-production
 
 FROM node:alpine as client-builder
 
+ENV \
+	NODE_ENV=production \
+	NEXT_TELEMETRY_DISABLED=1 \
+	VERSION=$VERSION
+
 WORKDIR /opt/client
 
 COPY client .
