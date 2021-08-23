@@ -87,7 +87,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     username: root
                     key: ${{ secrets.SSHKEY }}
-                    source: "./docker"
+                    source: "./deployment"
                     target: "/etc/puff-smith"
                     strip_components: 1
                     rm: true
@@ -98,7 +98,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script: |
-                        cd /etc/puff-smith/docker
-                        docker-compose pull
+                        cd /etc/puff-smith/deployment
+                        docker pull marekhanzal/puff-smith:edge
                         docker-compose down
                         docker-compose up -d
