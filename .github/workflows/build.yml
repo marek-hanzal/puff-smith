@@ -87,8 +87,8 @@ jobs:
                     host: ${{ secrets.HOST }}
                     username: root
                     key: ${{ secrets.SSHKEY }}
-                    source: "./deployment"
-                    target: "/etc/puff-smith"
+                    source: "./docker"
+                    target: "/etc/app"
                     rm: true
             -   name: Deploy Stack
                 uses: appleboy/ssh-action@master
@@ -97,7 +97,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     key: ${{ secrets.SSHKEY }}
                     script: |
-                        cd /etc/puff-smith/deployment
+                        cd /etc/app/docker
                         docker pull marekhanzal/puff-smith:edge
                         docker-compose down
                         docker-compose up -d
