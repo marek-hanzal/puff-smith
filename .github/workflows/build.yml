@@ -108,6 +108,7 @@ jobs:
                     script_stop: true
                     envs: BACKEND_HOST,QUAQUA
                     script: |
+                        echo "$QUAQUA"
                         printenv
                         cd /etc/app/deployment
                         docker-compose down
