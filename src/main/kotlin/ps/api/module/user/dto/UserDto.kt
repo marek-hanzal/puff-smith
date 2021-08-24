@@ -3,8 +3,8 @@ package ps.api.module.user.dto
 import leight.client.sdk.property.SdkLiteralProperty
 
 data class UserDto(
-	@SdkLiteralProperty("string")
-	val id: String,
+	@SdkLiteralProperty("string | null")
+	val id: String?,
 	@SdkLiteralProperty("string")
 	val site: String,
 	@SdkLiteralProperty("string[]")

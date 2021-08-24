@@ -5,7 +5,7 @@ import leight.config.IConfigurable
 import leight.container.IContainer
 
 interface ISessionValidator : IConfigurable {
-	fun validate(sessionTicket: SessionTicket): Principal?
+	fun validate(sessionTicket: SessionTicket, hash: String): Principal?
 }
 
 fun IContainer.lazySessionValidator() = lazy<ISessionValidator>()

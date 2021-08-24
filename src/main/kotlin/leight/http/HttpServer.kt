@@ -73,12 +73,11 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 			}
 			install(Authentication) {
 				session<SessionTicket> {
-					validate { sessionTicket: SessionTicket ->
-						sessionValidator.validate(sessionTicket)
+					validate { sessionTicket ->
+						request.headers["X-Client-Hash"]?.let { hash ->
+							sessionValidator.validate(sessionTicket, hash)
+						}
 					}
-//					challenge {
-//						call.resolve(Response(HttpStatusCode.Unauthorized, "You cannot access this endpoint, I'm sorry about that."))
-//					}
 				}
 			}
 			/**

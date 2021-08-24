@@ -27,11 +27,13 @@ class SignInEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val ticketRepository by container.lazyTicketRepository()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> = call.receive<SignInDto>().let { request ->
-		storage.transaction {
-			userRepository.findByCredentials(request.login, request.password).let { user ->
-				call.ticket(ticketRepository.ticketFor(user, request.hash))
-				ok(SessionDto(UserDto(user.id.value.toString(), if (user.site != null) user.site!! else "locked", arrayOf())))
+		call.request.header("X-Client-Hash")?.let { hash ->
+			storage.transaction {
+				userRepository.findByCredentials(request.login, request.password).let { user ->
+					call.ticket(ticketRepository.ticketFor(user, hash))
+					ok(SessionDto(UserDto(user.id.value.toString(), user.site ?: "locked", arrayOf())))
+				}
 			}
-		}
+		} ?: badRequest("Missing client hash.")
 	}
 }

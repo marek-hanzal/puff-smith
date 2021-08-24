@@ -36,15 +36,15 @@ export namespace ps {
 
 	export namespace user {
 		export interface UserDto {
-			id: string;
+			id: string | null;
 			roles: string[];
 			site: string;
 		}
 
 		export interface SignInDto {
 			hash: string;
+			login: string;
 			password: string;
-			user: string;
 		}
 
 		export interface SignUpDto {

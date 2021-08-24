@@ -1,6 +1,5 @@
 import {ps, useSessionContext} from "@/ps";
-import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, Input, PasswordInput, SignInIcon, useFingerprintContext, useLayoutBlockContext} from "@leight-core/leight";
-import axios from "axios";
+import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, Input, PasswordInput, SignInIcon, useLayoutBlockContext} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -10,16 +9,12 @@ export interface ISignInFormProps extends Partial<ICommonFormProps<any, ps.user.
 export const SignInForm: FC<ISignInFormProps> = props => {
 	const {setSession} = useSessionContext();
 	const blockContext = useLayoutBlockContext();
-	const fingerprintContext = useFingerprintContext();
 	const {t} = useTranslation();
-
-	axios.defaults.headers["Authorization"] = fingerprintContext.fingerprint;
 
 	return <CommonForm<any, ps.user.SignInDto, ps.session.SessionDto>
 		post={ps.user.doSignIn}
 		size={"large"}
 		wrapperCol={{span: 24}}
-		postMapper={values => ({...values, hash: fingerprintContext.fingerprint})}
 		onSuccess={(navigate, values, session) => {
 			blockContext.block();
 			setSession(session);

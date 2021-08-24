@@ -7,6 +7,4 @@ data class SignInDto(
 	val login: String,
 	@SdkLiteralProperty("string")
 	val password: String,
-	@SdkLiteralProperty("string")
-	val hash: String,
 )
