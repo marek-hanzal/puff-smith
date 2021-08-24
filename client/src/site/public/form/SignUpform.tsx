@@ -4,7 +4,6 @@ import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-
 export interface ISignUpFormProps extends Partial<ICommonFormProps<any, ps.user.SignUpDto, ps.session.SessionDto>> {
 }
 
@@ -12,6 +11,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const {setSession} = useSessionContext();
 	const blockContext = useLayoutBlockContext();
 	const {t} = useTranslation();
+
 	return <CommonForm<any, ps.user.SignUpDto, ps.session.SessionDto>
 		post={ps.user.doSignUp}
 		size={"large"}
@@ -22,6 +22,9 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			navigate("/" + session.user.site);
 			message.success(t("public.sign-up.success"));
 		}}
+		mapError={error => ({
+			"Unique conflict on [user.user_login_unique].": {id: "login", error: error},
+		})}
 		{...props}
 	>
 		<FormItem
@@ -56,7 +59,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 				}),
 			]}
 		>
-			<PasswordInput/>
+			<PasswordInput autoComplete={"new-password"}/>
 		</FormItem>
 		<Centered>
 			<FormSubmitButton icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.submit.label"}/>

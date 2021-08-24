@@ -12,6 +12,8 @@ interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
 
 	fun update(uuid: String, block: TEntity.() -> Unit): TEntity
 
+	fun update(uuid: UUID, block: TEntity.() -> Unit) = update(uuid.toString(), block)
+
 	fun delete(uuid: UUID)
 
 	fun find(uuid: String) = find(UUID.fromString(uuid))

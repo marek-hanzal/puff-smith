@@ -59,6 +59,9 @@ dependencies {
 	with("2.10.10") {
 		implementation("joda-time:joda-time:$this")
 	}
+	with("1.9.0") {
+		implementation("org.apache.commons:commons-csv:$this")
+	}
 	implementation(kotlin("reflect"))
 	testImplementation(kotlin("test"))
 }

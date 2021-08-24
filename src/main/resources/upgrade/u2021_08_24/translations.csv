@@ -1,0 +1,19 @@
+language;label;text
+cs;public.index.title;Puff Smith
+cs;public.home.content.title;Přihlašte se nebo si založte nový účet
+cs;public.home.content.subtitle;Tato aplikace slouží k evidenci setupů a buildů a jejich vlivu na chuť
+cs;error.Unique conflict on [user.user_login_unique].;Toto uživatelské jméno je již obsazené.
+en;public.index.title;Puff Smith
+cs;public.sign-in.title;Přihlášení
+cs;public.sign-up.title;Registrace
+cs;public.login.label;Uživatelské jméno
+cs;public.password.label;Heslo
+cs;public.password2.label;Kontrola hesla
+cs;public.sign-in.submit.label;Přihlásit se
+cs;public.sign-up.submit.label;Zaregistrovat se
+cs;public.password.label.required;Heslo je bohužel potřeba.
+cs;public.login.required;Bez uživatelského jména to nepůjde
+cs;public.password2.not-match;Hesla tak nějak nesouhlasí, zkontrolujte si je prosím.
+cs;public.sign-up.success;Registrace vašeho účtu proběhla úspěšně!
+cs;common.loading;
+cs;user.index.title;Uživatelské sekce
