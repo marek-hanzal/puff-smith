@@ -19,7 +19,7 @@ jobs:
             version: ${{ steps.prepare.outputs.version }}
         steps:
             -   name: Cancel previous jobs
-                uses: styfle/cancel-workflow-action@master
+                uses: styfle/cancel-workflow-action@0.9.1
                 with:
                     access_token: ${{ github.token }}
 
