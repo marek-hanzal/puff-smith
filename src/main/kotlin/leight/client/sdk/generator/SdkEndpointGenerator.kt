@@ -26,6 +26,9 @@ class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
 				)
 			}>(\"${endpointInfo.getId(klass)}\")"
 		}
+		EndpointMethod.DELETE -> {
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = Server.createDelete<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+		}
 		else -> null
 	}?.let { return "\t".repeat(level + 1) + it + ";\n" }
 }

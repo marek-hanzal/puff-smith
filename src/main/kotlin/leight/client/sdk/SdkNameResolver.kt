@@ -16,7 +16,14 @@ class SdkNameResolver(container: IContainer) : AbstractService(container) {
 
 	fun namespaceParts(klass: KClass<*>) = namespaceName(klass).split(".")
 
-	fun resolveClassName(source: KClass<*>, target: KClass<*>): String = filterName(target.qualifiedName!!).replace(namespaceName(source) + ".", "")
+	fun resolveClassName(source: KClass<*>, target: KClass<*>): String = when (target) {
+		Unit::class -> {
+			"never"
+		}
+		else -> {
+			filterName(target.qualifiedName!!).replace(namespaceName(source) + ".", "")
+		}
+	}
 }
 
 fun IContainer.lazySdkNameResolver() = lazy<SdkNameResolver>()

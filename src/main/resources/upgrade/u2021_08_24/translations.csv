@@ -17,3 +17,9 @@ cs;public.password2.not-match;Hesla tak nějak nesouhlasí, zkontrolujte si je p
 cs;public.sign-up.success;Registrace vašeho účtu proběhla úspěšně!
 cs;common.loading;
 cs;user.index.title;Uživatelské sekce
+cs;user.index.menu;Domů
+cs;user.index.subtitle;Vítejte v aplikaci Puff Smith - najdete zde mnoho zajímavých nástrojů, které vám pomůžou dosáhnout toho nejlepšího zážitku z vapingu.
+cs;user.profile.tooltip;Váš profil
+cs;common.sign-out.tooltip;Odhlásit se
+cs;public.sign-out.title;Odhlášení
+cs;public.sign-out;Počkejte prosím, probíhá odhlášení z aplikace...

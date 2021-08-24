@@ -1,4 +1,4 @@
-import {Footer, Header} from "@/ps/site/user";
+import {Footer, Header, NotificationContextProvider} from "@/ps/site/user";
 import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/leight";
 import {FC} from "react";
 
@@ -6,12 +6,14 @@ export interface IUserLayoutProps {
 }
 
 export const UserLayout: FC<IUserLayoutProps> = ({children}) => {
-	return <HeaderSiderLayout
-		header={<Header/>}
-		footer={<Footer/>}
-	>
-		{children}
-	</HeaderSiderLayout>;
+	return <NotificationContextProvider>
+		<HeaderSiderLayout
+			header={<Header/>}
+			footer={<Footer/>}
+		>
+			{children}
+		</HeaderSiderLayout>
+	</NotificationContextProvider>;
 };
 
 export function withUserLayout(Component: FC<any>) {

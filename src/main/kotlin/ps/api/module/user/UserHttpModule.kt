@@ -4,6 +4,7 @@ import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
 import ps.api.module.user.endpoint.SignInEndpoint
+import ps.api.module.user.endpoint.SignOutEndpoint
 import ps.api.module.user.endpoint.SignUpEndpoint
 
 class UserHttpModule(container: IContainer) : AbstractHttpModule(container) {
@@ -11,6 +12,7 @@ class UserHttpModule(container: IContainer) : AbstractHttpModule(container) {
 		install(
 			routing,
 			SignInEndpoint::class,
+			SignOutEndpoint::class,
 			SignUpEndpoint::class,
 		)
 	}

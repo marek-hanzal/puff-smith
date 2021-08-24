@@ -42,7 +42,6 @@ export namespace ps {
 		}
 
 		export interface SignInDto {
-			hash: string;
 			login: string;
 			password: string;
 		}
@@ -53,6 +52,9 @@ export namespace ps {
 		}
 
 		export const doSignIn = Server.createPost<SignInDto, ps.session.SessionDto>("user.sign-in");
+
+
+		export const doSignOut = Server.createDelete<never>("user.sign-out");
 
 
 		export const doSignUp = Server.createPost<SignUpDto, ps.session.SessionDto>("user.sign-up");
