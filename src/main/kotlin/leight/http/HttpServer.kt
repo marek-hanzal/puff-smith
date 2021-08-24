@@ -26,22 +26,21 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 	private lateinit var name: String
 	private val server by lazy {
 		embeddedServer(Netty, httpServerConfig.port) {
-			install(CORS) {
-				header("Authorization")
-				header(HttpHeaders.XForwardedProto)
-				header(HttpHeaders.Authorization)
-				header(HttpHeaders.AccessControlAllowHeaders)
-				header(HttpHeaders.ContentType)
-				header(HttpHeaders.AccessControlAllowOrigin)
-				method(HttpMethod.Options)
-				method(HttpMethod.Head)
-				method(HttpMethod.Get)
-				method(HttpMethod.Post)
-				method(HttpMethod.Delete)
-				method(HttpMethod.Put)
-				method(HttpMethod.Patch)
-				anyHost()
-			}
+//			install(CORS) {
+//				header(HttpHeaders.XForwardedProto)
+//				header(HttpHeaders.Authorization)
+//				header(HttpHeaders.AccessControlAllowHeaders)
+//				header(HttpHeaders.ContentType)
+//				header(HttpHeaders.AccessControlAllowOrigin)
+//				method(HttpMethod.Options)
+//				method(HttpMethod.Head)
+//				method(HttpMethod.Get)
+//				method(HttpMethod.Post)
+//				method(HttpMethod.Delete)
+//				method(HttpMethod.Put)
+//				method(HttpMethod.Patch)
+//				anyHost()
+//			}
 			install(ForwardedHeaderSupport)
 			install(AutoHeadResponse)
 			install(ConditionalHeaders)
