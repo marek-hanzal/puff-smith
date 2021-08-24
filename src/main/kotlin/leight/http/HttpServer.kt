@@ -9,23 +9,19 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.sessions.*
-import kotlinx.coroutines.delay
 import leight.container.AbstractService
 import leight.container.IContainer
-import leight.rest.Response
-import leight.rest.resolve
-import leight.role.IRoleService
-import leight.session.ISessionValidator
+import leight.role.lazyRoleService
 import leight.session.SessionTicket
+import leight.session.lazySessionValidator
 import java.util.*
-import kotlin.random.Random
 import kotlin.reflect.KClass
 
 class HttpServer(container: IContainer) : AbstractService(container), IHttpServer {
-	private val httpServerConfig by container.lazy<HttpServerConfig>()
-	private val sessionValidator by container.lazy<ISessionValidator>()
-	private val httpIndex by container.lazy<IHttpIndex>()
-	private val roleService by container.lazy<IRoleService>()
+	private val httpServerConfig by container.lazyHttpServerConfig()
+	private val sessionValidator by container.lazySessionValidator()
+	private val httpIndex by container.lazyHttpIndex()
+	private val roleService by container.lazyRoleService()
 	private var modules = arrayOf<KClass<out IHttpModule>>()
 	private lateinit var name: String
 	private val server by lazy {
@@ -33,6 +29,7 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 			install(CORS) {
 				header("Authorization")
 				header(HttpHeaders.XForwardedProto)
+				header(HttpHeaders.Authorization)
 				header(HttpHeaders.AccessControlAllowHeaders)
 				header(HttpHeaders.ContentType)
 				header(HttpHeaders.AccessControlAllowOrigin)
@@ -80,9 +77,9 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 					validate { sessionTicket: SessionTicket ->
 						sessionValidator.validate(sessionTicket)
 					}
-					challenge {
-						call.resolve(Response(HttpStatusCode.Unauthorized, "You cannot access this endpoint, I'm sorry about that."))
-					}
+//					challenge {
+//						call.resolve(Response(HttpStatusCode.Unauthorized, "You cannot access this endpoint, I'm sorry about that."))
+//					}
 				}
 			}
 			/**

@@ -1,10 +1,12 @@
-package ps.api.module.session.dto
+package ps.api.module.user.dto
 
 import leight.client.sdk.property.SdkLiteralProperty
 
-data class LoginDto(
+data class SignInDto(
 	@SdkLiteralProperty("string")
-	val user: String,
+	val login: String,
 	@SdkLiteralProperty("string")
 	val password: String,
+	@SdkLiteralProperty("string")
+	val hash: String,
 )

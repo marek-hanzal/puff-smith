@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.memberProperties
 
 class SdkClassGenerator(container: IContainer) : AbstractService(container) {
-	private val propertyGenerator by container.lazy<SdkPropertyGenerator>()
+	private val propertyGenerator by container.lazySdkPropertyGenerator()
 
 	fun exportClass(klass: KClass<*>, level: Int): String {
 		return """${"\t".repeat(level + 1)}export interface ${klass.simpleName!!} {
@@ -14,3 +14,5 @@ ${klass.memberProperties.joinToString("\n") { "${propertyGenerator.exportPropert
 ${"\t".repeat(level + 1)}}"""
 	}
 }
+
+fun IContainer.lazySdkClassGenerator() = lazy<SdkClassGenerator>()

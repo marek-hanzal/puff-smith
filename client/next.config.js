@@ -7,4 +7,14 @@ module.exports = require("next-compose-plugins")([
 ], {
 	reactStrictMode: true,
 	basePath: process.env.NEXT_PUBLIC_PUBLIC_URL,
+	async rewrites() {
+		return [
+			{
+				source: "/api/:path*",
+				destination: process.env.BACKEND_HOST + "/api/:path*",
+				basePath: false,
+				locale: false,
+			},
+		];
+	}
 });

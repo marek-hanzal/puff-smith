@@ -1,6 +1,7 @@
 package leight.link
 
 import io.ktor.http.*
+import leight.container.IContainer
 import java.net.URLEncoder
 
 interface ILinkGenerator {
@@ -12,3 +13,5 @@ interface ILinkGenerator {
 
 	fun encoded(path: String, block: ParametersBuilder.() -> Unit): Url = encoded(path, Parameters.build { block(this) })
 }
+
+fun IContainer.lazyLinkGenerator() = lazy<ILinkGenerator>()

@@ -1,4 +1,4 @@
-import {IDiscoveryIndex, Server} from "@leight-core/leight";
+import {Server, IDiscoveryIndex} from "@leight-core/leight";
 
 export namespace ps {
 	export namespace discovery {
@@ -20,7 +20,6 @@ export namespace ps {
 			export interface TranslationDto {
 				label: string;
 				language: string;
-				namespace: string;
 				text: string;
 			}
 		}
@@ -31,15 +30,7 @@ export namespace ps {
 			user: ps.user.UserDto;
 		}
 
-		export interface LoginDto {
-			password: string;
-			user: string;
-		}
-
 		export const doTicketFetch = Server.createGet<SessionDto>("session.ticket");
-
-
-		export const doLogin = Server.createPost<LoginDto, SessionDto>("session.login");
 
 	}
 
@@ -50,10 +41,19 @@ export namespace ps {
 			site: string;
 		}
 
+		export interface SignInDto {
+			hash: string;
+			password: string;
+			user: string;
+		}
+
 		export interface SignUpDto {
 			login: string;
 			password: string;
 		}
+
+		export const doSignIn = Server.createPost<SignInDto, ps.session.SessionDto>("user.sign-in");
+
 
 		export const doSignUp = Server.createPost<SignUpDto, ps.session.SessionDto>("user.sign-up");
 

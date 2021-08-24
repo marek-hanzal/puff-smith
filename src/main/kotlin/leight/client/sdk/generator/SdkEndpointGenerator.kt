@@ -1,18 +1,18 @@
 package leight.client.sdk.generator
 
 import leight.client.sdk.Sdk
-import leight.client.sdk.SdkNameResolver
+import leight.client.sdk.lazySdkNameResolver
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.Endpoint
 import leight.rest.EndpointMethod
 import leight.rest.IEndpoint
-import leight.rest.IEndpointInfo
+import leight.rest.lazyEndpointInfo
 import kotlin.reflect.KClass
 
 class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
-	private val sdkNameResolver by container.lazy<SdkNameResolver>()
-	private val endpointInfo by container.lazy<IEndpointInfo>()
+	private val sdkNameResolver by container.lazySdkNameResolver()
+	private val endpointInfo by container.lazyEndpointInfo()
 
 	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String? = when (endpoint.method) {
 		EndpointMethod.GET -> {
@@ -29,3 +29,5 @@ class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
 		else -> null
 	}?.let { return "\t".repeat(level + 1) + it + ";\n" }
 }
+
+fun IContainer.lazySdkEndpointGenerator() = lazy<SdkEndpointGenerator>()

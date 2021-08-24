@@ -1,2 +1,3 @@
-export * from "site/user/component";
+export * from "./component";
 export * from "./layout";
+export * from "./menu";

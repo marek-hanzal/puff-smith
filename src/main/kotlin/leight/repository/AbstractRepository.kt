@@ -3,7 +3,7 @@ package leight.repository
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.page.Page
-import leight.storage.IStorage
+import leight.storage.lazyStorage
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
@@ -17,7 +17,7 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 	val entity: EntityClass<UUID, TEntity>,
 	container: IContainer,
 ) : AbstractService(container), IRepository<TTable, TEntity> {
-	protected val storage by container.lazy<IStorage>()
+	protected val storage by container.lazyStorage()
 
 	override fun create(block: TEntity.() -> Unit) = try {
 		entity.new { block(this) }

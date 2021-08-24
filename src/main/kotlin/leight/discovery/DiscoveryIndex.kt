@@ -2,13 +2,13 @@ package leight.discovery
 
 import leight.container.AbstractService
 import leight.container.IContainer
-import leight.link.ILinkGenerator
+import leight.link.lazyLinkGenerator
 import leight.rest.IEndpoint
-import leight.rest.IEndpointInfo
+import leight.rest.lazyEndpointInfo
 
 class DiscoveryIndex(container: IContainer) : AbstractService(container) {
-	private val endpointInfo by container.lazy<IEndpointInfo>()
-	private val linkGenerator by container.lazy<ILinkGenerator>()
+	private val endpointInfo by container.lazyEndpointInfo()
+	private val linkGenerator by container.lazyLinkGenerator()
 	private val index = mutableMapOf<String, DiscoveryItem>()
 
 	fun add(endpoint: IEndpoint): DiscoveryItem {
@@ -20,3 +20,5 @@ class DiscoveryIndex(container: IContainer) : AbstractService(container) {
 
 	fun index() = index.toMap()
 }
+
+fun IContainer.lazyDiscoveryIndex() = lazy<DiscoveryIndex>()

@@ -4,13 +4,13 @@ import io.ktor.application.*
 import io.ktor.request.*
 import leight.client.sdk.Sdk
 import leight.container.IContainer
-import leight.encryption.IPasswordService
+import leight.encryption.lazyPasswordService
 import leight.rest.*
-import leight.storage.IStorage
+import leight.storage.lazyStorage
 import ps.api.module.session.dto.SessionDto
 import ps.api.module.user.dto.SignUpDto
 import ps.api.module.user.dto.UserDto
-import ps.storage.module.user.repository.UserRepository
+import ps.storage.module.user.repository.lazyUserRepository
 
 @Endpoint(
 	public = true,
@@ -21,9 +21,9 @@ import ps.storage.module.user.repository.UserRepository
 	response = SessionDto::class,
 )
 class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
-	private val userRepository by container.lazy<UserRepository>()
-	private val storage by container.lazy<IStorage>()
-	private val passwordService by container.lazy<IPasswordService>()
+	private val userRepository by container.lazyUserRepository()
+	private val storage by container.lazyStorage()
+	private val passwordService by container.lazyPasswordService()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> {
 		return call.receive<SignUpDto>().let { request ->

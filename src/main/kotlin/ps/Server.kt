@@ -3,10 +3,10 @@ package ps
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.HttpServerConfig
-import leight.http.IHttpServer
+import leight.http.lazyHttpServer
 import leight.pool.PoolConfig
-import leight.upgrade.IUpgradeManager
-import leight.upgrade.IVersionService
+import leight.upgrade.lazyUpgradeManager
+import leight.upgrade.lazyVersionService
 import leight.utils.asStamp
 import kotlin.system.measureTimeMillis
 import kotlin.time.ExperimentalTime
@@ -18,10 +18,10 @@ data class ServerConfig(
 )
 
 class Server(container: IContainer) : AbstractService(container) {
-	private val serverConfig: ServerConfig by container.lazy()
-	private val upgradeManager: IUpgradeManager by container.lazy()
-	private val versionService: IVersionService by container.lazy()
-	private val httpServer: IHttpServer by container.lazy()
+	private val serverConfig by container.lazyServerConfig()
+	private val upgradeManager by container.lazyUpgradeManager()
+	private val versionService by container.lazyVersionService()
+	private val httpServer by container.lazyHttpServer()
 
 	fun run() {
 		measureTimeMillis {
@@ -52,3 +52,5 @@ fun main() {
 		create(Server::class).run()
 	}
 }
+
+fun IContainer.lazyServerConfig() = lazy<ServerConfig>()

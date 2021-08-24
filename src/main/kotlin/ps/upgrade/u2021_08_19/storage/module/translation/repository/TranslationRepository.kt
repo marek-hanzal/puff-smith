@@ -1,12 +1,12 @@
-package ps.storage.module.translation.repository
+package ps.upgrade.u2021_08_19.storage.module.translation.repository
 
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import leight.repository.UnknownEntityException
 import leight.utils.sha256
 import org.jetbrains.exposed.sql.and
-import ps.storage.module.translation.entity.TranslationEntity
-import ps.storage.module.translation.table.TranslationTable
+import ps.upgrade.u2021_08_19.storage.module.translation.entity.TranslationEntity
+import ps.upgrade.u2021_08_19.storage.module.translation.table.TranslationTable
 
 class TranslationRepository(container: IContainer) : AbstractRepository<TranslationTable, TranslationEntity>(TranslationTable, TranslationEntity, container) {
 	fun findByLanguageAndLabel(language: String, label: String): TranslationEntity =

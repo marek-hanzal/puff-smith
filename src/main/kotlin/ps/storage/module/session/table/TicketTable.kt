@@ -10,9 +10,14 @@ import ps.storage.module.user.table.UserTable
  */
 object TicketTable : UUIDTable("ticket") {
 	/**
+	 * Ticket of a user (basically session id).
+	 */
+	val ticket = uuid("ticket").uniqueIndex("ticket_ticket_unique")
+
+	/**
 	 * Hash code of a ticket used as a secondary identifier (for example user agent).
 	 */
-	val hash = varchar("hash", 128).uniqueIndex("ticket_hash_unique")
+	val hash = varchar("hash", 128)
 
 	/**
 	 * Which user this ticket belongs to.

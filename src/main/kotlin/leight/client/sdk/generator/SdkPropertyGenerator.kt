@@ -1,6 +1,6 @@
 package leight.client.sdk.generator
 
-import leight.client.sdk.SdkNameResolver
+import leight.client.sdk.lazySdkNameResolver
 import leight.client.sdk.property.SdkArrayProperty
 import leight.client.sdk.property.SdkClassProperty
 import leight.client.sdk.property.SdkIndexProperty
@@ -12,7 +12,7 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.full.findAnnotation
 
 class SdkPropertyGenerator(container: IContainer) : AbstractService(container) {
-	private val sdkNameResolver by container.lazy<SdkNameResolver>()
+	private val sdkNameResolver by container.lazySdkNameResolver()
 
 	fun exportProperty(klass: KClass<*>, property: KProperty<*>, level: Int): String {
 		var type = "any"
@@ -31,3 +31,5 @@ class SdkPropertyGenerator(container: IContainer) : AbstractService(container) {
 		return "\t".repeat(level + 2) + property.name + ": " + type
 	}
 }
+
+fun IContainer.lazySdkPropertyGenerator() = lazy<SdkPropertyGenerator>()

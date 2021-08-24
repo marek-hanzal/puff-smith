@@ -6,13 +6,13 @@ import io.ktor.routing.*
 import io.ktor.util.pipeline.*
 import leight.container.AbstractService
 import leight.container.IContainer
-import leight.discovery.DiscoveryIndex
+import leight.discovery.lazyDiscoveryIndex
 import leight.http.withAnyRole
 import leight.rest.exception.RestException
 import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
-	private val discoveryIndex by container.lazy<DiscoveryIndex>()
+	private val discoveryIndex by container.lazyDiscoveryIndex()
 
 	override fun install(routing: Routing) {
 		val discoveryItem = discoveryIndex.add(this)

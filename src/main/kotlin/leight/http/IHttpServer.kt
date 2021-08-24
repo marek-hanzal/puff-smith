@@ -1,6 +1,7 @@
 package leight.http
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import kotlin.reflect.KClass
 
 interface IHttpServer : IConfigurable {
@@ -22,3 +23,5 @@ interface IHttpServer : IConfigurable {
 	 */
 	fun stop(gracePeriodMillis: Long = 500, timeoutMillis: Long = 1500)
 }
+
+fun IContainer.lazyHttpServer() = lazy<IHttpServer>()

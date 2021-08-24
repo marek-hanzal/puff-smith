@@ -1,6 +1,7 @@
 package leight.upgrade
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import kotlin.reflect.KClass
 
 interface IUpgradeManager : IConfigurable {
@@ -14,3 +15,5 @@ interface IUpgradeManager : IConfigurable {
 	 */
 	fun upgrade(): Int
 }
+
+fun IContainer.lazyUpgradeManager() = lazy<IUpgradeManager>()

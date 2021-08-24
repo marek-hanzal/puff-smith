@@ -1,6 +1,7 @@
 package leight.http
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import leight.rest.IEndpoint
 import kotlin.reflect.KClass
 
@@ -16,3 +17,5 @@ interface IHttpIndex : IConfigurable {
 
 	fun endpoints(): Map<String, KClass<out IEndpoint>>
 }
+
+fun IContainer.lazyHttpIndex() = lazy<IHttpIndex>()

@@ -1,6 +1,7 @@
 package leight.upgrade
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 
 interface IVersionService : IConfigurable {
 	/**
@@ -23,3 +24,5 @@ interface IVersionService : IConfigurable {
 	 */
 	fun print()
 }
+
+fun IContainer.lazyVersionService() = lazy<IVersionService>()

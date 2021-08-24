@@ -1,7 +1,7 @@
 package ps.upgrade.u2021_08_19
 
 import leight.container.IContainer
-import leight.encryption.IPasswordService
+import leight.encryption.lazyPasswordService
 import leight.upgrade.AbstractUpgrade
 import org.jetbrains.exposed.sql.SchemaUtils
 import ps.upgrade.u2021_08_19.storage.module.role.entity.RoleEntity
@@ -13,7 +13,7 @@ import ps.upgrade.u2021_08_19.storage.module.user.table.UserRoleTable
 import ps.upgrade.u2021_08_19.storage.module.user.table.UserTable
 
 class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
-	private val passwordService by container.lazy<IPasswordService>()
+	private val passwordService by container.lazyPasswordService()
 
 	override fun upgrade() {
 		storage.write {

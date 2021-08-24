@@ -1,7 +1,7 @@
 package ps.storage.module.user.repository
 
 import leight.container.IContainer
-import leight.encryption.IPasswordService
+import leight.encryption.lazyPasswordService
 import leight.repository.AbstractRepository
 import leight.user.UnknownUserException
 import leight.user.UserException
@@ -9,7 +9,7 @@ import ps.storage.module.user.entity.UserEntity
 import ps.storage.module.user.table.UserTable
 
 class UserRepository(container: IContainer) : AbstractRepository<UserTable, UserEntity>(UserTable, UserEntity, container) {
-	private val passwordService by container.lazy<IPasswordService>()
+	private val passwordService by container.lazyPasswordService()
 
 	fun findByLogin(login: String) = entity.find { table.login eq login }.first()
 
@@ -26,3 +26,5 @@ class UserRepository(container: IContainer) : AbstractRepository<UserTable, User
 		throw UnknownUserException("Requested unknown login [$login].", e)
 	}
 }
+
+fun IContainer.lazyUserRepository() = lazy<UserRepository>()

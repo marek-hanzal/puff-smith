@@ -1,6 +1,7 @@
 package leight.rest
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import kotlin.reflect.KClass
 
 /**
@@ -18,3 +19,5 @@ interface IEndpointInfo : IConfigurable {
 	fun getUrl(endpoint: KClass<out IEndpoint>) = "/api/" + getId(endpoint).trimStart('.').replace(".", "/")
 	fun getUrl(endpoint: IEndpoint) = getUrl(endpoint::class)
 }
+
+fun IContainer.lazyEndpointInfo() = lazy<IEndpointInfo>()

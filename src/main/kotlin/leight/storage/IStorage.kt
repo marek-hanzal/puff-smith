@@ -1,6 +1,7 @@
 package leight.storage
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import org.jetbrains.exposed.sql.Transaction
 
 interface IStorage : IConfigurable {
@@ -22,3 +23,5 @@ interface IStorage : IConfigurable {
 		throwable(e)
 	}
 }
+
+fun IContainer.lazyStorage() = lazy<IStorage>()

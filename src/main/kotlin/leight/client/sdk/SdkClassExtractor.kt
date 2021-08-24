@@ -46,3 +46,5 @@ class SdkClassExtractor(container: IContainer) : AbstractService(container) {
 		all
 	}.distinct()
 }
+
+fun IContainer.lazySdkClassExtractor() = lazy<SdkClassExtractor>()

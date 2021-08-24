@@ -1,19 +1,19 @@
 package leight.client.sdk
 
-import leight.client.sdk.generator.SdkClassGenerator
-import leight.client.sdk.generator.SdkEndpointGenerator
+import leight.client.sdk.generator.lazySdkClassGenerator
+import leight.client.sdk.generator.lazySdkEndpointGenerator
 import leight.container.AbstractService
 import leight.container.IContainer
-import leight.http.IHttpIndex
+import leight.http.lazyHttpIndex
 import leight.rest.IEndpoint
 import kotlin.reflect.KClass
 
 class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGenerator {
-	private val httpIndex by container.lazy<IHttpIndex>()
-	private val sdkExtractor by container.lazy<SdkClassExtractor>()
-	private val sdkNameResolver by container.lazy<SdkNameResolver>()
-	private val sdkClassGenerator by container.lazy<SdkClassGenerator>()
-	private val sdkEndpointGenerator by container.lazy<SdkEndpointGenerator>()
+	private val httpIndex by container.lazyHttpIndex()
+	private val sdkExtractor by container.lazySdkClassExtractor()
+	private val sdkNameResolver by container.lazySdkNameResolver()
+	private val sdkClassGenerator by container.lazySdkClassGenerator()
+	private val sdkEndpointGenerator by container.lazySdkEndpointGenerator()
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {

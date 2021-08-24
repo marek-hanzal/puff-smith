@@ -3,15 +3,15 @@ package ps.translation
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.repository.ConflictException
-import leight.storage.IStorage
+import leight.storage.lazyStorage
 import leight.utils.sha256
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
-import ps.storage.module.translation.repository.TranslationRepository
+import ps.storage.module.translation.repository.lazyTranslationRepository
 
 class TranslationCsvImport(container: IContainer) : AbstractService(container) {
-	private val storage by container.lazy<IStorage>()
-	private val translationRepository by container.lazy<TranslationRepository>()
+	private val storage by container.lazyStorage()
+	private val translationRepository by container.lazyTranslationRepository()
 
 	fun import(resource: String) {
 		CSVParser(
@@ -44,3 +44,5 @@ class TranslationCsvImport(container: IContainer) : AbstractService(container) {
 		}
 	}
 }
+
+fun IContainer.lazyTranslationCsvImport() = lazy<TranslationCsvImport>()

@@ -8,10 +8,12 @@ import leight.http.HttpServerConfig
 import leight.http.IHttpServer
 import leight.pool.PoolConfig
 import leight.rest.IEndpointInfo
+import leight.session.ISessionValidator
 import leight.upgrade.IUpgradeManager
 import ps.api.module.PublicHttpModule
 import ps.api.root.RootHttpModule
 import ps.api.user.UserHttpModule
+import ps.session.SessionValidator
 import ps.upgrade.u2021_08_19.u2021_08_19
 import ps.upgrade.u2021_08_24.u2021_08_24
 
@@ -22,7 +24,7 @@ object ServerContainer {
 		register(PoolConfig::class) { create(ServerConfig::class).pool }
 		register(HttpServerConfig::class) { create(ServerConfig::class).httpServer }
 //		service(IRoleService::class) { RoleService(this) }
-//		service(ISessionValidator::class) { SessionValidator(this) }
+		service(ISessionValidator::class) { SessionValidator(this) }
 		/**
 		 * Common services.
 		 */

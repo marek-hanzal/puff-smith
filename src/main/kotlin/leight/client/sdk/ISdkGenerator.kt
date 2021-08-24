@@ -1,6 +1,7 @@
 package leight.client.sdk
 
 import leight.config.IConfigurable
+import leight.container.IContainer
 import leight.rest.IEndpoint
 import kotlin.reflect.KClass
 
@@ -15,3 +16,5 @@ interface ISdkGenerator : IConfigurable {
 	 */
 	fun generate(): String
 }
+
+fun IContainer.lazySdkGenerator() = lazy<ISdkGenerator>()
