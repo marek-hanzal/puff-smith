@@ -1,6 +1,5 @@
-import {ps} from "@/ps";
+import {LogoFullIcon, ps} from "@/ps";
 import {PublicPage, withPublicLayout} from "@/ps/site/public";
-import {LockOutlined} from "@ant-design/icons";
 import {LoaderIcon, useDiscoveryContext, useNavigate} from "@leight-core/leight";
 import {Result} from "antd";
 import {useEffect} from "react";
@@ -28,7 +27,7 @@ export default withPublicLayout(function SignOut() {
 		fullwidth
 	>
 		<Result
-			icon={<LockOutlined/>}
+			icon={<LogoFullIcon/>}
 			title={t("public.sign-out")}
 			subTitle={<LoaderIcon/>}
 		/>

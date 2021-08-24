@@ -17,19 +17,17 @@ suspend inline fun <T> ApplicationCall.resolve(response: Response<T>) = if (resp
 /**
  * send response with Bad Request status code
  */
-fun badRequest(error: String) = Response(HttpStatusCode.BadRequest, ErrorResponse(error))
+fun badRequest(error: String) = Response(HttpStatusCode.BadRequest, error)
 
 /**
  * send response with Forbidden status code
  */
 fun <T> forbidden(response: T) = Response(HttpStatusCode.Forbidden, response)
 
-fun forbidden(error: String) = forbidden(ErrorResponse(error))
-
 /**
  * send response with Unauthorized status code
  */
-fun unauthorized(error: String) = Response(HttpStatusCode.Unauthorized, ErrorResponse(error))
+fun unauthorized(error: String) = Response(HttpStatusCode.Unauthorized, error)
 
 /**
  * send response with Created status code
@@ -46,7 +44,7 @@ fun noContent() = Response<Nothing>(HttpStatusCode.NoContent)
 /**
  * send response with Not Found status code
  */
-fun notFound(error: String) = Response(HttpStatusCode.NotFound, ErrorResponse(error))
+fun notFound(error: String) = Response(HttpStatusCode.NotFound, error)
 
 /**
  * send response with Conflict status code
@@ -68,8 +66,6 @@ fun tooManyRequests(error: String) = tooManyRequests(ErrorResponse(error))
  * send response with Internal Server Error status code
  */
 fun <T> internalServerError(response: T) = Response(HttpStatusCode.InternalServerError, response)
-
-fun internalServerError(error: String) = internalServerError(ErrorResponse(error))
 
 /**
  * send response with Accepted status code

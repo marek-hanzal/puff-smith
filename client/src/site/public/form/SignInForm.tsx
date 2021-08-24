@@ -20,11 +20,21 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 			setSession(session);
 			navigate("/" + session.user.site);
 		}}
+		mapError={_ => ({
+			"Bad login.": (_, formContext) => {
+				formContext.setErrors({
+					errors: [
+						{id: "password", error: "public.bad-login.error"},
+					]
+				});
+			}
+		})}
 		{...props}
 	>
 		<FormItem
 			field={"login"}
 			labels={["public.login.label"]}
+			hasFeedback
 			rules={[
 				{required: true, message: t("public.login.required"), whitespace: true}
 			]}
@@ -34,6 +44,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 		<FormItem
 			field={"password"}
 			labels={["public.password.label"]}
+			hasFeedback
 			required
 		>
 			<PasswordInput autoComplete={"current-password"}/>

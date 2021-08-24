@@ -7,6 +7,8 @@ import leight.container.IContainer
 import leight.rest.*
 import leight.session.ticket
 import leight.storage.lazyStorage
+import leight.user.UnknownUserException
+import leight.user.UserException
 import ps.api.module.session.dto.SessionDto
 import ps.api.module.user.dto.SignInDto
 import ps.api.module.user.dto.UserDto
@@ -35,5 +37,17 @@ class SignInEndpoint(container: IContainer) : AbstractEndpoint(container) {
 				}
 			}
 		} ?: badRequest("Missing client hash.")
+	}
+
+	override suspend fun handleException(call: ApplicationCall, throwable: Throwable): Response<*> = when (throwable) {
+		is UnknownUserException -> {
+			badRequest("Bad login.")
+		}
+		is UserException -> {
+			badRequest("Bad login.")
+		}
+		else -> {
+			internalServerError("Kaboom")
+		}
 	}
 }
