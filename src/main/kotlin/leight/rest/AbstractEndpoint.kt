@@ -21,7 +21,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 		val build: Route.() -> Unit = {
 			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = {
 				call.handle(logger, { handle(call) }, { throwable ->
-					exception(call, throwable)
+					handleException(call, throwable)
 				})
 			}
 			when (annotation.method) {

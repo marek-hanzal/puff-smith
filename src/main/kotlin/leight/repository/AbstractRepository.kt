@@ -7,6 +7,7 @@ import leight.storage.IStorage
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.selectAll
 import java.util.*
 import kotlin.math.max
@@ -62,5 +63,18 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 
 	override fun all() = entity.all()
 
-	fun exception(throwable: Throwable): Nothing = throw throwable
+	override fun exception(throwable: Throwable): Nothing = when (throwable) {
+		is ExposedSQLException -> {
+			/**
+			 * Automagically check unique index violations.
+			 */
+			table.uniqueIndices().forEach {
+				throwable.message?.contains(it.indexName, ignoreCase = true)?.let { conflict ->
+					conflict && throw ConflictException("Unique conflict on [${table.tableName}.${it.indexName}].", throwable)
+				}
+			}
+			throw throwable
+		}
+		else -> throw throwable
+	}
 }

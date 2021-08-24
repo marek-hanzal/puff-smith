@@ -33,4 +33,6 @@ interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
 	fun table(): TTable
 
 	fun all(): SizedIterable<TEntity>
+
+	fun exception(throwable: Throwable): Nothing
 }

@@ -27,7 +27,7 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 
 	override suspend fun handle(call: ApplicationCall): Response<*> {
 		return call.receive<SignUpDto>().let { request ->
-			storage.write {
+			storage.write(userRepository::exception) {
 				userRepository.create {
 					login = request.login
 					password = passwordService.encrypt(request.password)
@@ -40,9 +40,5 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 				}
 			}
 		}
-	}
-
-	override suspend fun exception(call: ApplicationCall, exception: Throwable): Response<*>? {
-		return super.exception(call, exception)
 	}
 }
