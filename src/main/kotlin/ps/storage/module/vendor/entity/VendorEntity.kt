@@ -11,4 +11,5 @@ class VendorEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 
 	var name by VendorTable.name
 	var category by VendorTable.category
+	var code by VendorTable.code
 }

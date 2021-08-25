@@ -16,6 +16,8 @@ abstract class AbstractImportService(container: IContainer) : AbstractService(co
 			CSVFormat.DEFAULT.builder()
 				.setHeader()
 				.setTrim(true)
+				.setIgnoreEmptyLines(true)
+				.setNullString("")
 				.setAllowDuplicateHeaderNames(false)
 				.setAllowMissingColumnNames(false)
 				.setDelimiter(';')

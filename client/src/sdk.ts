@@ -20,7 +20,7 @@ export namespace ps {
 			export interface TranslationDto {
 				label: string;
 				language: string;
-				text: string;
+				text: string | null;
 			}
 		}
 	}
