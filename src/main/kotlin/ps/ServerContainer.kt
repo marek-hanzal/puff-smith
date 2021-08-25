@@ -15,7 +15,6 @@ import ps.api.root.RootHttpModule
 import ps.api.user.UserHttpModule
 import ps.session.SessionValidator
 import ps.upgrade.u2021_08_19.u2021_08_19
-import ps.upgrade.u2021_08_24.u2021_08_24
 
 @ExperimentalStdlibApi
 object ServerContainer {
@@ -30,7 +29,6 @@ object ServerContainer {
 		 */
 		configurator(IUpgradeManager::class) {
 			upgrade(u2021_08_19::class)
-			upgrade(u2021_08_24::class)
 		}
 		configurator(IHttpServer::class) {
 			module(PublicHttpModule::class)

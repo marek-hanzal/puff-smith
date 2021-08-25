@@ -24,3 +24,23 @@ cs;common.sign-out.tooltip;Odhlásit se
 cs;public.sign-out.title;Odhlášení
 cs;public.sign-out;Počkejte prosím, probíhá odhlášení z aplikace...
 cs;error.public.bad-login.error;"Nesprávné přihlašovací údaje; prosím zkontrolujte jméno i heslo."
+cs;public.404.title;Stránka nenalezena
+cs;public.404.subtitle;Toto se st8vá i v lepších rodinách - narazili jste na stránku, která neexistuje...
+cs;public.404.back;Zpět
+cs;public.404.home;Domů
+cs;user.mod.menu;Mody
+cs;user.mod.index.menu;Nástěnka
+cs;user.mod.create.menu;Nový mod
+cs;user.mod.list.menu;Seznam modů
+cs;user.atomizer.menu;Atomizéry
+cs;user.atomizer.index.menu;Nástěnka
+cs;user.atomizer.create.menu;Nový atomizér
+cs;user.atomizer.list.menu;Seznam atomizérů
+cs;user.mod.index.title;Nástěnka modů
+cs;user.mod.index.subtitle;Zde se nachází sekce pro správu všech vašich modů (zařízení).
+cs;user.mod.create.title;Nový mod
+cs;user.mod.list.title;Seznam modů
+cs;user.atomizer.index.title;Nástěnka atomizérů
+cs;user.atomizer.index.subtitle;Zde se nachází správa vašich atomizérů (a jiných podobných zařízení).
+cs;user.atomizer.create.title;Nový atomizér
+cs;user.atomizer.list.title;Seznam atomizérů
