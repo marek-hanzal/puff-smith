@@ -1,8 +1,8 @@
-package ps.storage.module.atomizer.table
+package ps.upgrade.u2021_08_19.storage.module.atomizer.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
-import ps.storage.module.vendor.table.VendorTable
+import ps.upgrade.u2021_08_19.storage.module.vendor.table.VendorTable
 
 object AtomizerTable : UUIDTable("atomizer") {
 	/**

@@ -3,12 +3,15 @@ package ps.mod
 import leight.container.IContainer
 import leight.import.AbstractImportService
 import leight.repository.ConflictException
+import org.jetbrains.exposed.sql.SizedCollection
+import ps.storage.module.enum.repository.lazyEnumRepository
 import ps.storage.module.mod.repository.lazyModRepository
 import ps.storage.module.vendor.repository.lazyVendorRepository
 
 class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 	private val modRepository by container.lazyModRepository()
 	private val vendorRepository by container.lazyVendorRepository()
+	private val enumRepository by container.lazyEnumRepository()
 
 	override fun import(resource: String) {
 		csv(resource) {
@@ -27,6 +30,7 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 						capacity = get("capacity")?.toInt()
 						power = get("power").toInt()
 						efficiency = get("efficiency")?.toInt()
+						battery = SizedCollection(get("battery")?.split(',')?.map(enumRepository::findByCode)?.toList() ?: listOf())
 					}
 				}
 			} catch (e: ConflictException) {
@@ -45,6 +49,7 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 								capacity = get("capacity")?.toInt()
 								power = get("power").toInt()
 								efficiency = get("efficiency")?.toInt()
+								battery = SizedCollection(get("battery")?.split(',')?.map(enumRepository::findByCode)?.toList() ?: listOf())
 							}
 						}
 					}
