@@ -8,6 +8,7 @@ import leight.pool.PoolConfig
 import leight.upgrade.lazyUpgradeManager
 import leight.upgrade.lazyVersionService
 import leight.utils.asStamp
+import ps.enum.lazyEnumCsvImport
 import ps.mod.lazyModCsvImport
 import ps.translation.lazyTranslationCsvImport
 import ps.vendor.lazyVendorCsvImport
@@ -28,6 +29,7 @@ class Server(container: IContainer) : AbstractService(container) {
 	private val translationCsvImport by container.lazyTranslationCsvImport()
 	private val vendorCsvImport by container.lazyVendorCsvImport()
 	private val modCsvImport by container.lazyModCsvImport()
+	private val enumCsvImport by container.lazyEnumCsvImport()
 
 	fun run() {
 		measureTimeMillis {
@@ -45,6 +47,8 @@ class Server(container: IContainer) : AbstractService(container) {
 			}
 			logger.info { "Executing translation update" }
 			translationCsvImport.import("update/translations.csv")
+			logger.info { "Executing enum update" }
+			enumCsvImport.import("update/enums.csv")
 			logger.info { "Executing vendor update" }
 			vendorCsvImport.import("update/vendors.csv")
 			logger.info { "Executing mods update" }
