@@ -11,6 +11,11 @@ object AtomizerTable : UUIDTable("atomizer") {
 	val name = varchar("name", 64)
 
 	/**
+	 * A code used for example for imports; must be unique.
+	 */
+	val code = varchar("code", 32).uniqueIndex("atomizer_code_unique")
+
+	/**
 	 * Who crafted this piece of magical thing?
 	 */
 	val vendor = reference("vendor", VendorTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT)
@@ -21,9 +26,19 @@ object AtomizerTable : UUIDTable("atomizer") {
 	val coils = integer("coils").default(1)
 
 	/**
+	 * Maximum coil size in mm (for example 25 is 2.5 mm).
+	 */
+	val maxCoilSize = integer("maxCoilSize").nullable()
+
+	/**
+	 * Maximum number of (sensible) coil wraps (in common).
+	 */
+	val maxWraps = integer("maxWraps").nullable()
+
+	/**
 	 * A capacity of an atomizer.
 	 */
-	val capacity = float("capacity")
+	val capacity = float("capacity").nullable()
 
 	/**
 	 * Is this atomizer squonk-enabled?

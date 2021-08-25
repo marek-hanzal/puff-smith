@@ -8,6 +8,7 @@ import leight.pool.PoolConfig
 import leight.upgrade.lazyUpgradeManager
 import leight.upgrade.lazyVersionService
 import leight.utils.asStamp
+import ps.atomizer.lazyAtomizerCsvImport
 import ps.enum.lazyEnumCsvImport
 import ps.mod.lazyModCsvImport
 import ps.translation.lazyTranslationCsvImport
@@ -30,6 +31,7 @@ class Server(container: IContainer) : AbstractService(container) {
 	private val vendorCsvImport by container.lazyVendorCsvImport()
 	private val modCsvImport by container.lazyModCsvImport()
 	private val enumCsvImport by container.lazyEnumCsvImport()
+	private val atomizerCsvImport by container.lazyAtomizerCsvImport()
 
 	fun run() {
 		measureTimeMillis {
@@ -53,6 +55,8 @@ class Server(container: IContainer) : AbstractService(container) {
 			vendorCsvImport.import("update/vendors.csv")
 			logger.info { "Executing mods update" }
 			modCsvImport.import("update/mods.csv")
+			logger.info { "Executing atomizer update" }
+			atomizerCsvImport.import("update/atomizers.csv")
 		}.also {
 			logger.info { "Boobstrap time ${it}ms" }
 		}

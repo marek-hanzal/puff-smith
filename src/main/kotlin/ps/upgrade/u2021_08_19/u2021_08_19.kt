@@ -4,6 +4,7 @@ import leight.container.IContainer
 import leight.encryption.lazyPasswordService
 import leight.upgrade.AbstractUpgrade
 import org.jetbrains.exposed.sql.SchemaUtils
+import ps.upgrade.u2021_08_19.storage.module.atomizer.table.AtomizerPuffTable
 import ps.upgrade.u2021_08_19.storage.module.atomizer.table.AtomizerTable
 import ps.upgrade.u2021_08_19.storage.module.atomizer.table.AtomizerTypeTable
 import ps.upgrade.u2021_08_19.storage.module.enum.table.EnumTable
@@ -34,6 +35,7 @@ class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
 				EnumTable,
 				VendorTable,
 				AtomizerTypeTable,
+				AtomizerPuffTable,
 				ModBatteryTable,
 				AtomizerTable,
 				ModTable,
