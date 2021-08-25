@@ -1,0 +1,5 @@
+name;vendor;coils;capacity;squonk;base;type;puff;maxWraps;maxCoilSize;code
+RTA OG 2021;hussar-vapes.atomizer;1;3.5;false;22;atomizer.type.rta;puff.dl.restricted;;25;rta-og-2021
+Taifun GT IV S;smokerstore.atomizer;2;3.5;false;23;atomizer.type.rta;puff.dl;;;taifun-gt-iv-s
+APEX RDA;vicious-ant.atomizer;1;;true;22;atomizer.type.rda;puff.dl,puff.dl.restricted;;;apex-rda
+Kayfun Lite 24mm RTA;svoëmesto.atomizer;1;3.5;false;24;atomizer.type.rta;puff.mtl;;;kayfun-lite-24mm-rta
