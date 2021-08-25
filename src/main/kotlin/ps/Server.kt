@@ -9,6 +9,7 @@ import leight.upgrade.lazyUpgradeManager
 import leight.upgrade.lazyVersionService
 import leight.utils.asStamp
 import ps.translation.lazyTranslationCsvImport
+import ps.vendor.lazyVendorCsvImport
 import kotlin.system.measureTimeMillis
 import kotlin.time.ExperimentalTime
 
@@ -24,6 +25,7 @@ class Server(container: IContainer) : AbstractService(container) {
 	private val versionService by container.lazyVersionService()
 	private val httpServer by container.lazyHttpServer()
 	private val translationCsvImport by container.lazyTranslationCsvImport()
+	private val vendorCsvImport by container.lazyVendorCsvImport()
 
 	fun run() {
 		measureTimeMillis {
@@ -39,7 +41,12 @@ class Server(container: IContainer) : AbstractService(container) {
 					logger.info { "\t\tstamp: [${it.stamp.asStamp()}], version: [${it.version}]" }
 				}
 			}
+			logger.info { "Executing translation update" }
 			translationCsvImport.import("translations.csv")
+			logger.info { "Done" }
+			logger.info { "Executing vendor update" }
+			vendorCsvImport.import("vendors.csv")
+			logger.info { "Done" }
 		}.also {
 			logger.info { "Boobstrap time ${it}ms" }
 		}

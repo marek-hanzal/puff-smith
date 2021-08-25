@@ -1,12 +1,12 @@
-package ps.storage.module.session.repository
+package ps.upgrade.u2021_08_25.storage.module.session.repository
 
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.deleteWhere
-import ps.storage.module.session.entity.TicketEntity
-import ps.storage.module.session.table.TicketTable
-import ps.storage.module.user.entity.UserEntity
+import ps.upgrade.u2021_08_25.storage.module.session.entity.TicketEntity
+import ps.upgrade.u2021_08_25.storage.module.session.table.TicketTable
+import ps.upgrade.u2021_08_25.storage.module.user.entity.UserEntity
 import java.util.*
 
 class TicketRepository(container: IContainer) : AbstractRepository<TicketTable, TicketEntity>(TicketTable, TicketEntity, container) {
