@@ -4,16 +4,24 @@ import leight.container.IContainer
 import leight.encryption.lazyPasswordService
 import leight.upgrade.AbstractUpgrade
 import org.jetbrains.exposed.sql.SchemaUtils
+import ps.upgrade.u2021_08_19.storage.module.atomizer.table.AtomizerTable
+import ps.upgrade.u2021_08_19.storage.module.atomizer.table.AtomizerTypeTable
+import ps.upgrade.u2021_08_19.storage.module.enum.table.EnumTable
+import ps.upgrade.u2021_08_19.storage.module.mod.table.ModBatteryTable
+import ps.upgrade.u2021_08_19.storage.module.mod.table.ModTable
 import ps.upgrade.u2021_08_19.storage.module.role.entity.RoleEntity
+import ps.upgrade.u2021_08_19.storage.module.role.repository.lazyRoleRepository
 import ps.upgrade.u2021_08_19.storage.module.role.table.RoleTable
 import ps.upgrade.u2021_08_19.storage.module.session.table.TicketTable
 import ps.upgrade.u2021_08_19.storage.module.translation.table.TranslationTable
 import ps.upgrade.u2021_08_19.storage.module.user.entity.UserEntity
 import ps.upgrade.u2021_08_19.storage.module.user.table.UserRoleTable
 import ps.upgrade.u2021_08_19.storage.module.user.table.UserTable
+import ps.upgrade.u2021_08_19.storage.module.vendor.table.VendorTable
 
 class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
 	private val passwordService by container.lazyPasswordService()
+	private val roleRepository by container.lazyRoleRepository()
 
 	override fun upgrade() {
 		storage.write {
@@ -23,6 +31,12 @@ class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
 				UserRoleTable,
 				TicketTable,
 				TranslationTable,
+				EnumTable,
+				VendorTable,
+				AtomizerTypeTable,
+				ModBatteryTable,
+				AtomizerTable,
+				ModTable,
 			)
 		}
 		storage.write {
@@ -42,13 +56,13 @@ class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
 				login = "root"
 				password = passwordService.encrypt("root")
 				site = "root"
-				roles = RoleEntity.find { RoleTable.name eq "root" }
+				roles = roleRepository.findByName("root")
 			}
 			UserEntity.new {
 				login = "user"
 				password = passwordService.encrypt("user")
 				site = "user"
-				roles = RoleEntity.find { RoleTable.name eq "user" }
+				roles = roleRepository.findByName("user")
 			}
 		}
 	}

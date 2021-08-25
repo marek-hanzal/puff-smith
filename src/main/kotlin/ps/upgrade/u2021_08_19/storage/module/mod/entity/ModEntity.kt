@@ -1,11 +1,11 @@
-package ps.storage.module.mod.entity
+package ps.upgrade.u2021_08_19.storage.module.mod.entity
 
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
-import ps.storage.module.enum.entity.EnumEntity
-import ps.storage.module.mod.table.ModBatteryTable
-import ps.storage.module.mod.table.ModTable
+import ps.upgrade.u2021_08_19.storage.module.enum.entity.EnumEntity
+import ps.upgrade.u2021_08_19.storage.module.mod.table.ModBatteryTable
+import ps.upgrade.u2021_08_19.storage.module.mod.table.ModTable
 import java.util.*
 
 class ModEntity(id: EntityID<UUID>) : UUIDEntity(id) {
