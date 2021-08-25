@@ -19,4 +19,9 @@ object AtomizerTable : UUIDTable("atomizer") {
 	 * Is this atomizer squonk-enabled?
 	 */
 	val squonk = bool("squonk").default(false)
+
+	/**
+	 * The size of base of an atomizer (in mm).
+	 */
+	val base = integer("base")
 }
