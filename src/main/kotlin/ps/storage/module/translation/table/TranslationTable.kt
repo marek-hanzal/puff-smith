@@ -25,7 +25,7 @@ object TranslationTable : UUIDTable("translation") {
 	/**
 	 * The translation text itself.
 	 */
-	val text = text("text")
+	val text = text("text").nullable()
 
 	init {
 		/**

@@ -7,6 +7,6 @@ data class TranslationDto(
 	val language: String,
 	@SdkLiteralProperty("string")
 	val label: String,
-	@SdkLiteralProperty("string")
-	val text: String,
+	@SdkLiteralProperty("string | null")
+	val text: String?,
 )

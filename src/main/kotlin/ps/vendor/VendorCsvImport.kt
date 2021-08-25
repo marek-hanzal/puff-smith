@@ -15,10 +15,20 @@ class VendorCsvImport(container: IContainer) : AbstractImportService(container) 
 					vendorRepository.create {
 						name = get("name")
 						category = get("category")
+						code = get("code")
 					}
 				}
 			} catch (e: ConflictException) {
-				// swallow one - on the import we don't care; also do not pollute logs
+				when (e.message) {
+					"Unique conflict on [vendor.vendor_code_unique]." -> {
+						storage.write(vendorRepository::exception) {
+							vendorRepository.update(vendorRepository.findByCode(get("code")).id.value) {
+								name = get("name")
+								category = get("category")
+							}
+						}
+					}
+				}
 			}
 		}
 	}
