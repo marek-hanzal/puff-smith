@@ -1,6 +1,6 @@
 {
 	"name": "puff-smith",
-	"version": "0.5.9",
+	"version": "0.5.10",
 	"repository": "git@github.com:marek-hanzal/puff-smith.git",
 	"license": "Apache-2.0",
 	"scripts": {
