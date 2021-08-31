@@ -79,7 +79,7 @@ jobs:
 
     config:
         runs-on: ubuntu-latest
-#        needs: build
+        #        needs: build
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
@@ -90,7 +90,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     username: root
                     key: ${{ secrets.SSHKEY }}
-                    source: "./app"
+                    source: "./config"
                     target: "/opt/app"
                     rm: true
 #
