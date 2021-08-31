@@ -8,12 +8,12 @@ services:
         labels:
             - 'traefik.enable=true'
             # http stuff
-            - 'traefik.http.routers.puff-smith-staging.rule=Host(`staging.puff-smith-staging.rocks`)'
+            - 'traefik.http.routers.puff-smith-staging.rule=Host(`staging.puff-smith.rocks`)'
             - 'traefik.http.routers.puff-smith-staging.entrypoints=http'
             - 'traefik.http.routers.puff-smith-staging.middlewares=redirect-to-https'
             - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
             # https stuff
-            - 'traefik.http.routers.puff-smith-staging-tls.rule=Host(`staging.puff-smith-staging.rocks`)'
+            - 'traefik.http.routers.puff-smith-staging-tls.rule=Host(`staging.puff-smith.rocks`)'
             - 'traefik.http.routers.puff-smith-staging-tls.entrypoints=https'
             - 'traefik.http.routers.puff-smith-staging-tls.tls=true'
             - 'traefik.http.routers.puff-smith-staging-tls.tls.certresolver=default'
