@@ -1,9 +1,9 @@
-name: Production Release
+name: Staging Release
 
 on:
     push:
-        tags:
-            - 'v*.*.*'
+        branches:
+            - main
 
 jobs:
     build:
@@ -130,6 +130,6 @@ jobs:
                     script_stop: true
                     script: |
                         cd /opt/app/config
-                        docker compose -f docker-compose.production.yml down
-                        docker compose -f docker-compose.production.yml pull
-                        docker compose -f docker-compose.production.yml up -d
+                        docker compose -f docker-compose.staging.yml down
+                        docker compose -f docker-compose.staging.yml pull
+                        docker compose -f docker-compose.staging.yml up -d
