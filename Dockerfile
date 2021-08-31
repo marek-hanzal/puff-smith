@@ -7,7 +7,7 @@ ARG VERSION
 #COPY client/package.json client/package-lock.json ./
 #RUN npm install && npm ci --only-production
 #
-#FROM node:alpine as client-builder
+FROM node:alpine as client-builder
 
 ENV \
 	NODE_ENV=production \
