@@ -11,9 +11,9 @@ services:
             - --providers.docker.network=web
             - --entrypoints.http.address=:80
             - --entrypoints.https.address=:443
-#            - --certificateresolvers.letsencrypt.acme.tlschallange=true
-#            - --certificateresolvers.letsencrypt.acme.email=acme@puff-smith.rocks
-#            - --certificateresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+            - --certificateresolvers.lets-encrypt.acme.tlschallange=true
+            - --certificateresolvers.lets-encrypt.acme.email=acme@puff-smith.rocks
+            - --certificateresolvers.lets-encrypt.acme.storage=/lets-encrypt/acme.json
             - --log.level=debug
         labels:
             - 'traefik.enable=true'
@@ -26,7 +26,6 @@ services:
         networks:
             - web
         volumes:
-            #            - ./docker:/etc/traefik
             - /var/run/docker.sock:/var/run/docker.sock
 
 networks:
