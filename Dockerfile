@@ -1,3 +1,5 @@
+ARG BUILD
+
 #FROM node:alpine as client-deps
 #
 #WORKDIR /opt/client
@@ -6,19 +8,17 @@
 #RUN npm install && npm ci --only-production
 #
 FROM node:alpine as client-builder
-ARG foo
 ENV \
 	NODE_ENV=production \
-	NEXT_TELEMETRY_DISABLED=1 \
-	FOO=${foo:-pyca}
+	NEXT_TELEMETRY_DISABLED=1
 
 WORKDIR /opt/client
 
 #COPY client .
 #COPY --from=client-deps /opt/client/node_modules ./node_modules
 RUN printenv
-RUN echo -e "Build Version=$FOO"
-RUN echo -e "NEXT_PUBLIC_BUILD=$FOO" > .env.local
+RUN echo -e "Build Version=$BUILD"
+RUN echo -e "NEXT_PUBLIC_BUILD=$BUILD" > .env.local
 #
 #RUN npm run build
 #
