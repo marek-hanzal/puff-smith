@@ -12,16 +12,16 @@ services:
             - web
         labels:
             - 'traefik.enable=true'
+            # http stuff
             - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
             - 'traefik.http.routers.puff-smith.entrypoints=http'
-#            - 'traefik.http.routers.puff-smith.tls=true'
-#            - 'traefik.http.routers.puff-smith.tls.certresolver=lets-encrypt'
-#            - 'traefik.http.services.puff-smith.loadbalancer.server.port=3000'
-#        ports:
-#            # client web application
-#            - "80:3000"
-#            # backend server
-#            - "8080:8088"
+            - 'traefik.http.services.puff-smith.loadbalancer.server.port=3000'
+            # https stuff
+            - 'traefik.http.routers.puff-smith-tls.rule=Host(`puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-tls.tls.certresolver=lets-encrypt'
+            - 'traefik.http.services.puff-smith-tls.loadbalancer.server.port=3000'
 
 networks:
     web:
