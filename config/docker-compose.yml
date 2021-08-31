@@ -13,14 +13,15 @@ services:
         labels:
             - 'traefik.enable=true'
             # http stuff
-#            - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
-#            - 'traefik.http.routers.puff-smith.entrypoints=http'
-#            - 'traefik.http.services.puff-smith.loadbalancer.server.port=3000'
+            - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith.entrypoints=http'
+            - 'traefik.http.routers.puff-smith.middlewares=redirect-to-https'
+            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
             # https stuff
             - 'traefik.http.routers.puff-smith-tls.rule=Host(`puff-smith.rocks`)'
             - 'traefik.http.routers.puff-smith-tls.entrypoints=https'
             - 'traefik.http.routers.puff-smith-tls.tls=true'
-#            - 'traefik.http.routers.puff-smith-tls.tls.certresolver=lets-encrypt'
+            #            - 'traefik.http.routers.puff-smith-tls.tls.certresolver=lets-encrypt'
             - 'traefik.http.services.puff-smith-tls.loadbalancer.server.port=3000'
 
 networks:
