@@ -68,11 +68,13 @@ jobs:
             -   name: Build and push
                 uses: docker/build-push-action@master
                 id: build
-                env:
-                    VERSION: ${{ steps.prepare.outputs.version }}
+#                env:
+#                    VERSION: ${{ steps.prepare.outputs.version }}
                 with:
                     push: ${{ github.event_name != 'pull_request' }}
                     tags: ${{ steps.prepare.outputs.tags }}
+                    build-args:
+                        - VERSION=${{ steps.prepare.outputs.version }}
 
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
