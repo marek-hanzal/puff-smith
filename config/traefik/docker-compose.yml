@@ -28,3 +28,7 @@ services:
         volumes:
             #            - ./docker:/etc/traefik
             - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+    web:
+        external: true
