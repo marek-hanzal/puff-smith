@@ -9,6 +9,7 @@ import leight.session.SessionTicket
 import leight.storage.lazyStorage
 import ps.api.module.session.dto.SessionDto
 import ps.api.module.user.dto.UserDto
+import ps.session.mapper.lazyTicketToSessionMapper
 import ps.storage.module.session.repository.lazyTicketRepository
 
 @Sdk(
@@ -21,11 +22,12 @@ import ps.storage.module.session.repository.lazyTicketRepository
 class TicketEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val storage by container.lazyStorage()
 	private val ticketRepository by container.lazyTicketRepository()
+	private val ticketToSessionMapper by container.lazyTicketToSessionMapper()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> = call.authentication.principal<SessionTicket>()?.let { sessionTicket ->
 		storage.read {
 			ticketRepository.findByTicket(sessionTicket.id)?.let { ticketEntity ->
-				ok(SessionDto(UserDto(ticketEntity.user.id.toString(), ticketEntity.user.site ?: "locked", arrayOf())))
+				ok(ticketToSessionMapper.map(ticketEntity))
 			}
 		}
 	} ?: ok(SessionDto(UserDto(null, "public", arrayOf())))

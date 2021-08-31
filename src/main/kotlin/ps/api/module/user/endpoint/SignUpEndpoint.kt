@@ -8,6 +8,7 @@ import leight.encryption.lazyPasswordService
 import leight.rest.*
 import leight.storage.lazyStorage
 import ps.api.module.session.dto.SessionDto
+import ps.api.module.user.dto.RoleDto
 import ps.api.module.user.dto.SignUpDto
 import ps.api.module.user.dto.UserDto
 import ps.storage.module.user.repository.lazyUserRepository
@@ -36,7 +37,7 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 			}
 			storage.read {
 				userRepository.findByCredentials(request.login, request.password).let { user ->
-					ok(SessionDto(UserDto(user.id.toString(), if (user.site != null) user.site!! else "user", user.roles.map { it.name }.toTypedArray())))
+					ok(SessionDto(UserDto(user.id.value, if (user.site != null) user.site!! else "user", user.roles.map { RoleDto(it.id.value, it.name) }.toTypedArray())))
 				}
 			}
 		}

@@ -37,8 +37,13 @@ export namespace ps {
 	export namespace user {
 		export interface UserDto {
 			id: string | null;
-			roles: string[];
+			roles: RoleDto[];
 			site: string;
+		}
+
+		export interface RoleDto {
+			id: string;
+			name: string;
 		}
 
 		export interface SignInDto {

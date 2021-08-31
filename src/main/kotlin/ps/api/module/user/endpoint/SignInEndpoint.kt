@@ -11,9 +11,9 @@ import leight.user.UnknownUserException
 import leight.user.UserException
 import ps.api.module.session.dto.SessionDto
 import ps.api.module.user.dto.SignInDto
-import ps.api.module.user.dto.UserDto
 import ps.storage.module.session.repository.lazyTicketRepository
 import ps.storage.module.user.repository.lazyUserRepository
+import ps.user.mapper.lazyUserToSessionMapper
 
 @Endpoint(
 	public = true,
@@ -27,13 +27,14 @@ class SignInEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val storage by container.lazyStorage()
 	private val userRepository by container.lazyUserRepository()
 	private val ticketRepository by container.lazyTicketRepository()
+	private val userToSessionMapper by container.lazyUserToSessionMapper()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> = call.receive<SignInDto>().let { request ->
 		call.request.header("X-Client-Hash")?.let { hash ->
 			storage.transaction {
 				userRepository.findByCredentials(request.login, request.password).let { user ->
 					call.ticket(ticketRepository.ticketFor(user, hash))
-					ok(SessionDto(UserDto(user.id.value.toString(), user.site ?: "locked", arrayOf())))
+					ok(userToSessionMapper.map(user))
 				}
 			}
 		} ?: badRequest("Missing client hash.")
