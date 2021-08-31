@@ -11,7 +11,8 @@ FROM node:alpine as client-builder
 
 ENV \
 	NODE_ENV=production \
-	NEXT_TELEMETRY_DISABLED=1
+	NEXT_TELEMETRY_DISABLED=1 \
+	VERSION=$version
 
 WORKDIR /opt/client
 
