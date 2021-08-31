@@ -7,20 +7,20 @@
 #
 FROM node:alpine as client-builder
 
-ARG FOO
+ARG BUILD
 
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	FOO=${FOO:-ledapyca}
+	BUILD=${BUILD:-ledapyca}
 
 WORKDIR /opt/client
 
 #COPY client .
 #COPY --from=client-deps /opt/client/node_modules ./node_modules
 RUN printenv
-RUN echo "Build Version=$FOO"
-RUN echo "NEXT_PUBLIC_BUILD=$FOO" > .env.local
+RUN echo "Build Version=$BUILD"
+RUN echo "NEXT_PUBLIC_BUILD=$BUILD" > .env.local
 #
 #RUN npm run build
 #
