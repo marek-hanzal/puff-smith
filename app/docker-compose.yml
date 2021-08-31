@@ -1,0 +1,20 @@
+version: '3.4'
+services:
+    puff-smith:
+        image: marekhanzal/puff-smith:edge
+        env_file: .env
+#        environment:
+            # good old ones
+            #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
+            #            - DATABASE_USER=postgres
+            #            - DATABASE_PASSWORD=1234
+        labels:
+            - 'traefik.enable=true'
+            - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith.tls=true'
+            - 'traefik.http.routers.puff-smith.tls.certresolver=lets-encrypt'
+#        ports:
+#            # client web application
+#            - "80:3000"
+#            # backend server
+#            - "8080:8088"
