@@ -108,6 +108,7 @@ jobs:
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
                     script: |
+                        docker network create web --attachable
                         cd /opt/app/config/traefik
                         docker-compose pull
                         docker-compose up -d
