@@ -1,14 +1,16 @@
 package ps.api.module.user.dto
 
+import leight.client.sdk.property.SdkArrayProperty
 import leight.client.sdk.property.SdkLiteralProperty
+import java.util.*
 
 data class UserDto(
 	@SdkLiteralProperty("string | null")
-	val id: String?,
+	val id: UUID?,
 	@SdkLiteralProperty("string")
 	val site: String,
-	@SdkLiteralProperty("string[]")
-	val roles: Array<String>,
+	@SdkArrayProperty(RoleDto::class)
+	val roles: Array<RoleDto>,
 ) {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
