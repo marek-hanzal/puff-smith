@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-    puff-smith:
-        image: marekhanzal/puff-smith:edge
+    puff-smith-production:
+        image: marekhanzal/puff-smith:latest
         env_file: .env
         networks:
             - web
