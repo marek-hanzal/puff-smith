@@ -78,7 +78,6 @@ jobs:
 
     config:
         runs-on: ubuntu-latest
-        needs: build
         steps:
             -   name: Check out the repo
                 uses: actions/checkout@master
@@ -96,7 +95,6 @@ jobs:
     traefik:
         runs-on: ubuntu-latest
         needs:
-            - build
             - config
         steps:
             -   name: Update Traefik

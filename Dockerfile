@@ -11,7 +11,7 @@ ARG BUILD
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	BUILD=$BUILD
+	BUILD=${BUILD:-unknown}
 
 WORKDIR /opt/client
 
@@ -25,7 +25,7 @@ FROM marekhanzal/buffalo as server-builder
 ARG BUILD
 
 ENV \
-	BUILD=$BUILD
+	BUILD=${BUILD:-unknown}
 
 WORKDIR /opt/server
 
@@ -44,7 +44,7 @@ ARG BUILD
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	BUILD=$BUILD
+	BUILD=${BUILD:-unknown}
 
 RUN adduser --disabled-password --home /opt/app app app
 
