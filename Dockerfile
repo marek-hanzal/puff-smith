@@ -1,5 +1,3 @@
-ARG FOO
-
 #FROM node:alpine as client-deps
 #
 #WORKDIR /opt/client
@@ -8,6 +6,9 @@ ARG FOO
 #RUN npm install && npm ci --only-production
 #
 FROM node:alpine as client-builder
+
+ARG FOO
+
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
