@@ -18,7 +18,6 @@ WORKDIR /opt/client
 
 #COPY client .
 #COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN printenv
 RUN echo "Build Version=$BUILD"
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" > .env.local
 #
