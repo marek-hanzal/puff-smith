@@ -1,5 +1,4 @@
+import {VersionStamp} from "@/ps";
 import {Centered} from "@leight-core/leight";
 
-export const Footer = () => {
-	return <Centered>Puff Smith [user] v[{process.env.NEXT_PUBLIC_VERSION}/{process.env.NEXT_PUBLIC_BUILD}]</Centered>;
-};
+export const Footer = () => <Centered>Puff Smith [user] <VersionStamp/></Centered>;
