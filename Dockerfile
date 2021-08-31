@@ -1,4 +1,4 @@
-ARG VERSION
+ARG version
 
 #FROM node:alpine as client-deps
 #
@@ -17,8 +17,9 @@ WORKDIR /opt/client
 
 #COPY client .
 #COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN echo -e "Build Version=$VERSION"
-RUN echo -e "NEXT_PUBLIC_BUILD=$VERSION" > .env.local
+RUN printenv
+RUN echo -e "Build Version=$version"
+RUN echo -e "NEXT_PUBLIC_BUILD=$version" > .env.local
 #
 #RUN npm run build
 #
