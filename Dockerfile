@@ -1,3 +1,5 @@
+ARG VERSION
+
 FROM node:alpine as client-deps
 
 WORKDIR /opt/client
