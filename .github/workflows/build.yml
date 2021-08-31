@@ -76,63 +76,57 @@ jobs:
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
 
-#    config:
-#        runs-on: ubuntu-latest
-#        needs: build
-#        steps:
-#            -   name: Check out the repo
-#                uses: actions/checkout@master
-#
-#            -   name: Deploy Configs
-#                uses: appleboy/scp-action@master
-#                with:
-#                    host: ${{ secrets.HOST }}
-#                    username: root
-#                    key: ${{ secrets.SSHKEY }}
-#                    source: "./config"
-#                    target: "/opt/app"
-#                    rm: true
-#
-#    traefik:
-#        runs-on: ubuntu-latest
-#        needs:
-#            - build
-#            - config
-#        steps:
-#            -   name: Update Traefik
-#                uses: appleboy/ssh-action@master
-#                with:
-#                    username: root
-#                    host: ${{ secrets.HOST }}
-#                    key: ${{ secrets.SSHKEY }}
-#                    script_stop: true
-#                    script: |
-#                        docker network create web --attachable
-#                        cd /opt/app/config/traefik
-#                        docker-compose pull
-#                        docker-compose up -d
-#
-#    deploy:
-#        runs-on: ubuntu-latest
-#        needs:
-#            - build
-#            - config
-#        steps:
-#            -   name: Deploy Stack
-#                uses: appleboy/ssh-action@master
-#                env:
-#                    BACKEND_HOST: "http://${{ secrets.HOST }}:8080"
-#                    VERSION: ${{ needs.build.outputs.version }}
-#                with:
-#                    username: root
-#                    host: ${{ secrets.HOST }}
-#                    key: ${{ secrets.SSHKEY }}
-#                    script_stop: true
-#                    envs: BACKEND_HOST,VERSION
-#                    script: |
-#                        cd /opt/app/config
-#                        echo "BACKEND_HOST=$BACKEND_HOST" >> .env
-#                        echo "VERSION=$VERSION" >> .env
-#                        docker-compose down
-#                        docker-compose pull
-#                        docker-compose up -d
+    config:
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            -   name: Check out the repo
+                uses: actions/checkout@master
+
+            -   name: Deploy Configs
+                uses: appleboy/scp-action@master
+                with:
+                    host: ${{ secrets.HOST }}
+                    username: root
+                    key: ${{ secrets.SSHKEY }}
+                    source: "./config"
+                    target: "/opt/app"
+                    rm: true
+
+    traefik:
+        runs-on: ubuntu-latest
+        needs:
+            - build
+            - config
+        steps:
+            -   name: Update Traefik
+                uses: appleboy/ssh-action@master
+                with:
+                    username: root
+                    host: ${{ secrets.HOST }}
+                    key: ${{ secrets.SSHKEY }}
+                    script_stop: true
+                    script: |
+                        docker network create web --attachable
+                        cd /opt/app/config/traefik
+                        docker-compose pull
+                        docker-compose up -d
+
+    deploy:
+        runs-on: ubuntu-latest
+        needs:
+            - build
+            - config
+        steps:
+            -   name: Deploy Stack
+                uses: appleboy/ssh-action@master
+                with:
+                    username: root
+                    host: ${{ secrets.HOST }}
+                    key: ${{ secrets.SSHKEY }}
+                    script_stop: true
+                    script: |
+                        cd /opt/app/config
+                        docker-compose down
+                        docker-compose pull
+                        docker-compose up -d
