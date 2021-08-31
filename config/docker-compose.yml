@@ -3,11 +3,6 @@ services:
     puff-smith:
         image: marekhanzal/puff-smith:edge
         env_file: .env
-        #        environment:
-        # good old ones
-        #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
-        #            - DATABASE_USER=postgres
-        #            - DATABASE_PASSWORD=1234
         networks:
             - web
         labels:
