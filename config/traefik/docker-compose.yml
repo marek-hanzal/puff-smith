@@ -11,9 +11,9 @@ services:
             - --providers.docker.network=web
             - --entrypoints.http.address=:80
             - --entrypoints.https.address=:443
-            - --certificateresolvers.lets-encrypt.acme.tlschallange=true
-            - --certificateresolvers.lets-encrypt.acme.email=acme@puff-smith.rocks
-            - --certificateresolvers.lets-encrypt.acme.storage=/lets-encrypt/acme.json
+            - --certificatesresolvers.lets-encrypt.acme.tlschallange=true
+            - --certificatesresolvers.lets-encrypt.acme.email=acme@puff-smith.rocks
+            - --certificatesresolvers.lets-encrypt.acme.storage=/lets-encrypt/acme.json
             - --log.level=debug
         labels:
             - 'traefik.enable=true'
