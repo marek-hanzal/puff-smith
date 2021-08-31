@@ -11,7 +11,7 @@ FROM node:alpine as client-builder
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	FOO=$FOO
+	FOO=${FOO:-ledapyca}
 
 WORKDIR /opt/client
 
