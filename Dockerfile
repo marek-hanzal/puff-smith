@@ -16,6 +16,7 @@ WORKDIR /opt/client
 
 COPY client .
 COPY --from=client-deps /opt/client/node_modules ./node_modules
+RUN echo "Build Version=$VERSION"
 RUN echo "NEXT_PUBLIC_BUILD=$VERSION" > .env.local
 
 RUN npm run build
@@ -44,6 +45,9 @@ RUN adduser --disabled-password --home /opt/app app app
 RUN apk add --update nodejs npm supervisor && rm  -rf /tmp/* /var/cache/apk/* && npm i -g npm
 
 ADD rootfs/runtime /
+
+WORKDIR /opt/app
+RUN echo $VERSION > .build
 
 WORKDIR /opt/app/client
 

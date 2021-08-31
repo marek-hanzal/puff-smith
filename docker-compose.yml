@@ -11,8 +11,6 @@ services:
             - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
             - DATABASE_USER=postgres
             - DATABASE_PASSWORD=1234
-            # setup for the client where to find Discovery index and for server where the backend is running
-            - BACKEND_HOST=http://localhost:8088
         ports:
             # client web application
             - "8080:3000"
