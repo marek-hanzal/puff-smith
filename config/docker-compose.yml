@@ -10,9 +10,9 @@ services:
             #            - DATABASE_PASSWORD=1234
         labels:
             - 'traefik.enable=true'
-            - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith.tls=true'
-            - 'traefik.http.routers.puff-smith.tls.certresolver=lets-encrypt'
+            - 'traefik.http.routers.puff-smith-config.rule=Host(`puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-config.tls=true'
+            - 'traefik.http.routers.puff-smith-config.tls.certresolver=lets-encrypt'
 #        ports:
 #            # client web application
 #            - "80:3000"
