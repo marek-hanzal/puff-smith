@@ -4,16 +4,19 @@ services:
         image: marekhanzal/puff-smith:edge
         env_file: .env
           #        environment:
-          # good old ones
-          #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
+        # good old ones
+        #            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
         #            - DATABASE_USER=postgres
         #            - DATABASE_PASSWORD=1234
+        networks:
+            - web
         labels:
             - 'traefik.enable=true'
             - 'traefik.http.routers.puff-smith.rule=Host(`puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith.tls=true'
-            - 'traefik.http.routers.puff-smith.tls.certresolver=lets-encrypt'
-            - 'traefik.http.services.puff-smith.loadbalancer.server.port=3000'
+            - 'traefik.http.routers.puff-smith.entrypoints=web'
+#            - 'traefik.http.routers.puff-smith.tls=true'
+#            - 'traefik.http.routers.puff-smith.tls.certresolver=lets-encrypt'
+#            - 'traefik.http.services.puff-smith.loadbalancer.server.port=3000'
 #        ports:
 #            # client web application
 #            - "80:3000"
