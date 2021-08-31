@@ -12,7 +12,7 @@ ARG BUILD
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	BUILD=${BUILD:-ledapyca}
+	BUILD=$BUILD
 
 WORKDIR /opt/client
 
