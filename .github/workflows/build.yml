@@ -71,7 +71,7 @@ jobs:
                 with:
                     push: ${{ github.event_name != 'pull_request' }}
                     tags: ${{ steps.prepare.outputs.tags }}
-                    build-args: version=${{ steps.prepare.outputs.version }}
+                    build-args: version=hovno
 
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
