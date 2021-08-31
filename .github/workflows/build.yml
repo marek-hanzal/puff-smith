@@ -55,9 +55,16 @@ jobs:
                     echo ::set-output name=tags::${TAGS}
                     echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
+            -   name: Cache Docker layers
+                uses: actions/cache@v2
+                with:
+                    path: /tmp/.buildx-cache
+                    key: ${{ runner.os }}-buildx-${{ github.sha }}
+                    restore-keys: |
+                        ${{ runner.os }}-buildx-
+
             -   name: Login to DockerHub
                 uses: docker/login-action@master
-                if: github.event_name != 'pull_request'
                 with:
                     username: ${{ secrets.DOCKER_USERNAME }}
                     password: ${{ secrets.DOCKER_PASSWORD }}
@@ -72,6 +79,8 @@ jobs:
                     push: ${{ github.event_name != 'pull_request' }}
                     tags: ${{ steps.prepare.outputs.tags }}
                     build-args: BUILD=${{ steps.prepare.outputs.version }}
+                    cache-from: type=local,src=/tmp/.buildx-cache
+                    cache-to: type=local,dest=/tmp/.buildx-cache
 
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
@@ -116,7 +125,7 @@ jobs:
             - build
             - config
         steps:
-            -   name: Deploy Stack
+            -   name: Deploy Application
                 uses: appleboy/ssh-action@master
                 with:
                     username: root
