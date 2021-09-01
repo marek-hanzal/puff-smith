@@ -2,7 +2,7 @@ package ps.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.sessions.*
-import leight.client.sdk.Sdk
+import leight.client.sdk.annotation.Sdk
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket

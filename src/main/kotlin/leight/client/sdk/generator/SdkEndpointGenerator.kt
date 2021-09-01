@@ -1,6 +1,6 @@
 package leight.client.sdk.generator
 
-import leight.client.sdk.Sdk
+import leight.client.sdk.annotation.Sdk
 import leight.client.sdk.lazySdkNameResolver
 import leight.container.AbstractService
 import leight.container.IContainer
@@ -13,21 +13,32 @@ import kotlin.reflect.KClass
 class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
 	private val sdkNameResolver by container.lazySdkNameResolver()
 	private val endpointInfo by container.lazyEndpointInfo()
+	private val sdkGenericGenerator by container.lazySdkGenericGenerator()
 
 	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String? = when (endpoint.method) {
 		EndpointMethod.GET -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + "Fetch = createGet<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
-		}
-		EndpointMethod.POST -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createPost<${sdkNameResolver.resolveClassName(klass, sdk.request)}, ${
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + "Fetch = createGet<${
 				sdkNameResolver.resolveClassName(
 					klass,
-					sdk.response
+					sdk.response.klass
 				)
-			}>(\"${endpointInfo.getId(klass)}\")"
+			}${sdkGenericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+		}
+		EndpointMethod.POST -> {
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createPost<${sdkNameResolver.resolveClassName(klass, sdk.request.klass)}${sdkGenericGenerator.exportExpandedTypes(sdk.request)}, ${
+				sdkNameResolver.resolveClassName(
+					klass,
+					sdk.response.klass
+				)
+			}${sdkGenericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
 		EndpointMethod.DELETE -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createDelete<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createDelete<${
+				sdkNameResolver.resolveClassName(
+					klass,
+					sdk.response.klass
+				)
+			}${sdkGenericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
 		else -> null
 	}?.let { return "\t".repeat(level + 1) + it + ";\n" }

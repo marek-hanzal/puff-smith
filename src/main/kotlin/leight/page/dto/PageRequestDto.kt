@@ -1,6 +1,6 @@
 package leight.page.dto
 
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
 import leight.dto.AbstractDto
 import leight.page.InvalidLimitException
 import leight.page.InvalidPageException

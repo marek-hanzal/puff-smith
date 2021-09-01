@@ -1,6 +1,6 @@
 package leight.discovery
 
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
 
 data class DiscoveryItem(
 	@SdkLiteralProperty("string")

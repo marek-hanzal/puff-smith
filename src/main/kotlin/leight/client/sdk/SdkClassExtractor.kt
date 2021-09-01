@@ -1,8 +1,6 @@
 package leight.client.sdk
 
-import leight.client.sdk.property.SdkArrayProperty
-import leight.client.sdk.property.SdkClassProperty
-import leight.client.sdk.property.SdkIndexProperty
+import leight.client.sdk.annotation.*
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.Endpoint
@@ -12,23 +10,35 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 class SdkClassExtractor(container: IContainer) : AbstractService(container) {
-	private fun extractClasses(klass: KClass<*>): List<KClass<*>> {
-		val classes = mutableListOf<KClass<*>>()
-		if (klass !== Unit::class) {
-			classes.add(klass)
+	private fun extractClasses(sdkType: SdkType): List<SdkType> {
+		val classes = mutableListOf<SdkType>()
+		if (sdkType.klass !== Unit::class) {
+			classes.add(sdkType)
 		}
-		klass.memberProperties.forEach { property ->
+		sdkType.klass.memberProperties.forEach { property ->
 			property.findAnnotation<SdkArrayProperty>()?.let {
 				classes.add(it.target)
 				classes.addAll(extractClasses(it.target))
+				it.target.types.forEach { typeClass ->
+					classes.add(typeClass)
+					classes.addAll(extractClasses(typeClass))
+				}
 			}
 			property.findAnnotation<SdkIndexProperty>()?.let {
 				classes.add(it.target)
 				classes.addAll(extractClasses(it.target))
+				it.target.types.forEach { typeClass ->
+					classes.add(typeClass)
+					classes.addAll(extractClasses(typeClass))
+				}
 			}
 			property.findAnnotation<SdkClassProperty>()?.let {
 				classes.add(it.target)
 				classes.addAll(extractClasses(it.target))
+				it.target.types.forEach { typeClass ->
+					classes.add(typeClass)
+					classes.addAll(extractClasses(typeClass))
+				}
 			}
 		}
 		return classes
@@ -38,10 +48,12 @@ class SdkClassExtractor(container: IContainer) : AbstractService(container) {
 		classes.filter { it.findAnnotation<Sdk>() !== null && it.findAnnotation<Endpoint>() !== null }.forEach { block(it.findAnnotation()!!, it.findAnnotation()!!, it) }
 	}
 
-	fun extractSdkClasses(classes: List<KClass<out IEndpoint>>) = mutableListOf<KClass<*>>().let { all ->
+	fun extractSdkClasses(classes: List<KClass<out IEndpoint>>) = mutableListOf<SdkType>().let { all ->
 		sdkClasses(classes) { sdk, _, _ ->
 			all.addAll(extractClasses(sdk.request))
+			sdk.request.types.forEach { all.addAll(extractClasses(it)) }
 			all.addAll(extractClasses(sdk.response))
+			sdk.response.types.forEach { all.addAll(extractClasses(it)) }
 		}
 		all
 	}.distinct()

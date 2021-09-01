@@ -1,6 +1,4 @@
-package leight.client.sdk
-
-import kotlin.reflect.KClass
+package leight.client.sdk.annotation
 
 /**
  * When exporting client side stuff, endpoints being exported must be marked
@@ -9,6 +7,6 @@ import kotlin.reflect.KClass
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
 annotation class Sdk(
-	val request: KClass<*> = Unit::class,
-	val response: KClass<*> = Unit::class,
+	val request: SdkType = SdkType(Unit::class),
+	val response: SdkType = SdkType(Unit::class),
 )

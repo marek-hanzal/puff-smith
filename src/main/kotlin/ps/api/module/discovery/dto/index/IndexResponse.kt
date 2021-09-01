@@ -1,6 +1,6 @@
 package ps.api.module.discovery.dto.index
 
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
 import leight.discovery.DiscoveryItem
 
 data class IndexResponse(

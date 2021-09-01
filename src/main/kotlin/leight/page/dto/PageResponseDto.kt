@@ -1,8 +1,7 @@
 package leight.page.dto
 
 import leight.builder.IBuilder
-import leight.client.sdk.property.SdkArrayProperty
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
 import leight.dto.AbstractDto
 import kotlin.math.ceil
 import kotlin.properties.Delegates
@@ -28,7 +27,7 @@ data class PageResponseDto<TItem>(
 	 * Item count - it should be same as items.size().
 	 */
 	val count: Int,
-	@SdkArrayProperty(Unit::class)
+	@SdkLiteralProperty("TItem[]")
 	/**
 	 * Items of this page; could be also zero (thus total and others is zero).
 	 */

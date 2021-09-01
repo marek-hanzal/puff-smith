@@ -26,9 +26,9 @@ ${"\t".repeat(level)}}
 		var export = arrayOf<String>()
 		export += "import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
 		NamespaceIndex().let { namespaceIndex ->
-			sdkExtractor.extractSdkClasses(endpoints).map { klass ->
-				namespaceIndex.ensure(sdkNameResolver.namespaceParts(klass), klass.simpleName!!) { level ->
-					sdkClassGenerator.exportClass(klass, level)
+			sdkExtractor.extractSdkClasses(endpoints).map { sdkType ->
+				namespaceIndex.ensure(sdkNameResolver.namespaceParts(sdkType.klass), sdkType.klass.simpleName!!) { level ->
+					sdkClassGenerator.exportClass(sdkType, level)
 				}
 			}
 			sdkExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->

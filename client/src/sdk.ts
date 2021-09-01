@@ -1,5 +1,6 @@
 import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from "@leight-core/leight";
 
+
 export namespace ps {
 	export namespace discovery {
 		export const doIndexFetch = createGet<index.IndexResponse>("discovery.index");
@@ -8,7 +9,9 @@ export namespace ps {
 				index: IDiscoveryIndex;
 			}
 		}
+
 	}
+
 
 	export namespace translation {
 		export const doIndexFetch = createGet<index.IndexResponse>("translation.index");
@@ -23,7 +26,9 @@ export namespace ps {
 				text: string | null;
 			}
 		}
+
 	}
+
 
 	export namespace session {
 		export interface SessionDto {
@@ -33,6 +38,7 @@ export namespace ps {
 		export const doTicketFetch = createGet<SessionDto>("session.ticket");
 
 	}
+
 
 	export namespace user {
 		export interface UserDto {
@@ -76,20 +82,57 @@ export namespace ps {
 				vendorId: string;
 			}
 
-			export interface AtomizerDto {
-				base: number;
-				capacity: number;
-				code: string;
-				coils: number;
-				maxCoilSize: number;
-				maxWraps: number;
-				name: string;
-				squonk: boolean;
-				vendorId: string;
-			}
+			export const doCreate = createPost<CreateDto, ps.atomizer.AtomizerDto>("user.atomizer.create");
 
-			export const doCreate = createPost<CreateDto, AtomizerDto>("user.atomizer.create");
+
+			export const doPage = createPost<leight.page.PageRequestDto, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
 
 		}
+
 	}
+
+
+	export namespace atomizer {
+		export interface AtomizerDto {
+			base: number;
+			capacity: number;
+			code: string;
+			coils: number;
+			id: string;
+			maxCoilSize: number;
+			maxWraps: number;
+			name: string;
+			squonk: boolean;
+			vendor: ps.vendor.VendorDto;
+		}
+	}
+
+
+	export namespace vendor {
+		export interface VendorDto {
+			code: any;
+			id: any;
+			name: any;
+		}
+	}
+
+}
+
+export namespace leight {
+	export namespace page {
+		export interface PageRequestDto {
+			limit: number;
+			offset: number;
+			page: number;
+		}
+
+		export interface PageResponseDto<TItem> {
+			count: number;
+			items: TItem[];
+			pages: number;
+			size: number;
+			total: number;
+		}
+	}
+
 }

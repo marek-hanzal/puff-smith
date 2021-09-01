@@ -1,6 +1,6 @@
 package ps.api.user.atomizer.dto
 
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
 
 data class CreateDto(
 	@SdkLiteralProperty("string")

@@ -2,18 +2,19 @@ package ps.api.module.session.endpoint
 
 import io.ktor.application.*
 import io.ktor.auth.*
-import leight.client.sdk.Sdk
+import leight.client.sdk.annotation.Sdk
+import leight.client.sdk.annotation.SdkType
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
 import leight.storage.lazyStorage
-import ps.api.module.session.dto.SessionDto
-import ps.api.module.user.dto.UserDto
+import ps.session.dto.SessionDto
 import ps.session.mapper.lazyTicketToSessionMapper
 import ps.storage.module.session.repository.lazyTicketRepository
+import ps.user.dto.UserDto
 
 @Sdk(
-	response = SessionDto::class,
+	response = SdkType(SessionDto::class),
 )
 @Endpoint(
 	public = true,
