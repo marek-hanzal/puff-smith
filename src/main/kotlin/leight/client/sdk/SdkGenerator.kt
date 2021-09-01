@@ -17,7 +17,7 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
-${namespacePart.parts.values.mapNotNull { it(level) }.joinToString("\n\n") + namespacePart.inner.values.joinToString("\n\n") { exportNamespacePart(it, level + 1) }}
+${arrayOf<String?>(*namespacePart.parts.values.mapNotNull { it(level) }.toTypedArray(), *namespacePart.inner.values.map { exportNamespacePart(it, level + 1) }.toTypedArray()).joinToString("\n\n")}
 ${"\t".repeat(level)}}"""
 	}
 
