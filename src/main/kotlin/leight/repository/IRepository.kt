@@ -1,7 +1,7 @@
 package leight.repository
 
 import leight.checker.IChecker
-import leight.page.Page
+import leight.page.dto.PageRequestDto
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.SizedIterable
@@ -26,11 +26,11 @@ interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
 
 	fun total(filter: IChecker<TEntity>) = total(filter::check)
 
-	fun source(paging: Page): SizedIterable<TEntity>
+	fun source(paging: PageRequestDto): SizedIterable<TEntity>
 
-	fun page(paging: Page, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>? = null)
+	fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>? = null)
 
-	fun page(paging: Page, block: (TEntity) -> Unit, filter: IChecker<TEntity>) = page(paging, block, filter::check)
+	fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: IChecker<TEntity>) = page(paging, block, filter::check)
 
 	fun table(): TTable
 

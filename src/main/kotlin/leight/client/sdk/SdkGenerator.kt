@@ -18,7 +18,8 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
 ${namespacePart.parts.values.mapNotNull { it(level) }.joinToString("\n\n") + namespacePart.inner.values.joinToString("\n\n") { exportNamespacePart(it, level + 1) }}
-${"\t".repeat(level)}}"""
+${"\t".repeat(level)}}
+"""
 	}
 
 	override fun generate(endpoints: List<KClass<out IEndpoint>>): String {
@@ -40,7 +41,7 @@ ${"\t".repeat(level)}}"""
 				export += exportNamespacePart(inner, 0)
 			}
 		}
-		return export.joinToString("")
+		return export.joinToString("\n")
 	}
 
 	override fun generate(): String = generate(httpIndex.endpoints().map { entry -> entry.value })
