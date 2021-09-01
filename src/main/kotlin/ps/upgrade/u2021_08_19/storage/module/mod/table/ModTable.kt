@@ -2,6 +2,7 @@ package ps.upgrade.u2021_08_19.storage.module.mod.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
+import ps.upgrade.u2021_08_19.storage.module.user.table.UserTable
 import ps.upgrade.u2021_08_19.storage.module.vendor.table.VendorTable
 
 object ModTable : UUIDTable("mod") {
@@ -64,4 +65,19 @@ object ModTable : UUIDTable("mod") {
 	 * How good internal electronics of this mod is (percentage 0-100).
 	 */
 	val efficiency = integer("efficiency").nullable()
+
+	/**
+	 * Who created this atomizer.
+	 */
+	val createdBy = reference("createdBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT)
+
+	/**
+	 * Who altered this atomizer.
+	 */
+	val updatedBy = reference("updatedBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT).nullable()
+
+	/**
+	 * Who approved this atomizer (thus making it generally available).
+	 */
+	val approvedBy = reference("approvedBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT).nullable()
 }

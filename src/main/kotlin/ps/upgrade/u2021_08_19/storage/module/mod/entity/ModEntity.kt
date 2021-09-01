@@ -23,5 +23,8 @@ class ModEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 	var capacity by ModTable.capacity
 	var power by ModTable.power
 	var efficiency by ModTable.efficiency
+	var createdBy by ModTable.createdBy
+	var updatedBy by ModTable.updatedBy
+	var approvedBy by ModTable.approvedBy
 	var battery by EnumEntity via ModBatteryTable
 }

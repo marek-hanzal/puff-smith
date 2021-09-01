@@ -6,14 +6,17 @@ import leight.repository.ConflictException
 import org.jetbrains.exposed.sql.SizedCollection
 import ps.storage.module.enum.repository.lazyEnumRepository
 import ps.storage.module.mod.repository.lazyModRepository
+import ps.storage.module.user.repository.lazyUserRepository
 import ps.storage.module.vendor.repository.lazyVendorRepository
 
 class ModCsvImport(container: IContainer) : AbstractImportService(container) {
+	private val userRepository by container.lazyUserRepository()
 	private val modRepository by container.lazyModRepository()
 	private val vendorRepository by container.lazyVendorRepository()
 	private val enumRepository by container.lazyEnumRepository()
 
 	override fun import(resource: String) {
+		val userId = storage.read { userRepository.findByLogin("root").id }
 		csv(resource) {
 			try {
 				storage.write(modRepository::exception) {
@@ -30,6 +33,9 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 						capacity = get("capacity")?.toInt()
 						power = get("power").toInt()
 						efficiency = get("efficiency")?.toInt()
+						createdBy = userId
+						approvedBy = userId
+					}.apply {
 						battery = SizedCollection(get("battery")?.split(',')?.map(enumRepository::findByCode)?.toList() ?: listOf())
 					}
 				}
@@ -50,6 +56,8 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 								power = get("power").toInt()
 								efficiency = get("efficiency")?.toInt()
 								battery = SizedCollection(get("battery")?.split(',')?.map(enumRepository::findByCode)?.toList() ?: listOf())
+								updatedBy = userId
+								approvedBy = userId
 							}
 						}
 					}

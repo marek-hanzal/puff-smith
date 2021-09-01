@@ -6,14 +6,17 @@ import leight.repository.ConflictException
 import org.jetbrains.exposed.sql.SizedCollection
 import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 import ps.storage.module.enum.repository.lazyEnumRepository
+import ps.storage.module.user.repository.lazyUserRepository
 import ps.storage.module.vendor.repository.lazyVendorRepository
 
 class AtomizerCsvImport(container: IContainer) : AbstractImportService(container) {
+	private val userRepository by container.lazyUserRepository()
 	private val atomizerRepository by container.lazyAtomizerRepository()
 	private val vendorRepository by container.lazyVendorRepository()
 	private val enumRepository by container.lazyEnumRepository()
 
 	override fun import(resource: String) {
+		val userId = storage.read { userRepository.findByLogin("root").id }
 		csv(resource) {
 			try {
 				storage.write(atomizerRepository::exception) {
@@ -25,10 +28,13 @@ class AtomizerCsvImport(container: IContainer) : AbstractImportService(container
 						capacity = get("capacity")?.toFloatOrNull()
 						squonk = get("squonk")?.toBoolean() ?: false
 						base = get("base").toInt()
-						type = SizedCollection(get("type")?.split(',')?.map(enumRepository::findByCode) ?: listOf())
-						puff = SizedCollection(get("puff")?.split(',')?.map(enumRepository::findByCode) ?: listOf())
 						maxWraps = get("maxWraps")?.toInt()
 						maxCoilSize = get("maxCoilSize")?.toInt()
+						createdBy = userId
+						approvedBy = userId
+					}.apply {
+						type = SizedCollection(get("type")?.split(',')?.map(enumRepository::findByCode) ?: listOf())
+						puff = SizedCollection(get("puff")?.split(',')?.map(enumRepository::findByCode) ?: listOf())
 					}
 				}
 			} catch (e: ConflictException) {
@@ -46,6 +52,8 @@ class AtomizerCsvImport(container: IContainer) : AbstractImportService(container
 								puff = SizedCollection(get("puff")?.split(',')?.map(enumRepository::findByCode) ?: listOf())
 								maxWraps = get("maxWraps")?.toInt()
 								maxCoilSize = get("maxCoilSize")?.toInt()
+								updatedBy = userId
+								approvedBy = userId
 							}
 						}
 					}
