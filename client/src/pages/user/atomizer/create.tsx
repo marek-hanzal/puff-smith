@@ -5,7 +5,6 @@ export default withUserLayout(function Create() {
 	const {t} = useTranslation();
 	return <UserPage
 		name={"user.atomizer.create"}
-		menuItems={["/user/atomizer/create"]}
 		menu={() => <UserMenu/>}
 	>
 		# create form

@@ -7,7 +7,6 @@ export default withUserLayout(function Index() {
 	const {t} = useTranslation();
 	return <UserPage
 		name={"user.atomizer.index"}
-		menuItems={["/user/atomizer"]}
 		menu={() => <UserMenu/>}
 	>
 		<Result

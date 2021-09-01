@@ -5,7 +5,6 @@ export default withUserLayout(function Create() {
 	const {t} = useTranslation();
 	return <UserPage
 		name={"user.mod.create"}
-		menuItems={["/user/mod/create"]}
 		menu={() => <UserMenu/>}
 	>
 		# create form
