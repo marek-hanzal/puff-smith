@@ -2,9 +2,9 @@ package ps.user.mapper
 
 import leight.container.IContainer
 import leight.mapper.AbstractMapper
-import ps.api.module.session.dto.SessionDto
-import ps.api.module.user.dto.UserDto
+import ps.session.dto.SessionDto
 import ps.storage.module.user.entity.UserEntity
+import ps.user.dto.UserDto
 
 class UserToSessionMapper(container: IContainer) : AbstractMapper<UserEntity, SessionDto>(container) {
 	override fun map(item: UserEntity): SessionDto {

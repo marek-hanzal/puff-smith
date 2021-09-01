@@ -2,7 +2,7 @@ package ps.session.mapper
 
 import leight.container.IContainer
 import leight.mapper.AbstractMapper
-import ps.api.module.session.dto.SessionDto
+import ps.session.dto.SessionDto
 import ps.storage.module.session.entity.TicketEntity
 import ps.user.mapper.lazyUserToSessionMapper
 

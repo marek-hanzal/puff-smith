@@ -1,8 +1,9 @@
 package ps.atomizer.dto
 
 import leight.builder.IBuilder
-import leight.client.sdk.property.SdkClassProperty
-import leight.client.sdk.property.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkClassProperty
+import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.SdkType
 import leight.dto.AbstractDto
 import leight.storage.EntityUUID
 import ps.vendor.dto.VendorDto
@@ -15,7 +16,7 @@ data class AtomizerDto(
 	val name: String,
 	@SdkLiteralProperty("string")
 	val code: String,
-	@SdkClassProperty(VendorDto::class)
+	@SdkClassProperty(SdkType(VendorDto::class))
 	val vendor: VendorDto,
 	@SdkLiteralProperty("number")
 	val coils: Int,
