@@ -2,6 +2,7 @@ package ps.storage.module.atomizer.table
 
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.ReferenceOption
+import ps.storage.module.user.table.UserTable
 import ps.storage.module.vendor.table.VendorTable
 
 object AtomizerTable : UUIDTable("atomizer") {
@@ -49,4 +50,19 @@ object AtomizerTable : UUIDTable("atomizer") {
 	 * The size of base of an atomizer (in mm).
 	 */
 	val base = integer("base")
+
+	/**
+	 * Who created this atomizer.
+	 */
+	val createdBy = reference("createdBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT)
+
+	/**
+	 * Who altered this atomizer.
+	 */
+	val updatedBy = reference("updatedBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT).nullable()
+
+	/**
+	 * Who approved this atomizer (thus making it generally available).
+	 */
+	val approvedBy = reference("approvedBy", UserTable, ReferenceOption.RESTRICT, ReferenceOption.RESTRICT).nullable()
 }

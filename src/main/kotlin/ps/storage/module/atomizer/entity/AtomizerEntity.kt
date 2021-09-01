@@ -21,6 +21,9 @@ class AtomizerEntity(id: EntityID<UUID>) : UUIDEntity(id) {
 	var capacity by AtomizerTable.capacity
 	var squonk by AtomizerTable.squonk
 	var base by AtomizerTable.base
+	var createdBy by AtomizerTable.createdBy
+	var updatedBy by AtomizerTable.updatedBy
+	var approvedBy by AtomizerTable.approvedBy
 	var type by EnumEntity via AtomizerTypeTable
 	var puff by EnumEntity via AtomizerPuffTable
 }
