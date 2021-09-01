@@ -3,7 +3,7 @@ package ps.api.module.session.endpoint
 import io.ktor.application.*
 import io.ktor.auth.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.SessionTicket
@@ -14,7 +14,7 @@ import ps.storage.module.session.repository.lazyTicketRepository
 import ps.user.dto.UserDto
 
 @Sdk(
-	response = SdkType(SessionDto::class),
+	response = TypeClass(SessionDto::class),
 )
 @Endpoint(
 	public = true,

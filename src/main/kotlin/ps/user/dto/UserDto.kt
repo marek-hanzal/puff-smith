@@ -1,16 +1,17 @@
 package ps.user.dto
 
-import leight.client.sdk.annotation.SdkArrayProperty
-import leight.client.sdk.annotation.SdkLiteralProperty
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeArrayClass
+import leight.client.sdk.annotation.TypeClass
+import leight.client.sdk.annotation.TypeNullString
+import leight.client.sdk.annotation.TypeString
 import ps.api.module.user.dto.RoleDto
 import java.util.*
 
 data class UserDto(
-	@SdkLiteralProperty("string | null")
+	@TypeNullString
 	val id: UUID?,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val site: String,
-	@SdkArrayProperty(SdkType(RoleDto::class))
+	@TypeArrayClass(TypeClass(RoleDto::class))
 	val roles: List<RoleDto>,
 )

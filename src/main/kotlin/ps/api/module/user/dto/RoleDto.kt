@@ -1,11 +1,11 @@
 package ps.api.module.user.dto
 
-import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.TypeString
 import java.util.*
 
 data class RoleDto(
-	@SdkLiteralProperty("string")
+	@TypeString
 	val id: UUID,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val name: String,
 )

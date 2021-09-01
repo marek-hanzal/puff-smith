@@ -2,7 +2,7 @@ package ps.api.module.translation.endpoint
 
 import io.ktor.application.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.storage.lazyStorage
@@ -11,7 +11,7 @@ import ps.api.module.translation.dto.index.TranslationDto
 import ps.storage.module.translation.repository.lazyTranslationRepository
 
 @Sdk(
-	response = SdkType(IndexResponse::class),
+	response = TypeClass(IndexResponse::class),
 )
 @Endpoint(
 	public = true,

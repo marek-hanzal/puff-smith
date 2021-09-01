@@ -2,14 +2,14 @@ package ps.api.module.discovery.endpoint
 
 import io.ktor.application.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.discovery.lazyDiscoveryIndex
 import leight.rest.*
 import ps.api.module.discovery.dto.index.IndexResponse
 
 @Sdk(
-	response = SdkType(IndexResponse::class),
+	response = TypeClass(IndexResponse::class),
 )
 @Endpoint(
 	public = true,

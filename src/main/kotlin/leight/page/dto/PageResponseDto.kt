@@ -1,33 +1,34 @@
 package leight.page.dto
 
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.TypeLiteral
+import leight.client.sdk.annotation.TypeNumber
 import leight.dto.AbstractDto
 import kotlin.math.ceil
 import kotlin.properties.Delegates
 
 data class PageResponseDto<TItem>(
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	/**
 	 * Total number of items available.
 	 */
 	val total: Long,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	/**
 	 * Current page size (should correspond with other values).
 	 */
 	val size: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	/**
 	 * Total number of pages available.
 	 */
 	val pages: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	/**
 	 * Item count - it should be same as items.size().
 	 */
 	val count: Int,
-	@SdkLiteralProperty("TItem[]")
+	@TypeLiteral("TItem[]")
 	/**
 	 * Items of this page; could be also zero (thus total and others is zero).
 	 */

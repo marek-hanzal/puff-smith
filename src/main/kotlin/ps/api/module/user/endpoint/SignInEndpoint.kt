@@ -3,7 +3,7 @@ package ps.api.module.user.endpoint
 import io.ktor.application.*
 import io.ktor.request.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.session.ticket
@@ -21,8 +21,8 @@ import ps.user.mapper.lazyUserToSessionMapper
 	method = EndpointMethod.POST,
 )
 @Sdk(
-	request = SdkType(SignInDto::class),
-	response = SdkType(SessionDto::class),
+	request = TypeClass(SignInDto::class),
+	response = TypeClass(SessionDto::class),
 )
 class SignInEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val storage by container.lazyStorage()

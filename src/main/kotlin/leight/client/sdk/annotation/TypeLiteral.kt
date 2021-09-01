@@ -5,4 +5,6 @@ package leight.client.sdk.annotation
  */
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class SdkLiteralProperty(val export: String)
+annotation class TypeLiteral(
+	val export: String,
+)
