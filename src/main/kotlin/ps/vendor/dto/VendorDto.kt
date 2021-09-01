@@ -1,10 +1,14 @@
 package ps.vendor.dto
 
+import leight.client.sdk.annotation.TypeString
 import leight.storage.EntityUUID
 
 data class VendorDto(
+	@TypeString
 	val id: String,
+	@TypeString
 	val name: String,
+	@TypeString
 	val code: String,
 ) {
 	companion object {

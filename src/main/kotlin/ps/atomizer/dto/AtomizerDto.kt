@@ -1,34 +1,35 @@
 package ps.atomizer.dto
 
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.SdkClassProperty
-import leight.client.sdk.annotation.SdkLiteralProperty
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeBool
+import leight.client.sdk.annotation.TypeClass
+import leight.client.sdk.annotation.TypeNumber
+import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 import leight.storage.EntityUUID
 import ps.vendor.dto.VendorDto
 import kotlin.properties.Delegates
 
 data class AtomizerDto(
-	@SdkLiteralProperty("string")
+	@TypeString
 	val id: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val name: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val code: String,
-	@SdkClassProperty(SdkType(VendorDto::class))
+	@TypeClass(VendorDto::class)
 	val vendor: VendorDto,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val coils: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val maxCoilSize: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val maxWraps: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val capacity: Float,
-	@SdkLiteralProperty("boolean")
+	@TypeBool
 	val squonk: Boolean,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val base: Int,
 ) : AbstractDto() {
 	companion object {

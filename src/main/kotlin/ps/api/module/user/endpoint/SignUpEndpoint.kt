@@ -3,7 +3,7 @@ package ps.api.module.user.endpoint
 import io.ktor.application.*
 import io.ktor.request.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.encryption.lazyPasswordService
 import leight.rest.*
@@ -19,8 +19,8 @@ import ps.user.dto.UserDto
 	method = EndpointMethod.POST,
 )
 @Sdk(
-	request = SdkType(SignUpDto::class),
-	response = SdkType(SessionDto::class),
+	request = TypeClass(SignUpDto::class),
+	response = TypeClass(SessionDto::class),
 )
 class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val userRepository by container.lazyUserRepository()

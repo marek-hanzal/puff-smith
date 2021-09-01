@@ -2,7 +2,7 @@ package ps.api.user.atomizer.endpoint
 
 import io.ktor.application.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
 import leight.page.dto.PageResponseDto
@@ -16,10 +16,10 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 	method = EndpointMethod.POST,
 )
 @Sdk(
-	request = SdkType(PageRequestDto::class),
-	response = SdkType(
+	request = TypeClass(PageRequestDto::class),
+	response = TypeClass(
 		PageResponseDto::class, [
-			SdkType(AtomizerDto::class),
+			TypeClass(AtomizerDto::class),
 		]
 	),
 )

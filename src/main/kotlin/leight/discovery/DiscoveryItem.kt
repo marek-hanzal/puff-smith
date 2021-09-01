@@ -1,12 +1,12 @@
 package leight.discovery
 
-import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.TypeString
 
 data class DiscoveryItem(
-	@SdkLiteralProperty("string")
+	@TypeString
 	val id: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val url: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val link: String,
 )

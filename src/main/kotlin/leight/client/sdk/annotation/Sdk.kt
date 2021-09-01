@@ -7,6 +7,6 @@ package leight.client.sdk.annotation
 @Target(AnnotationTarget.CLASS)
 @MustBeDocumented
 annotation class Sdk(
-	val request: SdkType = SdkType(Unit::class),
-	val response: SdkType = SdkType(Unit::class),
+	val request: TypeClass = TypeClass(Unit::class),
+	val response: TypeClass = TypeClass(Unit::class),
 )

@@ -1,7 +1,7 @@
 package leight.client.sdk
 
-import leight.client.sdk.generator.lazySdkClassGenerator
-import leight.client.sdk.generator.lazySdkEndpointGenerator
+import leight.client.sdk.generator.lazyClassGenerator
+import leight.client.sdk.generator.lazyEndpointGenerator
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.lazyHttpIndex
@@ -10,10 +10,10 @@ import kotlin.reflect.KClass
 
 class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGenerator {
 	private val httpIndex by container.lazyHttpIndex()
-	private val sdkExtractor by container.lazySdkClassExtractor()
-	private val sdkNameResolver by container.lazySdkNameResolver()
-	private val sdkClassGenerator by container.lazySdkClassGenerator()
-	private val sdkEndpointGenerator by container.lazySdkEndpointGenerator()
+	private val classExtractor by container.lazyClassExtractor()
+	private val nameResolver by container.lazyNameResolver()
+	private val classGenerator by container.lazyClassGenerator()
+	private val endpointGenerator by container.lazyEndpointGenerator()
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
@@ -26,14 +26,14 @@ ${"\t".repeat(level)}}
 		var export = arrayOf<String>()
 		export += "import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
 		NamespaceIndex().let { namespaceIndex ->
-			sdkExtractor.extractSdkClasses(endpoints).map { sdkType ->
-				namespaceIndex.ensure(sdkNameResolver.namespaceParts(sdkType.klass), sdkType.klass.simpleName!!) { level ->
-					sdkClassGenerator.exportClass(sdkType, level)
+			classExtractor.extractSdkClasses(endpoints).map { sdkType ->
+				namespaceIndex.ensure(nameResolver.namespaceParts(sdkType.klass), sdkType.klass.simpleName!!) { level ->
+					classGenerator.exportClass(sdkType, level)
 				}
 			}
-			sdkExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->
-				namespaceIndex.ensure(sdkNameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
-					sdkEndpointGenerator.exportMethod(sdk, endpoint, klass, level)
+			classExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->
+				namespaceIndex.ensure(nameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
+					endpointGenerator.exportMethod(sdk, endpoint, klass, level)
 				}
 			}
 

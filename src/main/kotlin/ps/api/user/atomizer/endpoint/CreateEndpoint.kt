@@ -1,7 +1,7 @@
 package ps.api.user.atomizer.endpoint
 
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkType
+import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.AbstractEndpoint
 import leight.rest.Endpoint
@@ -13,7 +13,7 @@ import ps.atomizer.dto.AtomizerDto
 	method = EndpointMethod.POST,
 )
 @Sdk(
-	request = SdkType(CreateDto::class),
-	response = SdkType(AtomizerDto::class),
+	request = TypeClass(CreateDto::class),
+	response = TypeClass(AtomizerDto::class),
 )
 class CreateEndpoint(container: IContainer) : AbstractEndpoint(container)

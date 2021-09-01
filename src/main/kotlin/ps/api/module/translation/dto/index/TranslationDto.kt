@@ -1,12 +1,13 @@
 package ps.api.module.translation.dto.index
 
-import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.TypeNullString
+import leight.client.sdk.annotation.TypeString
 
 data class TranslationDto(
-	@SdkLiteralProperty("string")
+	@TypeString
 	val language: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val label: String,
-	@SdkLiteralProperty("string | null")
+	@TypeNullString
 	val text: String?,
 )

@@ -1,24 +1,27 @@
 package ps.api.user.atomizer.dto
 
-import leight.client.sdk.annotation.SdkLiteralProperty
+import leight.client.sdk.annotation.TypeNullBool
+import leight.client.sdk.annotation.TypeNullNumber
+import leight.client.sdk.annotation.TypeNumber
+import leight.client.sdk.annotation.TypeString
 
 data class CreateDto(
-	@SdkLiteralProperty("string")
+	@TypeString
 	val name: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val code: String,
-	@SdkLiteralProperty("string")
+	@TypeString
 	val vendorId: String,
-	@SdkLiteralProperty("number | null")
+	@TypeNullNumber
 	val coils: Int?,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val maxCoilSize: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val maxWraps: Int,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val capacity: Float,
-	@SdkLiteralProperty("boolean | null")
+	@TypeNullBool
 	val squonk: Boolean?,
-	@SdkLiteralProperty("number")
+	@TypeNumber
 	val base: Int,
 )

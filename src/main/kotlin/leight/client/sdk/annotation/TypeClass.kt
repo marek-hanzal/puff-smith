@@ -4,7 +4,7 @@ import kotlin.reflect.KClass
 
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class SdkType(
+annotation class TypeClass(
 	val klass: KClass<*>,
-	val types: Array<SdkType> = [],
+	val types: Array<TypeClass> = [],
 )

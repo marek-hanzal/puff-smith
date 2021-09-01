@@ -4,7 +4,7 @@ import leight.container.AbstractService
 import leight.container.IContainer
 import kotlin.reflect.KClass
 
-class SdkNameResolver(container: IContainer) : AbstractService(container) {
+class NameResolver(container: IContainer) : AbstractService(container) {
 	fun filterName(string: String): String = string
 		.replace("api.", "")
 		.replace("dto.", "")
@@ -26,4 +26,4 @@ class SdkNameResolver(container: IContainer) : AbstractService(container) {
 	}
 }
 
-fun IContainer.lazySdkNameResolver() = lazy<SdkNameResolver>()
+fun IContainer.lazyNameResolver() = lazy<NameResolver>()
