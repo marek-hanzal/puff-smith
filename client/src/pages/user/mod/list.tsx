@@ -5,7 +5,6 @@ export default withUserLayout(function List() {
 	const {t} = useTranslation();
 	return <UserPage
 		name={"user.mod.list"}
-		menuItems={["/user/mod/list"]}
 		menu={() => <UserMenu/>}
 	>
 		# list

@@ -7,7 +7,6 @@ export default withUserLayout(function Index() {
 	const {t} = useTranslation();
 	return <UserPage
 		name={"user.mod.index"}
-		menuItems={["/user/mod"]}
 		menu={() => <UserMenu/>}
 	>
 		<Result

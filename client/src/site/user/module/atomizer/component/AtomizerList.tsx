@@ -8,6 +8,6 @@ export interface IAtomizerListProps extends Partial<IListProps<ps.atomizer.Atomi
 export const AtomizerList: FC<IAtomizerListProps> = () => {
 	return <List<ps.atomizer.AtomizerDto>
 	>
-
+		{(item) => null}
 	</List>;
 };
