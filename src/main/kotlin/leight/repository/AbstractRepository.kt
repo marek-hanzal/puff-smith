@@ -2,7 +2,7 @@ package leight.repository
 
 import leight.container.AbstractService
 import leight.container.IContainer
-import leight.page.Page
+import leight.page.dto.PageRequestDto
 import leight.storage.lazyStorage
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.UUIDEntity
@@ -41,9 +41,9 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 
 	override fun find(uuid: UUID) = entity.findById(uuid) ?: throw UnknownEntityException("Requested entity [${entity::class}] with uuid [${uuid}] does not exists.")
 
-	override fun source(paging: Page) = entity.all().limit(paging.limit, paging.offset)
+	override fun source(paging: PageRequestDto) = entity.all().limit(paging.limit, paging.offset)
 
-	override fun page(paging: Page, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
+	override fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
 		var current = paging
 		var contract = 0
 		var size = 1L
@@ -54,7 +54,7 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 					it.take(max(0, size - contract).toInt()).forEach { item -> block(item) }
 					contract += it.count()
 				}
-				current = Page(current.page + 1, current.limit)
+				current = PageRequestDto(current.page + 1, current.limit)
 			}
 		}
 	}

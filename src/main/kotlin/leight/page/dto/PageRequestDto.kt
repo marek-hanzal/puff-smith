@@ -1,8 +1,18 @@
-package leight.page
+package leight.page.dto
 
+import leight.client.sdk.property.SdkLiteralProperty
+import leight.dto.AbstractDto
+import leight.page.InvalidLimitException
+import leight.page.InvalidPageException
 import kotlin.math.floor
 
-data class Page(val page: Int, val limit: Int) {
+data class PageRequestDto(
+	@SdkLiteralProperty("number")
+	val page: Int,
+	@SdkLiteralProperty("number")
+	val limit: Int,
+) : AbstractDto() {
+	@SdkLiteralProperty("number")
 	val offset: Long
 		get() = (page * limit).toLong()
 
