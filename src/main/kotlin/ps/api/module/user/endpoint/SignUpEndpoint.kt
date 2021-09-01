@@ -37,7 +37,7 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 			}
 			storage.read {
 				userRepository.findByCredentials(request.login, request.password).let { user ->
-					ok(SessionDto(UserDto(user.id.value, if (user.site != null) user.site!! else "user", user.roles.map { RoleDto(it.id.value, it.name) }.toTypedArray())))
+					ok(SessionDto(UserDto(user.id.value, if (user.site != null) user.site!! else "user", user.roles.map { RoleDto(it.id.value, it.name) })))
 				}
 			}
 		}

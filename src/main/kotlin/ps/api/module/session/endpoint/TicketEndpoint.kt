@@ -30,5 +30,5 @@ class TicketEndpoint(container: IContainer) : AbstractEndpoint(container) {
 				ok(ticketToSessionMapper.map(ticketEntity))
 			}
 		}
-	} ?: ok(SessionDto(UserDto(null, "public", arrayOf())))
+	} ?: ok(SessionDto(UserDto(null, "public", listOf())))
 }

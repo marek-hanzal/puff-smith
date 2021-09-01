@@ -1,6 +1,6 @@
 {
 	"name": "puff-smith",
-	"version": "0.5.14",
+	"version": "0.5.15",
 	"repository": "git@github.com:marek-hanzal/puff-smith.git",
 	"license": "Apache-2.0",
 	"scripts": {
@@ -11,9 +11,9 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@leight-core/leight": "^0.9.44",
+		"@leight-core/leight": "^0.9.45",
 		"antd": "^4.16.13",
-		"i18next": "^20.4.0",
+		"i18next": "^20.5.0",
 		"i18next-browser-languagedetector": "^6.1.2",
 		"next": "^11.1.2",
 		"next-compose-plugins": "^2.2.1",

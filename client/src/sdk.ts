@@ -1,8 +1,8 @@
-import {Server, IDiscoveryIndex} from "@leight-core/leight";
+import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from "@leight-core/leight";
 
 export namespace ps {
 	export namespace discovery {
-		export const doIndexFetch = Server.createGet<index.IndexResponse>("discovery.index");
+		export const doIndexFetch = createGet<index.IndexResponse>("discovery.index");
 		export namespace index {
 			export interface IndexResponse {
 				index: IDiscoveryIndex;
@@ -11,7 +11,7 @@ export namespace ps {
 	}
 
 	export namespace translation {
-		export const doIndexFetch = Server.createGet<index.IndexResponse>("translation.index");
+		export const doIndexFetch = createGet<index.IndexResponse>("translation.index");
 		export namespace index {
 			export interface IndexResponse {
 				translations: TranslationDto[];
@@ -30,7 +30,7 @@ export namespace ps {
 			user: ps.user.UserDto;
 		}
 
-		export const doTicketFetch = Server.createGet<SessionDto>("session.ticket");
+		export const doTicketFetch = createGet<SessionDto>("session.ticket");
 
 	}
 
@@ -56,13 +56,40 @@ export namespace ps {
 			password: string;
 		}
 
-		export const doSignIn = Server.createPost<SignInDto, ps.session.SessionDto>("user.sign-in");
+		export const doSignIn = createPost<SignInDto, ps.session.SessionDto>("user.sign-in");
 
 
-		export const doSignOut = Server.createDelete<never>("user.sign-out");
+		export const doSignOut = createDelete<never>("user.sign-out");
 
 
-		export const doSignUp = Server.createPost<SignUpDto, ps.session.SessionDto>("user.sign-up");
+		export const doSignUp = createPost<SignUpDto, ps.session.SessionDto>("user.sign-up");
+		export namespace atomizer {
+			export interface CreateDto {
+				base: number;
+				capacity: number;
+				code: string;
+				coils: number | null;
+				maxCoilSize: number;
+				maxWraps: number;
+				name: string;
+				squonk: boolean | null;
+				vendorId: string;
+			}
 
+			export interface AtomizerDto {
+				base: number;
+				capacity: number;
+				code: string;
+				coils: number;
+				maxCoilSize: number;
+				maxWraps: number;
+				name: string;
+				squonk: boolean;
+				vendorId: string;
+			}
+
+			export const doCreate = createPost<CreateDto, AtomizerDto>("user.atomizer.create");
+
+		}
 	}
 }

@@ -8,7 +8,7 @@ import ps.storage.module.user.entity.UserEntity
 
 class UserToSessionMapper(container: IContainer) : AbstractMapper<UserEntity, SessionDto>(container) {
 	override fun map(item: UserEntity): SessionDto {
-		return SessionDto(UserDto(item.id.value, item.site ?: "locked", arrayOf()))
+		return SessionDto(UserDto(item.id.value, item.site ?: "locked", listOf()))
 	}
 }
 

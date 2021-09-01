@@ -23,7 +23,7 @@ ${"\t".repeat(level)}}"""
 
 	override fun generate(endpoints: List<KClass<out IEndpoint>>): String {
 		var export = arrayOf<String>()
-		export += "import {Server, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
+		export += "import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from \"@leight-core/leight\";\n\n"
 		NamespaceIndex().let { namespaceIndex ->
 			sdkExtractor.extractSdkClasses(endpoints).map { klass ->
 				namespaceIndex.ensure(sdkNameResolver.namespaceParts(klass), klass.simpleName!!) { level ->

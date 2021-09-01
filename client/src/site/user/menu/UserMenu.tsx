@@ -10,15 +10,16 @@ export const UserMenu: FC<IUserMenuProps> = props => {
 		<MenuDivider/>
 		{CreateMenuItem("user.index.menu", "/user", <HomeIcon/>)}
 		<MenuDivider/>
-		<MenuGroup id={"user.mod"}>
-			{CreateMenuItem("user.mod.index.menu", "/user/mod", <ModIcon/>)}
-			{CreateMenuItem("user.mod.create.menu", "/user/mod/create", <CreateIcon/>)}
-			{CreateMenuItem("user.mod.list.menu", "/user/mod/list", <ListIcon/>)}
-		</MenuGroup>
 		<MenuGroup id={"user.atomizer"}>
 			{CreateMenuItem("user.atomizer.index.menu", "/user/atomizer", <AtomizerIcon/>)}
 			{CreateMenuItem("user.atomizer.create.menu", "/user/atomizer/create", <CreateIcon/>)}
 			{CreateMenuItem("user.atomizer.list.menu", "/user/atomizer/list", <ListIcon/>)}
+		</MenuGroup>
+		<MenuDivider/>
+		<MenuGroup id={"user.mod"}>
+			{CreateMenuItem("user.mod.index.menu", "/user/mod", <ModIcon/>)}
+			{CreateMenuItem("user.mod.create.menu", "/user/mod/create", <CreateIcon/>)}
+			{CreateMenuItem("user.mod.list.menu", "/user/mod/list", <ListIcon/>)}
 		</MenuGroup>
 	</Menu>;
 };

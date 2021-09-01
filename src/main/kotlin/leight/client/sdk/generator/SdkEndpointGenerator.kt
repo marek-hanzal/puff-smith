@@ -16,10 +16,10 @@ class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
 
 	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String? = when (endpoint.method) {
 		EndpointMethod.GET -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + "Fetch = Server.createGet<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + "Fetch = createGet<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
 		EndpointMethod.POST -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = Server.createPost<${sdkNameResolver.resolveClassName(klass, sdk.request)}, ${
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createPost<${sdkNameResolver.resolveClassName(klass, sdk.request)}, ${
 				sdkNameResolver.resolveClassName(
 					klass,
 					sdk.response
@@ -27,7 +27,7 @@ class SdkEndpointGenerator(container: IContainer) : AbstractService(container) {
 			}>(\"${endpointInfo.getId(klass)}\")"
 		}
 		EndpointMethod.DELETE -> {
-			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = Server.createDelete<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+			"export const do" + sdkNameResolver.filterName(klass.simpleName!!) + " = createDelete<${sdkNameResolver.resolveClassName(klass, sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
 		else -> null
 	}?.let { return "\t".repeat(level + 1) + it + ";\n" }
