@@ -15,7 +15,7 @@ class EndpointGenerator(container: IContainer) : AbstractService(container) {
 	private val endpointInfo by container.lazyEndpointInfo()
 	private val genericGenerator by container.lazyGenericGenerator()
 
-	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String? = when (endpoint.method) {
+	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String = when (endpoint.method) {
 		EndpointMethod.GET -> {
 			"export const do" + nameResolver.filterName(klass.simpleName!!) + "Fetch = createGet<${
 				nameResolver.resolveClassName(
@@ -32,6 +32,22 @@ class EndpointGenerator(container: IContainer) : AbstractService(container) {
 				)
 			}${genericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
+		EndpointMethod.PATCH -> {
+			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createPatch<${nameResolver.resolveClassName(klass, sdk.request.klass)}${genericGenerator.exportExpandedTypes(sdk.request)}, ${
+				nameResolver.resolveClassName(
+					klass,
+					sdk.response.klass
+				)
+			}${genericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+		}
+		EndpointMethod.PUT -> {
+			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createPut<${nameResolver.resolveClassName(klass, sdk.request.klass)}${genericGenerator.exportExpandedTypes(sdk.request)}, ${
+				nameResolver.resolveClassName(
+					klass,
+					sdk.response.klass
+				)
+			}${genericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+		}
 		EndpointMethod.DELETE -> {
 			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createDelete<${
 				nameResolver.resolveClassName(
@@ -40,8 +56,7 @@ class EndpointGenerator(container: IContainer) : AbstractService(container) {
 				)
 			}${genericGenerator.exportExpandedTypes(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
 		}
-		else -> null
-	}?.let { return "\t".repeat(level + 1) + it + ";\n" }
+	}.let { return "\t".repeat(level + 1) + it + ";" }
 }
 
 fun IContainer.lazyEndpointGenerator() = lazy<EndpointGenerator>()
