@@ -51,9 +51,7 @@ class JsonConverter constructor(
 		}
 	}
 
-	override suspend fun convertForSend(context: PipelineContext<Any, ApplicationCall>, contentType: ContentType, value: Any): Any? {
-		return TextContent(gson.toJson(value), contentType.withCharset(context.call.suitableCharset()))
-	}
+	override suspend fun convertForSend(context: PipelineContext<Any, ApplicationCall>, contentType: ContentType, value: Any) = TextContent(gson.toJson(value), contentType.withCharset(context.call.suitableCharset()))
 }
 
 fun ContentNegotiation.Configuration.json(
