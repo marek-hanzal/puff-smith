@@ -5,6 +5,7 @@ import leight.client.sdk.exception.SdkException
 import leight.client.sdk.lazyNameResolver
 import leight.container.AbstractService
 import leight.container.IContainer
+import kotlin.reflect.KClass
 
 class GenericGenerator(container: IContainer) : AbstractService(container) {
 	private val nameResolver by container.lazyNameResolver()
@@ -19,6 +20,8 @@ class GenericGenerator(container: IContainer) : AbstractService(container) {
 		}
 		return "<${typeClass.types.joinToString(",") { nameResolver.resolveClassName(typeClass.klass, it.klass) }}>".let { if (it == "<>") "" else it }
 	}
+
+	fun exportExpandedClass(typeClass: TypeClass, namespace: KClass<*>) = nameResolver.resolveClassName(namespace, typeClass.klass) + exportExpandedTypes(typeClass)
 }
 
 fun IContainer.lazyGenericGenerator() = lazy<GenericGenerator>()
