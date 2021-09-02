@@ -38,7 +38,7 @@ export const AtomizerListInternal: FC = () => {
 						icon={<RedoOutlined/>}
 						text={atomizer.maxWraps}
 					/>,
-				]}
+				].filter(item => !!item)}
 			>
 				<ListItem.Meta
 					title={atomizer.name}
