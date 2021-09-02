@@ -10,8 +10,6 @@ import leight.http.IHttpIndex
 import leight.http.IHttpServer
 import leight.link.ILinkGenerator
 import leight.link.LinkGenerator
-import leight.page.IPageService
-import leight.page.PageService
 import leight.pool.IPool
 import leight.pool.Pool
 import leight.rest.EndpointInfo
@@ -39,7 +37,6 @@ object ContainerFactory {
 		service(ISdkGenerator::class) { SdkGenerator(this) }
 		service(IRoleService::class) { EmptyRoleService(this) }
 		service(IPasswordService::class) { PasswordService(this) }
-		service(IPageService::class) { PageService(this) }
 	}
 
 	private fun IContainer.registerStorageServices() {
