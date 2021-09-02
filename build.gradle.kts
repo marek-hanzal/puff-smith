@@ -44,7 +44,7 @@ dependencies {
 	with("1.6.2") {
 		implementation("io.ktor:ktor-server-core:$this")
 		implementation("io.ktor:ktor-server-netty:$this")
-		implementation("io.ktor:ktor-gson:$this")
+		implementation("io.ktor:ktor-serialization:$this")
 		implementation("io.ktor:ktor-auth:$this")
 	}
 	with("1.4.200") {
@@ -55,6 +55,7 @@ dependencies {
 	}
 	with("1.2.2") {
 		implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$this")
+		implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$this")
 	}
 	with("2.10.10") {
 		implementation("joda-time:joda-time:$this")
