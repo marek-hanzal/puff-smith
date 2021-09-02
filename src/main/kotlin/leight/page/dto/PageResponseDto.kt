@@ -1,15 +1,20 @@
 package leight.page.dto
 
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeLiteral
 import leight.client.sdk.annotation.TypeNumber
 import leight.dto.AbstractDto
+import ps.atomizer.dto.AtomizerDto
 import kotlin.math.ceil
 import kotlin.properties.Delegates
 
-@Serializable
-open class PageResponseDto<TItem>(
+@Serializable(with = PageResponseDtoSerializer::class)
+data class PageResponseDto<TItem>(
 	/**
 	 * Total number of items available.
 	 */
@@ -52,5 +57,18 @@ open class PageResponseDto<TItem>(
 			items.count(),
 			items,
 		)
+	}
+}
+
+object PageResponseDtoSerializer : KSerializer<PageResponseDto<AtomizerDto>> {
+	override fun deserialize(decoder: Decoder): PageResponseDto<AtomizerDto> {
+		TODO("Not yet implemented")
+	}
+
+	override val descriptor: SerialDescriptor
+		get() = TODO("Not yet implemented")
+
+	override fun serialize(encoder: Encoder, value: PageResponseDto<AtomizerDto>) {
+		TODO("Not yet implemented")
 	}
 }
