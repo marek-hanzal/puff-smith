@@ -32,7 +32,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 				EndpointMethod.DELETE -> delete(discoveryItem.url, body)
 			}
 		}
-		val isPublic = annotation.public || true
+		val isPublic = annotation.public
 		routing.authenticate(optional = isPublic) {
 			if (isPublic) {
 				build(this)
