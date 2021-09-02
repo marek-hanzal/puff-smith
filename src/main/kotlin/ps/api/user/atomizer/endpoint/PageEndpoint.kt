@@ -6,7 +6,7 @@ import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
 import leight.page.dto.PageResponseDto
-import leight.repository.page
+import leight.repository.toPageResponse
 import leight.rest.*
 import ps.atomizer.dto.AtomizerDto
 import ps.atomizer.mapper.lazyAtomizerMapper
@@ -34,6 +34,6 @@ class PageEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val atomizerMapper by container.lazyAtomizerMapper()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> {
-		return ok(atomizerRepository.page(call, atomizerMapper))
+		return ok(atomizerRepository.toPageResponse(call, atomizerMapper))
 	}
 }

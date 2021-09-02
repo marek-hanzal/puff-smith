@@ -18,16 +18,16 @@ fun orderByListOf(block: MutableList<Pair<Expression<*>, SortOrder>?>.() -> Unit
 
 fun <T> Expression<T>.toOrderPair(order: Boolean) = Pair(this, if (order) SortOrder.ASC else SortOrder.DESC)
 
-inline fun <TTable : UUIDTable, TEntity : UUIDEntity, reified TOrderBy : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy>.page(
+inline fun <TTable : UUIDTable, TEntity : UUIDEntity, reified TOrderBy : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy>.toPageResponse(
 	call: ApplicationCall,
 	mapper: IMapper<TEntity, TResult>,
 	noinline filter: EntityFilter<TEntity>? = null
 ): PageResponseDto<TResult> =
-	page<TEntity, TOrderBy, TResult>(call, { total(filter) }, mapper, { pageRequestDto, block ->
+	toPageResponse<TEntity, TOrderBy, TResult>(call, { total(filter) }, mapper, { pageRequestDto, block ->
 		page(pageRequestDto, block, filter)
 	})
 
-inline fun <TEntity : UUIDEntity, reified TOrderBy : Any, TResult> page(call: ApplicationCall, total: () -> Long, mapper: IMapper<TEntity, TResult>, block: (PageRequestDto<TOrderBy>, (TEntity) -> Unit) -> Unit) =
+inline fun <TEntity : UUIDEntity, reified TOrderBy : Any, TResult> toPageResponse(call: ApplicationCall, total: () -> Long, mapper: IMapper<TEntity, TResult>, block: (PageRequestDto<TOrderBy>, (TEntity) -> Unit) -> Unit) =
 	PageResponseDto.build<TResult> {
 		val pageRequestDto = runBlocking { call.receive<PageRequestDto<TOrderBy>>() }
 		this.total = total()
