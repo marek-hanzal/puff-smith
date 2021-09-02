@@ -1,5 +1,6 @@
 package leight.page.dto
 
+import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeLiteral
 import leight.client.sdk.annotation.TypeNumber
@@ -9,13 +10,14 @@ import leight.page.InvalidPageException
 import kotlin.math.floor
 import kotlin.properties.Delegates
 
-open class PageRequestDto<TOrderBy : Any>(
+@Serializable
+data class PageRequestDto<TOrderBy : Any>(
 	@TypeNumber
 	val page: Int,
 	@TypeNumber
 	val size: Int,
 	@TypeLiteral("TOrderBy | null", optional = true)
-	val orderBy: TOrderBy?,
+	val orderBy: TOrderBy? = null,
 ) : AbstractDto() {
 	companion object {
 		inline fun <TOrderBy : Any> build(block: Builder<TOrderBy>.() -> Unit) = Builder<TOrderBy>().apply(block).build()

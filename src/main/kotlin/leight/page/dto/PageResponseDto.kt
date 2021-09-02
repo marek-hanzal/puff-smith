@@ -1,5 +1,6 @@
 package leight.page.dto
 
+import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeLiteral
 import leight.client.sdk.annotation.TypeNumber
@@ -7,31 +8,32 @@ import leight.dto.AbstractDto
 import kotlin.math.ceil
 import kotlin.properties.Delegates
 
+@Serializable
 data class PageResponseDto<TItem>(
-	@TypeNumber
 	/**
 	 * Total number of items available.
 	 */
-	val total: Long,
 	@TypeNumber
+	val total: Long,
 	/**
 	 * Current page size (should correspond with other values).
 	 */
-	val size: Int,
 	@TypeNumber
+	val size: Int,
 	/**
 	 * Total number of pages available.
 	 */
-	val pages: Int,
 	@TypeNumber
+	val pages: Int,
 	/**
 	 * Item count - it should be same as items.size().
 	 */
+	@TypeNumber
 	val count: Int,
-	@TypeLiteral("TItem[]")
 	/**
 	 * Items of this page; could be also zero (thus total and others is zero).
 	 */
+	@TypeLiteral("TItem[]")
 	val items: List<TItem>,
 ) : AbstractDto() {
 	companion object {

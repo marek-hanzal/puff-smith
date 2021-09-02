@@ -1,8 +1,11 @@
 package ps.vendor.dto
 
+import kotlinx.serialization.Serializable
 import leight.client.sdk.annotation.TypeString
+import leight.dto.AbstractDto
 import leight.storage.EntityUUID
 
+@Serializable
 data class VendorDto(
 	@TypeString
 	val id: String,
@@ -10,7 +13,7 @@ data class VendorDto(
 	val name: String,
 	@TypeString
 	val code: String,
-) {
+) : AbstractDto() {
 	companion object {
 		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
 	}

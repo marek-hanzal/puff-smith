@@ -1,5 +1,6 @@
 package ps.storage.module.atomizer.repository
 
+import kotlinx.serialization.Serializable
 import leight.client.sdk.annotation.TypeNullBool
 import leight.container.IContainer
 import leight.repository.AbstractRepository
@@ -8,11 +9,12 @@ import leight.repository.toOrderPair
 import ps.storage.module.atomizer.entity.AtomizerEntity
 import ps.storage.module.atomizer.table.AtomizerTable
 
+@Serializable
 data class AtomizerOrderBy(
 	@TypeNullBool(optional = true)
-	val name: Boolean?,
+	val name: Boolean? = null,
 	@TypeNullBool(optional = true)
-	val code: Boolean?,
+	val code: Boolean? = null,
 )
 
 class AtomizerRepository(container: IContainer) : AbstractRepository<AtomizerTable, AtomizerEntity, AtomizerOrderBy>(AtomizerTable, AtomizerEntity, container) {

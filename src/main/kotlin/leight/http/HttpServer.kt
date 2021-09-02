@@ -3,12 +3,13 @@ package leight.http
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.features.*
-import io.ktor.gson.*
 import io.ktor.http.*
 import io.ktor.routing.*
+import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.sessions.*
+import kotlinx.serialization.json.Json
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.role.lazyRoleService
@@ -26,21 +27,6 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 	private lateinit var name: String
 	private val server by lazy {
 		embeddedServer(Netty, httpServerConfig.port) {
-//			install(CORS) {
-//				header(HttpHeaders.XForwardedProto)
-//				header(HttpHeaders.Authorization)
-//				header(HttpHeaders.AccessControlAllowHeaders)
-//				header(HttpHeaders.ContentType)
-//				header(HttpHeaders.AccessControlAllowOrigin)
-//				method(HttpMethod.Options)
-//				method(HttpMethod.Head)
-//				method(HttpMethod.Get)
-//				method(HttpMethod.Post)
-//				method(HttpMethod.Delete)
-//				method(HttpMethod.Put)
-//				method(HttpMethod.Patch)
-//				anyHost()
-//			}
 			install(ForwardedHeaderSupport)
 			install(AutoHeadResponse)
 			install(ConditionalHeaders)
@@ -55,9 +41,9 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 				header(HttpHeaders.Server, name)
 			}
 			install(ContentNegotiation) {
-				gson {
-					setPrettyPrinting()
-				}
+				json(Json {
+					prettyPrint = true
+				})
 			}
 			install(Sessions) {
 				cookie<SessionTicket>("ticket") {

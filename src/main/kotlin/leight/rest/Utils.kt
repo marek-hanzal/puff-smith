@@ -1,7 +1,7 @@
 package leight.rest
 
-import com.google.gson.JsonSyntaxException
 import io.ktor.application.*
+import kotlinx.serialization.SerializationException
 import leight.rest.exception.CollectionException
 import leight.rest.exception.InvalidRequestException
 import leight.rest.exception.ResourceLimitException
@@ -15,7 +15,7 @@ suspend inline fun <TResponse, TError> ApplicationCall.handle(
 ) {
 	try {
 		resolve(block(this))
-	} catch (e: JsonSyntaxException) {
+	} catch (e: SerializationException) {
 		logger.error(e.message, e)
 		resolve(badRequest("Malformed JSON"))
 	} catch (e: NoSuchElementException) {

@@ -1,5 +1,6 @@
 package ps.atomizer.dto
 
+import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.*
 import leight.dto.AbstractDto
@@ -7,6 +8,7 @@ import leight.storage.EntityUUID
 import ps.vendor.dto.VendorDto
 import kotlin.properties.Delegates
 
+@Serializable
 data class AtomizerDto(
 	@TypeString
 	val id: String,
