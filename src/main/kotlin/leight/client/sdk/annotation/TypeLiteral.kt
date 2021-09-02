@@ -7,4 +7,5 @@ package leight.client.sdk.annotation
 @MustBeDocumented
 annotation class TypeLiteral(
 	val export: String,
+	val optional: Boolean = false,
 )

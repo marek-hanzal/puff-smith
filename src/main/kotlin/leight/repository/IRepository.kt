@@ -4,10 +4,12 @@ import leight.checker.IChecker
 import leight.page.dto.PageRequestDto
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
+import org.jetbrains.exposed.sql.Expression
 import org.jetbrains.exposed.sql.SizedIterable
+import org.jetbrains.exposed.sql.SortOrder
 import java.util.*
 
-interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
+interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any> {
 	fun create(block: TEntity.() -> Unit): TEntity
 
 	fun update(uuid: String, block: TEntity.() -> Unit): TEntity
@@ -26,13 +28,15 @@ interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity> {
 
 	fun total(filter: IChecker<TEntity>) = total(filter::check)
 
-	fun source(paging: PageRequestDto): SizedIterable<TEntity>
+	fun source(pageRequestDto: PageRequestDto<TOrderBy>): SizedIterable<TEntity>
 
-	fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>? = null)
+	fun page(pageRequestDto: PageRequestDto<TOrderBy>, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>? = null)
 
-	fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: IChecker<TEntity>) = page(paging, block, filter::check)
+	fun page(pageRequestDto: PageRequestDto<TOrderBy>, block: (TEntity) -> Unit, filter: IChecker<TEntity>) = page(pageRequestDto, block, filter::check)
 
 	fun table(): TTable
+
+	fun toOrderBy(orderBy: TOrderBy?): Array<Pair<Expression<*>, SortOrder>>
 
 	fun all(): SizedIterable<TEntity>
 

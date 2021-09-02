@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jetbrains.exposed:exposed-jodatime:0.34.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/exposed-jodatime/0.34.1/7fe9d758a2c0adc25ef741bb5f68d395c83ff157/exposed-jodatime-0.34.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.exposed/exposed-jodatime/0.34.1/5149126fe6fe0c8f0ca94a7dd0abb9387816e091/exposed-jodatime-0.34.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

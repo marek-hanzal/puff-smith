@@ -17,26 +17,25 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 class PageService(container: IContainer) : AbstractService(container), IPageService {
 	private val storage by container.lazyStorage()
 
-	override suspend fun <TTable : UUIDTable, TEntity : UUIDEntity, TResult> page(
+	override suspend fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TResult> page(
 		call: ApplicationCall,
-		repository: IRepository<TTable, TEntity>,
+		repository: IRepository<TTable, TEntity, TOrderBy>,
 		mapper: IMapper<TEntity, TResult>,
 		filter: EntityFilter<TEntity>?
 	): PageResponseDto<TResult> =
-		page(call, { repository.total(filter) }, mapper, { page, block ->
-			repository.page(page, block, filter)
+		page<TEntity, TOrderBy, TResult>(call, { repository.total(filter) }, mapper, { pageRequestDto, block ->
+			repository.page(pageRequestDto, block, filter)
 		})
 
-	fun <TEntity : UUIDEntity, TResult> page(call: ApplicationCall, total: () -> Long, mapper: IMapper<TEntity, TResult>, block: (PageRequestDto, (TEntity) -> Unit) -> Unit) = storage.read {
+	fun <TEntity : UUIDEntity, TOrderBy : Any, TResult> page(call: ApplicationCall, total: () -> Long, mapper: IMapper<TEntity, TResult>, block: (PageRequestDto<TOrderBy>, (TEntity) -> Unit) -> Unit) = storage.read {
 		PageResponseDto.build<TResult> {
-			val paging = runBlocking { call.receive<PageRequestDto>() }
-			try {
-				this.total = total()
-				this.size = paging.limit
-				block(paging.validate(this@build.total)) { entity -> items.add(mapper.map(entity)) }
-			} catch (e: Exception) {
-				throw PageException(e.message ?: "You're making me suffering from huge pain!", e)
+			val pageRequestDto = runBlocking {
+				val a = call.receive<PageRequestDto<TOrderBy>>()
+				a
 			}
+			this.total = total()
+			this.size = pageRequestDto.size
+			block(pageRequestDto.validate(this@build.total)) { entity -> items.add(mapper.map(entity)) }
 		}
 	}
 }

@@ -8,15 +8,17 @@ import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.exceptions.ExposedSQLException
+import org.jetbrains.exposed.sql.Expression
+import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.selectAll
 import java.util.*
 import kotlin.math.max
 
-abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
+abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any>(
 	val table: TTable,
 	val entity: EntityClass<UUID, TEntity>,
 	container: IContainer,
-) : AbstractService(container), IRepository<TTable, TEntity> {
+) : AbstractService(container), IRepository<TTable, TEntity, TOrderBy> {
 	protected val storage by container.lazyStorage()
 
 	override fun create(block: TEntity.() -> Unit) = try {
@@ -41,20 +43,23 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 
 	override fun find(uuid: UUID) = entity.findById(uuid) ?: throw UnknownEntityException("Requested entity [${entity::class}] with uuid [${uuid}] does not exists.")
 
-	override fun source(paging: PageRequestDto) = entity.all().limit(paging.limit, paging.offset)
+	override fun source(pageRequestDto: PageRequestDto<TOrderBy>) = entity.all().orderBy(*toOrderBy(pageRequestDto.orderBy)).limit(pageRequestDto.size, pageRequestDto.offset)
 
-	override fun page(paging: PageRequestDto, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
-		var current = paging
+	override fun page(pageRequestDto: PageRequestDto<TOrderBy>, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
+		var current = pageRequestDto
 		var contract = 0
-		var size = 1L
+		var size = 1
 		while (contract < size && size > 0) {
 			source(current).let { collection ->
-				size = collection.count()
+				size = collection.count().toInt()
 				(filter?.let { collection.filter(filter) } ?: collection).let {
-					it.take(max(0, size - contract).toInt()).forEach { item -> block(item) }
+					it.take(max(0, size - contract)).forEach { item -> block(item) }
 					contract += it.count()
 				}
-				current = PageRequestDto(current.page + 1, current.limit)
+				current = PageRequestDto.build {
+					this.page = current.page + 1
+					this.size = current.size
+				}
 			}
 		}
 	}
@@ -77,4 +82,6 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity>(
 		}
 		else -> throw throwable
 	}
+
+	override fun toOrderBy(orderBy: TOrderBy?): Array<Pair<Expression<*>, SortOrder>> = arrayOf()
 }

@@ -13,7 +13,12 @@ import org.jetbrains.exposed.dao.id.UUIDTable
  * Service used for (clever) paging support over collections.
  */
 interface IPageService {
-	suspend fun <TTable : UUIDTable, TEntity : UUIDEntity, TResult> page(call: ApplicationCall, repository: IRepository<TTable, TEntity>, mapper: IMapper<TEntity, TResult>, filter: EntityFilter<TEntity>? = null): PageResponseDto<TResult>
+	suspend fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TResult> page(
+		call: ApplicationCall,
+		repository: IRepository<TTable, TEntity, TOrderBy>,
+		mapper: IMapper<TEntity, TResult>,
+		filter: EntityFilter<TEntity>? = null
+	): PageResponseDto<TResult>
 }
 
 fun IContainer.lazyPageService() = lazy<IPageService>()

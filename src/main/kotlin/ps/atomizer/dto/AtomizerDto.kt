@@ -1,10 +1,7 @@
 package ps.atomizer.dto
 
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeBool
-import leight.client.sdk.annotation.TypeClass
-import leight.client.sdk.annotation.TypeNumber
-import leight.client.sdk.annotation.TypeString
+import leight.client.sdk.annotation.*
 import leight.dto.AbstractDto
 import leight.storage.EntityUUID
 import ps.vendor.dto.VendorDto
@@ -21,12 +18,12 @@ data class AtomizerDto(
 	val vendor: VendorDto,
 	@TypeNumber
 	val coils: Int,
-	@TypeNumber
-	val maxCoilSize: Int,
-	@TypeNumber
-	val maxWraps: Int,
-	@TypeNumber
-	val capacity: Float,
+	@TypeNullNumber
+	val maxCoilSize: Int?,
+	@TypeNullNumber
+	val maxWraps: Int?,
+	@TypeNullNumber
+	val capacity: Float?,
 	@TypeBool
 	val squonk: Boolean,
 	@TypeNumber
@@ -42,9 +39,9 @@ data class AtomizerDto(
 		lateinit var code: String
 		lateinit var vendor: VendorDto
 		var coils by Delegates.notNull<Int>()
-		var maxCoilSize by Delegates.notNull<Int>()
-		var maxWraps by Delegates.notNull<Int>()
-		var capacity by Delegates.notNull<Float>()
+		var maxCoilSize: Int? = null
+		var maxWraps: Int? = null
+		var capacity: Float? = null
 		var squonk by Delegates.notNull<Boolean>()
 		var base by Delegates.notNull<Int>()
 

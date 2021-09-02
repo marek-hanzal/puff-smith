@@ -8,7 +8,7 @@ import leight.user.UserException
 import ps.storage.module.user.entity.UserEntity
 import ps.storage.module.user.table.UserTable
 
-class UserRepository(container: IContainer) : AbstractRepository<UserTable, UserEntity>(UserTable, UserEntity, container) {
+class UserRepository(container: IContainer) : AbstractRepository<UserTable, UserEntity, Unit>(UserTable, UserEntity, container) {
 	private val passwordService by container.lazyPasswordService()
 
 	fun findByLogin(login: String) = entity.find { table.login eq login }.first()

@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-	with("0.33.1") {
+	with("0.34.1") {
 		implementation("org.jetbrains.exposed:exposed-core:$this")
 		implementation("org.jetbrains.exposed:exposed-jodatime:$this")
 		implementation("org.jetbrains.exposed:exposed-dao:$this")

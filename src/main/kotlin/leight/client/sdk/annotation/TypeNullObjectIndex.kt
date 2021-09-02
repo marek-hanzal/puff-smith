@@ -5,6 +5,6 @@ package leight.client.sdk.annotation
  */
 @Target(AnnotationTarget.PROPERTY)
 @MustBeDocumented
-annotation class TypeObjectIndex(
+annotation class TypeNullObjectIndex(
 	val target: TypeClass,
 )

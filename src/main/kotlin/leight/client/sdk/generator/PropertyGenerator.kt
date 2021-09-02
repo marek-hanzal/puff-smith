@@ -12,10 +12,12 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 	private val nameResolver by container.lazyNameResolver()
 	private val genericGenerator by container.lazyGenericGenerator()
 
-	fun exportProperty(klass: KClass<*>, property: KProperty<*>, level: Int): String {
-		var type = "any"
+	fun exportProperty(klass: KClass<*>, property: KProperty<*>, level: Int): String? {
+		var type: String? = null
+		var separator = ":"
 		property.findAnnotation<TypeLiteral>()?.let {
 			type = it.export
+			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeString>()?.let {
 			type = "string"
@@ -34,6 +36,7 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 		}
 		property.findAnnotation<TypeNullBool>()?.let {
 			type = "boolean | null"
+			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeArrayClass>()?.let {
 			type = nameResolver.resolveClassName(klass, it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + "[]"
@@ -44,7 +47,7 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 		property.findAnnotation<TypeObjectIndex>()?.let {
 			type = "{ [index in string]: " + nameResolver.resolveClassName(klass, it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + " }"
 		}
-		return "\t".repeat(level + 2) + property.name + ": " + type
+		return type?.let { "\t".repeat(level + 2) + property.name + "$separator " + it + ";" }
 	}
 }
 

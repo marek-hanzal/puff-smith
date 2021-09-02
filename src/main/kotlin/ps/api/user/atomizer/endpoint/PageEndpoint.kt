@@ -10,13 +10,19 @@ import leight.page.lazyPageService
 import leight.rest.*
 import ps.atomizer.dto.AtomizerDto
 import ps.atomizer.mapper.lazyAtomizerMapper
+import ps.storage.module.atomizer.repository.AtomizerOrderBy
 import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 
 @Endpoint(
 	method = EndpointMethod.POST,
 )
 @Sdk(
-	request = TypeClass(PageRequestDto::class),
+	request = TypeClass(
+		PageRequestDto::class,
+		[
+			TypeClass(AtomizerOrderBy::class),
+		],
+	),
 	response = TypeClass(
 		PageResponseDto::class, [
 			TypeClass(AtomizerDto::class),
