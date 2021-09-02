@@ -14,6 +14,8 @@ data class UserDto(
 	@TypeString(nullable = true)
 	val id: String?,
 	@TypeString
+	val name: String,
+	@TypeString
 	val site: String,
 	@TypeArrayClass(TypeClass(RoleDto::class))
 	val roles: List<RoleDto>,
@@ -23,12 +25,14 @@ data class UserDto(
 	}
 
 	class Builder : IBuilder<UserDto> {
-		lateinit var id: EntityUUID
+		var id: EntityUUID? = null
+		lateinit var name: String
 		lateinit var site: String
 		var roles = listOf<RoleDto>()
 
 		override fun build() = UserDto(
-			id.value.toString(),
+			id?.value.toString(),
+			name,
 			site,
 			roles,
 		)

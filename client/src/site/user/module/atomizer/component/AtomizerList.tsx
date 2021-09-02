@@ -11,7 +11,7 @@ const useDataSourceContext = ps.user.atomizer.datasource.useDataSourceContext;
 export interface IAtomizerListProps extends Partial<IListProps<AtomizerDto>> {
 }
 
-export const AtomizerListInternal: FC = () => {
+export const AtomizerListInternal: FC = ({...props}) => {
 	const dataSourceContext = useDataSourceContext();
 	return <>
 		<Button onClick={() => {
@@ -25,7 +25,7 @@ export const AtomizerListInternal: FC = () => {
 			});
 		}}>Klyk me up</Button>
 		<List<AtomizerDto>
-			itemLayout={"vertical"}
+			{...props}
 		>
 			{atomizer => <ListItem
 				key={atomizer.id}
@@ -53,8 +53,8 @@ export const AtomizerListInternal: FC = () => {
 	</>;
 };
 
-export const AtomizerList: FC<IAtomizerListProps> = () => {
+export const AtomizerList: FC<IAtomizerListProps> = props => {
 	return <DataSourceContextProvider>
-		<AtomizerListInternal/>
+		<AtomizerListInternal {...props}/>
 	</DataSourceContextProvider>;
 };

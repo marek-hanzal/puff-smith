@@ -15,6 +15,7 @@ class UserEntity(id: EntityUUID) : UUIDEntity(id) {
 	var roles by RoleEntity via UserRoleTable
 	val tickets by TicketEntity referrersOn TicketTable.user
 
+	var name by UserTable.name
 	var login by UserTable.login
 	var password by UserTable.password
 	var site by UserTable.site

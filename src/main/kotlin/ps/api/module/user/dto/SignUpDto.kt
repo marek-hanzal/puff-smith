@@ -7,6 +7,8 @@ import leight.dto.AbstractDto
 @Serializable
 data class SignUpDto(
 	@TypeString
+	val name: String,
+	@TypeString
 	val login: String,
 	@TypeString
 	val password: String,

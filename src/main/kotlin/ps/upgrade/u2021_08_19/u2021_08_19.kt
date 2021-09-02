@@ -55,12 +55,14 @@ class u2021_08_19(container: IContainer) : AbstractUpgrade(container) {
 				name = "user"
 			}
 			UserEntity.new {
+				name = "root"
 				login = "root"
 				password = passwordService.encrypt("root")
 				site = "root"
 				roles = roleRepository.findByName("root")
 			}
 			UserEntity.new {
+				name = "user"
 				login = "user"
 				password = passwordService.encrypt("user")
 				site = "user"

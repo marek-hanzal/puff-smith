@@ -10,6 +10,11 @@ import org.joda.time.DateTime
  */
 object UserTable : UUIDTable("user") {
 	/**
+	 * Some arbitrary username of his choice.
+	 */
+	val name = varchar("name", 128)
+
+	/**
 	 * Some general login identifier (does not matter if is that username or email or whatever).
 	 */
 	val login = varchar("login", 128).uniqueIndex("user_login_unique")
