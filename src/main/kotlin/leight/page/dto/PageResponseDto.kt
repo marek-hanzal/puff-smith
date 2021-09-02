@@ -45,7 +45,7 @@ data class PageResponseDto<TItem>(
 		var size by Delegates.notNull<Int>()
 		val items = mutableListOf<TItem>()
 
-		override fun build() = PageResponseDto<TItem>(
+		override fun build() = PageResponseDto(
 			total,
 			size,
 			ceil(total.toDouble() / size.toDouble()).toInt(),
