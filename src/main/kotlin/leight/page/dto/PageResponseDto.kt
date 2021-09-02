@@ -9,7 +9,7 @@ import kotlin.math.ceil
 import kotlin.properties.Delegates
 
 @Serializable
-data class PageResponseDto<TItem>(
+open class PageResponseDto<TItem>(
 	/**
 	 * Total number of items available.
 	 */
