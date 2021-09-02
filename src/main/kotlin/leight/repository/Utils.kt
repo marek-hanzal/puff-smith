@@ -15,10 +15,10 @@ fun orderByListOf(block: MutableList<Pair<Expression<*>, SortOrder>?>.() -> Unit
 
 fun <T> Expression<T>.toOrderPair(order: Boolean) = Pair(this, if (order) SortOrder.ASC else SortOrder.DESC)
 
-inline fun <TTable : UUIDTable, TEntity : UUIDEntity, reified TOrderBy : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy>.toPageResponse(
+fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy>.toPageResponse(
 	pageRequestDto: PageRequestDto<TOrderBy>,
 	mapper: IMapper<TEntity, TResult>,
-	noinline filter: EntityFilter<TEntity>? = null
+	filter: EntityFilter<TEntity>? = null
 ) = storage.read {
 	PageResponseDto.build<TResult> {
 		this.total = total(filter)
