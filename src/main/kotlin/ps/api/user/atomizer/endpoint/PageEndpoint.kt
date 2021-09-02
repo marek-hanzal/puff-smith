@@ -1,6 +1,7 @@
 package ps.api.user.atomizer.endpoint
 
 import io.ktor.application.*
+import io.ktor.request.*
 import leight.client.sdk.annotation.Sdk
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
@@ -34,6 +35,6 @@ class PageEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val atomizerMapper by container.lazyAtomizerMapper()
 
 	override suspend fun handle(call: ApplicationCall): Response<*> {
-		return ok(atomizerRepository.toPageResponse(call, atomizerMapper))
+		return ok(atomizerRepository.toPageResponse(call.receive(), atomizerMapper))
 	}
 }
