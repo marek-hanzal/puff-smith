@@ -28,6 +28,13 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 		{...props}
 	>
 		<FormItem
+			field={"name"}
+			labels={["public.name.label"]}
+			rules={[
+				{required: true, message: t("public.name.required"), whitespace: true}
+			]}
+		/>
+		<FormItem
 			field={"login"}
 			labels={["public.login.label"]}
 			rules={[

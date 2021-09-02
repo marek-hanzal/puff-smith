@@ -59,7 +59,7 @@ object ModTable : UUIDTable("mod") {
 	/**
 	 * Maximum power of this mod (in Watts).
 	 */
-	val power = integer("power")
+	val power = float("power")
 
 	/**
 	 * How good internal electronics of this mod is (percentage 0-100).

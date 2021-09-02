@@ -15,6 +15,7 @@ class ModMapper(container: IContainer) : AbstractMapper<ModEntity, ModDto>(conta
 		id = item.id
 		name = item.name
 		code = item.code
+		power = item.power
 		approvedBy = item.approvedBy?.let { userMapper.map(userRepository.find(it)) }
 	}
 }

@@ -31,6 +31,7 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 		return call.receive<SignUpDto>().let { request ->
 			storage.write(userRepository::exception) {
 				userRepository.create {
+					name = request.name
 					login = request.login
 					password = passwordService.encrypt(request.password)
 					site = "user"

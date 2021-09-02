@@ -31,7 +31,7 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 						bypass = get("bypass")?.toBoolean() ?: false
 						batteries = get("batteries")?.toInt() ?: 1
 						capacity = get("capacity")?.toInt()
-						power = get("power").toInt()
+						power = get("power").toFloat()
 						efficiency = get("efficiency")?.toInt()
 						createdBy = userId
 						approvedBy = userId
@@ -53,7 +53,7 @@ class ModCsvImport(container: IContainer) : AbstractImportService(container) {
 								bypass = get("bypass")?.toBoolean() ?: false
 								batteries = get("batteries")?.toInt() ?: 1
 								capacity = get("capacity")?.toInt()
-								power = get("power").toInt()
+								power = get("power").toFloat()
 								efficiency = get("efficiency")?.toInt()
 								battery = SizedCollection(get("battery")?.split(',')?.map(enumRepository::findByCode)?.toList() ?: listOf())
 								updatedBy = userId

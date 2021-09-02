@@ -1,5 +1,5 @@
 import {ps} from "@/ps";
-import {EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
+import {DashboardOutlined, EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem} from "@leight-core/leight";
 import {Button} from "antd";
 import {FC} from "react";
@@ -11,7 +11,7 @@ const useDataSourceContext = ps.user.mod.datasource.useDataSourceContext;
 export interface IModListProps extends Partial<IListProps<ModDto>> {
 }
 
-export const ModListInternal: FC = () => {
+export const ModListInternal: FC = ({...props}) => {
 	const dataSourceContext = useDataSourceContext();
 	return <>
 		<Button onClick={() => {
@@ -25,7 +25,7 @@ export const ModListInternal: FC = () => {
 			});
 		}}>Klyk me up</Button>
 		<List<ModDto>
-			itemLayout={"vertical"}
+			{...props}
 		>
 			{mod => <ListItem
 				key={mod.id}
@@ -35,12 +35,17 @@ export const ModListInternal: FC = () => {
 						tooltip={"user.mod.approved-by.tooltip"}
 						data={mod.approvedBy}
 						icon={<EyeOutlined/>}
-						text={mod.approvedBy.id!!}
 					/>,
 					!mod.isApproved && <IconText
 						key={"isNotApproved"}
 						tooltip={"user.mod.is-not-approved.tooltip"}
 						icon={<EyeInvisibleOutlined/>}
+					/>,
+					<IconText
+						key={"power"}
+						tooltip={"user.mod.power.tooltip"}
+						icon={<DashboardOutlined/>}
+						text={mod.power.toFixed(1) + "W"}
 					/>,
 				].filter(item => !!item)}
 			>
@@ -53,8 +58,8 @@ export const ModListInternal: FC = () => {
 	</>;
 };
 
-export const ModList: FC<IModListProps> = () => {
+export const ModList: FC<IModListProps> = props => {
 	return <DataSourceContextProvider>
-		<ModListInternal/>
+		<ModListInternal {...props}/>
 	</DataSourceContextProvider>;
 };
