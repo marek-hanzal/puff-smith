@@ -11,7 +11,7 @@ class ClassGenerator(container: IContainer) : AbstractService(container) {
 
 	fun exportClass(typeClass: TypeClass, level: Int): String {
 		return """${"\t".repeat(level + 1)}export interface ${typeClass.klass.simpleName!!}${genericGenerator.exportClassTypes(typeClass)} {
-${typeClass.klass.memberProperties.joinToString("\n") { "${propertyGenerator.exportProperty(typeClass.klass, it, level)};" }}
+${typeClass.klass.memberProperties.mapNotNull { propertyGenerator.exportProperty(typeClass.klass, it, level) }.joinToString("\n")}
 ${"\t".repeat(level + 1)}}"""
 	}
 }

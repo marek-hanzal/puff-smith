@@ -1,13 +1,54 @@
 import {ps} from "@/ps";
-import {IListProps, List} from "@leight-core/leight";
+import {ExpandAltOutlined, RedoOutlined} from "@ant-design/icons";
+import {DataSourceContextProvider, IconText, IListProps, List, ListItem, useDataSourceContext} from "@leight-core/leight";
+import {Button} from "antd";
 import {FC} from "react";
 
 export interface IAtomizerListProps extends Partial<IListProps<ps.atomizer.AtomizerDto>> {
 }
 
+export const AtomizerListInternal: FC = () => {
+	const dataSourceContext = useDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>();
+	return <>
+		<Button onClick={() => {
+			dataSourceContext.page(2, 2);
+			dataSourceContext.setOrderBy({
+				name: false,
+			});
+		}}>Klyk me</Button>
+		<List<ps.atomizer.AtomizerDto>
+			itemLayout={"vertical"}
+		>
+			{atomizer => <ListItem
+				key={atomizer.id}
+				actions={[
+					atomizer.maxCoilSize && <IconText
+						key={"maxCoilSize"}
+						tooltip={"user.atomizer.max-coil-size.tooltip"}
+						icon={<ExpandAltOutlined/>}
+						text={atomizer.maxCoilSize}
+					/>,
+					atomizer.maxWraps && <IconText
+						key={"maxWraps"}
+						tooltip={"user.atomizer.max-wraps.tooltip"}
+						icon={<RedoOutlined/>}
+						text={atomizer.maxWraps}
+					/>,
+				]}
+			>
+				<ListItem.Meta
+					title={atomizer.name}
+					description={atomizer.code}
+				/>
+			</ListItem>}
+		</List>
+	</>;
+};
+
 export const AtomizerList: FC<IAtomizerListProps> = () => {
-	return <List<ps.atomizer.AtomizerDto>
+	return <DataSourceContextProvider<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>
+		fetch={ps.user.atomizer.doPage}
 	>
-		{(item) => null}
-	</List>;
+		<AtomizerListInternal/>
+	</DataSourceContextProvider>;
 };

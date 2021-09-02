@@ -1,4 +1,4 @@
-import {createDelete, createGet, createPost, IDiscoveryIndex} from "@leight-core/leight";
+import {createDelete, createGet, createPost, createPut, IDiscoveryIndex} from "@leight-core/leight";
 
 
 export namespace ps {
@@ -79,19 +79,19 @@ export namespace ps {
 
 			export const doCreate = createPost<CreateDto, ps.atomizer.AtomizerDto>("user.atomizer.create");
 
-			export const doPage = createPost<leight.page.PageRequestDto, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
+			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.atomizer.repository.AtomizerOrderBy>, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
 		}
 	}
 
 	export namespace atomizer {
 		export interface AtomizerDto {
 			base: number;
-			capacity: number;
+			capacity: number | null;
 			code: string;
 			coils: number;
 			id: string;
-			maxCoilSize: number;
-			maxWraps: number;
+			maxCoilSize: number | null;
+			maxWraps: number | null;
 			name: string;
 			squonk: boolean;
 			vendor: ps.vendor.VendorDto;
@@ -105,14 +105,25 @@ export namespace ps {
 			name: string;
 		}
 	}
+
+	export namespace storage {
+		export namespace atomizer {
+			export namespace repository {
+				export interface AtomizerOrderBy {
+					code?: boolean | null;
+					name?: boolean | null;
+				}
+			}
+		}
+	}
 }
 
 export namespace leight {
 	export namespace page {
-		export interface PageRequestDto {
-			limit: number;
-			offset: number;
+		export interface PageRequestDto<TOrderBy> {
+			orderBy?: TOrderBy | null;
 			page: number;
+			size: number;
 		}
 
 		export interface PageResponseDto<TItem> {
