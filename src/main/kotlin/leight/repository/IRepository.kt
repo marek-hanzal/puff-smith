@@ -2,6 +2,7 @@ package leight.repository
 
 import leight.checker.IChecker
 import leight.page.dto.PageRequestDto
+import leight.storage.EntityUUID
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.Expression
@@ -19,6 +20,8 @@ interface IRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any> 
 	fun delete(uuid: UUID)
 
 	fun find(uuid: String) = find(UUID.fromString(uuid))
+
+	fun find(uuid: EntityUUID) = find(uuid.value)
 
 	fun find(uuid: UUID): TEntity
 

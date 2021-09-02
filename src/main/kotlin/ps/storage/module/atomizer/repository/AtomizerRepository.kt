@@ -1,7 +1,7 @@
 package ps.storage.module.atomizer.repository
 
 import kotlinx.serialization.Serializable
-import leight.client.sdk.annotation.TypeNullBool
+import leight.client.sdk.annotation.TypeBool
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import leight.repository.orderByListOf
@@ -11,9 +11,9 @@ import ps.storage.module.atomizer.table.AtomizerTable
 
 @Serializable
 data class AtomizerOrderBy(
-	@TypeNullBool(optional = true)
+	@TypeBool(nullable = true, optional = true)
 	val name: Boolean? = null,
-	@TypeNullBool(optional = true)
+	@TypeBool(nullable = true, optional = true)
 	val code: Boolean? = null,
 )
 

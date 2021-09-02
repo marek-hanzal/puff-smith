@@ -1,13 +1,14 @@
 package ps.api.module.translation.dto.index
 
-import leight.client.sdk.annotation.TypeNullString
+import kotlinx.serialization.Serializable
 import leight.client.sdk.annotation.TypeString
 
+@Serializable
 data class TranslationDto(
 	@TypeString
 	val language: String,
 	@TypeString
 	val label: String,
-	@TypeNullString
+	@TypeString(nullable = true)
 	val text: String?,
 )

@@ -1,6 +1,7 @@
 package ps.storage.module.vendor.repository
 
-import leight.client.sdk.annotation.TypeNullBool
+import kotlinx.serialization.Serializable
+import leight.client.sdk.annotation.TypeBool
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import leight.repository.orderByListOf
@@ -8,11 +9,12 @@ import leight.repository.toOrderPair
 import ps.storage.module.vendor.entity.VendorEntity
 import ps.storage.module.vendor.table.VendorTable
 
+@Serializable
 data class VendorOrderBy(
-	@TypeNullBool
-	val name: Boolean?,
-	@TypeNullBool
-	val code: Boolean?,
+	@TypeBool(nullable = true, optional = true)
+	val name: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val code: Boolean? = null,
 )
 
 class VendorRepository(container: IContainer) : AbstractRepository<VendorTable, VendorEntity, VendorOrderBy>(VendorTable, VendorEntity, container) {

@@ -1,6 +1,7 @@
 package ps.upgrade.u2021_08_19.storage.module.mod.repository
 
-import leight.client.sdk.annotation.TypeNullBool
+import kotlinx.serialization.Serializable
+import leight.client.sdk.annotation.TypeBool
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import leight.repository.orderByListOf
@@ -8,13 +9,14 @@ import leight.repository.toOrderPair
 import ps.upgrade.u2021_08_19.storage.module.mod.entity.ModEntity
 import ps.upgrade.u2021_08_19.storage.module.mod.table.ModTable
 
+@Serializable
 data class ModOrderBy(
-	@TypeNullBool
-	val name: Boolean?,
-	@TypeNullBool
-	val code: Boolean?,
-	@TypeNullBool
-	val power: Boolean?,
+	@TypeBool(nullable = true, optional = true)
+	val name: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val code: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val power: Boolean? = null,
 )
 
 class ModRepository(container: IContainer) : AbstractRepository<ModTable, ModEntity, ModOrderBy>(ModTable, ModEntity, container) {

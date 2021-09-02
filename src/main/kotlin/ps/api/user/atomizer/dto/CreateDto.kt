@@ -1,10 +1,10 @@
 package ps.api.user.atomizer.dto
 
-import leight.client.sdk.annotation.TypeNullBool
-import leight.client.sdk.annotation.TypeNullNumber
+import kotlinx.serialization.Serializable
 import leight.client.sdk.annotation.TypeNumber
 import leight.client.sdk.annotation.TypeString
 
+@Serializable
 data class CreateDto(
 	@TypeString
 	val name: String,
@@ -12,7 +12,7 @@ data class CreateDto(
 	val code: String,
 	@TypeString
 	val vendorId: String,
-	@TypeNullNumber
+	@TypeNumber(nullable = true)
 	val coils: Int?,
 	@TypeNumber
 	val maxCoilSize: Int,
@@ -20,7 +20,7 @@ data class CreateDto(
 	val maxWraps: Int,
 	@TypeNumber
 	val capacity: Float,
-	@TypeNullBool
+	@TypeNumber(nullable = true)
 	val squonk: Boolean?,
 	@TypeNumber
 	val base: Int,

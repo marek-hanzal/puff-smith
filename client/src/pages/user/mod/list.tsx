@@ -1,4 +1,5 @@
 import {UserMenu, UserPage, withUserLayout} from "@/ps/site/user";
+import {ModList} from "@/ps/site/user/module/mod";
 import {useTranslation} from "react-i18next";
 
 export default withUserLayout(function List() {
@@ -7,6 +8,6 @@ export default withUserLayout(function List() {
 		name={"user.mod.list"}
 		menu={() => <UserMenu/>}
 	>
-		# list
+		<ModList/>
 	</UserPage>;
 });

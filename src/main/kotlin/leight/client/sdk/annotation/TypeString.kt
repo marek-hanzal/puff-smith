@@ -1,4 +1,6 @@
 package leight.client.sdk.annotation
 
 @Target(AnnotationTarget.PROPERTY)
-annotation class TypeString
+annotation class TypeString(
+	val nullable: Boolean = false,
+)

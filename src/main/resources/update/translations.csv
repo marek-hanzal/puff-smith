@@ -44,3 +44,6 @@ cs;user.atomizer.index.title;Nástěnka atomizérů
 cs;user.atomizer.index.subtitle;Zde se nachází správa vašich atomizérů (a jiných podobných zařízení).
 cs;user.atomizer.create.title;Nový atomizér
 cs;user.atomizer.list.title;Seznam atomizérů
+cs;public.unauthorized.title;Zdá se, že sem nemáte přístup. Zkuste se přihlásit.
+cs;user.mod.approved-by.tooltip;Mod byl zkontrolován uživatelem [{{data.id}}].
+cs;user.mod.is-not-approved.tooltip;Mod byl zadán, ale ještě jej nikdo nezkontroloval.

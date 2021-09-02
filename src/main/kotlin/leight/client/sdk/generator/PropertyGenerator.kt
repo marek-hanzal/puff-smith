@@ -12,7 +12,7 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 	private val nameResolver by container.lazyNameResolver()
 	private val genericGenerator by container.lazyGenericGenerator()
 
-	fun exportProperty(klass: KClass<*>, property: KProperty<*>, level: Int): String? {
+	fun exportProperty(property: KProperty<*>, level: Int): String? {
 		var type: String? = null
 		var separator = ":"
 		property.findAnnotation<TypeLiteral>()?.let {
@@ -20,32 +20,24 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeString>()?.let {
-			type = "string"
-		}
-		property.findAnnotation<TypeNullString>()?.let {
-			type = "string | null"
+			type = "string" + if (it.nullable) " | null" else ""
 		}
 		property.findAnnotation<TypeNumber>()?.let {
-			type = "number"
-		}
-		property.findAnnotation<TypeNullNumber>()?.let {
-			type = "number | null"
+			type = "number" + if (it.nullable) " | null" else ""
 		}
 		property.findAnnotation<TypeBool>()?.let {
-			type = "boolean"
-		}
-		property.findAnnotation<TypeNullBool>()?.let {
-			type = "boolean | null"
+			type = "boolean" + if (it.nullable) " | null" else ""
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeArrayClass>()?.let {
-			type = nameResolver.resolveClassName(klass, it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + "[]"
+			type = nameResolver.resolveClassName(it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + "[]"
 		}
 		property.findAnnotation<TypeClass>()?.let {
-			type = nameResolver.resolveClassName(klass, it.klass) + genericGenerator.exportExpandedTypes(it)
+			type = nameResolver.resolveClassName(it.klass) + genericGenerator.exportExpandedTypes(it) + if (it.nullable) " | null" else ""
+			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeObjectIndex>()?.let {
-			type = "{ [index in string]: " + nameResolver.resolveClassName(klass, it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + " }"
+			type = "{ [index in string]: " + nameResolver.resolveClassName(it.target.klass) + genericGenerator.exportExpandedTypes(it.target) + " }"
 		}
 		return type?.let { "\t".repeat(level + 2) + property.name + "$separator " + it + ";" }
 	}

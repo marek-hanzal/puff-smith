@@ -7,4 +7,6 @@ import kotlin.reflect.KClass
 annotation class TypeClass(
 	val klass: KClass<*>,
 	val types: Array<TypeClass> = [],
+	val nullable: Boolean = false,
+	val optional: Boolean = false,
 )
