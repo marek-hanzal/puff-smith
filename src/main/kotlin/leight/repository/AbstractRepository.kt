@@ -19,7 +19,7 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrd
 	val entity: EntityClass<UUID, TEntity>,
 	container: IContainer,
 ) : AbstractService(container), IRepository<TTable, TEntity, TOrderBy> {
-	protected val storage by container.lazyStorage()
+	val storage by container.lazyStorage()
 
 	override fun create(block: TEntity.() -> Unit) = try {
 		entity.new { block(this) }
