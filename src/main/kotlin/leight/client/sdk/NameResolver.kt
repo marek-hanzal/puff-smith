@@ -16,12 +16,12 @@ class NameResolver(container: IContainer) : AbstractService(container) {
 
 	fun namespaceParts(klass: KClass<*>) = namespaceName(klass).split(".")
 
-	fun resolveClassName(source: KClass<*>, target: KClass<*>): String = when (target) {
+	fun resolveClassName(klass: KClass<*>): String = when (klass) {
 		Unit::class -> {
 			"never"
 		}
 		else -> {
-			filterName(target.qualifiedName!!).replace(namespaceName(source) + ".", "")
+			filterName(klass.qualifiedName!!)
 		}
 	}
 }

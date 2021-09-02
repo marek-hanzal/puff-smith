@@ -1,3 +1,3 @@
 export * from "./bootstrap";
 export * from "./component";
-export * from "./sdk";
+export * from "sdk";

@@ -8,11 +8,10 @@ import leight.container.IContainer
 import leight.encryption.lazyPasswordService
 import leight.rest.*
 import leight.storage.lazyStorage
-import ps.api.module.user.dto.RoleDto
 import ps.api.module.user.dto.SignUpDto
 import ps.session.dto.SessionDto
 import ps.storage.module.user.repository.lazyUserRepository
-import ps.user.dto.UserDto
+import ps.user.mapper.lazyUserToSessionMapper
 
 @Endpoint(
 	public = true,
@@ -24,6 +23,7 @@ import ps.user.dto.UserDto
 )
 class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val userRepository by container.lazyUserRepository()
+	private val userToSessionMapper by container.lazyUserToSessionMapper()
 	private val storage by container.lazyStorage()
 	private val passwordService by container.lazyPasswordService()
 
@@ -37,9 +37,7 @@ class SignUpEndpoint(container: IContainer) : AbstractEndpoint(container) {
 				}
 			}
 			storage.read {
-				userRepository.findByCredentials(request.login, request.password).let { user ->
-					ok(SessionDto(UserDto(user.id.value, if (user.site != null) user.site!! else "user", user.roles.map { RoleDto(it.id.value, it.name) })))
-				}
+				ok(userToSessionMapper.map(userRepository.findByCredentials(request.login, request.password)))
 			}
 		}
 	}

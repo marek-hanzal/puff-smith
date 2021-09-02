@@ -1,6 +1,7 @@
 package ps.storage.module.enum.repository
 
-import leight.client.sdk.annotation.TypeNullBool
+import kotlinx.serialization.Serializable
+import leight.client.sdk.annotation.TypeBool
 import leight.container.IContainer
 import leight.repository.AbstractRepository
 import leight.repository.orderByListOf
@@ -8,13 +9,14 @@ import leight.repository.toOrderPair
 import ps.storage.module.enum.entity.EnumEntity
 import ps.storage.module.enum.table.EnumTable
 
+@Serializable
 data class EnumOrderBy(
-	@TypeNullBool
-	val label: Boolean?,
-	@TypeNullBool
-	val code: Boolean?,
-	@TypeNullBool
-	val category: Boolean?,
+	@TypeBool(nullable = true, optional = true)
+	val label: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val code: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val category: Boolean? = null,
 )
 
 class EnumRepository(container: IContainer) : AbstractRepository<EnumTable, EnumEntity, EnumOrderBy>(EnumTable, EnumEntity, container) {

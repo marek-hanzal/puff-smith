@@ -2,13 +2,19 @@ package leight.rest
 
 import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.discovery.lazyDiscoveryIndex
 import leight.http.withAnyRole
+import leight.mapper.IMapper
+import leight.repository.AbstractRepository
+import leight.repository.toPageResponse
 import leight.rest.exception.RestException
+import org.jetbrains.exposed.dao.UUIDEntity
+import org.jetbrains.exposed.dao.id.UUIDTable
 import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
@@ -41,4 +47,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 			}
 		}
 	}
+
+	suspend inline fun <TTable : UUIDTable, TEntity : UUIDEntity, reified TOrderBy : Any, TResult> ApplicationCall.page(repository: AbstractRepository<TTable, TEntity, TOrderBy>, mapper: IMapper<TEntity, TResult>) =
+		ok(repository.toPageResponse(receive(), mapper))
 }

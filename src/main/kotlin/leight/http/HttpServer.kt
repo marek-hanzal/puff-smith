@@ -41,6 +41,7 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 			}
 			install(ContentNegotiation) {
 				json(Json {
+					ignoreUnknownKeys = true
 					prettyPrint = true
 				})
 			}

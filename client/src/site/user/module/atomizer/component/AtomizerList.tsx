@@ -1,14 +1,18 @@
 import {ps} from "@/ps";
 import {ExpandAltOutlined, RedoOutlined} from "@ant-design/icons";
-import {DataSourceContextProvider, IconText, IListProps, List, ListItem, useDataSourceContext} from "@leight-core/leight";
+import {IconText, IListProps, List, ListItem} from "@leight-core/leight";
 import {Button} from "antd";
 import {FC} from "react";
 
-export interface IAtomizerListProps extends Partial<IListProps<ps.atomizer.AtomizerDto>> {
+type AtomizerDto = ps.atomizer.AtomizerDto;
+const DataSourceContextProvider = ps.user.atomizer.datasource.DataSourceContextProvider;
+const useDataSourceContext = ps.user.atomizer.datasource.useDataSourceContext;
+
+export interface IAtomizerListProps extends Partial<IListProps<AtomizerDto>> {
 }
 
 export const AtomizerListInternal: FC = () => {
-	const dataSourceContext = useDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>();
+	const dataSourceContext = useDataSourceContext();
 	return <>
 		<Button onClick={() => {
 			dataSourceContext.setOrderBy({
@@ -20,7 +24,7 @@ export const AtomizerListInternal: FC = () => {
 				name: true,
 			});
 		}}>Klyk me up</Button>
-		<List<ps.atomizer.AtomizerDto>
+		<List<AtomizerDto>
 			itemLayout={"vertical"}
 		>
 			{atomizer => <ListItem
@@ -50,9 +54,7 @@ export const AtomizerListInternal: FC = () => {
 };
 
 export const AtomizerList: FC<IAtomizerListProps> = () => {
-	return <DataSourceContextProvider<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>
-		fetch={ps.user.atomizer.doPage}
-	>
+	return <DataSourceContextProvider>
 		<AtomizerListInternal/>
 	</DataSourceContextProvider>;
 };

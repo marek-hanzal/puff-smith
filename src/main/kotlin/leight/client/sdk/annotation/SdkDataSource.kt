@@ -1,4 +1,9 @@
 package leight.client.sdk.annotation
 
+import kotlin.reflect.KClass
+
 @Target(AnnotationTarget.CLASS)
-annotation class SdkDataSource
+annotation class SdkDataSource(
+	val item: KClass<*>,
+	val orderBy: KClass<*> = Unit::class,
+)
