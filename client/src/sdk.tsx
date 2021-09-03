@@ -1,13 +1,14 @@
+import {FC} from "react";
 import {
+	useDataSourceContext as useCoolDataSourceContext,
+	DataSourceContextProvider as CoolDataSourceContextProvider,
+	IDataSourceContextProviderProps as ICoolDataSourceContextProviderProps,
 	createDelete,
 	createGet,
 	createPost,
-	DataSourceContextProvider as CoolDataSourceContextProvider,
-	IDataSourceContextProviderProps as ICoolDataSourceContextProviderProps,
-	IDiscoveryIndex,
-	useDataSourceContext as useCoolDataSourceContext
+	createPut,
+	IDiscoveryIndex
 } from "@leight-core/leight";
-import {FC} from "react";
 
 export namespace ps {
 	export namespace discovery {
@@ -72,7 +73,7 @@ export namespace ps {
 		export namespace atomizer {
 			export interface CreateDto {
 				base: number;
-				capacity: number;
+				capacity: number | null;
 				code: string;
 				coils: number | null;
 				maxCoilSize: number;
@@ -87,7 +88,7 @@ export namespace ps {
 			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
 
 			export namespace datasource {
-				export const useDataSourceContext = () => useCoolDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>();
+				export const useDataSourceContext = () => useCoolDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>()
 
 				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>> {
 				}
@@ -99,7 +100,7 @@ export namespace ps {
 					>
 						{children}
 					</CoolDataSourceContextProvider>;
-				};
+				}
 			}
 		}
 
@@ -107,7 +108,7 @@ export namespace ps {
 			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>, leight.page.PageResponseDto<ps.mod.ModDto>>("user.mod.page");
 
 			export namespace datasource {
-				export const useDataSourceContext = () => useCoolDataSourceContext<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>();
+				export const useDataSourceContext = () => useCoolDataSourceContext<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>()
 
 				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>> {
 				}
@@ -119,8 +120,12 @@ export namespace ps {
 					>
 						{children}
 					</CoolDataSourceContextProvider>;
-				};
+				}
 			}
+		}
+
+		export namespace vendor {
+			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.vendor.VendorOrderByDto, ps.storage.vendor.VendorFilterDto>, leight.page.PageResponseDto<ps.vendor.VendorDto>>("user.vendor.page");
 		}
 	}
 
@@ -179,6 +184,18 @@ export namespace ps {
 			}
 
 			export interface ModFilterDto {
+				fulltext?: string | null;
+			}
+		}
+
+		export namespace vendor {
+			export interface VendorOrderByDto {
+				code?: boolean | null;
+				name?: boolean | null;
+			}
+
+			export interface VendorFilterDto {
+				category?: string | null;
 				fulltext?: string | null;
 			}
 		}

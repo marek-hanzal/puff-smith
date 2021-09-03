@@ -13,6 +13,7 @@ import ps.api.user.liquid.LiquidHttpModule
 import ps.api.user.mod.ModHttpModule
 import ps.api.user.ohm.OhmHttpModule
 import ps.api.user.steeping.SteepingHttpModule
+import ps.api.user.vendor.VendorHttpModule
 import ps.api.user.wire.WireHttpModule
 
 /**
@@ -34,6 +35,7 @@ class UserHttpModule(container: IContainer) : AbstractHttpModule(container) {
 			CottonHttpModule::class,
 			DriptipHttpModule::class,
 			SteepingHttpModule::class,
+			VendorHttpModule::class,
 			WireHttpModule::class,
 			OhmHttpModule::class,
 		)

@@ -18,8 +18,8 @@ data class CreateDto(
 	val maxCoilSize: Int,
 	@TypeNumber
 	val maxWraps: Int,
-	@TypeNumber
-	val capacity: Float,
+	@TypeNumber(nullable = true)
+	val capacity: Float?,
 	@TypeNumber(nullable = true)
 	val squonk: Boolean?,
 	@TypeNumber

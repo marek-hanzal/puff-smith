@@ -68,3 +68,15 @@ cs;user.atomizer.coils.tooltip;(Rozumné) maximum spirálek
 cs;order-by.label.atomizer.coils;Počet spirálek
 cs;order-by.label.atomizer.maxCoilSize;Velikost spirálky
 cs;order-by.label.atomizer.name;Jméno atomizéru
+cs;user.atomizer.name.label;Jméno atomizéru
+cs;user.atomizer.code.label;Kód atomizéru
+cs;user.atomizer.capacity.label;Kapacita atomizéru
+cs;user.atomizer.create.label;Vytvořit
+cs;user.atomizer.create.subtitle;"Zde je možné vytvořit nový atomizér; ve výchozím stavu je potřeba jej po vytvoření schválit, aby ho viděli i ostatní uživatelé."
+cs;user.atomizer.code.label.required;"Kód atomizéru je povinný; slouží jako sekundární identifikátor."
+cs;user.atomizer.name.label.required;Tovární jméno (výrobcem určené) je povinné.
+cs;user.atomizer.coils.label;Maximální počet spirálek
+cs;user.atomizer.squonk.label;Je možnost squonku?
+cs;user.atomizer.max-wraps.label;Maximální (rozumný) počet otoček
+cs;common.nothing-found;Nebyly nalezeny žádné záznamy
+cs;user.atomizer.vendor.label;Výrobce
