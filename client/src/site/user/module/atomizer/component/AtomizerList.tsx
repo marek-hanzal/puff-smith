@@ -22,7 +22,7 @@ export const AtomizerListInternal: FC = ({...props}) => {
 				<OrderButtonBar<AtomizerOrderByDto> buttons={["name", "code"]}/>
 			</Col>
 			<Col span={8}>
-				<Input.Search placeholder={t("user.atomizer.list.search.placeholder")} onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
+				<Input.Search placeholder={t("user.atomizer.list.search.placeholder")} allowClear onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
 			</Col>
 		</Row>
 		<Divider/>

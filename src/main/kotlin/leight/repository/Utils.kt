@@ -18,12 +18,12 @@ fun <T> Expression<T>.toOrderPair(order: Boolean) = Pair(this, if (order) SortOr
 fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TFilter : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy, TFilter>.toPageResponse(
 	pageRequestDto: PageRequestDto<TOrderBy, TFilter>,
 	mapper: IMapper<TEntity, TResult>,
-	filter: EntityFilter<TEntity>? = null
+	entityFilter: EntityFilter<TEntity>? = null
 ) = storage.read {
 	PageResponseDto.build<TResult> {
-		this.total = total(filter)
+		this.total = total(pageRequestDto.filter, entityFilter)
 		this.size = pageRequestDto.size
 		pageRequestDto.validate(this.total)
-		page(pageRequestDto, { entity -> items.add(mapper.map(entity)) }, filter)
+		page(pageRequestDto, { entity -> items.add(mapper.map(entity)) }, entityFilter)
 	}
 }

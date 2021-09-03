@@ -37,7 +37,10 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrd
 		exception(e)
 	}
 
-	override fun total(filter: EntityFilter<TEntity>?) = filter?.let { entity.all().filter(it).sumOf { 1.0 }.toLong() } ?: entity.table.slice(entity.table.id).selectAll().count()
+	override fun total(filter: EntityFilter<TEntity>?) = filter?.let { entity.all().filter(it).sumOf { 1.0 }.toLong() } ?: table.slice(entity.table.id).selectAll().count()
+
+	override fun total(filter: TFilter?, entityFilter: EntityFilter<TEntity>?): Long =
+		entityFilter?.let { entity.find { filter(filter, this) }.filter(it).sumOf { 1.0 }.toLong() } ?: table.slice(entity.table.id).select { filter(filter, this) }.count()
 
 	override fun find(uuid: UUID) = entity.findById(uuid) ?: throw UnknownEntityException("Requested entity [${entity::class}] with uuid [${uuid}] does not exists.")
 

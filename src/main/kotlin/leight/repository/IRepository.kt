@@ -32,6 +32,8 @@ interface IRepository<
 
 	fun total(filter: EntityFilter<TEntity>? = null): Long
 
+	fun total(filter: TFilter? = null, entityFilter: EntityFilter<TEntity>? = null): Long
+
 	fun total(filter: IChecker<TEntity>) = total(filter::check)
 
 	fun source(pageRequestDto: PageRequestDto<TOrderBy, TFilter>): SizedIterable<TEntity>
