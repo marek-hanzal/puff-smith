@@ -1,10 +1,10 @@
 import {ps, useSessionContext} from "@/ps";
-import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, PasswordInput, SignUpIcon, useLayoutBlockContext} from "@leight-core/leight";
+import {Centered, Form, FormItem, FormSubmitButton, IFormProps, PasswordInput, SignUpIcon, useLayoutBlockContext} from "@leight-core/leight";
 import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ISignUpFormProps extends Partial<ICommonFormProps<any, ps.user.SignUpDto, ps.session.SessionDto>> {
+export interface ISignUpFormProps extends Partial<IFormProps<ps.user.SignUpDto, ps.session.SessionDto>> {
 }
 
 export const SignUpForm: FC<ISignUpFormProps> = props => {
@@ -12,7 +12,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const blockContext = useLayoutBlockContext();
 	const {t} = useTranslation();
 
-	return <CommonForm<any, ps.user.SignUpDto, ps.session.SessionDto>
+	return <Form<ps.user.SignUpDto, ps.session.SessionDto>
 		post={ps.user.doSignUp}
 		size={"large"}
 		wrapperCol={{span: 24}}
@@ -22,7 +22,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			navigate("/" + session.user.site);
 			message.success(t("public.sign-up.success"));
 		}}
-		mapError={error => ({
+		toError={error => ({
 			"Unique conflict on [user.user_login_unique].": {id: "login", error: error},
 		})}
 		{...props}
@@ -71,5 +71,5 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 		<Centered>
 			<FormSubmitButton icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.submit.label"}/>
 		</Centered>
-	</CommonForm>;
+	</Form>;
 };

@@ -1,4 +1,5 @@
 import {UserMenu, UserPage, withUserLayout} from "@/ps/site/user";
+import {AtomizerCreateForm} from "@/ps/site/user/module/atomizer";
 import {useTranslation} from "react-i18next";
 
 export default withUserLayout(function Create() {
@@ -7,6 +8,6 @@ export default withUserLayout(function Create() {
 		name={"user.atomizer.create"}
 		menu={() => <UserMenu/>}
 	>
-		# create form
+		<AtomizerCreateForm/>
 	</UserPage>;
 });
