@@ -192,6 +192,7 @@ export namespace ps {
 			isApproved: boolean;
 			name: string;
 			power: number;
+			vendor: ps.vendor.VendorDto;
 		}
 	}
 }
