@@ -11,6 +11,16 @@ data class AtomizerOrderByDto(
 	val name: Boolean? = null,
 	@TypeBool(nullable = true, optional = true)
 	val code: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val maxWraps: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val base: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val capacity: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val maxCoilSize: Boolean? = null,
+	@TypeBool(nullable = true, optional = true)
+	val coils: Boolean? = null,
 ) : AbstractDto() {
 	companion object {
 		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
@@ -19,10 +29,20 @@ data class AtomizerOrderByDto(
 	class Builder : IBuilder<AtomizerOrderByDto> {
 		var name: Boolean? = null
 		var code: Boolean? = null
+		var maxWraps: Boolean? = null
+		var base: Boolean? = null
+		var capacity: Boolean? = null
+		var maxCoilSize: Boolean? = null
+		var coils: Boolean? = null
 
 		override fun build() = AtomizerOrderByDto(
 			name,
 			code,
+			maxWraps,
+			base,
+			capacity,
+			maxCoilSize,
+			coils,
 		)
 	}
 }

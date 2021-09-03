@@ -19,6 +19,11 @@ class AtomizerRepository(container: IContainer) : AbstractRepository<AtomizerTab
 	override fun toOrderBy(orderBy: AtomizerOrderByDto?) = orderByListOf {
 		add(orderBy?.name?.let(table.name::toOrderPair))
 		add(orderBy?.code?.let(table.code::toOrderPair))
+		add(orderBy?.maxWraps?.let(table.maxWraps::toOrderPair))
+		add(orderBy?.coils?.let(table.coils::toOrderPair))
+		add(orderBy?.maxCoilSize?.let(table.maxCoilSize::toOrderPair))
+		add(orderBy?.base?.let(table.base::toOrderPair))
+		add(orderBy?.capacity?.let(table.capacity::toOrderPair))
 	}
 
 	override fun filter(filter: AtomizerFilterDto?, sqlExpressionBuilder: SqlExpressionBuilder): Op<Boolean> = filter?.fulltext?.let { fulltext ->

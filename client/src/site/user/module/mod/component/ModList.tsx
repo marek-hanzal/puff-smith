@@ -1,5 +1,5 @@
 import {ps} from "@/ps";
-import {DashboardOutlined, EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
+import {EyeInvisibleOutlined, EyeOutlined, ThunderboltOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row} from "antd";
 import {FC} from "react";
@@ -18,11 +18,18 @@ export const ModListInternal: FC = ({...props}) => {
 	const {t} = useTranslation();
 	return <>
 		<Row gutter={32}>
-			<Col flex={"auto"}>
-				<OrderButtonBar<ModOrderByDto> buttons={["name", "power", "code"]}/>
+			<Col span={24}>
+				<Input.Search
+					placeholder={t("user.mod.list.search.placeholder")}
+					allowClear
+					onSearch={fulltext => dataSourceContext.setFilter({fulltext})}
+				/>
 			</Col>
-			<Col span={8}>
-				<Input.Search placeholder={t("user.mod.list.search.placeholder")} allowClear onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
+			<Col span={24}>
+				<OrderButtonBar<ModOrderByDto>
+					prefix={"mod"}
+					buttons={["name", "power", "code"]}
+				/>
 			</Col>
 		</Row>
 		<Divider/>
@@ -46,7 +53,7 @@ export const ModListInternal: FC = ({...props}) => {
 					<IconText
 						key={"power"}
 						tooltip={"user.mod.power.tooltip"}
-						icon={<DashboardOutlined/>}
+						icon={<ThunderboltOutlined/>}
 						text={mod.power.toFixed(1) + "W"}
 					/>,
 				].filter(item => !!item)}

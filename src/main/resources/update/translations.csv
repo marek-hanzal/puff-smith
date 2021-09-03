@@ -48,14 +48,23 @@ cs;public.unauthorized.title;Zdá se, že sem nemáte přístup. Zkuste se přih
 cs;user.mod.approved-by.tooltip;Mod byl zkontrolován uživatelem [{{data.name}}].
 cs;user.mod.is-not-approved.tooltip;Mod byl zadán, ale ještě jej nikdo nezkontroloval.
 cs;user.mod.power.tooltip;Výkon modu (ve Wattech)
-cs;user.atomizer.max-coil-size.tooltip;Maximální (rozumná) velikost spirálky (mm)
+cs;user.atomizer.max-coil-size.tooltip;"Maximální (rozumná) velikost spirálky (mm); např. 25 je 2.5mm"
 cs;public.name.label;Jméno
 cs;common.order.clear.tooltip;Zrušit řazení
 cs;common.order.undefined.tooltip;Toto pole nemá vliv na řazení
 cs;common.order.ascending.tooltip;Vzestupné řazení podle tohoto pole (a-z)
 cs;common.order.descending.tooltip;Sestupné řazení podle tohoto pole (z-a)
-cs;order-by.label.name;Jméno modu
-cs;order-by.label.power;Výkon modu
-cs;order-by.label.code;Kód
+cs;order-by.label.mod.name;Jméno modu
+cs;order-by.label.mod.power;Výkon modu
+cs;order-by.label.mod.code;Kód
 cs;user.mod.list.search.placeholder;Fulltextové vyhledávání v modech
 cs;user.atomizer.list.search.placeholder;Fulltextové vyhledávání v atomizérech
+cs;user.atomizer.base.tooltip;Velikost základny (v mm)
+cs;order-by.label.atomizer.capacity;Kapacita
+cs;order-by.label.atomizer.maxWraps;Maximum otoček
+cs;order-by.label.atomizer.base;Základna
+cs;user.atomizer.capacity.tooltip;Kapacita atomizéru
+cs;user.atomizer.coils.tooltip;(Rozumné) maximum spirálek
+cs;order-by.label.atomizer.coils;Počet spirálek
+cs;order-by.label.atomizer.maxCoilSize;Velikost spirálky
+cs;order-by.label.atomizer.name;Jméno atomizéru

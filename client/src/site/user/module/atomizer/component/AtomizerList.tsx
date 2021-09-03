@@ -1,5 +1,5 @@
-import {ps} from "@/ps";
-import {ExpandAltOutlined, RedoOutlined} from "@ant-design/icons";
+import {AtomizerIcon, ps} from "@/ps";
+import {DashboardOutlined, ExpandAltOutlined, Loading3QuartersOutlined, MacCommandOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row} from "antd";
 import {FC} from "react";
@@ -18,11 +18,18 @@ export const AtomizerListInternal: FC = ({...props}) => {
 	const {t} = useTranslation();
 	return <>
 		<Row gutter={32}>
-			<Col flex={"auto"}>
-				<OrderButtonBar<AtomizerOrderByDto> buttons={["name", "code"]}/>
+			<Col span={24}>
+				<Input.Search
+					placeholder={t("user.atomizer.list.search.placeholder")}
+					allowClear
+					onSearch={fulltext => dataSourceContext.setFilter({fulltext})}
+				/>
 			</Col>
-			<Col span={8}>
-				<Input.Search placeholder={t("user.atomizer.list.search.placeholder")} allowClear onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
+			<Col span={24}>
+				<OrderButtonBar<AtomizerOrderByDto>
+					prefix={"atomizer"}
+					buttons={["name", "base", "coils", "maxCoilSize", "maxWraps", "capacity"]}
+				/>
 			</Col>
 		</Row>
 		<Divider/>
@@ -32,6 +39,24 @@ export const AtomizerListInternal: FC = ({...props}) => {
 			{atomizer => <ListItem
 				key={atomizer.id}
 				actions={[
+					<IconText
+						key={"base"}
+						tooltip={"user.atomizer.base.tooltip"}
+						icon={<AtomizerIcon/>}
+						text={atomizer.base}
+					/>,
+					<IconText
+						key={"coils"}
+						tooltip={"user.atomizer.coils.tooltip"}
+						icon={<MacCommandOutlined/>}
+						text={atomizer.coils}
+					/>,
+					atomizer.capacity && <IconText
+						key={"capacity"}
+						tooltip={"user.atomizer.capacity.tooltip"}
+						icon={<DashboardOutlined/>}
+						text={atomizer.capacity + " ml"}
+					/>,
 					atomizer.maxCoilSize && <IconText
 						key={"maxCoilSize"}
 						tooltip={"user.atomizer.max-coil-size.tooltip"}
@@ -41,7 +66,7 @@ export const AtomizerListInternal: FC = ({...props}) => {
 					atomizer.maxWraps && <IconText
 						key={"maxWraps"}
 						tooltip={"user.atomizer.max-wraps.tooltip"}
-						icon={<RedoOutlined/>}
+						icon={<Loading3QuartersOutlined/>}
 						text={atomizer.maxWraps}
 					/>,
 				].filter(item => !!item)}
