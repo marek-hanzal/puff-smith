@@ -89,3 +89,5 @@ cs;user.atomizer.max-coil-size.label.tooltip;"Tato hodnota udává, jakou maxim�
 cs;user.atomizer.max-wraps.label.tooltip;"Maximum otoček spirálky; jedná se spíše o orientační hodnotu, jak velkou spirálku je možné osadit (přestože šíře drátků velmi haprují, jedná se o jakýsi průměr)."
 cs;user.atomizer.squonk.label.tooltip;Tato hodnota říká, zda atomizér umí squonk, nebo má vyměnitelný spodní pin na squonk.
 cs;user.atomizer.vendor.label.tooltip;Zobrazují se pouze výrobci atomizérů (výrobce sám o sobě musí spadat do správné kategorie). V políčku je možné psaním vyhledávat.
+cs;user.atomizer.base.label;Velikost základny
+cs;user.atomizer.base.label.tooltip;"Velikost základny v mm; tato hodnota umožní později napovědět, zda je možné ten či onen build osadit tímto atomizérem, aniž by to vypadalo divně."
