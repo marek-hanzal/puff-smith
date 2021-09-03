@@ -14,15 +14,15 @@ data class CreateDto(
 	@TypeString
 	val vendorId: String,
 	@TypeNumber(nullable = true)
-	val coils: Int?,
-	@TypeNumber
-	val maxCoilSize: Int,
-	@TypeNumber
-	val maxWraps: Int,
+	val coils: Int? = null,
 	@TypeNumber(nullable = true)
-	val capacity: Float?,
+	val maxCoilSize: Int? = null,
+	@TypeNumber(nullable = true)
+	val maxWraps: Int? = null,
+	@TypeNumber(nullable = true)
+	val capacity: Float? = null,
 	@TypeBool
 	val squonk: Boolean,
-	@TypeNumber
-	val base: Int,
+	@TypeNumber(nullable = true)
+	val base: Int? = null,
 )

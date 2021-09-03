@@ -37,7 +37,7 @@ class Server(container: IContainer) : AbstractService(container) {
 		measureTimeMillis {
 			logger.info { "Starting Puff Smith Server [${serverConfig.version}]" }
 			versionService.getCollection().toList().asReversed().apply {
-				logger.info { if (count() > 0) "Current upgrades:" else "Initial application state" }
+				logger.info { if (isNotEmpty()) "Current upgrades:" else "Initial application state" }
 			}.forEach {
 				logger.info { "\t\tstamp: [${it.stamp.asStamp()}], version: [${it.version}]" }
 			}

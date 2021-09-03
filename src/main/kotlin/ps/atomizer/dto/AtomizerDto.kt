@@ -31,8 +31,8 @@ data class AtomizerDto(
 	val capacity: Float?,
 	@TypeBool
 	val squonk: Boolean,
-	@TypeNumber
-	val base: Int,
+	@TypeNumber(nullable = true)
+	val base: Int?,
 ) : AbstractDto() {
 	companion object {
 		inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
@@ -48,7 +48,7 @@ data class AtomizerDto(
 		var maxWraps: Int? = null
 		var capacity: Float? = null
 		var squonk by Delegates.notNull<Boolean>()
-		var base by Delegates.notNull<Int>()
+		var base: Int? = null
 
 		override fun build() = AtomizerDto(
 			id.value.toString(),

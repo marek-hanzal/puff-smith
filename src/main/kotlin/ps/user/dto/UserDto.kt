@@ -31,7 +31,7 @@ data class UserDto(
 		var roles = listOf<RoleDto>()
 
 		override fun build() = UserDto(
-			id?.value.toString(),
+			id?.value?.toString(),
 			name,
 			site,
 			roles,
