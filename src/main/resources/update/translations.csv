@@ -91,3 +91,4 @@ cs;user.atomizer.squonk.label.tooltip;Tato hodnota říká, zda atomizér umí s
 cs;user.atomizer.vendor.label.tooltip;Zobrazují se pouze výrobci atomizérů (výrobce sám o sobě musí spadat do správné kategorie). V políčku je možné psaním vyhledávat.
 cs;user.atomizer.base.label;Velikost základny
 cs;user.atomizer.base.label.tooltip;"Velikost základny v mm; tato hodnota umožní později napovědět, zda je možné ten či onen build osadit tímto atomizérem, aniž by to vypadalo divně."
+cs;user.atomizer.max-wraps.tooltip;Průměrné maximum počtu otoček spirálky

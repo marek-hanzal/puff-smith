@@ -71,12 +71,12 @@ export namespace ps {
 
 		export namespace atomizer {
 			export interface CreateDto {
-				base: number;
+				base: number | null;
 				capacity: number | null;
 				code: string;
 				coils: number | null;
-				maxCoilSize: number;
-				maxWraps: number;
+				maxCoilSize: number | null;
+				maxWraps: number | null;
 				name: string;
 				squonk: boolean;
 				vendorId: string;
@@ -137,10 +137,10 @@ export namespace ps {
 
 	export namespace atomizer {
 		export interface AtomizerDto {
-			base: number;
+			base: number | null;
 			capacity: number | null;
 			code: string;
-			coils: number;
+			coils: number | null;
 			id: string;
 			maxCoilSize: number | null;
 			maxWraps: number | null;

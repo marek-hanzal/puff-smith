@@ -9,10 +9,17 @@ import leight.container.IContainer
 import leight.discovery.lazyDiscoveryIndex
 import leight.http.withAnyRole
 import leight.rest.exception.RestException
+import leight.rest.exception.UnauthorizedException
+import leight.session.SessionTicket
+import leight.storage.lazyStorage
+import ps.storage.module.session.repository.lazyTicketRepository
+import ps.storage.module.user.entity.UserEntity
 import kotlin.reflect.full.findAnnotation
 
 abstract class AbstractEndpoint(container: IContainer) : AbstractService(container), IEndpoint {
 	private val discoveryIndex by container.lazyDiscoveryIndex()
+	private val ticketRepository by container.lazyTicketRepository()
+	private val storage by container.lazyStorage()
 
 	override fun install(routing: Routing) {
 		val discoveryItem = discoveryIndex.add(this)
@@ -41,4 +48,6 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 			}
 		}
 	}
+
+	fun ApplicationCall.currentUser(): UserEntity = principal<SessionTicket>()?.let { session -> ticketRepository.findByTicket(session.id)?.user } ?: throw UnauthorizedException("User without session. Oops.")
 }

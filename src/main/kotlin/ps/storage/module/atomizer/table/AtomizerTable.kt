@@ -49,7 +49,7 @@ object AtomizerTable : UUIDTable("atomizer") {
 	/**
 	 * The size of base of an atomizer (in mm).
 	 */
-	val base = integer("base")
+	val base = integer("base").nullable()
 
 	/**
 	 * Who created this atomizer.

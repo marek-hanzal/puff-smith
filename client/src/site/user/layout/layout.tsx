@@ -9,6 +9,7 @@ export interface IUserLayoutProps {
 
 export const UserLayout: FC<IUserLayoutProps> = ({children}) => {
 	const {user} = useSessionContext().session;
+	console.log("session?", useSessionContext().session);
 	return <NotificationContextProvider>
 		<LoaderLayout
 			logo={<LogoFullIcon/>}
