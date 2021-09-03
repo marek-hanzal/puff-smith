@@ -1,5 +1,5 @@
 import {ps, useSessionContext} from "@/ps";
-import {Centered, Form, FormItem, FormSubmitButton, IFormProps, Input, PasswordInput, SignInIcon, useLayoutBlockContext} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignInIcon, Submit, useLayoutBlockContext} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -50,7 +50,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 			<PasswordInput autoComplete={"current-password"}/>
 		</FormItem>
 		<Centered>
-			<FormSubmitButton icon={<SignInIcon/>} size={"large"} label={"public.sign-in.submit.label"}/>
+			<Submit icon={<SignInIcon/>} size={"large"} label={"public.sign-in.submit.label"}/>
 		</Centered>
 	</Form>;
 };
