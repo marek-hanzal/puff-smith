@@ -12,7 +12,11 @@ class DataSourceContextGenerator(container: IContainer) : AbstractService(contai
 	private val nameResolver by container.lazyNameResolver()
 
 	fun export(klass: KClass<out IEndpoint>, level: Int) = klass.findAnnotation<SdkDataSource>()?.let { sdkDataSource ->
-		"\t".repeat(level + 1) + "export const useDataSourceContext = () => useCoolDataSourceContext<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}>()"
+		"\t".repeat(level + 1) + "export const useDataSourceContext = () => useCoolDataSourceContext<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}, ${
+			nameResolver.resolveClassName(
+				sdkDataSource.filter
+			)
+		}>()"
 	}
 }
 

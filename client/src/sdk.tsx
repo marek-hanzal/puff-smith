@@ -85,16 +85,16 @@ export namespace ps {
 
 			export const doCreate = createPost<ps.user.atomizer.CreateDto, ps.atomizer.AtomizerDto>("user.atomizer.create");
 
-			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.atomizer.repository.AtomizerOrderBy>, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
+			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>, leight.page.PageResponseDto<ps.atomizer.AtomizerDto>>("user.atomizer.page");
 
 			export namespace datasource {
-				export const useDataSourceContext = () => useCoolDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>()
+				export const useDataSourceContext = () => useCoolDataSourceContext<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>()
 
-				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>> {
+				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>> {
 				}
 
 				export const DataSourceContextProvider: FC<IDataSourceContextProviderProps> = ({children, ...props}) => {
-					return <CoolDataSourceContextProvider<ps.atomizer.AtomizerDto, ps.storage.atomizer.repository.AtomizerOrderBy>
+					return <CoolDataSourceContextProvider<ps.atomizer.AtomizerDto, ps.storage.atomizer.AtomizerOrderByDto, ps.storage.atomizer.AtomizerFilterDto>
 						fetch={doPage}
 						{...props}
 					>
@@ -105,16 +105,16 @@ export namespace ps {
 		}
 
 		export namespace mod {
-			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.mod.repository.ModOrderBy>, leight.page.PageResponseDto<ps.mod.ModDto>>("user.mod.page");
+			export const doPage = createPost<leight.page.PageRequestDto<ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>, leight.page.PageResponseDto<ps.mod.ModDto>>("user.mod.page");
 
 			export namespace datasource {
-				export const useDataSourceContext = () => useCoolDataSourceContext<ps.mod.ModDto, ps.storage.mod.repository.ModOrderBy>()
+				export const useDataSourceContext = () => useCoolDataSourceContext<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>()
 
-				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.mod.ModDto, ps.storage.mod.repository.ModOrderBy>> {
+				export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>> {
 				}
 
 				export const DataSourceContextProvider: FC<IDataSourceContextProviderProps> = ({children, ...props}) => {
-					return <CoolDataSourceContextProvider<ps.mod.ModDto, ps.storage.mod.repository.ModOrderBy>
+					return <CoolDataSourceContextProvider<ps.mod.ModDto, ps.storage.mod.ModOrderByDto, ps.storage.mod.ModFilterDto>
 						fetch={doPage}
 						{...props}
 					>
@@ -157,21 +157,25 @@ export namespace ps {
 
 	export namespace storage {
 		export namespace atomizer {
-			export namespace repository {
-				export interface AtomizerOrderBy {
-					code?: boolean | null;
-					name?: boolean | null;
-				}
+			export interface AtomizerOrderByDto {
+				code?: boolean | null;
+				name?: boolean | null;
+			}
+
+			export interface AtomizerFilterDto {
+				fulltext?: string | null;
 			}
 		}
 
 		export namespace mod {
-			export namespace repository {
-				export interface ModOrderBy {
-					code?: boolean | null;
-					name?: boolean | null;
-					power?: boolean | null;
-				}
+			export interface ModOrderByDto {
+				code?: boolean | null;
+				name?: boolean | null;
+				power?: boolean | null;
+			}
+
+			export interface ModFilterDto {
+				fulltext?: string | null;
 			}
 		}
 	}
@@ -190,7 +194,8 @@ export namespace ps {
 
 export namespace leight {
 	export namespace page {
-		export interface PageRequestDto<TOrderBy> {
+		export interface PageRequestDto<TOrderBy, TFilter> {
+			filter?: TFilter | null;
 			orderBy?: TOrderBy | null;
 			page: number;
 			size: number;

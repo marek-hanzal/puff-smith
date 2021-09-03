@@ -6,4 +6,5 @@ import kotlin.reflect.KClass
 annotation class SdkDataSource(
 	val item: KClass<*>,
 	val orderBy: KClass<*> = Unit::class,
+	val filter: KClass<*> = Unit::class,
 )

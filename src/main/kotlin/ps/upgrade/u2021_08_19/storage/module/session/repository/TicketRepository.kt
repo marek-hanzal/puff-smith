@@ -9,7 +9,7 @@ import ps.upgrade.u2021_08_19.storage.module.session.table.TicketTable
 import ps.upgrade.u2021_08_19.storage.module.user.entity.UserEntity
 import java.util.*
 
-class TicketRepository(container: IContainer) : AbstractRepository<TicketTable, TicketEntity, Unit>(TicketTable, TicketEntity, container) {
+class TicketRepository(container: IContainer) : AbstractRepository<TicketTable, TicketEntity, Unit, Unit>(TicketTable, TicketEntity, container) {
 	fun ticketFor(userEntity: UserEntity, fingerprint: String): UUID = UUID.randomUUID().also { uuid ->
 		create {
 			ticket = uuid

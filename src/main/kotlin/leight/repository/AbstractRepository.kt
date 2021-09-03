@@ -8,17 +8,15 @@ import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.jetbrains.exposed.sql.Expression
-import org.jetbrains.exposed.sql.SortOrder
-import org.jetbrains.exposed.sql.selectAll
+import org.jetbrains.exposed.sql.*
 import java.util.*
 import kotlin.math.max
 
-abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any>(
+abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TFilter : Any>(
 	val table: TTable,
 	val entity: EntityClass<UUID, TEntity>,
 	container: IContainer,
-) : AbstractService(container), IRepository<TTable, TEntity, TOrderBy> {
+) : AbstractService(container), IRepository<TTable, TEntity, TOrderBy, TFilter> {
 	val storage by container.lazyStorage()
 
 	override fun create(block: TEntity.() -> Unit) = try {
@@ -43,9 +41,9 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrd
 
 	override fun find(uuid: UUID) = entity.findById(uuid) ?: throw UnknownEntityException("Requested entity [${entity::class}] with uuid [${uuid}] does not exists.")
 
-	override fun source(pageRequestDto: PageRequestDto<TOrderBy>) = entity.all().orderBy(*toOrderBy(pageRequestDto.orderBy)).limit(pageRequestDto.size, pageRequestDto.offset)
+	override fun source(pageRequestDto: PageRequestDto<TOrderBy, TFilter>) = entity.find { filter(pageRequestDto.filter, this) }.orderBy(*toOrderBy(pageRequestDto.orderBy)).limit(pageRequestDto.size, pageRequestDto.offset)
 
-	override fun page(pageRequestDto: PageRequestDto<TOrderBy>, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
+	override fun page(pageRequestDto: PageRequestDto<TOrderBy, TFilter>, block: (TEntity) -> Unit, filter: EntityFilter<TEntity>?) {
 		var current = pageRequestDto
 		var contract = 0
 		var size = 1
@@ -84,4 +82,6 @@ abstract class AbstractRepository<TTable : UUIDTable, TEntity : UUIDEntity, TOrd
 	}
 
 	override fun toOrderBy(orderBy: TOrderBy?): Array<Pair<Expression<*>, SortOrder>> = arrayOf()
+
+	override fun filter(filter: TFilter?, sqlExpressionBuilder: SqlExpressionBuilder): Op<Boolean> = Op.TRUE
 }

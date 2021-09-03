@@ -13,11 +13,15 @@ class DataSourceContextProviderGenerator(container: IContainer) : AbstractServic
 
 	fun export(klass: KClass<out IEndpoint>, level: Int) = klass.findAnnotation<SdkDataSource>()?.let { sdkDataSource ->
 		"""
-			export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}>> {
+			export interface IDataSourceContextProviderProps extends Partial<ICoolDataSourceContextProviderProps<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}, ${
+			nameResolver.resolveClassName(
+				sdkDataSource.filter
+			)
+		}>> {
 			}
 	
 			export const DataSourceContextProvider: FC<IDataSourceContextProviderProps> = ({children, ...props}) => {
-				return <CoolDataSourceContextProvider<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}>
+				return <CoolDataSourceContextProvider<${nameResolver.resolveClassName(sdkDataSource.item)}, ${nameResolver.resolveClassName(sdkDataSource.orderBy)}, ${nameResolver.resolveClassName(sdkDataSource.filter)}>
 					fetch={do${nameResolver.filterName(klass.simpleName!!)}}
 					{...props}
 				>
