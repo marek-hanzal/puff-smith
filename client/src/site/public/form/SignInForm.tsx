@@ -1,9 +1,9 @@
 import {ps, useSessionContext} from "@/ps";
-import {Centered, CommonForm, FormItem, FormSubmitButton, ICommonFormProps, Input, PasswordInput, SignInIcon, useLayoutBlockContext} from "@leight-core/leight";
+import {Centered, Form, FormItem, FormSubmitButton, IFormProps, Input, PasswordInput, SignInIcon, useLayoutBlockContext} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ISignInFormProps extends Partial<ICommonFormProps<any, ps.user.SignInDto, ps.session.SessionDto>> {
+export interface ISignInFormProps extends Partial<IFormProps<ps.user.SignInDto, ps.session.SessionDto>> {
 }
 
 export const SignInForm: FC<ISignInFormProps> = props => {
@@ -11,7 +11,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 	const blockContext = useLayoutBlockContext();
 	const {t} = useTranslation();
 
-	return <CommonForm<any, ps.user.SignInDto, ps.session.SessionDto>
+	return <Form<ps.user.SignInDto, ps.session.SessionDto>
 		post={ps.user.doSignIn}
 		size={"large"}
 		wrapperCol={{span: 24}}
@@ -20,7 +20,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 			setSession(session);
 			navigate("/" + session.user.site);
 		}}
-		mapError={_ => ({
+		toError={_ => ({
 			"Bad login.": (_, formContext) => {
 				formContext.setErrors({
 					errors: [
@@ -52,5 +52,5 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 		<Centered>
 			<FormSubmitButton icon={<SignInIcon/>} size={"large"} label={"public.sign-in.submit.label"}/>
 		</Centered>
-	</CommonForm>;
+	</Form>;
 };
