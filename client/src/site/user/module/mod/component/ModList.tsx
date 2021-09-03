@@ -1,7 +1,7 @@
 import {ps} from "@/ps";
 import {EyeInvisibleOutlined, EyeOutlined, ThunderboltOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
-import {Col, Divider, Input, Row} from "antd";
+import {Col, Divider, Input, Row, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import ModOrderByDto = ps.storage.mod.ModOrderByDto;
@@ -39,6 +39,12 @@ export const ModListInternal: FC = ({...props}) => {
 			{mod => <ListItem
 				key={mod.id}
 				actions={[
+					<IconText
+						key={"power"}
+						tooltip={"user.mod.power.tooltip"}
+						icon={<ThunderboltOutlined/>}
+						text={mod.power.toFixed(1) + "W"}
+					/>,
 					mod.approvedBy && <IconText
 						key={"approvedBy"}
 						tooltip={"user.mod.approved-by.tooltip"}
@@ -50,16 +56,10 @@ export const ModListInternal: FC = ({...props}) => {
 						tooltip={"user.mod.is-not-approved.tooltip"}
 						icon={<EyeInvisibleOutlined/>}
 					/>,
-					<IconText
-						key={"power"}
-						tooltip={"user.mod.power.tooltip"}
-						icon={<ThunderboltOutlined/>}
-						text={mod.power.toFixed(1) + "W"}
-					/>,
 				].filter(item => !!item)}
 			>
 				<ListItem.Meta
-					title={mod.name}
+					title={<>{mod.name} <Typography.Text type={"secondary"}>{mod.vendor.name}</Typography.Text></>}
 					description={mod.code}
 				/>
 			</ListItem>}

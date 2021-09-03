@@ -1,7 +1,7 @@
 import {AtomizerIcon, ps} from "@/ps";
 import {DashboardOutlined, ExpandAltOutlined, Loading3QuartersOutlined, MacCommandOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
-import {Col, Divider, Input, Row} from "antd";
+import {Col, Divider, Input, Row, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -72,7 +72,7 @@ export const AtomizerListInternal: FC = ({...props}) => {
 				].filter(item => !!item)}
 			>
 				<ListItem.Meta
-					title={atomizer.name}
+					title={<>{atomizer.name} <Typography.Text type={"secondary"}>{atomizer.vendor.name}</Typography.Text></>}
 					description={atomizer.code}
 				/>
 			</ListItem>}

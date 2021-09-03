@@ -9,6 +9,7 @@ import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 import leight.storage.EntityUUID
 import ps.user.dto.UserDto
+import ps.vendor.dto.VendorDto
 import kotlin.properties.Delegates
 
 @Serializable
@@ -21,6 +22,8 @@ data class ModDto(
 	val code: String,
 	@TypeNumber
 	val power: Float,
+	@TypeClass(VendorDto::class)
+	val vendor: VendorDto,
 	@TypeClass(UserDto::class, optional = false, nullable = true)
 	val approvedBy: UserDto?,
 	@TypeBool
@@ -34,6 +37,7 @@ data class ModDto(
 		lateinit var id: EntityUUID
 		lateinit var name: String
 		lateinit var code: String
+		lateinit var vendor: VendorDto
 		var power by Delegates.notNull<Float>()
 		var approvedBy: UserDto? = null
 
@@ -42,6 +46,7 @@ data class ModDto(
 			name,
 			code,
 			power,
+			vendor,
 			approvedBy,
 			isApproved = approvedBy != null
 		)
