@@ -15,11 +15,6 @@ export interface IAtomizerCreateFormProps extends Partial<IFormProps<CreateDto, 
 export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = props => {
 	return <Form<CreateDto, AtomizerDto>
 		post={doCreate}
-		initialValues={{
-			coils: 1,
-			maxCoilSize: 25,
-			maxWraps: 12,
-		}}
 		{...props}
 	>
 		<FormItem field={"name"} labels={["user.atomizer.name.label"]} required tooltip={"user.atomizer.name.label.tooltip"}/>
