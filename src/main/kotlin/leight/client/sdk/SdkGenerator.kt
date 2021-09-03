@@ -23,7 +23,7 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
-${arrayOf<String?>(*namespacePart.parts.values.mapNotNull { it(level) }.toTypedArray(), *namespacePart.inner.values.map { exportNamespacePart(it, level + 1) }.toTypedArray()).joinToString("\n\n")}
+${arrayOf<String?>(*namespacePart.exports.values.mapNotNull { it(level) }.toTypedArray(), *namespacePart.inner.values.map { exportNamespacePart(it, level + 1) }.toTypedArray()).joinToString("\n\n")}
 ${"\t".repeat(level)}}"""
 	}
 
@@ -44,21 +44,21 @@ ${"\t".repeat(level)}}"""
 
 		""".trimIndent()
 		NamespaceIndex().let { namespaceIndex ->
-			classExtractor.extractSdkClasses(endpoints).map { sdkType ->
-				namespaceIndex.ensure(nameResolver.namespaceParts(sdkType.klass), sdkType.klass.simpleName!!) { level ->
-					classGenerator.exportClass(sdkType, level)
+			classExtractor.extractSdkClasses(endpoints).map { typeClass ->
+				namespaceIndex.export(nameResolver.namespaceParts(typeClass.klass), typeClass.klass.simpleName!!) { level ->
+					classGenerator.exportClass(typeClass, level)
 				}
 			}
 			classExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->
-				namespaceIndex.ensure(nameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
+				namespaceIndex.export(nameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
 					endpointGenerator.exportMethod(sdk, endpoint, klass, level)
 				}
 			}
 			endpoints.filter { endpoint -> endpoint.findAnnotation<SdkDataSource>() !== null }.map { klass ->
-				namespaceIndex.ensure(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context") { level ->
+				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context") { level ->
 					dataSourceGenerator.export(klass, level)
 				}
-				namespaceIndex.ensure(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context-provider") { level ->
+				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context-provider") { level ->
 					dataSourceContextProviderGenerator.export(klass, level)
 				}
 			}

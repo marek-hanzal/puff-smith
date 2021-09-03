@@ -13,12 +13,12 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 class ClassExtractor(container: IContainer) : AbstractService(container) {
-	private fun extractClasses(sdkType: TypeClass): List<TypeClass> {
+	private fun extractClasses(typeClass: TypeClass): List<TypeClass> {
 		val classes = mutableListOf<TypeClass>()
-		if (sdkType.klass !== Unit::class) {
-			classes.add(sdkType)
+		if (typeClass.klass !== Unit::class) {
+			classes.add(typeClass)
 		}
-		sdkType.klass.memberProperties.forEach { property ->
+		typeClass.klass.memberProperties.forEach { property ->
 			property.findAnnotation<TypeArrayClass>()?.let {
 				classes.addAll(extractClasses(it.target))
 				it.target.types.forEach { typeClass ->
