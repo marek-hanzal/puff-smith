@@ -15,7 +15,7 @@ import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlin.text.Charsets
 
-@OptIn(ExperimentalSerializationApi::class)
+@ExperimentalSerializationApi
 class JsonConverter constructor(
 	private val format: SerialFormat,
 	private val defaultCharset: Charset = Charsets.UTF_8,
@@ -54,6 +54,7 @@ class JsonConverter constructor(
 	override suspend fun convertForSend(context: PipelineContext<Any, ApplicationCall>, contentType: ContentType, value: Any) = TextContent(gson.toJson(value), contentType.withCharset(context.call.suitableCharset()))
 }
 
+@ExperimentalSerializationApi
 fun ContentNegotiation.Configuration.json(
 	json: Json = DefaultJson,
 	contentType: ContentType = ContentType.Application.Json

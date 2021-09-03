@@ -1,5 +1,6 @@
 package leight.container
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import leight.client.sdk.ISdkGenerator
 import leight.client.sdk.SdkGenerator
 import leight.encryption.IPasswordService
@@ -23,6 +24,7 @@ import leight.upgrade.IVersionService
 import leight.upgrade.UpgradeManager
 import leight.upgrade.VersionService
 
+@ExperimentalSerializationApi
 object ContainerFactory {
 	fun container() = Container().apply {
 		registerSystemServices()

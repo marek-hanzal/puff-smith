@@ -2,6 +2,7 @@ package ps
 
 import com.typesafe.config.ConfigFactory
 import io.github.config4k.extract
+import kotlinx.serialization.ExperimentalSerializationApi
 import leight.container.ContainerFactory
 import leight.container.IContainer
 import leight.http.HttpServerConfig
@@ -16,7 +17,7 @@ import ps.api.user.UserHttpModule
 import ps.session.SessionValidator
 import ps.upgrade.u2021_08_19.u2021_08_19
 
-@ExperimentalStdlibApi
+@ExperimentalSerializationApi
 object ServerContainer {
 	fun create(block: IContainer.() -> Unit) = ContainerFactory.container().apply {
 		register(ServerConfig::class) { ConfigFactory.load().extract("puff-smith") }

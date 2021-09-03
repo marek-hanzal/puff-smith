@@ -24,7 +24,7 @@ object AtomizerTable : UUIDTable("atomizer") {
 	/**
 	 * Number of coils this atomizer can handle.
 	 */
-	val coils = integer("coils").default(1)
+	val coils = integer("coils").nullable()
 
 	/**
 	 * Maximum coil size in mm (for example 25 is 2.5 mm).
