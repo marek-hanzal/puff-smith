@@ -1,5 +1,5 @@
 import {ps, useSessionContext} from "@/ps";
-import {Centered, Form, FormItem, FormSubmitButton, IFormProps, PasswordInput, SignUpIcon, useLayoutBlockContext} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, PasswordInput, SignUpIcon, Submit, useLayoutBlockContext} from "@leight-core/leight";
 import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -69,7 +69,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			<PasswordInput autoComplete={"new-password"}/>
 		</FormItem>
 		<Centered>
-			<FormSubmitButton icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.submit.label"}/>
+			<Submit icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.submit.label"}/>
 		</Centered>
 	</Form>;
 };
