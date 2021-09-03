@@ -39,8 +39,6 @@ fun unauthorized(error: String) = Response(HttpStatusCode.Unauthorized.value, er
 /**
  * send response with Created status code
  */
-fun created(href: Url) = created(LinkResponse(href))
-
 fun <T> created(response: T) = Response(HttpStatusCode.Created.value, response)
 
 /**

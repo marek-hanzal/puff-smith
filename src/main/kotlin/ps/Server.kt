@@ -1,5 +1,6 @@
 package ps
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.http.HttpServerConfig
@@ -14,7 +15,6 @@ import ps.mod.lazyModCsvImport
 import ps.translation.lazyTranslationCsvImport
 import ps.vendor.lazyVendorCsvImport
 import kotlin.system.measureTimeMillis
-import kotlin.time.ExperimentalTime
 
 data class ServerConfig(
 	val version: String = "dev",
@@ -64,8 +64,7 @@ class Server(container: IContainer) : AbstractService(container) {
 	}
 }
 
-@ExperimentalStdlibApi
-@ExperimentalTime
+@ExperimentalSerializationApi
 fun main() {
 	ServerContainer.create {
 		register(Server::class) { Server(this) }

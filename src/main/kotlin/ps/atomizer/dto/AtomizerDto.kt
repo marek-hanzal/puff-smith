@@ -21,8 +21,8 @@ data class AtomizerDto(
 	val code: String,
 	@TypeClass(VendorDto::class)
 	val vendor: VendorDto,
-	@TypeNumber
-	val coils: Int,
+	@TypeNumber(nullable = true)
+	val coils: Int?,
 	@TypeNumber(nullable = true)
 	val maxCoilSize: Int?,
 	@TypeNumber(nullable = true)
@@ -43,7 +43,7 @@ data class AtomizerDto(
 		lateinit var name: String
 		lateinit var code: String
 		lateinit var vendor: VendorDto
-		var coils by Delegates.notNull<Int>()
+		var coils: Int? = null
 		var maxCoilSize: Int? = null
 		var maxWraps: Int? = null
 		var capacity: Float? = null

@@ -1,6 +1,7 @@
 package ps.api.user.atomizer.dto
 
 import kotlinx.serialization.Serializable
+import leight.client.sdk.annotation.TypeBool
 import leight.client.sdk.annotation.TypeNumber
 import leight.client.sdk.annotation.TypeString
 
@@ -20,8 +21,8 @@ data class CreateDto(
 	val maxWraps: Int,
 	@TypeNumber(nullable = true)
 	val capacity: Float?,
-	@TypeNumber(nullable = true)
-	val squonk: Boolean?,
+	@TypeBool
+	val squonk: Boolean,
 	@TypeNumber
 	val base: Int,
 )

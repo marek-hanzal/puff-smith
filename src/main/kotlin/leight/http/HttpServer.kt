@@ -8,6 +8,7 @@ import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.sessions.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import leight.container.AbstractService
 import leight.container.IContainer
@@ -17,6 +18,7 @@ import leight.session.lazySessionValidator
 import java.util.*
 import kotlin.reflect.KClass
 
+@ExperimentalSerializationApi
 class HttpServer(container: IContainer) : AbstractService(container), IHttpServer {
 	private val httpServerConfig by container.lazyHttpServerConfig()
 	private val sessionValidator by container.lazySessionValidator()
@@ -48,7 +50,7 @@ class HttpServer(container: IContainer) : AbstractService(container), IHttpServe
 			install(Sessions) {
 				cookie<SessionTicket>("ticket") {
 					cookie.extensions["SameSite"] = "Strict"
-					cookie.maxAgeInSeconds = 60 * 60
+					cookie.maxAgeInSeconds = 3600
 					cookie.encoding = CookieEncoding.DQUOTES
 					this.serializer = object : SessionSerializer<SessionTicket> {
 						override fun deserialize(text: String) = SessionTicket(UUID.fromString(text))
