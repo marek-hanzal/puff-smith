@@ -39,13 +39,13 @@ export const AtomizerListInternal: FC = ({...props}) => {
 			{atomizer => <ListItem
 				key={atomizer.id}
 				actions={[
-					<IconText
+					atomizer.base && <IconText
 						key={"base"}
 						tooltip={"user.atomizer.base.tooltip"}
 						icon={<AtomizerIcon/>}
 						text={atomizer.base}
 					/>,
-					<IconText
+					atomizer.coils && <IconText
 						key={"coils"}
 						tooltip={"user.atomizer.coils.tooltip"}
 						icon={<MacCommandOutlined/>}
