@@ -77,6 +77,15 @@ cs;user.atomizer.code.label.required;"Kód atomizéru je povinný; slouží jako
 cs;user.atomizer.name.label.required;Tovární jméno (výrobcem určené) je povinné.
 cs;user.atomizer.coils.label;Maximální počet spirálek
 cs;user.atomizer.squonk.label;Je možnost squonku?
-cs;user.atomizer.max-wraps.label;Maximální (rozumný) počet otoček
+cs;user.atomizer.max-wraps.label;Maximální počet otoček
 cs;common.nothing-found;Nebyly nalezeny žádné záznamy
 cs;user.atomizer.vendor.label;Výrobce
+cs;user.atomizer.max-coil-size.label;Maximální velikost spirálky
+cs;user.atomizer.name.label.tooltip;"Ideálně takové, jak jej pojmenoval výrobce; pokud jiný uživatel bude po atomizéru pátrat, bude fajn ho najít."
+cs;user.atomizer.code.label.tooltip;"Toto je spíše technický údaj; kód je třeba vymyslet tak, aby byl strojově přijatelný, ale zároveň jej chápal i člověk."
+cs;user.atomizer.coils.label.tooltip;"Maximální počet spirálek, které je možné do atomizéru použít; ideální je hodnota deklarovaná výrobcem."
+cs;user.atomizer.capacity.label.tooltip;"Jedná se o kapacitu atomizéru v ml; v případě kapáčků může být přibližná."
+cs;user.atomizer.max-coil-size.label.tooltip;"Tato hodnota udává, jakou maximální (rozumnou) spirálku je možné do atomizéru osadit; smyslem je udat reálnou hodnotu, přestože atomizér fyzicky pojme bestie."
+cs;user.atomizer.max-wraps.label.tooltip;"Maximum otoček spirálky; jedná se spíše o orientační hodnotu, jak velkou spirálku je možné osadit (přestože šíře drátků velmi haprují, jedná se o jakýsi průměr)."
+cs;user.atomizer.squonk.label.tooltip;Tato hodnota říká, zda atomizér umí squonk, nebo má vyměnitelný spodní pin na squonk.
+cs;user.atomizer.vendor.label.tooltip;Zobrazují se pouze výrobci atomizérů (výrobce sám o sobě musí spadat do správné kategorie). V políčku je možné psaním vyhledávat.
