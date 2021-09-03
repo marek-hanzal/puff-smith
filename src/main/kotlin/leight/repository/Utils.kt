@@ -15,8 +15,8 @@ fun orderByListOf(block: MutableList<Pair<Expression<*>, SortOrder>?>.() -> Unit
 
 fun <T> Expression<T>.toOrderPair(order: Boolean) = Pair(this, if (order) SortOrder.ASC else SortOrder.DESC)
 
-fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy>.toPageResponse(
-	pageRequestDto: PageRequestDto<TOrderBy>,
+fun <TTable : UUIDTable, TEntity : UUIDEntity, TOrderBy : Any, TFilter : Any, TResult> AbstractRepository<TTable, TEntity, TOrderBy, TFilter>.toPageResponse(
+	pageRequestDto: PageRequestDto<TOrderBy, TFilter>,
 	mapper: IMapper<TEntity, TResult>,
 	filter: EntityFilter<TEntity>? = null
 ) = storage.read {

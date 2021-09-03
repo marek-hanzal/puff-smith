@@ -7,13 +7,14 @@ import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
 import leight.page.dto.PageResponseDto
-import leight.rest.AbstractEndpoint
+import leight.rest.AbstractPageEndpoint
 import leight.rest.Endpoint
 import leight.rest.EndpointMethod
 import leight.rest.Response
 import ps.atomizer.dto.AtomizerDto
 import ps.atomizer.mapper.lazyAtomizerMapper
-import ps.storage.module.atomizer.repository.AtomizerOrderBy
+import ps.storage.module.atomizer.dto.AtomizerFilterDto
+import ps.storage.module.atomizer.dto.AtomizerOrderByDto
 import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 
 @Endpoint(
@@ -23,7 +24,8 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 	request = TypeClass(
 		PageRequestDto::class,
 		[
-			TypeClass(AtomizerOrderBy::class),
+			TypeClass(AtomizerOrderByDto::class),
+			TypeClass(AtomizerFilterDto::class),
 		],
 	),
 	response = TypeClass(
@@ -34,9 +36,10 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 )
 @SdkDataSource(
 	item = AtomizerDto::class,
-	orderBy = AtomizerOrderBy::class,
+	orderBy = AtomizerOrderByDto::class,
+	filter = AtomizerFilterDto::class,
 )
-class PageEndpoint(container: IContainer) : AbstractEndpoint(container) {
+class PageEndpoint(container: IContainer) : AbstractPageEndpoint(container) {
 	private val atomizerRepository by container.lazyAtomizerRepository()
 	private val atomizerMapper by container.lazyAtomizerMapper()
 

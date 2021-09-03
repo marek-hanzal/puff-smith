@@ -1,10 +1,12 @@
 import {ps} from "@/ps";
 import {ExpandAltOutlined, RedoOutlined} from "@ant-design/icons";
-import {IconText, IListProps, List, ListItem} from "@leight-core/leight";
-import {Button} from "antd";
+import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
+import {Col, Divider, Input, Row} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 type AtomizerDto = ps.atomizer.AtomizerDto;
+type AtomizerOrderByDto = ps.storage.atomizer.AtomizerOrderByDto;
 const DataSourceContextProvider = ps.user.atomizer.datasource.DataSourceContextProvider;
 const useDataSourceContext = ps.user.atomizer.datasource.useDataSourceContext;
 
@@ -13,17 +15,17 @@ export interface IAtomizerListProps extends Partial<IListProps<AtomizerDto>> {
 
 export const AtomizerListInternal: FC = ({...props}) => {
 	const dataSourceContext = useDataSourceContext();
+	const {t} = useTranslation();
 	return <>
-		<Button onClick={() => {
-			dataSourceContext.setOrderBy({
-				name: false,
-			});
-		}}>Klyk me down</Button>
-		<Button onClick={() => {
-			dataSourceContext.setOrderBy({
-				name: true,
-			});
-		}}>Klyk me up</Button>
+		<Row gutter={32}>
+			<Col flex={"auto"}>
+				<OrderButtonBar<AtomizerOrderByDto> buttons={["name", "code"]}/>
+			</Col>
+			<Col span={8}>
+				<Input.Search placeholder={t("user.atomizer.list.search.placeholder")} onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
+			</Col>
+		</Row>
+		<Divider/>
 		<List<AtomizerDto>
 			{...props}
 		>

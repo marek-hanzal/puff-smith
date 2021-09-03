@@ -1,8 +1,10 @@
 import {ps} from "@/ps";
 import {DashboardOutlined, EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
-import {IconText, IListProps, List, ListItem} from "@leight-core/leight";
-import {Button} from "antd";
+import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
+import {Col, Divider, Input, Row} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
+import ModOrderByDto = ps.storage.mod.ModOrderByDto;
 
 type ModDto = ps.mod.ModDto;
 const DataSourceContextProvider = ps.user.mod.datasource.DataSourceContextProvider;
@@ -13,17 +15,17 @@ export interface IModListProps extends Partial<IListProps<ModDto>> {
 
 export const ModListInternal: FC = ({...props}) => {
 	const dataSourceContext = useDataSourceContext();
+	const {t} = useTranslation();
 	return <>
-		<Button onClick={() => {
-			dataSourceContext.setOrderBy({
-				name: false,
-			});
-		}}>Klyk me down</Button>
-		<Button onClick={() => {
-			dataSourceContext.setOrderBy({
-				name: true,
-			});
-		}}>Klyk me up</Button>
+		<Row gutter={32}>
+			<Col flex={"auto"}>
+				<OrderButtonBar<ModOrderByDto> buttons={["name", "power", "code"]}/>
+			</Col>
+			<Col span={8}>
+				<Input.Search placeholder={t("user.mod.list.search.placeholder")} onSearch={fulltext => dataSourceContext.setFilter({fulltext})}/>
+			</Col>
+		</Row>
+		<Divider/>
 		<List<ModDto>
 			{...props}
 		>

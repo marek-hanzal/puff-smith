@@ -4,7 +4,6 @@ import leight.client.sdk.annotation.*
 import leight.client.sdk.lazyNameResolver
 import leight.container.AbstractService
 import leight.container.IContainer
-import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.findAnnotation
 
@@ -21,9 +20,11 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 		}
 		property.findAnnotation<TypeString>()?.let {
 			type = "string" + if (it.nullable) " | null" else ""
+			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeNumber>()?.let {
 			type = "number" + if (it.nullable) " | null" else ""
+			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeBool>()?.let {
 			type = "boolean" + if (it.nullable) " | null" else ""

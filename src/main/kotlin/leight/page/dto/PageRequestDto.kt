@@ -11,16 +11,18 @@ import kotlin.math.floor
 import kotlin.properties.Delegates
 
 @Serializable
-data class PageRequestDto<TOrderBy : Any>(
+data class PageRequestDto<TOrderBy : Any, TFilter : Any>(
 	@TypeNumber
 	val page: Int,
 	@TypeNumber
 	val size: Int,
 	@TypeLiteral("TOrderBy | null", optional = true)
 	val orderBy: TOrderBy? = null,
+	@TypeLiteral("TFilter | null", optional = true)
+	val filter: TFilter? = null,
 ) : AbstractDto() {
 	companion object {
-		inline fun <TOrderBy : Any> build(block: Builder<TOrderBy>.() -> Unit) = Builder<TOrderBy>().apply(block).build()
+		inline fun <TOrderBy : Any, TFilter : Any> build(block: Builder<TOrderBy, TFilter>.() -> Unit) = Builder<TOrderBy, TFilter>().apply(block).build()
 	}
 
 	val offset: Long
@@ -44,15 +46,17 @@ data class PageRequestDto<TOrderBy : Any>(
 		}
 	}
 
-	class Builder<TOrderBy : Any> : IBuilder<PageRequestDto<TOrderBy>> {
+	class Builder<TOrderBy : Any, TFilter : Any> : IBuilder<PageRequestDto<TOrderBy, TFilter>> {
 		var page by Delegates.notNull<Int>()
 		var size by Delegates.notNull<Int>()
 		var orderBy: TOrderBy? = null
+		var filter: TFilter? = null
 
 		override fun build() = PageRequestDto(
 			page,
 			size,
 			orderBy,
+			filter,
 		)
 	}
 }
