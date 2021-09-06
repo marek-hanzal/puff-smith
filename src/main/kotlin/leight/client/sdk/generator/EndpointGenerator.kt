@@ -15,35 +15,37 @@ class EndpointGenerator(container: IContainer) : AbstractService(container) {
 	private val endpointInfo by container.lazyEndpointInfo()
 	private val genericGenerator by container.lazyGenericGenerator()
 
-	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String = when (endpoint.method) {
-		EndpointMethod.GET -> {
-			"export const do" + nameResolver.filterName(klass.simpleName!!) + "Fetch = createGet<${genericGenerator.exportExpandedClass(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
-		}
-		EndpointMethod.POST -> {
-			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createPost<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
-				endpointInfo.getId(
-					klass
-				)
-			}\")"
-		}
-		EndpointMethod.PATCH -> {
-			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createPatch<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
-				endpointInfo.getId(
-					klass
-				)
-			}\")"
-		}
-		EndpointMethod.PUT -> {
-			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createPut<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
-				endpointInfo.getId(
-					klass
-				)
-			}\")"
-		}
-		EndpointMethod.DELETE -> {
-			"export const do" + nameResolver.filterName(klass.simpleName!!) + " = createDelete<${genericGenerator.exportExpandedClass(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
-		}
-	}.let { return "\t".repeat(level + 1) + it + ";" }
+	fun exportMethod(sdk: Sdk, endpoint: Endpoint, klass: KClass<out IEndpoint>, level: Int): String = nameResolver.filterName(klass.simpleName!!).let { name ->
+		when (endpoint.method) {
+			EndpointMethod.GET -> {
+				"export const do${name}Fetch = createGet<${genericGenerator.exportExpandedClass(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+			}
+			EndpointMethod.POST -> {
+				"export const do${name} = createPost<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
+					endpointInfo.getId(
+						klass
+					)
+				}\")"
+			}
+			EndpointMethod.PATCH -> {
+				"export const do${name} = createPatch<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
+					endpointInfo.getId(
+						klass
+					)
+				}\")"
+			}
+			EndpointMethod.PUT -> {
+				"export const do${name} = createPut<${genericGenerator.exportExpandedClass(sdk.request)}, ${genericGenerator.exportExpandedClass(sdk.response)}>(\"${
+					endpointInfo.getId(
+						klass
+					)
+				}\")"
+			}
+			EndpointMethod.DELETE -> {
+				"export const do${name} = createDelete<${genericGenerator.exportExpandedClass(sdk.response)}>(\"${endpointInfo.getId(klass)}\")"
+			}
+		}.let { "\t".repeat(level + 1) + it + ";" }
+	}
 }
 
 fun IContainer.lazyEndpointGenerator() = lazy<EndpointGenerator>()
