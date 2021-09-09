@@ -3,7 +3,7 @@ package ps.api.root
 import io.ktor.routing.*
 import leight.container.IContainer
 import leight.http.AbstractHttpModule
-import ps.api.root.module.client.ClientHttpModule
+import ps.api.root.module.sdk.SdkHttpModule
 
 /**
  * Root module has the access to the lowest part of the application going around any
@@ -13,7 +13,7 @@ class RootHttpModule(container: IContainer) : AbstractHttpModule(container) {
 	override fun install(routing: Routing) {
 		modules(
 			routing,
-			ClientHttpModule::class,
+			SdkHttpModule::class,
 		)
 	}
 }

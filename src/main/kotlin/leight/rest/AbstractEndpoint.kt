@@ -12,6 +12,7 @@ import leight.rest.exception.RestException
 import leight.rest.exception.UnauthorizedException
 import leight.session.SessionTicket
 import leight.storage.lazyStorage
+import mu.KLogger
 import ps.storage.module.session.repository.lazyTicketRepository
 import ps.storage.module.user.entity.UserEntity
 import kotlin.reflect.full.findAnnotation
@@ -27,9 +28,7 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 			?: throw RestException("Endpoint [${this::class.qualifiedName}] does not have required Annotation [${Endpoint::class.qualifiedName}]! Specify the annotation or implement custom install method on the Endpoint.")
 		val build: Route.() -> Unit = {
 			val body: suspend PipelineContext<Unit, ApplicationCall>.(Unit) -> Unit = {
-				call.handle(logger, { handle(call) }, { throwable ->
-					handleException(call, throwable)
-				})
+				request(logger, call)
 			}
 			when (annotation.method) {
 				EndpointMethod.GET -> get(discoveryItem.url, body)
@@ -47,6 +46,15 @@ abstract class AbstractEndpoint(container: IContainer) : AbstractService(contain
 				withAnyRole(roles = annotation.roles, build)
 			}
 		}
+	}
+
+	open suspend fun request(
+		logger: KLogger,
+		call: ApplicationCall,
+	) {
+		call.handle(logger, { handle(call) }, { throwable ->
+			handleException(call, throwable)
+		})
 	}
 
 	fun ApplicationCall.currentUser(): UserEntity = principal<SessionTicket>()?.let { session -> ticketRepository.findByTicket(session.id)?.user } ?: throw UnauthorizedException("User without session. Oops.")

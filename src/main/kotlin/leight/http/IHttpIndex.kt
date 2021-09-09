@@ -16,6 +16,8 @@ interface IHttpIndex : IConfigurable {
 	fun modules(): Map<String, KClass<out IHttpModule>>
 
 	fun endpoints(): Map<String, KClass<out IEndpoint>>
+
+	fun endpointList(): List<KClass<out IEndpoint>> = endpoints().map { it.value }
 }
 
 fun IContainer.lazyHttpIndex() = lazy<IHttpIndex>()
