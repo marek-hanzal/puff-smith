@@ -7,10 +7,12 @@ import leight.client.sdk.annotation.TypeNumber
 import leight.dto.AbstractDto
 import leight.page.InvalidLimitException
 import leight.page.InvalidPageException
+import leight.sdk.annotation.Module
 import kotlin.math.floor
 import kotlin.properties.Delegates
 
 @Serializable
+@Module("leight")
 data class PageRequestDto<TOrderBy : Any, TFilter : Any>(
 	@TypeNumber
 	val page: Int,
