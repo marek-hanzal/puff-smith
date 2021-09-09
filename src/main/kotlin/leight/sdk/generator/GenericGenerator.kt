@@ -4,8 +4,11 @@ import leight.client.sdk.annotation.TypeClass
 import leight.client.sdk.exception.SdkException
 import leight.container.AbstractService
 import leight.container.IContainer
+import leight.sdk.lazyNameResolver
 
 class GenericGenerator(container: IContainer) : AbstractService(container) {
+	private val nameResolver by container.lazyNameResolver()
+
 	fun forClass(typeClass: TypeClass) = "<${typeClass.klass.typeParameters.joinToString(", ") { it.name }}>".let { if (it == "<>") "" else it }.also {
 		if (typeClass.klass.typeParameters.count() != typeClass.types.count()) throw SdkException("Missing generic types for [${typeClass.klass.qualifiedName}].")
 	}
@@ -14,10 +17,10 @@ class GenericGenerator(container: IContainer) : AbstractService(container) {
 		if (typeClass.klass.typeParameters.count() != typeClass.types.count()) {
 			throw SdkException("Missing generic types for [${typeClass.klass.qualifiedName}].")
 		}
-		return "<${typeClass.types.joinToString(", ") { it.klass.simpleName!! }}>".let { if (it == "<>") "" else it }
+		return "<${typeClass.types.joinToString(", ") { nameResolver.simpleName(it.klass) }}>".let { if (it == "<>") "" else it }
 	}
 
-	fun exportExpandedClass(typeClass: TypeClass) = typeClass.klass.simpleName!! + genericsFor(typeClass)
+	fun exportExpandedClass(typeClass: TypeClass) = nameResolver.simpleName(typeClass.klass) + genericsFor(typeClass)
 }
 
 fun IContainer.lazyGenericGenerator() = lazy<GenericGenerator>()
