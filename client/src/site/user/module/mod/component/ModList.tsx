@@ -1,20 +1,15 @@
-import {ps} from "@/ps";
+import {ModDto, ModOrderByDto, PageData, usePageData} from "@/ps/sdk/mod";
 import {EyeInvisibleOutlined, EyeOutlined, ThunderboltOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import ModOrderByDto = ps.storage.mod.ModOrderByDto;
-
-type ModDto = ps.mod.ModDto;
-const DataSourceContextProvider = ps.user.mod.datasource.DataSourceContextProvider;
-const useDataSourceContext = ps.user.mod.datasource.useDataSourceContext;
 
 export interface IModListProps extends Partial<IListProps<ModDto>> {
 }
 
 export const ModListInternal: FC = ({...props}) => {
-	const dataSourceContext = useDataSourceContext();
+	const pageData = usePageData();
 	const {t} = useTranslation();
 	return <>
 		<Row gutter={32}>
@@ -22,7 +17,7 @@ export const ModListInternal: FC = ({...props}) => {
 				<Input.Search
 					placeholder={t("user.mod.list.search.placeholder")}
 					allowClear
-					onSearch={fulltext => dataSourceContext.setFilter({fulltext})}
+					onSearch={fulltext => pageData.setFilter({fulltext})}
 				/>
 			</Col>
 			<Col span={24}>
@@ -68,7 +63,7 @@ export const ModListInternal: FC = ({...props}) => {
 };
 
 export const ModList: FC<IModListProps> = props => {
-	return <DataSourceContextProvider>
+	return <PageData>
 		<ModListInternal {...props}/>
-	</DataSourceContextProvider>;
+	</PageData>;
 };

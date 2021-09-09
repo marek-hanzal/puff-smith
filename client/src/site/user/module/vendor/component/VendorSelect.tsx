@@ -1,11 +1,6 @@
-import {ps} from "@/ps";
+import {doPage, VendorDto, VendorFilterDto, VendorOrderByDto} from "@/ps/sdk/vendor";
 import {ISearchSelectProps, SearchSelect} from "@leight-core/leight";
 import {FC} from "react";
-import VendorFilterDto = ps.storage.vendor.VendorFilterDto;
-import VendorOrderByDto = ps.storage.vendor.VendorOrderByDto;
-import VendorDto = ps.vendor.VendorDto;
-
-const doPage = ps.user.vendor.doPage;
 
 export interface IVendorSelectProps extends Partial<ISearchSelectProps<VendorDto, VendorOrderByDto, VendorFilterDto>> {
 	category: string;

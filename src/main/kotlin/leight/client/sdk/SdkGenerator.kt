@@ -1,9 +1,9 @@
 package leight.client.sdk
 
-import leight.client.sdk.annotation.SdkDataSource
+import leight.client.sdk.annotation.SdkData
 import leight.client.sdk.generator.lazyClassGenerator
-import leight.client.sdk.generator.lazyDataSourceContextProviderGenerator
-import leight.client.sdk.generator.lazyDataSourceGenerator
+import leight.client.sdk.generator.lazyDataContextGenerator
+import leight.client.sdk.generator.lazyDataContextProviderGenerator
 import leight.client.sdk.generator.lazyEndpointGenerator
 import leight.container.AbstractService
 import leight.container.IContainer
@@ -18,8 +18,8 @@ class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGene
 	private val nameResolver by container.lazyNameResolver()
 	private val classGenerator by container.lazyClassGenerator()
 	private val endpointGenerator by container.lazyEndpointGenerator()
-	private val dataSourceGenerator by container.lazyDataSourceGenerator()
-	private val dataSourceContextProviderGenerator by container.lazyDataSourceContextProviderGenerator()
+	private val dataContextGenerator by container.lazyDataContextGenerator()
+	private val dataContextProviderGenerator by container.lazyDataContextProviderGenerator()
 
 	private fun exportNamespacePart(namespacePart: NamespacePart, level: Int): String {
 		return """${"\t".repeat(level)}export namespace ${namespacePart.name} {
@@ -32,9 +32,9 @@ ${"\t".repeat(level)}}"""
 		export += """
 			import {FC} from "react";
 			import {
-				useDataSourceContext as useCoolDataSourceContext,
-				DataSourceContextProvider as CoolDataSourceContextProvider,
-				IDataSourceContextProviderProps as ICoolDataSourceContextProviderProps,
+				useDataContext as useCoolDataContext,
+				DataContextProvider as CoolDataContextProvider,
+				IDataContextProviderProps as ICoolDataContextProviderProps,
 				createDelete,
 				createGet,
 				createPost,
@@ -54,12 +54,12 @@ ${"\t".repeat(level)}}"""
 					endpointGenerator.exportMethod(sdk, endpoint, klass, level)
 				}
 			}
-			endpoints.filter { endpoint -> endpoint.findAnnotation<SdkDataSource>() !== null }.map { klass ->
-				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context") { level ->
-					dataSourceGenerator.export(klass, level)
+			endpoints.filter { endpoint -> endpoint.findAnnotation<SdkData>() !== null }.map { klass ->
+				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("data"), klass.simpleName!! + ".data-context") { level ->
+					dataContextGenerator.export(klass, level)
 				}
-				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("datasource"), klass.simpleName!! + ".data-source-context-provider") { level ->
-					dataSourceContextProviderGenerator.export(klass, level)
+				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("data"), klass.simpleName!! + ".data-context-provider") { level ->
+					dataContextProviderGenerator.export(klass, level)
 				}
 			}
 

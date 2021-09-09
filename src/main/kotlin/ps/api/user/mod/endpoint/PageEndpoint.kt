@@ -2,7 +2,7 @@ package ps.api.user.mod.endpoint
 
 import io.ktor.application.*
 import leight.client.sdk.annotation.Sdk
-import leight.client.sdk.annotation.SdkDataSource
+import leight.client.sdk.annotation.SdkData
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
@@ -34,7 +34,7 @@ import ps.storage.module.mod.repository.lazyModRepository
 		]
 	),
 )
-@SdkDataSource(
+@SdkData(
 	item = ModDto::class,
 	orderBy = ModOrderByDto::class,
 	filter = ModFilterDto::class,

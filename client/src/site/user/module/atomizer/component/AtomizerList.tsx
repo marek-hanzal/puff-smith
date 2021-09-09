@@ -1,20 +1,16 @@
-import {AtomizerIcon, ps} from "@/ps";
+import {AtomizerIcon} from "@/ps";
+import {AtomizerDto, AtomizerOrderByDto, PageData, usePageData} from "@/ps/sdk/atomizer";
 import {DashboardOutlined, ExpandAltOutlined, Loading3QuartersOutlined, MacCommandOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-type AtomizerDto = ps.atomizer.AtomizerDto;
-type AtomizerOrderByDto = ps.storage.atomizer.AtomizerOrderByDto;
-const DataSourceContextProvider = ps.user.atomizer.datasource.DataSourceContextProvider;
-const useDataSourceContext = ps.user.atomizer.datasource.useDataSourceContext;
-
 export interface IAtomizerListProps extends Partial<IListProps<AtomizerDto>> {
 }
 
 export const AtomizerListInternal: FC = ({...props}) => {
-	const dataSourceContext = useDataSourceContext();
+	const pageData = usePageData();
 	const {t} = useTranslation();
 	return <>
 		<Row gutter={32}>
@@ -22,7 +18,7 @@ export const AtomizerListInternal: FC = ({...props}) => {
 				<Input.Search
 					placeholder={t("user.atomizer.list.search.placeholder")}
 					allowClear
-					onSearch={fulltext => dataSourceContext.setFilter({fulltext})}
+					onSearch={fulltext => pageData.setFilter({fulltext})}
 				/>
 			</Col>
 			<Col span={24}>
@@ -81,7 +77,7 @@ export const AtomizerListInternal: FC = ({...props}) => {
 };
 
 export const AtomizerList: FC<IAtomizerListProps> = props => {
-	return <DataSourceContextProvider>
+	return <PageData>
 		<AtomizerListInternal {...props}/>
-	</DataSourceContextProvider>;
+	</PageData>;
 };

@@ -1,10 +1,12 @@
-import {ps, useSessionContext} from "@/ps";
+import {useSessionContext} from "@/ps";
+import {SessionDto} from "@/ps/sdk/session";
+import {doSignUp, SignUpDto} from "@/ps/sdk/user";
 import {Centered, Form, FormItem, IFormProps, PasswordInput, SignUpIcon, Submit, useLayoutBlockContext} from "@leight-core/leight";
 import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ISignUpFormProps extends Partial<IFormProps<ps.user.SignUpDto, ps.session.SessionDto>> {
+export interface ISignUpFormProps extends Partial<IFormProps<SignUpDto, SessionDto>> {
 }
 
 export const SignUpForm: FC<ISignUpFormProps> = props => {
@@ -12,8 +14,8 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const blockContext = useLayoutBlockContext();
 	const {t} = useTranslation();
 
-	return <Form<ps.user.SignUpDto, ps.session.SessionDto>
-		post={ps.user.doSignUp}
+	return <Form<SignUpDto, SessionDto>
+		post={doSignUp}
 		size={"large"}
 		wrapperCol={{span: 24}}
 		onSuccess={(navigate, values, session) => {
