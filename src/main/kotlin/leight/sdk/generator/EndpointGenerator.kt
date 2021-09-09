@@ -4,13 +4,15 @@ import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.EndpointMethod
 import leight.rest.lazyEndpointInfo
+import leight.sdk.lazyNameResolver
 import leight.sdk.utils.ExportContext
 
 class EndpointGenerator(container: IContainer) : AbstractService(container) {
 	private val genericGenerator by container.lazyGenericGenerator()
 	private val endpointInfo by container.lazyEndpointInfo()
+	private val nameResolver by container.lazyNameResolver()
 
-	fun generate(exportContext: ExportContext): String = exportContext.klazz.simpleName!!.let { name ->
+	fun generate(exportContext: ExportContext): String = nameResolver.simpleName(exportContext.klazz).let { name ->
 		when (exportContext.endpoint.method) {
 			EndpointMethod.GET -> {
 				"export const do${name}Fetch = createGet<${genericGenerator.exportExpandedClass(exportContext.endpoint.response)}>(\"${endpointInfo.getId(exportContext.klazz)}\")"

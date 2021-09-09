@@ -1,5 +1,5 @@
 import {AtomizerIcon} from "@/ps";
-import {AtomizerDto, AtomizerOrderByDto, PageData, usePageData} from "@/ps/sdk/atomizer";
+import {AtomizerDto, AtomizerOrderByDto, PageData, usePageData} from "@/sdk/user/atomizer";
 import {DashboardOutlined, ExpandAltOutlined, Loading3QuartersOutlined, MacCommandOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row, Typography} from "antd";

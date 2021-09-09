@@ -11,6 +11,9 @@ class ModuleGenerator(container: IContainer) : AbstractService(container) {
 	private val classGenerator by container.lazyClassGenerator()
 	private val classExtractor by container.lazyClassExtractor()
 	private val endpointGenerator by container.lazyEndpointGenerator()
+	private val dataContextGenerator by container.lazyDataContextGenerator()
+	private val dataContextProviderGenerator by container.lazyDataContextProviderGenerator()
+	private val pageSelectGenerator by container.lazyPageSelectGenerator()
 
 	fun generate(endpoints: List<KClass<out IEndpoint>>) = sequence {
 		val export = mutableMapOf<String, MutableList<String>>()
@@ -25,7 +28,9 @@ import {
 	createGet,
 	createPost,
 	createPut,
-	IDiscoveryIndex
+	IDiscoveryIndex,
+	ISearchSelectProps,
+	SearchSelect,
 } from "@leight-core/leight";
 		""".trimIndent()
 
@@ -40,6 +45,11 @@ import {
 		}
 		classExtractor.toExport(endpoints).forEach { exportContext ->
 			export.getOrPut(exportContext.module.name) { mutableListOf(header) }.add(endpointGenerator.generate(exportContext))
+		}
+		classExtractor.toDataExport(endpoints).forEach { dataContext ->
+			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(dataContextGenerator.generate(dataContext))
+			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(dataContextProviderGenerator.generate(dataContext))
+			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(pageSelectGenerator.generate(dataContext))
 		}
 
 		export.forEach { (key, value) ->

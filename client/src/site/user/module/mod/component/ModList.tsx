@@ -1,4 +1,4 @@
-import {ModDto, ModOrderByDto, PageData, usePageData} from "@/ps/sdk/mod";
+import {ModDto, ModOrderByDto, PageData, usePageData} from "@/sdk/user/mod";
 import {EyeInvisibleOutlined, EyeOutlined, ThunderboltOutlined} from "@ant-design/icons";
 import {IconText, IListProps, List, ListItem, OrderButtonBar} from "@leight-core/leight";
 import {Col, Divider, Input, Row, Typography} from "antd";

@@ -1,6 +1,6 @@
 import {LogoFullIcon} from "@/ps";
-import {doSignOut} from "@/ps/sdk/user";
 import {PublicPage, withPublicLayout} from "@/ps/site/public";
+import {doSignOut} from "@/sdk/shared/user";
 import {LoaderIcon, useDiscoveryContext, useNavigate} from "@leight-core/leight";
 import {Result} from "antd";
 import {useEffect} from "react";

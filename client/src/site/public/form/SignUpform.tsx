@@ -1,6 +1,6 @@
 import {useSessionContext} from "@/ps";
-import {SessionDto} from "@/ps/sdk/session";
-import {doSignUp, SignUpDto} from "@/ps/sdk/user";
+import {SessionDto} from "@/sdk/shared/session";
+import {doSignUp, SignUpDto} from "@/sdk/shared/user";
 import {Centered, Form, FormItem, IFormProps, PasswordInput, SignUpIcon, Submit, useLayoutBlockContext} from "@leight-core/leight";
 import {message} from "antd";
 import {FC} from "react";

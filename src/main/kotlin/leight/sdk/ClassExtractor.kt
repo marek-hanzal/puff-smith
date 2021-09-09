@@ -7,8 +7,10 @@ import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.Endpoint
 import leight.rest.IEndpoint
+import leight.sdk.annotation.Data
 import leight.sdk.annotation.Module
 import leight.sdk.utils.ClassContext
+import leight.sdk.utils.DataContext
 import leight.sdk.utils.ExportContext
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
@@ -47,6 +49,8 @@ class ClassExtractor(container: IContainer) : AbstractService(container) {
 				it.findAnnotation<Endpoint>() !== null
 		}.forEach { yield(ExportContext(it.findAnnotation()!!, it.findAnnotation()!!, it)) }
 	}
+
+	fun toDataExport(classes: List<KClass<out IEndpoint>>) = toExport(classes).filter { it.klazz.findAnnotation<Data>() !== null }.map { DataContext(it.endpoint, it.module, it.klazz.findAnnotation()!!, it.klazz) }
 
 	fun toClassList(classes: List<KClass<out IEndpoint>>) = sequence {
 		toExport(classes).forEach { export ->

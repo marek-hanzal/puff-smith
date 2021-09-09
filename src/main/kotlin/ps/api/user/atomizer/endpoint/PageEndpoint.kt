@@ -1,7 +1,7 @@
 package ps.api.user.atomizer.endpoint
 
 import io.ktor.application.*
-import leight.client.sdk.annotation.SdkData
+import leight.sdk.annotation.Data
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
@@ -32,7 +32,7 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 		]
 	),
 )
-@SdkData(
+@Data(
 	item = AtomizerDto::class,
 	orderBy = AtomizerOrderByDto::class,
 	filter = AtomizerFilterDto::class,
