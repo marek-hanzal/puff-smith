@@ -29,11 +29,11 @@ import {
 } from "@leight-core/leight";
 		""".trimIndent()
 
-		classExtractor.toClassList(endpoints).let { classList ->
-			importGenerator.generate(classList).forEach { (module, source) ->
-				export.getOrPut(module) { mutableListOf(header) }.add(source)
-			}
+		importGenerator.generate(endpoints).forEach { (module, source) ->
+			export.getOrPut(module) { mutableListOf(header) }.add(source)
+		}
 
+		classExtractor.toClassList(endpoints).let { classList ->
 			classList.forEach { classContext ->
 				export.getOrPut(classContext.module.name) { mutableListOf(header) }.add(classGenerator.generate(classContext))
 			}
