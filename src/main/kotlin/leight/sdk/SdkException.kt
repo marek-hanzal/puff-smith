@@ -1,4 +1,4 @@
-package leight.client.sdk.exception
+package leight.sdk
 
 import leight.LeightException
 

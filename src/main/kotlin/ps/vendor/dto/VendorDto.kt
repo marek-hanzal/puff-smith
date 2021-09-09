@@ -1,7 +1,7 @@
 package ps.vendor.dto
 
 import kotlinx.serialization.Serializable
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 import leight.storage.EntityUUID

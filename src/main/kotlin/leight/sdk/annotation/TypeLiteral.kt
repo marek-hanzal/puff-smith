@@ -1,4 +1,4 @@
-package leight.client.sdk.annotation
+package leight.sdk.annotation
 
 /**
  * Property being exported as is (the literal).

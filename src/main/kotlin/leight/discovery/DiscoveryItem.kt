@@ -1,6 +1,6 @@
 package leight.discovery
 
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeString
 import leight.sdk.annotation.Module
 
 @Module("shared/discovery")

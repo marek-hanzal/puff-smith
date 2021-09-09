@@ -2,8 +2,8 @@ package leight.page.dto
 
 import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeLiteral
-import leight.client.sdk.annotation.TypeNumber
+import leight.sdk.annotation.TypeLiteral
+import leight.sdk.annotation.TypeNumber
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 import kotlin.math.ceil

@@ -2,9 +2,9 @@ package ps.user.dto
 
 import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeArrayClass
-import leight.client.sdk.annotation.TypeClass
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeArrayClass
+import leight.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 import leight.storage.EntityUUID

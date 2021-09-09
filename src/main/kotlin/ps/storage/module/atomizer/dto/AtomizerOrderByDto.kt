@@ -2,7 +2,7 @@ package ps.storage.module.atomizer.dto
 
 import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeBool
+import leight.sdk.annotation.TypeBool
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 

@@ -2,7 +2,7 @@ package ps.session.dto
 
 import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 import ps.user.dto.UserDto

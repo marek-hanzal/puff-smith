@@ -2,7 +2,7 @@ package ps.api.module.session.endpoint
 
 import io.ktor.application.*
 import io.ktor.auth.*
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.sdk.annotation.Module

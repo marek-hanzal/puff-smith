@@ -1,6 +1,6 @@
 package leight.rest
 
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 
 enum class EndpointMethod {
 	POST, GET, PATCH, PUT, DELETE,

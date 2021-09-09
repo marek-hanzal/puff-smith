@@ -1,7 +1,6 @@
 package ps.api.user.vendor.endpoint
 
 import io.ktor.application.*
-import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
 import leight.page.dto.PageResponseDto
@@ -11,6 +10,7 @@ import leight.rest.EndpointMethod
 import leight.rest.Response
 import leight.sdk.annotation.Data
 import leight.sdk.annotation.Module
+import leight.sdk.annotation.TypeClass
 import ps.storage.module.vendor.dto.VendorFilterDto
 import ps.storage.module.vendor.dto.VendorOrderByDto
 import ps.storage.module.vendor.repository.lazyVendorRepository
@@ -31,7 +31,11 @@ import ps.vendor.mapper.lazyVendorMapper
 		]
 	)
 )
-@Data(VendorDto::class, VendorOrderByDto::class, VendorFilterDto::class)
+@Data(
+	item = VendorDto::class,
+	orderBy = VendorOrderByDto::class,
+	filter = VendorFilterDto::class
+)
 @Module("user/vendor")
 class PageEndpoint(container: IContainer) : AbstractPageEndpoint(container) {
 	private val vendorRepository by container.lazyVendorRepository()

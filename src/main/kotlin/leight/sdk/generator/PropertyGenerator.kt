@@ -1,8 +1,8 @@
 package leight.sdk.generator
 
-import leight.client.sdk.annotation.*
 import leight.container.AbstractService
 import leight.container.IContainer
+import leight.sdk.annotation.*
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.findAnnotation
 

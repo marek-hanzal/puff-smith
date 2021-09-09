@@ -1,8 +1,8 @@
 package leight.sdk
 
-import leight.client.sdk.annotation.TypeArrayClass
-import leight.client.sdk.annotation.TypeClass
-import leight.client.sdk.annotation.TypeObjectIndex
+import leight.sdk.annotation.TypeArrayClass
+import leight.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeObjectIndex
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.Endpoint

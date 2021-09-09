@@ -1,11 +1,11 @@
 package leight.sdk.generator
 
-import leight.client.sdk.annotation.TypeArrayClass
-import leight.client.sdk.annotation.TypeClass
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.rest.IEndpoint
 import leight.sdk.annotation.Module
+import leight.sdk.annotation.TypeArrayClass
+import leight.sdk.annotation.TypeClass
 import leight.sdk.lazyClassExtractor
 import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
