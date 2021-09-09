@@ -11,7 +11,7 @@ import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 
 class ImportGenerator(container: IContainer) : AbstractService(container) {
-	fun generateImport(klass: KClass<*>, module: Module): String {
+	private fun generateImport(klass: KClass<*>, module: Module): String {
 		return "import {${klass.simpleName!!}} from \"@/sdk/${module.name}\""
 	}
 
