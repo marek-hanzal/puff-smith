@@ -1,7 +1,6 @@
 package ps.api.user.mod.endpoint
 
 import io.ktor.application.*
-import leight.client.sdk.annotation.Sdk
 import leight.client.sdk.annotation.SdkData
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
@@ -11,6 +10,7 @@ import leight.rest.AbstractPageEndpoint
 import leight.rest.Endpoint
 import leight.rest.EndpointMethod
 import leight.rest.Response
+import leight.sdk.annotation.Module
 import ps.mod.dto.ModDto
 import ps.mod.mapper.lazyModMapper
 import ps.storage.module.mod.dto.ModFilterDto
@@ -19,8 +19,6 @@ import ps.storage.module.mod.repository.lazyModRepository
 
 @Endpoint(
 	method = EndpointMethod.POST,
-)
-@Sdk(
 	request = TypeClass(
 		PageRequestDto::class,
 		[
@@ -39,6 +37,7 @@ import ps.storage.module.mod.repository.lazyModRepository
 	orderBy = ModOrderByDto::class,
 	filter = ModFilterDto::class,
 )
+@Module("user/mod")
 class PageEndpoint(container: IContainer) : AbstractPageEndpoint(container) {
 	private val modRepository by container.lazyModRepository()
 	private val modMapper by container.lazyModMapper()

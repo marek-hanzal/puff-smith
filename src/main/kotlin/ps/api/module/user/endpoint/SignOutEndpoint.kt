@@ -2,9 +2,9 @@ package ps.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.sessions.*
-import leight.client.sdk.annotation.Sdk
 import leight.container.IContainer
 import leight.rest.*
+import leight.sdk.annotation.Module
 import leight.session.SessionTicket
 import leight.storage.lazyStorage
 import ps.storage.module.session.repository.lazyTicketRepository
@@ -13,7 +13,7 @@ import ps.storage.module.session.repository.lazyTicketRepository
 	public = true,
 	method = EndpointMethod.DELETE,
 )
-@Sdk
+@Module("shared/user")
 class SignOutEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val storage by container.lazyStorage()
 	private val ticketRepository by container.lazyTicketRepository()

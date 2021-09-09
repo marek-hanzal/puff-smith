@@ -4,9 +4,11 @@ import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import leight.storage.EntityUUID
 
 @Serializable
+@Module("shared/role")
 data class RoleDto(
 	@TypeString
 	val id: String,

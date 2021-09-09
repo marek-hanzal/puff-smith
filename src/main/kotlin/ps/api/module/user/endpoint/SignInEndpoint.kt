@@ -2,10 +2,10 @@ package ps.api.module.user.endpoint
 
 import io.ktor.application.*
 import io.ktor.request.*
-import leight.client.sdk.annotation.Sdk
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
+import leight.sdk.annotation.Module
 import leight.session.ticket
 import leight.storage.lazyStorage
 import leight.user.UnknownUserException
@@ -19,11 +19,10 @@ import ps.user.mapper.lazyUserToSessionMapper
 @Endpoint(
 	public = true,
 	method = EndpointMethod.POST,
-)
-@Sdk(
 	request = TypeClass(SignInDto::class),
 	response = TypeClass(SessionDto::class),
 )
+@Module("shared/user")
 class SignInEndpoint(container: IContainer) : AbstractEndpoint(container) {
 	private val storage by container.lazyStorage()
 	private val userRepository by container.lazyUserRepository()

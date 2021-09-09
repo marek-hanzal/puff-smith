@@ -4,9 +4,11 @@ import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeClass
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import ps.user.dto.UserDto
 
 @Serializable
+@Module("shared/session")
 data class SessionDto(
 	@TypeClass(UserDto::class)
 	val user: UserDto,

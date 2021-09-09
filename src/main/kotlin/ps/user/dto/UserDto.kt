@@ -6,10 +6,12 @@ import leight.client.sdk.annotation.TypeArrayClass
 import leight.client.sdk.annotation.TypeClass
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import leight.storage.EntityUUID
 import ps.role.dto.RoleDto
 
 @Serializable
+@Module("shared/user")
 data class UserDto(
 	@TypeString(nullable = true)
 	val id: String?,

@@ -1,7 +1,6 @@
 package ps.api.user.atomizer.endpoint
 
 import io.ktor.application.*
-import leight.client.sdk.annotation.Sdk
 import leight.client.sdk.annotation.SdkData
 import leight.client.sdk.annotation.TypeClass
 import leight.container.IContainer
@@ -11,6 +10,7 @@ import leight.rest.AbstractPageEndpoint
 import leight.rest.Endpoint
 import leight.rest.EndpointMethod
 import leight.rest.Response
+import leight.sdk.annotation.Module
 import ps.atomizer.dto.AtomizerDto
 import ps.atomizer.mapper.lazyAtomizerMapper
 import ps.storage.module.atomizer.dto.AtomizerFilterDto
@@ -19,8 +19,6 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 
 @Endpoint(
 	method = EndpointMethod.POST,
-)
-@Sdk(
 	request = TypeClass(
 		PageRequestDto::class,
 		[
@@ -39,6 +37,7 @@ import ps.storage.module.atomizer.repository.lazyAtomizerRepository
 	orderBy = AtomizerOrderByDto::class,
 	filter = AtomizerFilterDto::class,
 )
+@Module("user/atomizer")
 class PageEndpoint(container: IContainer) : AbstractPageEndpoint(container) {
 	private val atomizerRepository by container.lazyAtomizerRepository()
 	private val atomizerMapper by container.lazyAtomizerMapper()

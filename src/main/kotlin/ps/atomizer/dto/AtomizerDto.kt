@@ -7,11 +7,13 @@ import leight.client.sdk.annotation.TypeClass
 import leight.client.sdk.annotation.TypeNumber
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import leight.storage.EntityUUID
 import ps.vendor.dto.VendorDto
 import kotlin.properties.Delegates
 
 @Serializable
+@Module("user/atomizer")
 data class AtomizerDto(
 	@TypeString
 	val id: String,
