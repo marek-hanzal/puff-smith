@@ -1,7 +1,7 @@
 package ps.upgrade.u2021_08_19.storage.module.enum.dto
 
 import kotlinx.serialization.Serializable
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 
 @Serializable

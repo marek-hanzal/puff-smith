@@ -2,10 +2,10 @@ package ps.atomizer.dto
 
 import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
-import leight.client.sdk.annotation.TypeBool
-import leight.client.sdk.annotation.TypeClass
-import leight.client.sdk.annotation.TypeNumber
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeBool
+import leight.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeNumber
+import leight.sdk.annotation.TypeString
 import leight.dto.AbstractDto
 import leight.sdk.annotation.Module
 import leight.storage.EntityUUID

@@ -1,4 +1,4 @@
-package leight.client.sdk.annotation
+package leight.sdk.annotation
 
 /**
  * Used to export objet index (like HashMap<String, Object>).

@@ -1,9 +1,9 @@
 package leight.sdk.generator
 
-import leight.client.sdk.annotation.TypeClass
-import leight.client.sdk.exception.SdkException
 import leight.container.AbstractService
 import leight.container.IContainer
+import leight.sdk.SdkException
+import leight.sdk.annotation.TypeClass
 import leight.sdk.lazyNameResolver
 
 class GenericGenerator(container: IContainer) : AbstractService(container) {

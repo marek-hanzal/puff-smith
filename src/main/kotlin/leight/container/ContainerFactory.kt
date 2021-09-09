@@ -1,8 +1,6 @@
 package leight.container
 
 import kotlinx.serialization.ExperimentalSerializationApi
-import leight.client.sdk.ISdkGenerator
-import leight.client.sdk.SdkGenerator
 import leight.encryption.IPasswordService
 import leight.encryption.PasswordService
 import leight.http.HttpIndex
@@ -36,7 +34,6 @@ object ContainerFactory {
 		service(IContainer::class) { this }
 		service(IUpgradeManager::class) { UpgradeManager(this) }
 		service(IVersionService::class) { VersionService(this) }
-		service(ISdkGenerator::class) { SdkGenerator(this) }
 		service(IRoleService::class) { EmptyRoleService(this) }
 		service(IPasswordService::class) { PasswordService(this) }
 	}

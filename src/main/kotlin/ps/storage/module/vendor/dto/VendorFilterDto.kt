@@ -1,7 +1,7 @@
 package ps.storage.module.vendor.dto
 
 import kotlinx.serialization.Serializable
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeString
 import leight.sdk.annotation.Module
 
 @Serializable

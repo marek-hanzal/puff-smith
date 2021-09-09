@@ -1,7 +1,7 @@
-package leight.client.sdk.annotation
+package leight.sdk.annotation
 
 @Target(AnnotationTarget.PROPERTY)
-annotation class TypeNumber(
+annotation class TypeString(
 	val nullable: Boolean = false,
 	val optional: Boolean = false,
 )

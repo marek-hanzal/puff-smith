@@ -1,6 +1,6 @@
 package ps.api.module.discovery.dto.index
 
-import leight.client.sdk.annotation.TypeLiteral
+import leight.sdk.annotation.TypeLiteral
 import leight.discovery.DiscoveryItem
 import leight.sdk.annotation.Module
 

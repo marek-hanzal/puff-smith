@@ -1,4 +1,4 @@
-package leight.client.sdk.annotation
+package leight.sdk.annotation
 
 import kotlin.reflect.KClass
 

@@ -1,9 +1,9 @@
 package ps.api.user.atomizer.dto
 
 import kotlinx.serialization.Serializable
-import leight.client.sdk.annotation.TypeBool
-import leight.client.sdk.annotation.TypeNumber
-import leight.client.sdk.annotation.TypeString
+import leight.sdk.annotation.TypeBool
+import leight.sdk.annotation.TypeNumber
+import leight.sdk.annotation.TypeString
 import leight.sdk.annotation.Module
 
 @Serializable

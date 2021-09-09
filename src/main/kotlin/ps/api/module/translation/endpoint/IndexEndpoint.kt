@@ -1,7 +1,7 @@
 package ps.api.module.translation.endpoint
 
 import io.ktor.application.*
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.sdk.annotation.Module

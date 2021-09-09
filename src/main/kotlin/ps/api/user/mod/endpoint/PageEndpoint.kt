@@ -2,7 +2,7 @@ package ps.api.user.mod.endpoint
 
 import io.ktor.application.*
 import leight.sdk.annotation.Data
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.page.dto.PageRequestDto
 import leight.page.dto.PageResponseDto

@@ -2,7 +2,7 @@ package ps.api.user.atomizer.endpoint
 
 import io.ktor.application.*
 import io.ktor.request.*
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.container.IContainer
 import leight.rest.*
 import leight.sdk.annotation.Module

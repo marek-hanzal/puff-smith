@@ -1,6 +1,6 @@
 package leight.sdk.utils
 
-import leight.client.sdk.annotation.TypeClass
+import leight.sdk.annotation.TypeClass
 import leight.rest.Endpoint
 import leight.rest.IEndpoint
 import leight.sdk.annotation.Module
