@@ -15,30 +15,45 @@ class ImportGenerator(container: IContainer) : AbstractService(container) {
 		return "import {${klass.simpleName!!}} from \"@/sdk/${module.name}\""
 	}
 
-	fun generate(classList: Sequence<ClassContext>) = sequence {
-		val dependencies = mutableMapOf<String, MutableList<String>>()
-
-		classList.forEach { classContext ->
-			classContext.typeClass.klass.memberProperties.forEach { kProperty ->
+	private fun forClass(klass: KClass<*>) = sequence {
+		klass.findAnnotation<Module>()?.let { module ->
+			klass.memberProperties.forEach { kProperty ->
 				kProperty.findAnnotation<TypeClass>()?.let { typeClass ->
-					typeClass.klass.findAnnotation<Module>()?.let { module ->
-						if (module.name != classContext.module.name) {
-							dependencies.getOrPut(classContext.module.name) { mutableListOf() }.add(generateImport(typeClass.klass, module))
+					typeClass.klass.findAnnotation<Module>()?.let { innerModule ->
+						if (innerModule.name != module.name) {
+							yield(module.name to generateImport(typeClass.klass, innerModule))
 						}
 					}
 				}
 				kProperty.findAnnotation<TypeArrayClass>()?.let { typeArrayClass ->
-					typeArrayClass.target.klass.findAnnotation<Module>()?.let { module ->
-						if (module.name != classContext.module.name) {
-							dependencies.getOrPut(classContext.module.name) { mutableListOf() }.add(generateImport(typeArrayClass.target.klass, module))
+					typeArrayClass.target.klass.findAnnotation<Module>()?.let { innerModule ->
+						if (innerModule.name != module.name) {
+							yield(module.name to generateImport(typeArrayClass.target.klass, innerModule))
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private fun forTypeClass(typeClass: TypeClass) = sequence {
+		yieldAll(forClass(typeClass.klass))
+		typeClass.types.forEach {
+			yieldAll(forClass(it.klass))
+		}
+	}
+
+	fun generate(classList: Sequence<ClassContext>) = sequence {
+		val dependencies = mutableMapOf<String, MutableList<String>>()
+
+		classList.forEach { classContext ->
+			forClass(classContext.klazz).forEach { (module, source) -> dependencies.getOrPut(module) { mutableListOf() }.add(source) }
+			forTypeClass(classContext.endpoint.request).forEach { (module, source) -> dependencies.getOrPut(module) { mutableListOf() }.add(source) }
+			forTypeClass(classContext.endpoint.response).forEach { (module, source) -> dependencies.getOrPut(module) { mutableListOf() }.add(source) }
+		}
 
 		dependencies.forEach { (module, source) ->
-			yield(module to source.joinToString("\n"))
+			yield(module to source.distinct().joinToString("\n"))
 		}
 	}
 }
