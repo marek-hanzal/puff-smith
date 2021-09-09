@@ -1,7 +1,6 @@
 package leight.client.sdk
 
 import leight.client.sdk.annotation.SdkData
-import leight.client.sdk.generator.lazyClassGenerator
 import leight.client.sdk.generator.lazyDataContextGenerator
 import leight.client.sdk.generator.lazyDataContextProviderGenerator
 import leight.client.sdk.generator.lazyEndpointGenerator
@@ -15,7 +14,6 @@ import kotlin.reflect.full.findAnnotation
 class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGenerator {
 	private val httpIndex by container.lazyHttpIndex()
 	private val nameResolver by container.lazyNameResolver()
-	private val classGenerator by container.lazyClassGenerator()
 	private val endpointGenerator by container.lazyEndpointGenerator()
 	private val dataContextGenerator by container.lazyDataContextGenerator()
 	private val dataContextProviderGenerator by container.lazyDataContextProviderGenerator()
