@@ -7,12 +7,14 @@ import leight.client.sdk.annotation.TypeClass
 import leight.client.sdk.annotation.TypeNumber
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import leight.storage.EntityUUID
 import ps.user.dto.UserDto
 import ps.vendor.dto.VendorDto
 import kotlin.properties.Delegates
 
 @Serializable
+@Module("user/mod")
 data class ModDto(
 	@TypeString
 	val id: String,

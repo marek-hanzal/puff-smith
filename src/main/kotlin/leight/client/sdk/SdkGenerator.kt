@@ -14,7 +14,6 @@ import kotlin.reflect.full.findAnnotation
 
 class SdkGenerator(container: IContainer) : AbstractService(container), ISdkGenerator {
 	private val httpIndex by container.lazyHttpIndex()
-	private val classExtractor by container.lazyClassExtractor()
 	private val nameResolver by container.lazyNameResolver()
 	private val classGenerator by container.lazyClassGenerator()
 	private val endpointGenerator by container.lazyEndpointGenerator()
@@ -44,16 +43,16 @@ ${"\t".repeat(level)}}"""
 
 		""".trimIndent()
 		NamespaceIndex().let { namespaceIndex ->
-			classExtractor.extractSdkClasses(endpoints).map { typeClass ->
-				namespaceIndex.export(nameResolver.namespaceParts(typeClass.klass), typeClass.klass.simpleName!!) { level ->
-					classGenerator.exportClass(typeClass, level)
-				}
-			}
-			classExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->
-				namespaceIndex.export(nameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
-					endpointGenerator.exportMethod(sdk, endpoint, klass, level)
-				}
-			}
+//			classExtractor.extractSdkClasses(endpoints).map { typeClass ->
+//				namespaceIndex.export(nameResolver.namespaceParts(typeClass.klass), typeClass.klass.simpleName!!) { level ->
+//					classGenerator.exportClass(typeClass, level)
+//				}
+//			}
+//			classExtractor.sdkClasses(endpoints) { sdk, endpoint, klass ->
+//				namespaceIndex.export(nameResolver.namespaceParts(klass), klass.simpleName!! + ".method") { level ->
+//					endpointGenerator.exportMethod(sdk, endpoint, klass, level)
+//				}
+//			}
 			endpoints.filter { endpoint -> endpoint.findAnnotation<SdkData>() !== null }.map { klass ->
 				namespaceIndex.export(nameResolver.namespaceParts(klass) + listOf("data"), klass.simpleName!! + ".data-context") { level ->
 					dataContextGenerator.export(klass, level)

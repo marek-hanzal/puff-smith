@@ -3,9 +3,11 @@ package ps.vendor.dto
 import kotlinx.serialization.Serializable
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 import leight.storage.EntityUUID
 
 @Serializable
+@Module("user/vendor")
 data class VendorDto(
 	@TypeString
 	val id: String,

@@ -4,8 +4,10 @@ import kotlinx.serialization.Serializable
 import leight.builder.IBuilder
 import leight.client.sdk.annotation.TypeString
 import leight.dto.AbstractDto
+import leight.sdk.annotation.Module
 
 @Serializable
+@Module("user/atomizer")
 data class AtomizerFilterDto(
 	@TypeString(nullable = true, optional = true)
 	val fulltext: String? = null
