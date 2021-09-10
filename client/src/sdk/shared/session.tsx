@@ -1,5 +1,5 @@
-import {UserDto} from "@/sdk/shared/user";
-import {createGet,} from "@leight-core/leight";
+import {createGet} from "@leight-core/leight";
+import {UserDto} from "@/sdk/shared/user"
 
 export interface SessionDto {
 	user: UserDto;

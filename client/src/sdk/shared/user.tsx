@@ -1,6 +1,7 @@
-import {RoleDto} from "@/sdk/shared/role";
-import {SessionDto} from "@/sdk/shared/session";
-import {createDelete, createPost,} from "@leight-core/leight";
+import {createPost} from "@leight-core/leight";
+import {createDelete} from "@leight-core/leight";
+import {SessionDto} from "@/sdk/shared/session"
+import {RoleDto} from "@/sdk/shared/role"
 
 export interface UserDto {
 	id: string | null;

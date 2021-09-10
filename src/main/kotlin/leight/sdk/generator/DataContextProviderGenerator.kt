@@ -10,7 +10,7 @@ class DataContextProviderGenerator(container: IContainer) : AbstractService(cont
 
 	fun generate(dataContext: DataContext) = nameResolver.simpleName(dataContext.klazz).let { name ->
 		"""
-			export interface I${name}DataProps extends Partial<ICoolDataContextProviderProps<${nameResolver.simpleName(dataContext.data.item)}, ${nameResolver.simpleName(dataContext.data.orderBy)}, ${
+			export interface I${name}DataProps extends Partial<IDataContextProviderProps<${nameResolver.simpleName(dataContext.data.item)}, ${nameResolver.simpleName(dataContext.data.orderBy)}, ${
 			nameResolver.simpleName(
 				dataContext.data.filter
 			)
@@ -18,12 +18,12 @@ class DataContextProviderGenerator(container: IContainer) : AbstractService(cont
 			}
 
 			export const ${name}Data: FC<I${name}DataProps> = ({children, ...props}) => {
-				return <CoolDataContextProvider<${nameResolver.simpleName(dataContext.data.item)}, ${nameResolver.simpleName(dataContext.data.orderBy)}, ${nameResolver.simpleName(dataContext.data.filter)}>
+				return <DataContextProvider<${nameResolver.simpleName(dataContext.data.item)}, ${nameResolver.simpleName(dataContext.data.orderBy)}, ${nameResolver.simpleName(dataContext.data.filter)}>
 					fetch={do${nameResolver.simpleName(dataContext.klazz)}}
 					{...props}
 				>
 					{children}
-				</CoolDataContextProvider>;
+				</DataContextProvider>;
 			}
 			""".trimIndent()
 	}
