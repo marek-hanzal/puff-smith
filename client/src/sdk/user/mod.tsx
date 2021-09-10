@@ -1,9 +1,10 @@
-import {PageRequestDto, PageResponseDto} from "@/sdk/leight";
-
-import {UserDto} from "@/sdk/shared/user";
-import {VendorDto} from "@/sdk/user/vendor";
-import {createPost, DataContextProvider as CoolDataContextProvider, IDataContextProviderProps as ICoolDataContextProviderProps, ISearchSelectProps, SearchSelect, useDataContext as useCoolDataContext,} from "@leight-core/leight";
 import {FC} from "react";
+import {useDataContext, IDataContextProviderProps, DataContextProvider, ISearchSelectProps, SearchSelect} from "@leight-core/leight";
+import {createPost} from "@leight-core/leight";
+import {PageRequestDto} from "@/sdk/leight"
+import {PageResponseDto} from "@/sdk/leight"
+import {UserDto} from "@/sdk/shared/user"
+import {VendorDto} from "@/sdk/user/vendor"
 
 export interface ModOrderByDto {
 	code?: boolean | null;
@@ -27,19 +28,19 @@ export interface ModDto {
 
 export const doPage = createPost<PageRequestDto<ModOrderByDto, ModFilterDto>, PageResponseDto<ModDto>>("user.mod.page");
 
-export const usePageData = () => useCoolDataContext<ModDto, ModOrderByDto, ModFilterDto>();
+export const usePageData = () => useDataContext<ModDto, ModOrderByDto, ModFilterDto>()
 
-export interface IPageDataProps extends Partial<ICoolDataContextProviderProps<ModDto, ModOrderByDto, ModFilterDto>> {
+export interface IPageDataProps extends Partial<IDataContextProviderProps<ModDto, ModOrderByDto, ModFilterDto>> {
 }
 
 export const PageData: FC<IPageDataProps> = ({children, ...props}) => {
-	return <CoolDataContextProvider<ModDto, ModOrderByDto, ModFilterDto>
+	return <DataContextProvider<ModDto, ModOrderByDto, ModFilterDto>
 		fetch={doPage}
 		{...props}
 	>
 		{children}
-	</CoolDataContextProvider>;
-};
+	</DataContextProvider>;
+}
 
 export type IPageSelectProps = Partial<ISearchSelectProps<ModDto, ModOrderByDto, ModFilterDto>> & Pick<ISearchSelectProps<ModDto, ModOrderByDto, ModFilterDto>, "toSearch" | "toOption">;
 
@@ -47,5 +48,5 @@ export const PageSelect: FC<IPageSelectProps> = props => {
 	return <SearchSelect<ModDto, ModOrderByDto, ModFilterDto>
 		search={doPage}
 		{...props}
-	/>;
-};
+	/>
+}

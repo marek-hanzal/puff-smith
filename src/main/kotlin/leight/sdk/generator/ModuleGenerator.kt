@@ -17,39 +17,40 @@ class ModuleGenerator(container: IContainer) : AbstractService(container) {
 
 	fun generate(endpoints: List<KClass<out IEndpoint>>) = sequence {
 		val export = mutableMapOf<String, MutableList<String>>()
-
-		val header = """
-import {FC} from "react";
-import {
-	useDataContext as useCoolDataContext,
-	DataContextProvider as CoolDataContextProvider,
-	IDataContextProviderProps as ICoolDataContextProviderProps,
-	createDelete,
-	createGet,
-	createPost,
-	createPut,
-	IDiscoveryIndex,
-	ISearchSelectProps,
-	SearchSelect,
-} from "@leight-core/leight";
-		""".trimIndent()
+//
+//		val header = """
+//import {FC} from "react";
+//import {
+//	useDataContext as useCoolDataContext,
+//	DataContextProvider as CoolDataContextProvider,
+//	IDataContextProviderProps as ICoolDataContextProviderProps,
+//	createDelete,
+//	createGet,
+//	createPost,
+//	createPut,
+//	IDiscoveryIndex,
+//	ISearchSelectProps,
+//	SearchSelect,
+//} from "@leight-core/leight";
+//		""".trimIndent()
+		val header = ""
 
 		importGenerator.generate(endpoints).forEach { (module, source) ->
-			export.getOrPut(module) { mutableListOf(header) }.add(source)
+			export.getOrPut(module) { mutableListOf() }.add(source)
 		}
 
 		classExtractor.toClassList(endpoints).let { classList ->
 			classList.forEach { classContext ->
-				export.getOrPut(classContext.module.name) { mutableListOf(header) }.add(classGenerator.generate(classContext))
+				export.getOrPut(classContext.module.name) { mutableListOf() }.add(classGenerator.generate(classContext))
 			}
 		}
 		classExtractor.toExport(endpoints).forEach { exportContext ->
-			export.getOrPut(exportContext.module.name) { mutableListOf(header) }.add(endpointGenerator.generate(exportContext))
+			export.getOrPut(exportContext.module.name) { mutableListOf() }.add(endpointGenerator.generate(exportContext))
 		}
 		classExtractor.toDataExport(endpoints).forEach { dataContext ->
-			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(dataContextGenerator.generate(dataContext))
-			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(dataContextProviderGenerator.generate(dataContext))
-			export.getOrPut(dataContext.module.name) { mutableListOf(header) }.add(pageSelectGenerator.generate(dataContext))
+			export.getOrPut(dataContext.module.name) { mutableListOf() }.add(dataContextGenerator.generate(dataContext))
+			export.getOrPut(dataContext.module.name) { mutableListOf() }.add(dataContextProviderGenerator.generate(dataContext))
+			export.getOrPut(dataContext.module.name) { mutableListOf() }.add(pageSelectGenerator.generate(dataContext))
 		}
 
 		export.forEach { (key, value) ->

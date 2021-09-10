@@ -1,4 +1,4 @@
-import {createGet,} from "@leight-core/leight";
+import {createGet} from "@leight-core/leight";
 
 export interface IndexResponse {
 	translations: TranslationDto[];
