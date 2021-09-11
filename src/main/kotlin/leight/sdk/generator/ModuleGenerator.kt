@@ -17,23 +17,6 @@ class ModuleGenerator(container: IContainer) : AbstractService(container) {
 
 	fun generate(endpoints: List<KClass<out IEndpoint>>) = sequence {
 		val export = mutableMapOf<String, MutableList<String>>()
-//
-//		val header = """
-//import {FC} from "react";
-//import {
-//	useDataContext as useCoolDataContext,
-//	DataContextProvider as CoolDataContextProvider,
-//	IDataContextProviderProps as ICoolDataContextProviderProps,
-//	createDelete,
-//	createGet,
-//	createPost,
-//	createPut,
-//	IDiscoveryIndex,
-//	ISearchSelectProps,
-//	SearchSelect,
-//} from "@leight-core/leight";
-//		""".trimIndent()
-		val header = ""
 
 		importGenerator.generate(endpoints).forEach { (module, source) ->
 			export.getOrPut(module) { mutableListOf() }.add(source)
