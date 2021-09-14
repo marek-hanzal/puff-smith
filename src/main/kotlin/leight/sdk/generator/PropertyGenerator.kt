@@ -3,38 +3,37 @@ package leight.sdk.generator
 import leight.container.AbstractService
 import leight.container.IContainer
 import leight.sdk.annotation.*
-import leight.sdk.lazyNameResolver
 import kotlin.reflect.KProperty
 import kotlin.reflect.full.findAnnotation
 
 class PropertyGenerator(container: IContainer) : AbstractService(container) {
 	private val genericGenerator by container.lazyGenericGenerator()
-	private val nameResolver by container.lazyNameResolver()
+	private val typeGenerator by container.lazyTypeGenerator()
 
 	fun generate(property: KProperty<*>): String? {
 		var type: String? = null
 		var separator = ":"
 		property.findAnnotation<TypeLiteral>()?.let {
-			type = it.export
+			type = typeGenerator.resolve(it)
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeString>()?.let {
-			type = "string" + if (it.nullable) " | null" else ""
+			type = typeGenerator.resolve(it)
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeNumber>()?.let {
-			type = "number" + if (it.nullable) " | null" else ""
+			type = typeGenerator.resolve(it)
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeBool>()?.let {
-			type = "boolean" + if (it.nullable) " | null" else ""
+			type = typeGenerator.resolve(it)
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeArrayClass>()?.let {
-			type = genericGenerator.exportExpandedClass(it.target) + "[]"
+			type = typeGenerator.resolve(it)
 		}
 		property.findAnnotation<TypeClass>()?.let {
-			type = genericGenerator.exportExpandedClass(it) + if (it.nullable) " | null" else ""
+			type = typeGenerator.resolve(it)
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeObjectIndex>()?.let {
