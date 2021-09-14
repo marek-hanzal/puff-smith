@@ -13,7 +13,7 @@ class ModuleGenerator(container: IContainer) : AbstractService(container) {
 	private val endpointGenerator by container.lazyEndpointGenerator()
 	private val dataContextGenerator by container.lazyDataContextGenerator()
 	private val dataContextProviderGenerator by container.lazyDataContextProviderGenerator()
-	private val pageSelectGenerator by container.lazyPageSelectGenerator()
+	private val pageSelectGenerator by container.lazySearchSelectGenerator()
 
 	fun generate(endpoints: List<KClass<out IEndpoint>>) = sequence {
 		val export = mutableMapOf<String, MutableList<String>>()

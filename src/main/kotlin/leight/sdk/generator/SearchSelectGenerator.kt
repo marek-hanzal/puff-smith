@@ -5,7 +5,7 @@ import leight.container.IContainer
 import leight.sdk.lazyNameResolver
 import leight.sdk.utils.DataContext
 
-class PageSelectGenerator(container: IContainer) : AbstractService(container) {
+class SearchSelectGenerator(container: IContainer) : AbstractService(container) {
 	private val nameResolver by container.lazyNameResolver()
 
 	fun generate(dataContext: DataContext) = nameResolver.simpleName(dataContext.klazz).let { name ->
@@ -27,4 +27,4 @@ class PageSelectGenerator(container: IContainer) : AbstractService(container) {
 	}
 }
 
-fun IContainer.lazyPageSelectGenerator() = lazy<PageSelectGenerator>()
+fun IContainer.lazySearchSelectGenerator() = lazy<SearchSelectGenerator>()
