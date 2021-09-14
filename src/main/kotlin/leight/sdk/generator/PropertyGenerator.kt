@@ -31,14 +31,14 @@ class PropertyGenerator(container: IContainer) : AbstractService(container) {
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeArrayClass>()?.let {
-			type = nameResolver.simpleName(it.target.klass) + genericGenerator.genericsFor(it.target) + "[]"
+			type = genericGenerator.exportExpandedClass(it.target) + "[]"
 		}
 		property.findAnnotation<TypeClass>()?.let {
-			type = nameResolver.simpleName(it.klass) + genericGenerator.genericsFor(it) + if (it.nullable) " | null" else ""
+			type = genericGenerator.exportExpandedClass(it) + if (it.nullable) " | null" else ""
 			separator = if (it.optional) "?:" else ":"
 		}
 		property.findAnnotation<TypeObjectIndex>()?.let {
-			type = "{ [index in string]: " + nameResolver.simpleName(it.target.klass) + genericGenerator.genericsFor(it.target) + " }"
+			type = "{ [index in string]: " + genericGenerator.exportExpandedClass(it.target) + " }"
 		}
 		return type?.let { "\t" + property.name + "$separator " + it + ";" }
 	}

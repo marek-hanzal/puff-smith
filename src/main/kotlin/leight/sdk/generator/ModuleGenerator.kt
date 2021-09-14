@@ -22,10 +22,8 @@ class ModuleGenerator(container: IContainer) : AbstractService(container) {
 			export.getOrPut(module) { mutableListOf() }.add(source)
 		}
 
-		classExtractor.toClassList(endpoints).let { classList ->
-			classList.forEach { classContext ->
-				export.getOrPut(classContext.module.name) { mutableListOf() }.add(classGenerator.generate(classContext))
-			}
+		classExtractor.toClassList(endpoints).forEach { classContext ->
+			export.getOrPut(classContext.module.name) { mutableListOf() }.add(classGenerator.generate(classContext))
 		}
 		classExtractor.toExport(endpoints).forEach { exportContext ->
 			export.getOrPut(exportContext.module.name) { mutableListOf() }.add(endpointGenerator.generate(exportContext))
