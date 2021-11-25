@@ -1,11 +1,11 @@
-FROM node:alpine as client-deps
+FROM node:16 as client-deps
 
 WORKDIR /opt/client
 
 COPY client/package.json client/package-lock.json ./
 RUN npm install && npm ci --only-production
 
-FROM node:alpine as client-builder
+FROM node:16 as client-builder
 ARG BUILD
 
 ENV \
@@ -17,7 +17,8 @@ WORKDIR /opt/client
 
 COPY client .
 COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN echo "NEXT_PUBLIC_BUILD=$BUILD" > .env.local
+RUN echo "NEXT_PUBLIC_BACKEND=http://localhost:8088" >> .env.local
+RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
 
 RUN npm run build
 
@@ -48,6 +49,7 @@ ENV \
 
 RUN adduser --disabled-password --home /opt/app app app
 
+# NodeJS is required for the runtime (serving next.js app)
 RUN apk add --update nodejs npm supervisor && rm  -rf /tmp/* /var/cache/apk/* && npm i -g npm
 
 ADD rootfs/runtime /
