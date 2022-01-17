@@ -12,7 +12,14 @@ services:
             - source:/var/www
         networks:
             - db
+            - memcached
             - common
+
+    memcached:
+        image: memcached:1.6-alpine
+        hostname: memcached
+        networks:
+            - memcached
 
     mariadb:
         image: mariadb:10
@@ -34,3 +41,4 @@ networks:
     common:
         external: true
     db:
+    memcached:

@@ -5,6 +5,7 @@ use Edde\Api\Shared\Endpoint\DateFormatListEndpoint;
 use Edde\Api\Shared\Endpoint\DateTimeFormatListEndpoint;
 use Edde\Session\ISessionResolver;
 use Edde\Storage\StorageConfig;
+use PuffSmith\Api\Root\RootRouterGroup;
 use PuffSmith\Api\Shared\SharedRouterGroup;
 
 /**
@@ -55,6 +56,7 @@ return [
 	ApiRouter::CONFIG_ENDPOINTS                          => [
 	],
 	ApiRouter::CONFIG_GROUPS                             => [
+		RootRouterGroup::class,
 		SharedRouterGroup::class,
 	],
 ];

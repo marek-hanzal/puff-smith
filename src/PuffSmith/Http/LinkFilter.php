@@ -8,6 +8,9 @@ use function str_replace;
 
 class LinkFilter extends AbstractLinkFilter {
 	public function filter($value) {
-		return str_replace(['puff-smith/'], [''], $value);
+		return str_replace([
+			'puff-smith/',
+			'edde/',
+		], [''], $value);
 	}
 }
