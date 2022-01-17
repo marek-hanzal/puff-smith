@@ -6,10 +6,8 @@ Puff Smith is a specialized application for hunting the best puff ever!
 
 ### Backend
 
-- Kotlin
-- Ktor
-- Exposed
-- H2/Postgres
+- PHP
+- MariaDB
 
 ### Frontend
 
