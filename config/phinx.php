@@ -12,7 +12,7 @@ return [
 		'default_environment'     => $_ENV['PHINX'] ?? 'default',
 		'default'                 => [
 			'adapter' => 'mysql',
-			'host'    => 'mysql',
+			'host'    => 'mariadb',
 			'name'    => 'puff-smith',
 			'user'    => 'puff-smith',
 			'pass'    => '1234',

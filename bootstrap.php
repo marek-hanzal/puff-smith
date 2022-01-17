@@ -2,12 +2,8 @@
 declare(strict_types=1);
 
 use Edde\File\FileService;
-use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
 use Edde\Slim\SlimApp;
-use Edde\User\Mapper\ICurrentUserMapper;
-use Edde\User\Mapper\IUserMapper;
-use Edde\User\Repository\IUserRepository;
 use Phinx\Config\Config;
 use Phinx\Config\ConfigInterface;
 use Psr\Container\ContainerInterface;

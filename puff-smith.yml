@@ -11,9 +11,9 @@ services:
             - "5388:3000"
             - "5088:80"
 
-    mysql:
+    mariadb:
         image: mariadb:10
-        hostname: mysql
+        hostname: mariadb
         ports:
             - "5306:3306"
         networks:

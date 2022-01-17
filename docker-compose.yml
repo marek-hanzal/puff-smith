@@ -11,7 +11,21 @@ services:
         volumes:
             - source:/var/www
         networks:
+            - db
             - common
+
+    mariadb:
+        image: mariadb:10
+        hostname: mariadb
+        ports:
+            - "5306:3306"
+        networks:
+            - db
+        environment:
+            MYSQL_ROOT_PASSWORD: 1234
+            MYSQL_DATABASE: puff-smith
+            MYSQL_USER: puff-smith
+            MYSQL_PASSWORD: 1234
 
 volumes:
     source:
@@ -19,3 +33,4 @@ volumes:
 networks:
     common:
         external: true
+    db:

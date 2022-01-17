@@ -5,6 +5,7 @@ services:
         env_file: .env
         networks:
             - web
+            - db
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -21,9 +22,9 @@ services:
             # root:aB1234 ; key:82063ca2-19c4-4458-94b4-391659b1c988
             - 'traefik.http.middlewares.puff-smith-production-tls.basicauth.users=root:$$apr1$$k50YNsjo$$5GpsxuQik.DFHNIapFXJ..'
 
-    mysql:
+    mariadb:
         image: mariadb:10
-        hostname: mysql
+        hostname: mariadb
         environment:
             MYSQL_ROOT_PASSWORD: 1234
             MYSQL_DATABASE: puff-smith
@@ -31,12 +32,14 @@ services:
             MYSQL_PASSWORD: 1234
         networks:
             - web
+            - db
         volumes:
             - puff-smith:/var/lib/mysql
 
 networks:
     web:
         external: true
+    db:
 
 volumes:
     puff-smith:

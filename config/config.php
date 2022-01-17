@@ -2,6 +2,7 @@
 
 use Edde\Api\ApiRouter;
 use Edde\Storage\StorageConfig;
+use PuffSmith\Api\Shared\SharedRouterGroup;
 
 /**
  * To keep things de-deduplicated, it's better to lead Phinx config here (thus we confirm single source of truth).
@@ -29,5 +30,6 @@ return [
 	ApiRouter::CONFIG_ENDPOINTS     => [
 	],
 	ApiRouter::CONFIG_GROUPS        => [
+		SharedRouterGroup::class,
 	],
 ];
