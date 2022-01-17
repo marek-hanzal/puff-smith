@@ -29,14 +29,14 @@ const config = plugins([
 	async rewrites() {
 		return [
 			{
-				source:      '/api/:path*',
-				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/api/:path*',
+				source:      '/puff-smith/:path*',
+				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/puff-smith/:path*',
 				basePath:    false,
 				locale:      false,
 			},
 			{
-				source:      process.env.NEXT_PUBLIC_PUBLIC_URL + '/api/:path*',
-				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/api/:path*',
+				source:      process.env.NEXT_PUBLIC_PUBLIC_URL + '/puff-smith/:path*',
+				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/puff-smith/:path*',
 				basePath:    false,
 				locale:      false,
 			},

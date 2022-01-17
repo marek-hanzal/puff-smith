@@ -45,4 +45,4 @@ return SlimApp::create(
 		FileService::CONFIG_ROOT       => __DIR__ . '/.data',
 		SlimApp::CONFIG_APP_NAME       => 'Puff Smith',
 	]
-)->dynamicBasePath('api');
+)->dynamicBasePath('puff-smith');
