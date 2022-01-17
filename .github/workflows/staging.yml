@@ -3,7 +3,7 @@ name: Staging Release
 on:
     push:
         branches:
-            - main
+            - master
 
 jobs:
     build:
@@ -20,7 +20,7 @@ jobs:
                 uses: actions/checkout@master
 
             -   name: Repository metadata
-                uses: actions/github-script@master
+                uses: actions/github-script@v4
                 with:
                     script: |
                         const repository = await github.repos.get(context.repo)
@@ -49,14 +49,6 @@ jobs:
                     echo ::set-output name=tags::${TAGS}
                     echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 
-            -   name: Cache Docker layers
-                uses: actions/cache@v2
-                with:
-                    path: /tmp/.buildx-cache
-                    key: ${{ runner.os }}-buildx-${{ github.sha }}
-                    restore-keys: |
-                        ${{ runner.os }}-buildx-
-
             -   name: Login to DockerHub
                 uses: docker/login-action@master
                 with:
@@ -73,8 +65,6 @@ jobs:
                     push: ${{ github.event_name != 'pull_request' }}
                     tags: ${{ steps.prepare.outputs.tags }}
                     build-args: BUILD=${{ steps.prepare.outputs.version }}
-                    cache-from: type=local,src=/tmp/.buildx-cache
-                    cache-to: type=local,dest=/tmp/.buildx-cache
 
             -   name: Image digest
                 run: echo ${{ steps.build.outputs.digest }}
@@ -128,6 +118,8 @@ jobs:
                     script_stop: true
                     script: |
                         cd /opt/app/config
-                        docker compose -f docker-compose.staging.yml down
+                        docker system prune -f --all
+                        docker volume prune -f
                         docker compose -f docker-compose.staging.yml pull
+                        docker compose -f docker-compose.staging.yml down
                         docker compose -f docker-compose.staging.yml up -d

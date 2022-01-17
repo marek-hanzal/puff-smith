@@ -1,0 +1,11 @@
+@import '~antd/dist/antd.css';
+@import './json.css';
+
+.module-menu {
+	border: none;
+	justify-content: end;
+}
+
+.ant-typography.page-title {
+	margin: 0;
+}

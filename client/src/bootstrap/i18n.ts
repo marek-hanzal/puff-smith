@@ -7,7 +7,23 @@ i18n
 	.use(LanguageDetector)
 	.init({
 		initImmediate: true,
-		resources: {},
+		resources: {
+			translation: {
+				translation: {
+					"translation.check": "",
+				},
+			},
+			cs: {
+				translation: {
+					"common.loading": "",
+				}
+			},
+			en: {
+				translation: {
+					"common.loading": "",
+				}
+			}
+		},
 		keySeparator: false,
 		nsSeparator: false,
 		interpolation: {

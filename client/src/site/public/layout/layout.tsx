@@ -5,12 +5,14 @@ export interface IPublicLayoutProps {
 }
 
 export const PublicLayout: FC<IPublicLayoutProps> = ({children}) => {
-	return <HeaderSiderLayout
-		header={null}
-		footer={null}
-	>
-		{children}
-	</HeaderSiderLayout>;
+	return <AppLayout>
+		<HeaderSiderLayout
+			header={<Header/>}
+			footer={<Footer/>}
+		>
+			{children}
+		</HeaderSiderLayout>
+	</AppLayout>;
 };
 
 export function withPublicLayout(Component: FC<any>) {

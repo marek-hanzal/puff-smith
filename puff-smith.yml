@@ -1,0 +1,28 @@
+version: '3'
+services:
+    puff-smith:
+        image: marekhanzal/puff-smith:latest
+        hostname: puff-smith
+        depends_on:
+            - mysql
+        networks:
+            - db
+        ports:
+            - "5388:3000"
+            - "5088:80"
+
+    mysql:
+        image: mariadb:10
+        hostname: mysql
+        ports:
+            - "5306:3306"
+        networks:
+            - db
+        environment:
+            MYSQL_ROOT_PASSWORD: 1234
+            MYSQL_DATABASE: puff-smith
+            MYSQL_USER: puff-smith
+            MYSQL_PASSWORD: 1234
+
+networks:
+    db:

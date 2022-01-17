@@ -1,11 +1,11 @@
-import {LogoIcon, useSessionContext} from "@/ps";
+import {LogoIcon} from "@/puff-smith";
 import {HomeOutlined} from "@ant-design/icons";
 import {LoaderLayout, useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";
 
-export default function Index() {
+export default withAppLayout(function Index() {
 	const navigate = useNavigate();
-	const sessionContext = useSessionContext();
+	// const sessionContext = usePuffSmithSessionContext();
 	useEffect(() => {
 		setTimeout(() => {
 			navigate("/" + sessionContext.session.user.site);
@@ -14,7 +14,5 @@ export default function Index() {
 	return <LoaderLayout
 		logo={<LogoIcon/>}
 		icon={<HomeOutlined/>}
-		loading
-		error={false}
 	/>;
-};
+});

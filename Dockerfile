@@ -1,77 +1,75 @@
-FROM node:alpine as client-deps
+FROM node:16 as client-deps
 
 WORKDIR /opt/client
 
 COPY client/package.json client/package-lock.json ./
-RUN npm install && npm ci --only-production
+RUN npm install
 
-FROM node:alpine as client-builder
-ARG BUILD
+FROM node:16 as client-builder
+ARG BASE_URL=/puff-smith
+ARG BUILD=snapshot
 
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
-	BUILD=${BUILD:-snapshot}
+	BASE_URL=${BASE_URL} \
+	BUILD=${BUILD}
 
 WORKDIR /opt/client
 
 COPY client .
 COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN echo "NEXT_PUBLIC_BUILD=$BUILD" > .env.local
+RUN echo "NEXT_PUFF_SMITH=http://localhost:80" >> .env.local
+RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
+RUN echo "NEXT_PUBLIC_PUBLIC_URL=/" >> .env.local
 
 RUN npm run build
 
-FROM marekhanzal/buffalo as server-builder
-ARG BUILD
-
-ENV \
-	BUILD=${BUILD:-snapshot}
+FROM marekhanzal/php:7.4 as server-deps
 
 WORKDIR /opt/server
+RUN php-enable-opcache
+ADD composer.json .
+ADD composer.lock .
+RUN composer install
 
-COPY ./src ./src
-COPY ./build.gradle.kts ./build.gradle.kts
-COPY ./gradle.properties ./gradle.properties
-COPY ./settings.gradle.kts ./settings.gradle.kts
-RUN \
-	gradle --no-daemon build --warning-mode all && \
-	mkdir -p dist && tar x --strip-components=1 -f build/distributions/*.tar -C dist && \
-	rm dist/bin/*.bat && mv dist/bin/* dist/bin/app
-
-FROM adoptopenjdk/openjdk16:alpine-jre as runtime
-ARG BUILD
+FROM marekhanzal/php:7.4 as runtime
+ARG BASE_URL
+ARG PHINX
+ARG APP_KEY
 
 ENV \
-	NODE_ENV=production \
-	NEXT_TELEMETRY_DISABLED=1 \
-	BUILD=${BUILD:-snapshot}
-
-RUN adduser --disabled-password --home /opt/app app app
-
-RUN apk add --update nodejs npm supervisor && rm  -rf /tmp/* /var/cache/apk/* && npm i -g npm
+	MSAT_ENV=DEV \
+	BASE_URL=${BASE_URL} \
+	PHINX=${PHINX:-docker} \
+	APP_KEY=${APP_KEY:-1234}
 
 ADD rootfs/runtime /
 
-WORKDIR /opt/app
-RUN echo $BUILD > build
-
 WORKDIR /opt/app/client
 
-COPY --from=client-builder --chown=app:app /opt/client/next.config.js ./next.config.js
-COPY --from=client-builder --chown=app:app /opt/client/public ./public
-COPY --from=client-builder --chown=app:app /opt/client/.next ./.next
-COPY --from=client-builder --chown=app:app /opt/client/node_modules ./node_modules
-COPY --from=client-builder --chown=app:app /opt/client/package.json ./package.json
+COPY --from=client-builder --chown=www-data:www-data /opt/client/next.config.mjs ./next.config.mjs
+COPY --from=client-builder --chown=www-data:www-data /opt/client/public ./public
+COPY --from=client-builder --chown=www-data:www-data /opt/client/.next ./.next
+COPY --from=client-builder --chown=www-data:www-data /opt/client/node_modules ./node_modules
+COPY --from=client-builder --chown=www-data:www-data /opt/client/package.json ./package.json
 
-WORKDIR /opt/app/server
+WORKDIR /var/www/
 
-COPY --from=server-builder --chown=app:app /opt/server/dist ./
+COPY --from=server-deps --chown=www-data:www-data /opt/server/vendor vendor
+COPY --from=client-builder --chown=www-data:www-data /opt/client/dist client/dist
+COPY *.php .
+COPY config config
+COPY ext ext
+COPY public public
+COPY src src
+COPY upgrade upgrade
 
-RUN chown app:app -R /opt/app/server
+EXPOSE 80
 
-# Client (Next.js app)
-EXPOSE 3000
-# Backend Server
-EXPOSE 8088
+RUN mkdir .data && chmod 777 .data -R
+RUN mkdir cache && chmod 777 cache -R
+RUN mkdir logs && chmod 777 logs -R
+RUN php-enable-opcache
 
-CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+WORKDIR /var/www

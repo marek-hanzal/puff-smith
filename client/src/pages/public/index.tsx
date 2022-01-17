@@ -1,33 +1,41 @@
-import {LogoFullIcon} from "@/ps";
-import {PublicPage, SignInForm, withPublicLayout} from "@/ps/site/public";
-import {SignUpForm} from "@/ps/site/public/form/SignUpform";
-import {Card, Col, Result, Row} from "antd";
+import icon from "@/puff-smith/assets/logo.svg";
+import {SmileOutlined} from "@ant-design/icons";
+import {ButtonLink, SignInIcon} from "@leight-core/leight";
+import {Image, Result, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();
 	return <PublicPage
 		name={"public.index"}
-		fullwidth
 	>
+		<PublicMenu/>
 		<Result
-			icon={<LogoFullIcon height={320}/>}
+			icon={<Image alt={"logo"} height={110} preview={false} src={icon}/>}
 			status={"success"}
 			title={t("public.home.content.title")}
 			subTitle={t("public.home.content.subtitle")}
+			extra={
+				<ButtonLink size={"large"} href={"/public/sign-in"} icon={<SignInIcon/>} title={"public.home.sign-in.title"}/>
+			}
 		>
-			<Row gutter={32}>
-				<Col span={12}>
-					<Card title={t("public.sign-in.title")}>
-						<SignInForm/>
-					</Card>
-				</Col>
-				<Col span={12}>
-					<Card title={t("public.sign-up.title")}>
-						<SignUpForm/>
-					</Card>
-				</Col>
-			</Row>
+			<Typography.Paragraph>
+				<Typography.Text
+					strong
+					style={{fontSize: 16}}
+				>
+					{t("public.home.content.list.title")}
+				</Typography.Text>
+			</Typography.Paragraph>
+			<Typography.Paragraph>
+				<SmileOutlined style={{color: "green"}}/>&nbsp;{t("public.home.content.list.item-0")}
+			</Typography.Paragraph>
+			<Typography.Paragraph>
+				<SmileOutlined style={{color: "green"}}/>&nbsp;{t("public.home.content.list.item-1")}
+			</Typography.Paragraph>
+			<Typography.Paragraph>
+				<SmileOutlined style={{color: "green"}}/>&nbsp;{t("public.home.content.list.item-2")}
+			</Typography.Paragraph>
 		</Result>
 	</PublicPage>;
 });

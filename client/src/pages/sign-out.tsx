@@ -1,25 +1,22 @@
-import {LogoFullIcon, ps} from "@/ps";
-import {PublicPage, withPublicLayout} from "@/ps/site/public";
-import {LoaderIcon, useDiscoveryContext, useNavigate} from "@leight-core/leight";
+import {LockOutlined} from "@ant-design/icons";
+import {LoaderIcon, useNavigate} from "@leight-core/leight";
 import {Result} from "antd";
 import {useEffect} from "react";
-import {useCookies} from "react-cookie";
 import {useTranslation} from "react-i18next";
 
 export default withPublicLayout(function SignOut() {
 	const {t} = useTranslation();
-	const discoveryContext = useDiscoveryContext();
 	const navigate = useNavigate();
-	const [, , removeCookie] = useCookies();
 
+	const logout = useLogoutMutation(undefined, {
+		onSuccess: () => {
+			setTimeout(() => {
+				navigate("/public");
+			}, 1500);
+		},
+	});
 	useEffect(() => {
-		removeCookie("ticket");
-		ps.user.doSignOut(discoveryContext)
-			.on("done", () => {
-				setTimeout(() => {
-					navigate("/public");
-				}, 1500);
-			});
+		logout.mutate(undefined);
 	}, []);
 
 	return <PublicPage
@@ -27,7 +24,7 @@ export default withPublicLayout(function SignOut() {
 		fullwidth
 	>
 		<Result
-			icon={<LogoFullIcon/>}
+			icon={<LockOutlined/>}
 			title={t("public.sign-out")}
 			subTitle={<LoaderIcon/>}
 		/>

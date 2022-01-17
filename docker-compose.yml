@@ -1,24 +1,20 @@
-version: '2.0'
+version: '2'
 services:
-    puff-smith:
-        # docker build -t marekhanzal/puff-smith:edge .
-        image: marekhanzal/puff-smith:edge
-        hostname: puff-smith
+    php:
+        image: marekhanzal/php:7.4
         container_name: puff-smith
-        environment:
-            - VERSION=docker-compose
-            # good old ones
-            - DATABASE_URL=jdbc:postgresql://postgres:5432/puff-smith
-            - DATABASE_USER=postgres
-            - DATABASE_PASSWORD=1234
+        hostname: puff-smith
+        restart: always
         ports:
-            # client web application
-            - "8080:3000"
-            # backend server
-            - "8088:8088"
+            - "5088:80"
+            - "5022:22"
+        volumes:
+            - source:/var/www
         networks:
-            # docker network create common --attachable
             - common
+
+volumes:
+    source:
 
 networks:
     common:

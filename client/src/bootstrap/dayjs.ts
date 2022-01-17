@@ -9,5 +9,5 @@ dayjs.extend(require("dayjs/plugin/utc"));
 export const setupLocale = (locale: string) => {
 	import(`dayjs/locale/${locale}.js`)
 		.then(() => dayjs.locale(locale))
-		.catch(_ => console.log(`Cannot import [dayjs/locale/${locale}.js].`));
+		.catch(_ => locale !== "dev" && console.log(`Cannot import [dayjs/locale/${locale}.js].`));
 };

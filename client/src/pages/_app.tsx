@@ -1,13 +1,16 @@
-import {bootstrap, LogoFullIcon} from "@/ps";
-import "@/ps/assets/styles/globals.css";
-import {App, IPageWithLayout} from "@leight-core/leight";
+import {bootstrap} from "@/puff-smith";
+import "@/puff-smith/assets/styles/app.css";
+import {IPageWithLayout} from "@leight-core/leight";
 import type {AppProps} from "next/app";
+import {Router} from "next/router";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
-export default function ps({Component, pageProps}: AppProps) {
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
+export default function PuffSmith({Component, pageProps}: AppProps) {
 	bootstrap();
-	return <App
-		logo={<LogoFullIcon/>}
-	>
-		{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
-	</App>;
+	return ((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>);
 }

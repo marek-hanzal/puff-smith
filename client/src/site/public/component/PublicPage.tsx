@@ -4,8 +4,6 @@ import {FC} from "react";
 export interface IPublicPageProps extends IPageProps {
 }
 
-export const PublicPage: FC<IPublicPageProps> = ({children, ...props}) => {
-	return <Page {...props}>
-		{children}
-	</Page>;
+export const PublicPage: FC<IPublicPageProps> = props => {
+	return <Page {...props}/>;
 };
