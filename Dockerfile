@@ -19,9 +19,9 @@ WORKDIR /opt/client
 
 COPY client .
 COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN echo "NEXT_PUFF_SMITH=http://localhost:80" >> .env.local
+RUN echo "NEXT_PUBLIC_PUFF_SMITH=http://localhost:80" >> .env.local
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
-RUN echo "NEXT_PUBLIC_PUBLIC_URL=/" >> .env.local
+RUN echo "NEXT_PUBLIC_PUBLIC_URL=" >> .env.local
 
 RUN npm run build
 

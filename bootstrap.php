@@ -2,11 +2,20 @@
 declare(strict_types=1);
 
 use Edde\File\FileService;
+use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
+use Edde\Session\SessionResolver;
 use Edde\Slim\SlimApp;
+use Edde\User\Mapper\ICurrentUserMapper;
+use Edde\User\Mapper\IUserMapper;
+use Edde\User\Repository\IUserRepository;
 use Phinx\Config\Config;
 use Phinx\Config\ConfigInterface;
 use Psr\Container\ContainerInterface;
+use PuffSmith\Http\LinkFilter;
+use PuffSmith\User\Mapper\CurrentUserMapper;
+use PuffSmith\User\Mapper\UserMapper;
+use PuffSmith\User\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -20,6 +29,18 @@ return SlimApp::create(
 		},
 		ConfigInterface::class         => function () {
 			return Config::fromPhp(__DIR__ . '/phinx.php');
+		},
+		ILinkFilter::class             => function (ContainerInterface $container) {
+			return $container->get(LinkFilter::class);
+		},
+		IUserRepository::class         => function (ContainerInterface $container) {
+			return $container->get(UserRepository::class);
+		},
+		IUserMapper::class             => function (ContainerInterface $container) {
+			return $container->get(UserMapper::class);
+		},
+		ICurrentUserMapper::class      => function (ContainerInterface $container) {
+			return $container->get(CurrentUserMapper::class);
 		},
 		FileService::CONFIG_ROOT       => __DIR__ . '/.data',
 		SlimApp::CONFIG_APP_NAME       => 'Puff Smith',
