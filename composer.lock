@@ -25,16 +25,16 @@
 				"php": "^7.1 || ^8.0"
 			},
 			"require-dev": {
-                "php-coveralls/php-coveralls": "^2.2",
-                "phpunit/phpunit": "^7.5.15 || ^8.5 || ^9.0",
-                "vimeo/psalm": "4.9.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Brick\\Math\\": "src/"
-                }
-            },
+				"php-coveralls/php-coveralls": "^2.2",
+				"phpunit/phpunit": "^7.5.15 || ^8.5 || ^9.0",
+				"vimeo/psalm": "4.9.2"
+			},
+			"type": "library",
+			"autoload": {
+				"psr-4": {
+					"Brick\\Math\\": "src/"
+				}
+			},
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -166,16 +166,16 @@
                     "/Tests/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aaron Scherer",
-                    "email": "aequasi@gmail.com",
-                    "homepage": "https://github.com/aequasi"
-                },
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
+				"MIT"
+			],
+			"authors": [
+				{
+					"name": "Aaron Scherer",
+					"email": "aequasi@gmail.com",
+					"homepage": "https://github.com/aequasi"
+				},
 				{
 					"name": "Tobias Nyholm",
 					"email": "tobias.nyholm@gmail.com",
@@ -291,16 +291,16 @@
 			"type": "library",
 			"extra": {
 				"branch-alias": {
-                    "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cache\\TagInterop\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
+					"dev-master": "1.1-dev"
+				}
+			},
+			"autoload": {
+				"psr-4": {
+					"Cache\\TagInterop\\": ""
+				}
+			},
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
                 "MIT"
             ],
             "authors": [
@@ -1691,28 +1691,28 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/uri-interfaces/issues",
-                "source": "https://github.com/thephpleague/uri-interfaces/tree/2.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/nyamsprod",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-06-28T04:27:21+00:00"
-        },
+				"source": "https://github.com/thephpleague/uri-interfaces/tree/2.3.0"
+			},
+			"funding": [
+				{
+					"url": "https://github.com/sponsors/nyamsprod",
+					"type": "github"
+				}
+			],
+			"time": "2021-06-28T04:27:21+00:00"
+		},
 		{
 			"name": "leight-core/edde",
 			"version": "dev-main",
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86"
+				"reference": "e499752096ae3198a353eb1eb6c310c4397bab93"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/18d93740dd8ac43a70925f9618e66f0259fb2e86",
-				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/e499752096ae3198a353eb1eb6c310c4397bab93",
+				"reference": "e499752096ae3198a353eb1eb6c310c4397bab93",
 				"shasum": ""
 			},
 			"require": {
@@ -1725,16 +1725,16 @@
 				"ext-zip": "*",
 				"ext-zlib": "*",
 				"gabrielelana/byte-units": "^0.5.0",
-                "kdyby/parse-use-statements": "^0.2.0",
-                "league/flysystem": "^2.2.3",
-                "league/uri": "^6.4",
-                "minime/annotations": "dev-master",
-                "nette/utils": "^3.2",
-                "nyholm/psr7": "^1.3",
-                "nyholm/psr7-server": "^1.0.0",
-                "ocramius/proxy-manager": "^2.2.3",
-                "php": ">=7.2",
-                "php-di/php-di": "^6.3",
+				"kdyby/parse-use-statements": "^0.2.0",
+				"league/flysystem": "^2.2.3",
+				"league/uri": "^6.4",
+				"minime/annotations": "dev-master",
+				"nette/utils": "^3.2",
+				"nyholm/psr7": "^1.3",
+				"nyholm/psr7-server": "^1.0.0",
+				"ocramius/proxy-manager": "^2.2.3",
+				"php": ">=7.2",
+				"php-di/php-di": "^6.3",
                 "php-di/slim-bridge": "^3.0",
                 "phpoffice/phpspreadsheet": "^1.16",
                 "psr/log": "^1.1",
@@ -1783,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-01-18T10:30:56+00:00"
+			"time": "2022-01-18T11:59:15+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7384,16 +7384,16 @@
             "description": "Assertions to validate method input/output with nice error messages.",
             "keywords": [
                 "assert",
-                "check",
-                "validate"
-            ],
-            "support": {
-                "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/1.10.0"
-            },
-            "time": "2021-03-09T10:59:23+00:00"
-        }
-    ],
+				"check",
+				"validate"
+			],
+			"support": {
+				"issues": "https://github.com/webmozarts/assert/issues",
+				"source": "https://github.com/webmozarts/assert/tree/1.10.0"
+			},
+			"time": "2021-03-09T10:59:23+00:00"
+		}
+	],
 	"packages-dev": [],
 	"aliases": [],
 	"minimum-stability": "stable",

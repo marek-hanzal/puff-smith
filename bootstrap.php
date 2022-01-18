@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Cache\Adapter\Memcached\MemcachedCachePool;
+use Cache\Adapter\Void\VoidCachePool;
 use Edde\File\FileService;
 use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
@@ -45,6 +46,7 @@ return SlimApp::create(
 			return $container->get(CurrentUserMapper::class);
 		},
 		CacheInterface::class          => function (ContainerInterface $container) {
+			return new VoidCachePool();
 			$memcached = new Memcached();
 			$memcached->addServers($container->get('memcached'));
 			return new MemcachedCachePool($memcached);

@@ -3,6 +3,7 @@ import {BackIcon, ButtonLink} from "@leight-core/leight";
 import {Button, Divider, Result, Space} from "antd";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
+import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 
 export default withPublicLayout(function Custom404() {
 	const {t} = useTranslation();

@@ -3,6 +3,7 @@ import {SmileOutlined} from "@ant-design/icons";
 import {ButtonLink, SignInIcon} from "@leight-core/leight";
 import {Image, Result, Typography} from "antd";
 import {useTranslation} from "react-i18next";
+import {PublicMenu, PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();

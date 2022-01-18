@@ -3,6 +3,8 @@ import {LoaderIcon, useNavigate} from "@leight-core/leight";
 import {Result} from "antd";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
+import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
+import {useLogoutMutation} from "@/sdk/edde/api/shared/user/endpoint";
 
 export default withPublicLayout(function SignOut() {
 	const {t} = useTranslation();
