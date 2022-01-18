@@ -3,7 +3,10 @@
 	"description": "Vape Stuff for Vapers.",
 	"config": {
 		"bin-compat": "full",
-		"discard-changes": true
+		"discard-changes": true,
+		"allow-plugins": {
+			"composer/package-versions-deprecated": true
+		}
 	},
 	"autoload": {
 		"psr-4": {

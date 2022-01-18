@@ -15,16 +15,16 @@
 				"reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae"
 			},
 			"dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/ca57d18f028f84f777b2168cd1911b0dee2343ae",
-                "reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.1 || ^8.0"
-            },
-            "require-dev": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/brick/math/zipball/ca57d18f028f84f777b2168cd1911b0dee2343ae",
+				"reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae",
+				"shasum": ""
+			},
+			"require": {
+				"ext-json": "*",
+				"php": "^7.1 || ^8.0"
+			},
+			"require-dev": {
                 "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^7.5.15 || ^8.5 || ^9.0",
                 "vimeo/psalm": "4.9.2"
@@ -176,16 +176,16 @@
                     "email": "aequasi@gmail.com",
                     "homepage": "https://github.com/aequasi"
                 },
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
-                }
-            ],
-            "description": "A helper trait and interface to your PSR-6 cache to support hierarchical keys.",
-            "homepage": "http://www.php-cache.com/en/latest/",
-            "keywords": [
-                "cache",
+				{
+					"name": "Tobias Nyholm",
+					"email": "tobias.nyholm@gmail.com",
+					"homepage": "https://github.com/nyholm"
+				}
+			],
+			"description": "A helper trait and interface to your PSR-6 cache to support hierarchical keys.",
+			"homepage": "http://www.php-cache.com/en/latest/",
+			"keywords": [
+				"cache",
 				"hierarchical",
 				"hierarchy",
 				"psr-6"
@@ -281,16 +281,16 @@
 			"dist": {
 				"type": "zip",
 				"url": "https://api.github.com/repos/php-cache/tag-interop/zipball/b062b1d735357da50edf8387f7a8696f3027d328",
-                "reference": "b062b1d735357da50edf8387f7a8696f3027d328",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5 || ^7.0 || ^8.0",
-                "psr/cache": "^1.0 || ^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
+				"reference": "b062b1d735357da50edf8387f7a8696f3027d328",
+				"shasum": ""
+			},
+			"require": {
+				"php": "^5.5 || ^7.0 || ^8.0",
+				"psr/cache": "^1.0 || ^2.0"
+			},
+			"type": "library",
+			"extra": {
+				"branch-alias": {
                     "dev-master": "1.1-dev"
                 }
             },
@@ -1701,30 +1701,30 @@
             ],
             "time": "2021-06-28T04:27:21+00:00"
         },
-        {
-            "name": "leight-core/edde",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/leight-core/edde.git",
+		{
+			"name": "leight-core/edde",
+			"version": "dev-main",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/leight-core/edde.git",
 				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86"
-            },
-            "dist": {
+			},
+			"dist": {
 				"type": "zip",
 				"url": "https://api.github.com/repos/leight-core/edde/zipball/18d93740dd8ac43a70925f9618e66f0259fb2e86",
 				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86",
 				"shasum": ""
 			},
-            "require": {
-                "clancats/hydrahon": "^1.1",
-                "dibi/dibi": "^4.1",
-                "diff/diff": "^3.2",
-                "doctrine/annotations": "^1.12",
-                "ext-json": "*",
-                "ext-pdo": "*",
-                "ext-zip": "*",
-                "ext-zlib": "*",
-                "gabrielelana/byte-units": "^0.5.0",
+			"require": {
+				"clancats/hydrahon": "^1.1",
+				"dibi/dibi": "^4.1",
+				"diff/diff": "^3.2",
+				"doctrine/annotations": "^1.12",
+				"ext-json": "*",
+				"ext-pdo": "*",
+				"ext-zip": "*",
+				"ext-zlib": "*",
+				"gabrielelana/byte-units": "^0.5.0",
                 "kdyby/parse-use-statements": "^0.2.0",
                 "league/flysystem": "^2.2.3",
                 "league/uri": "^6.4",
@@ -7394,22 +7394,22 @@
             "time": "2021-03-09T10:59:23+00:00"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {
-        "leight-core/edde": 20,
-        "minime/annotations": 20
-    },
-    "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": {
+	"packages-dev": [],
+	"aliases": [],
+	"minimum-stability": "stable",
+	"stability-flags": {
+		"leight-core/edde": 20,
+		"minime/annotations": 20
+	},
+	"prefer-stable": false,
+	"prefer-lowest": false,
+	"platform": {
 		"ext-json": "*",
 		"ext-pdo": "*",
 		"ext-zlib": "*",
 		"ext-zip": "*",
 		"ext-memcached": "*"
 	},
-    "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+	"platform-dev": [],
+	"plugin-api-version": "2.2.0"
 }

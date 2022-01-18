@@ -6,6 +6,7 @@ services:
         networks:
             - web
             - db
+            - memcached
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -22,6 +23,12 @@ services:
             # root:aB1234 ; key:82063ca2-19c4-4458-94b4-391659b1c988
             - 'traefik.http.middlewares.puff-smith-production-tls.basicauth.users=root:$$apr1$$k50YNsjo$$5GpsxuQik.DFHNIapFXJ..'
 
+    memcached:
+        image: memcached:1.6-alpine
+        hostname: memcached
+        networks:
+            - memcached
+
     mariadb:
         image: mariadb:10
         hostname: mariadb
@@ -37,3 +44,4 @@ networks:
     web:
         external: true
     db:
+    memcached:
