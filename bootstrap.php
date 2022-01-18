@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Cache\Adapter\Memcached\MemcachedCachePool;
 use Edde\File\FileService;
 use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
@@ -12,6 +13,7 @@ use Edde\User\Repository\IUserRepository;
 use Phinx\Config\Config;
 use Phinx\Config\ConfigInterface;
 use Psr\Container\ContainerInterface;
+use Psr\SimpleCache\CacheInterface;
 use PuffSmith\Http\LinkFilter;
 use PuffSmith\User\Mapper\CurrentUserMapper;
 use PuffSmith\User\Mapper\UserMapper;
@@ -41,6 +43,11 @@ return SlimApp::create(
 		},
 		ICurrentUserMapper::class      => function (ContainerInterface $container) {
 			return $container->get(CurrentUserMapper::class);
+		},
+		CacheInterface::class          => function (ContainerInterface $container) {
+			$memcached = new Memcached();
+			$memcached->addServers($container->get('memcached'));
+			return new MemcachedCachePool($memcached);
 		},
 		FileService::CONFIG_ROOT       => __DIR__ . '/.data',
 		SlimApp::CONFIG_APP_NAME       => 'Puff Smith',

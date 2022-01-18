@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "5e918805cc72d9dbd510ea325ff272ae",
-    "packages": [
-        {
-            "name": "brick/math",
-            "version": "0.9.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/brick/math.git",
-                "reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae"
-            },
-            "dist": {
+	"_readme": [
+		"This file locks the dependencies of your project to a known state",
+		"Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+		"This file is @generated automatically"
+	],
+	"content-hash": "8fb8007f3722130c9d952d99618ee1d6",
+	"packages": [
+		{
+			"name": "brick/math",
+			"version": "0.9.3",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/brick/math.git",
+				"reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae"
+			},
+			"dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/brick/math/zipball/ca57d18f028f84f777b2168cd1911b0dee2343ae",
                 "reference": "ca57d18f028f84f777b2168cd1911b0dee2343ae",
@@ -186,26 +186,101 @@
             "homepage": "http://www.php-cache.com/en/latest/",
             "keywords": [
                 "cache",
-                "hierarchical",
-                "hierarchy",
-                "psr-6"
-            ],
-            "support": {
-                "source": "https://github.com/php-cache/hierarchical-cache/tree/1.2.0"
-            },
-            "time": "2022-01-15T15:47:19+00:00"
-        },
-        {
-            "name": "cache/tag-interop",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-cache/tag-interop.git",
-                "reference": "b062b1d735357da50edf8387f7a8696f3027d328"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-cache/tag-interop/zipball/b062b1d735357da50edf8387f7a8696f3027d328",
+				"hierarchical",
+				"hierarchy",
+				"psr-6"
+			],
+			"support": {
+				"source": "https://github.com/php-cache/hierarchical-cache/tree/1.2.0"
+			},
+			"time": "2022-01-15T15:47:19+00:00"
+		},
+		{
+			"name": "cache/memcached-adapter",
+			"version": "1.2.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/php-cache/memcached-adapter.git",
+				"reference": "9946bf3ae988b316cb8c6af984898ead5c2f9f94"
+			},
+			"dist": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/php-cache/memcached-adapter/zipball/9946bf3ae988b316cb8c6af984898ead5c2f9f94",
+				"reference": "9946bf3ae988b316cb8c6af984898ead5c2f9f94",
+				"shasum": ""
+			},
+			"require": {
+				"cache/adapter-common": "^1.0",
+				"cache/hierarchical-cache": "^1.0",
+				"php": ">=7.4",
+				"psr/cache": "^1.0 || ^2.0",
+				"psr/simple-cache": "^1.0"
+			},
+			"provide": {
+				"psr/cache-implementation": "^1.0",
+				"psr/simple-cache-implementation": "^1.0"
+			},
+			"require-dev": {
+				"cache/integration-tests": "^0.17",
+				"phpunit/phpunit": "^7.5.20 || ^9.5.10"
+			},
+			"suggest": {
+				"ext-memcached": "The extension required to use this pool."
+			},
+			"type": "library",
+			"extra": {
+				"branch-alias": {
+					"dev-master": "1.1-dev"
+				}
+			},
+			"autoload": {
+				"psr-4": {
+					"Cache\\Adapter\\Memcached\\": ""
+				},
+				"exclude-from-classmap": [
+					"/Tests/"
+				]
+			},
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
+				"MIT"
+			],
+			"authors": [
+				{
+					"name": "Aaron Scherer",
+					"email": "aequasi@gmail.com",
+					"homepage": "https://github.com/aequasi"
+				},
+				{
+					"name": "Tobias Nyholm",
+					"email": "tobias.nyholm@gmail.com",
+					"homepage": "https://github.com/nyholm"
+				}
+			],
+			"description": "A PSR-6 cache implementation using Memcached. This implementation supports tags",
+			"homepage": "http://www.php-cache.com/en/latest/",
+			"keywords": [
+				"cache",
+				"memcached",
+				"psr-6",
+				"tag"
+			],
+			"support": {
+				"source": "https://github.com/php-cache/memcached-adapter/tree/1.2.0"
+			},
+			"time": "2022-01-15T15:47:19+00:00"
+		},
+		{
+			"name": "cache/tag-interop",
+			"version": "1.1.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/php-cache/tag-interop.git",
+				"reference": "b062b1d735357da50edf8387f7a8696f3027d328"
+			},
+			"dist": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/php-cache/tag-interop/zipball/b062b1d735357da50edf8387f7a8696f3027d328",
                 "reference": "b062b1d735357da50edf8387f7a8696f3027d328",
                 "shasum": ""
             },
@@ -1632,14 +1707,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leight-core/edde.git",
-                "reference": "544610a5ae06c036d888c596e687012f281b3584"
+				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86"
             },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/leight-core/edde/zipball/544610a5ae06c036d888c596e687012f281b3584",
-                "reference": "544610a5ae06c036d888c596e687012f281b3584",
-                "shasum": ""
-            },
+				"type": "zip",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/18d93740dd8ac43a70925f9618e66f0259fb2e86",
+				"reference": "18d93740dd8ac43a70925f9618e66f0259fb2e86",
+				"shasum": ""
+			},
             "require": {
                 "clancats/hydrahon": "^1.1",
                 "dibi/dibi": "^4.1",
@@ -1708,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-            "time": "2022-01-17T15:38:07+00:00"
+			"time": "2022-01-18T10:30:56+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7329,11 +7404,12 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-json": "*",
-        "ext-pdo": "*",
-        "ext-zlib": "*",
-        "ext-zip": "*"
-    },
+		"ext-json": "*",
+		"ext-pdo": "*",
+		"ext-zlib": "*",
+		"ext-zip": "*",
+		"ext-memcached": "*"
+	},
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
 }

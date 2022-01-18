@@ -24,6 +24,7 @@
 		"ext-pdo": "*",
 		"ext-zlib": "*",
 		"ext-zip": "*",
+		"ext-memcached": "*",
 		"leight-core/edde": "dev-main",
 		"tracy/tracy": "^v2.8",
 		"nette/utils": "^3.2",
@@ -43,6 +44,7 @@
 		"gabrielelana/byte-units": "^0.5.0",
 		"minwork/array": "^1.13",
 		"graze/array-merger": "^0.2.0",
-		"phpunit/phpunit": "^8"
+		"phpunit/phpunit": "^8",
+		"cache/memcached-adapter": "^1.2.0"
 	}
 }

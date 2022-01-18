@@ -53,6 +53,12 @@ return [
 			"code" => "LLLL",
 		],
 	],
+	'memcached'                                          => [
+		[
+			'memcached',
+			11211,
+		],
+	],
 	ApiRouter::CONFIG_ENDPOINTS                          => [
 	],
 	ApiRouter::CONFIG_GROUPS                             => [
