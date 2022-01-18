@@ -35,16 +35,16 @@
 					"Brick\\Math\\": "src/"
 				}
 			},
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Arbitrary-precision arithmetic library",
-            "keywords": [
-                "Arbitrary-precision",
-                "BigInteger",
-                "BigRational",
-                "arithmetic",
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
+				"MIT"
+			],
+			"description": "Arbitrary-precision arithmetic library",
+			"keywords": [
+				"Arbitrary-precision",
+				"BigInteger",
+				"BigRational",
+				"arithmetic",
                 "bigdecimal",
                 "bignum",
                 "brick",
@@ -156,16 +156,16 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cache\\Hierarchy\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
+				}
+			},
+			"autoload": {
+				"psr-4": {
+					"Cache\\Hierarchy\\": ""
+				},
+				"exclude-from-classmap": [
+					"/Tests/"
+				]
+			},
 			"notification-url": "https://packagist.org/downloads/",
 			"license": [
 				"MIT"
@@ -301,16 +301,16 @@
 			},
 			"notification-url": "https://packagist.org/downloads/",
 			"license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tobias Nyholm",
-                    "email": "tobias.nyholm@gmail.com",
-                    "homepage": "https://github.com/nyholm"
-                },
-                {
-                    "name": "Nicolas Grekas",
+				"MIT"
+			],
+			"authors": [
+				{
+					"name": "Tobias Nyholm",
+					"email": "tobias.nyholm@gmail.com",
+					"homepage": "https://github.com/nyholm"
+				},
+				{
+					"name": "Nicolas Grekas",
                     "email": "p@tchwork.com",
                     "homepage": "https://github.com/nicolas-grekas"
                 }
@@ -1681,16 +1681,16 @@
                     "homepage": "https://nyamsprod.com"
                 }
             ],
-            "description": "Common interface for URI representation",
-            "homepage": "http://github.com/thephpleague/uri-interfaces",
-            "keywords": [
-                "rfc3986",
-                "rfc3987",
-                "uri",
-                "url"
-            ],
-            "support": {
-                "issues": "https://github.com/thephpleague/uri-interfaces/issues",
+			"description": "Common interface for URI representation",
+			"homepage": "http://github.com/thephpleague/uri-interfaces",
+			"keywords": [
+				"rfc3986",
+				"rfc3987",
+				"uri",
+				"url"
+			],
+			"support": {
+				"issues": "https://github.com/thephpleague/uri-interfaces/issues",
 				"source": "https://github.com/thephpleague/uri-interfaces/tree/2.3.0"
 			},
 			"funding": [
@@ -1707,12 +1707,12 @@
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "e499752096ae3198a353eb1eb6c310c4397bab93"
+				"reference": "d46c4fcb45de368017ac3bdba01d49ca725dd4ee"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/e499752096ae3198a353eb1eb6c310c4397bab93",
-				"reference": "e499752096ae3198a353eb1eb6c310c4397bab93",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/d46c4fcb45de368017ac3bdba01d49ca725dd4ee",
+				"reference": "d46c4fcb45de368017ac3bdba01d49ca725dd4ee",
 				"shasum": ""
 			},
 			"require": {
@@ -1735,16 +1735,16 @@
 				"ocramius/proxy-manager": "^2.2.3",
 				"php": ">=7.2",
 				"php-di/php-di": "^6.3",
-                "php-di/slim-bridge": "^3.0",
-                "phpoffice/phpspreadsheet": "^1.16",
-                "psr/log": "^1.1",
-                "ramsey/uuid": "^4.1.1",
-                "robmorgan/phinx": "^0.12",
-                "symfony/http-foundation": "^v5.4.1",
-                "symfony/process": "^5.2",
-                "symfony/yaml": "^5.2",
-                "tracy/tracy": "^v2.8"
-            },
+				"php-di/slim-bridge": "^3.0",
+				"phpoffice/phpspreadsheet": "^1.16",
+				"psr/log": "^1.1",
+				"ramsey/uuid": "^4.1.1",
+				"robmorgan/phinx": "^0.12",
+				"symfony/http-foundation": "^v5.4.1",
+				"symfony/process": "^5.2",
+				"symfony/yaml": "^5.2",
+				"tracy/tracy": "^v2.8"
+			},
             "require-dev": {
                 "phpunit/phpunit": ">=8.5.21"
             },
@@ -1783,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-01-18T11:59:15+00:00"
+			"time": "2022-01-18T13:16:52+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7374,16 +7374,16 @@
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                }
-            ],
-            "description": "Assertions to validate method input/output with nice error messages.",
-            "keywords": [
-                "assert",
+			],
+			"authors": [
+				{
+					"name": "Bernhard Schussek",
+					"email": "bschussek@gmail.com"
+				}
+			],
+			"description": "Assertions to validate method input/output with nice error messages.",
+			"keywords": [
+				"assert",
 				"check",
 				"validate"
 			],
