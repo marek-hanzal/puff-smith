@@ -55,16 +55,16 @@
 				"source": "https://github.com/brick/math/tree/0.9.3"
 			},
 			"funding": [
-                {
-                    "url": "https://github.com/BenMorel",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/brick/math",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-08-15T20:50:18+00:00"
+				{
+					"url": "https://github.com/BenMorel",
+					"type": "github"
+				},
+				{
+					"url": "https://tidelift.com/funding/github/packagist/brick/math",
+					"type": "tidelift"
+				}
+			],
+			"time": "2021-08-15T20:50:18+00:00"
         },
         {
             "name": "cache/adapter-common",
@@ -136,16 +136,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-cache/hierarchical-cache.git",
-                "reference": "dedffd0a74f72c1db76e57ce29885836944e27f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-cache/hierarchical-cache/zipball/dedffd0a74f72c1db76e57ce29885836944e27f3",
-                "reference": "dedffd0a74f72c1db76e57ce29885836944e27f3",
-                "shasum": ""
-            },
-            "require": {
-                "cache/adapter-common": "^1.0",
+				"reference": "dedffd0a74f72c1db76e57ce29885836944e27f3"
+			},
+			"dist": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/php-cache/hierarchical-cache/zipball/dedffd0a74f72c1db76e57ce29885836944e27f3",
+				"reference": "dedffd0a74f72c1db76e57ce29885836944e27f3",
+				"shasum": ""
+			},
+			"require": {
+				"cache/adapter-common": "^1.0",
 				"php": ">=7.4",
 				"psr/cache": "^1.0 || ^2.0"
 			},
@@ -321,16 +321,16 @@
 				"cache",
 				"psr",
 				"psr6",
-                "tag"
-            ],
-            "support": {
-                "issues": "https://github.com/php-cache/tag-interop/issues",
-                "source": "https://github.com/php-cache/tag-interop/tree/1.1.0"
-            },
-            "time": "2021-12-31T10:03:23+00:00"
-        },
-        {
-            "name": "cache/void-adapter",
+				"tag"
+			],
+			"support": {
+				"issues": "https://github.com/php-cache/tag-interop/issues",
+				"source": "https://github.com/php-cache/tag-interop/tree/1.1.0"
+			},
+			"time": "2021-12-31T10:03:23+00:00"
+		},
+		{
+			"name": "cache/void-adapter",
             "version": "1.2.0",
             "source": {
                 "type": "git",
@@ -1661,16 +1661,16 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Uri\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
+				"branch-alias": {
+					"dev-master": "2.x-dev"
+				}
+			},
+			"autoload": {
+				"psr-4": {
+					"League\\Uri\\": "src/"
+				}
+			},
+			"notification-url": "https://packagist.org/downloads/",
 			"license": [
 				"MIT"
 			],
@@ -1707,12 +1707,12 @@
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "dcf8f8e63ba365807482f606ff133c29a8cc3020"
+				"reference": "0ab0887d6e1bb6243a030ab28de7cad674f186ef"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/dcf8f8e63ba365807482f606ff133c29a8cc3020",
-				"reference": "dcf8f8e63ba365807482f606ff133c29a8cc3020",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/0ab0887d6e1bb6243a030ab28de7cad674f186ef",
+				"reference": "0ab0887d6e1bb6243a030ab28de7cad674f186ef",
 				"shasum": ""
 			},
 			"require": {
@@ -1755,16 +1755,16 @@
 					"./src/ClanCats/Hydrahon/Query/Sql/Select.php"
 				],
 				"exclude-from-classmap": [
-                    "./src/Edde/Bridge/User/CurrentUser.php",
-                    "./src/Edde/Bridge/User/UserDto.php",
-                    "./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
-                ],
-                "classmap": [
-                    "src/",
-                    "tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
+					"./src/Edde/Bridge/User/CurrentUser.php",
+					"./src/Edde/Bridge/User/UserDto.php",
+					"./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
+				],
+				"classmap": [
+					"src/",
+					"tests/"
+				]
+			},
+			"notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -1783,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-01-19T09:44:11+00:00"
+			"time": "2022-01-19T10:58:59+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7354,16 +7354,16 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "phpstan/phpstan": "<0.12.20",
-                "vimeo/psalm": "<4.6.1 || 4.6.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5.13"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.10-dev"
+				"phpstan/phpstan": "<0.12.20",
+				"vimeo/psalm": "<4.6.1 || 4.6.2"
+			},
+			"require-dev": {
+				"phpunit/phpunit": "^8.5.13"
+			},
+			"type": "library",
+			"extra": {
+				"branch-alias": {
+					"dev-master": "1.10-dev"
 				}
 			},
 			"autoload": {

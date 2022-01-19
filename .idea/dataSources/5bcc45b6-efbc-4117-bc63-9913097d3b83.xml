@@ -1142,77 +1142,181 @@ puff-smith|schema||puff-smith||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <column id="335" parent="333" name="version">
+    <table id="335" parent="327" name="z_translation">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <table id="336" parent="327" name="z_user">
+      <Comment>What to say - table with users, yaaay!</Comment>
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <column id="337" parent="333" name="version">
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="336" parent="333" name="migration_name">
+    <column id="338" parent="333" name="migration_name">
       <DataType>varchar(100)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="337" parent="333" name="start_time">
+    <column id="339" parent="333" name="start_time">
       <DataType>timestamp|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="338" parent="333" name="end_time">
+    <column id="340" parent="333" name="end_time">
       <DataType>timestamp|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="339" parent="333" name="breakpoint">
+    <column id="341" parent="333" name="breakpoint">
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <key id="340" parent="333" name="PRIMARY">
+    <key id="342" parent="333" name="PRIMARY">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="341" parent="334" name="id">
+    <column id="343" parent="334" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="342" parent="334" name="key">
+    <column id="344" parent="334" name="key">
       <Comment>An unique cache key.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="343" parent="334" name="value">
+    <column id="345" parent="334" name="value">
       <Comment>Cached value; could be null. Could be basically anything, value, json encoded, whatever an implementation needs. The column limit (length) should be checked!</Comment>
       <DataType>mediumblob|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="344" parent="334" name="hash">
+    <column id="346" parent="334" name="hash">
       <Comment>Optional hash of the value to ensure all data is persisted (for example when an overflow occurs, hash could catch this).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="345" parent="334" name="ttl">
+    <column id="347" parent="334" name="ttl">
       <Comment>Optional timestamp after which cached item expires (so even a cache item exists in the table, cache miss may happen if ttl is over).</Comment>
       <DataType>datetime|0s</DataType>
       <Position>5</Position>
     </column>
-    <index id="346" parent="334" name="z_cache_key_unique">
+    <index id="348" parent="334" name="z_cache_key_unique">
       <ColNames>key</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="347" parent="334" name="PRIMARY">
+    <key id="349" parent="334" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="348" parent="334" name="z_cache_key_unique">
+    <key id="350" parent="334" name="z_cache_key_unique">
       <ColNames>key</ColNames>
       <UnderlyingIndexName>z_cache_key_unique</UnderlyingIndexName>
+    </key>
+    <column id="351" parent="335" name="id">
+      <Comment>UUID primary key of the table (full 36 chars).</Comment>
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="352" parent="335" name="locale">
+      <Comment>Locale ID (cz-CZ, en-Gb, whatever...).</Comment>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="353" parent="335" name="key">
+      <Comment>Translation key.</Comment>
+      <DataType>tinytext|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="354" parent="335" name="hash">
+      <Comment>Hash of a translation key.</Comment>
+      <DataType>varchar(128)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="355" parent="335" name="translation">
+      <Comment>The translation of the key.</Comment>
+      <DataType>tinytext|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <index id="356" parent="335" name="z_translation_hash_unique">
+      <ColNames>locale
+hash</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="357" parent="335" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <key id="358" parent="335" name="z_translation_hash_unique">
+      <ColNames>locale
+hash</ColNames>
+      <UnderlyingIndexName>z_translation_hash_unique</UnderlyingIndexName>
+    </key>
+    <column id="359" parent="336" name="id">
+      <Comment>UUID primary key of the table (full 36 chars).</Comment>
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="360" parent="336" name="name">
+      <Comment>Arbitrary display name of an user.</Comment>
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="361" parent="336" name="email">
+      <Comment>Primary email of an user, also used as a login.</Comment>
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="362" parent="336" name="password">
+      <Comment>Hashed password of an user.</Comment>
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="363" parent="336" name="site">
+      <Comment>Primary site an user belongs to.</Comment>
+      <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="364" parent="336" name="settings">
+      <Comment>Optional settings for the user (like language and so).</Comment>
+      <DataType>varchar(2048)|0s</DataType>
+      <Position>6</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <key id="365" parent="336" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
     </key>
   </database-model>
 </dataSource>

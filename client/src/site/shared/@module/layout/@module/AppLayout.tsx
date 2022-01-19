@@ -2,7 +2,7 @@ import {App, DayjsContextProvider, I18NextProvider, IAppProps, IPageWithLayout} 
 import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";
-import {LogoIcon} from "@/puff-smith";
+import {FullLogoIcon} from "@/puff-smith";
 import {createQueryClient, useQueryPersistence} from "@leight-core/leight/dist";
 
 const queryClient = createQueryClient();
@@ -20,7 +20,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
 				translationLink={"Edde.Shared.Translation"}
 				sessionLink={"Edde.Shared.User.Ticket"}
 				queryClient={queryClient}
-				logo={<LogoIcon/>}
+				logo={<FullLogoIcon/>}
 				{...props}
 			/>
 		</DayjsContextProvider>
