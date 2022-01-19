@@ -60,7 +60,6 @@ COPY --from=server-deps --chown=www-data:www-data /opt/server/vendor vendor
 COPY --from=client-builder --chown=www-data:www-data /opt/client/dist client/dist
 COPY *.php .
 COPY config config
-COPY ext ext
 COPY public public
 COPY src src
 COPY upgrade upgrade
