@@ -13,7 +13,7 @@ export default withPublicLayout(function Index() {
 		<PublicMenu/>
 		<BulletCard
 			title={'public.home.welcome'}
-			count={3}
+			count={4}
 			icon={<Image alt={"logo"} height={160} preview={false} src={icon}/>}
 			extra={
 				<ButtonLink size={"large"} href={"/public/sign-in"} icon={<SignInIcon/>} title={"public.home.sign-in.title"}/>
