@@ -39,7 +39,7 @@ services:
             - web
             - db
         volumes:
-            - puff-smith:/var/lib/mysql
+            - puff-smith-data:/var/lib/mysql
 
 networks:
     web:
@@ -48,4 +48,4 @@ networks:
     memcached:
 
 volumes:
-    puff-smith:
+    puff-smith-data:
