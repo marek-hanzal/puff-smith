@@ -3,9 +3,6 @@ declare(strict_types=1);
 
 namespace PuffSmith\User\Mapper;
 
-use Dibi\Exception;
-use Edde\Mapper\Exception\ItemException;
-use Edde\Mapper\Exception\SkipException;
 use Edde\User\Mapper\AbstractCurrentUserMapper;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
@@ -23,17 +20,14 @@ class CurrentUserMapper extends AbstractCurrentUserMapper {
 	 *
 	 * @return array
 	 *
-	 * @throws Exception
-	 * @throws ItemException
-	 * @throws SkipException
 	 * @throws JsonException
 	 */
 	protected function toUser($item, array $params = []): array {
 		return [
-			'id'       => (string)$item->recno,
+			'id'       => $item->id,
 			'name'     => $item->name,
 			'email'    => $item->email,
-			'site'     => 'public',
+			'site'     => $item->site,
 			'settings' => $item->settings ? Json::decode($item->settings) : null,
 		];
 	}

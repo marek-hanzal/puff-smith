@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Edde\File\FileService;
 use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
+use Edde\Session\ISessionMapper;
 use Edde\Session\SessionResolver;
 use Edde\Slim\SlimApp;
 use Edde\User\Mapper\ICurrentUserMapper;
@@ -13,6 +14,7 @@ use Phinx\Config\Config;
 use Phinx\Config\ConfigInterface;
 use Psr\Container\ContainerInterface;
 use PuffSmith\Http\LinkFilter;
+use PuffSmith\Session\SessionMapper;
 use PuffSmith\User\Mapper\CurrentUserMapper;
 use PuffSmith\User\Mapper\UserMapper;
 use PuffSmith\User\Repository\UserRepository;
@@ -41,6 +43,9 @@ return SlimApp::create(
 		},
 		ICurrentUserMapper::class      => function (ContainerInterface $container) {
 			return $container->get(CurrentUserMapper::class);
+		},
+		ISessionMapper::class          => function (ContainerInterface $container) {
+			return $container->get(SessionMapper::class);
 		},
 		//		CacheInterface::class          => function (ContainerInterface $container) {
 		//			return new VoidCachePool();

@@ -65,16 +65,16 @@
 				}
 			],
 			"time": "2021-08-15T20:50:18+00:00"
-        },
-        {
-            "name": "cache/adapter-common",
-            "version": "1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-cache/adapter-common.git",
-                "reference": "8788309be72aa7be69b88cdc0687549c74a7d479"
-            },
-            "dist": {
+		},
+		{
+			"name": "cache/adapter-common",
+			"version": "1.3.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/php-cache/adapter-common.git",
+				"reference": "8788309be72aa7be69b88cdc0687549c74a7d479"
+			},
+			"dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-cache/adapter-common/zipball/8788309be72aa7be69b88cdc0687549c74a7d479",
                 "reference": "8788309be72aa7be69b88cdc0687549c74a7d479",
@@ -126,16 +126,16 @@
                 "tag"
             ],
             "support": {
-                "source": "https://github.com/php-cache/adapter-common/tree/1.3.0"
-            },
-            "time": "2022-01-15T15:47:19+00:00"
-        },
-        {
-            "name": "cache/hierarchical-cache",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-cache/hierarchical-cache.git",
+				"source": "https://github.com/php-cache/adapter-common/tree/1.3.0"
+			},
+			"time": "2022-01-15T15:47:19+00:00"
+		},
+		{
+			"name": "cache/hierarchical-cache",
+			"version": "1.2.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/php-cache/hierarchical-cache.git",
 				"reference": "dedffd0a74f72c1db76e57ce29885836944e27f3"
 			},
 			"dist": {
@@ -331,16 +331,16 @@
 		},
 		{
 			"name": "cache/void-adapter",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-cache/void-adapter.git",
-                "reference": "1f10ea9b3ccfad8422c86d326a86efc8917e2ad9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-cache/void-adapter/zipball/1f10ea9b3ccfad8422c86d326a86efc8917e2ad9",
-                "reference": "1f10ea9b3ccfad8422c86d326a86efc8917e2ad9",
+			"version": "1.2.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/php-cache/void-adapter.git",
+				"reference": "1f10ea9b3ccfad8422c86d326a86efc8917e2ad9"
+			},
+			"dist": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/php-cache/void-adapter/zipball/1f10ea9b3ccfad8422c86d326a86efc8917e2ad9",
+				"reference": "1f10ea9b3ccfad8422c86d326a86efc8917e2ad9",
                 "shasum": ""
             },
             "require": {
@@ -1651,16 +1651,16 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19",
                 "phpstan/phpstan": "^0.12.90",
-                "phpstan/phpstan-phpunit": "^0.12.19",
-                "phpstan/phpstan-strict-rules": "^0.12.9",
-                "phpunit/phpunit": "^8.5.15 || ^9.5"
-            },
-            "suggest": {
-                "ext-intl": "to use the IDNA feature",
-                "symfony/intl": "to use the IDNA feature via Symfony Polyfill"
-            },
-            "type": "library",
-            "extra": {
+				"phpstan/phpstan-phpunit": "^0.12.19",
+				"phpstan/phpstan-strict-rules": "^0.12.9",
+				"phpunit/phpunit": "^8.5.15 || ^9.5"
+			},
+			"suggest": {
+				"ext-intl": "to use the IDNA feature",
+				"symfony/intl": "to use the IDNA feature via Symfony Polyfill"
+			},
+			"type": "library",
+			"extra": {
 				"branch-alias": {
 					"dev-master": "2.x-dev"
 				}
@@ -1707,12 +1707,12 @@
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "0ab0887d6e1bb6243a030ab28de7cad674f186ef"
+				"reference": "9558c97aaa66b3005c9f23783d247b82d5ab24eb"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/0ab0887d6e1bb6243a030ab28de7cad674f186ef",
-				"reference": "0ab0887d6e1bb6243a030ab28de7cad674f186ef",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/9558c97aaa66b3005c9f23783d247b82d5ab24eb",
+				"reference": "9558c97aaa66b3005c9f23783d247b82d5ab24eb",
 				"shasum": ""
 			},
 			"require": {
@@ -1765,16 +1765,16 @@
 				]
 			},
 			"notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Marek Hanzal",
-                    "email": "marek.hanzal@x32.cz"
-                }
-            ],
-            "description": "The Legacy of Edde Framework in much smaller and simpler library.",
+			"license": [
+				"Apache-2.0"
+			],
+			"authors": [
+				{
+					"name": "Marek Hanzal",
+					"email": "marek.hanzal@x32.cz"
+				}
+			],
+			"description": "The Legacy of Edde Framework in much smaller and simpler library.",
             "keywords": [
                 "framework",
                 "php"
@@ -1783,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-01-19T10:58:59+00:00"
+			"time": "2022-01-19T13:22:07+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7344,16 +7344,16 @@
                 "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25"
             },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
+				"reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
+				"shasum": ""
+			},
+			"require": {
+				"php": "^7.2 || ^8.0",
+				"symfony/polyfill-ctype": "^1.8"
+			},
+			"conflict": {
 				"phpstan/phpstan": "<0.12.20",
 				"vimeo/psalm": "<4.6.1 || 4.6.2"
 			},

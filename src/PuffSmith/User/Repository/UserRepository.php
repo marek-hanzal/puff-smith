@@ -48,7 +48,7 @@ class UserRepository extends AbstractRepository implements IUserRepository {
 	 * @throws Exception
 	 */
 	public function findByLogin($login) {
-		return $this->native("SELECT *, recno as id FROM %n WHERE %or", $this->table, [
+		return $this->native("SELECT * FROM %n WHERE %or", $this->table, [
 			'email' => $login,
 			'id'    => $login,
 		])->fetch();

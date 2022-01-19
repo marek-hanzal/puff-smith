@@ -1,4 +1,4 @@
-import Logo from "@/puff-smith/assets/logo/icon.svg";
+import Logo from "@/puff-smith/assets/logo/logo.svg";
 import {Image} from "antd";
 import {ImageProps} from "rc-image";
 import {FC} from "react";
