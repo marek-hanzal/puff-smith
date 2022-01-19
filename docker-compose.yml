@@ -1,7 +1,7 @@
 version: '2'
 services:
     php:
-        image: marekhanzal/php:7.4
+        image: marekhanzal/php:8.1
         container_name: puff-smith
         hostname: puff-smith
         restart: always
