@@ -9,8 +9,8 @@ return [
 	'migration_base_class' => CommonMigration::class,
 	'environments'         => [
 		'default_migration_table' => 'migrations',
-		'default_environment'     => $_ENV['PHINX'] ?? 'default',
-		'default'                 => [
+		'default_environment'     => $_ENV['PHINX'] ?? 'docker',
+		'docker'                  => [
 			'adapter' => 'mysql',
 			'host'    => 'mariadb',
 			'name'    => 'puff-smith',

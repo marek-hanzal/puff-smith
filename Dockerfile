@@ -25,7 +25,7 @@ RUN echo "NEXT_PUBLIC_PUBLIC_URL=" >> .env.local
 
 RUN npm run build
 
-FROM marekhanzal/php:7.4 as server-deps
+FROM marekhanzal/php:8.0 as server-deps
 
 WORKDIR /opt/server
 RUN php-enable-opcache
@@ -33,7 +33,7 @@ ADD composer.json .
 ADD composer.lock .
 RUN composer install
 
-FROM marekhanzal/php:7.4 as runtime
+FROM marekhanzal/php:8.0 as runtime
 ARG BASE_URL
 ARG PHINX
 ARG APP_KEY
