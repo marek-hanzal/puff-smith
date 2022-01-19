@@ -9,7 +9,7 @@ export default withAppLayout(function Index() {
 	const sessionContext = usePuffSmithSessionContext();
 	useEffect(() => {
 		setTimeout(() => {
-			navigate("/" + sessionContext.session.user.site);
+			navigate("/" + (sessionContext?.session?.user?.site || "public"));
 		}, 1500);
 	}, []);
 	return <LoaderLayout
