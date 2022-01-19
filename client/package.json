@@ -10,7 +10,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@leight-core/leight": "^0.12.16",
+		"@leight-core/leight": "^0.12.18",
 		"antd": "^4.18.2",
 		"axios": "^0.24.0",
 		"dayjs": "^1.10.7",

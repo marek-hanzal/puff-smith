@@ -1,4 +1,4 @@
-import icon from "@/puff-smith/assets/logo.svg";
+import icon from "@/puff-smith/assets/logo/logo.svg";
 import {SmileOutlined} from "@ant-design/icons";
 import {ButtonLink, SignInIcon} from "@leight-core/leight";
 import {Image, Result, Typography} from "antd";

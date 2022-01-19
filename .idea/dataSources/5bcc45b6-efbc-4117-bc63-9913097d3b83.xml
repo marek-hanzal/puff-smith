@@ -1133,5 +1133,86 @@ puff-smith|schema||puff-smith||UPDATE|G</Grants>
     <user id="332" parent="1" name="root">
       <Host>localhost</Host>
     </user>
+    <table id="333" parent="327" name="migrations">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <table id="334" parent="327" name="z_cache">
+      <Comment>Database cache support (the last resort).</Comment>
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <column id="335" parent="333" name="version">
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="336" parent="333" name="migration_name">
+      <DataType>varchar(100)|0s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="337" parent="333" name="start_time">
+      <DataType>timestamp|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="338" parent="333" name="end_time">
+      <DataType>timestamp|0s</DataType>
+      <Position>4</Position>
+    </column>
+    <column id="339" parent="333" name="breakpoint">
+      <DataType>tinyint(1)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <key id="340" parent="333" name="PRIMARY">
+      <ColNames>version</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="341" parent="334" name="id">
+      <Comment>UUID primary key of the table (full 36 chars).</Comment>
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="342" parent="334" name="key">
+      <Comment>An unique cache key.</Comment>
+      <DataType>varchar(128)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="343" parent="334" name="value">
+      <Comment>Cached value; could be null. Could be basically anything, value, json encoded, whatever an implementation needs. The column limit (length) should be checked!</Comment>
+      <DataType>mediumblob|0s</DataType>
+      <Position>3</Position>
+    </column>
+    <column id="344" parent="334" name="hash">
+      <Comment>Optional hash of the value to ensure all data is persisted (for example when an overflow occurs, hash could catch this).</Comment>
+      <DataType>varchar(512)|0s</DataType>
+      <Position>4</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="345" parent="334" name="ttl">
+      <Comment>Optional timestamp after which cached item expires (so even a cache item exists in the table, cache miss may happen if ttl is over).</Comment>
+      <DataType>datetime|0s</DataType>
+      <Position>5</Position>
+    </column>
+    <index id="346" parent="334" name="z_cache_key_unique">
+      <ColNames>key</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="347" parent="334" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <key id="348" parent="334" name="z_cache_key_unique">
+      <ColNames>key</ColNames>
+      <UnderlyingIndexName>z_cache_key_unique</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>

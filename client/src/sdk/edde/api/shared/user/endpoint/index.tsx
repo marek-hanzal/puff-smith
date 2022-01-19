@@ -30,7 +30,7 @@ import {
 export type ITicketQueryParams = void;
 
 
-export const useTicketQuery = createGetQuery<ITicketQueryParams, import("@/sdk/edde/session/dto/index").SessionDto>("Edde.Shared.User.Ticket");
+export const useTicketQuery = createGetQuery<ITicketQueryParams, import("@/sdk/edde/session/dto/index").SessionDto | undefined>("Edde.Shared.User.Ticket");
 export const useTicketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries(["Edde.Shared.User.Ticket"])

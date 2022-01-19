@@ -1,43 +1,24 @@
-import {LogoIcon} from "@/marsh";
 import {App, DayjsContextProvider, I18NextProvider, IAppProps, IPageWithLayout} from "@leight-core/leight";
 import dayjs from "dayjs";
 import i18next from "i18next";
-import {FC, useEffect} from "react";
-import {QueryClient} from "react-query";
-import {broadcastQueryClient} from "react-query/broadcastQueryClient-experimental";
-import {createWebStoragePersistor} from "react-query/createWebStoragePersistor-experimental";
-import {persistQueryClient} from "react-query/persistQueryClient-experimental";
+import {FC} from "react";
+import {LogoIcon} from "@/puff-smith";
+import {createQueryClient, useQueryPersistence} from "@leight-core/leight/dist";
 
-const queryClient = new QueryClient({
-	defaultOptions: {
-		queries: {
-			cacheTime: 1000 * 60 * 60 * 24, //24h
-		}
-	}
-});
+const queryClient = createQueryClient();
 
 export interface IAppLayoutProps extends Partial<IAppProps> {
 }
 
 export const AppLayout: FC<IAppLayoutProps> = props => {
-	useEffect(() => {
-		persistQueryClient({
-			queryClient,
-			persistor: createWebStoragePersistor({storage: window.localStorage}),
-			buster: process.env.BUILD_ID,
-		});
-		broadcastQueryClient({
-			queryClient,
-			broadcastChannel: "marsh",
-		});
-	}, []);
+	useQueryPersistence(queryClient, "puff-smith");
 
 	return <I18NextProvider i18next={i18next}>
 		<DayjsContextProvider dayjs={dayjs}>
 			<App
-				clientLink={process.env.NEXT_PUBLIC_PUBLIC_URL + "/blackfox/client.json"}
-				translationLink={"Marsh.Shared.Translation"}
-				sessionLink={"Marsh.Shared.User.Ticket"}
+				clientLink={process.env.NEXT_PUBLIC_PUBLIC_URL + "/puff-smith/client.json"}
+				translationLink={"Edde.Shared.Translation"}
+				sessionLink={"Edde.Shared.User.Ticket"}
 				queryClient={queryClient}
 				logo={<LogoIcon/>}
 				{...props}

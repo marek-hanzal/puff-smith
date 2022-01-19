@@ -45,16 +45,16 @@
 				"BigInteger",
 				"BigRational",
 				"arithmetic",
-                "bigdecimal",
-                "bignum",
-                "brick",
-                "math"
-            ],
-            "support": {
-                "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.9.3"
-            },
-            "funding": [
+				"bigdecimal",
+				"bignum",
+				"brick",
+				"math"
+			],
+			"support": {
+				"issues": "https://github.com/brick/math/issues",
+				"source": "https://github.com/brick/math/tree/0.9.3"
+			},
+			"funding": [
                 {
                     "url": "https://github.com/BenMorel",
                     "type": "github"
@@ -146,16 +146,16 @@
             },
             "require": {
                 "cache/adapter-common": "^1.0",
-                "php": ">=7.4",
-                "psr/cache": "^1.0 || ^2.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5.20 || ^9.5.10"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1-dev"
+				"php": ">=7.4",
+				"psr/cache": "^1.0 || ^2.0"
+			},
+			"require-dev": {
+				"phpunit/phpunit": "^7.5.20 || ^9.5.10"
+			},
+			"type": "library",
+			"extra": {
+				"branch-alias": {
+					"dev-master": "1.1-dev"
 				}
 			},
 			"autoload": {
@@ -311,16 +311,16 @@
 				},
 				{
 					"name": "Nicolas Grekas",
-                    "email": "p@tchwork.com",
-                    "homepage": "https://github.com/nicolas-grekas"
-                }
-            ],
-            "description": "Framework interoperable interfaces for tags",
-            "homepage": "https://www.php-cache.com/en/latest/",
-            "keywords": [
-                "cache",
-                "psr",
-                "psr6",
+					"email": "p@tchwork.com",
+					"homepage": "https://github.com/nicolas-grekas"
+				}
+			],
+			"description": "Framework interoperable interfaces for tags",
+			"homepage": "https://www.php-cache.com/en/latest/",
+			"keywords": [
+				"cache",
+				"psr",
+				"psr6",
                 "tag"
             ],
             "support": {
@@ -1671,16 +1671,16 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ignace Nyamagana Butera",
-                    "email": "nyamsprod@gmail.com",
-                    "homepage": "https://nyamsprod.com"
-                }
-            ],
+			"license": [
+				"MIT"
+			],
+			"authors": [
+				{
+					"name": "Ignace Nyamagana Butera",
+					"email": "nyamsprod@gmail.com",
+					"homepage": "https://nyamsprod.com"
+				}
+			],
 			"description": "Common interface for URI representation",
 			"homepage": "http://github.com/thephpleague/uri-interfaces",
 			"keywords": [
@@ -1707,12 +1707,12 @@
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "d46c4fcb45de368017ac3bdba01d49ca725dd4ee"
+				"reference": "dcf8f8e63ba365807482f606ff133c29a8cc3020"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/d46c4fcb45de368017ac3bdba01d49ca725dd4ee",
-				"reference": "d46c4fcb45de368017ac3bdba01d49ca725dd4ee",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/dcf8f8e63ba365807482f606ff133c29a8cc3020",
+				"reference": "dcf8f8e63ba365807482f606ff133c29a8cc3020",
 				"shasum": ""
 			},
 			"require": {
@@ -1745,16 +1745,16 @@
 				"symfony/yaml": "^5.2",
 				"tracy/tracy": "^v2.8"
 			},
-            "require-dev": {
-                "phpunit/phpunit": ">=8.5.21"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "./src/ClanCats/Hydrahon/Query/Sql/Select.php"
-                ],
-                "exclude-from-classmap": [
+			"require-dev": {
+				"phpunit/phpunit": ">=8.5.21"
+			},
+			"default-branch": true,
+			"type": "library",
+			"autoload": {
+				"files": [
+					"./src/ClanCats/Hydrahon/Query/Sql/Select.php"
+				],
+				"exclude-from-classmap": [
                     "./src/Edde/Bridge/User/CurrentUser.php",
                     "./src/Edde/Bridge/User/UserDto.php",
                     "./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
@@ -1783,7 +1783,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-01-18T13:16:52+00:00"
+			"time": "2022-01-19T09:44:11+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -7364,16 +7364,16 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.10-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webmozart\\Assert\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
+				}
+			},
+			"autoload": {
+				"psr-4": {
+					"Webmozart\\Assert\\": "src/"
+				}
+			},
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
+				"MIT"
 			],
 			"authors": [
 				{
