@@ -1,4 +1,4 @@
-import {LogoIcon} from "@/puff-smith";
+import {FullLogoIcon} from "@/puff-smith";
 import {HomeOutlined} from "@ant-design/icons";
 import {LoaderLayout, useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";
@@ -13,7 +13,7 @@ export default withAppLayout(function Index() {
 		}, 1500);
 	}, []);
 	return <LoaderLayout
-		logo={<LogoIcon/>}
+		logo={<FullLogoIcon/>}
 		icon={<HomeOutlined/>}
 	/>;
 });
