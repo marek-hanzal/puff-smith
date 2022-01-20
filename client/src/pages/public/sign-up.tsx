@@ -1,17 +1,17 @@
 import {SignInIcon, Template} from "@leight-core/leight";
-import {PublicMenu, PublicPage, SignInForm, withPublicLayout} from "@/puff-smith/site/public";
+import {PublicMenu, PublicPage, SignUpForm, withPublicLayout} from "@/puff-smith/site/public";
 
 export default withPublicLayout(function Login() {
 	return <PublicPage
-		name={"public.sign-in"}
+		name={"public.sign-up"}
 	>
 		<PublicMenu/>
 		<Template
 			icon={<SignInIcon/>}
-			label={"public.sign-in.content"}
+			label={"public.sign-up"}
 			span={10}
 		>
-			<SignInForm/>
+			<SignUpForm/>
 		</Template>
 	</PublicPage>;
 });
