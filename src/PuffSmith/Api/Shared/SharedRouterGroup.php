@@ -9,8 +9,9 @@ use Edde\Api\Shared\Endpoint\DateTimeFormatListEndpoint;
 use Edde\Api\Shared\Endpoint\DiscoveryEndpoint;
 use Edde\Api\Shared\Endpoint\LanguageListEndpoint;
 use Edde\Api\Shared\Endpoint\TranslationEndpoint;
-use Edde\Api\Shared\User\UserRouterGroup;
+use Edde\Api\Shared\User\UserRouterGroup as EddeUserRouterGroup;
 use Edde\Http\AbstractRouterGroup;
+use PuffSmith\Api\Shared\User\UserRouterGroup;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 class SharedRouterGroup extends AbstractRouterGroup {
@@ -23,6 +24,7 @@ class SharedRouterGroup extends AbstractRouterGroup {
 			LanguageListEndpoint::class,
 			TranslationEndpoint::class,
 		], [
+			EddeUserRouterGroup::class,
 			UserRouterGroup::class,
 		]);
 	}

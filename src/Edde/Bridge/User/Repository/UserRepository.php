@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\User\Repository;
+namespace Edde\Bridge\User\Repository;
 
 use ClanCats\Hydrahon\Query\Sql\Select;
 use ClanCats\Hydrahon\Query\Sql\SelectBase;
@@ -12,10 +12,16 @@ use Edde\Repository\Exception\RepositoryException;
 use Edde\User\Repository\IUserRepository;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
+use PuffSmith\User\Dto\Create\CreateDto;
+use PuffSmith\User\Dto\Patch\PatchDto;
+use PuffSmith\User\Dto\UserFilterDto;
 use Throwable;
 use function in_array;
 use function json_encode;
 
+/**
+ * @Injectable(lazy=true)
+ */
 class UserRepository extends AbstractRepository implements IUserRepository {
 	public function __construct() {
 		parent::__construct();
@@ -73,8 +79,11 @@ class UserRepository extends AbstractRepository implements IUserRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
+			'name'     => $createDto->name,
+			'email'    => $createDto->email,
+			'password' => $createDto->password,
+			'site'     => $createDto->site,
 			'settings' => json_encode([
-				'language' => $createDto->language,
 				'date'     => 'LL',
 				'datetime' => 'LLLL',
 			]),
@@ -91,9 +100,10 @@ class UserRepository extends AbstractRepository implements IUserRepository {
 	 */
 	public function update(PatchDto $patchDto) {
 		return $this->patch([
-			'id'    => $patchDto->id,
-			'site'  => $patchDto->site,
-			'email' => $patchDto->email,
+			'id'       => $patchDto->id,
+			'site'     => $patchDto->site,
+			'email'    => $patchDto->email,
+			'password' => $patchDto->password,
 		]);
 	}
 }

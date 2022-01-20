@@ -9,8 +9,7 @@ use Edde\Session\Dto\SessionDto;
 class SessionMapper extends AbstractSessionMapper {
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(SessionDto::class, [
-			'user' => [
-			],
+			'user' => $item,
 		]);
 	}
 }
