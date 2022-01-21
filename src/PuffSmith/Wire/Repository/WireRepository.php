@@ -12,7 +12,10 @@ use PuffSmith\Wire\Dto\WireFilterDto;
 
 class WireRepository extends AbstractRepository {
 	public function __construct() {
-		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_wire_name_unique']);
+		parent::__construct([
+			'name' => IRepository::ORDER_ASC,
+			'ga'   => IRepository::ORDER_ASC,
+		], ['z_wire_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
@@ -23,8 +26,8 @@ class WireRepository extends AbstractRepository {
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'z_wire.id',
 			'z_wire.name',
+			'z_wire.description',
 			'v.name',
-			'v.description',
 		], $filter->fulltext)
 			->leftJoin('z_vendor as v', 'v.id', '=', 'z_wire.vendor_id');
 		isset($filter->name) && $this->fulltext($select, [

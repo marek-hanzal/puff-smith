@@ -9,7 +9,7 @@ use PuffSmith\Vendor\Dto\VendorDto;
 class WireDto extends AbstractDto {
 	public string $id;
 	public string $name;
-	public ?string $descirption;
+	public ?string $description;
 	public ?int $ga;
 	public string $vendorId;
 	public VendorDto $vendor;
