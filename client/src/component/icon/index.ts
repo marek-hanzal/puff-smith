@@ -12,4 +12,5 @@ export * from "./SettingsIcon";
 export * from "./UpgradeIcon";
 export * from "./UserIcon";
 export * from "./VendorIcon";
+export * from "./WireIcon";
 export * from "./WizardIcon";
