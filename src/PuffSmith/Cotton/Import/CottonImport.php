@@ -18,8 +18,8 @@ class CottonImport extends AbstractImporter {
 	 */
 	public function handle($item) {
 		return $this->cottonRepository->create($this->dtoService->fromArray(CreateDto::class, [
-			'name'        => $item->name,
-			'description' => $item->description,
+			'name'        => trim($item->name),
+			'description' => trim($item->description),
 			'vendorId'    => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]));
 	}
