@@ -27,6 +27,21 @@ export const useAtomizersQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Atomizer.Atomizers"])
 }
 
+export type ICreateQueryParams = void;
+
+
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Create");
+
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
+}
+
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
+		useMutation={useCreateMutation}
+		{...props}
+	/>
+}
+
 export const useAtomizersSource = () => useSourceContext<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>()
 
 export interface IAtomizersSourceContext extends ISourceContext<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {

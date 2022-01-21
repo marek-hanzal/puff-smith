@@ -8,6 +8,7 @@ export module AtomizerOrderByDto {
 
 
 export interface AtomizerFilterDto {
+	name?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

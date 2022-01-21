@@ -1,18 +1,18 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Api\Lab\Atomizer;
+namespace PuffSmith\Api\Lab\Vendor;
 
 use Edde\Http\AbstractRouterGroup;
-use PuffSmith\Api\Lab\Atomizer\Endpoint\AtomizersEndpoint;
-use PuffSmith\Api\Lab\Atomizer\Endpoint\CreateEndpoint;
+use PuffSmith\Api\Lab\Vendor\Endpoint\CreateEndpoint;
+use PuffSmith\Api\Lab\Vendor\Endpoint\VendorsEndpoint;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
-class AtomizerRouterGroup extends AbstractRouterGroup {
+class VendorRouterGroup extends AbstractRouterGroup {
 	public function register(RouteCollectorProxyInterface $routeCollectorProxy) {
 		$this->endpoints($routeCollectorProxy, [
-			AtomizersEndpoint::class,
 			CreateEndpoint::class,
+			VendorsEndpoint::class,
 		]);
 	}
 }
