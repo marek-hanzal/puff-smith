@@ -1,5 +1,5 @@
+export * from "./BuildIcon";
 export * from "./CommonIcon";
-export * from "./ContractIcon";
 export * from "./DownloadIcon";
 export * from "./FullLogoIcon";
 export * from "./ImportIcon";
