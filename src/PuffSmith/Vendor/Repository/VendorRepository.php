@@ -19,6 +19,13 @@ class VendorRepository extends AbstractRepository {
 		return $this->select()->where('name', $name)->execute()->fetch();
 	}
 
+	public function findByVarious(string $search) {
+		return $this->fulltext($this->select(), [
+			'id',
+			'name',
+		], $search)->execute()->fetch();
+	}
+
 	public function ensure(EnsureDto $ensureDto) {
 		try {
 			return $this->insert([
