@@ -2,7 +2,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/l
 import {FC} from "react";
 import {FormItem} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
-import {AtomizerSelect} from "@/puff-smith/site/lab/build";
+import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -13,7 +13,12 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 		{...props}
 	>
 		<FormItem field={'name'} labels={['lab.build.name.label']} tooltip={t('lab.build.name.label.tooltip')} required/>
-		<FormItem field={'atomizerId'} labels={['lab.build.atomizerId.label']} required>
+		<FormItem
+			field={'atomizerId'}
+			labels={['lab.build.atomizerId.label']}
+			required
+			help={<AtomizerTooltip/>}
+		>
 			<AtomizerSelect/>
 		</FormItem>
 	</CreateDefaultForm>;
