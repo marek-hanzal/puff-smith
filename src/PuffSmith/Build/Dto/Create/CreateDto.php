@@ -15,6 +15,4 @@ class CreateDto extends AbstractDto {
 	public int $coil = 0;
 	public int $cotton = 0;
 	public float $ohm;
-	public float $created;
-	public string $userId;
 }

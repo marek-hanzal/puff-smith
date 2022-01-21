@@ -10,5 +10,4 @@ class CreateDto extends AbstractDto {
 	public float $ohm;
 	public string $code;
 	public string $wireId;
-	public string $userId;
 }
