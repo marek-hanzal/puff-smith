@@ -5,6 +5,7 @@ namespace PuffSmith\Vendor\Repository;
 
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\Exception\DuplicateEntryException;
+use Edde\Repository\Exception\RequiredResultException;
 use Edde\Repository\IRepository;
 use PuffSmith\Vendor\Dto\Ensure\EnsureDto;
 
@@ -20,10 +21,14 @@ class VendorRepository extends AbstractRepository {
 	}
 
 	public function findByVarious(string $search) {
-		return $this->fulltext($this->select(), [
+		$vendor = $this->fulltext($this->select(), [
 			'id',
 			'name',
 		], $search)->execute()->fetch();
+		if (!$vendor) {
+			throw new RequiredResultException(sprintf('Cannot find a vendor by [%s].', $search));
+		}
+		return $vendor;
 	}
 
 	public function ensure(EnsureDto $ensureDto) {
