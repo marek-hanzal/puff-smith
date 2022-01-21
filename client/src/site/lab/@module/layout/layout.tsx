@@ -6,20 +6,21 @@ import {AppLayout, usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import {FullLogoIcon, NotificationContextProvider} from "@/puff-smith";
 import {Footer, Header} from "@/puff-smith/site/lab";
+import {UserSettingsCheck} from "@/puff-smith/site/lab/@module/component/UserSettingsCheck";
 
 export interface ILabLayoutProps {
 }
 
 export const LabLayout: FC<ILabLayoutProps> = ({children}) => {
 	const LayoutInternal = () => {
-		const {user} = usePuffSmithSessionContext().session;
+		const {session} = usePuffSmithSessionContext();
 		const result = useSessionCheck();
 
 		/**
 		 * Change a language from user session on startup! Yayks!
 		 */
 		useEffect(() => {
-			user.settings && user.settings.language && i18n.changeLanguage(user.settings.language);
+			session?.user?.settings && session?.user?.settings?.language && i18n.changeLanguage(session.user.settings.language);
 			// eslint-disable-next-line
 		}, []);
 

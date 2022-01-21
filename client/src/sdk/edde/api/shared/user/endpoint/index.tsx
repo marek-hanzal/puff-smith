@@ -51,20 +51,20 @@ export type IUpdateSettingsQueryParams = void;
 
 export const useUpdateSettingsMutation = createPostMutation<IUpdateSettingsQueryParams, import("@/sdk/edde/user/dto/settings/index").UpdateSettingsDto, import("@/sdk/edde/user/dto/settings/index").UserSettingsDto>("Edde.Shared.User.UpdateSettings");
 
-export interface ILoginFormProps extends Partial<IFormProps<ILoginQueryParams, import("@/sdk/edde/dto/common/index").LoginRequest, import("@/sdk/edde/session/dto/index").SessionDto>> {
+export interface ILoginDefaultFormProps extends Partial<IFormProps<ILoginQueryParams, import("@/sdk/edde/dto/common/index").LoginRequest, import("@/sdk/edde/session/dto/index").SessionDto>> {
 }
 
-export const LoginForm: FC<ILoginFormProps> = props => {
+export const LoginDefaultForm: FC<ILoginDefaultFormProps> = props => {
 	return <Form<ILoginQueryParams, import("@/sdk/edde/dto/common/index").LoginRequest, import("@/sdk/edde/session/dto/index").SessionDto>
 		useMutation={useLoginMutation}
 		{...props}
 	/>
 }
 
-export interface IUpdateSettingsFormProps extends Partial<IFormProps<IUpdateSettingsQueryParams, import("@/sdk/edde/user/dto/settings/index").UpdateSettingsDto, import("@/sdk/edde/user/dto/settings/index").UserSettingsDto>> {
+export interface IUpdateSettingsDefaultFormProps extends Partial<IFormProps<IUpdateSettingsQueryParams, import("@/sdk/edde/user/dto/settings/index").UpdateSettingsDto, import("@/sdk/edde/user/dto/settings/index").UserSettingsDto>> {
 }
 
-export const UpdateSettingsForm: FC<IUpdateSettingsFormProps> = props => {
+export const UpdateSettingsDefaultForm: FC<IUpdateSettingsDefaultFormProps> = props => {
 	return <Form<IUpdateSettingsQueryParams, import("@/sdk/edde/user/dto/settings/index").UpdateSettingsDto, import("@/sdk/edde/user/dto/settings/index").UserSettingsDto>
 		useMutation={useUpdateSettingsMutation}
 		{...props}

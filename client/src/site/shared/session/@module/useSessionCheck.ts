@@ -1,8 +1,8 @@
-import {useTicketQuery} from "@/sdk/edde/api/shared/user/endpoint";
 import {SessionDto} from "@/sdk/edde/session/dto";
 import {useNavigate} from "@leight-core/leight";
 import {useEffect} from "react";
 import {UseQueryResult} from "react-query";
+import {useTicketQuery} from "@/sdk/edde/api/shared/user/endpoint";
 
 export function useSessionCheck(): UseQueryResult<SessionDto | undefined> {
 	const navigate = useNavigate();

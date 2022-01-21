@@ -9,7 +9,7 @@ export interface IUserProfileButtonProps extends Partial<IButtonLinkProps> {
 
 export const UserProfileButton: FC<IUserProfileButtonProps> = (props) => {
 	const {t} = useTranslation();
-	return <Tooltip title={t("marsh.user.profile.tooltip")}>
+	return <Tooltip title={t("lab.user.profile.tooltip")}>
 		<ButtonLink
 			type={"link"}
 			href={"/lab/user/profile"}

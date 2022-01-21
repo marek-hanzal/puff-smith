@@ -9,6 +9,9 @@ use Edde\Api\Shared\Endpoint\DateTimeFormatListEndpoint;
 use Edde\Api\Shared\Endpoint\DiscoveryEndpoint;
 use Edde\Api\Shared\Endpoint\LanguageListEndpoint;
 use Edde\Api\Shared\Endpoint\TranslationEndpoint;
+use Edde\Api\Shared\File\FileRouterGroup;
+use Edde\Api\Shared\Import\ImportRouterGroup;
+use Edde\Api\Shared\Job\JobRouterGroup;
 use Edde\Api\Shared\User\UserRouterGroup as EddeUserRouterGroup;
 use Edde\Http\AbstractRouterGroup;
 use PuffSmith\Api\Shared\User\UserRouterGroup;
@@ -24,6 +27,9 @@ class SharedRouterGroup extends AbstractRouterGroup {
 			LanguageListEndpoint::class,
 			TranslationEndpoint::class,
 		], [
+			FileRouterGroup::class,
+			ImportRouterGroup::class,
+			JobRouterGroup::class,
 			EddeUserRouterGroup::class,
 			UserRouterGroup::class,
 		]);

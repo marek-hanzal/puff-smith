@@ -1,4 +1,3 @@
-import {DateFormatSelect, DateTimeFormatSelect, LanguageSelect} from "@/puff-smith/site/lab";
 import {IUpdateSettingsQueryParams, useUpdateSettingsMutation} from "@/sdk/edde/api/shared/user/endpoint";
 import {UserDto} from "@/sdk/edde/bridge/user";
 import {UpdateSettingsDto, UserSettingsDto} from "@/sdk/edde/user/dto/settings";
@@ -8,6 +7,7 @@ import {Divider, message, Space} from "antd";
 import i18next from "i18next";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
+import {DateFormatSelect, DateTimeFormatSelect, LanguageSelect} from "@/puff-smith/site/shared";
 
 export interface IUSerSettingsFormProps extends Partial<IFormProps<IUpdateSettingsQueryParams, UpdateSettingsDto, UserSettingsDto>> {
 	user: UserDto;
@@ -30,7 +30,7 @@ export const UserSettingsForm: FC<IUSerSettingsFormProps> = ({user, backButton =
 		onSuccess={({response}) => {
 			layoutBlockContext.block();
 			response.language && i18next.changeLanguage(response.language);
-			message.success(t("marsh.user.settings.saved"));
+			message.success(t("lab.user.settings.saved"));
 			setTimeout(() => window.location.reload(), 2500);
 		}}
 		{...props}
@@ -39,17 +39,17 @@ export const UserSettingsForm: FC<IUSerSettingsFormProps> = ({user, backButton =
 			<FormItem field={"language"}>
 				<LanguageSelect useFirst/>
 			</FormItem>
-			<FormItem field={"date"} tooltip={t("motor.user.settings.date.tooltip")}>
+			<FormItem field={"date"} tooltip={t("lab.user.settings.date.tooltip")}>
 				<DateFormatSelect/>
 			</FormItem>
-			<FormItem field={"datetime"} tooltip={t("motor.user.settings.datetime.tooltip")}>
+			<FormItem field={"datetime"} tooltip={t("lab.user.settings.datetime.tooltip")}>
 				<DateTimeFormatSelect/>
 			</FormItem>
 		</ItemGroup>
 		<Centered>
 			<Space align={"baseline"} size={"large"} split={<Divider type={"vertical"}/>}>
-				{backButton && <ButtonLink size={"middle"} type={"link"} icon={<BackIcon/>} title={"marsh.user.settings.back"} href={"/motor/user/profile"}/>}
-				<Submit size={"large"} icon={<SettingOutlined/>} label={"marsh.user.settings.save"}/>
+				{backButton && <ButtonLink size={"middle"} type={"link"} icon={<BackIcon/>} title={"lab.user.settings.back"} href={"/lab/user/profile"}/>}
+				<Submit size={"large"} icon={<SettingOutlined/>} label={"lab.user.settings.save"}/>
 			</Space>
 		</Centered>
 	</Form>;
