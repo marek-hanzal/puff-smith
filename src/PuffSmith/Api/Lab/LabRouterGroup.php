@@ -7,6 +7,7 @@ use Edde\Http\AbstractRouterGroup;
 use PuffSmith\Api\Lab\Atomizer\AtomizerRouterGroup;
 use PuffSmith\Api\Lab\Build\BuildRouterGroup;
 use PuffSmith\Api\Lab\Coil\CoilRouterGroup;
+use PuffSmith\Api\Lab\Cotton\CottonRouterGroup;
 use PuffSmith\Api\Lab\Vendor\VendorRouterGroup;
 use PuffSmith\Api\Lab\Wire\WireRouterGroup;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -17,6 +18,7 @@ class LabRouterGroup extends AbstractRouterGroup {
 			AtomizerRouterGroup::class,
 			BuildRouterGroup::class,
 			CoilRouterGroup::class,
+			CottonRouterGroup::class,
 			VendorRouterGroup::class,
 			WireRouterGroup::class,
 		]);
