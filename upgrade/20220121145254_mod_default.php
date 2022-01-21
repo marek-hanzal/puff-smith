@@ -13,10 +13,10 @@ final class ModDefault extends CommonMigration {
 				'null'    => true,
 			])
 			->addUuidForeignColumn('vendor', 'z_vendor')
-			->addIndex([
+			->addUniqueIndex([
 				'name',
 				'vendor_id',
-			], ['name' => 'z_mod_name_unique'])
+			], 'name')
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/mods.xlsx');
