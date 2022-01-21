@@ -5,10 +5,13 @@ namespace PuffSmith\Build\Repository;
 
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
+use Edde\User\CurrentUserServiceTrait;
 use PuffSmith\Build\Dto\Create\CreateDto;
 use function microtime;
 
 class BuildRepository extends AbstractRepository {
+	use CurrentUserServiceTrait;
+
 	public function __construct() {
 		parent::__construct(['created' => IRepository::ORDER_DESC], ['z_build_name_unique']);
 	}
@@ -25,7 +28,7 @@ class BuildRepository extends AbstractRepository {
 			'cotton'      => $createDto->cotton,
 			'ohm'         => $createDto->ohm,
 			'created'     => microtime(true),
-			'user_id'     => $createDto->userId,
+			'user_id'     => $this->currentUserService->requiredId(),
 		]);
 	}
 }
