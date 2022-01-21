@@ -1,17 +1,16 @@
 import {useTranslation} from "react-i18next";
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {FullLogoIcon} from "@/puff-smith";
 import {Template} from "@leight-core/leight";
+import {BuildIcon} from "@/puff-smith";
+import {BuildPageMenu} from "@/puff-smith/site/lab/build";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <LabPage
-		name={"lab.home"}
+		name={"lab.build.list"}
 	>
 		<LabMenu/>
-		<Template
-			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
-			label={t("lab.home")}
-		/>
+		<BuildPageMenu/>
+		seznam buildu
 	</LabPage>;
 });
