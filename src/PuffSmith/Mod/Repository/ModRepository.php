@@ -15,6 +15,7 @@ class ModRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name'      => $createDto->name,
+			'power'     => $createDto->power,
 			'vendor_id' => $createDto->vendorId,
 		]);
 	}

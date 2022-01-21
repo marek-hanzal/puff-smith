@@ -11,6 +11,10 @@ class CreateDto extends AbstractDto {
 	 */
 	public string $name;
 	/**
+	 * @var int|null
+	 */
+	public ?int $power;
+	/**
 	 * @var string
 	 */
 	public string $vendorId;
