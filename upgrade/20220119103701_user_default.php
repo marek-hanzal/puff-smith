@@ -22,6 +22,7 @@ final class UserDefault extends CommonMigration {
 				'null'    => true,
 			])
 			->save();
+
 		$this->ensureData('z_user', [
 			[
 				'name'     => 'root',
@@ -33,6 +34,12 @@ final class UserDefault extends CommonMigration {
 				'name'  => 'upgrade',
 				'email' => 'upgrade',
 				'site'  => 'root',
+			],
+			[
+				'name'     => 'test',
+				'email'    => 'test',
+				'password' => $this->passwordService->hash('1234'),
+				'site'     => 'lab',
 			],
 		]);
 	}
