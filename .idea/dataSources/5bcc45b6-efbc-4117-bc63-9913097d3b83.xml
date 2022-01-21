@@ -1137,196 +1137,246 @@ puff-smith|schema||puff-smith||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="334" parent="327" name="z_cache">
+    <table id="334" parent="327" name="z_atomizer">
+      <Comment>Table containing all (system-wide) known atomizers.</Comment>
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <table id="335" parent="327" name="z_cache">
       <Comment>Database cache support (the last resort).</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="335" parent="327" name="z_config">
+    <table id="336" parent="327" name="z_config">
       <Comment>Runtime application configuration moved into the table instead of config files somewhere.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="336" parent="327" name="z_file">
+    <table id="337" parent="327" name="z_file">
       <Comment>Support for saving files into the database</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="337" parent="327" name="z_job">
+    <table id="338" parent="327" name="z_job">
       <Comment>Table containing jobs running or being executed.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="338" parent="327" name="z_job_lock">
+    <table id="339" parent="327" name="z_job_lock">
       <Comment>Job locks to make them run in order.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="339" parent="327" name="z_job_log">
+    <table id="340" parent="327" name="z_job_log">
       <Comment>When something during a job occurs, it&apos;s recorded here.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="340" parent="327" name="z_log">
+    <table id="341" parent="327" name="z_log">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="341" parent="327" name="z_log_tag">
+    <table id="342" parent="327" name="z_log_tag">
       <Comment>Log item -&gt; tag relation; useful for searching something.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="342" parent="327" name="z_profiler">
+    <table id="343" parent="327" name="z_mod">
+      <Comment>Table containing all (system-wide) known mods.</Comment>
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_general_ci</CollationName>
+    </table>
+    <table id="344" parent="327" name="z_profiler">
       <Comment>Application profiler table.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="343" parent="327" name="z_tag">
+    <table id="345" parent="327" name="z_tag">
       <Comment>Simple table of tags generally usable anywhere.</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="344" parent="327" name="z_translation">
+    <table id="346" parent="327" name="z_translation">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="345" parent="327" name="z_user">
+    <table id="347" parent="327" name="z_user">
       <Comment>What to say - table with users, yaaay!</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <table id="346" parent="327" name="z_vendor">
+    <table id="348" parent="327" name="z_vendor">
       <Comment>General vendors of the things (mods, atomizers, ...).</Comment>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb3_general_ci</CollationName>
     </table>
-    <column id="347" parent="333" name="version">
+    <column id="349" parent="333" name="version">
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="348" parent="333" name="migration_name">
+    <column id="350" parent="333" name="migration_name">
       <DataType>varchar(100)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="349" parent="333" name="start_time">
+    <column id="351" parent="333" name="start_time">
       <DataType>timestamp|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="350" parent="333" name="end_time">
+    <column id="352" parent="333" name="end_time">
       <DataType>timestamp|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="351" parent="333" name="breakpoint">
+    <column id="353" parent="333" name="breakpoint">
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <key id="352" parent="333" name="PRIMARY">
+    <key id="354" parent="333" name="PRIMARY">
       <ColNames>version</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="353" parent="334" name="id">
+    <column id="355" parent="334" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="354" parent="334" name="key">
+    <column id="356" parent="334" name="name">
+      <Comment>Vendor unique name of the atomizer.</Comment>
+      <DataType>varchar(128)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="357" parent="334" name="vendor_id">
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <foreign-key id="358" parent="334" name="z_atomizer_ibfk_1">
+      <ColNames>vendor_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id</RefColNames>
+      <RefTableName>z_vendor</RefTableName>
+    </foreign-key>
+    <index id="359" parent="334" name="z_atomizer_name_unique">
+      <ColNames>name
+vendor_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="360" parent="334" name="vendor_id">
+      <ColNames>vendor_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="361" parent="334" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="362" parent="335" name="id">
+      <Comment>UUID primary key of the table (full 36 chars).</Comment>
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="363" parent="335" name="key">
       <Comment>An unique cache key.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="355" parent="334" name="value">
+    <column id="364" parent="335" name="value">
       <Comment>Cached value; could be null. Could be basically anything, value, json encoded, whatever an implementation needs. The column limit (length) should be checked!</Comment>
       <DataType>mediumblob|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="356" parent="334" name="hash">
+    <column id="365" parent="335" name="hash">
       <Comment>Optional hash of the value to ensure all data is persisted (for example when an overflow occurs, hash could catch this).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="357" parent="334" name="ttl">
+    <column id="366" parent="335" name="ttl">
       <Comment>Optional timestamp after which cached item expires (so even a cache item exists in the table, cache miss may happen if ttl is over).</Comment>
       <DataType>datetime|0s</DataType>
       <Position>5</Position>
     </column>
-    <index id="358" parent="334" name="z_cache_key_unique">
+    <index id="367" parent="335" name="z_cache_key_unique">
       <ColNames>key</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="359" parent="334" name="PRIMARY">
+    <key id="368" parent="335" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="360" parent="334" name="z_cache_key_unique">
+    <key id="369" parent="335" name="z_cache_key_unique">
       <ColNames>key</ColNames>
       <UnderlyingIndexName>z_cache_key_unique</UnderlyingIndexName>
     </key>
-    <column id="361" parent="335" name="id">
+    <column id="370" parent="336" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="362" parent="335" name="key">
+    <column id="371" parent="336" name="key">
       <Comment>Config key (unique).</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="363" parent="335" name="value">
+    <column id="372" parent="336" name="value">
       <Comment>Configuration value; could be basically everything</Comment>
       <DataType>text|0s</DataType>
       <Position>3</Position>
     </column>
-    <index id="364" parent="335" name="z_config_key_unique">
+    <index id="373" parent="336" name="z_config_key_unique">
       <ColNames>key</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="365" parent="335" name="PRIMARY">
+    <key id="374" parent="336" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="366" parent="335" name="z_config_key_unique">
+    <key id="375" parent="336" name="z_config_key_unique">
       <ColNames>key</ColNames>
       <UnderlyingIndexName>z_config_key_unique</UnderlyingIndexName>
     </key>
-    <column id="367" parent="336" name="id">
+    <column id="376" parent="337" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="368" parent="336" name="path">
+    <column id="377" parent="337" name="path">
       <Comment>A &quot;virtual&quot; path of the file; it is unique with filename.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="369" parent="336" name="name">
+    <column id="378" parent="337" name="name">
       <Comment>Yes, it is a filename.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="370" parent="336" name="mime">
+    <column id="379" parent="337" name="mime">
       <Comment>Mime type of the file.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <DefaultExpression>&apos;application/octet-stream&apos;</DefaultExpression>
@@ -1334,617 +1384,657 @@ puff-smith|schema||puff-smith||UPDATE|G</Grants>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="371" parent="336" name="size">
+    <column id="380" parent="337" name="size">
       <Comment>Mime type of the file.</Comment>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="372" parent="336" name="created">
+    <column id="381" parent="337" name="created">
       <Comment>When a file was created.</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="373" parent="336" name="updated">
+    <column id="382" parent="337" name="updated">
       <Comment>When a file is overridden, it got updated timestamp.</Comment>
       <DataType>datetime|0s</DataType>
       <Position>7</Position>
     </column>
-    <column id="374" parent="336" name="ttl">
+    <column id="383" parent="337" name="ttl">
       <Comment>Optional TTL of the file; common work with files could execute cleanup of &quot;dead&quot; files to prevent database bloating.</Comment>
       <DataType>double|0s</DataType>
       <Position>8</Position>
     </column>
-    <column id="375" parent="336" name="native">
+    <column id="384" parent="337" name="native">
       <Comment>Where the file lives one the filesystem.</Comment>
       <DataType>varchar(2048)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>9</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="376" parent="336" name="native_hash">
+    <column id="385" parent="337" name="native_hash">
       <Comment>Hash of native for unique index.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>10</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="377" parent="336" name="user_id">
+    <column id="386" parent="337" name="user_id">
       <Comment>An optional user who created the file.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <Position>11</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="378" parent="336" name="z_file_ibfk_1">
+    <foreign-key id="387" parent="337" name="z_file_ibfk_1">
       <ColNames>user_id</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <index id="379" parent="336" name="z_file_name_unique">
+    <index id="388" parent="337" name="z_file_name_unique">
       <ColNames>path
 name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="380" parent="336" name="z_file_native_unique">
+    <index id="389" parent="337" name="z_file_native_unique">
       <ColNames>native_hash</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="381" parent="336" name="user_id">
+    <index id="390" parent="337" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="382" parent="336" name="PRIMARY">
+    <key id="391" parent="337" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="383" parent="336" name="z_file_name_unique">
+    <key id="392" parent="337" name="z_file_name_unique">
       <ColNames>path
 name</ColNames>
       <UnderlyingIndexName>z_file_name_unique</UnderlyingIndexName>
     </key>
-    <key id="384" parent="336" name="z_file_native_unique">
+    <key id="393" parent="337" name="z_file_native_unique">
       <ColNames>native_hash</ColNames>
       <UnderlyingIndexName>z_file_native_unique</UnderlyingIndexName>
     </key>
-    <column id="385" parent="337" name="id">
+    <column id="394" parent="338" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="386" parent="337" name="service">
+    <column id="395" parent="338" name="service">
       <Comment>Service being called; must be accessible from DI container. Also it must implement IJobService interface.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="387" parent="337" name="params">
+    <column id="396" parent="338" name="params">
       <Comment>JSON encoded parameter DTO.</Comment>
       <DataType>text|0s</DataType>
       <Position>3</Position>
     </column>
-    <column id="388" parent="337" name="result">
+    <column id="397" parent="338" name="result">
       <Comment>JSON encoded result DTO.</Comment>
       <DataType>text|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="389" parent="337" name="total">
+    <column id="398" parent="338" name="total">
       <Comment>Number of items of the job (for example for imports).</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="390" parent="337" name="success">
+    <column id="399" parent="338" name="success">
       <Comment>Number of successful items processed.</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="391" parent="337" name="error">
+    <column id="400" parent="338" name="error">
       <Comment>Number of failed items.</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="392" parent="337" name="progress">
+    <column id="401" parent="338" name="progress">
       <Comment>Percentage of progress (based on total and count).</Comment>
       <DataType>double|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="393" parent="337" name="runtime">
+    <column id="402" parent="338" name="runtime">
       <Comment>How log the job have been running.</Comment>
       <DataType>double|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <column id="394" parent="337" name="performance">
+    <column id="403" parent="338" name="performance">
       <Comment>Runtime per item (computed from runtime and count).</Comment>
       <DataType>double|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
-    <column id="395" parent="337" name="status">
+    <column id="404" parent="338" name="status">
       <Comment>Status code of the job</Comment>
       <DataType>int(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
-    <column id="396" parent="337" name="created">
+    <column id="405" parent="338" name="created">
       <Comment>Timestamp when a job was scheduled (basically also started).</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>12</Position>
     </column>
-    <column id="397" parent="337" name="done">
+    <column id="406" parent="338" name="done">
       <Comment>Timestamp when a job was done (finished); should **not** be used as value for job status check!</Comment>
       <DataType>datetime|0s</DataType>
       <Position>13</Position>
     </column>
-    <column id="398" parent="337" name="user_id">
+    <column id="407" parent="338" name="user_id">
       <Comment>An optional user who created this job.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <Position>14</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="399" parent="337" name="commit">
+    <column id="408" parent="338" name="commit">
       <Comment>When a Human started a job, it could be marked as committed which means a Human made a revision of job state.</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>15</Position>
     </column>
-    <foreign-key id="400" parent="337" name="z_job_ibfk_1">
+    <foreign-key id="409" parent="338" name="z_job_ibfk_1">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <index id="401" parent="337" name="user_id">
+    <index id="410" parent="338" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="402" parent="337" name="PRIMARY">
+    <key id="411" parent="338" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="403" parent="338" name="id">
+    <column id="412" parent="339" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="404" parent="338" name="job_id">
+    <column id="413" parent="339" name="job_id">
       <Comment>Related job to which the lock belongs</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="405" parent="338" name="name">
+    <column id="414" parent="339" name="name">
       <Comment>Lock name</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="406" parent="338" name="active">
+    <column id="415" parent="339" name="active">
       <Comment>Is the lock active?</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="407" parent="338" name="stamp">
+    <column id="416" parent="339" name="stamp">
       <Comment>When a lock has been created (microtime).</Comment>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="408" parent="338" name="z_job_lock_ibfk_1">
+    <foreign-key id="417" parent="339" name="z_job_lock_ibfk_1">
       <ColNames>job_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_job</RefTableName>
     </foreign-key>
-    <index id="409" parent="338" name="job_id">
+    <index id="418" parent="339" name="job_id">
       <ColNames>job_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="410" parent="338" name="PRIMARY">
+    <key id="419" parent="339" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="411" parent="339" name="id">
+    <column id="420" parent="340" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="412" parent="339" name="job_id">
+    <column id="421" parent="340" name="job_id">
       <Comment>Reference to parent job of this log item.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="413" parent="339" name="type">
+    <column id="422" parent="340" name="type">
       <Comment>Log type could be used on a client side to determine error type (for example duplicate key, missing values, ...) to render detailed info of the error. Or to understand the error at all.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="414" parent="339" name="level">
+    <column id="423" parent="340" name="level">
       <Comment>Log level (the weight - for example 0 - notice, 4 - error).</Comment>
       <DataType>int(2)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="415" parent="339" name="item">
+    <column id="424" parent="340" name="item">
       <Comment>JSON encoded source (processed item of a job).</Comment>
       <DataType>text|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="416" parent="339" name="reference">
+    <column id="425" parent="340" name="reference">
       <Comment>Optional reference to the item of log (for example foreign key id).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>6</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="417" parent="339" name="message">
+    <column id="426" parent="340" name="message">
       <Comment>Content of the message</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="418" parent="339" name="stamp">
+    <column id="427" parent="340" name="stamp">
       <Comment>When this log item occurred (microtime).</Comment>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <foreign-key id="419" parent="339" name="z_job_log_ibfk_1">
+    <foreign-key id="428" parent="340" name="z_job_log_ibfk_1">
       <ColNames>job_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_job</RefTableName>
     </foreign-key>
-    <index id="420" parent="339" name="job_id">
+    <index id="429" parent="340" name="job_id">
       <ColNames>job_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="421" parent="339" name="PRIMARY">
+    <key id="430" parent="340" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="422" parent="340" name="id">
+    <column id="431" parent="341" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="423" parent="340" name="type">
+    <column id="432" parent="341" name="type">
       <Comment>Log type (info, warning, ...).</Comment>
       <DataType>varchar(24)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="424" parent="340" name="log">
+    <column id="433" parent="341" name="log">
       <Comment>Some space for the log record.</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="425" parent="340" name="stack">
+    <column id="434" parent="341" name="stack">
       <Comment>Optional log trace (call stack).</Comment>
       <DataType>text|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="426" parent="340" name="stamp">
+    <column id="435" parent="341" name="stamp">
       <Comment>When a log record has been created.</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="427" parent="340" name="trace">
+    <column id="436" parent="341" name="trace">
       <Comment>Trace ID for tracing logs bound together.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="428" parent="340" name="reference">
+    <column id="437" parent="341" name="reference">
       <Comment>Soft reference to a parent log (intentionally not a foreign key to simplify logging itself).</Comment>
       <DataType>varchar(128)|0s</DataType>
       <Position>7</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="429" parent="340" name="microtime">
+    <column id="438" parent="341" name="microtime">
       <Comment>Logs have a timestamp, microtime tracks time in a &quot;request&quot; to make right order of log items.</Comment>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="430" parent="340" name="context">
+    <column id="439" parent="341" name="context">
       <Comment>JSON encoded log context.</Comment>
       <DataType>text|0s</DataType>
       <Position>9</Position>
     </column>
-    <column id="431" parent="340" name="user_id">
+    <column id="440" parent="341" name="user_id">
       <Comment>An optional user who created log item.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <Position>10</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="432" parent="340" name="z_log_ibfk_1">
+    <foreign-key id="441" parent="341" name="z_log_ibfk_1">
       <ColNames>user_id</ColNames>
       <OnDelete>set-null</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <index id="433" parent="340" name="user_id">
+    <index id="442" parent="341" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="434" parent="340" name="PRIMARY">
+    <key id="443" parent="341" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="435" parent="341" name="id">
+    <column id="444" parent="342" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="436" parent="341" name="log_id">
+    <column id="445" parent="342" name="log_id">
       <Comment>Reference to a log record.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="437" parent="341" name="tag_id">
+    <column id="446" parent="342" name="tag_id">
       <Comment>Reference to a tag.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="438" parent="341" name="z_log_tag_ibfk_1">
+    <foreign-key id="447" parent="342" name="z_log_tag_ibfk_1">
       <ColNames>log_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_log</RefTableName>
     </foreign-key>
-    <foreign-key id="439" parent="341" name="z_log_tag_ibfk_2">
+    <foreign-key id="448" parent="342" name="z_log_tag_ibfk_2">
       <ColNames>tag_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_tag</RefTableName>
     </foreign-key>
-    <index id="440" parent="341" name="log_id">
+    <index id="449" parent="342" name="log_id">
       <ColNames>log_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="441" parent="341" name="tag_id">
+    <index id="450" parent="342" name="tag_id">
       <ColNames>tag_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="442" parent="341" name="PRIMARY">
+    <key id="451" parent="342" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="443" parent="342" name="id">
+    <column id="452" parent="343" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="444" parent="342" name="stamp">
+    <column id="453" parent="343" name="name">
+      <Comment>Vendor unique name of the mod.</Comment>
+      <DataType>varchar(128)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="454" parent="343" name="vendor_id">
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <foreign-key id="455" parent="343" name="z_mod_ibfk_1">
+      <ColNames>vendor_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>id</RefColNames>
+      <RefTableName>z_vendor</RefTableName>
+    </foreign-key>
+    <index id="456" parent="343" name="z_mod_name_unique">
+      <ColNames>name
+vendor_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="457" parent="343" name="vendor_id">
+      <ColNames>vendor_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="458" parent="343" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+    </key>
+    <column id="459" parent="344" name="id">
+      <Comment>UUID primary key of the table (full 36 chars).</Comment>
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="460" parent="344" name="stamp">
       <Comment>Microtime (timestamp) of the record</Comment>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="445" parent="342" name="name">
+    <column id="461" parent="344" name="name">
       <Comment>Profiled entry name</Comment>
       <DataType>varchar(1024)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="446" parent="342" name="runtime">
+    <column id="462" parent="344" name="runtime">
       <Comment>Profiled entry runtime</Comment>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="447" parent="342" name="PRIMARY">
+    <key id="463" parent="344" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="448" parent="343" name="id">
+    <column id="464" parent="345" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="449" parent="343" name="code">
+    <column id="465" parent="345" name="code">
       <Comment>Short tag code. Shall be lower-case.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="450" parent="343" name="label">
+    <column id="466" parent="345" name="label">
       <Comment>Tag label; shall be translated.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="451" parent="343" name="group">
+    <column id="467" parent="345" name="group">
       <Comment>Tags could be (optionally) grouped for usage in different parts of the app.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="452" parent="343" name="sort">
+    <column id="468" parent="345" name="sort">
       <Comment>An (optional) stable way, how to sort tags.</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <key id="453" parent="343" name="PRIMARY">
+    <key id="469" parent="345" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="454" parent="344" name="id">
+    <column id="470" parent="346" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="455" parent="344" name="locale">
+    <column id="471" parent="346" name="locale">
       <Comment>Locale ID (cz-CZ, en-Gb, whatever...).</Comment>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="456" parent="344" name="key">
+    <column id="472" parent="346" name="key">
       <Comment>Translation key.</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="457" parent="344" name="hash">
+    <column id="473" parent="346" name="hash">
       <Comment>Hash of a translation key.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="458" parent="344" name="translation">
+    <column id="474" parent="346" name="translation">
       <Comment>The translation of the key.</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="459" parent="344" name="z_translation_hash_unique">
+    <index id="475" parent="346" name="z_translation_hash_unique">
       <ColNames>locale
 hash</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="460" parent="344" name="PRIMARY">
+    <key id="476" parent="346" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="461" parent="344" name="z_translation_hash_unique">
+    <key id="477" parent="346" name="z_translation_hash_unique">
       <ColNames>locale
 hash</ColNames>
       <UnderlyingIndexName>z_translation_hash_unique</UnderlyingIndexName>
     </key>
-    <column id="462" parent="345" name="id">
+    <column id="478" parent="347" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="463" parent="345" name="name">
+    <column id="479" parent="347" name="name">
       <Comment>Arbitrary display name of an user.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="464" parent="345" name="email">
+    <column id="480" parent="347" name="email">
       <Comment>Primary email of an user, also used as a login.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="465" parent="345" name="password">
+    <column id="481" parent="347" name="password">
       <Comment>Hashed password of an user.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="466" parent="345" name="site">
+    <column id="482" parent="347" name="site">
       <Comment>Primary site an user belongs to.</Comment>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="467" parent="345" name="settings">
+    <column id="483" parent="347" name="settings">
       <Comment>Optional settings for the user (like language and so).</Comment>
       <DataType>varchar(2048)|0s</DataType>
       <Position>6</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <key id="468" parent="345" name="PRIMARY">
+    <key id="484" parent="347" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="469" parent="346" name="id">
+    <column id="485" parent="348" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="470" parent="346" name="name">
+    <column id="486" parent="348" name="name">
       <Comment>The name of a vendor.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <index id="471" parent="346" name="z_vendor_name_unique">
+    <index id="487" parent="348" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="472" parent="346" name="PRIMARY">
+    <key id="488" parent="348" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="473" parent="346" name="z_vendor_name_unique">
+    <key id="489" parent="348" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>z_vendor_name_unique</UnderlyingIndexName>
     </key>
