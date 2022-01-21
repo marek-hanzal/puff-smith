@@ -19,6 +19,7 @@ export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children}) => {
 		<CreateTemplate
 			icon={icon}
 			label={label}
+			span={24}
 		>
 			{children}
 		</CreateTemplate>
