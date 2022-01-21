@@ -1,5 +1,6 @@
 export * from "./AtomizerIcon";
 export * from "./BuildIcon";
+export * from "./CoilIcon";
 export * from "./CommonIcon";
 export * from "./DownloadIcon";
 export * from "./FullLogoIcon";

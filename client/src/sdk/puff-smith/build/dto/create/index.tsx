@@ -8,8 +8,6 @@ export interface CreateDto {
 	coil: any | null;
 	cotton: any | null;
 	ohm: any | null;
-	created: any | null;
-	userId: any | null;
 }
 
 export module CreateDto {

@@ -13,7 +13,7 @@ class CreateEndpoint extends AbstractCreateEndpoint {
 	use WireRepositoryTrait;
 	use WireMapperTrait;
 
-	public function create(CreateDto $createDto): WireDto {
+	public function post(CreateDto $createDto): WireDto {
 		return $this->wireMapper->item($this->wireRepository->create($createDto));
 	}
 }
