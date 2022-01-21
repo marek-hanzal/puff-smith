@@ -1,6 +1,6 @@
 import {CreateMenuItem, HomeIcon, MenuDivider} from "@leight-core/leight";
 import {FC} from "react";
-import {IMenuProps, Menu} from "@/puff-smith";
+import {IMenuProps, Menu, WizardIcon} from "@/puff-smith";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
 }
@@ -10,6 +10,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		<MenuDivider/>
 		{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
 		<MenuDivider/>
-		{CreateMenuItem("lab.build.menu", "/lab/build", <HomeIcon/>)}
+		{CreateMenuItem("lab.wizard.menu", "/lab/wizard", <WizardIcon/>)}
 	</Menu>;
 };
