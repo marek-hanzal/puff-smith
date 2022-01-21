@@ -31,7 +31,7 @@ export default withRootLayout(function Run() {
 					});
 				}}
 			>
-				{t("motor.upgrade.run.title")}
+				{t("root.upgrade.run.button")}
 			</Button>}
 		/>
 		<JobTable filter={{
