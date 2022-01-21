@@ -3,7 +3,7 @@ import {ButtonLink, SignInIcon} from "@leight-core/leight";
 import {Image} from "antd";
 import {useTranslation} from "react-i18next";
 import {PublicMenu, PublicPage, withPublicLayout} from "@/puff-smith/site/public";
-import {BulletCard} from "@leight-core/leight/dist";
+import {BulletCard} from "@leight-core/leight";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();

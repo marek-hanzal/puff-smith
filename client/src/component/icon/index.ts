@@ -4,6 +4,7 @@ export * from "./DownloadIcon";
 export * from "./FullLogoIcon";
 export * from "./ImportIcon";
 export * from "./JobIcon";
+export * from "./LabIcon";
 export * from "./LogoIcon";
 export * from "./SettingsIcon";
 export * from "./UpgradeIcon";

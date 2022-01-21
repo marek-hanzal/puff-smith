@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
-import {createQueryClient, useQueryPersistence} from "@leight-core/leight/dist";
+import {createQueryClient, useQueryPersistence} from "@leight-core/leight";
 
 const queryClient = createQueryClient();
 

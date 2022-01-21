@@ -11,7 +11,7 @@ export const NotificationButton: FC<INotificationButtonProps> = () => {
 	const {t} = useTranslation();
 	const notificationContext = useNotificationContext();
 	return (
-		<Tooltip trigger={notificationContext.hasNotifications() ? "hover" : "contextMenu"} title={t("marsh.notifications.tooltip")}>
+		<Tooltip trigger={notificationContext.hasNotifications() ? "hover" : "contextMenu"} title={t("lab.notifications.tooltip")}>
 			<Badge
 				count={notificationContext.count()}
 			>

@@ -6,7 +6,7 @@ import {NotificationButton, UserProfileButton} from "@/puff-smith/site/lab/@modu
 export const Header = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
-			<LinkTo href={"/motor"}>
+			<LinkTo href={"/lab"}>
 				<LogoIcon style={{width: "10em", display: "inline"}}/>
 			</LinkTo>
 		</Col>

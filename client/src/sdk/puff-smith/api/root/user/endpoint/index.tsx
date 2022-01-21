@@ -1,0 +1,344 @@
+import {
+	FC,
+	ReactNode,
+	createContext
+} from "react";
+import {
+	EntityContext,
+	EntityProvider,
+	Form,
+	IEntityContext,
+	IEntityProviderProps,
+	IFormProps,
+	IPageProps,
+	IQueryOptions,
+	IQueryProps,
+	IQueryResult,
+	IQuerySourceSelectProps,
+	ISourceContext,
+	ISourceContextProviderProps,
+	ITableProps,
+	IToOptionMapper,
+	Page,
+	Query,
+	QuerySourceSelect,
+	SourceContextProvider,
+	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
+	useContext,
+	useOptionalContext,
+	useParams,
+	useSourceContext
+} from "@leight-core/leight";
+import {useQueryClient} from "react-query";
+
+export type ICreateQueryParams = void;
+
+
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Create");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Patch");
+
+export type IRolesQueryParams = void;
+
+
+export const useRolesQuery = createPostQuery<IRolesQueryParams, import("@/sdk/edde/query/dto/index").Query, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/edde/role/dto/index").RoleDto>>("PuffSmith.Root.User.Roles");
+export const useRolesQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Root.User.Roles"])
+}
+
+export type ISitesQueryParams = void;
+
+
+export const useSitesQuery = createPostQuery<ISitesQueryParams, import("@/sdk/edde/query/dto/index").Query, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto>>("PuffSmith.Root.User.Sites");
+export const useSitesQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Root.User.Sites"])
+}
+
+export type IUserQueryParams = {
+	userId: string;
+}
+
+
+export const useUserQuery = createGetQuery<IUserQueryParams, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.User");
+export const useUserQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Root.User.User"])
+}
+
+export type IUsersQueryParams = void;
+
+
+export const useUsersQuery = createPostQuery<IUsersQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/edde/bridge/user/index").UserDto>>("PuffSmith.Root.User.Users");
+export const useUsersQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Root.User.Users"])
+}
+
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
+}
+
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>
+		useMutation={useCreateMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const UserContext = createContext(null as unknown as IEntityContext<import("@/sdk/edde/bridge/user/index").UserDto>);
+
+export const useUserContext = (): IEntityContext<import("@/sdk/edde/bridge/user/index").UserDto> => useContext(UserContext, "UserContext");
+
+export const useOptionalUserContext = () => useOptionalContext<IEntityContext<import("@/sdk/edde/bridge/user/index").UserDto>>(UserContext as any);
+
+export interface IUserProvider extends IEntityProviderProps<import("@/sdk/edde/bridge/user/index").UserDto> {
+}
+
+export const UserProvider: FC<IUserProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <UserContext.Provider value={entityContext}>
+				{children}
+			</UserContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchUserProps extends Partial<IQueryProps<IUserQueryParams, void, import("@/sdk/edde/bridge/user/index").UserDto>> {
+	query: IUserQueryParams;
+}
+
+export const FetchUser: FC<IFetchUserProps> = ({query, ...props}) => <Query<IUserQueryParams, void, import("@/sdk/edde/bridge/user/index").UserDto>
+	useQuery={useUserQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalUserContext()}
+	{...props}
+/>;
+
+export interface IUserPageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/edde/bridge/user/index").UserDto) => ReactNode);
+}
+
+export const UserPage: FC<IUserPageProps> = ({children, ...props}) => {
+	const {userId} = useParams();
+	return <UserProvider>
+		<Page {...props}>
+			<FetchUser
+				query={{userId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchUser>
+		</Page>
+	</UserProvider>;
+};
+
+export const useRolesSource = () => useSourceContext<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined>()
+
+export interface IRolesSourceContext extends ISourceContext<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined> {
+}
+
+export interface IRolesSourceProps extends Partial<ISourceContextProviderProps<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined>> {
+}
+
+export const RolesSource: FC<IRolesSourceProps> = ({children, ...props}) => {
+	return <SourceContextProvider<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined>
+		useQuery={useRolesQuery}
+		{...props}
+	>
+		{children}
+	</SourceContextProvider>;
+}
+
+export interface IRolesBaseTableProps extends ITableProps<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined> {
+}
+
+export const RolesBaseTable: FC<IRolesBaseTableProps> = props => {
+	return <Table<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined>
+		{...props}
+	/>
+}
+
+export interface IRolesSourceTableProps extends IRolesBaseTableProps {
+	source?: IRolesSourceProps;
+	defaultFilter?: void | undefined;
+	defaultOrderBy?: void | undefined;
+	defaultQuery?: IRolesQueryParams;
+	filter?: void | undefined;
+	orderBy?: void | undefined;
+	query?: IRolesQueryParams;
+	options?: IQueryOptions<IQueryResult<import("@/sdk/edde/role/dto/index").RoleDto>>;
+}
+
+export const RolesSourceTable: FC<IRolesSourceTableProps> = ({source, defaultFilter, defaultOrderBy, defaultQuery, filter, orderBy, query, options, ...props}) => {
+	return <RolesSource
+		defaultFilter={defaultFilter}
+		defaultOrderBy={defaultOrderBy}
+		defaultQuery={defaultQuery}
+		filter={filter}
+		orderBy={orderBy}
+		query={query}
+		options={options}
+		{...source}
+	>
+		<RolesBaseTable {...props}/>
+	</RolesSource>
+}
+
+export interface IRolesSourceSelectProps extends Partial<IQuerySourceSelectProps<import("@/sdk/edde/role/dto/index").RoleDto>> {
+	toOption: IToOptionMapper<import("@/sdk/edde/role/dto/index").RoleDto>;
+	source?: IRolesSourceProps;
+}
+
+export const RolesSourceSelect: FC<IRolesSourceSelectProps> = ({source, ...props}) => {
+	return <RolesSource defaultSize={100} {...source}>
+		<QuerySourceSelect<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined> {...props}/>
+	</RolesSource>;
+};
+
+export const useSitesSource = () => useSourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>()
+
+export interface ISitesSourceContext extends ISourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined> {
+}
+
+export interface ISitesSourceProps extends Partial<ISourceContextProviderProps<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>> {
+}
+
+export const SitesSource: FC<ISitesSourceProps> = ({children, ...props}) => {
+	return <SourceContextProvider<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>
+		useQuery={useSitesQuery}
+		{...props}
+	>
+		{children}
+	</SourceContextProvider>;
+}
+
+export interface ISitesBaseTableProps extends ITableProps<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined> {
+}
+
+export const SitesBaseTable: FC<ISitesBaseTableProps> = props => {
+	return <Table<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>
+		{...props}
+	/>
+}
+
+export interface ISitesSourceTableProps extends ISitesBaseTableProps {
+	source?: ISitesSourceProps;
+	defaultFilter?: void | undefined;
+	defaultOrderBy?: void | undefined;
+	defaultQuery?: ISitesQueryParams;
+	filter?: void | undefined;
+	orderBy?: void | undefined;
+	query?: ISitesQueryParams;
+	options?: IQueryOptions<IQueryResult<import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto>>;
+}
+
+export const SitesSourceTable: FC<ISitesSourceTableProps> = ({source, defaultFilter, defaultOrderBy, defaultQuery, filter, orderBy, query, options, ...props}) => {
+	return <SitesSource
+		defaultFilter={defaultFilter}
+		defaultOrderBy={defaultOrderBy}
+		defaultQuery={defaultQuery}
+		filter={filter}
+		orderBy={orderBy}
+		query={query}
+		options={options}
+		{...source}
+	>
+		<SitesBaseTable {...props}/>
+	</SitesSource>
+}
+
+export interface ISitesSourceSelectProps extends Partial<IQuerySourceSelectProps<import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto>> {
+	toOption: IToOptionMapper<import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto>;
+	source?: ISitesSourceProps;
+}
+
+export const SitesSourceSelect: FC<ISitesSourceSelectProps> = ({source, ...props}) => {
+	return <SitesSource defaultSize={100} {...source}>
+		<QuerySourceSelect<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined> {...props}/>
+	</SitesSource>;
+};
+
+export const useUsersSource = () => useSourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>()
+
+export interface IUsersSourceContext extends ISourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {
+}
+
+export interface IUsersSourceProps extends Partial<ISourceContextProviderProps<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>> {
+}
+
+export const UsersSource: FC<IUsersSourceProps> = ({children, ...props}) => {
+	return <SourceContextProvider<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>
+		useQuery={useUsersQuery}
+		{...props}
+	>
+		{children}
+	</SourceContextProvider>;
+}
+
+export interface IUsersBaseTableProps extends ITableProps<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {
+}
+
+export const UsersBaseTable: FC<IUsersBaseTableProps> = props => {
+	return <Table<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>
+		{...props}
+	/>
+}
+
+export interface IUsersSourceTableProps extends IUsersBaseTableProps {
+	source?: IUsersSourceProps;
+	defaultFilter?: import("@/sdk/puff-smith/user/dto/index").UserFilterDto;
+	defaultOrderBy?: import("@/sdk/puff-smith/user/dto/index").UserOrderByDto;
+	defaultQuery?: IUsersQueryParams;
+	filter?: import("@/sdk/puff-smith/user/dto/index").UserFilterDto;
+	orderBy?: import("@/sdk/puff-smith/user/dto/index").UserOrderByDto;
+	query?: IUsersQueryParams;
+	options?: IQueryOptions<IQueryResult<import("@/sdk/edde/bridge/user/index").UserDto>>;
+}
+
+export const UsersSourceTable: FC<IUsersSourceTableProps> = ({source, defaultFilter, defaultOrderBy, defaultQuery, filter, orderBy, query, options, ...props}) => {
+	return <UsersSource
+		defaultFilter={defaultFilter}
+		defaultOrderBy={defaultOrderBy}
+		defaultQuery={defaultQuery}
+		filter={filter}
+		orderBy={orderBy}
+		query={query}
+		options={options}
+		{...source}
+	>
+		<UsersBaseTable {...props}/>
+	</UsersSource>
+}
+
+export interface IUsersSourceSelectProps extends Partial<IQuerySourceSelectProps<import("@/sdk/edde/bridge/user/index").UserDto>> {
+	toOption: IToOptionMapper<import("@/sdk/edde/bridge/user/index").UserDto>;
+	source?: IUsersSourceProps;
+}
+
+export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({source, ...props}) => {
+	return <UsersSource defaultSize={100} {...source}>
+		<QuerySourceSelect<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {...props}/>
+	</UsersSource>;
+};

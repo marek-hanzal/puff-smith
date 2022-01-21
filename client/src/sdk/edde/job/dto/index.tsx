@@ -23,3 +23,27 @@ export interface JobDto<TResult = void | undefined> {
 export module JobDto {
 
 }
+
+
+export interface JobOrderByDto {
+
+}
+
+export module JobOrderByDto {
+
+}
+
+
+export interface JobFilterDto {
+	userId?: string | undefined;
+	services?: string[] | undefined;
+	params?: string | undefined;
+	status?: number[] | undefined;
+	commit?: boolean | undefined;
+	id?: string | undefined;
+	fulltext?: string | undefined;
+}
+
+export module JobFilterDto {
+
+}

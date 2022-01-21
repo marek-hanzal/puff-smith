@@ -16,10 +16,7 @@ final class UserDefault extends CommonMigration {
 				'comment' => 'Hashed password of an user.',
 				'null'    => true,
 			])
-			->addStringColumn('site', 32, [
-				'comment' => 'Primary site an user belongs to.',
-				'null'    => true,
-			])
+			->addStringColumn('site', 32, ['comment' => 'Primary site an user belongs to.'])
 			->addStringColumn('settings', 2048, [
 				'comment' => 'Optional settings for the user (like language and so).',
 				'null'    => true,
@@ -35,6 +32,7 @@ final class UserDefault extends CommonMigration {
 			[
 				'name'  => 'upgrade',
 				'email' => 'upgrade',
+				'site'  => 'root',
 			],
 		]);
 	}

@@ -1900,6 +1900,7 @@ hash</ColNames>
     <column id="465" parent="345" name="site">
       <Comment>Primary site an user belongs to.</Comment>
       <DataType>varchar(32)|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
