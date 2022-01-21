@@ -7,6 +7,7 @@ final class BuildDefault extends CommonMigration {
 	public function change(): void {
 		$this
 			->createUuidTable('z_build', ['comment' => 'Table with user builds. This is almost the most interesting part of the app.'])
+			->addStringColumn('name', 128, ['comment' => 'Human readable build name; it will be later user to select it for vape experience.'])
 			->addUuidForeignColumn('atomizer', 'z_atomizer', ['comment' => 'Used atomizer.'])
 			->addUuidForeignColumn('coil', 'z_coil', ['comment' => 'Used coil.'])
 			->addUuidForeignColumn('cotton', 'z_cotton', ['comment' => 'Used cotton.'])
@@ -29,6 +30,10 @@ final class BuildDefault extends CommonMigration {
 			])
 			->addColumn('created', 'double', ['comment' => 'Microtime - time of the build.'])
 			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Owner of the build.'])
+			->addUniqueIndex([
+				'name',
+				'user_id',
+			], 'name')
 			->save();
 	}
 }
