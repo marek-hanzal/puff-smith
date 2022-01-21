@@ -11,6 +11,11 @@ class ModImportDto extends AbstractDto {
 	 */
 	public string $name;
 	/**
+	 * @var string|null
+	 * @description maximum power a mod can supplement
+	 */
+	public ?string $power;
+	/**
 	 * @var string
 	 */
 	public string $vendor;
