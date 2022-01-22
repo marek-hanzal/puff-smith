@@ -22,10 +22,11 @@ export const CoilTooltip: FC<ICoilTooltipProps> = props => {
 			{drawerContext => <CreateCoilForm
 				onSuccess={({response}) => {
 					message.success(t("lab.coil.create.success", {data: response}));
-					coilsQueryInvalidate();
-					drawerContext.setVisible(false);
-					formContext.setValues({
-						coilId: response.id,
+					coilsQueryInvalidate().then(() => {
+						drawerContext.setVisible(false);
+						formContext.setValues({
+							coilId: response.id,
+						});
 					});
 				}}
 			/>}

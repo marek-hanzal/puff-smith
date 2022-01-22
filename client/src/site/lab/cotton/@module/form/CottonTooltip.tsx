@@ -22,10 +22,11 @@ export const CottonTooltip: FC<ICottonTooltipProps> = props => {
 			{drawerContext => <CreateCottonForm
 				onSuccess={({response}) => {
 					message.success(t("lab.cotton.create.success", {data: response}));
-					cottonsQueryInvalidate();
-					drawerContext.setVisible(false);
-					formContext.setValues({
-						cottonId: response.id,
+					cottonsQueryInvalidate().then(() => {
+						drawerContext.setVisible(false);
+						formContext.setValues({
+							cottonId: response.id,
+						});
 					});
 				}}
 			/>}
