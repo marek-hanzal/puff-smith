@@ -1,5 +1,5 @@
-import {MenuUnfoldOutlined} from "@ant-design/icons";
+import {ApartmentOutlined} from "@ant-design/icons";
 import {IIconProps} from "@leight-core/leight";
 import {FC} from "react";
 
-export const VendorIcon: FC<IIconProps> = MenuUnfoldOutlined;
+export const VendorIcon: FC<IIconProps> = ApartmentOutlined;

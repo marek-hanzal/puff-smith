@@ -7,7 +7,7 @@ export const Header = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
 			<LinkTo href={"/lab"}>
-				<LogoIcon style={{width: "10em", display: "inline"}}/>
+				<LogoIcon style={{width: "7.5em", display: "inline"}}/>
 			</LinkTo>
 		</Col>
 		<Col span={12}>
