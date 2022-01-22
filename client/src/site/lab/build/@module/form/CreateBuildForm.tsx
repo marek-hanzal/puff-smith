@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Card, Divider, InputNumber, message, Slider} from "antd";
@@ -32,7 +32,9 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 			<FormItem
 				field={'description'}
 				labels={['lab.build.description.label']}
-			/>
+			>
+				<TextArea autoSize={{minRows: 4, maxRows: 4}}/>
+			</FormItem>
 			<FormItem
 				field={'atomizerId'}
 				labels={['lab.build.atomizerId.label']}
@@ -40,6 +42,22 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				help={<AtomizerTooltip/>}
 			>
 				<AtomizerSelect/>
+			</FormItem>
+			<FormItem
+				field={'coilId'}
+				labels={['lab.build.coilId.label']}
+				required
+				help={<CoilTooltip/>}
+			>
+				<CoilSelect/>
+			</FormItem>
+			<FormItem
+				field={'cottonId'}
+				labels={['lab.build.cottonId.label']}
+				required
+				help={<CottonTooltip/>}
+			>
+				<CottonSelect/>
 			</FormItem>
 			<FormItem
 				field={'ohm'}
@@ -50,15 +68,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={t('lab.build.coil.title')}>
-			<FormItem
-				field={'coilId'}
-				labels={['lab.build.coilId.label']}
-				required
-				help={<CoilTooltip/>}
-			>
-				<CoilSelect/>
-			</FormItem>
+		<Card title={t('lab.build.advanced.title')}>
 			<FormItem
 				field={'coils'}
 				labels={['lab.build.coils.label']}
@@ -95,17 +105,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 					min={-2}
 					max={2}
 				/>
-			</FormItem>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.build.cotton.title')}>
-			<FormItem
-				field={'cottonId'}
-				labels={['lab.build.cottonId.label']}
-				required
-				help={<CottonTooltip/>}
-			>
-				<CottonSelect/>
 			</FormItem>
 			<FormItem
 				field={'cottonOffset'}
