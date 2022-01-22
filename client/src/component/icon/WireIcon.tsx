@@ -1,5 +1,5 @@
-import {SendOutlined} from "@ant-design/icons";
+import {MenuOutlined} from "@ant-design/icons";
 import {IIconProps} from "@leight-core/leight";
 import {FC} from "react";
 
-export const WireIcon: FC<IIconProps> = SendOutlined;
+export const WireIcon: FC<IIconProps> = MenuOutlined;

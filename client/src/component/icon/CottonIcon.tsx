@@ -1,5 +1,5 @@
-import {MenuUnfoldOutlined} from "@ant-design/icons";
+import {ForkOutlined} from "@ant-design/icons";
 import {IIconProps} from "@leight-core/leight";
 import {FC} from "react";
 
-export const CottonIcon: FC<IIconProps> = MenuUnfoldOutlined;
+export const CottonIcon: FC<IIconProps> = ForkOutlined;
