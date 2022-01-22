@@ -19,6 +19,8 @@ class LiquidImport extends AbstractImporter {
 	public function handle($item) {
 		return $this->liquidRepository->create($this->dtoService->fromArray(CreateDto::class, [
 			'name'        => $item->name,
+			'pg'          => (int)$item->pg,
+			'vg'          => (int)$item->vg,
 			'description' => $item->description,
 			'vendorId'    => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]));
