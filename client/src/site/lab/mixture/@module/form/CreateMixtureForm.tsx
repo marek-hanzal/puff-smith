@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-export interface ICreateMixtureFormProps {
+export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps>{
 
 }
 
