@@ -12,6 +12,8 @@ final class LiquidDefault extends CommonMigration {
 				'comment' => 'Optional liquid description.',
 				'null'    => true,
 			])
+			->addColumn('pg', 'integer', ['comment' => 'Amount of PG in a liquid (percentage).'])
+			->addColumn('vg', 'integer', ['comment' => 'Amount of VG in a liquid (percentage).'])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Vendor of a wire.'])
 			->addUniqueIndex([
 				'name',

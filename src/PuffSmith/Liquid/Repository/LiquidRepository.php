@@ -15,6 +15,8 @@ class LiquidRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name'        => $createDto->name,
+			'pg'          => $createDto->pg,
+			'vg'          => $createDto->vg,
 			'description' => $createDto->description,
 			'vendor_id'   => $createDto->vendorId,
 		]);

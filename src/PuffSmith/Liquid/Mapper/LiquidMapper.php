@@ -15,6 +15,8 @@ class LiquidMapper extends AbstractMapper {
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(LiquidDto::class, [
 			'id'          => $item->id,
+			'pg'          => $item->pg,
+			'vg'          => $item->vg,
 			'name'        => $item->name,
 			'description' => $item->description,
 			'vendorId'    => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
