@@ -3,22 +3,30 @@ import {FC} from "react";
 import {CoilInline, CoilOffset} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline, CottonOffset} from "@/puff-smith/site/lab/cotton";
-import {toLocalDateTime} from "@leight-core/leight";
+import {Preview, toLocalDateTime} from "@leight-core/leight";
 import dayjs from "dayjs";
+import {Card} from "antd";
+import {useTranslation} from "react-i18next";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
 
 export const BuildTable: FC<IBuildTableProps> = props => {
+	const {t} = useTranslation();
 	return <BuildsSourceTable
-		scroll={{x: 2000}}
+		expandedRowRender={build => <Card title={t('lab.build.table.detail')}>
+			<Preview translation={"lab.build.table"}>
+				{{
+					"coilOffset": <CoilOffset coilOffset={build.coilOffset}/>,
+					"cottonOffset": <CottonOffset cottonOffset={build.cottonOffset}/>,
+					"coils": build.coils,
+					"created": toLocalDateTime(dayjs.unix(build.created)),
+				}}
+			</Preview>
+		</Card>}
 		{...props}
 	>
 		{({column}) => [
-			column({
-				key: "id",
-				width: 0,
-			}),
 			column({
 				key: "name",
 				dataIndex: "name",
@@ -48,31 +56,6 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				dataIndex: "ohm",
 				title: "lab.build.table.ohm",
 				render: (_, build) => build.ohm.toFixed(2) + 'ohm',
-				width: 140,
-			}),
-			column({
-				key: "coilOffset",
-				title: "lab.build.table.coilOffset",
-				render: (_, build) => <CoilOffset coilOffset={build.coilOffset}/>,
-				width: 200,
-			}),
-			column({
-				key: "cottonOffset",
-				title: "lab.build.table.cottonOffset",
-				render: (_, build) => <CottonOffset cottonOffset={build.cottonOffset}/>,
-				width: 200,
-			}),
-			column({
-				key: "created",
-				dataIndex: "created",
-				title: "lab.build.table.created",
-				width: 180,
-				render: (_, build) => toLocalDateTime(dayjs.unix(build.created)),
-			}),
-			column({
-				key: "coils",
-				title: "lab.build.table.coils",
-				render: (_, build) => build.coils,
 			}),
 		]}
 	</BuildsSourceTable>

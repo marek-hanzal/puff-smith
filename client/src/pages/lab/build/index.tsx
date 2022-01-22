@@ -3,7 +3,7 @@ import {Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
 import {Card, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {BuildListButton} from "@/puff-smith/site/lab/build";
+import {BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
 import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
 
 export default withLabLayout(function Index() {
@@ -25,8 +25,10 @@ export default withLabLayout(function Index() {
 					<Divider/>
 				</>
 			}
+			span={24}
 		>
-			<Card title={t('lab.build.latest.title')}>
+			<Card title={t('lab.build.latest.title')} extra={<BuildListButton size={'small'} icon={undefined} title={'lab.build.button.all.list'}/>}>
+				<LatestBuildTable/>
 			</Card>
 		</Template>
 	</LabPage>;
