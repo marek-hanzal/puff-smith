@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
-import {DrawerContext, useFormContext} from "@leight-core/leight/dist";
+import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 import {useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";

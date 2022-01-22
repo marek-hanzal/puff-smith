@@ -2,7 +2,7 @@ import {CoilIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {DrawerContext, useFormContext} from "@leight-core/leight/dist";
+import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {message} from "antd";
 

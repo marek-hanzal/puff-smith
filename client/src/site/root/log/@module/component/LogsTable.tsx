@@ -5,7 +5,6 @@ import {QuickMenu, toLocalDateTime} from "@leight-core/leight";
 import {Button, Card, Menu, Tag, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import ReactMarkdown from "react-markdown";
 import {ILogsSourceTableProps, LogsSourceTable} from "@/sdk/edde/api/root/log/endpoint";
 
 export interface ILogsTableProps extends Partial<ILogsSourceTableProps> {
@@ -17,9 +16,9 @@ export const LogsTable: FC<ILogsTableProps> = props => {
 		scroll={{x: 2200}}
 		expandable={{
 			expandedRowRender: item => (
-				<ReactMarkdown>
-					{"```\n" + item.stack!! + "\n```"}
-				</ReactMarkdown>
+				<pre>
+					{item.stack}
+				</pre>
 			),
 			rowExpandable: item => !!item.stack
 		}}

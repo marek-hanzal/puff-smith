@@ -2,7 +2,7 @@ import {FC} from "react";
 import {FormTooltip, IFormTooltipProps, WireIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
-import {DrawerContext, useFormContext} from "@leight-core/leight/dist";
+import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {CreateWireForm} from "@/puff-smith/site/lab/wire";
 import {message} from "antd";
 

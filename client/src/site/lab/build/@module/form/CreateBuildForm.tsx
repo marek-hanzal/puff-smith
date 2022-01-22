@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, Slider} from "antd";
@@ -65,7 +65,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				min={1}
 				max={4}
 				step={null}
-				defaultValue={1}
 			/>
 		</FormItem>
 		<FormItem
