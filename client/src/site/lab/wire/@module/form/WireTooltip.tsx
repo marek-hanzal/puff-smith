@@ -22,10 +22,11 @@ export const WireTooltip: FC<IWireTooltipProps> = props => {
 			{drawerContext => <CreateWireForm
 				onSuccess={({response}) => {
 					message.success(t("lab.wire.create.success", {data: response}));
-					wiresQueryInvalidate();
-					drawerContext.setVisible(false);
-					formContext.setValues({
-						wireId: response.id,
+					wiresQueryInvalidate().then(() => {
+						drawerContext.setVisible(false);
+						formContext.setValues({
+							wireId: response.id,
+						});
 					});
 				}}
 			/>}

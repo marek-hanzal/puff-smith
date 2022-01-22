@@ -22,10 +22,11 @@ export const VendorTooltip: FC<IVendorTooltipProps> = props => {
 			{drawerContext => <CreateVendorForm
 				onSuccess={({response}) => {
 					message.success(t("lab.vendor.create.success", {data: response}));
-					vendorsQueryInvalidate();
-					drawerContext.setVisible(false);
-					formContext.setValues({
-						vendorId: response.id,
+					vendorsQueryInvalidate().then(() => {
+						drawerContext.setVisible(false);
+						formContext.setValues({
+							vendorId: response.id,
+						});
 					});
 				}}
 			/>}

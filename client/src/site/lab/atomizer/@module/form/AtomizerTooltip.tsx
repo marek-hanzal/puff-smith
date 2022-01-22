@@ -22,10 +22,11 @@ export const AtomizerTooltip: FC<IAtomizerTooltipProps> = props => {
 			{drawerContext => <CreateAtomizerForm
 				onSuccess={({response}) => {
 					message.success(t("lab.atomizer.create.success", {data: response}));
-					atomizersQueryInvalidate();
-					drawerContext.setVisible(false);
-					formContext.setValues({
-						atomizerId: response.id,
+					atomizersQueryInvalidate().then(() => {
+						drawerContext.setVisible(false);
+						formContext.setValues({
+							atomizerId: response.id,
+						});
 					});
 				}}
 			/>}
