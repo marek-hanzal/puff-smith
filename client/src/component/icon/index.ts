@@ -11,6 +11,8 @@ export * from "./LabIcon";
 export * from "./LiquidIcon";
 export * from "./LogoIcon";
 export * from "./SettingsIcon";
+export * from "./SteepIcon";
+export * from "./ToolIcon";
 export * from "./UpgradeIcon";
 export * from "./UserIcon";
 export * from "./VapeIcon";
