@@ -19,6 +19,5 @@ export const CoilOffset: FC<ICoilOffsetProps> = ({coilOffset}) => {
 		min={-2}
 		max={2}
 		value={coilOffset}
-		disabled
 	/>
 }

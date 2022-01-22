@@ -19,6 +19,5 @@ export const CottonOffset: FC<ICottonOffsetProps> = ({cottonOffset}) => {
 		min={-2}
 		max={2}
 		value={cottonOffset}
-		disabled
 	/>
 }
