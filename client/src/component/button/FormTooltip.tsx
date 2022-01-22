@@ -1,6 +1,6 @@
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
-import {CreateTemplate, DrawerButton} from "@leight-core/leight/dist";
+import {CreateTemplate, DrawerButton} from "@leight-core/leight";
 import {PlusOutlined} from "@ant-design/icons";
 
 export interface IFormTooltipProps {

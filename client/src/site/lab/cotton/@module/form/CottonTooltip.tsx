@@ -2,7 +2,7 @@ import {CottonIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useCottonsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
-import {DrawerContext, useFormContext} from "@leight-core/leight/dist";
+import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {CreateCottonForm} from "@/puff-smith/site/lab/cotton";
 import {message} from "antd";
 

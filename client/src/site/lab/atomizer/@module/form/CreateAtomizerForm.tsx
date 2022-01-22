@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {Divider} from "antd";
 

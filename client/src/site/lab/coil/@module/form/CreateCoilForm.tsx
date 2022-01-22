@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {Divider, InputNumber} from "antd";
 import {useTranslation} from "react-i18next";

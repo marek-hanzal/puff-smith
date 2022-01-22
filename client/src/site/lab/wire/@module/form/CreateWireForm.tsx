@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {Divider, InputNumber} from "antd";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 

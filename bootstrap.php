@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Cache\Adapter\Void\VoidCachePool;
 use Edde\File\FileService;
 use Edde\Http\ILinkFilter;
 use Edde\Job\CliJobExecutor;
@@ -12,6 +13,7 @@ use Edde\User\Mapper\IUserMapper;
 use Phinx\Config\Config;
 use Phinx\Config\ConfigInterface;
 use Psr\Container\ContainerInterface;
+use Psr\SimpleCache\CacheInterface;
 use PuffSmith\Http\LinkFilter;
 use PuffSmith\Session\SessionMapper;
 use PuffSmith\User\Mapper\CurrentUserMapper;
@@ -41,6 +43,9 @@ return SlimApp::create(
 		},
 		ISessionMapper::class          => function (ContainerInterface $container) {
 			return $container->get(SessionMapper::class);
+		},
+		CacheInterface::class          => function () {
+			return new VoidCachePool();
 		},
 		//		CacheInterface::class          => function (ContainerInterface $container) {
 		//			return new VoidCachePool();
