@@ -19,10 +19,6 @@ final class MixtureDefault extends CommonMigration {
 			->addColumn('pg', 'integer', ['comment' => 'PG percentage'])
 			->addColumn('vg', 'integer', ['comment' => 'VG percentage'])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Vendor of a base.'])
-			->addUniqueIndex([
-				'name',
-				'vendor_id',
-			], 'name')
 			->save();
 
 		$this
@@ -51,5 +47,6 @@ final class MixtureDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/boosters.xlsx');
+		$this->importExcel(__DIR__ . '/fixtures/bases.xlsx');
 	}
 }
