@@ -19,10 +19,10 @@ export module AtomizerFilterDto {
 
 
 export interface AtomizerDto {
-	id: any | null;
-	name: any | null;
-	vendorId: any | null;
-	vendor: any | null;
+	id: string;
+	name: string;
+	vendorId: string;
+	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 }
 
 export module AtomizerDto {

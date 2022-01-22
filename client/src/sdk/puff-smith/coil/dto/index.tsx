@@ -1,3 +1,17 @@
+export interface CoilDto {
+	id: string;
+	wraps: number;
+	code: string;
+	ohm: number;
+	wireId: string;
+	wire: import("@/sdk/puff-smith/wire/dto/index").WireDto;
+}
+
+export module CoilDto {
+
+}
+
+
 export interface CoilOrderByDto {
 
 }
@@ -13,19 +27,5 @@ export interface CoilFilterDto {
 }
 
 export module CoilFilterDto {
-
-}
-
-
-export interface CoilDto {
-	id: string;
-	wraps: number;
-	code: string;
-	ohm: number;
-	wireId: string;
-	wire: import("@/sdk/puff-smith/wire/dto/index").WireDto;
-}
-
-export module CoilDto {
 
 }

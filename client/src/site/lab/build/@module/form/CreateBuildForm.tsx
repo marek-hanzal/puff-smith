@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
-import {Card, Divider, InputNumber, Slider} from "antd";
+import {Card, Divider, InputNumber, message, Slider} from "antd";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 
@@ -15,8 +15,15 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 	return <CreateDefaultForm
 		toForm={() => ({
 			coils: 1,
-			coil: 0,
-			cotton: 0,
+			coilOffset: 0,
+			cottonOffset: 0,
+		})}
+		onSuccess={({navigate, response}) => {
+			message.success(t("lab.build.created.message", {data: response}));
+			navigate("/lab/build/list");
+		}}
+		toError={({error}) => ({
+			"Duplicate entry [z_build_name_unique] of [z_build].": {id: ["name"], error},
 		})}
 		{...props}
 	>
