@@ -18,12 +18,12 @@ export module CoilFilterDto {
 
 
 export interface CoilDto {
-	id: any | null;
-	wraps: any | null;
-	code: any | null;
-	ohm: any | null;
-	wireId: any | null;
-	wire: any | null;
+	id: string;
+	wraps: number;
+	code: string;
+	ohm: number;
+	wireId: string;
+	wire: import("@/sdk/puff-smith/wire/dto/index").WireDto;
 }
 
 export module CoilDto {

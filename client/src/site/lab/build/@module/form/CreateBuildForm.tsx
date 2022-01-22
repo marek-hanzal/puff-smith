@@ -20,8 +20,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 		})}
 		{...props}
 	>
-		{/*<Tabs>*/}
-		{/*	<Tabs.TabPane key={'common'} tab={t('lab.build.common.title')}>*/}
 		<FormItem field={'name'} labels={['lab.build.name.label']} tooltip={t('lab.build.name.label.tooltip')} required/>
 		<FormItem
 			field={'description'}
@@ -42,8 +40,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 		>
 			<InputNumber style={{width: '100%'}} min={0} max={4}/>
 		</FormItem>
-		{/*</Tabs.TabPane>*/}
-		{/*<Tabs.TabPane key={'coil'} tab={t('lab.build.coil.title')}>*/}
+		<Divider/>
 		<FormItem
 			field={'coilId'}
 			labels={['lab.build.coilId.label']}
@@ -90,8 +87,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				max={2}
 			/>
 		</FormItem>
-		{/*</Tabs.TabPane>*/}
-		{/*<Tabs.TabPane key={'cotton'} tab={t('lab.build.cotton.title')}>*/}
+		<Divider/>
 		<FormItem
 			field={'cottonId'}
 			labels={['lab.build.cottonId.label']}
@@ -119,8 +115,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				max={2}
 			/>
 		</FormItem>
-		{/*</Tabs.TabPane>*/}
-		{/*</Tabs>*/}
 		<Divider/>
 		<Centered>
 			<Submit label={'lab.build.create.submit'}/>

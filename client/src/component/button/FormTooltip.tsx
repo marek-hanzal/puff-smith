@@ -12,6 +12,7 @@ export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children}) => {
 	const {t} = useTranslation();
 	return <DrawerButton
 		type={'link'}
+		size={'small'}
 		icon={<PlusOutlined/>}
 		title={label + '.tooltip.create'}
 		width={600}
