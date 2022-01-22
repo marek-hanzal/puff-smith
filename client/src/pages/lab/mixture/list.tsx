@@ -1,17 +1,17 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildCreateButton, BuildTable} from "@/puff-smith/site/lab/build";
+import {MixtureCreateButton, MixtureTable} from "@/puff-smith/site/lab/mixture";
 
 export default withLabLayout(function List() {
 	return <LabPage
-		name={"lab.build.list"}
-		selected={['/lab/build']}
+		name={"lab.mixture.list"}
+		selected={['/lab/mixture']}
 		card={{
 			extra: <>
-				<BuildCreateButton/>
+				<MixtureCreateButton/>
 			</>
 		}}
 	>
 		<LabMenu/>
-		<BuildTable/>
+		<MixtureTable/>
 	</LabPage>;
 });

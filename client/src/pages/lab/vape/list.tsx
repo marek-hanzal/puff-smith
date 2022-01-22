@@ -1,17 +1,17 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildCreateButton, BuildTable} from "@/puff-smith/site/lab/build";
+import {VapeCreateButton, VapeTable} from "@/puff-smith/site/lab/vape";
 
 export default withLabLayout(function List() {
 	return <LabPage
-		name={"lab.build.list"}
-		selected={['/lab/build']}
+		name={"lab.vape.list"}
+		selected={['/lab/vape']}
 		card={{
 			extra: <>
-				<BuildCreateButton/>
+				<VapeCreateButton/>
 			</>
 		}}
 	>
 		<LabMenu/>
-		<BuildTable/>
+		<VapeTable/>
 	</LabPage>;
 });

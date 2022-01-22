@@ -3,8 +3,7 @@ import {Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
 import {Card, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
-import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
+import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
