@@ -17,7 +17,7 @@ class BaseImport extends AbstractImporter {
 	 * @param BaseImportDto $item
 	 */
 	public function handle($item) {
-		return $this->boosterRepository->create($this->dtoService->fromArray(CreateDto::class, [
+		return $this->baseRepository->create($this->dtoService->fromArray(CreateDto::class, [
 			'name'     => $item->name,
 			'pg'       => (int)$item->pg,
 			'vg'       => (int)$item->vg,

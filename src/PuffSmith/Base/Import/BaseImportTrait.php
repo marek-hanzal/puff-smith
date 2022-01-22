@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace PuffSmith\Base\Import;
 
 trait BaseImportTrait {
-	protected BaseImport $boosterImport;
+	protected BaseImport $baseImport;
 
 	/**
 	 * @Inject
 	 *
-	 * @param BaseImport $boosterImport
+	 * @param BaseImport $baseImport
 	 */
-	public function setBaseImport(BaseImport $boosterImport): void {
-		$this->boosterImport = $boosterImport;
+	public function setBaseImport(BaseImport $baseImport): void {
+		$this->baseImport = $baseImport;
 	}
 }
