@@ -1346,14 +1346,14 @@ vendor_id</ColNames>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="373" parent="335" name="coil">
+    <column id="373" parent="335" name="coilOffset">
       <Comment>Relative coil offset related to airflow intake; this could help to optimize taste; 0 is &quot;ground&quot; level of the airflow (middle); positives goes up, negatives down</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="374" parent="335" name="cotton">
+    <column id="374" parent="335" name="cottonOffset">
       <Comment>Relative cotton payload; 0 means &quot;optimal&quot; fit into a coil; positives means a bit more cotton, negatives a bit less.</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
