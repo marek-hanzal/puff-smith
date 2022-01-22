@@ -1,8 +1,8 @@
 export interface CreateDto {
-	wraps: any | null;
-	ohm: any | null;
-	code: any | null;
-	wireId: any | null;
+	wraps: number;
+	ohm: number;
+	code: string;
+	wireId: string;
 }
 
 export module CreateDto {

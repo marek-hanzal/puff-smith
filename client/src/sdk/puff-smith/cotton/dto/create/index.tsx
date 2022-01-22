@@ -1,7 +1,7 @@
 export interface CreateDto {
-	name: any | null;
-	description: any | null;
-	vendorId: any | null;
+	name: string;
+	description: string | null;
+	vendorId: string;
 }
 
 export module CreateDto {

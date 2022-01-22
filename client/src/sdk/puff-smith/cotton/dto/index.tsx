@@ -1,3 +1,16 @@
+export interface CottonDto {
+	id: string;
+	name: string;
+	description: string | null;
+	vendorId: string;
+	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
+}
+
+export module CottonDto {
+
+}
+
+
 export interface CottonOrderByDto {
 
 }
@@ -13,18 +26,5 @@ export interface CottonFilterDto {
 }
 
 export module CottonFilterDto {
-
-}
-
-
-export interface CottonDto {
-	id: any | null;
-	name: any | null;
-	description: any | null;
-	vendorId: any | null;
-	vendor: any | null;
-}
-
-export module CottonDto {
 
 }

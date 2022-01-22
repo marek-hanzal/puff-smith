@@ -5,8 +5,8 @@ export interface CreateDto {
 	coilId: string;
 	cottonId: string;
 	coils: number;
-	coil: number;
-	cotton: number;
+	coilOffset: number;
+	cottonOffset: number;
 	ohm: number;
 }
 

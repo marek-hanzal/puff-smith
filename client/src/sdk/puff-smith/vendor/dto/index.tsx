@@ -1,6 +1,6 @@
 export interface VendorDto {
-	id: any | null;
-	name: any | null;
+	id: string;
+	name: string;
 }
 
 export module VendorDto {
