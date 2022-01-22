@@ -6,9 +6,9 @@ namespace PuffSmith\Api\Lab\Cotton\Endpoint;
 use Edde\Query\Dto\Query;
 use Edde\Query\Dto\QueryResult;
 use Edde\Rest\Endpoint\AbstractQueryEndpoint;
-use PuffSmith\Coil\Dto\CoilFilterDto;
-use PuffSmith\Coil\Dto\CoilOrderByDto;
 use PuffSmith\Cotton\Dto\CottonDto;
+use PuffSmith\Cotton\Dto\CottonFilterDto;
+use PuffSmith\Cotton\Dto\CottonOrderByDto;
 use PuffSmith\Cotton\Mapper\CottonMapperTrait;
 use PuffSmith\Cotton\Repository\CottonRepositoryTrait;
 
@@ -17,7 +17,7 @@ class CottonsEndpoint extends AbstractQueryEndpoint {
 	use CottonMapperTrait;
 
 	/**
-	 * @param Query<CoilOrderByDto, CoilFilterDto> $query
+	 * @param Query<CottonOrderByDto, CottonFilterDto> $query
 	 *
 	 * @return QueryResult<CottonDto>
 	 */
