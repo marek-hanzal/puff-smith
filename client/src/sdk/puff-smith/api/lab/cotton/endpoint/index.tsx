@@ -21,7 +21,7 @@ import {useQueryClient} from "react-query";
 export type ICottonsQueryParams = void;
 
 
-export const useCottonsQuery = createPostQuery<ICottonsQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/puff-smith/cotton/dto/index").CottonDto>>("PuffSmith.Lab.Cotton.Cottons");
+export const useCottonsQuery = createPostQuery<ICottonsQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/puff-smith/cotton/dto/index").CottonDto>>("PuffSmith.Lab.Cotton.Cottons");
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Cotton.Cottons"])
@@ -42,16 +42,16 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 	/>
 }
 
-export const useCottonsSource = () => useSourceContext<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>()
+export const useCottonsSource = () => useSourceContext<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>()
 
-export interface ICottonsSourceContext extends ISourceContext<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {
+export interface ICottonsSourceContext extends ISourceContext<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {
 }
 
-export interface ICottonsSourceProps extends Partial<ISourceContextProviderProps<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>> {
+export interface ICottonsSourceProps extends Partial<ISourceContextProviderProps<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>> {
 }
 
 export const CottonsSource: FC<ICottonsSourceProps> = ({children, ...props}) => {
-	return <SourceContextProvider<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>
+	return <SourceContextProvider<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>
 		useQuery={useCottonsQuery}
 		{...props}
 	>
@@ -59,22 +59,22 @@ export const CottonsSource: FC<ICottonsSourceProps> = ({children, ...props}) => 
 	</SourceContextProvider>;
 }
 
-export interface ICottonsBaseTableProps extends ITableProps<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {
+export interface ICottonsBaseTableProps extends ITableProps<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {
 }
 
 export const CottonsBaseTable: FC<ICottonsBaseTableProps> = props => {
-	return <Table<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>
+	return <Table<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>
 		{...props}
 	/>
 }
 
 export interface ICottonsSourceTableProps extends ICottonsBaseTableProps {
 	source?: ICottonsSourceProps;
-	defaultFilter?: import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto;
-	defaultOrderBy?: import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto;
+	defaultFilter?: import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto;
+	defaultOrderBy?: import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto;
 	defaultQuery?: ICottonsQueryParams;
-	filter?: import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto;
-	orderBy?: import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto;
+	filter?: import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto;
+	orderBy?: import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto;
 	query?: ICottonsQueryParams;
 	options?: IQueryOptions<IQueryResult<import("@/sdk/puff-smith/cotton/dto/index").CottonDto>>;
 }
@@ -101,6 +101,6 @@ export interface ICottonsSourceSelectProps extends Partial<IQuerySourceSelectPro
 
 export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({source, ...props}) => {
 	return <CottonsSource defaultSize={100} {...source}>
-		<QuerySourceSelect<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {...props}/>
+		<QuerySourceSelect<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {...props}/>
 	</CottonsSource>;
 };
