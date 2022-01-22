@@ -7,6 +7,8 @@ trait BuildMapperTrait {
 	protected BuildMapper $buildMapper;
 
 	/**
+	 * @Inject
+	 *
 	 * @param BuildMapper $buildMapper
 	 */
 	public function setBuildMapper(BuildMapper $buildMapper): void {

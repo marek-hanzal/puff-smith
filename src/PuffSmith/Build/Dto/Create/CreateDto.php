@@ -7,7 +7,7 @@ use Edde\Dto\AbstractDto;
 
 class CreateDto extends AbstractDto {
 	public string $name;
-	public string $description;
+	public ?string $description;
 	public string $atomizerId;
 	public string $coilId;
 	public string $cottonId;

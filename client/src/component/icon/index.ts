@@ -2,6 +2,7 @@ export * from "./AtomizerIcon";
 export * from "./BuildIcon";
 export * from "./CoilIcon";
 export * from "./CommonIcon";
+export * from "./CottonIcon";
 export * from "./DownloadIcon";
 export * from "./FullLogoIcon";
 export * from "./ImportIcon";
