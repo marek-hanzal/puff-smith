@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace PuffSmith\Base\Repository;
 
 trait BaseRepositoryTrait {
-	protected BaseRepository $boosterRepository;
+	protected BaseRepository $baseRepository;
 
 	/**
 	 * @Inject
 	 *
-	 * @param BaseRepository $boosterRepository
+	 * @param BaseRepository $baseRepository
 	 */
-	public function setBaseRepository(BaseRepository $boosterRepository): void {
-		$this->boosterRepository = $boosterRepository;
+	public function setBaseRepository(BaseRepository $baseRepository): void {
+		$this->baseRepository = $baseRepository;
 	}
 }

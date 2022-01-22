@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace PuffSmith\Base\Mapper;
 
 trait BaseMapperTrait {
-	protected BaseMapper $boosterMapper;
+	protected BaseMapper $baseMapper;
 
 	/**
 	 * @Inject
 	 *
-	 * @param BaseMapper $boosterMapper
+	 * @param BaseMapper $baseMapper
 	 */
-	public function setBaseMapper(BaseMapper $boosterMapper): void {
-		$this->boosterMapper = $boosterMapper;
+	public function setBaseMapper(BaseMapper $baseMapper): void {
+		$this->baseMapper = $baseMapper;
 	}
 }
