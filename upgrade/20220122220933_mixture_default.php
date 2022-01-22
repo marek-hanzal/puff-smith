@@ -44,6 +44,15 @@ final class MixtureDefault extends CommonMigration {
 				'comment' => 'Used base (if any).',
 				'null'    => true,
 			])
+			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Owner of the build.'])
+			->addUniqueIndex([
+				'name',
+				'user_id',
+			], 'name')
+			->addUniqueIndex([
+				'code',
+				'user_id',
+			], 'code')
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/boosters.xlsx');
