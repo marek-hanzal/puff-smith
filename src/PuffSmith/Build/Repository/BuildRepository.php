@@ -18,17 +18,17 @@ class BuildRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
-			'name'        => $createDto->name,
-			'description' => $createDto->description,
-			'atomizer_id' => $createDto->atomizerId,
-			'coil_id'     => $createDto->coilId,
-			'cotton_id'   => $createDto->cottonId,
-			'coils'       => $createDto->coils,
-			'coil'        => $createDto->coil,
-			'cotton'      => $createDto->cotton,
-			'ohm'         => $createDto->ohm,
-			'created'     => microtime(true),
-			'user_id'     => $this->currentUserService->requiredId(),
+			'name'         => $createDto->name,
+			'description'  => $createDto->description,
+			'atomizer_id'  => $createDto->atomizerId,
+			'coil_id'      => $createDto->coilId,
+			'cotton_id'    => $createDto->cottonId,
+			'coils'        => $createDto->coils,
+			'coilOffset'   => $createDto->coilOffset,
+			'cottonOffset' => $createDto->cottonOffset,
+			'ohm'          => $createDto->ohm,
+			'created'      => microtime(true),
+			'user_id'      => $this->currentUserService->requiredId(),
 		]);
 	}
 }

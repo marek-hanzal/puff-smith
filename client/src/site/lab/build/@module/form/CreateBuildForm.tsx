@@ -71,7 +71,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				/>
 			</FormItem>
 			<FormItem
-				field={'coil'}
+				field={'coilOffset'}
 				labels={['lab.build.coil.label']}
 				tooltip={t('lab.build.coil.label.tooltip')}
 			>
@@ -101,7 +101,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 				<CottonSelect/>
 			</FormItem>
 			<FormItem
-				field={'cotton'}
+				field={'cottonOffset'}
 				labels={['lab.build.cotton.label']}
 				tooltip={t('lab.build.cotton.label.tooltip')}
 			>

@@ -15,11 +15,11 @@ final class BuildDefault extends CommonMigration {
 				'comment' => 'Number of coils.',
 				'default' => 1,
 			])
-			->addColumn('coil', 'integer', [
+			->addColumn('coilOffset', 'integer', [
 				'comment' => 'Relative coil offset related to airflow intake; this could help to optimize taste; 0 is "ground" level of the airflow (middle); positives goes up, negatives down',
 				'default' => 0,
 			])
-			->addColumn('cotton', 'integer', [
+			->addColumn('cottonOffset', 'integer', [
 				'comment' => 'Relative cotton payload; 0 means "optimal" fit into a coil; positives means a bit more cotton, negatives a bit less.',
 				'default' => 0,
 			])
