@@ -14,4 +14,8 @@ class CreateDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $materials;
+	/**
+	 * @var string
+	 */
+	public string $vendorId;
 }
