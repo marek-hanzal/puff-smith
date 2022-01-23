@@ -4,6 +4,7 @@ import {toLocalDate} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
+import {MixtureLink} from "@/puff-smith/site/lab/mixture";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -18,6 +19,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.mixture.table.name",
+				render: (_, mixture) => <MixtureLink mixture={mixture}/>,
 				width: 300,
 			}),
 			column({

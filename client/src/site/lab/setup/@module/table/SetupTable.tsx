@@ -15,7 +15,7 @@ export const SetupTable: FC<ISetupTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.setup.table.name",
-				width: 150,
+				width: 240,
 			}),
 			column({
 				key: "build",
