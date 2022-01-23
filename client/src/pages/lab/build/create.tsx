@@ -1,7 +1,7 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
-import {CreateTemplate, useMenuContext} from "@leight-core/leight";
+import {CreateTemplate} from "@leight-core/leight";
 
 export default withLabLayout(function Create() {
 	return <LabPage
