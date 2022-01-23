@@ -6,7 +6,7 @@ import {Divider, InputNumber, message, Slider} from "antd";
 import dayjs from "dayjs";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
-import {BoosterSelect} from "@/puff-smith/site/lab/booster";
+import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -135,6 +135,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<FormItem
 			field={'boosterId'}
 			labels={['lab.mixture.boosterId.label']}
+			help={<BoosterTooltip/>}
 		>
 			<BoosterSelect/>
 		</FormItem>
