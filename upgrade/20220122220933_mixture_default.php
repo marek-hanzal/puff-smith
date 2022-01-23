@@ -34,10 +34,10 @@ final class MixtureDefault extends CommonMigration {
 			->addColumn('pg', 'integer', ['comment' => 'Amount of PG (percentage).'])
 			->addColumn('vg', 'integer', ['comment' => 'Amount of VG (percentage).'])
 			->addColumn('nicotine', 'integer', ['comment' => 'Amount of nicotine (mg).'])
-			->addColumn('volume', 'double', ['comment' => 'An (target) amount of the mixture in ml.'])
-			->addColumn('mixed', 'double', ['comment' => 'Date of the mixing (start date); microtime.'])
-			->addColumn('expires', 'double', [
-				'comment' => 'Expiration date (microtime) if known.',
+			->addColumn('volume', 'integer', ['comment' => 'An (target) amount of the mixture in ml.'])
+			->addColumn('mixed', 'date', ['comment' => 'Date of the mixing (start date).'])
+			->addColumn('expires', 'date', [
+				'comment' => 'Expiration date if known.',
 				'null'    => true,
 			])
 			->addUuidForeignColumn('liquid', 'z_liquid', ['comment' => 'Source liquid; could be just a juice or one already finished.'])

@@ -35,13 +35,13 @@ class CreateDto extends AbstractDto {
 	 */
 	public int $volume;
 	/**
-	 * @var float
+	 * @var string
 	 */
-	public float $mixed;
+	public string $mixed;
 	/**
-	 * @var float|null
+	 * @var string|null
 	 */
-	public ?float $expires;
+	public ?string $expires;
 	/**
 	 * @var string
 	 */
