@@ -1,6 +1,7 @@
 import {createContext, FC, ReactNode} from "react";
 import {
 	createGetQuery,
+	createPatchMutation,
 	createPostMutation,
 	createPostQuery,
 	EntityContext,
@@ -56,12 +57,27 @@ export const useMixturesQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Mixture.Mixtures"])
 }
 
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/mixture/dto/patch/index").PatchDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>("PuffSmith.Lab.Mixture.Patch");
+
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/mixture/dto/create/index").CreateDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/mixture/dto/create/index").CreateDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>
 		useMutation={useCreateMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/mixture/dto/patch/index").PatchDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/mixture/dto/patch/index").PatchDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>
+		useMutation={usePatchMutation}
 		{...props}
 	/>
 }
