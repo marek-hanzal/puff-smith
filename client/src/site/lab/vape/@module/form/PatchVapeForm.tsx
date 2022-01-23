@@ -1,33 +1,31 @@
 import {FC} from "react";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Card, Divider, InputNumber, message, Rate, Slider} from "antd";
+import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
-import {useTranslation} from "react-i18next";
 
-export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
+export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
+	vape: VapeDto;
 }
 
-export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
+export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 	const {t} = useTranslation();
-	return <CreateDefaultForm
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.vape.created.message", {data: response}));
-			navigate("/lab/vape/list");
-		}}
+	return <PatchDefaultForm
 		toForm={() => ({
-			rating: 5,
-			taste: 5,
-			airflow: 2,
-			juice: 5,
-			mtl: 5,
-			dl: 0,
-			clouds: 3,
-			leaks: 0,
-			dryhit: 3,
+			...vape,
 		})}
+		toMutation={values => ({
+			...values,
+			...{id: vape.id}
+		})}
+		onSuccess={({navigate, response}) => {
+			message.success(t("lab.vape.update.success", {data: response}));
+			navigate("/lab/vape/[vapeId]", {vapeId: response.id});
+		}}
 		{...props}
 	>
 		<Card title={t('lab.vape.common.title')}>
@@ -258,7 +256,7 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.vape.create.submit'}/>
+			<Submit label={'lab.vape.update.submit'}/>
 		</Centered>
-	</CreateDefaultForm>;
+	</PatchDefaultForm>
 }

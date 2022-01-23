@@ -2,7 +2,7 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildCreateButton, BuildEditButton, BuildListButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {PreviewTemplate} from "@leight-core/leight/dist";
+import {PreviewTemplate} from "@leight-core/leight";
 import {Space} from "antd";
 
 export default withLabLayout(function Index() {

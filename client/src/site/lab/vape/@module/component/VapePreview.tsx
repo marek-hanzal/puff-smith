@@ -1,9 +1,8 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {Preview, PreviewTemplate} from "@leight-core/leight/dist";
+import {Preview} from "@leight-core/leight";
 import {Card, Divider, Rate, Slider} from "antd";
 import {useTranslation} from "react-i18next";
-import {VapeIcon} from "@/puff-smith";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
@@ -16,11 +15,7 @@ export interface IVapePreviewProps {
 
 export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 	const {t} = useTranslation();
-	return <PreviewTemplate
-		icon={<VapeIcon/>}
-		label={'lab.vape.preview'}
-		span={24}
-	>
+	return <>
 		<Card key={'common'} title={t('lab.vape.common.title')}>
 			<Preview translation={'lab.vape.preview'}>
 				{{
@@ -102,6 +97,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				}}
 			</Preview>
 		</Card>
+		<Divider/>
 		<Card key={'vape'} title={t('lab.vape.vape.title')}>
 			<Preview translation={'lab.vape.preview'}>
 				{{
@@ -111,6 +107,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				}}
 			</Preview>
 		</Card>
+		<Divider/>
 		<Card title={t('lab.vape.rating-advanced.title')}>
 			<Preview translation={'lab.vape.preview'}>
 				{{
@@ -122,5 +119,5 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				}}
 			</Preview>
 		</Card>
-	</PreviewTemplate>
+	</>
 }

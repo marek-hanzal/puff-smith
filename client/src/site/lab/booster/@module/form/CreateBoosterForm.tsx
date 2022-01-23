@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, Slider} from "antd";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 
 export interface ICreateBoosterFormProps extends Partial<ICreateDefaultFormProps> {

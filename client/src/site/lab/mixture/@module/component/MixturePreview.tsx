@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Preview} from "@leight-core/leight/dist";
+import {Preview} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Space, Typography} from "antd";
