@@ -17,7 +17,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
 
-	const promise = useGetPromise<IDownloadQueryParams, any>("Marsh.Shared.File.Download", {fileId: file.id}, {
+	const promise = useGetPromise<IDownloadQueryParams, any>("Edde.Shared.File.Download", {fileId: file.id}, {
 		responseType: "blob",
 		timeout: 0,
 		onDownloadProgress: event => setProgress(Math.round((event.loaded * 100) / event.total))
@@ -34,21 +34,21 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 				setProgress(0);
 				promise()
 					.then(data => {
-						message.success(t("marsh.file.download-success"));
+						message.success(t("puff-smith.file.download-success"));
 						fileDownload(data, name || file.name);
 						setLoading(false);
 						setProgress(0);
 					})
 					.catch(e => {
 						console.error(e);
-						message.error(t("marsh.file.download-error"));
+						message.error(t("puff-smith.file.download-error"));
 						setLoading(false);
 						setProgress(0);
 					});
 			}}
 			{...props}
 		>
-			{props.children ? props.children : t("marsh.file.download.title")}
+			{props.children ? props.children : t("puff-smith.file.download.title")}
 		</Button>
 		{loading && <Progress showInfo={false} percent={progress}/>}
 	</Tooltip>;

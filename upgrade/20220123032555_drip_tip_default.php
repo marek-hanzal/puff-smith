@@ -11,7 +11,7 @@ final class DripTipDefault extends CommonMigration {
 			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Who owns this driptip?'])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Driptip vendor.'])
 			->addUniqueIndex([
-				'code',
+				'name',
 				'user_id',
 			], 'code')
 			->save();

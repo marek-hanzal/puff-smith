@@ -52,7 +52,7 @@ export const ConfigTable: FC<IConfigTableProps> = props => {
 			}),
 			column({
 				key: "key",
-				title: "marsh.config.key.label",
+				title: "root.config.key.label",
 				width: 220,
 				render: (_, config) => <ButtonLink
 					type={"link"}
@@ -64,7 +64,7 @@ export const ConfigTable: FC<IConfigTableProps> = props => {
 			column({
 				key: "value",
 				dataIndex: "value",
-				title: "marsh.config.value.label",
+				title: "root.config.value.label",
 			}),
 		]}
 	</ConfigsSourceTable>;

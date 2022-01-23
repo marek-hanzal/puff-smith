@@ -8,7 +8,7 @@ export interface IConfigPreviewProps extends Partial<IPreviewProps> {
 
 export const ConfigPreview: FC<IConfigPreviewProps> = ({config, ...props}) => {
 	return <Preview
-		translation={"marsh.config.info"}
+		translation={"root.config.info"}
 		{...props}
 	>
 		{{

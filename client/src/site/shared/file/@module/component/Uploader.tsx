@@ -155,7 +155,7 @@ export const Uploader: FC<IUploaderProps> = (
 	return <>
 		<Upload.Dragger
 			listType={"text"}
-			action={"Marsh.Shared.File.Upload"}
+			action={"Edde.Shared.File.Upload"}
 			customRequest={setOption}
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;
