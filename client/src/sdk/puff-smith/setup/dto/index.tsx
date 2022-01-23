@@ -2,8 +2,6 @@ export interface SetupDto {
 	id: string;
 	name: string;
 	description: string | null;
-	driptipId: string;
-	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto;
 	buildId: string;
 	build: import("@/sdk/puff-smith/build/dto/index").BuildDto;
 	modId: string;
