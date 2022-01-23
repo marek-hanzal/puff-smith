@@ -3060,208 +3060,220 @@ hash</ColNames>
       <NotNull>1</NotNull>
       <Position>14</Position>
     </column>
-    <column id="668" parent="360" name="airflow">
-      <Comment>How the airflow has been set; generally 0 is ultra-tight (basically closed) MTL, higher numbers are open DL.</Comment>
+    <column id="668" parent="360" name="dryhit">
+      <Comment>A probability of dry hit of this vape setting.</Comment>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>15</Position>
     </column>
-    <column id="669" parent="360" name="juice">
-      <Comment>How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.</Comment>
+    <column id="669" parent="360" name="leaks">
+      <Comment>An amount of leaks of this build; zero means no leaks.</Comment>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>16</Position>
     </column>
-    <column id="670" parent="360" name="power">
-      <Comment>Power in watts used for this setup.</Comment>
+    <column id="670" parent="360" name="airflow">
+      <Comment>How the airflow has been set; generally 0 is ultra-tight (basically closed) MTL, higher numbers are open DL.</Comment>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>17</Position>
     </column>
-    <column id="671" parent="360" name="tc">
-      <Comment>Temperature in Celsius used for this setup.</Comment>
+    <column id="671" parent="360" name="juice">
+      <Comment>How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>18</Position>
     </column>
-    <column id="672" parent="360" name="stamp">
+    <column id="672" parent="360" name="power">
+      <Comment>Power in watts used for this setup.</Comment>
+      <DataType>int(11)|0s</DataType>
+      <Position>19</Position>
+    </column>
+    <column id="673" parent="360" name="tc">
+      <Comment>Temperature in Celsius used for this setup.</Comment>
+      <DataType>int(11)|0s</DataType>
+      <Position>20</Position>
+    </column>
+    <column id="674" parent="360" name="stamp">
       <Comment>Timestamp of this vaping experience</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>19</Position>
+      <Position>21</Position>
     </column>
-    <column id="673" parent="360" name="user_id">
+    <column id="675" parent="360" name="user_id">
       <Comment>Owner of this vaping experience</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>20</Position>
+      <Position>22</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="674" parent="360" name="z_vape_ibfk_1">
+    <foreign-key id="676" parent="360" name="z_vape_ibfk_1">
       <ColNames>setup_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_setup</RefTableName>
     </foreign-key>
-    <foreign-key id="675" parent="360" name="z_vape_ibfk_2">
+    <foreign-key id="677" parent="360" name="z_vape_ibfk_2">
       <ColNames>mixture_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_mixture</RefTableName>
     </foreign-key>
-    <foreign-key id="676" parent="360" name="z_vape_ibfk_3">
+    <foreign-key id="678" parent="360" name="z_vape_ibfk_3">
       <ColNames>driptip_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_driptip</RefTableName>
     </foreign-key>
-    <foreign-key id="677" parent="360" name="z_vape_ibfk_4">
+    <foreign-key id="679" parent="360" name="z_vape_ibfk_4">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <index id="678" parent="360" name="setup_id">
+    <index id="680" parent="360" name="setup_id">
       <ColNames>setup_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="679" parent="360" name="mixture_id">
+    <index id="681" parent="360" name="mixture_id">
       <ColNames>mixture_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="680" parent="360" name="driptip_id">
+    <index id="682" parent="360" name="driptip_id">
       <ColNames>driptip_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="681" parent="360" name="user_id">
+    <index id="683" parent="360" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="682" parent="360" name="PRIMARY">
+    <key id="684" parent="360" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="683" parent="361" name="id">
+    <column id="685" parent="361" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="684" parent="361" name="vape_id">
+    <column id="686" parent="361" name="vape_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="685" parent="361" name="comment_id">
+    <column id="687" parent="361" name="comment_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="686" parent="361" name="z_vape_comment_ibfk_1">
+    <foreign-key id="688" parent="361" name="z_vape_comment_ibfk_1">
       <ColNames>vape_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_vape</RefTableName>
     </foreign-key>
-    <foreign-key id="687" parent="361" name="z_vape_comment_ibfk_2">
+    <foreign-key id="689" parent="361" name="z_vape_comment_ibfk_2">
       <ColNames>comment_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_comment</RefTableName>
     </foreign-key>
-    <index id="688" parent="361" name="vape_id">
+    <index id="690" parent="361" name="vape_id">
       <ColNames>vape_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="689" parent="361" name="comment_id">
+    <index id="691" parent="361" name="comment_id">
       <ColNames>comment_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="690" parent="361" name="PRIMARY">
+    <key id="692" parent="361" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="691" parent="362" name="id">
+    <column id="693" parent="362" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="692" parent="362" name="name">
+    <column id="694" parent="362" name="name">
       <Comment>The name of a vendor.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <index id="693" parent="362" name="z_vendor_name_unique">
+    <index id="695" parent="362" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="694" parent="362" name="PRIMARY">
+    <key id="696" parent="362" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="695" parent="362" name="z_vendor_name_unique">
+    <key id="697" parent="362" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>z_vendor_name_unique</UnderlyingIndexName>
     </key>
-    <column id="696" parent="363" name="id">
+    <column id="698" parent="363" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="697" parent="363" name="name">
+    <column id="699" parent="363" name="name">
       <Comment>A name (or short description) of the wire, just for lookup.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="698" parent="363" name="description">
+    <column id="700" parent="363" name="description">
       <Comment>Description for cases when a wire is complex (like claptons).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="699" parent="363" name="ga">
+    <column id="701" parent="363" name="ga">
       <Comment>GA of this wire (in case of simple wires).</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="700" parent="363" name="vendor_id">
+    <column id="702" parent="363" name="vendor_id">
       <Comment>Vendor of a wire.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="701" parent="363" name="z_wire_ibfk_1">
+    <foreign-key id="703" parent="363" name="z_wire_ibfk_1">
       <ColNames>vendor_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_vendor</RefTableName>
     </foreign-key>
-    <index id="702" parent="363" name="z_wire_name_unique">
+    <index id="704" parent="363" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="703" parent="363" name="PRIMARY">
+    <key id="705" parent="363" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="704" parent="363" name="z_wire_name_unique">
+    <key id="706" parent="363" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
