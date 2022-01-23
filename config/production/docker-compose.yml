@@ -2,7 +2,7 @@ version: '3.4'
 services:
     puff-smith-production:
         image: marekhanzal/puff-smith:latest
-        env_file: .env
+        env_file: ../.env
         networks:
             - web
             - db
