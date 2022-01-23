@@ -1,19 +1,32 @@
-import {FC} from "react";
+import {createContext, FC, ReactNode} from "react";
 import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -22,6 +35,17 @@ export type ICreateQueryParams = void;
 
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/mixture/dto/create/index").CreateDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>("PuffSmith.Lab.Mixture.Create");
+
+export type IMixtureQueryParams = {
+	mixtureId: string;
+}
+
+
+export const useMixtureQuery = createGetQuery<IMixtureQueryParams, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>("PuffSmith.Lab.Mixture.Mixture");
+export const useMixtureQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Mixture.Mixture"])
+}
 
 export type IMixturesQueryParams = void;
 
@@ -41,6 +65,54 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export const MixtureContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>);
+
+export const useMixtureContext = (): IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto> => useContext(MixtureContext, "MixtureContext");
+
+export const useOptionalMixtureContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>>(MixtureContext as any);
+
+export interface IMixtureProvider extends IEntityProviderProps<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto> {
+}
+
+export const MixtureProvider: FC<IMixtureProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <MixtureContext.Provider value={entityContext}>
+				{children}
+			</MixtureContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchMixtureProps extends Partial<IQueryProps<IMixtureQueryParams, void, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>> {
+	query: IMixtureQueryParams;
+}
+
+export const FetchMixture: FC<IFetchMixtureProps> = ({query, ...props}) => <Query<IMixtureQueryParams, void, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>
+	useQuery={useMixtureQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalMixtureContext()}
+	{...props}
+/>;
+
+export interface IMixturePageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/mixture/dto/index").MixtureDto) => ReactNode);
+}
+
+export const MixturePage: FC<IMixturePageProps> = ({children, ...props}) => {
+	const {mixtureId} = useParams();
+	return <MixtureProvider>
+		<Page {...props}>
+			<FetchMixture
+				query={{mixtureId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchMixture>
+		</Page>
+	</MixtureProvider>;
+};
 
 export const useMixturesSource = () => useSourceContext<IMixturesQueryParams, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureOrderByDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureFilterDto>()
 
