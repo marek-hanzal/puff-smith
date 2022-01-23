@@ -25,6 +25,9 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			message.success(t("lab.mixture.created.message", {data: response}));
 			navigate("/lab/mixture/list");
 		}}
+		toError={({error}) => ({
+			"Duplicate entry [z_mixture_code_unique] of [z_mixture].": {id: ["code"], error},
+		})}
 		{...props}
 	>
 		<FormItem

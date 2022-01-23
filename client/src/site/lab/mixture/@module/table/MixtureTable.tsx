@@ -18,7 +18,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.mixture.table.name",
-				width: 200,
+				width: 300,
 			}),
 			column({
 				key: "code",
