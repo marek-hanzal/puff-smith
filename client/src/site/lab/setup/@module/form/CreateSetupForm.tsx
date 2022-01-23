@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/setup/endpoint";
 import {FC} from "react";
 import {Divider, message} from "antd";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 import {useTranslation} from "react-i18next";

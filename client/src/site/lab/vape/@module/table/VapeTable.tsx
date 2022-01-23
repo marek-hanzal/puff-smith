@@ -2,11 +2,13 @@ import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Statistic} from "antd";
+import {Space, Statistic} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerButton} from "@leight-core/leight/dist";
-import {VapePreview} from "@/puff-smith/site/lab/vape";
+import {DrawerButton} from "@leight-core/leight";
+import {VapeEditButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {EyeOutlined} from "@ant-design/icons";
+import {VapeIcon} from "@/puff-smith";
+import {PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
@@ -19,9 +21,18 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, vape) => <DrawerButton width={750} type={'link'} icon={<EyeOutlined/>}>
-					<VapePreview vape={vape}/>
-				</DrawerButton>,
+				render: (_, vape) => <Space>
+					<DrawerButton width={750} type={'link'} icon={<EyeOutlined/>}>
+						<PreviewTemplate
+							icon={<VapeIcon/>}
+							label={'lab.vape.preview'}
+							span={24}
+						>
+							<VapePreview vape={vape}/>
+						</PreviewTemplate>
+					</DrawerButton>
+					<VapeEditButton type={'link'} title={null} vape={vape}/>
+				</Space>,
 				width: 0,
 			}),
 			column({

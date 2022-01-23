@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {asDayjs, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight/dist";
+import {asDayjs, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {
 	mixture: MixtureDto;

@@ -2,7 +2,7 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureListButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {PreviewTemplate} from "@leight-core/leight/dist";
+import {PreviewTemplate} from "@leight-core/leight";
 import {Space} from "antd";
 
 export default withLabLayout(function Index() {

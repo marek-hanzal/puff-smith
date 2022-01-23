@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {Preview} from "@leight-core/leight/dist";
+import {Preview} from "@leight-core/leight";
 import {FC} from "react";
 import {Space} from "antd";
 

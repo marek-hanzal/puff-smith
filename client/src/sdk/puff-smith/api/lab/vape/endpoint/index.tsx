@@ -1,19 +1,39 @@
-import {FC} from "react";
 import {
+	FC,
+	ReactNode,
+	createContext
+} from "react";
+import {
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
 	createPostMutation,
 	createPostQuery,
+	isCallable,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -22,6 +42,22 @@ export type ICreateQueryParams = void;
 
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/create/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Create");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Patch");
+
+export type IVapeQueryParams = {
+	vapeId: string;
+}
+
+
+export const useVapeQuery = createGetQuery<IVapeQueryParams, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Vape");
+export const useVapeQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Vape.Vape"])
+}
 
 export type IVapesQueryParams = void;
 
@@ -41,6 +77,64 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const VapeContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/vape/dto/index").VapeDto>);
+
+export const useVapeContext = (): IEntityContext<import("@/sdk/puff-smith/vape/dto/index").VapeDto> => useContext(VapeContext, "VapeContext");
+
+export const useOptionalVapeContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/vape/dto/index").VapeDto>>(VapeContext as any);
+
+export interface IVapeProvider extends IEntityProviderProps<import("@/sdk/puff-smith/vape/dto/index").VapeDto> {
+}
+
+export const VapeProvider: FC<IVapeProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <VapeContext.Provider value={entityContext}>
+				{children}
+			</VapeContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchVapeProps extends Partial<IQueryProps<IVapeQueryParams, void, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+	query: IVapeQueryParams;
+}
+
+export const FetchVape: FC<IFetchVapeProps> = ({query, ...props}) => <Query<IVapeQueryParams, void, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+	useQuery={useVapeQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalVapeContext()}
+	{...props}
+/>;
+
+export interface IVapePageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/vape/dto/index").VapeDto) => ReactNode);
+}
+
+export const VapePage: FC<IVapePageProps> = ({children, ...props}) => {
+	const {vapeId} = useParams();
+	return <VapeProvider>
+		<Page {...props}>
+			<FetchVape
+				query={{vapeId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchVape>
+		</Page>
+	</VapeProvider>;
+};
 
 export const useVapesSource = () => useSourceContext<IVapesQueryParams, import("@/sdk/puff-smith/vape/dto/index").VapeDto, import("@/sdk/puff-smith/vape/dto/index").VapeOrderByDto, import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>()
 
