@@ -7,7 +7,7 @@ final class DripTipDefault extends CommonMigration {
 	public function change(): void {
 		$this
 			->createUuidTable('z_driptip', ['comment' => 'Even drip tips are important.'])
-			->addStringColumn('code', 128, ['comment' => 'Human rememberable code for driptip.'])
+			->addStringColumn('name', 256, ['comment' => 'Human rememberable name for driptip.'])
 			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Who owns this driptip?'])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Driptip vendor.'])
 			->addUniqueIndex([
