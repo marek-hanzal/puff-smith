@@ -1,16 +1,22 @@
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
-import {Typography} from "antd";
+import {Divider, Space, Typography} from "antd";
+import {ReloadOutlined} from "@ant-design/icons";
 
 export interface ICoilInlineProps {
 	coil: CoilDto
 }
 
 export const CoilInline: FC<ICoilInlineProps> = ({coil}) => {
-	return <>
-		{coil.code} - <Typography.Text>{coil.wire.name}</Typography.Text>&nbsp;
-		<Typography.Text type={'secondary'}>{coil.wire.vendor.name}</Typography.Text><br/>
-		<Typography.Text type={'secondary'}>{(coil.wire.ga ? coil.wire.ga + 'GA' : null) || coil.wire.description}</Typography.Text><br/>
-		<Typography.Text>{coil.ohm.toFixed(2)}ohm</Typography.Text>
-	</>
+	return <Space direction={'vertical'}>
+		<Space>
+			<Typography.Text>{coil.wire.name}</Typography.Text>
+			<Typography.Text type={'secondary'}>{coil.wire.vendor.name}</Typography.Text>
+		</Space>
+		<Space split={<Divider type={'vertical'}/>}>
+			<Typography.Text type={'success'}>{coil.ohm.toFixed(2)}ohm</Typography.Text>
+			<Space><span>{coil.wraps}</span><ReloadOutlined/></Space>
+			<Typography.Text>{(coil.wire.ga ? coil.wire.ga + 'GA' : null) || coil.wire.description}</Typography.Text>
+		</Space>
+	</Space>
 }

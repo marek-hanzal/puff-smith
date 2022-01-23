@@ -8,9 +8,11 @@ export interface ISetupSelectProps extends Partial<ISetupsSourceSelectProps> {
 export const SetupSelect: FC<ISetupSelectProps> = props => {
 	return <SetupsSourceSelect
 		showSearch
+		optionLabelProp={'name'}
 		toOption={setup => ({
 			label: <SetupInline setup={setup}/>,
 			value: setup.id,
+			...setup,
 		})}
 		{...props}
 	/>

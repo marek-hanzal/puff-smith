@@ -16,6 +16,8 @@ export interface VapeDto {
 	clouds: number;
 	mtl: number;
 	dl: number;
+	dryhit: number;
+	leaks: number;
 	airflow: number;
 	juice: number | null;
 	power: number | null;
