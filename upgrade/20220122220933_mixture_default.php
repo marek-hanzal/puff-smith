@@ -8,6 +8,8 @@ final class MixtureDefault extends CommonMigration {
 		$this
 			->createUuidTable('z_booster', ['comment' => 'Nicotine booster for mixtures.'])
 			->addStringColumn('name', 128, ['comment' => 'Name of a booster (from vendor).'])
+			->addColumn('pg', 'integer', ['comment' => 'PG percentage'])
+			->addColumn('vg', 'integer', ['comment' => 'VG percentage'])
 			->addColumn('nicotine', 'integer', ['comment' => 'Nicotine amount in mg.'])
 			->addColumn('volume', 'integer', ['comment' => 'Amount of booster (typically 10ml).'])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Vendor of a booster.'])

@@ -106,6 +106,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			field={'liquidId'}
 			labels={['lab.mixture.liquidId.label']}
 			required
+			help={'pridat pridavaci formicek'}
 		>
 			<LiquidSelect/>
 		</FormItem>

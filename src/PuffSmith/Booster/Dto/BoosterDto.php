@@ -18,6 +18,14 @@ class BoosterDto extends AbstractDto {
 	/**
 	 * @var int
 	 */
+	public int $pg;
+	/**
+	 * @var int
+	 */
+	public int $vg;
+	/**
+	 * @var int
+	 */
 	public int $nicotine;
 	/**
 	 * @var int

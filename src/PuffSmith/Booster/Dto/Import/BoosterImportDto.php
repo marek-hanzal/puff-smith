@@ -13,6 +13,14 @@ class BoosterImportDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
+	public string $pg;
+	/**
+	 * @var string
+	 */
+	public string $vg;
+	/**
+	 * @var string
+	 */
 	public string $nicotine;
 	/**
 	 * @var string
