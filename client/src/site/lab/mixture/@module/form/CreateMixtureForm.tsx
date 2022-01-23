@@ -38,17 +38,30 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			tooltip={t('lab.mixture.code.label.tooltip')}
 			required
 		/>
+		<Divider/>
 		<FormItem
-			field={'steep'}
-			labels={['lab.mixture.steep.label']}
-			tooltip={t('lab.mixture.steep.label.tooltip')}
+			field={'liquidId'}
+			labels={['lab.mixture.liquidId.label']}
+			required
+			help={<LiquidTooltip/>}
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={365}
-			/>
+			<LiquidSelect/>
 		</FormItem>
+		<FormItem
+			field={'baseId'}
+			labels={['lab.mixture.baseId.label']}
+			help={<BaseTooltip/>}
+		>
+			<BaseSelect/>
+		</FormItem>
+		<FormItem
+			field={'boosterId'}
+			labels={['lab.mixture.boosterId.label']}
+			help={<BoosterTooltip/>}
+		>
+			<BoosterSelect/>
+		</FormItem>
+		<Divider/>
 		<FormItem
 			field={'pg'}
 			labels={['lab.mixture.pg.label']}
@@ -103,6 +116,18 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				max={1000}
 			/>
 		</FormItem>
+		<Divider/>
+		<FormItem
+			field={'steep'}
+			labels={['lab.mixture.steep.label']}
+			tooltip={t('lab.mixture.steep.label.tooltip')}
+		>
+			<InputNumber
+				style={{width: '100%'}}
+				min={0}
+				max={365}
+			/>
+		</FormItem>
 		<FormItem
 			field={'mixed'}
 			labels={['lab.mixture.mixed.label']}
@@ -116,28 +141,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			tooltip={t('lab.mixture.expires.label.tooltip')}
 		>
 			<DatePicker size={'large'} style={{width: '100%'}}/>
-		</FormItem>
-		<FormItem
-			field={'liquidId'}
-			labels={['lab.mixture.liquidId.label']}
-			required
-			help={<LiquidTooltip/>}
-		>
-			<LiquidSelect/>
-		</FormItem>
-		<FormItem
-			field={'baseId'}
-			labels={['lab.mixture.baseId.label']}
-			help={<BaseTooltip/>}
-		>
-			<BaseSelect/>
-		</FormItem>
-		<FormItem
-			field={'boosterId'}
-			labels={['lab.mixture.boosterId.label']}
-			help={<BoosterTooltip/>}
-		>
-			<BoosterSelect/>
 		</FormItem>
 		<Divider/>
 		<Centered>
