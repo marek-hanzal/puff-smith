@@ -16,5 +16,6 @@ final class AtomizerDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/atomizers.xlsx');
+		sleep(1);
 	}
 }

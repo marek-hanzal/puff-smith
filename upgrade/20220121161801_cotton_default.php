@@ -19,5 +19,6 @@ final class CottonDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/cottons.xlsx');
+		sleep(1);
 	}
 }

@@ -20,5 +20,6 @@ final class ModDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/mods.xlsx');
+		sleep(1);
 	}
 }
