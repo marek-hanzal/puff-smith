@@ -1,5 +1,5 @@
 export interface CreateDto {
-	code: string;
+	name: string;
 	materials: string[];
 	vendorId: string;
 }

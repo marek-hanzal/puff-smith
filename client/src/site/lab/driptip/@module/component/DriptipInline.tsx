@@ -10,7 +10,7 @@ export interface IDriptipInlineProps {
 export const DriptipInline: FC<IDriptipInlineProps> = ({driptip}) => {
 	const {t} = useTranslation();
 	return <>
-		{driptip.code}&nbsp;<Typography.Text type={'secondary'}>{driptip.vendor.name}</Typography.Text><br/>
+		{driptip.name}&nbsp;<Typography.Text type={'secondary'}>{driptip.vendor.name}</Typography.Text><br/>
 		{driptip.materials.map(material => <Typography.Text key={material.id} type={'secondary'}>{t('tag.' + material.group + '.' + material.label)}</Typography.Text>)}
 	</>
 }
