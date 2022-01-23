@@ -16,6 +16,8 @@ class BoosterMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(BoosterDto::class, [
 			'id'       => $item->id,
 			'name'     => $item->name,
+			'pg'       => $item->pg,
+			'vg'       => $item->vg,
 			'nicotine' => $item->nicotine,
 			'volume'   => $item->volume,
 			'vendorId' => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
