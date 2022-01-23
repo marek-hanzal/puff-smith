@@ -7,6 +7,7 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
 use PuffSmith\Build\Dto\Create\CreateDto;
+use PuffSmith\Build\Dto\Patch\PatchDto;
 use function microtime;
 
 class BuildRepository extends AbstractRepository {
@@ -29,6 +30,21 @@ class BuildRepository extends AbstractRepository {
 			'ohm'          => $createDto->ohm,
 			'created'      => microtime(true),
 			'user_id'      => $this->currentUserService->requiredId(),
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->patch([
+			'id'           => $patchDto->id,
+			'name'         => $patchDto->name,
+			'description'  => $patchDto->description,
+			'atomizer_id'  => $patchDto->atomizerId,
+			'coil_id'      => $patchDto->coilId,
+			'cotton_id'    => $patchDto->cottonId,
+			'coils'        => $patchDto->coils,
+			'coilOffset'   => $patchDto->coilOffset,
+			'cottonOffset' => $patchDto->cottonOffset,
+			'ohm'          => $patchDto->ohm,
 		]);
 	}
 }
