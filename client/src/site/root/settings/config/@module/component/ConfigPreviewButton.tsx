@@ -13,7 +13,7 @@ export interface IConfigPreviewButtonProps extends Partial<IDrawerButtonProps> {
 export const ConfigPreviewButton: FC<IConfigPreviewButtonProps> = ({config, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerButton
-		label={<Tooltip title={t("marsh.config.preview.tooltip")}>
+		label={<Tooltip title={t("root.config.preview.tooltip")}>
 			{config.key}
 		</Tooltip>}
 		width={550}
