@@ -87,7 +87,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<FormItem
 			field={'nicotine'}
 			labels={['lab.mixture.nicotine.label']}
-			required
 		>
 			<Slider
 				marks={{
