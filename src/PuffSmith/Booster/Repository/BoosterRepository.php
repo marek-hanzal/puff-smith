@@ -38,6 +38,8 @@ class BoosterRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name'      => $createDto->name,
+			'pg'        => $createDto->pg,
+			'vg'        => $createDto->vg,
 			'nicotine'  => $createDto->nicotine,
 			'volume'    => $createDto->volume,
 			'vendor_id' => $createDto->vendorId,
