@@ -1,12 +1,11 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {DatePicker, FormItem} from "@leight-core/leight";
+import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, InputNumber, message, Slider} from "antd";
 import dayjs from "dayjs";
-import {Centered, Submit} from "@leight-core/leight/dist";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
-import {BaseSelect} from "@/puff-smith/site/lab/base";
+import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect} from "@/puff-smith/site/lab/booster";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
@@ -129,6 +128,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<FormItem
 			field={'baseId'}
 			labels={['lab.mixture.baseId.label']}
+			help={<BaseTooltip/>}
 		>
 			<BaseSelect/>
 		</FormItem>

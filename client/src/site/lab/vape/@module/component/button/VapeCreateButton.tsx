@@ -1,5 +1,5 @@
 import {ButtonLink, CreateIcon} from "@leight-core/leight";
-import {IButtonLinkProps} from "@leight-core/leight/dist";
+import {IButtonLinkProps} from "@leight-core/leight";
 import {FC} from "react";
 
 export interface IVapeCreateButtonProps extends Partial<IButtonLinkProps> {

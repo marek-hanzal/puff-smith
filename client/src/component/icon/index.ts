@@ -1,4 +1,5 @@
 export * from "./AtomizerIcon";
+export * from "./BaseIcon";
 export * from "./BuildIcon";
 export * from "./CoilIcon";
 export * from "./CellIcon";
