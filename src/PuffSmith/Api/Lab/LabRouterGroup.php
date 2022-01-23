@@ -10,6 +10,7 @@ use PuffSmith\Api\Lab\Booster\BoosterRouterGroup;
 use PuffSmith\Api\Lab\Build\BuildRouterGroup;
 use PuffSmith\Api\Lab\Coil\CoilRouterGroup;
 use PuffSmith\Api\Lab\Cotton\CottonRouterGroup;
+use PuffSmith\Api\Lab\Driptip\DriptipRouterGroup;
 use PuffSmith\Api\Lab\Liquid\LiquidRouterGroup;
 use PuffSmith\Api\Lab\Mixture\MixtureRouterGroup;
 use PuffSmith\Api\Lab\Vendor\VendorRouterGroup;
@@ -25,6 +26,7 @@ class LabRouterGroup extends AbstractRouterGroup {
 			BuildRouterGroup::class,
 			CoilRouterGroup::class,
 			CottonRouterGroup::class,
+			DriptipRouterGroup::class,
 			LiquidRouterGroup::class,
 			MixtureRouterGroup::class,
 			VendorRouterGroup::class,
