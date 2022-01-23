@@ -2,7 +2,7 @@ import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {DatePicker, FormItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, InputNumber, Slider} from "antd";
+import {Divider, InputNumber, message, Slider} from "antd";
 import dayjs from "dayjs";
 import {Centered, Submit} from "@leight-core/leight/dist";
 import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
@@ -22,6 +22,10 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			volume: 60,
 			mixed: dayjs(),
 		})}
+		onSuccess={({navigate, response}) => {
+			message.success(t("lab.mixture.created.message", {data: response}));
+			navigate("/lab/mixture/list");
+		}}
 		{...props}
 	>
 		<FormItem
