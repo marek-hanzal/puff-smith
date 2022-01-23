@@ -45,4 +45,8 @@ class SetupDto extends AbstractDto {
 	 * @var ModDto
 	 */
 	public ModDto $mod;
+	/**
+	 * @var string
+	 */
+	public string $created;
 }

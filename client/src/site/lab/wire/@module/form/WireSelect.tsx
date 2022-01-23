@@ -1,6 +1,7 @@
 import {IWiresSourceSelectProps, WiresSourceSelect} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
 import {Typography} from "antd";
+import {WireInline} from "@/puff-smith/site/lab/wire";
 
 export interface IWireSelectProps extends Partial<IWiresSourceSelectProps> {
 }
@@ -10,7 +11,7 @@ export const WireSelect: FC<IWireSelectProps> = props => {
 		showSearch
 		optionLabelProp={'name'}
 		toOption={wire => ({
-			label: <>{wire.name}&nbsp;<Typography.Text type={'secondary'}>{wire.vendor.name}</Typography.Text><br/><Typography.Text type={'success'}>{(wire.ga ? wire.ga + 'GA' : null) || wire.description}</Typography.Text></>,
+			label: <WireInline wire={wire}/>,
 			value: wire.id,
 			...wire
 		})}

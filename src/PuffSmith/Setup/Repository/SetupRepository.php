@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PuffSmith\Setup\Repository;
 
+use DateTime;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
@@ -12,7 +13,10 @@ class SetupRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_setup_name_unique']);
+		parent::__construct([
+			'created' => IRepository::ORDER_DESC,
+			'name'    => IRepository::ORDER_ASC,
+		], ['z_setup_name_unique']);
 	}
 
 	public function create(CreateDto $createDto) {
@@ -22,6 +26,7 @@ class SetupRepository extends AbstractRepository {
 			'driptip_id'  => $createDto->driptipId,
 			'build_id'    => $createDto->buildId,
 			'mod_id'      => $createDto->modId,
+			'created'     => new DateTime(),
 			'user_id'     => $this->currentUserService->requiredId(),
 		]);
 	}

@@ -1,21 +1,21 @@
 import {FC, ReactNode} from "react";
-import {useTranslation} from "react-i18next";
 import {CreateTemplate, DrawerButton} from "@leight-core/leight";
 import {PlusOutlined} from "@ant-design/icons";
+import {IDrawerButtonProps} from "@leight-core/leight/dist";
 
-export interface IFormTooltipProps {
+export interface IFormTooltipProps extends Partial<IDrawerButtonProps> {
 	icon: ReactNode
 	label: string
 }
 
-export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children}) => {
-	const {t} = useTranslation();
+export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children, ...props}) => {
 	return <DrawerButton
 		type={'link'}
 		size={'middle'}
 		icon={<PlusOutlined/>}
 		title={label + '.tooltip.create'}
-		width={600}
+		width={700}
+		{...props}
 	>
 		<CreateTemplate
 			icon={icon}

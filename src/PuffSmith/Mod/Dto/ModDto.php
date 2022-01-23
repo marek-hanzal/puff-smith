@@ -12,6 +12,10 @@ class ModDto extends AbstractDto {
 	 */
 	public string $id;
 	/**
+	 * @var string
+	 */
+	public string $name;
+	/**
 	 * @var int|null
 	 */
 	public ?int $power;

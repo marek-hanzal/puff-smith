@@ -5,6 +5,7 @@ namespace PuffSmith\Driptip\Dto;
 
 use Edde\Dto\AbstractDto;
 use Edde\Tag\Dto\TagDto;
+use PuffSmith\Vendor\Dto\VendorDto;
 
 class DriptipDto extends AbstractDto {
 	/**
@@ -20,4 +21,12 @@ class DriptipDto extends AbstractDto {
 	 * @description materials of this driptip
 	 */
 	public array $materials = [];
+	/**
+	 * @var string
+	 */
+	public string $vendorId;
+	/**
+	 * @var VendorDto
+	 */
+	public VendorDto $vendor;
 }

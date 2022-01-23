@@ -20,6 +20,8 @@ export module BoosterFilterDto {
 export interface BoosterDto {
 	id: string;
 	name: string;
+	pg: number;
+	vg: number;
 	nicotine: number;
 	volume: number;
 	vendorId: string;

@@ -16,6 +16,7 @@ final class SetupDefault extends CommonMigration {
 			->addUuidForeignColumn('build', 'z_build', ['comment' => 'Build (there is also atomizer and so).'])
 			->addUuidForeignColumn('mod', 'z_mod', ['comment' => 'Device a build is running on.'])
 			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Owner of this setup.'])
+			->addColumn('created', 'datetime', ['comment' => 'Creation time of a setup, just for order'])
 			->addUniqueIndex([
 				'name',
 				'user_id',
