@@ -13,6 +13,8 @@ use PuffSmith\Api\Lab\Cotton\CottonRouterGroup;
 use PuffSmith\Api\Lab\Driptip\DriptipRouterGroup;
 use PuffSmith\Api\Lab\Liquid\LiquidRouterGroup;
 use PuffSmith\Api\Lab\Mixture\MixtureRouterGroup;
+use PuffSmith\Api\Lab\Mod\ModRouterGroup;
+use PuffSmith\Api\Lab\Setup\SetupRouterGroup;
 use PuffSmith\Api\Lab\Vendor\VendorRouterGroup;
 use PuffSmith\Api\Lab\Wire\WireRouterGroup;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -29,6 +31,8 @@ class LabRouterGroup extends AbstractRouterGroup {
 			DriptipRouterGroup::class,
 			LiquidRouterGroup::class,
 			MixtureRouterGroup::class,
+			ModRouterGroup::class,
+			SetupRouterGroup::class,
 			VendorRouterGroup::class,
 			WireRouterGroup::class,
 		]);
