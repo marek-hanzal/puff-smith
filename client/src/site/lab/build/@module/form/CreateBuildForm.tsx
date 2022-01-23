@@ -70,24 +70,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 		<Divider/>
 		<Card title={t('lab.build.advanced.title')}>
 			<FormItem
-				field={'coils'}
-				labels={['lab.build.coils.label']}
-			>
-				<Slider
-					included={false}
-					tipFormatter={null}
-					marks={{
-						1: 1,
-						2: 2,
-						3: 3,
-						4: 4,
-					}}
-					min={1}
-					max={4}
-					step={null}
-				/>
-			</FormItem>
-			<FormItem
 				field={'coilOffset'}
 				labels={['lab.build.coil.label']}
 				tooltip={t('lab.build.coil.label.tooltip')}
@@ -123,6 +105,24 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
 					}}
 					min={-2}
 					max={2}
+				/>
+			</FormItem>
+			<FormItem
+				field={'coils'}
+				labels={['lab.build.coils.label']}
+			>
+				<Slider
+					included={false}
+					tipFormatter={null}
+					marks={{
+						1: 1,
+						2: 2,
+						3: 3,
+						4: 4,
+					}}
+					min={1}
+					max={4}
+					step={null}
 				/>
 			</FormItem>
 		</Card>
