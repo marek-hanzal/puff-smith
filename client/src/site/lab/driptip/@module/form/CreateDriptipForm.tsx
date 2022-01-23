@@ -21,8 +21,9 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = props => {
 		{...props}
 	>
 		<FormItem
-			field={'code'}
-			labels={['lab.driptip.code.label']}
+			field={'name'}
+			labels={['lab.driptip.name.label']}
+			tooltip={t('lab.driptip.name.label.tooltip')}
 			required
 		/>
 		<FormItem

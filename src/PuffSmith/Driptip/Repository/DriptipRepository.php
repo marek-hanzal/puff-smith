@@ -18,7 +18,7 @@ class DriptipRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		$driptip = $this->insert([
-			'code'      => $createDto->code,
+			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
 			'user_id'   => $this->currentUserService->requiredId(),
 		]);

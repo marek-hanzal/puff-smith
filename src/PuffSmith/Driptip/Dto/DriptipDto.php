@@ -15,7 +15,7 @@ class DriptipDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $code;
+	public string $name;
 	/**
 	 * @var TagDto[]
 	 * @description materials of this driptip

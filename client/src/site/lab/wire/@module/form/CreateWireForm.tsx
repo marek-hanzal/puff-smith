@@ -15,6 +15,14 @@ export const CreateWireForm: FC<ICreateWireFormProps> = props => {
 			required
 		/>
 		<FormItem
+			field={'vendorId'}
+			labels={['lab.wire.vendorId.label']}
+			required
+			help={<VendorTooltip/>}
+		>
+			<VendorSelect/>
+		</FormItem>
+		<FormItem
 			field={'description'}
 			labels={['lab.wire.description.label']}
 		/>
@@ -23,14 +31,6 @@ export const CreateWireForm: FC<ICreateWireFormProps> = props => {
 			labels={['lab.wire.ga.label']}
 		>
 			<InputNumber style={{width: '100%'}} min={20} max={48}/>
-		</FormItem>
-		<FormItem
-			field={'vendorId'}
-			labels={['lab.wire.vendorId.label']}
-			required
-			help={<VendorTooltip/>}
-		>
-			<VendorSelect/>
 		</FormItem>
 		<Divider/>
 		<Centered>
