@@ -31,6 +31,7 @@ class SetupMapper extends AbstractMapper {
 			'build'       => $this->buildMapper->item($build),
 			'modId'       => ($mod = $this->modRepository->find($item->mod_id))->id,
 			'mod'         => $this->modMapper->item($mod),
+			'created'     => $this->isoDateNull($item->created),
 		]);
 	}
 }

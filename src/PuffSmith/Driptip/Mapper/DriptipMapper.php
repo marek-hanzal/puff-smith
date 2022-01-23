@@ -18,7 +18,8 @@ class DriptipMapper extends AbstractMapper {
 
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(DriptipDto::class, [
-			'name'      => $item->name,
+			'id'        => $item->id,
+			'code'      => $item->code,
 			'materials' => $this->tagMapper->map($this->driptipMaterialRepository->findMaterialByDriptip($item->id)),
 			'vendorId'  => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
 			'vendor'    => $this->vendorMapper->item($vendor),

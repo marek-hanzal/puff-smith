@@ -14,6 +14,7 @@ class ModMapper extends AbstractMapper {
 
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(ModDto::class, [
+			'id'       => $item->id,
 			'name'     => $item->name,
 			'power'    => $item->power,
 			'vendorId' => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,

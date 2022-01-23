@@ -9,11 +9,11 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $name;
+	public string $code;
 	/**
 	 * @var string[]
 	 */
-	public array $materials;
+	public array $materials = [];
 	/**
 	 * @var string
 	 */

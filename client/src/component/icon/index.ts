@@ -7,6 +7,7 @@ export * from "./CellIcon";
 export * from "./CommonIcon";
 export * from "./CottonIcon";
 export * from "./DownloadIcon";
+export * from "./DriptipIcon";
 export * from "./FullLogoIcon";
 export * from "./ImportIcon";
 export * from "./JobIcon";

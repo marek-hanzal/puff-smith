@@ -2,13 +2,13 @@ export interface MixtureDto {
 	id: string;
 	name: string;
 	code: string;
-	steep: number;
+	steep: number | null;
 	pg: number;
 	vg: number;
 	nicotine: number;
 	volume: number;
-	mixed: number;
-	expires: number | null;
+	mixed: string;
+	expires: string | null;
 	liquidId: string;
 	liquid: import("@/sdk/puff-smith/liquid/dto/index").LiquidDto;
 	boosterId: string | null;
