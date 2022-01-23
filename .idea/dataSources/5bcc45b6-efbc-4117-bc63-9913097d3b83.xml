@@ -2670,308 +2670,291 @@ vendor_id</ColNames>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="601" parent="354" name="driptip_id">
-      <Comment>Driptips are important.</Comment>
+    <column id="601" parent="354" name="build_id">
+      <Comment>Build (there is also atomizer and so).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="602" parent="354" name="build_id">
-      <Comment>Build (there is also atomizer and so).</Comment>
+    <column id="602" parent="354" name="mod_id">
+      <Comment>Device a build is running on.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="603" parent="354" name="mod_id">
-      <Comment>Device a build is running on.</Comment>
+    <column id="603" parent="354" name="user_id">
+      <Comment>Owner of this setup.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="604" parent="354" name="user_id">
-      <Comment>Owner of this setup.</Comment>
-      <DataType>varchar(36)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-      <CollationName>utf8mb3_unicode_ci</CollationName>
-    </column>
-    <column id="605" parent="354" name="created">
+    <column id="604" parent="354" name="created">
       <Comment>Creation time of a setup, just for order</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>8</Position>
+      <Position>7</Position>
     </column>
-    <foreign-key id="606" parent="354" name="z_setup_ibfk_1">
-      <ColNames>driptip_id</ColNames>
-      <OnDelete>cascade</OnDelete>
-      <RefColNames>id</RefColNames>
-      <RefTableName>z_driptip</RefTableName>
-    </foreign-key>
-    <foreign-key id="607" parent="354" name="z_setup_ibfk_2">
+    <foreign-key id="605" parent="354" name="z_setup_ibfk_1">
       <ColNames>build_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_build</RefTableName>
     </foreign-key>
-    <foreign-key id="608" parent="354" name="z_setup_ibfk_3">
+    <foreign-key id="606" parent="354" name="z_setup_ibfk_2">
       <ColNames>mod_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_mod</RefTableName>
     </foreign-key>
-    <foreign-key id="609" parent="354" name="z_setup_ibfk_4">
+    <foreign-key id="607" parent="354" name="z_setup_ibfk_3">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <index id="610" parent="354" name="z_setup_name_unique">
+    <index id="608" parent="354" name="z_setup_name_unique">
       <ColNames>name
 user_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="611" parent="354" name="driptip_id">
-      <ColNames>driptip_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="612" parent="354" name="build_id">
+    <index id="609" parent="354" name="build_id">
       <ColNames>build_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="613" parent="354" name="mod_id">
+    <index id="610" parent="354" name="mod_id">
       <ColNames>mod_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="614" parent="354" name="user_id">
+    <index id="611" parent="354" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="615" parent="354" name="PRIMARY">
+    <key id="612" parent="354" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="616" parent="354" name="z_setup_name_unique">
+    <key id="613" parent="354" name="z_setup_name_unique">
       <ColNames>name
 user_id</ColNames>
       <UnderlyingIndexName>z_setup_name_unique</UnderlyingIndexName>
     </key>
-    <column id="617" parent="355" name="id">
+    <column id="614" parent="355" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="618" parent="355" name="code">
+    <column id="615" parent="355" name="code">
       <Comment>Short tag code. Shall be lower-case.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="619" parent="355" name="label">
+    <column id="616" parent="355" name="label">
       <Comment>Tag label; shall be translated.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="620" parent="355" name="group">
+    <column id="617" parent="355" name="group">
       <Comment>Tags could be (optionally) grouped for usage in different parts of the app.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="621" parent="355" name="sort">
+    <column id="618" parent="355" name="sort">
       <Comment>An (optional) stable way, how to sort tags.</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <key id="622" parent="355" name="PRIMARY">
+    <key id="619" parent="355" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="623" parent="356" name="id">
+    <column id="620" parent="356" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="624" parent="356" name="locale">
+    <column id="621" parent="356" name="locale">
       <Comment>Locale ID (cz-CZ, en-Gb, whatever...).</Comment>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="625" parent="356" name="key">
+    <column id="622" parent="356" name="key">
       <Comment>Translation key.</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="626" parent="356" name="hash">
+    <column id="623" parent="356" name="hash">
       <Comment>Hash of a translation key.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="627" parent="356" name="translation">
+    <column id="624" parent="356" name="translation">
       <Comment>The translation of the key.</Comment>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <index id="628" parent="356" name="z_translation_hash_unique">
+    <index id="625" parent="356" name="z_translation_hash_unique">
       <ColNames>locale
 hash</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="629" parent="356" name="PRIMARY">
+    <key id="626" parent="356" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="630" parent="356" name="z_translation_hash_unique">
+    <key id="627" parent="356" name="z_translation_hash_unique">
       <ColNames>locale
 hash</ColNames>
       <UnderlyingIndexName>z_translation_hash_unique</UnderlyingIndexName>
     </key>
-    <column id="631" parent="357" name="id">
+    <column id="628" parent="357" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="632" parent="357" name="name">
+    <column id="629" parent="357" name="name">
       <Comment>Arbitrary display name of an user.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="633" parent="357" name="email">
+    <column id="630" parent="357" name="email">
       <Comment>Primary email of an user, also used as a login.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="634" parent="357" name="password">
+    <column id="631" parent="357" name="password">
       <Comment>Hashed password of an user.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <Position>4</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="635" parent="357" name="site">
+    <column id="632" parent="357" name="site">
       <Comment>Primary site an user belongs to.</Comment>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="636" parent="357" name="settings">
+    <column id="633" parent="357" name="settings">
       <Comment>Optional settings for the user (like language and so).</Comment>
       <DataType>varchar(2048)|0s</DataType>
       <Position>6</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <key id="637" parent="357" name="PRIMARY">
+    <key id="634" parent="357" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="638" parent="358" name="id">
+    <column id="635" parent="358" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="639" parent="358" name="name">
+    <column id="636" parent="358" name="name">
       <Comment>The name of a vendor.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <index id="640" parent="358" name="z_vendor_name_unique">
+    <index id="637" parent="358" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="641" parent="358" name="PRIMARY">
+    <key id="638" parent="358" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="642" parent="358" name="z_vendor_name_unique">
+    <key id="639" parent="358" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>z_vendor_name_unique</UnderlyingIndexName>
     </key>
-    <column id="643" parent="359" name="id">
+    <column id="640" parent="359" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="644" parent="359" name="name">
+    <column id="641" parent="359" name="name">
       <Comment>A name (or short description) of the wire, just for lookup.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="645" parent="359" name="description">
+    <column id="642" parent="359" name="description">
       <Comment>Description for cases when a wire is complex (like claptons).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="646" parent="359" name="ga">
+    <column id="643" parent="359" name="ga">
       <Comment>GA of this wire (in case of simple wires).</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="647" parent="359" name="vendor_id">
+    <column id="644" parent="359" name="vendor_id">
       <Comment>Vendor of a wire.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="648" parent="359" name="z_wire_ibfk_1">
+    <foreign-key id="645" parent="359" name="z_wire_ibfk_1">
       <ColNames>vendor_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_vendor</RefTableName>
     </foreign-key>
-    <index id="649" parent="359" name="z_wire_name_unique">
+    <index id="646" parent="359" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="650" parent="359" name="PRIMARY">
+    <key id="647" parent="359" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="651" parent="359" name="z_wire_name_unique">
+    <key id="648" parent="359" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
