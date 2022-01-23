@@ -16,6 +16,7 @@ export * from "./LogoIcon";
 export * from "./MixtureIcon";
 export * from "./ModIcon";
 export * from "./SettingsIcon";
+export * from "./SetupIcon";
 export * from "./ToolIcon";
 export * from "./UpgradeIcon";
 export * from "./UserIcon";
