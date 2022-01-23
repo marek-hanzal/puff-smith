@@ -5,7 +5,6 @@ namespace PuffSmith\Setup\Dto;
 
 use Edde\Dto\AbstractDto;
 use PuffSmith\Build\Dto\BuildDto;
-use PuffSmith\Driptip\Dto\DriptipDto;
 use PuffSmith\Mod\Dto\ModDto;
 
 class SetupDto extends AbstractDto {
@@ -21,14 +20,6 @@ class SetupDto extends AbstractDto {
 	 * @var string|null
 	 */
 	public ?string $description;
-	/**
-	 * @var string
-	 */
-	public string $driptipId;
-	/**
-	 * @var DriptipDto
-	 */
-	public DriptipDto $driptip;
 	/**
 	 * @var string
 	 */

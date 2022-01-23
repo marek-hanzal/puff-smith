@@ -17,10 +17,6 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $driptipId;
-	/**
-	 * @var string
-	 */
 	public string $buildId;
 	/**
 	 * @var string
