@@ -1,22 +1,53 @@
-import {FC} from "react";
 import {
+	FC,
+	ReactNode,
+	createContext
+} from "react";
+import {
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
 	createPostMutation,
 	createPostQuery,
+	isCallable,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+
+export type IBuildQueryParams = {
+	buildId: string;
+}
+
+
+export const useBuildQuery = createGetQuery<IBuildQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Build");
+export const useBuildQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Build.Build"])
+}
 
 export type IBuildsQueryParams = void;
 
@@ -32,6 +63,11 @@ export type ICreateQueryParams = void;
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Create");
 
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Patch");
+
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
 
@@ -41,6 +77,64 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const BuildContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>);
+
+export const useBuildContext = (): IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto> => useContext(BuildContext, "BuildContext");
+
+export const useOptionalBuildContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>>(BuildContext as any);
+
+export interface IBuildProvider extends IEntityProviderProps<import("@/sdk/puff-smith/build/dto/index").BuildDto> {
+}
+
+export const BuildProvider: FC<IBuildProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <BuildContext.Provider value={entityContext}>
+				{children}
+			</BuildContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchBuildProps extends Partial<IQueryProps<IBuildQueryParams, void, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+	query: IBuildQueryParams;
+}
+
+export const FetchBuild: FC<IFetchBuildProps> = ({query, ...props}) => <Query<IBuildQueryParams, void, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+	useQuery={useBuildQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalBuildContext()}
+	{...props}
+/>;
+
+export interface IBuildPageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/build/dto/index").BuildDto) => ReactNode);
+}
+
+export const BuildPage: FC<IBuildPageProps> = ({children, ...props}) => {
+	const {buildId} = useParams();
+	return <BuildProvider>
+		<Page {...props}>
+			<FetchBuild
+				query={{buildId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchBuild>
+		</Page>
+	</BuildProvider>;
+};
 
 export const useBuildsSource = () => useSourceContext<IBuildsQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto, import("@/sdk/puff-smith/build/dto/index").BuildOrderByDto, import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>()
 
