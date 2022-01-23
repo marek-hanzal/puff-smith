@@ -25,7 +25,7 @@ class MixtureMapper extends AbstractMapper {
 			'id'        => $item->id,
 			'name'      => $item->name,
 			'code'      => $item->code,
-			'steep'     => $item->steep,
+			'steep'     => isset($item->steep) ? (int)$item->steep : null,
 			'pg'        => $item->pg,
 			'vg'        => $item->vg,
 			'nicotine'  => $item->nicotine,

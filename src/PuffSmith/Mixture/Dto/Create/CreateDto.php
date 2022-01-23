@@ -15,9 +15,9 @@ class CreateDto extends AbstractDto {
 	 */
 	public string $code;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $steep;
+	public ?int $steep;
 	/**
 	 * @var int
 	 */
