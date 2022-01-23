@@ -1,22 +1,3 @@
-export interface BuildOrderByDto {
-
-}
-
-export module BuildOrderByDto {
-
-}
-
-
-export interface BuildFilterDto {
-	id?: string | undefined;
-	fulltext?: string | undefined;
-}
-
-export module BuildFilterDto {
-
-}
-
-
 export interface BuildDto {
 	id: string;
 	name: string;
@@ -35,5 +16,24 @@ export interface BuildDto {
 }
 
 export module BuildDto {
+
+}
+
+
+export interface BuildOrderByDto {
+
+}
+
+export module BuildOrderByDto {
+
+}
+
+
+export interface BuildFilterDto {
+	id?: string | undefined;
+	fulltext?: string | undefined;
+}
+
+export module BuildFilterDto {
 
 }

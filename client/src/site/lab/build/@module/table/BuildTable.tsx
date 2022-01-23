@@ -7,6 +7,7 @@ import {Preview, toLocalDateTime} from "@leight-core/leight";
 import dayjs from "dayjs";
 import {Card} from "antd";
 import {useTranslation} from "react-i18next";
+import {BuildLink} from "@/puff-smith/site/lab/build";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -31,7 +32,8 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.build.table.name",
-				width: 180,
+				width: 220,
+				render: (_, build) => <BuildLink build={build}/>,
 			}),
 			column({
 				key: "atomizer",
