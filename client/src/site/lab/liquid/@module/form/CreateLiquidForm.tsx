@@ -2,7 +2,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/l
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 
 export interface ICreateLiquidFormProps extends Partial<ICreateDefaultFormProps> {

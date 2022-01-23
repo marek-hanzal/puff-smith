@@ -1,4 +1,4 @@
-import {ButtonLink, IButtonLinkProps, ListIcon} from "@leight-core/leight/dist";
+import {ButtonLink, IButtonLinkProps, ListIcon} from "@leight-core/leight";
 import {FC} from "react";
 
 export interface IMixtureListButtonProps extends Partial<IButtonLinkProps> {
