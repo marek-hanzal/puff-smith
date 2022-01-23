@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PuffSmith\Vape\Repository;
 
+use DateTime;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
@@ -17,6 +18,7 @@ class VapeRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
+			'stamp'   => new DateTime(),
 			'user_id' => $this->currentUserService->requiredId(),
 		]);
 	}
