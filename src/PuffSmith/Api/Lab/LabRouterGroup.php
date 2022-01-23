@@ -11,6 +11,7 @@ use PuffSmith\Api\Lab\Build\BuildRouterGroup;
 use PuffSmith\Api\Lab\Coil\CoilRouterGroup;
 use PuffSmith\Api\Lab\Cotton\CottonRouterGroup;
 use PuffSmith\Api\Lab\Liquid\LiquidRouterGroup;
+use PuffSmith\Api\Lab\Mixture\MixtureRouterGroup;
 use PuffSmith\Api\Lab\Vendor\VendorRouterGroup;
 use PuffSmith\Api\Lab\Wire\WireRouterGroup;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -25,6 +26,7 @@ class LabRouterGroup extends AbstractRouterGroup {
 			CoilRouterGroup::class,
 			CottonRouterGroup::class,
 			LiquidRouterGroup::class,
+			MixtureRouterGroup::class,
 			VendorRouterGroup::class,
 			WireRouterGroup::class,
 		]);

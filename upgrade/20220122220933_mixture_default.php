@@ -25,7 +25,10 @@ final class MixtureDefault extends CommonMigration {
 			->createUuidTable('z_mixture', ['comment' => 'Mixtures are mixed liquids prepared for vape.'])
 			->addStringColumn('name', 128, ['comment' => 'Name of a mixture, just for later reference.'])
 			->addStringColumn('code', 64, ['comment' => 'Mixture code; if empty, one should be generated.'])
-			->addColumn('steep', 'integer', ['comment' => 'Number of days of steeping.'])
+			->addColumn('steep', 'integer', [
+				'comment' => 'Number of days of steeping.',
+				'null'    => true,
+			])
 			->addColumn('pg', 'integer', ['comment' => 'Amount of PG (percentage).'])
 			->addColumn('vg', 'integer', ['comment' => 'Amount of VG (percentage).'])
 			->addColumn('nicotine', 'integer', ['comment' => 'Amount of nicotine (mg).'])
