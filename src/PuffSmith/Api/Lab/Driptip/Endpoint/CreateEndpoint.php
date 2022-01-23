@@ -13,7 +13,7 @@ class CreateEndpoint extends AbstractCreateEndpoint {
 	use DriptipRepositoryTrait;
 	use DriptipMapperTrait;
 
-	public function create(CreateDto $createDto): DriptipDto {
+	public function post(CreateDto $createDto): DriptipDto {
 		return $this->driptipMapper->item($this->driptipRepository->create($createDto));
 	}
 }
