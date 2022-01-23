@@ -17,6 +17,7 @@ class LiquidMapper extends AbstractMapper {
 			'id'          => $item->id,
 			'pg'          => $item->pg,
 			'vg'          => $item->vg,
+			'volume'      => $item->volume,
 			'name'        => $item->name,
 			'description' => $item->description,
 			'vendorId'    => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,

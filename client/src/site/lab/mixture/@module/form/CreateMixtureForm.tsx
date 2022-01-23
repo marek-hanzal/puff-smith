@@ -61,7 +61,13 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			field={'vg'}
 			labels={['lab.mixture.vg.label']}
 			required
-		/>
+		>
+			<InputNumber
+				style={{width: '100%'}}
+				min={0}
+				max={100}
+			/>
+		</FormItem>
 		<FormItem
 			field={'nicotine'}
 			labels={['lab.mixture.nicotine.label']}
@@ -87,7 +93,13 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			field={'volume'}
 			labels={['lab.mixture.volume.label']}
 			required
-		/>
+		>
+			<InputNumber
+				style={{width: '100%'}}
+				min={0}
+				max={1000}
+			/>
+		</FormItem>
 		<FormItem
 			field={'mixed'}
 			labels={['lab.mixture.mixed.label']}
