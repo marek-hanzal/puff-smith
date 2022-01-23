@@ -21,7 +21,7 @@ final class VapeDefault extends CommonMigration {
 			])
 			->addColumn('tobacco', 'integer', [
 				'comment' => 'Rating of tobacco based liquids.',
-				['null' => true],
+				'null'    => true,
 			])
 			->addColumn('cakes', 'integer', [
 				'comment' => 'Rating of cake like liquids.',

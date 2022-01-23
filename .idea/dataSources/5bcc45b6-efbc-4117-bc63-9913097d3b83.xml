@@ -3020,31 +3020,26 @@ hash</ColNames>
     <column id="660" parent="360" name="fruits">
       <Comment>Rating of fruity liquids.</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
     <column id="661" parent="360" name="tobacco">
       <Comment>Rating of tobacco based liquids.</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
     <column id="662" parent="360" name="cakes">
       <Comment>Rating of cake like liquids.</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
     <column id="663" parent="360" name="complex">
       <Comment>Rating of complex liquids (multiple ingredients without dominant one).</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>10</Position>
     </column>
     <column id="664" parent="360" name="fresh">
       <Comment>If mint like liquid is used, how &quot;fresh&quot; it tastes; higher number is not convenient anymore.</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>11</Position>
     </column>
     <column id="665" parent="360" name="clouds">
@@ -3074,7 +3069,6 @@ hash</ColNames>
     <column id="669" parent="360" name="juice">
       <Comment>How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.</Comment>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>16</Position>
     </column>
     <column id="670" parent="360" name="power">
