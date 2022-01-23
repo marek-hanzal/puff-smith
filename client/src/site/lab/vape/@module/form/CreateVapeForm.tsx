@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Card, Divider, InputNumber, Rate, Slider} from "antd";
+import {Card, Divider, InputNumber, message, Rate, Slider} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
 import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
@@ -13,6 +13,10 @@ export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
 export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
+		onSuccess={({navigate, response}) => {
+			message.success(t("lab.vape.created.message", {data: response}));
+			navigate("/lab/vape/list");
+		}}
 		toForm={() => ({
 			rating: 5,
 			taste: 5,
@@ -21,6 +25,8 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
 			mtl: 5,
 			dl: 0,
 			clouds: 3,
+			leaks: 0,
+			dryhit: 3,
 		})}
 		{...props}
 	>
