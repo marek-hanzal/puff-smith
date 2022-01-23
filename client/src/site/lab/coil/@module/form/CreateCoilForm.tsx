@@ -10,7 +10,9 @@ export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 
 export const CreateCoilForm: FC<ICreateCoilFormProps> = props => {
 	const {t} = useTranslation();
-	return <CreateDefaultForm {...props}>
+	return <CreateDefaultForm
+		{...props}
+	>
 		<FormItem
 			field={'code'}
 			labels={['lab.coil.code.label']}
