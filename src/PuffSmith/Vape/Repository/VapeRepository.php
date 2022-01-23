@@ -18,8 +18,25 @@ class VapeRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
-			'stamp'   => new DateTime(),
-			'user_id' => $this->currentUserService->requiredId(),
+			'setup_id'   => $createDto->setupId,
+			'mixture_id' => $createDto->mixtureId,
+			'driptip_id' => $createDto->driptipId,
+			'rating'     => $createDto->rating,
+			'taste'      => $createDto->taste,
+			'fruits'     => $createDto->fruits,
+			'tobacco'    => $createDto->tobacco,
+			'cakes'      => $createDto->cakes,
+			'complex'    => $createDto->complex,
+			'fresh'      => $createDto->fresh,
+			'clouds'     => $createDto->clouds,
+			'mtl'        => $createDto->mtl,
+			'dl'         => $createDto->dl,
+			'airflow'    => $createDto->airflow,
+			'juice'      => $createDto->juice,
+			'power'      => $createDto->power,
+			'tc'         => $createDto->tc,
+			'stamp'      => new DateTime(),
+			'user_id'    => $this->currentUserService->requiredId(),
 		]);
 	}
 }

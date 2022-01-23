@@ -15,16 +15,34 @@ final class VapeDefault extends CommonMigration {
 			])
 			->addColumn('rating', 'integer', ['comment' => 'An overall rating of this vape; one of the most important parameters here.'])
 			->addColumn('taste', 'integer', ['comment' => 'Rating of taste.'])
-			->addColumn('fruits', 'integer', ['comment' => 'Rating of fruity liquids.'])
-			->addColumn('tobacco', 'integer', ['comment' => 'Rating of tobacco based liquids.'])
-			->addColumn('cakes', 'integer', ['comment' => 'Rating of cake like liquids.'])
-			->addColumn('complex', 'integer', ['comment' => 'Rating of complex liquids (multiple ingredients without dominant one).'])
-			->addColumn('fresh', 'integer', ['comment' => 'If mint like liquid is used, how "fresh" it tastes; higher number is not convenient anymore.'])
+			->addColumn('fruits', 'integer', [
+				'comment' => 'Rating of fruity liquids.',
+				'null'    => true,
+			])
+			->addColumn('tobacco', 'integer', [
+				'comment' => 'Rating of tobacco based liquids.',
+				['null' => true],
+			])
+			->addColumn('cakes', 'integer', [
+				'comment' => 'Rating of cake like liquids.',
+				'null'    => true,
+			])
+			->addColumn('complex', 'integer', [
+				'comment' => 'Rating of complex liquids (multiple ingredients without dominant one).',
+				'null'    => true,
+			])
+			->addColumn('fresh', 'integer', [
+				'comment' => 'If mint like liquid is used, how "fresh" it tastes; higher number is not convenient anymore.',
+				'null'    => true,
+			])
 			->addColumn('clouds', 'integer', ['comment' => 'How cloudy this vape is.'])
 			->addColumn('mtl', 'integer', ['comment' => 'MTL rating of this build.'])
 			->addColumn('dl', 'integer', ['comment' => 'MTL rating of this build.'])
 			->addColumn('airflow', 'integer', ['comment' => 'How the airflow has been set; generally 0 is ultra-tight (basically closed) MTL, higher numbers are open DL.'])
-			->addColumn('juice', 'integer', ['comment' => 'How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.'])
+			->addColumn('juice', 'integer', [
+				'comment' => 'How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.',
+				'null'    => true,
+			])
 			->addColumn('power', 'integer', [
 				'comment' => 'Power in watts used for this setup.',
 				'null'    => true,
