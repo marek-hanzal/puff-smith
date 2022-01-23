@@ -40,6 +40,7 @@ class LiquidRepository extends AbstractRepository {
 			'name'        => $createDto->name,
 			'pg'          => $createDto->pg,
 			'vg'          => $createDto->vg,
+			'volume'      => $createDto->volume,
 			'description' => $createDto->description,
 			'vendor_id'   => $createDto->vendorId,
 		]);

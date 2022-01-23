@@ -21,6 +21,7 @@ class LiquidImport extends AbstractImporter {
 			'name'        => $item->name,
 			'pg'          => (int)$item->pg,
 			'vg'          => (int)$item->vg,
+			'volume'      => (int)$item->volume,
 			'description' => $item->description,
 			'vendorId'    => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]));

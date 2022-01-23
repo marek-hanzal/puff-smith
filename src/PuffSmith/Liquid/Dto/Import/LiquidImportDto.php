@@ -19,6 +19,10 @@ class LiquidImportDto extends AbstractDto {
 	 */
 	public string $vg = '0';
 	/**
+	 * @var string
+	 */
+	public string $volume;
+	/**
 	 * @var string|null
 	 */
 	public ?string $description;
