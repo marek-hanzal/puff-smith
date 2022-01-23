@@ -12,7 +12,6 @@ final class SetupDefault extends CommonMigration {
 				'comment' => 'Optional description of this setup.',
 				'null'    => true,
 			])
-			->addUuidForeignColumn('driptip', 'z_driptip', ['comment' => 'Driptips are important.'])
 			->addUuidForeignColumn('build', 'z_build', ['comment' => 'Build (there is also atomizer and so).'])
 			->addUuidForeignColumn('mod', 'z_mod', ['comment' => 'Device a build is running on.'])
 			->addUuidForeignColumn('user', 'z_user', ['comment' => 'Owner of this setup.'])

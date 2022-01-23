@@ -23,7 +23,6 @@ class SetupRepository extends AbstractRepository {
 		return $this->insert([
 			'name'        => $createDto->name,
 			'description' => $createDto->description,
-			'driptip_id'  => $createDto->driptipId,
 			'build_id'    => $createDto->buildId,
 			'mod_id'      => $createDto->modId,
 			'created'     => new DateTime(),

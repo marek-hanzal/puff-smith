@@ -2,7 +2,6 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/l
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight/dist";
-import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 import {useTranslation} from "react-i18next";
@@ -32,14 +31,6 @@ export const CreateSetupForm: FC<ICreateSetupFormProps> = props => {
 			labels={['lab.setup.description.label']}
 		>
 			<TextArea autoSize={{minRows: 6, maxRows: 6}}/>
-		</FormItem>
-		<FormItem
-			field={'driptipId'}
-			labels={['lab.setup.driptipId.label']}
-			required
-			help={<DriptipTooltip/>}
-		>
-			<DriptipSelect/>
 		</FormItem>
 		<FormItem
 			field={'buildId'}
