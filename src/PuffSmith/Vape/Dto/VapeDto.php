@@ -80,6 +80,14 @@ class VapeDto extends AbstractDto {
 	/**
 	 * @var int
 	 */
+	public int $dryhit;
+	/**
+	 * @var int
+	 */
+	public int $leaks;
+	/**
+	 * @var int
+	 */
 	public int $airflow;
 	/**
 	 * @var int|null

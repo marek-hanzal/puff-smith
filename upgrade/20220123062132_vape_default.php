@@ -38,6 +38,8 @@ final class VapeDefault extends CommonMigration {
 			->addColumn('clouds', 'integer', ['comment' => 'How cloudy this vape is.'])
 			->addColumn('mtl', 'integer', ['comment' => 'MTL rating of this build.'])
 			->addColumn('dl', 'integer', ['comment' => 'MTL rating of this build.'])
+			->addColumn('dryhit', 'integer', ['comment' => 'A probability of dry hit of this vape setting.'])
+			->addColumn('leaks', 'integer', ['comment' => 'An amount of leaks of this build; zero means no leaks.'])
 			->addColumn('airflow', 'integer', ['comment' => 'How the airflow has been set; generally 0 is ultra-tight (basically closed) MTL, higher numbers are open DL.'])
 			->addColumn('juice', 'integer', [
 				'comment' => 'How juice flow has been set; 0 closed, higher numbers fully opened. This could help setup less or non-leaking atomizer.',

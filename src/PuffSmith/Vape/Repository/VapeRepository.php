@@ -31,6 +31,8 @@ class VapeRepository extends AbstractRepository {
 			'clouds'     => $createDto->clouds,
 			'mtl'        => $createDto->mtl,
 			'dl'         => $createDto->dl,
+			'dryhit'     => $createDto->dryhit,
+			'leaks'      => $createDto->leaks,
 			'airflow'    => $createDto->airflow,
 			'juice'      => $createDto->juice,
 			'power'      => $createDto->power,

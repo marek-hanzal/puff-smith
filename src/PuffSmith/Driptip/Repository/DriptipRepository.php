@@ -13,7 +13,7 @@ class DriptipRepository extends AbstractRepository {
 	use DriptipMaterialRepositoryTrait;
 
 	public function __construct() {
-		parent::__construct(['code' => IRepository::ORDER_ASC], ['z_driptip_code_unique']);
+		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_driptip_code_unique']);
 	}
 
 	public function create(CreateDto $createDto) {

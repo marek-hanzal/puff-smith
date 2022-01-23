@@ -39,6 +39,8 @@ class VapeMapper extends AbstractMapper {
 			'clouds'    => $item->clouds,
 			'mtl'       => $item->mtl,
 			'dl'        => $item->dl,
+			'dryhit'    => $item->dryhit,
+			'leaks'     => $item->leaks,
 			'airflow'   => $item->airflow,
 			'juice'     => $item->juice,
 			'power'     => $item->power,
