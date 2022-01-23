@@ -14,5 +14,6 @@ final class VendorDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/vendors.xlsx');
+		sleep(1);
 	}
 }

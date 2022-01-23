@@ -23,5 +23,6 @@ final class LiquidDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/liquids.xlsx');
+		sleep(1);
 	}
 }

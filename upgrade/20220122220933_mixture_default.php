@@ -61,6 +61,8 @@ final class MixtureDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/boosters.xlsx');
+		sleep(1);
 		$this->importExcel(__DIR__ . '/fixtures/bases.xlsx');
+		sleep(1);
 	}
 }

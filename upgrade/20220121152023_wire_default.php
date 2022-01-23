@@ -25,5 +25,6 @@ final class WireDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/wires.xlsx');
+		sleep(1);
 	}
 }
