@@ -11,9 +11,9 @@ class CreateDto extends AbstractDto {
 	 */
 	public string $name;
 	/**
-	 * @var string
+	 * @var string|null
 	 */
-	public string $code;
+	public ?string $code;
 	/**
 	 * @var int|null
 	 */

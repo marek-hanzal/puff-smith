@@ -15,7 +15,7 @@ export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 export const MixtureTable: FC<IMixtureTableProps> = props => {
 	const {t} = useTranslation();
 	return <MixturesSourceTable
-		scroll={{x: 2100}}
+		scroll={{x: 2200}}
 		{...props}
 	>
 		{({column}) => [

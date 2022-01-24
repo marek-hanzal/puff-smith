@@ -1,11 +1,12 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {Space} from "antd";
-import {CreateVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
+import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, EditTemplate} from "@leight-core/leight";
+import {BackIcon} from "@leight-core/leight";
+import {CreateTemplate} from "@leight-core/leight/dist";
 
-export default withLabLayout(function Edit() {
+export default withLabLayout(function Clone() {
 	return <VapePage
 		name={"lab.vape.clone"}
 		selected={['/lab/vape']}
@@ -18,16 +19,15 @@ export default withLabLayout(function Edit() {
 	>
 		{vape => <>
 			<LabMenu/>
-			<EditTemplate
+			<CreateTemplate
 				icon={<VapeIcon/>}
 				label={'lab.vape'}
 				extra={<Space>
 					<VapeLinkButton icon={<BackIcon/>} vape={vape} title={'lab.vape.link.button'}/>
-					<VapeCloneButton vape={vape}/>
 				</Space>}
 			>
 				<CreateVapeForm vape={vape}/>
-			</EditTemplate>
+			</CreateTemplate>
 		</>}
 	</VapePage>;
 });

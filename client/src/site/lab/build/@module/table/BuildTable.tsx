@@ -1,41 +1,61 @@
 import {BuildsSourceTable, IBuildsSourceTableProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {CoilInline, CoilOffset} from "@/puff-smith/site/lab/coil";
+import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {CottonInline, CottonOffset} from "@/puff-smith/site/lab/cotton";
-import {Preview, toLocalDateTime} from "@leight-core/leight";
+import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {Card} from "antd";
-import {useTranslation} from "react-i18next";
-import {BuildLink} from "@/puff-smith/site/lab/build";
+import {BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreview} from "@/puff-smith/site/lab/build";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
+import {Menu} from "antd";
+import {EyeOutlined} from "@ant-design/icons";
+import {BuildIcon} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
 
 export const BuildTable: FC<IBuildTableProps> = props => {
-	const {t} = useTranslation();
-	// @ts-ignore
-	// @ts-ignore
 	return <BuildsSourceTable
-		expandedRowRender={build => <Card title={t('lab.build.table.detail')}>
-			<Preview translation={"lab.build.table"}>
-				{{
-					"coilOffset": <CoilOffset coilOffset={build.coilOffset}/>,
-					"cottonOffset": <CottonOffset cottonOffset={build.cottonOffset}/>,
-					"coils": build.coils,
-					"created": toLocalDateTime(dayjs.unix(build.created)),
-				}}
-			</Preview>
-		</Card>}
 		{...props}
 	>
 		{({column}) => [
+			column({
+				key: "id",
+				render: (_, build) => <QuickMenu>
+					<Menu.Item>
+						<DrawerButton
+							width={750}
+							type={'link'}
+							size={'small'}
+							icon={<EyeOutlined/>}
+							title={'lab.build.preview'}
+						>
+							<PreviewTemplate
+								icon={<BuildIcon/>}
+								label={'lab.build.preview'}
+								span={24}
+							>
+								<BuildPreview build={build}/>
+							</PreviewTemplate>
+						</DrawerButton>
+					</Menu.Item>
+					<Menu.Divider/>
+					<Menu.Item>
+						<BuildLinkButton size={'small'} build={build}/>
+					</Menu.Item>
+					<Menu.Item>
+						<BuildEditButton size={'small'} type={'link'} build={build}/>
+					</Menu.Item>
+					<Menu.Item>
+						<BuildCloneButton size={'small'} type={'link'} build={build}/>
+					</Menu.Item>
+				</QuickMenu>,
+				width: 0,
+			}),
 			column({
 				key: "name",
 				dataIndex: "name",
 				title: "lab.build.table.name",
 				width: 200,
-				render: (_, build) => <BuildLink build={build}/>,
 			}),
 			column({
 				key: "atomizer",

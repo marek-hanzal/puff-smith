@@ -40,6 +40,7 @@ export module VapeOrderByDto {
 
 
 export interface VapeFilterDto {
+	atomizerId?: number | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
