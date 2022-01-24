@@ -5,7 +5,7 @@ import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {Menu, Statistic} from "antd";
 import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
 import dayjs from "dayjs";
-import {VapeEditButton, VapePreview} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeEditButton, VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapeIcon} from "@/puff-smith";
 import {EyeOutlined} from "@ant-design/icons";
 
@@ -37,8 +37,15 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							</PreviewTemplate>
 						</DrawerButton>
 					</Menu.Item>
+					<Menu.Divider/>
+					<Menu.Item>
+						<VapeLinkButton size={'small'} vape={vape}/>
+					</Menu.Item>
 					<Menu.Item>
 						<VapeEditButton size={'small'} type={'link'} vape={vape}/>
+					</Menu.Item>
+					<Menu.Item>
+						<VapeCloneButton size={'small'} type={'link'} vape={vape}/>
 					</Menu.Item>
 				</QuickMenu>,
 				width: 0,
