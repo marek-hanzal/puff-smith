@@ -3,8 +3,7 @@ import {BuildIcon} from "@/puff-smith";
 import {Space} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon} from "@leight-core/leight";
-import {CreateTemplate} from "@leight-core/leight/dist";
+import {BackIcon, CreateTemplate} from "@leight-core/leight";
 
 export default withLabLayout(function Clone() {
 	return <BuildPage

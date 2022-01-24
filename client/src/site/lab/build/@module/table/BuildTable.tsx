@@ -5,7 +5,7 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreview} from "@/puff-smith/site/lab/build";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Menu} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {BuildIcon} from "@/puff-smith";
