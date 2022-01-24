@@ -3,18 +3,18 @@ import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {BuildIcon} from "@/puff-smith";
 
-export interface IBuildLinkProps extends Partial<IButtonLinkProps> {
+export interface IBuildLinkButtonProps extends Partial<IButtonLinkProps> {
 	build: BuildDto
 }
 
-export const BuildLink: FC<IBuildLinkProps> = ({build, ...props}) => {
+export const BuildLinkButton: FC<IBuildLinkButtonProps> = ({build, ...props}) => {
 	return <ButtonLink
 		size={'middle'}
 		type={'link'}
 		href={'/lab/build/[buildId]'}
 		query={{buildId: build.id}}
 		icon={<BuildIcon/>}
-		title={build.name}
+		title={'lab.build.button.index'}
 		{...props}
 	/>;
 }

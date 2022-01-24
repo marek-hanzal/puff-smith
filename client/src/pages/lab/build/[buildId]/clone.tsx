@@ -1,13 +1,14 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {Space} from "antd";
-import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, EditTemplate} from "@leight-core/leight";
+import {BackIcon} from "@leight-core/leight";
+import {CreateTemplate} from "@leight-core/leight/dist";
 
-export default withLabLayout(function Edit() {
+export default withLabLayout(function Clone() {
 	return <BuildPage
-		name={"lab.build.edit"}
+		name={"lab.build.clone"}
 		selected={['/lab/build']}
 		card={{
 			extra: <Space>
@@ -18,16 +19,15 @@ export default withLabLayout(function Edit() {
 	>
 		{build => <>
 			<LabMenu/>
-			<EditTemplate
+			<CreateTemplate
 				icon={<BuildIcon/>}
 				label={'lab.build'}
 				extra={<Space>
 					<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
-					<BuildCloneButton build={build}/>
 				</Space>}
 			>
-				<PatchBuildForm build={build}/>
-			</EditTemplate>
+				<CreateBuildForm build={build}/>
+			</CreateTemplate>
 		</>}
 	</BuildPage>;
 });

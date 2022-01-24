@@ -6,17 +6,22 @@ import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Card, Divider, InputNumber, message, Slider} from "antd";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
+import {BuildDto} from "@/sdk/puff-smith/build/dto";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
+	build?: BuildDto
 }
 
-export const CreateBuildForm: FC<ICreateBuildFormProps> = props => {
+export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
 		toForm={() => ({
 			coils: 1,
 			coilOffset: 0,
 			cottonOffset: 0,
+			...build,
+			name: null,
+			description: null,
 		})}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.build.created.message", {data: response}));

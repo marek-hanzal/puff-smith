@@ -39,7 +39,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			field={'code'}
 			labels={['lab.mixture.code.label']}
 			tooltip={t('lab.mixture.code.label.tooltip')}
-			required
 		/>
 		<Divider/>
 		<FormItem

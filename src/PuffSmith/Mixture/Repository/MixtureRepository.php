@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Mixture\Repository;
 
 use DateTime;
+use Edde\Math\RandomServiceTrait;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
@@ -12,6 +13,7 @@ use PuffSmith\Mixture\Dto\Patch\PatchDto;
 
 class MixtureRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
+	use RandomServiceTrait;
 
 	public function __construct() {
 		parent::__construct(['mixed' => IRepository::ORDER_DESC], [
@@ -23,7 +25,7 @@ class MixtureRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name'       => $createDto->name,
-			'code'       => $createDto->code,
+			'code'       => $createDto->code ?? $this->randomService->code(),
 			'steep'      => $createDto->steep,
 			'pg'         => $createDto->pg,
 			'vg'         => $createDto->vg,
