@@ -30,7 +30,6 @@
 		"setasign/fpdf": "^1.8",
 		"setasign/tfpdf": "^1.32",
 		"phpunit/phpunit": "^8",
-		"cache/memcached-adapter": "^1.2.0",
-		"nelexa/zip": "^4.0.1"
+		"cache/memcached-adapter": "^1.2.0"
 	}
 }
