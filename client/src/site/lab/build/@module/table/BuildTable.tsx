@@ -14,6 +14,8 @@ export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 
 export const BuildTable: FC<IBuildTableProps> = props => {
 	const {t} = useTranslation();
+	// @ts-ignore
+	// @ts-ignore
 	return <BuildsSourceTable
 		expandedRowRender={build => <Card title={t('lab.build.table.detail')}>
 			<Preview translation={"lab.build.table"}>
@@ -32,7 +34,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.build.table.name",
-				width: 220,
+				width: 200,
 				render: (_, build) => <BuildLink build={build}/>,
 			}),
 			column({
@@ -58,6 +60,15 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				dataIndex: "ohm",
 				title: "lab.build.table.ohm",
 				render: (_, build) => build.ohm.toFixed(2) + 'ohm',
+				width: 140,
+			}),
+			column({
+				key: "age",
+				title: "lab.build.table.age",
+				render: (_, build) => {
+					// @ts-ignore
+					return dayjs.duration(dayjs().diff(dayjs.unix(build.created))).humanize()
+				},
 			}),
 		]}
 	</BuildsSourceTable>

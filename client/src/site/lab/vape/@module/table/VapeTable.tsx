@@ -9,6 +9,7 @@ import {VapeEditButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {EyeOutlined} from "@ant-design/icons";
 import {VapeIcon} from "@/puff-smith";
 import {PreviewTemplate} from "@leight-core/leight/dist";
+import dayjs from "dayjs";
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
@@ -65,6 +66,14 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 				key: "tc",
 				title: "lab.vape.table.tc",
 				render: (_, vape) => vape.tc ? vape.tc + ' °C' : '-',
+			}),
+			column({
+				key: "age",
+				title: "lab.vape.table.age",
+				render: (_, vape) => {
+					// @ts-ignore
+					return dayjs.duration(dayjs().diff(dayjs.unix(vape.setup.build.created))).humanize()
+				},
 			}),
 		]}
 	</VapesSourceTable>;
