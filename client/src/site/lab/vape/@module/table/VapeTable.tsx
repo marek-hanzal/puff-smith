@@ -2,38 +2,45 @@ import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Space, Statistic} from "antd";
-import {useTranslation} from "react-i18next";
-import {DrawerButton} from "@leight-core/leight";
-import {VapeEditButton, VapePreview} from "@/puff-smith/site/lab/vape";
-import {EyeOutlined} from "@ant-design/icons";
-import {VapeIcon} from "@/puff-smith";
-import {PreviewTemplate} from "@leight-core/leight/dist";
+import {Menu, Statistic} from "antd";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
 import dayjs from "dayjs";
+import {VapeEditButton, VapePreview} from "@/puff-smith/site/lab/vape";
+import {VapeIcon} from "@/puff-smith";
+import {EyeOutlined} from "@ant-design/icons";
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
 
 export const VapeTable: FC<IVapeTableProps> = props => {
-	const {t} = useTranslation();
 	return <VapesSourceTable
 		{...props}
 	>
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, vape) => <Space>
-					<DrawerButton width={750} type={'link'} icon={<EyeOutlined/>}>
-						<PreviewTemplate
-							icon={<VapeIcon/>}
-							label={'lab.vape.preview'}
-							span={24}
+				render: (_, vape) => <QuickMenu>
+					<Menu.Item>
+						<DrawerButton
+							width={750}
+							type={'link'}
+							size={'small'}
+							icon={<EyeOutlined/>}
+							title={'lab.vape.preview'}
 						>
-							<VapePreview vape={vape}/>
-						</PreviewTemplate>
-					</DrawerButton>
-					<VapeEditButton type={'link'} title={null} vape={vape}/>
-				</Space>,
+							<PreviewTemplate
+								icon={<VapeIcon/>}
+								label={'lab.vape.preview'}
+								span={24}
+							>
+								<VapePreview vape={vape}/>
+							</PreviewTemplate>
+						</DrawerButton>
+					</Menu.Item>
+					<Menu.Item>
+						<VapeEditButton size={'small'} type={'link'} vape={vape}/>
+					</Menu.Item>
+				</QuickMenu>,
 				width: 0,
 			}),
 			column({
