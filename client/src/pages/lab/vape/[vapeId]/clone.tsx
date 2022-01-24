@@ -3,8 +3,7 @@ import {VapeIcon} from "@/puff-smith";
 import {Space} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon} from "@leight-core/leight";
-import {CreateTemplate} from "@leight-core/leight/dist";
+import {BackIcon, CreateTemplate} from "@leight-core/leight";
 
 export default withLabLayout(function Clone() {
 	return <VapePage

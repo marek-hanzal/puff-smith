@@ -1,18 +1,23 @@
 import {FC} from "react";
-import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Menu, Statistic} from "antd";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
+import {Menu, message, Statistic} from "antd";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import dayjs from "dayjs";
-import {VapeCloneButton, VapeEditButton, VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapeIcon} from "@/puff-smith";
 import {EyeOutlined} from "@ant-design/icons";
+import {useTranslation} from "react-i18next";
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
 
 export const VapeTable: FC<IVapeTableProps> = props => {
+	const {t} = useTranslation();
+	const deleteMutation = useDeleteMutation();
+	const vapesQueryInvalidate = useVapesQueryInvalidate();
+
 	return <VapesSourceTable
 		{...props}
 	>
@@ -46,6 +51,25 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					</Menu.Item>
 					<Menu.Item>
 						<VapeCloneButton size={'small'} type={'link'} vape={vape}/>
+					</Menu.Item>
+					<Menu.Divider/>
+					<Menu.Item>
+						<VapeDeleteButton
+							size={'small'}
+							type={'link'}
+							vape={vape}
+							onOk={setShow => {
+								deleteMutation.mutate({
+									id: vape.id,
+								}, {
+									onSuccess: () => {
+										message.success(t('lab.vape.deleted.success'))
+										vapesQueryInvalidate();
+									},
+								})
+								setShow(false);
+							}}
+						/>
 					</Menu.Item>
 				</QuickMenu>,
 				width: 0,
