@@ -3,18 +3,18 @@ import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeIcon} from "@/puff-smith";
 
-export interface IVapeLinkProps extends Partial<IButtonLinkProps> {
+export interface IVapeLinkButtonProps extends Partial<IButtonLinkProps> {
 	vape: VapeDto
 }
 
-export const VapeLink: FC<IVapeLinkProps> = ({vape, ...props}) => {
+export const VapeLinkButton: FC<IVapeLinkButtonProps> = ({vape, ...props}) => {
 	return <ButtonLink
-		size={'middle'}
 		type={'link'}
+		size={'large'}
 		href={'/lab/vape/[vapeId]'}
 		query={{vapeId: vape.id}}
 		icon={<VapeIcon/>}
-		title={vape.id}
+		title={'lab.vape.button.index'}
 		{...props}
-	/>;
+	/>
 }

@@ -5,13 +5,17 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureLink} from "@/puff-smith/site/lab/mixture";
+import dayjs from "dayjs";
+import {Space, Typography} from "antd";
+import {useTranslation} from "react-i18next";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
+	const {t} = useTranslation();
 	return <MixturesSourceTable
-		scroll={{x: 2000}}
+		scroll={{x: 2100}}
 		{...props}
 	>
 		{({column}) => [
@@ -56,20 +60,47 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				key: "nicotine",
 				dataIndex: "nicotine",
 				title: "lab.mixture.table.nicotine",
-				width: 160,
+				width: 140,
 				render: nicotine => <>{nicotine}mg</>
+			}),
+			column({
+				key: "age",
+				title: "lab.mixture.table.age",
+				render: (_, mixture) => {
+					// @ts-ignore
+					return dayjs.duration(dayjs().diff(mixture.mixed)).humanize()
+				},
+				width: 140,
+			}),
+			column({
+				key: "steep",
+				dataIndex: "steep",
+				title: "lab.mixture.table.steep",
+				width: 220,
+				render: (_, mixture) => {
+					if (!mixture.steep) {
+						return '-';
+					}
+					// @ts-ignore
+					const age = dayjs.duration(dayjs().diff(mixture.mixed)).asDays();
+					if (age >= mixture.steep) {
+						return <Typography.Text type={'success'}>{t('lab.mixture.steep.done')}</Typography.Text>;
+					}
+					// @ts-ignore
+					const ageDuration = dayjs.duration(age, "day").humanize();
+					// @ts-ignore
+					const steepDuration = dayjs.duration(mixture.steep, "day").humanize();
+
+					return <Space>
+						<span>{ageDuration}</span>/<Typography.Text type={'secondary'}>{steepDuration}</Typography.Text>
+					</Space>;
+				},
 			}),
 			column({
 				key: "mixed",
 				title: "lab.mixture.table.mixed",
 				width: 160,
 				render: (_, mixture) => toLocalDate(mixture.mixed),
-			}),
-			column({
-				key: "expires",
-				title: "lab.mixture.table.expires",
-				width: 160,
-				render: (_, mixture) => toLocalDate(mixture.expires),
 			}),
 			column({
 				key: "volume",
@@ -79,9 +110,9 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				render: volume => <>{volume}ml</>
 			}),
 			column({
-				key: "steep",
-				dataIndex: "steep",
-				title: "lab.mixture.table.steep",
+				key: "expires",
+				title: "lab.mixture.table.expires",
+				render: (_, mixture) => toLocalDate(mixture.expires),
 			}),
 		]}
 	</MixturesSourceTable>;

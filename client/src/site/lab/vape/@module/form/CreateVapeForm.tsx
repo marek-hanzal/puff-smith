@@ -6,11 +6,13 @@ import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useTranslation} from "react-i18next";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 
 export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
+	vape?: VapeDto;
 }
 
-export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
+export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
 		onSuccess={({navigate, response}) => {
@@ -26,7 +28,8 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = props => {
 			dl: 0,
 			clouds: 3,
 			leaks: 0,
-			dryhit: 3,
+			dryhit: 0,
+			...vape,
 		})}
 		{...props}
 	>

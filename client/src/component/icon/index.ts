@@ -4,6 +4,7 @@ export * from "./BoosterIcon";
 export * from "./BuildIcon";
 export * from "./CoilIcon";
 export * from "./CellIcon";
+export * from "./CloneIcon";
 export * from "./CommonIcon";
 export * from "./CottonIcon";
 export * from "./DownloadIcon";
