@@ -38,6 +38,10 @@ class SetupRepository extends AbstractRepository {
 			->leftJoin('z_build as b', 'b.id', '=', 'z_setup.build_id')
 			->leftJoin('z_atomizer as a', 'a.id', '=', 'b.atomizer_id');
 		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
+		isset($filter->atomizerId) && $select
+			->leftJoin('z_build as b', 'b.id', '=', 'z_setup.build_id')
+			->where('b.atomizer_id', $filter->atomizerId);
+		isset($filter->modId) && $select->where('z_setup.mod_id', $filter->modId);
 		isset($filter->userId) && $select->where('z_setup.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
