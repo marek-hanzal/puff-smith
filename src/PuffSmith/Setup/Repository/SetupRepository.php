@@ -28,9 +28,17 @@ class SetupRepository extends AbstractRepository {
 		/** @var $filter SetupFilterDto */
 		$filter = $query->filter;
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'id',
-		], $filter->fulltext);
-		isset($filter->userId) && $select->where('user_id', $filter->userId);
+			'z_setup.id',
+			'z_setup.name',
+			'm.name',
+			'b.name',
+			'a.name',
+		], $filter->fulltext)
+			->leftJoin('z_mod as m', 'm.id', '=', 'z_setup.mod_id')
+			->leftJoin('z_build as b', 'b.id', '=', 'z_setup.build_id')
+			->leftJoin('z_atomizer as a', 'a.id', '=', 'b.atomizer_id');
+		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
+		isset($filter->userId) && $select->where('z_setup.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 
