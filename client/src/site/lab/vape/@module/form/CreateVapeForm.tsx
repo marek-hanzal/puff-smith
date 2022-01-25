@@ -209,6 +209,16 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 		<Divider/>
 		<Card title={t('lab.vape.rating-advanced.title')}>
 			<FormItem
+				field={'throathit'}
+				labels={['lab.vape.throathit.label']}
+				tooltip={t('lab.vape.throathit.label.tooltip')}
+			>
+				<Rate
+					count={10}
+					allowClear
+				/>
+			</FormItem>
+			<FormItem
 				field={'fruits'}
 				labels={['lab.vape.fruits.label']}
 				tooltip={t('lab.vape.fruits.label.tooltip')}

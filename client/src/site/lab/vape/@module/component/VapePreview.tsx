@@ -111,6 +111,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 		<Card title={t('lab.vape.rating-advanced.title')}>
 			<Preview translation={'lab.vape.preview'}>
 				{{
+					"throathit": <Rate value={vape.throathit || 0} count={10} disabled/>,
 					"fruits": <Rate value={vape.fruits || 0} count={10} disabled/>,
 					"tobacco": <Rate value={vape.tobacco || 0} count={10} disabled/>,
 					"cakes": <Rate value={vape.cakes || 0} count={10} disabled/>,

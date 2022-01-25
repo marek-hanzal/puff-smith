@@ -31,6 +31,7 @@ class VapeMapper extends AbstractMapper {
 			'driptip'   => isset($driptip) ? $this->driptipMapper->item($driptip) : null,
 			'rating'    => $item->rating,
 			'taste'     => $item->taste,
+			'throathit' => $item->throathit,
 			'fruits'    => $item->fruits,
 			'tobacco'   => $item->tobacco,
 			'cakes'     => $item->cakes,

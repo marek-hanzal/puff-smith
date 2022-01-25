@@ -48,6 +48,10 @@ class VapeDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
+	public ?int $throathit;
+	/**
+	 * @var int|null
+	 */
 	public ?int $fruits;
 	/**
 	 * @var int|null
