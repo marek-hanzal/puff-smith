@@ -22,6 +22,6 @@ class MixturesEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<MixtureDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->mixtureRepository->toResult($query, $this->mixtureMapper);
+		return $this->mixtureRepository->toResult($this->withUser($query), $this->mixtureMapper);
 	}
 }

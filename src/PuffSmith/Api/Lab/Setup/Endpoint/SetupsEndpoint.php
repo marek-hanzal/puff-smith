@@ -22,6 +22,6 @@ class SetupsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<SetupDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->setupRepository->toResult($query, $this->setupMapper);
+		return $this->setupRepository->toResult($this->withUser($query), $this->setupMapper);
 	}
 }

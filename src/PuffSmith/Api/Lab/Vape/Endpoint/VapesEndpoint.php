@@ -22,6 +22,6 @@ class VapesEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<VapeDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->vapeRepository->toResult($query, $this->vapeMapper);
+		return $this->vapeRepository->toResult($this->withUser($query), $this->vapeMapper);
 	}
 }

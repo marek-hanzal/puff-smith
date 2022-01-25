@@ -30,6 +30,7 @@ class CoilRepository extends AbstractRepository {
 			'w.description',
 		], $filter->fulltext)
 			->leftJoin('z_wire as w', 'w.id', '=', 'z_coil.wire_id');
+		isset($filter->userId) && $select->where('user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

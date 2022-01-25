@@ -6,4 +6,8 @@ namespace PuffSmith\Build\Dto;
 use Edde\Repository\Dto\AbstractFilterDto;
 
 class BuildFilterDto extends AbstractFilterDto {
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $userId;
 }
