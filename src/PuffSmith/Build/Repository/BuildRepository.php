@@ -38,6 +38,7 @@ class BuildRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'name',
 		], $filter->name);
+		isset($filter->active) && $select->where('z_build.active', $filter->active);
 		isset($filter->userId) && $select->where('z_build.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
@@ -56,6 +57,7 @@ class BuildRepository extends AbstractRepository {
 			'coilOffset'   => $createDto->coilOffset,
 			'cottonOffset' => $createDto->cottonOffset,
 			'ohm'          => $createDto->ohm,
+			'active'       => true,
 			'created'      => $createDto->created ? (new DateTime($createDto->created))->getTimestamp() : microtime(true),
 			'user_id'      => $this->currentUserService->requiredId(),
 		]);
@@ -67,6 +69,7 @@ class BuildRepository extends AbstractRepository {
 			'name'         => $patchDto->name,
 			'created'      => $patchDto->created ? (new DateTime($patchDto->created))->getTimestamp() : null,
 			'description'  => $patchDto->description,
+			'active'       => $patchDto->active,
 			'atomizer_id'  => $patchDto->atomizerId,
 			'coil_id'      => $patchDto->coilId,
 			'cotton_id'    => $patchDto->cottonId,

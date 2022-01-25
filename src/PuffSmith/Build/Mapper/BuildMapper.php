@@ -26,6 +26,7 @@ class BuildMapper extends AbstractMapper {
 			'name'         => $item->name,
 			'ohm'          => $item->ohm,
 			'description'  => $item->description,
+			'active'       => (bool)$item->active,
 			'created'      => (double)$item->created,
 			'coils'        => $item->coils,
 			'coilOffset'   => $item->coilOffset,

@@ -19,6 +19,8 @@ class BuildDto extends AbstractDto {
 	public float $ohm;
 	/** @var float */
 	public float $created;
+	/** @var bool */
+	public bool $active;
 
 	/** @var string */
 	public string $atomizerId;
