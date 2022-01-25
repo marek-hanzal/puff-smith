@@ -4,10 +4,12 @@ import {toLocalDate} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureLink} from "@/puff-smith/site/lab/mixture";
-import dayjs from "dayjs";
-import {Space, Typography} from "antd";
+import {MixtureAge, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {useTranslation} from "react-i18next";
+import {Menu} from "antd";
+import {EyeOutlined} from "@ant-design/icons";
+import {MixtureIcon} from "@/puff-smith";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -20,10 +22,39 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 	>
 		{({column}) => [
 			column({
+				key: "id",
+				render: (_, mixture) => <QuickMenu>
+					<Menu.Item>
+						<DrawerButton
+							width={750}
+							type={'link'}
+							size={'small'}
+							icon={<EyeOutlined/>}
+							title={'lab.mixture.preview'}
+						>
+							<PreviewTemplate
+								icon={<MixtureIcon/>}
+								label={'lab.mixture.preview'}
+								span={24}
+							>
+								<MixturePreview mixture={mixture}/>
+							</PreviewTemplate>
+						</DrawerButton>
+					</Menu.Item>
+					<Menu.Divider/>
+					<Menu.Item>
+						<MixtureLink size={'small'} mixture={mixture}/>
+					</Menu.Item>
+					<Menu.Item>
+						<MixtureEditButton size={'small'} type={'link'} mixture={mixture}/>
+					</Menu.Item>
+				</QuickMenu>,
+				width: 0,
+			}),
+			column({
 				key: "name",
 				dataIndex: "name",
 				title: "lab.mixture.table.name",
-				render: (_, mixture) => <MixtureLink mixture={mixture}/>,
 				width: 300,
 			}),
 			column({
@@ -66,10 +97,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			column({
 				key: "age",
 				title: "lab.mixture.table.age",
-				render: (_, mixture) => {
-					// @ts-ignore
-					return dayjs.duration(dayjs().diff(mixture.mixed)).humanize()
-				},
+				render: (_, mixture) => <MixtureAge mixture={mixture}/>,
 				width: 140,
 			}),
 			column({
@@ -77,24 +105,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				dataIndex: "steep",
 				title: "lab.mixture.table.steep",
 				width: 220,
-				render: (_, mixture) => {
-					if (!mixture.steep) {
-						return '-';
-					}
-					// @ts-ignore
-					const age = dayjs.duration(dayjs().diff(mixture.mixed)).asDays();
-					if (age >= mixture.steep) {
-						return <Typography.Text type={'success'}>{t('lab.mixture.steep.done')}</Typography.Text>;
-					}
-					// @ts-ignore
-					const ageDuration = dayjs.duration(age, "day").humanize();
-					// @ts-ignore
-					const steepDuration = dayjs.duration(mixture.steep, "day").humanize();
-
-					return <Space>
-						<span>{ageDuration}</span>/<Typography.Text type={'secondary'}>{steepDuration}</Typography.Text>
-					</Space>;
-				},
+				render: (_, mixture) => <MixtureSteeping mixture={mixture}/>,
 			}),
 			column({
 				key: "mixed",

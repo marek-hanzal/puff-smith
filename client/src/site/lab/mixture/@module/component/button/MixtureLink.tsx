@@ -14,7 +14,7 @@ export const MixtureLink: FC<IMixtureLinkProps> = ({mixture, ...props}) => {
 		href={'/lab/mixture/[mixtureId]'}
 		query={{mixtureId: mixture.id}}
 		icon={<MixtureIcon/>}
-		title={mixture.name}
+		title={'lab.mixture.button.index'}
 		{...props}
 	/>;
 }
