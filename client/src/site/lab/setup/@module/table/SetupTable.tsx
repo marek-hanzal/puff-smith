@@ -74,7 +74,7 @@ export const SetupTable: FC<ISetupTableProps> = props => {
 				key: "name",
 				dataIndex: "name",
 				title: "lab.setup.table.name",
-				width: 240,
+				width: 220,
 			}),
 			column({
 				key: "build",
@@ -85,7 +85,7 @@ export const SetupTable: FC<ISetupTableProps> = props => {
 				key: "mod",
 				title: "lab.setup.table.mod",
 				render: (_, setup) => <ModInline mod={setup.mod}/>,
-				width: 250,
+				width: 340,
 			}),
 		]}
 	</SetupsSourceTable>
