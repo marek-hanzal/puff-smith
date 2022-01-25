@@ -32,6 +32,10 @@ class VapeRepository extends AbstractRepository {
 			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
 			->leftJoin('z_build as b', 'b.id', '=', 's.build_id')
 			->where('b.atomizer_id', 'in', $filter->atomizerIds);
+		isset($filter->coilIds) && $select
+			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
+			->leftJoin('z_build as b', 'b.id', '=', 's.build_id')
+			->where('b.coil_id', 'in', $filter->coilIds);
 		isset($filter->modIds) && $select
 			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
 			->where('s.mod_id', 'in', $filter->modIds);
