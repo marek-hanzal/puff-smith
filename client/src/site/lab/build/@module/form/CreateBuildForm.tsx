@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Card, Divider, InputNumber, message, Slider} from "antd";
@@ -39,6 +39,12 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.description.label']}
 			>
 				<TextArea autoSize={{minRows: 4, maxRows: 4}}/>
+			</FormItem>
+			<FormItem
+				field={'created'}
+				labels={['lab.build.created.label']}
+			>
+				<DatePicker size={'large'} style={{width: '100%'}}/>
 			</FormItem>
 			<FormItem
 				field={'atomizerId'}
