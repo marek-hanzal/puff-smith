@@ -1,56 +1,35 @@
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {Button, Collapse, Divider, Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {Centered, Form, FormContext, FormItem, Submit} from "@leight-core/leight";
+import {FormItem} from "@leight-core/leight";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
-import {CloseCircleOutlined, SearchOutlined} from "@ant-design/icons";
+import {Filter, IFilterProps} from "@/puff-smith";
+import {ModSelect} from "@/puff-smith/site/lab/mod";
+import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
 
-export interface IVapeFilterProps {
-	onFilter: (filter: VapeFilterDto) => void;
-	onClear: () => void;
+export interface IVapeFilterProps extends Omit<IFilterProps, "translation"> {
 }
 
-export const VapeFilter: FC<IVapeFilterProps> = ({onFilter, onClear}) => {
-	const {t} = useTranslation();
-	return <Collapse>
-		<Collapse.Panel key={'filter'} header={t('lab.vape.filter.title')}>
-			<Form<any, VapeFilterDto, VapeFilterDto>
-				onSuccess={({response}) => {
-					console.log('response', response);
-					onFilter(response);
-				}}
-			>
-				<FormContext.Consumer>
-					{formContext => <>
-						<FormItem
-							field={'atomizerIds'}
-							labels={['lab.vape.atomizerId.label']}
-						>
-							<AtomizerSelect mode={'multiple'} allowClear/>
-						</FormItem>
-						<Divider/>
-						<Centered>
-							<Space align={'baseline'} split={<Divider type={'vertical'}/>}>
-								<Button
-									size={'middle'}
-									onClick={() => {
-										formContext.reset();
-										onClear();
-									}}
-									icon={<CloseCircleOutlined/>}
-								>
-									{t('common.filter.clear')}
-								</Button>
-								<Submit
-									icon={<SearchOutlined/>}
-									label={'common.filter.submit'}
-								/>
-							</Space>
-						</Centered>
-					</>}
-				</FormContext.Consumer>
-			</Form>
-		</Collapse.Panel>
-	</Collapse>
+export const VapeFilter: FC<IVapeFilterProps> = (props) => {
+	return <Filter
+		{...props}
+		translation={'lab.vape'}
+	>
+		<FormItem
+			field={'atomizerIds'}
+			labels={['lab.vape.atomizerId.label']}
+		>
+			<AtomizerSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'modIds'}
+			labels={['lab.vape.modId.label']}
+		>
+			<ModSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'mixtureIds'}
+			labels={['lab.vape.mixtureId.label']}
+		>
+			<MixtureSelect mode={'multiple'} allowClear/>
+		</FormItem>
+	</Filter>
 }
