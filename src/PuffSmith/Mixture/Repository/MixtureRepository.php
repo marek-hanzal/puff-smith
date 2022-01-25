@@ -31,10 +31,14 @@ class MixtureRepository extends AbstractRepository {
 		/** @var $filter MixtureFilterDto */
 		$filter = $query->filter;
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'id',
-			'name',
-			'code',
-		], $filter->fulltext);
+			'z_mixture.id',
+			'z_mixture.name',
+			'z_mixture.code',
+			'l.name',
+			'v.name',
+		], $filter->fulltext)
+			->leftJoin('z_liquid as l', 'l.id', '=', 'z_mixture.liquid_id')
+			->leftJoin('z_vendor as v', 'v.id', '=', 'l.vendor_id');
 		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
 		isset($filter->code) && $this->fulltext($select, ['code'], $filter->code);
 		isset($filter->userId) && $select->where('user_id', $filter->userId);
