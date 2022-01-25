@@ -7,6 +7,7 @@ import {Card, Divider, InputNumber, message, Slider} from "antd";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
+import dayjs from "dayjs";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -20,6 +21,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			coilOffset: 0,
 			cottonOffset: 0,
 			...build,
+			created: dayjs(),
 			name: null,
 			description: null,
 		})}
