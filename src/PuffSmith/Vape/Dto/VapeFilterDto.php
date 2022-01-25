@@ -22,6 +22,11 @@ class VapeFilterDto extends AbstractFilterDto {
 	 */
 	public ?array $mixtureIds;
 	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by a coil
+	 */
+	public ?array $coilIds;
+	/**
 	 * @var string|null|void
 	 */
 	public ?string $userId;
