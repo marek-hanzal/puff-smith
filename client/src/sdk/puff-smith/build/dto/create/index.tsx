@@ -1,6 +1,7 @@
 export interface CreateDto {
 	name: string;
 	description: string | null;
+	created: string | null;
 	atomizerId: string;
 	coilId: string;
 	cottonId: string;

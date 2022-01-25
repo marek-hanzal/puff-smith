@@ -8,6 +8,7 @@ export interface VapeDto {
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	rating: number;
 	taste: number;
+	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;

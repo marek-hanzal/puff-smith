@@ -5,6 +5,7 @@ export interface PatchDto {
 	driptipId: string | null;
 	rating: number;
 	taste: number;
+	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;

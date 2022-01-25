@@ -2,6 +2,7 @@ export interface PatchDto {
 	id: string;
 	name?: string | null | undefined;
 	description?: string | null | undefined;
+	created: string | null;
 	atomizerId?: string | null | undefined;
 	coilId?: string | null | undefined;
 	cottonId?: string | null | undefined;
