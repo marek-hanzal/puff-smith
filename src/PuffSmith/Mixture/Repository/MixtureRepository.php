@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace PuffSmith\Mixture\Repository;
 
+use ClanCats\Hydrahon\Query\Sql\Select;
 use DateTime;
 use Edde\Math\RandomServiceTrait;
+use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
 use PuffSmith\Mixture\Dto\Create\CreateDto;
+use PuffSmith\Mixture\Dto\MixtureFilterDto;
 use PuffSmith\Mixture\Dto\Patch\PatchDto;
 
 class MixtureRepository extends AbstractRepository {
@@ -20,6 +23,25 @@ class MixtureRepository extends AbstractRepository {
 			'z_mixture_name_unique',
 			'z_mixture_code_unique',
 		]);
+	}
+
+	public function toQuery(Query $query): Select {
+		$select = $this->select();
+
+		/** @var $filter MixtureFilterDto */
+		$filter = $query->filter;
+		isset($filter->fulltext) && $this->fulltext($select, [
+			'id',
+			'name',
+			'code',
+		], $filter->fulltext);
+		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
+		isset($filter->code) && $this->fulltext($select, ['code'], $filter->code);
+		isset($filter->userId) && $select->where('user_id', $filter->userId);
+
+		$this->toOrderBy($query->orderBy, $select);
+
+		return $select;
 	}
 
 	public function create(CreateDto $createDto) {

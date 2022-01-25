@@ -7,8 +7,12 @@ use Edde\Repository\Dto\AbstractFilterDto;
 
 class VapeFilterDto extends AbstractFilterDto {
 	/**
-	 * @var int|null|void
+	 * @var string|null|void
 	 * @description Filter vapes by an atomizer
 	 */
-	public ?int $atomizerId;
+	public ?string $atomizerId;
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $userId;
 }

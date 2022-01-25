@@ -22,6 +22,6 @@ class DriptipsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<DriptipDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->driptipRepository->toResult($query, $this->driptipMapper);
+		return $this->driptipRepository->toResult($this->withUser($query), $this->driptipMapper);
 	}
 }
