@@ -14,6 +14,8 @@ class PatchDto extends AbstractDto {
 	public string $name;
 	/** @var string|null|void */
 	public ?string $description;
+	/** @var string|null */
+	public ?string $created;
 	/** @var string|null|void */
 	public string $atomizerId;
 	/** @var string|null|void */

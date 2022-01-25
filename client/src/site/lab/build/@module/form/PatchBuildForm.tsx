@@ -6,7 +6,9 @@ import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {asDayjs} from "@leight-core/leight/dist";
+import dayjs from "dayjs";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -17,6 +19,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 	return <PatchDefaultForm
 		toForm={() => ({
 			...build,
+			created: asDayjs(dayjs.unix(build.created)),
 		})}
 		toMutation={values => ({
 			...values,
@@ -35,6 +38,12 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				labels={['lab.build.description.label']}
 			>
 				<TextArea autoSize={{minRows: 4, maxRows: 4}}/>
+			</FormItem>
+			<FormItem
+				field={'created'}
+				labels={['lab.build.created.label']}
+			>
+				<DatePicker size={'large'} style={{width: '100%'}}/>
 			</FormItem>
 			<FormItem
 				field={'atomizerId'}

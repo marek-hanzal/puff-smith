@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PuffSmith\Build\Repository;
 
+use DateTime;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
@@ -28,7 +29,7 @@ class BuildRepository extends AbstractRepository {
 			'coilOffset'   => $createDto->coilOffset,
 			'cottonOffset' => $createDto->cottonOffset,
 			'ohm'          => $createDto->ohm,
-			'created'      => microtime(true),
+			'created'      => $createDto->created ? (new DateTime($createDto->created))->getTimestamp() : microtime(true),
 			'user_id'      => $this->currentUserService->requiredId(),
 		]);
 	}
@@ -37,6 +38,7 @@ class BuildRepository extends AbstractRepository {
 		return $this->patch([
 			'id'           => $patchDto->id,
 			'name'         => $patchDto->name,
+			'created'      => $patchDto->created ? (new DateTime($patchDto->created))->getTimestamp() : null,
 			'description'  => $patchDto->description,
 			'atomizer_id'  => $patchDto->atomizerId,
 			'coil_id'      => $patchDto->coilId,
