@@ -9,6 +9,7 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use PuffSmith\Atomizer\Dto\AtomizerFilterDto;
 use PuffSmith\Atomizer\Dto\Create\CreateDto;
+use function is_string;
 
 class AtomizerRepository extends AbstractRepository {
 	public function __construct() {
@@ -20,7 +21,7 @@ class AtomizerRepository extends AbstractRepository {
 
 		/** @var $filter AtomizerFilterDto */
 		$filter = $query->filter;
-		isset($filter->fulltext) && $this->fulltext($select, [
+		isset($filter->fulltext) && is_string($filter->fulltext) && $this->fulltext($select, [
 			'z_atomizer.id',
 			'z_atomizer.name',
 			'v.name',
