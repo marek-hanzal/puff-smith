@@ -30,6 +30,7 @@ export module BuildOrderByDto {
 
 
 export interface BuildFilterDto {
+	userId?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

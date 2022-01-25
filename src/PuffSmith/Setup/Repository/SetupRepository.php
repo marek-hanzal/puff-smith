@@ -10,6 +10,7 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
 use PuffSmith\Setup\Dto\Create\CreateDto;
+use PuffSmith\Setup\Dto\Patch\PatchDto;
 use PuffSmith\Setup\Dto\SetupFilterDto;
 
 class SetupRepository extends AbstractRepository {
@@ -57,6 +58,16 @@ class SetupRepository extends AbstractRepository {
 			'mod_id'      => $createDto->modId,
 			'created'     => new DateTime(),
 			'user_id'     => $this->currentUserService->requiredId(),
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->change([
+			'id'          => $patchDto->id,
+			'name'        => $patchDto->name,
+			'description' => $patchDto->description,
+			'build_id'    => $patchDto->buildId,
+			'mod_id'      => $patchDto->modId,
 		]);
 	}
 }

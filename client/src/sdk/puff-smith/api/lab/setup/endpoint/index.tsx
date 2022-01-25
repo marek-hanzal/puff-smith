@@ -1,19 +1,39 @@
-import {FC} from "react";
 import {
+	FC,
+	ReactNode,
+	createContext
+} from "react";
+import {
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
 	createPostMutation,
 	createPostQuery,
+	isCallable,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -22,6 +42,27 @@ export type ICreateQueryParams = void;
 
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/setup/dto/create/index").CreateDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>("PuffSmith.Lab.Setup.Create");
+
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Setup.Delete");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/setup/dto/patch/index").PatchDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>("PuffSmith.Lab.Setup.Patch");
+
+export type ISetupQueryParams = {
+	setupId: string;
+}
+
+
+export const useSetupQuery = createGetQuery<ISetupQueryParams, import("@/sdk/puff-smith/setup/dto/index").SetupDto>("PuffSmith.Lab.Setup.Setup");
+export const useSetupQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Setup.Setup"])
+}
 
 export type ISetupsQueryParams = void;
 
@@ -41,6 +82,74 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/setup/dto/patch/index").PatchDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/setup/dto/patch/index").PatchDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const SetupContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/setup/dto/index").SetupDto>);
+
+export const useSetupContext = (): IEntityContext<import("@/sdk/puff-smith/setup/dto/index").SetupDto> => useContext(SetupContext, "SetupContext");
+
+export const useOptionalSetupContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/setup/dto/index").SetupDto>>(SetupContext as any);
+
+export interface ISetupProvider extends IEntityProviderProps<import("@/sdk/puff-smith/setup/dto/index").SetupDto> {
+}
+
+export const SetupProvider: FC<ISetupProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <SetupContext.Provider value={entityContext}>
+				{children}
+			</SetupContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchSetupProps extends Partial<IQueryProps<ISetupQueryParams, void, import("@/sdk/puff-smith/setup/dto/index").SetupDto>> {
+	query: ISetupQueryParams;
+}
+
+export const FetchSetup: FC<IFetchSetupProps> = ({query, ...props}) => <Query<ISetupQueryParams, void, import("@/sdk/puff-smith/setup/dto/index").SetupDto>
+	useQuery={useSetupQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalSetupContext()}
+	{...props}
+/>;
+
+export interface ISetupPageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/setup/dto/index").SetupDto) => ReactNode);
+}
+
+export const SetupPage: FC<ISetupPageProps> = ({children, ...props}) => {
+	const {setupId} = useParams();
+	return <SetupProvider>
+		<Page {...props}>
+			<FetchSetup
+				query={{setupId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchSetup>
+		</Page>
+	</SetupProvider>;
+};
 
 export const useSetupsSource = () => useSourceContext<ISetupsQueryParams, import("@/sdk/puff-smith/setup/dto/index").SetupDto, import("@/sdk/puff-smith/setup/dto/index").SetupOrderByDto, import("@/sdk/puff-smith/setup/dto/index").SetupFilterDto>()
 

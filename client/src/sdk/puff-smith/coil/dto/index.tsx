@@ -22,6 +22,7 @@ export module CoilOrderByDto {
 
 
 export interface CoilFilterDto {
+	userId?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
