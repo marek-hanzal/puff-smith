@@ -10,4 +10,8 @@ class BuildFilterDto extends AbstractFilterDto {
 	 * @var string|null|void
 	 */
 	public ?string $userId;
+	/**
+	 * @var bool|null|void
+	 */
+	public ?bool $active;
 }

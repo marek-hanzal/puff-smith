@@ -4,6 +4,7 @@ export interface BuildDto {
 	description: string | null;
 	ohm: number;
 	created: number;
+	active: boolean;
 	atomizerId: string;
 	atomizer: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto;
 	coilId: string;
@@ -31,6 +32,7 @@ export module BuildOrderByDto {
 
 export interface BuildFilterDto {
 	userId?: string | null | undefined;
+	active?: boolean | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

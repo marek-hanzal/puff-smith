@@ -1,9 +1,9 @@
+import {createContext, FC, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	Form,
@@ -15,6 +15,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,13 +25,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
@@ -46,7 +40,7 @@ export const useCreateMutation = createPostMutation<ICreateQueryParams, import("
 export type IDeleteQueryParams = void;
 
 
-export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Setup.Delete");
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>("PuffSmith.Lab.Setup.Delete");
 
 export type IPatchQueryParams = void;
 
@@ -83,11 +77,11 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 	/>
 }
 
-export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>> {
 }
 
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
-	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/setup/dto/index").SetupDto>
 		useMutation={useDeleteMutation}
 		{...props}
 	/>

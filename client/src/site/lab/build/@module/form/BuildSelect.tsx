@@ -9,6 +9,11 @@ export const BuildSelect: FC<IBuildSelectProps> = props => {
 	return <BuildsSourceSelect
 		showSearch
 		optionLabelProp={'name'}
+		source={{
+			filter: {
+				active: true,
+			}
+		}}
 		toOption={build => ({
 			label: <BuildInline build={build}/>,
 			value: build.id,
