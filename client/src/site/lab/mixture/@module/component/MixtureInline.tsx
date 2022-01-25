@@ -8,6 +8,7 @@ export interface IMixtureInlineProps {
 
 export const MixtureInline: FC<IMixtureInlineProps> = ({mixture}) => {
 	return <Space direction={'vertical'}>
+		<span>{mixture.name}</span>
 		<Space>
 			<span>{mixture.liquid.name}</span>
 			<Typography.Text type={'secondary'}>{mixture.liquid.vendor.name}</Typography.Text>

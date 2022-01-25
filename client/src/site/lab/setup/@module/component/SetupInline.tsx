@@ -8,6 +8,7 @@ export interface ISetupInlineProps {
 
 export const SetupInline: FC<ISetupInlineProps> = ({setup}) => {
 	return <Space direction={'vertical'}>
+		<span>{setup.name}</span>
 		<Space>
 			<span>{setup.build.atomizer.name}</span>
 			<span>{setup.build.ohm}ohm</span>
