@@ -21,6 +21,8 @@ export module DriptipOrderByDto {
 
 
 export interface DriptipFilterDto {
+	userId?: string | null | undefined;
+	name?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

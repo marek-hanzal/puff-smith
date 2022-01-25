@@ -27,13 +27,18 @@ class BuildRepository extends AbstractRepository {
 		/** @var $filter BuildFilterDto */
 		$filter = $query->filter;
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'id',
-			'name',
-		], $filter->fulltext);
+			'z_build.id',
+			'z_build.name',
+			'a.name',
+			'w.name',
+		], $filter->fulltext)
+			->leftJoin('z_atomizer as a', 'a.id', '=', 'z_build.atomizer_id')
+			->leftJoin('z_coil as c', 'c.id', '=', 'z_build.coil_id')
+			->leftJoin('z_wire as w', 'w.id', '=', 'c.wire_id');
 		isset($filter->name) && $this->fulltext($select, [
 			'name',
 		], $filter->name);
-		isset($filter->userId) && $select->where('user_id', $filter->userId);
+		isset($filter->userId) && $select->where('z_build.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

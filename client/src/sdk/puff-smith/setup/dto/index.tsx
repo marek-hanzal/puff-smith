@@ -24,6 +24,10 @@ export module SetupOrderByDto {
 
 
 export interface SetupFilterDto {
+	userId?: string | null | undefined;
+	atomizerId?: string | null | undefined;
+	modId?: string | null | undefined;
+	name?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

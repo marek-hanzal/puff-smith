@@ -32,6 +32,9 @@ export module MixtureOrderByDto {
 
 
 export interface MixtureFilterDto {
+	userId?: string | null | undefined;
+	name?: string | null | undefined;
+	code?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
