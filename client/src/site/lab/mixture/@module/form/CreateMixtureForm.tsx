@@ -2,11 +2,12 @@ import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, message} from "antd";
 import dayjs from "dayjs";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
+import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/site/lab/mixture/@module/form/input";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -19,6 +20,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			vg: 70,
 			nicotine: 6,
 			volume: 60,
+			steep: 14,
 			mixed: dayjs(),
 		})}
 		onSuccess={({navigate, response}) => {
@@ -78,19 +80,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				}),
 			]}
 		>
-			<Slider
-				marks={{
-					0: 0,
-					20: 20,
-					30: 30,
-					40: 40,
-					50: 50,
-					100: 100,
-				}}
-				min={0}
-				max={100}
-				step={1}
-			/>
+			<PgSlider/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
@@ -106,50 +96,21 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				}),
 			]}
 		>
-			<Slider
-				marks={{
-					0: 0,
-					50: 50,
-					60: 60,
-					70: 70,
-					80: 80,
-					100: 100,
-				}}
-				min={0}
-				max={100}
-				step={1}
-			/>
+			<VgSlider/>
 		</FormItem>
+		<Divider/>
 		<FormItem
 			field={'nicotine'}
 			labels={['lab.mixture.nicotine.label']}
 		>
-			<Slider
-				marks={{
-					0: 0,
-					3: 3,
-					6: 6,
-					9: 9,
-					12: 12,
-					16: 16,
-					18: 18,
-					20: 20,
-				}}
-				min={0}
-				max={20}
-				step={1}
-			/>
+			<NicotineSlider/>
 		</FormItem>
 		<FormItem
 			field={'volume'}
 			labels={['lab.mixture.volume.label']}
 			required
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={1000}
-			/>
+			<VolumeSlider/>
 		</FormItem>
 		<Divider/>
 		<FormItem
@@ -157,11 +118,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			labels={['lab.mixture.steep.label']}
 			tooltip={t('lab.mixture.steep.label.tooltip')}
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={365}
-			/>
+			<SteepSlider/>
 		</FormItem>
 		<FormItem
 			field={'mixed'}
