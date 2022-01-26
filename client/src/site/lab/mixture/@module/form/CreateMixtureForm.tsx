@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message} from "antd";
-import dayjs from "dayjs";
+import {DatePicker, Divider, message} from "antd";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/site/lab/mixture/@module/form/input";
+import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
+import moment from "moment";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -21,7 +21,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			nicotine: 6,
 			volume: 60,
 			steep: 14,
-			mixed: dayjs(),
+			mixed: moment(),
 		})}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.mixture.created.message", {data: response}));
@@ -125,14 +125,23 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			labels={['lab.mixture.mixed.label']}
 			required
 		>
-			<DatePicker size={'large'} style={{width: '100%'}}/>
+			<DatePicker
+				showTime
+				size={'large'}
+				style={{width: '100%'}}
+				format={moment => moment.format('LLL')}
+			/>
 		</FormItem>
 		<FormItem
 			field={'expires'}
 			labels={['lab.mixture.expires.label']}
 			tooltip={t('lab.mixture.expires.label.tooltip')}
 		>
-			<DatePicker size={'large'} style={{width: '100%'}}/>
+			<DatePicker
+				picker={'month'}
+				size={'large'}
+				style={{width: '100%'}}
+			/>
 		</FormItem>
 		<Divider/>
 		<Centered>

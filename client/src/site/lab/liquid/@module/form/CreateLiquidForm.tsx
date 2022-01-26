@@ -1,9 +1,10 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {PgSlider, VgSlider} from "@/puff-smith/component/input";
 
 export interface ICreateLiquidFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -58,19 +59,7 @@ export const CreateLiquidForm: FC<ICreateLiquidFormProps> = props => {
 				}),
 			]}
 		>
-			<Slider
-				marks={{
-					0: 0,
-					20: 20,
-					30: 30,
-					40: 40,
-					50: 50,
-					100: 100,
-				}}
-				min={0}
-				max={100}
-				step={1}
-			/>
+			<PgSlider/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
@@ -86,19 +75,7 @@ export const CreateLiquidForm: FC<ICreateLiquidFormProps> = props => {
 				}),
 			]}
 		>
-			<Slider
-				marks={{
-					0: 0,
-					50: 50,
-					60: 60,
-					70: 70,
-					80: 80,
-					100: 100,
-				}}
-				min={0}
-				max={100}
-				step={1}
-			/>
+			<VgSlider/>
 		</FormItem>
 		<FormItem
 			field={'volume'}

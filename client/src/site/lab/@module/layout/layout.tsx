@@ -1,12 +1,12 @@
 import {LockOutlined} from "@ant-design/icons";
 import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/leight";
-import i18n from "i18next";
 import {FC, useEffect} from "react";
 import {AppLayout, usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import {FullLogoIcon, NotificationContextProvider} from "@/puff-smith";
 import {Footer, Header} from "@/puff-smith/site/lab";
 import {UserSettingsCheck} from "@/puff-smith/site/lab/@module/component/UserSettingsCheck";
+import i18n from "i18next";
 
 export interface ILabLayoutProps {
 }
