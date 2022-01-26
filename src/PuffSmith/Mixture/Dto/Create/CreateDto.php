@@ -21,11 +21,11 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int
 	 */
-	public int $pg;
+	public int $pg = 0;
 	/**
 	 * @var int
 	 */
-	public int $vg;
+	public int $vg = 0;
 	/**
 	 * @var int
 	 */
