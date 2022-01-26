@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Card, Divider, InputNumber, message, Rate, Slider} from "antd";
+import {Card, Divider, message, Rate, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
@@ -117,10 +117,17 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<InputNumber
-					style={{width: '100%'}}
+				<Slider
+					marks={{
+						0: 0,
+						20: 20,
+						40: 40,
+						60: 60,
+						100: 100,
+						250: 250,
+					}}
 					min={0}
-					max={1000}
+					max={250}
 				/>
 			</FormItem>
 			<FormItem
@@ -128,10 +135,16 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<InputNumber
-					style={{width: '100%'}}
-					min={60}
-					max={1000}
+				<Slider
+					marks={{
+						0: 0,
+						80: 80,
+						120: 120,
+						200: 200,
+						320: 320,
+					}}
+					min={0}
+					max={320}
 				/>
 			</FormItem>
 			<FormItem

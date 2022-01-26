@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Card, Divider, InputNumber, message, Rate, Slider} from "antd";
+import {Card, Divider, message, Rate, Slider} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
@@ -20,13 +20,13 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 			navigate("/lab/vape/list");
 		}}
 		toForm={() => ({
-			rating: 5,
-			taste: 5,
-			airflow: 2,
+			rating: 0,
+			taste: 0,
+			airflow: 0,
 			juice: 5,
-			mtl: 5,
+			mtl: 0,
 			dl: 0,
-			clouds: 3,
+			clouds: 0,
 			leaks: 0,
 			dryhit: 0,
 			...vape,
@@ -122,10 +122,17 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<InputNumber
-					style={{width: '100%'}}
+				<Slider
+					marks={{
+						0: 0,
+						20: 20,
+						40: 40,
+						60: 60,
+						100: 100,
+						250: 250,
+					}}
 					min={0}
-					max={1000}
+					max={250}
 				/>
 			</FormItem>
 			<FormItem
@@ -133,10 +140,16 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<InputNumber
-					style={{width: '100%'}}
-					min={60}
-					max={1000}
+				<Slider
+					marks={{
+						0: 0,
+						80: 80,
+						120: 120,
+						200: 200,
+						320: 320,
+					}}
+					min={0}
+					max={320}
 				/>
 			</FormItem>
 			<FormItem

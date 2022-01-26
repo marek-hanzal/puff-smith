@@ -67,23 +67,57 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 		<FormItem
 			field={'pg'}
 			labels={['lab.mixture.pg.label']}
-			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'vg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
-			<InputNumber
-				style={{width: '100%'}}
+			<Slider
+				marks={{
+					0: 0,
+					20: 20,
+					30: 30,
+					40: 40,
+					50: 50,
+					100: 100,
+				}}
 				min={0}
 				max={100}
+				step={1}
 			/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
 			labels={['lab.mixture.vg.label']}
-			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'pg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
-			<InputNumber
-				style={{width: '100%'}}
+			<Slider
+				marks={{
+					0: 0,
+					50: 50,
+					60: 60,
+					70: 70,
+					80: 80,
+					100: 100,
+				}}
 				min={0}
 				max={100}
+				step={1}
 			/>
 		</FormItem>
 		<FormItem

@@ -70,7 +70,7 @@ class MixtureRepository extends AbstractRepository {
 		return $this->patch([
 			'id'         => $patchDto->id ?? null,
 			'name'       => $patchDto->name ?? null,
-			'code'       => $patchDto->code ?? null,
+			'code'       => $patchDto->code ?? $this->randomService->code(),
 			'steep'      => $patchDto->steep ?? null,
 			'pg'         => $patchDto->pg ?? null,
 			'vg'         => $patchDto->vg ?? null,
