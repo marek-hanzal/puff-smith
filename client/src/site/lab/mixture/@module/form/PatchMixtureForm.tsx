@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Divider, message} from "antd";
+import {DatePicker, Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {asDayjs, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
-import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/site/lab/mixture/@module/form/input";
+import {asDayjs, Centered, FormItem, Submit} from "@leight-core/leight";
+import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {
 	mixture: MixtureDto;
@@ -124,14 +124,23 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			labels={['lab.mixture.mixed.label']}
 			required
 		>
-			<DatePicker size={'large'} style={{width: '100%'}}/>
+			<DatePicker
+				showTime
+				size={'large'}
+				style={{width: '100%'}}
+				format={moment => moment.format('LLL')}
+			/>
 		</FormItem>
 		<FormItem
 			field={'expires'}
 			labels={['lab.mixture.expires.label']}
 			tooltip={t('lab.mixture.expires.label.tooltip')}
 		>
-			<DatePicker size={'large'} style={{width: '100%'}}/>
+			<DatePicker
+				picker={'month'}
+				size={'large'}
+				style={{width: '100%'}}
+			/>
 		</FormItem>
 		<Divider/>
 		<Centered>

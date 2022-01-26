@@ -1,5 +1,6 @@
 export * from "./button";
 export * from "./icon";
+export * from "./input";
 export * from "./notification";
 export * from "./Breadcrumb";
 export * from "./Filter";
