@@ -9,6 +9,7 @@ export interface ISetupEditButtonProps extends Partial<IButtonLinkProps> {
 export const SetupEditButton: FC<ISetupEditButtonProps> = ({setup, ...props}) => {
 	return <ButtonLink
 		size={'large'}
+		type={'link'}
 		href={'/lab/setup/[setupId]/edit'}
 		query={{setupId: setup.id}}
 		icon={<EditIcon/>}

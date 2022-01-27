@@ -1,29 +1,37 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {SetupIcon} from "@/puff-smith";
-import {Space} from "antd";
+import {Divider, Menu, Space} from "antd";
 import {PatchSetupForm, SetupCreateButton, SetupLinkButton, SetupListButton} from "@/puff-smith/site/lab/setup";
 import {SetupPage} from "@/sdk/puff-smith/api/lab/setup/endpoint";
 import {BackIcon, EditTemplate} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	return <SetupPage
-		name={"lab.setup.edit"}
+		title={"lab.setup.edit"}
 		selected={['/lab/setup']}
-		card={{
-			extra: <Space>
-				<SetupListButton/>
-				<SetupCreateButton type={'link'}/>
-			</Space>
-		}}
+		onBack={navigate => navigate('/lab/setup')}
+		extra={<QuickMenu>
+			<Menu.Item>
+				<SetupCreateButton size={'small'}/>
+			</Menu.Item>
+			<Menu.Item>
+				<SetupListButton size={'small'}/>
+			</Menu.Item>
+		</QuickMenu>}
 	>
 		{setup => <>
 			<LabMenu/>
 			<EditTemplate
 				icon={<SetupIcon/>}
 				label={'lab.setup'}
-				extra={<Space>
-					<SetupLinkButton icon={<BackIcon/>} setup={setup} title={'lab.setup.link.button'}/>
-				</Space>}
+				extra={<>
+					<Space>
+						<SetupLinkButton icon={<BackIcon/>} setup={setup} title={'lab.setup.link.button'}/>
+					</Space>
+					<Divider/>
+				</>
+				}
 			>
 				<PatchSetupForm setup={setup}/>
 			</EditTemplate>

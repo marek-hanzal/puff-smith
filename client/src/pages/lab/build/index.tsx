@@ -19,7 +19,7 @@ export default withLabLayout(function Index() {
 			span={24}
 		>
 			<ButtonBar>
-				<BuildCreateButton/>
+				<BuildCreateButton type={'primary'}/>
 				<BuildListButton/>
 			</ButtonBar>
 			<Divider/>
