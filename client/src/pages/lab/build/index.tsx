@@ -1,31 +1,28 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {Template} from "@leight-core/leight";
+import {ButtonBar, Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
-import {Card, Divider, Space} from "antd";
+import {Card, Divider} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <LabPage
-		name={"lab.build"}
+		title={"lab.build"}
+		onBack={navigate => navigate('/lab')}
 		selected={['/lab/build']}
 	>
 		<LabMenu/>
 		<Template
 			icon={<BuildIcon/>}
 			label={'lab.build'}
-			extra={
-				<>
-					<Space split={<Divider type={'vertical'}/>}>
-						<BuildCreateButton/>
-						<BuildListButton size={'middle'}/>
-					</Space>
-					<Divider/>
-				</>
-			}
 			span={24}
 		>
+			<ButtonBar>
+				<BuildCreateButton/>
+				<BuildListButton/>
+			</ButtonBar>
+			<Divider/>
 			<Card title={t('lab.build.latest.title')} extra={<BuildListButton size={'small'} icon={undefined} title={'lab.build.button.all.list'}/>}>
 				<LatestBuildTable/>
 			</Card>

@@ -2,16 +2,19 @@ import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {CreateTemplate} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function Create() {
 	return <LabPage
-		name={"lab.build.create"}
+		title={"lab.build.create"}
 		selected={['/lab/build']}
-		card={{
-			extra: <>
-				<BuildListButton/>
-			</>
-		}}
+		onBack={navigate => navigate('/lab/build')}
+		extra={<QuickMenu>
+			<Menu.Item>
+				<BuildListButton size={'small'}/>
+			</Menu.Item>
+		</QuickMenu>}
 	>
 		<LabMenu/>
 		<CreateTemplate

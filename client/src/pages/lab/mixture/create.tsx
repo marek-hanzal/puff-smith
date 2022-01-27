@@ -1,17 +1,20 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureListButton, CreateMixtureForm} from "@/puff-smith/site/lab/mixture";
-import {CreateTemplate, useMenuContext} from "@leight-core/leight";
+import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixture";
+import {CreateTemplate} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function Create() {
 	return <LabPage
-		name={"lab.mixture.create"}
+		title={"lab.mixture.create"}
 		selected={['/lab/mixture']}
-		card={{
-			extra: <>
-				<MixtureListButton/>
-			</>
-		}}
+		onBack={navigate => navigate('/lab/mixture')}
+		extra={<QuickMenu>
+			<Menu.Item>
+				<MixtureListButton size={'small'}/>
+			</Menu.Item>
+		</QuickMenu>}
 	>
 		<LabMenu/>
 		<CreateTemplate

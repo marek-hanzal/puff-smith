@@ -1,7 +1,6 @@
 import {FC, ReactNode} from "react";
-import {CreateTemplate, DrawerButton} from "@leight-core/leight";
+import {CreateTemplate, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {PlusOutlined} from "@ant-design/icons";
-import {IDrawerButtonProps} from "@leight-core/leight";
 
 export interface IFormTooltipProps extends Partial<IDrawerButtonProps> {
 	icon: ReactNode
@@ -20,6 +19,7 @@ export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children, ...pr
 		<CreateTemplate
 			icon={icon}
 			label={label}
+			isMobile
 			span={24}
 		>
 			{children}
