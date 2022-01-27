@@ -9,7 +9,7 @@ export default withPublicLayout(function Custom404() {
 	const {t} = useTranslation();
 	const router = useRouter();
 	return <PublicPage
-		name={"public.404"}
+		title={"public.404"}
 		fullwidth
 	>
 		<Result

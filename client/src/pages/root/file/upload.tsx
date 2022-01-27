@@ -5,7 +5,7 @@ import {FileAddOutlined} from "@ant-design/icons";
 
 export default withRootLayout(function Upload() {
 	return <RootPage
-		name={"root.file.upload"}
+		title={"root.file.upload"}
 	>
 		<RootMenu/>
 		<FilePageMenu/>

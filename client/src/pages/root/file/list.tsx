@@ -4,7 +4,7 @@ import {FileTable} from "@/puff-smith/site/shared/file";
 
 export default withRootLayout(function List() {
 	return <RootPage
-		name={"root.file.list"}
+		title={"root.file.list"}
 	>
 		<RootMenu/>
 		<FilePageMenu/>

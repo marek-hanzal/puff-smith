@@ -6,7 +6,7 @@ import {ConfigPage} from "@/sdk/edde/api/root/config/endpoint";
 
 export default withRootLayout(function Edit() {
 	return <ConfigPage
-		name={"root.settings.config.edit"}
+		title={"root.settings.config.edit"}
 	>
 		{config => <>
 			<ConfigHomeMenu/>

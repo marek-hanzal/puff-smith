@@ -3,7 +3,7 @@ import {UpgradePageMenu, UpgradeTable} from "@/puff-smith/site/root/upgrade";
 
 export default withRootLayout(function List() {
 	return <RootPage
-		name={"root.upgrade.list"}
+		title={"root.upgrade.list"}
 	>
 		<RootMenu/>
 		<UpgradePageMenu/>

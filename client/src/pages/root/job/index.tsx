@@ -5,7 +5,7 @@ import {Template} from "@leight-core/leight";
 
 export default withRootLayout(function Index() {
 	return <RootPage
-		name={"root.job.index"}
+		title={"root.job.index"}
 	>
 		<RootMenu/>
 		<JobPageMenu/>

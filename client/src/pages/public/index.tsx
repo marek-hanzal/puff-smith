@@ -5,7 +5,7 @@ import {PublicMenu, PublicPage, withPublicLayout} from "@/puff-smith/site/public
 
 export default withPublicLayout(function Index() {
 	return <PublicPage
-		name={"public.index"}
+		title={"public.index"}
 	>
 		<PublicMenu/>
 		<BulletCard

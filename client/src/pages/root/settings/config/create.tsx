@@ -6,7 +6,7 @@ import {CreateTemplate} from "@leight-core/leight";
 
 export default withRootLayout(function Create() {
 	return <RootPage
-		name={"root.settings.config.create"}
+		title={"root.settings.config.create"}
 	>
 		<SettingsMenu/>
 		<ConfigPageMenu/>

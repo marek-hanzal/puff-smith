@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 export default withRootLayout(function Index() {
 	const {t} = useTranslation();
 	return <RootPage
-		name={"root.user.index"}
+		title={"root.user.index"}
 	>
 		<RootMenu/>
 		<UserPageMenu/>

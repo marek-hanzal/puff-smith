@@ -4,7 +4,7 @@ import {TemplateTable} from "@/puff-smith/site/shared/import/template";
 
 export default withRootLayout(function Template() {
 	return <RootPage
-		name={"root.import.template"}
+		title={"root.import.template"}
 	>
 		<RootMenu/>
 		<ImportPageMenu/>

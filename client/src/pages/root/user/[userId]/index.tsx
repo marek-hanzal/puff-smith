@@ -6,7 +6,7 @@ import {PreviewTemplate} from "@leight-core/leight";
 
 export default withRootLayout(function Index() {
 	return <UserPage
-		name={"root.user.home"}
+		title={"root.user.home"}
 	>
 		{user => <>
 			<UserHomeMenu/>

@@ -22,7 +22,7 @@ export default withPublicLayout(function SignOut() {
 	}, []);
 
 	return <PublicPage
-		name={"public.sign-out"}
+		title={"public.sign-out"}
 		fullwidth
 	>
 		<Result

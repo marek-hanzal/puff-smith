@@ -13,7 +13,7 @@ export default withRootLayout(function Run() {
 	const jobsQueryInvalidate = useJobsQueryInvalidate();
 	const upgradesQuery = useUpgradesQuery({page: 0, size: 1, filter: {active: false}});
 	return <RootPage
-		name={"root.upgrade.run"}
+		title={"root.upgrade.run"}
 	>
 		<RootMenu/>
 		<UpgradePageMenu/>

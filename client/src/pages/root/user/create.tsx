@@ -5,7 +5,7 @@ import {CreateTemplate} from "@leight-core/leight";
 
 export default withRootLayout(function Create() {
 	return <RootPage
-		name={"root.user.create"}
+		title={"root.user.create"}
 	>
 		<RootMenu/>
 		<UserPageMenu/>
