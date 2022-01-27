@@ -1,13 +1,14 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Card, Divider, InputNumber, message, Slider} from "antd";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import dayjs from "dayjs";
+import moment from "moment";
+import {PickDate} from "@/puff-smith/component/PickDate";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -21,7 +22,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			coilOffset: 0,
 			cottonOffset: 0,
 			...build,
-			created: dayjs(),
+			created: moment(),
 			name: null,
 			description: null,
 		})}
@@ -46,7 +47,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				field={'created'}
 				labels={['lab.build.created.label']}
 			>
-				<DatePicker size={'large'} style={{width: '100%'}}/>
+				<PickDate showTime/>
 			</FormItem>
 		</Card>
 		<Divider/>

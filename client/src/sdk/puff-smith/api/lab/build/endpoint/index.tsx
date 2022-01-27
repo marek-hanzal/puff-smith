@@ -1,9 +1,9 @@
+import {createContext, FC, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	Form,
@@ -15,6 +15,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +25,17 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+
+export type IActiveQueryParams = void;
+
+
+export const useActiveMutation = createPostMutation<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").ActiveDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Active");
 
 export type IBuildQueryParams = {
 	buildId: string;
@@ -67,6 +66,16 @@ export type IPatchQueryParams = void;
 
 
 export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Patch");
+
+export interface IActiveDefaultFormProps extends Partial<IFormProps<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").ActiveDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+}
+
+export const ActiveDefaultForm: FC<IActiveDefaultFormProps> = props => {
+	return <Form<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").ActiveDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+		useMutation={useActiveMutation}
+		{...props}
+	/>
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
