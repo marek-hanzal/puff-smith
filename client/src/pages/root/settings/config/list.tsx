@@ -4,7 +4,7 @@ import {ConfigPageMenu, ConfigTable} from "@/puff-smith/site/root/settings/confi
 
 export default withRootLayout(function List() {
 	return <RootPage
-		name={"root.settings.config.list.index"}
+		title={"root.settings.config.list.index"}
 	>
 		<SettingsMenu/>
 		<ConfigPageMenu/>

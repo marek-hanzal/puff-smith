@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Card, Divider, message, Rate, Slider} from "antd";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Divider, message, Rate, Slider} from "antd";
+import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {SetupSelect, SetupTooltip} from "@/puff-smith/site/lab/setup";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";

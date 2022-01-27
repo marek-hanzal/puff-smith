@@ -3,7 +3,7 @@ import {PublicMenu, PublicPage, SignUpForm, withPublicLayout} from "@/puff-smith
 
 export default withPublicLayout(function Login() {
 	return <PublicPage
-		name={"public.sign-up"}
+		title={"public.sign-up"}
 	>
 		<PublicMenu/>
 		<Template

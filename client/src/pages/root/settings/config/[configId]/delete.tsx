@@ -4,7 +4,7 @@ import {ConfigPage} from "@/sdk/edde/api/root/config/endpoint";
 
 export default withRootLayout(function Delete() {
 	return <ConfigPage
-		name={"root.settings.config.delete"}
+		title={"root.settings.config.delete"}
 	>
 		{config => <>
 			<ConfigHomeMenu/>

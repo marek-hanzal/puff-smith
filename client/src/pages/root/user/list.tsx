@@ -3,7 +3,7 @@ import {UserPageMenu, UserTable} from "@/puff-smith/site/root/user";
 
 export default withRootLayout(function List() {
 	return <RootPage
-		name={"root.user.list"}
+		title={"root.user.list"}
 	>
 		<RootMenu/>
 		<UserPageMenu/>

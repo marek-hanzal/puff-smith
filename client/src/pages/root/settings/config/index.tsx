@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 export default withRootLayout(function Index() {
 	const {t} = useTranslation();
 	return <RootPage
-		name={"root.settings.config"}
+		title={"root.settings.config"}
 	>
 		<SettingsMenu/>
 		<ConfigPageMenu/>

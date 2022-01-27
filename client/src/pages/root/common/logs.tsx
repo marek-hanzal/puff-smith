@@ -4,7 +4,7 @@ import {LogsControl} from "@/puff-smith/site/root/log";
 
 export default withRootLayout(function Logs() {
 	return <RootPage
-		name={"root.logs"}
+		title={"root.logs"}
 	>
 		<RootMenu/>
 		<CommonPageMenu/>

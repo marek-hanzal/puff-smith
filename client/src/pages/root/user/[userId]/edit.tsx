@@ -6,7 +6,7 @@ import {UserPage} from "@/sdk/puff-smith/api/root/user/endpoint";
 
 export default withRootLayout(function Edit() {
 	return <UserPage
-		name={"root.user.edit"}
+		title={"root.user.edit"}
 	>
 		{user => <>
 			<UserHomeMenu/>

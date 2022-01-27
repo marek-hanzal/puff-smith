@@ -6,7 +6,7 @@ import {CreateTemplate} from "@leight-core/leight";
 
 export default withRootLayout(function Import() {
 	return <RootPage
-		name={"root.common.import"}
+		title={"root.common.import"}
 	>
 		<RootMenu/>
 		<ImportPageMenu/>

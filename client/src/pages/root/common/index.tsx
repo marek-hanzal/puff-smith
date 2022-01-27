@@ -5,7 +5,7 @@ import {Template} from "@leight-core/leight";
 
 export default withRootLayout(function Index() {
 	return <RootPage
-		name={"root.common.index"}
+		title={"root.common.index"}
 	>
 		<RootMenu/>
 		<CommonPageMenu/>

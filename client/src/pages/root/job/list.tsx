@@ -4,7 +4,7 @@ import {JobTable} from "@/puff-smith/site/shared/job";
 
 export default withRootLayout(function List() {
 	return <RootPage
-		name={"root.job.list"}
+		title={"root.job.list"}
 	>
 		<RootMenu/>
 		<JobPageMenu/>

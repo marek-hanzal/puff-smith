@@ -4,7 +4,7 @@ import {UploadTemplateForm} from "@/puff-smith/site/root/import/template";
 
 export default withRootLayout(function UploadTemplate() {
 	return <RootPage
-		name={"root.import.upload-template"}
+		title={"root.import.upload-template"}
 	>
 		<RootMenu/>
 		<ImportPageMenu/>
