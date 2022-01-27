@@ -5,7 +5,7 @@ import {ModInline} from "@/puff-smith/site/lab/mod";
 import {Menu, message} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {SetupIcon} from "@/puff-smith";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
+import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {SetupDeleteButton, SetupEditButton, SetupLinkButton, SetupPreview} from "@/puff-smith/site/lab/setup";
 import {useTranslation} from "react-i18next";
 

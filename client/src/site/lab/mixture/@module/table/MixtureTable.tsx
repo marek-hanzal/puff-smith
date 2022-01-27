@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {toLocalDate} from "@leight-core/leight";
+import {DrawerButton, PreviewTemplate, QuickMenu, toLocalDate} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
@@ -9,7 +9,6 @@ import {useTranslation} from "react-i18next";
 import {Menu} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {MixtureIcon} from "@/puff-smith";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }

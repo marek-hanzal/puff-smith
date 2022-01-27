@@ -1,12 +1,11 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Preview} from "@leight-core/leight";
+import {Preview, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Space, Typography} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {toLocalDate} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto

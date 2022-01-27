@@ -6,10 +6,8 @@ import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
-import {SwitchItem} from "@leight-core/leight/dist";
+import {Centered, DatePicker, FormItem, Submit, SwitchItem, TextArea} from "@leight-core/leight";
 import moment from "moment";
-import {PickDate} from "@/puff-smith/component/PickDate";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -44,7 +42,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				field={'created'}
 				labels={['lab.build.created.label']}
 			>
-				<PickDate showTime/>
+				<DatePicker showTime/>
 			</FormItem>
 			<SwitchItem
 				field={'active'}

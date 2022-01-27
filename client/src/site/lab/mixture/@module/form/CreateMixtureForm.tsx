@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Card, DatePicker, Divider, message} from "antd";
+import {Card, Divider, message} from "antd";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
@@ -55,12 +55,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				labels={['lab.mixture.mixed.label']}
 				required
 			>
-				<DatePicker
-					showTime
-					size={'large'}
-					style={{width: '100%'}}
-					format={moment => moment.format('LLL')}
-				/>
+				<DatePicker showTime/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -92,11 +87,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				labels={['lab.mixture.expires.label']}
 				tooltip={t('lab.mixture.expires.label.tooltip')}
 			>
-				<DatePicker
-					picker={'month'}
-					size={'large'}
-					style={{width: '100%'}}
-				/>
+				<DatePicker picker={'month'}/>
 			</FormItem>
 		</Card>
 		<Divider/>

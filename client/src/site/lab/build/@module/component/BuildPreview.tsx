@@ -1,11 +1,10 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {Preview} from "@leight-core/leight";
+import {Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
 import {Slider, Space} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {PreviewBool, toLocalDateTime} from "@leight-core/leight/dist";
 
 export interface IBuildPreviewProps {
 	build: BuildDto
