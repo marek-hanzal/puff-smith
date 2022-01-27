@@ -48,6 +48,9 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			>
 				<DatePicker size={'large'} style={{width: '100%'}}/>
 			</FormItem>
+		</Card>
+		<Divider/>
+		<Card title={t('lab.build.build.title')}>
 			<FormItem
 				field={'atomizerId'}
 				labels={['lab.build.atomizerId.label']}

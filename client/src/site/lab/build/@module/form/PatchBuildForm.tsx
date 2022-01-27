@@ -7,7 +7,7 @@ import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
-import {asDayjs} from "@leight-core/leight/dist";
+import {asDayjs, SwitchItem} from "@leight-core/leight/dist";
 import dayjs from "dayjs";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
@@ -45,6 +45,14 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 			>
 				<DatePicker size={'large'} style={{width: '100%'}}/>
 			</FormItem>
+			<SwitchItem
+				field={'active'}
+				labels={['lab.build.active.label']}
+				tooltip={t('lab.build.active.label.tooltip')}
+			/>
+		</Card>
+		<Divider/>
+		<Card title={t('lab.build.build.title')}>
 			<FormItem
 				field={'atomizerId'}
 				labels={['lab.build.atomizerId.label']}
