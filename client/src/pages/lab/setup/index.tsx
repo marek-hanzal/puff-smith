@@ -16,7 +16,7 @@ export default withLabLayout(function Index() {
 			span={24}
 		>
 			<ButtonBar>
-				<SetupCreateButton/>
+				<SetupCreateButton type={'primary'}/>
 				<SetupListButton size={'middle'}/>
 			</ButtonBar>
 		</Template>

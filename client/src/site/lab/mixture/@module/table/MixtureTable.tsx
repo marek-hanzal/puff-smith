@@ -5,49 +5,64 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {useTranslation} from "react-i18next";
-import {Menu} from "antd";
+import {List, Menu} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {MixtureIcon} from "@/puff-smith";
+import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
+
+interface IQuickMenuInternalProps {
+	mixture: MixtureDto;
+}
+
+const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({mixture}) => {
+	return <QuickMenu>
+		<Menu.Item>
+			<DrawerButton
+				width={750}
+				type={'link'}
+				size={'small'}
+				icon={<EyeOutlined/>}
+				title={'lab.mixture.preview'}
+			>
+				<PreviewTemplate
+					icon={<MixtureIcon/>}
+					label={'lab.mixture.preview'}
+					span={24}
+				>
+					<MixturePreview mixture={mixture}/>
+				</PreviewTemplate>
+			</DrawerButton>
+		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<MixtureLink size={'small'} mixture={mixture}/>
+		</Menu.Item>
+		<Menu.Item>
+			<MixtureEditButton size={'small'} type={'link'} mixture={mixture}/>
+		</Menu.Item>
+	</QuickMenu>
+}
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
-	const {t} = useTranslation();
 	return <MixturesSourceTable
 		scroll={{x: 2200}}
+		listItemRender={mixture => <List.Item
+			actions={[<QuickMenuInternal key={'quick-menu'} mixture={mixture}/>]}
+		>
+			<List.Item.Meta
+				title={mixture.name}
+				description={mixture.liquid.name}
+			/>
+		</List.Item>}
 		{...props}
 	>
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, mixture) => <QuickMenu>
-					<Menu.Item>
-						<DrawerButton
-							width={750}
-							type={'link'}
-							size={'small'}
-							icon={<EyeOutlined/>}
-							title={'lab.mixture.preview'}
-						>
-							<PreviewTemplate
-								icon={<MixtureIcon/>}
-								label={'lab.mixture.preview'}
-								span={24}
-							>
-								<MixturePreview mixture={mixture}/>
-							</PreviewTemplate>
-						</DrawerButton>
-					</Menu.Item>
-					<Menu.Divider/>
-					<Menu.Item>
-						<MixtureLink size={'small'} mixture={mixture}/>
-					</Menu.Item>
-					<Menu.Item>
-						<MixtureEditButton size={'small'} type={'link'} mixture={mixture}/>
-					</Menu.Item>
-				</QuickMenu>,
+				render: (_, mixture) => <QuickMenuInternal mixture={mixture}/>,
 				width: 0,
 			}),
 			column({

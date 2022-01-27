@@ -6,53 +6,70 @@ import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Menu, Typography} from "antd";
+import {List, Menu, Typography} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {BuildIcon} from "@/puff-smith";
+import {BuildDto} from "@/sdk/puff-smith/build/dto";
+
+interface IQuickMenuInternal {
+	build: BuildDto;
+}
+
+const QuickMenuInternal: FC<IQuickMenuInternal> = ({build}) => {
+	return <QuickMenu>
+		<Menu.Item>
+			<DrawerButton
+				width={750}
+				type={'link'}
+				size={'small'}
+				icon={<EyeOutlined/>}
+				title={'lab.build.preview'}
+			>
+				<PreviewTemplate
+					icon={<BuildIcon/>}
+					label={'lab.build.preview'}
+					span={24}
+				>
+					<BuildPreview build={build}/>
+				</PreviewTemplate>
+			</DrawerButton>
+		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<BuildLinkButton size={'small'} build={build}/>
+		</Menu.Item>
+		<Menu.Item>
+			<BuildEditButton size={'small'} type={'link'} build={build}/>
+		</Menu.Item>
+		<Menu.Item>
+			<BuildCloneButton size={'small'} type={'link'} build={build}/>
+		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<BuildActiveButton size={'small'} build={build}/>
+		</Menu.Item>
+	</QuickMenu>;
+}
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
 
 export const BuildTable: FC<IBuildTableProps> = props => {
 	return <BuildsSourceTable
+		listItemRender={build => <List.Item
+			actions={[<QuickMenuInternal key={'quick-menu'} build={build}/>]}
+		>
+			<List.Item.Meta
+				title={build.name}
+				description={build.description}
+			/>
+		</List.Item>}
 		{...props}
 	>
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, build) => <QuickMenu>
-					<Menu.Item>
-						<DrawerButton
-							width={750}
-							type={'link'}
-							size={'small'}
-							icon={<EyeOutlined/>}
-							title={'lab.build.preview'}
-						>
-							<PreviewTemplate
-								icon={<BuildIcon/>}
-								label={'lab.build.preview'}
-								span={24}
-							>
-								<BuildPreview build={build}/>
-							</PreviewTemplate>
-						</DrawerButton>
-					</Menu.Item>
-					<Menu.Divider/>
-					<Menu.Item>
-						<BuildLinkButton size={'small'} build={build}/>
-					</Menu.Item>
-					<Menu.Item>
-						<BuildEditButton size={'small'} type={'link'} build={build}/>
-					</Menu.Item>
-					<Menu.Item>
-						<BuildCloneButton size={'small'} type={'link'} build={build}/>
-					</Menu.Item>
-					<Menu.Divider/>
-					<Menu.Item>
-						<BuildActiveButton size={'small'} build={build}/>
-					</Menu.Item>
-				</QuickMenu>,
+				render: (_, build) => <QuickMenuInternal build={build}/>,
 				width: 0,
 			}),
 			column({

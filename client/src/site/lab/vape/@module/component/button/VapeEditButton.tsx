@@ -9,6 +9,7 @@ export interface IVapeEditButtonProps extends Partial<IButtonLinkProps> {
 export const VapeEditButton: FC<IVapeEditButtonProps> = ({vape, ...props}) => {
 	return <ButtonLink
 		size={'large'}
+		type={'link'}
 		href={'/lab/vape/[vapeId]/edit'}
 		query={{vapeId: vape.id}}
 		icon={<EditIcon/>}
