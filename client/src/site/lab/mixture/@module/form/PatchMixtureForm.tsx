@@ -1,13 +1,14 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Card, DatePicker, Divider, message} from "antd";
+import {Card, Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {asDayjs, Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
+import moment from "moment";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {
 	mixture: MixtureDto;
@@ -18,8 +19,8 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 	return <PatchDefaultForm
 		toForm={() => ({
 			...mixture,
-			mixed: asDayjs(mixture.mixed),
-			expires: asDayjs(mixture.expires),
+			mixed: moment(mixture.mixed),
+			expires: moment(mixture.expires),
 		})}
 		toMutation={values => ({
 			...values,
@@ -54,12 +55,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 				labels={['lab.mixture.mixed.label']}
 				required
 			>
-				<DatePicker
-					showTime
-					size={'large'}
-					style={{width: '100%'}}
-					format={moment => moment.format('LLL')}
-				/>
+				<DatePicker showTime/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -91,11 +87,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 				labels={['lab.mixture.expires.label']}
 				tooltip={t('lab.mixture.expires.label.tooltip')}
 			>
-				<DatePicker
-					picker={'month'}
-					size={'large'}
-					style={{width: '100%'}}
-				/>
+				<DatePicker picker={'month'}/>
 			</FormItem>
 		</Card>
 		<Divider/>

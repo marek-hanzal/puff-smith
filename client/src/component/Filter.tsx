@@ -2,8 +2,7 @@ import {useTranslation} from "react-i18next";
 import {Button, Collapse, Divider, Space} from "antd";
 import {CloseCircleOutlined, SearchOutlined} from "@ant-design/icons";
 import {FC} from "react";
-import {Centered, Form, FormContext} from "@leight-core/leight";
-import {Submit} from "@leight-core/leight/dist";
+import {Centered, Form, FormContext, Submit} from "@leight-core/leight";
 
 export interface IFilterProps {
 	translation: string;
