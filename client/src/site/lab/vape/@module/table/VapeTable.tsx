@@ -27,6 +27,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		/>
 		<VapesSourceTable
 			filter={filter}
+			scroll={{x: 1800}}
 			{...props}
 		>
 			{({column}) => [
@@ -94,14 +95,25 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					render: (_, vape) => <MixtureInline mixture={vape.mixture}/>
 				}),
 				column({
+					key: "mixture.age",
+					title: "lab.vape.table.mixture.age",
+					render: (_, vape) => {
+						// @ts-ignore
+						return dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize()
+					},
+					width: 150,
+				}),
+				column({
 					key: "rating",
 					title: "lab.vape.table.rating",
-					render: (_, vape) => <Statistic value={vape.rating} suffix="/ 10"/>
+					render: (_, vape) => <Statistic value={vape.rating} suffix="/ 10"/>,
+					width: 150,
 				}),
 				column({
 					key: "taste",
 					title: "lab.vape.table.taste",
-					render: (_, vape) => <Statistic value={vape.taste} suffix="/ 10"/>
+					render: (_, vape) => <Statistic value={vape.taste} suffix="/ 10"/>,
+					width: 150,
 				}),
 				column({
 					key: "power",
@@ -118,7 +130,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					title: "lab.vape.table.age",
 					render: (_, vape) => {
 						// @ts-ignore
-						return dayjs.duration(dayjs().diff(dayjs.unix(vape.setup.build.created))).humanize()
+						return dayjs.duration(dayjs().diff(vape.setup.build.created)).humanize()
 					},
 				}),
 			]}

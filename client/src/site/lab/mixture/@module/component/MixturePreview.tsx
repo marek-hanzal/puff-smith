@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Preview, toLocalDate} from "@leight-core/leight";
+import {asDayjs, Preview, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Space, Typography} from "antd";
@@ -26,7 +26,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 			"age": <MixtureAge mixture={mixture}/>,
 			"steep": <MixtureSteeping mixture={mixture}/>,
 			"mixed": toLocalDate(mixture.mixed),
-			"expires": toLocalDate(mixture.expires),
+			"expires": asDayjs(mixture.expires)?.format('MMMM YYYY'),
 			"volume": mixture.volume + 'ml',
 		}}
 	</Preview>
