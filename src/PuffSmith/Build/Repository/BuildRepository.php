@@ -12,7 +12,6 @@ use Edde\User\CurrentUserServiceTrait;
 use PuffSmith\Build\Dto\BuildFilterDto;
 use PuffSmith\Build\Dto\Create\CreateDto;
 use PuffSmith\Build\Dto\Patch\PatchDto;
-use function microtime;
 
 class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
@@ -58,7 +57,7 @@ class BuildRepository extends AbstractRepository {
 			'cottonOffset' => $createDto->cottonOffset,
 			'ohm'          => $createDto->ohm,
 			'active'       => true,
-			'created'      => $createDto->created ? (new DateTime($createDto->created))->getTimestamp() : microtime(true),
+			'created'      => new DateTime($createDto->created ?? 'now'),
 			'user_id'      => $this->currentUserService->requiredId(),
 		]);
 	}
@@ -67,7 +66,7 @@ class BuildRepository extends AbstractRepository {
 		return $this->patch([
 			'id'           => $patchDto->id,
 			'name'         => $patchDto->name,
-			'created'      => $patchDto->created ? (new DateTime($patchDto->created))->getTimestamp() : null,
+			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'description'  => $patchDto->description,
 			'active'       => $patchDto->active,
 			'atomizer_id'  => $patchDto->atomizerId,

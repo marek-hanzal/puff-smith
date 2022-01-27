@@ -6,9 +6,10 @@ import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
-import {Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
-import {asDayjs, SwitchItem} from "@leight-core/leight/dist";
-import dayjs from "dayjs";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {SwitchItem} from "@leight-core/leight/dist";
+import moment from "moment";
+import {PickDate} from "@/puff-smith/component/PickDate";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -19,7 +20,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 	return <PatchDefaultForm
 		toForm={() => ({
 			...build,
-			created: asDayjs(dayjs.unix(build.created)),
+			created: moment(build.created),
 		})}
 		toMutation={values => ({
 			...values,
@@ -43,7 +44,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				field={'created'}
 				labels={['lab.build.created.label']}
 			>
-				<DatePicker size={'large'} style={{width: '100%'}}/>
+				<PickDate showTime/>
 			</FormItem>
 			<SwitchItem
 				field={'active'}

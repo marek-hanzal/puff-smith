@@ -92,7 +92,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				title: "lab.build.table.age",
 				render: (_, build) => {
 					// @ts-ignore
-					return dayjs.duration(dayjs().diff(dayjs.unix(build.created))).humanize()
+					return dayjs.duration(dayjs().diff(build.created)).humanize()
 				},
 			}),
 		]}
