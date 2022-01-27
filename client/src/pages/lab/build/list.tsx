@@ -1,15 +1,18 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildCreateButton, BuildTable} from "@/puff-smith/site/lab/build";
+import {QuickMenu} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function List() {
 	return <LabPage
-		name={"lab.build.list"}
+		title={"lab.build.list"}
 		selected={['/lab/build']}
-		card={{
-			extra: <>
-				<BuildCreateButton/>
-			</>
-		}}
+		onBack={navigate => navigate('/lab/build')}
+		extra={<QuickMenu>
+			<Menu.Item>
+				<BuildCreateButton type={'link'} size={'small'}/>
+			</Menu.Item>
+		</QuickMenu>}
 	>
 		<LabMenu/>
 		<BuildTable/>

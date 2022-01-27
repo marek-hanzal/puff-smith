@@ -1,15 +1,18 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeTable} from "@/puff-smith/site/lab/vape";
+import {QuickMenu} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function List() {
 	return <LabPage
-		name={"lab.vape.list"}
+		title={"lab.vape.list"}
 		selected={['/lab/vape']}
-		card={{
-			extra: <>
-				<VapeCreateButton/>
-			</>
-		}}
+		onBack={navigate => navigate('/lab/vape')}
+		extra={<QuickMenu>
+			<Menu.Item>
+				<VapeCreateButton type={'link'} size={'small'}/>
+			</Menu.Item>
+		</QuickMenu>}
 	>
 		<LabMenu/>
 		<VapeTable/>

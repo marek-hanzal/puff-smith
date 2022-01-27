@@ -1,13 +1,16 @@
 import {useTranslation} from "react-i18next";
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {FullLogoIcon} from "@/puff-smith";
+import {FullLogoIcon, LogoIcon} from "@/puff-smith";
 import {MenuPlaceholder, Template} from "@leight-core/leight";
-import {BrowserView, MobileView} from "react-device-detect";
+import {BrowserView, isMobile, MobileView} from "react-device-detect";
+import {HomeIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <LabPage
-		name={"lab.home"}
+		title={"lab.home"}
+		icon={<HomeIcon/>}
+		extra={isMobile ? <LogoIcon style={{width: '7.5em'}}/> : null}
 	>
 		<BrowserView>
 			<LabMenu/>

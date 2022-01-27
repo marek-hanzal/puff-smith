@@ -7,7 +7,7 @@ export interface ILabMenuProps extends Partial<IMenuProps> {
 }
 
 export const LabMenu: FC<ILabMenuProps> = props => {
-	return <Menu {...props}>
+	return <Menu style={{border: 'none'}} {...props}>
 		{isBrowser && <>
 			<MenuDivider/>
 			{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
