@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Button, ButtonProps, message} from "antd";
 import {PauseCircleOutlined, PlayCircleOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
-import {useBuildsQueryInvalidate, usePatchMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {useActiveMutation, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 
 export interface IBuildActiveButtonProps extends Partial<ButtonProps> {
 	build: BuildDto;
@@ -11,14 +11,14 @@ export interface IBuildActiveButtonProps extends Partial<ButtonProps> {
 
 export const BuildActiveButton: FC<IBuildActiveButtonProps> = ({build, ...props}) => {
 	const {t} = useTranslation();
-	const patchMutation = usePatchMutation();
+	const activeMutation = useActiveMutation();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return build.active ? <Button
 		size={'large'}
 		type={'link'}
 		icon={<PauseCircleOutlined/>}
 		onClick={() => {
-			patchMutation.mutate({
+			activeMutation.mutate({
 				id: build.id,
 				active: false,
 			}, {
@@ -36,7 +36,7 @@ export const BuildActiveButton: FC<IBuildActiveButtonProps> = ({build, ...props}
 		type={'link'}
 		icon={<PlayCircleOutlined/>}
 		onClick={() => {
-			patchMutation.mutate({
+			activeMutation.mutate({
 				id: build.id,
 				active: true,
 			}, {

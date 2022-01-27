@@ -42,6 +42,9 @@ export module VapeOrderByDto {
 
 export interface VapeFilterDto {
 	atomizerIds?: string[] | null | undefined;
+	modIds?: string[] | null | undefined;
+	mixtureIds?: string[] | null | undefined;
+	coilIds?: string[] | null | undefined;
 	userId?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;

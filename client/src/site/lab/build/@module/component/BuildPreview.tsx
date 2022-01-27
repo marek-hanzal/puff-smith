@@ -1,12 +1,12 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {Preview, toLocalDate} from "@leight-core/leight";
+import {Preview} from "@leight-core/leight";
 import {FC} from "react";
 import {Slider, Space} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {PreviewBool} from "@leight-core/leight/dist";
+import {PreviewBool, toLocalDateTime} from "@leight-core/leight/dist";
 
 export interface IBuildPreviewProps {
 	build: BuildDto
@@ -21,7 +21,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build}) => {
 			"description": <pre>
 				{build.description}
 			</pre>,
-			"created": toLocalDate(dayjs.unix(build.created)),
+			"created": toLocalDateTime(dayjs.unix(build.created)),
 			"active": <PreviewBool bool={build.active}/>,
 			"atomizer": <AtomizerInline atomizer={build.atomizer}/>,
 			"coil": <CoilInline coil={build.coil}/>,
