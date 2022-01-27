@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {asMoment, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
 
@@ -20,7 +20,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 		toForm={() => ({
 			...mixture,
 			mixed: moment(mixture.mixed),
-			expires: moment(mixture.expires),
+			expires: asMoment(mixture.expires),
 		})}
 		toMutation={values => ({
 			...values,
@@ -87,7 +87,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 				labels={['lab.mixture.expires.label']}
 				tooltip={t('lab.mixture.expires.label.tooltip')}
 			>
-				<DatePicker picker={'month'}/>
+				<DatePicker picker={'month'} format={'MMMM YYYY'}/>
 			</FormItem>
 		</Card>
 		<Divider/>

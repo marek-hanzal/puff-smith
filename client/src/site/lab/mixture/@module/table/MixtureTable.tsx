@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {DrawerButton, PreviewTemplate, QuickMenu, toLocalDate} from "@leight-core/leight";
+import {asDayjs, DrawerButton, PreviewTemplate, QuickMenu, toLocalDate} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
@@ -122,7 +122,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			column({
 				key: "expires",
 				title: "lab.mixture.table.expires",
-				render: (_, mixture) => toLocalDate(mixture.expires),
+				render: (_, mixture) => asDayjs(mixture.expires)?.format('MMMM YYYY'),
 			}),
 		]}
 	</MixturesSourceTable>;
