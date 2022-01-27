@@ -28,20 +28,20 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = props => {
 			<WireSelect/>
 		</FormItem>
 		<FormItem
-			field={'ohm'}
-			labels={['lab.coil.ohm.label']}
-			tooltip={t('lab.coil.ohm.label.tooltip')}
-			required
-		>
-			<InputNumber style={{width: '100%'}} min={0} max={4}/>
-		</FormItem>
-		<FormItem
 			field={'wraps'}
 			labels={['lab.coil.wraps.label']}
 			tooltip={t('lab.coil.wraps.label.tooltip')}
 			required
 		>
 			<InputNumber style={{width: '100%'}} min={3} max={16}/>
+		</FormItem>
+		<FormItem
+			field={'ohm'}
+			labels={['lab.coil.ohm.label']}
+			tooltip={t('lab.coil.ohm.label.tooltip')}
+			required
+		>
+			<InputNumber style={{width: '100%'}} min={0} max={4}/>
 		</FormItem>
 		<Divider/>
 		<Centered>
