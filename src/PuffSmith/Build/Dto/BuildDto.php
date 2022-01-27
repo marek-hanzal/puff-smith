@@ -17,8 +17,8 @@ class BuildDto extends AbstractDto {
 	public ?string $description;
 	/** @var float */
 	public float $ohm;
-	/** @var float */
-	public float $created;
+	/** @var string */
+	public string $created;
 	/** @var bool */
 	public bool $active;
 

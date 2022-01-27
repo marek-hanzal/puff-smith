@@ -1535,23 +1535,22 @@ vendor_id</ColNames>
       <Position>10</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="406" parent="337" name="created">
-      <Comment>Microtime - time of the build.</Comment>
-      <DataType>double|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>11</Position>
-    </column>
-    <column id="407" parent="337" name="user_id">
+    <column id="406" parent="337" name="user_id">
       <Comment>Owner of the build.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>12</Position>
+      <Position>11</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="408" parent="337" name="active">
+    <column id="407" parent="337" name="active">
       <Comment>Is the given build active?</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>1</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>12</Position>
+    </column>
+    <column id="408" parent="337" name="created">
+      <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <Position>13</Position>
     </column>
