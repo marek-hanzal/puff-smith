@@ -29,7 +29,7 @@ class DriptipRepository extends AbstractRepository {
 			'$.name',
 		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
-		isset($filter->userId) && $select->where('$.user_id', $filter->userId);
+		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

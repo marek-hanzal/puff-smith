@@ -32,7 +32,7 @@ class CoilRepository extends AbstractRepository {
 			'w.name',
 			'w.description',
 		], $filter->fulltext);
-		isset($filter->userId) && $select->where('$.user_id', $filter->userId);
+		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

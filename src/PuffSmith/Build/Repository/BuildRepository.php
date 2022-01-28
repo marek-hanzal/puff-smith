@@ -39,8 +39,8 @@ class BuildRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
-		isset($filter->active) && $select->where($this->col('$.active'), $filter->active);
-		isset($filter->userId) && $select->where($this->col('$.user_id'), $filter->userId);
+		isset($filter->active) && $this->where($select, '$.active', $filter->active);
+		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 
