@@ -2,14 +2,19 @@ import {FC, useState} from "react";
 import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {List, Menu, message, Space, Statistic, Typography} from "antd";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {Card, Carousel, List, Menu, message, Statistic} from "antd";
+import {QuickMenu} from "@leight-core/leight";
 import dayjs from "dayjs";
-import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
-import {VapeIcon} from "@/puff-smith";
-import {EyeOutlined} from "@ant-design/icons";
+import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {VapeDto, VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {SmallPreview, toLocalDateTime} from "@leight-core/leight/dist";
+import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {SimpleRating} from "@/puff-smith";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {ModInline} from "@/puff-smith/site/lab/mod";
+import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 
 interface IQuickMenuInternalProps {
 	vape: VapeDto;
@@ -21,21 +26,7 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({vape}) => {
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <QuickMenu>
 		<Menu.Item>
-			<DrawerButton
-				width={750}
-				size={'large'}
-				type={'link'}
-				icon={<EyeOutlined/>}
-				title={'lab.vape.preview'}
-			>
-				<PreviewTemplate
-					icon={<VapeIcon/>}
-					label={'lab.vape.preview'}
-					span={24}
-				>
-					<VapePreview vape={vape}/>
-				</PreviewTemplate>
-			</DrawerButton>
+			<VapePreviewButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
@@ -72,7 +63,7 @@ export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 
 export const VapeTable: FC<IVapeTableProps> = props => {
 	const [filter, setFilter] = useState<VapeFilterDto>();
-
+	const {t} = useTranslation();
 	return <>
 		<VapeFilter
 			filter={filter}
@@ -82,19 +73,46 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		<VapesSourceTable
 			filter={filter}
 			scroll={{x: 1800}}
-			listItemRender={vape => <List.Item
-				actions={[<QuickMenuInternal key={'quick-menu'} vape={vape}/>]}
-			>
-				<List.Item.Meta
-					title={<Space>
-						{vape.setup.build.name}
-						<Typography.Text type={'secondary'}>{vape.setup.build.atomizer.name}</Typography.Text>
-					</Space>}
-					description={<Space>
-						{vape.setup.mod.name}
-						{vape.mixture.liquid.name}
-					</Space>}
-				/>
+			listProps={{
+				itemLayout: 'vertical'
+			}}
+			listItemRender={vape => <List.Item>
+				<Carousel>
+					<Card title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
+						<SmallPreview translation={'lab.vape.preview'}>
+							{{
+								"build": vape.setup.build.name,
+								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
+								"mod": <ModInline mod={vape.setup.mod}/>,
+								"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
+								"rating": <SimpleRating value={vape.rating}/>,
+								"taste": <SimpleRating value={vape.taste}/>,
+								"created": toLocalDateTime(vape.stamp),
+							}}
+						</SmallPreview>
+					</Card>
+					<Card title={t('lab.vape.rating.title')} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
+						<SmallPreview translation={'lab.vape.preview'}>
+							{{
+								"throathit": <SimpleRating value={vape.throathit}/>,
+								"fruits": <SimpleRating value={vape.fruits}/>,
+								"tobacco": <SimpleRating value={vape.tobacco}/>,
+								"cakes": <SimpleRating value={vape.cakes}/>,
+								"complex": <SimpleRating value={vape.complex}/>,
+								"fresh": <SimpleRating value={vape.fresh}/>,
+							}}
+						</SmallPreview>
+					</Card>
+					<Card title={<BuildPreviewButton size={'small'} icon={null} title={'lab.vape.build.title'} build={vape.setup.build}/>} extra={<BuildQuickMenu key={'quick-menu'} build={vape.setup.build}/>}>
+						<SmallPreview translation={'lab.build.preview'}>
+							{{
+								"name": vape.setup.build.name,
+								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
+								"coil": <CoilInline coil={vape.setup.build.coil}/>,
+							}}
+						</SmallPreview>
+					</Card>
+				</Carousel>
 			</List.Item>}
 			{...props}
 		>
