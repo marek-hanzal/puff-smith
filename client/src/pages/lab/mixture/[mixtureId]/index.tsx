@@ -4,7 +4,7 @@ import {MixtureCreateButton, MixtureEditButton, MixtureListButton, MixturePrevie
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {PreviewTemplate} from "@leight-core/leight";
 import {Divider, Menu} from "antd";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	return <MixturePage

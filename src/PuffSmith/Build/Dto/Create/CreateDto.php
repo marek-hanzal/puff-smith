@@ -24,6 +24,6 @@ class CreateDto extends AbstractDto {
 	public int $coilOffset = 0;
 	/** @var int */
 	public int $cottonOffset = 0;
-	/** @var float */
-	public float $ohm;
+	/** @var float|null */
+	public ?float $ohm;
 }

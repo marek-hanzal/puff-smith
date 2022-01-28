@@ -4,7 +4,7 @@ import {Card, Divider} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {ButtonBar} from "@leight-core/leight/dist";
+import {ButtonBar} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

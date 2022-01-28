@@ -24,6 +24,7 @@ class CoilRepository extends AbstractRepository {
 		/** @var $filter CoilFilterDto */
 		if (!empty($filter = $query->filter)) {
 			$this->join($select, 'z_wire', 'w', '$.wire_id');
+			$this->join($select, 'z_vendor', 'v', 'w.vendor_id');
 		}
 
 		isset($filter->fulltext) && $this->fulltext($select, [
@@ -31,6 +32,7 @@ class CoilRepository extends AbstractRepository {
 			'$.code',
 			'w.name',
 			'w.description',
+			'v.name',
 		], $filter->fulltext);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 

@@ -2,7 +2,7 @@ import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {CreateVapeForm, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {CreateTemplate} from "@leight-core/leight";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {QuickMenu} from "@leight-core/leight";
 import {Menu} from "antd";
 
 export default withLabLayout(function Create() {
