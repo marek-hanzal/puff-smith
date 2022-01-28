@@ -25,6 +25,8 @@ class MixtureDto extends AbstractDto {
 	 * @var int|null
 	 */
 	public ?int $steep;
+	/** @var bool */
+	public bool $active;
 	/**
 	 * @var int
 	 */
