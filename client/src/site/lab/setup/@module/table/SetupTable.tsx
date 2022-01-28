@@ -24,7 +24,6 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({setup}) => {
 			<DrawerButton
 				width={750}
 				type={'link'}
-				size={'small'}
 				icon={<EyeOutlined/>}
 				title={'lab.setup.preview'}
 			>
@@ -39,10 +38,10 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({setup}) => {
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<SetupLinkButton size={'small'} setup={setup}/>
+			<SetupLinkButton setup={setup}/>
 		</Menu.Item>
 		<Menu.Item>
-			<SetupEditButton size={'small'} setup={setup}/>
+			<SetupEditButton setup={setup}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
