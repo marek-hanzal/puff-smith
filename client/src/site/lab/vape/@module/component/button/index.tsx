@@ -4,3 +4,4 @@ export * from './VapeDeleteButton';
 export * from './VapeEditButton';
 export * from './VapeLinkButton';
 export * from './VapeListButton';
+export * from './VapePreviewButton';

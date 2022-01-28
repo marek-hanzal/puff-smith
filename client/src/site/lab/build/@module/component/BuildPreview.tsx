@@ -5,13 +5,14 @@ import {Slider, Space} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
+import {IPreviewProps} from "@leight-core/leight/dist";
 
-export interface IBuildPreviewProps {
+export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
 }
 
-export const BuildPreview: FC<IBuildPreviewProps> = ({build}) => {
-	return <Preview translation={'lab.build.preview'}>
+export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
+	return <Preview translation={'lab.build.preview'} {...props}>
 		{{
 			"name": <Space>
 				<span>{build.name}</span>

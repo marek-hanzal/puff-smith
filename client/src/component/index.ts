@@ -8,4 +8,5 @@ export * from "./InfoCard";
 export * from "./JsonPrint";
 export * from "./Menu";
 export * from "./PageMenu";
+export * from "./SimpleRating";
 export * from "./VersionStamp";

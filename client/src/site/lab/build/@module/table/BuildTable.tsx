@@ -4,52 +4,8 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreview} from "@/puff-smith/site/lab/build";
-import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {List, Menu, Statistic, Typography} from "antd";
-import {EyeOutlined} from "@ant-design/icons";
-import {BuildIcon} from "@/puff-smith";
-import {BuildDto} from "@/sdk/puff-smith/build/dto";
-
-interface IQuickMenuInternal {
-	build: BuildDto;
-}
-
-const QuickMenuInternal: FC<IQuickMenuInternal> = ({build}) => {
-	return <QuickMenu>
-		<Menu.Item>
-			<DrawerButton
-				width={750}
-				type={'link'}
-				size={'large'}
-				icon={<EyeOutlined/>}
-				title={'lab.build.preview'}
-			>
-				<PreviewTemplate
-					icon={<BuildIcon/>}
-					label={'lab.build.preview'}
-					span={24}
-				>
-					<BuildPreview build={build}/>
-				</PreviewTemplate>
-			</DrawerButton>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<BuildLinkButton build={build}/>
-		</Menu.Item>
-		<Menu.Item>
-			<BuildEditButton build={build}/>
-		</Menu.Item>
-		<Menu.Item>
-			<BuildCloneButton build={build}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<BuildActiveButton build={build}/>
-		</Menu.Item>
-	</QuickMenu>;
-}
+import {List, Statistic, Typography} from "antd";
+import {BuildQuickMenu} from "@/puff-smith/site/lab/build";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -57,7 +13,7 @@ export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 export const BuildTable: FC<IBuildTableProps> = props => {
 	return <BuildsSourceTable
 		listItemRender={build => <List.Item
-			actions={[<QuickMenuInternal key={'quick-menu'} build={build}/>]}
+			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		>
 			<List.Item.Meta
 				title={build.name}
@@ -70,7 +26,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, build) => <QuickMenuInternal build={build}/>,
+				render: (_, build) => <BuildQuickMenu build={build}/>,
 				width: 0,
 			}),
 			column({
