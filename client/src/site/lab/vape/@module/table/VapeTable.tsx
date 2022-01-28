@@ -2,7 +2,7 @@ import {FC, useState} from "react";
 import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Card, Carousel, List, Menu, message, Statistic} from "antd";
+import {Card, Carousel, List, Menu, message} from "antd";
 import {QuickMenu} from "@leight-core/leight";
 import dayjs from "dayjs";
 import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
@@ -138,20 +138,20 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					title: "lab.vape.table.mixture.age",
 					render: (_, vape) => {
 						// @ts-ignore
-						return dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize()
+						return dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize();
 					},
 					width: 150,
 				}),
 				column({
 					key: "rating",
 					title: "lab.vape.table.rating",
-					render: (_, vape) => <Statistic value={vape.rating} suffix="/ 10"/>,
+					render: (_, vape) => <SimpleRating value={vape.rating}/>,
 					width: 150,
 				}),
 				column({
 					key: "taste",
 					title: "lab.vape.table.taste",
-					render: (_, vape) => <Statistic value={vape.taste} suffix="/ 10"/>,
+					render: (_, vape) => <SimpleRating value={vape.taste}/>,
 					width: 150,
 				}),
 				column({

@@ -4,8 +4,9 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {List, Statistic, Typography} from "antd";
+import {List, Typography} from "antd";
 import {BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {SimpleRating} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -65,7 +66,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "glow",
 				dataIndex: "glow",
 				title: "lab.build.table.glow",
-				render: (_, build) => <Statistic value={build.glow || 1} suffix={' /10'}/>,
+				render: (_, build) => <SimpleRating value={build.glow}/>,
 				width: 140,
 			}),
 			column({
