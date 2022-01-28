@@ -6,6 +6,7 @@ import {Space, Typography} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {PreviewBool} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto
@@ -19,6 +20,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				<Typography.Text type={'secondary'}>{mixture.code}</Typography.Text>
 			</Space>,
 			"liquid": <LiquidInline liquid={mixture.liquid}/>,
+			"active": <PreviewBool bool={mixture.active}/>,
 			"base": <BaseInline base={mixture.base}/>,
 			"booster": <BoosterInline booster={mixture.booster}/>,
 			"pgvg": <span><span>{mixture.pg}</span>/<span>{mixture.vg}</span></span>,

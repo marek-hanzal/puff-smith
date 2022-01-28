@@ -5,10 +5,11 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {List, Menu} from "antd";
+import {List, Menu, Typography} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {MixtureIcon} from "@/puff-smith";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
+import {MixtureActiveButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureActiveButton";
 
 interface IQuickMenuInternalProps {
 	mixture: MixtureDto;
@@ -20,7 +21,7 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({mixture}) => {
 			<DrawerButton
 				width={750}
 				type={'link'}
-				size={'small'}
+				size={'large'}
 				icon={<EyeOutlined/>}
 				title={'lab.mixture.preview'}
 			>
@@ -35,10 +36,13 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({mixture}) => {
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<MixtureLink size={'small'} mixture={mixture}/>
+			<MixtureLink mixture={mixture}/>
 		</Menu.Item>
 		<Menu.Item>
-			<MixtureEditButton size={'small'} type={'link'} mixture={mixture}/>
+			<MixtureEditButton mixture={mixture}/>
+		</Menu.Item>
+		<Menu.Item>
+			<MixtureActiveButton mixture={mixture}/>
 		</Menu.Item>
 	</QuickMenu>
 }
@@ -68,8 +72,9 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			column({
 				key: "name",
 				dataIndex: "name",
-				title: "lab.mixture.table.name",
+				title: "lab.build.table.name",
 				width: 300,
+				render: (_, mixture) => mixture.active ? mixture.name : <Typography.Text type={'secondary'}>{mixture.name}</Typography.Text>,
 			}),
 			column({
 				key: "code",

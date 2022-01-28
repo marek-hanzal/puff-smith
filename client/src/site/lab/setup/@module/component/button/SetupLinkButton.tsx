@@ -9,7 +9,7 @@ export interface ISetupLinkButtonProps extends Partial<IButtonLinkProps> {
 
 export const SetupLinkButton: FC<ISetupLinkButtonProps> = ({setup, ...props}) => {
 	return <ButtonLink
-		size={'middle'}
+		size={'large'}
 		type={'link'}
 		href={'/lab/setup/[setupId]'}
 		query={{setupId: setup.id}}

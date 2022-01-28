@@ -23,8 +23,8 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({vape}) => {
 		<Menu.Item>
 			<DrawerButton
 				width={750}
+				size={'large'}
 				type={'link'}
-				size={'small'}
 				icon={<EyeOutlined/>}
 				title={'lab.vape.preview'}
 			>
@@ -39,19 +39,17 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({vape}) => {
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<VapeLinkButton size={'small'} vape={vape}/>
+			<VapeLinkButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Item>
-			<VapeEditButton size={'small'} type={'link'} vape={vape}/>
+			<VapeEditButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Item>
-			<VapeCloneButton size={'small'} type={'link'} vape={vape}/>
+			<VapeCloneButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
 			<VapeDeleteButton
-				size={'small'}
-				type={'link'}
 				vape={vape}
 				onOk={setShow => {
 					deleteMutation.mutate({

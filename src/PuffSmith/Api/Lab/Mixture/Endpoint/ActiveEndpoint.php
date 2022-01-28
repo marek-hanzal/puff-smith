@@ -14,9 +14,9 @@ class ActiveEndpoint extends AbstractMutationEndpoint {
 	use MixtureMapperTrait;
 
 	public function post(ActiveDto $activeDto): MixtureDto {
-		return $this->mixtureRepository->change([
+		return $this->mixtureMapper->item($this->mixtureRepository->change([
 			'id'     => $activeDto->id,
 			'active' => $activeDto->active,
-		]);
+		]));
 	}
 }

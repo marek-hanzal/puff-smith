@@ -9,6 +9,7 @@ export interface IMixtureEditButtonProps extends Partial<IButtonLinkProps> {
 export const MixtureEditButton: FC<IMixtureEditButtonProps> = ({mixture, ...props}) => {
 	return <ButtonLink
 		size={'large'}
+		type={'link'}
 		href={'/lab/mixture/[mixtureId]/edit'}
 		query={{mixtureId: mixture.id}}
 		icon={<EditIcon/>}
