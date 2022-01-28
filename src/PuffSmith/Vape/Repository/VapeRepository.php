@@ -5,6 +5,7 @@ namespace PuffSmith\Vape\Repository;
 
 use ClanCats\Hydrahon\Query\Sql\Select;
 use DateTime;
+use Edde\Dto\DtoServiceTrait;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
@@ -15,6 +16,7 @@ use PuffSmith\Vape\Dto\VapeFilterDto;
 
 class VapeRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
+	use DtoServiceTrait;
 
 	public function __construct() {
 		parent::__construct(['stamp' => IRepository::ORDER_DESC]);
@@ -25,6 +27,7 @@ class VapeRepository extends AbstractRepository {
 
 		/** @var $filter VapeFilterDto */
 		if (!empty($filter = $query->filter)) {
+			$filter = $this->dtoService->fromObject(VapeFilterDto::class, $filter);
 			$this->join($select, 'z_setup', 's', '$.setup_id');
 			$this->join($select, 'z_mixture', 'm', '$.mixture_id');
 			$this->join($select, 'z_build', 'b', 's.build_id');
@@ -33,11 +36,11 @@ class VapeRepository extends AbstractRepository {
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
 		], $filter->fulltext);
-		isset($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
-		isset($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
-		isset($filter->modIds) && $this->where($select, 's.mod_id', 'in', $filter->modIds);
-		isset($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
-		isset($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
+		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
+		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
+		!empty($filter->modIds) && $this->where($select, 's.mod_id', 'in', $filter->modIds);
+		!empty($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
+		!empty($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
