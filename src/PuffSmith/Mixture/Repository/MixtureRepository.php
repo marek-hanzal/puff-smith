@@ -19,7 +19,10 @@ class MixtureRepository extends AbstractRepository {
 	use RandomServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['mixed' => IRepository::ORDER_DESC], [
+		parent::__construct([
+			'active' => IRepository::ORDER_DESC,
+			'mixed'  => IRepository::ORDER_DESC,
+		], [
 			'$_name_unique',
 			'$_code_unique',
 		]);
@@ -55,6 +58,7 @@ class MixtureRepository extends AbstractRepository {
 			'name'       => $createDto->name,
 			'code'       => $createDto->code ?? $this->randomService->code(),
 			'steep'      => $createDto->steep,
+			'active'     => true,
 			'pg'         => $createDto->pg,
 			'vg'         => $createDto->vg,
 			'nicotine'   => $createDto->nicotine,
@@ -70,19 +74,20 @@ class MixtureRepository extends AbstractRepository {
 
 	public function update(PatchDto $patchDto) {
 		return $this->patch([
-			'id'         => $patchDto->id ?? null,
-			'name'       => $patchDto->name ?? null,
+			'id'         => $patchDto->id,
+			'name'       => $patchDto->name,
 			'code'       => $patchDto->code ?? $this->randomService->code(),
-			'steep'      => $patchDto->steep ?? null,
-			'pg'         => $patchDto->pg ?? null,
-			'vg'         => $patchDto->vg ?? null,
-			'nicotine'   => $patchDto->nicotine ?? null,
-			'volume'     => $patchDto->volume ?? null,
+			'steep'      => $patchDto->steep,
+			'active'     => $patchDto->active,
+			'pg'         => $patchDto->pg,
+			'vg'         => $patchDto->vg,
+			'nicotine'   => $patchDto->nicotine,
+			'volume'     => $patchDto->volume,
 			'mixed'      => isset($patchDto->mixed) ? new DateTime($patchDto->mixed) : null,
 			'expires'    => isset($patchDto->expires) ? new DateTime($patchDto->expires) : null,
-			'liquid_id'  => $patchDto->liquidId ?? null,
-			'booster_id' => $patchDto->boosterId ?? null,
-			'base_id'    => $patchDto->baseId ?? null,
+			'liquid_id'  => $patchDto->liquidId,
+			'booster_id' => $patchDto->boosterId,
+			'base_id'    => $patchDto->baseId,
 		]);
 	}
 }

@@ -17,7 +17,10 @@ class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['created' => IRepository::ORDER_DESC], ['$_name_unique']);
+		parent::__construct([
+			'active'  => IRepository::ORDER_DESC,
+			'created' => IRepository::ORDER_DESC,
+		], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
@@ -53,6 +56,7 @@ class BuildRepository extends AbstractRepository {
 			'description'  => $createDto->description,
 			'atomizer_id'  => $createDto->atomizerId,
 			'coil_id'      => $createDto->coilId,
+			'glow'         => $createDto->glow,
 			'cotton_id'    => $createDto->cottonId,
 			'coils'        => $createDto->coils,
 			'coilOffset'   => $createDto->coilOffset,
@@ -71,6 +75,7 @@ class BuildRepository extends AbstractRepository {
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'description'  => $patchDto->description,
 			'active'       => $patchDto->active,
+			'glow'         => $patchDto->glow,
 			'atomizer_id'  => $patchDto->atomizerId,
 			'coil_id'      => $patchDto->coilId,
 			'cotton_id'    => $patchDto->cottonId,
