@@ -16,7 +16,7 @@ class DriptipRepository extends AbstractRepository {
 	use DriptipMaterialRepositoryTrait;
 
 	public function __construct() {
-		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_driptip_code_unique']);
+		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_code_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
@@ -25,11 +25,11 @@ class DriptipRepository extends AbstractRepository {
 		/** @var $filter DriptipFilterDto */
 		$filter = $query->filter;
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'id',
-			'name',
+			'$.id',
+			'$.name',
 		], $filter->fulltext);
-		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
-		isset($filter->userId) && $select->where('user_id', $filter->userId);
+		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
+		isset($filter->userId) && $select->where('$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

@@ -15,22 +15,24 @@ class CoilRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['code' => IRepository::ORDER_ASC], ['z_coil_code_unique']);
+		parent::__construct(['code' => IRepository::ORDER_ASC], ['$_code_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter CoilFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_wire', 'w', '$.wire_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_coil.id',
-			'z_coil.code',
+			'$.id',
+			'$.code',
 			'w.name',
 			'w.description',
-		], $filter->fulltext)
-			->leftJoin('z_wire as w', 'w.id', '=', 'z_coil.wire_id');
-		isset($filter->userId) && $select->where('user_id', $filter->userId);
+		], $filter->fulltext);
+		isset($filter->userId) && $select->where('$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

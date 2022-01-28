@@ -20,8 +20,8 @@ class MixtureRepository extends AbstractRepository {
 
 	public function __construct() {
 		parent::__construct(['mixed' => IRepository::ORDER_DESC], [
-			'z_mixture_name_unique',
-			'z_mixture_code_unique',
+			'$_name_unique',
+			'$_code_unique',
 		]);
 	}
 
@@ -29,19 +29,21 @@ class MixtureRepository extends AbstractRepository {
 		$select = $this->select();
 
 		/** @var $filter MixtureFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_liquid', 'l', '$.liquid_id');
+			$this->join($select, 'z_vendor', 'v', 'l.vendor_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_mixture.id',
-			'z_mixture.name',
-			'z_mixture.code',
+			'$.id',
+			'$.name',
+			'$.code',
 			'l.name',
 			'v.name',
-		], $filter->fulltext)
-			->leftJoin('z_liquid as l', 'l.id', '=', 'z_mixture.liquid_id')
-			->leftJoin('z_vendor as v', 'v.id', '=', 'l.vendor_id');
-		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
-		isset($filter->code) && $this->fulltext($select, ['code'], $filter->code);
-		isset($filter->userId) && $select->where('user_id', $filter->userId);
+		], $filter->fulltext);
+		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
+		isset($filter->code) && $this->fulltext($select, ['$.code'], $filter->code);
+		isset($filter->userId) && $select->where('$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

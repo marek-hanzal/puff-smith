@@ -20,30 +20,30 @@ class SetupRepository extends AbstractRepository {
 		parent::__construct([
 			'created' => IRepository::ORDER_DESC,
 			'name'    => IRepository::ORDER_ASC,
-		], ['z_setup_name_unique']);
+		], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter SetupFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_mod', 'm', '$.mod_id');
+			$this->join($select, 'z_build', 'b', '$.build_id');
+			$this->join($select, 'z_atomizer', 'a', 'b.atomizer_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_setup.id',
-			'z_setup.name',
+			'$.id',
+			'$.name',
 			'm.name',
 			'b.name',
 			'a.name',
-		], $filter->fulltext)
-			->leftJoin('z_mod as m', 'm.id', '=', 'z_setup.mod_id')
-			->leftJoin('z_build as b', 'b.id', '=', 'z_setup.build_id')
-			->leftJoin('z_atomizer as a', 'a.id', '=', 'b.atomizer_id');
-		isset($filter->name) && $this->fulltext($select, ['name'], $filter->name);
-		isset($filter->atomizerId) && $select
-			->leftJoin('z_build as b', 'b.id', '=', 'z_setup.build_id')
-			->where('b.atomizer_id', $filter->atomizerId);
-		isset($filter->modId) && $select->where('z_setup.mod_id', $filter->modId);
-		isset($filter->userId) && $select->where('z_setup.user_id', $filter->userId);
+		], $filter->fulltext);
+		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
+		isset($filter->atomizerId) && $this->where($select, 'b.atomizer_id', $filter->atomizerId);
+		isset($filter->modId) && $this->where($select, '$.mod_id', $filter->modId);
+		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 
