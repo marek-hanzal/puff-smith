@@ -5,6 +5,7 @@ import {Filter, IFilterProps} from "@/puff-smith";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
 import {CoilSelect} from "@/puff-smith/site/lab/coil";
+import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 
 export interface IVapeFilterProps extends Omit<IFilterProps, "translation"> {
 }
@@ -31,6 +32,12 @@ export const VapeFilter: FC<IVapeFilterProps> = (props) => {
 			labels={['lab.vape.mixtureId.label']}
 		>
 			<MixtureSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'liquidIds'}
+			labels={['lab.vape.liquidId.label']}
+		>
+			<LiquidSelect mode={'multiple'} allowClear/>
 		</FormItem>
 		<FormItem
 			field={'coilIds'}

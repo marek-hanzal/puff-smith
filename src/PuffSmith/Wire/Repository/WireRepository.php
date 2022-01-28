@@ -15,23 +15,25 @@ class WireRepository extends AbstractRepository {
 		parent::__construct([
 			'name' => IRepository::ORDER_ASC,
 			'ga'   => IRepository::ORDER_ASC,
-		], ['z_wire_name_unique']);
+		], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter WireFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_wire.id',
-			'z_wire.name',
-			'z_wire.description',
+			'$.id',
+			'$.name',
+			'$.description',
 			'v.name',
-		], $filter->fulltext)
-			->leftJoin('z_vendor as v', 'v.id', '=', 'z_wire.vendor_id');
+		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [
-			'name',
+			'$.name',
 		], $filter->name);
 
 		$this->toOrderBy($query->orderBy, $select);

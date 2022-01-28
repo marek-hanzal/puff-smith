@@ -12,22 +12,24 @@ use PuffSmith\Mod\Dto\ModFilterDto;
 
 class ModRepository extends AbstractRepository {
 	public function __construct() {
-		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_mod_name_unique']);
+		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter ModFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_mod.id',
-			'z_mod.name',
+			'$.id',
+			'$.name',
 			'v.name',
-		], $filter->fulltext)
-			->leftJoin('z_vendor as v', 'v.id', '=', 'z_mod.vendor_id');
+		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [
-			'name',
+			'$.name',
 		], $filter->name);
 
 		$this->toOrderBy($query->orderBy, $select);

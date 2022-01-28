@@ -19,15 +19,17 @@ class BaseRepository extends AbstractRepository {
 		$select = $this->select();
 
 		/** @var $filter BaseFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_base.id',
-			'z_base.name',
+			'$.id',
+			'$.name',
 			'v.name',
-		], $filter->fulltext)
-			->leftJoin('z_vendor as v', 'v.id', '=', 'z_base.vendor_id');
+		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [
-			'name',
+			'$.name',
 		], $filter->name);
 
 		$this->toOrderBy($query->orderBy, $select);

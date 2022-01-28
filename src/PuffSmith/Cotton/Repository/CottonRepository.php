@@ -7,27 +7,29 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
+use PuffSmith\Cotton\Dto\CottonFilterDto;
 use PuffSmith\Cotton\Dto\Create\CreateDto;
-use PuffSmith\Wire\Dto\WireFilterDto;
 
 class CottonRepository extends AbstractRepository {
 	public function __construct() {
-		parent::__construct(['name' => IRepository::ORDER_ASC], ['z_cotton_name_unique']);
+		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
-		/** @var $filter WireFilterDto */
-		$filter = $query->filter;
+		/** @var $filter CottonFilterDto */
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_cotton.id',
-			'z_cotton.name',
+			'$.id',
+			'$.name',
 			'v.name',
-		], $filter->fulltext)
-			->leftJoin('z_vendor as v', 'v.id', '=', 'z_cotton.vendor_id');
+		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [
-			'name',
+			'$.name',
 		], $filter->name);
 
 		$this->toOrderBy($query->orderBy, $select);

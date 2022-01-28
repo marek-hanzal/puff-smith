@@ -17,28 +17,30 @@ class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['created' => IRepository::ORDER_DESC], ['z_build_name_unique']);
+		parent::__construct(['created' => IRepository::ORDER_DESC], ['$_name_unique']);
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter BuildFilterDto */
-		$filter = $query->filter;
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_atomizer', 'a', '$.atomizer_id');
+			$this->join($select, 'z_coil', 'c', '$.coil_id');
+			$this->join($select, 'z_wire', 'w', 'c.wire_id');
+		}
+
 		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_build.id',
-			'z_build.name',
+			'$.id',
+			'$.name',
 			'a.name',
 			'w.name',
-		], $filter->fulltext)
-			->leftJoin('z_atomizer as a', 'a.id', '=', 'z_build.atomizer_id')
-			->leftJoin('z_coil as c', 'c.id', '=', 'z_build.coil_id')
-			->leftJoin('z_wire as w', 'w.id', '=', 'c.wire_id');
+		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [
-			'name',
+			'$.name',
 		], $filter->name);
-		isset($filter->active) && $select->where('z_build.active', $filter->active);
-		isset($filter->userId) && $select->where('z_build.user_id', $filter->userId);
+		isset($filter->active) && $select->where($this->col('$.active'), $filter->active);
+		isset($filter->userId) && $select->where($this->col('$.user_id'), $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

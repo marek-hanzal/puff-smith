@@ -13,10 +13,10 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 			{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
 			<MenuDivider/>
 		</>}
-		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
-		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
-		{CreateMenuItem("lab.setup.menu", "/lab/setup", <SetupIcon/>)}
 		{CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>)}
+		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
+		{CreateMenuItem("lab.setup.menu", "/lab/setup", <SetupIcon/>)}
+		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
 		<MenuDivider/>
 		{CreateMenuItem("lab.atomizer.menu", "/lab/atomizer", <AtomizerIcon/>)}
 		{CreateMenuItem("lab.mod.menu", "/lab/mod", <ModIcon/>)}

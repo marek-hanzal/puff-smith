@@ -24,24 +24,21 @@ class VapeRepository extends AbstractRepository {
 		$select = $this->select();
 
 		/** @var $filter VapeFilterDto */
-		$filter = $query->filter;
-		isset($filter->fulltext) && $this->fulltext($select, [
-			'z_vape.id',
-		], $filter->fulltext);
-		isset($filter->atomizerIds) && $select
-			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
-			->leftJoin('z_build as b', 'b.id', '=', 's.build_id')
-			->where('b.atomizer_id', 'in', $filter->atomizerIds);
-		isset($filter->coilIds) && $select
-			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
-			->leftJoin('z_build as b', 'b.id', '=', 's.build_id')
-			->where('b.coil_id', 'in', $filter->coilIds);
-		isset($filter->modIds) && $select
-			->leftJoin('z_setup as s', 's.id', '=', 'z_vape.setup_id')
-			->where('s.mod_id', 'in', $filter->modIds);
-		isset($filter->mixtureIds) && $select->where('z_vape.mixture_id', 'in', $filter->mixtureIds);
+		if (!empty($filter = $query->filter)) {
+			$this->join($select, 'z_setup', 's', '$.setup_id');
+			$this->join($select, 'z_mixture', 'm', '$.mixture_id');
+			$this->join($select, 'z_build', 'b', 's.build_id');
+		}
 
-		isset($filter->userId) && $select->where('z_vape.user_id', $filter->userId);
+		isset($filter->fulltext) && $this->fulltext($select, [
+			'$.id',
+		], $filter->fulltext);
+		isset($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
+		isset($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
+		isset($filter->modIds) && $this->where($select, 's.mod_id', 'in', $filter->modIds);
+		isset($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
+		isset($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
+		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 
