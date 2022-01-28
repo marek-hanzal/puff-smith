@@ -4,7 +4,7 @@ import {Divider, Menu, Space} from "antd";
 import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, EditTemplate} from "@leight-core/leight";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Edit() {
 	return <BuildPage

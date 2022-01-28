@@ -4,7 +4,7 @@ import {Divider, Menu, Space} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, CreateTemplate} from "@leight-core/leight";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Clone() {
 	return <VapePage

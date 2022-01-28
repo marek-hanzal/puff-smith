@@ -1,5 +1,5 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Card, Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
@@ -8,6 +8,7 @@ import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
+import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -57,7 +58,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				required
 				help={<AtomizerTooltip/>}
 			>
-				<AtomizerSelect/>
+				<AtomizerSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'coilId'}
@@ -65,7 +66,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				required
 				help={<CoilTooltip/>}
 			>
-				<CoilSelect/>
+				<CoilSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'cottonId'}
@@ -73,12 +74,11 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				required
 				help={<CottonTooltip/>}
 			>
-				<CottonSelect/>
+				<CottonSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'ohm'}
 				labels={['lab.build.ohm.label']}
-				required
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>

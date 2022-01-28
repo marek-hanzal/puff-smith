@@ -4,7 +4,7 @@ import {SetupCreateButton, SetupEditButton, SetupListButton, SetupPreview} from 
 import {SetupPage} from "@/sdk/puff-smith/api/lab/setup/endpoint";
 import {PreviewTemplate} from "@leight-core/leight";
 import {Divider, Menu, Space} from "antd";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	return <SetupPage

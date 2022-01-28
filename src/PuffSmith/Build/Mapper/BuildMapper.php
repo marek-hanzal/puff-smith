@@ -24,7 +24,6 @@ class BuildMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(BuildDto::class, [
 			'id'           => $item->id,
 			'name'         => $item->name,
-			'ohm'          => $item->ohm,
 			'description'  => $item->description,
 			'active'       => (bool)$item->active,
 			'created'      => $this->isoDateNull($item->created),
@@ -37,6 +36,7 @@ class BuildMapper extends AbstractMapper {
 			'coil'         => $this->coilMapper->item($coil),
 			'cottonId'     => ($cotton = $this->cottonRepository->find($item->cotton_id))->id,
 			'cotton'       => $this->cottonMapper->item($cotton),
+			'ohm'          => $item->ohm ?? $coil->ohm,
 		]);
 	}
 }

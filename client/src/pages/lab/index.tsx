@@ -3,7 +3,7 @@ import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {FullLogoIcon, LogoIcon} from "@/puff-smith";
 import {MenuPlaceholder, Template} from "@leight-core/leight";
 import {BrowserView, isMobile, MobileView} from "react-device-detect";
-import {HomeIcon} from "@leight-core/leight/dist";
+import {HomeIcon} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

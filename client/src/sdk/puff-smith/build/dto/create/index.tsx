@@ -8,7 +8,7 @@ export interface CreateDto {
 	coils: number;
 	coilOffset: number;
 	cottonOffset: number;
-	ohm: number;
+	ohm: number | null;
 }
 
 export module CreateDto {

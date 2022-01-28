@@ -79,7 +79,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 			<FormItem
 				field={'ohm'}
 				labels={['lab.build.ohm.label']}
-				required
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>
