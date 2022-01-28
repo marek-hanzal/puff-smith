@@ -38,6 +38,11 @@ import {
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
 
+export type IActiveQueryParams = void;
+
+
+export const useActiveMutation = createPostMutation<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/mixture/dto/index").ActiveDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>("PuffSmith.Lab.Mixture.Active");
+
 export type ICreateQueryParams = void;
 
 
@@ -67,6 +72,16 @@ export type IPatchQueryParams = void;
 
 
 export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/mixture/dto/patch/index").PatchDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>("PuffSmith.Lab.Mixture.Patch");
+
+export interface IActiveDefaultFormProps extends Partial<IFormProps<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/mixture/dto/index").ActiveDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>> {
+}
+
+export const ActiveDefaultForm: FC<IActiveDefaultFormProps> = props => {
+	return <Form<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/mixture/dto/index").ActiveDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>
+		useMutation={useActiveMutation}
+		{...props}
+	/>
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/mixture/dto/create/index").CreateDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>> {
 }

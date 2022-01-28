@@ -14,9 +14,9 @@ class ActiveEndpoint extends AbstractMutationEndpoint {
 	use BuildMapperTrait;
 
 	public function post(ActiveDto $activeDto): BuildDto {
-		return $this->buildRepository->change([
+		return $this->buildMapper->item($this->buildRepository->change([
 			'id'     => $activeDto->id,
 			'active' => $activeDto->active,
-		]);
+		]));
 	}
 }

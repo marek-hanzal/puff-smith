@@ -10,7 +10,7 @@ export default withLabLayout(function List() {
 		onBack={navigate => navigate('/lab/setup')}
 		extra={<QuickMenu>
 			<Menu.Item>
-				<SetupCreateButton type={'link'} size={'small'}/>
+				<SetupCreateButton/>
 			</Menu.Item>
 		</QuickMenu>}
 	>

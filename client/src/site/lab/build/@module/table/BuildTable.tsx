@@ -6,7 +6,7 @@ import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {DrawerButton, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {List, Menu, Typography} from "antd";
+import {List, Menu, Statistic, Typography} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {BuildIcon} from "@/puff-smith";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
@@ -21,7 +21,7 @@ const QuickMenuInternal: FC<IQuickMenuInternal> = ({build}) => {
 			<DrawerButton
 				width={750}
 				type={'link'}
-				size={'small'}
+				size={'large'}
 				icon={<EyeOutlined/>}
 				title={'lab.build.preview'}
 			>
@@ -36,17 +36,17 @@ const QuickMenuInternal: FC<IQuickMenuInternal> = ({build}) => {
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<BuildLinkButton size={'small'} build={build}/>
+			<BuildLinkButton build={build}/>
 		</Menu.Item>
 		<Menu.Item>
-			<BuildEditButton size={'small'} type={'link'} build={build}/>
+			<BuildEditButton build={build}/>
 		</Menu.Item>
 		<Menu.Item>
-			<BuildCloneButton size={'small'} type={'link'} build={build}/>
+			<BuildCloneButton build={build}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<BuildActiveButton size={'small'} build={build}/>
+			<BuildActiveButton build={build}/>
 		</Menu.Item>
 	</QuickMenu>;
 }
@@ -64,6 +64,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				description={build.description}
 			/>
 		</List.Item>}
+		scroll={{x: 1600}}
 		{...props}
 	>
 		{({column}) => [
@@ -102,6 +103,13 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				dataIndex: "ohm",
 				title: "lab.build.table.ohm",
 				render: (_, build) => build.ohm.toFixed(2) + 'ohm',
+				width: 140,
+			}),
+			column({
+				key: "glow",
+				dataIndex: "glow",
+				title: "lab.build.table.glow",
+				render: (_, build) => <Statistic value={build.glow || 1} suffix={' /10'}/>,
 				width: 140,
 			}),
 			column({

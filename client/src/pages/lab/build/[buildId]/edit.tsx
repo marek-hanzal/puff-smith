@@ -13,10 +13,10 @@ export default withLabLayout(function Edit() {
 		onBack={navigate => navigate('/lab/build')}
 		extra={<QuickMenu>
 			<Menu.Item>
-				<BuildCreateButton size={'small'}/>
+				<BuildCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
-				<BuildListButton size={'small'}/>
+				<BuildListButton/>
 			</Menu.Item>
 		</QuickMenu>}
 	>

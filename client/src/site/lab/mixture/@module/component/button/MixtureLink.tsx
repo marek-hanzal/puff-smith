@@ -9,7 +9,7 @@ export interface IMixtureLinkProps extends Partial<IButtonLinkProps> {
 
 export const MixtureLink: FC<IMixtureLinkProps> = ({mixture, ...props}) => {
 	return <ButtonLink
-		size={'middle'}
+		size={'large'}
 		type={'link'}
 		href={'/lab/mixture/[mixtureId]'}
 		query={{mixtureId: mixture.id}}

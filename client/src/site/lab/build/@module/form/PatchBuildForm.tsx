@@ -44,6 +44,23 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 			>
 				<DatePicker showTime/>
 			</FormItem>
+			<FormItem
+				field={'glow'}
+				labels={['lab.build.glow.label']}
+				tooltip={t('lab.build.glow.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						1: 1,
+						2: 2,
+						3: 3,
+						4: 4,
+						5: 5,
+					}}
+					min={1}
+					max={5}
+				/>
+			</FormItem>
 			<SwitchItem
 				field={'active'}
 				labels={['lab.build.active.label']}

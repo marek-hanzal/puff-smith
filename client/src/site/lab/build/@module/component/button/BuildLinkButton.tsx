@@ -9,7 +9,7 @@ export interface IBuildLinkButtonProps extends Partial<IButtonLinkProps> {
 
 export const BuildLinkButton: FC<IBuildLinkButtonProps> = ({build, ...props}) => {
 	return <ButtonLink
-		size={'middle'}
+		size={'large'}
 		type={'link'}
 		href={'/lab/build/[buildId]'}
 		query={{buildId: build.id}}

@@ -3,6 +3,7 @@ export interface MixtureDto {
 	name: string;
 	code: string;
 	steep: number | null;
+	active: boolean;
 	pg: number;
 	vg: number;
 	nicotine: number;
