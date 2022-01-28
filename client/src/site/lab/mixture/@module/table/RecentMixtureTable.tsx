@@ -9,6 +9,7 @@ export const RecentMixtureTable: FC<IRecentMixtureTableProps> = props => {
 		source={{
 			defaultSize: 5,
 			defaultOrderBy: {
+				active: false,
 				mixed: false,
 			},
 		}}

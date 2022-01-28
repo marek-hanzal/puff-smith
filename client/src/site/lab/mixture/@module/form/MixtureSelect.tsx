@@ -8,6 +8,11 @@ export interface IMixtureSelectProps extends Partial<IMixturesSourceSelectProps>
 export const MixtureSelect: FC<IMixtureSelectProps> = props => {
 	return <MixturesSourceSelect
 		showSearch
+		source={{
+			filter: {
+				active: true,
+			}
+		}}
 		toOption={mixture => ({
 			label: <MixtureInline mixture={mixture}/>,
 			value: mixture.id,

@@ -25,6 +25,7 @@ export module MixtureDto {
 
 export interface MixtureOrderByDto {
 	mixed?: boolean | null | undefined;
+	active?: boolean | null | undefined;
 }
 
 export module MixtureOrderByDto {

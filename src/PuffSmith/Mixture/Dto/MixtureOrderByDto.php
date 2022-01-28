@@ -10,4 +10,8 @@ class MixtureOrderByDto extends AbstractOrderByDto {
 	 * @var bool|null|void
 	 */
 	public ?bool $mixed;
+	/**
+	 * @var bool|null|void
+	 */
+	public ?bool $active;
 }
