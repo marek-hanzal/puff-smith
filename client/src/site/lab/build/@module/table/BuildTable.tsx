@@ -17,7 +17,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		>
 			<List.Item.Meta
-				title={build.name}
+				title={build.active ? build.name : <Typography.Text type={'secondary'}>{build.name}</Typography.Text>}
 				description={build.description}
 			/>
 		</List.Item>}
