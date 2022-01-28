@@ -1,47 +1,68 @@
 import {useTranslation} from "react-i18next";
-import {Button, Collapse, Divider, Space} from "antd";
-import {CloseCircleOutlined, SearchOutlined} from "@ant-design/icons";
+import {Button, Divider, Space} from "antd";
+import {CloseCircleOutlined, RightOutlined, SearchOutlined} from "@ant-design/icons";
 import {FC} from "react";
-import {Centered, Form, FormContext, Submit} from "@leight-core/leight";
+import {Centered, DrawerButton, DrawerContext, Form, Submit, useDrawerContext, useFormContext} from "@leight-core/leight";
+
+interface IFilterInternalProps {
+	onClear: () => void;
+}
+
+const FilterInternal: FC<IFilterInternalProps> = ({onClear, children}) => {
+	const {t} = useTranslation();
+	const formContext = useFormContext();
+	const drawerContext = useDrawerContext();
+	return <>
+		{children}
+		<Divider/>
+		<Centered>
+			<Space align={'baseline'} split={<Divider type={'vertical'}/>}>
+				<Button
+					size={'middle'}
+					onClick={() => {
+						formContext.reset();
+						onClear();
+						drawerContext && drawerContext.setVisible(false);
+					}}
+					icon={<CloseCircleOutlined/>}
+				>
+					{t('common.filter.clear')}
+				</Button>
+				<Submit
+					icon={<SearchOutlined/>}
+					label={'common.filter.submit'}
+				/>
+			</Space>
+		</Centered>
+	</>
+}
 
 export interface IFilterProps {
+	filter: any;
 	translation: string;
 	onFilter: (filter: any) => void;
 	onClear: () => void;
 }
 
-export const Filter: FC<IFilterProps> = ({translation, onFilter, onClear, children}) => {
-	const {t} = useTranslation();
-	return <Collapse>
-		<Collapse.Panel key={'filter'} header={t(translation + '.filter.title')}>
-			<Form
-				onSuccess={({response}) => onFilter(response)}
+export const Filter: FC<IFilterProps> = ({filter, translation, onFilter, ...props}) => {
+	return <DrawerButton
+		icon={<RightOutlined/>}
+		type={'link'}
+		size={'small'}
+		title={translation + '.filter.title'}
+		label={translation + '.filter.title'}
+		width={600}
+	>
+		<DrawerContext.Consumer>
+			{drawerContext => <Form
+				toForm={() => filter}
+				onSuccess={({response}) => {
+					onFilter(response);
+					drawerContext.setVisible(false);
+				}}
 			>
-				<FormContext.Consumer>
-					{formContext => <>
-						{children}
-						<Divider/>
-						<Centered>
-							<Space align={'baseline'} split={<Divider type={'vertical'}/>}>
-								<Button
-									size={'middle'}
-									onClick={() => {
-										formContext.reset();
-										onClear();
-									}}
-									icon={<CloseCircleOutlined/>}
-								>
-									{t('common.filter.clear')}
-								</Button>
-								<Submit
-									icon={<SearchOutlined/>}
-									label={'common.filter.submit'}
-								/>
-							</Space>
-						</Centered>
-					</>}
-				</FormContext.Consumer>
-			</Form>
-		</Collapse.Panel>
-	</Collapse>
+				<FilterInternal {...props}/>
+			</Form>}
+		</DrawerContext.Consumer>
+	</DrawerButton>
 }

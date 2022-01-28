@@ -77,6 +77,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 
 	return <>
 		<VapeFilter
+			filter={filter}
 			onFilter={setFilter}
 			onClear={() => setFilter({})}
 		/>

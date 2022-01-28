@@ -10,7 +10,7 @@ import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 export interface IVapeFilterProps extends Omit<IFilterProps, "translation"> {
 }
 
-export const VapeFilter: FC<IVapeFilterProps> = (props) => {
+export const VapeFilter: FC<IVapeFilterProps> = props => {
 	return <Filter
 		{...props}
 		translation={'lab.vape'}
