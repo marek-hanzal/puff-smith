@@ -17,7 +17,7 @@ export const CoilInline: FC<ICoilInlineProps> = ({coil}) => {
 			<Typography.Text type={'success'}>{coil.ohm.toFixed(2)}ohm</Typography.Text>
 			<Space><span>{coil.wraps}</span><ReloadOutlined/></Space>
 			<Space><span>{coil.size}</span><ArrowsAltOutlined/></Space>
-			<Typography.Text>{(coil.wire.ga ? coil.wire.ga + 'GA' : null) || coil.wire.description}</Typography.Text>
 		</Space>
+		<Typography.Text type={'secondary'}>{(coil.wire.ga ? coil.wire.ga + 'GA' : null) || coil.wire.description}</Typography.Text>
 	</Space>
 }
