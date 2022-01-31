@@ -14,4 +14,29 @@ class BuildFilterDto extends AbstractFilterDto {
 	 * @var bool|null|void
 	 */
 	public ?bool $active;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by an atomizer
+	 */
+	public ?array $atomizerIds;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by a mod
+	 */
+	public ?array $modIds;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by a coil
+	 */
+	public ?array $coilIds;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by a coil
+	 */
+	public ?array $cottonIds;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by a coil
+	 */
+	public ?array $wireIds;
 }

@@ -42,6 +42,11 @@ class BuildRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
+		!empty($filter->atomizerIds) && $this->where($select, '$.atomizer_id', 'in', $filter->atomizerIds);
+		!empty($filter->coilIds) && $this->where($select, '$.coil_id', 'in', $filter->coilIds);
+		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
+		!empty($filter->cottonIds) && $this->where($select, '$.cotton_id', 'in', $filter->cottonIds);
+		!empty($filter->wireIds) && $this->where($select, 'c.wire_id', 'in', $filter->wireIds);
 		isset($filter->active) && $this->where($select, '$.active', $filter->active);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
