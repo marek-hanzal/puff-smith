@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
@@ -6,19 +6,23 @@ import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 
-export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
+export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 	coil: CoilDto;
 }
 
-export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
+export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, ...props}) => {
 	const {t} = useTranslation();
-	return <CreateDefaultForm
+	return <PatchDefaultForm
 		onSuccess={({navigate, response}) => {
-			message.success(t("lab.coil.created.message", {data: response}));
-			navigate("/lab/coil/list");
+			message.success(t("lab.coil.update.message", {data: response}));
+			navigate("/lab/coil/[coilId]", {coilId: response.id});
 		}}
 		toForm={() => ({
 			...coil,
+		})}
+		toMutation={values => ({
+			...values,
+			...{id: coil.id}
 		})}
 		{...props}
 	>
@@ -54,7 +58,7 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.coil.create.submit'}/>
+			<Submit label={'lab.coil.update.submit'}/>
 		</Centered>
-	</CreateDefaultForm>
+	</PatchDefaultForm>
 }

@@ -2,14 +2,14 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Menu} from "antd";
 import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreviewButton} from "@/puff-smith/site/lab/build";
-import {QuickMenu} from "@leight-core/leight/dist";
+import {IQuickMenuProps, QuickMenu} from "@leight-core/leight/dist";
 
-export interface IBuildQuickMenu {
+export interface IBuildQuickMenu extends Partial<IQuickMenuProps> {
 	build: BuildDto;
 }
 
-export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build}) => {
-	return <QuickMenu>
+export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
+	return <QuickMenu {...props}>
 		<Menu.Item>
 			<BuildPreviewButton build={build}/>
 		</Menu.Item>

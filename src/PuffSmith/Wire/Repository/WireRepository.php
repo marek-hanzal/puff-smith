@@ -30,6 +30,7 @@ class WireRepository extends AbstractRepository {
 			'$.id',
 			'$.name',
 			'$.description',
+			'$.ga',
 			'v.name',
 		], $filter->fulltext);
 		isset($filter->name) && $this->fulltext($select, [

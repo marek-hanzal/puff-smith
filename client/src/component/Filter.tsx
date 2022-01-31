@@ -44,6 +44,8 @@ export interface IFilterProps {
 	onClear: () => void;
 }
 
+export type IFilterWithoutTranslationProps = Omit<IFilterProps, "translation">;
+
 export const Filter: FC<IFilterProps> = ({filter, translation, onFilter, ...props}) => {
 	return <DrawerButton
 		icon={<RightOutlined/>}

@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {FormItem} from "@leight-core/leight";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
-import {Filter, IFilterProps} from "@/puff-smith";
+import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
 import {CoilSelect} from "@/puff-smith/site/lab/coil";
 import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 
-export interface IVapeFilterProps extends Omit<IFilterProps, "translation"> {
+export interface IVapeFilterProps extends IFilterWithoutTranslationProps {
 }
 
 export const VapeFilter: FC<IVapeFilterProps> = props => {

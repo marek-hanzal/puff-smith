@@ -23,6 +23,9 @@ export module CoilOrderByDto {
 
 export interface CoilFilterDto {
 	userId?: string | null | undefined;
+	wireIds?: any[] | null | undefined;
+	wraps?: any[] | null | undefined;
+	ohm?: any[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

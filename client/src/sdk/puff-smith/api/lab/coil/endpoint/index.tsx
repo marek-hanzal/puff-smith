@@ -1,22 +1,47 @@
-import {FC} from "react";
+import {createContext, FC, ReactNode} from "react";
 import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+
+export type ICoilQueryParams = {
+	coilId: string;
+}
+
+
+export const useCoilQuery = createGetQuery<ICoilQueryParams, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Coil");
+export const useCoilQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Coil.Coil"])
+}
 
 export type ICoilsQueryParams = void;
 
@@ -32,6 +57,16 @@ export type ICreateQueryParams = void;
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/create/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Create");
 
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Delete");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Patch");
+
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/create/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
 }
 
@@ -41,6 +76,74 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const CoilContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/coil/dto/index").CoilDto>);
+
+export const useCoilContext = (): IEntityContext<import("@/sdk/puff-smith/coil/dto/index").CoilDto> => useContext(CoilContext, "CoilContext");
+
+export const useOptionalCoilContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/coil/dto/index").CoilDto>>(CoilContext as any);
+
+export interface ICoilProvider extends IEntityProviderProps<import("@/sdk/puff-smith/coil/dto/index").CoilDto> {
+}
+
+export const CoilProvider: FC<ICoilProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <CoilContext.Provider value={entityContext}>
+				{children}
+			</CoilContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchCoilProps extends Partial<IQueryProps<ICoilQueryParams, void, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+	query: ICoilQueryParams;
+}
+
+export const FetchCoil: FC<IFetchCoilProps> = ({query, ...props}) => <Query<ICoilQueryParams, void, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+	useQuery={useCoilQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalCoilContext()}
+	{...props}
+/>;
+
+export interface ICoilPageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/coil/dto/index").CoilDto) => ReactNode);
+}
+
+export const CoilPage: FC<ICoilPageProps> = ({children, ...props}) => {
+	const {coilId} = useParams();
+	return <CoilProvider>
+		<Page {...props}>
+			<FetchCoil
+				query={{coilId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchCoil>
+		</Page>
+	</CoilProvider>;
+};
 
 export const useCoilsSource = () => useSourceContext<ICoilsQueryParams, import("@/sdk/puff-smith/coil/dto/index").CoilDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>()
 
