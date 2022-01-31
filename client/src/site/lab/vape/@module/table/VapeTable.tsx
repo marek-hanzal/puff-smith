@@ -13,6 +13,7 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
+import {ModInline} from "@/puff-smith/site/lab/mod";
 
 interface IQuickMenuInternalProps {
 	vape: VapeDto;
@@ -80,7 +81,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
 								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
-								// "mod": <ModInline mod={vape.mod}/>,
+								"mod": <ModInline mod={vape.mod}/>,
 								"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
 								"rating": <SimpleRating value={vape.rating}/>,
 								"taste": <SimpleRating value={vape.taste}/>,
@@ -125,6 +126,12 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					width: 420,
 				}),
 				column({
+					key: "mod",
+					title: "lab.vape.table.mod",
+					render: (_, vape) => <ModInline mod={vape.mod}/>,
+					width: 220,
+				}),
+				column({
 					key: "mixture",
 					title: "lab.vape.table.mixture",
 					render: (_, vape) => <MixtureInline mixture={vape.mixture}/>
@@ -165,7 +172,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					title: "lab.vape.table.age",
 					render: (_, vape) => {
 						// @ts-ignore
-						return dayjs.duration(dayjs().diff(vape.setup.build.created)).humanize()
+						return dayjs.duration(dayjs().diff(vape.build.created)).humanize()
 					},
 				}),
 			]}

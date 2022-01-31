@@ -7,12 +7,21 @@ use Edde\Dto\AbstractDto;
 use PuffSmith\Build\Dto\BuildDto;
 use PuffSmith\Driptip\Dto\DriptipDto;
 use PuffSmith\Mixture\Dto\MixtureDto;
+use PuffSmith\Mod\Dto\ModDto;
 
 class VapeDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
 	public string $id;
+	/**
+	 * @var string
+	 */
+	public string $modId;
+	/**
+	 * @var ModDto
+	 */
+	public ModDto $mod;
 	/**
 	 * @var string
 	 */

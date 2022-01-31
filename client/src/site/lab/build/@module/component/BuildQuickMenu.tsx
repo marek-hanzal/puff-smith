@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Menu} from "antd";
-import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreviewButton} from "@/puff-smith/site/lab/build";
+import {BuildActiveButton, BuildCloneButton, BuildEditButton, BuildLinkButton, BuildPreviewButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {IQuickMenuProps, QuickMenu} from "@leight-core/leight/dist";
 
 export interface IBuildQuickMenu extends Partial<IQuickMenuProps> {
@@ -16,6 +16,9 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 		<Menu.Divider/>
 		<Menu.Item>
 			<BuildLinkButton build={build}/>
+		</Menu.Item>
+		<Menu.Item>
+			<BuildVapeButton build={build}/>
 		</Menu.Item>
 		<Menu.Item>
 			<BuildEditButton build={build}/>

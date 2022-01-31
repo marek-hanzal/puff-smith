@@ -9,3 +9,7 @@
 .ant-typography.page-title {
 	margin: 0;
 }
+
+table tr.inactive {
+	background-color: #F5F5F5;
+}

@@ -1,4 +1,5 @@
 export interface CreateDto {
+	modId: string;
 	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;

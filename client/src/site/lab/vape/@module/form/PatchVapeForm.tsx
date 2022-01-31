@@ -7,6 +7,7 @@ import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
+import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 
 export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
 	vape: VapeDto;
@@ -44,6 +45,14 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				help={<MixtureTooltip/>}
 			>
 				<MixtureSelect/>
+			</FormItem>
+			<FormItem
+				field={'modId'}
+				labels={['lab.vape.modId.label']}
+				required
+				help={<ModTooltip/>}
+			>
+				<ModSelect/>
 			</FormItem>
 			<FormItem
 				field={'driptipId'}

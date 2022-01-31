@@ -37,7 +37,7 @@ class VapeRepository extends AbstractRepository {
 		], $filter->fulltext);
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
-//		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
+		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
 		!empty($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
 		!empty($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
@@ -49,7 +49,8 @@ class VapeRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
-			'setup_id'   => $createDto->setupId,
+			'build_id'   => $createDto->buildId,
+			'mod_id'     => $createDto->modId,
 			'mixture_id' => $createDto->mixtureId,
 			'driptip_id' => $createDto->driptipId,
 			'rating'     => $createDto->rating,
@@ -77,7 +78,8 @@ class VapeRepository extends AbstractRepository {
 	public function update(PatchDto $patchDto) {
 		return $this->patch([
 			'id'         => $patchDto->id,
-			'setup_id'   => $patchDto->setupId,
+			'build_id'   => $patchDto->buildId,
+			'mod_id'     => $patchDto->modId,
 			'mixture_id' => $patchDto->mixtureId,
 			'driptip_id' => $patchDto->driptipId,
 			'rating'     => $patchDto->rating,

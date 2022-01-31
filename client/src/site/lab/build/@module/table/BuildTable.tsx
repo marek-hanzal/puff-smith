@@ -21,6 +21,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				<CoilInline coil={build.coil}/>
 			</Space>
 		</List.Item>}
+		rowClassName={build => build.active ? 'active' : 'inactive'}
 		scroll={{x: 1300}}
 		{...props}
 	>

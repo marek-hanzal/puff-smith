@@ -61,6 +61,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				description={mixture.liquid.name}
 			/>
 		</List.Item>}
+		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
 		{...props}
 	>
 		{({column}) => [

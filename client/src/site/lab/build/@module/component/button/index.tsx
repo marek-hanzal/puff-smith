@@ -5,3 +5,4 @@ export * from './BuildEditButton';
 export * from './BuildLinkButton';
 export * from './BuildListButton';
 export * from './BuildPreviewButton';
+export * from './BuildVapeButton';

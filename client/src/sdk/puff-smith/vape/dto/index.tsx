@@ -1,5 +1,7 @@
 export interface VapeDto {
 	id: string;
+	modId?: string | null | undefined;
+	mod?: import("@/sdk/puff-smith/mod/dto/index").ModDto | null | undefined;
 	buildId: string;
 	build: import("@/sdk/puff-smith/build/dto/index").BuildDto;
 	mixtureId: string;

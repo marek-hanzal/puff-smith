@@ -8,6 +8,7 @@ import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import dayjs from "dayjs";
+import {ModInline} from "@/puff-smith/site/lab/mod";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -21,7 +22,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				{{
 					"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
 					"coil": <CoilInline coil={vape.build.coil}/>,
-					// "mod": <ModInline mod={vape.mod}/>,
+					"mod": <ModInline mod={vape.mod}/>,
 					"mixture": <MixtureInline mixture={vape.mixture}/>,
 					// @ts-ignore
 					"mixture.age": dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize(),

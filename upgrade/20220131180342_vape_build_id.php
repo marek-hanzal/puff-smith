@@ -13,6 +13,10 @@ final class VapeBuildId extends CommonMigration {
 		$this
 			->table('z_vape')
 			->addUuidForeignColumn('build', 'z_build', ['null' => true])
+			->addUuidForeignColumn('mod', 'z_mod', [
+				'comment' => 'Mod used for this vape',
+				'null'    => true,
+			])
 			->save();
 
 		foreach ($this->vapeRepository->all() as $vape) {
@@ -20,12 +24,18 @@ final class VapeBuildId extends CommonMigration {
 			$this->vapeRepository->change([
 				'id'       => $vape->id,
 				'build_id' => $setup->build_id,
+				'mod_id'   => $setup->mod_id,
 			]);
 		}
 
 		$this
 			->table('z_vape')
 			->changeColumn('build_id', 'string', [
+				'length'    => 36,
+				'collation' => 'utf8_unicode_ci',
+				'null'      => false,
+			])
+			->changeColumn('mod_id', 'string', [
 				'length'    => 36,
 				'collation' => 'utf8_unicode_ci',
 				'null'      => false,

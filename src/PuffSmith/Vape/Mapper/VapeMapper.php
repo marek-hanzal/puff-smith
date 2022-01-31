@@ -10,6 +10,8 @@ use PuffSmith\Driptip\Mapper\DriptipMapperTrait;
 use PuffSmith\Driptip\Repository\DriptipRepositoryTrait;
 use PuffSmith\Mixture\Mapper\MixtureMapperTrait;
 use PuffSmith\Mixture\Repository\MixtureRepositoryTrait;
+use PuffSmith\Mod\Mapper\ModMapperTrait;
+use PuffSmith\Mod\Repository\ModRepositoryTrait;
 use PuffSmith\Vape\Dto\VapeDto;
 
 class VapeMapper extends AbstractMapper {
@@ -19,10 +21,14 @@ class VapeMapper extends AbstractMapper {
 	use MixtureMapperTrait;
 	use DriptipRepositoryTrait;
 	use DriptipMapperTrait;
+	use ModRepositoryTrait;
+	use ModMapperTrait;
 
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(VapeDto::class, [
 			'id'        => $item->id,
+			'modId'     => ($mod = $this->modRepository->find($item->mod_id))->id,
+			'mod'       => $this->modMapper->item($mod),
 			'buildId'   => ($build = $this->buildRepository->find($item->build_id))->id,
 			'build'     => $this->buildMapper->item($build),
 			'mixtureId' => ($mixture = $this->mixtureRepository->find($item->mixture_id))->id,

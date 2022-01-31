@@ -1,5 +1,6 @@
 export interface PatchDto {
 	id: string;
+	modId: string;
 	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;
