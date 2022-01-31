@@ -16,7 +16,7 @@ class CoilMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(CoilDto::class, [
 			'id'     => $item->id,
 			'wraps'  => $item->wraps,
-			'code'   => $item->code,
+			'stamp'  => $this->isoDateNull($item->stamp),
 			'ohm'    => $item->ohm,
 			'wireId' => ($wire = $this->wireRepository->find($item->wire_id))->id,
 			'wire'   => $this->wireMapper->item($wire),

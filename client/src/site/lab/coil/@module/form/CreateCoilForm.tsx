@@ -23,12 +23,6 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		{...props}
 	>
 		<FormItem
-			field={'code'}
-			labels={['lab.coil.code.label']}
-			tooltip={t('lab.coil.code.label.tooltip')}
-			required
-		/>
-		<FormItem
 			field={'wireId'}
 			labels={['lab.coil.wireId.label']}
 			required

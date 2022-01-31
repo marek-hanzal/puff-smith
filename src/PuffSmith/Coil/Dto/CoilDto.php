@@ -12,7 +12,7 @@ class CoilDto extends AbstractDto {
 	/** @var int */
 	public int $wraps;
 	/** @var string */
-	public string $code;
+	public string $stamp;
 	/** @var float */
 	public float $ohm;
 	/** @var string */

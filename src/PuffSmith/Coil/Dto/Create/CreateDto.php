@@ -11,7 +11,5 @@ class CreateDto extends AbstractDto {
 	/** @var float */
 	public float $ohm;
 	/** @var string */
-	public string $code;
-	/** @var string */
 	public string $wireId;
 }
