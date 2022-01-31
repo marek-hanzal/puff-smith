@@ -135,7 +135,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					key: "coil",
 					title: "lab.vape.table.coil",
 					render: (_, vape) => <CoilInline coil={vape.build.coil}/>,
-					width: 540,
+					width: 480,
 				}),
 				column({
 					key: "mixture",
