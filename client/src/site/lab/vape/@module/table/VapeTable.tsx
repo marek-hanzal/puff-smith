@@ -123,13 +123,13 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					key: "atomizer",
 					title: "lab.vape.table.atomizer",
 					render: (_, vape) => <AtomizerInline atomizer={vape.build.atomizer}/>,
-					width: 420,
+					width: 400,
 				}),
 				column({
 					key: "mod",
 					title: "lab.vape.table.mod",
 					render: (_, vape) => <ModInline mod={vape.mod}/>,
-					width: 220,
+					width: 320,
 				}),
 				column({
 					key: "mixture",
