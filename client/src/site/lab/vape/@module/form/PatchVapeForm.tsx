@@ -236,6 +236,16 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				/>
 			</FormItem>
 			<FormItem
+				field={'complex'}
+				labels={['lab.vape.complex.label']}
+				tooltip={t('lab.vape.complex.label.tooltip')}
+			>
+				<Rate
+					count={10}
+					allowClear
+				/>
+			</FormItem>
+			<FormItem
 				field={'fruits'}
 				labels={['lab.vape.fruits.label']}
 				tooltip={t('lab.vape.fruits.label.tooltip')}
@@ -259,16 +269,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'cakes'}
 				labels={['lab.vape.cakes.label']}
 				tooltip={t('lab.vape.cakes.label.tooltip')}
-			>
-				<Rate
-					count={10}
-					allowClear
-				/>
-			</FormItem>
-			<FormItem
-				field={'complex'}
-				labels={['lab.vape.complex.label']}
-				tooltip={t('lab.vape.complex.label.tooltip')}
 			>
 				<Rate
 					count={10}
