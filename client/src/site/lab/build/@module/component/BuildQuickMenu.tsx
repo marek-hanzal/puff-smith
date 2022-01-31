@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Menu, message} from "antd";
-import {BuildActiveButton, BuildCloneButton, BuildDeleteButton, BuildEditButton, BuildLinkButton, BuildPreviewButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildActiveButton, BuildCloneButton, BuildDeleteButton, BuildEditButton, BuildLinkButton, BuildPreviewButton} from "@/puff-smith/site/lab/build";
 import {IQuickMenuProps, QuickMenu} from "@leight-core/leight";
 import {useBuildsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {useTranslation} from "react-i18next";
@@ -21,9 +21,6 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 		<Menu.Divider/>
 		<Menu.Item>
 			<BuildLinkButton build={build}/>
-		</Menu.Item>
-		<Menu.Item>
-			<BuildVapeButton build={build}/>
 		</Menu.Item>
 		<Menu.Item>
 			<BuildEditButton build={build}/>

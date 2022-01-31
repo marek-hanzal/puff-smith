@@ -5,10 +5,11 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {List, Space, Typography} from "antd";
-import {BuildFilter, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildFilter, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
+import {ArrowRightOutlined} from "@ant-design/icons";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -38,6 +39,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 						<Space>
 							<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{age}
 						</Space>
+						<BuildVapeButton size={'small'} icon={<ArrowRightOutlined/>} build={build}/>
 					</Space>
 				</List.Item>
 			}}
