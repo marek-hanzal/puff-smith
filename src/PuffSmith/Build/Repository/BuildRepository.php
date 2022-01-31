@@ -52,8 +52,6 @@ class BuildRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
-			'name'         => $createDto->name,
-			'description'  => $createDto->description,
 			'atomizer_id'  => $createDto->atomizerId,
 			'coil_id'      => $createDto->coilId,
 			'glow'         => $createDto->glow,
@@ -71,9 +69,7 @@ class BuildRepository extends AbstractRepository {
 	public function update(PatchDto $patchDto) {
 		return $this->patch([
 			'id'           => $patchDto->id,
-			'name'         => $patchDto->name,
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
-			'description'  => $patchDto->description,
 			'active'       => $patchDto->active,
 			'glow'         => $patchDto->glow,
 			'atomizer_id'  => $patchDto->atomizerId,

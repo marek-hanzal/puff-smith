@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 
 export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
-	coil: CoilDto;
+	coil?: CoilDto;
 }
 
 export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {

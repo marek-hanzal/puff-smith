@@ -12,7 +12,6 @@ export interface IBuildInlineProps {
 export const BuildInline: FC<IBuildInlineProps> = ({build}) => {
 	const {t} = useTranslation();
 	return <Space direction={'vertical'}>
-		<span>{build.name}</span>
 		<Space split={<Divider type={'vertical'}/>}>
 			<Tooltip title={t('lab.build.inline.atomizer.tooltip')}>
 				<Space>

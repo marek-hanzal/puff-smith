@@ -81,7 +81,6 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					<Card title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
-								"build": vape.setup.build.name,
 								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
 								"mod": <ModInline mod={vape.setup.mod}/>,
 								"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
@@ -106,7 +105,6 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					<Card title={<BuildPreviewButton size={'small'} icon={null} title={'lab.vape.build.title'} build={vape.setup.build}/>} extra={<BuildQuickMenu key={'quick-menu'} build={vape.setup.build}/>}>
 						<SmallPreview translation={'lab.build.preview'}>
 							{{
-								"name": vape.setup.build.name,
 								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
 								"coil": <CoilInline coil={vape.setup.build.coil}/>,
 							}}

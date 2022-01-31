@@ -1,7 +1,5 @@
 export interface PatchDto {
 	id: string;
-	name?: string | null | undefined;
-	description?: string | null | undefined;
 	active?: boolean | null | undefined;
 	glow: number | null;
 	created?: string | null | undefined;

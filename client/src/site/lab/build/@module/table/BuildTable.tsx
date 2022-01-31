@@ -4,7 +4,7 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {List, Typography} from "antd";
+import {List, Space} from "antd";
 import {BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {SimpleRating} from "@/puff-smith";
 
@@ -16,10 +16,10 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		listItemRender={build => <List.Item
 			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		>
-			<List.Item.Meta
-				title={build.active ? build.name : <Typography.Text type={'secondary'}>{build.name}</Typography.Text>}
-				description={build.description}
-			/>
+			<Space direction={'vertical'}>
+				<AtomizerInline atomizer={build.atomizer}/>
+				<CoilInline coil={build.coil}/>
+			</Space>
 		</List.Item>}
 		scroll={{x: 1600}}
 		{...props}
@@ -29,13 +29,6 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "id",
 				render: (_, build) => <BuildQuickMenu build={build}/>,
 				width: 0,
-			}),
-			column({
-				key: "name",
-				dataIndex: "name",
-				title: "lab.build.table.name",
-				width: 200,
-				render: (_, build) => build.active ? build.name : <Typography.Text type={'secondary'}>{build.name}</Typography.Text>,
 			}),
 			column({
 				key: "atomizer",

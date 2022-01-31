@@ -1,7 +1,5 @@
 export interface BuildDto {
 	id: string;
-	name: string;
-	description: string | null;
 	ohm: number;
 	created: string;
 	glow: number | null;
