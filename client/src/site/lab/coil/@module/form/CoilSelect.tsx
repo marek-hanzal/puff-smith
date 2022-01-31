@@ -8,8 +8,9 @@ export interface ICoilSelectProps extends Partial<ICoilsSourceSelectProps> {
 export const CoilSelect: FC<ICoilSelectProps> = props => {
 	return <CoilsSourceSelect
 		showSearch
-		optionLabelProp={'code'}
+		optionLabelProp={'name'}
 		toOption={coil => ({
+			name: coil.wire.name,
 			label: <CoilInline coil={coil}/>,
 			value: coil.id,
 			...coil,

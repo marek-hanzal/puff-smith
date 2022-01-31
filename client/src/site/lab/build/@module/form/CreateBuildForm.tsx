@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Card, Centered, DatePicker, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, message, Slider} from "antd";
@@ -34,39 +34,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 		})}
 		{...props}
 	>
-		<Card title={t('lab.build.common.title')}>
-			<FormItem field={'name'} labels={['lab.build.name.label']} tooltip={t('lab.build.name.label.tooltip')} required/>
-			<FormItem
-				field={'description'}
-				labels={['lab.build.description.label']}
-			>
-				<TextArea autoSize={{minRows: 4, maxRows: 4}}/>
-			</FormItem>
-			<FormItem
-				field={'created'}
-				labels={['lab.build.created.label']}
-			>
-				<DatePicker showTime/>
-			</FormItem>
-			<FormItem
-				field={'glow'}
-				labels={['lab.build.glow.label']}
-				tooltip={t('lab.build.glow.label.tooltip')}
-			>
-				<Slider
-					marks={{
-						1: 1,
-						2: 2,
-						3: 3,
-						4: 4,
-						5: 5,
-					}}
-					min={1}
-					max={5}
-				/>
-			</FormItem>
-		</Card>
-		<Divider/>
 		<Card title={t('lab.build.build.title')}>
 			<FormItem
 				field={'atomizerId'}
@@ -97,6 +64,12 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.ohm.label']}
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
+			</FormItem>
+			<FormItem
+				field={'created'}
+				labels={['lab.build.created.label']}
+			>
+				<DatePicker showTime/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -137,6 +110,23 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 					}}
 					min={-2}
 					max={2}
+				/>
+			</FormItem>
+			<FormItem
+				field={'glow'}
+				labels={['lab.build.glow.label']}
+				tooltip={t('lab.build.glow.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						1: 1,
+						2: 2,
+						3: 3,
+						4: 4,
+						5: 5,
+					}}
+					min={1}
+					max={5}
 				/>
 			</FormItem>
 			<FormItem
