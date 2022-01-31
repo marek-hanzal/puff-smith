@@ -9,7 +9,6 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use PuffSmith\Wire\Dto\Create\CreateDto;
 use PuffSmith\Wire\Dto\WireFilterDto;
-use function explode;
 
 class WireRepository extends AbstractRepository {
 	public function __construct() {
@@ -27,17 +26,13 @@ class WireRepository extends AbstractRepository {
 			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
 		}
 
-		if (isset($filter->fulltext) && $filter = explode(' ', $filter->fulltext)) {
-			foreach ($filter as $item) {
-				$this->fulltext($select, [
-					'$.id',
-					'$.name',
-					'$.description',
-					'$.ga',
-					'v.name',
-				], trim($item));
-			}
-		}
+		isset($filter->fulltext) && $this->fulltext($select, [
+			'$.id',
+			'$.name',
+			'$.description',
+			'$.ga',
+			'v.name',
+		], $filter->fulltext);
 
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
