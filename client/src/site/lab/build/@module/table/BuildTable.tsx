@@ -33,7 +33,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				</Space>
 			</List.Item>}
 			rowClassName={build => build.active ? 'active' : 'inactive'}
-			scroll={{x: 1300}}
+			scroll={{x: 1600}}
 			{...props}
 		>
 			{({column}) => [
@@ -46,19 +46,19 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 					key: "atomizer",
 					title: "lab.build.table.atomizer",
 					render: (_, build) => <AtomizerInline atomizer={build.atomizer}/>,
-					width: 280,
+					width: 300,
 				}),
 				column({
 					key: "coil",
 					title: "lab.build.table.coil",
 					render: (_, build) => <CoilInline coil={build.coil}/>,
-					width: 300,
+					width: 400,
 				}),
 				column({
 					key: "cotton",
 					title: "lab.build.table.cotton",
 					render: (_, build) => <CottonInline cotton={build.cotton}/>,
-					width: 240,
+					width: 280,
 				}),
 				column({
 					key: "ohm",
