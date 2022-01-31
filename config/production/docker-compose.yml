@@ -35,10 +35,7 @@ services:
             MYSQL_DATABASE: puff-smith
             MYSQL_USER: puff-smith
             MYSQL_PASSWORD: 1234
-        ports:
-            - '3306:3306'
         networks:
-            - web
             - db
         volumes:
             - puff-smith-data:/var/lib/mysql
