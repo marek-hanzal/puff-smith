@@ -1,4 +1,4 @@
-import {IQuickMenuProps, QuickMenu} from "@leight-core/leight/dist";
+import {IQuickMenuProps, QuickMenu} from "@leight-core/leight";
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Menu, message} from "antd";

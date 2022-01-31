@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight/dist";
+import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {FC} from "react";
 import {EyeOutlined} from "@ant-design/icons";

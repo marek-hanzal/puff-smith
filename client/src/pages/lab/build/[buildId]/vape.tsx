@@ -4,7 +4,7 @@ import {Menu} from "antd";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {QuickMenu} from "@leight-core/leight";
 import {CreateVapeForm, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {CreateTemplate} from "@leight-core/leight/dist";
+import {CreateTemplate} from "@leight-core/leight";
 
 export default withLabLayout(function Edit() {
 	return <BuildPage

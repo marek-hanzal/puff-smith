@@ -5,7 +5,7 @@ import {Slider} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {IPreviewProps} from "@leight-core/leight/dist";
+import {IPreviewProps} from "@leight-core/leight";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto

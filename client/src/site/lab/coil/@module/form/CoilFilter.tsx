@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
-import {FormItem} from "@leight-core/leight/dist";
+import {FormItem} from "@leight-core/leight";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
 import {Slider} from "antd";
 

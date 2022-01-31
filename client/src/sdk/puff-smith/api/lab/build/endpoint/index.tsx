@@ -68,6 +68,11 @@ export type ICreateQueryParams = void;
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Create");
 
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Delete");
+
 export type IPatchQueryParams = void;
 
 
@@ -89,6 +94,16 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQuery
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
 		useMutation={useCreateMutation}
+		{...props}
+	/>
+}
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+		useMutation={useDeleteMutation}
 		{...props}
 	/>
 }

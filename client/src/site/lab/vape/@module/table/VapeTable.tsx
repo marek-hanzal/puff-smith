@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {VapeDto, VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {SmallPreview, toLocalDateTime} from "@leight-core/leight/dist";
+import {SmallPreview, toLocalDateTime} from "@leight-core/leight";
 import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";

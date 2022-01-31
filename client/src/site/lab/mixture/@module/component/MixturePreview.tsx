@@ -6,7 +6,7 @@ import {Space, Typography} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {PreviewBool} from "@leight-core/leight/dist";
+import {PreviewBool} from "@leight-core/leight";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto

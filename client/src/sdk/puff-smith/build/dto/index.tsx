@@ -32,6 +32,11 @@ export module BuildOrderByDto {
 export interface BuildFilterDto {
 	userId?: string | null | undefined;
 	active?: boolean | null | undefined;
+	atomizerIds?: string[] | null | undefined;
+	modIds?: string[] | null | undefined;
+	coilIds?: string[] | null | undefined;
+	cottonIds?: string[] | null | undefined;
+	wireIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

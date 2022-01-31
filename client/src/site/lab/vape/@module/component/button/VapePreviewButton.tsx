@@ -1,7 +1,7 @@
 import {EyeOutlined} from "@ant-design/icons";
 import {VapeIcon} from "@/puff-smith";
 import {VapePreview} from "@/puff-smith/site/lab/vape";
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight/dist";
+import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 

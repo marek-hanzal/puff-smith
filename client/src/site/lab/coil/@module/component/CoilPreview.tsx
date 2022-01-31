@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IPreviewProps, Preview} from "@leight-core/leight/dist";
+import {IPreviewProps, Preview} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {WireInline} from "@/puff-smith/site/lab/wire";
 
