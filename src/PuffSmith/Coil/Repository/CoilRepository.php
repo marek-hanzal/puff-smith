@@ -32,6 +32,7 @@ class CoilRepository extends AbstractRepository {
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
 			'w.name',
+			'w.ga',
 			'w.description',
 			'v.name',
 		], $filter->fulltext);
