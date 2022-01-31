@@ -52,13 +52,13 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 					key: "coil",
 					title: "lab.build.table.coil",
 					render: (_, build) => <CoilInline coil={build.coil}/>,
-					width: 400,
+					width: 480,
 				}),
 				column({
 					key: "cotton",
 					title: "lab.build.table.cotton",
 					render: (_, build) => <CottonInline cotton={build.cotton}/>,
-					width: 280,
+					width: 300,
 				}),
 				column({
 					key: "ohm",

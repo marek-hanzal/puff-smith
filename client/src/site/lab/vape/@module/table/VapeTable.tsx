@@ -71,7 +71,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		/>
 		<VapesSourceTable
 			filter={filter}
-			scroll={{x: 1800}}
+			scroll={{x: 2200}}
 			listProps={{
 				itemLayout: 'vertical'
 			}}
@@ -123,13 +123,19 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					key: "atomizer",
 					title: "lab.vape.table.atomizer",
 					render: (_, vape) => <AtomizerInline atomizer={vape.build.atomizer}/>,
-					width: 400,
+					width: 300,
 				}),
 				column({
 					key: "mod",
 					title: "lab.vape.table.mod",
 					render: (_, vape) => <ModInline mod={vape.mod}/>,
 					width: 320,
+				}),
+				column({
+					key: "coil",
+					title: "lab.vape.table.coil",
+					render: (_, vape) => <CoilInline coil={vape.build.coil}/>,
+					width: 480,
 				}),
 				column({
 					key: "mixture",
