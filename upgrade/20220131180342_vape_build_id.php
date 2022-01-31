@@ -14,7 +14,7 @@ final class VapeBuildId extends CommonMigration {
 	public function change(): void {
 		$table = $this->table('z_vape');
 		try {
-			$this
+			$table
 				->addUuidForeignColumn('build', 'z_build', ['null' => true])
 				->addUuidForeignColumn('mod', 'z_mod', [
 					'comment' => 'Mod used for this vape',
