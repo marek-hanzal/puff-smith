@@ -130,8 +130,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				labels={['lab.build.coils.label']}
 			>
 				<Slider
-					included={false}
-					tipFormatter={null}
 					marks={{
 						1: 1,
 						2: 2,
@@ -140,7 +138,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 					}}
 					min={1}
 					max={4}
-					step={null}
 				/>
 			</FormItem>
 			<SwitchItem

@@ -54,6 +54,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 	return <MixturesSourceTable
 		scroll={{x: 2200}}
 		listItemRender={mixture => <List.Item
+			className={mixture.active ? 'active' : 'inactive'}
 			actions={[<QuickMenuInternal key={'quick-menu'} mixture={mixture}/>]}
 		>
 			<List.Item.Meta

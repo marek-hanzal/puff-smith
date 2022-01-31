@@ -24,4 +24,6 @@ class CreateDto extends AbstractDto {
 	public int $cottonOffset = 0;
 	/** @var float|null */
 	public ?float $ohm;
+	/** @var bool|null */
+	public ?bool $deactivate;
 }

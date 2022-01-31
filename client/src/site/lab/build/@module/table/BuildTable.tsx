@@ -14,6 +14,7 @@ export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 export const BuildTable: FC<IBuildTableProps> = props => {
 	return <BuildsSourceTable
 		listItemRender={build => <List.Item
+			className={build.active ? 'active' : 'inactive'}
 			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		>
 			<Space direction={'vertical'}>

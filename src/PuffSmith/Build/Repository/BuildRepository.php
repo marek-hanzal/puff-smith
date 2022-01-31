@@ -51,6 +51,9 @@ class BuildRepository extends AbstractRepository {
 	}
 
 	public function create(CreateDto $createDto) {
+		if ($createDto->deactivate) {
+			$this->table()->update(['active' => false])->where('atomizer_id', $createDto->atomizerId)->execute();
+		}
 		return $this->insert([
 			'atomizer_id'  => $createDto->atomizerId,
 			'coil_id'      => $createDto->coilId,
@@ -67,7 +70,7 @@ class BuildRepository extends AbstractRepository {
 	}
 
 	public function update(PatchDto $patchDto) {
-		return $this->patch([
+		return $this->change([
 			'id'           => $patchDto->id,
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'active'       => $patchDto->active,

@@ -8,6 +8,7 @@ import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -24,6 +25,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			created: moment(),
 			name: null,
 			description: null,
+			deactivate: true,
 		})}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.build.created.message", {data: response}));
@@ -134,8 +136,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.coils.label']}
 			>
 				<Slider
-					included={false}
-					tipFormatter={null}
 					marks={{
 						1: 1,
 						2: 2,
@@ -144,9 +144,13 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 					}}
 					min={1}
 					max={4}
-					step={null}
 				/>
 			</FormItem>
+			<SwitchItem
+				field={'deactivate'}
+				tooltip={t('lab.build.deactivate.label.tooltip')}
+				labels={['lab.build.deactivate.label']}
+			/>
 		</Card>
 		<Divider/>
 		<Centered>
