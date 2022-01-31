@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+use Edde\Debug\DebugServiceTrait;
 use Edde\Phinx\CommonMigration;
 use Edde\Storage\StorageTrait;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 
 final class VapeBuildId extends CommonMigration {
+	use DebugServiceTrait;
 	use VapeRepositoryTrait;
 	use StorageTrait;
 
@@ -19,8 +21,9 @@ final class VapeBuildId extends CommonMigration {
 					'null'    => true,
 				])
 				->save();
-		} catch (Throwable $_) {
+		} catch (Throwable $throwable) {
 			$table->reset();
+			$this->debugService->save($throwable);
 		}
 
 		foreach ($this->vapeRepository->all() as $vape) {
