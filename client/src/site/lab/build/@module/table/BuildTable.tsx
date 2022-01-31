@@ -9,7 +9,8 @@ import {BuildFilter, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/la
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {ArrowRightOutlined} from "@ant-design/icons";
+import {ArrowRightOutlined, CommentOutlined} from "@ant-design/icons";
+import {DrawerButton} from "@leight-core/leight/dist";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -39,7 +40,17 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 						<Space>
 							<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{age}
 						</Space>
-						<BuildVapeButton size={'small'} icon={<ArrowRightOutlined/>} build={build}/>
+						<Space>
+							<BuildVapeButton size={'small'} icon={<ArrowRightOutlined/>} build={build}/>
+							<DrawerButton
+								icon={<CommentOutlined/>}
+								type={'link'}
+								size={'small'}
+								label={t('lab.build.comment.create')}
+							>
+								dfgdfg
+							</DrawerButton>
+						</Space>
 					</Space>
 				</List.Item>
 			}}
