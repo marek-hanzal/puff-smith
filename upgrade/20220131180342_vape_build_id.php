@@ -10,14 +10,18 @@ final class VapeBuildId extends CommonMigration {
 	use StorageTrait;
 
 	public function change(): void {
-		$this
-			->table('z_vape')
-			->addUuidForeignColumn('build', 'z_build', ['null' => true])
-			->addUuidForeignColumn('mod', 'z_mod', [
-				'comment' => 'Mod used for this vape',
-				'null'    => true,
-			])
-			->save();
+		$table = $this->table('z_vape');
+		try {
+			$this
+				->addUuidForeignColumn('build', 'z_build', ['null' => true])
+				->addUuidForeignColumn('mod', 'z_mod', [
+					'comment' => 'Mod used for this vape',
+					'null'    => true,
+				])
+				->save();
+		} catch (Throwable $_) {
+			$table->reset();
+		}
 
 		foreach ($this->vapeRepository->all() as $vape) {
 			$setup = $this->storage->table('z_setup')->select()->where('id', $vape->setup_id)->execute()->fetch();
