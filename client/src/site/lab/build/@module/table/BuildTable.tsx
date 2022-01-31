@@ -4,15 +4,17 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
-import {List, Space} from "antd";
+import {List, Space, Typography} from "antd";
 import {BuildFilter, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
+import {useTranslation} from "react-i18next";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
 
 export const BuildTable: FC<IBuildTableProps> = props => {
+	const {t} = useTranslation();
 	const [filter, setFilter] = useState<BuildFilterDto>();
 	return <>
 		<BuildFilter
@@ -22,16 +24,23 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		/>
 		<BuildsSourceTable
 			filter={filter}
-			listItemRender={build => <List.Item
-				className={build.active ? 'active' : 'inactive'}
-				actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
-			>
-				<Space direction={'vertical'}>
-					<AtomizerInline atomizer={build.atomizer}/>
-					<CoilInline coil={build.coil}/>
-					<CottonInline cotton={build.cotton}/>
-				</Space>
-			</List.Item>}
+			listItemRender={build => {
+				// @ts-ignore
+				const age = dayjs.duration(dayjs().diff(build.created)).humanize();
+				return <List.Item
+					className={build.active ? 'active' : 'inactive'}
+					actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
+				>
+					<Space direction={'vertical'}>
+						<AtomizerInline atomizer={build.atomizer}/>
+						<CoilInline coil={build.coil}/>
+						<CottonInline cotton={build.cotton}/>
+						<Space>
+							<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{age}
+						</Space>
+					</Space>
+				</List.Item>
+			}}
 			rowClassName={build => build.active ? 'active' : 'inactive'}
 			scroll={{x: 1600}}
 			{...props}
