@@ -21,7 +21,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				<CoilInline coil={build.coil}/>
 			</Space>
 		</List.Item>}
-		scroll={{x: 1600}}
+		scroll={{x: 1300}}
 		{...props}
 	>
 		{({column}) => [
