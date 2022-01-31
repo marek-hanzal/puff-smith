@@ -15,6 +15,7 @@ export const BuildSelect: FC<IBuildSelectProps> = props => {
 			}
 		}}
 		toOption={build => ({
+			name: build.atomizer.name,
 			label: <BuildInline build={build}/>,
 			value: build.id,
 			...build,
