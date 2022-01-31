@@ -82,6 +82,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							{{
 								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
 								"mod": <ModInline mod={vape.mod}/>,
+								"coil": <CoilInline coil={vape.build.coil}/>,
 								"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
 								"rating": <SimpleRating value={vape.rating}/>,
 								"taste": <SimpleRating value={vape.taste}/>,
