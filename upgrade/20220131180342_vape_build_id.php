@@ -2,12 +2,12 @@
 declare(strict_types=1);
 
 use Edde\Phinx\CommonMigration;
-use PuffSmith\Setup\Repository\SetupRepositoryTrait;
+use Edde\Storage\StorageTrait;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 
 final class VapeBuildId extends CommonMigration {
 	use VapeRepositoryTrait;
-	use SetupRepositoryTrait;
+	use StorageTrait;
 
 	public function change(): void {
 		$this
@@ -20,7 +20,7 @@ final class VapeBuildId extends CommonMigration {
 			->save();
 
 		foreach ($this->vapeRepository->all() as $vape) {
-			$setup = $this->setupRepository->find($vape->setup_id);
+			$setup = $this->storage->table('z_setup')->select()->where('id', $vape->setup_id)->execute()->fetch();
 			$this->vapeRepository->change([
 				'id'       => $vape->id,
 				'build_id' => $setup->build_id,
