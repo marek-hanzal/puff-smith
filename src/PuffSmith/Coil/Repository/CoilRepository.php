@@ -75,4 +75,14 @@ class CoilRepository extends AbstractRepository {
 			'wire_id' => $patchDto->wireId,
 		]);
 	}
+
+	public function findByCreate(CreateDto $createDto) {
+		return $this->select()
+			->where('wraps', $createDto->wraps)
+			->where('ohm', $createDto->ohm)
+			->where('user_id', $this->currentUserService->requiredId())
+			->where('wire_id', $createDto->wireId)
+			->execute()
+			->fetch();
+	}
 }

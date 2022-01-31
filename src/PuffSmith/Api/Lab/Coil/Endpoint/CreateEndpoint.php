@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PuffSmith\Api\Lab\Coil\Endpoint;
 
+use Edde\Repository\Exception\DuplicateEntryException;
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
 use PuffSmith\Coil\Dto\CoilDto;
 use PuffSmith\Coil\Dto\Create\CreateDto;
@@ -14,6 +15,10 @@ class CreateEndpoint extends AbstractCreateEndpoint {
 	use CoilMapperTrait;
 
 	public function post(CreateDto $createDto): CoilDto {
-		return $this->coilMapper->item($this->coilRepository->create($createDto));
+		try {
+			return $this->coilMapper->item($this->coilRepository->create($createDto));
+		} catch (DuplicateEntryException $_) {
+			return $this->coilMapper->item($this->coilRepository->findByCreate($createDto));
+		}
 	}
 }
