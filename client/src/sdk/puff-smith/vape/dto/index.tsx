@@ -1,7 +1,7 @@
 export interface VapeDto {
 	id: string;
-	setupId: string;
-	setup: import("@/sdk/puff-smith/setup/dto/index").SetupDto;
+	buildId: string;
+	build: import("@/sdk/puff-smith/build/dto/index").BuildDto;
 	mixtureId: string;
 	mixture: import("@/sdk/puff-smith/mixture/dto/index").MixtureDto;
 	driptipId: string | null;

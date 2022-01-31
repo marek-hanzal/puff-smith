@@ -9,7 +9,7 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $setupId;
+	public string $buildId;
 	/**
 	 * @var string
 	 */

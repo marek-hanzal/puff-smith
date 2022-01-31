@@ -1,6 +1,5 @@
 import {FC, useState} from "react";
 import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {SetupInline} from "@/puff-smith/site/lab/setup";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {Card, Carousel, List, Menu, message} from "antd";
 import {QuickMenu} from "@leight-core/leight";
@@ -13,7 +12,6 @@ import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {ModInline} from "@/puff-smith/site/lab/mod";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 
 interface IQuickMenuInternalProps {
@@ -81,8 +79,8 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					<Card title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
-								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
-								"mod": <ModInline mod={vape.setup.mod}/>,
+								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
+								// "mod": <ModInline mod={vape.mod}/>,
 								"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
 								"rating": <SimpleRating value={vape.rating}/>,
 								"taste": <SimpleRating value={vape.taste}/>,
@@ -102,11 +100,11 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							}}
 						</SmallPreview>
 					</Card>
-					<Card title={<BuildPreviewButton size={'small'} icon={null} title={'lab.vape.build.title'} build={vape.setup.build}/>} extra={<BuildQuickMenu key={'quick-menu'} build={vape.setup.build}/>}>
+					<Card title={<BuildPreviewButton size={'small'} icon={null} title={'lab.vape.build.title'} build={vape.build}/>} extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}>
 						<SmallPreview translation={'lab.build.preview'}>
 							{{
-								"atomizer": <AtomizerInline atomizer={vape.setup.build.atomizer}/>,
-								"coil": <CoilInline coil={vape.setup.build.coil}/>,
+								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
+								"coil": <CoilInline coil={vape.build.coil}/>,
 							}}
 						</SmallPreview>
 					</Card>
@@ -121,9 +119,9 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					width: 0,
 				}),
 				column({
-					key: "setup",
-					title: "lab.vape.table.setup",
-					render: (_, vape) => <SetupInline setup={vape.setup}/>,
+					key: "atomizer",
+					title: "lab.vape.table.atomizer",
+					render: (_, vape) => <AtomizerInline atomizer={vape.build.atomizer}/>,
 					width: 420,
 				}),
 				column({

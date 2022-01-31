@@ -28,9 +28,8 @@ class VapeRepository extends AbstractRepository {
 		/** @var $filter VapeFilterDto */
 		if (!empty($filter = $query->filter)) {
 			$filter = $this->dtoService->fromObject(VapeFilterDto::class, $filter);
-			$this->join($select, 'z_setup', 's', '$.setup_id');
+			$this->join($select, 'z_build', 'b', '$.build_id');
 			$this->join($select, 'z_mixture', 'm', '$.mixture_id');
-			$this->join($select, 'z_build', 'b', 's.build_id');
 		}
 
 		isset($filter->fulltext) && $this->fulltext($select, [
@@ -38,7 +37,7 @@ class VapeRepository extends AbstractRepository {
 		], $filter->fulltext);
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
-		!empty($filter->modIds) && $this->where($select, 's.mod_id', 'in', $filter->modIds);
+//		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
 		!empty($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
 		!empty($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);

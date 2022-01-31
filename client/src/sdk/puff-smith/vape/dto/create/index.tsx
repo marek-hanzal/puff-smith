@@ -1,5 +1,5 @@
 export interface CreateDto {
-	setupId: string;
+	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;
 	rating: number;

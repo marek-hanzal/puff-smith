@@ -1,6 +1,6 @@
 export interface PatchDto {
 	id: string;
-	setupId: string;
+	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;
 	rating: number;

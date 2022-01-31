@@ -1,6 +1,6 @@
 import {CreateMenuItem, HomeIcon, MenuDivider} from "@leight-core/leight";
 import {FC} from "react";
-import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, IMenuProps, LiquidIcon, Menu, MixtureIcon, ModIcon, SetupIcon, ToolIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
+import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, IMenuProps, LiquidIcon, Menu, MixtureIcon, ModIcon, ToolIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
 import {isBrowser} from "react-device-detect";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
@@ -15,7 +15,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		</>}
 		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
 		{CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>)}
-		{CreateMenuItem("lab.setup.menu", "/lab/setup", <SetupIcon/>)}
 		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
 		<MenuDivider/>
 		{CreateMenuItem("lab.atomizer.menu", "/lab/atomizer", <AtomizerIcon/>)}

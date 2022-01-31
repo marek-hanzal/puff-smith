@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace PuffSmith\Vape\Dto;
 
 use Edde\Dto\AbstractDto;
+use PuffSmith\Build\Dto\BuildDto;
 use PuffSmith\Driptip\Dto\DriptipDto;
 use PuffSmith\Mixture\Dto\MixtureDto;
-use PuffSmith\Setup\Dto\SetupDto;
 
 class VapeDto extends AbstractDto {
 	/**
@@ -16,11 +16,11 @@ class VapeDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $setupId;
+	public string $buildId;
 	/**
-	 * @var SetupDto
+	 * @var BuildDto
 	 */
-	public SetupDto $setup;
+	public BuildDto $build;
 	/**
 	 * @var string
 	 */
