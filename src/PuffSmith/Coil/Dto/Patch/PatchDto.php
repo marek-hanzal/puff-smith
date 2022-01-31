@@ -14,6 +14,8 @@ class PatchDto extends AbstractDto {
 	public ?int $wraps;
 	/** @var float|null|void */
 	public ?float $ohm;
+	/** @var float|null|void */
+	public ?float $size;
 	/** @var string|null|void */
 	public ?string $wireId;
 }

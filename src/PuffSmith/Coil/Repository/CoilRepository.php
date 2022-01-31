@@ -62,6 +62,7 @@ class CoilRepository extends AbstractRepository {
 		return $this->insert([
 			'stamp'   => new DateTime(),
 			'wraps'   => $createDto->wraps,
+			'size'    => $createDto->size,
 			'ohm'     => $createDto->ohm,
 			'wire_id' => $createDto->wireId,
 			'user_id' => $this->currentUserService->requiredId(),
@@ -72,6 +73,7 @@ class CoilRepository extends AbstractRepository {
 		return $this->change([
 			'id'      => $patchDto->id,
 			'wraps'   => $patchDto->wraps,
+			'size'    => $patchDto->size,
 			'ohm'     => $patchDto->ohm,
 			'wire_id' => $patchDto->wireId,
 		]);
@@ -81,6 +83,7 @@ class CoilRepository extends AbstractRepository {
 		return $this->select()
 			->where('wraps', $createDto->wraps)
 			->where('ohm', $createDto->ohm)
+			->where('size', $createDto->size)
 			->where('user_id', $this->currentUserService->requiredId())
 			->where('wire_id', $createDto->wireId)
 			->execute()

@@ -3,6 +3,7 @@ export interface CoilDto {
 	wraps: number;
 	stamp: string;
 	ohm: number;
+	size: number;
 	wireId: string;
 	wire: import("@/sdk/puff-smith/wire/dto/index").WireDto;
 }

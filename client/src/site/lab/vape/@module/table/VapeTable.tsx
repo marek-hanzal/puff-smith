@@ -2,12 +2,11 @@ import {FC, useState} from "react";
 import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {Card, Carousel, List, Menu, message} from "antd";
-import {QuickMenu} from "@leight-core/leight";
+import {QuickMenu, SmallPreview, toLocalDateTime} from "@leight-core/leight";
 import dayjs from "dayjs";
 import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {VapeDto, VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {SmallPreview, toLocalDateTime} from "@leight-core/leight";
 import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
@@ -136,7 +135,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 					key: "coil",
 					title: "lab.vape.table.coil",
 					render: (_, vape) => <CoilInline coil={vape.build.coil}/>,
-					width: 480,
+					width: 540,
 				}),
 				column({
 					key: "mixture",

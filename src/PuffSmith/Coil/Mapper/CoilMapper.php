@@ -18,6 +18,7 @@ class CoilMapper extends AbstractMapper {
 			'wraps'  => $item->wraps,
 			'stamp'  => $this->isoDateNull($item->stamp),
 			'ohm'    => $item->ohm,
+			'size'   => $item->size,
 			'wireId' => ($wire = $this->wireRepository->find($item->wire_id))->id,
 			'wire'   => $this->wireMapper->item($wire),
 		]);
