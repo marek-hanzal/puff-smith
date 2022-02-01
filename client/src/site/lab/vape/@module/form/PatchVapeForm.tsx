@@ -31,8 +31,8 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 	>
 		<Card title={t('lab.vape.common.title')}>
 			<FormItem
-				field={'vapeId'}
-				labels={['lab.vape.vapeId.label']}
+				field={'buildId'}
+				labels={['lab.vape.buildId.label']}
 				required
 				help={<BuildTooltip/>}
 			>

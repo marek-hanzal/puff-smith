@@ -37,11 +37,11 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 		{...props}
 	>
 		<Card title={t('lab.vape.common.title')}>
-			{exclude?.includes('vapeId') ?
-				<FormItem field={'vapeId'} hidden/> :
+			{exclude?.includes('buildId') ?
+				<FormItem field={'buildId'} hidden/> :
 				<FormItem
-					field={'vapeId'}
-					labels={['lab.vape.vapeId.label']}
+					field={'buildId'}
+					labels={['lab.vape.buildId.label']}
 					required
 					help={<BuildTooltip/>}
 				>

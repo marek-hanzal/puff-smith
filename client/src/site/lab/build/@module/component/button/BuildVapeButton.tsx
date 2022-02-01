@@ -17,6 +17,7 @@ export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, ...props}) =>
 		icon={<VapeIcon/>}
 		title={'lab.vape.create.title'}
 		label={t('lab.build.button.vape.create')}
+		width={650}
 		{...props}
 	>
 		<CreateVapeForm
