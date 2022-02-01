@@ -8,17 +8,20 @@ import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
+import {useOptionalDrawerContext} from "@leight-core/leight";
 
 export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
 	vape?: Partial<VapeDto>;
+	exclude?: string[];
 }
 
-export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
+export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ...props}) => {
 	const {t} = useTranslation();
+	const drawerContext = useOptionalDrawerContext();
 	return <CreateDefaultForm
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.vape.created.message", {data: response}));
-			navigate("/lab/vape/list");
+			drawerContext ? drawerContext.setVisible(false) : navigate("/lab/vape/list");
 		}}
 		toForm={() => ({
 			rating: 0,
@@ -35,14 +38,17 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, ...props}) => {
 		{...props}
 	>
 		<Card title={t('lab.vape.common.title')}>
-			<FormItem
-				field={'buildId'}
-				labels={['lab.vape.buildId.label']}
-				required
-				help={<BuildTooltip/>}
-			>
-				<BuildSelect/>
-			</FormItem>
+			{exclude?.includes('buildId') ?
+				<FormItem field={'buildId'} hidden/> :
+				<FormItem
+					field={'buildId'}
+					labels={['lab.vape.buildId.label']}
+					required
+					help={<BuildTooltip/>}
+				>
+					<BuildSelect/>
+				</FormItem>
+			}
 			<FormItem
 				field={'mixtureId'}
 				labels={['lab.vape.mixtureId.label']}

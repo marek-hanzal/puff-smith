@@ -5,12 +5,10 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {List, Space, Typography} from "antd";
-import {BuildFilter, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildCommentButton, BuildFilter, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {ArrowRightOutlined, CommentOutlined} from "@ant-design/icons";
-import {DrawerButton} from "@leight-core/leight/dist";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -41,15 +39,8 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 							<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{age}
 						</Space>
 						<Space>
-							<BuildVapeButton size={'small'} icon={<ArrowRightOutlined/>} build={build}/>
-							<DrawerButton
-								icon={<CommentOutlined/>}
-								type={'link'}
-								size={'small'}
-								label={t('lab.build.comment.create')}
-							>
-								dfgdfg
-							</DrawerButton>
+							<BuildVapeButton size={'small'} build={build}/>
+							<BuildCommentButton build={build}/>
 						</Space>
 					</Space>
 				</List.Item>
@@ -61,7 +52,9 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			{({column}) => [
 				column({
 					key: "id",
-					render: (_, build) => <BuildQuickMenu build={build}/>,
+					render: (_, build) => <Space size={1}>
+						<BuildQuickMenu build={build}/>
+					</Space>,
 					width: 0,
 				}),
 				column({

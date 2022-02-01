@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Comment\Dto;
+namespace PuffSmith\Build\Dto\Comment;
 
 use Edde\Repository\Dto\AbstractOrderByDto;
 

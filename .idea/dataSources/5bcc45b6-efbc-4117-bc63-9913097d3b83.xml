@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="MariaDB - puff-smith@localhost">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.32">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.34">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -3062,8 +3062,8 @@ hash</ColNames>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
     <column id="669" parent="360" name="mod_id">
+      <Comment>Mod used for this vape</Comment>
       <DataType>varchar(36)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>24</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>

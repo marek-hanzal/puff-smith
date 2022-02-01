@@ -10,7 +10,7 @@ class CommentMapper extends AbstractMapper {
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(CommentDto::class, [
 			'id'      => $item->id,
-			'stamp'   => $this->isoDateNull($item->id),
+			'stamp'   => $this->isoDateNull($item->stamp),
 			'comment' => $item->comment,
 		]);
 	}

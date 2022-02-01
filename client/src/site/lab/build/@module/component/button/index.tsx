@@ -1,5 +1,6 @@
 export * from './BuildActiveButton';
 export * from './BuildCloneButton';
+export * from './BuildCommentButton';
 export * from './BuildCreateButton';
 export * from './BuildDeleteButton';
 export * from './BuildEditButton';
