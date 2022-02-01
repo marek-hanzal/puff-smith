@@ -1,10 +1,10 @@
 import {FC, useState} from "react";
 import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Card, Carousel, List, Menu, message} from "antd";
-import {QuickMenu, SmallPreview, toLocalDateTime} from "@leight-core/leight";
+import {Carousel, List, Menu, message} from "antd";
+import {Card, QuickMenu, SmallPreview, toLocalDateTime} from "@leight-core/leight";
 import dayjs from "dayjs";
-import {VapeCloneButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {VapeDto, VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
@@ -27,6 +27,9 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({vape}) => {
 			<VapePreviewButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
+		<Menu.Item>
+			<VapeCommentButton vape={vape}/>
+		</Menu.Item>
 		<Menu.Item>
 			<VapeLinkButton vape={vape}/>
 		</Menu.Item>
@@ -76,7 +79,10 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 			}}
 			listItemRender={vape => <List.Item>
 				<Carousel>
-					<Card title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
+					<Card
+						title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>}
+						extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}
+					>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
 								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Vape;
 
 use Edde\Http\AbstractRouterGroup;
+use PuffSmith\Api\Lab\Vape\Comment\CommentRouterGroup;
 use PuffSmith\Api\Lab\Vape\Endpoint\CreateEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\DeleteEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\PatchEndpoint;
@@ -19,6 +20,8 @@ class VapeRouterGroup extends AbstractRouterGroup {
 			PatchEndpoint::class,
 			VapeEndpoint::class,
 			VapesEndpoint::class,
+		], [
+			CommentRouterGroup::class,
 		]);
 	}
 }

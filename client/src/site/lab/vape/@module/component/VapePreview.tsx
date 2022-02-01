@@ -1,7 +1,7 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {Preview} from "@leight-core/leight";
-import {Card, Divider, Rate, Slider} from "antd";
+import {Card, Preview} from "@leight-core/leight";
+import {Divider, Rate, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
@@ -9,6 +9,9 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import dayjs from "dayjs";
 import {ModInline} from "@/puff-smith/site/lab/mod";
+import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {CommentList} from "@/puff-smith/site/lab/comment";
+import {CreateCommentForm} from "@/puff-smith/site/lab/vape";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -16,6 +19,7 @@ export interface IVapePreviewProps {
 
 export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 	const {t} = useTranslation();
+	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <>
 		<Card key={'common'} title={t('lab.vape.common.title')}>
 			<Preview translation={'lab.vape.preview'}>
@@ -123,5 +127,16 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				}}
 			</Preview>
 		</Card>
+		<Divider/>
+		<CommentsSource
+			filter={{vapeId: vape.id}}
+			defaultOrderBy={{stamp: false}}
+		>
+			<CommentList
+				form={<CreateCommentForm vape={vape}/>}
+				onEdit={() => commentsQueryInvalidate()}
+				onDelete={() => commentsQueryInvalidate()}
+			/>
+		</CommentsSource>
 	</>
 }
