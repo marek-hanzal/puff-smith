@@ -32,6 +32,10 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 					actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 				>
 					<Space direction={'vertical'}>
+						<Space>
+							<Typography.Text type={'secondary'}>{t('lab.build.rating.label')}</Typography.Text>
+							<SimpleRating value={build.rating}/>
+						</Space>
 						<AtomizerInline atomizer={build.atomizer}/>
 						<CoilInline coil={build.coil}/>
 						<CottonInline cotton={build.cotton}/>

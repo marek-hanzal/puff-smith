@@ -1,8 +1,8 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
-import {Card, Divider} from "antd";
+import {Divider} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, Template} from "@leight-core/leight";
+import {ButtonBar, Card, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {

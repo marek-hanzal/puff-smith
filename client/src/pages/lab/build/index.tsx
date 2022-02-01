@@ -1,7 +1,7 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ButtonBar, Template} from "@leight-core/leight";
+import {ButtonBar, Card, Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
-import {Card, Divider} from "antd";
+import {Divider} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
 
