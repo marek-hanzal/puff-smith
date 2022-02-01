@@ -54,7 +54,7 @@ export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
 	return <MixturesSourceTable
-		scroll={{x: 2200}}
+		scroll={{x: 2600}}
 		listItemRender={mixture => <List.Item
 			className={mixture.active ? 'active' : 'inactive'}
 			actions={[<QuickMenuInternal key={'quick-menu'} mixture={mixture}/>]}
@@ -84,24 +84,24 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				key: "code",
 				dataIndex: "code",
 				title: "lab.mixture.table.code",
-				width: 160,
+				width: 120,
 			}),
 			column({
 				key: "liquid",
 				title: "lab.mixture.table.liquid",
-				width: 240,
+				width: 300,
 				render: (_, mixture) => <LiquidInline liquid={mixture.liquid}/>,
 			}),
 			column({
 				key: "base",
 				title: "lab.mixture.table.base",
-				width: 200,
+				width: 320,
 				render: (_, mixture) => <BaseInline base={mixture.base}/>,
 			}),
 			column({
 				key: "booster",
 				title: "lab.mixture.table.booster",
-				width: 200,
+				width: 320,
 				render: (_, mixture) => <BoosterInline booster={mixture.booster}/>,
 			}),
 			column({
