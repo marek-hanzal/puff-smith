@@ -15,10 +15,12 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 	const deleteMutation = useDeleteMutation();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <QuickMenu {...props}>
-		<Menu.Item>
-			<BuildVapeButton build={build}/>
-		</Menu.Item>
-		<Menu.Divider/>
+		{build.active && <>
+			<Menu.Item>
+				<BuildVapeButton build={build}/>
+			</Menu.Item>
+			<Menu.Divider/>
+		</>}
 		<Menu.Item>
 			<BuildPreviewButton build={build}/>
 		</Menu.Item>
