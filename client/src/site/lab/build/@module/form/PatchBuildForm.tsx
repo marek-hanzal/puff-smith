@@ -1,7 +1,7 @@
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, InputNumber, message, Rate, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
@@ -66,6 +66,15 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				labels={['lab.build.created.label']}
 			>
 				<DatePicker showTime/>
+			</FormItem>
+			<FormItem
+				field={'rating'}
+				labels={['lab.build.rating.label']}
+				tooltip={t('lab.build.rating.label.tooltip')}
+			>
+				<Rate
+					count={10}
+				/>
 			</FormItem>
 		</Card>
 		<Divider/>

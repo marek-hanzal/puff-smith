@@ -1,14 +1,13 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, InputNumber, message, Rate, Slider} from "antd";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
-import {SwitchItem} from "@leight-core/leight";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -72,6 +71,15 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.created.label']}
 			>
 				<DatePicker showTime/>
+			</FormItem>
+			<FormItem
+				field={'rating'}
+				labels={['lab.build.rating.label']}
+				tooltip={t('lab.build.rating.label.tooltip')}
+			>
+				<Rate
+					count={10}
+				/>
 			</FormItem>
 		</Card>
 		<Divider/>

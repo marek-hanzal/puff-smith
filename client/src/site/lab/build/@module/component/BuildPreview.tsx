@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Slider} from "antd";
+import {Divider, Rate, Slider} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
@@ -18,6 +18,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 	return <>
 		<Preview translation={'lab.build.preview'} {...props}>
 			{{
+				"rating": <Rate count={10} disabled value={build.rating || undefined}/>,
 				"created": toLocalDateTime(build.created),
 				"active": <PreviewBool bool={build.active}/>,
 				"atomizer": <AtomizerInline atomizer={build.atomizer}/>,

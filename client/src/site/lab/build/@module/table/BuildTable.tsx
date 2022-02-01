@@ -46,7 +46,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				</List.Item>
 			}}
 			rowClassName={build => build.active ? 'active' : 'inactive'}
-			scroll={{x: 1600}}
+			scroll={{x: 1700}}
 			{...props}
 		>
 			{({column}) => [
@@ -56,6 +56,12 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 						<BuildQuickMenu build={build}/>
 					</Space>,
 					width: 0,
+				}),
+				column({
+					key: "rating",
+					title: "lab.build.table.rating",
+					render: (_, build) => <SimpleRating value={build.rating}/>,
+					width: 110,
 				}),
 				column({
 					key: "atomizer",
