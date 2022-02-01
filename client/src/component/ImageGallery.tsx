@@ -6,20 +6,31 @@ import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 
 export interface IImageGalleryProps {
+	onlyPreview?: boolean
+	show?: boolean
+	setShow?: (show: boolean) => void
 }
 
-export const ImageGallery: FC<IImageGalleryProps> = () => {
+export const ImageGallery: FC<IImageGalleryProps> = ({onlyPreview = false, show = false, setShow}) => {
 	const {t} = useTranslation();
-	const [visible, setVisible] = useState(false);
+	const [visible, setVisible] = useState(show);
 	const discoveryContext = useDiscoveryContext();
 	const linkContext = useLinkContext();
 	const fileSource = useFilesSource();
 	return fileSource.result.isSuccess && fileSource.result.data.count > 0 ? <>
 		<Image
-			preview={{visible: false}}
-			width={'100%'}
+			style={onlyPreview ? {display: 'none'} : undefined}
+			preview={{
+				src: linkContext.link('Edde.Shared.File.Download', {fileId: fileSource.result.data.items[0].id}, discoveryContext),
+				visible: show,
+				onVisibleChange: setShow
+			}}
+			width={onlyPreview ? undefined : '100%'}
 			src={linkContext.link('Edde.Shared.File.Download', {fileId: fileSource.result.data.items[0].id}, discoveryContext)}
-			onClick={() => setVisible(true)}
+			onClick={() => {
+				setVisible(true);
+				setShow && setShow(true);
+			}}
 		/>
 		<div style={{display: 'none'}}>
 			<Image.PreviewGroup preview={{visible, onVisibleChange: setVisible}}>
@@ -31,8 +42,8 @@ export const ImageGallery: FC<IImageGalleryProps> = () => {
 				/>)}
 			</Image.PreviewGroup>
 		</div>
-	</> : <Result
+	</> : (onlyPreview ? null : <Result
 		icon={<FileImageOutlined/>}
 		title={t('common.gallery.no-images')}
-	/>;
+	/>)
 }

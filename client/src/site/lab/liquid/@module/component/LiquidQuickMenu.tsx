@@ -5,6 +5,8 @@ import {Menu, message} from "antd";
 import {LiquidDeleteButton, LiquidEditButton, LiquidLinkButton, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 import {useDeleteMutation, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {useTranslation} from "react-i18next";
+import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
+import {GalleryButton} from "@/puff-smith";
 
 export interface ILiquidQuickMenuProps extends Partial<IQuickMenuProps> {
 	liquid: LiquidDto;
@@ -17,6 +19,13 @@ export const LiquidQuickMenu: FC<ILiquidQuickMenuProps> = ({liquid, ...props}) =
 	return <QuickMenu {...props}>
 		<Menu.Item>
 			<LiquidPreviewButton liquid={liquid}/>
+		</Menu.Item>
+		<Menu.Item>
+			<FilesSource filter={{path: '/liquid/image/' + liquid.id}}>
+				<GalleryButton>
+					{t('common.show-gallery.button')}
+				</GalleryButton>
+			</FilesSource>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
