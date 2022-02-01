@@ -1,5 +1,5 @@
 import {FileDto} from "@/sdk/edde/file/dto";
-import {useCommitMutation} from "@/sdk/edde/api/shared/file/endpoint";
+import {useCommitMutation, useFilesQueryInvalidate} from "@/sdk/edde/api/shared/file/endpoint";
 import {CheckCircleOutlined} from "@ant-design/icons";
 import {DeleteItemIcon, formatBytes, isString, useDiscoveryContext} from "@leight-core/leight";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
@@ -47,6 +47,7 @@ export const Uploader: FC<IUploaderProps> = (
 	const defaultChunkSize = 1048576 * chunkSize;
 
 	const discoveryContext = useDiscoveryContext();
+	const filesQueryInvalidate = useFilesQueryInvalidate();
 	const [progress, setProgress] = useState(0);
 
 	const [counter, setCounter] = useState(1);
@@ -101,6 +102,7 @@ export const Uploader: FC<IUploaderProps> = (
 					onSuccess: (file) => {
 						setProgress(100);
 						message.success(t(translation + ".upload.success"));
+						filesQueryInvalidate();
 						setTimeout(() => {
 							reset();
 							onSuccess(file);

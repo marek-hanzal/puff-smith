@@ -6,6 +6,10 @@ import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/l
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {CreateCommentForm, LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
+import {Uploader} from "@/puff-smith/site/shared/file";
+import {FileImageOutlined} from "@ant-design/icons";
+import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
+import {ImageGallery} from "@/puff-smith";
 
 export interface ILiquidPreviewProps extends Partial<IPreviewProps> {
 	liquid: LiquidDto
@@ -35,6 +39,22 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 					onDelete={() => commentsQueryInvalidate()}
 				/>
 			</CommentsSource>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'upload'} tab={t('lab.liquid.upload.tab')}>
+			<Uploader
+				icon={<FileImageOutlined/>}
+				translation={'lab.liquid.image'}
+				path={'/liquid/image/' + liquid.id}
+			/>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'images'} tab={t('lab.liquid.images.tab')}>
+			<FilesSource
+				filter={{
+					path: '/liquid/image/' + liquid.id,
+				}}
+			>
+				<ImageGallery/>
+			</FilesSource>
 		</Tabs.TabPane>
 	</Tabs>
 }

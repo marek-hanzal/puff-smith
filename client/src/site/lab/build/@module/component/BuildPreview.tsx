@@ -11,6 +11,8 @@ import {CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
+import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
+import {ImageGallery} from "@/puff-smith";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -94,6 +96,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
+			<FilesSource
+				filter={{
+					path: '/build/image/' + build.id,
+				}}
+			>
+				<ImageGallery/>
+			</FilesSource>
 		</Tabs.TabPane>
 	</Tabs>
 }
