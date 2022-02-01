@@ -3,13 +3,50 @@ import {BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
+import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {
+	const {t} = useTranslation();
 	return <BuildPage
 		title={"lab.build.index"}
 		selected={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/list')}
+		breadcrumbProps={<Breadcrumb>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab'}
+					icon={<HomeIcon/>}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/build'}
+					title={'lab.build.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/build/list'}
+					title={'lab.build.list.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<Space size={'small'}>
+					<BuildIcon/>{t('lab.build.index.label')}
+				</Space>
+			</Breadcrumb.Item>
+		</Breadcrumb>}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>

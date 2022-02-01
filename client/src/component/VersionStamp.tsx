@@ -5,5 +5,5 @@ export interface IVersionStampProps {
 }
 
 export const VersionStamp: FC<IVersionStampProps> = () => {
-	return <Typography.Text type={"secondary"}>v[{process.env.NEXT_PUBLIC_VERSION}-{process.env.NEXT_PUBLIC_BUILD}#{process.env.BUILD_ID}]</Typography.Text>;
+	return <Typography.Text type={"secondary"}>v[{process.env.NEXT_PUBLIC_BUILD}]</Typography.Text>;
 };

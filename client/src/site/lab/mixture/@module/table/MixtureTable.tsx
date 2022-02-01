@@ -8,6 +8,7 @@ import {MixtureAge, MixtureFilter, MixtureLinkButton, MixtureQuickMenu, MixtureS
 import {List, Space} from "antd";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {SimpleRating} from "@/puff-smith";
+import {SmallPreview} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -27,10 +28,13 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				className={mixture.active ? 'active' : 'inactive'}
 				actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}
 			>
-				<List.Item.Meta
-					title={mixture.liquid.name}
-					description={mixture.liquid.vendor.name}
-				/>
+				<SmallPreview translation={'lab.mixture.preview'}>
+					{{
+						"name": mixture.liquid.name,
+						"vendor": mixture.liquid.vendor.name,
+						"rating": <SimpleRating value={mixture.rating}/>,
+					}}
+				</SmallPreview>
 			</List.Item>}
 			rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
 			{...props}

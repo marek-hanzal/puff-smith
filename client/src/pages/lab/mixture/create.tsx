@@ -1,15 +1,51 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixture";
-import {CreateTemplate} from "@leight-core/leight";
-import {QuickMenu} from "@leight-core/leight";
-import {Menu} from "antd";
+import {CreateTemplate, QuickMenu} from "@leight-core/leight";
+import {Breadcrumb, Menu, Space} from "antd";
+import {ButtonLink, CreateIcon, HomeIcon, ListIcon} from "@leight-core/leight/dist";
+import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Create() {
+	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.mixture.create"}
 		selected={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture')}
+		breadcrumbProps={<Breadcrumb>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab'}
+					icon={<HomeIcon/>}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/mixture'}
+					title={'lab.mixture.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/mixture/list'}
+					title={'lab.mixture.list.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<Space size={'small'}>
+					<CreateIcon/>{t('lab.mixture.create.label')}
+				</Space>
+			</Breadcrumb.Item>
+		</Breadcrumb>}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<MixtureListButton/>

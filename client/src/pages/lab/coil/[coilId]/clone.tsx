@@ -1,17 +1,63 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
-import {CoilIcon} from "@/puff-smith";
-import {Divider, Menu, Space} from "antd";
+import {CloneIcon, CoilIcon} from "@/puff-smith";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {CoilCreateButton, CoilLinkButton, CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BackIcon, CreateTemplate, QuickMenu} from "@leight-core/leight";
-import {useParams} from "@leight-core/leight/dist";
+import {ButtonLink, HomeIcon, useParams} from "@leight-core/leight/dist";
+import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Clone() {
+	const {t} = useTranslation();
 	const {coilId} = useParams();
 	return <CoilPage
 		title={"lab.coil.clone"}
 		selected={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil/[coilId]', {coilId})}
+		breadcrumbProps={<Breadcrumb>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab'}
+					icon={<HomeIcon/>}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/coil'}
+					title={'lab.coil.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/coil/list'}
+					title={'lab.coil.list.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab/coil/[coilId]'}
+					query={{coilId}}
+					title={'lab.coil.index.label'}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<Space size={'small'}>
+					<CloneIcon/>{t('lab.coil.clone.label')}
+				</Space>
+			</Breadcrumb.Item>
+		</Breadcrumb>}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<CoilCreateButton/>

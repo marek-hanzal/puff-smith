@@ -1,9 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {ButtonBar, Card, Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
-import {Divider} from "antd";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
+import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -11,6 +12,22 @@ export default withLabLayout(function Index() {
 		title={"lab.build"}
 		onBack={navigate => navigate('/lab')}
 		selected={['/lab/build']}
+		breadcrumbProps={<Breadcrumb>
+			<Breadcrumb.Item>
+				<ButtonLink
+					style={{padding: 0}}
+					type={'link'}
+					size={'small'}
+					href={'/lab'}
+					icon={<HomeIcon/>}
+				/>
+			</Breadcrumb.Item>
+			<Breadcrumb.Item>
+				<Space size={'small'}>
+					<BuildIcon/>{t('lab.build.label')}
+				</Space>
+			</Breadcrumb.Item>
+		</Breadcrumb>}
 	>
 		<LabMenu/>
 		<Template

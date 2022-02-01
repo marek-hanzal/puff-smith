@@ -18,7 +18,9 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		/>
 		<CoilsSourceTable
 			filter={filter}
-			listItemRender={coil => <List.Item>
+			listItemRender={coil => <List.Item
+				actions={[<CoilQuickMenu key={'quick-menu'} coil={coil}/>]}
+			>
 				<CoilInline coil={coil}/>
 			</List.Item>}
 			{...props}
