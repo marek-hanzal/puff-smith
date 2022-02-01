@@ -4,12 +4,11 @@ import {asDayjs, DrawerButton, PreviewTemplate, QuickMenu, toLocalDate} from "@l
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureAge, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {MixtureActiveButton, MixtureAge, MixtureCommentButton, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {List, Menu, Typography} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {MixtureIcon} from "@/puff-smith";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {MixtureActiveButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureActiveButton";
 
 interface IQuickMenuInternalProps {
 	mixture: MixtureDto;
@@ -35,6 +34,9 @@ const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({mixture}) => {
 			</DrawerButton>
 		</Menu.Item>
 		<Menu.Divider/>
+		<Menu.Item>
+			<MixtureCommentButton mixture={mixture}/>
+		</Menu.Item>
 		<Menu.Item>
 			<MixtureLink mixture={mixture}/>
 		</Menu.Item>

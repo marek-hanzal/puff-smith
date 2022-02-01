@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Mixture;
 
 use Edde\Http\AbstractRouterGroup;
+use PuffSmith\Api\Lab\Mixture\Comment\CommentRouterGroup;
 use PuffSmith\Api\Lab\Mixture\Endpoint\ActiveEndpoint;
 use PuffSmith\Api\Lab\Mixture\Endpoint\CreateEndpoint;
 use PuffSmith\Api\Lab\Mixture\Endpoint\MixtureEndpoint;
@@ -19,6 +20,8 @@ class MixtureRouterGroup extends AbstractRouterGroup {
 			MixtureEndpoint::class,
 			MixturesEndpoint::class,
 			PatchEndpoint::class,
+		], [
+			CommentRouterGroup::class,
 		]);
 	}
 }

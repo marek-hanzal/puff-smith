@@ -1,19 +1,33 @@
-import {FC} from "react";
+import {createContext, FC, ReactNode} from "react";
 import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
+	EntityContext,
+	EntityProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
+	useContext,
+	useOptionalContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -22,6 +36,22 @@ export type ICreateQueryParams = void;
 
 
 export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/create/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Create");
+
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Delete");
+
+export type ILiquidQueryParams = {
+	liquidId: string;
+}
+
+
+export const useLiquidQuery = createGetQuery<ILiquidQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Liquid");
+export const useLiquidQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Liquid.Liquid"])
+}
 
 export type ILiquidsQueryParams = void;
 
@@ -32,6 +62,11 @@ export const useLiquidsQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Liquid.Liquids"])
 }
 
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Patch");
+
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/create/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
 }
 
@@ -41,6 +76,74 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 		{...props}
 	/>
 }
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const LiquidContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>);
+
+export const useLiquidContext = (): IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto> => useContext(LiquidContext, "LiquidContext");
+
+export const useOptionalLiquidContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>>(LiquidContext as any);
+
+export interface ILiquidProvider extends IEntityProviderProps<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto> {
+}
+
+export const LiquidProvider: FC<ILiquidProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <LiquidContext.Provider value={entityContext}>
+				{children}
+			</LiquidContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchLiquidProps extends Partial<IQueryProps<ILiquidQueryParams, void, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+	query: ILiquidQueryParams;
+}
+
+export const FetchLiquid: FC<IFetchLiquidProps> = ({query, ...props}) => <Query<ILiquidQueryParams, void, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+	useQuery={useLiquidQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalLiquidContext()}
+	{...props}
+/>;
+
+export interface ILiquidPageProps extends IPageProps {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/liquid/dto/index").LiquidDto) => ReactNode);
+}
+
+export const LiquidPage: FC<ILiquidPageProps> = ({children, ...props}) => {
+	const {liquidId} = useParams();
+	return <LiquidProvider>
+		<Page {...props}>
+			<FetchLiquid
+				query={{liquidId}}
+			>
+				{client => isCallable(children) ? (children as any)(client) : children}
+			</FetchLiquid>
+		</Page>
+	</LiquidProvider>;
+};
 
 export const useLiquidsSource = () => useSourceContext<ILiquidsQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidOrderByDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto>()
 

@@ -9,6 +9,7 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use PuffSmith\Liquid\Dto\Create\CreateDto;
 use PuffSmith\Liquid\Dto\LiquidFilterDto;
+use PuffSmith\Liquid\Dto\Patch\PatchDto;
 
 class LiquidRepository extends AbstractRepository {
 	public function __construct() {
@@ -45,6 +46,18 @@ class LiquidRepository extends AbstractRepository {
 			'volume'      => $createDto->volume,
 			'description' => $createDto->description,
 			'vendor_id'   => $createDto->vendorId,
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->change([
+			'id'          => $patchDto->id,
+			'name'        => $patchDto->name,
+			'pg'          => $patchDto->pg,
+			'vg'          => $patchDto->vg,
+			'volume'      => $patchDto->volume,
+			'description' => $patchDto->description,
+			'vendor_id'   => $patchDto->vendorId,
 		]);
 	}
 }
