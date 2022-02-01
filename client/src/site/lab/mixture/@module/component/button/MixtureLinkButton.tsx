@@ -3,11 +3,11 @@ import {FC} from "react";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {MixtureIcon} from "@/puff-smith";
 
-export interface IMixtureLinkProps extends Partial<IButtonLinkProps> {
+export interface IMixtureLinkButtonProps extends Partial<IButtonLinkProps> {
 	mixture: MixtureDto
 }
 
-export const MixtureLink: FC<IMixtureLinkProps> = ({mixture, ...props}) => {
+export const MixtureLinkButton: FC<IMixtureLinkButtonProps> = ({mixture, ...props}) => {
 	return <ButtonLink
 		size={'large'}
 		type={'link'}

@@ -14,7 +14,7 @@ export const BuildCommentButton: FC<IBuildCommentButtonProps> = ({build, ...prop
 	return <DrawerButton
 		icon={<CommentOutlined/>}
 		type={'link'}
-		size={'small'}
+		size={'large'}
 		title={'lab.comment.create.title'}
 		label={t('lab.build.comment.create')}
 		{...props}

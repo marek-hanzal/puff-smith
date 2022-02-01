@@ -4,12 +4,14 @@ import {Divider, Menu, Space} from "antd";
 import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BackIcon, EditTemplate, QuickMenu} from "@leight-core/leight";
+import {useParams} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
+	const {liquidId} = useParams();
 	return <LiquidPage
 		title={"lab.liquid.edit"}
 		selected={['/lab/liquid']}
-		onBack={navigate => navigate('/lab/liquid')}
+		onBack={navigate => navigate('/lab/liquid/[liquidId]', {liquidId})}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<LiquidCreateButton/>

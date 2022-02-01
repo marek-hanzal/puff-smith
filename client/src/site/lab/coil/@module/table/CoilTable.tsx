@@ -1,9 +1,9 @@
 import {CoilsSourceTable, ICoilsSourceTableProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC, useState} from "react";
-import {CoilFilter, CoilInline, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
+import {CoilFilter, CoilInline, CoilLinkButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
 import {WireInline} from "@/puff-smith/site/lab/wire";
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
-import {List} from "antd";
+import {List, Space} from "antd";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
@@ -26,7 +26,10 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 			{({column}) => [
 				column({
 					key: "id",
-					render: (_, coil) => <CoilQuickMenu coil={coil}/>,
+					render: (_, coil) => <Space size={1}>
+						<CoilLinkButton title={null} coil={coil}/>
+						<CoilQuickMenu coil={coil}/>
+					</Space>,
 					width: 0,
 				}),
 				column({

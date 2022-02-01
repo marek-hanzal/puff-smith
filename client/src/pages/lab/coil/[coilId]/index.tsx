@@ -9,7 +9,7 @@ export default withLabLayout(function Index() {
 	return <CoilPage
 		title={"lab.coil.index"}
 		selected={['/lab/coil']}
-		onBack={navigate => navigate('/lab/coil')}
+		onBack={navigate => navigate('/lab/coil/list')}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<CoilCreateButton/>

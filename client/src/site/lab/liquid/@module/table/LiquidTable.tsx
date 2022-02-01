@@ -1,8 +1,8 @@
 import {ILiquidsSourceTableProps, LiquidsSourceTable} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC, useState} from "react";
-import {LiquidCommentButton, LiquidFilter, LiquidInline, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
+import {LiquidCommentButton, LiquidFilter, LiquidInline, LiquidLinkButton, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
 import {List, Space} from "antd";
-import {SmallPreview} from "@leight-core/leight/dist";
+import {SmallPreview} from "@leight-core/leight";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 
 export interface ILiquidTableProps extends Partial<ILiquidsSourceTableProps> {
@@ -36,7 +36,10 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 			{({column}) => [
 				column({
 					key: "id",
-					render: (_, liquid) => <LiquidQuickMenu liquid={liquid}/>,
+					render: (_, liquid) => <Space size={1}>
+						<LiquidLinkButton title={null} liquid={liquid}/>
+						<LiquidQuickMenu liquid={liquid}/>
+					</Space>,
 					width: 0,
 				}),
 				column({

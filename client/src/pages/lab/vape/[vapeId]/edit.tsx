@@ -4,12 +4,14 @@ import {Divider, Menu, Space} from "antd";
 import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, EditTemplate, QuickMenu} from "@leight-core/leight";
+import {useParams} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
+	const {vapeId} = useParams();
 	return <VapePage
 		title={"lab.vape.edit"}
 		selected={['/lab/vape']}
-		onBack={navigate => navigate('/lab/vape')}
+		onBack={navigate => navigate('/lab/vape', {vapeId})}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<VapeCreateButton/>

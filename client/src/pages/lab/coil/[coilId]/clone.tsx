@@ -4,12 +4,14 @@ import {Divider, Menu, Space} from "antd";
 import {CoilCreateButton, CoilLinkButton, CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BackIcon, CreateTemplate, QuickMenu} from "@leight-core/leight";
+import {useParams} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
+	const {coilId} = useParams();
 	return <CoilPage
 		title={"lab.coil.clone"}
 		selected={['/lab/coil']}
-		onBack={navigate => navigate('/lab/coil')}
+		onBack={navigate => navigate('/lab/coil/[coilId]', {coilId})}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<CoilCreateButton/>

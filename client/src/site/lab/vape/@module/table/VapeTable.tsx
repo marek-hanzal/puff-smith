@@ -1,63 +1,18 @@
 import {FC, useState} from "react";
-import {IVapesSourceTableProps, useDeleteMutation, useVapesQueryInvalidate, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
-import {Carousel, List, Menu, message} from "antd";
-import {Card, QuickMenu, SmallPreview, toLocalDateTime} from "@leight-core/leight";
+import {Carousel, List, Space} from "antd";
+import {Card, SmallPreview, toLocalDateTime} from "@leight-core/leight";
 import dayjs from "dayjs";
-import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeFilter, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
+import {VapeFilter, VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {VapeDto, VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-
-interface IQuickMenuInternalProps {
-	vape: VapeDto;
-}
-
-const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({vape}) => {
-	const {t} = useTranslation();
-	const deleteMutation = useDeleteMutation();
-	const vapesQueryInvalidate = useVapesQueryInvalidate();
-	return <QuickMenu>
-		<Menu.Item>
-			<VapePreviewButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<VapeCommentButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeLinkButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeEditButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeCloneButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<VapeDeleteButton
-				vape={vape}
-				onOk={setShow => {
-					deleteMutation.mutate({
-						id: vape.id,
-					}, {
-						onSuccess: () => {
-							message.success(t('lab.vape.deleted.success'))
-							vapesQueryInvalidate();
-						},
-					})
-					setShow(false);
-				}}
-			/>
-		</Menu.Item>
-	</QuickMenu>;
-}
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
@@ -81,7 +36,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 				<Carousel>
 					<Card
 						title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>}
-						extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}
+						extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
 					>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
@@ -95,7 +50,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							}}
 						</SmallPreview>
 					</Card>
-					<Card title={t('lab.vape.rating.title')} extra={<QuickMenuInternal key={'quick-menu'} vape={vape}/>}>
+					<Card title={t('lab.vape.rating.title')} extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
 								"throathit": <SimpleRating value={vape.throathit}/>,
@@ -122,7 +77,10 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 			{({column}) => [
 				column({
 					key: "id",
-					render: (_, vape) => <QuickMenuInternal vape={vape}/>,
+					render: (_, vape) => <Space size={1}>
+						<VapeLinkButton title={null} vape={vape}/>
+						<VapeQuickMenu vape={vape}/>
+					</Space>,
 					width: 0,
 				}),
 				column({

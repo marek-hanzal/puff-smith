@@ -4,12 +4,14 @@ import {Divider, Menu, Space} from "antd";
 import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, EditTemplate, QuickMenu} from "@leight-core/leight";
+import {useParams} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
+	const {buildId} = useParams();
 	return <BuildPage
 		title={"lab.build.edit"}
 		selected={['/lab/build']}
-		onBack={navigate => navigate('/lab/build')}
+		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>

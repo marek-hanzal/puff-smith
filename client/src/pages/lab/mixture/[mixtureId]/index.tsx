@@ -9,7 +9,7 @@ export default withLabLayout(function Index() {
 	return <MixturePage
 		title={"lab.mixture.index"}
 		selected={['/lab/mixture']}
-		onBack={navigate => navigate('/lab/mixture')}
+		onBack={navigate => navigate('/lab/mixture/list')}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<MixtureCreateButton/>

@@ -16,11 +16,11 @@ export const CoilQuickMenu: FC<ICoilQuickMenuProps> = ({coil, ...props}) => {
 	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <QuickMenu {...props}>
 		<Menu.Item>
-			<CoilPreviewButton coil={coil}/>
+			<CoilLinkButton coil={coil}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<CoilLinkButton coil={coil}/>
+			<CoilPreviewButton coil={coil}/>
 		</Menu.Item>
 		<Menu.Item>
 			<CoilEditButton coil={coil}/>

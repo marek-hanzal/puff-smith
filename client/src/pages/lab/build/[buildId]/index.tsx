@@ -9,7 +9,7 @@ export default withLabLayout(function Index() {
 	return <BuildPage
 		title={"lab.build.index"}
 		selected={['/lab/build']}
-		onBack={navigate => navigate('/lab/build')}
+		onBack={navigate => navigate('/lab/build/list')}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>

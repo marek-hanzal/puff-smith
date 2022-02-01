@@ -1,53 +1,11 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {asDayjs, DrawerButton, PreviewTemplate, QuickMenu, toLocalDate} from "@leight-core/leight";
+import {asDayjs, toLocalDate} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureActiveButton, MixtureAge, MixtureCommentButton, MixtureEditButton, MixtureLink, MixturePreview, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {List, Menu, Typography} from "antd";
-import {EyeOutlined} from "@ant-design/icons";
-import {MixtureIcon} from "@/puff-smith";
-import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-
-interface IQuickMenuInternalProps {
-	mixture: MixtureDto;
-}
-
-const QuickMenuInternal: FC<IQuickMenuInternalProps> = ({mixture}) => {
-	return <QuickMenu>
-		<Menu.Item>
-			<DrawerButton
-				width={750}
-				type={'link'}
-				size={'large'}
-				icon={<EyeOutlined/>}
-				title={'lab.mixture.preview'}
-			>
-				<PreviewTemplate
-					icon={<MixtureIcon/>}
-					label={'lab.mixture.preview'}
-					span={24}
-				>
-					<MixturePreview mixture={mixture}/>
-				</PreviewTemplate>
-			</DrawerButton>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<MixtureCommentButton mixture={mixture}/>
-		</Menu.Item>
-		<Menu.Item>
-			<MixtureLink mixture={mixture}/>
-		</Menu.Item>
-		<Menu.Item>
-			<MixtureEditButton mixture={mixture}/>
-		</Menu.Item>
-		<Menu.Item>
-			<MixtureActiveButton mixture={mixture}/>
-		</Menu.Item>
-	</QuickMenu>
-}
+import {MixtureAge, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {List, Space, Typography} from "antd";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -57,7 +15,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 		scroll={{x: 2600}}
 		listItemRender={mixture => <List.Item
 			className={mixture.active ? 'active' : 'inactive'}
-			actions={[<QuickMenuInternal key={'quick-menu'} mixture={mixture}/>]}
+			actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}
 		>
 			<List.Item.Meta
 				title={mixture.name}
@@ -70,13 +28,16 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, mixture) => <QuickMenuInternal mixture={mixture}/>,
+				render: (_, mixture) => <Space size={1}>
+					<MixtureLinkButton title={null} mixture={mixture}/>
+					<MixtureQuickMenu mixture={mixture}/>
+				</Space>,
 				width: 0,
 			}),
 			column({
 				key: "name",
 				dataIndex: "name",
-				title: "lab.build.table.name",
+				title: "lab.mixture.table.name",
 				width: 300,
 				render: (_, mixture) => mixture.active ? mixture.name : <Typography.Text type={'secondary'}>{mixture.name}</Typography.Text>,
 			}),

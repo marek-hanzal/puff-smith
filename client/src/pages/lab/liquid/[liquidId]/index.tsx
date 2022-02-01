@@ -9,7 +9,7 @@ export default withLabLayout(function Index() {
 	return <LiquidPage
 		title={"lab.liquid.index"}
 		selected={['/lab/liquid']}
-		onBack={navigate => navigate('/lab/liquid')}
+		onBack={navigate => navigate('/lab/liquid/list')}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<LiquidCreateButton/>

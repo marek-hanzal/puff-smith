@@ -5,7 +5,7 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import dayjs from "dayjs";
 import {List, Space, Typography} from "antd";
-import {BuildCommentButton, BuildFilter, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildCommentButton, BuildFilter, BuildLinkButton, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
@@ -44,7 +44,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 						</Space>
 						<Space>
 							<BuildVapeButton size={'small'} build={build}/>
-							<BuildCommentButton build={build}/>
+							<BuildCommentButton size={'small'} build={build}/>
 						</Space>
 					</Space>
 				</List.Item>
@@ -57,6 +57,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				column({
 					key: "id",
 					render: (_, build) => <Space size={1}>
+						<BuildLinkButton title={null} build={build}/>
 						<BuildQuickMenu build={build}/>
 					</Space>,
 					width: 0,

@@ -9,7 +9,7 @@ export default withLabLayout(function Index() {
 	return <VapePage
 		title={"lab.vape.index"}
 		selected={['/lab/vape']}
-		onBack={navigate => navigate('/lab/vape')}
+		onBack={navigate => navigate('/lab/vape/list')}
 		extra={<QuickMenu>
 			<Menu.Item>
 				<VapeCreateButton/>

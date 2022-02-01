@@ -1,7 +1,7 @@
 import {Image, Result} from "antd";
 import {useFilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {FC, useState} from "react";
-import {useDiscoveryContext, useLinkContext} from "@leight-core/leight/dist";
+import {useDiscoveryContext, useLinkContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 
