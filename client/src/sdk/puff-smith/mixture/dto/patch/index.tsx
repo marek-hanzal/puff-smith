@@ -1,6 +1,5 @@
 export interface PatchDto {
 	id: string;
-	name?: string | null | undefined;
 	code?: string | null | undefined;
 	active: boolean | null;
 	steep?: number | null | undefined;

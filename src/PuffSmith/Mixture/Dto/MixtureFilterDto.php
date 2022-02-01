@@ -13,10 +13,6 @@ class MixtureFilterDto extends AbstractFilterDto {
 	/**
 	 * @var string|null|void
 	 */
-	public ?string $name;
-	/**
-	 * @var string|null|void
-	 */
 	public ?string $code;
 	/**
 	 * @var bool|null|void

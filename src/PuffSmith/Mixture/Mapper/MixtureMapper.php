@@ -23,7 +23,6 @@ class MixtureMapper extends AbstractMapper {
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(MixtureDto::class, [
 			'id'        => $item->id,
-			'name'      => $item->name,
 			'code'      => $item->code,
 			'active'    => (bool)$item->active,
 			'steep'     => isset($item->steep) ? (int)$item->steep : null,

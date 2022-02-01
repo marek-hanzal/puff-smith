@@ -7,10 +7,6 @@ use Edde\Dto\AbstractDto;
 
 class CreateDto extends AbstractDto {
 	/**
-	 * @var string
-	 */
-	public string $name;
-	/**
 	 * @var string|null
 	 */
 	public ?string $code;

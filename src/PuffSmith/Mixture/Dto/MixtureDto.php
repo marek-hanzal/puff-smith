@@ -16,10 +16,6 @@ class MixtureDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $name;
-	/**
-	 * @var string
-	 */
 	public string $code;
 	/**
 	 * @var int|null

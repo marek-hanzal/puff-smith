@@ -39,13 +39,11 @@ class MixtureRepository extends AbstractRepository {
 
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
-			'$.name',
 			'$.code',
 			'l.name',
 			'v.name',
 		], $filter->fulltext);
 		isset($filter->active) && $this->where($select, '$.active', $filter->active);
-		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
 		isset($filter->code) && $this->fulltext($select, ['$.code'], $filter->code);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
@@ -56,7 +54,6 @@ class MixtureRepository extends AbstractRepository {
 
 	public function create(CreateDto $createDto) {
 		return $this->insert([
-			'name'       => $createDto->name,
 			'code'       => $createDto->code ?? $this->randomService->code(),
 			'steep'      => $createDto->steep,
 			'active'     => true,
@@ -76,7 +73,6 @@ class MixtureRepository extends AbstractRepository {
 	public function update(PatchDto $patchDto) {
 		return $this->patch([
 			'id'         => $patchDto->id,
-			'name'       => $patchDto->name,
 			'code'       => $patchDto->code ?? $this->randomService->code(),
 			'steep'      => $patchDto->steep,
 			'active'     => $patchDto->active,

@@ -24,6 +24,8 @@ export module LiquidOrderByDto {
 
 
 export interface LiquidFilterDto {
+	name?: string | null | undefined;
+	vendorIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

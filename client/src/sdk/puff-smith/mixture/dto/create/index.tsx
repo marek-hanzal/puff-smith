@@ -1,5 +1,4 @@
 export interface CreateDto {
-	name: string;
 	code: string | null;
 	steep: number | null;
 	pg: number;

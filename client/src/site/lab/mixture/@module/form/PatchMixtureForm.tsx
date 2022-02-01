@@ -34,11 +34,6 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 	>
 		<Card title={t('lab.mixture.common.label')}>
 			<FormItem
-				field={'name'}
-				labels={['lab.mixture.name.label']}
-				required
-			/>
-			<FormItem
 				field={'code'}
 				labels={['lab.mixture.code.label']}
 				tooltip={t('lab.mixture.code.label.tooltip')}

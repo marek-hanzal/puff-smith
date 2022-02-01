@@ -5,7 +5,7 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {List, Space, Typography} from "antd";
+import {List, Space} from "antd";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -18,8 +18,8 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}
 		>
 			<List.Item.Meta
-				title={mixture.name}
-				description={mixture.liquid.name}
+				title={mixture.liquid.name}
+				description={mixture.liquid.vendor.name}
 			/>
 		</List.Item>}
 		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
@@ -35,23 +35,16 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				width: 0,
 			}),
 			column({
-				key: "name",
-				dataIndex: "name",
-				title: "lab.mixture.table.name",
+				key: "liquid",
+				title: "lab.mixture.table.liquid",
 				width: 300,
-				render: (_, mixture) => mixture.active ? mixture.name : <Typography.Text type={'secondary'}>{mixture.name}</Typography.Text>,
+				render: (_, mixture) => <LiquidInline liquid={mixture.liquid}/>,
 			}),
 			column({
 				key: "code",
 				dataIndex: "code",
 				title: "lab.mixture.table.code",
 				width: 120,
-			}),
-			column({
-				key: "liquid",
-				title: "lab.mixture.table.liquid",
-				width: 300,
-				render: (_, mixture) => <LiquidInline liquid={mixture.liquid}/>,
 			}),
 			column({
 				key: "base",

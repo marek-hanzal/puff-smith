@@ -1,6 +1,5 @@
 export interface MixtureDto {
 	id: string;
-	name: string;
 	code: string;
 	steep: number | null;
 	active: boolean;
@@ -35,7 +34,6 @@ export module MixtureOrderByDto {
 
 export interface MixtureFilterDto {
 	userId?: string | null | undefined;
-	name?: string | null | undefined;
 	code?: string | null | undefined;
 	active?: boolean | null | undefined;
 	id?: string | undefined;
