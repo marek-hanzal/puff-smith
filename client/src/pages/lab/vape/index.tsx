@@ -23,7 +23,10 @@ export default withLabLayout(function Index() {
 				<VapeListButton size={'middle'}/>
 			</ButtonBar>
 			<Divider/>
-			<Card title={t('lab.vape.latest.title')} extra={<VapeListButton size={'small'} icon={undefined} title={'lab.vape.button.all.list'}/>}>
+			<Card
+				bordered={false}
+				title={t('lab.vape.latest.title')}
+			>
 				<RecentVapeTable/>
 			</Card>
 		</Template>

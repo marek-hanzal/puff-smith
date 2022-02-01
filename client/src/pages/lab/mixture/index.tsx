@@ -23,7 +23,10 @@ export default withLabLayout(function Index() {
 				<MixtureListButton size={'middle'}/>
 			</ButtonBar>
 			<Divider/>
-			<Card title={t('lab.mixture.latest.title')} extra={<MixtureListButton size={'small'} icon={undefined} title={'lab.mixture.button.all.list'}/>}>
+			<Card
+				bordered={false}
+				title={t('lab.mixture.latest.title')}
+			>
 				<RecentMixtureTable/>
 			</Card>
 		</Template>

@@ -23,7 +23,10 @@ export default withLabLayout(function Index() {
 				<BuildListButton/>
 			</ButtonBar>
 			<Divider/>
-			<Card title={t('lab.build.latest.title')} extra={<BuildListButton size={'small'} icon={undefined} title={'lab.build.button.all.list'}/>}>
+			<Card
+				bordered={false}
+				title={t('lab.build.latest.title')}
+			>
 				<LatestBuildTable/>
 			</Card>
 		</Template>

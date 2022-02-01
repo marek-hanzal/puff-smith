@@ -13,7 +13,7 @@ export interface IMixtureQuickMenuProps extends Partial<IQuickMenuProps> {
 export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}) => {
 	return <QuickMenu {...props}>
 		<Menu.Item>
-			<MixtureCommentButton mixture={mixture}/>
+			<MixtureLinkButton mixture={mixture}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
@@ -34,7 +34,7 @@ export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}
 			</DrawerButton>
 		</Menu.Item>
 		<Menu.Item>
-			<MixtureLinkButton mixture={mixture}/>
+			<MixtureCommentButton mixture={mixture}/>
 		</Menu.Item>
 		<Menu.Item>
 			<MixtureEditButton mixture={mixture}/>

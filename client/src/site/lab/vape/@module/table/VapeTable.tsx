@@ -35,7 +35,8 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 			listItemRender={vape => <List.Item>
 				<Carousel>
 					<Card
-						title={<VapePreviewButton title={t('lab.vape.title')} icon={null} size={'small'} vape={vape}/>}
+						headStyle={{padding: 0}}
+						title={<VapePreviewButton title={t('lab.vape.title')} icon={null} vape={vape}/>}
 						extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
 					>
 						<SmallPreview translation={'lab.vape.preview'}>
@@ -50,7 +51,11 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							}}
 						</SmallPreview>
 					</Card>
-					<Card title={t('lab.vape.rating.title')} extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}>
+					<Card
+						headStyle={{padding: '0 0 0 15px'}}
+						title={t('lab.vape.rating.title')}
+						extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
+					>
 						<SmallPreview translation={'lab.vape.preview'}>
 							{{
 								"throathit": <SimpleRating value={vape.throathit}/>,
@@ -62,7 +67,11 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 							}}
 						</SmallPreview>
 					</Card>
-					<Card title={<BuildPreviewButton size={'small'} icon={null} title={'lab.vape.build.title'} build={vape.build}/>} extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}>
+					<Card
+						headStyle={{padding: 0}}
+						title={<BuildPreviewButton icon={null} title={'lab.vape.build.title'} build={vape.build}/>}
+						extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}
+					>
 						<SmallPreview translation={'lab.build.preview'}>
 							{{
 								"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
