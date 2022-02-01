@@ -32,6 +32,7 @@ class LiquidRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
+		isset($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
