@@ -2,9 +2,8 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {VapeCloneButton, VapeCreateButton, VapeEditButton, VapeListButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {PreviewTemplate} from "@leight-core/leight";
+import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Divider, Menu, Space} from "antd";
-import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	return <VapePage
@@ -36,6 +35,7 @@ export default withLabLayout(function Index() {
 			>
 				<VapePreview vape={vape}/>
 			</PreviewTemplate>
+			<Divider/>
 		</>}
 	</VapePage>;
 });

@@ -33,6 +33,7 @@ export default withLabLayout(function Clone() {
 			>
 				<CreateCoilForm coil={coil}/>
 			</CreateTemplate>
+			<Divider/>
 		</>}
 	</CoilPage>;
 });

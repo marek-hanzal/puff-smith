@@ -2,9 +2,8 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureListButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {PreviewTemplate} from "@leight-core/leight";
+import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Divider, Menu} from "antd";
-import {QuickMenu} from "@leight-core/leight";
 
 export default withLabLayout(function Index() {
 	return <MixturePage
@@ -33,6 +32,7 @@ export default withLabLayout(function Index() {
 			>
 				<MixturePreview mixture={mixture}/>
 			</PreviewTemplate>
+			<Divider/>
 		</>}
 	</MixturePage>;
 });

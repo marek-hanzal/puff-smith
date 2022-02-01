@@ -33,6 +33,7 @@ export default withLabLayout(function Edit() {
 			>
 				<PatchLiquidForm liquid={liquid}/>
 			</EditTemplate>
+			<Divider/>
 		</>}
 	</LiquidPage>;
 });

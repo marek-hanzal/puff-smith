@@ -9,6 +9,8 @@ import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/l
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
+import {Uploader} from "@/puff-smith/site/shared/file";
+import {FileImageOutlined} from "@ant-design/icons";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -83,6 +85,15 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					onDelete={() => commentsQueryInvalidate()}
 				/>
 			</CommentsSource>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
+			<Uploader
+				icon={<FileImageOutlined/>}
+				translation={'lab.build.image'}
+				path={'/build/image/' + build.id}
+			/>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
 		</Tabs.TabPane>
 	</Tabs>
 }

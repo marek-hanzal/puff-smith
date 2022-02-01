@@ -34,6 +34,7 @@ export default withLabLayout(function Index() {
 			>
 				<LiquidPreview liquid={liquid}/>
 			</PreviewTemplate>
+			<Divider/>
 		</>}
 	</LiquidPage>;
 });

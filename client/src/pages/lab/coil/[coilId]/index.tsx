@@ -35,6 +35,7 @@ export default withLabLayout(function Index() {
 			>
 				<CoilPreview coil={coil}/>
 			</PreviewTemplate>
+			<Divider/>
 		</>}
 	</CoilPage>;
 });

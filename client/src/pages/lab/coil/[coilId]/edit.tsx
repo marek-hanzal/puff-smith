@@ -34,6 +34,7 @@ export default withLabLayout(function Edit() {
 			>
 				<PatchCoilForm coil={coil}/>
 			</EditTemplate>
+			<Divider/>
 		</>}
 	</CoilPage>;
 });
