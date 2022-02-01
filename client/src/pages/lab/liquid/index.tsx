@@ -1,24 +1,24 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {CoilIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith";
 import {ButtonBar, Template} from "@leight-core/leight";
-import {CoilCreateButton, CoilListButton} from "@/puff-smith/site/lab/coil";
+import {LiquidCreateButton, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {Divider} from "antd";
 
 export default withLabLayout(function Index() {
 	return <LabPage
-		title={"lab.coil"}
-		selected={['/lab/coil']}
+		title={"lab.liquid"}
+		selected={['/lab/liquid']}
 		onBack={navigate => navigate('/lab')}
 	>
 		<LabMenu/>
 		<Template
-			icon={<CoilIcon/>}
-			label={'lab.coil'}
+			icon={<LiquidIcon/>}
+			label={'lab.liquid'}
 			span={24}
 		>
 			<ButtonBar>
-				<CoilCreateButton type={'primary'}/>
-				<CoilListButton size={'middle'}/>
+				<LiquidCreateButton type={'primary'}/>
+				<LiquidListButton size={'middle'}/>
 			</ButtonBar>
 		</Template>
 		<Divider/>

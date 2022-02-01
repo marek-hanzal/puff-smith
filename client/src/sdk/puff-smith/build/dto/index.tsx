@@ -3,6 +3,7 @@ export interface BuildDto {
 	ohm: number;
 	created: string;
 	glow: number | null;
+	rating: number | null;
 	active: boolean;
 	atomizerId: string;
 	atomizer: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto;

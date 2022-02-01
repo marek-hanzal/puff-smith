@@ -3,6 +3,7 @@ export interface LiquidDto {
 	name: string;
 	pg: number;
 	vg: number;
+	volume: number;
 	description: string | null;
 	vendorId: string;
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;

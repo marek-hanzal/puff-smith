@@ -24,6 +24,10 @@ class LiquidDto extends AbstractDto {
 	 */
 	public int $vg;
 	/**
+	 * @var int
+	 */
+	public int $volume;
+	/**
 	 * @var string|null
 	 */
 	public ?string $description;

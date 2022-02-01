@@ -27,5 +27,6 @@ export default withLabLayout(function Index() {
 				<LatestBuildTable/>
 			</Card>
 		</Template>
+		<Divider/>
 	</LabPage>;
 });
