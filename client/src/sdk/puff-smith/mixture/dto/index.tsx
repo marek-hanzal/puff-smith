@@ -1,6 +1,7 @@
 export interface MixtureDto {
 	id: string;
 	code: string;
+	rating: number | null;
 	steep: number | null;
 	active: boolean;
 	pg: number;
@@ -35,6 +36,11 @@ export module MixtureOrderByDto {
 export interface MixtureFilterDto {
 	userId?: string | null | undefined;
 	code?: string | null | undefined;
+	name?: string | null | undefined;
+	vendorIds?: string[] | null | undefined;
+	baseIds?: string[] | null | undefined;
+	boosterIds?: string[] | null | undefined;
+	rating?: number | null | undefined;
 	active?: boolean | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;

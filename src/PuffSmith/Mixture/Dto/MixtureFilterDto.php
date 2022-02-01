@@ -15,6 +15,26 @@ class MixtureFilterDto extends AbstractFilterDto {
 	 */
 	public ?string $code;
 	/**
+	 * @var string|null|void
+	 */
+	public ?string $name;
+	/**
+	 * @var string[]|null|void
+	 */
+	public ?array $vendorIds;
+	/**
+	 * @var string[]|null|void
+	 */
+	public ?array $baseIds;
+	/**
+	 * @var string[]|null|void
+	 */
+	public ?array $boosterIds;
+	/**
+	 * @var int|null|void
+	 */
+	public ?int $rating;
+	/**
 	 * @var bool|null|void
 	 */
 	public ?bool $active;

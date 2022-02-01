@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Divider, message} from "antd";
+import {Divider, message, Rate} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
@@ -9,6 +9,8 @@ import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
 import {asMoment, Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
+import {SwitchItem} from "@leight-core/leight/dist";
+import {MixtureIcon} from "@/puff-smith";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {
 	mixture: MixtureDto;
@@ -52,6 +54,19 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			>
 				<DatePicker showTime/>
 			</FormItem>
+			<FormItem
+				field={'rating'}
+				labels={['lab.mixture.rating.label']}
+				tooltip={t('lab.mixture.rating.label.tooltip')}
+			>
+				<Rate
+					count={10}
+				/>
+			</FormItem>
+			<SwitchItem
+				field={'active'}
+				labels={['lab.mixture.active.label']}
+			/>
 		</Card>
 		<Divider/>
 		<Card title={t('lab.mixture.mixture.label')}>
@@ -135,7 +150,10 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.mixture.update.submit'}/>
+			<Submit
+				icon={<MixtureIcon/>}
+				label={'lab.mixture.update.submit'}
+			/>
 		</Centered>
 	</PatchDefaultForm>
 }

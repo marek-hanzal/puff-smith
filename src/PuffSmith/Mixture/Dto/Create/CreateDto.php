@@ -15,6 +15,10 @@ class CreateDto extends AbstractDto {
 	 */
 	public ?int $steep;
 	/**
+	 * @var int|null
+	 */
+	public ?int $rating;
+	/**
 	 * @var int
 	 */
 	public int $pg = 0;

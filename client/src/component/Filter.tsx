@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {Button, Divider, Space} from "antd";
-import {CloseCircleOutlined, RightOutlined, SearchOutlined} from "@ant-design/icons";
+import {CloseCircleOutlined, SearchOutlined} from "@ant-design/icons";
 import {FC} from "react";
 import {Centered, DrawerButton, DrawerContext, Form, Submit, useDrawerContext, useFormContext} from "@leight-core/leight";
 
@@ -48,7 +48,7 @@ export type IFilterWithoutTranslationProps = Omit<IFilterProps, "translation">;
 
 export const Filter: FC<IFilterProps> = ({filter, translation, onFilter, ...props}) => {
 	return <DrawerButton
-		icon={<RightOutlined/>}
+		icon={<SearchOutlined/>}
 		type={'link'}
 		size={'small'}
 		title={translation + '.filter.title'}

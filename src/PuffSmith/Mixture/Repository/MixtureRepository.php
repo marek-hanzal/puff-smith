@@ -44,6 +44,11 @@ class MixtureRepository extends AbstractRepository {
 			'v.name',
 		], $filter->fulltext);
 		isset($filter->active) && $this->where($select, '$.active', $filter->active);
+		isset($filter->rating) && $this->where($select, '$.rating', '>=', $filter->rating);
+		isset($filter->name) && $this->fulltext($select, ['l.name'], $filter->name);
+		!empty($filter->vendorIds) && $this->where($select, 'l.vendor_id', 'in', $filter->vendorIds);
+		!empty($filter->baseIds) && $this->where($select, '$.base_id', 'in', $filter->baseIds);
+		!empty($filter->boosterIds) && $this->where($select, '$.booster_id', 'in', $filter->boosterIds);
 		isset($filter->code) && $this->fulltext($select, ['$.code'], $filter->code);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
@@ -56,6 +61,7 @@ class MixtureRepository extends AbstractRepository {
 		return $this->insert([
 			'code'       => $createDto->code ?? $this->randomService->code(),
 			'steep'      => $createDto->steep,
+			'rating'     => $createDto->rating,
 			'active'     => true,
 			'pg'         => $createDto->pg,
 			'vg'         => $createDto->vg,
@@ -75,6 +81,7 @@ class MixtureRepository extends AbstractRepository {
 			'id'         => $patchDto->id,
 			'code'       => $patchDto->code ?? $this->randomService->code(),
 			'steep'      => $patchDto->steep,
+			'rating'     => $patchDto->rating,
 			'active'     => $patchDto->active,
 			'pg'         => $patchDto->pg,
 			'vg'         => $patchDto->vg,
