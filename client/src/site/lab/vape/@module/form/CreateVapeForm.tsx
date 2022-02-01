@@ -6,7 +6,7 @@ import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {VapeSelect, VapeTooltip} from "@/puff-smith/site/lab/vape";
+import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 
 export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
@@ -43,9 +43,9 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 					field={'vapeId'}
 					labels={['lab.vape.vapeId.label']}
 					required
-					help={<VapeTooltip/>}
+					help={<BuildTooltip/>}
 				>
-					<VapeSelect/>
+					<BuildSelect/>
 				</FormItem>
 			}
 			<FormItem
