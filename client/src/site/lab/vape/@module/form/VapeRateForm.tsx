@@ -1,67 +1,36 @@
 import {FC} from "react";
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Divider, message, Rate, Slider} from "antd";
+import {IRateDefaultFormProps, RateDefaultForm, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {Card} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
-import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
-import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
-import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
-import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
+import {Divider, message, Rate, Slider} from "antd";
+import {Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight/dist";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeIcon} from "@/puff-smith";
 
-export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
+export interface IVapeRateFormProps extends Partial<IRateDefaultFormProps> {
 	vape: VapeDto;
 }
 
-export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
+export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 	const {t} = useTranslation();
-	return <PatchDefaultForm
+	const drawerContext = useOptionalDrawerContext();
+	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	return <RateDefaultForm
 		toForm={() => ({
 			...vape,
 		})}
 		toMutation={values => ({
+			id: vape.id,
 			...values,
-			...{id: vape.id}
 		})}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.vape.update.success", {data: response}));
-			navigate("/lab/vape/[vapeId]", {vapeId: response.id});
+		onSuccess={() => {
+			message.success(t('lab.vape.rate.update.success'));
+			drawerContext && drawerContext.setVisible(false);
+			vapesQueryInvalidate();
 		}}
 		{...props}
 	>
 		<Card title={t('lab.vape.common.title')}>
-			<FormItem
-				field={'buildId'}
-				labels={['lab.vape.buildId.label']}
-				required
-				help={<BuildTooltip/>}
-			>
-				<BuildSelect/>
-			</FormItem>
-			<FormItem
-				field={'mixtureId'}
-				labels={['lab.vape.mixtureId.label']}
-				required
-				help={<MixtureTooltip/>}
-			>
-				<MixtureSelect/>
-			</FormItem>
-			<FormItem
-				field={'modId'}
-				labels={['lab.vape.modId.label']}
-				required
-				help={<ModTooltip/>}
-			>
-				<ModSelect/>
-			</FormItem>
-			<FormItem
-				field={'driptipId'}
-				labels={['lab.vape.driptipId.label']}
-				help={<DriptipTooltip/>}
-			>
-				<DriptipSelect allowClear/>
-			</FormItem>
 			<FormItem
 				field={'leaks'}
 				labels={['lab.vape.leaks.label']}
@@ -117,79 +86,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 			>
 				<Rate
 					count={10}
-				/>
-			</FormItem>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.vape.settings.title')}>
-			<FormItem
-				field={'power'}
-				labels={['lab.vape.power.label']}
-				tooltip={t('lab.vape.power.label.tooltip')}
-			>
-				<Slider
-					marks={{
-						0: 0,
-						20: 20,
-						40: 40,
-						60: 60,
-						100: 100,
-					}}
-					min={0}
-					max={100}
-				/>
-			</FormItem>
-			<FormItem
-				field={'tc'}
-				labels={['lab.vape.tc.label']}
-				tooltip={t('lab.vape.tc.label.tooltip')}
-			>
-				<Slider
-					marks={{
-						0: 0,
-						80: 80,
-						120: 120,
-						200: 200,
-						320: 320,
-					}}
-					min={0}
-					max={320}
-				/>
-			</FormItem>
-			<FormItem
-				field={'airflow'}
-				labels={['lab.vape.airflow.label']}
-				tooltip={t('lab.vape.airflow.label.tooltip')}
-			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
-				/>
-			</FormItem>
-			<FormItem
-				field={'juice'}
-				labels={['lab.vape.juice.label']}
-				tooltip={t('lab.vape.juice.label.tooltip')}
-			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
 				/>
 			</FormItem>
 		</Card>
@@ -287,8 +183,80 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 			</FormItem>
 		</Card>
 		<Divider/>
+		<Card title={t('lab.vape.settings.title')}>
+			<FormItem
+				field={'power'}
+				labels={['lab.vape.power.label']}
+				tooltip={t('lab.vape.power.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						0: 0,
+						20: 20,
+						40: 40,
+						60: 60,
+						100: 100,
+					}}
+					min={0}
+					max={100}
+				/>
+			</FormItem>
+			<FormItem
+				field={'tc'}
+				labels={['lab.vape.tc.label']}
+				tooltip={t('lab.vape.tc.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						0: 0,
+						80: 80,
+						120: 120,
+						200: 200,
+						320: 320,
+					}}
+					min={0}
+					max={320}
+				/>
+			</FormItem>
+			<FormItem
+				field={'airflow'}
+				labels={['lab.vape.airflow.label']}
+				tooltip={t('lab.vape.airflow.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						"0": 0,
+						"1": 1,
+						"2": 2,
+						"3": 3,
+						"4": 4,
+						"5": 5,
+					}}
+					min={0}
+					max={5}
+				/>
+			</FormItem>
+			<FormItem
+				field={'juice'}
+				labels={['lab.vape.juice.label']}
+				tooltip={t('lab.vape.juice.label.tooltip')}
+			>
+				<Slider
+					marks={{
+						"0": 0,
+						"1": 1,
+						"2": 2,
+						"3": 3,
+						"4": 4,
+						"5": 5,
+					}}
+					min={0}
+					max={5}
+				/>
+			</FormItem>
+		</Card>
 		<Centered>
-			<Submit icon={<VapeIcon/>} label={'lab.vape.update.submit'}/>
+			<Submit icon={<VapeIcon/>} label={'lab.vape.rate.submit'}/>
 		</Centered>
-	</PatchDefaultForm>
+	</RateDefaultForm>
 }

@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Vape\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractPatchEndpoint;
-use PuffSmith\Vape\Dto\PatchDto;
+use PuffSmith\Vape\Dto\RateDto;
 use PuffSmith\Vape\Dto\VapeDto;
 use PuffSmith\Vape\Mapper\VapeMapperTrait;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 
-class PatchEndpoint extends AbstractPatchEndpoint {
+class RateEndpoint extends AbstractPatchEndpoint {
 	use VapeRepositoryTrait;
 	use VapeMapperTrait;
 
-	public function patch(PatchDto $patchDto): VapeDto {
-		return $this->vapeMapper->item($this->vapeRepository->update($patchDto));
+	public function patch(RateDto $rateDto): VapeDto {
+		return $this->vapeMapper->item($this->vapeRepository->rate($rateDto));
 	}
 }

@@ -18,12 +18,16 @@ export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
 
 export const VapeTable: FC<IVapeTableProps> = props => {
-	const [filter, setFilter] = useState<VapeFilterDto>();
+	const defaultFilter = {
+		rate: 'all',
+	}
+	const [filter, setFilter] = useState<VapeFilterDto | undefined>(defaultFilter);
 	const {t} = useTranslation();
 	return <>
 		<VapeFilter
 			filter={filter}
 			onFilter={setFilter}
+			onClear={() => setFilter(defaultFilter)}
 		/>
 		<VapesSourceTable
 			filter={filter}

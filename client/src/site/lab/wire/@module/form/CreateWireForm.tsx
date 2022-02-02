@@ -3,6 +3,7 @@ import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {Divider, InputNumber} from "antd";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {WireIcon} from "@/puff-smith";
 
 export interface ICreateWireFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -34,7 +35,7 @@ export const CreateWireForm: FC<ICreateWireFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.wire.create.submit'}/>
+			<Submit icon={<WireIcon/>} label={'lab.wire.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

@@ -3,6 +3,7 @@ import {FC} from "react";
 import {Divider, InputNumber, Slider} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {BoosterIcon} from "@/puff-smith";
 
 export interface ICreateBoosterFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -84,7 +85,7 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.booster.create.submit'}/>
+			<Submit icon={<BoosterIcon/>} label={'lab.booster.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

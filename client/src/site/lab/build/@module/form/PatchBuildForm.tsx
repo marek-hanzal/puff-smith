@@ -8,6 +8,7 @@ import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import moment from "moment";
+import {BuildIcon} from "@/puff-smith";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -157,7 +158,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.build.update.submit'}/>
+			<Submit icon={<BuildIcon/>} label={'lab.build.update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }

@@ -2,6 +2,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/l
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {Divider} from "antd";
+import {VendorIcon} from "@/puff-smith";
 
 export interface ICreateVendorFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -16,7 +17,7 @@ export const CreateVendorForm: FC<ICreateVendorFormProps> = props => {
 		/>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.vendor.create.submit'}/>
+			<Submit icon={<VendorIcon/>} label={'lab.vendor.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

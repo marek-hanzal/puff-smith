@@ -5,6 +5,7 @@ import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {Divider, InputNumber, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
+import {CoilIcon} from "@/puff-smith";
 
 export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 	coil: CoilDto;
@@ -71,7 +72,7 @@ export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, ...props}) => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.coil.update.submit'}/>
+			<Submit icon={<CoilIcon/>} label={'lab.coil.update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }
