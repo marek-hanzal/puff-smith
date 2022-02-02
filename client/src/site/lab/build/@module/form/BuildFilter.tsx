@@ -1,18 +1,18 @@
 import {FC} from "react";
-import {FormItem} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
-import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
 import {CoilSelect} from "@/puff-smith/site/lab/coil";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
 import {Rate} from "antd";
+import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 
-export interface IBuildFilterProps extends IFilterWithoutTranslationProps {
+export interface IBuildFilterProps extends IFilterWithoutTranslationProps<BuildFilterDto> {
 }
 
 export const BuildFilter: FC<IBuildFilterProps> = props => {
-	return <Filter
+	return <Filter<BuildFilterDto>
 		{...props}
 		translation={'lab.build'}
 	>

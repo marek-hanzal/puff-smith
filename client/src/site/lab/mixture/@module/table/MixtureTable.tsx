@@ -6,20 +6,19 @@ import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureFilter, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {List, Space} from "antd";
-import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {SimpleRating} from "@/puff-smith";
 import {SmallPreview} from "@leight-core/leight/dist";
+import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
-	const [filter, setFilter] = useState<BuildFilterDto>({active: true});
+	const [filter, setFilter] = useState<MixtureFilterDto | undefined>({active: true});
 	return <>
 		<MixtureFilter
 			filter={filter}
 			onFilter={setFilter}
-			onClear={() => setFilter({})}
 		/>
 		<MixturesSourceTable
 			filter={filter}

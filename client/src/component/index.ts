@@ -3,7 +3,6 @@ export * from "./icon";
 export * from "./input";
 export * from "./notification";
 export * from "./Breadcrumb";
-export * from "./Filter";
 export * from "./GalleryButton";
 export * from "./ImageGallery";
 export * from "./InfoCard";

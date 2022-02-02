@@ -1,14 +1,14 @@
 import {FC} from "react";
-import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
-import {FormItem} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
 import {Slider} from "antd";
+import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 
-export interface ICoilFilterProps extends IFilterWithoutTranslationProps {
+export interface ICoilFilterProps extends IFilterWithoutTranslationProps<CoilFilterDto> {
 }
 
 export const CoilFilter: FC<ICoilFilterProps> = props => {
-	return <Filter
+	return <Filter<CoilFilterDto>
 		translation={'lab.coil'}
 		{...props}
 	>

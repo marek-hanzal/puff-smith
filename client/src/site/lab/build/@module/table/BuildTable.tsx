@@ -20,7 +20,6 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		<BuildFilter
 			filter={filter}
 			onFilter={setFilter}
-			onClear={() => setFilter({})}
 		/>
 		<BuildsSourceTable
 			filter={filter}

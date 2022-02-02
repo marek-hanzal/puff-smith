@@ -24,7 +24,6 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		<VapeFilter
 			filter={filter}
 			onFilter={setFilter}
-			onClear={() => setFilter({})}
 		/>
 		<VapesSourceTable
 			filter={filter}

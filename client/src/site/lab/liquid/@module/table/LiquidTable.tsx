@@ -14,7 +14,6 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 		<LiquidFilter
 			filter={filter}
 			onFilter={setFilter}
-			onClear={() => setFilter({})}
 		/>
 		<LiquidsSourceTable
 			filter={filter}

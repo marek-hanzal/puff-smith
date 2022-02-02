@@ -1,13 +1,13 @@
 import {FC} from "react";
-import {FormItem} from "@leight-core/leight";
-import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor";
+import {LiquidFilterDto} from "@/sdk/puff-smith/liquid/dto";
 
-export interface ILiquidFilterProps extends IFilterWithoutTranslationProps {
+export interface ILiquidFilterProps extends IFilterWithoutTranslationProps<LiquidFilterDto> {
 }
 
 export const LiquidFilter: FC<ILiquidFilterProps> = props => {
-	return <Filter
+	return <Filter<LiquidFilterDto>
 		{...props}
 		translation={'lab.liquid'}
 	>

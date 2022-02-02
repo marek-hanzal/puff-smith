@@ -14,7 +14,6 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		<CoilFilter
 			filter={filter}
 			onFilter={setFilter}
-			onClear={() => setFilter({})}
 		/>
 		<CoilsSourceTable
 			filter={filter}

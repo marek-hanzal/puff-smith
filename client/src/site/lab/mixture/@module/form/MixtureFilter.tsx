@@ -1,17 +1,17 @@
 import {FC} from "react";
-import {FormItem} from "@leight-core/leight";
-import {Filter, IFilterWithoutTranslationProps} from "@/puff-smith";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {Rate} from "antd";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor";
 import {BoosterSelect} from "@/puff-smith/site/lab/booster";
 import {BaseSelect} from "@/puff-smith/site/lab/base";
 import {SwitchItem} from "@leight-core/leight/dist";
+import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 
-export interface IMixtureFilterProps extends IFilterWithoutTranslationProps {
+export interface IMixtureFilterProps extends IFilterWithoutTranslationProps<MixtureFilterDto> {
 }
 
 export const MixtureFilter: FC<IMixtureFilterProps> = props => {
-	return <Filter
+	return <Filter<MixtureFilterDto>
 		{...props}
 		translation={'lab.mixture'}
 	>
