@@ -255,6 +255,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				/>
 			</FormItem>
 		</Card>
+		<Divider/>
 		<Centered>
 			<Submit icon={<VapeIcon/>} label={'lab.vape.rate.submit'}/>
 		</Centered>
