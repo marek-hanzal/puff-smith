@@ -31,7 +31,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		/>
 		<VapesSourceTable
 			filter={filter}
-			scroll={{x: 2200}}
+			scroll={{x: 2400}}
 			listProps={{
 				itemLayout: 'vertical'
 			}}

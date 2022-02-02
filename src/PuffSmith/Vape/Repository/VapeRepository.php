@@ -37,8 +37,8 @@ class VapeRepository extends AbstractRepository {
 			'$.id',
 		], $filter->fulltext);
 		if (isset($filter->rate)) {
-			$filter->rate === 'unrated' && $this->where($select, '$.rating', 'is', $select->raw('NULL'))->orWhere($this->col('$.rating'), 0);
-			$filter->rate === 'rated' && $this->where($select, '$.rating', 'is', $select->raw('NOT NULL'))->where($this->col('$.rating'), '>', 0);
+			$filter->rate === 'unrated' && $this->where($select, '$.rating', 0);
+			$filter->rate === 'rated' && $this->where($select, '$.rating', '>', 0);
 		}
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
@@ -58,24 +58,15 @@ class VapeRepository extends AbstractRepository {
 			'mod_id'     => $createDto->modId,
 			'mixture_id' => $createDto->mixtureId,
 			'driptip_id' => $createDto->driptipId,
-			'rating'     => $createDto->rating,
-			'taste'      => $createDto->taste,
-			'throathit'  => $createDto->throathit,
-			'fruits'     => $createDto->fruits,
-			'tobacco'    => $createDto->tobacco,
-			'cakes'      => $createDto->cakes,
-			'complex'    => $createDto->complex,
-			'fresh'      => $createDto->fresh,
-			'clouds'     => $createDto->clouds,
-			'mtl'        => $createDto->mtl,
-			'dl'         => $createDto->dl,
-			'dryhit'     => $createDto->dryhit,
-			'leaks'      => $createDto->leaks,
-			'airflow'    => $createDto->airflow,
-			'juice'      => $createDto->juice,
-			'power'      => $createDto->power,
-			'tc'         => $createDto->tc,
 			'stamp'      => new DateTime(),
+			'rating'     => 0,
+			'taste'      => 0,
+			'clouds'     => 0,
+			'mtl'        => 0,
+			'dl'         => 0,
+			'dryhit'     => 0,
+			'leaks'      => 0,
+			'airflow'    => 0,
 			'user_id'    => $this->currentUserService->requiredId(),
 		]);
 	}
