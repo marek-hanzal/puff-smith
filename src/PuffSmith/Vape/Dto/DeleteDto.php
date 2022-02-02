@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Vape\Dto\Delete;
+namespace PuffSmith\Vape\Dto;
 
 use Edde\Dto\AbstractDto;
 

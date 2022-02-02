@@ -1,3 +1,32 @@
+export interface CreateDto {
+	modId: string;
+	buildId: string;
+	mixtureId: string;
+	driptipId: string | null;
+	rating: number;
+	taste: number;
+	throathit: number | null;
+	fruits: number | null;
+	tobacco: number | null;
+	cakes: number | null;
+	complex: number | null;
+	fresh: number | null;
+	clouds: number;
+	mtl: number;
+	dl: number;
+	dryhit: number;
+	leaks: number;
+	airflow: number;
+	juice: number | null;
+	power: number | null;
+	tc: number | null;
+}
+
+export module CreateDto {
+
+}
+
+
 export interface VapeDto {
 	id: string;
 	modId: string;
@@ -33,6 +62,71 @@ export module VapeDto {
 }
 
 
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	modId: string;
+	buildId: string;
+	mixtureId: string;
+	driptipId: string | null;
+	rating: number;
+	taste: number;
+	throathit: number | null;
+	fruits: number | null;
+	tobacco: number | null;
+	cakes: number | null;
+	complex: number | null;
+	fresh: number | null;
+	clouds: number;
+	mtl: number;
+	dl: number;
+	dryhit: number;
+	leaks: number;
+	airflow: number;
+	juice: number | null;
+	power: number | null;
+	tc: number | null;
+}
+
+export module PatchDto {
+
+}
+
+
+export interface RateDto {
+	id: string;
+	rating: number;
+	taste: number;
+	throathit: number | null;
+	fruits: number | null;
+	tobacco: number | null;
+	cakes: number | null;
+	complex: number | null;
+	fresh: number | null;
+	clouds: number;
+	mtl: number;
+	dl: number;
+	dryhit: number;
+	leaks: number;
+	airflow: number;
+	juice: number | null;
+	power: number | null;
+	tc: number | null;
+}
+
+export module RateDto {
+
+}
+
+
 export interface VapeOrderByDto {
 
 }
@@ -49,6 +143,7 @@ export interface VapeFilterDto {
 	liquidIds?: string[] | null | undefined;
 	coilIds?: string[] | null | undefined;
 	userId?: string | null | undefined;
+	rate?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

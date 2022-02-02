@@ -41,17 +41,22 @@ import {useQueryClient} from "react-query";
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/create/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Create");
 
 export type IDeleteQueryParams = void;
 
 
-export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Delete");
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Delete");
 
 export type IPatchQueryParams = void;
 
 
-export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Patch");
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Patch");
+
+export type IRateQueryParams = void;
+
+
+export const useRateMutation = createPatchMutation<IRateQueryParams, import("@/sdk/puff-smith/vape/dto/index").RateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Rate");
 
 export type IVapeQueryParams = {
 	vapeId: string;
@@ -73,32 +78,42 @@ export const useVapesQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Vape.Vapes"])
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/create/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/create/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/vape/dto/index").CreateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
 
-export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
 }
 
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
-	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vape/dto/index").DeleteDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
 		useMutation={useDeleteMutation}
 		{...props}
 	/>
 }
 
-export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
 }
 
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
-	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/patch/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
 		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export interface IRateDefaultFormProps extends Partial<IFormProps<IRateQueryParams, import("@/sdk/puff-smith/vape/dto/index").RateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>> {
+}
+
+export const RateDefaultForm: FC<IRateDefaultFormProps> = props => {
+	return <Form<IRateQueryParams, import("@/sdk/puff-smith/vape/dto/index").RateDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>
+		useMutation={useRateMutation}
 		{...props}
 	/>
 }

@@ -6,6 +6,7 @@ import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {PgSlider, VgSlider} from "@/puff-smith/component/input";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
+import {LiquidIcon} from "@/puff-smith";
 
 export interface IPatchLiquidFormProps extends Partial<IPatchDefaultFormProps> {
 	liquid: LiquidDto;
@@ -95,7 +96,7 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, ...props}) =
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.liquid.update.submit'}/>
+			<Submit icon={<LiquidIcon/>} label={'lab.liquid.update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }

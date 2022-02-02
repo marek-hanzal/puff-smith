@@ -3,6 +3,7 @@ import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {Divider} from "antd";
+import {AtomizerIcon} from "@/puff-smith";
 
 export interface ICreateAtomizerFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -20,7 +21,7 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.atomizer.create.submit'}/>
+			<Submit icon={<AtomizerIcon/>} label={'lab.atomizer.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

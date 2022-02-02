@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {PgSlider, VgSlider} from "@/puff-smith/component/input";
+import {LiquidIcon} from "@/puff-smith";
 
 export interface ICreateLiquidFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -90,7 +91,7 @@ export const CreateLiquidForm: FC<ICreateLiquidFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.liquid.create.submit'}/>
+			<Submit icon={<LiquidIcon/>} label={'lab.liquid.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

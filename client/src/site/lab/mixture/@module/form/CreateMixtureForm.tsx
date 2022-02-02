@@ -8,6 +8,7 @@ import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
+import {MixtureIcon} from "@/puff-smith";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -144,7 +145,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.mixture.create.submit'}/>
+			<Submit icon={<MixtureIcon/>} label={'lab.mixture.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>;
 }

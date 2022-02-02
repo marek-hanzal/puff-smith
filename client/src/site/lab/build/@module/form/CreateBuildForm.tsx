@@ -8,6 +8,7 @@ import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
+import {BuildIcon} from "@/puff-smith";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -162,7 +163,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.build.create.submit'}/>
+			<Submit icon={<BuildIcon/>} label={'lab.build.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>;
 }

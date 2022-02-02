@@ -4,6 +4,7 @@ import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {ModIcon} from "@/puff-smith";
 
 export interface ICreateModFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -45,7 +46,7 @@ export const CreateModForm: FC<ICreateModFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.mod.create.submit'}/>
+			<Submit icon={<ModIcon/>} label={'lab.mod.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

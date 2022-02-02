@@ -1521,14 +1521,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leight-core/edde.git",
-                "reference": "8bc8ddffcd05cdc139a3b49f461fc6dfef716850"
+                "reference": "a0a8cc9e7ab635e5661f449b10b10aee373f1d86"
             },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/leight-core/edde/zipball/8bc8ddffcd05cdc139a3b49f461fc6dfef716850",
-                "reference": "8bc8ddffcd05cdc139a3b49f461fc6dfef716850",
-                "shasum": ""
-            },
+				"type": "zip",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/a0a8cc9e7ab635e5661f449b10b10aee373f1d86",
+				"reference": "a0a8cc9e7ab635e5661f449b10b10aee373f1d86",
+				"shasum": ""
+			},
             "require": {
                 "cache/void-adapter": "^1.1",
                 "clancats/hydrahon": "^1.1",
@@ -1568,18 +1568,18 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "files": [
-                    "./src/ClanCats/Hydrahon/Query/Sql/Select.php"
-                ],
-                "exclude-from-classmap": [
-                    "./src/Edde/Bridge/",
-                    "./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
-                ],
-                "classmap": [
-                    "src/",
-                    "tests/"
-                ]
-            },
+				"files": [
+					"./src/ClanCats/Hydrahon/Query/Sql/Select.php"
+				],
+				"classmap": [
+					"src/",
+					"tests/"
+				],
+				"exclude-from-classmap": [
+					"./src/Edde/Bridge/",
+					"./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
+				]
+			},
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -1599,7 +1599,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-            "time": "2022-02-01T11:22:48+00:00"
+			"time": "2022-02-02T14:05:59+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

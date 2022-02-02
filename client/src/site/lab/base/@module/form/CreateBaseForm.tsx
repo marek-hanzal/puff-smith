@@ -3,6 +3,7 @@ import {FC} from "react";
 import {Divider, InputNumber} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {BaseIcon} from "@/puff-smith";
 
 export interface ICreateBaseFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -48,7 +49,7 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.base.create.submit'}/>
+			<Submit icon={<BaseIcon/>} label={'lab.base.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

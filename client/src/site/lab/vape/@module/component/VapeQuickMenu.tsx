@@ -2,7 +2,7 @@ import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useDeleteMutation, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Menu, message} from "antd";
-import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeLinkButton, VapePreviewButton} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeLinkButton, VapePreviewButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {IQuickMenuProps, QuickMenu} from "@leight-core/leight/dist";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 
@@ -19,6 +19,9 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 			<VapeLinkButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
+		<Menu.Item>
+			<VapeRateButton vape={vape}/>
+		</Menu.Item>
 		<Menu.Item>
 			<VapeCommentButton vape={vape}/>
 		</Menu.Item>

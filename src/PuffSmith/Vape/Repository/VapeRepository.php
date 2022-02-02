@@ -10,8 +10,9 @@ use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
-use PuffSmith\Vape\Dto\Create\CreateDto;
-use PuffSmith\Vape\Dto\Patch\PatchDto;
+use PuffSmith\Vape\Dto\CreateDto;
+use PuffSmith\Vape\Dto\PatchDto;
+use PuffSmith\Vape\Dto\RateDto;
 use PuffSmith\Vape\Dto\VapeFilterDto;
 
 class VapeRepository extends AbstractRepository {
@@ -35,6 +36,10 @@ class VapeRepository extends AbstractRepository {
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
 		], $filter->fulltext);
+		if (isset($filter->rate)) {
+			$filter->rate === 'unrated' && $this->where($select, '$.rating', 'is', $select->raw('NULL'))->orWhere($this->col('$.rating'), 0);
+			$filter->rate === 'rated' && $this->where($select, '$.rating', 'is', $select->raw('NOT NULL'))->where($this->col('$.rating'), '>', 0);
+		}
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
 		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
@@ -76,7 +81,7 @@ class VapeRepository extends AbstractRepository {
 	}
 
 	public function update(PatchDto $patchDto) {
-		return $this->patch([
+		return $this->change([
 			'id'         => $patchDto->id,
 			'build_id'   => $patchDto->buildId,
 			'mod_id'     => $patchDto->modId,
@@ -99,6 +104,29 @@ class VapeRepository extends AbstractRepository {
 			'juice'      => $patchDto->juice,
 			'power'      => $patchDto->power,
 			'tc'         => $patchDto->tc,
+		]);
+	}
+
+	public function rate(RateDto $rateDto) {
+		return $this->change([
+			'id'        => $rateDto->id,
+			'rating'    => $rateDto->rating,
+			'taste'     => $rateDto->taste,
+			'throathit' => $rateDto->throathit,
+			'fruits'    => $rateDto->fruits,
+			'tobacco'   => $rateDto->tobacco,
+			'cakes'     => $rateDto->cakes,
+			'complex'   => $rateDto->complex,
+			'fresh'     => $rateDto->fresh,
+			'clouds'    => $rateDto->clouds,
+			'mtl'       => $rateDto->mtl,
+			'dl'        => $rateDto->dl,
+			'dryhit'    => $rateDto->dryhit,
+			'leaks'     => $rateDto->leaks,
+			'airflow'   => $rateDto->airflow,
+			'juice'     => $rateDto->juice,
+			'power'     => $rateDto->power,
+			'tc'        => $rateDto->tc,
 		]);
 	}
 }

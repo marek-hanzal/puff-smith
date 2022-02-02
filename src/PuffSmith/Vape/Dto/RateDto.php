@@ -1,31 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Vape\Dto\Patch;
+namespace PuffSmith\Vape\Dto;
 
 use Edde\Dto\AbstractDto;
 
-class PatchDto extends AbstractDto {
+class RateDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
 	public string $id;
-	/**
-	 * @var string
-	 */
-	public string $modId;
-	/**
-	 * @var string
-	 */
-	public string $buildId;
-	/**
-	 * @var string
-	 */
-	public string $mixtureId;
-	/**
-	 * @var string|null
-	 */
-	public ?string $driptipId;
 	/**
 	 * @var int
 	 */

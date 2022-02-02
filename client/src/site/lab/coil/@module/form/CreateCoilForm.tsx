@@ -5,6 +5,7 @@ import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {Divider, InputNumber, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
+import {CoilIcon} from "@/puff-smith";
 
 export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 	coil?: CoilDto;
@@ -67,7 +68,7 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.coil.create.submit'}/>
+			<Submit icon={<CoilIcon/>} label={'lab.coil.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

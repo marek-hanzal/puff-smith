@@ -6,11 +6,14 @@ import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
 import {CoilSelect} from "@/puff-smith/site/lab/coil";
 import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {Radio} from "antd";
+import {useTranslation} from "react-i18next";
 
 export interface IVapeFilterProps extends IFilterWithoutTranslationProps<VapeFilterDto> {
 }
 
 export const VapeFilter: FC<IVapeFilterProps> = props => {
+	const {t} = useTranslation();
 	return <Filter<VapeFilterDto>
 		{...props}
 		translation={'lab.vape'}
@@ -44,6 +47,20 @@ export const VapeFilter: FC<IVapeFilterProps> = props => {
 			labels={['lab.vape.coilId.label']}
 		>
 			<CoilSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'rate'}
+			labels={['lab.vape.rate.label']}
+		>
+			<Radio.Group
+				options={[
+					{label: t('lab.vape.unrated.unrated'), value: 'unrated'},
+					{label: t('lab.vape.unrated.rated'), value: 'rated'},
+					{label: t('lab.vape.unrated.all'), value: 'all'},
+				]}
+				optionType={"button"}
+				buttonStyle={"outline"}
+			/>
 		</FormItem>
 	</Filter>
 }

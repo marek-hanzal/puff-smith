@@ -4,6 +4,7 @@ import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {DriptipIcon} from "@/puff-smith";
 
 export interface ICreateDriptipFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -36,7 +37,7 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.driptip.create.submit'}/>
+			<Submit icon={<DriptipIcon/>} label={'lab.driptip.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

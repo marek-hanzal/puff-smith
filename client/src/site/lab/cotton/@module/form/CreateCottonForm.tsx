@@ -3,6 +3,7 @@ import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {Divider} from "antd";
+import {CottonIcon} from "@/puff-smith";
 
 export interface ICreateCottonFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -28,7 +29,7 @@ export const CreateCottonForm: FC<ICreateCottonFormProps> = props => {
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit label={'lab.cotton.create.submit'}/>
+			<Submit icon={<CottonIcon/>} label={'lab.cotton.create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }
