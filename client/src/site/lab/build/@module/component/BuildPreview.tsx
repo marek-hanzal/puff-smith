@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Rate, Slider, Tabs} from "antd";
+import {Rate, Slider, Space, Tabs} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
@@ -14,6 +14,7 @@ import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
 import {Column} from "@ant-design/plots";
+import {useRatingQuery} from "@/sdk/puff-smith/api/lab/build/vape/endpoint";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -22,6 +23,17 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
+
+	const rating = useRatingQuery({
+		filter: {
+			buildIds: [build.id],
+		},
+		page: 0,
+		size: 10,
+	});
+
+	console.log('rating', rating.data);
+
 	return <Tabs>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
@@ -73,7 +85,10 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						min={1}
 						max={4}
 						value={build.coils}
-					/>
+					/>,
+					"ratings": <Space direction={'vertical'}>
+						{/*{rating.isSuccess && rating.data.ratings}*/}
+					</Space>
 				}}
 			</Preview>
 		</Tabs.TabPane>

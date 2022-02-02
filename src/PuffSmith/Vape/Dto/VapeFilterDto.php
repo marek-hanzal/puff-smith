@@ -8,6 +8,11 @@ use Edde\Repository\Dto\AbstractFilterDto;
 class VapeFilterDto extends AbstractFilterDto {
 	/**
 	 * @var string[]|null|void
+	 * @description Filter vapes by the build
+	 */
+	public ?array $buildIds;
+	/**
+	 * @var string[]|null|void
 	 * @description Filter vapes by an atomizer
 	 */
 	public ?array $atomizerIds;

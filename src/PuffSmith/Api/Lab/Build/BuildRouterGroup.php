@@ -11,6 +11,7 @@ use PuffSmith\Api\Lab\Build\Endpoint\BuildsEndpoint;
 use PuffSmith\Api\Lab\Build\Endpoint\CreateEndpoint;
 use PuffSmith\Api\Lab\Build\Endpoint\DeleteEndpoint;
 use PuffSmith\Api\Lab\Build\Endpoint\PatchEndpoint;
+use PuffSmith\Api\Lab\Build\Vape\VapeRouterGroup;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 class BuildRouterGroup extends AbstractRouterGroup {
@@ -24,6 +25,7 @@ class BuildRouterGroup extends AbstractRouterGroup {
 			PatchEndpoint::class,
 		], [
 			CommentRouterGroup::class,
+			VapeRouterGroup::class,
 		]);
 	}
 }
