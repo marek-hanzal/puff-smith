@@ -13,6 +13,7 @@ import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
+import {Column} from "@ant-design/plots";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -87,6 +88,81 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					onDelete={() => commentsQueryInvalidate()}
 				/>
 			</CommentsSource>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'graph'} tab={t('lab.build.graph.tab')}>
+			<Column
+				isStack
+				xField={'rating'}
+				yField={'value'}
+				seriesField={'type'}
+				label={{
+					position: 'middle',
+					layout: [
+						{
+							type: 'interval-adjust-position',
+						},
+						{
+							type: 'interval-hide-overlap',
+						},
+						{
+							type: 'adjust-color',
+						},
+					],
+				}}
+				data={[
+					{
+						"rating": 0,
+						"value": 3,
+						"type": "min",
+					},
+					{
+						"rating": 0,
+						"value": 5,
+						"type": "max",
+					},
+					{
+						"rating": 0,
+						"value": 5,
+						"type": "median",
+					},
+					{
+						"rating": 1,
+						"value": 15,
+						"type": "min",
+					},
+					{
+						"rating": 1,
+						"value": 8,
+						"type": "max",
+					},
+					{
+						"rating": 1,
+						"value": 5,
+						"type": "median",
+					},
+					{
+						"rating": 2,
+						"value": 0,
+						"type": "min",
+					},
+					{
+						"rating": 2,
+						"value": 4,
+					},
+					{
+						"rating": 3,
+						"value": 12,
+					},
+					{
+						"rating": 4,
+						"value": 18,
+					},
+					{
+						"rating": 5,
+						"value": 8,
+					},
+				]}
+			/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader
