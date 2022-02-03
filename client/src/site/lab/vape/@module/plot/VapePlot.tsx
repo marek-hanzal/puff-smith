@@ -14,11 +14,12 @@ export const VapePlot: FC<IVapePlotProps> = ({filter}) => {
 
 	return <Column
 		meta={{
-			taste: {
+			median: {
 				min: 1,
-				max: 20,
+				max: 200,
 				alias: 'hojojo',
 				formatter: () => 'hovno',
+				range: [0, 10000],
 			}
 		}}
 		loading={plotQuery.isLoading}
@@ -26,7 +27,7 @@ export const VapePlot: FC<IVapePlotProps> = ({filter}) => {
 		isGroup={plotQuery?.data?.isGroup}
 		xField={plotQuery?.data?.x || 'x'}
 		yField={plotQuery?.data?.y || 'y'}
-		seriesField={plotQuery?.data?.group}
+		seriesField={plotQuery?.data?.group || 'group'}
 		legend={{
 			position: 'top-left',
 			title: {
@@ -52,7 +53,7 @@ export const VapePlot: FC<IVapePlotProps> = ({filter}) => {
 			...data,
 			// value: data.value.toFixed(2),
 			// column: t('lab.vape.plot.' + data.column + '.column'),
-			group: t('lab.vape.plot.' + data.group + '.label'),
+			// group: t('lab.vape.plot.' + data.group + '.label'),
 		})) || []}
 	/>
 }
