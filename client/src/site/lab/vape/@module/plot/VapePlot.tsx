@@ -16,6 +16,7 @@ export const VapePlot: FC<IVapePlotProps> = ({filter, selected}) => {
 	const plotQuery = usePlotQuery({filter});
 
 	return <Column
+		animation={false}
 		meta={{
 			value: {
 				min: 1,
