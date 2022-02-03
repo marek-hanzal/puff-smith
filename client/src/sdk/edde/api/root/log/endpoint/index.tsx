@@ -14,6 +14,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -111,6 +113,9 @@ export const LogsFilterContext: FC<ILogsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/log/dto/index").LogFilterDto> {...props}/>
 }
 
+export const useLogsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/log/dto/index").LogFilterDto>()
+export const useLogsFilterContext = () => useFilterContext<import("@/sdk/edde/log/dto/index").LogFilterDto>()
+
 export const useLogTagsSource = () => useSourceContext<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined>()
 
 export interface ILogTagsSourceContext extends ISourceContext<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined> {
@@ -180,3 +185,6 @@ export interface ILogTagsFilterContextProps extends Partial<IFilterContextProvid
 export const LogTagsFilterContext: FC<ILogTagsFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
+
+export const useLogTagsOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useLogTagsFilterContext = () => useFilterContext<void | undefined>()

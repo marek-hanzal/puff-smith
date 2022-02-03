@@ -28,7 +28,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -226,3 +228,6 @@ export interface ICommentsFilterContextProps extends Partial<IFilterContextProvi
 export const CommentsFilterContext: FC<ICommentsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto> {...props}/>
 }
+
+export const useCommentsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto>()
+export const useCommentsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto>()

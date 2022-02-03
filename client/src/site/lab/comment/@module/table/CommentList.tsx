@@ -1,4 +1,4 @@
-import {Comment, List, ListProps, message, Space} from "antd";
+import {Comment, CommentProps, List, ListProps, message, Space} from "antd";
 import {CommentDto, CommentOrderByDto} from "@/sdk/puff-smith/comment/dto";
 import {FC, ReactNode} from "react";
 import {EditIcon, IFormOnSuccess, OrderButtonBar, TextArea, toLocalDateTime} from "@leight-core/leight";
@@ -8,12 +8,13 @@ import {CommentDeleteButton, DrawerCommentEditButton} from "@/puff-smith/site/la
 import {useCommentsQueryInvalidate, useCommentsSource, useDeleteMutation} from "@/sdk/puff-smith/api/lab/comment/endpoint";
 
 export interface ICommentListProps extends Partial<ListProps<CommentDto>> {
-	form: ReactNode;
+	form?: ReactNode;
 	onEdit?: IFormOnSuccess<CommentDto, CommentDto>;
 	onDelete?: () => void;
+	commentProps?: CommentProps;
 }
 
-export const CommentList: FC<ICommentListProps> = ({form, onEdit, onDelete, ...props}) => {
+export const CommentList: FC<ICommentListProps> = ({form, onEdit, onDelete, commentProps, ...props}) => {
 	const {t} = useTranslation();
 	const deleteMutation = useDeleteMutation();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
@@ -66,10 +67,11 @@ export const CommentList: FC<ICommentListProps> = ({form, onEdit, onDelete, ...p
 						comment={comment}
 					/>,
 				]}
+				{...commentProps}
 			/>
 		</List.Item>)}
-		<List.Item>
+		{form && <List.Item>
 			{form}
-		</List.Item>
+		</List.Item>}
 	</List>
 }

@@ -28,7 +28,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -250,3 +252,6 @@ export interface IVapesFilterContextProps extends Partial<IFilterContextProvider
 export const VapesFilterContext: FC<IVapesFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto> {...props}/>
 }
+
+export const useVapesOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>()
+export const useVapesFilterContext = () => useFilterContext<import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>()

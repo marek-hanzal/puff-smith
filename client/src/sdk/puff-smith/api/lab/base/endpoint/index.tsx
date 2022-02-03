@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface IBasesFilterContextProps extends Partial<IFilterContextProvider
 export const BasesFilterContext: FC<IBasesFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/base/dto/index").BaseFilterDto> {...props}/>
 }
+
+export const useBasesOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/base/dto/index").BaseFilterDto>()
+export const useBasesFilterContext = () => useFilterContext<import("@/sdk/puff-smith/base/dto/index").BaseFilterDto>()

@@ -12,8 +12,9 @@ import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -22,7 +23,6 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
-
 	return <Tabs destroyInactiveTabPane>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
@@ -77,16 +77,25 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.build.comments.tab')}>
-			<CommentsSource
-				filter={{buildId: build.id}}
-				defaultOrderBy={{stamp: false}}
-			>
-				<CommentList
-					form={<CreateCommentForm build={build}/>}
-					onEdit={() => commentsQueryInvalidate()}
-					onDelete={() => commentsQueryInvalidate()}
-				/>
-			</CommentsSource>
+			<Tabs destroyInactiveTabPane>
+				<Tabs.TabPane key={'build.comments'} tab={t('lab.build.comments.build.tab')}>
+					<CommentsSource
+						filter={{buildId: build.id}}
+						defaultOrderBy={{stamp: false}}
+					>
+						<CommentList
+							form={<CreateCommentForm build={build}/>}
+							onEdit={() => commentsQueryInvalidate()}
+							onDelete={() => commentsQueryInvalidate()}
+						/>
+					</CommentsSource>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'vape.comments'} tab={t('lab.build.comments.vape.tab')}>
+					<CommentsFilterContext defaultFilter={{buildIds: [build.id]}}>
+						<VapeComments/>
+					</CommentsFilterContext>
+				</Tabs.TabPane>
+			</Tabs>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>

@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface ICottonsFilterContextProps extends Partial<IFilterContextProvid
 export const CottonsFilterContext: FC<ICottonsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {...props}/>
 }
+
+export const useCottonsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>()
+export const useCottonsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>()

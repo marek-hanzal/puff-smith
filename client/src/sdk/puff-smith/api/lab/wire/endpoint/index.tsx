@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface IWiresFilterContextProps extends Partial<IFilterContextProvider
 export const WiresFilterContext: FC<IWiresFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/wire/dto/index").WireFilterDto> {...props}/>
 }
+
+export const useWiresOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>()
+export const useWiresFilterContext = () => useFilterContext<import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>()

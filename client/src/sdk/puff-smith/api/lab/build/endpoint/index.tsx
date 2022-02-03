@@ -28,7 +28,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -241,3 +243,6 @@ export interface IBuildsFilterContextProps extends Partial<IFilterContextProvide
 export const BuildsFilterContext: FC<IBuildsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/build/dto/index").BuildFilterDto> {...props}/>
 }
+
+export const useBuildsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>()
+export const useBuildsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>()

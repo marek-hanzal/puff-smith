@@ -15,6 +15,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -111,3 +113,6 @@ export interface IUpgradesFilterContextProps extends Partial<IFilterContextProvi
 export const UpgradesFilterContext: FC<IUpgradesFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto> {...props}/>
 }
+
+export const useUpgradesOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto>()
+export const useUpgradesFilterContext = () => useFilterContext<import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto>()

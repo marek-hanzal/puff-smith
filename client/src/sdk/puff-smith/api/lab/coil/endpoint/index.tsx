@@ -28,7 +28,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -226,3 +228,6 @@ export interface ICoilsFilterContextProps extends Partial<IFilterContextProvider
 export const CoilsFilterContext: FC<ICoilsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {...props}/>
 }
+
+export const useCoilsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>()
+export const useCoilsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>()

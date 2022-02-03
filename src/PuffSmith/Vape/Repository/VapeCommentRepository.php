@@ -7,9 +7,9 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Dto\DtoServiceTrait;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use PuffSmith\Comment\Repository\CommentRepositoryTrait;
 use PuffSmith\Vape\Dto\Comment\CommentFilterDto;
 use PuffSmith\Vape\Dto\Comment\CreateDto;
-use PuffSmith\Comment\Repository\CommentRepositoryTrait;
 use function array_map;
 
 class VapeCommentRepository extends AbstractRepository {
@@ -19,10 +19,12 @@ class VapeCommentRepository extends AbstractRepository {
 	public function toQuery(Query $query): Select {
 		$select = $this->select('c.*');
 		$this->join($select, 'z_comment', 'c', 'comment_id');
+		$this->join($select, 'z_vape', 'v', 'vape_id');
 
 		/** @var $filter CommentFilterDto */
 		$filter = $query->filter;
 		isset($filter->vapeId) && $this->where($select, '$.vape_id', $filter->vapeId);
+		!empty($filter->buildIds) && $this->where($select, 'v.build_id', 'in', $filter->buildIds);
 
 		$select->orderBy(['c.stamp' => 'desc']);
 
@@ -45,7 +47,7 @@ class VapeCommentRepository extends AbstractRepository {
 			'comment' => $createDto->comment,
 		]));
 		$this->insert([
-			'vape_id'   => $createDto->vapeId,
+			'vape_id'    => $createDto->vapeId,
 			'comment_id' => $comment->id,
 		]);
 		return $comment;

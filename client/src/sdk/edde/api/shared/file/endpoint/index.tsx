@@ -17,6 +17,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -167,3 +169,6 @@ export interface IFilesFilterContextProps extends Partial<IFilterContextProvider
 export const FilesFilterContext: FC<IFilesFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/file/dto/index").FileFilterDto> {...props}/>
 }
+
+export const useFilesOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/file/dto/index").FileFilterDto>()
+export const useFilesFilterContext = () => useFilterContext<import("@/sdk/edde/file/dto/index").FileFilterDto>()

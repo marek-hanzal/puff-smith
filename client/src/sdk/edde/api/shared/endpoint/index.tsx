@@ -14,6 +14,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -142,6 +144,9 @@ export const DateFormatListFilterContext: FC<IDateFormatListFilterContextProps> 
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useDateFormatListOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useDateFormatListFilterContext = () => useFilterContext<void | undefined>()
+
 export const useDateTimeFormatListSource = () => useSourceContext<IDateTimeFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateTimeDto, void | undefined, void | undefined>()
 
 export interface IDateTimeFormatListSourceContext extends ISourceContext<IDateTimeFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateTimeDto, void | undefined, void | undefined> {
@@ -212,6 +217,9 @@ export const DateTimeFormatListFilterContext: FC<IDateTimeFormatListFilterContex
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useDateTimeFormatListOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useDateTimeFormatListFilterContext = () => useFilterContext<void | undefined>()
+
 export const useLanguageListSource = () => useSourceContext<ILanguageListQueryParams, import("@/sdk/edde/api/shared/dto/index").LanguageDto, void | undefined, void | undefined>()
 
 export interface ILanguageListSourceContext extends ISourceContext<ILanguageListQueryParams, import("@/sdk/edde/api/shared/dto/index").LanguageDto, void | undefined, void | undefined> {
@@ -281,3 +289,6 @@ export interface ILanguageListFilterContextProps extends Partial<IFilterContextP
 export const LanguageListFilterContext: FC<ILanguageListFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
+
+export const useLanguageListOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useLanguageListFilterContext = () => useFilterContext<void | undefined>()

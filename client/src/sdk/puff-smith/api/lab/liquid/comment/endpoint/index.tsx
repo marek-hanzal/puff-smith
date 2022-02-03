@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface ICommentsFilterContextProps extends Partial<IFilterContextProvi
 export const CommentsFilterContext: FC<ICommentsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/liquid/dto/comment/index").CommentFilterDto> {...props}/>
 }
+
+export const useCommentsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/liquid/dto/comment/index").CommentFilterDto>()
+export const useCommentsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/liquid/dto/comment/index").CommentFilterDto>()

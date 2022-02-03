@@ -25,7 +25,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -193,3 +195,6 @@ export interface IJobsFilterContextProps extends Partial<IFilterContextProviderP
 export const JobsFilterContext: FC<IJobsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/job/dto/index").JobFilterDto> {...props}/>
 }
+
+export const useJobsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/job/dto/index").JobFilterDto>()
+export const useJobsFilterContext = () => useFilterContext<import("@/sdk/edde/job/dto/index").JobFilterDto>()

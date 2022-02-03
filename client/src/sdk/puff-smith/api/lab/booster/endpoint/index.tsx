@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface IBoostersFilterContextProps extends Partial<IFilterContextProvi
 export const BoostersFilterContext: FC<IBoostersFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto> {...props}/>
 }
+
+export const useBoostersOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto>()
+export const useBoostersFilterContext = () => useFilterContext<import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto>()

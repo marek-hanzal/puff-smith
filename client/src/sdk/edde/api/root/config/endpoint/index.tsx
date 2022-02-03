@@ -29,7 +29,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -219,3 +221,6 @@ export interface IConfigsFilterContextProps extends Partial<IFilterContextProvid
 export const ConfigsFilterContext: FC<IConfigsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/config/dto/index").ConfigFilterDto> {...props}/>
 }
+
+export const useConfigsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/config/dto/index").ConfigFilterDto>()
+export const useConfigsFilterContext = () => useFilterContext<import("@/sdk/edde/config/dto/index").ConfigFilterDto>()

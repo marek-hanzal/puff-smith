@@ -13,6 +13,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -114,6 +116,9 @@ export const JobLogsFilterContext: FC<IJobLogsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/job/dto/log/index").JobLogFilterDto> {...props}/>
 }
 
+export const useJobLogsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/job/dto/log/index").JobLogFilterDto>()
+export const useJobLogsFilterContext = () => useFilterContext<import("@/sdk/edde/job/dto/log/index").JobLogFilterDto>()
+
 export const useLevelsSource = () => useSourceContext<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined>()
 
 export interface ILevelsSourceContext extends ISourceContext<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined> {
@@ -184,6 +189,9 @@ export const LevelsFilterContext: FC<ILevelsFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useLevelsOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useLevelsFilterContext = () => useFilterContext<void | undefined>()
+
 export const useTypesSource = () => useSourceContext<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined>()
 
 export interface ITypesSourceContext extends ISourceContext<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined> {
@@ -253,3 +261,6 @@ export interface ITypesFilterContextProps extends Partial<IFilterContextProvider
 export const TypesFilterContext: FC<ITypesFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
+
+export const useTypesOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useTypesFilterContext = () => useFilterContext<void | undefined>()

@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface IDriptipsFilterContextProps extends Partial<IFilterContextProvi
 export const DriptipsFilterContext: FC<IDriptipsFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto> {...props}/>
 }
+
+export const useDriptipsOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto>()
+export const useDriptipsFilterContext = () => useFilterContext<import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto>()

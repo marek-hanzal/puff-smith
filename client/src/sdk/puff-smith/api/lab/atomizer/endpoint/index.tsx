@@ -16,6 +16,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -113,3 +115,6 @@ export interface IAtomizersFilterContextProps extends Partial<IFilterContextProv
 export const AtomizersFilterContext: FC<IAtomizersFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {...props}/>
 }
+
+export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>()
+export const useAtomizersFilterContext = () => useFilterContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>()

@@ -15,6 +15,8 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useFilterContext,
+	useOptionalFilterContext,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -126,6 +128,9 @@ export const NamesFilterContext: FC<INamesFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useNamesOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useNamesFilterContext = () => useFilterContext<void | undefined>()
+
 export const useProfilersSource = () => useSourceContext<IProfilersQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerDto, import("@/sdk/edde/profiler/dto/index").ProfilerOrderByDto, import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto>()
 
 export interface IProfilersSourceContext extends ISourceContext<IProfilersQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerDto, import("@/sdk/edde/profiler/dto/index").ProfilerOrderByDto, import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto> {
@@ -195,3 +200,6 @@ export interface IProfilersFilterContextProps extends Partial<IFilterContextProv
 export const ProfilersFilterContext: FC<IProfilersFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto> {...props}/>
 }
+
+export const useProfilersOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto>()
+export const useProfilersFilterContext = () => useFilterContext<import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto>()

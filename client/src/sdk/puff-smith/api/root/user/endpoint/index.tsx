@@ -28,7 +28,9 @@ import {
 	SourceContextProvider,
 	Table,
 	useContext,
+	useFilterContext,
 	useOptionalContext,
+	useOptionalFilterContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
@@ -230,6 +232,9 @@ export const RolesFilterContext: FC<IRolesFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useRolesOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useRolesFilterContext = () => useFilterContext<void | undefined>()
+
 export const useSitesSource = () => useSourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>()
 
 export interface ISitesSourceContext extends ISourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined> {
@@ -300,6 +305,9 @@ export const SitesFilterContext: FC<ISitesFilterContextProps> = props => {
 	return <FilterContextProvider<void | undefined> {...props}/>
 }
 
+export const useSitesOptionalFilterContext = () => useOptionalFilterContext<void | undefined>()
+export const useSitesFilterContext = () => useFilterContext<void | undefined>()
+
 export const useUsersSource = () => useSourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>()
 
 export interface IUsersSourceContext extends ISourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {
@@ -369,3 +377,6 @@ export interface IUsersFilterContextProps extends Partial<IFilterContextProvider
 export const UsersFilterContext: FC<IUsersFilterContextProps> = props => {
 	return <FilterContextProvider<import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {...props}/>
 }
+
+export const useUsersOptionalFilterContext = () => useOptionalFilterContext<import("@/sdk/puff-smith/user/dto/index").UserFilterDto>()
+export const useUsersFilterContext = () => useFilterContext<import("@/sdk/puff-smith/user/dto/index").UserFilterDto>()
