@@ -1,10 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidCreateButton, LiquidFilter, LiquidTable} from "@/puff-smith/site/lab/liquid";
-import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
-import {LiquidFilterDto} from "@/sdk/puff-smith/liquid/dto";
+import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -44,9 +44,9 @@ export default withLabLayout(function List() {
 		</QuickMenu>}
 	>
 		<LabMenu/>
-		<FilterContextProvider<LiquidFilterDto>>
+		<LiquidsFilterContext>
 			<LiquidFilter/>
 			<LiquidTable/>
-		</FilterContextProvider>
+		</LiquidsFilterContext>
 	</LabPage>;
 });

@@ -1,7 +1,10 @@
 import {FC} from "react";
 import {
-	Form,
-	IFormProps,
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
+	IFilterContextProviderProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,10 +15,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -105,3 +104,10 @@ export const UpgradesSourceSelect: FC<IUpgradesSourceSelectProps> = ({source, ..
 		<QuerySourceSelect<IUpgradesQueryParams, import("@/sdk/edde/phinx/dto/index").UpgradeDto, import("@/sdk/edde/phinx/dto/index").UpgradeOrderByDto, import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto> {...props}/>
 	</UpgradesSource>;
 };
+
+export interface IUpgradesFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto>> {
+}
+
+export const UpgradesFilterContext: FC<IUpgradesFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto> {...props}/>
+}

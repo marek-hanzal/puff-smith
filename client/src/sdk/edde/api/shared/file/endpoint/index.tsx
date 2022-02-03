@@ -1,6 +1,11 @@
 import {FC} from "react";
 import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,10 +17,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -159,3 +160,10 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<IFilesQueryParams, import("@/sdk/edde/file/dto/index").FileDto, import("@/sdk/edde/file/dto/index").FileOrderByDto, import("@/sdk/edde/file/dto/index").FileFilterDto> {...props}/>
 	</FilesSource>;
 };
+
+export interface IFilesFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/file/dto/index").FileFilterDto>> {
+}
+
+export const FilesFilterContext: FC<IFilesFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/file/dto/index").FileFilterDto> {...props}/>
+}

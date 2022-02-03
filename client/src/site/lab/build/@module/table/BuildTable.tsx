@@ -19,6 +19,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 	const {t} = useTranslation();
 	return <BuildsSourceTable
 		filter={filterContext?.filter}
+		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={build => {
 			// @ts-ignore
 			const age = dayjs.duration(dayjs().diff(build.created)).humanize();

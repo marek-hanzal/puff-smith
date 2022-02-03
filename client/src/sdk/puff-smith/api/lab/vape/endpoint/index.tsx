@@ -1,4 +1,4 @@
-import {createContext, FC, ReactNode} from "react";
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
 	createGetQuery,
 	createPatchMutation,
@@ -6,9 +6,11 @@ import {
 	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
@@ -31,6 +33,8 @@ import {
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICreateQueryParams = void;
 
@@ -152,20 +156,28 @@ export const FetchVape: FC<IFetchVapeProps> = ({query, ...props}) => <Query<IVap
 	{...props}
 />;
 
-export interface IVapePageProps extends IPageProps {
+export interface IVapePageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/vape/dto/index").VapeDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/vape/dto/index").VapeDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/vape/dto/index").VapeDto>) => ReactElement);
 }
 
-export const VapePage: FC<IVapePageProps> = ({children, ...props}) => {
+export const VapePage: FC<IVapePageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {vapeId} = useParams();
 	return <VapeProvider>
-		<Page {...props}>
-			<FetchVape
-				query={{vapeId}}
+		<VapeContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchVape>
-		</Page>
+				<FetchVape
+					query={{vapeId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchVape>
+			</Page>}
+		</VapeContext.Consumer>
 	</VapeProvider>;
 };
 
@@ -231,3 +243,10 @@ export const VapesSourceSelect: FC<IVapesSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<IVapesQueryParams, import("@/sdk/puff-smith/vape/dto/index").VapeDto, import("@/sdk/puff-smith/vape/dto/index").VapeOrderByDto, import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto> {...props}/>
 	</VapesSource>;
 };
+
+export interface IVapesFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>> {
+}
+
+export const VapesFilterContext: FC<IVapesFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto> {...props}/>
+}

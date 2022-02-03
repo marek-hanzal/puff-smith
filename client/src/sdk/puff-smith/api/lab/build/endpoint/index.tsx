@@ -1,20 +1,23 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +27,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type IActiveQueryParams = void;
 
@@ -149,20 +147,28 @@ export const FetchBuild: FC<IFetchBuildProps> = ({query, ...props}) => <Query<IB
 	{...props}
 />;
 
-export interface IBuildPageProps extends IPageProps {
+export interface IBuildPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/build/dto/index").BuildDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => ReactElement);
 }
 
-export const BuildPage: FC<IBuildPageProps> = ({children, ...props}) => {
+export const BuildPage: FC<IBuildPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {buildId} = useParams();
 	return <BuildProvider>
-		<Page {...props}>
-			<FetchBuild
-				query={{buildId}}
+		<BuildContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchBuild>
-		</Page>
+				<FetchBuild
+					query={{buildId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchBuild>
+			</Page>}
+		</BuildContext.Consumer>
 	</BuildProvider>;
 };
 
@@ -228,3 +234,10 @@ export const BuildsSourceSelect: FC<IBuildsSourceSelectProps> = ({source, ...pro
 		<QuerySourceSelect<IBuildsQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto, import("@/sdk/puff-smith/build/dto/index").BuildOrderByDto, import("@/sdk/puff-smith/build/dto/index").BuildFilterDto> {...props}/>
 	</BuildsSource>;
 };
+
+export interface IBuildsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>> {
+}
+
+export const BuildsFilterContext: FC<IBuildsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/build/dto/index").BuildFilterDto> {...props}/>
+}

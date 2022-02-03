@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const DriptipsSourceSelect: FC<IDriptipsSourceSelectProps> = ({source, ..
 		<QuerySourceSelect<IDriptipsQueryParams, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipOrderByDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto> {...props}/>
 	</DriptipsSource>;
 };
+
+export interface IDriptipsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto>> {
+}
+
+export const DriptipsFilterContext: FC<IDriptipsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto> {...props}/>
+}

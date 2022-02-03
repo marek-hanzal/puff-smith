@@ -1,20 +1,23 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +27,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICommentQueryParams = {
 	commentId: string;
@@ -134,20 +132,28 @@ export const FetchComment: FC<IFetchCommentProps> = ({query, ...props}) => <Quer
 	{...props}
 />;
 
-export interface ICommentPageProps extends IPageProps {
+export interface ICommentPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/comment/dto/index").CommentDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => ReactElement);
 }
 
-export const CommentPage: FC<ICommentPageProps> = ({children, ...props}) => {
+export const CommentPage: FC<ICommentPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {commentId} = useParams();
 	return <CommentProvider>
-		<Page {...props}>
-			<FetchComment
-				query={{commentId}}
+		<CommentContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchComment>
-		</Page>
+				<FetchComment
+					query={{commentId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchComment>
+			</Page>}
+		</CommentContext.Consumer>
 	</CommentProvider>;
 };
 
@@ -213,3 +219,10 @@ export const CommentsSourceSelect: FC<ICommentsSourceSelectProps> = ({source, ..
 		<QuerySourceSelect<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/comment/dto/index").CommentOrderByDto, import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto> {...props}/>
 	</CommentsSource>;
 };
+
+export interface ICommentsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto>> {
+}
+
+export const CommentsFilterContext: FC<ICommentsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto> {...props}/>
+}

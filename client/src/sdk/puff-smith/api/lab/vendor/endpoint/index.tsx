@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const VendorsSourceSelect: FC<IVendorsSourceSelectProps> = ({source, ...p
 		<QuerySourceSelect<IVendorsQueryParams, import("@/sdk/puff-smith/vendor/dto/index").VendorDto, import("@/sdk/puff-smith/vendor/dto/index").VendorOrderByDto, import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto> {...props}/>
 	</VendorsSource>;
 };
+
+export interface IVendorsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto>> {
+}
+
+export const VendorsFilterContext: FC<IVendorsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto> {...props}/>
+}

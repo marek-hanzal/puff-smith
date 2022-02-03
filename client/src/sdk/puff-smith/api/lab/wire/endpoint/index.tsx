@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const WiresSourceSelect: FC<IWiresSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<IWiresQueryParams, import("@/sdk/puff-smith/wire/dto/index").WireDto, import("@/sdk/puff-smith/wire/dto/index").WireOrderByDto, import("@/sdk/puff-smith/wire/dto/index").WireFilterDto> {...props}/>
 	</WiresSource>;
 };
+
+export interface IWiresFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>> {
+}
+
+export const WiresFilterContext: FC<IWiresFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/wire/dto/index").WireFilterDto> {...props}/>
+}

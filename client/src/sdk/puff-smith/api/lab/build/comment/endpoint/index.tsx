@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const CommentsSourceSelect: FC<ICommentsSourceSelectProps> = ({source, ..
 		<QuerySourceSelect<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/build/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/build/dto/comment/index").CommentFilterDto> {...props}/>
 	</CommentsSource>;
 };
+
+export interface ICommentsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/build/dto/comment/index").CommentFilterDto>> {
+}
+
+export const CommentsFilterContext: FC<ICommentsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/build/dto/comment/index").CommentFilterDto> {...props}/>
+}

@@ -1,20 +1,23 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +27,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICreateQueryParams = void;
 
@@ -134,20 +132,28 @@ export const FetchLiquid: FC<IFetchLiquidProps> = ({query, ...props}) => <Query<
 	{...props}
 />;
 
-export interface ILiquidPageProps extends IPageProps {
+export interface ILiquidPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/liquid/dto/index").LiquidDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => ReactElement);
 }
 
-export const LiquidPage: FC<ILiquidPageProps> = ({children, ...props}) => {
+export const LiquidPage: FC<ILiquidPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {liquidId} = useParams();
 	return <LiquidProvider>
-		<Page {...props}>
-			<FetchLiquid
-				query={{liquidId}}
+		<LiquidContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchLiquid>
-		</Page>
+				<FetchLiquid
+					query={{liquidId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchLiquid>
+			</Page>}
+		</LiquidContext.Consumer>
 	</LiquidProvider>;
 };
 
@@ -213,3 +219,10 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({source, ...p
 		<QuerySourceSelect<ILiquidsQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidOrderByDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto> {...props}/>
 	</LiquidsSource>;
 };
+
+export interface ILiquidsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto>> {
+}
+
+export const LiquidsFilterContext: FC<ILiquidsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto> {...props}/>
+}

@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({source, ..
 		<QuerySourceSelect<IBoostersQueryParams, import("@/sdk/puff-smith/booster/dto/index").BoosterDto, import("@/sdk/puff-smith/booster/dto/index").BoosterOrderByDto, import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto> {...props}/>
 	</BoostersSource>;
 };
+
+export interface IBoostersFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto>> {
+}
+
+export const BoostersFilterContext: FC<IBoostersFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto> {...props}/>
+}

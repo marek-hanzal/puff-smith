@@ -52,14 +52,8 @@ class PlotService extends AbstractPlotService {
 
 			$data[] = [
 				'column' => $k,
-				'value'  => min($ratings[$k]),
-				'group'  => 'min',
-				'count'  => $count,
-			];
-			$data[] = [
-				'column' => $k,
-				'value'  => max($ratings[$k]),
-				'group'  => 'max',
+				'value'  => ArrayUtils::median($ratings[$k]),
+				'group'  => 'median',
 				'count'  => $count,
 			];
 			$data[] = [
@@ -70,8 +64,14 @@ class PlotService extends AbstractPlotService {
 			];
 			$data[] = [
 				'column' => $k,
-				'value'  => ArrayUtils::median($ratings[$k]),
-				'group'  => 'median',
+				'value'  => min($ratings[$k]),
+				'group'  => 'min',
+				'count'  => $count,
+			];
+			$data[] = [
+				'column' => $k,
+				'value'  => max($ratings[$k]),
+				'group'  => 'max',
 				'count'  => $count,
 			];
 		}

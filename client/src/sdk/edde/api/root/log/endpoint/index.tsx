@@ -1,7 +1,9 @@
 import {FC} from "react";
 import {
-	Form,
-	IFormProps,
+	createDeleteMutation,
+	createPostQuery,
+	FilterContextProvider,
+	IFilterContextProviderProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,10 +14,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -106,6 +104,13 @@ export const LogsSourceSelect: FC<ILogsSourceSelectProps> = ({source, ...props})
 	</LogsSource>;
 };
 
+export interface ILogsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/log/dto/index").LogFilterDto>> {
+}
+
+export const LogsFilterContext: FC<ILogsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/log/dto/index").LogFilterDto> {...props}/>
+}
+
 export const useLogTagsSource = () => useSourceContext<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined>()
 
 export interface ILogTagsSourceContext extends ISourceContext<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined> {
@@ -168,3 +173,10 @@ export const LogTagsSourceSelect: FC<ILogTagsSourceSelectProps> = ({source, ...p
 		<QuerySourceSelect<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined> {...props}/>
 	</LogTagsSource>;
 };
+
+export interface ILogTagsFilterContextProps extends Partial<IFilterContextProviderProps<void | undefined>> {
+}
+
+export const LogTagsFilterContext: FC<ILogTagsFilterContextProps> = props => {
+	return <FilterContextProvider<void | undefined> {...props}/>
+}

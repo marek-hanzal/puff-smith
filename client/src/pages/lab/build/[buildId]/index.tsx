@@ -1,6 +1,6 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
-import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
@@ -14,7 +14,7 @@ export default withLabLayout(function Index() {
 		title={"lab.build.index"}
 		selected={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/list')}
-		breadcrumbProps={<Breadcrumb>
+		breadcrumbProps={_ => <Breadcrumb>
 			<Breadcrumb.Item>
 				<ButtonLink
 					style={{padding: 0}}
@@ -48,16 +48,16 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={entityContext => <QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<BuildListButton/>
 			</Menu.Item>
-			{/*<Menu.Item>*/}
-			{/*<BuildPlotButton build={build}/>*/}
-			{/*</Menu.Item>*/}
+			{entityContext.entity && <Menu.Item>
+				<BuildPlotButton build={entityContext.entity}/>
+			</Menu.Item>}
 		</QuickMenu>}
 	>
 		{build => <>

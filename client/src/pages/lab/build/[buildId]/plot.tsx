@@ -2,12 +2,12 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight";
 import {ButtonLink, HomeIcon, useParams} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -71,7 +71,7 @@ export default withLabLayout(function Plot() {
 	>
 		{build => <>
 			<LabMenu/>
-			<FilterContextProvider<VapeFilterDto> defaultFilter={{buildIds: [build.id]}}>
+			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
 				<VapeFilter disabled={['atomizerIds']}/>
 				<VapePlot
 					selected={['median', 'count']}
@@ -81,7 +81,7 @@ export default withLabLayout(function Plot() {
 				/>
 				<Divider/>
 				<VapeTable defaultFilter={{buildIds: [build.id]}}/>
-			</FilterContextProvider>
+			</VapesFilterContext>
 			<Divider/>
 		</>}
 	</BuildPage>;

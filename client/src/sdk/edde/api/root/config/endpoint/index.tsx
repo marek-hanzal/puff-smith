@@ -1,20 +1,24 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createDeleteMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,21 +28,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICreateQueryParams = void;
 
@@ -128,20 +125,28 @@ export const FetchConfig: FC<IFetchConfigProps> = ({query, ...props}) => <Query<
 	{...props}
 />;
 
-export interface IConfigPageProps extends IPageProps {
+export interface IConfigPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/edde/config/dto/index").ConfigDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => ReactElement);
 }
 
-export const ConfigPage: FC<IConfigPageProps> = ({children, ...props}) => {
+export const ConfigPage: FC<IConfigPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {configId} = useParams();
 	return <ConfigProvider>
-		<Page {...props}>
-			<FetchConfig
-				query={{configId}}
+		<ConfigContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchConfig>
-		</Page>
+				<FetchConfig
+					query={{configId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchConfig>
+			</Page>}
+		</ConfigContext.Consumer>
 	</ConfigProvider>;
 };
 
@@ -207,3 +212,10 @@ export const ConfigsSourceSelect: FC<IConfigsSourceSelectProps> = ({source, ...p
 		<QuerySourceSelect<IConfigsQueryParams, import("@/sdk/edde/config/dto/index").ConfigDto, import("@/sdk/edde/config/dto/index").ConfigOrderByDto, import("@/sdk/edde/config/dto/index").ConfigFilterDto> {...props}/>
 	</ConfigsSource>;
 };
+
+export interface IConfigsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/config/dto/index").ConfigFilterDto>> {
+}
+
+export const ConfigsFilterContext: FC<IConfigsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/config/dto/index").ConfigFilterDto> {...props}/>
+}

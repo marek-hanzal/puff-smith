@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {asDayjs, FilterContextProvider, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
+import {asDayjs, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Tabs} from "antd";
@@ -10,7 +10,7 @@ import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/l
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto
@@ -51,7 +51,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 			</CommentsSource>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.mixture.vape.plot.tab')}>
-			<FilterContextProvider<VapeFilterDto> defaultFilter={{mixtureIds: [mixture.id]}}>
+			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
 				<VapeFilter
 					disabled={['mixtureIds', 'liquidIds']}
 				/>
@@ -62,7 +62,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				<VapeTable
 					defaultFilter={{mixtureIds: [mixture.id]}}
 				/>
-			</FilterContextProvider>
+			</VapesFilterContext>
 		</Tabs.TabPane>
 	</Tabs>
 }

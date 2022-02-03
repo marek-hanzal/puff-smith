@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({source, 
 		<QuerySourceSelect<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {...props}/>
 	</AtomizersSource>;
 };
+
+export interface IAtomizersFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>> {
+}
+
+export const AtomizersFilterContext: FC<IAtomizersFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {...props}/>
+}

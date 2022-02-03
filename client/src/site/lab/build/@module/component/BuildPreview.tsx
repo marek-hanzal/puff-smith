@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {FilterContextProvider, IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
+import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Slider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
@@ -13,7 +13,7 @@ import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -89,7 +89,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</CommentsSource>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
-			<FilterContextProvider<VapeFilterDto> defaultFilter={{buildIds: [build.id]}}>
+			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
 				<Space>
 					<VapeFilter disabled={['atomizerIds']}/>
 					<BuildPlotButton
@@ -105,7 +105,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 				/>
 				<Divider/>
 				<VapeTable defaultFilter={{buildIds: [build.id]}}/>
-			</FilterContextProvider>
+			</VapesFilterContext>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader

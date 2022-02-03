@@ -1,20 +1,20 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
-	Form,
+	FilterContextProvider,
 	IEntityContext,
 	IEntityProviderProps,
-	IFormProps,
+	IFilterContextProviderProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,17 +24,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICommitQueryParams = void;
 
@@ -102,20 +99,28 @@ export const FetchJob: FC<IFetchJobProps> = ({query, ...props}) => <Query<IJobQu
 	{...props}
 />;
 
-export interface IJobPageProps extends IPageProps {
+export interface IJobPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/edde/job/dto/index").JobDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => ReactElement);
 }
 
-export const JobPage: FC<IJobPageProps> = ({children, ...props}) => {
+export const JobPage: FC<IJobPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {jobId} = useParams();
 	return <JobProvider>
-		<Page {...props}>
-			<FetchJob
-				query={{jobId}}
+		<JobContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchJob>
-		</Page>
+				<FetchJob
+					query={{jobId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchJob>
+			</Page>}
+		</JobContext.Consumer>
 	</JobProvider>;
 };
 
@@ -181,3 +186,10 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({source, ...props})
 		<QuerySourceSelect<IJobsQueryParams, import("@/sdk/edde/job/dto/index").JobDto, import("@/sdk/edde/job/dto/index").JobOrderByDto, import("@/sdk/edde/job/dto/index").JobFilterDto> {...props}/>
 	</JobsSource>;
 };
+
+export interface IJobsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/job/dto/index").JobFilterDto>> {
+}
+
+export const JobsFilterContext: FC<IJobsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/job/dto/index").JobFilterDto> {...props}/>
+}

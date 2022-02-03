@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<IBasesQueryParams, import("@/sdk/puff-smith/base/dto/index").BaseDto, import("@/sdk/puff-smith/base/dto/index").BaseOrderByDto, import("@/sdk/puff-smith/base/dto/index").BaseFilterDto> {...props}/>
 	</BasesSource>;
 };
+
+export interface IBasesFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/base/dto/index").BaseFilterDto>> {
+}
+
+export const BasesFilterContext: FC<IBasesFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/base/dto/index").BaseFilterDto> {...props}/>
+}

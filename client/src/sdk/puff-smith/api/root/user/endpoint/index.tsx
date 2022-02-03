@@ -1,20 +1,23 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +27,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICreateQueryParams = void;
 
@@ -137,20 +135,28 @@ export const FetchUser: FC<IFetchUserProps> = ({query, ...props}) => <Query<IUse
 	{...props}
 />;
 
-export interface IUserPageProps extends IPageProps {
+export interface IUserPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/edde/bridge/user/index").UserDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/bridge/user/index").UserDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/bridge/user/index").UserDto>) => ReactElement);
 }
 
-export const UserPage: FC<IUserPageProps> = ({children, ...props}) => {
+export const UserPage: FC<IUserPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {userId} = useParams();
 	return <UserProvider>
-		<Page {...props}>
-			<FetchUser
-				query={{userId}}
+		<UserContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchUser>
-		</Page>
+				<FetchUser
+					query={{userId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchUser>
+			</Page>}
+		</UserContext.Consumer>
 	</UserProvider>;
 };
 
@@ -217,6 +223,13 @@ export const RolesSourceSelect: FC<IRolesSourceSelectProps> = ({source, ...props
 	</RolesSource>;
 };
 
+export interface IRolesFilterContextProps extends Partial<IFilterContextProviderProps<void | undefined>> {
+}
+
+export const RolesFilterContext: FC<IRolesFilterContextProps> = props => {
+	return <FilterContextProvider<void | undefined> {...props}/>
+}
+
 export const useSitesSource = () => useSourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>()
 
 export interface ISitesSourceContext extends ISourceContext<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined> {
@@ -280,6 +293,13 @@ export const SitesSourceSelect: FC<ISitesSourceSelectProps> = ({source, ...props
 	</SitesSource>;
 };
 
+export interface ISitesFilterContextProps extends Partial<IFilterContextProviderProps<void | undefined>> {
+}
+
+export const SitesFilterContext: FC<ISitesFilterContextProps> = props => {
+	return <FilterContextProvider<void | undefined> {...props}/>
+}
+
 export const useUsersSource = () => useSourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>()
 
 export interface IUsersSourceContext extends ISourceContext<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {
@@ -342,3 +362,10 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {...props}/>
 	</UsersSource>;
 };
+
+export interface IUsersFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/user/dto/index").UserFilterDto>> {
+}
+
+export const UsersFilterContext: FC<IUsersFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/user/dto/index").UserFilterDto> {...props}/>
+}

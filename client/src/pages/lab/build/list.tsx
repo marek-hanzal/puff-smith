@@ -1,10 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
-import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
-import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
+import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -44,9 +44,9 @@ export default withLabLayout(function List() {
 		</QuickMenu>}
 	>
 		<LabMenu/>
-		<FilterContextProvider<BuildFilterDto>>
+		<BuildsFilterContext>
 			<BuildFilter/>
 			<BuildTable/>
-		</FilterContextProvider>
+		</BuildsFilterContext>
 	</LabPage>;
 });

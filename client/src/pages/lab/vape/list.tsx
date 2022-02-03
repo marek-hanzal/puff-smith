@@ -1,10 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeFilter, VapeTable} from "@/puff-smith/site/lab/vape";
-import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
+import {QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -44,9 +44,9 @@ export default withLabLayout(function List() {
 		</QuickMenu>}
 	>
 		<LabMenu/>
-		<FilterContextProvider<VapeFilterDto>>
+		<VapesFilterContext>
 			<VapeFilter/>
 			<VapeTable/>
-		</FilterContextProvider>
+		</VapesFilterContext>
 	</LabPage>;
 });

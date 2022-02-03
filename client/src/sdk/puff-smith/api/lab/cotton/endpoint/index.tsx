@@ -1,6 +1,10 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
+	FilterContextProvider,
 	Form,
+	IFilterContextProviderProps,
 	IFormProps,
 	IQueryOptions,
 	IQueryResult,
@@ -12,8 +16,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -104,3 +106,10 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({source, ...p
 		<QuerySourceSelect<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {...props}/>
 	</CottonsSource>;
 };
+
+export interface ICottonsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>> {
+}
+
+export const CottonsFilterContext: FC<ICottonsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {...props}/>
+}

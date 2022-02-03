@@ -1,20 +1,23 @@
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
+	FilterContextProvider,
 	Form,
 	IEntityContext,
 	IEntityProviderProps,
+	IFilterContextProviderProps,
 	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,19 +27,14 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICoilQueryParams = {
 	coilId: string;
@@ -134,20 +132,28 @@ export const FetchCoil: FC<IFetchCoilProps> = ({query, ...props}) => <Query<ICoi
 	{...props}
 />;
 
-export interface ICoilPageProps extends IPageProps {
+export interface ICoilPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/coil/dto/index").CoilDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/coil/dto/index").CoilDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/coil/dto/index").CoilDto>) => ReactElement);
 }
 
-export const CoilPage: FC<ICoilPageProps> = ({children, ...props}) => {
+export const CoilPage: FC<ICoilPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
 	const {coilId} = useParams();
 	return <CoilProvider>
-		<Page {...props}>
-			<FetchCoil
-				query={{coilId}}
+		<CoilContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
 			>
-				{client => isCallable(children) ? (children as any)(client) : children}
-			</FetchCoil>
-		</Page>
+				<FetchCoil
+					query={{coilId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchCoil>
+			</Page>}
+		</CoilContext.Consumer>
 	</CoilProvider>;
 };
 
@@ -213,3 +219,10 @@ export const CoilsSourceSelect: FC<ICoilsSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<ICoilsQueryParams, import("@/sdk/puff-smith/coil/dto/index").CoilDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {...props}/>
 	</CoilsSource>;
 };
+
+export interface ICoilsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>> {
+}
+
+export const CoilsFilterContext: FC<ICoilsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto> {...props}/>
+}

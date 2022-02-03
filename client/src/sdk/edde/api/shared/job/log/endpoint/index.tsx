@@ -1,7 +1,8 @@
 import {FC} from "react";
 import {
-	Form,
-	IFormProps,
+	createPostQuery,
+	FilterContextProvider,
+	IFilterContextProviderProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,8 +13,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
@@ -108,6 +107,13 @@ export const JobLogsSourceSelect: FC<IJobLogsSourceSelectProps> = ({source, ...p
 	</JobLogsSource>;
 };
 
+export interface IJobLogsFilterContextProps extends Partial<IFilterContextProviderProps<import("@/sdk/edde/job/dto/log/index").JobLogFilterDto>> {
+}
+
+export const JobLogsFilterContext: FC<IJobLogsFilterContextProps> = props => {
+	return <FilterContextProvider<import("@/sdk/edde/job/dto/log/index").JobLogFilterDto> {...props}/>
+}
+
 export const useLevelsSource = () => useSourceContext<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined>()
 
 export interface ILevelsSourceContext extends ISourceContext<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined> {
@@ -171,6 +177,13 @@ export const LevelsSourceSelect: FC<ILevelsSourceSelectProps> = ({source, ...pro
 	</LevelsSource>;
 };
 
+export interface ILevelsFilterContextProps extends Partial<IFilterContextProviderProps<void | undefined>> {
+}
+
+export const LevelsFilterContext: FC<ILevelsFilterContextProps> = props => {
+	return <FilterContextProvider<void | undefined> {...props}/>
+}
+
 export const useTypesSource = () => useSourceContext<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined>()
 
 export interface ITypesSourceContext extends ISourceContext<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined> {
@@ -233,3 +246,10 @@ export const TypesSourceSelect: FC<ITypesSourceSelectProps> = ({source, ...props
 		<QuerySourceSelect<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined> {...props}/>
 	</TypesSource>;
 };
+
+export interface ITypesFilterContextProps extends Partial<IFilterContextProviderProps<void | undefined>> {
+}
+
+export const TypesFilterContext: FC<ITypesFilterContextProps> = props => {
+	return <FilterContextProvider<void | undefined> {...props}/>
+}
