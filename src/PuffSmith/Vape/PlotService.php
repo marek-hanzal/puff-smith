@@ -12,6 +12,7 @@ use Edde\Utils\ArrayUtils;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 use function array_filter;
 use function array_values;
+use function count;
 use function max;
 use function min;
 use function sort;

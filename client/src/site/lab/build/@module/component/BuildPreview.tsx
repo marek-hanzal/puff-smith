@@ -98,13 +98,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</CommentsSource>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.graph.tab')}>
-			{!plotQuery.isSuccess && <Column
-				loading
-				xField={'rating'}
-				yField={'value'}
-				data={[]}
-			/>}
-			{plotQuery.isSuccess && <Column
+			<Column
 				meta={{
 					taste: {
 						min: 1,
@@ -113,11 +107,12 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						formatter: () => 'hovno',
 					}
 				}}
-				isStack={plotQuery.data.isStack}
-				isGroup={plotQuery.data.isGroup}
-				xField={plotQuery.data.x}
-				yField={plotQuery.data.y}
-				seriesField={plotQuery.data.group}
+				loading={plotQuery.isLoading}
+				isStack={plotQuery?.data?.isStack}
+				isGroup={plotQuery?.data?.isGroup}
+				xField={plotQuery?.data?.x || 'x'}
+				yField={plotQuery?.data?.y || 'y'}
+				seriesField={plotQuery?.data?.group}
 				legend={{
 					position: 'top-left',
 					title: {
@@ -139,13 +134,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						},
 					],
 				}}
-				data={plotQuery.data.data.map(data => ({
+				data={plotQuery?.data?.data.map(data => ({
 					...data,
 					// value: data.value.toFixed(2),
 					// column: t('lab.vape.plot.' + data.column + '.column'),
 					group: t('lab.vape.plot.' + data.group + '.label'),
-				}))}
-			/>}
+				})) || []}
+			/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader
