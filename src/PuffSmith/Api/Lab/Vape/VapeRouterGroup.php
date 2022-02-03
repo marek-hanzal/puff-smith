@@ -8,6 +8,7 @@ use PuffSmith\Api\Lab\Vape\Comment\CommentRouterGroup;
 use PuffSmith\Api\Lab\Vape\Endpoint\CreateEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\DeleteEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\PatchEndpoint;
+use PuffSmith\Api\Lab\Vape\Endpoint\PlotEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\RateEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\VapeEndpoint;
 use PuffSmith\Api\Lab\Vape\Endpoint\VapesEndpoint;
@@ -19,6 +20,7 @@ class VapeRouterGroup extends AbstractRouterGroup {
 			CreateEndpoint::class,
 			DeleteEndpoint::class,
 			PatchEndpoint::class,
+			PlotEndpoint::class,
 			RateEndpoint::class,
 			VapeEndpoint::class,
 			VapesEndpoint::class,

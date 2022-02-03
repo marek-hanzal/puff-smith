@@ -1,9 +1,9 @@
+import {createContext, FC, ReactNode} from "react";
 import {
-	FC,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	Form,
@@ -15,6 +15,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -24,13 +25,6 @@ import {
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useOptionalContext,
 	useParams,
@@ -52,6 +46,15 @@ export type IPatchQueryParams = void;
 
 
 export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/vape/dto/index").PatchDto, import("@/sdk/puff-smith/vape/dto/index").VapeDto>("PuffSmith.Lab.Vape.Patch");
+
+export type IPlotQueryParams = void;
+
+
+export const usePlotQuery = createPostQuery<IPlotQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/vape/dto/index").VapeOrderByDto, import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>, import("@/sdk/edde/plot/dto/index").PlotDto>("PuffSmith.Lab.Vape.Plot");
+export const usePlotQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Vape.Plot"])
+}
 
 export type IRateQueryParams = void;
 

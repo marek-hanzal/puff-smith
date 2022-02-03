@@ -1,6 +1,6 @@
 export interface Query<TOrderBy = void | undefined, TFilter = void | undefined> {
-	page: number | null;
-	size: number | null;
+	page?: number | null | undefined;
+	size?: number | null | undefined;
 	orderBy?: TOrderBy | null | undefined;
 	filter?: TFilter | null | undefined;
 }

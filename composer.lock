@@ -1521,14 +1521,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leight-core/edde.git",
-                "reference": "a0a8cc9e7ab635e5661f449b10b10aee373f1d86"
+                "reference": "0652403c1976dbb18ce8314f501ee5d191f619fe"
             },
             "dist": {
-				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/a0a8cc9e7ab635e5661f449b10b10aee373f1d86",
-				"reference": "a0a8cc9e7ab635e5661f449b10b10aee373f1d86",
-				"shasum": ""
-			},
+                "type": "zip",
+                "url": "https://api.github.com/repos/leight-core/edde/zipball/0652403c1976dbb18ce8314f501ee5d191f619fe",
+                "reference": "0652403c1976dbb18ce8314f501ee5d191f619fe",
+                "shasum": ""
+            },
             "require": {
                 "cache/void-adapter": "^1.1",
                 "clancats/hydrahon": "^1.1",
@@ -1568,18 +1568,18 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-				"files": [
-					"./src/ClanCats/Hydrahon/Query/Sql/Select.php"
-				],
-				"classmap": [
-					"src/",
-					"tests/"
-				],
-				"exclude-from-classmap": [
-					"./src/Edde/Bridge/",
-					"./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
-				]
-			},
+                "files": [
+                    "./src/ClanCats/Hydrahon/Query/Sql/Select.php"
+                ],
+                "classmap": [
+                    "src/",
+                    "tests/"
+                ],
+                "exclude-from-classmap": [
+                    "./src/Edde/Bridge/",
+                    "./vendor/clancats/hydrahon/src/Query/Sql/Select.php"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
@@ -1599,7 +1599,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-02T14:05:59+00:00"
+            "time": "2022-02-03T11:15:53+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -2344,16 +2344,16 @@
         },
         {
             "name": "nyholm/psr7",
-            "version": "1.4.1",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "2212385b47153ea71b1c1b1374f8cb5e4f7892ec"
+                "reference": "1461e07a0f2a975a52082ca3b769ca912b816226"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/2212385b47153ea71b1c1b1374f8cb5e4f7892ec",
-                "reference": "2212385b47153ea71b1c1b1374f8cb5e4f7892ec",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/1461e07a0f2a975a52082ca3b769ca912b816226",
+                "reference": "1461e07a0f2a975a52082ca3b769ca912b816226",
                 "shasum": ""
             },
             "require": {
@@ -2405,7 +2405,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Nyholm/psr7/issues",
-                "source": "https://github.com/Nyholm/psr7/tree/1.4.1"
+                "source": "https://github.com/Nyholm/psr7/tree/1.5.0"
             },
             "funding": [
                 {
@@ -2417,7 +2417,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-02T08:32:20+00:00"
+            "time": "2022-02-02T18:37:57+00:00"
         },
         {
             "name": "nyholm/psr7-server",

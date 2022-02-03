@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Rate, Slider, Space, Tabs} from "antd";
+import {Rate, Slider, Tabs} from "antd";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
@@ -14,7 +14,7 @@ import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
 import {Column} from "@ant-design/plots";
-import {useRatingQuery} from "@/sdk/puff-smith/api/lab/build/vape/endpoint";
+import {usePlotQuery} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -24,17 +24,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 
-	const rating = useRatingQuery({
+	const plotQuery = usePlotQuery({
 		filter: {
 			buildIds: [build.id],
 		},
-		page: 0,
-		size: 10,
 	});
 
-	console.log('rating', rating.data);
-
-	return <Tabs>
+	return <Tabs destroyInactiveTabPane>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
@@ -86,9 +82,6 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						max={4}
 						value={build.coils}
 					/>,
-					"ratings": <Space direction={'vertical'}>
-						{/*{rating.isSuccess && rating.data.ratings}*/}
-					</Space>
 				}}
 			</Preview>
 		</Tabs.TabPane>
@@ -105,13 +98,35 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</CommentsSource>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.graph.tab')}>
-			<Column
-				isStack
+			{!plotQuery.isSuccess && <Column
+				loading
 				xField={'rating'}
 				yField={'value'}
-				seriesField={'type'}
+				data={[]}
+			/>}
+			{plotQuery.isSuccess && <Column
+				meta={{
+					taste: {
+						min: 1,
+						max: 20,
+						alias: 'hojojo',
+						formatter: () => 'hovno',
+					}
+				}}
+				isStack={plotQuery.data.isStack}
+				isGroup={plotQuery.data.isGroup}
+				xField={plotQuery.data.x}
+				yField={plotQuery.data.y}
+				seriesField={plotQuery.data.group}
+				legend={{
+					position: 'top-left',
+					title: {
+						text: t('lab.vape.plot.title'),
+						spacing: 6,
+						style: {fontSize: 16},
+					},
+				}}
 				label={{
-					position: 'middle',
 					layout: [
 						{
 							type: 'interval-adjust-position',
@@ -124,60 +139,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						},
 					],
 				}}
-				data={[
-					{
-						"rating": 0,
-						"value": 3,
-						"type": "min",
-					},
-					{
-						"rating": 0,
-						"value": 5,
-						"type": "max",
-					},
-					{
-						"rating": 0,
-						"value": 5,
-						"type": "median",
-					},
-					{
-						"rating": 1,
-						"value": 15,
-						"type": "min",
-					},
-					{
-						"rating": 1,
-						"value": 8,
-						"type": "max",
-					},
-					{
-						"rating": 1,
-						"value": 5,
-						"type": "median",
-					},
-					{
-						"rating": 2,
-						"value": 0,
-						"type": "min",
-					},
-					{
-						"rating": 2,
-						"value": 4,
-					},
-					{
-						"rating": 3,
-						"value": 12,
-					},
-					{
-						"rating": 4,
-						"value": 18,
-					},
-					{
-						"rating": 5,
-						"value": 8,
-					},
-				]}
-			/>
+				data={plotQuery.data.data.map(data => ({
+					...data,
+					// value: data.value.toFixed(2),
+					// column: t('lab.vape.plot.' + data.column + '.column'),
+					group: t('lab.vape.plot.' + data.group + '.label'),
+				}))}
+			/>}
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader

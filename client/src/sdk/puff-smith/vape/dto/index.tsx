@@ -1,30 +1,3 @@
-export interface VapeOrderByDto {
-
-}
-
-export module VapeOrderByDto {
-
-}
-
-
-export interface VapeFilterDto {
-	buildIds?: string[] | null | undefined;
-	atomizerIds?: string[] | null | undefined;
-	modIds?: string[] | null | undefined;
-	mixtureIds?: string[] | null | undefined;
-	liquidIds?: string[] | null | undefined;
-	coilIds?: string[] | null | undefined;
-	userId?: string | null | undefined;
-	rate?: string | null | undefined;
-	id?: string | undefined;
-	fulltext?: string | undefined;
-}
-
-export module VapeFilterDto {
-
-}
-
-
 export interface CreateDto {
 	modId: string;
 	buildId: string;
@@ -107,6 +80,33 @@ export interface PatchDto {
 }
 
 export module PatchDto {
+
+}
+
+
+export interface VapeOrderByDto {
+
+}
+
+export module VapeOrderByDto {
+
+}
+
+
+export interface VapeFilterDto {
+	buildIds?: string[] | null | undefined;
+	atomizerIds?: string[] | null | undefined;
+	modIds?: string[] | null | undefined;
+	mixtureIds?: string[] | null | undefined;
+	liquidIds?: string[] | null | undefined;
+	coilIds?: string[] | null | undefined;
+	userId?: string | null | undefined;
+	rate?: string | null | undefined;
+	id?: string | undefined;
+	fulltext?: string | undefined;
+}
+
+export module VapeFilterDto {
 
 }
 
