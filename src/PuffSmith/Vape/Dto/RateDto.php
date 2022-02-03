@@ -71,9 +71,9 @@ class RateDto extends AbstractDto {
 	 */
 	public ?int $juice;
 	/**
-	 * @var int|null
+	 * @var float|null
 	 */
-	public ?int $power;
+	public ?float $power;
 	/**
 	 * @var int|null
 	 */
