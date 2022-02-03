@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {Carousel, List, Space} from "antd";
-import {Card, SmallPreview, toLocalDateTime} from "@leight-core/leight";
+import {Card, SmallPreview, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import dayjs from "dayjs";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
@@ -13,7 +13,6 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {useOptionalFilterContext} from "@leight-core/leight/dist";
 
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
@@ -27,6 +26,7 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 		listProps={{
 			itemLayout: 'vertical'
 		}}
+		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={vape => <List.Item>
 			<Carousel>
 				<Card
