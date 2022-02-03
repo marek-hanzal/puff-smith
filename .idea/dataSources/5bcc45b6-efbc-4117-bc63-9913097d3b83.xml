@@ -1706,8 +1706,7 @@ vendor_id</ColNames>
       <Position>2</Position>
     </column>
     <column id="438" parent="340" name="ohm">
-      <Comment>Coil resistance measured in an atomizer; this will be used later on for resistance computations and recommendations.</Comment>
-      <DataType>float|0s</DataType>
+      <DataType>decimal(10,3 digit)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>

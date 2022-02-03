@@ -53,6 +53,8 @@ class CoilRepository extends AbstractRepository {
 			$this->where($select, '$.ohm', '<=', $filter->ohm[1]);
 		}
 
+		$select->distinct();
+
 		$this->toOrderBy($query->orderBy, $select);
 
 		return $select;
