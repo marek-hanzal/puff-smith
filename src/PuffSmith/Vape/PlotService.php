@@ -11,6 +11,7 @@ use Edde\Query\Dto\Query;
 use Edde\Utils\ArrayUtils;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 use function array_filter;
+use function array_map;
 use function array_values;
 use function count;
 use function max;
@@ -48,38 +49,40 @@ class PlotService extends AbstractPlotService {
 			}
 			sort($ratings[$k]);
 
-			$data[] = $this->dtoService->fromArray(DataDto::class, [
+			$data[] = [
 				'column' => $k,
 				'value'  => min($ratings[$k]),
 				'group'  => 'min',
-			]);
-			$data[] = $this->dtoService->fromArray(DataDto::class, [
+			];
+			$data[] = [
 				'column' => $k,
 				'value'  => max($ratings[$k]),
 				'group'  => 'max',
-			]);
-			$data[] = $this->dtoService->fromArray(DataDto::class, [
+			];
+			$data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::avg($ratings[$k]),
 				'group'  => 'average',
-			]);
-			$data[] = $this->dtoService->fromArray(DataDto::class, [
+			];
+			$data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::median($ratings[$k]),
 				'group'  => 'median',
-			]);
-			$data[] = $this->dtoService->fromArray(DataDto::class, [
+			];
+			$data[] = [
 				'column' => $k,
 				'value'  => count($ratings[$k]),
 				'group'  => 'count',
-			]);
+			];
 		}
 
 		return $this->dtoService->fromArray(PlotDto::class, [
 			'isStack' => false,
 			'isGroup' => true,
 			'count'   => $count,
-			'data'    => $data,
+			'data'    => array_map(function (array $item) {
+				return $this->dtoService->fromArray(DataDto::class, $item);
+			}, $data),
 		]);
 	}
 }

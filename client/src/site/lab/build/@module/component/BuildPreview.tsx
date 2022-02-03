@@ -91,7 +91,10 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</CommentsSource>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.graph.tab')}>
-			<VapePlot filter={{buildIds: [build.id]}}/>
+			<VapePlot
+				filter={{buildIds: [build.id]}}
+				selected={['median', 'count']}
+			/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader
