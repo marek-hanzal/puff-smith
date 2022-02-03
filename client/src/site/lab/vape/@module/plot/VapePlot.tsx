@@ -7,7 +7,7 @@ import {Result, ResultProps} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import {useOptionalFilterContext} from "@leight-core/leight/dist";
 
-export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | 'count' | string;
+export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | string;
 
 export interface IVapePlotProps {
 	selected?: SelectedEnum[];
@@ -27,7 +27,7 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 					min: 1,
 					max: 10,
 					formatter: value => value.toLocaleString(undefined, {
-						maximumSignificantDigits: 1,
+						maximumSignificantDigits: 2,
 					}),
 				}
 			}}
@@ -41,7 +41,7 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 			legend={{
 				position: 'top-left',
 				selected: ((selected?: SelectedEnum[]): { [index in SelectedEnum]: boolean } => {
-					const values: SelectedEnum[] = ['min', 'max', 'count', 'average', 'rating', 'median'];
+					const values: SelectedEnum[] = ['min', 'max', 'average', 'rating', 'median'];
 					const object: any = {};
 					selected = selected || values;
 					values.forEach(item => {

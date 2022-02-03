@@ -6,5 +6,6 @@ export * from './BuildDeleteButton';
 export * from './BuildEditButton';
 export * from './BuildLinkButton';
 export * from './BuildListButton';
+export * from './BuildPlotButton';
 export * from './BuildPreviewButton';
 export * from './BuildVapeButton';

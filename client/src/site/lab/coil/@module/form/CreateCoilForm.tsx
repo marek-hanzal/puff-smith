@@ -19,6 +19,7 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 			navigate("/lab/coil/list");
 		}}
 		toForm={() => ({
+			size: 0.1,
 			...coil,
 		})}
 		{...props}

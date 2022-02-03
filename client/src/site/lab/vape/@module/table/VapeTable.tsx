@@ -94,6 +94,11 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 				width: 300,
 			}),
 			column({
+				key: "mixture",
+				title: "lab.vape.table.mixture",
+				render: (_, vape) => <MixtureInline mixture={vape.mixture}/>
+			}),
+			column({
 				key: "mod",
 				title: "lab.vape.table.mod",
 				render: (_, vape) => <ModInline mod={vape.mod}/>,
@@ -104,11 +109,6 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 				title: "lab.vape.table.coil",
 				render: (_, vape) => <CoilInline coil={vape.build.coil}/>,
 				width: 480,
-			}),
-			column({
-				key: "mixture",
-				title: "lab.vape.table.mixture",
-				render: (_, vape) => <MixtureInline mixture={vape.mixture}/>
 			}),
 			column({
 				key: "mixture.age",

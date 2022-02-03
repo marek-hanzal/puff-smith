@@ -14,9 +14,10 @@ export module PlotDto {
 
 
 export interface DataDto {
-	column: any;
+	column: string;
 	value: any;
-	group?: any | null | undefined;
+	group?: string | null | undefined;
+	count: number;
 }
 
 export module DataDto {

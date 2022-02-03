@@ -1,12 +1,12 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FilterContextProvider, IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Slider, Tabs} from "antd";
+import {Divider, Slider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
+import {BuildPlotButton, BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -90,7 +90,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
 			<FilterContextProvider<VapeFilterDto> defaultFilter={{buildIds: [build.id]}}>
-				<VapeFilter disabled={['atomizerIds']}/>
+				<Space>
+					<VapeFilter disabled={['atomizerIds']}/>
+					<BuildPlotButton
+						build={build}
+						title={'lab.build.vape.plot.redirect'}
+					/>
+				</Space>
 				<VapePlot
 					selected={['median', 'count']}
 					emptyResultProps={{

@@ -16,7 +16,7 @@
 		"lodash": "^4.17.20",
 		"react-device-detect": "^2.1.2",
 		"next-global-css": "^1.2.0",
-		"@leight-core/leight": "^0.12.66",
+		"@leight-core/leight": "^0.12.67",
 		"antd": "^4.18.2",
 		"axios": "^0.24.0",
 		"dayjs": "^1.10.7",

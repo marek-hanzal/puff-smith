@@ -48,31 +48,31 @@ class PlotService extends AbstractPlotService {
 				continue;
 			}
 			sort($ratings[$k]);
+			$count = count($ratings[$k]);
 
 			$data[] = [
 				'column' => $k,
 				'value'  => min($ratings[$k]),
 				'group'  => 'min',
+				'count'  => $count,
 			];
 			$data[] = [
 				'column' => $k,
 				'value'  => max($ratings[$k]),
 				'group'  => 'max',
+				'count'  => $count,
 			];
 			$data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::avg($ratings[$k]),
 				'group'  => 'average',
+				'count'  => $count,
 			];
 			$data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::median($ratings[$k]),
 				'group'  => 'median',
-			];
-			$data[] = [
-				'column' => $k,
-				'value'  => count($ratings[$k]),
-				'group'  => 'count',
+				'count'  => $count,
 			];
 		}
 

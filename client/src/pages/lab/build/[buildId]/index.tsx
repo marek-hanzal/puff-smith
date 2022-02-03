@@ -55,6 +55,9 @@ export default withLabLayout(function Index() {
 			<Menu.Item>
 				<BuildListButton/>
 			</Menu.Item>
+			{/*<Menu.Item>*/}
+			{/*<BuildPlotButton build={build}/>*/}
+			{/*</Menu.Item>*/}
 		</QuickMenu>}
 	>
 		{build => <>
