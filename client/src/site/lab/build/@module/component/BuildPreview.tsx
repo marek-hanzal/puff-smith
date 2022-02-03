@@ -90,7 +90,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
 			<FilterContextProvider<VapeFilterDto> defaultFilter={{buildIds: [build.id]}}>
-				<VapeFilter/>
+				<VapeFilter disabled={['atomizerIds']}/>
 				<VapePlot
 					selected={['median', 'count']}
 					emptyResultProps={{

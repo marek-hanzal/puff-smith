@@ -19,12 +19,12 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 		{...props}
 		translation={'lab.vape'}
 	>
-		<FormItem
+		{!disabled?.includes('atomizerIds') && <FormItem
 			field={'atomizerIds'}
 			labels={['lab.vape.atomizerId.label']}
 		>
 			<AtomizerSelect mode={'multiple'} allowClear/>
-		</FormItem>
+		</FormItem>}
 		<FormItem
 			field={'modIds'}
 			labels={['lab.vape.modId.label']}
