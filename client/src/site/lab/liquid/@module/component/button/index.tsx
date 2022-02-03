@@ -4,4 +4,5 @@ export * from './LiquidDeleteButton';
 export * from './LiquidEditButton';
 export * from './LiquidLinkButton';
 export * from './LiquidListButton';
+export * from './LiquidPlotButton';
 export * from './LiquidPreviewButton';

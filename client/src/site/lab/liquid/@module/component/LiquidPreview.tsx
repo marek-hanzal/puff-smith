@@ -1,10 +1,10 @@
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Tabs} from "antd";
+import {Divider, Space, Tabs} from "antd";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CreateCommentForm, LiquidInline} from "@/puff-smith/site/lab/liquid";
+import {CreateCommentForm, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -44,9 +44,15 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.liquid.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
-				<VapeFilter
-					disabled={['mixtureIds', 'liquidIds']}
-				/>
+				<Space>
+					<VapeFilter
+						disabled={['mixtureIds', 'liquidIds']}
+					/>
+					<LiquidPlotButton
+						liquid={liquid}
+						title={'lab.liquid.vape.plot.redirect'}
+					/>
+				</Space>
 				<VapePlot
 					selected={['median', 'count']}
 				/>

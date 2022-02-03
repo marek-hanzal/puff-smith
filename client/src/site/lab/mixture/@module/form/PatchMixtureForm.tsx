@@ -6,10 +6,9 @@ import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
-import {asMoment, Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {asMoment, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
-import {SwitchItem} from "@leight-core/leight/dist";
 import {MixtureIcon} from "@/puff-smith";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {

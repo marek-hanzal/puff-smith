@@ -3,8 +3,7 @@ import {VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, EditTemplate, QuickMenu} from "@leight-core/leight";
-import {ButtonLink, EditIcon, HomeIcon, useParams} from "@leight-core/leight/dist";
+import {BackIcon, ButtonLink, EditIcon, EditTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Edit() {

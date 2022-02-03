@@ -4,3 +4,4 @@ export * from './MixtureCreateButton';
 export * from './MixtureEditButton';
 export * from './MixtureLinkButton';
 export * from './MixtureListButton';
+export * from './MixturePlotButton';

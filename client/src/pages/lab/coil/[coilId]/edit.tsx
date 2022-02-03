@@ -3,8 +3,7 @@ import {CoilIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {CoilCloneButton, CoilCreateButton, CoilLinkButton, CoilListButton, PatchCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {BackIcon, EditTemplate, QuickMenu} from "@leight-core/leight";
-import {ButtonLink, EditIcon, HomeIcon, useParams} from "@leight-core/leight/dist";
+import {BackIcon, ButtonLink, EditIcon, EditTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Edit() {

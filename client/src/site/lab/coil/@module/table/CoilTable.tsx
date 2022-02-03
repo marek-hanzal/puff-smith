@@ -4,15 +4,18 @@ import {CoilInline, CoilLinkButton, CoilQuickMenu} from "@/puff-smith/site/lab/c
 import {WireInline} from "@/puff-smith/site/lab/wire";
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 import {List, Space} from "antd";
-import {useOptionalFilterContext} from "@leight-core/leight/dist";
+import {useOptionalFilterContext} from "@leight-core/leight";
+import {useTranslation} from "react-i18next";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
 
 export const CoilTable: FC<ICoilTableProps> = props => {
 	const filterContext = useOptionalFilterContext<CoilFilterDto>();
+	const {t} = useTranslation();
 	return <CoilsSourceTable
 		filter={filterContext?.filter}
+		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={coil => <List.Item
 			actions={[<CoilQuickMenu key={'quick-menu'} coil={coil}/>]}
 		>

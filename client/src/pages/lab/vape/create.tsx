@@ -1,9 +1,8 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {CreateVapeForm, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {CreateTemplate, QuickMenu} from "@leight-core/leight";
+import {ButtonLink, CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
-import {ButtonLink, CreateIcon, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Create() {

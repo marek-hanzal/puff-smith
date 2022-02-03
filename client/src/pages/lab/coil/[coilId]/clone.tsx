@@ -3,8 +3,7 @@ import {CloneIcon, CoilIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {CoilCreateButton, CoilLinkButton, CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {BackIcon, CreateTemplate, QuickMenu} from "@leight-core/leight";
-import {ButtonLink, HomeIcon, useParams} from "@leight-core/leight/dist";
+import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Clone() {

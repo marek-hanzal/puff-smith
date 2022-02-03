@@ -1,10 +1,9 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, Card, Template} from "@leight-core/leight";
+import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {ButtonLink, HomeIcon, QuickMenu} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

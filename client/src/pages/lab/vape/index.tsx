@@ -1,10 +1,9 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon, VapeIcon} from "@/puff-smith";
+import {VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, Card, Template} from "@leight-core/leight";
+import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

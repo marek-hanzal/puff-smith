@@ -1,23 +1,25 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {asDayjs, toLocalDate} from "@leight-core/leight";
+import {asDayjs, SmallPreview, toLocalDate, useOptionalFilterContext} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {List, Space} from "antd";
 import {SimpleRating} from "@/puff-smith";
-import {SmallPreview, useOptionalFilterContext} from "@leight-core/leight/dist";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
+import {useTranslation} from "react-i18next";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
 	const filterContext = useOptionalFilterContext<MixtureFilterDto>();
+	const {t} = useTranslation();
 	return <MixturesSourceTable
 		filter={filterContext?.filter}
 		scroll={{x: 2600}}
+		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={mixture => <List.Item
 			className={mixture.active ? 'active' : 'inactive'}
 			actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}

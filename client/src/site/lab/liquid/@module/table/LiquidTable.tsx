@@ -2,17 +2,19 @@ import {ILiquidsSourceTableProps, LiquidsSourceTable} from "@/sdk/puff-smith/api
 import {FC} from "react";
 import {LiquidCommentButton, LiquidInline, LiquidLinkButton, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
 import {List, Space} from "antd";
-import {SmallPreview} from "@leight-core/leight";
-import {useOptionalFilterContext} from "@leight-core/leight/dist";
+import {SmallPreview, useOptionalFilterContext} from "@leight-core/leight";
 import {LiquidFilterDto} from "@/sdk/puff-smith/liquid/dto";
+import {useTranslation} from "react-i18next";
 
 export interface ILiquidTableProps extends Partial<ILiquidsSourceTableProps> {
 }
 
 export const LiquidTable: FC<ILiquidTableProps> = props => {
 	const filterContext = useOptionalFilterContext<LiquidFilterDto>();
+	const {t} = useTranslation();
 	return <LiquidsSourceTable
 		filter={filterContext?.filter}
+		footer={sourceContext => t('lab.liquid.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={liquid => <List.Item
 			actions={[<LiquidQuickMenu key={'quick-menu'} liquid={liquid}/>]}
 		>

@@ -9,7 +9,7 @@ import {BuildCommentButton, BuildLinkButton, BuildQuickMenu, BuildVapeButton} fr
 import {SimpleRating} from "@/puff-smith";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {useOptionalFilterContext} from "@leight-core/leight/dist";
+import {useOptionalFilterContext} from "@leight-core/leight";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }

@@ -2,9 +2,8 @@ import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 

@@ -1,7 +1,7 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
-import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
-import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {MixtureCreateButton, MixtureListButton} from "@/puff-smith/site/lab/mixture";
+import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {ButtonLink, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
@@ -10,11 +10,11 @@ import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
-	const {buildId} = useParams();
-	return <BuildPage
-		title={"lab.build.plot"}
-		selected={['/lab/build']}
-		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
+	const {mixtureId} = useParams();
+	return <MixturePage
+		title={"lab.mixture.plot"}
+		selected={['/lab/mixture']}
+		onBack={navigate => navigate('/lab/mixture/[mixtureId]', {mixtureId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
 				<ButtonLink
@@ -30,8 +30,8 @@ export default withLabLayout(function Plot() {
 					style={{padding: 0}}
 					type={'link'}
 					size={'small'}
-					href={'/lab/build'}
-					title={'lab.build.label'}
+					href={'/lab/mixture'}
+					title={'lab.mixture.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
@@ -39,8 +39,8 @@ export default withLabLayout(function Plot() {
 					style={{padding: 0}}
 					type={'link'}
 					size={'small'}
-					href={'/lab/build/list'}
-					title={'lab.build.list.label'}
+					href={'/lab/mixture/list'}
+					title={'lab.mixture.list.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
@@ -48,40 +48,37 @@ export default withLabLayout(function Plot() {
 					style={{padding: 0}}
 					type={'link'}
 					size={'small'}
-					href={'/lab/build/[buildId]'}
-					query={{buildId}}
-					title={'lab.build.index.label'}
+					href={'/lab/mixture/[mixtureId]'}
+					query={{mixtureId}}
+					title={'lab.mixture.index.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
 				<Space size={'small'}>
-					<BarChartOutlined/>{t('lab.build.plot.label')}
+					<BarChartOutlined/>{t('lab.mixture.plot.label')}
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 		extra={<QuickMenu>
 			<Menu.Item>
-				<BuildCreateButton/>
+				<MixtureCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
-				<BuildListButton/>
+				<MixtureListButton/>
 			</Menu.Item>
 		</QuickMenu>}
 	>
-		{build => <>
+		{mixture => <>
 			<LabMenu/>
-			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
+			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
 				<VapeFilter disabled={['atomizerIds']}/>
 				<VapePlot
 					selected={['median', 'count']}
-					emptyResultProps={{
-						extra: <BuildVapeButton type={'primary'} build={build}/>
-					}}
 				/>
 				<Divider/>
-				<VapeTable defaultFilter={{buildIds: [build.id]}}/>
+				<VapeTable defaultFilter={{mixtureIds: [mixture.id]}}/>
 			</VapesFilterContext>
 			<Divider/>
 		</>}
-	</BuildPage>;
+	</MixturePage>;
 });

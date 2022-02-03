@@ -1,10 +1,9 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ButtonBar, Card, Template} from "@leight-core/leight";
+import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

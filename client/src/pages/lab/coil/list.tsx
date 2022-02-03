@@ -1,8 +1,7 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
-import {QuickMenu} from "@leight-core/leight";
+import {ButtonLink, HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
-import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 

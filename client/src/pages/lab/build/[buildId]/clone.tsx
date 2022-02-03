@@ -3,8 +3,7 @@ import {BuildIcon, CloneIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, CreateTemplate, QuickMenu} from "@leight-core/leight";
-import {ButtonLink, HomeIcon, useParams} from "@leight-core/leight/dist";
+import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Clone() {

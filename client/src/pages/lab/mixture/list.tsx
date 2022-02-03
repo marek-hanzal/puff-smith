@@ -1,8 +1,7 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureCreateButton, MixtureFilter, MixtureTable} from "@/puff-smith/site/lab/mixture";
-import {QuickMenu} from "@leight-core/leight";
+import {ButtonLink, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {LiquidIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {MixturesFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";

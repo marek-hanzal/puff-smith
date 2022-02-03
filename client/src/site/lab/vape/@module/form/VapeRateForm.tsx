@@ -1,9 +1,8 @@
 import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Card} from "@leight-core/leight";
+import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message, Rate, Slider} from "antd";
-import {Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight/dist";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeIcon} from "@/puff-smith";
 

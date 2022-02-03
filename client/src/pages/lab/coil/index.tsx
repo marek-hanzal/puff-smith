@@ -1,9 +1,8 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
-import {ButtonBar, Template} from "@leight-core/leight";
+import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
 import {CoilCreateButton, CoilListButton} from "@/puff-smith/site/lab/coil";
 import {Breadcrumb, Divider, Space} from "antd";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {

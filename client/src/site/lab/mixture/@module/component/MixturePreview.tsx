@@ -2,10 +2,10 @@ import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {asDayjs, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
-import {Divider, Tabs} from "antd";
+import {Divider, Space, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
-import {CreateCommentForm, MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {CreateCommentForm, MixtureAge, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {useTranslation} from "react-i18next";
@@ -52,9 +52,15 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'graph'} tab={t('lab.mixture.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
-				<VapeFilter
-					disabled={['mixtureIds', 'liquidIds']}
-				/>
+				<Space>
+					<VapeFilter
+						disabled={['mixtureIds', 'liquidIds']}
+					/>
+					<MixturePlotButton
+						mixture={mixture}
+						title={'lab.mixture.vape.plot.redirect'}
+					/>
+				</Space>
 				<VapePlot
 					selected={['median', 'count']}
 				/>

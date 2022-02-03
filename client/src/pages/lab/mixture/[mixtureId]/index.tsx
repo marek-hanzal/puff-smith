@@ -1,10 +1,9 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
+import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
-import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {
@@ -47,13 +46,16 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={entityContext => <QuickMenu>
 			<Menu.Item>
 				<MixtureCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<MixtureListButton/>
 			</Menu.Item>
+			{entityContext.entity && <Menu.Item>
+				<MixturePlotButton mixture={entityContext.entity}/>
+			</Menu.Item>}
 		</QuickMenu>}
 	>
 		{mixture => <>
