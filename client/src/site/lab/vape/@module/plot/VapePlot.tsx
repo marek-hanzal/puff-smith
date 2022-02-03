@@ -5,18 +5,19 @@ import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {useTranslation} from "react-i18next";
 import {Result, ResultProps} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
+import {useOptionalFilterContext} from "@leight-core/leight/dist";
 
 export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | 'count' | string;
 
 export interface IVapePlotProps {
-	filter: VapeFilterDto;
 	selected?: SelectedEnum[];
 	emptyResultProps?: ResultProps;
 }
 
-export const VapePlot: FC<IVapePlotProps> = ({filter, selected, emptyResultProps}) => {
+export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 	const {t} = useTranslation();
-	const plotQuery = usePlotQuery({filter});
+	const filterContext = useOptionalFilterContext<VapeFilterDto>();
+	const plotQuery = usePlotQuery({filter: filterContext?.filter});
 
 	return plotQuery?.data?.data?.length ?
 		<Column
@@ -75,8 +76,8 @@ export const VapePlot: FC<IVapePlotProps> = ({filter, selected, emptyResultProps
 				column: t('lab.vape.plot.' + data.column + '.column'),
 				group: t('lab.vape.plot.' + data.group + '.label'),
 			})) || []}
-		/>
-		: <Result
+		/> :
+		<Result
 			icon={<BarChartOutlined/>}
 			title={t('lab.vape.plot.no-data.title')}
 			subTitle={t('lab.vape.plot.no-data.subtitle')}

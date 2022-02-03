@@ -1,6 +1,6 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon, LiquidIcon} from "@/puff-smith";
-import {LiquidCreateButton, LiquidEditButton, LiquidListButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
+import {LiquidIcon} from "@/puff-smith";
+import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
@@ -60,7 +60,7 @@ export default withLabLayout(function Index() {
 			<LabMenu/>
 			<PreviewTemplate
 				icon={<LiquidIcon/>}
-				label={'lab.liquid.index'}
+				title={<LiquidInline liquid={liquid}/>}
 				extra={<>
 					<Space>
 						<LiquidEditButton liquid={liquid}/>

@@ -21,6 +21,7 @@ export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}
 				width={750}
 				type={'link'}
 				size={'large'}
+				title={'lab.mixture.preview'}
 				icon={<EyeOutlined/>}
 			>
 				<PreviewTemplate

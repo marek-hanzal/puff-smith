@@ -10,9 +10,10 @@ import {Radio} from "antd";
 import {useTranslation} from "react-i18next";
 
 export interface IVapeFilterProps extends IFilterWithoutTranslationProps<VapeFilterDto> {
+	disabled?: (keyof VapeFilterDto)[]
 }
 
-export const VapeFilter: FC<IVapeFilterProps> = props => {
+export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 	const {t} = useTranslation();
 	return <Filter<VapeFilterDto>
 		{...props}
@@ -30,18 +31,18 @@ export const VapeFilter: FC<IVapeFilterProps> = props => {
 		>
 			<ModSelect mode={'multiple'} allowClear/>
 		</FormItem>
-		<FormItem
+		{!disabled?.includes('mixtureIds') && <FormItem
 			field={'mixtureIds'}
 			labels={['lab.vape.mixtureId.label']}
 		>
 			<MixtureSelect mode={'multiple'} allowClear/>
-		</FormItem>
-		<FormItem
+		</FormItem>}
+		{!disabled?.includes('liquidIds') && <FormItem
 			field={'liquidIds'}
 			labels={['lab.vape.liquidId.label']}
 		>
 			<LiquidSelect mode={'multiple'} allowClear/>
-		</FormItem>
+		</FormItem>}
 		<FormItem
 			field={'coilIds'}
 			labels={['lab.vape.coilId.label']}

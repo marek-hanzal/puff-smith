@@ -1,9 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {CoilCreateButton, CoilTable} from "@/puff-smith/site/lab/coil";
-import {QuickMenu} from "@leight-core/leight";
+import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
+import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
+import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -43,6 +44,9 @@ export default withLabLayout(function List() {
 		</QuickMenu>}
 	>
 		<LabMenu/>
-		<CoilTable/>
+		<FilterContextProvider<CoilFilterDto>>
+			<CoilFilter/>
+			<CoilTable/>
+		</FilterContextProvider>
 	</LabPage>;
 });

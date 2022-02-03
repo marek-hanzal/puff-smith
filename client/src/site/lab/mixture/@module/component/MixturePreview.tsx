@@ -1,14 +1,16 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {asDayjs, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
+import {asDayjs, FilterContextProvider, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
-import {Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {CreateCommentForm, MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {useTranslation} from "react-i18next";
+import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto
@@ -47,6 +49,20 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 					onDelete={() => commentsQueryInvalidate()}
 				/>
 			</CommentsSource>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'graph'} tab={t('lab.mixture.vape.plot.tab')}>
+			<FilterContextProvider<VapeFilterDto> defaultFilter={{mixtureIds: [mixture.id]}}>
+				<VapeFilter
+					disabled={['mixtureIds', 'liquidIds']}
+				/>
+				<VapePlot
+					selected={['median', 'count']}
+				/>
+				<Divider/>
+				<VapeTable
+					defaultFilter={{mixtureIds: [mixture.id]}}
+				/>
+			</FilterContextProvider>
 		</Tabs.TabPane>
 	</Tabs>
 }

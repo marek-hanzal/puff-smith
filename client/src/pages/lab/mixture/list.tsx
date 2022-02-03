@@ -1,10 +1,11 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {MixtureCreateButton, MixtureTable} from "@/puff-smith/site/lab/mixture";
-import {QuickMenu} from "@leight-core/leight";
+import {MixtureCreateButton, MixtureFilter, MixtureTable} from "@/puff-smith/site/lab/mixture";
+import {FilterContextProvider, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {LiquidIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -44,6 +45,9 @@ export default withLabLayout(function List() {
 		</QuickMenu>}
 	>
 		<LabMenu/>
-		<MixtureTable/>
+		<FilterContextProvider<MixtureFilterDto>>
+			<MixtureFilter/>
+			<MixtureTable/>
+		</FilterContextProvider>
 	</LabPage>;
 });

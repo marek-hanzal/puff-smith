@@ -35,7 +35,6 @@ class BuildRepository extends AbstractRepository {
 
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
-			'$.name',
 			'a.name',
 			'w.name',
 		], $filter->fulltext);
