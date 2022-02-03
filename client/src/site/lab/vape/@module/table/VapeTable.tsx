@@ -14,10 +14,13 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 
+export type VapeTableColumns = 'atomizer' | 'mixture' | string;
+
 export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
+	hidden?: VapeTableColumns[];
 }
 
-export const VapeTable: FC<IVapeTableProps> = props => {
+export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	const filterContext = useOptionalFilterContext<VapeFilterDto>();
 	const {t} = useTranslation();
 	return <VapesSourceTable
@@ -87,13 +90,13 @@ export const VapeTable: FC<IVapeTableProps> = props => {
 				</Space>,
 				width: 0,
 			}),
-			column({
+			!hidden?.includes('atomizer') && column({
 				key: "atomizer",
 				title: "lab.vape.table.atomizer",
 				render: (_, vape) => <AtomizerInline atomizer={vape.build.atomizer}/>,
 				width: 300,
 			}),
-			column({
+			!hidden?.includes('mixture') && column({
 				key: "mixture",
 				title: "lab.vape.table.mixture",
 				render: (_, vape) => <MixtureInline mixture={vape.mixture}/>

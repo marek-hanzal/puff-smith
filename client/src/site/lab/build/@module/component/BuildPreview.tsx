@@ -113,7 +113,9 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					}}
 				/>
 				<Divider/>
-				<VapeTable defaultFilter={{buildIds: [build.id]}}/>
+				<VapeTable
+					hidden={['atomizer']}
+				/>
 			</VapesFilterContext>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>

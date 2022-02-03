@@ -57,7 +57,9 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 					selected={['median', 'count']}
 				/>
 				<Divider/>
-				<VapeTable/>
+				<VapeTable
+					hidden={['mixture']}
+				/>
 			</VapesFilterContext>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.liquid.upload.tab')}>

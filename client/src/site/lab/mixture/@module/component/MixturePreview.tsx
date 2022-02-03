@@ -66,7 +66,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				/>
 				<Divider/>
 				<VapeTable
-					defaultFilter={{mixtureIds: [mixture.id]}}
+					hidden={['mixture']}
 				/>
 			</VapesFilterContext>
 		</Tabs.TabPane>
