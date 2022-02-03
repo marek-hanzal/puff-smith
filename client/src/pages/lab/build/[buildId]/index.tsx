@@ -1,11 +1,12 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
-import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPreview} from "@/puff-smith/site/lab/build";
+import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
 import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -60,11 +61,13 @@ export default withLabLayout(function Index() {
 			<LabMenu/>
 			<PreviewTemplate
 				icon={<BuildIcon/>}
-				label={'lab.build.index'}
+				title={<AtomizerInline atomizer={build.atomizer}/>}
+				subTitle={<Rate count={10} disabled value={build.rating || undefined}/>}
 				extra={<>
 					<Space>
 						<BuildEditButton build={build}/>
 						<BuildCloneButton build={build}/>
+						<BuildVapeButton build={build}/>
 					</Space>
 					<Divider/>
 				</>}

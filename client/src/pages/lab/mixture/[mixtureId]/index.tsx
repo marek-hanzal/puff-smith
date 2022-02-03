@@ -1,10 +1,10 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureCreateButton, MixtureEditButton, MixtureListButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
+import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
-import {ButtonLink, HomeIcon, ListIcon} from "@leight-core/leight/dist";
+import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
+import {ButtonLink, HomeIcon} from "@leight-core/leight/dist";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {
@@ -60,7 +60,8 @@ export default withLabLayout(function Index() {
 			<LabMenu/>
 			<PreviewTemplate
 				icon={<MixtureIcon/>}
-				label={'lab.mixture.index'}
+				title={<MixtureInline mixture={mixture}/>}
+				subTitle={<Rate count={10} disabled value={mixture.rating || undefined}/>}
 				extra={<>
 					<MixtureEditButton mixture={mixture}/>
 					<Divider/>

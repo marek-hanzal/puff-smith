@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Divider, message} from "antd";
 import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
@@ -18,10 +18,12 @@ export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
 export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ...props}) => {
 	const {t} = useTranslation();
 	const drawerContext = useOptionalDrawerContext();
+	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <CreateDefaultForm
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.vape.created.message", {data: response}));
 			drawerContext ? drawerContext.setVisible(false) : navigate("/lab/vape/list");
+			vapesQueryInvalidate();
 		}}
 		toForm={() => ({
 			rating: 0,

@@ -3,9 +3,7 @@ import {FC} from "react";
 import {Card, Preview} from "@leight-core/leight";
 import {Divider, Rate, Slider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import dayjs from "dayjs";
 import {ModInline} from "@/puff-smith/site/lab/mod";
@@ -25,10 +23,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card key={'common'} title={t('lab.vape.common.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
-						"coil": <CoilInline coil={vape.build.coil}/>,
+						"coil": <CoilInline vertical coil={vape.build.coil}/>,
 						"mod": <ModInline mod={vape.mod}/>,
-						"mixture": <MixtureInline mixture={vape.mixture}/>,
 						// @ts-ignore
 						"mixture.age": dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize(),
 						"driptip": <DriptipInline driptip={vape.driptip}/>,

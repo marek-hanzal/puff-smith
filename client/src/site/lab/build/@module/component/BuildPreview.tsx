@@ -1,19 +1,18 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Rate, Slider, Tabs} from "antd";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {Divider, Slider, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CreateCommentForm} from "@/puff-smith/site/lab/build";
+import {BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
-import {VapePlot} from "@/puff-smith/site/lab/vape";
+import {VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
@@ -27,10 +26,6 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
-					"rating": <Rate count={10} disabled value={build.rating || undefined}/>,
-					"created": toLocalDateTime(build.created),
-					"active": <PreviewBool bool={build.active}/>,
-					"atomizer": <AtomizerInline atomizer={build.atomizer}/>,
 					"coil": <CoilInline coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": build.ohm.toFixed(2) + " ohm",
@@ -75,6 +70,8 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 						max={4}
 						value={build.coils}
 					/>,
+					"created": toLocalDateTime(build.created),
+					"active": <PreviewBool bool={build.active}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>
@@ -90,11 +87,16 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 				/>
 			</CommentsSource>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={'graph'} tab={t('lab.build.graph.tab')}>
+		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
 			<VapePlot
 				filter={{buildIds: [build.id]}}
 				selected={['median', 'count']}
+				emptyResultProps={{
+					extra: <BuildVapeButton type={'primary'} build={build}/>
+				}}
 			/>
+			<Divider/>
+			<VapeTable defaultFilter={{buildIds: [build.id]}}/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader

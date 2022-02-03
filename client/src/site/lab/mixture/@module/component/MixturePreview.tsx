@@ -2,7 +2,7 @@ import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {asDayjs, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
-import {Rate, Tabs} from "antd";
+import {Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {CreateCommentForm, MixtureAge, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
@@ -21,10 +21,8 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 		<Tabs.TabPane key={'common'} tab={t('lab.mixture.common.tab')}>
 			<Preview translation={'lab.mixture.preview'}>
 				{{
-					"rating": <Rate count={10} disabled value={mixture.rating || undefined}/>,
-					"code": mixture.code,
 					"liquid": <LiquidInline liquid={mixture.liquid}/>,
-					"active": <PreviewBool bool={mixture.active}/>,
+					"code": mixture.code,
 					"base": <BaseInline base={mixture.base}/>,
 					"booster": <BoosterInline booster={mixture.booster}/>,
 					"pgvg": <span><span>{mixture.pg}</span>/<span>{mixture.vg}</span></span>,
@@ -34,6 +32,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 					"mixed": toLocalDate(mixture.mixed),
 					"expires": asDayjs(mixture.expires)?.format('MMMM YYYY'),
 					"volume": mixture.volume + 'ml',
+					"active": <PreviewBool bool={mixture.active}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>

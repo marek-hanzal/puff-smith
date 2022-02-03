@@ -1,8 +1,8 @@
 import {FC} from "react";
-import {Menu} from "antd";
+import {Menu, Rate} from "antd";
 import {EyeOutlined} from "@ant-design/icons";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureActiveButton, MixtureCommentButton, MixtureEditButton, MixtureLinkButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
+import {MixtureActiveButton, MixtureCommentButton, MixtureEditButton, MixtureInline, MixtureLinkButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {DrawerButton, IQuickMenuProps, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 
@@ -22,11 +22,11 @@ export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}
 				type={'link'}
 				size={'large'}
 				icon={<EyeOutlined/>}
-				title={'lab.mixture.preview'}
 			>
 				<PreviewTemplate
 					icon={<MixtureIcon/>}
-					label={'lab.mixture.preview'}
+					title={<MixtureInline mixture={mixture}/>}
+					subTitle={<Rate count={10} disabled value={mixture.rating || undefined}/>}
 					span={24}
 				>
 					<MixturePreview mixture={mixture}/>

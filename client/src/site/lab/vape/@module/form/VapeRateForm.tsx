@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IRateDefaultFormProps, RateDefaultForm, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message, Rate, Slider} from "antd";
@@ -15,6 +15,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 	const {t} = useTranslation();
 	const drawerContext = useOptionalDrawerContext();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	const plotQueryInvalidate = usePlotQueryInvalidate()
 	return <RateDefaultForm
 		toForm={() => ({
 			...vape,
@@ -27,6 +28,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 			message.success(t('lab.vape.rate.update.success'));
 			drawerContext && drawerContext.setVisible(false);
 			vapesQueryInvalidate();
+			plotQueryInvalidate();
 		}}
 		{...props}
 	>
@@ -195,10 +197,11 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 						20: 20,
 						40: 40,
 						60: 60,
-						100: 100,
+						80: 80,
 					}}
 					min={0}
-					max={100}
+					max={80}
+					step={0.5}
 				/>
 			</FormItem>
 			<FormItem
@@ -212,10 +215,10 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 						80: 80,
 						120: 120,
 						200: 200,
-						320: 320,
+						240: 240,
 					}}
 					min={0}
-					max={320}
+					max={260}
 				/>
 			</FormItem>
 			<FormItem
