@@ -1,14 +1,15 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {VapeCreateButton, VapeFilter, VapePlotButton, VapeTable} from "@/puff-smith/site/lab/vape";
-import {ButtonLink, HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Menu, Space} from "antd";
+import {VapeCreateButton, VapeFilter, VapeListButton, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {ButtonLink, HomeIcon, QuickMenu} from "@leight-core/leight";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {BarChartOutlined} from "@ant-design/icons";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
 	return <LabPage
-		title={"lab.vape.list"}
+		title={"lab.vape.plot"}
 		selected={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape')}
 		breadcrumbProps={<Breadcrumb>
@@ -32,7 +33,7 @@ export default withLabLayout(function List() {
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
 				<Space size={'small'}>
-					<ListIcon/>{t('lab.vape.list.label')}
+					<BarChartOutlined/>{t('lab.vape.plot.label')}
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
@@ -41,13 +42,17 @@ export default withLabLayout(function List() {
 				<VapeCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
-				<VapePlotButton/>
+				<VapeListButton/>
 			</Menu.Item>
 		</QuickMenu>}
 	>
 		<LabMenu/>
 		<VapesFilterContext>
 			<VapeFilter/>
+			<VapePlot
+				selected={['median']}
+			/>
+			<Divider/>
 			<VapeTable/>
 		</VapesFilterContext>
 	</LabPage>;
