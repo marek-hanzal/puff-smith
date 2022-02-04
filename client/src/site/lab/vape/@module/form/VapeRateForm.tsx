@@ -77,14 +77,14 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.mtl.label']}
 				tooltip={t('lab.vape.mtl.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'dl'}
 				labels={['lab.vape.dl.label']}
 				tooltip={t('lab.vape.dl.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'clouds'}
