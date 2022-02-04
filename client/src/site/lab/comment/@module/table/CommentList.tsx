@@ -1,4 +1,4 @@
-import {Comment, CommentProps, List, ListProps, message, Space} from "antd";
+import {Comment, CommentProps, List, ListProps, message, Result, Space} from "antd";
 import {CommentDto, CommentOrderByDto} from "@/sdk/puff-smith/comment/dto";
 import {FC, ReactNode} from "react";
 import {EditIcon, IFormOnSuccess, OrderButtonBar, TextArea, toLocalDateTime} from "@leight-core/leight";
@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {CommentOutlined} from "@ant-design/icons";
 import {CommentDeleteButton, DrawerCommentEditButton} from "@/puff-smith/site/lab/comment";
 import {useCommentsQueryInvalidate, useCommentsSource, useDeleteMutation} from "@/sdk/puff-smith/api/lab/comment/endpoint";
+import {CommonIcon} from "@/puff-smith";
 
 export interface ICommentListProps extends Partial<ListProps<CommentDto>> {
 	form?: ReactNode;
@@ -70,6 +71,11 @@ export const CommentList: FC<ICommentListProps> = ({form, onEdit, onDelete, comm
 				{...commentProps}
 			/>
 		</List.Item>)}
+		{!sourceContext?.result?.data?.count && <Result
+			icon={<CommonIcon/>}
+			title={t('lab.comment.no-comments.title')}
+			subTitle={t('lab.comment.no-comments.subtitle')}
+		/>}
 		{form && <List.Item>
 			{form}
 		</List.Item>}
