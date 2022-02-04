@@ -6,7 +6,7 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {BuildPlotButton, BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
+import {BuildPlotButton, BuildVapeButton, CoilOffsetInput, CottonOffsetInput, CreateCommentForm, GlowOffsetInput} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -27,37 +27,12 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
-					"coil": <CoilInline coil={build.coil}/>,
+					"coil": <CoilInline vertical coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": build.ohm.toFixed(2) + " ohm",
-					"coilOffset": <Slider
-						included={false}
-						tipFormatter={null}
-						marks={{
-							"-2": -2,
-							"-1": -1,
-							"0": 0,
-							"1": 1,
-							"2": 2,
-						}}
-						value={build.coilOffset}
-						min={-2}
-						max={2}
-					/>,
-					"cottonOffset": <Slider
-						included={false}
-						tipFormatter={null}
-						marks={{
-							"-2": -2,
-							"-1": -1,
-							"0": 0,
-							"1": 1,
-							"2": 2,
-						}}
-						value={build.cottonOffset}
-						min={-2}
-						max={2}
-					/>,
+					"coilOffset": <CoilOffsetInput value={build.coilOffset}/>,
+					"cottonOffset": <CottonOffsetInput value={build.cottonOffset}/>,
+					"glow": <GlowOffsetInput value={build.glow}/>,
 					"coils": <Slider
 						included={false}
 						tipFormatter={null}

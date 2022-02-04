@@ -9,6 +9,7 @@ import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
+import {CoilOffsetInput, CottonOffsetInput, GlowOffsetInput} from "@/puff-smith/site/lab/build";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -85,55 +86,21 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				labels={['lab.build.coil.label']}
 				tooltip={t('lab.build.coil.label.tooltip')}
 			>
-				<Slider
-					included={false}
-					tipFormatter={null}
-					marks={{
-						"-2": -2,
-						"-1": -1,
-						"0": 0,
-						"1": 1,
-						"2": 2,
-					}}
-					min={-2}
-					max={2}
-				/>
+				<CoilOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'cottonOffset'}
 				labels={['lab.build.cotton.label']}
 				tooltip={t('lab.build.cotton.label.tooltip')}
 			>
-				<Slider
-					included={false}
-					tipFormatter={null}
-					marks={{
-						"-2": -2,
-						"-1": -1,
-						"0": 0,
-						"1": 1,
-						"2": 2,
-					}}
-					min={-2}
-					max={2}
-				/>
+				<CottonOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'glow'}
 				labels={['lab.build.glow.label']}
 				tooltip={t('lab.build.glow.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						1: 1,
-						2: 2,
-						3: 3,
-						4: 4,
-						5: 5,
-					}}
-					min={1}
-					max={5}
-				/>
+				<GlowOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'coils'}
