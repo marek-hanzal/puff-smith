@@ -17,8 +17,6 @@ class BuildDto extends AbstractDto {
 	public string $created;
 	/** @var int|null */
 	public ?int $glow;
-	/** @var int|null */
-	public ?int $rating;
 	/** @var bool */
 	public bool $active;
 

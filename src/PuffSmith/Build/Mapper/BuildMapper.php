@@ -23,7 +23,6 @@ class BuildMapper extends AbstractMapper {
 	public function item($item, array $params = []) {
 		return $this->dtoService->fromArray(BuildDto::class, [
 			'id'           => $item->id,
-			'rating'       => $item->rating,
 			'glow'         => $item->glow,
 			'active'       => (bool)$item->active,
 			'created'      => $this->isoDateNull($item->created),

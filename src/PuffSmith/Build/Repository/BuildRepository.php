@@ -5,13 +5,18 @@ namespace PuffSmith\Build\Repository;
 
 use ClanCats\Hydrahon\Query\Sql\Select;
 use DateTime;
+use Dibi\Exception;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use Edde\Repository\Exception\DuplicateEntryException;
+use Edde\Repository\Exception\RepositoryException;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
+use Edde\User\Exception\UserNotSelectedException;
 use PuffSmith\Build\Dto\BuildFilterDto;
 use PuffSmith\Build\Dto\Create\CreateDto;
 use PuffSmith\Build\Dto\Patch\PatchDto;
+use Throwable;
 
 class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
@@ -41,7 +46,6 @@ class BuildRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
-		!empty($filter->rating) && $this->where($select, '$.rating', '>=', $filter->rating);
 		!empty($filter->atomizerIds) && $this->where($select, '$.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->coilIds) && $this->where($select, '$.coil_id', 'in', $filter->coilIds);
 		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
@@ -55,6 +59,16 @@ class BuildRepository extends AbstractRepository {
 		return $select;
 	}
 
+	/**
+	 * @param CreateDto $createDto
+	 *
+	 * @return mixed
+	 *
+	 * @throws \ClanCats\Hydrahon\Query\Sql\Exception
+	 * @throws Exception
+	 * @throws UserNotSelectedException
+	 * @throws Throwable
+	 */
 	public function create(CreateDto $createDto) {
 		if ($createDto->deactivate) {
 			$this->table()->update(['active' => false])->where('atomizer_id', $createDto->atomizerId)->execute();
@@ -63,7 +77,6 @@ class BuildRepository extends AbstractRepository {
 			'atomizer_id'  => $createDto->atomizerId,
 			'coil_id'      => $createDto->coilId,
 			'glow'         => $createDto->glow,
-			'rating'       => $createDto->rating,
 			'cotton_id'    => $createDto->cottonId,
 			'coils'        => $createDto->coils,
 			'coilOffset'   => $createDto->coilOffset,
@@ -75,13 +88,21 @@ class BuildRepository extends AbstractRepository {
 		]);
 	}
 
+	/**
+	 * @param PatchDto $patchDto
+	 *
+	 * @return mixed
+	 *
+	 * @throws Throwable
+	 * @throws DuplicateEntryException
+	 * @throws RepositoryException
+	 */
 	public function update(PatchDto $patchDto) {
 		return $this->change([
 			'id'           => $patchDto->id,
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'active'       => $patchDto->active,
 			'glow'         => $patchDto->glow,
-			'rating'       => $patchDto->rating,
 			'atomizer_id'  => $patchDto->atomizerId,
 			'coil_id'      => $patchDto->coilId,
 			'cotton_id'    => $patchDto->cottonId,

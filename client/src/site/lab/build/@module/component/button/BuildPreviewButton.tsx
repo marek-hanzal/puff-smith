@@ -5,7 +5,8 @@ import {EyeOutlined} from "@ant-design/icons";
 import {BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildEditButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {Divider, Rate, Space} from "antd";
+import {Divider, Space} from "antd";
+import {CoilInline} from "@/puff-smith/site/lab/coil";
 
 export interface IBuildPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	build: BuildDto;
@@ -24,7 +25,7 @@ export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, ...prop
 			icon={<BuildIcon/>}
 			label={'lab.build.preview'}
 			title={<AtomizerInline atomizer={build.atomizer}/>}
-			subTitle={<Rate count={10} disabled value={build.rating || undefined}/>}
+			subTitle={<CoilInline coil={build.coil}/>}
 			span={24}
 			extra={<>
 				<Space>

@@ -3,9 +3,10 @@ import {BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {CoilInline} from "@/puff-smith/site/lab/coil";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -64,7 +65,7 @@ export default withLabLayout(function Index() {
 			<PreviewTemplate
 				icon={<BuildIcon/>}
 				title={<AtomizerInline atomizer={build.atomizer}/>}
-				subTitle={<Rate count={10} disabled value={build.rating || undefined}/>}
+				subTitle={<CoilInline coil={build.coil}/>}
 				extra={<>
 					<Space>
 						<BuildEditButton build={build}/>

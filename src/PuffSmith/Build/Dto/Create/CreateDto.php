@@ -10,8 +10,6 @@ class CreateDto extends AbstractDto {
 	public ?string $created;
 	/** @var int|null */
 	public ?int $glow;
-	/** @var int|null */
-	public ?int $rating;
 	/** @var string */
 	public string $atomizerId;
 	/** @var string */

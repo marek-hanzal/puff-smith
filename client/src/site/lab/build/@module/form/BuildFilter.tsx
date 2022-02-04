@@ -5,7 +5,6 @@ import {ModSelect} from "@/puff-smith/site/lab/mod";
 import {CoilSelect} from "@/puff-smith/site/lab/coil";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
-import {Rate} from "antd";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 
 export interface IBuildFilterProps extends IFilterWithoutTranslationProps<BuildFilterDto> {
@@ -16,12 +15,6 @@ export const BuildFilter: FC<IBuildFilterProps> = props => {
 		{...props}
 		translation={'lab.build'}
 	>
-		<FormItem
-			field={'rating'}
-			labels={['lab.build.rating.label']}
-		>
-			<Rate count={10}/>
-		</FormItem>
 		<FormItem
 			field={'atomizerIds'}
 			labels={['lab.build.atomizerId.label']}
