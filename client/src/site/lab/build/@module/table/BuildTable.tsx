@@ -19,25 +19,23 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 	return <BuildsSourceTable
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
-		listItemRender={build => {
-			return <List.Item
-				className={build.active ? 'active' : 'inactive'}
-				actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
-			>
-				<Space direction={'vertical'}>
-					<AtomizerInline atomizer={build.atomizer}/>
-					<CoilInline coil={build.coil}/>
-					<CottonInline cotton={build.cotton}/>
-					<Space>
-						<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{durationOf(build.created)}
-					</Space>
-					<Space>
-						<BuildVapeButton size={'small'} build={build}/>
-						<BuildCommentButton size={'small'} build={build}/>
-					</Space>
+		listItemRender={build => <List.Item
+			className={build.active ? 'active' : 'inactive'}
+			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
+		>
+			<Space direction={'vertical'}>
+				<AtomizerInline atomizer={build.atomizer}/>
+				<CoilInline coil={build.coil}/>
+				<CottonInline cotton={build.cotton}/>
+				<Space>
+					<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{durationOf(build.created).humanize()}
 				</Space>
-			</List.Item>
-		}}
+				<Space>
+					<BuildVapeButton size={'small'} build={build}/>
+					<BuildCommentButton size={'small'} build={build}/>
+				</Space>
+			</Space>
+		</List.Item>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
 		scroll={{x: 1600}}
 		{...props}
