@@ -1,7 +1,7 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 import {Card, Preview} from "@leight-core/leight";
-import {Divider, Rate, Slider, Tabs} from "antd";
+import {Divider, Rate, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CreateCommentForm} from "@/puff-smith/site/lab/vape";
+import {AirflowInput, CreateCommentForm, DryhitInput, JuiceInput, LeaksInput} from "@/puff-smith/site/lab/vape";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -28,32 +28,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 						// @ts-ignore
 						"mixture.age": dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize(),
 						"driptip": <DriptipInline driptip={vape.driptip}/>,
-						"leaks": <Slider
-							marks={{
-								"0": 0,
-								"1": 1,
-								"2": 2,
-								"3": 3,
-								"4": 4,
-								"5": 5,
-							}}
-							min={0}
-							max={5}
-							value={vape.leaks}
-						/>,
-						"dryhit": <Slider
-							marks={{
-								"0": 0,
-								"1": 1,
-								"2": 2,
-								"3": 3,
-								"4": 4,
-								"5": 5,
-							}}
-							min={0}
-							max={5}
-							value={vape.dryhit}
-						/>,
+						"leaks": <LeaksInput value={vape.leaks}/>,
+						"dryhit": <DryhitInput value={vape.dryhit}/>,
 					}}
 				</Preview>
 			</Card>
@@ -72,32 +48,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					{{
 						"power": vape.power ? vape.power + ' W' : '-',
 						"tc": vape.tc ? vape.tc + ' °C' : '-',
-						"airflow": <Slider
-							marks={{
-								"0": 0,
-								"1": 1,
-								"2": 2,
-								"3": 3,
-								"4": 4,
-								"5": 5,
-							}}
-							min={0}
-							max={5}
-							value={vape.airflow}
-						/>,
-						"juice": <Slider
-							marks={{
-								"0": 0,
-								"1": 1,
-								"2": 2,
-								"3": 3,
-								"4": 4,
-								"5": 5,
-							}}
-							min={0}
-							max={5}
-							value={vape.juice || 0}
-						/>,
+						"airflow": <AirflowInput value={vape.airflow}/>,
+						"juice": <JuiceInput value={vape.juice || 0}/>,
 					}}
 				</Preview>
 			</Card>

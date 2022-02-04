@@ -25,17 +25,18 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 			drawerContext ? drawerContext.setVisible(false) : navigate("/lab/vape/list");
 			vapesQueryInvalidate();
 		}}
-		toForm={() => ({
+		toForm={() => vape}
+		toMutation={values => ({
+			...values,
 			rating: 0,
 			taste: 0,
-			airflow: 0,
-			juice: 5,
+			airflow: 2,
+			juice: 2,
 			mtl: 0,
 			dl: 0,
 			clouds: 0,
 			leaks: 0,
 			dryhit: 0,
-			...vape,
 		})}
 		{...props}
 	>

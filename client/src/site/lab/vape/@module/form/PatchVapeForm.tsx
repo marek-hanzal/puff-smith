@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Divider, message, Rate, Slider} from "antd";
+import {Divider, message, Rate} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
@@ -9,6 +9,7 @@ import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {BuildSelect, BuildTooltip} from "@/puff-smith/site/lab/build";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 import {VapeIcon} from "@/puff-smith";
+import {AirflowInput, DryhitInput, JuiceInput, LeaksInput, PowerInput, TcInput} from "@/puff-smith/site/lab/vape";
 
 export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
 	vape: VapeDto;
@@ -67,36 +68,14 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.leaks.label']}
 				tooltip={t('lab.vape.leaks.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
-				/>
+				<LeaksInput/>
 			</FormItem>
 			<FormItem
 				field={'dryhit'}
 				labels={['lab.vape.dryhit.label']}
 				tooltip={t('lab.vape.dryhit.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
-				/>
+				<DryhitInput/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -127,70 +106,28 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						0: 0,
-						20: 20,
-						40: 40,
-						60: 60,
-						100: 100,
-					}}
-					min={0}
-					max={100}
-				/>
+				<PowerInput/>
 			</FormItem>
 			<FormItem
 				field={'tc'}
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						0: 0,
-						80: 80,
-						120: 120,
-						200: 200,
-						320: 320,
-					}}
-					min={0}
-					max={320}
-				/>
+				<TcInput/>
 			</FormItem>
 			<FormItem
 				field={'airflow'}
 				labels={['lab.vape.airflow.label']}
 				tooltip={t('lab.vape.airflow.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
-				/>
+				<AirflowInput/>
 			</FormItem>
 			<FormItem
 				field={'juice'}
 				labels={['lab.vape.juice.label']}
 				tooltip={t('lab.vape.juice.label.tooltip')}
 			>
-				<Slider
-					marks={{
-						"0": 0,
-						"1": 1,
-						"2": 2,
-						"3": 3,
-						"4": 4,
-						"5": 5,
-					}}
-					min={0}
-					max={5}
-				/>
+				<JuiceInput/>
 			</FormItem>
 		</Card>
 		<Divider/>

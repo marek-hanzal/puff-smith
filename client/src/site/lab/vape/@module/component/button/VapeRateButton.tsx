@@ -19,13 +19,13 @@ export const VapeRateButton: FC<IVapeRateButtonProps> = ({vape, ...props}) => {
 		type={'link'}
 		icon={<DotChartOutlined/>}
 		title={'lab.vape.rate.button'}
-		width={700}
+		width={775}
 		{...props}
 	>
 		<PreviewTemplate
 			icon={<VapeIcon/>}
 		/>
-		<Preview width={100} translation={'lab.vape.preview'}>
+		<Preview width={140} translation={'lab.vape.preview'}>
 			{{
 				"build": <BuildInline build={vape.build}/>,
 				"mixture": <MixtureInline mixture={vape.mixture}/>,
