@@ -39,17 +39,24 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				sorter: true,
 			}),
 			column({
+				key: "size",
+				title: 'lab.coil.table.size',
+				render: (_, coil) => coil.size,
+				sorter: true,
+				width: 160,
+			}),
+			column({
 				key: "wraps",
 				title: 'lab.coil.table.wraps',
 				render: (_, coil) => coil.wraps,
-				width: 200,
+				width: 160,
 				sorter: true,
 			}),
 			column({
 				key: "ohm",
 				title: 'lab.coil.table.ohm',
 				render: (_, coil) => coil.ohm.toFixed(2) + 'ohm',
-				width: 200,
+				width: 160,
 				sorter: true,
 			}),
 		]}

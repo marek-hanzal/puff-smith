@@ -12,6 +12,7 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 		{{
 			wire: <WireInline wire={coil.wire}/>,
 			wraps: coil.wraps,
+			size: coil.size,
 			ohm: coil.ohm.toFixed(2) + 'ohm',
 		}}
 	</Preview>

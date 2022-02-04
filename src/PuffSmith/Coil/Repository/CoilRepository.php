@@ -17,9 +17,13 @@ class CoilRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 
 	public function __construct() {
-		parent::__construct(['stamp' => IRepository::ORDER_DESC], ['$_coil_unique']);
+		parent::__construct([
+			'wire' => IRepository::ORDER_DESC,
+			'ga'   => IRepository::ORDER_ASC,
+		], ['$_coil_unique']);
 		$this->orderByMap = [
 			'wire' => 'w.name',
+			'ga'   => 'w.ga',
 		];
 	}
 
