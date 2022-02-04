@@ -18,6 +18,7 @@ export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 	const {t} = useTranslation();
 	return <PatchDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			...build,
 			created: moment(build.created),

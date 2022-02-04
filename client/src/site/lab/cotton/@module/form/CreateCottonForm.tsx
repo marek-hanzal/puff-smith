@@ -9,7 +9,10 @@ export interface ICreateCottonFormProps extends Partial<ICreateDefaultFormProps>
 }
 
 export const CreateCottonForm: FC<ICreateCottonFormProps> = props => {
-	return <CreateDefaultForm {...props}>
+	return <CreateDefaultForm
+		layout={'vertical'}
+		{...props}
+	>
 		<FormItem
 			field={'name'}
 			labels={['lab.cotton.name.label']}

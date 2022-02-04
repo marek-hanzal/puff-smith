@@ -9,7 +9,10 @@ export interface ICreateAtomizerFormProps extends Partial<ICreateDefaultFormProp
 }
 
 export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = props => {
-	return <CreateDefaultForm {...props}>
+	return <CreateDefaultForm
+		layout={'vertical'}
+		{...props}
+	>
 		<FormItem field={'name'} labels={['lab.atomizer.name.label']} required/>
 		<FormItem
 			field={'vendorId'}

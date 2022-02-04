@@ -3,7 +3,7 @@ import {MixtureIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Rate, Space} from "antd";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {
@@ -63,7 +63,6 @@ export default withLabLayout(function Index() {
 			<PreviewTemplate
 				icon={<MixtureIcon/>}
 				title={<MixtureInline mixture={mixture}/>}
-				subTitle={<Rate count={10} disabled value={mixture.rating || undefined}/>}
 				extra={<>
 					<MixtureEditButton mixture={mixture}/>
 					<Divider/>

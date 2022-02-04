@@ -1,7 +1,6 @@
 export interface MixtureDto {
 	id: string;
 	code: string;
-	rating: number | null;
 	steep: number | null;
 	active: boolean;
 	pg: number;

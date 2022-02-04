@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {Divider, message, Rate} from "antd";
+import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
@@ -18,6 +18,7 @@ export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> 
 export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}) => {
 	const {t} = useTranslation();
 	return <PatchDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			...mixture,
 			mixed: moment(mixture.mixed),
@@ -52,15 +53,6 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 				required
 			>
 				<DatePicker showTime/>
-			</FormItem>
-			<FormItem
-				field={'rating'}
-				labels={['lab.mixture.rating.label']}
-				tooltip={t('lab.mixture.rating.label.tooltip')}
-			>
-				<Rate
-					count={10}
-				/>
 			</FormItem>
 			<SwitchItem
 				field={'active'}

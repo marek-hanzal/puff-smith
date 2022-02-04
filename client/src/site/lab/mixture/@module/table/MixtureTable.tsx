@@ -6,7 +6,6 @@ import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {MixtureAge, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {List, Space} from "antd";
-import {SimpleRating} from "@/puff-smith";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
 
@@ -28,7 +27,6 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				{{
 					"name": mixture.liquid.name,
 					"vendor": mixture.liquid.vendor.name,
-					"rating": <SimpleRating value={mixture.rating}/>,
 				}}
 			</SmallPreview>
 		</List.Item>}
@@ -49,12 +47,6 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				title: "lab.mixture.table.liquid",
 				width: 300,
 				render: (_, mixture) => <LiquidInline liquid={mixture.liquid}/>,
-			}),
-			column({
-				key: "rating",
-				title: "lab.mixture.table.rating",
-				width: 160,
-				render: (_, mixture) => <SimpleRating value={mixture.rating}/>,
 			}),
 			column({
 				key: "code",

@@ -14,11 +14,13 @@ export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.coil.created.message", {data: response}));
 			navigate("/lab/coil/list");
 		}}
 		toForm={() => ({
+			wraps: 3,
 			size: 0.1,
 			...coil,
 		})}
@@ -38,7 +40,18 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 			tooltip={t('lab.coil.wraps.label.tooltip')}
 			required
 		>
-			<InputNumber style={{width: '100%'}} min={3} max={12}/>
+			<Slider
+				marks={{
+					3: 3,
+					5: 5,
+					6: 6,
+					7: 7,
+					12: 12,
+				}}
+				min={3}
+				max={12}
+				step={1}
+			/>
 		</FormItem>
 		<FormItem
 			field={'size'}

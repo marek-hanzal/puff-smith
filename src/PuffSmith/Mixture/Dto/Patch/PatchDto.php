@@ -17,10 +17,6 @@ class PatchDto extends AbstractDto {
 	/** @var bool|null */
 	public ?bool $active;
 	/**
-	 * @var int|null
-	 */
-	public ?int $rating;
-	/**
 	 * @var int|null|void
 	 */
 	public ?int $steep;

@@ -8,7 +8,10 @@ export interface ICreateVendorFormProps extends Partial<ICreateDefaultFormProps>
 }
 
 export const CreateVendorForm: FC<ICreateVendorFormProps> = props => {
-	return <CreateDefaultForm {...props}>
+	return <CreateDefaultForm
+		layout={'vertical'}
+		{...props}
+	>
 		<FormItem
 			field={'name'}
 			labels={['lab.vendor.name.label']}

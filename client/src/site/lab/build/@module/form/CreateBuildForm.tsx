@@ -18,6 +18,7 @@ export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> 
 export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			coils: 1,
 			coilOffset: 0,

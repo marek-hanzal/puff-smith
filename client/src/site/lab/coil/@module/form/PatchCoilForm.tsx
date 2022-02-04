@@ -14,6 +14,7 @@ export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, ...props}) => {
 	const {t} = useTranslation();
 	return <PatchDefaultForm
+		layout={'vertical'}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.coil.update.message", {data: response}));
 			navigate("/lab/coil/[coilId]", {coilId: response.id});

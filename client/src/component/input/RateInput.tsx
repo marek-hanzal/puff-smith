@@ -1,18 +1,33 @@
-import {FC} from "react";
-import {Radio, RadioGroupProps} from "antd";
+import {FC, forwardRef} from "react";
+import {Button, Radio, RadioGroupProps, Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {useOptionalFormItemContext} from "@leight-core/leight/dist";
 
 export interface IRateInputProps extends Partial<RadioGroupProps> {
 	translation: string;
+	min?: number;
+	max?: number;
+	allowClear?: boolean
+	ref?: any;
 }
 
-export const RateInput: FC<IRateInputProps> = ({translation, ...props}) => {
+export const RateInput: FC<IRateInputProps> = forwardRef(({translation, min = 1, max = 5, allowClear = false, ...props}, ref) => {
+	const formItem = useOptionalFormItemContext();
 	const {t} = useTranslation();
-	return <Radio.Group optionType={'button'} buttonStyle={'solid'} {...props}>
-		<Radio.Button value={1}>{t(translation + '.rate.1')}</Radio.Button>
-		<Radio.Button value={2}>{t(translation + '.rate.2')}</Radio.Button>
-		<Radio.Button value={3}>{t(translation + '.rate.3')}</Radio.Button>
-		<Radio.Button value={4}>{t(translation + '.rate.4')}</Radio.Button>
-		<Radio.Button value={5}>{t(translation + '.rate.5')}</Radio.Button>
-	</Radio.Group>;
-}
+
+	const buttons = [];
+	for (let i = min; i <= max; i++) {
+		buttons.push(<Radio.Button key={i} value={i}>{t(translation + '.' + i)}</Radio.Button>);
+	}
+
+	return <Space direction={'vertical'}>
+		<Radio.Group ref={ref as any} optionType={'button'} buttonStyle={'solid'} {...props}>
+			{buttons}
+		</Radio.Group>
+		{formItem && allowClear && <Button
+			type={'link'}
+			size={'small'}
+			onClick={() => formItem?.setValue(undefined)}
+		>{t('common.clear.label')}</Button>}
+	</Space>
+});

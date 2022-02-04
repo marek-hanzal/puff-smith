@@ -47,13 +47,13 @@ class VapeDto extends AbstractDto {
 	 */
 	public ?DriptipDto $driptip;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $rating;
+	public ?int $rating;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $taste;
+	public ?int $taste;
 	/**
 	 * @var int|null
 	 */
@@ -83,13 +83,13 @@ class VapeDto extends AbstractDto {
 	 */
 	public int $clouds;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $mtl;
+	public ?int $mtl;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $dl;
+	public ?int $dl;
 	/**
 	 * @var int
 	 */

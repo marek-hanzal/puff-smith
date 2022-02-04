@@ -3,6 +3,23 @@ export interface CreateDto {
 	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;
+	rating: number | null;
+	taste: number | null;
+	throathit: number | null;
+	fruits: number | null;
+	tobacco: number | null;
+	cakes: number | null;
+	complex: number | null;
+	fresh: number | null;
+	clouds: number | null;
+	mtl: number | null;
+	dl: number | null;
+	dryhit: number | null;
+	leaks: number | null;
+	airflow: number | null;
+	juice: number | null;
+	power: number | null;
+	tc: number | null;
 }
 
 export module CreateDto {
@@ -20,8 +37,8 @@ export interface VapeDto {
 	mixture: import("@/sdk/puff-smith/mixture/dto/index").MixtureDto;
 	driptipId: string | null;
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
-	rating: number;
-	taste: number;
+	rating: number | null;
+	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
@@ -29,8 +46,8 @@ export interface VapeDto {
 	complex: number | null;
 	fresh: number | null;
 	clouds: number;
-	mtl: number;
-	dl: number;
+	mtl: number | null;
+	dl: number | null;
 	dryhit: number;
 	leaks: number;
 	airflow: number;
@@ -60,8 +77,8 @@ export interface PatchDto {
 	buildId: string;
 	mixtureId: string;
 	driptipId: string | null;
-	rating: number;
-	taste: number;
+	rating: number | null;
+	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
@@ -69,8 +86,8 @@ export interface PatchDto {
 	complex: number | null;
 	fresh: number | null;
 	clouds: number;
-	mtl: number;
-	dl: number;
+	mtl: number | null;
+	dl: number | null;
 	dryhit: number;
 	leaks: number;
 	airflow: number;
@@ -113,8 +130,8 @@ export module VapeFilterDto {
 
 export interface RateDto {
 	id: string;
-	rating: number;
-	taste: number;
+	rating: number | null;
+	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
@@ -122,8 +139,8 @@ export interface RateDto {
 	complex: number | null;
 	fresh: number | null;
 	clouds: number;
-	mtl: number;
-	dl: number;
+	mtl: number | null;
+	dl: number | null;
 	dryhit: number;
 	leaks: number;
 	airflow: number;

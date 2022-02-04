@@ -25,11 +25,11 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $rating = 0;
+	public ?int $rating;
 	/**
 	 * @var int|null
 	 */
-	public ?int $taste = 0;
+	public ?int $taste;
 	/**
 	 * @var int|null
 	 */
@@ -61,11 +61,11 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $mtl = 0;
+	public ?int $mtl;
 	/**
 	 * @var int|null
 	 */
-	public ?int $dl = 0;
+	public ?int $dl;
 	/**
 	 * @var int|null
 	 */

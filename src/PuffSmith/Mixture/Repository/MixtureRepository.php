@@ -61,7 +61,6 @@ class MixtureRepository extends AbstractRepository {
 		return $this->insert([
 			'code'       => $createDto->code ?? $this->randomService->code(),
 			'steep'      => $createDto->steep,
-			'rating'     => $createDto->rating,
 			'active'     => true,
 			'pg'         => $createDto->pg,
 			'vg'         => $createDto->vg,
@@ -81,7 +80,6 @@ class MixtureRepository extends AbstractRepository {
 			'id'         => $patchDto->id,
 			'code'       => $patchDto->code ?? $this->randomService->code(),
 			'steep'      => $patchDto->steep,
-			'rating'     => $patchDto->rating,
 			'active'     => $patchDto->active,
 			'pg'         => $patchDto->pg,
 			'vg'         => $patchDto->vg,

@@ -2,7 +2,7 @@ import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message, Rate} from "antd";
+import {Divider, message} from "antd";
 import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
 import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
 import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
@@ -16,6 +16,7 @@ export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps
 export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			pg: 30,
 			vg: 70,
@@ -52,15 +53,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 				required
 			>
 				<DatePicker showTime/>
-			</FormItem>
-			<FormItem
-				field={'rating'}
-				labels={['lab.mixture.rating.label']}
-				tooltip={t('lab.mixture.rating.label.tooltip')}
-			>
-				<Rate
-					count={10}
-				/>
 			</FormItem>
 		</Card>
 		<Divider/>

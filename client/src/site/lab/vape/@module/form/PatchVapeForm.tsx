@@ -67,6 +67,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'leaks'}
 				labels={['lab.vape.leaks.label']}
 				tooltip={t('lab.vape.leaks.label.tooltip')}
+				required
 			>
 				<LeaksInput/>
 			</FormItem>
@@ -74,6 +75,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'dryhit'}
 				labels={['lab.vape.dryhit.label']}
 				tooltip={t('lab.vape.dryhit.label.tooltip')}
+				required
 			>
 				<DryhitInput/>
 			</FormItem>
@@ -84,6 +86,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'rating'}
 				labels={['lab.vape.rating.label']}
 				tooltip={t('lab.vape.rating.label.tooltip')}
+				required
 			>
 				<CommonRateInput/>
 			</FormItem>
@@ -91,6 +94,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'taste'}
 				labels={['lab.vape.taste.label']}
 				tooltip={t('lab.vape.taste.label.tooltip')}
+				required
 			>
 				<CommonRateInput/>
 			</FormItem>
@@ -115,6 +119,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'airflow'}
 				labels={['lab.vape.airflow.label']}
 				tooltip={t('lab.vape.airflow.label.tooltip')}
+				required
 			>
 				<AirflowInput/>
 			</FormItem>
@@ -122,6 +127,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'juice'}
 				labels={['lab.vape.juice.label']}
 				tooltip={t('lab.vape.juice.label.tooltip')}
+				required
 			>
 				<JuiceInput/>
 			</FormItem>
@@ -133,19 +139,20 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.mtl.label']}
 				tooltip={t('lab.vape.mtl.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'dl'}
 				labels={['lab.vape.dl.label']}
 				tooltip={t('lab.vape.dl.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'clouds'}
 				labels={['lab.vape.clouds.label']}
 				tooltip={t('lab.vape.clouds.label.tooltip')}
+				required
 			>
 				<CloudsInput/>
 			</FormItem>
@@ -157,42 +164,42 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.throathit.label']}
 				tooltip={t('lab.vape.throathit.label.tooltip')}
 			>
-				<ThroathitInput/>
+				<ThroathitInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'complex'}
 				labels={['lab.vape.complex.label']}
 				tooltip={t('lab.vape.complex.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'fruits'}
 				labels={['lab.vape.fruits.label']}
 				tooltip={t('lab.vape.fruits.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'tobacco'}
 				labels={['lab.vape.tobacco.label']}
 				tooltip={t('lab.vape.tobacco.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'cakes'}
 				labels={['lab.vape.cakes.label']}
 				tooltip={t('lab.vape.cakes.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'fresh'}
 				labels={['lab.vape.fresh.label']}
 				tooltip={t('lab.vape.fresh.label.tooltip')}
 			>
-				<FreshInput/>
+				<FreshInput allowClear/>
 			</FormItem>
 		</Card>
 		<Divider/>

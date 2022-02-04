@@ -20,6 +20,7 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 	const drawerContext = useOptionalDrawerContext();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		onSuccess={({navigate, response}) => {
 			message.success(t("lab.vape.created.message", {data: response}));
 			drawerContext ? drawerContext.setVisible(false) : navigate("/lab/vape/list");
@@ -32,8 +33,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 			taste: 0,
 			airflow: 2,
 			juice: 2,
-			mtl: 0,
-			dl: 0,
 			clouds: 0,
 			leaks: 0,
 			dryhit: 0,
