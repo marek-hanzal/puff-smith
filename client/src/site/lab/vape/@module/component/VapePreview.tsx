@@ -11,6 +11,7 @@ import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/l
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {AirflowInput, CloudsInput, CreateCommentForm, DryhitInput, FreshInput, JuiceInput, LeaksInput, ThroathitInput} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
+import {toLocalDateTime} from "@leight-core/leight/dist";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -31,6 +32,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 						"driptip": <DriptipInline driptip={vape.driptip}/>,
 						"leaks": <LeaksInput value={vape.leaks}/>,
 						"dryhit": <DryhitInput value={vape.dryhit}/>,
+						"stamp": toLocalDateTime(vape.stamp),
 					}}
 				</Preview>
 			</Card>

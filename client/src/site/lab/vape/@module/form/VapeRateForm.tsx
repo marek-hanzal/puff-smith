@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message} from "antd";
@@ -15,6 +15,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 	const {t} = useTranslation();
 	const drawerContext = useOptionalDrawerContext();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	const vapeQueryInvalidate = useVapeQueryInvalidate();
 	const plotQueryInvalidate = usePlotQueryInvalidate()
 	return <RateDefaultForm
 		toForm={() => vape}
@@ -27,6 +28,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 			message.success(t('lab.vape.rate.update.success'));
 			drawerContext && drawerContext.setVisible(false);
 			vapesQueryInvalidate();
+			vapeQueryInvalidate();
 			plotQueryInvalidate();
 		}}
 		{...props}

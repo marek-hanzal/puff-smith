@@ -152,6 +152,11 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 					return dayjs.duration(dayjs().diff(vape.build.created)).humanize()
 				},
 			}),
+			column({
+				key: "stamp",
+				title: "lab.vape.table.stamp",
+				render: (_, vape) => toLocalDateTime(vape.stamp),
+			}),
 		]}
 	</VapesSourceTable>
 }

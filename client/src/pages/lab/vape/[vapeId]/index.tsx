@@ -1,6 +1,6 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
-import {VapeCloneButton, VapeCreateButton, VapeEditButton, VapeListButton, VapePreview} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
@@ -67,6 +67,7 @@ export default withLabLayout(function Index() {
 					<Space>
 						<VapeEditButton vape={vape}/>
 						<VapeCloneButton vape={vape}/>
+						<VapeRateButton vape={vape}/>
 					</Space>
 					<Divider/>
 				</>}
