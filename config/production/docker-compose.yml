@@ -20,6 +20,8 @@ services:
             - 'traefik.http.routers.puff-smith-production-tls.tls=true'
             - 'traefik.http.routers.puff-smith-production-tls.tls.certresolver=default'
             - 'traefik.http.services.puff-smith-production-tls.loadbalancer.server.port=3000'
+        volumes:
+            - puff-smith-files:/var/www/.data
 
     memcached:
         image: memcached:1.6-alpine
@@ -51,3 +53,4 @@ networks:
 
 volumes:
     puff-smith-data:
+    puff-smith-files:
