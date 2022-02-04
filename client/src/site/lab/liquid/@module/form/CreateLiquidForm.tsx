@@ -13,6 +13,7 @@ export interface ICreateLiquidFormProps extends Partial<ICreateDefaultFormProps>
 export const CreateLiquidForm: FC<ICreateLiquidFormProps> = props => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			pg: 50,
 			vg: 50,

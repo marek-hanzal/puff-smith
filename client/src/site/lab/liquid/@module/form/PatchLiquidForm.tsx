@@ -15,6 +15,7 @@ export interface IPatchLiquidFormProps extends Partial<IPatchDefaultFormProps> {
 export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, ...props}) => {
 	const {t} = useTranslation();
 	return <PatchDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			...liquid,
 		})}

@@ -9,8 +9,8 @@ export const VolumeSlider: FC<IVolumeSliderProps> = props => {
 	return <Slider
 		marks={{
 			10: 10 + 'ml',
-			60: 60 + 'ml',
-			120: 120 + 'ml',
+			60: 60,
+			120: 120,
 			500: 500 + 'ml',
 		}}
 		min={10}

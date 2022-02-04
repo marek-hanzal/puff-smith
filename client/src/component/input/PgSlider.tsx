@@ -9,10 +9,10 @@ export const PgSlider: FC<IPgSliderProps> = props => {
 	return <Slider
 		marks={{
 			0: 0 + '%',
-			20: 20 + '%',
-			30: 30 + '%',
-			40: 40 + '%',
-			50: 50 + '%',
+			20: 20,
+			30: 30,
+			40: 40,
+			50: 50,
 			100: 100 + '%',
 		}}
 		min={0}

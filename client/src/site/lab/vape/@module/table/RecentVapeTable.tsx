@@ -7,7 +7,7 @@ export interface IRecentVapeTableProps extends Partial<IVapeTableProps> {
 export const RecentVapeTable: FC<IRecentVapeTableProps> = props => {
 	return <VapeTable
 		source={{
-			defaultSize: 3,
+			defaultSize: 5,
 		}}
 		{...props}
 	/>

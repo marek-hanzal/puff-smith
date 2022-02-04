@@ -1,9 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
-import {LiquidCreateButton, LiquidListButton} from "@/puff-smith/site/lab/liquid";
+import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -38,6 +39,11 @@ export default withLabLayout(function Index() {
 				<LiquidCreateButton type={'primary'}/>
 				<LiquidListButton size={'middle'}/>
 			</ButtonBar>
+			<Divider/>
+			<LiquidsFilterContext>
+				<LiquidFilter/>
+				<LiquidTable/>
+			</LiquidsFilterContext>
 		</Template>
 		<Divider/>
 	</LabPage>;

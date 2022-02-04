@@ -1,9 +1,10 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
-import {CoilCreateButton, CoilListButton} from "@/puff-smith/site/lab/coil";
+import {CoilCreateButton, CoilFilter, CoilListButton, CoilTable} from "@/puff-smith/site/lab/coil";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -38,6 +39,11 @@ export default withLabLayout(function Index() {
 				<CoilCreateButton type={'primary'}/>
 				<CoilListButton size={'middle'}/>
 			</ButtonBar>
+			<Divider/>
+			<CoilsFilterContext>
+				<CoilFilter/>
+				<CoilTable/>
+			</CoilsFilterContext>
 		</Template>
 		<Divider/>
 	</LabPage>;
