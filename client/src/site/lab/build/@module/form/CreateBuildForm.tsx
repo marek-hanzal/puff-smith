@@ -9,7 +9,7 @@ import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowOffsetInput} from "@/puff-smith/site/lab/build";
+import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -98,7 +98,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.glow.label']}
 				tooltip={t('lab.build.glow.label.tooltip')}
 			>
-				<GlowOffsetInput/>
+				<GlowInput/>
 			</FormItem>
 			<FormItem
 				field={'coils'}

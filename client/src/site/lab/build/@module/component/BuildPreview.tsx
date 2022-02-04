@@ -6,7 +6,7 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {BuildPlotButton, BuildVapeButton, CoilCountInput, CoilOffsetInput, CottonOffsetInput, CreateCommentForm, GlowOffsetInput} from "@/puff-smith/site/lab/build";
+import {BuildPlotButton, BuildVapeButton, CoilCountInput, CoilOffsetInput, CottonOffsetInput, CreateCommentForm, GlowInput} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -32,7 +32,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					"ohm": build.ohm.toFixed(2) + " ohm",
 					"coilOffset": <CoilOffsetInput value={build.coilOffset}/>,
 					"cottonOffset": <CottonOffsetInput value={build.cottonOffset}/>,
-					"glow": <GlowOffsetInput value={build.glow}/>,
+					"glow": <GlowInput value={build.glow}/>,
 					"coils": <CoilCountInput value={build.coils}/>,
 					"created": toLocalDateTime(build.created),
 					"active": <PreviewBool bool={build.active}/>,

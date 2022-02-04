@@ -5,6 +5,7 @@ import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -37,14 +38,17 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<VapeCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<VapeListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<VapeListButton/>
+			<VapeCreateButton type={'primary'}/>
+		</Space>}
 	>
 		<LabMenu/>
 		<VapesFilterContext>

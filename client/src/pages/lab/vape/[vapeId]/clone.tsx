@@ -5,6 +5,7 @@ import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
@@ -57,14 +58,17 @@ export default withLabLayout(function Clone() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<VapeCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<VapeListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<VapeListButton/>
+			<VapeCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{vape => <>
 			<LabMenu/>

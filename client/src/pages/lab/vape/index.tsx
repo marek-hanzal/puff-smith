@@ -1,9 +1,11 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Space} from "antd";
-import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
+import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {RecentVapeTable, VapeCreateButton, VapeListButton, VapePlotButton} from "@/puff-smith/site/lab/vape";
 import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
+import {QuickMenu} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -27,6 +29,13 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
+		extra={isMobile ? <QuickMenu>
+			<Menu.Item>
+				<VapePlotButton/>
+			</Menu.Item>
+		</QuickMenu> : <Space>
+			<VapePlotButton/>
+		</Space>}
 	>
 		<LabMenu/>
 		<Template
