@@ -1,3 +1,4 @@
+export * from './CommonRateInput';
 export * from './NicotineSlider';
 export * from './PgSlider';
 export * from './RateInput';

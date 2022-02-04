@@ -60,7 +60,7 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 					{label: t('lab.vape.unrated.all'), value: 'all'},
 				]}
 				optionType={"button"}
-				buttonStyle={"outline"}
+				buttonStyle={"solid"}
 			/>
 		</FormItem>
 	</Filter>

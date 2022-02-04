@@ -13,6 +13,6 @@ export const RateInput: FC<IRateInputProps> = ({translation, ...props}) => {
 		<Radio.Button value={2}>{t(translation + '.rate.2')}</Radio.Button>
 		<Radio.Button value={3}>{t(translation + '.rate.3')}</Radio.Button>
 		<Radio.Button value={4}>{t(translation + '.rate.4')}</Radio.Button>
-		<Radio.Button value={4}>{t(translation + '.rate.5')}</Radio.Button>
+		<Radio.Button value={5}>{t(translation + '.rate.5')}</Radio.Button>
 	</Radio.Group>;
 }

@@ -1,7 +1,7 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 import {Card, Preview} from "@leight-core/leight";
-import {Divider, Rate, Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
@@ -9,7 +9,8 @@ import dayjs from "dayjs";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {AirflowInput, CreateCommentForm, DryhitInput, JuiceInput, LeaksInput} from "@/puff-smith/site/lab/vape";
+import {AirflowInput, CloudsInput, CreateCommentForm, DryhitInput, FreshInput, JuiceInput, LeaksInput, ThroathitInput} from "@/puff-smith/site/lab/vape";
+import {CommonRateInput} from "@/puff-smith";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -37,8 +38,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card key={'rating'} title={t('lab.vape.rating.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"rating": <Rate value={vape.rating} count={10} disabled/>,
-						"taste": <Rate value={vape.taste} count={10} disabled/>,
+						"rating": <CommonRateInput value={vape.rating}/>,
+						"taste": <CommonRateInput value={vape.taste}/>,
 					}}
 				</Preview>
 			</Card>
@@ -57,9 +58,9 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card key={'vape'} title={t('lab.vape.vape.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"mtl": <Rate value={vape.mtl} count={10} disabled/>,
-						"dl": <Rate value={vape.dl} count={10} disabled/>,
-						"clouds": <Rate value={vape.clouds} count={10} disabled/>,
+						"mtl": <CommonRateInput value={vape.mtl}/>,
+						"dl": <CommonRateInput value={vape.dl}/>,
+						"clouds": <CloudsInput value={vape.clouds}/>,
 					}}
 				</Preview>
 			</Card>
@@ -67,12 +68,12 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card title={t('lab.vape.rating-advanced.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"throathit": <Rate value={vape.throathit || 0} count={10} disabled/>,
-						"fruits": <Rate value={vape.fruits || 0} count={10} disabled/>,
-						"tobacco": <Rate value={vape.tobacco || 0} count={10} disabled/>,
-						"cakes": <Rate value={vape.cakes || 0} count={10} disabled/>,
-						"complex": <Rate value={vape.complex || 0} count={10} disabled/>,
-						"fresh": <Rate value={vape.fresh || 0} count={10} disabled/>,
+						"throathit": <ThroathitInput value={vape.throathit}/>,
+						"fruits": <CommonRateInput value={vape.fruits}/>,
+						"tobacco": <CommonRateInput value={vape.tobacco}/>,
+						"cakes": <CommonRateInput value={vape.cakes}/>,
+						"complex": <CommonRateInput value={vape.complex}/>,
+						"fresh": <FreshInput value={vape.fresh}/>,
 					}}
 				</Preview>
 			</Card>
