@@ -4,6 +4,7 @@ import {ButtonLink, HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -36,11 +37,13 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<CoilCreateButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<CoilCreateButton type={'primary'}/>
+		</Space>}
 	>
 		<LabMenu/>
 		<CoilsFilterContext>

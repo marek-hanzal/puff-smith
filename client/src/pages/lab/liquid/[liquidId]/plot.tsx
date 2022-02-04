@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -59,14 +60,17 @@ export default withLabLayout(function Plot() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<LiquidCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<LiquidListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<LiquidListButton/>
+			<LiquidCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{liquid => <>
 			<LabMenu/>

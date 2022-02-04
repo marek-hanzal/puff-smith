@@ -7,6 +7,7 @@ import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -48,7 +49,7 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => <QuickMenu>
+		extra={entityContext => isMobile ? <QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>
 			</Menu.Item>
@@ -58,7 +59,11 @@ export default withLabLayout(function Index() {
 			{entityContext.entity && <Menu.Item>
 				<BuildPlotButton build={entityContext.entity}/>
 			</Menu.Item>}
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			{entityContext.entity && <BuildPlotButton build={entityContext.entity}/>}
+			<BuildListButton/>
+			<BuildCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{build => <>
 			<LabMenu/>

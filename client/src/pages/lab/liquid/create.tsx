@@ -4,6 +4,7 @@ import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {ButtonLink, CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
@@ -45,11 +46,13 @@ export default withLabLayout(function Create() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<LiquidListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<LiquidListButton/>
+		</Space>}
 	>
 		<LabMenu/>
 		<CreateTemplate

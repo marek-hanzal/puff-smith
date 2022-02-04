@@ -5,6 +5,7 @@ import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} fr
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
@@ -57,14 +58,17 @@ export default withLabLayout(function Clone() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<BuildCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<BuildListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<BuildListButton/>
+			<BuildCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{build => <>
 			<LabMenu/>

@@ -1,10 +1,11 @@
 import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
-import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, LiquidPlotButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
+import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BackIcon, ButtonLink, EditIcon, EditTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
@@ -57,17 +58,17 @@ export default withLabLayout(function Edit() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => <QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<LiquidCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<LiquidListButton/>
 			</Menu.Item>
-			{entityContext.entity && <Menu.Item>
-				<LiquidPlotButton liquid={entityContext.entity}/>
-			</Menu.Item>}
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<LiquidListButton/>
+			<LiquidCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{liquid => <>
 			<LabMenu/>

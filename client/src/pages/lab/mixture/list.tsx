@@ -5,6 +5,7 @@ import {Breadcrumb, Menu, Space} from "antd";
 import {LiquidIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {MixturesFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -37,11 +38,13 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
-				<MixtureCreateButton type={'link'}/>
+				<MixtureCreateButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<MixtureCreateButton type={'primary'}/>
+		</Space>}
 	>
 		<LabMenu/>
 		<MixturesFilterContext>

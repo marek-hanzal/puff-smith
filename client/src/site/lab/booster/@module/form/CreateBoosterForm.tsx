@@ -10,6 +10,7 @@ export interface ICreateBoosterFormProps extends Partial<ICreateDefaultFormProps
 
 export const CreateBoosterForm: FC<ICreateBoosterFormProps> = props => {
 	return <CreateDefaultForm
+		layout={'vertical'}
 		toForm={() => ({
 			nicotine: 6,
 			volume: 10,

@@ -10,6 +10,7 @@ export interface ICreateBaseFormProps extends Partial<ICreateDefaultFormProps> {
 
 export const CreateBaseForm: FC<ICreateBaseFormProps> = props => {
 	return <CreateDefaultForm
+		layout={'vertical'}
 		{...props}
 	>
 		<FormItem

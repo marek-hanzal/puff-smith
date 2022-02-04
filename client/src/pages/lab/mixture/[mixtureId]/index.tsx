@@ -5,6 +5,7 @@ import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -46,7 +47,7 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => <QuickMenu>
+		extra={entityContext => isMobile ? <QuickMenu>
 			<Menu.Item>
 				<MixtureCreateButton/>
 			</Menu.Item>
@@ -56,7 +57,11 @@ export default withLabLayout(function Index() {
 			{entityContext.entity && <Menu.Item>
 				<MixturePlotButton mixture={entityContext.entity}/>
 			</Menu.Item>}
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			{entityContext.entity && <MixturePlotButton mixture={entityContext.entity}/>}
+			<MixtureListButton/>
+			<MixtureCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{mixture => <>
 			<LabMenu/>

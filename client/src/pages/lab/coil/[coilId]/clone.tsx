@@ -5,6 +5,7 @@ import {CoilCreateButton, CoilLinkButton, CoilListButton, CreateCoilForm} from "
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
@@ -57,14 +58,17 @@ export default withLabLayout(function Clone() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={<QuickMenu>
+		extra={isMobile ? <QuickMenu>
 			<Menu.Item>
 				<CoilCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<CoilListButton/>
 			</Menu.Item>
-		</QuickMenu>}
+		</QuickMenu> : <Space>
+			<CoilListButton/>
+			<CoilCreateButton type={'primary'}/>
+		</Space>}
 	>
 		{coil => <>
 			<LabMenu/>
