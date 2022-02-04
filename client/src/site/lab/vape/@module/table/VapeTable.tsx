@@ -3,7 +3,6 @@ import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab
 import {MixtureInline, MixtureLinkButton} from "@/puff-smith/site/lab/mixture";
 import {Carousel, List, Space} from "antd";
 import {Card, SmallPreview, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
-import dayjs from "dayjs";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {BuildLinkButton, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
@@ -13,6 +12,7 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
+import {durationOf} from "@leight-core/leight/dist";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 
@@ -125,10 +125,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			column({
 				key: "mixture.age",
 				title: "lab.vape.table.mixture.age",
-				render: (_, vape) => {
-					// @ts-ignore
-					return dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize();
-				},
+				render: (_, vape) => durationOf(vape.mixture.mixed, vape.stamp).humanize(),
 				width: 150,
 			}),
 			column({
@@ -156,10 +153,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			column({
 				key: "age",
 				title: "lab.vape.table.age",
-				render: (_, vape) => {
-					// @ts-ignore
-					return dayjs.duration(dayjs().diff(vape.build.created)).humanize()
-				},
+				render: (_, vape) => durationOf(vape.build.created),
 			}),
 			column({
 				key: "stamp",

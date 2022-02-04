@@ -4,10 +4,11 @@ import {asDayjs, SmallPreview, toLocalDate, useOptionalFilterContext} from "@lei
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureAge, MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {List, Space} from "antd";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
+import {durationOf} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -82,7 +83,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			column({
 				key: "age",
 				title: "lab.mixture.table.age",
-				render: (_, mixture) => <MixtureAge mixture={mixture}/>,
+				render: (_, mixture) => durationOf(mixture.mixed),
 				width: 140,
 			}),
 			column({

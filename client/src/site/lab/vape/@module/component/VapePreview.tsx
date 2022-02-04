@@ -5,13 +5,12 @@ import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
-import dayjs from "dayjs";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {AirflowInput, CloudsInput, CreateCommentForm, DryhitInput, FreshInput, JuiceInput, LeaksInput, ThroathitInput} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
-import {toLocalDateTime} from "@leight-core/leight/dist";
+import {durationOf, toLocalDateTime} from "@leight-core/leight/dist";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -27,8 +26,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					{{
 						"coil": <CoilInline vertical coil={vape.build.coil}/>,
 						"mod": <ModInline mod={vape.mod}/>,
-						// @ts-ignore
-						"mixture.age": dayjs.duration(dayjs(vape.stamp).diff(vape.mixture.mixed)).humanize(),
+						"mixture.age": durationOf(vape.mixture.mixed, vape.stamp).humanize(),
 						"driptip": <DriptipInline driptip={vape.driptip}/>,
 						"leaks": <LeaksInput value={vape.leaks}/>,
 						"dryhit": <DryhitInput value={vape.dryhit}/>,

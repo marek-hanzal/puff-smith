@@ -5,12 +5,13 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
-import {CreateCommentForm, MixtureAge, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {CreateCommentForm, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {durationOf} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto
@@ -29,7 +30,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 					"booster": <BoosterInline booster={mixture.booster}/>,
 					"pgvg": <span><span>{mixture.pg}</span>/<span>{mixture.vg}</span></span>,
 					"nicotine": mixture.nicotine + 'mg',
-					"age": <MixtureAge mixture={mixture}/>,
+					"age": durationOf(mixture.mixed).humanize(),
 					"steep": <MixtureSteeping mixture={mixture}/>,
 					"mixed": toLocalDate(mixture.mixed),
 					"expires": asDayjs(mixture.expires)?.format('MMMM YYYY'),
