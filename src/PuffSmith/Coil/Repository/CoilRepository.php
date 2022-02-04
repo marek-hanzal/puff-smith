@@ -18,6 +18,9 @@ class CoilRepository extends AbstractRepository {
 
 	public function __construct() {
 		parent::__construct(['stamp' => IRepository::ORDER_DESC], ['$_coil_unique']);
+		$this->orderByMap = [
+			'wire' => 'w.name',
+		];
 	}
 
 	public function toQuery(Query $query): Select {

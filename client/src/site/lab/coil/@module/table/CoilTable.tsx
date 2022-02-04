@@ -36,18 +36,21 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				key: "wire",
 				title: 'lab.coil.table.wire',
 				render: (_, coil) => <WireInline wire={coil.wire}/>,
+				sorter: true,
 			}),
 			column({
 				key: "wraps",
 				title: 'lab.coil.table.wraps',
 				render: (_, coil) => coil.wraps,
 				width: 200,
+				sorter: true,
 			}),
 			column({
 				key: "ohm",
 				title: 'lab.coil.table.ohm',
 				render: (_, coil) => coil.ohm.toFixed(2) + 'ohm',
 				width: 200,
+				sorter: true,
 			}),
 		]}
 	</CoilsSourceTable>

@@ -7,14 +7,21 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Dto\DtoServiceTrait;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use Edde\Repository\IRepository;
+use PuffSmith\Comment\Repository\CommentRepositoryTrait;
 use PuffSmith\Mixture\Dto\Comment\CommentFilterDto;
 use PuffSmith\Mixture\Dto\Comment\CreateDto;
-use PuffSmith\Comment\Repository\CommentRepositoryTrait;
-use function array_map;
 
 class MixtureCommentRepository extends AbstractRepository {
 	use CommentRepositoryTrait;
 	use DtoServiceTrait;
+
+	public function __construct() {
+		parent::__construct(['stamp' => IRepository::ORDER_DESC]);
+		$this->orderByMap = [
+			'stamp' => 'c.stamp',
+		];
+	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select('c.*');
@@ -24,20 +31,9 @@ class MixtureCommentRepository extends AbstractRepository {
 		$filter = $query->filter;
 		isset($filter->mixtureId) && $this->where($select, '$.mixture_id', $filter->mixtureId);
 
-		$select->orderBy(['c.stamp' => 'desc']);
-
 		$this->toOrderBy($query->orderBy, $select);
 
 		return $select;
-	}
-
-	protected function toByMap(array $orderBy): array {
-		return array_map(static function (string $orderBy) {
-			static $map = [
-				'stamp' => 'c.stamp',
-			];
-			return $map[$orderBy] ?? $orderBy;
-		}, $orderBy);
 	}
 
 	public function create(CreateDto $createDto) {
@@ -45,7 +41,7 @@ class MixtureCommentRepository extends AbstractRepository {
 			'comment' => $createDto->comment,
 		]));
 		$this->insert([
-			'mixture_id'   => $createDto->mixtureId,
+			'mixture_id' => $createDto->mixtureId,
 			'comment_id' => $comment->id,
 		]);
 		return $comment;

@@ -7,14 +7,21 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Dto\DtoServiceTrait;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use Edde\Repository\IRepository;
 use PuffSmith\Comment\Repository\CommentRepositoryTrait;
 use PuffSmith\Vape\Dto\Comment\CommentFilterDto;
 use PuffSmith\Vape\Dto\Comment\CreateDto;
-use function array_map;
 
 class VapeCommentRepository extends AbstractRepository {
 	use CommentRepositoryTrait;
 	use DtoServiceTrait;
+
+	public function __construct() {
+		parent::__construct(['stamp' => IRepository::ORDER_DESC]);
+		$this->orderByMap = [
+			'stamp' => 'c.stamp',
+		];
+	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select('c.*');
@@ -26,20 +33,9 @@ class VapeCommentRepository extends AbstractRepository {
 		isset($filter->vapeId) && $this->where($select, '$.vape_id', $filter->vapeId);
 		!empty($filter->buildIds) && $this->where($select, 'v.build_id', 'in', $filter->buildIds);
 
-		$select->orderBy(['c.stamp' => 'desc']);
-
 		$this->toOrderBy($query->orderBy, $select);
 
 		return $select;
-	}
-
-	protected function toByMap(array $orderBy): array {
-		return array_map(static function (string $orderBy) {
-			static $map = [
-				'stamp' => 'c.stamp',
-			];
-			return $map[$orderBy] ?? $orderBy;
-		}, $orderBy);
 	}
 
 	public function create(CreateDto $createDto) {
