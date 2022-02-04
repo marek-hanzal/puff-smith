@@ -1,13 +1,13 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {MixtureInline} from "@/puff-smith/site/lab/mixture";
+import {MixtureInline, MixtureLinkButton} from "@/puff-smith/site/lab/mixture";
 import {Carousel, List, Space} from "antd";
 import {Card, SmallPreview, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import dayjs from "dayjs";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {BuildLinkButton, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {CoilInline, CoilLinkButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
@@ -25,7 +25,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	const {t} = useTranslation();
 	return <VapesSourceTable
 		filter={filterContext?.filter}
-		scroll={{x: 2400}}
+		scroll={{x: 2500}}
 		listProps={{
 			itemLayout: 'vertical'
 		}}
@@ -93,13 +93,19 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			!hidden?.includes('atomizer') && column({
 				key: "atomizer",
 				title: "lab.vape.table.atomizer",
-				render: (_, vape) => <AtomizerInline atomizer={vape.build.atomizer}/>,
-				width: 300,
+				render: (_, vape) => <Space size={0}>
+					<BuildLinkButton build={vape.build} title={null}/>
+					<AtomizerInline atomizer={vape.build.atomizer}/>
+				</Space>,
+				width: 320,
 			}),
 			!hidden?.includes('mixture') && column({
 				key: "mixture",
 				title: "lab.vape.table.mixture",
-				render: (_, vape) => <MixtureInline mixture={vape.mixture}/>
+				render: (_, vape) => <Space size={0}>
+					<MixtureLinkButton title={null} mixture={vape.mixture}/>
+					<MixtureInline mixture={vape.mixture}/>
+				</Space>,
 			}),
 			column({
 				key: "mod",
@@ -110,8 +116,11 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			column({
 				key: "coil",
 				title: "lab.vape.table.coil",
-				render: (_, vape) => <CoilInline coil={vape.build.coil}/>,
-				width: 480,
+				render: (_, vape) => <Space size={0}>
+					<CoilLinkButton coil={vape.build.coil} title={null}/>
+					<CoilInline vertical coil={vape.build.coil}/>
+				</Space>,
+				width: 320,
 			}),
 			column({
 				key: "mixture.age",
