@@ -77,11 +77,11 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $airflow = 2;
+	public ?int $airflow = 10;
 	/**
 	 * @var int|null
 	 */
-	public ?int $juice = 2;
+	public ?int $juice = 10;
 	/**
 	 * @var float|null
 	 */
