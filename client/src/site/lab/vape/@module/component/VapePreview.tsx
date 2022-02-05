@@ -10,6 +10,7 @@ import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/l
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {CreateCommentForm} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
+import {BuildAge} from "@/puff-smith/site/lab/build";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -25,10 +26,11 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					{{
 						"coil": <CoilInline vertical coil={vape.build.coil}/>,
 						"mod": <ModInline mod={vape.mod}/>,
+						"build.age": <BuildAge build={vape.build}/>,
 						"mixture.age": durationOf(vape.mixture.mixed, vape.stamp).humanize(),
 						"driptip": <DriptipInline driptip={vape.driptip}/>,
-						"leaks": <CommonRateInput value={vape.leaks}/>,
-						"dryhit": <CommonRateInput value={vape.dryhit}/>,
+						"leaks": <CommonRateInput disabled value={vape.leaks}/>,
+						"dryhit": <CommonRateInput disabled value={vape.dryhit}/>,
 						"stamp": toLocalDateTime(vape.stamp),
 					}}
 				</Preview>
@@ -37,8 +39,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card key={'rating'} title={t('lab.vape.rating.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"rating": <CommonRateInput value={vape.rating}/>,
-						"taste": <CommonRateInput value={vape.taste}/>,
+						"rating": <CommonRateInput disabled value={vape.rating}/>,
+						"taste": <CommonRateInput disabled value={vape.taste}/>,
 					}}
 				</Preview>
 			</Card>
@@ -48,8 +50,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					{{
 						"power": vape.power ? vape.power + ' W' : '-',
 						"tc": vape.tc ? vape.tc + ' °C' : '-',
-						"airflow": <CommonRateInput value={vape.airflow}/>,
-						"juice": <CommonRateInput value={vape.juice || 0}/>,
+						"airflow": <CommonRateInput disabled value={vape.airflow}/>,
+						"juice": <CommonRateInput disabled value={vape.juice || 0}/>,
 					}}
 				</Preview>
 			</Card>
@@ -57,9 +59,9 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card key={'vape'} title={t('lab.vape.vape.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"mtl": <CommonRateInput value={vape.mtl}/>,
-						"dl": <CommonRateInput value={vape.dl}/>,
-						"clouds": <CommonRateInput value={vape.clouds}/>,
+						"mtl": <CommonRateInput disabled value={vape.mtl}/>,
+						"dl": <CommonRateInput disabled value={vape.dl}/>,
+						"clouds": <CommonRateInput disabled value={vape.clouds}/>,
 					}}
 				</Preview>
 			</Card>
@@ -67,12 +69,12 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			<Card title={t('lab.vape.rating-advanced.title')}>
 				<Preview translation={'lab.vape.preview'}>
 					{{
-						"throathit": <CommonRateInput value={vape.throathit}/>,
-						"fruits": <CommonRateInput value={vape.fruits}/>,
-						"tobacco": <CommonRateInput value={vape.tobacco}/>,
-						"cakes": <CommonRateInput value={vape.cakes}/>,
-						"complex": <CommonRateInput value={vape.complex}/>,
-						"fresh": <CommonRateInput value={vape.fresh}/>,
+						"throathit": <CommonRateInput disabled value={vape.throathit}/>,
+						"fruits": <CommonRateInput disabled value={vape.fruits}/>,
+						"tobacco": <CommonRateInput disabled value={vape.tobacco}/>,
+						"cakes": <CommonRateInput disabled value={vape.cakes}/>,
+						"complex": <CommonRateInput disabled value={vape.complex}/>,
+						"fresh": <CommonRateInput disabled value={vape.fresh}/>,
 					}}
 				</Preview>
 			</Card>

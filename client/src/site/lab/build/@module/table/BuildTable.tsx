@@ -4,7 +4,7 @@ import {CoilInline, CoilLinkButton} from "@/puff-smith/site/lab/coil";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {List, Space, Typography} from "antd";
-import {BuildCommentButton, BuildLinkButton, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildCommentButton, BuildLinkButton, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
@@ -88,7 +88,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			column({
 				key: "age",
 				title: "lab.build.table.age",
-				render: (_, build) => durationOf(build.created),
+				render: (_, build) => <BuildAge build={build}/>,
 			}),
 		]}
 	</BuildsSourceTable>
