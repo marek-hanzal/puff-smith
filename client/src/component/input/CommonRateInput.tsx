@@ -1,13 +1,15 @@
 import {FC, forwardRef} from "react";
-import {IRateInputProps, RateInput} from "@/puff-smith/component";
+import {Rate, RateProps} from "antd";
 
-export interface ICommonRateInputProps extends Partial<IRateInputProps> {
+export interface ICommonRateInputProps extends Partial<Omit<RateProps, "value">> {
+	value?: number | null
 }
 
-export const CommonRateInput: FC<ICommonRateInputProps> = forwardRef((props, ref) => {
-	return <RateInput
-		translation={'common.rate'}
+export const CommonRateInput: FC<ICommonRateInputProps> = forwardRef(({value, ...props}, ref) => {
+	return <Rate
+		count={10}
 		ref={ref as any}
+		value={value || undefined}
 		{...props}
-	/>;
+	/>
 });
