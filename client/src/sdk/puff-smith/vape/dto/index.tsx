@@ -45,7 +45,7 @@ export interface VapeDto {
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number;
+	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
 	dryhit: number;
@@ -85,7 +85,7 @@ export interface PatchDto {
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number;
+	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
 	dryhit: number;
@@ -138,7 +138,7 @@ export interface RateDto {
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number;
+	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
 	dryhit: number;

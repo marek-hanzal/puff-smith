@@ -57,7 +57,7 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $clouds = 0;
+	public ?int $clouds;
 	/**
 	 * @var int|null
 	 */

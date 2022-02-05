@@ -151,9 +151,8 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				field={'clouds'}
 				labels={['lab.vape.clouds.label']}
 				tooltip={t('lab.vape.clouds.label.tooltip')}
-				required
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
 		<Divider/>

@@ -89,9 +89,8 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				field={'clouds'}
 				labels={['lab.vape.clouds.label']}
 				tooltip={t('lab.vape.clouds.label.tooltip')}
-				required
 			>
-				<CommonRateInput/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
 		<Divider/>

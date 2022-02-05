@@ -59,9 +59,9 @@ class PatchDto extends AbstractDto {
 	 */
 	public ?int $fresh;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $clouds;
+	public ?int $clouds;
 	/**
 	 * @var int|null
 	 */
