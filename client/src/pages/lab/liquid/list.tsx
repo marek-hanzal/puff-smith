@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidCreateButton, LiquidFilter, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {ButtonLink, HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -45,7 +45,6 @@ export default withLabLayout(function List() {
 			<LiquidCreateButton type={'primary'}/>
 		</Space>}
 	>
-		<LabMenu/>
 		<LiquidsFilterContext>
 			<LiquidFilter/>
 			<LiquidTable/>

@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton, VapePlotButton} from "@/puff-smith/site/lab/vape";
@@ -37,7 +37,6 @@ export default withLabLayout(function Index() {
 			<VapePlotButton/>
 		</Space>}
 	>
-		<LabMenu/>
 		<Template
 			icon={<VapeIcon/>}
 			label={'lab.vape'}

@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
@@ -73,7 +73,6 @@ export default withLabLayout(function Plot() {
 		</Space>}
 	>
 		{build => <>
-			<LabMenu/>
 			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
 				<VapeFilter disabled={['atomizerIds']}/>
 				<VapePlot

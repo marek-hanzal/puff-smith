@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
 import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
@@ -29,7 +29,6 @@ export default withLabLayout(function Index() {
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 	>
-		<LabMenu/>
 		<Template
 			icon={<LiquidIcon/>}
 			label={'lab.liquid'}

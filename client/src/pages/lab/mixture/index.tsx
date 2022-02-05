@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
@@ -28,7 +28,6 @@ export default withLabLayout(function Index() {
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 	>
-		<LabMenu/>
 		<Template
 			icon={<MixtureIcon/>}
 			label={'lab.mixture'}

@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeFilter, VapeListButton, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {ButtonLink, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
@@ -50,7 +50,6 @@ export default withLabLayout(function List() {
 			<VapeCreateButton type={'primary'}/>
 		</Space>}
 	>
-		<LabMenu/>
 		<VapesFilterContext>
 			<VapeFilter/>
 			<VapePlot

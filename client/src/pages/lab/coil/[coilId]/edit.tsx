@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {CoilCloneButton, CoilCreateButton, CoilLinkButton, CoilListButton, PatchCoilForm} from "@/puff-smith/site/lab/coil";
@@ -71,7 +71,6 @@ export default withLabLayout(function Edit() {
 		</Space>}
 	>
 		{coil => <>
-			<LabMenu/>
 			<EditTemplate
 				icon={<CoilIcon/>}
 				label={'lab.coil'}

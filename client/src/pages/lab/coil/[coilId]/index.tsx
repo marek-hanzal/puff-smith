@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {CoilCloneButton, CoilCreateButton, CoilEditButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
@@ -60,7 +60,6 @@ export default withLabLayout(function Index() {
 		</Space>}
 	>
 		{coil => <>
-			<LabMenu/>
 			<PreviewTemplate
 				icon={<CoilIcon/>}
 				label={'lab.coil.index'}

@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {ButtonLink, CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
@@ -54,7 +54,6 @@ export default withLabLayout(function Create() {
 			<CoilListButton/>
 		</Space>}
 	>
-		<LabMenu/>
 		<CreateTemplate
 			icon={<CoilIcon/>}
 			label={'lab.coil'}

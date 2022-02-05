@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
 import {CoilCreateButton, CoilFilter, CoilListButton, CoilTable} from "@/puff-smith/site/lab/coil";
@@ -29,7 +29,6 @@ export default withLabLayout(function Index() {
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 	>
-		<LabMenu/>
 		<Template
 			icon={<CoilIcon/>}
 			label={'lab.coil'}

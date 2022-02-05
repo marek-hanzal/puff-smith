@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, BuildPlotButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
@@ -75,7 +75,6 @@ export default withLabLayout(function Edit() {
 		</Space>}
 	>
 		{build => <>
-			<LabMenu/>
 			<EditTemplate
 				icon={<BuildIcon/>}
 				label={'lab.build'}

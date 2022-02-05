@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {MixtureCreateButton, MixtureLinkButton, MixtureListButton, PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
@@ -71,7 +71,6 @@ export default withLabLayout(function Edit() {
 		</Space>}
 	>
 		{mixture => <>
-			<LabMenu/>
 			<EditTemplate
 				icon={<MixtureIcon/>}
 				label={'lab.mixture'}

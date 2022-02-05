@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
@@ -64,7 +64,6 @@ export default withLabLayout(function Index() {
 		</Space>}
 	>
 		{mixture => <>
-			<LabMenu/>
 			<PreviewTemplate
 				icon={<MixtureIcon/>}
 				title={<MixtureInline mixture={mixture}/>}

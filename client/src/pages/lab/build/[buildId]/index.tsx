@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
@@ -66,7 +66,6 @@ export default withLabLayout(function Index() {
 		</Space>}
 	>
 		{build => <>
-			<LabMenu/>
 			<PreviewTemplate
 				icon={<BuildIcon/>}
 				title={<AtomizerInline atomizer={build.atomizer}/>}

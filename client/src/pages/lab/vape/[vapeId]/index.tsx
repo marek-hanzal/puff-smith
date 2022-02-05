@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {VapeCloneButton, VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -62,7 +62,6 @@ export default withLabLayout(function Index() {
 		</Space>}
 	>
 		{vape => <>
-			<LabMenu/>
 			<PreviewTemplate
 				icon={<VapeIcon/>}
 				title={<AtomizerInline atomizer={vape.build.atomizer}/>}

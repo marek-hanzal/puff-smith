@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
@@ -71,7 +71,6 @@ export default withLabLayout(function Edit() {
 		</Space>}
 	>
 		{liquid => <>
-			<LabMenu/>
 			<EditTemplate
 				icon={<LiquidIcon/>}
 				label={'lab.liquid'}

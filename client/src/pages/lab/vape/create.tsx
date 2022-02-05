@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {CreateVapeForm, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {ButtonLink, CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
@@ -54,7 +54,6 @@ export default withLabLayout(function Create() {
 			<VapeListButton/>
 		</Space>}
 	>
-		<LabMenu/>
 		<CreateTemplate
 			icon={<VapeIcon/>}
 			label={'lab.vape'}

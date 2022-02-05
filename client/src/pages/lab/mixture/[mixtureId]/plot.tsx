@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
@@ -73,7 +73,6 @@ export default withLabLayout(function Plot() {
 		</Space>}
 	>
 		{mixture => <>
-			<LabMenu/>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
 				<VapeFilter disabled={['atomizerIds']}/>
 				<VapePlot

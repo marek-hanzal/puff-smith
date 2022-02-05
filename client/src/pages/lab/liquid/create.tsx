@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {ButtonLink, CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
@@ -54,7 +54,6 @@ export default withLabLayout(function Create() {
 			<LiquidListButton/>
 		</Space>}
 	>
-		<LabMenu/>
 		<CreateTemplate
 			icon={<LiquidIcon/>}
 			label={'lab.liquid'}

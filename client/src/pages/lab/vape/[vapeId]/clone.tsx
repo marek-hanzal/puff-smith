@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {CloneIcon, VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
@@ -71,7 +71,6 @@ export default withLabLayout(function Clone() {
 		</Space>}
 	>
 		{vape => <>
-			<LabMenu/>
 			<CreateTemplate
 				icon={<VapeIcon/>}
 				label={'lab.vape'}

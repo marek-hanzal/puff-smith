@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
@@ -71,7 +71,6 @@ export default withLabLayout(function Edit() {
 		</Space>}
 	>
 		{vape => <>
-			<LabMenu/>
 			<EditTemplate
 				icon={<VapeIcon/>}
 				label={'lab.vape'}

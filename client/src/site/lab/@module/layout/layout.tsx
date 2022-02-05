@@ -4,7 +4,7 @@ import {FC, useEffect} from "react";
 import {AppLayout, usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import {FullLogoIcon, NotificationContextProvider} from "@/puff-smith";
-import {Footer, Header} from "@/puff-smith/site/lab";
+import {Footer, Header, LabMenu} from "@/puff-smith/site/lab";
 import {UserSettingsCheck} from "@/puff-smith/site/lab/@module/component/UserSettingsCheck";
 import i18n from "i18next";
 
@@ -34,6 +34,7 @@ export const LabLayout: FC<ILabLayoutProps> = ({children}) => {
 			<HeaderSiderLayout
 				header={<Header/>}
 				footer={<Footer/>}
+				menu={<LabMenu/>}
 			>
 				<UserSettingsCheck>
 					{children}

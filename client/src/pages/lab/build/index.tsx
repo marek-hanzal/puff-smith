@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
@@ -28,7 +28,6 @@ export default withLabLayout(function Index() {
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 	>
-		<LabMenu/>
 		<Template
 			icon={<BuildIcon/>}
 			label={'lab.build'}

@@ -1,4 +1,4 @@
-import {LabMenu, withLabLayout} from "@/puff-smith/site/lab";
+import {withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
@@ -64,7 +64,6 @@ export default withLabLayout(function Index() {
 		</Space>}
 	>
 		{liquid => <>
-			<LabMenu/>
 			<PreviewTemplate
 				icon={<LiquidIcon/>}
 				title={<LiquidInline liquid={liquid}/>}

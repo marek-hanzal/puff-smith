@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureCreateButton, MixtureFilter, MixtureTable} from "@/puff-smith/site/lab/mixture";
 import {ButtonLink, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -46,7 +46,6 @@ export default withLabLayout(function List() {
 			<MixtureCreateButton type={'primary'}/>
 		</Space>}
 	>
-		<LabMenu/>
 		<MixturesFilterContext>
 			<MixtureFilter/>
 			<MixtureTable/>

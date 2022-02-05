@@ -1,4 +1,4 @@
-import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
 import {ButtonLink, HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -45,7 +45,6 @@ export default withLabLayout(function List() {
 			<CoilCreateButton type={'primary'}/>
 		</Space>}
 	>
-		<LabMenu/>
 		<CoilsFilterContext>
 			<CoilFilter/>
 			<CoilTable/>
