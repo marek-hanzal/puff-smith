@@ -1,6 +1,5 @@
 export interface PatchDto {
 	id: string;
-	active?: boolean | null | undefined;
 	glow: number | null;
 	created?: string | null | undefined;
 	atomizerId?: string | null | undefined;

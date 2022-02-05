@@ -5,7 +5,7 @@ import {Carousel, List, Space} from "antd";
 import {Card, SmallPreview, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {BuildLinkButton, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildLinkButton, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline, CoilLinkButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
@@ -153,7 +153,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			column({
 				key: "age",
 				title: "lab.vape.table.age",
-				render: (_, vape) => durationOf(vape.build.created),
+				render: (_, vape) => <BuildAge build={vape.build}/>,
 			}),
 			column({
 				key: "stamp",
