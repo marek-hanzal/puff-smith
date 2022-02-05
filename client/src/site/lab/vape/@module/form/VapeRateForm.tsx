@@ -5,7 +5,6 @@ import {useTranslation} from "react-i18next";
 import {Divider, message} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
-import {AirflowInput, CloudsInput, DryhitInput, FreshInput, JuiceInput, LeaksInput, PowerInput, TcInput, ThroathitInput} from "@/puff-smith/site/lab/vape";
 
 export interface IVapeRateFormProps extends Partial<IRateDefaultFormProps> {
 	vape: VapeDto;
@@ -40,7 +39,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				tooltip={t('lab.vape.leaks.label.tooltip')}
 				required
 			>
-				<LeaksInput/>
+				<CommonRateInput/>
 			</FormItem>
 			<FormItem
 				field={'dryhit'}
@@ -48,7 +47,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				tooltip={t('lab.vape.dryhit.label.tooltip')}
 				required
 			>
-				<DryhitInput/>
+				<CommonRateInput/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -92,7 +91,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				tooltip={t('lab.vape.clouds.label.tooltip')}
 				required
 			>
-				<CloudsInput/>
+				<CommonRateInput/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -102,7 +101,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.throathit.label']}
 				tooltip={t('lab.vape.throathit.label.tooltip')}
 			>
-				<ThroathitInput allowClear/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'complex'}
@@ -137,7 +136,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.fresh.label']}
 				tooltip={t('lab.vape.fresh.label.tooltip')}
 			>
-				<FreshInput allowClear/>
+				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
 		<Divider/>
@@ -147,28 +146,28 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<PowerInput/>
+				<CommonRateInput/>
 			</FormItem>
 			<FormItem
 				field={'tc'}
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<TcInput/>
+				<CommonRateInput/>
 			</FormItem>
 			<FormItem
 				field={'airflow'}
 				labels={['lab.vape.airflow.label']}
 				tooltip={t('lab.vape.airflow.label.tooltip')}
 			>
-				<AirflowInput/>
+				<CommonRateInput/>
 			</FormItem>
 			<FormItem
 				field={'juice'}
 				labels={['lab.vape.juice.label']}
 				tooltip={t('lab.vape.juice.label.tooltip')}
 			>
-				<JuiceInput/>
+				<CommonRateInput/>
 			</FormItem>
 		</Card>
 		<Divider/>
