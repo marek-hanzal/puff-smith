@@ -101,7 +101,6 @@ class BuildRepository extends AbstractRepository {
 		return $this->change([
 			'id'           => $patchDto->id,
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
-			'active'       => $patchDto->active,
 			'glow'         => $patchDto->glow,
 			'atomizer_id'  => $patchDto->atomizerId,
 			'coil_id'      => $patchDto->coilId,

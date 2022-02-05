@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PuffSmith\Api\Lab\Build\Endpoint;
 
+use DateTime;
 use Edde\Rest\Endpoint\AbstractMutationEndpoint;
 use PuffSmith\Api\Lab\Build\Dto\ActiveDto;
 use PuffSmith\Build\Dto\BuildDto;
@@ -15,8 +16,9 @@ class ActiveEndpoint extends AbstractMutationEndpoint {
 
 	public function post(ActiveDto $activeDto): BuildDto {
 		return $this->buildMapper->item($this->buildRepository->change([
-			'id'     => $activeDto->id,
-			'active' => $activeDto->active,
+			'id'         => $activeDto->id,
+			'active'     => $activeDto->active,
+			'disabledOn' => $activeDto->active ? null : new DateTime(),
 		]));
 	}
 }

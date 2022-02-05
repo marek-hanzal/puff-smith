@@ -10,8 +10,6 @@ class PatchDto extends AbstractDto {
 	 * @var string
 	 */
 	public string $id;
-	/** @var bool|null|void */
-	public ?bool $active;
 	/** @var int|null */
 	public ?int $glow;
 	/** @var string|null|void */

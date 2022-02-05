@@ -19,6 +19,8 @@ class BuildDto extends AbstractDto {
 	public ?int $glow;
 	/** @var bool */
 	public bool $active;
+	/** @var string|null|void */
+	public ?string $disabledOn;
 
 	/** @var string */
 	public string $atomizerId;
