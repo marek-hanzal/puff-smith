@@ -25,6 +25,7 @@ class BuildMapper extends AbstractMapper {
 			'id'           => $item->id,
 			'glow'         => $item->glow,
 			'active'       => (bool)$item->active,
+			'disabledOn'   => $this->isoDateNull($item->disabledOn),
 			'created'      => $this->isoDateNull($item->created),
 			'coils'        => $item->coils,
 			'coilOffset'   => $item->coilOffset,

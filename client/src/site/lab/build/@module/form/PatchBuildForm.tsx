@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
-import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
@@ -100,11 +100,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 			>
 				<CoilCountInput/>
 			</FormItem>
-			<SwitchItem
-				field={'active'}
-				labels={['lab.build.active.label']}
-				tooltip={t('lab.build.active.label.tooltip')}
-			/>
 		</Card>
 		<Divider/>
 		<Centered>
