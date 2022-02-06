@@ -26,7 +26,7 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 			meta={{
 				value: {
 					min: 1,
-					max: 10,
+					max: 9,
 					formatter: toHumanNumber,
 				}
 			}}
