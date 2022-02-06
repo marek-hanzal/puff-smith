@@ -158,7 +158,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 			column({
 				key: "stamp",
 				title: "lab.vape.table.stamp",
-				render: (_, vape) => toLocalDateTime(vape.stamp),
+				render: (_, vape) => toLocalDateTime(vape.stamp) + ' (' + durationOf(vape.stamp).humanize() + ')',
 			}),
 		]}
 	</VapesSourceTable>
