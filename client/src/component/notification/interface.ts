@@ -2,7 +2,7 @@ export interface INotificationContext {
 	/**
 	 * Number of current notifications.
 	 */
-	count(): number;
+	readonly count: number;
 
 	/**
 	 * Set current number of notifications.

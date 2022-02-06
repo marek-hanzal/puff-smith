@@ -1,4 +1,3 @@
 export * from "./interface";
 export * from "./NotificationContext";
-export * from "./NotificationContextClass";
-export * from "./NotificationContextProvider";
+export * from "./NotificationProvider";
