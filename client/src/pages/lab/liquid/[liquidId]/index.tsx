@@ -1,8 +1,8 @@
 import {withLabLayout} from "@/puff-smith/site/lab";
-import {LiquidIcon} from "@/puff-smith";
+import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
@@ -15,28 +15,19 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab/liquid/list')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/liquid'}
 					title={'lab.liquid.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/liquid/list'}
 					title={'lab.liquid.list.label'}
 				/>

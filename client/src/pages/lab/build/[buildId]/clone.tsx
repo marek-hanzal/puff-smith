@@ -1,9 +1,9 @@
 import {withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon, CloneIcon} from "@/puff-smith";
+import {BreadcrumbButton, BuildIcon, CloneIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, ButtonLink, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {BackIcon, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
 
@@ -16,37 +16,25 @@ export default withLabLayout(function Clone() {
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/build'}
 					title={'lab.build.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/build/list'}
 					title={'lab.build.list.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/build/[buildId]'}
 					query={{buildId}}
 					title={'lab.build.index.label'}

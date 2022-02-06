@@ -2,12 +2,13 @@ import {withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {ButtonLink, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {isMobile} from "react-device-detect";
+import {BreadcrumbButton} from "@/puff-smith";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -18,37 +19,25 @@ export default withLabLayout(function Plot() {
 		onBack={navigate => navigate('/lab/mixture/[mixtureId]', {mixtureId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/mixture'}
 					title={'lab.mixture.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/mixture/list'}
 					title={'lab.mixture.list.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/mixture/[mixtureId]'}
 					query={{mixtureId}}
 					title={'lab.mixture.index.label'}

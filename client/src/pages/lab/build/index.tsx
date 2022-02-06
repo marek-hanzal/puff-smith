@@ -1,6 +1,6 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
-import {BuildIcon} from "@/puff-smith";
+import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
+import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
@@ -13,10 +13,7 @@ export default withLabLayout(function Index() {
 		menuSelection={['/lab/build']}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>

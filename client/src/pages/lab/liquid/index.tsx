@@ -1,6 +1,6 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {LiquidIcon} from "@/puff-smith";
-import {ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/leight";
+import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
+import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
@@ -14,10 +14,7 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>

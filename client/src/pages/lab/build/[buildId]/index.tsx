@@ -1,8 +1,8 @@
 import {withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon} from "@/puff-smith";
+import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
@@ -17,28 +17,19 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab/build/list')}
 		breadcrumbProps={_ => <Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/build'}
 					title={'lab.build.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/build/list'}
 					title={'lab.build.list.label'}
 				/>

@@ -1,8 +1,8 @@
 import {withLabLayout} from "@/puff-smith/site/lab";
-import {CoilIcon} from "@/puff-smith";
+import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {CoilCloneButton, CoilCreateButton, CoilEditButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {ButtonLink, HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
@@ -15,28 +15,19 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab/coil/list')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/coil'}
 					title={'lab.coil.label'}
 				/>
 			</Breadcrumb.Item>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab/coil/list'}
 					title={'lab.coil.list.label'}
 				/>

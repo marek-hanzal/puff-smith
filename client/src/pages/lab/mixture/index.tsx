@@ -1,8 +1,8 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {MixtureIcon} from "@/puff-smith";
+import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Index() {
@@ -13,10 +13,7 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>

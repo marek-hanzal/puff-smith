@@ -1,8 +1,8 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {VapeIcon} from "@/puff-smith";
+import {BreadcrumbButton, VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton, VapePlotButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, ButtonLink, Card, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
 import {QuickMenu} from "@leight-core/leight/dist";
@@ -15,10 +15,7 @@ export default withLabLayout(function Index() {
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
-				<ButtonLink
-					style={{padding: 0}}
-					type={'link'}
-					size={'small'}
+				<BreadcrumbButton
 					href={'/lab'}
 					icon={<HomeIcon/>}
 				/>
