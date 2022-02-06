@@ -13,7 +13,7 @@ export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <VapePage
 		title={"lab.vape.index"}
-		selected={['/lab/vape']}
+		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape/list')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

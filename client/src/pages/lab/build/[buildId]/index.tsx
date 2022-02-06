@@ -13,7 +13,7 @@ export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <BuildPage
 		title={"lab.build.index"}
-		selected={['/lab/build']}
+		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/list')}
 		breadcrumbProps={_ => <Breadcrumb>
 			<Breadcrumb.Item>

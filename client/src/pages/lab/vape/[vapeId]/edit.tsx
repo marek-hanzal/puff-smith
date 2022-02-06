@@ -12,7 +12,7 @@ export default withLabLayout(function Edit() {
 	const {vapeId} = useParams();
 	return <VapePage
 		title={"lab.vape.edit"}
-		selected={['/lab/vape']}
+		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape', {vapeId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

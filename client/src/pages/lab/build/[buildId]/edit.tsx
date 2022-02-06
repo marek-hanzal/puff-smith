@@ -12,7 +12,7 @@ export default withLabLayout(function Edit() {
 	const {buildId} = useParams();
 	return <BuildPage
 		title={"lab.build.edit"}
-		selected={['/lab/build']}
+		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

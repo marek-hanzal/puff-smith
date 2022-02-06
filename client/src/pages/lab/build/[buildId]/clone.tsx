@@ -12,7 +12,7 @@ export default withLabLayout(function Clone() {
 	const {buildId} = useParams();
 	return <BuildPage
 		title={"lab.build.clone"}
-		selected={['/lab/build']}
+		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

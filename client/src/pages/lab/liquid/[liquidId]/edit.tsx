@@ -12,7 +12,7 @@ export default withLabLayout(function Edit() {
 	const {liquidId} = useParams();
 	return <LiquidPage
 		title={"lab.liquid.edit"}
-		selected={['/lab/liquid']}
+		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid/[liquidId]', {liquidId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

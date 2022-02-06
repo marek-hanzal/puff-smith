@@ -10,7 +10,7 @@ export default withLabLayout(function Create() {
 	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.liquid.create"}
-		selected={['/lab/liquid']}
+		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

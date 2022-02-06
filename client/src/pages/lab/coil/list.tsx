@@ -10,7 +10,7 @@ export default withLabLayout(function List() {
 	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.coil.list"}
-		selected={['/lab/coil']}
+		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

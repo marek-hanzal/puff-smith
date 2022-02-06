@@ -12,7 +12,7 @@ export default withLabLayout(function Clone() {
 	const {coilId} = useParams();
 	return <CoilPage
 		title={"lab.coil.clone"}
-		selected={['/lab/coil']}
+		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil/[coilId]', {coilId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

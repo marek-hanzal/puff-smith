@@ -10,7 +10,7 @@ export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.build"}
 		onBack={navigate => navigate('/lab')}
-		selected={['/lab/build']}
+		menuSelection={['/lab/build']}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
 				<ButtonLink

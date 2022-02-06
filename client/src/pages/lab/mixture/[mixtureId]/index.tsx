@@ -11,7 +11,7 @@ export default withLabLayout(function Index() {
 	const {t} = useTranslation();
 	return <MixturePage
 		title={"lab.mixture.index"}
-		selected={['/lab/mixture']}
+		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/list')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

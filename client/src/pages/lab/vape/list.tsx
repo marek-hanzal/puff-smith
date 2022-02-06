@@ -11,7 +11,7 @@ export default withLabLayout(function List() {
 	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.vape.list"}
-		selected={['/lab/vape']}
+		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape')}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>

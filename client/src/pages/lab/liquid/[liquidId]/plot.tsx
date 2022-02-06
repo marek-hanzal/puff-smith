@@ -14,7 +14,7 @@ export default withLabLayout(function Plot() {
 	const {liquidId} = useParams();
 	return <LiquidPage
 		title={"lab.liquid.plot"}
-		selected={['/lab/liquid']}
+		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid/[liquidId]', {liquidId})}
 		breadcrumbProps={<Breadcrumb>
 			<Breadcrumb.Item>
