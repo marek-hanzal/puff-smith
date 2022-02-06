@@ -7,7 +7,7 @@ export interface ICommonRateInputProps extends Partial<Omit<RateProps, "value">>
 
 export const CommonRateInput: FC<ICommonRateInputProps> = forwardRef(({value, ...props}, ref) => {
 	return <Rate
-		count={10}
+		count={9}
 		ref={ref as any}
 		value={value || undefined}
 		{...props}
