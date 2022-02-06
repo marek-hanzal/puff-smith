@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {Result, ResultProps} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import {useOptionalFilterContext} from "@leight-core/leight";
+import {toHumanNumber} from "@leight-core/leight/dist";
 
 export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | string;
 
@@ -26,9 +27,7 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 				value: {
 					min: 1,
 					max: 10,
-					formatter: value => value.toLocaleString(undefined, {
-						maximumSignificantDigits: 2,
-					}),
+					formatter: toHumanNumber,
 				}
 			}}
 			loading={plotQuery.isLoading}

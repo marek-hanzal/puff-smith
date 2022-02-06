@@ -1,6 +1,6 @@
 export interface BuildDto {
 	id: string;
-	ohm: number;
+	ohm: number | null;
 	created: string;
 	glow: number | null;
 	active: boolean;

@@ -4,12 +4,12 @@ import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, message} from "antd";
-import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
 import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
+import {ItemGroup} from "@leight-core/leight/dist";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -48,14 +48,17 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			>
 				<AtomizerSelect allowClear/>
 			</FormItem>
-			<FormItem
-				field={'coilId'}
-				labels={['lab.build.coilId.label']}
-				required
-				help={<CoilTooltip/>}
-			>
-				<CoilSelect allowClear/>
-			</FormItem>
+			{/*<FormItem*/}
+			{/*	field={'coilId'}*/}
+			{/*	labels={['lab.build.coilId.label']}*/}
+			{/*	required*/}
+			{/*	help={<CoilTooltip/>}*/}
+			{/*>*/}
+			{/*	<CoilSelect allowClear/>*/}
+			{/*</FormItem>*/}
+			<ItemGroup prefix={'coil'}>
+
+			</ItemGroup>
 			<FormItem
 				field={'cottonId'}
 				labels={['lab.build.cottonId.label']}

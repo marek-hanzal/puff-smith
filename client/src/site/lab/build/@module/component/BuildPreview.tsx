@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
-import {ImageGallery} from "@/puff-smith";
+import {ImageGallery, Ohm} from "@/puff-smith";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -29,7 +29,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 				{{
 					"coil": <CoilInline vertical coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
-					"ohm": build.ohm.toFixed(2) + " ohm",
+					"ohm": <Ohm ohm={build?.ohm}/>,
 					"age": <BuildAge build={build}/>,
 					"coilOffset": <CoilOffsetInput value={build.coilOffset}/>,
 					"cottonOffset": <CottonOffsetInput value={build.cottonOffset}/>,

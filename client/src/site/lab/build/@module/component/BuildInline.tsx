@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Divider, Space, Typography} from "antd";
-import {AtomizerIcon, CoilIcon} from "@/puff-smith";
+import {AtomizerIcon, CoilIcon, Ohm} from "@/puff-smith";
 import {WireInline} from "@/puff-smith/site/lab/wire";
 import {ArrowsAltOutlined} from "@ant-design/icons";
 
@@ -24,7 +24,7 @@ export const BuildInline: FC<IBuildInlineProps> = ({build}) => {
 					{build.coil.size.toFixed(2)}<ArrowsAltOutlined/>
 				</Space>
 				<Space size={2}>
-					{build.ohm.toFixed(2)}ohm
+					<Ohm ohm={build?.ohm}/>
 				</Space>
 			</Space>
 		</Space>

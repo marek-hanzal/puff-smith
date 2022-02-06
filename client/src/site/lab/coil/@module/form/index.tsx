@@ -1,3 +1,4 @@
+export * from './input';
 export * from './CoilFilter';
 export * from './CoilSelect';
 export * from './CoilTooltip';

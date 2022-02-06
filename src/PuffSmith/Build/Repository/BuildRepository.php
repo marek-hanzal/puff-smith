@@ -16,10 +16,12 @@ use Edde\User\Exception\UserNotSelectedException;
 use PuffSmith\Build\Dto\BuildFilterDto;
 use PuffSmith\Build\Dto\Create\CreateDto;
 use PuffSmith\Build\Dto\Patch\PatchDto;
+use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 use Throwable;
 
 class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
+	use CoilRepositoryTrait;
 
 	public function __construct() {
 		parent::__construct([
@@ -73,9 +75,10 @@ class BuildRepository extends AbstractRepository {
 		if ($createDto->deactivate) {
 			$this->table()->update(['active' => false])->where('atomizer_id', $createDto->atomizerId)->execute();
 		}
+		$coil = $this->coilRepository->create($createDto->coil);
 		return $this->insert([
 			'atomizer_id'  => $createDto->atomizerId,
-			'coil_id'      => $createDto->coilId,
+			'coil_id'      => $coil->id,
 			'glow'         => $createDto->glow,
 			'cotton_id'    => $createDto->cottonId,
 			'coils'        => $createDto->coils,

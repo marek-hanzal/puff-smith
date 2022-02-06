@@ -52,13 +52,6 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				width: 160,
 				sorter: true,
 			}),
-			column({
-				key: "ohm",
-				title: 'lab.coil.table.ohm',
-				render: (_, coil) => coil.ohm.toFixed(2) + 'ohm',
-				width: 160,
-				sorter: true,
-			}),
 		]}
 	</CoilsSourceTable>
 }

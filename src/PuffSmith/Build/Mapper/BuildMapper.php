@@ -36,7 +36,7 @@ class BuildMapper extends AbstractMapper {
 			'coil'         => $this->coilMapper->item($coil),
 			'cottonId'     => ($cotton = $this->cottonRepository->find($item->cotton_id))->id,
 			'cotton'       => $this->cottonMapper->item($cotton),
-			'ohm'          => $item->ohm ?? $coil->ohm,
+			'ohm'          => $item->ohm,
 		]);
 	}
 }

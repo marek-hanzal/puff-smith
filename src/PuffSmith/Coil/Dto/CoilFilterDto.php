@@ -7,10 +7,6 @@ use Edde\Repository\Dto\AbstractFilterDto;
 
 class CoilFilterDto extends AbstractFilterDto {
 	/**
-	 * @var string|null|void
-	 */
-	public ?string $userId;
-	/**
 	 * @var array|null|void
 	 */
 	public ?array $wireIds;
@@ -18,8 +14,4 @@ class CoilFilterDto extends AbstractFilterDto {
 	 * @var array|null|void
 	 */
 	public ?array $wraps;
-	/**
-	 * @var array|null|void
-	 */
-	public ?array $ohm;
 }

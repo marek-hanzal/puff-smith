@@ -9,7 +9,7 @@ import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {durationOf} from "@leight-core/leight/dist";
-import {SimpleRating} from "@/puff-smith";
+import {Ohm, SimpleRating} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -75,7 +75,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "ohm",
 				dataIndex: "ohm",
 				title: "lab.build.table.ohm",
-				render: (_, build) => build.ohm.toFixed(2) + 'ohm',
+				render: (_, build) => <Ohm ohm={build?.ohm}/>,
 				width: 140,
 			}),
 			column({

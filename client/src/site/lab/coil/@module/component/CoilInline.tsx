@@ -17,7 +17,6 @@ export const CoilInline: FC<ICoilInlineProps> = ({coil, vertical}) => {
 			<Typography.Text type={'secondary'}>{coil.wire.vendor.name}</Typography.Text>
 		</Space>
 		<Space split={<Divider type={'vertical'}/>}>
-			<Typography.Text type={'success'}>{coil.ohm.toFixed(2)}ohm</Typography.Text>
 			<Space><span>{coil.wraps}</span><ReloadOutlined/></Space>
 			<Space><span>{coil.size}</span><ArrowsAltOutlined/></Space>
 		</Space>

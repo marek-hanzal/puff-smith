@@ -2,10 +2,11 @@ import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {CoilIcon} from "@/puff-smith";
+import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 
 export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 	coil: CoilDto;
@@ -42,34 +43,13 @@ export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, ...props}) => {
 			tooltip={t('lab.coil.wraps.label.tooltip')}
 			required
 		>
-			<InputNumber style={{width: '100%'}} min={3} max={12}/>
+			<WrapsInput/>
 		</FormItem>
 		<FormItem
 			field={'size'}
 			labels={['lab.coil.size.label']}
 		>
-			<Slider
-				marks={{
-					0.1: 0.1,
-					0.15: 0.15,
-					0.2: 0.2,
-					0.25: 0.25,
-					0.3: 0.3,
-					0.35: 0.35,
-					0.4: 0.4,
-				}}
-				min={0.1}
-				max={0.4}
-				step={0.05}
-			/>
-		</FormItem>
-		<FormItem
-			field={'ohm'}
-			labels={['lab.coil.ohm.label']}
-			tooltip={t('lab.coil.ohm.label.tooltip')}
-			required
-		>
-			<InputNumber style={{width: '100%'}} min={0} max={2}/>
+			<SizeInput/>
 		</FormItem>
 		<Divider/>
 		<Centered>

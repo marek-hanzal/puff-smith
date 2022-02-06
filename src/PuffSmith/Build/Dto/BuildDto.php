@@ -11,8 +11,8 @@ use PuffSmith\Cotton\Dto\CottonDto;
 class BuildDto extends AbstractDto {
 	/** @var string */
 	public string $id;
-	/** @var float */
-	public float $ohm;
+	/** @var float|null */
+	public ?float $ohm;
 	/** @var string */
 	public string $created;
 	/** @var int|null */
