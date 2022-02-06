@@ -10,6 +10,8 @@ import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
 import {ItemGroup} from "@leight-core/leight/dist";
+import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
+import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -48,17 +50,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			>
 				<AtomizerSelect allowClear/>
 			</FormItem>
-			{/*<FormItem*/}
-			{/*	field={'coilId'}*/}
-			{/*	labels={['lab.build.coilId.label']}*/}
-			{/*	required*/}
-			{/*	help={<CoilTooltip/>}*/}
-			{/*>*/}
-			{/*	<CoilSelect allowClear/>*/}
-			{/*</FormItem>*/}
-			<ItemGroup prefix={'coil'}>
-
-			</ItemGroup>
 			<FormItem
 				field={'cottonId'}
 				labels={['lab.build.cottonId.label']}
@@ -68,17 +59,38 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				<CottonSelect allowClear/>
 			</FormItem>
 			<FormItem
-				field={'ohm'}
-				labels={['lab.build.ohm.label']}
-			>
-				<InputNumber style={{width: '100%'}} min={0} max={4}/>
-			</FormItem>
-			<FormItem
 				field={'created'}
 				labels={['lab.build.created.label']}
 			>
 				<DatePicker showTime/>
 			</FormItem>
+		</Card>
+		<Divider/>
+		<Card title={t('lab.build.coil.title')}>
+			<ItemGroup prefix={'coil'}>
+				<FormItem
+					field={'wireId'}
+					labels={['lab.coil.wireId.label']}
+					required
+					help={<WireTooltip/>}
+				>
+					<WireSelect/>
+				</FormItem>
+				<FormItem
+					field={'wraps'}
+					labels={['lab.coil.wraps.label']}
+					tooltip={t('lab.coil.wraps.label.tooltip')}
+					required
+				>
+					<WrapsInput/>
+				</FormItem>
+				<FormItem
+					field={'size'}
+					labels={['lab.coil.size.label']}
+				>
+					<SizeInput/>
+				</FormItem>
+			</ItemGroup>
 		</Card>
 		<Divider/>
 		<Card title={t('lab.build.advanced.title')}>
@@ -108,6 +120,12 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 				labels={['lab.build.coils.label']}
 			>
 				<CoilCountInput/>
+			</FormItem>
+			<FormItem
+				field={'ohm'}
+				labels={['lab.build.ohm.label']}
+			>
+				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>
 			<SwitchItem
 				field={'deactivate'}

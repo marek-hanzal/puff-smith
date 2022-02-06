@@ -43,14 +43,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				<AtomizerSelect/>
 			</FormItem>
 			<FormItem
-				field={'coilId'}
-				labels={['lab.build.coilId.label']}
-				required
-				help={<CoilTooltip/>}
-			>
-				<CoilSelect/>
-			</FormItem>
-			<FormItem
 				field={'cottonId'}
 				labels={['lab.build.cottonId.label']}
 				required
@@ -59,10 +51,12 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				<CottonSelect/>
 			</FormItem>
 			<FormItem
-				field={'ohm'}
-				labels={['lab.build.ohm.label']}
+				field={'coilId'}
+				labels={['lab.build.coilId.label']}
+				required
+				help={<CoilTooltip/>}
 			>
-				<InputNumber style={{width: '100%'}} min={0} max={4}/>
+				<CoilSelect/>
 			</FormItem>
 			<FormItem
 				field={'created'}
@@ -99,6 +93,12 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, ...props}) => {
 				labels={['lab.build.coils.label']}
 			>
 				<CoilCountInput/>
+			</FormItem>
+			<FormItem
+				field={'ohm'}
+				labels={['lab.build.ohm.label']}
+			>
+				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>
 		</Card>
 		<Divider/>
