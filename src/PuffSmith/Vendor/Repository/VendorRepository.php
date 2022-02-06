@@ -65,4 +65,12 @@ class VendorRepository extends AbstractRepository {
 			return $this->findByName($ensureDto->name);
 		}
 	}
+
+	public function findByCreate(CreateDto $createDto) {
+		return $this
+			->select()
+			->where('name', $createDto->name)
+			->execute()
+			->fetch();
+	}
 }
