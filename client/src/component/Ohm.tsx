@@ -6,5 +6,5 @@ export interface IOhmProps {
 }
 
 export const Ohm: FC<IOhmProps> = ({ohm}) => {
-	return <>{ohm ? toHumanNumber(ohm) + 'ohm' : '-'}</>;
+	return <>{ohm ? toHumanNumber(ohm, 3) + 'ohm' : '-'}</>;
 }

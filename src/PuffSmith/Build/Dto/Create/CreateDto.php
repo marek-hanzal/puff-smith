@@ -13,7 +13,7 @@ class CreateDto extends AbstractDto {
 	/** @var string */
 	public string $atomizerId;
 	/** @var \PuffSmith\Coil\Dto\Create\CreateDto */
-	public string $coil;
+	public \PuffSmith\Coil\Dto\Create\CreateDto $coil;
 	/** @var string */
 	public string $cottonId;
 	/** @var int */
