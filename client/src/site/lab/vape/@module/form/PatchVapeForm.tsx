@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Divider, message} from "antd";
+import {Divider, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
@@ -105,14 +105,35 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<Slider
+					marks={{
+						0: 0,
+						20: 20,
+						40: 40,
+						60: 60,
+						80: 80,
+					}}
+					min={0}
+					max={80}
+					step={0.5}
+				/>
 			</FormItem>
 			<FormItem
 				field={'tc'}
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<Slider
+					marks={{
+						0: 0,
+						80: 80,
+						120: 120,
+						200: 200,
+						240: 240,
+					}}
+					min={0}
+					max={0}
+				/>
 			</FormItem>
 			<FormItem
 				field={'airflow'}

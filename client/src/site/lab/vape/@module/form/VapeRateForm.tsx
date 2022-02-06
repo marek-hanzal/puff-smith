@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message} from "antd";
+import {Divider, message, Slider} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
 
@@ -145,14 +145,35 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 				labels={['lab.vape.power.label']}
 				tooltip={t('lab.vape.power.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<Slider
+					marks={{
+						0: 0,
+						20: 20,
+						40: 40,
+						60: 60,
+						80: 80,
+					}}
+					min={0}
+					max={80}
+					step={0.5}
+				/>
 			</FormItem>
 			<FormItem
 				field={'tc'}
 				labels={['lab.vape.tc.label']}
 				tooltip={t('lab.vape.tc.label.tooltip')}
 			>
-				<CommonRateInput/>
+				<Slider
+					marks={{
+						0: 0,
+						80: 80,
+						120: 120,
+						200: 200,
+						240: 240,
+					}}
+					min={0}
+					max={240}
+				/>
 			</FormItem>
 			<FormItem
 				field={'airflow'}
