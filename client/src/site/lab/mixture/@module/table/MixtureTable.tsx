@@ -18,7 +18,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 	const {t} = useTranslation();
 	return <MixturesSourceTable
 		filter={filterContext?.filter}
-		scroll={{x: 2600}}
+		scroll={{x: 2200}}
 		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={mixture => <List.Item
 			className={mixture.active ? 'active' : 'inactive'}

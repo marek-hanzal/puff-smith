@@ -28,17 +28,22 @@ class VapeRepository extends AbstractRepository {
 		];
 	}
 
+	public function select($fields = null): Select {
+		$select = parent::select($fields);
+		$this->join($select, 'z_build', 'b', '$.build_id');
+		$this->join($select, 'z_atomizer', 'a', 'b.atomizer_id');
+		$this->join($select, 'z_mixture', 'm', '$.mixture_id');
+		$this->join($select, 'z_mod', 'mo', '$.mod_id');
+		$this->join($select, 'z_liquid', 'l', 'm.liquid_id');
+		return $select;
+	}
+
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter VapeFilterDto */
 		if (!empty($filter = $query->filter)) {
 			$filter = $this->dtoService->fromObject(VapeFilterDto::class, $filter);
-			$this->join($select, 'z_build', 'b', '$.build_id');
-			$this->join($select, 'z_atomizer', 'a', 'b.atomizer_id');
-			$this->join($select, 'z_mixture', 'm', '$.mixture_id');
-			$this->join($select, 'z_mod', 'mo', '$.mod_id');
-			$this->join($select, 'z_liquid', 'l', 'm.liquid_id');
 		}
 
 		isset($filter->fulltext) && $this->fulltext($select, [

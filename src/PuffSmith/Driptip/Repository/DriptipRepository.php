@@ -19,6 +19,12 @@ class DriptipRepository extends AbstractRepository {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_code_unique']);
 	}
 
+	public function select($fields = null): Select {
+		$select = parent::select($fields);
+		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		return $select;
+	}
+
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
