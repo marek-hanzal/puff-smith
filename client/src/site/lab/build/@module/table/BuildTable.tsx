@@ -21,7 +21,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1000}}
+		scroll={{x: 1400}}
 		{...props}
 	>
 		{({column}) => [
@@ -59,7 +59,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				dataIndex: "ohm",
 				title: "lab.build.table.ohm",
 				render: (_, build) => <Ohm ohm={build?.ohm}/>,
-				width: 140,
+				width: 160,
 				sorter: true,
 			}),
 			column({
