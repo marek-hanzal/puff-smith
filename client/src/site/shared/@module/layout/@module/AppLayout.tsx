@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
+import {isMobile} from "react-device-detect";
 
 const queryClient = createQueryClient();
 
@@ -14,7 +15,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
 	return <App
 		clientLink={process.env.NEXT_PUBLIC_PUBLIC_URL + "/puff-smith/client.json"}
 		queryClient={queryClient}
-		logo={<FullLogoIcon/>}
+		logo={<FullLogoIcon style={isMobile ? {width: "90vw"} : {width: "10vw"}}/>}
 		dayjs={dayjs}
 		i18next={i18next}
 		{...props}
