@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {FullLogoIcon, LiquidIcon, LogoIcon} from "@/puff-smith";
-import {MenuPlaceholder, Template} from "@leight-core/leight";
+import {Template} from "@leight-core/leight";
 import {BrowserView, isMobile, MobileView} from "react-device-detect";
 
 export default withLabLayout(function Index() {
@@ -20,7 +20,7 @@ export default withLabLayout(function Index() {
 			/>
 		</BrowserView>
 		<MobileView>
-			<MenuPlaceholder/>
+			<LabMenu/>
 		</MobileView>
 	</LabPage>;
 });

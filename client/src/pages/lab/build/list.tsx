@@ -1,11 +1,12 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
-import {HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Menu, Space} from "antd";
+import {HomeIcon, ListIcon} from "@leight-core/leight";
+import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+import {CreateIcon, CreateMenuItem} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -32,11 +33,9 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<BuildCreateButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<BuildCreateButton type={'primary'}/>
 		</Space>}
 	>

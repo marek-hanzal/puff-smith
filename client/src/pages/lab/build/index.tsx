@@ -1,9 +1,10 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
 import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
+import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -24,6 +25,7 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
+		extra={isMobile && <LabMenuDrawerButton/>}
 	>
 		<Template
 			icon={<BuildIcon/>}
