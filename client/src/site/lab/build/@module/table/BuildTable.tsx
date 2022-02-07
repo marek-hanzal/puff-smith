@@ -1,14 +1,13 @@
 import {BuildsSourceTable, IBuildsSourceTableProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {CoilInline, CoilPreviewButton} from "@/puff-smith/site/lab/coil";
-import {AtomizerInline, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
-import {CottonInline, CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
-import {List, Space, Typography} from "antd";
-import {BuildAge, BuildCommentButton, BuildLinkButton, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
+import {Space} from "antd";
+import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
-import {durationOf} from "@leight-core/leight/dist";
 import {Ohm, SimpleRating} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
@@ -20,23 +19,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 	return <BuildsSourceTable
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
-		listItemRender={build => <List.Item
-			className={build.active ? 'active' : 'inactive'}
-			actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
-		>
-			<Space direction={'vertical'}>
-				<AtomizerInline atomizer={build.atomizer}/>
-				<CoilInline coil={build.coil}/>
-				<CottonInline cotton={build.cotton}/>
-				<Space>
-					<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{durationOf(build.created).humanize()}
-				</Space>
-				<Space>
-					<BuildVapeButton size={'small'} build={build}/>
-					<BuildCommentButton size={'small'} build={build}/>
-				</Space>
-			</Space>
-		</List.Item>}
+		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
 		scroll={{x: 1000}}
 		{...props}

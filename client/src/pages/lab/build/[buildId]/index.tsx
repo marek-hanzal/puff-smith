@@ -1,13 +1,13 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
+import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
-import {isMobile} from "react-device-detect";
+import {isBrowser, isMobile} from "react-device-detect";
+import {ButtonBar, CreateMenuItem} from "@leight-core/leight/dist";
+import {BarChartOutlined} from "@ant-design/icons";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -40,33 +40,31 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => isMobile ? <QuickMenu>
+		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
 			<Menu.Item>
 				<BuildCreateButton/>
 			</Menu.Item>
 			<Menu.Item>
 				<BuildListButton/>
 			</Menu.Item>
-			{entityContext.entity && <Menu.Item>
-				<BuildPlotButton build={entityContext.entity}/>
-			</Menu.Item>}
-		</QuickMenu> : <Space>
-			{entityContext.entity && <BuildPlotButton build={entityContext.entity}/>}
+			{entity && CreateMenuItem('lab.build.button.plot', '/lab/build/[buildId]/plot', <BarChartOutlined/>, {buildId: entity.id})}
+		</LabMenuDrawerButton> : <Space>
+			{entity && <BuildPlotButton build={entity}/>}
 			<BuildListButton/>
 			<BuildCreateButton type={'primary'}/>
 		</Space>}
 	>
 		{build => <>
 			<PreviewTemplate
-				icon={<BuildIcon/>}
-				title={<AtomizerInline atomizer={build.atomizer}/>}
-				subTitle={<CoilInline coil={build.coil}/>}
-				extra={<>
-					<Space>
+				icon={isBrowser ? <BuildIcon/> : <></>}
+				title={build.atomizer.name}
+				subTitle={build.coil.wire.name}
+				browserExtra={<>
+					<ButtonBar>
 						<BuildEditButton build={build}/>
 						<BuildCloneButton build={build}/>
 						<BuildVapeButton build={build}/>
-					</Space>
+					</ButtonBar>
 					<Divider/>
 				</>}
 				span={24}
