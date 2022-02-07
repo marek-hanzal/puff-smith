@@ -5,7 +5,7 @@ import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/si
 import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateMenuItem} from "@leight-core/leight/dist";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => {
 	return <ButtonBar>
@@ -35,6 +35,8 @@ export default withLabLayout(function Index() {
 		</Breadcrumb>}
 		extra={isMobile ? <LabMenuDrawerButton>
 			{CreateMenuItem("lab.vape.button.plot", "/lab/vape/plot", <PlotIcon/>)}
+			{CreateMenuItem("lab.vape.button.create", "/lab/vape/create", <CreateIcon/>)}
+			{CreateMenuItem("lab.vape.button.list", "/lab/vape/list", <ListIcon/>)}
 		</LabMenuDrawerButton> : <VapeButtonBar/>}
 	>
 		<Template

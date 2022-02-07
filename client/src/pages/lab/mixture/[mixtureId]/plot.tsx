@@ -1,14 +1,15 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
+import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {HomeIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -49,17 +50,13 @@ export default withLabLayout(function Plot() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<MixtureCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<MixtureListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <ButtonBar>
 			<MixtureListButton/>
 			<MixtureCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		{mixture => <>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>

@@ -45,10 +45,10 @@ export default withLabLayout(function Index() {
 			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
 			{entity && CreateMenuItem('lab.vape.button.clone', '/lab/vape/[vapeId]/clone', <CloneIcon/>, {vapeId: entity.id})}
 			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <Space>
+		</LabMenuDrawerButton> : <ButtonBar>
 			<VapeListButton/>
 			<VapeCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		{vape => <>
 			<PreviewTemplate

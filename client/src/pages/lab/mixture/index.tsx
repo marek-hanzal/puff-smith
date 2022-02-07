@@ -1,10 +1,11 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
 import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {isBrowser} from "react-device-detect";
+import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => {
 	return <ButtonBar>
@@ -32,7 +33,10 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isBrowser && <MixtureButtonBar/>}
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <MixtureButtonBar/>}
 	>
 		<Template
 			span={24}

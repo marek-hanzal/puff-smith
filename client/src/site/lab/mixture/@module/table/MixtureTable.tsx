@@ -4,11 +4,11 @@ import {asDayjs, toLocalDate, useOptionalFilterContext} from "@leight-core/leigh
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {List, Space} from "antd";
+import {MixtureLinkButton, MixtureListItem, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {Space} from "antd";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
-import {durationOf, Preview} from "@leight-core/leight/dist";
+import {durationOf} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -20,17 +20,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 		filter={filterContext?.filter}
 		scroll={{x: 2200}}
 		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data})}
-		listItemRender={mixture => <List.Item
-			className={mixture.active ? 'active' : 'inactive'}
-			actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}
-		>
-			<Preview translation={'lab.mixture.preview'}>
-				{{
-					"name": mixture.liquid.name,
-					"vendor": mixture.liquid.vendor.name,
-				}}
-			</Preview>
-		</List.Item>}
+		listItemRender={mixture => <MixtureListItem mixture={mixture}/>}
 		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
 		{...props}
 	>

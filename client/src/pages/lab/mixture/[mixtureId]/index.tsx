@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
+import {BreadcrumbButton, MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -38,18 +39,12 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => isMobile ? <QuickMenu>
-			<Menu.Item>
-				<MixtureCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<MixtureListButton/>
-			</Menu.Item>
-			{entityContext.entity && <Menu.Item>
-				<MixturePlotButton mixture={entityContext.entity}/>
-			</Menu.Item>}
-		</QuickMenu> : <Space>
-			{entityContext.entity && <MixturePlotButton mixture={entityContext.entity}/>}
+		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
+			{entity && CreateMenuItem('lab.mixture.button.plot', '/lab/mixture/[mixtureId]/plot', <PlotIcon/>, {mixtureId: entity.id})}
+		</LabMenuDrawerButton> : <Space>
+			{entity && <MixturePlotButton mixture={entity}/>}
 			<MixtureListButton/>
 			<MixtureCreateButton type={'primary'}/>
 		</Space>}
