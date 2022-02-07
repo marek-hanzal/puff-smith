@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Atomizer;
 
 use Edde\Http\AbstractRouterGroup;
+use PuffSmith\Api\Lab\Atomizer\Comment\CommentRouterGroup;
 use PuffSmith\Api\Lab\Atomizer\Endpoint\AtomizerEndpoint;
 use PuffSmith\Api\Lab\Atomizer\Endpoint\AtomizersEndpoint;
 use PuffSmith\Api\Lab\Atomizer\Endpoint\CreateEndpoint;
@@ -19,6 +20,8 @@ class AtomizerRouterGroup extends AbstractRouterGroup {
 			CreateEndpoint::class,
 			DeleteEndpoint::class,
 			PatchEndpoint::class,
+		], [
+			CommentRouterGroup::class,
 		]);
 	}
 }

@@ -26,6 +26,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 			coilOffset: 0,
 			cottonOffset: 0,
 			glow: 3,
+			coil: {
+				wraps: 7,
+				size: 0.3,
+			},
 			...build,
 			created: moment(),
 			name: null,
