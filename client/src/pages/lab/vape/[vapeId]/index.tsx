@@ -6,7 +6,6 @@ import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {isMobile} from "react-device-detect";
 import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
@@ -54,7 +53,7 @@ export default withLabLayout(function Index() {
 			<PreviewTemplate
 				icon={<VapeIcon/>}
 				title={<AtomizerInline atomizer={vape.build.atomizer}/>}
-				subTitle={<MixtureInline mixture={vape.mixture}/>}
+				subTitle={vape.mixture.liquid.name}
 				extra={<>
 					<ButtonBar>
 						<VapeEditButton vape={vape}/>

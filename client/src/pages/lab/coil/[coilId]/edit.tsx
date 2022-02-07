@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Space} from "antd";
 import {CoilCloneButton, CoilCreateButton, CoilLinkButton, CoilListButton, PatchCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {BackIcon, EditIcon, EditTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {BackIcon, EditIcon, EditTemplate, HomeIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
@@ -46,17 +47,13 @@ export default withLabLayout(function Edit() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<CoilCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<CoilListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <ButtonBar>
 			<CoilListButton/>
 			<CoilCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		{coil => <>
 			<EditTemplate

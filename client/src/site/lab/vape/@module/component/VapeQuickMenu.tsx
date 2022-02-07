@@ -3,12 +3,11 @@ import {useTranslation} from "react-i18next";
 import {useDeleteMutation, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Menu, message} from "antd";
 import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeLinkButton, VapePreviewButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
-import {IQuickMenuProps} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {DrawerButton} from "@leight-core/leight/dist";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {MenuOutlined} from "@ant-design/icons";
 
-export interface IVapeQuickMenuProps extends Partial<IQuickMenuProps> {
+export interface IVapeQuickMenuProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;
 }
 

@@ -1,14 +1,13 @@
-import {IQuickMenuProps} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {Menu, message} from "antd";
 import {LiquidDeleteButton, LiquidEditButton, LiquidLinkButton, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 import {useDeleteMutation, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {useTranslation} from "react-i18next";
-import {DrawerButton} from "@leight-core/leight/dist";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {MenuOutlined} from "@ant-design/icons";
 
-export interface ILiquidQuickMenuProps extends Partial<IQuickMenuProps> {
+export interface ILiquidQuickMenuProps extends Partial<IDrawerButtonProps> {
 	liquid: LiquidDto;
 }
 

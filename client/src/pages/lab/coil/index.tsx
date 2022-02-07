@@ -1,11 +1,12 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {CoilCreateButton, CoilFilter, CoilListButton, CoilTable} from "@/puff-smith/site/lab/coil";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {isBrowser} from "react-device-detect";
+import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const CoilButtonBar = () => {
 	return <ButtonBar>
@@ -33,7 +34,10 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isBrowser && <CoilButtonBar/>}
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <CoilButtonBar/>}
 	>
 		<Template
 			span={24}

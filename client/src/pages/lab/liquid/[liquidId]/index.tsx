@@ -6,7 +6,7 @@ import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
+import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -43,20 +43,20 @@ export default withLabLayout(function Index() {
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
 			{entity && CreateMenuItem('lab.liquid.button.plot', '/lab/liquid/[liquidId]/plot', <PlotIcon/>, {liquidId: entity.id})}
-		</LabMenuDrawerButton> : <Space>
+		</LabMenuDrawerButton> : <ButtonBar>
 			{entity && <LiquidPlotButton liquid={entity}/>}
 			<LiquidListButton/>
 			<LiquidCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		{liquid => <>
 			<PreviewTemplate
 				icon={<LiquidIcon/>}
 				title={<LiquidInline liquid={liquid}/>}
 				extra={<>
-					<Space>
+					<ButtonBar>
 						<LiquidEditButton liquid={liquid}/>
-					</Space>
+					</ButtonBar>
 					<Divider/>
 				</>}
 				span={24}

@@ -6,7 +6,7 @@ import {ILiquidPreviewProps, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 
 export interface ILiquidPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	liquid: LiquidDto;
-	liquidPreviewProps?: ILiquidPreviewProps;
+	liquidPreviewProps?: Partial<ILiquidPreviewProps>;
 }
 
 export const LiquidPreviewButton: FC<ILiquidPreviewButtonProps> = ({liquid, liquidPreviewProps, ...props}) => {

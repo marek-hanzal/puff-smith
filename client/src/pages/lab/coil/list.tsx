@@ -1,11 +1,12 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
-import {HomeIcon, ListIcon, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Menu, Space} from "antd";
+import {HomeIcon, ListIcon} from "@leight-core/leight";
+import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+import {ButtonBar, CreateIcon, CreateMenuItem} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -32,13 +33,11 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<CoilCreateButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
+		</LabMenuDrawerButton> : <ButtonBar>
 			<CoilCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		<CoilsFilterContext>
 			<CoilFilter/>

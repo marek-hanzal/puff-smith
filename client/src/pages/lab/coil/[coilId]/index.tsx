@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {CoilCloneButton, CoilCreateButton, CoilEditButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -38,27 +39,24 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<CoilCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<CoilListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <ButtonBar>
 			<CoilListButton/>
 			<CoilCreateButton type={'primary'}/>
-		</Space>}
+		</ButtonBar>}
 	>
 		{coil => <>
 			<PreviewTemplate
 				icon={<CoilIcon/>}
-				label={'lab.coil.index'}
+				title={coil.wire.name}
+				subTitle={coil.wire.vendor.name}
 				extra={<>
-					<Space>
+					<ButtonBar>
 						<CoilEditButton coil={coil}/>
 						<CoilCloneButton coil={coil}/>
-					</Space>
+					</ButtonBar>
 					<Divider/>
 				</>}
 				span={24}
