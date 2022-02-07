@@ -9,12 +9,12 @@ export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.home"}
 		icon={<LiquidIcon/>}
+		menuSelection={['/lab']}
 		extra={isMobile ? <LogoIcon style={{width: '7.5em'}}/> : null}
 		headerProps={{style: isMobile ? {padding: "8px 12px"} : undefined}}
 	>
 		<BrowserView>
-
-		<Template
+			<Template
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 				label={t("lab.home")}
 			/>
