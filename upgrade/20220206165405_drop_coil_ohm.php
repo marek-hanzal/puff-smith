@@ -18,14 +18,46 @@ final class DropCoilOhm extends CommonMigration {
 			]);
 		}
 
-		$this
-			->table('z_coil')
-			->dropForeignKey(['wire_id'])
-			->dropForeignKey(['user_id'])
-			->removeIndexByName('z_coil_coil_unique')
-			->removeColumn('ohm')
-			->removeColumn('user_id')
-			->save();
+		$table = $this->table('z_coil');
+		try {
+			$table
+				->dropForeignKey(['wire_id'])
+				->save();
+		} catch (Throwable $exception) {
+			$table->reset();
+		}
+		$table = $this->table('z_coil');
+		try {
+			$table
+				->dropForeignKey(['user_id'])
+				->save();
+		} catch (Throwable $exception) {
+			$table->reset();
+		}
+		$table = $this->table('z_coil');
+		try {
+			$table
+				->removeIndexByName('z_coil_coil_unique')
+				->save();
+		} catch (Throwable $exception) {
+			$table->reset();
+		}
+		$table = $this->table('z_coil');
+		try {
+			$table
+				->removeColumn('ohm')
+				->save();
+		} catch (Throwable $exception) {
+			$table->reset();
+		}
+		$table = $this->table('z_coil');
+		try {
+			$table
+				->removeColumn('user_id')
+				->save();
+		} catch (Throwable $exception) {
+			$table->reset();
+		}
 
 		$this
 			->table('z_coil')
