@@ -1,14 +1,15 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
+import {Breadcrumb, Divider, Space} from "antd";
 import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {HomeIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -49,14 +50,10 @@ export default withLabLayout(function Plot() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<BuildCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<BuildListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
+			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<BuildListButton/>
 			<BuildCreateButton type={'primary'}/>
 		</Space>}

@@ -6,12 +6,12 @@ import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentList} from "@/puff-smith/site/lab/comment";
-import {BuildAge, BuildPlotButton, BuildVapeButton, CoilCountInput, CoilOffsetInput, CottonOffsetInput, CreateCommentForm, GlowInput} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildPlotButton, BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
-import {ImageGallery, Ohm} from "@/puff-smith";
+import {ImageGallery, Ohm, PreviewTag} from "@/puff-smith";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -31,10 +31,10 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": <Ohm ohm={build?.ohm}/>,
 					"age": <BuildAge build={build}/>,
-					"coilOffset": <CoilOffsetInput value={build.coilOffset}/>,
-					"cottonOffset": <CottonOffsetInput value={build.cottonOffset}/>,
-					"glow": <GlowInput value={build.glow}/>,
-					"coils": <CoilCountInput value={build.coils}/>,
+					"coilOffset": <PreviewTag label={'lab.build.coilOffset.' + build.coilOffset}/>,
+					"cottonOffset": <PreviewTag label={'lab.build.cottonOffset.' + build.cottonOffset}/>,
+					"glow": build.glow ? <PreviewTag label={'lab.build.glow.' + build.glow}/> : '-',
+					"coils": <PreviewTag label={'lab.build.coilCount.' + build.coils}/>,
 					"created": toLocalDateTime(build.created),
 					"active": <PreviewBool bool={build.active}/>,
 				}}

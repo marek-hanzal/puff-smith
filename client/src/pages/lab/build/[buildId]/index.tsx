@@ -1,12 +1,12 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
+import {BreadcrumbButton, BuildIcon, CloneIcon} from "@/puff-smith";
 import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isBrowser, isMobile} from "react-device-detect";
-import {ButtonBar, CreateMenuItem} from "@leight-core/leight/dist";
+import {isMobile} from "react-device-detect";
+import {ButtonBar, CreateIcon, CreateMenuItem, EditIcon, ListIcon} from "@leight-core/leight/dist";
 import {BarChartOutlined} from "@ant-design/icons";
 
 export default withLabLayout(function Index() {
@@ -41,12 +41,10 @@ export default withLabLayout(function Index() {
 			</Breadcrumb.Item>
 		</Breadcrumb>}
 		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
-			<Menu.Item>
-				<BuildCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<BuildListButton/>
-			</Menu.Item>
+			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
+			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
+			{entity && CreateMenuItem('lab.build.button.edit', '/lab/build/[buildId]/edit', <EditIcon/>, {buildId: entity.id})}
+			{entity && CreateMenuItem('lab.build.button.clone', '/lab/build/[buildId]/clone', <CloneIcon/>, {buildId: entity.id})}
 			{entity && CreateMenuItem('lab.build.button.plot', '/lab/build/[buildId]/plot', <BarChartOutlined/>, {buildId: entity.id})}
 		</LabMenuDrawerButton> : <Space>
 			{entity && <BuildPlotButton build={entity}/>}
@@ -56,7 +54,7 @@ export default withLabLayout(function Index() {
 	>
 		{build => <>
 			<PreviewTemplate
-				icon={isBrowser ? <BuildIcon/> : <></>}
+				icon={<BuildIcon/>}
 				title={build.atomizer.name}
 				subTitle={build.coil.wire.name}
 				browserExtra={<>
