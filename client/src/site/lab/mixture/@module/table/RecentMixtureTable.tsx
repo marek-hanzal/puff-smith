@@ -11,6 +11,7 @@ export const RecentMixtureTable: FC<IRecentMixtureTableProps> = props => {
 		listProps={{
 			header: t('lab.mixture.latest.title'),
 		}}
+		header={() => t('lab.mixture.latest.title')}
 		source={{
 			defaultSize: 5,
 			defaultOrderBy: {

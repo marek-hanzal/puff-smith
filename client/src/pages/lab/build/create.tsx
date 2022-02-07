@@ -1,5 +1,5 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
+import {BreadcrumbButton} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {CreateIcon, CreateTemplate, HomeIcon} from "@leight-core/leight";
 import {Breadcrumb, Space} from "antd";
@@ -46,10 +46,7 @@ export default withLabLayout(function Create() {
 			<BuildListButton/>
 		</Space>}
 	>
-		<CreateTemplate
-			icon={<BuildIcon/>}
-			label={'lab.build'}
-		>
+		<CreateTemplate>
 			<CreateBuildForm/>
 		</CreateTemplate>
 	</LabPage>;

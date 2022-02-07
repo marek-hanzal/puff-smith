@@ -12,6 +12,7 @@ export const RecentVapeTable: FC<IRecentVapeTableProps> = props => {
 			itemLayout: 'vertical',
 			header: t('lab.vape.latest.title'),
 		}}
+		header={() => t('lab.vape.latest.title')}
 		source={{
 			defaultSize: 5,
 		}}

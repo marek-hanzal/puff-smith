@@ -1,4 +1,4 @@
-import {CottonIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useCottonsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
@@ -14,7 +14,6 @@ export const CottonTooltip: FC<ICottonTooltipProps> = props => {
 	const cottonsQueryInvalidate = useCottonsQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<CottonIcon/>}
 		label={'lab.cotton'}
 		{...props}
 	>

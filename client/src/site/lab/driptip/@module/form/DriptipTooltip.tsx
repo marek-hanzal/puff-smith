@@ -1,4 +1,4 @@
-import {DriptipIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useDriptipsQueryInvalidate} from "@/sdk/puff-smith/api/lab/driptip/endpoint";
@@ -14,7 +14,6 @@ export const DriptipTooltip: FC<IDriptipTooltipProps> = props => {
 	const driptipsQueryInvalidate = useDriptipsQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<DriptipIcon/>}
 		label={'lab.driptip'}
 		{...props}
 	>

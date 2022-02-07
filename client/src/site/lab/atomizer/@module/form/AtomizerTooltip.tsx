@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
-import {AtomizerIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -14,7 +14,6 @@ export const AtomizerTooltip: FC<IAtomizerTooltipProps> = props => {
 	const atomizersQueryInvalidate = useAtomizersQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<AtomizerIcon/>}
 		label={'lab.atomizer'}
 		{...props}
 	>

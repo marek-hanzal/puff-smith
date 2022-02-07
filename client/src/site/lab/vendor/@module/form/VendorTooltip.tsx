@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {FormTooltip, IFormTooltipProps, VendorIcon} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {CreateVendorForm} from "@/puff-smith/site/lab/vendor";
 import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {message} from "antd";
@@ -14,7 +14,6 @@ export const VendorTooltip: FC<IVendorTooltipProps> = props => {
 	const vendorsQueryInvalidate = useVendorsQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<VendorIcon/>}
 		label={'lab.vendor'}
 		{...props}
 	>

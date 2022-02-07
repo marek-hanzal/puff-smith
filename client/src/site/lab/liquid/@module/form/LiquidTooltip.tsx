@@ -1,4 +1,4 @@
-import {LiquidIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
@@ -14,7 +14,6 @@ export const LiquidTooltip: FC<ILiquidTooltipProps> = props => {
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<LiquidIcon/>}
 		label={'lab.liquid'}
 		{...props}
 	>

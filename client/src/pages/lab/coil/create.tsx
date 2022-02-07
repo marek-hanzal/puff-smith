@@ -1,5 +1,5 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
+import {BreadcrumbButton} from "@/puff-smith";
 import {CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -45,10 +45,7 @@ export default withLabLayout(function Create() {
 			<CoilListButton/>
 		</Space>}
 	>
-		<CreateTemplate
-			icon={<CoilIcon/>}
-			label={'lab.coil'}
-		>
+		<CreateTemplate>
 			<CreateCoilForm/>
 		</CreateTemplate>
 	</LabPage>;

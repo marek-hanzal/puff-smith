@@ -9,8 +9,8 @@ import {isBrowser} from "react-device-detect";
 
 const CoilButtonBar = () => {
 	return <ButtonBar>
-		<CoilCreateButton type={'primary'}/>
 		<CoilListButton size={'middle'}/>
+		<CoilCreateButton type={'primary'}/>
 	</ButtonBar>;
 }
 

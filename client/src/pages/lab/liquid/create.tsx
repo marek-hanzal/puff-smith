@@ -1,5 +1,5 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
+import {BreadcrumbButton} from "@/puff-smith";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -45,10 +45,7 @@ export default withLabLayout(function Create() {
 			<LiquidListButton/>
 		</Space>}
 	>
-		<CreateTemplate
-			icon={<LiquidIcon/>}
-			label={'lab.liquid'}
-		>
+		<CreateTemplate>
 			<CreateLiquidForm/>
 		</CreateTemplate>
 	</LabPage>;

@@ -1,4 +1,4 @@
-import {BaseIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useBasesQueryInvalidate} from "@/sdk/puff-smith/api/lab/base/endpoint";
@@ -14,7 +14,6 @@ export const BaseTooltip: FC<IBaseTooltipProps> = props => {
 	const basesQueryInvalidate = useBasesQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<BaseIcon/>}
 		label={'lab.base'}
 		{...props}
 	>

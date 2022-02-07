@@ -8,8 +8,8 @@ import {isMobile} from "react-device-detect";
 
 const BuildButtonBar = () => {
 	return <ButtonBar>
-		<BuildCreateButton type={'primary'}/>
 		<BuildListButton/>
+		<BuildCreateButton type={'primary'}/>
 	</ButtonBar>;
 }
 

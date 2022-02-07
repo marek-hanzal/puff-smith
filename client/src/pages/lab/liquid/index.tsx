@@ -9,8 +9,8 @@ import {isBrowser} from "react-device-detect";
 
 const LiquidButtonBar = () => {
 	return <ButtonBar>
-		<LiquidCreateButton type={'primary'}/>
 		<LiquidListButton size={'middle'}/>
+		<LiquidCreateButton type={'primary'}/>
 	</ButtonBar>;
 }
 

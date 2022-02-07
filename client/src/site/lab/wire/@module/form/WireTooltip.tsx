@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {FormTooltip, IFormTooltipProps, WireIcon} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {DrawerContext, useFormContext} from "@leight-core/leight";
@@ -14,7 +14,6 @@ export const WireTooltip: FC<IWireTooltipProps> = props => {
 	const wiresQueryInvalidate = useWiresQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<WireIcon/>}
 		label={'lab.wire'}
 		{...props}
 	>

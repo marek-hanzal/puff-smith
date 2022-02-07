@@ -1,4 +1,4 @@
-import {BoosterIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useBoostersQueryInvalidate} from "@/sdk/puff-smith/api/lab/booster/endpoint";
@@ -14,7 +14,6 @@ export const BoosterTooltip: FC<IBoosterTooltipProps> = props => {
 	const boostersQueryInvalidate = useBoostersQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<BoosterIcon/>}
 		label={'lab.booster'}
 		{...props}
 	>

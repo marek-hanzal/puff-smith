@@ -3,8 +3,8 @@ import {CreateTemplate, DrawerButton, IDrawerButtonProps} from "@leight-core/lei
 import {PlusOutlined} from "@ant-design/icons";
 
 export interface IFormTooltipProps extends Partial<IDrawerButtonProps> {
-	icon: ReactNode
-	label: string
+	icon?: ReactNode
+	label?: string
 }
 
 export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children, ...props}) => {
@@ -13,12 +13,10 @@ export const FormTooltip: FC<IFormTooltipProps> = ({icon, label, children, ...pr
 		size={'middle'}
 		icon={<PlusOutlined/>}
 		title={label + '.tooltip.create'}
-		width={700}
 		{...props}
 	>
 		<CreateTemplate
 			icon={icon}
-			label={label}
 			isMobile
 			span={24}
 		>

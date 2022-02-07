@@ -8,8 +8,8 @@ import {isBrowser} from "react-device-detect";
 
 const MixtureButtonBar = () => {
 	return <ButtonBar>
-		<MixtureCreateButton type={'primary'}/>
 		<MixtureListButton size={'middle'}/>
+		<MixtureCreateButton type={'primary'}/>
 	</ButtonBar>;
 }
 

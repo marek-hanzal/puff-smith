@@ -1,4 +1,4 @@
-import {ModIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useModsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mod/endpoint";
@@ -14,7 +14,6 @@ export const ModTooltip: FC<IModTooltipProps> = props => {
 	const modsQueryInvalidate = useModsQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<ModIcon/>}
 		label={'lab.mod'}
 		{...props}
 	>

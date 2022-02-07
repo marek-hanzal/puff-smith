@@ -1,5 +1,5 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
+import {BreadcrumbButton} from "@/puff-smith";
 import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
 import {Breadcrumb, Menu, Space} from "antd";
@@ -45,10 +45,7 @@ export default withLabLayout(function Create() {
 			<MixtureListButton/>
 		</Space>}
 	>
-		<CreateTemplate
-			icon={<MixtureIcon/>}
-			label={'lab.mixture'}
-		>
+		<CreateTemplate>
 			<CreateMixtureForm/>
 		</CreateTemplate>
 	</LabPage>;

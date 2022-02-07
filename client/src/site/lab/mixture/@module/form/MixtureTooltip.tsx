@@ -1,4 +1,4 @@
-import {MixtureIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
+import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
@@ -14,7 +14,6 @@ export const MixtureTooltip: FC<IMixtureTooltipProps> = props => {
 	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	const formContext = useFormContext();
 	return <FormTooltip
-		icon={<MixtureIcon/>}
 		label={'lab.mixture'}
 		{...props}
 	>

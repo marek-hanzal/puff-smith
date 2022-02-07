@@ -9,8 +9,8 @@ import {QuickMenu} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => {
 	return <ButtonBar>
-		<VapeCreateButton type={'primary'}/>
 		<VapeListButton size={'middle'}/>
+		<VapeCreateButton type={'primary'}/>
 	</ButtonBar>;
 }
 
