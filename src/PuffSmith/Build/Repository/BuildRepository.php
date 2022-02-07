@@ -28,17 +28,27 @@ class BuildRepository extends AbstractRepository {
 			'active'  => IRepository::ORDER_DESC,
 			'created' => IRepository::ORDER_DESC,
 		], ['$_name_unique']);
+		$this->orderByMap = [
+			'atomizer' => 'a.name',
+			'coil'     => 'w.name',
+			'cotton'   => 'co.name',
+		];
+	}
+
+	public function select($fields = null): Select {
+		$select = parent::select($fields);
+		$this->join($select, 'z_atomizer', 'a', '$.atomizer_id');
+		$this->join($select, 'z_coil', 'c', '$.coil_id');
+		$this->join($select, 'z_cotton', 'co', '$.cotton_id');
+		$this->join($select, 'z_wire', 'w', 'c.wire_id');
+		return $select;
 	}
 
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter BuildFilterDto */
-		if (!empty($filter = $query->filter)) {
-			$this->join($select, 'z_atomizer', 'a', '$.atomizer_id');
-			$this->join($select, 'z_coil', 'c', '$.coil_id');
-			$this->join($select, 'z_wire', 'w', 'c.wire_id');
-		}
+		$filter = $query->filter;
 
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',
@@ -75,7 +85,11 @@ class BuildRepository extends AbstractRepository {
 		if ($createDto->deactivate) {
 			$this->table()->update(['active' => false])->where('atomizer_id', $createDto->atomizerId)->execute();
 		}
-		$coil = $this->coilRepository->create($createDto->coil);
+		try {
+			$coil = $this->coilRepository->create($createDto->coil);
+		} catch (DuplicateEntryException $_) {
+			$coil = $this->coilRepository->findByCreate($createDto->coil);
+		}
 		return $this->insert([
 			'atomizer_id'  => $createDto->atomizerId,
 			'coil_id'      => $coil->id,

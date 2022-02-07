@@ -15,13 +15,17 @@ class BoosterRepository extends AbstractRepository {
 		parent::__construct(['name' => IRepository::ORDER_ASC]);
 	}
 
+	public function select($fields = null): Select {
+		$select = parent::select($fields);
+		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		return $select;
+	}
+
 	public function toQuery(Query $query): Select {
 		$select = $this->select();
 
 		/** @var $filter BoosterFilterDto */
-		if (!empty($filter = $query->filter)) {
-			$this->join($select, 'z_vendor', 'v', '$.vendor_id');
-		}
+		$filter = $query->filter;
 
 		isset($filter->fulltext) && $this->fulltext($select, [
 			'$.id',

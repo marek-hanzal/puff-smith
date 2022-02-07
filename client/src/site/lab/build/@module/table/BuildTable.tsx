@@ -55,18 +55,21 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				title: "lab.build.table.atomizer",
 				render: (_, build) => <AtomizerPreviewButton title={build.atomizer.name} atomizer={build.atomizer}/>,
 				width: 260,
+				sorter: true,
 			}),
 			column({
 				key: "coil",
 				title: "lab.build.table.coil",
 				render: (_, build) => <CoilPreviewButton title={build.coil.wire.name} coil={build.coil}/>,
 				width: 220,
+				sorter: true,
 			}),
 			column({
 				key: "cotton",
 				title: "lab.build.table.cotton",
 				render: (_, build) => <CottonPreviewButton title={build.cotton.name} cotton={build.cotton}/>,
 				width: 220,
+				sorter: true,
 			}),
 			column({
 				key: "ohm",
@@ -74,6 +77,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				title: "lab.build.table.ohm",
 				render: (_, build) => <Ohm ohm={build?.ohm}/>,
 				width: 140,
+				sorter: true,
 			}),
 			column({
 				key: "glow",

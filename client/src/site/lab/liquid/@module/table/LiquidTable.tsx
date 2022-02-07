@@ -44,6 +44,7 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 				key: "name",
 				title: 'lab.liquid.table.name',
 				render: (_, liquid) => <LiquidInline liquid={liquid}/>,
+				sorter: true,
 			}),
 			column({
 				key: "pgvg",
