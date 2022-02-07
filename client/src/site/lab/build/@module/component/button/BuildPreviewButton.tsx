@@ -1,26 +1,22 @@
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {BuildIcon} from "@/puff-smith";
-import {BuildPreview} from "@/puff-smith/site/lab/build";
-import {IModalButtonProps, ModalButton} from "@leight-core/leight/dist";
-import {useTranslation} from "react-i18next";
+import {BuildPreview, IBuildPreviewProps} from "@/puff-smith/site/lab/build";
 
-export interface IBuildPreviewButtonProps extends Partial<IModalButtonProps> {
+export interface IBuildPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	build: BuildDto;
+	buildPreviewProps?: Partial<IBuildPreviewProps>;
 }
 
-export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, children, ...props}) => {
-	const {t} = useTranslation();
-	return <ModalButton
-		button={{
-			type: 'link',
-			size: 'large',
-			icon: <BuildIcon/>,
-			children: children || t('lab.build.preview'),
-		}}
-		centered
+export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, buildPreviewProps, ...props}) => {
+	return <DrawerButton
+		type={'link'}
+		size={'large'}
+		icon={<BuildIcon/>}
+		title={'lab.build.preview'}
 		{...props}
 	>
-		<BuildPreview build={build}/>
-	</ModalButton>
+		<BuildPreview {...buildPreviewProps} build={build}/>
+	</DrawerButton>;
 }

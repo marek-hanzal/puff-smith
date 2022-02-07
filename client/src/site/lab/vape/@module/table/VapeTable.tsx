@@ -5,7 +5,7 @@ import {Carousel, List, Space} from "antd";
 import {Card, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {BuildAge, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {CoilInline, CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerInline, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
@@ -67,7 +67,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 				</Card>
 				<Card
 					headStyle={{padding: 0}}
-					// title={<BuildPreviewButton icon={null} title={'lab.vape.build.title'} build={vape.build}/>}
+					title={<BuildPreviewButton icon={null} title={'lab.vape.build.title'} build={vape.build}/>}
 					extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}
 				>
 					<Preview translation={'lab.build.preview'}>

@@ -16,11 +16,14 @@ import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/l
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 
+export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
+
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
+	hidden?: BuildPreviewTabs[];
 }
 
-export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
+export const BuildPreview: FC<IBuildPreviewProps> = ({build, hidden = [], ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 	return <Tabs destroyInactiveTabPane size={'large'}>
@@ -61,13 +64,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={'graph'} tab={t('lab.build.vape.plot.tab')}>
+		{!hidden?.includes('plot') && <Tabs.TabPane key={'plot'} tab={t('lab.build.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
 				<Space>
 					<VapeFilter disabled={['atomizerIds']}/>
 					<BuildPlotButton
 						build={build}
-						title={'lab.build.vape.plot.redirect'}
+						title={null}
 					/>
 				</Space>
 				<VapePlot
@@ -81,15 +84,15 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 					hidden={['atomizer']}
 				/>
 			</VapesFilterContext>
-		</Tabs.TabPane>
-		<Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
+		</Tabs.TabPane>}
+		{!hidden?.includes('upload') && <Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader
 				icon={<FileImageOutlined/>}
 				translation={'lab.build.image'}
 				path={'/build/image/' + build.id}
 			/>
-		</Tabs.TabPane>
-		<Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
+		</Tabs.TabPane>}
+		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
 			<FilesSource
 				filter={{
 					path: '/build/image/' + build.id,
@@ -97,6 +100,6 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			>
 				<ImageGallery/>
 			</FilesSource>
-		</Tabs.TabPane>
+		</Tabs.TabPane>}
 	</Tabs>
 }
