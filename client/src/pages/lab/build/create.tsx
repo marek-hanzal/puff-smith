@@ -38,11 +38,9 @@ export default withLabLayout(function Create() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <>
-			<LabMenuDrawerButton>
-				{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
-			</LabMenuDrawerButton>
-		</> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<BuildListButton/>
 		</Space>}
 	>

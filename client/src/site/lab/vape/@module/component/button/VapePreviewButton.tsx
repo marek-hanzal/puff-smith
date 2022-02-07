@@ -19,7 +19,7 @@ export const VapePreviewButton: FC<IVapePreviewButtonProps> = ({vape, ...props})
 	>
 		<PreviewTemplate
 			icon={<VapeIcon/>}
-			title={<AtomizerInline inline atomizer={vape.build.atomizer}/>}
+			title={<AtomizerInline atomizer={vape.build.atomizer}/>}
 			subTitle={vape.mixture.liquid.name}
 			span={24}
 		>

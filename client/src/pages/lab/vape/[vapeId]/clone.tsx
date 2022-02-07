@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CloneIcon, VapeIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {Breadcrumb, Divider, Space} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, CreateTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {BackIcon, CreateTemplate, HomeIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
@@ -46,14 +47,10 @@ export default withLabLayout(function Clone() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<VapeCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<VapeListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<VapeListButton/>
 			<VapeCreateButton type={'primary'}/>
 		</Space>}

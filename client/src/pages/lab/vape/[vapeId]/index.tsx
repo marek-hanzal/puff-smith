@@ -1,13 +1,14 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, VapeIcon} from "@/puff-smith";
-import {VapeCloneButton, VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
+import {BreadcrumbButton, CloneIcon, VapeIcon} from "@/puff-smith";
+import {VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {isMobile} from "react-device-detect";
+import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -40,14 +41,11 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<VapeCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<VapeListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
+			{entity && CreateMenuItem('lab.vape.button.clone', '/lab/vape/[vapeId]/clone', <CloneIcon/>, {vapeId: entity.id})}
+			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<VapeListButton/>
 			<VapeCreateButton type={'primary'}/>
 		</Space>}
@@ -58,11 +56,10 @@ export default withLabLayout(function Index() {
 				title={<AtomizerInline atomizer={vape.build.atomizer}/>}
 				subTitle={<MixtureInline mixture={vape.mixture}/>}
 				extra={<>
-					<Space>
+					<ButtonBar>
 						<VapeEditButton vape={vape}/>
-						<VapeCloneButton vape={vape}/>
 						<VapeRateButton vape={vape}/>
-					</Space>
+					</ButtonBar>
 					<Divider/>
 				</>}
 				span={24}

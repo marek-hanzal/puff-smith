@@ -17,6 +17,7 @@ export * from "./LiquidIcon";
 export * from "./LogoIcon";
 export * from "./MixtureIcon";
 export * from "./ModIcon";
+export * from "./PlotIcon";
 export * from "./SettingsIcon";
 export * from "./SetupIcon";
 export * from "./ToolIcon";
