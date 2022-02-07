@@ -16,6 +16,7 @@ export const VapeListItem: FC<IVapeListItemProps> = ({vape, ...props}) => {
 	>
 		<List.Item.Meta
 			title={<VapePreviewButton
+				icon={null}
 				style={{padding: 0}}
 				title={vape.build.atomizer.name}
 				vape={vape}

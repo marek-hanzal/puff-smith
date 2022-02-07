@@ -1,11 +1,12 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
 import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {isBrowser} from "react-device-detect";
+import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => {
 	return <ButtonBar>
@@ -33,7 +34,10 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isBrowser && <LiquidButtonBar/>}
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <LiquidButtonBar/>}
 	>
 		<Template
 			span={24}

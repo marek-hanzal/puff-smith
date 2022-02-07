@@ -13,11 +13,14 @@ import {ImageGallery} from "@/puff-smith";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
+export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
+
 export interface ILiquidPreviewProps extends Partial<IPreviewProps> {
-	liquid: LiquidDto
+	liquid: LiquidDto;
+	hidden?: LiquidPreviewTabs[];
 }
 
-export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
+export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, ...props}) => {
 	const {t} = useTranslation();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs>
@@ -42,7 +45,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 				/>
 			</CommentsSource>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={'graph'} tab={t('lab.liquid.vape.plot.tab')}>
+		{!hidden?.includes('plot') && <Tabs.TabPane key={'plot'} tab={t('lab.liquid.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
 				<Space>
 					<VapeFilter
@@ -61,15 +64,15 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 					hidden={['mixture']}
 				/>
 			</VapesFilterContext>
-		</Tabs.TabPane>
-		<Tabs.TabPane key={'upload'} tab={t('lab.liquid.upload.tab')}>
+		</Tabs.TabPane>}
+		{!hidden?.includes('upload') && <Tabs.TabPane key={'upload'} tab={t('lab.liquid.upload.tab')}>
 			<Uploader
 				icon={<FileImageOutlined/>}
 				translation={'lab.liquid.image'}
 				path={'/liquid/image/' + liquid.id}
 			/>
-		</Tabs.TabPane>
-		<Tabs.TabPane key={'images'} tab={t('lab.liquid.images.tab')}>
+		</Tabs.TabPane>}
+		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.liquid.images.tab')}>
 			<FilesSource
 				filter={{
 					path: '/liquid/image/' + liquid.id,
@@ -77,6 +80,6 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, ...props}) => {
 			>
 				<ImageGallery/>
 			</FilesSource>
-		</Tabs.TabPane>
+		</Tabs.TabPane>}
 	</Tabs>
 }

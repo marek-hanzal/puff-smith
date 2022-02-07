@@ -1,10 +1,11 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton} from "@/puff-smith";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
-import {CreateIcon, CreateTemplate, HomeIcon, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Menu, Space} from "antd";
+import {CreateIcon, CreateTemplate, HomeIcon} from "@leight-core/leight";
+import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {ButtonBar, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
@@ -37,13 +38,11 @@ export default withLabLayout(function Create() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <QuickMenu>
-			<Menu.Item>
-				<LiquidListButton/>
-			</Menu.Item>
-		</QuickMenu> : <Space>
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
+		</LabMenuDrawerButton> : <ButtonBar>
 			<LiquidListButton/>
-		</Space>}
+		</ButtonBar>}
 	>
 		<CreateTemplate>
 			<CreateLiquidForm/>

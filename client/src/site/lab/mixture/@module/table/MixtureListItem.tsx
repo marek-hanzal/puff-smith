@@ -17,6 +17,7 @@ export const MixtureListItem: FC<IMixtureListItemProps> = ({mixture, ...props}) 
 		<List.Item.Meta
 			title={<MixturePreviewButton
 				style={{padding: 0}}
+				icon={null}
 				title={mixture.liquid.name}
 				mixture={mixture}
 			/>}

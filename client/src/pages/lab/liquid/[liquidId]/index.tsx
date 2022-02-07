@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
+import {BreadcrumbButton, LiquidIcon, PlotIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {HomeIcon, PreviewTemplate, QuickMenu} from "@leight-core/leight";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
+import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -38,18 +39,12 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => isMobile ? <QuickMenu>
-			<Menu.Item>
-				<LiquidCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<LiquidListButton/>
-			</Menu.Item>
-			{entityContext.entity && <Menu.Item>
-				<LiquidPlotButton liquid={entityContext.entity}/>
-			</Menu.Item>}
-		</QuickMenu> : <Space>
-			{entityContext.entity && <LiquidPlotButton liquid={entityContext.entity}/>}
+		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
+			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
+			{entity && CreateMenuItem('lab.liquid.button.plot', '/lab/liquid/[liquidId]/plot', <PlotIcon/>, {liquidId: entity.id})}
+		</LabMenuDrawerButton> : <Space>
+			{entity && <LiquidPlotButton liquid={entity}/>}
 			<LiquidListButton/>
 			<LiquidCreateButton type={'primary'}/>
 		</Space>}

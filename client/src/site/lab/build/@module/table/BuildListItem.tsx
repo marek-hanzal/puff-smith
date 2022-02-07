@@ -17,6 +17,7 @@ export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
 	>
 		<List.Item.Meta
 			title={<BuildPreviewButton
+				icon={null}
 				style={{padding: 0}}
 				title={build.atomizer.name}
 				drawerProps={{title: <AtomizerInline inline atomizer={build.atomizer}/>}}
