@@ -1,7 +1,6 @@
 import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {FC} from "react";
-import {EyeOutlined} from "@ant-design/icons";
 import {CottonIcon} from "@/puff-smith";
 import {CottonPreview} from "@/puff-smith/site/lab/cotton";
 
@@ -13,7 +12,7 @@ export const CottonPreviewButton: FC<ICottonPreviewButtonProps> = ({cotton, ...p
 	return <DrawerButton
 		type={'link'}
 		size={'large'}
-		icon={<EyeOutlined/>}
+		icon={<CottonIcon/>}
 		title={'lab.cotton.preview'}
 		{...props}
 	>

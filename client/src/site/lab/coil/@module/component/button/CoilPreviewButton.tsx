@@ -1,7 +1,6 @@
 import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {FC} from "react";
-import {EyeOutlined} from "@ant-design/icons";
 import {CoilIcon} from "@/puff-smith";
 import {CoilPreview} from "@/puff-smith/site/lab/coil";
 
@@ -13,7 +12,7 @@ export const CoilPreviewButton: FC<ICoilPreviewButtonProps> = ({coil, ...props})
 	return <DrawerButton
 		type={'link'}
 		size={'large'}
-		icon={<EyeOutlined/>}
+		icon={<CoilIcon/>}
 		title={'lab.coil.preview'}
 		{...props}
 	>

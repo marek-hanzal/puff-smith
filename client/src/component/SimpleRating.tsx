@@ -6,6 +6,6 @@ export interface ISimpleRatingProps {
 	of?: number
 }
 
-export const SimpleRating: FC<ISimpleRatingProps> = ({value, of = 10}) => {
+export const SimpleRating: FC<ISimpleRatingProps> = ({value, of = 9}) => {
 	return value ? <>{value}<Typography.Text>/{of}</Typography.Text></> : <>-</>;
 }

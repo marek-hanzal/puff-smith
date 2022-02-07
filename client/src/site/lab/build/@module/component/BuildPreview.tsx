@@ -23,7 +23,7 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
-	return <Tabs destroyInactiveTabPane>
+	return <Tabs destroyInactiveTabPane size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
@@ -41,7 +41,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, ...props}) => {
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.build.comments.tab')}>
-			<Tabs destroyInactiveTabPane>
+			<Tabs destroyInactiveTabPane size={'small'}>
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.build.comments.build.tab')}>
 					<CommentsSource
 						filter={{buildId: build.id}}
