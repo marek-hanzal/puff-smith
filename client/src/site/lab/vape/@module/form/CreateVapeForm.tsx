@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Divider, message} from "antd";
-import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
+import {Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useTranslation} from "react-i18next";
@@ -39,42 +39,40 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ..
 		})}
 		{...props}
 	>
-		<Card title={t('lab.vape.common.title')}>
-			{exclude?.includes('buildId') ?
-				<FormItem field={'buildId'} hidden/> :
-				<FormItem
-					field={'buildId'}
-					labels={['lab.vape.buildId.label']}
-					required
-					help={<BuildTooltip/>}
-				>
-					<BuildSelect/>
-				</FormItem>
-			}
+		{exclude?.includes('buildId') ?
+			<FormItem field={'buildId'} hidden/> :
 			<FormItem
-				field={'mixtureId'}
-				labels={['lab.vape.mixtureId.label']}
+				field={'buildId'}
+				labels={['lab.vape.buildId.label']}
 				required
-				help={<MixtureTooltip/>}
+				help={<BuildTooltip/>}
 			>
-				<MixtureSelect/>
+				<BuildSelect/>
 			</FormItem>
-			<FormItem
-				field={'modId'}
-				labels={['lab.vape.modId.label']}
-				required
-				help={<ModTooltip/>}
-			>
-				<ModSelect/>
-			</FormItem>
-			<FormItem
-				field={'driptipId'}
-				labels={['lab.vape.driptipId.label']}
-				help={<DriptipTooltip/>}
-			>
-				<DriptipSelect allowClear/>
-			</FormItem>
-		</Card>
+		}
+		<FormItem
+			field={'mixtureId'}
+			labels={['lab.vape.mixtureId.label']}
+			required
+			help={<MixtureTooltip/>}
+		>
+			<MixtureSelect/>
+		</FormItem>
+		<FormItem
+			field={'modId'}
+			labels={['lab.vape.modId.label']}
+			required
+			help={<ModTooltip/>}
+		>
+			<ModSelect/>
+		</FormItem>
+		<FormItem
+			field={'driptipId'}
+			labels={['lab.vape.driptipId.label']}
+			help={<DriptipTooltip/>}
+		>
+			<DriptipSelect allowClear/>
+		</FormItem>
 		<Divider/>
 		<Centered>
 			<Submit icon={<VapeIcon/>} label={'lab.vape.create.submit'}/>

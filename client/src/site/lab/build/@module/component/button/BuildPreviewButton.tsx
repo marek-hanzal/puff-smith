@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {BuildIcon} from "@/puff-smith";
@@ -16,13 +16,6 @@ export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, ...prop
 		title={'lab.build.preview'}
 		{...props}
 	>
-		<PreviewTemplate
-			icon={<></>}
-			title={build.atomizer.name}
-			subTitle={build.coil.wire.name}
-			span={24}
-		>
-			<BuildPreview build={build}/>
-		</PreviewTemplate>
+		<BuildPreview build={build}/>
 	</DrawerButton>;
 }
