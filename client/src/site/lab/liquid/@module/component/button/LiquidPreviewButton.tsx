@@ -11,7 +11,6 @@ export interface ILiquidPreviewButtonProps extends Partial<IDrawerButtonProps> {
 
 export const LiquidPreviewButton: FC<ILiquidPreviewButtonProps> = ({liquid, ...props}) => {
 	return <DrawerButton
-		width={750}
 		type={'link'}
 		size={'large'}
 		icon={<EyeOutlined/>}

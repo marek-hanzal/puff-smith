@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {asDayjs, SmallPreview, toLocalDate, useOptionalFilterContext} from "@leight-core/leight";
+import {asDayjs, toLocalDate, useOptionalFilterContext} from "@leight-core/leight";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
@@ -8,7 +8,7 @@ import {MixtureLinkButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith
 import {List, Space} from "antd";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
-import {durationOf} from "@leight-core/leight/dist";
+import {durationOf, Preview} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -24,12 +24,12 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			className={mixture.active ? 'active' : 'inactive'}
 			actions={[<MixtureQuickMenu key={'quick-menu'} mixture={mixture}/>]}
 		>
-			<SmallPreview translation={'lab.mixture.preview'}>
+			<Preview translation={'lab.mixture.preview'}>
 				{{
 					"name": mixture.liquid.name,
 					"vendor": mixture.liquid.vendor.name,
 				}}
-			</SmallPreview>
+			</Preview>
 		</List.Item>}
 		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
 		{...props}

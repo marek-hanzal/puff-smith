@@ -1,15 +1,15 @@
 import {BuildsSourceTable, IBuildsSourceTableProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {CoilInline, CoilLinkButton} from "@/puff-smith/site/lab/coil";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {CottonInline} from "@/puff-smith/site/lab/cotton";
+import {CoilInline, CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {AtomizerInline, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {CottonInline, CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {List, Space, Typography} from "antd";
 import {BuildAge, BuildCommentButton, BuildLinkButton, BuildQuickMenu, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {durationOf} from "@leight-core/leight/dist";
-import {Ohm, SimpleRating} from "@/puff-smith";
+import {AtomizerIcon, CoilIcon, CottonIcon, Ohm, SimpleRating} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -53,22 +53,19 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			column({
 				key: "atomizer",
 				title: "lab.build.table.atomizer",
-				render: (_, build) => <AtomizerInline atomizer={build.atomizer}/>,
+				render: (_, build) => <AtomizerPreviewButton icon={<AtomizerIcon/>} title={build.atomizer.name} atomizer={build.atomizer}/>,
 				width: 300,
 			}),
 			column({
 				key: "coil",
 				title: "lab.build.table.coil",
-				render: (_, build) => <Space size={0}>
-					<CoilLinkButton coil={build.coil} title={null}/>
-					<CoilInline vertical coil={build.coil}/>
-				</Space>,
+				render: (_, build) => <CoilPreviewButton icon={<CoilIcon/>} title={build.coil.wire.name} coil={build.coil}/>,
 				width: 320,
 			}),
 			column({
 				key: "cotton",
 				title: "lab.build.table.cotton",
-				render: (_, build) => <CottonInline cotton={build.cotton}/>,
+				render: (_, build) => <CottonPreviewButton icon={<CottonIcon/>} title={build.cotton.name} cotton={build.cotton}/>,
 				width: 300,
 			}),
 			column({

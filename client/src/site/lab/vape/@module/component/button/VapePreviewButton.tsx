@@ -13,7 +13,6 @@ export interface IVapePreviewButtonProps extends Partial<IDrawerButtonProps> {
 
 export const VapePreviewButton: FC<IVapePreviewButtonProps> = ({vape, ...props}) => {
 	return <DrawerButton
-		width={750}
 		size={'large'}
 		type={'link'}
 		icon={<EyeOutlined/>}

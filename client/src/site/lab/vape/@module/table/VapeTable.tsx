@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixtureInline, MixtureLinkButton} from "@/puff-smith/site/lab/mixture";
 import {Carousel, List, Space} from "antd";
-import {Card, SmallPreview, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
+import {Card, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {BuildAge, BuildLinkButton, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
@@ -12,7 +12,7 @@ import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {ModInline} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {durationOf} from "@leight-core/leight/dist";
+import {durationOf, Preview} from "@leight-core/leight/dist";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 
@@ -37,7 +37,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 					title={<VapePreviewButton title={t('lab.vape.title')} icon={null} vape={vape}/>}
 					extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
 				>
-					<SmallPreview translation={'lab.vape.preview'}>
+					<Preview translation={'lab.vape.preview'}>
 						{{
 							"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
 							"mod": <ModInline mod={vape.mod}/>,
@@ -47,14 +47,14 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 							"taste": <SimpleRating value={vape.taste}/>,
 							"created": toLocalDateTime(vape.stamp),
 						}}
-					</SmallPreview>
+					</Preview>
 				</Card>
 				<Card
 					headStyle={{padding: '0 0 0 15px'}}
 					title={t('lab.vape.rating.title')}
 					extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
 				>
-					<SmallPreview translation={'lab.vape.preview'}>
+					<Preview translation={'lab.vape.preview'}>
 						{{
 							"throathit": <SimpleRating value={vape.throathit}/>,
 							"fruits": <SimpleRating value={vape.fruits}/>,
@@ -63,19 +63,19 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 							"complex": <SimpleRating value={vape.complex}/>,
 							"fresh": <SimpleRating value={vape.fresh}/>,
 						}}
-					</SmallPreview>
+					</Preview>
 				</Card>
 				<Card
 					headStyle={{padding: 0}}
 					title={<BuildPreviewButton icon={null} title={'lab.vape.build.title'} build={vape.build}/>}
 					extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}
 				>
-					<SmallPreview translation={'lab.build.preview'}>
+					<Preview translation={'lab.build.preview'}>
 						{{
 							"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
 							"coil": <CoilInline coil={vape.build.coil}/>,
 						}}
-					</SmallPreview>
+					</Preview>
 				</Card>
 			</Carousel>
 		</List.Item>}

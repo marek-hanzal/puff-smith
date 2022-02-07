@@ -25,7 +25,7 @@ export const VapeRateButton: FC<IVapeRateButtonProps> = ({vape, ...props}) => {
 		<PreviewTemplate
 			icon={<VapeIcon/>}
 		/>
-		<Preview width={140} translation={'lab.vape.preview'}>
+		<Preview translation={'lab.vape.preview'}>
 			{{
 				"build": <BuildInline build={vape.build}/>,
 				"mixture": <MixtureInline mixture={vape.mixture}/>,

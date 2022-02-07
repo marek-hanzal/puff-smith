@@ -11,7 +11,6 @@ export interface ICoilPreviewButtonProps extends Partial<IDrawerButtonProps> {
 
 export const CoilPreviewButton: FC<ICoilPreviewButtonProps> = ({coil, ...props}) => {
 	return <DrawerButton
-		width={750}
 		type={'link'}
 		size={'large'}
 		icon={<EyeOutlined/>}
@@ -20,7 +19,8 @@ export const CoilPreviewButton: FC<ICoilPreviewButtonProps> = ({coil, ...props})
 	>
 		<PreviewTemplate
 			icon={<CoilIcon/>}
-			label={'lab.coil.preview'}
+			title={coil.wire.name}
+			subTitle={coil.wire.vendor.name}
 			span={24}
 		>
 			<CoilPreview coil={coil}/>
