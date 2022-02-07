@@ -1,3 +1,15 @@
+export interface AtomizerDto {
+	id: string;
+	name: string;
+	vendorId: string;
+	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
+}
+
+export module AtomizerDto {
+
+}
+
+
 export interface AtomizerOrderByDto {
 
 }
@@ -18,13 +30,31 @@ export module AtomizerFilterDto {
 }
 
 
-export interface AtomizerDto {
+export interface CreateDto {
+	name: string;
+	vendorId: string;
+}
+
+export module CreateDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
 	id: string;
 	name: string;
 	vendorId: string;
-	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 }
 
-export module AtomizerDto {
+export module PatchDto {
 
 }

@@ -1,26 +1,53 @@
-import {FC} from "react";
+import {createContext, FC, ReactElement, ReactNode} from "react";
 import {
+	createGetQuery,
+	createPatchMutation,
 	createPostMutation,
 	createPostQuery,
+	EntityContext,
+	EntityProvider,
 	FilterContextProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFilterContextProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContextProvider,
 	Table,
+	useContext,
 	useFilterContext,
+	useOptionalContext,
 	useOptionalFilterContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
+
+export type IAtomizerQueryParams = {
+	atomizerId: string;
+}
+
+
+export const useAtomizerQuery = createGetQuery<IAtomizerQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Atomizer");
+export const useAtomizerQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Atomizer.Atomizer"])
+}
 
 export type IAtomizersQueryParams = void;
 
@@ -34,17 +61,103 @@ export const useAtomizersQueryInvalidate = () => {
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Create");
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").DeleteDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Delete");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").PatchDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>("PuffSmith.Lab.Atomizer.Patch");
+
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/create/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").CreateDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").DeleteDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").DeleteDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
+		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").PatchDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").PatchDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const AtomizerContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>);
+
+export const useAtomizerContext = (): IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto> => useContext(AtomizerContext, "AtomizerContext");
+
+export const useOptionalAtomizerContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>>(AtomizerContext as any);
+
+export interface IAtomizerProvider extends IEntityProviderProps<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto> {
+}
+
+export const AtomizerProvider: FC<IAtomizerProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <AtomizerContext.Provider value={entityContext}>
+				{children}
+			</AtomizerContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchAtomizerProps extends Partial<IQueryProps<IAtomizerQueryParams, void, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>> {
+	query: IAtomizerQueryParams;
+}
+
+export const FetchAtomizer: FC<IFetchAtomizerProps> = ({query, ...props}) => <Query<IAtomizerQueryParams, void, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>
+	useQuery={useAtomizerQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalAtomizerContext()}
+	{...props}
+/>;
+
+export interface IAtomizerPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto) => ReactNode);
+	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => ReactElement);
+}
+
+export const AtomizerPage: FC<IAtomizerPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+	const {atomizerId} = useParams();
+	return <AtomizerProvider>
+		<AtomizerContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				{...props}
+			>
+				<FetchAtomizer
+					query={{atomizerId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchAtomizer>
+			</Page>}
+		</AtomizerContext.Consumer>
+	</AtomizerProvider>;
+};
 
 export const useAtomizersSource = () => useSourceContext<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>()
 

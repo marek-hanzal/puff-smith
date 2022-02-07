@@ -8,11 +8,15 @@ use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use PuffSmith\Atomizer\Dto\AtomizerFilterDto;
-use PuffSmith\Atomizer\Dto\Create\CreateDto;
+use PuffSmith\Atomizer\Dto\CreateDto;
+use PuffSmith\Atomizer\Dto\PatchDto;
 
 class AtomizerRepository extends AbstractRepository {
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
+		$this->orderByMap = [
+			'vendor' => 'v.name',
+		];
 	}
 
 	public function select($fields = null): Select {
@@ -35,6 +39,7 @@ class AtomizerRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
+		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -45,6 +50,14 @@ class AtomizerRepository extends AbstractRepository {
 		return $this->insert([
 			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->change([
+			'id'        => $patchDto->id,
+			'name'      => $patchDto->name,
+			'vendor_id' => $patchDto->vendorId,
 		]);
 	}
 }

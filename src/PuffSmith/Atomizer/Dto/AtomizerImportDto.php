@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Atomizer\Dto\Import;
+namespace PuffSmith\Atomizer\Dto;
 
 use Edde\Dto\AbstractDto;
 
