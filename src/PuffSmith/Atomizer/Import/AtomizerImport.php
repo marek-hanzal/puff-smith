@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Atomizer\Import;
 
 use Edde\Import\AbstractImporter;
-use PuffSmith\Atomizer\Dto\Create\CreateDto;
-use PuffSmith\Atomizer\Dto\Import\AtomizerImportDto;
+use PuffSmith\Atomizer\Dto\AtomizerImportDto;
+use PuffSmith\Atomizer\Dto\CreateDto;
 use PuffSmith\Atomizer\Repository\AtomizerRepositoryTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 

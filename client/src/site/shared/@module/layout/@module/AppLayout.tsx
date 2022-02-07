@@ -4,7 +4,6 @@ import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
 import {isMobile} from "react-device-detect";
-import {useQueryPersistence} from "@leight-core/leight/dist";
 
 const queryClient = createQueryClient();
 
@@ -12,7 +11,7 @@ export interface IAppLayoutProps extends Partial<IAppProps> {
 }
 
 export const AppLayout: FC<IAppLayoutProps> = props => {
-	useQueryPersistence(queryClient, "puff-smith");
+	// useQueryPersistence(queryClient, "puff-smith");
 	return <App
 		clientLink={process.env.NEXT_PUBLIC_PUBLIC_URL + "/puff-smith/client.json"}
 		queryClient={queryClient}
