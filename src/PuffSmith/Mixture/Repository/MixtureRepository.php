@@ -31,7 +31,7 @@ class MixtureRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_liquid', 'l', '$.liquid_id');
-		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		$this->join($select, 'z_vendor', 'v', 'l.vendor_id');
 		return $select;
 	}
 
