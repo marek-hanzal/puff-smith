@@ -6,6 +6,8 @@ import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, Va
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {MenuOutlined} from "@ant-design/icons";
+import {BuildPreviewButton} from "@/puff-smith/site/lab/build";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 
 export interface IVapeQuickMenuProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;
@@ -24,6 +26,13 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 		<Menu selectable={false}>
 			<Menu.Item>
 				<VapeLinkButton vape={vape}/>
+			</Menu.Item>
+			<Menu.Divider/>
+			<Menu.Item>
+				<BuildPreviewButton build={vape.build}/>
+			</Menu.Item>
+			<Menu.Item>
+				<MixturePreviewButton mixture={vape.mixture}/>
 			</Menu.Item>
 			<Menu.Divider/>
 			<Menu.Item>
