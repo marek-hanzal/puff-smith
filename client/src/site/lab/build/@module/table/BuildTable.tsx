@@ -9,7 +9,7 @@ import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {durationOf} from "@leight-core/leight/dist";
-import {AtomizerIcon, CoilIcon, CottonIcon, Ohm, SimpleRating} from "@/puff-smith";
+import {Ohm, SimpleRating} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -38,7 +38,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			</Space>
 		</List.Item>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1600}}
+		scroll={{x: 1000}}
 		{...props}
 	>
 		{({column}) => [
@@ -53,20 +53,20 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			column({
 				key: "atomizer",
 				title: "lab.build.table.atomizer",
-				render: (_, build) => <AtomizerPreviewButton icon={<AtomizerIcon/>} title={build.atomizer.name} atomizer={build.atomizer}/>,
-				width: 300,
+				render: (_, build) => <AtomizerPreviewButton title={build.atomizer.name} atomizer={build.atomizer}/>,
+				width: 260,
 			}),
 			column({
 				key: "coil",
 				title: "lab.build.table.coil",
-				render: (_, build) => <CoilPreviewButton icon={<CoilIcon/>} title={build.coil.wire.name} coil={build.coil}/>,
-				width: 320,
+				render: (_, build) => <CoilPreviewButton title={build.coil.wire.name} coil={build.coil}/>,
+				width: 220,
 			}),
 			column({
 				key: "cotton",
 				title: "lab.build.table.cotton",
-				render: (_, build) => <CottonPreviewButton icon={<CottonIcon/>} title={build.cotton.name} cotton={build.cotton}/>,
-				width: 300,
+				render: (_, build) => <CottonPreviewButton title={build.cotton.name} cotton={build.cotton}/>,
+				width: 220,
 			}),
 			column({
 				key: "ohm",
