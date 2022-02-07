@@ -17,6 +17,11 @@ export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, buildPr
 		title={'lab.build.preview'}
 		{...props}
 	>
-		<BuildPreview {...buildPreviewProps} build={build}/>
+		<BuildPreview
+			forceList
+			hidden={['upload', 'images']}
+			{...buildPreviewProps}
+			build={build}
+		/>
 	</DrawerButton>;
 }

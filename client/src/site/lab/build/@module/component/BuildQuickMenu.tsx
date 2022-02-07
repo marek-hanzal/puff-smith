@@ -21,7 +21,7 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 		icon={<MenuOutlined/>}
 		{...props}
 	>
-		<Menu>
+		<Menu selectable={false}>
 			<Menu.Item>
 				<BuildLinkButton build={build}/>
 			</Menu.Item>

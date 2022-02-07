@@ -14,10 +14,11 @@ import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {durationOf} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
-	mixture: MixtureDto
+	mixture: MixtureDto;
+	forceList?: boolean;
 }
 
-export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
+export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = false}) => {
 	const {t} = useTranslation();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs>
@@ -51,7 +52,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				/>
 			</CommentsSource>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={'graph'} tab={t('lab.mixture.vape.plot.tab')}>
+		<Tabs.TabPane key={'plot'} tab={t('lab.mixture.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
 				<Space>
 					<VapeFilter
@@ -59,7 +60,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 					/>
 					<MixturePlotButton
 						mixture={mixture}
-						title={'lab.mixture.vape.plot.redirect'}
+						title={null}
 					/>
 				</Space>
 				<VapePlot
@@ -68,6 +69,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				<Divider/>
 				<VapeTable
 					hidden={['mixture']}
+					forceList={forceList}
 				/>
 			</VapesFilterContext>
 		</Tabs.TabPane>

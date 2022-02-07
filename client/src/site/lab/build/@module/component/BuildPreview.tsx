@@ -21,9 +21,10 @@ export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'imag
 export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 	build: BuildDto
 	hidden?: BuildPreviewTabs[];
+	forceList?: boolean;
 }
 
-export const BuildPreview: FC<IBuildPreviewProps> = ({build, hidden = [], ...props}) => {
+export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, hidden = [], ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 	return <Tabs destroyInactiveTabPane size={'large'}>
@@ -81,6 +82,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, hidden = [], ...pro
 				/>
 				<Divider/>
 				<VapeTable
+					forceList={forceList}
 					hidden={['atomizer']}
 				/>
 			</VapesFilterContext>

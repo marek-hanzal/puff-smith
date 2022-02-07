@@ -21,7 +21,7 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 		icon={<MenuOutlined/>}
 		{...props}
 	>
-		<Menu>
+		<Menu selectable={false}>
 			<Menu.Item>
 				<VapeLinkButton vape={vape}/>
 			</Menu.Item>

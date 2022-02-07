@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
 import {MixtureIcon} from "@/puff-smith";
@@ -16,14 +16,9 @@ export const MixturePreviewButton: FC<IMixturePreviewButtonProps> = ({mixture, .
 		title={'lab.mixture.preview'}
 		{...props}
 	>
-		<PreviewTemplate
-			icon={<MixtureIcon/>}
-			label={'lab.mixture.preview'}
-			title={mixture.liquid.name}
-			subTitle={mixture.liquid.vendor.name}
-			span={24}
-		>
-			<MixturePreview mixture={mixture}/>
-		</PreviewTemplate>
+		<MixturePreview
+			forceList
+			mixture={mixture}
+		/>
 	</DrawerButton>;
 }

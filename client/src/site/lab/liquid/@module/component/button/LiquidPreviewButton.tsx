@@ -17,6 +17,11 @@ export const LiquidPreviewButton: FC<ILiquidPreviewButtonProps> = ({liquid, liqu
 		title={'lab.liquid.preview'}
 		{...props}
 	>
-		<LiquidPreview liquid={liquid} {...liquidPreviewProps}/>
+		<LiquidPreview
+			hidden={['upload', 'images']}
+			forceList
+			liquid={liquid}
+			{...liquidPreviewProps}
+		/>
 	</DrawerButton>;
 }

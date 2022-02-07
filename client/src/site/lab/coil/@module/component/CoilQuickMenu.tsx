@@ -21,7 +21,7 @@ export const CoilQuickMenu: FC<ICoilQuickMenuProps> = ({coil, ...props}) => {
 		icon={<MenuOutlined/>}
 		{...props}
 	>
-		<Menu>
+		<Menu selectable={false}>
 			<Menu.Item>
 				<CoilLinkButton coil={coil}/>
 			</Menu.Item>

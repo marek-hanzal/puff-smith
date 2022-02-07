@@ -21,7 +21,7 @@ export const LiquidQuickMenu: FC<ILiquidQuickMenuProps> = ({liquid, ...props}) =
 		icon={<MenuOutlined/>}
 		{...props}
 	>
-		<Menu>
+		<Menu selectable={false}>
 			<Menu.Item>
 				<LiquidLinkButton liquid={liquid}/>
 			</Menu.Item>

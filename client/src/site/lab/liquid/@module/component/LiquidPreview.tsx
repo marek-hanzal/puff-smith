@@ -18,9 +18,10 @@ export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 export interface ILiquidPreviewProps extends Partial<IPreviewProps> {
 	liquid: LiquidDto;
 	hidden?: LiquidPreviewTabs[];
+	forceList?: boolean;
 }
 
-export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, ...props}) => {
+export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceList = false, ...props}) => {
 	const {t} = useTranslation();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs>
@@ -53,7 +54,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, ...props
 					/>
 					<LiquidPlotButton
 						liquid={liquid}
-						title={'lab.liquid.vape.plot.redirect'}
+						title={null}
 					/>
 				</Space>
 				<VapePlot
@@ -62,6 +63,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, ...props
 				<Divider/>
 				<VapeTable
 					hidden={['mixture']}
+					forceList={forceList}
 				/>
 			</VapesFilterContext>
 		</Tabs.TabPane>}
