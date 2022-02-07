@@ -10,5 +10,6 @@ export * from "./JsonPrint";
 export * from "./Menu";
 export * from "./Ohm";
 export * from "./PageMenu";
+export * from "./PreviewTag";
 export * from "./SimpleRating";
 export * from "./VersionStamp";

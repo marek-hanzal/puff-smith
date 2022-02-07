@@ -1,11 +1,12 @@
-import {withLabLayout} from "@/puff-smith/site/lab";
+import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Menu, Space} from "antd";
-import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, BuildPlotButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
+import {Breadcrumb, Divider, Space} from "antd";
+import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, EditIcon, EditTemplate, HomeIcon, QuickMenu, useParams} from "@leight-core/leight";
+import {BackIcon, EditIcon, EditTemplate, HomeIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
@@ -46,18 +47,10 @@ export default withLabLayout(function Edit() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={entityContext => isMobile ? <QuickMenu>
-			<Menu.Item>
-				<BuildCreateButton/>
-			</Menu.Item>
-			<Menu.Item>
-				<BuildListButton/>
-			</Menu.Item>
-			{entityContext.entity && <Menu.Item>
-				<BuildPlotButton build={entityContext.entity}/>
-			</Menu.Item>}
-		</QuickMenu> : <Space>
-			{entityContext.entity && <BuildPlotButton build={entityContext.entity}/>}
+		extra={isMobile ? <LabMenuDrawerButton>
+			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
+			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
+		</LabMenuDrawerButton> : <Space>
 			<BuildListButton/>
 			<BuildCreateButton type={'primary'}/>
 		</Space>}
