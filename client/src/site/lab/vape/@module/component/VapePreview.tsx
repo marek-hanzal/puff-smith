@@ -25,7 +25,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				<Tabs.TabPane key={'common'} tab={t('lab.vape.common.title')}>
 					<Preview translation={'lab.vape.preview'}>
 						{{
-							"coil": <CoilInline vertical coil={vape.build.coil}/>,
+							"coil": <CoilInline inline coil={vape.build.coil}/>,
 							"mod": <ModInline mod={vape.mod}/>,
 							"build.age": <BuildAge build={vape.build}/>,
 							"mixture.age": durationOf(vape.mixture.mixed, vape.stamp).humanize(),

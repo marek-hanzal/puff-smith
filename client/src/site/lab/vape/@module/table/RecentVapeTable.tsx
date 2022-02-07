@@ -9,7 +9,6 @@ export const RecentVapeTable: FC<IRecentVapeTableProps> = props => {
 	const {t} = useTranslation();
 	return <VapeTable
 		listProps={{
-			itemLayout: 'vertical',
 			header: t('lab.vape.latest.title'),
 		}}
 		header={() => t('lab.vape.latest.title')}

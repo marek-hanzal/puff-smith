@@ -1,18 +1,17 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
-import {Carousel, List, Space} from "antd";
-import {Card, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
-import {VapeLinkButton, VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
+import {Space} from "antd";
+import {toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
+import {VapeLinkButton, VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {BuildAge, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
-import {CoilInline, CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {BuildAge} from "@/puff-smith/site/lab/build";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
-import {AtomizerInline, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
-import {LiquidInline} from "@/puff-smith/site/lab/liquid";
-import {ModInline, ModPreviewButton} from "@/puff-smith/site/lab/mod";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {ModPreviewButton} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {durationOf, Preview} from "@leight-core/leight/dist";
+import {durationOf} from "@leight-core/leight/dist";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 
@@ -26,59 +25,8 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	return <VapesSourceTable
 		filter={filterContext?.filter}
 		scroll={{x: 2300}}
-		listProps={{
-			itemLayout: 'vertical'
-		}}
 		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext?.result?.data})}
-		listItemRender={vape => <List.Item>
-			<Carousel>
-				<Card
-					headStyle={{padding: 0}}
-					title={<VapePreviewButton title={t('lab.vape.title')} icon={null} vape={vape}/>}
-					extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
-				>
-					<Preview translation={'lab.vape.preview'}>
-						{{
-							"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
-							"mod": <ModInline mod={vape.mod}/>,
-							"coil": <CoilInline coil={vape.build.coil}/>,
-							"liquid": <LiquidInline liquid={vape.mixture.liquid}/>,
-							"rating": <SimpleRating value={vape.rating}/>,
-							"taste": <SimpleRating value={vape.taste}/>,
-							"created": toLocalDateTime(vape.stamp),
-						}}
-					</Preview>
-				</Card>
-				<Card
-					headStyle={{padding: '0 0 0 15px'}}
-					title={t('lab.vape.rating.title')}
-					extra={<VapeQuickMenu key={'quick-menu'} vape={vape}/>}
-				>
-					<Preview translation={'lab.vape.preview'}>
-						{{
-							"throathit": <SimpleRating value={vape.throathit}/>,
-							"fruits": <SimpleRating value={vape.fruits}/>,
-							"tobacco": <SimpleRating value={vape.tobacco}/>,
-							"cakes": <SimpleRating value={vape.cakes}/>,
-							"complex": <SimpleRating value={vape.complex}/>,
-							"fresh": <SimpleRating value={vape.fresh}/>,
-						}}
-					</Preview>
-				</Card>
-				<Card
-					headStyle={{padding: 0}}
-					title={<BuildPreviewButton icon={null} title={'lab.vape.build.title'} build={vape.build}/>}
-					extra={<BuildQuickMenu key={'quick-menu'} build={vape.build}/>}
-				>
-					<Preview translation={'lab.build.preview'}>
-						{{
-							"atomizer": <AtomizerInline atomizer={vape.build.atomizer}/>,
-							"coil": <CoilInline coil={vape.build.coil}/>,
-						}}
-					</Preview>
-				</Card>
-			</Carousel>
-		</List.Item>}
+		listItemRender={vape => <VapeListItem vape={vape}/>}
 		{...props}
 	>
 		{({column}) => [

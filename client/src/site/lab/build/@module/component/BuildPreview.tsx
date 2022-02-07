@@ -30,7 +30,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, hidden = [], ...pro
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
-					"coil": <CoilInline vertical coil={build.coil}/>,
+					"coil": <CoilInline inline coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": <Ohm ohm={build?.ohm}/>,
 					"age": <BuildAge build={build}/>,

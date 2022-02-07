@@ -7,5 +7,5 @@ export interface IBuildAgeProps {
 }
 
 export const BuildAge: FC<IBuildAgeProps> = ({build}) => {
-	return <>{(build.active ? durationOf(build.created) : durationOf(build.disabledOn, build.created)).humanize()}</>
+	return <>{(build.active ? durationOf(build.created) : durationOf(build.disabledOn || undefined, build.created)).humanize()}</>
 }

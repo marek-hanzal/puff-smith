@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
-import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {List} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
@@ -15,13 +15,18 @@ export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
 		actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		{...props}
 	>
-		<BuildPreviewButton
-			title={build.atomizer.name}
-			drawerProps={{title: <AtomizerInline inline atomizer={build.atomizer}/>}}
-			build={build}
-			buildPreviewProps={{
-				hidden: ['upload', 'images']
-			}}
+		<List.Item.Meta
+			title={<BuildPreviewButton
+				style={{padding: 0}}
+				title={build.atomizer.name}
+				drawerProps={{title: <AtomizerInline inline atomizer={build.atomizer}/>}}
+				build={build}
+				buildPreviewProps={{
+					hidden: ['upload', 'images']
+				}}
+			/>}
+			description={build.coil.wire.name}
 		/>
+		<BuildAge build={build}/>
 	</List.Item>;
 }

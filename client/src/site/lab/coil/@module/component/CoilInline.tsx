@@ -6,13 +6,13 @@ import {ArrowsAltOutlined, ReloadOutlined} from "@ant-design/icons";
 
 export interface ICoilInlineProps {
 	coil: CoilDto
-	vertical?: boolean
+	inline?: boolean
 }
 
-export const CoilInline: FC<ICoilInlineProps> = ({coil, vertical}) => {
-	vertical = vertical !== undefined ? vertical : isMobile;
-	return <Space direction={vertical ? 'vertical' : 'horizontal'}>
-		<Space direction={vertical ? 'vertical' : 'horizontal'}>
+export const CoilInline: FC<ICoilInlineProps> = ({coil, inline}) => {
+	inline = inline !== undefined ? inline : isMobile;
+	return <Space direction={inline ? 'horizontal' : 'vertical'}>
+		<Space direction={inline ? 'horizontal' : 'vertical'}>
 			<Typography.Text>{coil.wire.name}</Typography.Text>
 			<Typography.Text type={'secondary'}>{coil.wire.vendor.name}</Typography.Text>
 		</Space>
