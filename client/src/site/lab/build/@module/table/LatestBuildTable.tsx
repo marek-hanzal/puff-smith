@@ -9,6 +9,7 @@ export const LatestBuildTable: FC<ILatestBuildTableProps> = props => {
 	const {t} = useTranslation();
 	return <BuildTable
 		listProps={{header: t('lab.build.latest.title')}}
+		header={() => t('lab.build.latest.title')}
 		source={{
 			defaultSize: 5,
 		}}

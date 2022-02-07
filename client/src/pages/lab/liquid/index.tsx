@@ -5,6 +5,14 @@ import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {isBrowser} from "react-device-detect";
+
+const LiquidButtonBar = () => {
+	return <ButtonBar>
+		<LiquidCreateButton type={'primary'}/>
+		<LiquidListButton size={'middle'}/>
+	</ButtonBar>;
+}
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -25,17 +33,15 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
+		extra={isBrowser && <LiquidButtonBar/>}
 	>
 		<Template
-			icon={<LiquidIcon/>}
-			label={'lab.liquid'}
 			span={24}
+			mobileExtra={<>
+				<LiquidButtonBar/>
+				<Divider/>
+			</>}
 		>
-			<ButtonBar>
-				<LiquidCreateButton type={'primary'}/>
-				<LiquidListButton size={'middle'}/>
-			</ButtonBar>
-			<Divider/>
 			<LiquidsFilterContext>
 				<LiquidFilter/>
 				<LiquidTable/>

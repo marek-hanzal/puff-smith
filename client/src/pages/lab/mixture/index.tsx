@@ -2,8 +2,16 @@ import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {isBrowser} from "react-device-detect";
+
+const MixtureButtonBar = () => {
+	return <ButtonBar>
+		<MixtureCreateButton type={'primary'}/>
+		<MixtureListButton size={'middle'}/>
+	</ButtonBar>;
+}
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -24,23 +32,16 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
+		extra={isBrowser && <MixtureButtonBar/>}
 	>
 		<Template
-			icon={<MixtureIcon/>}
-			label={'lab.mixture'}
 			span={24}
+			mobileExtra={<>
+				<MixtureButtonBar/>
+				<Divider/>
+			</>}
 		>
-			<ButtonBar>
-				<MixtureCreateButton type={'primary'}/>
-				<MixtureListButton size={'middle'}/>
-			</ButtonBar>
-			<Divider/>
-			<Card
-				bordered={false}
-				title={t('lab.mixture.latest.title')}
-			>
-				<RecentMixtureTable/>
-			</Card>
+			<RecentMixtureTable/>
 		</Template>
 		<Divider/>
 	</LabPage>;

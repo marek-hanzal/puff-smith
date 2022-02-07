@@ -4,6 +4,7 @@ import {BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {List} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 
 export interface IBuildListItemProps extends Partial<ListItemProps> {
 	build: BuildDto;
@@ -16,18 +17,10 @@ export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
 		actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
 		{...props}
 	>
-		<BuildPreviewButton title={build.atomizer.name} build={build}/>
-		{/*<Space direction={'vertical'}>*/}
-		{/*	<AtomizerInline atomizer={build.atomizer}/>*/}
-		{/*	<CoilInline coil={build.coil}/>*/}
-		{/*	<CottonInline cotton={build.cotton}/>*/}
-		{/*	<Space>*/}
-		{/*		<Typography.Text type={'secondary'}>{t('lab.build.age.label')}</Typography.Text>{durationOf(build.created).humanize()}*/}
-		{/*	</Space>*/}
-		{/*	<Space>*/}
-		{/*		<BuildVapeButton size={'small'} build={build}/>*/}
-		{/*		<BuildCommentButton size={'small'} build={build}/>*/}
-		{/*	</Space>*/}
-		{/*</Space>*/}
+		<BuildPreviewButton
+			title={build.atomizer.name}
+			drawerProps={{title: <AtomizerInline inline atomizer={build.atomizer}/>}}
+			build={build}
+		/>
 	</List.Item>;
 }
