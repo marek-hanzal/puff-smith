@@ -17,7 +17,6 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 	const filterContext = useOptionalFilterContext<BuildFilterDto>();
 	const {t} = useTranslation();
 	return <BuildsSourceTable
-		listProps={{header: t('lab.build.table.title')}}
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={build => <BuildListItem build={build}/>}

@@ -5,6 +5,14 @@ import {CoilCreateButton, CoilFilter, CoilListButton, CoilTable} from "@/puff-sm
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {isBrowser} from "react-device-detect";
+
+const CoilButtonBar = () => {
+	return <ButtonBar>
+		<CoilCreateButton type={'primary'}/>
+		<CoilListButton size={'middle'}/>
+	</ButtonBar>;
+}
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -25,17 +33,15 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
+		extra={isBrowser && <CoilButtonBar/>}
 	>
 		<Template
-			icon={<CoilIcon/>}
-			label={'lab.coil'}
 			span={24}
+			mobileExtra={<>
+				<CoilButtonBar/>
+				<Divider/>
+			</>}
 		>
-			<ButtonBar>
-				<CoilCreateButton type={'primary'}/>
-				<CoilListButton size={'middle'}/>
-			</ButtonBar>
-			<Divider/>
 			<CoilsFilterContext>
 				<CoilFilter/>
 				<CoilTable/>

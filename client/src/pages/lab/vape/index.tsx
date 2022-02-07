@@ -2,10 +2,17 @@ import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Menu, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton, VapePlotButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, Card, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
 import {QuickMenu} from "@leight-core/leight/dist";
+
+const VapeButtonBar = () => {
+	return <ButtonBar>
+		<VapeCreateButton type={'primary'}/>
+		<VapeListButton size={'middle'}/>
+	</ButtonBar>;
+}
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -30,26 +37,16 @@ export default withLabLayout(function Index() {
 			<Menu.Item>
 				<VapePlotButton/>
 			</Menu.Item>
-		</QuickMenu> : <Space>
-			<VapePlotButton/>
-		</Space>}
+		</QuickMenu> : <VapeButtonBar/>}
 	>
 		<Template
-			icon={<VapeIcon/>}
-			label={'lab.vape'}
 			span={24}
+			mobileExtra={<>
+				<VapeButtonBar/>
+				<Divider/>
+			</>}
 		>
-			<ButtonBar>
-				<VapeCreateButton type={'primary'}/>
-				<VapeListButton size={'middle'}/>
-			</ButtonBar>
-			<Divider/>
-			<Card
-				bordered={false}
-				title={t('lab.vape.latest.title')}
-			>
-				<RecentVapeTable/>
-			</Card>
+			<RecentVapeTable/>
 		</Template>
 		<Divider/>
 	</LabPage>;
