@@ -1107,12 +1107,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "ByteUnits\\": "src/ByteUnits"
-                },
                 "files": [
                     "src/ByteUnits/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "ByteUnits\\": "src/ByteUnits"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1524,11 +1524,11 @@
                 "reference": "e3181566965cddb9777548f22faa11dcb4baad91"
             },
             "dist": {
-				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/e3181566965cddb9777548f22faa11dcb4baad91",
-				"reference": "e3181566965cddb9777548f22faa11dcb4baad91",
-				"shasum": ""
-			},
+                "type": "zip",
+                "url": "https://api.github.com/repos/leight-core/edde/zipball/e3181566965cddb9777548f22faa11dcb4baad91",
+                "reference": "e3181566965cddb9777548f22faa11dcb4baad91",
+                "shasum": ""
+            },
             "require": {
                 "cache/void-adapter": "^1.1",
                 "clancats/hydrahon": "^1.1",
@@ -1599,7 +1599,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-07T11:10:12+00:00"
+            "time": "2022-02-07T11:10:12+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
