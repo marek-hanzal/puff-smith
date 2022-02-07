@@ -14,7 +14,6 @@ export interface IBuildPreviewButtonProps extends Partial<IDrawerButtonProps> {
 
 export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, ...props}) => {
 	return <DrawerButton
-		width={800}
 		type={'link'}
 		size={'large'}
 		icon={<EyeOutlined/>}
