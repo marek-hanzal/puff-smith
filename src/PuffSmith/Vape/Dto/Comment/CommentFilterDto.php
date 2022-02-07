@@ -14,4 +14,8 @@ class CommentFilterDto extends AbstractFilterDto {
 	 * @var string[]|null|void
 	 */
 	public ?array $buildIds;
+	/**
+	 * @var string[]|null|void
+	 */
+	public ?array $atomizerIds;
 }

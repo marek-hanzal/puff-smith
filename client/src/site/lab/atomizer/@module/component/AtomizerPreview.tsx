@@ -6,8 +6,10 @@ import {Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
-import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
+import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildComments} from "@/puff-smith/site/lab/build";
+import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {VapeComments} from "@/puff-smith/site/lab/vape";
 
 export interface IAtomizerPreviewProps extends Partial<IPreviewProps> {
 	atomizer: AtomizerDto
@@ -39,9 +41,14 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, ...props})
 					</CommentsSource>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.atomizer.comments.build.tab')}>
-					<CommentsFilterContext defaultFilter={{atomizerIds: [atomizer.id]}}>
+					<BuildCommentsFilterContext defaultFilter={{atomizerIds: [atomizer.id]}}>
 						<BuildComments/>
-					</CommentsFilterContext>
+					</BuildCommentsFilterContext>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'vape.comments'} tab={t('lab.atomizer.comments.vape.tab')}>
+					<VapeCommentsFilterContext defaultFilter={{atomizerIds: [atomizer.id]}}>
+						<VapeComments/>
+					</VapeCommentsFilterContext>
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>
