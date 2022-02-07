@@ -1,5 +1,5 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {AtomizerIcon, BreadcrumbButton} from "@/puff-smith";
+import {AtomizerIcon, BreadcrumbButton, PlotIcon} from "@/puff-smith";
 import {AtomizerCreateButton, AtomizerEditButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
@@ -39,9 +39,10 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
 			{CreateMenuItem('lab.atomizer.button.create', '/lab/atomizer/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.atomizer.button.list', '/lab/atomizer/list', <ListIcon/>)}
+			{entity && CreateMenuItem('lab.atomizer.button.plot', '/lab/atomizer/[atomizerId]/plot', <PlotIcon/>, {atomizerId: entity.id})}
 		</LabMenuDrawerButton> : <ButtonBar>
 			<AtomizerListButton/>
 			<AtomizerCreateButton type={'primary'}/>

@@ -1,21 +1,26 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
-import {AtomizerInline, CreateCommentForm} from "@/puff-smith/site/lab/atomizer";
-import {Tabs} from "antd";
+import {AtomizerInline, AtomizerPlotButton, CreateCommentForm} from "@/puff-smith/site/lab/atomizer";
+import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentList} from "@/puff-smith/site/lab/comment";
 import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildComments} from "@/puff-smith/site/lab/build";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
-import {VapeComments} from "@/puff-smith/site/lab/vape";
+import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+
+export type AtomizerPreviewTabs = 'plot' | string;
 
 export interface IAtomizerPreviewProps extends Partial<IPreviewProps> {
-	atomizer: AtomizerDto
+	atomizer: AtomizerDto;
+	forceList?: boolean;
+	hidden?: AtomizerPreviewTabs[];
 }
 
-export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, ...props}) => {
+export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList = false, hidden = [], ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 	return <Tabs size={'large'}>
@@ -52,5 +57,24 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, ...props})
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>
+		{!hidden?.includes('plot') && <Tabs.TabPane key={'plot'} tab={t('lab.atomizer.vape.plot.tab')}>
+			<VapesFilterContext defaultFilter={{atomizerIds: [atomizer.id]}}>
+				<Space>
+					<VapeFilter disabled={['atomizerIds']}/>
+					<AtomizerPlotButton
+						atomizer={atomizer}
+						title={null}
+					/>
+				</Space>
+				<VapePlot
+					selected={['median', 'count']}
+				/>
+				<Divider/>
+				<VapeTable
+					forceList={forceList}
+					hidden={['atomizer']}
+				/>
+			</VapesFilterContext>
+		</Tabs.TabPane>}
 	</Tabs>
 }
