@@ -1,5 +1,5 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 import {Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
@@ -11,12 +11,14 @@ import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
+import {ButtonBar} from "@leight-core/leight/dist";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
+	buttons?: ReactNode;
 }
 
-export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) => {
+export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, ...props}) => {
 	const {t} = useTranslation();
 	return <CreateDefaultForm
 		layout={'vertical'}
@@ -138,7 +140,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, ...props}) =>
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit icon={<BuildIcon/>} label={'lab.build.create.submit'}/>
+			<ButtonBar align={'baseline'}>
+				<Submit icon={<BuildIcon/>} label={'lab.build.create.submit'}/>
+				{buttons}
+			</ButtonBar>
 		</Centered>
 	</CreateDefaultForm>;
 }
