@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const BoostersSource: FC<IBoostersSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IBoostersSourceConsumerProps extends ConsumerProps<ISourceContext<IBoostersQueryParams, import("@/sdk/puff-smith/booster/dto/index").BoosterDto, import("@/sdk/puff-smith/booster/dto/index").BoosterOrderByDto, import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto>> {
+}
+
+export const BoostersSourceConsumer: FC<IBoostersSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IBoostersBaseTableProps extends ITableProps<IBoostersQueryParams, import("@/sdk/puff-smith/booster/dto/index").BoosterDto, import("@/sdk/puff-smith/booster/dto/index").BoosterOrderByDto, import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto> {

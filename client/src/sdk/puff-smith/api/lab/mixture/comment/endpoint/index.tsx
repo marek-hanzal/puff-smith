@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const CommentsSource: FC<ICommentsSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ICommentsSourceConsumerProps extends ConsumerProps<ISourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/mixture/dto/comment/index").MixtureCommentDto, import("@/sdk/puff-smith/mixture/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/mixture/dto/comment/index").CommentFilterDto>> {
+}
+
+export const CommentsSourceConsumer: FC<ICommentsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ICommentsBaseTableProps extends ITableProps<ICommentsQueryParams, import("@/sdk/puff-smith/mixture/dto/comment/index").MixtureCommentDto, import("@/sdk/puff-smith/mixture/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/mixture/dto/comment/index").CommentFilterDto> {

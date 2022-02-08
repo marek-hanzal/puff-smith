@@ -1,10 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,15 +25,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -141,19 +135,30 @@ export const FetchAtomizer: FC<IFetchAtomizerProps> = ({query, ...props}) => <Qu
 	{...props}
 />;
 
-export interface IAtomizerPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type IAtomizerPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => ReactElement);
+export type IAtomizerPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IAtomizerPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto>) => ReactElement);
+	breadcrumbProps?: IAtomizerPageBreadcrumb;
+	breadcrumbMobileProps?: IAtomizerPageBreadcrumb;
+	breadcrumbBrowserProps?: IAtomizerPageBreadcrumb;
+	extra?: IAtomizerPageExtra;
+	extraMobile?: IAtomizerPageExtra;
+	extraBrowser?: IAtomizerPageExtra;
 }
 
-export const AtomizerPage: FC<IAtomizerPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const AtomizerPage: FC<IAtomizerPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {atomizerId} = useParams();
 	return <AtomizerProvider>
 		<AtomizerContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchAtomizer
@@ -181,6 +186,13 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = ({children, ...props})
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IAtomizersSourceConsumerProps extends ConsumerProps<ISourceContext<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>> {
+}
+
+export const AtomizersSourceConsumer: FC<IAtomizersSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IAtomizersBaseTableProps extends ITableProps<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {

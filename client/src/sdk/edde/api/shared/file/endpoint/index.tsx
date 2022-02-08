@@ -1,5 +1,8 @@
 import {FC} from "react";
 import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,12 +15,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -116,6 +116,13 @@ export const FilesSource: FC<IFilesSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IFilesSourceConsumerProps extends ConsumerProps<ISourceContext<IFilesQueryParams, import("@/sdk/edde/file/dto/index").FileDto, import("@/sdk/edde/file/dto/index").FileOrderByDto, import("@/sdk/edde/file/dto/index").FileFilterDto>> {
+}
+
+export const FilesSourceConsumer: FC<IFilesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IFilesBaseTableProps extends ITableProps<IFilesQueryParams, import("@/sdk/edde/file/dto/index").FileDto, import("@/sdk/edde/file/dto/index").FileOrderByDto, import("@/sdk/edde/file/dto/index").FileFilterDto> {

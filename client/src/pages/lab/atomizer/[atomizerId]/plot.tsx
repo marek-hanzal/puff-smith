@@ -7,7 +7,6 @@ import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
 
 export default withLabLayout(function Plot() {
@@ -49,10 +48,11 @@ export default withLabLayout(function Plot() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.atomizer.button.create", "/lab/atomizer/create", <CreateIcon/>)}
 			{CreateMenuItem("lab.atomizer.button.list", "/lab/atomizer/list", <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
+		</LabMenuDrawerButton>}
+		extraBrowser={<ButtonBar>
 			<AtomizerListButton/>
 			<AtomizerCreateButton type={'primary'}/>
 		</ButtonBar>}

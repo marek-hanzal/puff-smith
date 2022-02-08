@@ -1,9 +1,9 @@
 import {FC} from "react";
 import {
+	createDeleteMutation,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,12 +12,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -62,6 +59,13 @@ export const LogsSource: FC<ILogsSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ILogsSourceConsumerProps extends ConsumerProps<ISourceContext<ILogsQueryParams, import("@/sdk/edde/log/dto/index").LogDto, import("@/sdk/edde/log/dto/index").LogOrderByDto, import("@/sdk/edde/log/dto/index").LogFilterDto>> {
+}
+
+export const LogsSourceConsumer: FC<ILogsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ILogsBaseTableProps extends ITableProps<ILogsQueryParams, import("@/sdk/edde/log/dto/index").LogDto, import("@/sdk/edde/log/dto/index").LogOrderByDto, import("@/sdk/edde/log/dto/index").LogFilterDto> {
@@ -135,6 +139,13 @@ export const LogTagsSource: FC<ILogTagsSourceProps> = ({children, ...props}) => 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ILogTagsSourceConsumerProps extends ConsumerProps<ISourceContext<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined>> {
+}
+
+export const LogTagsSourceConsumer: FC<ILogTagsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ILogTagsBaseTableProps extends ITableProps<ILogTagsQueryParams, import("@/sdk/edde/tag/dto/index").TagDto, void | undefined, void | undefined> {

@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const BasesSource: FC<IBasesSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IBasesSourceConsumerProps extends ConsumerProps<ISourceContext<IBasesQueryParams, import("@/sdk/puff-smith/base/dto/index").BaseDto, import("@/sdk/puff-smith/base/dto/index").BaseOrderByDto, import("@/sdk/puff-smith/base/dto/index").BaseFilterDto>> {
+}
+
+export const BasesSourceConsumer: FC<IBasesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IBasesBaseTableProps extends ITableProps<IBasesQueryParams, import("@/sdk/puff-smith/base/dto/index").BaseDto, import("@/sdk/puff-smith/base/dto/index").BaseOrderByDto, import("@/sdk/puff-smith/base/dto/index").BaseFilterDto> {

@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const WiresSource: FC<IWiresSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IWiresSourceConsumerProps extends ConsumerProps<ISourceContext<IWiresQueryParams, import("@/sdk/puff-smith/wire/dto/index").WireDto, import("@/sdk/puff-smith/wire/dto/index").WireOrderByDto, import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>> {
+}
+
+export const WiresSourceConsumer: FC<IWiresSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IWiresBaseTableProps extends ITableProps<IWiresQueryParams, import("@/sdk/puff-smith/wire/dto/index").WireDto, import("@/sdk/puff-smith/wire/dto/index").WireOrderByDto, import("@/sdk/puff-smith/wire/dto/index").WireFilterDto> {

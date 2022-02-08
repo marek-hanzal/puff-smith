@@ -1,10 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,15 +25,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -156,19 +150,30 @@ export const FetchBuild: FC<IFetchBuildProps> = ({query, ...props}) => <Query<IB
 	{...props}
 />;
 
-export interface IBuildPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type IBuildPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => ReactElement);
+export type IBuildPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IBuildPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/build/dto/index").BuildDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/build/dto/index").BuildDto>) => ReactElement);
+	breadcrumbProps?: IBuildPageBreadcrumb;
+	breadcrumbMobileProps?: IBuildPageBreadcrumb;
+	breadcrumbBrowserProps?: IBuildPageBreadcrumb;
+	extra?: IBuildPageExtra;
+	extraMobile?: IBuildPageExtra;
+	extraBrowser?: IBuildPageExtra;
 }
 
-export const BuildPage: FC<IBuildPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const BuildPage: FC<IBuildPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {buildId} = useParams();
 	return <BuildProvider>
 		<BuildContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchBuild
@@ -196,6 +201,13 @@ export const BuildsSource: FC<IBuildsSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IBuildsSourceConsumerProps extends ConsumerProps<ISourceContext<IBuildsQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto, import("@/sdk/puff-smith/build/dto/index").BuildOrderByDto, import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>> {
+}
+
+export const BuildsSourceConsumer: FC<IBuildsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IBuildsBaseTableProps extends ITableProps<IBuildsQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto, import("@/sdk/puff-smith/build/dto/index").BuildOrderByDto, import("@/sdk/puff-smith/build/dto/index").BuildFilterDto> {

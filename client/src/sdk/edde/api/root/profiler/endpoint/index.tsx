@@ -1,9 +1,10 @@
 import {FC} from "react";
 import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,12 +13,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -76,6 +74,13 @@ export const NamesSource: FC<INamesSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface INamesSourceConsumerProps extends ConsumerProps<ISourceContext<INamesQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerNameDto, void | undefined, void | undefined>> {
+}
+
+export const NamesSourceConsumer: FC<INamesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface INamesBaseTableProps extends ITableProps<INamesQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerNameDto, void | undefined, void | undefined> {
@@ -149,6 +154,13 @@ export const ProfilersSource: FC<IProfilersSourceProps> = ({children, ...props})
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IProfilersSourceConsumerProps extends ConsumerProps<ISourceContext<IProfilersQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerDto, import("@/sdk/edde/profiler/dto/index").ProfilerOrderByDto, import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto>> {
+}
+
+export const ProfilersSourceConsumer: FC<IProfilersSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IProfilersBaseTableProps extends ITableProps<IProfilersQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerDto, import("@/sdk/edde/profiler/dto/index").ProfilerOrderByDto, import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto> {

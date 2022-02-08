@@ -1,9 +1,8 @@
 import {FC} from "react";
 import {
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,10 +11,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -64,6 +62,13 @@ export const JobLogsSource: FC<IJobLogsSourceProps> = ({children, ...props}) => 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IJobLogsSourceConsumerProps extends ConsumerProps<ISourceContext<IJobLogsQueryParams, import("@/sdk/edde/job/dto/log/index").JobLogDto, import("@/sdk/edde/job/dto/log/index").JobLogOrderByDto, import("@/sdk/edde/job/dto/log/index").JobLogFilterDto>> {
+}
+
+export const JobLogsSourceConsumer: FC<IJobLogsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IJobLogsBaseTableProps extends ITableProps<IJobLogsQueryParams, import("@/sdk/edde/job/dto/log/index").JobLogDto, import("@/sdk/edde/job/dto/log/index").JobLogOrderByDto, import("@/sdk/edde/job/dto/log/index").JobLogFilterDto> {
@@ -139,6 +144,13 @@ export const LevelsSource: FC<ILevelsSourceProps> = ({children, ...props}) => {
 	</SourceContextProvider>;
 }
 
+export interface ILevelsSourceConsumerProps extends ConsumerProps<ISourceContext<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined>> {
+}
+
+export const LevelsSourceConsumer: FC<ILevelsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
+}
+
 export interface ILevelsBaseTableProps extends ITableProps<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined> {
 }
 
@@ -210,6 +222,13 @@ export const TypesSource: FC<ITypesSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ITypesSourceConsumerProps extends ConsumerProps<ISourceContext<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined>> {
+}
+
+export const TypesSourceConsumer: FC<ITypesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ITypesBaseTableProps extends ITableProps<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined> {

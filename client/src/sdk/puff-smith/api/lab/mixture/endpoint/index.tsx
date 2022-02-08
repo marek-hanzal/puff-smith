@@ -1,10 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,15 +25,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -141,19 +135,30 @@ export const FetchMixture: FC<IFetchMixtureProps> = ({query, ...props}) => <Quer
 	{...props}
 />;
 
-export interface IMixturePageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type IMixturePageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>) => ReactElement);
+export type IMixturePageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IMixturePageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/mixture/dto/index").MixtureDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/mixture/dto/index").MixtureDto>) => ReactElement);
+	breadcrumbProps?: IMixturePageBreadcrumb;
+	breadcrumbMobileProps?: IMixturePageBreadcrumb;
+	breadcrumbBrowserProps?: IMixturePageBreadcrumb;
+	extra?: IMixturePageExtra;
+	extraMobile?: IMixturePageExtra;
+	extraBrowser?: IMixturePageExtra;
 }
 
-export const MixturePage: FC<IMixturePageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const MixturePage: FC<IMixturePageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {mixtureId} = useParams();
 	return <MixtureProvider>
 		<MixtureContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchMixture
@@ -181,6 +186,13 @@ export const MixturesSource: FC<IMixturesSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IMixturesSourceConsumerProps extends ConsumerProps<ISourceContext<IMixturesQueryParams, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureOrderByDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureFilterDto>> {
+}
+
+export const MixturesSourceConsumer: FC<IMixturesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IMixturesBaseTableProps extends ITableProps<IMixturesQueryParams, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureOrderByDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureFilterDto> {

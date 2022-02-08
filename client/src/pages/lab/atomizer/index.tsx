@@ -5,7 +5,6 @@ import {AtomizerCreateButton, AtomizerFilter, AtomizerListButton, AtomizerTable}
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizersFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {isMobile} from "react-device-detect";
 
 const AtomizerButtonBar = () => {
 	return <ButtonBar>
@@ -33,10 +32,11 @@ export default withLabLayout(function Index() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.atomizer.button.create', '/lab/atomizer/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.atomizer.button.list', '/lab/atomizer/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <AtomizerButtonBar/>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<AtomizerButtonBar/>}
 	>
 		<Template
 			span={24}

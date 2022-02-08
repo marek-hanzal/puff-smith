@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const DriptipsSource: FC<IDriptipsSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IDriptipsSourceConsumerProps extends ConsumerProps<ISourceContext<IDriptipsQueryParams, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipOrderByDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto>> {
+}
+
+export const DriptipsSourceConsumer: FC<IDriptipsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IDriptipsBaseTableProps extends ITableProps<IDriptipsQueryParams, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipOrderByDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipFilterDto> {

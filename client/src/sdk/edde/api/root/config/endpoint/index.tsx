@@ -1,10 +1,10 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createDeleteMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +18,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,17 +26,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -135,19 +128,30 @@ export const FetchConfig: FC<IFetchConfigProps> = ({query, ...props}) => <Query<
 	{...props}
 />;
 
-export interface IConfigPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type IConfigPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => ReactElement);
+export type IConfigPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IConfigPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/edde/config/dto/index").ConfigDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/config/dto/index").ConfigDto>) => ReactElement);
+	breadcrumbProps?: IConfigPageBreadcrumb;
+	breadcrumbMobileProps?: IConfigPageBreadcrumb;
+	breadcrumbBrowserProps?: IConfigPageBreadcrumb;
+	extra?: IConfigPageExtra;
+	extraMobile?: IConfigPageExtra;
+	extraBrowser?: IConfigPageExtra;
 }
 
-export const ConfigPage: FC<IConfigPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const ConfigPage: FC<IConfigPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {configId} = useParams();
 	return <ConfigProvider>
 		<ConfigContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchConfig
@@ -175,6 +179,13 @@ export const ConfigsSource: FC<IConfigsSourceProps> = ({children, ...props}) => 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IConfigsSourceConsumerProps extends ConsumerProps<ISourceContext<IConfigsQueryParams, import("@/sdk/edde/config/dto/index").ConfigDto, import("@/sdk/edde/config/dto/index").ConfigOrderByDto, import("@/sdk/edde/config/dto/index").ConfigFilterDto>> {
+}
+
+export const ConfigsSourceConsumer: FC<IConfigsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IConfigsBaseTableProps extends ITableProps<IConfigsQueryParams, import("@/sdk/edde/config/dto/index").ConfigDto, import("@/sdk/edde/config/dto/index").ConfigOrderByDto, import("@/sdk/edde/config/dto/index").ConfigFilterDto> {

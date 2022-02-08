@@ -1,9 +1,10 @@
 import {FC} from "react";
 import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -12,12 +13,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -62,6 +60,13 @@ export const UpgradesSource: FC<IUpgradesSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IUpgradesSourceConsumerProps extends ConsumerProps<ISourceContext<IUpgradesQueryParams, import("@/sdk/edde/phinx/dto/index").UpgradeDto, import("@/sdk/edde/phinx/dto/index").UpgradeOrderByDto, import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto>> {
+}
+
+export const UpgradesSourceConsumer: FC<IUpgradesSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IUpgradesBaseTableProps extends ITableProps<IUpgradesQueryParams, import("@/sdk/edde/phinx/dto/index").UpgradeDto, import("@/sdk/edde/phinx/dto/index").UpgradeOrderByDto, import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto> {

@@ -1,47 +1,25 @@
+import {ConsumerProps, FC} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
-	EntityContext,
-	EntityProvider,
+	createGetQuery,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
-	IEntityContext,
-	IEntityProviderProps,
 	IFilterContextProviderProps,
-	IFormProps,
-	IPageProps,
 	IQueryOptions,
-	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
-	Page,
-	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
-	useContext,
 	useFilterContext,
-	useOptionalContext,
 	useOptionalFilterContext,
-	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
-import {BreadcrumbProps} from "antd";
-import Breadcrumb from "antd/lib/breadcrumb";
 
 export type IClientConfigQueryParams = void;
 
@@ -112,6 +90,13 @@ export const DateFormatListSource: FC<IDateFormatListSourceProps> = ({children, 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IDateFormatListSourceConsumerProps extends ConsumerProps<ISourceContext<IDateFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateDto, void | undefined, void | undefined>> {
+}
+
+export const DateFormatListSourceConsumer: FC<IDateFormatListSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IDateFormatListBaseTableProps extends ITableProps<IDateFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateDto, void | undefined, void | undefined> {
@@ -187,6 +172,13 @@ export const DateTimeFormatListSource: FC<IDateTimeFormatListSourceProps> = ({ch
 	</SourceContextProvider>;
 }
 
+export interface IDateTimeFormatListSourceConsumerProps extends ConsumerProps<ISourceContext<IDateTimeFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateTimeDto, void | undefined, void | undefined>> {
+}
+
+export const DateTimeFormatListSourceConsumer: FC<IDateTimeFormatListSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
+}
+
 export interface IDateTimeFormatListBaseTableProps extends ITableProps<IDateTimeFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateTimeDto, void | undefined, void | undefined> {
 }
 
@@ -258,6 +250,13 @@ export const LanguageListSource: FC<ILanguageListSourceProps> = ({children, ...p
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ILanguageListSourceConsumerProps extends ConsumerProps<ISourceContext<ILanguageListQueryParams, import("@/sdk/edde/api/shared/dto/index").LanguageDto, void | undefined, void | undefined>> {
+}
+
+export const LanguageListSourceConsumer: FC<ILanguageListSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ILanguageListBaseTableProps extends ITableProps<ILanguageListQueryParams, import("@/sdk/edde/api/shared/dto/index").LanguageDto, void | undefined, void | undefined> {

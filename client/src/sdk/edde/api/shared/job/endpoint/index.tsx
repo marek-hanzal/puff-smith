@@ -1,23 +1,20 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
-	Form,
 	IEntityContext,
 	IEntityProviderProps,
 	IFilterContextProviderProps,
-	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,13 +22,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -109,19 +102,30 @@ export const FetchJob: FC<IFetchJobProps> = ({query, ...props}) => <Query<IJobQu
 	{...props}
 />;
 
-export interface IJobPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type IJobPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => ReactElement);
+export type IJobPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IJobPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/edde/job/dto/index").JobDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/edde/job/dto/index").JobDto>) => ReactElement);
+	breadcrumbProps?: IJobPageBreadcrumb;
+	breadcrumbMobileProps?: IJobPageBreadcrumb;
+	breadcrumbBrowserProps?: IJobPageBreadcrumb;
+	extra?: IJobPageExtra;
+	extraMobile?: IJobPageExtra;
+	extraBrowser?: IJobPageExtra;
 }
 
-export const JobPage: FC<IJobPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const JobPage: FC<IJobPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {jobId} = useParams();
 	return <JobProvider>
 		<JobContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchJob
@@ -149,6 +153,13 @@ export const JobsSource: FC<IJobsSourceProps> = ({children, ...props}) => {
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface IJobsSourceConsumerProps extends ConsumerProps<ISourceContext<IJobsQueryParams, import("@/sdk/edde/job/dto/index").JobDto, import("@/sdk/edde/job/dto/index").JobOrderByDto, import("@/sdk/edde/job/dto/index").JobFilterDto>> {
+}
+
+export const JobsSourceConsumer: FC<IJobsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface IJobsBaseTableProps extends ITableProps<IJobsQueryParams, import("@/sdk/edde/job/dto/index").JobDto, import("@/sdk/edde/job/dto/index").JobOrderByDto, import("@/sdk/edde/job/dto/index").JobFilterDto> {

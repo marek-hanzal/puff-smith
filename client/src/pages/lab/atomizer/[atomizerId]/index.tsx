@@ -5,7 +5,6 @@ import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -30,11 +29,12 @@ export default withLabLayout(function Index() {
 				<AtomizerIcon/>{t('lab.atomizer.index.label')}
 			</Space>
 		</Breadcrumbs>}
-		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+		extraMobile={({entity}) => <LabMenuDrawerButton>
 			{CreateMenuItem('lab.atomizer.button.create', '/lab/atomizer/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.atomizer.button.list', '/lab/atomizer/list', <ListIcon/>)}
 			{entity && CreateMenuItem('lab.atomizer.button.plot', '/lab/atomizer/[atomizerId]/plot', <PlotIcon/>, {atomizerId: entity.id})}
-		</LabMenuDrawerButton> : <ButtonBar>
+		</LabMenuDrawerButton>}
+		extraBrowser={<ButtonBar>
 			<AtomizerListButton/>
 			<AtomizerCreateButton type={'primary'}/>
 		</ButtonBar>}

@@ -1,10 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,15 +25,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -141,19 +135,30 @@ export const FetchLiquid: FC<IFetchLiquidProps> = ({query, ...props}) => <Query<
 	{...props}
 />;
 
-export interface ILiquidPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type ILiquidPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => ReactElement);
+export type ILiquidPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface ILiquidPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/liquid/dto/index").LiquidDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>) => ReactElement);
+	breadcrumbProps?: ILiquidPageBreadcrumb;
+	breadcrumbMobileProps?: ILiquidPageBreadcrumb;
+	breadcrumbBrowserProps?: ILiquidPageBreadcrumb;
+	extra?: ILiquidPageExtra;
+	extraMobile?: ILiquidPageExtra;
+	extraBrowser?: ILiquidPageExtra;
 }
 
-export const LiquidPage: FC<ILiquidPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const LiquidPage: FC<ILiquidPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {liquidId} = useParams();
 	return <LiquidProvider>
 		<LiquidContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchLiquid
@@ -181,6 +186,13 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = ({children, ...props}) => 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ILiquidsSourceConsumerProps extends ConsumerProps<ISourceContext<ILiquidsQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidOrderByDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto>> {
+}
+
+export const LiquidsSourceConsumer: FC<ILiquidsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ILiquidsBaseTableProps extends ITableProps<ILiquidsQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidOrderByDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto> {

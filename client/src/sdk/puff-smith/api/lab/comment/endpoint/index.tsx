@@ -1,10 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -25,15 +25,9 @@ import {
 	Page,
 	Query,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -141,19 +135,30 @@ export const FetchComment: FC<IFetchCommentProps> = ({query, ...props}) => <Quer
 	{...props}
 />;
 
-export interface ICommentPageProps extends Omit<IPageProps, "breadcrumbProps" | "extra"> {
+export type ICommentPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => ReactElement);
+export type ICommentPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface ICommentPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
 	children?: ReactNode | ((data: import("@/sdk/puff-smith/comment/dto/index").CommentDto) => ReactNode);
-	breadcrumbProps?: BreadcrumbProps | React.ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
-	extra?: ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/comment/dto/index").CommentDto>) => ReactElement);
+	breadcrumbProps?: ICommentPageBreadcrumb;
+	breadcrumbMobileProps?: ICommentPageBreadcrumb;
+	breadcrumbBrowserProps?: ICommentPageBreadcrumb;
+	extra?: ICommentPageExtra;
+	extraMobile?: ICommentPageExtra;
+	extraBrowser?: ICommentPageExtra;
 }
 
-export const CommentPage: FC<ICommentPageProps> = ({children, breadcrumbProps, extra, ...props}) => {
+export const CommentPage: FC<ICommentPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
 	const {commentId} = useParams();
 	return <CommentProvider>
 		<CommentContext.Consumer>
 			{entityContext => <Page
 				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchComment
@@ -181,6 +186,13 @@ export const CommentsSource: FC<ICommentsSourceProps> = ({children, ...props}) =
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ICommentsSourceConsumerProps extends ConsumerProps<ISourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/comment/dto/index").CommentOrderByDto, import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto>> {
+}
+
+export const CommentsSourceConsumer: FC<ICommentsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ICommentsBaseTableProps extends ITableProps<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/comment/dto/index").CommentOrderByDto, import("@/sdk/puff-smith/comment/dto/index").CommentFilterDto> {

@@ -1,5 +1,7 @@
 import {FC} from "react";
 import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -12,10 +14,9 @@ import {
 	ITableProps,
 	IToOptionMapper,
 	QuerySourceSelect,
+	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +62,13 @@ export const CottonsSource: FC<ICottonsSourceProps> = ({children, ...props}) => 
 	>
 		{children}
 	</SourceContextProvider>;
+}
+
+export interface ICottonsSourceConsumerProps extends ConsumerProps<ISourceContext<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>> {
+}
+
+export const CottonsSourceConsumer: FC<ICottonsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
 }
 
 export interface ICottonsBaseTableProps extends ITableProps<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto> {
