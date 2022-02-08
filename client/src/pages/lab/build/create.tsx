@@ -6,30 +6,36 @@ import {Col, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {isBrowser} from "react-device-detect";
+import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 
 interface IComposeFormProps {
 }
 
 const ComposeForm: FC<IComposeFormProps> = () => {
+	const [buildFilter, setBuildFilter] = useState<VapeFilterDto>();
 	const filterContext = useVapesOptionalFilterContext();
 	return <Row gutter={32}>
 		<Col span={14}>
 			<CreateBuildForm
 				onValuesChange={(_, values) => {
-					filterContext?.setFilter({
-						...filterContext.filter,
+					const filter = {
 						atomizerIds: values?.atomizerId ? [values?.atomizerId] : undefined,
 						wireIds: values?.coil?.wireId ? [values?.coil?.wireId] : undefined,
 						coilSize: values?.coil?.size,
 						buildOhm: values?.ohm ? [values?.ohm - 0.075, values?.ohm + 0.075] : undefined,
+					};
+					setBuildFilter(filter)
+					filterContext?.setFilter({
+						...filterContext.filter,
+						...filter,
 					});
 				}}
 			/>
 		</Col>
 		<Col span={10}>
-			<VapeFilter/>
+			<VapeFilter onClear={() => filterContext?.setFilter(buildFilter)}/>
 			<VapePlot
 				selected={['median']}
 			/>
