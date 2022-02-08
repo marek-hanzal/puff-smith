@@ -103,10 +103,8 @@ export const Uploader: FC<IUploaderProps> = (
 						setProgress(100);
 						message.success(t(translation + ".upload.success"));
 						filesQueryInvalidate();
-						setTimeout(() => {
-							reset();
-							onSuccess(file);
-						}, 2500);
+						onSuccess(file);
+						setTimeout(() => reset(), 2500);
 					},
 					onError: () => {
 						setError(true);
