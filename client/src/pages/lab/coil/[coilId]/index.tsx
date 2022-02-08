@@ -3,9 +3,9 @@ import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {CoilCloneButton, CoilCreateButton, CoilEditButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -13,35 +13,28 @@ export default withLabLayout(function Index() {
 		title={"lab.coil.index"}
 		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil/list')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/coil'}
-					title={'lab.coil.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/coil/list'}
-					title={'lab.coil.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<CoilIcon/>{t('lab.coil.index.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/coil'}
+				title={'lab.coil.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/coil/list'}
+				title={'lab.coil.list.label'}
+			/>
+			<Space size={'small'}>
+				<CoilIcon/>{t('lab.coil.index.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
+		</LabMenuDrawerButton>}
+		extraBrowser={<ButtonBar>
 			<CoilListButton/>
 			<CoilCreateButton type={'primary'}/>
 		</ButtonBar>}

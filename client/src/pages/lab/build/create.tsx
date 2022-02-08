@@ -2,9 +2,9 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Breadcrumb, Space} from "antd";
+import {Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs, ButtonBar} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
@@ -12,36 +12,29 @@ export default withLabLayout(function Create() {
 		title={"lab.build.create"}
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/build'}
-					title={'lab.build.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/build/list'}
-					title={'lab.build.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<CreateIcon/>{t('lab.build.create.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/build'}
+				title={'lab.build.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/build/list'}
+				title={'lab.build.list.label'}
+			/>
+			<Space size={'small'}>
+				<CreateIcon/>{t('lab.build.create.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
-		</LabMenuDrawerButton> : <Space>
+		</LabMenuDrawerButton>}
+		extraBrowser={<ButtonBar>
 			<BuildListButton/>
-		</Space>}
+		</ButtonBar>}
 	>
 		<CreateTemplate>
 			<CreateBuildForm/>

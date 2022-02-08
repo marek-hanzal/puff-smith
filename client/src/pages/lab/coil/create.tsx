@@ -2,9 +2,9 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton} from "@/puff-smith";
 import {CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Breadcrumb, Space} from "antd";
+import {Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
@@ -12,34 +12,27 @@ export default withLabLayout(function Create() {
 		title={"lab.coil.create"}
 		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/coil'}
-					title={'lab.coil.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/coil/list'}
-					title={'lab.coil.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<CreateIcon/>{t('lab.coil.create.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/coil'}
+				title={'lab.coil.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/coil/list'}
+				title={'lab.coil.list.label'}
+			/>
+			<Space size={'small'}>
+				<CreateIcon/>{t('lab.coil.create.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
+		</LabMenuDrawerButton>}
+		extraBrowser={<ButtonBar>
 			<CoilListButton/>
 		</ButtonBar>}
 	>
