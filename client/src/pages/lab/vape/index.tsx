@@ -1,17 +1,14 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, PlotIcon, VapeIcon} from "@/puff-smith";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
 
-const VapeButtonBar = () => {
-	return <ButtonBar>
-		<VapeListButton size={'middle'}/>
-		<VapeCreateButton type={'primary'}/>
-	</ButtonBar>;
-}
+const VapeButtonBar = () => <ButtonBar>
+	<VapeListButton size={'middle'}/>
+	<VapeCreateButton type={'primary'}/>
+</ButtonBar>;
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -19,24 +16,21 @@ export default withLabLayout(function Index() {
 		title={"lab.vape"}
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<VapeIcon/>{t('lab.vape.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<Space size={'small'}>
+				<VapeIcon/>{t('lab.vape.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.vape.button.plot", "/lab/vape/plot", <PlotIcon/>)}
 			{CreateMenuItem("lab.vape.button.create", "/lab/vape/create", <CreateIcon/>)}
 			{CreateMenuItem("lab.vape.button.list", "/lab/vape/list", <ListIcon/>)}
-		</LabMenuDrawerButton> : <VapeButtonBar/>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<VapeButtonBar/>}
 	>
 		<Template
 			span={24}

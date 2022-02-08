@@ -1,12 +1,17 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeFilter, VapeListButton, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
-import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+import {Breadcrumbs, ButtonBar} from "@leight-core/leight/dist";
+
+const VapeButtonBar = () => <ButtonBar>
+	<VapeListButton/>
+	<VapeCreateButton type={'primary'}/>
+</ButtonBar>;
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -14,32 +19,24 @@ export default withLabLayout(function List() {
 		title={"lab.vape.plot"}
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/vape'}
-					title={'lab.vape.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<BarChartOutlined/>{t('lab.vape.plot.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/vape'}
+				title={'lab.vape.label'}
+			/>
+			<Space size={'small'}>
+				<BarChartOutlined/>{t('lab.vape.plot.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <Space>
-			<VapeListButton/>
-			<VapeCreateButton type={'primary'}/>
-		</Space>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<VapeButtonBar/>}
 	>
 		<VapesFilterContext>
 			<VapeFilter/>

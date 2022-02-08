@@ -3,10 +3,15 @@ import {BreadcrumbButton, CloneIcon, VapeIcon} from "@/puff-smith";
 import {VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs} from "@leight-core/leight/dist";
+
+const VapeButtonBar = () => <ButtonBar>
+	<VapeListButton/>
+	<VapeCreateButton type={'primary'}/>
+</ButtonBar>;
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -14,39 +19,29 @@ export default withLabLayout(function Index() {
 		title={"lab.vape.index"}
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape/list')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/vape'}
-					title={'lab.vape.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/vape/list'}
-					title={'lab.vape.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<VapeIcon/>{t('lab.vape.index.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/vape'}
+				title={'lab.vape.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/vape/list'}
+				title={'lab.vape.list.label'}
+			/>
+			<Space size={'small'}>
+				<VapeIcon/>{t('lab.vape.index.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={({entity}) => <LabMenuDrawerButton>
 			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
 			{entity && CreateMenuItem('lab.vape.button.clone', '/lab/vape/[vapeId]/clone', <CloneIcon/>, {vapeId: entity.id})}
 			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
-			<VapeListButton/>
-			<VapeCreateButton type={'primary'}/>
-		</ButtonBar>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<VapeButtonBar/>}
 	>
 		{vape => <>
 			<PreviewTemplate
