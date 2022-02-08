@@ -62,10 +62,10 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto>();
 	const {t} = useTranslation();
 	return isBrowser ? <Row gutter={32}>
-		<Col span={14}>
+		<Col span={12}>
 			<Form setBuildFilter={setBuildFilter}/>
 		</Col>
-		<Col span={10}>
+		<Col span={12}>
 			<Tabs destroyInactiveTabPane>
 				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
 					<Plot buildFilter={buildFilter}/>
