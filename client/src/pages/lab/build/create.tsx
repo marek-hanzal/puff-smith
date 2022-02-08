@@ -6,13 +6,18 @@ import {Col, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {isBrowser} from "react-device-detect";
 import {DrawerButton} from "@leight-core/leight/dist";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
+	useEffect(() => {
+		filterContext?.setFilter({
+			coilSize: 0.3,
+		});
+	}, []);
 	return <CreateBuildForm
 		onValuesChange={(_, values) => {
 			const filter = {
@@ -34,7 +39,10 @@ const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeF
 const Plot: FC<{ buildFilter?: VapeFilterDto }> = ({buildFilter}) => {
 	const filterContext = useVapesOptionalFilterContext();
 	return <>
-		<VapeFilter onClear={() => filterContext?.setFilter(buildFilter)}/>
+		<VapeFilter
+			onClear={() => filterContext?.setFilter(buildFilter)}
+			disabled={['rate']}
+		/>
 		<VapePlot
 			selected={['median']}
 		/>
