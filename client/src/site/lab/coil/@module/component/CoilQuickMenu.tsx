@@ -17,7 +17,11 @@ export const CoilQuickMenu: FC<ICoilQuickMenuProps> = ({coil, ...props}) => {
 	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.coil.context.menu', {data: coil})}}
+		drawerProps={{
+			title: t('lab.coil.context.menu', {data: coil}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>

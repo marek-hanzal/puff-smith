@@ -19,7 +19,11 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.vape.context.menu', {data: vape})}}
+		drawerProps={{
+			title: t('lab.vape.context.menu', {data: vape}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>

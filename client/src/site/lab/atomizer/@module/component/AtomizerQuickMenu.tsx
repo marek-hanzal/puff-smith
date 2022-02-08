@@ -17,7 +17,11 @@ export const AtomizerQuickMenu: FC<IAtomizerQuickMenuProps> = ({atomizer, ...pro
 	const atomizersQueryInvalidate = useAtomizersQueryInvalidate();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.atomizer.context.menu', {data: atomizer})}}
+		drawerProps={{
+			title: t('lab.atomizer.context.menu', {data: atomizer}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>

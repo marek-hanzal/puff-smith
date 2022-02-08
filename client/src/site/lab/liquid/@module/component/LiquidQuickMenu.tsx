@@ -17,7 +17,11 @@ export const LiquidQuickMenu: FC<ILiquidQuickMenuProps> = ({liquid, ...props}) =
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.liquid.context.menu', {data: liquid})}}
+		drawerProps={{
+			title: t('lab.liquid.context.menu', {data: liquid}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>

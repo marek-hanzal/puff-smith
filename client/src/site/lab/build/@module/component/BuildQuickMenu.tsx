@@ -17,7 +17,11 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.build.context.menu', {data: build})}}
+		drawerProps={{
+			title: t('lab.build.context.menu', {data: build}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>

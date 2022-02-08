@@ -15,7 +15,11 @@ export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}
 	const {t} = useTranslation();
 	return <DrawerButton
 		type={'text'}
-		drawerProps={{title: t('lab.mixture.context.menu', {data: mixture})}}
+		drawerProps={{
+			title: t('lab.mixture.context.menu', {data: mixture}),
+			bodyStyle: {padding: 0}
+		}}
+		width={350}
 		icon={<MenuOutlined/>}
 		{...props}
 	>
