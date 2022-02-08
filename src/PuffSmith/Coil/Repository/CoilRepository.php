@@ -19,8 +19,9 @@ class CoilRepository extends AbstractRepository {
 			'ga'   => IRepository::ORDER_ASC,
 		], ['$_coil_unique']);
 		$this->orderByMap = [
-			'wire' => 'w.name',
-			'ga'   => 'w.ga',
+			'wire'        => 'w.name',
+			'ga'          => 'w.ga',
+			'description' => 'w.description',
 		];
 	}
 
