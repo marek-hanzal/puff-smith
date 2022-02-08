@@ -2,14 +2,17 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton, PlotIcon} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Col, Row, Space} from "antd";
+import {Col, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
+import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {isBrowser} from "react-device-detect";
 import {DrawerButton} from "@leight-core/leight/dist";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
+import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
+import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -57,12 +60,27 @@ interface IComposeFormProps {
 
 const ComposeForm: FC<IComposeFormProps> = () => {
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto>();
+	const {t} = useTranslation();
 	return isBrowser ? <Row gutter={32}>
 		<Col span={14}>
 			<Form setBuildFilter={setBuildFilter}/>
 		</Col>
 		<Col span={10}>
-			<Plot buildFilter={buildFilter}/>
+			<Tabs destroyInactiveTabPane>
+				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
+					<Plot buildFilter={buildFilter}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
+					{buildFilter?.atomizerIds?.[0] ? <AtomizerCommentsFilterContext defaultFilter={{atomizerId: buildFilter.atomizerIds[0]}}>
+						<AtomizerComments/>
+					</AtomizerCommentsFilterContext> : null}
+				</Tabs.TabPane>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')}>
+					<VapeCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
+						<VapeComments/>
+					</VapeCommentsFilterContext>
+				</Tabs.TabPane>
+			</Tabs>
 		</Col>
 	</Row> : <>
 		<Form
