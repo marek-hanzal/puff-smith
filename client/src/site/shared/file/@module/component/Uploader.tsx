@@ -99,7 +99,7 @@ export const Uploader: FC<IUploaderProps> = (
 					name: currentName.current,
 					replace,
 				}, {
-					onSuccess: (file) => {
+					onSuccess: file => {
 						setProgress(100);
 						message.success(t(translation + ".upload.success"));
 						filesQueryInvalidate();
