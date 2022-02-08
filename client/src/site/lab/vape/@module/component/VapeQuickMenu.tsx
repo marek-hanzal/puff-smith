@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Menu} from "antd";
-import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapeLinkButton, VapePreviewButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeCommentButton, VapeDeleteButton, VapeEditButton, VapePreviewButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {BuildPreviewButton} from "@/puff-smith/site/lab/build";
@@ -22,7 +22,20 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 		{...props}
 	>
 		<Menu.Item>
-			<VapeLinkButton vape={vape}/>
+			<VapePreviewButton vape={vape}/>
+		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<VapeRateButton vape={vape}/>
+		</Menu.Item>
+		<Menu.Item>
+			<VapeCommentButton vape={vape}/>
+		</Menu.Item>
+		<Menu.Item>
+			<VapeEditButton vape={vape}/>
+		</Menu.Item>
+		<Menu.Item>
+			<VapeCloneButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
@@ -42,22 +55,6 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 		</Menu.Item>
 		<Menu.Item>
 			<LiquidPreviewButton liquid={vape.mixture.liquid}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
-			<VapeRateButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeCommentButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapePreviewButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeEditButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeCloneButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>

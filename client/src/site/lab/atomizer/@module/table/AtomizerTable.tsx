@@ -1,8 +1,7 @@
 import {AtomizersSourceTable, IAtomizersSourceTableProps} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {AtomizerLinkButton, AtomizerListItem, AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerListItem, AtomizerPreviewButton, AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
-import {Space} from "antd";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
@@ -21,16 +20,13 @@ export const AtomizerTable: FC<IAtomizerTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, atomizer) => <Space size={1}>
-					<AtomizerLinkButton title={null} atomizer={atomizer}/>
-					<AtomizerQuickMenu atomizer={atomizer}/>
-				</Space>,
+				render: (_, atomizer) => <AtomizerQuickMenu atomizer={atomizer}/>,
 				width: 0,
 			}),
 			column({
 				key: "name",
 				title: 'lab.atomizer.table.name',
-				render: (_, atomizer) => atomizer.name,
+				render: (_, atomizer) => <AtomizerPreviewButton title={atomizer.name} atomizer={atomizer}/>,
 				sorter: true,
 			}),
 			column({

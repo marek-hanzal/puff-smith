@@ -2,7 +2,8 @@ import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
-import {ButtonProps} from "antd";
+import {ButtonProps, message} from "antd";
+import {useBuildsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 
 export interface IBuildDeleteButtonProps extends Partial<ButtonProps> {
 	build: BuildDto;
@@ -11,11 +12,23 @@ export interface IBuildDeleteButtonProps extends Partial<ButtonProps> {
 
 export const BuildDeleteButton: FC<IBuildDeleteButtonProps> = ({build, onOk, ...props}) => {
 	const {t} = useTranslation();
+	const deleteMutation = useDeleteMutation();
+	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <ModalButton
 		title={'lab.build.button.delete.confirm.title'}
 		okText={t('lab.build.button.delete.confirm.ok')}
 		cancelText={t('common.cancel')}
-		onOk={onOk}
+		onOk={setShow => {
+			deleteMutation.mutate({
+				id: build.id,
+			}, {
+				onSuccess: () => {
+					message.success(t('lab.build.deleted.success'))
+					buildsQueryInvalidate();
+				},
+			})
+			onOk ? onOk(setShow) : setShow(false);
+		}}
 		okButtonProps={{
 			danger: true,
 			size: 'large',

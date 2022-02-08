@@ -1,7 +1,6 @@
 import {ILiquidsSourceTableProps, LiquidsSourceTable} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {LiquidInline, LiquidLinkButton, LiquidListItem, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
-import {Space} from "antd";
+import {LiquidListItem, LiquidPreviewButton, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {LiquidFilterDto} from "@/sdk/puff-smith/liquid/dto";
 import {useTranslation} from "react-i18next";
@@ -21,16 +20,13 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, liquid) => <Space size={1}>
-					<LiquidLinkButton title={null} liquid={liquid}/>
-					<LiquidQuickMenu liquid={liquid}/>
-				</Space>,
+				render: (_, liquid) => <LiquidQuickMenu liquid={liquid}/>,
 				width: 0,
 			}),
 			column({
 				key: "name",
 				title: 'lab.liquid.table.name',
-				render: (_, liquid) => <LiquidInline liquid={liquid}/>,
+				render: (_, liquid) => <LiquidPreviewButton title={liquid.name} liquid={liquid}/>,
 				sorter: true,
 			}),
 			column({

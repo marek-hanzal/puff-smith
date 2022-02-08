@@ -1,9 +1,7 @@
 import {CoilsSourceTable, ICoilsSourceTableProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {CoilLinkButton, CoilListItem, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
-import {WireInline} from "@/puff-smith/site/lab/wire";
+import {CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
-import {Space} from "antd";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
@@ -22,22 +20,33 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, coil) => <Space size={1}>
-					<CoilLinkButton title={null} coil={coil}/>
-					<CoilQuickMenu coil={coil}/>
-				</Space>,
+				render: (_, coil) => <CoilQuickMenu coil={coil}/>,
 				width: 0,
 			}),
 			column({
 				key: "wire",
 				title: 'lab.coil.table.wire',
-				render: (_, coil) => <WireInline wire={coil.wire}/>,
+				render: (_, coil) => <CoilPreviewButton title={coil.wire.name} coil={coil}/>,
+				sorter: true,
+				width: 440,
+			}),
+			column({
+				key: "ga",
+				title: 'lab.coil.table.wire.ga',
+				render: (_, coil) => coil.wire.ga || '-',
+				sorter: true,
+				width: 140,
+			}),
+			column({
+				key: "description",
+				title: 'lab.coil.table.wire.description',
+				render: (_, coil) => coil.wire.description,
 				sorter: true,
 			}),
 			column({
 				key: "size",
 				title: 'lab.coil.table.size',
-				render: (_, coil) => coil.size,
+				render: (_, coil) => coil.size || '-',
 				sorter: true,
 				width: 160,
 			}),

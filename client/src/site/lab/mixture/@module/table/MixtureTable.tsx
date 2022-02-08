@@ -1,11 +1,9 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {asDayjs, durationOf, toLocalDate, useOptionalFilterContext} from "@leight-core/leight";
-import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureLinkButton, MixtureListItem, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {Space} from "antd";
+import {MixtureListItem, MixturePreviewButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
 
@@ -26,17 +24,14 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, mixture) => <Space size={1}>
-					<MixtureLinkButton title={null} mixture={mixture}/>
-					<MixtureQuickMenu mixture={mixture}/>
-				</Space>,
+				render: (_, mixture) => <MixtureQuickMenu mixture={mixture}/>,
 				width: 0,
 			}),
 			column({
 				key: "liquid",
 				title: "lab.mixture.table.liquid",
 				width: 300,
-				render: (_, mixture) => <LiquidInline liquid={mixture.liquid}/>,
+				render: (_, mixture) => <MixturePreviewButton title={mixture.liquid.name} mixture={mixture}/>,
 			}),
 			column({
 				key: "code",

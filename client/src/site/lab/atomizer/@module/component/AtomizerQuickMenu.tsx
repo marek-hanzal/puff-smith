@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Menu} from "antd";
-import {AtomizerDeleteButton, AtomizerEditButton, AtomizerLinkButton, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerDeleteButton, AtomizerEditButton, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 
@@ -16,12 +16,9 @@ export const AtomizerQuickMenu: FC<IAtomizerQuickMenuProps> = ({atomizer, ...pro
 		{...props}
 	>
 		<Menu.Item>
-			<AtomizerLinkButton atomizer={atomizer}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
 			<AtomizerPreviewButton atomizer={atomizer}/>
 		</Menu.Item>
+		<Menu.Divider/>
 		<Menu.Item>
 			<AtomizerEditButton atomizer={atomizer}/>
 		</Menu.Item>

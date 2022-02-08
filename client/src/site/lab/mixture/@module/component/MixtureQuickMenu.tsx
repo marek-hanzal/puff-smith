@@ -1,9 +1,10 @@
 import {FC} from "react";
 import {Menu} from "antd";
-import {MixtureActiveButton, MixtureCommentButton, MixtureEditButton, MixtureLinkButton, MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
+import {MixtureActiveButton, MixtureCommentButton, MixtureEditButton, MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 
 export interface IMixtureQuickMenuProps extends Partial<IDrawerMenuProps> {
 	mixture: MixtureDto;
@@ -16,17 +17,18 @@ export const MixtureQuickMenu: FC<IMixtureQuickMenuProps> = ({mixture, ...props}
 		{...props}
 	>
 		<Menu.Item>
-			<MixtureLinkButton mixture={mixture}/>
-		</Menu.Item>
-		<Menu.Divider/>
-		<Menu.Item>
 			<MixturePreviewButton mixture={mixture}/>
 		</Menu.Item>
+		<Menu.Divider/>
 		<Menu.Item>
 			<MixtureCommentButton mixture={mixture}/>
 		</Menu.Item>
 		<Menu.Item>
 			<MixtureEditButton mixture={mixture}/>
+		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<LiquidPreviewButton liquid={mixture.liquid}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
