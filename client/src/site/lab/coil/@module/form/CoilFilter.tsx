@@ -22,7 +22,7 @@ export const CoilFilter: FC<ICoilFilterProps> = props => {
 			field={'wraps'}
 			labels={['lab.coil.wraps.label']}
 		>
-			<WrapsInput/>
+			<WrapsInput range/>
 		</FormItem>
 	</Filter>
 }

@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Slider} from "antd";
-import {SliderProps} from "rc-slider";
 
-export interface IWrapsInputProps extends Partial<SliderProps> {
+export interface IWrapsInputProps {
+	range?: boolean;
 }
 
 export const WrapsInput: FC<IWrapsInputProps> = props => {
