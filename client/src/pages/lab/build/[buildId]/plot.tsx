@@ -8,10 +8,12 @@ import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
 	const {buildId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <BuildPage
 		title={"lab.build.plot"}
 		menuSelection={['/lab/build']}

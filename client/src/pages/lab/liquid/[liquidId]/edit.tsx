@@ -5,6 +5,7 @@ import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm}
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
@@ -14,6 +15,7 @@ const LiquidButtonBar = () => <ButtonBar>
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
 	const {liquidId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LiquidPage
 		title={"lab.liquid.edit"}
 		menuSelection={['/lab/liquid']}

@@ -6,6 +6,7 @@ import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, 
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -14,6 +15,7 @@ const VapeButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <VapePage
 		title={"lab.vape.index"}
 		menuSelection={['/lab/vape']}

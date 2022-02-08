@@ -5,6 +5,7 @@ import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeLi
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -14,6 +15,7 @@ const VapeButtonBar = () => <ButtonBar>
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
 	const {vapeId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <VapePage
 		title={"lab.vape.edit"}
 		menuSelection={['/lab/vape']}

@@ -6,9 +6,11 @@ import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, 
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <BuildPage
 		title={"lab.build.index"}
 		menuSelection={['/lab/build']}

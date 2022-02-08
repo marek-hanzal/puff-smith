@@ -8,6 +8,7 @@ import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
@@ -17,6 +18,7 @@ const MixtureButtonBar = () => <ButtonBar>
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
 	const {mixtureId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <MixturePage
 		title={"lab.mixture.plot"}
 		menuSelection={['/lab/mixture']}

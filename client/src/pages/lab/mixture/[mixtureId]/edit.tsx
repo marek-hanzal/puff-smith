@@ -5,6 +5,7 @@ import {MixtureCreateButton, MixtureLinkButton, MixtureListButton, PatchMixtureF
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
@@ -14,6 +15,7 @@ const MixtureButtonBar = () => <ButtonBar>
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
 	const {mixtureId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <MixturePage
 		title={"lab.mixture.edit"}
 		menuSelection={['/lab/mixture']}

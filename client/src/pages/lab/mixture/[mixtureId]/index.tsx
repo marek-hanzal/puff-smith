@@ -7,6 +7,7 @@ import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 interface IMixtureButtonBarProps {
 	mixture?: MixtureDto;
@@ -20,6 +21,7 @@ const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <MixturePage
 		title={"lab.mixture.index"}
 		menuSelection={['/lab/mixture']}

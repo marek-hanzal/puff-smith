@@ -5,10 +5,12 @@ import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} fr
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
 	const {buildId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <BuildPage
 		title={"lab.build.clone"}
 		menuSelection={['/lab/build']}

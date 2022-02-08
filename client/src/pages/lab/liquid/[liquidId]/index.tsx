@@ -7,6 +7,7 @@ import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {FC} from "react";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 interface ILiquidButtonBarProps {
 	liquid?: LiquidDto;
@@ -20,6 +21,7 @@ const LiquidButtonBar: FC<ILiquidButtonBarProps> = ({liquid}) => <ButtonBar>
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LiquidPage
 		title={"lab.liquid.index"}
 		menuSelection={['/lab/liquid']}

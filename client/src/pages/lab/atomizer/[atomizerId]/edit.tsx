@@ -5,10 +5,12 @@ import {AtomizerCreateButton, AtomizerLinkButton, AtomizerListButton, PatchAtomi
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();
 	const {atomizerId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <AtomizerPage
 		title={"lab.atomizer.edit"}
 		menuSelection={['/lab/atomizer']}

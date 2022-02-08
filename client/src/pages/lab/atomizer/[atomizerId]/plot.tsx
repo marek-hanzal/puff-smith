@@ -8,6 +8,7 @@ import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const AtomizerButtonBar = () => <ButtonBar>
 	<AtomizerListButton/>
@@ -17,6 +18,7 @@ const AtomizerButtonBar = () => <ButtonBar>
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
 	const {atomizerId} = useParams();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <AtomizerPage
 		title={"lab.atomizer.plot"}
 		menuSelection={['/lab/atomizer']}

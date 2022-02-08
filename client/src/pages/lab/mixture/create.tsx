@@ -4,6 +4,7 @@ import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixtur
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
@@ -11,6 +12,7 @@ const MixtureButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.mixture.create"}
 		menuSelection={['/lab/mixture']}
