@@ -6,6 +6,10 @@ import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {BuildPreviewButton} from "@/puff-smith/site/lab/build";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 
 export interface IVapeQuickMenuProps extends Partial<IDrawerMenuProps> {
 	vape: VapeDto;
@@ -25,7 +29,19 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 			<BuildPreviewButton build={vape.build}/>
 		</Menu.Item>
 		<Menu.Item>
+			<AtomizerPreviewButton atomizer={vape.build.atomizer}/>
+		</Menu.Item>
+		<Menu.Item>
+			<CoilPreviewButton coil={vape.build.coil}/>
+		</Menu.Item>
+		<Menu.Item>
+			<CottonPreviewButton cotton={vape.build.cotton}/>
+		</Menu.Item>
+		<Menu.Item>
 			<MixturePreviewButton mixture={vape.mixture}/>
+		</Menu.Item>
+		<Menu.Item>
+			<LiquidPreviewButton liquid={vape.mixture.liquid}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
