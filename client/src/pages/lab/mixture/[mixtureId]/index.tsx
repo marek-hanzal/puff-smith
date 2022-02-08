@@ -3,9 +3,21 @@ import {BreadcrumbButton, MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureEditButton, MixtureInline, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs} from "@leight-core/leight/dist";
+import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
+import {FC} from "react";
+
+interface IMixtureButtonBarProps {
+	mixture?: MixtureDto;
+}
+
+const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
+	{mixture && <MixturePlotButton mixture={mixture}/>}
+	<MixtureListButton/>
+	<MixtureCreateButton type={'primary'}/>
+</Space>;
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -13,40 +25,29 @@ export default withLabLayout(function Index() {
 		title={"lab.mixture.index"}
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/list')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/mixture'}
-					title={'lab.mixture.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/mixture/list'}
-					title={'lab.mixture.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<MixtureIcon/>{t('lab.mixture.index.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/mixture'}
+				title={'lab.mixture.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/mixture/list'}
+				title={'lab.mixture.list.label'}
+			/>
+			<Space size={'small'}>
+				<MixtureIcon/>{t('lab.mixture.index.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={({entity}) => <LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
 			{entity && CreateMenuItem('lab.mixture.button.plot', '/lab/mixture/[mixtureId]/plot', <PlotIcon/>, {mixtureId: entity.id})}
-		</LabMenuDrawerButton> : <Space>
-			{entity && <MixturePlotButton mixture={entity}/>}
-			<MixtureListButton/>
-			<MixtureCreateButton type={'primary'}/>
-		</Space>}
+		</LabMenuDrawerButton>}
+		extraBrowser={({entity}) => <MixtureButtonBar mixture={entity}/>}
 	>
 		{mixture => <>
 			<PreviewTemplate

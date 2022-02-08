@@ -2,8 +2,9 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton} from "@/puff-smith";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Breadcrumb, Space} from "antd";
+import {Space} from "antd";
 import {useTranslation} from "react-i18next";
+import {Breadcrumbs} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
@@ -15,31 +16,23 @@ export default withLabLayout(function Create() {
 		title={"lab.liquid.create"}
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/liquid'}
-					title={'lab.liquid.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/liquid/list'}
-					title={'lab.liquid.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<CreateIcon/>{t('lab.liquid.create.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/liquid'}
+				title={'lab.liquid.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/liquid/list'}
+				title={'lab.liquid.list.label'}
+			/>
+			<Space size={'small'}>
+				<CreateIcon/>{t('lab.liquid.create.label')}
+			</Space>
+		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
 		</LabMenuDrawerButton>}
