@@ -1,7 +1,6 @@
 import {FC} from "react";
-import {Filter, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
-import {FormItem} from "@leight-core/leight/dist";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor";
 
 export interface IAtomizerFilterProps extends IFilterWithoutTranslationProps<AtomizerFilterDto> {

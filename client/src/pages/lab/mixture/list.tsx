@@ -1,12 +1,11 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureCreateButton, MixtureFilter, MixtureTable} from "@/puff-smith/site/lab/mixture";
-import {HomeIcon} from "@leight-core/leight";
+import {CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Breadcrumb, Space} from "antd";
 import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {MixturesFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();

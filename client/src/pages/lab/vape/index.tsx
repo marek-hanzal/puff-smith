@@ -2,10 +2,9 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton, PlotIcon, VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
-import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => {
 	return <ButtonBar>

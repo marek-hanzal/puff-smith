@@ -1,13 +1,12 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeFilter, VapeListButton, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
-import {HomeIcon} from "@leight-core/leight";
+import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();

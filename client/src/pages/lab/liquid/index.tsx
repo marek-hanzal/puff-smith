@@ -1,12 +1,11 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
-import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => {
 	return <ButtonBar>

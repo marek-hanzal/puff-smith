@@ -3,10 +3,9 @@ import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {BackIcon, EditIcon, EditTemplate, HomeIcon, useParams} from "@leight-core/leight";
+import {BackIcon, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();

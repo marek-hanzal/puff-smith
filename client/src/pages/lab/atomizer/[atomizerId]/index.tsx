@@ -2,11 +2,10 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerIcon, BreadcrumbButton, PlotIcon} from "@/puff-smith";
 import {AtomizerCreateButton, AtomizerEditButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {HomeIcon, PreviewTemplate} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
 import {Breadcrumb, Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

@@ -1,12 +1,11 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidCreateButton, LiquidFilter, LiquidTable} from "@/puff-smith/site/lab/liquid";
-import {HomeIcon, ListIcon} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
-import {ButtonBar, CreateIcon, CreateMenuItem} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();

@@ -2,7 +2,7 @@ import {Comment, CommentProps, List, ListProps, message, Space} from "antd";
 import {PropsWithChildren, ReactElement, ReactNode} from "react";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
 import {ListItemProps} from "antd/lib/list";
-import {EditIcon, IFormOnSuccess, OrderButtonBar, Template, TextArea, toLocalDateTime, useSourceContext} from "@leight-core/leight/dist";
+import {EditIcon, IFormOnSuccess, OrderButtonBar, Template, TextArea, toLocalDateTime, useSourceContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {useDeleteMutation} from "@/sdk/puff-smith/api/lab/comment/endpoint";
 import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";

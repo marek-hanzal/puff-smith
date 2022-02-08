@@ -1,7 +1,7 @@
 import {FC, forwardRef} from "react";
 import {Button, Radio, RadioGroupProps, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {useOptionalFormItemContext} from "@leight-core/leight/dist";
+import {useOptionalFormItemContext} from "@leight-core/leight";
 
 export interface IRateInputProps extends Partial<RadioGroupProps> {
 	translation: string;

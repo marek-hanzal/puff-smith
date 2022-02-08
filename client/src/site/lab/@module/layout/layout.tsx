@@ -1,10 +1,9 @@
-import {IPageWithLayout} from "@leight-core/leight";
+import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/leight";
 import {FC, useEffect} from "react";
 import {AppLayout, usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {FullLogoIcon, NotificationProvider} from "@/puff-smith";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import i18n from "i18next";
-import {HeaderSiderLayout, LoaderLayout} from "@leight-core/leight/dist";
 import {LockOutlined} from "@ant-design/icons";
 import {Footer, Header, LabMenu, UserSettingsCheck} from "@/puff-smith/site/lab";
 

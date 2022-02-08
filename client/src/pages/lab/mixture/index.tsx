@@ -2,10 +2,9 @@ import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab
 import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, HomeIcon, Template} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => {
 	return <ButtonBar>

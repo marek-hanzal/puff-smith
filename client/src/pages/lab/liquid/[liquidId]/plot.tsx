@@ -2,14 +2,13 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumb, Divider, Space} from "antd";
 import {LiquidCreateButton, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {HomeIcon, useParams} from "@leight-core/leight";
+import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
-import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();

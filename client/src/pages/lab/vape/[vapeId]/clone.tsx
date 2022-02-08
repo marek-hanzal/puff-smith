@@ -3,10 +3,9 @@ import {BreadcrumbButton, CloneIcon, VapeIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, CreateTemplate, HomeIcon, useParams} from "@leight-core/leight";
+import {BackIcon, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();

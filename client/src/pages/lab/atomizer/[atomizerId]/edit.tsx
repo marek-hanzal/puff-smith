@@ -3,10 +3,9 @@ import {AtomizerIcon, BreadcrumbButton} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {AtomizerCreateButton, AtomizerLinkButton, AtomizerListButton, PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {BackIcon, EditIcon, HomeIcon, useParams} from "@leight-core/leight";
+import {BackIcon, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon, Template} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();

@@ -3,10 +3,9 @@ import {BreadcrumbButton, BuildIcon, CloneIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, CreateTemplate, HomeIcon, useParams} from "@leight-core/leight";
+import {BackIcon, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();

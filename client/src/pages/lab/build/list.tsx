@@ -1,12 +1,11 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
-import {HomeIcon, ListIcon} from "@leight-core/leight";
+import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
-import {CreateIcon, CreateMenuItem} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();

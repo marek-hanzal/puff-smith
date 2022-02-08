@@ -5,8 +5,7 @@ import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {useTranslation} from "react-i18next";
 import {Result, ResultProps} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
-import {useOptionalFilterContext} from "@leight-core/leight";
-import {toHumanNumber} from "@leight-core/leight/dist";
+import {toHumanNumber, useOptionalFilterContext} from "@leight-core/leight";
 
 export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | string;
 

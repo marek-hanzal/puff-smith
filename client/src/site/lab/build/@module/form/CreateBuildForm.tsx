@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, message} from "antd";
@@ -9,7 +9,6 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
-import {ItemGroup} from "@leight-core/leight/dist";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 

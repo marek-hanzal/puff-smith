@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 import {Space} from "antd";
-import {toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
+import {durationOf, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
 import {VapeLinkButton, VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {BuildAge} from "@/puff-smith/site/lab/build";
@@ -11,7 +11,6 @@ import {SimpleRating} from "@/puff-smith";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {durationOf} from "@leight-core/leight/dist";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 

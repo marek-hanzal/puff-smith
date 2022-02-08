@@ -3,10 +3,9 @@ import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {Breadcrumb, Divider, Space} from "antd";
 import {CoilCloneButton, CoilCreateButton, CoilLinkButton, CoilListButton, PatchCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {BackIcon, EditIcon, EditTemplate, HomeIcon, useParams} from "@leight-core/leight";
+import {BackIcon, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
-import {ButtonBar, CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
 	const {t} = useTranslation();

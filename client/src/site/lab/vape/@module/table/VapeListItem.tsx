@@ -3,7 +3,7 @@ import {ListItemProps} from "antd/lib/list";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {List} from "antd";
 import {VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
-import {durationOf} from "@leight-core/leight/dist";
+import {durationOf} from "@leight-core/leight";
 
 export interface IVapeListItemProps extends Partial<ListItemProps> {
 	vape: VapeDto;
