@@ -79,7 +79,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, ...p
 					required
 					help={<WireTooltip/>}
 				>
-					<WireSelect/>
+					<WireSelect allowClear/>
 				</FormItem>
 				<FormItem
 					field={'wraps'}
