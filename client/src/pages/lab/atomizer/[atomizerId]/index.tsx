@@ -2,8 +2,8 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerIcon, BreadcrumbButton, PlotIcon} from "@/puff-smith";
 import {AtomizerCreateButton, AtomizerEditButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {isMobile} from "react-device-detect";
 
@@ -13,31 +13,23 @@ export default withLabLayout(function Index() {
 		title={"lab.atomizer.index"}
 		menuSelection={['/lab/atomizer']}
 		onBack={navigate => navigate('/lab/atomizer/list')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/atomizer'}
-					title={'lab.atomizer.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/atomizer/list'}
-					title={'lab.atomizer.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<AtomizerIcon/>{t('lab.atomizer.index.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/atomizer'}
+				title={'lab.atomizer.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/atomizer/list'}
+				title={'lab.atomizer.list.label'}
+			/>
+			<Space size={'small'}>
+				<AtomizerIcon/>{t('lab.atomizer.index.label')}
+			</Space>
+		</Breadcrumbs>}
 		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
 			{CreateMenuItem('lab.atomizer.button.create', '/lab/atomizer/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.atomizer.button.list', '/lab/atomizer/list', <ListIcon/>)}
