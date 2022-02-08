@@ -4,9 +4,8 @@ import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
-import {CommentList} from "@/puff-smith/site/lab/comment";
-import {BuildAge, BuildPlotButton, BuildVapeButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
+import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
+import {BuildAge, BuildComments, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -47,16 +46,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 		<Tabs.TabPane key={'comments'} tab={t('lab.build.comments.tab')}>
 			<Tabs destroyInactiveTabPane size={'small'}>
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.build.comments.build.tab')}>
-					<CommentsSource
-						filter={{buildId: build.id}}
-						defaultOrderBy={{stamp: false}}
-					>
-						<CommentList
-							form={<CreateCommentForm build={build}/>}
-							onEdit={() => commentsQueryInvalidate()}
-							onDelete={() => commentsQueryInvalidate()}
-						/>
-					</CommentsSource>
+					<BuildComments build={build}/>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={'vape.comments'} tab={t('lab.build.comments.vape.tab')}>
 					<CommentsFilterContext defaultFilter={{buildIds: [build.id]}}>

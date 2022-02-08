@@ -73,17 +73,17 @@ export const useBuildsQueryInvalidate = () => {
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Create");
 
 export type IDeleteQueryParams = void;
 
 
-export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Delete");
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Delete");
 
 export type IPatchQueryParams = void;
 
 
-export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Patch");
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Patch");
 
 export interface IActiveDefaultFormProps extends Partial<IFormProps<IActiveQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").ActiveDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
@@ -95,31 +95,31 @@ export const ActiveDefaultForm: FC<IActiveDefaultFormProps> = props => {
 	/>
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/create/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/build/dto/index").CreateDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
 
-export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
 
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
-	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
 		useMutation={useDeleteMutation}
 		{...props}
 	/>
 }
 
-export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>> {
 }
 
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
-	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/patch/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/build/dto/index").PatchDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
 		useMutation={usePatchMutation}
 		{...props}
 	/>

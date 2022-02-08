@@ -19,6 +19,19 @@ export module CommentFilterDto {
 }
 
 
+export interface BuildCommentDto {
+	id: string;
+	build: import("@/sdk/puff-smith/build/dto/index").BuildDto;
+	buildId: string;
+	comment: import("@/sdk/puff-smith/comment/dto/index").CommentDto;
+	commentId: string;
+}
+
+export module BuildCommentDto {
+
+}
+
+
 export interface CreateDto {
 	buildId: string;
 	comment: string;

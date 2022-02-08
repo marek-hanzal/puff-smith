@@ -5,9 +5,8 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
-import {CreateCommentForm, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
-import {CommentList} from "@/puff-smith/site/lab/comment";
+import {MixtureComments, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -41,16 +40,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.mixture.comments.tab')}>
-			<CommentsSource
-				filter={{mixtureId: mixture.id}}
-				defaultOrderBy={{stamp: false}}
-			>
-				<CommentList
-					form={<CreateCommentForm mixture={mixture}/>}
-					onEdit={() => commentsQueryInvalidate()}
-					onDelete={() => commentsQueryInvalidate()}
-				/>
-			</CommentsSource>
+			<MixtureComments mixture={mixture}/>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'plot'} tab={t('lab.mixture.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>

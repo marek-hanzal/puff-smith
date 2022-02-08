@@ -7,9 +7,9 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
-use PuffSmith\Liquid\Dto\Create\CreateDto;
+use PuffSmith\Liquid\Dto\CreateDto;
 use PuffSmith\Liquid\Dto\LiquidFilterDto;
-use PuffSmith\Liquid\Dto\Patch\PatchDto;
+use PuffSmith\Liquid\Dto\PatchDto;
 
 class LiquidRepository extends AbstractRepository {
 	public function __construct() {

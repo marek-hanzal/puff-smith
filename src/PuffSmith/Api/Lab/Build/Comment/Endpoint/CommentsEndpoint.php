@@ -6,22 +6,22 @@ namespace PuffSmith\Api\Lab\Build\Comment\Endpoint;
 use Edde\Query\Dto\Query;
 use Edde\Query\Dto\QueryResult;
 use Edde\Rest\Endpoint\AbstractQueryEndpoint;
+use PuffSmith\Build\Dto\Comment\BuildCommentDto;
 use PuffSmith\Build\Dto\Comment\CommentFilterDto;
 use PuffSmith\Build\Dto\Comment\CommentOrderByDto;
+use PuffSmith\Build\Mapper\BuildCommentMapperTrait;
 use PuffSmith\Build\Repository\BuildCommentRepositoryTrait;
-use PuffSmith\Comment\Dto\CommentDto;
-use PuffSmith\Comment\Mapper\CommentMapperTrait;
 
 class CommentsEndpoint extends AbstractQueryEndpoint {
 	use BuildCommentRepositoryTrait;
-	use CommentMapperTrait;
+	use BuildCommentMapperTrait;
 
 	/**
 	 * @param Query<CommentOrderByDto, CommentFilterDto> $query
 	 *
-	 * @return QueryResult<CommentDto>
+	 * @return QueryResult<BuildCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->buildCommentRepository->toResult($query, $this->commentMapper);
+		return $this->buildCommentRepository->toResult($query, $this->buildCommentMapper);
 	}
 }

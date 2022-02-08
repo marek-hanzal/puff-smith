@@ -45,3 +45,48 @@ export interface BuildFilterDto {
 export module BuildFilterDto {
 
 }
+
+
+export interface CreateDto {
+	created: string | null;
+	glow: number | null;
+	atomizerId: string;
+	coil: import("@/sdk/puff-smith/coil/dto/create/index").CreateDto;
+	cottonId: string;
+	coils: number;
+	coilOffset: number;
+	cottonOffset: number;
+	ohm: number | null;
+	deactivate: boolean | null;
+}
+
+export module CreateDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	glow: number | null;
+	created?: string | null | undefined;
+	atomizerId?: string | null | undefined;
+	coilId?: string | null | undefined;
+	cottonId?: string | null | undefined;
+	coils?: number | null | undefined;
+	coilOffset?: number | null | undefined;
+	cottonOffset?: number | null | undefined;
+	ohm?: number | null | undefined;
+}
+
+export module PatchDto {
+
+}

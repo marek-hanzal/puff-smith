@@ -5,7 +5,7 @@ namespace PuffSmith\Api\Lab\Mixture\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractPatchEndpoint;
 use PuffSmith\Mixture\Dto\MixtureDto;
-use PuffSmith\Mixture\Dto\Patch\PatchDto;
+use PuffSmith\Mixture\Dto\PatchDto;
 use PuffSmith\Mixture\Mapper\MixtureMapperTrait;
 use PuffSmith\Mixture\Repository\MixtureRepositoryTrait;
 

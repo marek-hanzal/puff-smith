@@ -14,8 +14,8 @@ use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
 use Edde\User\Exception\UserNotSelectedException;
 use PuffSmith\Build\Dto\BuildFilterDto;
-use PuffSmith\Build\Dto\Create\CreateDto;
-use PuffSmith\Build\Dto\Patch\PatchDto;
+use PuffSmith\Build\Dto\CreateDto;
+use PuffSmith\Build\Dto\PatchDto;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 use Throwable;
 

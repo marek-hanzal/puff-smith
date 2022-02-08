@@ -48,12 +48,12 @@ import Breadcrumb from "antd/lib/breadcrumb";
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/create/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Create");
 
 export type IDeleteQueryParams = void;
 
 
-export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Delete");
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Delete");
 
 export type ILiquidQueryParams = {
 	liquidId: string;
@@ -78,33 +78,33 @@ export const useLiquidsQueryInvalidate = () => {
 export type IPatchQueryParams = void;
 
 
-export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Patch");
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>("PuffSmith.Lab.Liquid.Patch");
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/create/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/create/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/liquid/dto/index").CreateDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
 
-export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
 }
 
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
-	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/liquid/dto/index").DeleteDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
 		useMutation={useDeleteMutation}
 		{...props}
 	/>
 }
 
-export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>> {
 }
 
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
-	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/patch/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/liquid/dto/index").PatchDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto>
 		useMutation={usePatchMutation}
 		{...props}
 	/>

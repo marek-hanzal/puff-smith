@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Mixture\Dto\Patch;
+namespace PuffSmith\Mixture\Dto;
 
 use Edde\Dto\AbstractDto;
 

@@ -8,20 +8,20 @@ use Edde\Query\Dto\QueryResult;
 use Edde\Rest\Endpoint\AbstractQueryEndpoint;
 use PuffSmith\Vape\Dto\Comment\CommentFilterDto;
 use PuffSmith\Vape\Dto\Comment\CommentOrderByDto;
+use PuffSmith\Vape\Dto\Comment\VapeCommentDto;
+use PuffSmith\Vape\Mapper\VapeCommentMapperTrait;
 use PuffSmith\Vape\Repository\VapeCommentRepositoryTrait;
-use PuffSmith\Comment\Dto\CommentDto;
-use PuffSmith\Comment\Mapper\CommentMapperTrait;
 
 class CommentsEndpoint extends AbstractQueryEndpoint {
 	use VapeCommentRepositoryTrait;
-	use CommentMapperTrait;
+	use VapeCommentMapperTrait;
 
 	/**
 	 * @param Query<CommentOrderByDto, CommentFilterDto> $query
 	 *
-	 * @return QueryResult<CommentDto>
+	 * @return QueryResult<VapeCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->vapeCommentRepository->toResult($query, $this->commentMapper);
+		return $this->vapeCommentRepository->toResult($query, $this->vapeCommentMapper);
 	}
 }

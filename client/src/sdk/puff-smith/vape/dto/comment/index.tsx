@@ -20,6 +20,19 @@ export module CommentFilterDto {
 }
 
 
+export interface VapeCommentDto {
+	id: string;
+	vape: import("@/sdk/puff-smith/vape/dto/index").VapeDto;
+	vapeId: string;
+	comment: import("@/sdk/puff-smith/comment/dto/index").CommentDto;
+	commentId: string;
+}
+
+export module VapeCommentDto {
+
+}
+
+
 export interface CreateDto {
 	vapeId: string;
 	comment: string;

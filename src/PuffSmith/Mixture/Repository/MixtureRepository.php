@@ -10,9 +10,9 @@ use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
-use PuffSmith\Mixture\Dto\Create\CreateDto;
+use PuffSmith\Mixture\Dto\CreateDto;
 use PuffSmith\Mixture\Dto\MixtureFilterDto;
-use PuffSmith\Mixture\Dto\Patch\PatchDto;
+use PuffSmith\Mixture\Dto\PatchDto;
 
 class MixtureRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;

@@ -5,7 +5,7 @@ namespace PuffSmith\Api\Lab\Build\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
 use PuffSmith\Build\Dto\BuildDto;
-use PuffSmith\Build\Dto\Create\CreateDto;
+use PuffSmith\Build\Dto\CreateDto;
 use PuffSmith\Build\Mapper\BuildMapperTrait;
 use PuffSmith\Build\Repository\BuildRepositoryTrait;
 

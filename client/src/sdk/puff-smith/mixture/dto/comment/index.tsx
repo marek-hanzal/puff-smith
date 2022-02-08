@@ -18,6 +18,19 @@ export module CommentFilterDto {
 }
 
 
+export interface MixtureCommentDto {
+	id: string;
+	mixture: import("@/sdk/puff-smith/mixture/dto/index").MixtureDto;
+	mixtureId: string;
+	comment: import("@/sdk/puff-smith/comment/dto/index").CommentDto;
+	commentId: string;
+}
+
+export module MixtureCommentDto {
+
+}
+
+
 export interface CreateDto {
 	mixtureId: string;
 	comment: string;

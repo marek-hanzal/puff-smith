@@ -1,11 +1,10 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
-import {AtomizerInline, AtomizerPlotButton, CreateCommentForm} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerComments, AtomizerInline, AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
+import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildComments} from "@/puff-smith/site/lab/build";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -34,16 +33,7 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 		<Tabs.TabPane key={'comments'} tab={t('lab.atomizer.comments.tab')}>
 			<Tabs destroyInactiveTabPane size={'small'}>
 				<Tabs.TabPane key={'atomizer.comments'} tab={t('lab.atomizer.comments.atomizer.tab')}>
-					<CommentsSource
-						filter={{atomizerId: atomizer.id}}
-						defaultOrderBy={{stamp: false}}
-					>
-						<CommentList
-							form={<CreateCommentForm atomizer={atomizer}/>}
-							onEdit={() => commentsQueryInvalidate()}
-							onDelete={() => commentsQueryInvalidate()}
-						/>
-					</CommentsSource>
+					<AtomizerComments atomizer={atomizer}/>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.atomizer.comments.build.tab')}>
 					<BuildCommentsFilterContext defaultFilter={{atomizerIds: [atomizer.id]}}>

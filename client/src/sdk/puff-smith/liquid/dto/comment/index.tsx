@@ -18,6 +18,19 @@ export module CommentFilterDto {
 }
 
 
+export interface LiquidCommentDto {
+	id: string;
+	liquid: import("@/sdk/puff-smith/liquid/dto/index").LiquidDto;
+	liquidId: string;
+	comment: import("@/sdk/puff-smith/comment/dto/index").CommentDto;
+	commentId: string;
+}
+
+export module LiquidCommentDto {
+
+}
+
+
 export interface CreateDto {
 	liquidId: string;
 	comment: string;

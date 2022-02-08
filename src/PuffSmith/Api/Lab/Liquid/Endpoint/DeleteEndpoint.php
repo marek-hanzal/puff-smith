@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Liquid\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractDeleteEndpoint;
+use PuffSmith\Liquid\Dto\DeleteDto;
 use PuffSmith\Liquid\Dto\LiquidDto;
-use PuffSmith\Liquid\Dto\Delete\DeleteDto;
 use PuffSmith\Liquid\Mapper\LiquidMapperTrait;
 use PuffSmith\Liquid\Repository\LiquidRepositoryTrait;
 

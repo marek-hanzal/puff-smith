@@ -1,15 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Liquid\Dto\Patch;
+namespace PuffSmith\Liquid\Dto;
 
 use Edde\Dto\AbstractDto;
 
-class PatchDto extends AbstractDto {
-	/**
-	 * @var string
-	 */
-	public string $id;
+class CreateDto extends AbstractDto {
 	/**
 	 * @var string
 	 */

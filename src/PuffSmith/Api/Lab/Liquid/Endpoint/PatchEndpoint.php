@@ -5,7 +5,7 @@ namespace PuffSmith\Api\Lab\Liquid\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractPatchEndpoint;
 use PuffSmith\Liquid\Dto\LiquidDto;
-use PuffSmith\Liquid\Dto\Patch\PatchDto;
+use PuffSmith\Liquid\Dto\PatchDto;
 use PuffSmith\Liquid\Mapper\LiquidMapperTrait;
 use PuffSmith\Liquid\Repository\LiquidRepositoryTrait;
 

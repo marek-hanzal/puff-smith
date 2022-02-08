@@ -2,9 +2,7 @@ import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
-import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/comment/endpoint";
-import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CreateCommentForm, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
+import {LiquidComments, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -23,7 +21,6 @@ export interface ILiquidPreviewProps extends Partial<IPreviewProps> {
 
 export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceList = false, ...props}) => {
 	const {t} = useTranslation();
-	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs>
 		<Tabs.TabPane key={'common'} tab={t('lab.liquid.common.tab')}>
 			<Preview translation={'lab.liquid.preview'} {...props}>
@@ -35,16 +32,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.liquid.comments.tab')}>
-			<CommentsSource
-				filter={{liquidId: liquid.id}}
-				defaultOrderBy={{stamp: false}}
-			>
-				<CommentList
-					form={<CreateCommentForm liquid={liquid}/>}
-					onEdit={() => commentsQueryInvalidate()}
-					onDelete={() => commentsQueryInvalidate()}
-				/>
-			</CommentsSource>
+			<LiquidComments liquid={liquid}/>
 		</Tabs.TabPane>
 		{!hidden?.includes('plot') && <Tabs.TabPane key={'plot'} tab={t('lab.liquid.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>

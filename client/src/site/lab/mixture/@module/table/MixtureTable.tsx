@@ -73,7 +73,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 			column({
 				key: "age",
 				title: "lab.mixture.table.age",
-				render: (_, mixture) => durationOf(mixture.mixed),
+				render: (_, mixture) => durationOf(mixture.mixed).humanize(),
 				width: 140,
 			}),
 			column({

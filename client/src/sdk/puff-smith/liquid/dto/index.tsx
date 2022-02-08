@@ -1,3 +1,17 @@
+export interface CreateDto {
+	name: string;
+	pg: number;
+	vg: number;
+	volume: number;
+	description: string | null;
+	vendorId: string;
+}
+
+export module CreateDto {
+
+}
+
+
 export interface LiquidDto {
 	id: string;
 	name: string;
@@ -10,6 +24,15 @@ export interface LiquidDto {
 }
 
 export module LiquidDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
 
 }
 
@@ -31,5 +54,20 @@ export interface LiquidFilterDto {
 }
 
 export module LiquidFilterDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	name: string;
+	pg: number;
+	vg: number;
+	volume: number;
+	description: string | null;
+	vendorId: string;
+}
+
+export module PatchDto {
 
 }

@@ -6,11 +6,10 @@ import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-import {CommentsSource, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
-import {CommentList} from "@/puff-smith/site/lab/comment";
-import {CreateCommentForm} from "@/puff-smith/site/lab/vape";
+import {VapeComments} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
-import {BuildAge} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
+import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -18,7 +17,6 @@ export interface IVapePreviewProps {
 
 export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 	const {t} = useTranslation();
-	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.vape.common.tab')}>
 			<Tabs size={'small'}>
@@ -72,16 +70,16 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 			</Tabs>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.vape.comments.tab')}>
-			<CommentsSource
-				filter={{vapeId: vape.id}}
-				defaultOrderBy={{stamp: false}}
-			>
-				<CommentList
-					form={<CreateCommentForm vape={vape}/>}
-					onEdit={() => commentsQueryInvalidate()}
-					onDelete={() => commentsQueryInvalidate()}
-				/>
-			</CommentsSource>
+			<Tabs destroyInactiveTabPane size={'small'}>
+				<Tabs.TabPane key={'vape.comments'} tab={t('lab.vape.comments.vape.tab')}>
+					<VapeComments vape={vape}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'build.comments'} tab={t('lab.vape.comments.build.tab')}>
+					<CommentsFilterContext defaultFilter={{buildId: vape.buildId}}>
+						<BuildComments/>
+					</CommentsFilterContext>
+				</Tabs.TabPane>
+			</Tabs>
 		</Tabs.TabPane>
 	</Tabs>
 }

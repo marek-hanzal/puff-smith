@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Liquid\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
-use PuffSmith\Liquid\Dto\Create\CreateDto;
+use PuffSmith\Liquid\Dto\CreateDto;
 use PuffSmith\Liquid\Dto\LiquidDto;
 use PuffSmith\Liquid\Mapper\LiquidMapperTrait;
 use PuffSmith\Liquid\Repository\LiquidRepositoryTrait;

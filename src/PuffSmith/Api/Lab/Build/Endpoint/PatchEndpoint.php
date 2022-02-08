@@ -5,7 +5,7 @@ namespace PuffSmith\Api\Lab\Build\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractPatchEndpoint;
 use PuffSmith\Build\Dto\BuildDto;
-use PuffSmith\Build\Dto\Patch\PatchDto;
+use PuffSmith\Build\Dto\PatchDto;
 use PuffSmith\Build\Mapper\BuildMapperTrait;
 use PuffSmith\Build\Repository\BuildRepositoryTrait;
 

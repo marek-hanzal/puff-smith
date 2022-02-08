@@ -25,7 +25,7 @@ import {useQueryClient} from "react-query";
 export type ICommentsQueryParams = void;
 
 
-export const useCommentsQuery = createPostQuery<ICommentsQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/puff-smith/comment/dto/index").CommentDto>>("PuffSmith.Lab.Atomizer.Comment.Comments");
+export const useCommentsQuery = createPostQuery<ICommentsQueryParams, import("@/sdk/edde/query/dto/index").Query<import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>, import("@/sdk/edde/query/dto/index").QueryResult<import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto>>("PuffSmith.Lab.Atomizer.Comment.Comments");
 export const useCommentsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Atomizer.Comment.Comments"])
@@ -46,16 +46,16 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
 	/>
 }
 
-export const useCommentsSource = () => useSourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>()
+export const useCommentsSource = () => useSourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>()
 
-export interface ICommentsSourceContext extends ISourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {
+export interface ICommentsSourceContext extends ISourceContext<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {
 }
 
-export interface ICommentsSourceProps extends Partial<ISourceContextProviderProps<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>> {
+export interface ICommentsSourceProps extends Partial<ISourceContextProviderProps<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>> {
 }
 
 export const CommentsSource: FC<ICommentsSourceProps> = ({children, ...props}) => {
-	return <SourceContextProvider<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>
+	return <SourceContextProvider<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>
 		useQuery={useCommentsQuery}
 		{...props}
 	>
@@ -63,11 +63,11 @@ export const CommentsSource: FC<ICommentsSourceProps> = ({children, ...props}) =
 	</SourceContextProvider>;
 }
 
-export interface ICommentsBaseTableProps extends ITableProps<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {
+export interface ICommentsBaseTableProps extends ITableProps<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {
 }
 
 export const CommentsBaseTable: FC<ICommentsBaseTableProps> = props => {
-	return <Table<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>
+	return <Table<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>
 		{...props}
 	/>
 }
@@ -80,7 +80,7 @@ export interface ICommentsSourceTableProps extends ICommentsBaseTableProps {
 	filter?: import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto;
 	orderBy?: import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto;
 	query?: ICommentsQueryParams;
-	options?: IQueryOptions<IQueryResult<import("@/sdk/puff-smith/comment/dto/index").CommentDto>>;
+	options?: IQueryOptions<IQueryResult<import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto>>;
 }
 
 export const CommentsSourceTable: FC<ICommentsSourceTableProps> = ({source, defaultFilter, defaultOrderBy, defaultQuery, filter, orderBy, query, options, ...props}) => {
@@ -98,14 +98,14 @@ export const CommentsSourceTable: FC<ICommentsSourceTableProps> = ({source, defa
 	</CommentsSource>
 }
 
-export interface ICommentsSourceSelectProps extends Partial<IQuerySourceSelectProps<import("@/sdk/puff-smith/comment/dto/index").CommentDto>> {
-	toOption: IToOptionMapper<import("@/sdk/puff-smith/comment/dto/index").CommentDto>;
+export interface ICommentsSourceSelectProps extends Partial<IQuerySourceSelectProps<import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto>> {
+	toOption: IToOptionMapper<import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto>;
 	source?: ICommentsSourceProps;
 }
 
 export const CommentsSourceSelect: FC<ICommentsSourceSelectProps> = ({source, ...props}) => {
 	return <CommentsSource defaultSize={100} {...source}>
-		<QuerySourceSelect<ICommentsQueryParams, import("@/sdk/puff-smith/comment/dto/index").CommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {...props}/>
+		<QuerySourceSelect<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto> {...props}/>
 	</CommentsSource>;
 };
 

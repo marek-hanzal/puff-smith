@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Liquid\Dto\Delete;
+namespace PuffSmith\Liquid\Dto;
 
 use Edde\Dto\AbstractDto;
 

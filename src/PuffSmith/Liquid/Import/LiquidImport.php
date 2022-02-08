@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Liquid\Import;
 
 use Edde\Import\AbstractImporter;
-use PuffSmith\Liquid\Dto\Create\CreateDto;
-use PuffSmith\Liquid\Dto\Import\LiquidImportDto;
+use PuffSmith\Liquid\Dto\CreateDto;
+use PuffSmith\Liquid\Dto\LiquidImportDto;
 use PuffSmith\Liquid\Repository\LiquidRepositoryTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 

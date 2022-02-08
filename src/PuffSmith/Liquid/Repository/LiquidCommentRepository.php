@@ -23,9 +23,15 @@ class LiquidCommentRepository extends AbstractRepository {
 		];
 	}
 
-	public function toQuery(Query $query): Select {
-		$select = $this->select('c.*');
+	public function select($fields = null): Select {
+		$select = parent::select($fields);
 		$this->join($select, 'z_comment', 'c', 'comment_id');
+		$this->join($select, 'z_liquid', 'l', 'liquid_id');
+		return $select;
+	}
+
+	public function toQuery(Query $query): Select {
+		$select = $this->select();
 
 		/** @var $filter CommentFilterDto */
 		$filter = $query->filter;

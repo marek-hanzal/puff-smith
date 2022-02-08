@@ -8,20 +8,20 @@ use Edde\Query\Dto\QueryResult;
 use Edde\Rest\Endpoint\AbstractQueryEndpoint;
 use PuffSmith\Liquid\Dto\Comment\CommentFilterDto;
 use PuffSmith\Liquid\Dto\Comment\CommentOrderByDto;
+use PuffSmith\Liquid\Dto\Comment\LiquidCommentDto;
+use PuffSmith\Liquid\Mapper\LiquidCommentMapperTrait;
 use PuffSmith\Liquid\Repository\LiquidCommentRepositoryTrait;
-use PuffSmith\Comment\Dto\CommentDto;
-use PuffSmith\Comment\Mapper\CommentMapperTrait;
 
 class CommentsEndpoint extends AbstractQueryEndpoint {
 	use LiquidCommentRepositoryTrait;
-	use CommentMapperTrait;
+	use LiquidCommentMapperTrait;
 
 	/**
 	 * @param Query<CommentOrderByDto, CommentFilterDto> $query
 	 *
-	 * @return QueryResult<CommentDto>
+	 * @return QueryResult<LiquidCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->liquidCommentRepository->toResult($query, $this->commentMapper);
+		return $this->liquidCommentRepository->toResult($query, $this->liquidCommentMapper);
 	}
 }
