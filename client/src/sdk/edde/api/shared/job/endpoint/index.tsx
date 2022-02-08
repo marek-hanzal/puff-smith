@@ -124,8 +124,8 @@ export const JobPage: FC<IJobPageProps> = ({children, breadcrumbProps, breadcrum
 				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
 				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
 				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
-				extraBrowser={extraBrowser ? (isCallable(extra) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
-				extraMobile={extraMobile ? (isCallable(extra) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extraBrowser) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extraMobile) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
 				{...props}
 			>
 				<FetchJob

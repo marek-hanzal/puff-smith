@@ -21,6 +21,6 @@ export const LabMenuDrawerButton: FC<ILabMenuDrawerButtonProps> = ({labMenuProps
 		}}
 		{...props}
 	>
-		<LabMenu prepend={children} {...labMenuProps}/>
+		<LabMenu prepend={children} {...labMenuProps} inlineCollapsed={false}/>
 	</DrawerButton>;
 }
