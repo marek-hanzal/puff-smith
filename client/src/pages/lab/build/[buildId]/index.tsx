@@ -40,8 +40,8 @@ export default withLabLayout(function Index() {
 			{entity && CreateMenuItem('lab.build.button.plot', '/lab/build/[buildId]/plot', <BarChartOutlined/>, {buildId: entity.id})}
 		</LabMenuDrawerButton>}
 		extraBrowser={({entity}) => <ButtonBar>
-			{entity && <BuildPlotButton build={entity}/>}
 			<BuildListButton/>
+			{entity && <BuildPlotButton build={entity}/>}
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

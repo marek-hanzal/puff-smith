@@ -44,8 +44,9 @@ export default withLabLayout(function Plot() {
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
 			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
+		extraBrowser={({entity}) => <ButtonBar>
 			<BuildListButton/>
+			{entity && <BuildVapeButton build={entity}/>}
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
@@ -55,7 +56,7 @@ export default withLabLayout(function Plot() {
 				<VapePlot
 					selected={['median', 'count']}
 					emptyResultProps={{
-						extra: <BuildVapeButton type={'primary'} build={build}/>
+						extra: <BuildVapeButton type={'primary'} build={build}/>,
 					}}
 				/>
 				<Divider/>
