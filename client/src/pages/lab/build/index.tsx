@@ -1,10 +1,9 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
-import {Breadcrumbs} from "@leight-core/leight/dist";
 
 const BuildButtonBar = () => {
 	return <ButtonBar>
