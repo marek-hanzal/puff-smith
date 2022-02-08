@@ -20,7 +20,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1400}}
+		scroll={{x: 1500}}
 		{...props}
 	>
 		{({column}) => [
@@ -33,14 +33,14 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "atomizer",
 				title: "lab.build.table.atomizer",
 				render: (_, build) => <AtomizerPreviewButton title={build.atomizer.name} atomizer={build.atomizer}/>,
-				width: 310,
+				width: 320,
 				sorter: true,
 			}),
 			column({
 				key: "coil",
 				title: "lab.build.table.coil",
 				render: (_, build) => <CoilPreviewButton title={build.coil.wire.name} coil={build.coil}/>,
-				width: 220,
+				width: 420,
 				sorter: true,
 			}),
 			column({

@@ -25,6 +25,7 @@ class VapeRepository extends AbstractRepository {
 			'atomizer' => 'a.name',
 			'mixture'  => 'l.name',
 			'mod'      => 'mo.name',
+			'coil'      => 'w.name',
 		];
 	}
 

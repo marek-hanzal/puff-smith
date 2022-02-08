@@ -22,7 +22,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	const {t} = useTranslation();
 	return <VapesSourceTable
 		filter={filterContext?.filter}
-		scroll={{x: 2300}}
+		scroll={{x: 2500}}
 		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={vape => <VapeListItem vape={vape}/>}
 		{...props}
@@ -37,28 +37,29 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 				key: "atomizer",
 				title: "lab.vape.table.atomizer",
 				render: (_, vape) => <AtomizerPreviewButton title={vape.build.atomizer.name} atomizer={vape.build.atomizer}/>,
-				width: 260,
+				width: 320,
 				sorter: true,
 			}),
 			!hidden?.includes('mixture') && column({
 				key: "mixture",
 				title: "lab.vape.table.mixture",
 				render: (_, vape) => <MixturePreviewButton title={vape.mixture.liquid.name} mixture={vape.mixture}/>,
-				width: 300,
+				width: 340,
 				sorter: true,
 			}),
 			column({
 				key: "mod",
 				title: "lab.vape.table.mod",
 				render: (_, vape) => <ModPreviewButton title={vape.mod.name} mod={vape.mod}/>,
-				width: 260,
+				width: 280,
 				sorter: true,
 			}),
 			column({
 				key: "coil",
 				title: "lab.vape.table.coil",
 				render: (_, vape) => <CoilPreviewButton title={vape.build.coil.wire.name} coil={vape.build.coil}/>,
-				width: 220,
+				width: 420,
+				sorter: true,
 			}),
 			column({
 				key: "mixture.age",
