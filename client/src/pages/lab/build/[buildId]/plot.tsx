@@ -2,13 +2,12 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider, Space} from "antd";
 import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
-import {Breadcrumbs, ButtonBar} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();

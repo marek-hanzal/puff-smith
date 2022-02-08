@@ -2,10 +2,9 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, LiquidIcon, PlotIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {Breadcrumbs} from "@leight-core/leight/dist";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {FC} from "react";
 

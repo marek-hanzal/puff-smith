@@ -1,10 +1,9 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
-import {CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Col, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {Breadcrumbs, ButtonBar} from "@leight-core/leight/dist";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {FC} from "react";

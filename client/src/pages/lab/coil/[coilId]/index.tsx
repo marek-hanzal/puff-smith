@@ -2,10 +2,9 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CoilIcon} from "@/puff-smith";
 import {CoilCloneButton, CoilCreateButton, CoilEditButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {Breadcrumbs} from "@leight-core/leight/dist";
 
 const CoilButtonBar = () => <ButtonBar>
 	<CoilListButton/>

@@ -1,11 +1,10 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerCreateButton, AtomizerFilter, AtomizerTable} from "@/puff-smith/site/lab/atomizer";
-import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizersFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
-import {Breadcrumbs} from "@leight-core/leight/dist";
 
 const AtomizerButtonBar = () => <ButtonBar>
 	<AtomizerCreateButton type={'primary'}/>
