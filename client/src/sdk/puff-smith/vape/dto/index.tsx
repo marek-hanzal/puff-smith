@@ -113,6 +113,10 @@ export module VapeOrderByDto {
 export interface VapeFilterDto {
 	buildIds?: string[] | null | undefined;
 	atomizerIds?: string[] | null | undefined;
+	wireIds?: string[] | null | undefined;
+	cottonIds?: string[] | null | undefined;
+	buildOhm?: number[] | null | undefined;
+	coilSize?: number | null | undefined;
 	modIds?: string[] | null | undefined;
 	mixtureIds?: string[] | null | undefined;
 	liquidIds?: string[] | null | undefined;

@@ -18,6 +18,26 @@ class VapeFilterDto extends AbstractFilterDto {
 	public ?array $atomizerIds;
 	/**
 	 * @var string[]|null|void
+	 * @description Filter vapes by an wire
+	 */
+	public ?array $wireIds;
+	/**
+	 * @var string[]|null|void
+	 * @description Filter vapes by an wire
+	 */
+	public ?array $cottonIds;
+	/**
+	 * @var float[]|null|void
+	 * @description Filter by resistance
+	 */
+	public ?array $buildOhm;
+	/**
+	 * @var float|null|void
+	 * @description Filter vapes by an wire
+	 */
+	public ?float $coilSize;
+	/**
+	 * @var string[]|null|void
 	 * @description Filter vapes by a mod
 	 */
 	public ?array $modIds;
