@@ -31,6 +31,8 @@ class VapeRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_build', 'b', '$.build_id');
+		$this->join($select, 'z_coil', 'c', 'b.coil_id');
+		$this->join($select, 'z_wire', 'w', 'c.wire_id');
 		$this->join($select, 'z_atomizer', 'a', 'b.atomizer_id');
 		$this->join($select, 'z_mixture', 'm', '$.mixture_id');
 		$this->join($select, 'z_mod', 'mo', '$.mod_id');
@@ -54,11 +56,15 @@ class VapeRepository extends AbstractRepository {
 			$filter->rate === 'rated' && $this->where($select, '$.rating', '>', 0);
 		}
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
+		!empty($filter->wireIds) && $this->where($select, 'c.wire_id', 'in', $filter->wireIds);
 		!empty($filter->buildIds) && $this->where($select, '$.build_id', 'in', $filter->buildIds);
+		!empty($filter->cottonIds) && $this->where($select, 'b.cotton_id', 'in', $filter->cottonIds);
 		!empty($filter->coilIds) && $this->where($select, 'b.coil_id', 'in', $filter->coilIds);
 		!empty($filter->modIds) && $this->where($select, '$.mod_id', 'in', $filter->modIds);
 		!empty($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
 		!empty($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
+		!empty($filter->buildOhm) && $this->where($select, 'b.ohm', '>=', $filter->buildOhm[0]) && $this->where($select, 'b.ohm', '<=', $filter->buildOhm[1]);
+		isset($filter->coilSize) && $this->where($select, 'c.size', $filter->coilSize);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);

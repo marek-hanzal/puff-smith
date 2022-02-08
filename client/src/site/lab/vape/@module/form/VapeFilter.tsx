@@ -3,11 +3,13 @@ import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/lei
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
-import {CoilSelect} from "@/puff-smith/site/lab/coil";
+import {CoilSelect, SizeInput} from "@/puff-smith/site/lab/coil";
 import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {Radio} from "antd";
 import {useTranslation} from "react-i18next";
+import {WireSelect} from "@/puff-smith/site/lab/wire";
+import {CottonSelect} from "@/puff-smith/site/lab/cotton";
 
 export interface IVapeFilterProps extends IFilterWithoutTranslationProps<VapeFilterDto> {
 	disabled?: (keyof VapeFilterDto)[]
@@ -48,6 +50,24 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 			labels={['lab.vape.coilId.label']}
 		>
 			<CoilSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'cottonIds'}
+			labels={['lab.vape.cottonId.label']}
+		>
+			<CottonSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'wireIds'}
+			labels={['lab.vape.wireId.label']}
+		>
+			<WireSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'coilSize'}
+			labels={['lab.vape.coilSize.label']}
+		>
+			<SizeInput/>
 		</FormItem>
 		<FormItem
 			field={'rate'}
