@@ -21,10 +21,10 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 				onValuesChange={(_, values) => {
 					filterContext?.setFilter({
 						...filterContext.filter,
-						atomizerIds: [values?.atomizerId].filter(i => i),
-						wireIds: [values?.coil?.wireId].filter(i => i),
+						atomizerIds: values?.atomizerId ? [values?.atomizerId] : undefined,
+						wireIds: values?.coil?.wireId ? [values?.coil?.wireId] : undefined,
 						coilSize: values?.coil?.size,
-						buildOhm: values?.ohm ? [values?.ohm - 0.075, values?.ohm + 0.075].filter(i => i) : undefined,
+						buildOhm: values?.ohm ? [values?.ohm - 0.075, values?.ohm + 0.075] : undefined,
 					});
 				}}
 			/>
