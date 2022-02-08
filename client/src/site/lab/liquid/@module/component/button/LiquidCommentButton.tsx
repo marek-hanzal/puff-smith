@@ -14,7 +14,7 @@ export const LiquidCommentButton: FC<ILiquidCommentButtonProps> = ({liquid, ...p
 	return <DrawerButton
 		icon={<CommentOutlined/>}
 		type={'link'}
-		size={'small'}
+		size={'large'}
 		title={'lab.comment.create.title'}
 		label={t('lab.liquid.comment.create')}
 		{...props}

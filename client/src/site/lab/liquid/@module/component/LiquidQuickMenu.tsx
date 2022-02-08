@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {Menu, message} from "antd";
-import {LiquidDeleteButton, LiquidEditButton, LiquidLinkButton, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
+import {LiquidCommentButton, LiquidDeleteButton, LiquidEditButton, LiquidLinkButton, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 import {useDeleteMutation, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {useTranslation} from "react-i18next";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
@@ -28,6 +28,9 @@ export const LiquidQuickMenu: FC<ILiquidQuickMenuProps> = ({liquid, ...props}) =
 			<Menu.Divider/>
 			<Menu.Item>
 				<LiquidPreviewButton liquid={liquid}/>
+			</Menu.Item>
+			<Menu.Item>
+				<LiquidCommentButton liquid={liquid}/>
 			</Menu.Item>
 			<Menu.Item>
 				<LiquidEditButton liquid={liquid}/>

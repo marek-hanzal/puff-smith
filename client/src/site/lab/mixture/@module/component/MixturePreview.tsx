@@ -1,7 +1,7 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {asDayjs, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
-import {LiquidInline} from "@/puff-smith/site/lab/liquid";
+import {LiquidComments, LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
@@ -11,6 +11,7 @@ import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {durationOf} from "@leight-core/leight/dist";
+import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/comment/endpoint";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto;
@@ -40,7 +41,16 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.mixture.comments.tab')}>
-			<MixtureComments mixture={mixture}/>
+			<Tabs destroyInactiveTabPane size={'small'}>
+				<Tabs.TabPane key={'mixture.comments'} tab={t('lab.mixture.comments.mixture.tab')}>
+					<MixtureComments mixture={mixture}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'liquid.comments'} tab={t('lab.mixture.comments.mixture.tab')}>
+					<CommentsFilterContext defaultFilter={{liquidId: mixture.liquidId}}>
+						<LiquidComments/>
+					</CommentsFilterContext>
+				</Tabs.TabPane>
+			</Tabs>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'plot'} tab={t('lab.mixture.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
