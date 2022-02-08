@@ -1,6 +1,6 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, PlotIcon} from "@/puff-smith";
-import {BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
+import {BuildComments, BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Col, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -13,6 +13,7 @@ import {DrawerButton, useSiderCollapseContext} from "@leight-core/leight/dist";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -69,6 +70,11 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 			<Tabs destroyInactiveTabPane>
 				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
 					<Plot buildFilter={buildFilter}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.comment'} tab={t('lab.build.create.build.comments.tab')}>
+					<BuildCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
+						<BuildComments/>
+					</BuildCommentsFilterContext>
 				</Tabs.TabPane>
 				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
 					{buildFilter?.atomizerIds?.[0] ? <AtomizerCommentsFilterContext defaultFilter={{atomizerId: buildFilter.atomizerIds[0]}}>
