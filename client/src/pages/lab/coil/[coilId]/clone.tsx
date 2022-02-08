@@ -7,6 +7,11 @@ import {BackIcon, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIco
 import {useTranslation} from "react-i18next";
 import {Breadcrumbs} from "@leight-core/leight/dist";
 
+const CoilButtonBar = () => <ButtonBar>
+	<CoilListButton/>
+	<CoilCreateButton type={'primary'}/>
+</ButtonBar>;
+
 export default withLabLayout(function Clone() {
 	const {t} = useTranslation();
 	const {coilId} = useParams();
@@ -40,10 +45,7 @@ export default withLabLayout(function Clone() {
 			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
-			<CoilListButton/>
-			<CoilCreateButton type={'primary'}/>
-		</ButtonBar>}
+		extraBrowser={<CoilButtonBar/>}
 	>
 		{coil => <>
 			<CreateTemplate

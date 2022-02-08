@@ -7,8 +7,12 @@ import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+
+const LiquidButtonBar = () => <ButtonBar>
+	<LiquidListButton/>
+	<LiquidCreateButton type={'primary'}/>
+</ButtonBar>;
 
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
@@ -49,13 +53,11 @@ export default withLabLayout(function Plot() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
-			<LiquidListButton/>
-			<LiquidCreateButton type={'primary'}/>
-		</ButtonBar>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<LiquidButtonBar/>}
 	>
 		{liquid => <>
 			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>

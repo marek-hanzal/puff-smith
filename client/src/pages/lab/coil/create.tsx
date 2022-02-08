@@ -6,6 +6,10 @@ import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {Breadcrumbs} from "@leight-core/leight/dist";
 
+const CoilButtonBar = () => <ButtonBar>
+	<CoilListButton/>
+</ButtonBar>;
+
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
 	return <LabPage
@@ -32,9 +36,7 @@ export default withLabLayout(function Create() {
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
-			<CoilListButton/>
-		</ButtonBar>}
+		extraBrowser={<CoilButtonBar/>}
 	>
 		<CreateTemplate>
 			<CreateCoilForm/>

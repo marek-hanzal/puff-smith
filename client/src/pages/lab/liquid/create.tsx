@@ -4,7 +4,10 @@ import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+
+const LiquidButtonBar = () => <ButtonBar>
+	<LiquidListButton/>
+</ButtonBar>;
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
@@ -37,11 +40,10 @@ export default withLabLayout(function Create() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
-			<LiquidListButton/>
-		</ButtonBar>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<LiquidButtonBar/>}
 	>
 		<CreateTemplate>
 			<CreateLiquidForm/>

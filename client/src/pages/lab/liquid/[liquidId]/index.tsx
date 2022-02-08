@@ -3,9 +3,21 @@ import {BreadcrumbButton, LiquidIcon, PlotIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
-import {Breadcrumb, Divider, Space} from "antd";
+import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {isMobile} from "react-device-detect";
+import {Breadcrumbs} from "@leight-core/leight/dist";
+import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
+import {FC} from "react";
+
+interface ILiquidButtonBarProps {
+	liquid?: LiquidDto;
+}
+
+const LiquidButtonBar: FC<ILiquidButtonBarProps> = ({liquid}) => <ButtonBar>
+	{liquid && <LiquidPlotButton liquid={liquid}/>}
+	<LiquidListButton/>
+	<LiquidCreateButton type={'primary'}/>
+</ButtonBar>
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();
@@ -13,40 +25,29 @@ export default withLabLayout(function Index() {
 		title={"lab.liquid.index"}
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid/list')}
-		breadcrumbProps={<Breadcrumb>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab'}
-					icon={<HomeIcon/>}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/liquid'}
-					title={'lab.liquid.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<BreadcrumbButton
-					href={'/lab/liquid/list'}
-					title={'lab.liquid.list.label'}
-				/>
-			</Breadcrumb.Item>
-			<Breadcrumb.Item>
-				<Space size={'small'}>
-					<LiquidIcon/>{t('lab.liquid.index.label')}
-				</Space>
-			</Breadcrumb.Item>
-		</Breadcrumb>}
-		extra={({entity}) => isMobile ? <LabMenuDrawerButton>
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={'/lab'}
+				icon={<HomeIcon/>}
+			/>
+			<BreadcrumbButton
+				href={'/lab/liquid'}
+				title={'lab.liquid.label'}
+			/>
+			<BreadcrumbButton
+				href={'/lab/liquid/list'}
+				title={'lab.liquid.list.label'}
+			/>
+			<Space size={'small'}>
+				<LiquidIcon/>{t('lab.liquid.index.label')}
+			</Space>
+		</Breadcrumbs>}
+		extraMobile={({entity}) => <LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
 			{entity && CreateMenuItem('lab.liquid.button.plot', '/lab/liquid/[liquidId]/plot', <PlotIcon/>, {liquidId: entity.id})}
-		</LabMenuDrawerButton> : <ButtonBar>
-			{entity && <LiquidPlotButton liquid={entity}/>}
-			<LiquidListButton/>
-			<LiquidCreateButton type={'primary'}/>
-		</ButtonBar>}
+		</LabMenuDrawerButton>}
+		extraBrowser={({entity}) => <LiquidButtonBar liquid={entity}/>}
 	>
 		{liquid => <>
 			<PreviewTemplate

@@ -4,8 +4,11 @@ import {ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight
 import {Breadcrumb, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {isMobile} from "react-device-detect";
 import {BreadcrumbButton} from "@/puff-smith";
+
+const LiquidButtonBar = () => <ButtonBar>
+	<LiquidCreateButton type={'primary'}/>
+</ButtonBar>;
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
@@ -32,11 +35,10 @@ export default withLabLayout(function List() {
 				</Space>
 			</Breadcrumb.Item>
 		</Breadcrumb>}
-		extra={isMobile ? <LabMenuDrawerButton>
+		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
-		</LabMenuDrawerButton> : <ButtonBar>
-			<LiquidCreateButton type={'primary'}/>
-		</ButtonBar>}
+		</LabMenuDrawerButton>}
+		extraBrowser={<LiquidButtonBar/>}
 	>
 		<LiquidsFilterContext>
 			<LiquidFilter/>

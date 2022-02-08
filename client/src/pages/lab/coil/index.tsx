@@ -7,12 +7,10 @@ import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {Breadcrumbs} from "@leight-core/leight/dist";
 
-const CoilButtonBar = () => {
-	return <ButtonBar>
-		<CoilListButton size={'middle'}/>
-		<CoilCreateButton type={'primary'}/>
-	</ButtonBar>;
-}
+const CoilButtonBar = () => <ButtonBar>
+	<CoilListButton size={'middle'}/>
+	<CoilCreateButton type={'primary'}/>
+</ButtonBar>
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

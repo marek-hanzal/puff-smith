@@ -7,6 +7,10 @@ import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
 import {Breadcrumbs} from "@leight-core/leight/dist";
 
+const CoilButtonBar = () => <ButtonBar>
+	<CoilCreateButton type={'primary'}/>
+</ButtonBar>;
+
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
 	return <LabPage
@@ -29,9 +33,7 @@ export default withLabLayout(function List() {
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
-			<CoilCreateButton type={'primary'}/>
-		</ButtonBar>}
+		extraBrowser={<CoilButtonBar/>}
 	>
 		<CoilsFilterContext>
 			<CoilFilter/>
