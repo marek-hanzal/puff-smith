@@ -13,7 +13,8 @@ import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery, Ohm, PreviewTag} from "@/puff-smith";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -48,10 +49,13 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.build.comments.build.tab')}>
 					<BuildComments build={build}/>
 				</Tabs.TabPane>
+				<Tabs.TabPane key={'atomizer.comments'} tab={t('lab.build.comments.atomizer.tab')}>
+					<AtomizerComments atomizer={build.atomizer}/>
+				</Tabs.TabPane>
 				<Tabs.TabPane key={'vape.comments'} tab={t('lab.build.comments.vape.tab')}>
-					<CommentsFilterContext defaultFilter={{buildIds: [build.id]}}>
+					<VapeCommentsFilterContext defaultFilter={{buildIds: [build.id]}}>
 						<VapeComments/>
-					</CommentsFilterContext>
+					</VapeCommentsFilterContext>
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>

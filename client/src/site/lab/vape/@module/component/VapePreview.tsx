@@ -9,7 +9,7 @@ import {ModInline} from "@/puff-smith/site/lab/mod";
 import {VapeComments} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
 import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
-import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -75,9 +75,10 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					<VapeComments vape={vape}/>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={'build.comments'} tab={t('lab.vape.comments.build.tab')}>
-					<CommentsFilterContext defaultFilter={{buildId: vape.buildId}}>
-						<BuildComments/>
-					</CommentsFilterContext>
+					<BuildComments build={vape.build}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'atomizer.comments'} tab={t('lab.vape.comments.atomizer.tab')}>
+					<AtomizerComments atomizer={vape.build.atomizer}/>
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>

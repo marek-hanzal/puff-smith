@@ -11,7 +11,6 @@ import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {durationOf} from "@leight-core/leight/dist";
-import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/comment/endpoint";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto;
@@ -45,10 +44,8 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 				<Tabs.TabPane key={'mixture.comments'} tab={t('lab.mixture.comments.mixture.tab')}>
 					<MixtureComments mixture={mixture}/>
 				</Tabs.TabPane>
-				<Tabs.TabPane key={'liquid.comments'} tab={t('lab.mixture.comments.mixture.tab')}>
-					<CommentsFilterContext defaultFilter={{liquidId: mixture.liquidId}}>
-						<LiquidComments/>
-					</CommentsFilterContext>
+				<Tabs.TabPane key={'liquid.comments'} tab={t('lab.mixture.comments.liquid.tab')}>
+					<LiquidComments liquid={mixture.liquid}/>
 				</Tabs.TabPane>
 			</Tabs>
 		</Tabs.TabPane>

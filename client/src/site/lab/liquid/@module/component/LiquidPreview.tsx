@@ -10,6 +10,8 @@ import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
+import {MixtureComments} from "@/puff-smith/site/lab/mixture";
 
 export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 
@@ -32,7 +34,16 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 			</Preview>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.liquid.comments.tab')}>
-			<LiquidComments liquid={liquid}/>
+			<Tabs destroyInactiveTabPane size={'small'}>
+				<Tabs.TabPane key={'liquid.comments'} tab={t('lab.liquid.comments.liquid.tab')}>
+					<LiquidComments liquid={liquid}/>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={'mixture.comments'} tab={t('lab.liquid.comments.mixture.tab')}>
+					<CommentsFilterContext defaultFilter={{liquidId: liquid.id}}>
+						<MixtureComments/>
+					</CommentsFilterContext>
+				</Tabs.TabPane>
+			</Tabs>
 		</Tabs.TabPane>
 		{!hidden?.includes('plot') && <Tabs.TabPane key={'plot'} tab={t('lab.liquid.vape.plot.tab')}>
 			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>

@@ -10,4 +10,8 @@ class CommentFilterDto extends AbstractFilterDto {
 	 * @var string|null|void
 	 */
 	public ?string $mixtureId;
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $liquidId;
 }
