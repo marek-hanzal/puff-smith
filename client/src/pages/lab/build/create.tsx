@@ -86,6 +86,9 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 						<VapeComments/>
 					</VapeCommentsFilterContext>
 				</Tabs.TabPane>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.images'} tab={t('lab.build.create.vape.images.tab')}>
+					tady budou obrazky, nekdy
+				</Tabs.TabPane>
 			</Tabs>
 		</Col>
 	</Row> : <>
