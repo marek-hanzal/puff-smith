@@ -5,9 +5,11 @@ import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.build.list"}
 		menuSelection={['/lab/build']}

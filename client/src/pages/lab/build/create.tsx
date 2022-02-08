@@ -9,7 +9,7 @@ import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/l
 import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {isBrowser} from "react-device-detect";
-import {DrawerButton} from "@leight-core/leight/dist";
+import {DrawerButton, useSiderCollapseContext} from "@leight-core/leight/dist";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -94,6 +94,7 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 
 export default withLabLayout(function Create() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.build.create"}
 		menuSelection={['/lab/build']}

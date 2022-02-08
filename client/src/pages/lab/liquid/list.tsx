@@ -5,6 +5,7 @@ import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidCreateButton type={'primary'}/>
@@ -12,6 +13,7 @@ const LiquidButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.liquid.list"}
 		menuSelection={['/lab/liquid']}

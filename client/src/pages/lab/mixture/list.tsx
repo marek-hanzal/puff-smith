@@ -5,6 +5,7 @@ import {Space} from "antd";
 import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {MixturesFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureCreateButton type={'primary'}/>
@@ -12,6 +13,7 @@ const MixtureButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.mixture.list"}
 		menuSelection={['/lab/mixture']}

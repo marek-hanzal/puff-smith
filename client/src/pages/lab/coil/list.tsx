@@ -5,6 +5,7 @@ import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const CoilButtonBar = () => <ButtonBar>
 	<CoilCreateButton type={'primary'}/>
@@ -12,6 +13,7 @@ const CoilButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.coil.list"}
 		menuSelection={['/lab/coil']}

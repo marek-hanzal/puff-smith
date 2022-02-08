@@ -5,6 +5,7 @@ import {Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizersFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const AtomizerButtonBar = () => <ButtonBar>
 	<AtomizerCreateButton type={'primary'}/>
@@ -12,6 +13,7 @@ const AtomizerButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.atomizer.list"}
 		menuSelection={['/lab/atomizer']}

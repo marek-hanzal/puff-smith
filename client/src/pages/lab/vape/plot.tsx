@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
 import {BreadcrumbButton} from "@/puff-smith";
+import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -14,6 +15,7 @@ const VapeButtonBar = () => <ButtonBar>
 
 export default withLabLayout(function List() {
 	const {t} = useTranslation();
+	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.vape.plot"}
 		menuSelection={['/lab/vape']}
