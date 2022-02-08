@@ -1,5 +1,5 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton} from "@/puff-smith";
+import {BreadcrumbButton, PlotIcon} from "@/puff-smith";
 import {BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Col, Row, Space} from "antd";
@@ -67,7 +67,7 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 	</Row> : <>
 		<Form
 			setBuildFilter={setBuildFilter}
-			buttons={<DrawerButton type={'link'} title={'lab.build.create.preview.button'}>
+			buttons={<DrawerButton icon={<PlotIcon/>} type={'link'} title={'lab.build.create.preview.button'}>
 				<Plot/>
 			</DrawerButton>}
 		/>
