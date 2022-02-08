@@ -5,6 +5,9 @@ import {BuildActiveButton, BuildCloneButton, BuildCommentButton, BuildDeleteButt
 import {useBuildsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 
 export interface IBuildQuickMenu extends Partial<IDrawerMenuProps> {
 	build: BuildDto;
@@ -21,8 +24,18 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 		<Menu.Item>
 			<BuildLinkButton build={build}/>
 		</Menu.Item>
+		<Menu.Divider/>
+		<Menu.Item>
+			<AtomizerPreviewButton atomizer={build.atomizer}/>
+		</Menu.Item>
+		<Menu.Item>
+			<CoilPreviewButton coil={build.coil}/>
+		</Menu.Item>
+		<Menu.Item>
+			<CottonPreviewButton cotton={build.cotton}/>
+		</Menu.Item>
+		<Menu.Divider/>
 		{build.active && <>
-			<Menu.Divider/>
 			<Menu.Item>
 				<BuildVapeButton build={build}/>
 			</Menu.Item>

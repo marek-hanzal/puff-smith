@@ -37,7 +37,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "atomizer",
 				title: "lab.build.table.atomizer",
 				render: (_, build) => <AtomizerPreviewButton title={build.atomizer.name} atomizer={build.atomizer}/>,
-				width: 260,
+				width: 310,
 				sorter: true,
 			}),
 			column({

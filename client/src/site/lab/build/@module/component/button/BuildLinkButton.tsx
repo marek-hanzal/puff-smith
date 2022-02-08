@@ -16,5 +16,5 @@ export const BuildLinkButton: FC<IBuildLinkButtonProps> = ({build, ...props}) =>
 		icon={<BuildIcon/>}
 		title={'lab.build.button.index'}
 		{...props}
-	/>;
+	/>
 }

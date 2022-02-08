@@ -9,21 +9,23 @@ export interface ICottonPreviewButtonProps extends Partial<IDrawerButtonProps> {
 }
 
 export const CottonPreviewButton: FC<ICottonPreviewButtonProps> = ({cotton, ...props}) => {
-	return <DrawerButton
-		type={'link'}
-		size={'large'}
-		icon={<CottonIcon/>}
-		title={'lab.cotton.preview'}
-		{...props}
-	>
-		<PreviewTemplate
+	return <>
+		<DrawerButton
+			type={'link'}
+			size={'large'}
 			icon={<CottonIcon/>}
-			label={'lab.cotton.preview'}
-			title={cotton.name}
-			subTitle={cotton.vendor.name}
-			span={24}
+			title={'lab.cotton.preview'}
+			{...props}
 		>
-			<CottonPreview cotton={cotton}/>
-		</PreviewTemplate>
-	</DrawerButton>;
+			<PreviewTemplate
+				icon={<CottonIcon/>}
+				label={'lab.cotton.preview'}
+				title={cotton.name}
+				subTitle={cotton.vendor.name}
+				span={24}
+			>
+				<CottonPreview cotton={cotton}/>
+			</PreviewTemplate>
+		</DrawerButton>
+	</>
 }
