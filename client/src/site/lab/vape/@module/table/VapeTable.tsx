@@ -1,9 +1,8 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
-import {Space} from "antd";
 import {durationOf, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
-import {VapeLinkButton, VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
+import {VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {BuildAge} from "@/puff-smith/site/lab/build";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
@@ -31,10 +30,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, vape) => <Space size={1}>
-					<VapeLinkButton title={null} vape={vape}/>
-					<VapeQuickMenu vape={vape}/>
-				</Space>,
+				render: (_, vape) => <VapeQuickMenu vape={vape}/>,
 				width: 0,
 			}),
 			!hidden?.includes('atomizer') && column({

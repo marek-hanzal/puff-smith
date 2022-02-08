@@ -3,8 +3,7 @@ import {FC} from "react";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
-import {Space} from "antd";
-import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
@@ -27,10 +26,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, build) => <Space size={1}>
-					<BuildLinkButton title={null} build={build}/>
-					<BuildQuickMenu build={build}/>
-				</Space>,
+				render: (_, build) => <BuildQuickMenu build={build}/>,
 				width: 0,
 			}),
 			column({
