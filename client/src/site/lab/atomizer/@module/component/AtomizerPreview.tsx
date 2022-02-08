@@ -1,15 +1,15 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
-import {AtomizerComments, AtomizerInline, AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerComments, AtomizerEditButton, AtomizerInline, AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildComments} from "@/puff-smith/site/lab/build";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
@@ -20,10 +20,20 @@ export interface IAtomizerPreviewProps extends Partial<IPreviewProps> {
 }
 
 export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList = false, hidden = [], ...props}) => {
-	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 	return <Tabs size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.atomizer.common.tab')}>
+			<PreviewTemplate
+				title={atomizer.name}
+				subTitle={atomizer.vendor.name}
+				extra={<>
+					<ButtonBar>
+						<AtomizerEditButton atomizer={atomizer}/>
+					</ButtonBar>
+					<Divider/>
+				</>}
+				span={24}
+			/>
 			<Preview translation={'lab.atomizer.preview'} {...props}>
 				{{
 					"name": <AtomizerInline atomizer={atomizer}/>,

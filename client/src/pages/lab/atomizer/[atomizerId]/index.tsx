@@ -1,8 +1,8 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerIcon, BreadcrumbButton, PlotIcon} from "@/puff-smith";
-import {AtomizerCreateButton, AtomizerEditButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerCreateButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {useSiderCollapseContext} from "@leight-core/leight/dist";
@@ -42,20 +42,7 @@ export default withLabLayout(function Index() {
 		</ButtonBar>}
 	>
 		{atomizer => <>
-			<PreviewTemplate
-				icon={<AtomizerIcon/>}
-				title={atomizer.name}
-				subTitle={atomizer.vendor.name}
-				extra={<>
-					<ButtonBar>
-						<AtomizerEditButton atomizer={atomizer}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-				span={24}
-			>
-				<AtomizerPreview atomizer={atomizer}/>
-			</PreviewTemplate>
+			<AtomizerPreview atomizer={atomizer}/>
 			<Divider/>
 		</>}
 	</AtomizerPage>;

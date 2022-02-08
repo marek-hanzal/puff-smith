@@ -1,10 +1,9 @@
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps, Preview, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, Preview} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeRateForm} from "@/puff-smith/site/lab/vape";
 import {DotChartOutlined} from "@ant-design/icons";
 import {Divider} from "antd";
-import {VapeIcon} from "@/puff-smith";
 import {BuildInline} from "@/puff-smith/site/lab/build";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {ModInline} from "@/puff-smith/site/lab/mod";
@@ -22,9 +21,6 @@ export const VapeRateButton: FC<IVapeRateButtonProps> = ({vape, ...props}) => {
 		width={700}
 		{...props}
 	>
-		<PreviewTemplate
-			icon={<VapeIcon/>}
-		/>
 		<Preview translation={'lab.vape.preview'}>
 			{{
 				"build": <BuildInline build={vape.build}/>,

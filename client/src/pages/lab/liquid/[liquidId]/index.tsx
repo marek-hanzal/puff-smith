@@ -1,8 +1,8 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, LiquidIcon, PlotIcon} from "@/puff-smith";
-import {LiquidCreateButton, LiquidEditButton, LiquidInline, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
+import {LiquidCreateButton, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
@@ -51,19 +51,7 @@ export default withLabLayout(function Index() {
 		extraBrowser={({entity}) => <LiquidButtonBar liquid={entity}/>}
 	>
 		{liquid => <>
-			<PreviewTemplate
-				icon={<LiquidIcon/>}
-				title={<LiquidInline liquid={liquid}/>}
-				extra={<>
-					<ButtonBar>
-						<LiquidEditButton liquid={liquid}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-				span={24}
-			>
-				<LiquidPreview liquid={liquid}/>
-			</PreviewTemplate>
+			<LiquidPreview liquid={liquid}/>
 			<Divider/>
 		</>}
 	</LiquidPage>;

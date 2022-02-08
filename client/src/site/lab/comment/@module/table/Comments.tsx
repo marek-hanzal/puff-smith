@@ -8,7 +8,6 @@ import {useDeleteMutation} from "@/sdk/puff-smith/api/lab/comment/endpoint";
 import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentOutlined} from "@ant-design/icons";
 import {CommentDeleteButton, DrawerCommentEditButton} from "@/puff-smith/site/lab/comment";
-import {CommonIcon} from "@/puff-smith";
 
 export interface IComments<TComment> extends Partial<ListProps<any>> {
 	form?: ReactNode;
@@ -81,7 +80,7 @@ export function Comments<TComment>({form, toComment, toListItemProps = () => und
 			</List.Item>
 		})}
 		{!sourceContext?.result?.data?.count && <Template
-			icon={<CommonIcon/>}
+			icon={<CommentOutlined/>}
 			label={'lab.comment.no-comments'}
 		/>}
 		{form && <List.Item>

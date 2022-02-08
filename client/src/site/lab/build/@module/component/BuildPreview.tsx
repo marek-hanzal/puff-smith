@@ -4,8 +4,7 @@ import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
-import {BuildAge, BuildComments, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildCloneButton, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -15,6 +14,7 @@ import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/l
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
+import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -25,10 +25,22 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 }
 
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, hidden = [], ...props}) => {
-	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	const {t} = useTranslation();
 	return <Tabs destroyInactiveTabPane size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
+			<PreviewTemplate
+				title={build.atomizer.name}
+				subTitle={build.coil.wire.name}
+				browserExtra={<>
+					<ButtonBar>
+						<BuildEditButton build={build}/>
+						<BuildCloneButton build={build}/>
+						<BuildVapeButton build={build}/>
+					</ButtonBar>
+					<Divider/>
+				</>}
+				span={24}
+			/>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
 					"coil": <CoilInline inline coil={build.coil}/>,

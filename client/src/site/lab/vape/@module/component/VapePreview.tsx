@@ -1,15 +1,16 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 import {durationOf, Preview, toLocalDateTime} from "@leight-core/leight";
-import {Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-import {VapeComments} from "@/puff-smith/site/lab/vape";
+import {VapeComments, VapeEditButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
 import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
-import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerComments, AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -21,6 +22,18 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 		<Tabs.TabPane key={'common'} tab={t('lab.vape.common.tab')}>
 			<Tabs size={'small'}>
 				<Tabs.TabPane key={'common'} tab={t('lab.vape.common.title')}>
+					<PreviewTemplate
+						title={<AtomizerInline atomizer={vape.build.atomizer}/>}
+						subTitle={vape.mixture.liquid.name}
+						extra={<>
+							<ButtonBar>
+								<VapeEditButton vape={vape}/>
+								<VapeRateButton vape={vape}/>
+							</ButtonBar>
+							<Divider/>
+						</>}
+						span={24}
+					/>
 					<Preview translation={'lab.vape.preview'}>
 						{{
 							"coil": <CoilInline inline coil={vape.build.coil}/>,

@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {FC} from "react";
 import {ModIcon} from "@/puff-smith";
@@ -16,14 +16,6 @@ export const ModPreviewButton: FC<IModPreviewButtonProps> = ({mod, ...props}) =>
 		title={'lab.mod.preview'}
 		{...props}
 	>
-		<PreviewTemplate
-			icon={<ModIcon/>}
-			label={'lab.mod.preview'}
-			title={mod.name}
-			subTitle={mod.vendor.name}
-			span={24}
-		>
-			<ModPreview mod={mod}/>
-		</PreviewTemplate>
+		<ModPreview mod={mod}/>
 	</DrawerButton>;
 }

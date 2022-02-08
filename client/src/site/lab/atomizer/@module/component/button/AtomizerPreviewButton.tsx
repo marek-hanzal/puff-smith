@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {FC} from "react";
 import {AtomizerIcon} from "@/puff-smith";
@@ -19,15 +19,7 @@ export const AtomizerPreviewButton: FC<IAtomizerPreviewButtonProps> = ({atomizer
 			title={'lab.atomizer.preview'}
 			{...props}
 		>
-			<PreviewTemplate
-				icon={<AtomizerIcon/>}
-				label={'lab.atomizer.preview'}
-				title={atomizer.name}
-				subTitle={atomizer.vendor.name}
-				span={24}
-			>
-				<AtomizerPreview atomizer={atomizer}/>
-			</PreviewTemplate>
+			<AtomizerPreview atomizer={atomizer}/>
 		</DrawerButton>
 		<AtomizerLinkButton
 			size={'small'}

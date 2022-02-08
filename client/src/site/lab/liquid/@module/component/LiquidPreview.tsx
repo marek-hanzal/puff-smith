@@ -2,7 +2,7 @@ import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
-import {LiquidComments, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
+import {LiquidComments, LiquidEditButton, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -12,6 +12,7 @@ import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {MixtureComments} from "@/puff-smith/site/lab/mixture";
+import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 
@@ -25,6 +26,16 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 	const {t} = useTranslation();
 	return <Tabs>
 		<Tabs.TabPane key={'common'} tab={t('lab.liquid.common.tab')}>
+			<PreviewTemplate
+				title={<LiquidInline liquid={liquid}/>}
+				extra={<>
+					<ButtonBar>
+						<LiquidEditButton liquid={liquid}/>
+					</ButtonBar>
+					<Divider/>
+				</>}
+				span={24}
+			/>
 			<Preview translation={'lab.liquid.preview'} {...props}>
 				{{
 					"name": <LiquidInline liquid={liquid}/>,

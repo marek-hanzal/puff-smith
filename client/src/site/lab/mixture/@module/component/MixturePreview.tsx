@@ -5,11 +5,11 @@ import {LiquidComments, LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
 import {BaseInline} from "@/puff-smith/site/lab/base";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
-import {MixtureComments, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
-import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
+import {MixtureComments, MixtureEditButton, MixtureInline, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto;
@@ -18,9 +18,16 @@ export interface IMixturePreviewProps {
 
 export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = false}) => {
 	const {t} = useTranslation();
-	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <Tabs>
 		<Tabs.TabPane key={'common'} tab={t('lab.mixture.common.tab')}>
+			<PreviewTemplate
+				title={<MixtureInline mixture={mixture}/>}
+				extra={<>
+					<MixtureEditButton mixture={mixture}/>
+					<Divider/>
+				</>}
+				span={24}
+			/>
 			<Preview translation={'lab.mixture.preview'}>
 				{{
 					"liquid": <LiquidInline liquid={mixture.liquid}/>,

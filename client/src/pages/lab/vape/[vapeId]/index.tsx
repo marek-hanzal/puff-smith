@@ -1,11 +1,10 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, CloneIcon, VapeIcon} from "@/puff-smith";
-import {VapeCreateButton, VapeEditButton, VapeListButton, VapePreview, VapeRateButton} from "@/puff-smith/site/lab/vape";
+import {VapeCreateButton, VapeListButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {useSiderCollapseContext} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
@@ -45,21 +44,7 @@ export default withLabLayout(function Index() {
 		extraBrowser={<VapeButtonBar/>}
 	>
 		{vape => <>
-			<PreviewTemplate
-				icon={<VapeIcon/>}
-				title={<AtomizerInline atomizer={vape.build.atomizer}/>}
-				subTitle={vape.mixture.liquid.name}
-				extra={<>
-					<ButtonBar>
-						<VapeEditButton vape={vape}/>
-						<VapeRateButton vape={vape}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-				span={24}
-			>
-				<VapePreview vape={vape}/>
-			</PreviewTemplate>
+			<VapePreview vape={vape}/>
 			<Divider/>
 		</>}
 	</VapePage>;

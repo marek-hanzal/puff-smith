@@ -1,8 +1,8 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, BuildIcon, CloneIcon} from "@/puff-smith";
-import {BuildCloneButton, BuildCreateButton, BuildEditButton, BuildListButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, BuildListButton, BuildPlotButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, PreviewTemplate} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Divider, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
@@ -46,22 +46,7 @@ export default withLabLayout(function Index() {
 		</ButtonBar>}
 	>
 		{build => <>
-			<PreviewTemplate
-				icon={<BuildIcon/>}
-				title={build.atomizer.name}
-				subTitle={build.coil.wire.name}
-				browserExtra={<>
-					<ButtonBar>
-						<BuildEditButton build={build}/>
-						<BuildCloneButton build={build}/>
-						<BuildVapeButton build={build}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-				span={24}
-			>
-				<BuildPreview build={build}/>
-			</PreviewTemplate>
+			<BuildPreview build={build}/>
 			<Divider/>
 		</>}
 	</BuildPage>;

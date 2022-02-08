@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {FC} from "react";
 import {CoilIcon} from "@/puff-smith";
@@ -18,14 +18,7 @@ export const CoilPreviewButton: FC<ICoilPreviewButtonProps> = ({coil, ...props})
 			title={'lab.coil.preview'}
 			{...props}
 		>
-			<PreviewTemplate
-				icon={<CoilIcon/>}
-				title={coil.wire.name}
-				subTitle={coil.wire.vendor.name}
-				span={24}
-			>
-				<CoilPreview coil={coil}/>
-			</PreviewTemplate>
+			<CoilPreview coil={coil}/>
 		</DrawerButton>
 		<CoilLinkButton
 			size={'small'}
