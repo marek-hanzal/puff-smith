@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {ConsumerProps, FC} from "react";
 import {
 	createGetQuery,
 	createPostMutation,
