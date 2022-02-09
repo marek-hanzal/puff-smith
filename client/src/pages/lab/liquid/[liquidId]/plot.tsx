@@ -49,16 +49,13 @@ export default withLabLayout(function Plot() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<LiquidButtonBar/>}
 	>
-		{liquid => <>
-			<VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
-				<VapeFilter disabled={['atomizerIds']}/>
-				<VapePlot
-					selected={['median', 'count']}
-				/>
-				<Divider/>
-				<VapeTable defaultFilter={{liquidIds: [liquid.id]}}/>
-			</VapesFilterContext>
+		{liquid => <VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
+			<VapeFilter disabled={['atomizerIds']}/>
+			<VapePlot
+				selected={['median', 'count']}
+			/>
 			<Divider/>
-		</>}
+			<VapeTable defaultFilter={{liquidIds: [liquid.id]}}/>
+		</VapesFilterContext>}
 	</LiquidPage>;
 });

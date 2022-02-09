@@ -40,6 +40,5 @@ export default withLabLayout(function Index() {
 		>
 			<RecentMixtureTable/>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

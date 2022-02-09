@@ -3,8 +3,7 @@ import {CloneIcon} from "@/puff-smith";
 import {Divider} from "antd";
 import {CoilCreateButton, CoilLinkButton, CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BackIcon, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
 
 const CoilButtonBar = () => <ButtonBar>
 	<CoilListButton/>
@@ -47,18 +46,15 @@ export default withLabLayout(function Clone() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<CoilButtonBar/>}
 	>
-		{coil => <>
-			<CreateTemplate
-				extra={<>
-					<ButtonBar>
-						<CoilLinkButton icon={<BackIcon/>} coil={coil} title={'lab.coil.link.button'}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-			>
-				<CreateCoilForm coil={coil}/>
-			</CreateTemplate>
-			<Divider/>
-		</>}
+		{coil => <Template
+			extra={<>
+				<ButtonBar>
+					<CoilLinkButton icon={<BackIcon/>} coil={coil} title={'lab.coil.link.button'}/>
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<CreateCoilForm coil={coil}/>
+		</Template>}
 	</CoilPage>;
 });

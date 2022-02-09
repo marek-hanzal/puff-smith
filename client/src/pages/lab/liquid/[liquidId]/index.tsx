@@ -3,7 +3,6 @@ import {LiquidIcon, PlotIcon} from "@/puff-smith";
 import {LiquidCreateButton, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider} from "antd";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {FC} from "react";
 
@@ -48,9 +47,6 @@ export default withLabLayout(function Index() {
 		</LabMenuDrawerButton>}
 		extraBrowser={({entity}) => <LiquidButtonBar liquid={entity}/>}
 	>
-		{liquid => <>
-			<LiquidPreview liquid={liquid}/>
-			<Divider/>
-		</>}
+		{liquid => <LiquidPreview liquid={liquid}/>}
 	</LiquidPage>;
 });

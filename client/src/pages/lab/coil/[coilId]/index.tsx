@@ -3,7 +3,6 @@ import {CoilIcon} from "@/puff-smith";
 import {CoilCreateButton, CoilListButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider} from "antd";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const CoilButtonBar = () => <ButtonBar>
@@ -41,9 +40,6 @@ export default withLabLayout(function Index() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<CoilButtonBar/>}
 	>
-		{coil => <>
-			<CoilPreview coil={coil}/>
-			<Divider/>
-		</>}
+		{coil => <CoilPreview coil={coil}/>}
 	</CoilPage>;
 });

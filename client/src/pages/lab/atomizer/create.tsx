@@ -1,6 +1,6 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerListButton, CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 
 const AtomizerButtonBar = () => <ButtonBar>
 	<AtomizerListButton/>
@@ -35,8 +35,8 @@ export default withLabLayout(function Create() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<AtomizerButtonBar/>}
 	>
-		<CreateTemplate>
+		<Template>
 			<CreateAtomizerForm/>
-		</CreateTemplate>
+		</Template>
 	</LabPage>;
 });

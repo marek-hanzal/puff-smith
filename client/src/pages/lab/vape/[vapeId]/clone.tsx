@@ -1,10 +1,9 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {CloneIcon, VapeIcon} from "@/puff-smith";
+import {CloneIcon} from "@/puff-smith";
 import {Divider} from "antd";
 import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BackIcon, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -47,20 +46,15 @@ export default withLabLayout(function Clone() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<VapeButtonBar/>}
 	>
-		{vape => <>
-			<CreateTemplate
-				icon={<VapeIcon/>}
-				label={'lab.vape'}
-				extra={<>
-					<ButtonBar>
-						<VapeLinkButton icon={<BackIcon/>} vape={vape} title={'lab.vape.link.button'}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-			>
-				<CreateVapeForm vape={vape}/>
-			</CreateTemplate>
-			<Divider/>
-		</>}
+		{vape => <Template
+			extra={<>
+				<ButtonBar>
+					<VapeLinkButton icon={<BackIcon/>} vape={vape} title={'lab.vape.link.button'}/>
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<CreateVapeForm vape={vape}/>
+		</Template>}
 	</VapePage>;
 });

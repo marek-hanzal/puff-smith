@@ -44,6 +44,5 @@ export default withLabLayout(function Index() {
 				<LiquidTable/>
 			</LiquidsFilterContext>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

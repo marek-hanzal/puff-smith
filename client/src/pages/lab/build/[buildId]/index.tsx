@@ -3,7 +3,6 @@ import {BuildIcon, CloneIcon} from "@/puff-smith";
 import {BuildCreateButton, BuildListButton, BuildPlotButton, BuildPreview} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
@@ -44,9 +43,6 @@ export default withLabLayout(function Index() {
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
-		{build => <>
-			<BuildPreview build={build}/>
-			<Divider/>
-		</>}
+		{build => <BuildPreview build={build}/>}
 	</BuildPage>;
 });

@@ -1,7 +1,6 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
@@ -36,8 +35,8 @@ export default withLabLayout(function Create() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<LiquidButtonBar/>}
 	>
-		<CreateTemplate>
+		<Template>
 			<CreateLiquidForm/>
-		</CreateTemplate>
+		</Template>
 	</LabPage>;
 });

@@ -3,7 +3,7 @@ import {MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Breadcrumbs, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider, Space} from "antd";
+import {Space} from "antd";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
@@ -49,9 +49,6 @@ export default withLabLayout(function Index() {
 		</LabMenuDrawerButton>}
 		extraBrowser={({entity}) => <MixtureButtonBar mixture={entity}/>}
 	>
-		{mixture => <>
-			<MixturePreview mixture={mixture}/>
-			<Divider/>
-		</>}
+		{mixture => <MixturePreview mixture={mixture}/>}
 	</MixturePage>;
 });

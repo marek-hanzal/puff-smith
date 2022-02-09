@@ -60,7 +60,6 @@ export default withLabLayout(function Plot() {
 				<Divider/>
 				<VapeTable defaultFilter={{atomizerIds: [atomizer.id]}} hidden={['atomizer']}/>
 			</VapesFilterContext>
-			<Divider/>
 		</>}
 	</AtomizerPage>;
 });

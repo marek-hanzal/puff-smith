@@ -48,19 +48,16 @@ export default withLabLayout(function Plot() {
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
-		{build => <>
-			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
-				<VapeFilter disabled={['atomizerIds']}/>
-				<VapePlot
-					selected={['median', 'count']}
-					emptyResultProps={{
-						extra: <BuildVapeButton type={'primary'} build={build}/>,
-					}}
-				/>
-				<Divider/>
-				<VapeTable defaultFilter={{buildIds: [build.id]}} hidden={['atomizer']}/>
-			</VapesFilterContext>
+		{build => <VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
+			<VapeFilter disabled={['atomizerIds']}/>
+			<VapePlot
+				selected={['median', 'count']}
+				emptyResultProps={{
+					extra: <BuildVapeButton type={'primary'} build={build}/>,
+				}}
+			/>
 			<Divider/>
-		</>}
+			<VapeTable defaultFilter={{buildIds: [build.id]}} hidden={['atomizer']}/>
+		</VapesFilterContext>}
 	</BuildPage>;
 });

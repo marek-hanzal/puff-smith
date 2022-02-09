@@ -1,10 +1,21 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BuildDto} from "@/sdk/puff-smith/build/dto";
+import {FC} from "react";
+
+interface IBuildButtonBarProps {
+	build: BuildDto;
+}
+
+const BuildButtonBar: FC<IBuildButtonBarProps> = ({build}) => <ButtonBar>
+	<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
+	<BuildCloneButton build={build}/>
+</ButtonBar>
 
 export default withLabLayout(function Edit() {
 	const {buildId} = useParams();
@@ -50,16 +61,12 @@ export default withLabLayout(function Edit() {
 				icon={<BuildIcon/>}
 				label={'lab.build'}
 				extra={<>
-					<Space>
-						<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
-						<BuildCloneButton build={build}/>
-					</Space>
+					<BuildButtonBar build={build}/>
 					<Divider/>
 				</>}
 			>
 				<PatchBuildForm build={build}/>
 			</EditTemplate>
-			<Divider/>
 		</>}
 	</BuildPage>;
 });

@@ -1,6 +1,5 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {VapeIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
@@ -47,21 +46,16 @@ export default withLabLayout(function Edit() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<VapeButtonBar/>}
 	>
-		{vape => <>
-			<EditTemplate
-				icon={<VapeIcon/>}
-				label={'lab.vape'}
-				extra={<>
-					<Space>
-						<VapeLinkButton icon={<BackIcon/>} vape={vape}/>
-						<VapeCloneButton vape={vape}/>
-					</Space>
-					<Divider/>
-				</>}
-			>
-				<PatchVapeForm vape={vape}/>
-			</EditTemplate>
-			<Divider/>
-		</>}
+		{vape => <EditTemplate
+			extra={<>
+				<ButtonBar>
+					<VapeLinkButton icon={<BackIcon/>} vape={vape}/>
+					<VapeCloneButton vape={vape}/>
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<PatchVapeForm vape={vape}/>
+		</EditTemplate>}
 	</VapePage>;
 });

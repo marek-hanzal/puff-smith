@@ -3,7 +3,6 @@ import {AtomizerIcon, PlotIcon} from "@/puff-smith";
 import {AtomizerCreateButton, AtomizerListButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider} from "antd";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
@@ -40,9 +39,6 @@ export default withLabLayout(function Index() {
 			<AtomizerCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
-		{atomizer => <>
-			<AtomizerPreview atomizer={atomizer}/>
-			<Divider/>
-		</>}
+		{atomizer => <AtomizerPreview atomizer={atomizer}/>}
 	</AtomizerPage>;
 });

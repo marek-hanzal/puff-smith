@@ -1,6 +1,6 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {CoilCloneButton, CoilCreateButton, CoilLinkButton, CoilListButton, PatchCoilForm} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
@@ -47,21 +47,18 @@ export default withLabLayout(function Edit() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<CoilButtonBar/>}
 	>
-		{coil => <>
-			<EditTemplate
-				icon={<CoilIcon/>}
-				label={'lab.coil'}
-				extra={<>
-					<Space>
-						<CoilLinkButton icon={<BackIcon/>} coil={coil}/>
-						<CoilCloneButton coil={coil}/>
-					</Space>
-					<Divider/>
-				</>}
-			>
-				<PatchCoilForm coil={coil}/>
-			</EditTemplate>
-			<Divider/>
-		</>}
+		{coil => <EditTemplate
+			icon={<CoilIcon/>}
+			label={'lab.coil'}
+			extra={<>
+				<ButtonBar>
+					<CoilLinkButton icon={<BackIcon/>} coil={coil}/>
+					<CoilCloneButton coil={coil}/>
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<PatchCoilForm coil={coil}/>
+		</EditTemplate>}
 	</CoilPage>;
 });

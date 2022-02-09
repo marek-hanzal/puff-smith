@@ -47,18 +47,17 @@ export default withLabLayout(function Edit() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<MixtureButtonBar/>}
 	>
-		{mixture => <>
-			<EditTemplate
-				icon={<MixtureIcon/>}
-				label={'lab.mixture'}
-				extra={<>
+		{mixture => <EditTemplate
+			icon={<MixtureIcon/>}
+			label={'lab.mixture'}
+			extra={<>
+				<ButtonBar>
 					<MixtureLinkButton icon={<BackIcon/>} mixture={mixture} title={'lab.mixture.link.button'}/>
-					<Divider/>
-				</>}
-			>
-				<PatchMixtureForm mixture={mixture}/>
-			</EditTemplate>
-			<Divider/>
-		</>}
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<PatchMixtureForm mixture={mixture}/>
+		</EditTemplate>}
 	</MixturePage>;
 });

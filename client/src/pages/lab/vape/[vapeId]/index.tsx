@@ -3,7 +3,6 @@ import {CloneIcon, VapeIcon} from "@/puff-smith";
 import {VapeCreateButton, VapeListButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider} from "antd";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
@@ -42,9 +41,6 @@ export default withLabLayout(function Index() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<VapeButtonBar/>}
 	>
-		{vape => <>
-			<VapePreview vape={vape}/>
-			<Divider/>
-		</>}
+		{vape => <VapePreview vape={vape}/>}
 	</VapePage>;
 });

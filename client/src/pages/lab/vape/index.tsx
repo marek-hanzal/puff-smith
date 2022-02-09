@@ -41,6 +41,5 @@ export default withLabLayout(function Index() {
 		>
 			<RecentVapeTable/>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

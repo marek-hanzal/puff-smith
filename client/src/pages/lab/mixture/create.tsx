@@ -1,7 +1,6 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixture";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
@@ -36,8 +35,8 @@ export default withLabLayout(function Create() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<MixtureButtonBar/>}
 	>
-		<CreateTemplate>
+		<Template>
 			<CreateMixtureForm/>
-		</CreateTemplate>
+		</Template>
 	</LabPage>;
 });

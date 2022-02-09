@@ -46,6 +46,5 @@ export default withLabLayout(function Index() {
 				<CoilTable/>
 			</CoilsFilterContext>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

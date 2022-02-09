@@ -44,6 +44,5 @@ export default withLabLayout(function Index() {
 				<AtomizerTable/>
 			</AtomizersFilterContext>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

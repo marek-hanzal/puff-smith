@@ -40,6 +40,5 @@ export default withLabLayout(function Index() {
 		>
 			<LatestBuildTable/>
 		</Template>
-		<Divider/>
 	</LabPage>;
 });

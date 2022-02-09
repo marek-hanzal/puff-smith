@@ -47,20 +47,17 @@ export default withLabLayout(function Edit() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<LiquidButtonBar/>}
 	>
-		{liquid => <>
-			<EditTemplate
-				icon={<LiquidIcon/>}
-				label={'lab.liquid'}
-				extra={<>
-					<ButtonBar>
-						<LiquidLinkButton icon={<BackIcon/>} liquid={liquid}/>
-					</ButtonBar>
-					<Divider/>
-				</>}
-			>
-				<PatchLiquidForm liquid={liquid}/>
-			</EditTemplate>
-			<Divider/>
-		</>}
+		{liquid => <EditTemplate
+			icon={<LiquidIcon/>}
+			label={'lab.liquid'}
+			extra={<>
+				<ButtonBar>
+					<LiquidLinkButton icon={<BackIcon/>} liquid={liquid}/>
+				</ButtonBar>
+				<Divider/>
+			</>}
+		>
+			<PatchLiquidForm liquid={liquid}/>
+		</EditTemplate>}
 	</LiquidPage>;
 });

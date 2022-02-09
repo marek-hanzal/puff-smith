@@ -1,10 +1,19 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon, CloneIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {CloneIcon} from "@/puff-smith";
+import {Divider} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BackIcon, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
+import {BuildDto} from "@/sdk/puff-smith/build/dto";
+import {FC} from "react";
+
+interface IBuildButtonBarProps {
+	build: BuildDto;
+}
+
+const BuildButtonBar: FC<IBuildButtonBarProps> = ({build}) => <ButtonBar>
+	<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
+</ButtonBar>;
 
 export default withLabLayout(function Clone() {
 	const {buildId} = useParams();
@@ -45,20 +54,13 @@ export default withLabLayout(function Clone() {
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
-		{build => <>
-			<CreateTemplate
-				icon={<BuildIcon/>}
-				label={'lab.build'}
-				extra={<>
-					<Space>
-						<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
-					</Space>
-					<Divider/>
-				</>}
-			>
-				<CreateBuildForm build={build}/>
-			</CreateTemplate>
-			<Divider/>
-		</>}
+		{build => <Template
+			extra={<>
+				<BuildButtonBar build={build}/>
+				<Divider/>
+			</>}
+		>
+			<CreateBuildForm build={build}/>
+		</Template>}
 	</BuildPage>;
 });

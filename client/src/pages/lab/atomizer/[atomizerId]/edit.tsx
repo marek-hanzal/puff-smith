@@ -1,6 +1,6 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {AtomizerCreateButton, AtomizerLinkButton, AtomizerListButton, PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
@@ -51,15 +51,14 @@ export default withLabLayout(function Edit() {
 				title={atomizer.name}
 				subTitle={atomizer.vendor.name}
 				extra={<>
-					<Space>
+					<ButtonBar>
 						<AtomizerLinkButton icon={<BackIcon/>} atomizer={atomizer}/>
-					</Space>
+					</ButtonBar>
 					<Divider/>
 				</>}
 			>
 				<PatchAtomizerForm atomizer={atomizer}/>
 			</Template>
-			<Divider/>
 		</>}
 	</AtomizerPage>;
 });
