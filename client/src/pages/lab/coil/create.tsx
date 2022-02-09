@@ -1,20 +1,16 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton} from "@/puff-smith";
 import {CoilListButton, CreateCoilForm} from "@/puff-smith/site/lab/coil";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const CoilButtonBar = () => <ButtonBar>
 	<CoilListButton/>
 </ButtonBar>;
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.coil.create"}
+		collapsed
 		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil')}
 		breadcrumbProps={<Breadcrumbs>
@@ -30,9 +26,10 @@ export default withLabLayout(function Create() {
 				href={'/lab/coil/list'}
 				title={'lab.coil.list.label'}
 			/>
-			<Space size={'small'}>
-				<CreateIcon/>{t('lab.coil.create.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CreateIcon/>}
+				label={'lab.coil.create.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
