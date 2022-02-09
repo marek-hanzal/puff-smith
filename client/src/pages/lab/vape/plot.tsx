@@ -1,12 +1,10 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {VapeCreateButton, VapeFilter, VapeListButton, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Divider, Space} from "antd";
-import {useTranslation} from "react-i18next";
+import {Divider} from "antd";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -14,10 +12,9 @@ const VapeButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function List() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.vape.plot"}
+		collapsed
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape')}
 		breadcrumbProps={<Breadcrumbs>
@@ -29,9 +26,10 @@ export default withLabLayout(function List() {
 				href={'/lab/vape'}
 				title={'lab.vape.label'}
 			/>
-			<Space size={'small'}>
-				<BarChartOutlined/>{t('lab.vape.plot.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<BarChartOutlined/>}
+				label={'lab.vape.plot.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}

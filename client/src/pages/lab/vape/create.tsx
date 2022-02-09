@@ -1,20 +1,16 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton} from "@/puff-smith";
 import {CreateVapeForm, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
 </ButtonBar>;
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.vape.create"}
+		collapsed
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape')}
 		breadcrumbProps={<Breadcrumbs>
@@ -30,9 +26,10 @@ export default withLabLayout(function Create() {
 				href={'/lab/vape/list'}
 				title={'lab.vape.list.label'}
 			/>
-			<Space size={'small'}>
-				<CreateIcon/>{t('lab.vape.create.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CreateIcon/>}
+				label={'lab.vape.create.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.vape.button.list", "/lab/vape/list", <ListIcon/>)}

@@ -1,11 +1,10 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, VapeIcon} from "@/puff-smith";
+import {VapeIcon} from "@/puff-smith";
 import {Divider, Space} from "antd";
 import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton/>
@@ -13,11 +12,10 @@ const VapeButtonBar = () => <ButtonBar>
 </ButtonBar>
 
 export default withLabLayout(function Edit() {
-	const {t} = useTranslation();
 	const {vapeId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <VapePage
 		title={"lab.vape.edit"}
+		collapsed
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape', {vapeId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -38,9 +36,10 @@ export default withLabLayout(function Edit() {
 				query={{vapeId}}
 				title={'lab.vape.index.label'}
 			/>
-			<Space size={'small'}>
-				<EditIcon/>{t('lab.vape.edit.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<EditIcon/>}
+				label={'lab.vape.edit.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}

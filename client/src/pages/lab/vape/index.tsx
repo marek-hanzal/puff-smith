@@ -1,9 +1,9 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, PlotIcon, VapeIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {PlotIcon, VapeIcon} from "@/puff-smith";
+import {Divider} from "antd";
 import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton size={'middle'}/>
@@ -11,7 +11,6 @@ const VapeButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.vape"}
 		menuSelection={['/lab/vape']}
@@ -21,9 +20,10 @@ export default withLabLayout(function Index() {
 				href={'/lab'}
 				icon={<HomeIcon/>}
 			/>
-			<Space size={'small'}>
-				<VapeIcon/>{t('lab.vape.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<VapeIcon/>}
+				label={'lab.vape.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.vape.button.plot", "/lab/vape/plot", <PlotIcon/>)}
