@@ -1,21 +1,18 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {PlotIcon} from "@/puff-smith";
 
 export default withLabLayout(function Plot() {
-	const {t} = useTranslation();
 	const {buildId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <BuildPage
 		title={"lab.build.plot"}
+		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -36,9 +33,10 @@ export default withLabLayout(function Plot() {
 				query={{buildId}}
 				title={'lab.build.index.label'}
 			/>
-			<Space size={'small'}>
-				<BarChartOutlined/>{t('lab.build.plot.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<PlotIcon/>}
+				label={'lab.build.plot.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}

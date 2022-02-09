@@ -1,14 +1,13 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {AtomizerCreateButton, AtomizerListButton} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {PlotIcon} from "@/puff-smith";
 
 const AtomizerButtonBar = () => <ButtonBar>
 	<AtomizerListButton/>
@@ -18,9 +17,9 @@ const AtomizerButtonBar = () => <ButtonBar>
 export default withLabLayout(function Plot() {
 	const {t} = useTranslation();
 	const {atomizerId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <AtomizerPage
 		title={"lab.atomizer.plot"}
+		collapsed
 		menuSelection={['/lab/atomizer']}
 		onBack={navigate => navigate('/lab/atomizer/[atomizerId]', {atomizerId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -41,9 +40,10 @@ export default withLabLayout(function Plot() {
 				query={{atomizerId}}
 				title={'lab.atomizer.index.label'}
 			/>
-			<Space size={'small'}>
-				<BarChartOutlined/>{t('lab.atomizer.plot.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<PlotIcon/>}
+				label={'lab.atomizer.plot.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.atomizer.button.create", "/lab/atomizer/create", <CreateIcon/>)}

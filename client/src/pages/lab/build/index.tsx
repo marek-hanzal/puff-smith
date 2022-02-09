@@ -1,19 +1,16 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
-import {BreadcrumbButton, BuildIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
-import {useTranslation} from "react-i18next";
+import {BuildIcon} from "@/puff-smith";
+import {Divider} from "antd";
 import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
-const BuildButtonBar = () => {
-	return <ButtonBar>
-		<BuildListButton/>
-		<BuildCreateButton type={'primary'}/>
-	</ButtonBar>;
-}
+const BuildButtonBar = () => <ButtonBar>
+	<BuildListButton/>
+	<BuildCreateButton type={'primary'}/>
+</ButtonBar>
 
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.build"}
 		onBack={navigate => navigate('/lab')}
@@ -23,9 +20,10 @@ export default withLabLayout(function Index() {
 				href={'/lab'}
 				icon={<HomeIcon/>}
 			/>
-			<Space size={'small'}>
-				<BuildIcon/>{t('lab.build.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<BuildIcon/>}
+				label={'lab.build.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}

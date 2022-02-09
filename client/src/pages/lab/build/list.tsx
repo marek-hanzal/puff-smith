@@ -1,17 +1,13 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function List() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.build.list"}
+		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build')}
 		breadcrumbProps={<Breadcrumbs>
@@ -23,9 +19,10 @@ export default withLabLayout(function List() {
 				href={'/lab/build'}
 				title={'lab.build.label'}
 			/>
-			<Space size={'small'}>
-				<ListIcon/>{t('lab.build.list.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<ListIcon/>}
+				label={'lab.build.list.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}

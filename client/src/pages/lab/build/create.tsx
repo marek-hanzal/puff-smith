@@ -1,15 +1,15 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, PlotIcon} from "@/puff-smith";
+import {PlotIcon} from "@/puff-smith";
 import {BuildComments, BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Col, Row, Space, Tabs} from "antd";
+import {Col, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {isBrowser} from "react-device-detect";
-import {DrawerButton, useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, DrawerButton} from "@leight-core/leight/dist";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -102,10 +102,9 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 }
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.build.create"}
+		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build')}
 		breadcrumbProps={<Breadcrumbs>
@@ -121,9 +120,10 @@ export default withLabLayout(function Create() {
 				href={'/lab/build/list'}
 				title={'lab.build.list.label'}
 			/>
-			<Space size={'small'}>
-				<CreateIcon/>{t('lab.build.create.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CreateIcon/>}
+				label={'lab.build.create.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}

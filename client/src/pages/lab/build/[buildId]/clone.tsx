@@ -1,18 +1,16 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, BuildIcon, CloneIcon} from "@/puff-smith";
+import {BuildIcon, CloneIcon} from "@/puff-smith";
 import {Divider, Space} from "antd";
 import {BuildCreateButton, BuildLinkButton, BuildListButton, CreateBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Clone() {
-	const {t} = useTranslation();
 	const {buildId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <BuildPage
 		title={"lab.build.clone"}
+		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -33,9 +31,10 @@ export default withLabLayout(function Clone() {
 				query={{buildId}}
 				title={'lab.build.index.label'}
 			/>
-			<Space size={'small'}>
-				<CloneIcon/>{t('lab.build.clone.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CloneIcon/>}
+				label={'lab.build.clone.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}

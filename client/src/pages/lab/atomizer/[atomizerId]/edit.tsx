@@ -1,18 +1,16 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {AtomizerIcon, BreadcrumbButton} from "@/puff-smith";
+import {AtomizerIcon} from "@/puff-smith";
 import {Divider, Space} from "antd";
 import {AtomizerCreateButton, AtomizerLinkButton, AtomizerListButton, PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Edit() {
-	const {t} = useTranslation();
 	const {atomizerId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <AtomizerPage
 		title={"lab.atomizer.edit"}
+		collapsed
 		menuSelection={['/lab/atomizer']}
 		onBack={navigate => navigate('/lab/atomizer/[atomizerId]', {atomizerId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -33,9 +31,10 @@ export default withLabLayout(function Edit() {
 				query={{atomizerId}}
 				title={'lab.atomizer.index.label'}
 			/>
-			<Space size={'small'}>
-				<EditIcon/>{t('lab.atomizer.edit.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<EditIcon/>}
+				label={'lab.atomizer.edit.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.atomizer.button.create', '/lab/atomizer/create', <CreateIcon/>)}
