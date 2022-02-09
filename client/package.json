@@ -1,6 +1,6 @@
 {
 	"name": "puff-smith",
-	"version": "0.5.65",
+	"version": "0.5.66",
 	"private": true,
 	"scripts": {
 		"dev": "cross-env NODE_OPTIONS='--trace-warnings' next dev",
