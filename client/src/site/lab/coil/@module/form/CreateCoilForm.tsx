@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {CoilIcon} from "@/puff-smith";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 	coil?: CoilDto;
@@ -23,13 +24,14 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		toForm={() => ({
 			wraps: 7,
 			size: 0.3,
+			spaced: false,
 			...coil,
 		})}
 		{...props}
 	>
 		<FormItem
 			field={'wireId'}
-			labels={['lab.coil.wireId.label']}
+			labels={'lab.coil.wireId.label'}
 			required
 			help={<WireTooltip/>}
 		>
@@ -37,7 +39,7 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		</FormItem>
 		<FormItem
 			field={'wraps'}
-			labels={['lab.coil.wraps.label']}
+			labels={'lab.coil.wraps.label'}
 			tooltip={t('lab.coil.wraps.label.tooltip')}
 			required
 		>
@@ -45,10 +47,14 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
 		</FormItem>
 		<FormItem
 			field={'size'}
-			labels={['lab.coil.size.label']}
+			labels={'lab.coil.size.label'}
 		>
 			<SizeInput/>
 		</FormItem>
+		<SwitchItem
+			field={'spaced'}
+			labels={['lab.coil.spaced.label']}
+		/>
 		<Divider/>
 		<Centered>
 			<Submit icon={<CoilIcon/>} label={'lab.coil.create.submit'}/>

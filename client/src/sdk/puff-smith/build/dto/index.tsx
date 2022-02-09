@@ -51,7 +51,7 @@ export interface CreateDto {
 	created: string | null;
 	glow: number | null;
 	atomizerId: string;
-	coil: import("@/sdk/puff-smith/coil/dto/create/index").CreateDto;
+	coil: import("@/sdk/puff-smith/coil/dto/index").CreateDto;
 	cottonId: string;
 	coils: number;
 	coilOffset: number;

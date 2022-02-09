@@ -4,6 +4,7 @@ import {CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {PreviewBool} from "@leight-core/leight/dist";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
@@ -15,6 +16,7 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={coil => <CoilListItem coil={coil}/>}
+		scroll={{x: 1600}}
 		{...props}
 	>
 		{({column}) => [
@@ -55,6 +57,13 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				title: 'lab.coil.table.wraps',
 				render: (_, coil) => coil.wraps,
 				width: 160,
+				sorter: true,
+			}),
+			column({
+				key: "spaced",
+				title: 'lab.coil.table.spaced',
+				render: (_, coil) => <PreviewBool bool={coil.spaced}/>,
+				width: 200,
 				sorter: true,
 			}),
 		]}

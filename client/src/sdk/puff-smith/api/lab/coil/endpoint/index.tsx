@@ -62,43 +62,43 @@ export const useCoilsQueryInvalidate = () => {
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/create/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Create");
 
 export type IDeleteQueryParams = void;
 
 
-export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Delete");
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Delete");
 
 export type IPatchQueryParams = void;
 
 
-export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Patch");
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>("PuffSmith.Lab.Coil.Patch");
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/create/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/create/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/coil/dto/index").CreateDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
 
-export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
 }
 
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
-	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/delete/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/coil/dto/index").DeleteDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
 		useMutation={useDeleteMutation}
 		{...props}
 	/>
 }
 
-export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>> {
 }
 
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
-	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/patch/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/coil/dto/index").PatchDto, import("@/sdk/puff-smith/coil/dto/index").CoilDto>
 		useMutation={usePatchMutation}
 		{...props}
 	/>

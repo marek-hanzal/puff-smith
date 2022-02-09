@@ -95,6 +95,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, ...p
 				>
 					<SizeInput/>
 				</FormItem>
+				<SwitchItem
+					field={'spaced'}
+					labels={['lab.coil.spaced.label']}
+				/>
 			</ItemGroup>
 		</Card>
 		<Divider/>

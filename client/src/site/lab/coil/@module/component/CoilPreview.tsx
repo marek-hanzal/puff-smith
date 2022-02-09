@@ -4,7 +4,7 @@ import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {WireInline} from "@/puff-smith/site/lab/wire";
 import {CoilCloneButton, CoilEditButton} from "@/puff-smith/site/lab/coil";
 import {Divider} from "antd";
-import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
+import {ButtonBar, PreviewBool, PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 	coil: CoilDto;
@@ -29,6 +29,7 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 				wire: <WireInline wire={coil.wire}/>,
 				wraps: coil.wraps,
 				size: coil.size,
+				spaced: <PreviewBool bool={coil.spaced}/>,
 			}}
 		</Preview>
 	</>
