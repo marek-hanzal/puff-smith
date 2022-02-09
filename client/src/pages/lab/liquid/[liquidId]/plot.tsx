@@ -1,14 +1,12 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {LiquidCreateButton, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {PlotIcon} from "@/puff-smith";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
@@ -16,11 +14,10 @@ const LiquidButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Plot() {
-	const {t} = useTranslation();
 	const {liquidId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LiquidPage
 		title={"lab.liquid.plot"}
+		collapsed
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid/[liquidId]', {liquidId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -41,9 +38,10 @@ export default withLabLayout(function Plot() {
 				query={{liquidId}}
 				title={'lab.liquid.index.label'}
 			/>
-			<Space size={'small'}>
-				<BarChartOutlined/>{t('lab.liquid.plot.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<PlotIcon/>}
+				label={'lab.liquid.plot.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}

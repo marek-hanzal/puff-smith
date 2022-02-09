@@ -1,20 +1,16 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton} from "@/puff-smith";
 import {CreateLiquidForm, LiquidListButton} from "@/puff-smith/site/lab/liquid";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
 </ButtonBar>;
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.liquid.create"}
+		collapsed
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid')}
 		breadcrumbProps={<Breadcrumbs>
@@ -30,9 +26,10 @@ export default withLabLayout(function Create() {
 				href={'/lab/liquid/list'}
 				title={'lab.liquid.list.label'}
 			/>
-			<Space size={'small'}>
-				<CreateIcon/>{t('lab.liquid.create.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CreateIcon/>}
+				label={'lab.liquid.create.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}

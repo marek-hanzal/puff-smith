@@ -1,11 +1,10 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {LiquidIcon} from "@/puff-smith";
+import {Divider} from "antd";
 import {LiquidCreateButton, LiquidLinkButton, LiquidListButton, PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton/>
@@ -13,11 +12,10 @@ const LiquidButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Edit() {
-	const {t} = useTranslation();
 	const {liquidId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LiquidPage
 		title={"lab.liquid.edit"}
+		collapsed
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid/[liquidId]', {liquidId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -38,9 +36,10 @@ export default withLabLayout(function Edit() {
 				query={{liquidId}}
 				title={'lab.liquid.index.label'}
 			/>
-			<Space size={'small'}>
-				<EditIcon/>{t('lab.liquid.edit.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<EditIcon/>}
+				label={'lab.liquid.edit.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}

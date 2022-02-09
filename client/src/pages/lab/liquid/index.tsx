@@ -1,10 +1,10 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, LiquidIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {LiquidCreateButton, LiquidFilter, LiquidListButton, LiquidTable} from "@/puff-smith/site/lab/liquid";
-import {Divider, Space} from "antd";
-import {useTranslation} from "react-i18next";
+import {Divider} from "antd";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const LiquidButtonBar = () => <ButtonBar>
 	<LiquidListButton size={'middle'}/>
@@ -12,7 +12,6 @@ const LiquidButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.liquid"}
 		menuSelection={['/lab/liquid']}
@@ -22,9 +21,10 @@ export default withLabLayout(function Index() {
 				href={'/lab'}
 				icon={<HomeIcon/>}
 			/>
-			<Space size={'small'}>
-				<LiquidIcon/>{t('lab.liquid.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<LiquidIcon/>}
+				label={'lab.liquid.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
