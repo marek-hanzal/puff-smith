@@ -15,6 +15,8 @@ class CoilDto extends AbstractDto {
 	public string $stamp;
 	/** @var float */
 	public float $size;
+	/** @var bool */
+	public bool $spaced;
 	/** @var string */
 	public string $wireId;
 	/** @var WireDto */

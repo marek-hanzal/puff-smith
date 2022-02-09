@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Coil\Dto\Create;
+namespace PuffSmith\Coil\Dto;
 
 use Edde\Dto\AbstractDto;
 
@@ -12,4 +12,6 @@ class CreateDto extends AbstractDto {
 	public float $size;
 	/** @var string */
 	public string $wireId;
+	/** @var bool */
+	public bool $spaced;
 }

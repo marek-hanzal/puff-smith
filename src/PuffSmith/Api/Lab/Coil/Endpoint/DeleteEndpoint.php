@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Api\Lab\Coil\Endpoint;
 
 use Edde\Rest\Endpoint\AbstractDeleteEndpoint;
-use PuffSmith\Coil\Dto\Delete\DeleteDto;
 use PuffSmith\Coil\Dto\CoilDto;
+use PuffSmith\Coil\Dto\DeleteDto;
 use PuffSmith\Coil\Mapper\CoilMapperTrait;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 

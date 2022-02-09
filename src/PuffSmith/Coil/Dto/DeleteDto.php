@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Coil\Dto\Delete;
+namespace PuffSmith\Coil\Dto;
 
 use Edde\Dto\AbstractDto;
 

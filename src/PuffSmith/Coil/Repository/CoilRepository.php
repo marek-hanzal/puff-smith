@@ -9,8 +9,8 @@ use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use PuffSmith\Coil\Dto\CoilFilterDto;
-use PuffSmith\Coil\Dto\Create\CreateDto;
-use PuffSmith\Coil\Dto\Patch\PatchDto;
+use PuffSmith\Coil\Dto\CreateDto;
+use PuffSmith\Coil\Dto\PatchDto;
 
 class CoilRepository extends AbstractRepository {
 	public function __construct() {
@@ -65,6 +65,7 @@ class CoilRepository extends AbstractRepository {
 		return $this->insert([
 			'stamp'   => new DateTime(),
 			'wraps'   => $createDto->wraps,
+			'spaced'  => $createDto->spaced,
 			'size'    => $createDto->size,
 			'wire_id' => $createDto->wireId,
 		]);
@@ -72,9 +73,10 @@ class CoilRepository extends AbstractRepository {
 
 	public function update(PatchDto $patchDto) {
 		return $this->change([
-			'id'    => $patchDto->id,
-			'wraps' => $patchDto->wraps,
-			'size'  => $patchDto->size,
+			'id'     => $patchDto->id,
+			'wraps'  => $patchDto->wraps,
+			'spaced' => $patchDto->spaced,
+			'size'   => $patchDto->size,
 		]);
 	}
 

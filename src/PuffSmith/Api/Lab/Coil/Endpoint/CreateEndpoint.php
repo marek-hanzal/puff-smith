@@ -6,7 +6,7 @@ namespace PuffSmith\Api\Lab\Coil\Endpoint;
 use Edde\Repository\Exception\DuplicateEntryException;
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
 use PuffSmith\Coil\Dto\CoilDto;
-use PuffSmith\Coil\Dto\Create\CreateDto;
+use PuffSmith\Coil\Dto\CreateDto;
 use PuffSmith\Coil\Mapper\CoilMapperTrait;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 

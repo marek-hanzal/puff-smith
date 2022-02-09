@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Coil\Dto\Patch;
+namespace PuffSmith\Coil\Dto;
 
 use Edde\Dto\AbstractDto;
 
@@ -16,4 +16,6 @@ class PatchDto extends AbstractDto {
 	public ?float $size;
 	/** @var string|null|void */
 	public ?string $wireId;
+	/** @var bool */
+	public bool $spaced;
 }
