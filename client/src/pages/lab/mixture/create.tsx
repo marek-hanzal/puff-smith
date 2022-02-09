@@ -1,20 +1,16 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton} from "@/puff-smith";
 import {CreateMixtureForm, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, CreateTemplate, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
 </ButtonBar>
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <LabPage
 		title={"lab.mixture.create"}
+		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture')}
 		breadcrumbProps={<Breadcrumbs>
@@ -30,9 +26,10 @@ export default withLabLayout(function Create() {
 				href={'/lab/mixture/list'}
 				title={'lab.mixture.list.label'}
 			/>
-			<Space size={'small'}>
-				<CreateIcon/>{t('lab.mixture.create.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<CreateIcon/>}
+				label={'lab.mixture.create.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}

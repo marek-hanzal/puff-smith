@@ -1,14 +1,12 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider, Space} from "antd";
+import {Divider} from "antd";
 import {MixtureCreateButton, MixtureListButton} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BreadcrumbButton} from "@/puff-smith";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton/>
@@ -16,11 +14,10 @@ const MixtureButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Plot() {
-	const {t} = useTranslation();
 	const {mixtureId} = useParams();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <MixturePage
 		title={"lab.mixture.plot"}
+		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/[mixtureId]', {mixtureId})}
 		breadcrumbProps={<Breadcrumbs>
@@ -41,9 +38,10 @@ export default withLabLayout(function Plot() {
 				query={{mixtureId}}
 				title={'lab.mixture.index.label'}
 			/>
-			<Space size={'small'}>
-				<BarChartOutlined/>{t('lab.mixture.plot.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<BarChartOutlined/>}
+				label={'lab.mixture.plot.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}

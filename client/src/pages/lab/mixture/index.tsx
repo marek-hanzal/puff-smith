@@ -1,9 +1,9 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, MixtureIcon} from "@/puff-smith";
-import {Divider, Space} from "antd";
+import {MixtureIcon} from "@/puff-smith";
+import {Divider} from "antd";
 import {MixtureCreateButton, MixtureListButton, RecentMixtureTable} from "@/puff-smith/site/lab/mixture";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
-import {useTranslation} from "react-i18next";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const MixtureButtonBar = () => <ButtonBar>
 	<MixtureListButton size={'middle'}/>
@@ -11,7 +11,6 @@ const MixtureButtonBar = () => <ButtonBar>
 </ButtonBar>;
 
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.mixture"}
 		menuSelection={['/lab/mixture']}
@@ -21,9 +20,10 @@ export default withLabLayout(function Index() {
 				href={'/lab'}
 				icon={<HomeIcon/>}
 			/>
-			<Space size={'small'}>
-				<MixtureIcon/>{t('lab.mixture.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<MixtureIcon/>}
+				label={'lab.mixture.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}

@@ -1,13 +1,12 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BreadcrumbButton, MixtureIcon, PlotIcon} from "@/puff-smith";
+import {MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Breadcrumbs, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
 import {Divider, Space} from "antd";
-import {useTranslation} from "react-i18next";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
-import {useSiderCollapseContext} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 interface IMixtureButtonBarProps {
 	mixture?: MixtureDto;
@@ -20,10 +19,9 @@ const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
 </Space>;
 
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
-	useSiderCollapseContext().useCollapse(true, true);
 	return <MixturePage
 		title={"lab.mixture.index"}
+		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/list')}
 		breadcrumbProps={<Breadcrumbs>
@@ -39,9 +37,10 @@ export default withLabLayout(function Index() {
 				href={'/lab/mixture/list'}
 				title={'lab.mixture.list.label'}
 			/>
-			<Space size={'small'}>
-				<MixtureIcon/>{t('lab.mixture.index.label')}
-			</Space>
+			<BreadcrumbIcon
+				icon={<MixtureIcon/>}
+				label={'lab.mixture.index.label'}
+			/>
 		</Breadcrumbs>}
 		extraMobile={({entity}) => <LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
