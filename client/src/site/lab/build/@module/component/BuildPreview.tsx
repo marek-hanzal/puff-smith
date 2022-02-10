@@ -95,7 +95,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 			</VapesFilterContext>
 		</Tabs.TabPane>}
 		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
-			<ImageGallery path={'/build/image/' + build.id}/>
+			<ImageGallery gallery={'/build/image/' + build.id}/>
 		</Tabs.TabPane>}
 		{!hidden?.includes('upload') && <Tabs.TabPane key={'upload'} tab={t('lab.build.upload.tab')}>
 			<Uploader

@@ -7,18 +7,18 @@ import {ImagesSource, useImagesSource} from "@/sdk/edde/api/shared/image/endpoin
 import {Centered} from "@leight-core/leight/dist";
 
 interface IImageGalleryInternalProps {
-	show?: boolean;
+	size?: number;
 }
 
-const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) => {
+const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4}) => {
 	const {t} = useTranslation();
-	const [visible, setVisible] = useState(show);
+	const [visible, setVisible] = useState(false);
 	const discoveryContext = useDiscoveryContext();
 	const linkContext = useLinkContext();
 	const imagesSource = useImagesSource();
 
 	useEffect(() => {
-		imagesSource.setSize(4);
+		imagesSource.setSize(size);
 	}, []);
 
 	return imagesSource.result.isSuccess && imagesSource.result?.data?.count > 0 ? <>
@@ -47,11 +47,11 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) =>
 }
 
 export interface IImageGalleryProps {
-	show?: boolean
 	gallery: string;
+	size?: number;
 }
 
-export const ImageGallery: FC<IImageGalleryProps> = ({show = false, gallery}) => {
+export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, gallery}) => {
 	return <ImagesSource
 		filter={{
 			gallery,
@@ -60,6 +60,6 @@ export const ImageGallery: FC<IImageGalleryProps> = ({show = false, gallery}) =>
 			stamp: false,
 		}}
 	>
-		<ImageGalleryInternal show={show}/>
+		<ImageGalleryInternal size={size}/>
 	</ImagesSource>
 }

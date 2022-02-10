@@ -77,7 +77,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 			</VapesFilterContext>
 		</Tabs.TabPane>}
 		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.liquid.images.tab')}>
-			<ImageGallery path={'/liquid/image/' + liquid.id}/>
+			<ImageGallery gallery={'/liquid/image/' + liquid.id}/>
 		</Tabs.TabPane>}
 		{!hidden?.includes('upload') && <Tabs.TabPane key={'upload'} tab={t('lab.liquid.upload.tab')}>
 			<Uploader
