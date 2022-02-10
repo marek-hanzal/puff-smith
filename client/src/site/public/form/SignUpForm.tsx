@@ -1,9 +1,10 @@
-import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {SessionDto} from "@/sdk/edde/session/dto";
 import {SignUpDto} from "@/sdk/puff-smith/api/shared/user/endpoint/dto";
 import {useSignUpMutation} from "@/sdk/puff-smith/api/shared/user/endpoint";
+import {SignUpIcon} from "@leight-core/leight/dist";
 
 export interface ISignUpFormProps extends Partial<IFormProps<void, SignUpDto, SessionDto>> {
 }
@@ -81,7 +82,7 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 			<PasswordInput autoComplete={"password"}/>
 		</FormItem>
 		<Centered>
-			<Submit icon={<SignInIcon/>} size={"large"} label={"public.sign-up.form.submit.label"}/>
+			<Submit icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.form.submit.label"}/>
 		</Centered>
 	</Form>;
 };

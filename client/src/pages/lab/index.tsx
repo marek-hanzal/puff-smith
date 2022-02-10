@@ -13,7 +13,6 @@ export default withLabLayout(function Index() {
 	>
 		<BrowserView>
 			<Template
-				style={{padding: '12px'}}
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 				label={"lab.home"}
 			/>

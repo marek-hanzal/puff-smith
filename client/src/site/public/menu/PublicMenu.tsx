@@ -1,7 +1,6 @@
-import {IMenuProps, Menu} from "@/puff-smith";
-import {CreateMenuItem, HomeIcon, MenuDivider, SignInIcon} from "@leight-core/leight";
+import {IMenuProps} from "@/puff-smith";
+import {CreateMenuItem, HomeIcon, Menu, MenuDivider, SignInIcon, SignUpIcon} from "@leight-core/leight";
 import {FC} from "react";
-import {SignUpIcon} from "@leight-core/leight";
 
 export interface IPublicMenuProps extends Partial<IMenuProps> {
 }
