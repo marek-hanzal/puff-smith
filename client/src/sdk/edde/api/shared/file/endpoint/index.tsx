@@ -52,7 +52,7 @@ export const useFilesQueryInvalidate = () => {
 export type IGcQueryParams = void;
 
 
-export const useGcMutation = createPostMutation<IGcQueryParams, void, import("@/sdk/edde/file/dto/index").GcResultDto>("Edde.Shared.File.Gc");
+export const useGcMutation = createPostMutation<IGcQueryParams, void, import("@/sdk/edde/job/dto/index").JobDto>("Edde.Shared.File.Gc");
 
 export type IRefreshQueryParams = void;
 

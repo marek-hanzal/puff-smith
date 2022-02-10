@@ -57,15 +57,3 @@ export interface FileFilterDto {
 export module FileFilterDto {
 
 }
-
-
-export interface GcResultDto {
-	hit: boolean;
-	records: number;
-	files: number;
-	runtime: number;
-}
-
-export module GcResultDto {
-
-}

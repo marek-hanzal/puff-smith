@@ -23,8 +23,8 @@ export const FileToolQuickMenu: FC<IFileToolQuickMenuProps> = ({sourceContext, c
 				disabled={gcMutation.isLoading}
 				onClick={() => {
 					gcMutation.mutate(undefined, {
-						onSuccess: data => {
-							message.success(t("shared.file.gc.success", {data: {...data, runtime: data.runtime.toFixed(2) + "s"}}));
+						onSuccess: _ => {
+							message.success(t("shared.file.gc.started"));
 							sourceContext.result.refetch();
 						}
 					});

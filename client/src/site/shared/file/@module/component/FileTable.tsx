@@ -57,7 +57,7 @@ export const FileTable: FC<IFileTableProps> = props => {
 				title: "shared.file.column.size",
 				sorter: true,
 				width: 130,
-				render: size => fileSize(size),
+				render: fileSize,
 			}),
 			column({
 				key: "ttl",
