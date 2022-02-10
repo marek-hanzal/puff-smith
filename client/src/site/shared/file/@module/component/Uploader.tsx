@@ -88,7 +88,7 @@ export const Uploader: FC<IUploaderProps> = (
 
 	async function chunk(chunk?: Blob | string) {
 		try {
-			await axios.post(discoveryContext.link(option.action, {uuid}), chunk);
+			await axios.post(discoveryContext.link(option.action, {uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
 			setBeginningOfTheChunk(endOfTheChunk);
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
