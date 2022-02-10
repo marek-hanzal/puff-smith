@@ -1,13 +1,13 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {PlotIcon, VapeIcon} from "@/puff-smith";
 import {Divider} from "antd";
-import {RecentVapeTable, VapeCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
+import {RecentVapeTable, VapeDrawerCreateButton, VapeListButton} from "@/puff-smith/site/lab/vape";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 const VapeButtonBar = () => <ButtonBar>
 	<VapeListButton size={'middle'}/>
-	<VapeCreateButton type={'primary'}/>
+	<VapeDrawerCreateButton type={'primary'}/>
 </ButtonBar>;
 
 export default withLabLayout(function Index() {
