@@ -1,13 +1,10 @@
-import {Image, Result, Space} from "antd";
-import {FilesSource, useFilesSource} from "@/sdk/edde/api/shared/file/endpoint";
+import {Divider, Image, Pagination, Result, Space} from "antd";
 import {FC, useEffect, useState} from "react";
 import {useDiscoveryContext, useLinkContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
+import {ImagesSource, useImagesSource} from "@/sdk/edde/api/shared/image/endpoint";
 import {Centered} from "@leight-core/leight/dist";
-import {FileDto} from "@/sdk/edde/file/dto";
-
-type GalleryImage = { preview: FileDto, original: FileDto };
 
 interface IImageGalleryInternalProps {
 	show?: boolean;
@@ -18,25 +15,17 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) =>
 	const [visible, setVisible] = useState(show);
 	const discoveryContext = useDiscoveryContext();
 	const linkContext = useLinkContext();
-	const fileSource = useFilesSource();
-	const [images, setImages] = useState<GalleryImage[]>([]);
+	const imagesSource = useImagesSource();
 
 	useEffect(() => {
-		if (!fileSource.result.isSuccess) {
-			return;
-		}
-		const source: any = {};
-		fileSource.result.data.items.forEach(file => {
-			(source[file.name] = source[file.name] || []).push(file);
-		});
-		setImages(Object.values<any>(source).map(item => ({preview: item[0], original: item[1]})));
-	}, [fileSource.result?.data?.count || 0]);
+		imagesSource.setSize(4);
+	}, []);
 
-	return images.length ? <>
+	return imagesSource.result.isSuccess && imagesSource.result?.data?.count > 0 ? <>
 		<Image.PreviewGroup preview={{visible, onVisibleChange: setVisible}}>
 			<Centered>
 				<Space size={'large'}>
-					{images.map(({preview, original}) => <Image
+					{imagesSource.result.data.items.map(({preview, original}) => <Image
 						height={200}
 						key={preview.id}
 						src={linkContext.link('Edde.Shared.File.Download', {fileId: preview.id}, discoveryContext)}
@@ -45,6 +34,10 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) =>
 						}}
 					/>)}
 				</Space>
+			</Centered>
+			<Divider/>
+			<Centered>
+				<Pagination {...imagesSource.pagination()} size={'default'}/>
 			</Centered>
 		</Image.PreviewGroup>
 	</> : <Result
@@ -55,18 +48,18 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) =>
 
 export interface IImageGalleryProps {
 	show?: boolean
-	path: string;
+	gallery: string;
 }
 
-export const ImageGallery: FC<IImageGalleryProps> = ({show = false, path}) => {
-	return <FilesSource
+export const ImageGallery: FC<IImageGalleryProps> = ({show = false, gallery}) => {
+	return <ImagesSource
 		filter={{
-			paths: [path, path + '/original'],
+			gallery,
 		}}
 		orderBy={{
-			path: true,
+			stamp: false,
 		}}
 	>
 		<ImageGalleryInternal show={show}/>
-	</FilesSource>
+	</ImagesSource>
 }
