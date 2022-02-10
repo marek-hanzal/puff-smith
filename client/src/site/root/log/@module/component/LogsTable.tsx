@@ -1,19 +1,19 @@
-import {DropLogsButton, LogTagsSelect, LogTypeSelect} from "@/puff-smith/site/root/log";
-import {UserSelect} from "@/puff-smith/site/root/user";
-import {UndoOutlined} from "@ant-design/icons";
+import {DropLogsButton} from "@/puff-smith/site/root/log";
 import {QuickMenu, toLocalDateTime} from "@leight-core/leight";
-import {Button, Card, Menu, Tag, Tooltip, Typography} from "antd";
+import {Menu, Tag, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ILogsSourceTableProps, LogsSourceTable} from "@/sdk/edde/api/root/log/endpoint";
+import {ILogsSourceTableProps, LogsSourceTable, useLogsOptionalFilterContext} from "@/sdk/edde/api/root/log/endpoint";
 
 export interface ILogsTableProps extends Partial<ILogsSourceTableProps> {
 }
 
 export const LogsTable: FC<ILogsTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useLogsOptionalFilterContext();
 	return <LogsSourceTable
 		scroll={{x: 2200}}
+		filter={filterContext?.filter}
 		expandable={{
 			expandedRowRender: item => (
 				<pre>
@@ -24,7 +24,7 @@ export const LogsTable: FC<ILogsTableProps> = props => {
 		}}
 		{...props}
 	>
-		{({column, sourceContext}) => [
+		{({column}) => [
 			column({
 				key: "id",
 				width: 0,
@@ -33,19 +33,6 @@ export const LogsTable: FC<ILogsTableProps> = props => {
 						<DropLogsButton
 							type={"link"}
 						/>
-					</Menu.Item>
-					<Menu.Divider/>
-					<Menu.Item>
-						<Button
-							type={"link"}
-							icon={<UndoOutlined/>}
-							onClick={() => {
-								sourceContext.setFilter(undefined);
-								sourceContext.setOrderBy(undefined);
-							}}
-						>
-							{t("shared.table.reset.button")}
-						</Button>
 					</Menu.Item>
 				</QuickMenu>
 			}),
@@ -78,31 +65,13 @@ export const LogsTable: FC<ILogsTableProps> = props => {
 				dataIndex: "type",
 				title: "root.system.log.type",
 				width: 140,
-				filterDropdown: () => <Card>
-					<LogTypeSelect
-						style={{width: "24em"}}
-						value={sourceContext.filter?.types}
-						onChange={types => sourceContext.mergeFilter({
-							types,
-						})}
-					/>
-				</Card>,
 			}),
 			column({
 				key: "tags",
 				dataIndex: "tags",
 				title: "root.system.log.tags",
 				width: 160,
-				filterDropdown: () => <Card>
-					<LogTagsSelect
-						style={{width: "24em"}}
-						value={sourceContext.filter?.tagIds}
-						onChange={tagIds => sourceContext.mergeFilter({
-							tagIds,
-						})}
-					/>
-				</Card>,
-				render: (_, {tags}) => tags.map(tag => <Tag key={tag.id}>{t("label." + tag.label)}</Tag>),
+				render: (_, {tags}) => tags.map(tag => <Tag key={tag}>{t("label." + tag)}</Tag>),
 			}),
 			column({
 				key: "user",
@@ -110,15 +79,6 @@ export const LogsTable: FC<ILogsTableProps> = props => {
 				title: "root.system.log.user",
 				width: 220,
 				render: (_, row) => row.user?.name,
-				filterDropdown: () => <Card>
-					<UserSelect
-						style={{width: "24em"}}
-						mode={"multiple"}
-						value={sourceContext.filter?.userIds}
-						allowClear
-						onChange={userIds => sourceContext.mergeFilter({userIds})}
-					/>
-				</Card>
 			}),
 			column({
 				key: "trace",

@@ -10,7 +10,7 @@ export module LogOrderByDto {
 export interface LogFilterDto {
 	types?: string[] | undefined;
 	userIds?: string[] | undefined;
-	tagIds?: string[] | undefined;
+	tags?: string[] | undefined;
 	stamp?: import("@/sdk/edde/repository/dto/index").RangeDto | undefined;
 	reference?: string | undefined;
 	id?: string | undefined;
@@ -32,7 +32,7 @@ export interface LogDto {
 	reference?: string | undefined;
 	microtime: number;
 	user?: import("@/sdk/edde/bridge/user/index").UserDto | undefined;
-	tags: import("@/sdk/edde/tag/dto/index").TagDto[];
+	tags: string[];
 }
 
 export module LogDto {

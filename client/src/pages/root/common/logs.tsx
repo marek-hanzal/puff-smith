@@ -1,6 +1,7 @@
 import {RootMenu, RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {CommonPageMenu} from "@/puff-smith/site/root/common";
-import {LogsControl} from "@/puff-smith/site/root/log";
+import {LogFilter, LogsTable} from "@/puff-smith/site/root/log";
+import {LogsFilterContext} from "@/sdk/edde/api/root/log/endpoint";
 
 export default withRootLayout(function Logs() {
 	return <RootPage
@@ -8,6 +9,9 @@ export default withRootLayout(function Logs() {
 	>
 		<RootMenu/>
 		<CommonPageMenu/>
-		<LogsControl/>
+		<LogsFilterContext>
+			<LogFilter/>
+			<LogsTable/>
+		</LogsFilterContext>
 	</RootPage>;
 });
