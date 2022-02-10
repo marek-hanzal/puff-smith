@@ -39,8 +39,16 @@ export function Comments<TComment>({form, toComment, toListItemProps = () => und
 				prefix={'lab.comment'}
 			/>
 		</Space>}
+		pagination={sourceContext.pagination()}
 		{...props}
 	>
+		{!sourceContext?.result?.data?.count && <Template
+			icon={<CommentOutlined/>}
+			label={'lab.comment.no-comments'}
+		/>}
+		{form && <List.Item>
+			{form}
+		</List.Item>}
 		{sourceContext.result.isSuccess && sourceContext.result.data.items.map(dto => {
 			const comment = toComment(dto);
 			return <List.Item key={comment.id} {...toListItemProps(dto)}>
@@ -79,12 +87,5 @@ export function Comments<TComment>({form, toComment, toListItemProps = () => und
 				/>
 			</List.Item>
 		})}
-		{!sourceContext?.result?.data?.count && <Template
-			icon={<CommentOutlined/>}
-			label={'lab.comment.no-comments'}
-		/>}
-		{form && <List.Item>
-			{form}
-		</List.Item>}
 	</List>
 }

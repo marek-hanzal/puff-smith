@@ -19,7 +19,7 @@ export const AtomizerPreviewButton: FC<IAtomizerPreviewButtonProps> = ({atomizer
 			title={'lab.atomizer.preview'}
 			{...props}
 		>
-			<AtomizerPreview atomizer={atomizer}/>
+			<AtomizerPreview forceList atomizer={atomizer}/>
 		</DrawerButton>
 		<AtomizerLinkButton
 			size={'small'}
