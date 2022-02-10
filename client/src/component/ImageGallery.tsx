@@ -9,9 +9,10 @@ import {isMobile} from "react-device-detect";
 
 interface IImageGalleryInternalProps {
 	size?: number;
+	hideEmpty?: boolean;
 }
 
-const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4}) => {
+const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmpty = false}) => {
 	const {t} = useTranslation();
 	const [visible, setVisible] = useState(false);
 	const discoveryContext = useDiscoveryContext();
@@ -41,18 +42,19 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4}) => {
 				<Pagination {...imagesSource.pagination()} size={'default'}/>
 			</Centered>
 		</Image.PreviewGroup>
-	</> : <Result
+	</> : (hideEmpty ? <></> : <Result
 		icon={<FileImageOutlined/>}
 		title={t('common.gallery.no-images')}
-	/>;
+	/>);
 }
 
 export interface IImageGalleryProps {
 	gallery: string;
 	size?: number;
+	hideEmpty?: boolean
 }
 
-export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, gallery}) => {
+export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, hideEmpty = false, gallery}) => {
 	return <ImagesSource
 		filter={{
 			gallery,
@@ -61,6 +63,6 @@ export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, gallery}) => {
 			stamp: false,
 		}}
 	>
-		<ImageGalleryInternal size={size}/>
+		<ImageGalleryInternal hideEmpty={hideEmpty} size={size}/>
 	</ImagesSource>
 }

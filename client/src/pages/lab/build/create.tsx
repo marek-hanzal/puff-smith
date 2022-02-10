@@ -97,7 +97,7 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 										<List.Item.Meta
 											description={<CoilInline inline coil={build.coil}/>}
 										/>
-										<ImageGallery size={2} gallery={'/build/image/' + build.id}/>
+										<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
 									</List.Item>)}
 								</List>
 							</>}
