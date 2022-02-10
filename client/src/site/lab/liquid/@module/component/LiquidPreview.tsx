@@ -6,7 +6,6 @@ import {LiquidComments, LiquidEditButton, LiquidInline, LiquidPlotButton} from "
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
-import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery} from "@/puff-smith";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -85,13 +84,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 			/>
 		</Tabs.TabPane>}
 		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.liquid.images.tab')}>
-			<FilesSource
-				filter={{
-					path: '/liquid/image/' + liquid.id,
-				}}
-			>
-				<ImageGallery/>
-			</FilesSource>
+			<ImageGallery path={'/liquid/image/' + liquid.id}/>
 		</Tabs.TabPane>}
 	</Tabs>
 }
