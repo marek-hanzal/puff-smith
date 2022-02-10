@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 import {ImagesSource, useImagesSource} from "@/sdk/edde/api/shared/image/endpoint";
 import {Centered} from "@leight-core/leight/dist";
+import {isMobile} from "react-device-detect";
 
 interface IImageGalleryInternalProps {
 	size?: number;
@@ -18,7 +19,7 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4}) => {
 	const imagesSource = useImagesSource();
 
 	useEffect(() => {
-		imagesSource.setSize(size);
+		imagesSource.setSize(isMobile ? 1 : size);
 	}, []);
 
 	return imagesSource.result.isSuccess && imagesSource.result?.data?.count > 0 ? <>
