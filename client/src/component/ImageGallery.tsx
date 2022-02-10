@@ -19,7 +19,7 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({show = false}) =>
 	return fileSource.result.isSuccess && fileSource.result.data.count > 0 ? <>
 		<Image.PreviewGroup preview={{visible, onVisibleChange: setVisible}}>
 			<Centered>
-				<Space>
+				<Space size={'large'}>
 					{fileSource.result.data.items.map(file => <Image
 						height={200}
 						key={file.id}
