@@ -8,13 +8,13 @@ import {BuildAge, BuildCloneButton, BuildComments, BuildEditButton, BuildPlotBut
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
-import {FilesSource} from "@/sdk/edde/api/shared/file/endpoint";
 import {ImageGallery, Ohm, PreviewTag} from "@/puff-smith";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
+import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -26,6 +26,7 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, hidden = [], ...props}) => {
 	const {t} = useTranslation();
+	const updateMutation = useUpdateMutation();
 	return <Tabs destroyInactiveTabPane size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<PreviewTemplate
@@ -97,17 +98,12 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 			<Uploader
 				icon={<FileImageOutlined/>}
 				translation={'lab.build.image'}
-				path={'/build/image/' + build.id}
+				path={'/build/image/' + build.id + '/image.raw'}
+				onSuccess={() => updateMutation.mutate()}
 			/>
 		</Tabs.TabPane>}
 		{!hidden?.includes('images') && <Tabs.TabPane key={'images'} tab={t('lab.build.images.tab')}>
-			<FilesSource
-				filter={{
-					path: '/build/image/' + build.id,
-				}}
-			>
-				<ImageGallery/>
-			</FilesSource>
+			<ImageGallery path={'/build/image/' + build.id}/>
 		</Tabs.TabPane>}
 	</Tabs>
 }

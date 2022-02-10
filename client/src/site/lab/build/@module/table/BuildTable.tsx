@@ -17,7 +17,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 	const {t} = useTranslation();
 	return <BuildsSourceTable
 		filter={filterContext?.filter}
-		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data})}
+		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data || {total: 0}})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
 		scroll={{x: 1500}}

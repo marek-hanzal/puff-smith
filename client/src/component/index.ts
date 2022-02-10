@@ -2,7 +2,6 @@ export * from "./button";
 export * from "./icon";
 export * from "./input";
 export * from "./notification";
-export * from "./GalleryButton";
 export * from "./ImageGallery";
 export * from "./InfoCard";
 export * from "./JsonPrint";

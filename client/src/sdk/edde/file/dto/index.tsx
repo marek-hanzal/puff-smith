@@ -49,6 +49,7 @@ export interface FileFilterDto {
 	userIds?: string[] | undefined;
 	paths?: string[] | undefined;
 	path?: string | undefined;
+	pathEndLike?: string | undefined;
 	mimes?: string[] | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
