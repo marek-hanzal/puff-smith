@@ -1,8 +1,8 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {PlotIcon} from "@/puff-smith";
+import {ImageGallery, PlotIcon} from "@/puff-smith";
 import {BuildComments, BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Col, Row, Tabs} from "antd";
+import {Col, List, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
@@ -14,6 +14,8 @@ import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
+import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {CoilInline} from "@/puff-smith/site/lab/coil";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -63,10 +65,10 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto>();
 	const {t} = useTranslation();
 	return isBrowser ? <Row gutter={32}>
-		<Col span={12}>
+		<Col span={10}>
 			<Form setBuildFilter={setBuildFilter}/>
 		</Col>
-		<Col span={12}>
+		<Col span={14}>
 			<Tabs destroyInactiveTabPane>
 				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
 					<Plot buildFilter={buildFilter}/>
@@ -86,7 +88,21 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 						<VapeComments/>
 					</VapeCommentsFilterContext>
 				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length || true} key={'build.images'} tab={t('lab.build.create.vape.images.tab')}>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.images'} tab={t('lab.build.create.vape.images.tab')}>
+					<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
+						<BuildsSourceConsumer>
+							{sourceContext => sourceContext.result.isSuccess && <>
+								<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
+									{sourceContext.result.data.items.map(build => <List.Item key={build.id}>
+										<List.Item.Meta
+											description={<CoilInline inline coil={build.coil}/>}
+										/>
+										<ImageGallery size={2} gallery={'/build/image/' + build.id}/>
+									</List.Item>)}
+								</List>
+							</>}
+						</BuildsSourceConsumer>
+					</BuildsSource>
 				</Tabs.TabPane>
 			</Tabs>
 		</Col>
