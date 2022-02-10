@@ -15,7 +15,7 @@ class LiquidCommentMapper extends AbstractMapper {
 	use CommentRepositoryTrait;
 	use CommentMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(LiquidCommentDto::class, [
 			'id'        => $item->id,
 			'liquid'    => $this->liquidMapper->item($this->liquidRepository->find($item->liquid_id)),

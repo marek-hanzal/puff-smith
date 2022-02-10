@@ -20,7 +20,7 @@ class MixtureMapper extends AbstractMapper {
 	use BaseRepositoryTrait;
 	use BaseMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(MixtureDto::class, [
 			'id'        => $item->id,
 			'code'      => $item->code,

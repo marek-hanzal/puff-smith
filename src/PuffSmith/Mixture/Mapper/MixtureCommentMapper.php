@@ -15,7 +15,7 @@ class MixtureCommentMapper extends AbstractMapper {
 	use CommentRepositoryTrait;
 	use CommentMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(MixtureCommentDto::class, [
 			'id'        => $item->id,
 			'mixture'   => $this->mixtureMapper->item($this->mixtureRepository->find($item->mixture_id)),

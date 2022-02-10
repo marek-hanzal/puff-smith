@@ -16,7 +16,7 @@ class DriptipMapper extends AbstractMapper {
 	use VendorRepositoryTrait;
 	use VendorMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(DriptipDto::class, [
 			'id'        => $item->id,
 			'name'      => $item->name,

@@ -20,7 +20,7 @@ class BuildMapper extends AbstractMapper {
 	use CottonRepositoryTrait;
 	use CottonMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(BuildDto::class, [
 			'id'           => $item->id,
 			'glow'         => $item->glow,

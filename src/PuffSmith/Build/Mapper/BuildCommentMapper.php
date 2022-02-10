@@ -15,7 +15,7 @@ class BuildCommentMapper extends AbstractMapper {
 	use CommentRepositoryTrait;
 	use CommentMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(BuildCommentDto::class, [
 			'id'        => $item->id,
 			'build'     => $this->buildMapper->item($this->buildRepository->find($item->build_id)),

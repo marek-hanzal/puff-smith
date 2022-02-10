@@ -24,7 +24,7 @@ class VapeMapper extends AbstractMapper {
 	use ModRepositoryTrait;
 	use ModMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(VapeDto::class, [
 			'id'        => $item->id,
 			'modId'     => ($mod = $this->modRepository->find($item->mod_id))->id,

@@ -12,7 +12,7 @@ class CoilMapper extends AbstractMapper {
 	use WireRepositoryTrait;
 	use WireMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(CoilDto::class, [
 			'id'     => $item->id,
 			'wraps'  => $item->wraps,

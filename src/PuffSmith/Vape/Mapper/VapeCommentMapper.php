@@ -15,7 +15,7 @@ class VapeCommentMapper extends AbstractMapper {
 	use CommentRepositoryTrait;
 	use CommentMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(VapeCommentDto::class, [
 			'id'        => $item->id,
 			'vape'      => $this->vapeMapper->item($this->vapeRepository->find($item->vape_id)),

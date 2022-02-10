@@ -15,7 +15,7 @@ class AtomizerCommentMapper extends AbstractMapper {
 	use CommentRepositoryTrait;
 	use CommentMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(AtomizerCommentDto::class, [
 			'id'         => $item->id,
 			'atomizer'   => $this->atomizerMapper->item($this->atomizerRepository->find($item->atomizer_id)),

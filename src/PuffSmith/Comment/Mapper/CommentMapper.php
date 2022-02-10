@@ -7,7 +7,7 @@ use Edde\Mapper\AbstractMapper;
 use PuffSmith\Comment\Dto\CommentDto;
 
 class CommentMapper extends AbstractMapper {
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(CommentDto::class, [
 			'id'      => $item->id,
 			'stamp'   => $this->isoDateNull($item->stamp),

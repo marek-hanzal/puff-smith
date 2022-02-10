@@ -12,7 +12,7 @@ class LiquidMapper extends AbstractMapper {
 	use VendorRepositoryTrait;
 	use VendorMapperTrait;
 
-	public function item($item, array $params = []) {
+	public function item($item) {
 		return $this->dtoService->fromArray(LiquidDto::class, [
 			'id'          => $item->id,
 			'pg'          => $item->pg,
