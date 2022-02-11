@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useLiquidQueryInvalidate, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -14,6 +14,7 @@ export interface IPatchLiquidFormProps extends Partial<IPatchDefaultFormProps> {
 
 export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const liquidQueryInvalidate = useLiquidQueryInvalidate();
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
@@ -27,6 +28,7 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 		})}
 		onSuccess={response => {
 			message.success(t("lab.liquid.updated.message", {data: response.response}));
+			liquidQueryInvalidate();
 			liquidsQueryInvalidate();
 			onSuccess?.(response);
 		}}

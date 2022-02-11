@@ -14,6 +14,7 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 	const modsQueryInvalidate = useModsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.mod'}
 		onSuccess={response => {
 			message.success(t("lab.mod.created.message", {data: response.response}));
 			modsQueryInvalidate();
@@ -26,12 +27,10 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.mod.name.label']}
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.mod.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -39,7 +38,6 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 		</FormItem>
 		<FormItem
 			field={'power'}
-			labels={['lab.mod.power.label']}
 		>
 			<InputNumber
 				style={{width: '100%'}}
@@ -49,7 +47,7 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<ModIcon/>} label={'lab.mod.create.submit'}/>
+			<Submit icon={<ModIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

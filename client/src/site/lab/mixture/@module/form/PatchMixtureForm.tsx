@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IPatchDefaultFormProps, PatchDefaultForm, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useMixtureQueryInvalidate, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -17,6 +17,7 @@ export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> 
 
 export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const mixtureQueryInvalidate = useMixtureQueryInvalidate();
 	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
@@ -32,6 +33,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess
 		})}
 		onSuccess={response => {
 			message.success(t("lab.mixture.update.success", {data: response.response}));
+			mixtureQueryInvalidate();
 			mixturesQueryInvalidate();
 			onSuccess?.(response);
 		}}

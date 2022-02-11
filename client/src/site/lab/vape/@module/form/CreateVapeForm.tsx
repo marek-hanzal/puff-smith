@@ -20,6 +20,7 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.vape'}
 		onSuccess={response => {
 			message.success(t("lab.vape.created.message", {data: response.response}));
 			vapesQueryInvalidate();
@@ -42,7 +43,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 			<FormItem field={'buildId'} hidden/> :
 			<FormItem
 				field={'buildId'}
-				labels={['lab.vape.buildId.label']}
 				required
 				help={<BuildTooltip/>}
 			>
@@ -51,7 +51,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 		}
 		<FormItem
 			field={'mixtureId'}
-			labels={['lab.vape.mixtureId.label']}
 			required
 			help={<MixtureTooltip/>}
 		>
@@ -59,7 +58,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 		</FormItem>
 		<FormItem
 			field={'modId'}
-			labels={['lab.vape.modId.label']}
 			required
 			help={<ModTooltip/>}
 		>
@@ -67,14 +65,13 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 		</FormItem>
 		<FormItem
 			field={'driptipId'}
-			labels={['lab.vape.driptipId.label']}
 			help={<DriptipTooltip/>}
 		>
 			<DriptipSelect allowClear/>
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<VapeIcon/>} label={'lab.vape.create.submit'}/>
+			<Submit icon={<VapeIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>;
 }
