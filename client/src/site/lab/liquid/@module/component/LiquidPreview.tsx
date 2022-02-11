@@ -1,5 +1,5 @@
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {LiquidComments, LiquidEditButton, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
@@ -11,7 +11,6 @@ import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {MixtureComments} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 

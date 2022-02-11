@@ -1,7 +1,6 @@
-import {EditIcon} from "@leight-core/leight";
+import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
 
 export interface IMixtureEditButtonProps extends Partial<IDrawerButtonProps> {

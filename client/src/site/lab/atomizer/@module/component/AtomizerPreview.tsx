@@ -1,5 +1,5 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
 import {AtomizerComments, AtomizerEditButton, AtomizerInline, AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer";
 import {Divider, Space, Tabs} from "antd";
@@ -9,7 +9,6 @@ import {BuildComments} from "@/puff-smith/site/lab/build";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 

@@ -1,7 +1,7 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {FC} from "react";
 import {Space, Typography} from "antd";
-import {useIsMobile} from "@leight-core/leight/dist";
+import {useIsMobile} from "@leight-core/leight";
 
 export interface IAtomizerInlineProps {
 	atomizer: AtomizerDto;

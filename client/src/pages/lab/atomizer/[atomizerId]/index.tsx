@@ -2,8 +2,7 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {AtomizerIcon, PlotIcon} from "@/puff-smith";
 import {AtomizerCreateButton, AtomizerPlotButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 
 export default withLabLayout(function Index() {

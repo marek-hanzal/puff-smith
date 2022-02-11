@@ -1,7 +1,6 @@
-import {Template} from "@leight-core/leight";
+import {SignUpIcon, Template} from "@leight-core/leight";
 import {PublicPage, SignUpForm, withPublicLayout} from "@/puff-smith/site/public";
 import {Divider} from "antd";
-import {SignUpIcon} from "@leight-core/leight/dist";
 
 export default withPublicLayout(function Login() {
 	return <PublicPage

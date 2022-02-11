@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {CreateBoosterForm} from "@/puff-smith/site/lab/booster";
-import {useOptionalFormItemContext} from "@leight-core/leight/dist";
+import {useOptionalFormItemContext} from "@leight-core/leight";
 
 export interface IBoosterTooltipProps extends Partial<IFormTooltipProps> {
 }

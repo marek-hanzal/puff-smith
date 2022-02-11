@@ -1,8 +1,7 @@
 import {LabMenu, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {FullLogoIcon, LiquidIcon, LogoIcon} from "@/puff-smith";
-import {Template} from "@leight-core/leight";
+import {Template, useIsMobile} from "@leight-core/leight";
 import {BrowserView, MobileView} from "react-device-detect";
-import {useIsMobile} from "@leight-core/leight/dist";
 
 export default withLabLayout(function Index() {
 	const isMobile = useIsMobile();

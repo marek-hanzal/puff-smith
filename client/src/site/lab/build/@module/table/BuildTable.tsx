@@ -6,9 +6,8 @@ import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
 import {Ohm, SimpleRating} from "@/puff-smith";
-import {ButtonBar} from "@leight-core/leight/dist";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }

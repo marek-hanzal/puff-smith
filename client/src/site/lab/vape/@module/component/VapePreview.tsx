@@ -1,6 +1,6 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {durationOf, Preview, toLocalDateTime} from "@leight-core/leight";
+import {ButtonBar, durationOf, Preview, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
 import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
@@ -10,7 +10,6 @@ import {VapeCloneButton, VapeComments, VapeEditButton, VapeRateButton} from "@/p
 import {CommonRateInput} from "@/puff-smith";
 import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
 import {AtomizerComments, AtomizerInline} from "@/puff-smith/site/lab/atomizer";
-import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;

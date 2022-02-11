@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {IPreviewProps, Preview, PreviewBool, toLocalDateTime} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
@@ -13,7 +13,6 @@ import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/l
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
-import {ButtonBar, PreviewTemplate} from "@leight-core/leight/dist";
 import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;

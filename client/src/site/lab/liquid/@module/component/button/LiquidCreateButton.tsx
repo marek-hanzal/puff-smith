@@ -1,6 +1,5 @@
-import {CreateIcon} from "@leight-core/leight";
+import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {CreateLiquidForm} from "@/puff-smith/site/lab/liquid";
 
 export interface ILiquidCreateButtonProps extends Partial<IDrawerButtonProps> {

@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
 import {CreateCottonForm} from "@/puff-smith/site/lab/cotton";
-import {useOptionalFormItemContext} from "@leight-core/leight/dist";
+import {useOptionalFormItemContext} from "@leight-core/leight";
 
 export interface ICottonTooltipProps extends Partial<IFormTooltipProps> {
 }

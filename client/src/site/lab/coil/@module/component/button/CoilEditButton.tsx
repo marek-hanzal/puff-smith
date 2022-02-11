@@ -1,7 +1,6 @@
-import {EditIcon} from "@leight-core/leight";
+import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {PatchCoilForm} from "@/puff-smith/site/lab/coil";
 
 export interface ICoilEditButtonProps extends Partial<IDrawerButtonProps> {

@@ -2,9 +2,8 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
 import {BuildCreateButton, BuildEditButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {BarChartOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 import {Menu} from "antd";
 
 export default withLabLayout(function Index() {

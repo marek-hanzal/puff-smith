@@ -1,10 +1,9 @@
 import {FC} from "react";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {WireInline} from "@/puff-smith/site/lab/wire";
 import {CoilEditButton} from "@/puff-smith/site/lab/coil";
 import {Divider} from "antd";
-import {ButtonBar, PreviewBool, PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 	coil: CoilDto;

@@ -1,10 +1,9 @@
-import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, Submit} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {SessionDto} from "@/sdk/edde/session/dto";
 import {SignUpDto} from "@/sdk/puff-smith/api/shared/user/endpoint/dto";
 import {useSignUpMutation} from "@/sdk/puff-smith/api/shared/user/endpoint";
-import {SignUpIcon} from "@leight-core/leight/dist";
 
 export interface ISignUpFormProps extends Partial<IFormProps<void, SignUpDto, SessionDto>> {
 }

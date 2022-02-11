@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {Space, Typography} from "antd";
-import {useIsMobile} from "@leight-core/leight/dist";
+import {useIsMobile} from "@leight-core/leight";
 
 export interface ILiquidInlineProps {
 	liquid: LiquidDto;

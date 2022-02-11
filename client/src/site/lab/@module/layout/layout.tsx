@@ -6,13 +6,11 @@ import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import i18n from "i18next";
 import {LockOutlined} from "@ant-design/icons";
 import {Footer, Header, LabMenu, UserSettingsCheck} from "@/puff-smith/site/lab";
-import {useIsMobile} from "@leight-core/leight/dist";
 
 export interface ILabLayoutProps {
 }
 
 export const LabLayout: FC<ILabLayoutProps> = ({children}) => {
-	const isMobile = useIsMobile();
 	const LabLayoutInternal = () => {
 		const {session} = usePuffSmithSessionContext();
 		const result = useSessionCheck();
@@ -43,7 +41,7 @@ export const LabLayout: FC<ILabLayoutProps> = ({children}) => {
 		</LoaderLayout>;
 	};
 
-	return <AppLayout defaultCollapsed={!isMobile}>
+	return <AppLayout>
 		<NotificationProvider>
 			<LabLayoutInternal/>
 		</NotificationProvider>

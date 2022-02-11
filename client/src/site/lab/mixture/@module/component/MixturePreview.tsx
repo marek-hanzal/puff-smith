@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {asDayjs, durationOf, Preview, PreviewBool, toLocalDate} from "@leight-core/leight";
+import {asDayjs, durationOf, Preview, PreviewBool, PreviewTemplate, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidComments, LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
@@ -9,7 +9,6 @@ import {MixtureComments, MixtureEditButton, MixtureInline, MixturePlotButton, Mi
 import {useTranslation} from "react-i18next";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto;

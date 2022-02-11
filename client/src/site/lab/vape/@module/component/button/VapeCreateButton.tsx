@@ -1,6 +1,5 @@
-import {CreateIcon} from "@leight-core/leight";
+import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {CreateVapeForm, ICreateVapeFormProps} from "@/puff-smith/site/lab/vape";
 
 export interface IVapeCreateButtonProps extends Partial<IDrawerButtonProps> {

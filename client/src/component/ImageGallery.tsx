@@ -1,10 +1,9 @@
 import {Divider, Image, Pagination, Result, Space} from "antd";
 import {FC, useEffect, useState} from "react";
-import {useDiscoveryContext, useLinkContext} from "@leight-core/leight";
+import {Centered, useDiscoveryContext, useIsMobile, useLinkContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 import {ImagesSource, useImagesSource} from "@/sdk/edde/api/shared/image/endpoint";
-import {Centered, useIsMobile} from "@leight-core/leight/dist";
 
 interface IImageGalleryInternalProps {
 	size?: number;

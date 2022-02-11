@@ -2,8 +2,7 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {CoilCreateButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {CoilPage} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 
 export default withLabLayout(function Index() {

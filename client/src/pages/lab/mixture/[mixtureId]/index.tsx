@@ -2,11 +2,10 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixtureCreateButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {Breadcrumbs, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Menu, Space} from "antd";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 interface IMixtureButtonBarProps {
 	mixture: MixtureDto;

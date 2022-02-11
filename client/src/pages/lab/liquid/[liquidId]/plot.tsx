@@ -2,10 +2,9 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider, Menu} from "antd";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 import {PlotIcon} from "@/puff-smith";
 
 export default withLabLayout(function Plot() {

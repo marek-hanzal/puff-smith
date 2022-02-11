@@ -1,7 +1,6 @@
-import {EditIcon} from "@leight-core/leight";
+import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
 import {PatchBuildForm} from "@/puff-smith/site/lab/build";
 
 export interface IBuildEditButtonProps extends Partial<IDrawerButtonProps> {

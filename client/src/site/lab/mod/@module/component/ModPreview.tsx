@@ -1,8 +1,7 @@
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-import {PreviewTemplate} from "@leight-core/leight/dist";
 
 export interface IModPreviewProps extends Partial<IPreviewProps> {
 	mod: ModDto

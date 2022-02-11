@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC, ReactNode} from "react";
-import {Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
+import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, message} from "antd";
@@ -11,7 +11,6 @@ import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
-import {ButtonBar} from "@leight-core/leight/dist";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {

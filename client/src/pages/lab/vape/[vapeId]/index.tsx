@@ -2,8 +2,7 @@ import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {CloneIcon, VapeIcon} from "@/puff-smith";
 import {VapeDrawerCreateButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 
 const VapeButtonBar = () => <ButtonBar>

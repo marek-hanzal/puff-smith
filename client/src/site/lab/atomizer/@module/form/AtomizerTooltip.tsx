@@ -2,7 +2,7 @@ import {FC} from "react";
 import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {useOptionalFormItemContext} from "@leight-core/leight/dist";
+import {useOptionalFormItemContext} from "@leight-core/leight";
 
 export interface IAtomizerTooltipProps extends Partial<IFormTooltipProps> {
 }

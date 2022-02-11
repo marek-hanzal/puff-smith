@@ -2,9 +2,8 @@ import {AtomizersSourceTable, IAtomizersSourceTableProps} from "@/sdk/puff-smith
 import {FC} from "react";
 import {AtomizerLinkButton, AtomizerListItem, AtomizerPreviewButton, AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
-import {useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {ButtonBar} from "@leight-core/leight/dist";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
 }

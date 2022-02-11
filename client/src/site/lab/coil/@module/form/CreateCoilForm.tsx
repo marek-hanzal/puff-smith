@@ -1,13 +1,12 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {CoilIcon} from "@/puff-smith";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
-import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 	coil?: CoilDto;

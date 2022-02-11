@@ -2,7 +2,7 @@ import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Divider, Space, Typography} from "antd";
 import {ArrowsAltOutlined, ReloadOutlined} from "@ant-design/icons";
-import {useIsMobile} from "@leight-core/leight/dist";
+import {useIsMobile} from "@leight-core/leight";
 
 export interface ICoilInlineProps {
 	coil: CoilDto;
