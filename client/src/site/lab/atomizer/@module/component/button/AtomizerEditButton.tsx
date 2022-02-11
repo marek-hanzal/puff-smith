@@ -1,19 +1,21 @@
-import {ButtonLink, EditIcon, IButtonLinkProps} from "@leight-core/leight";
+import {EditIcon} from "@leight-core/leight";
 import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 
-export interface IAtomizerEditButtonProps extends Partial<IButtonLinkProps> {
-	atomizer: AtomizerDto
+export interface IAtomizerEditButtonProps extends Partial<IDrawerButtonProps> {
+	atomizer: AtomizerDto;
 }
 
 export const AtomizerEditButton: FC<IAtomizerEditButtonProps> = ({atomizer, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/atomizer/[atomizerId]/edit'}
-		query={{atomizerId: atomizer.id}}
 		icon={<EditIcon/>}
 		title={'lab.atomizer.button.edit'}
 		{...props}
-	/>;
+	>
+		<PatchAtomizerForm atomizer={atomizer}/>
+	</DrawerButton>
 }

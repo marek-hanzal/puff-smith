@@ -1,16 +1,19 @@
-import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/leight";
+import {CreateIcon} from "@leight-core/leight";
 import {FC} from "react";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
 
-export interface IAtomizerCreateButtonProps extends Partial<IButtonLinkProps> {
+export interface IAtomizerCreateButtonProps extends Partial<IDrawerButtonProps> {
 }
 
 export const AtomizerCreateButton: FC<IAtomizerCreateButtonProps> = props => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/atomizer/create'}
 		icon={<CreateIcon/>}
 		title={'lab.atomizer.button.create'}
 		{...props}
-	/>;
+	>
+		<CreateAtomizerForm/>
+	</DrawerButton>
 }
