@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {WireInline} from "@/puff-smith/site/lab/wire";
-import {CoilCloneButton, CoilEditButton} from "@/puff-smith/site/lab/coil";
+import {CoilEditButton} from "@/puff-smith/site/lab/coil";
 import {Divider} from "antd";
 import {ButtonBar, PreviewBool, PreviewTemplate} from "@leight-core/leight/dist";
 
@@ -18,7 +18,6 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 			extra={<>
 				<ButtonBar>
 					<CoilEditButton coil={coil}/>
-					<CoilCloneButton coil={coil}/>
 				</ButtonBar>
 				<Divider/>
 			</>}

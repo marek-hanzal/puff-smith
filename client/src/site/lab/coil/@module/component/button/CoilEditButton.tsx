@@ -1,19 +1,21 @@
-import {ButtonLink, EditIcon, IButtonLinkProps} from "@leight-core/leight";
+import {EditIcon} from "@leight-core/leight";
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {PatchCoilForm} from "@/puff-smith/site/lab/coil";
 
-export interface ICoilEditButtonProps extends Partial<IButtonLinkProps> {
+export interface ICoilEditButtonProps extends Partial<IDrawerButtonProps> {
 	coil: CoilDto
 }
 
 export const CoilEditButton: FC<ICoilEditButtonProps> = ({coil, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/coil/[coilId]/edit'}
-		query={{coilId: coil.id}}
 		icon={<EditIcon/>}
 		title={'lab.coil.button.edit'}
 		{...props}
-	/>;
+	>
+		<PatchCoilForm coil={coil}/>
+	</DrawerButton>
 }

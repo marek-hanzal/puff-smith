@@ -1,21 +1,15 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
-import {CoilCreateButton, CoilFilter, CoilListButton, CoilTable} from "@/puff-smith/site/lab/coil";
-import {Divider} from "antd";
-import {useTranslation} from "react-i18next";
+import {Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
+import {Menu} from "antd";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
-const CoilButtonBar = () => <ButtonBar>
-	<CoilListButton size={'middle'}/>
-	<CoilCreateButton type={'primary'}/>
-</ButtonBar>
-
 export default withLabLayout(function Index() {
-	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.coil"}
+		collapsed
 		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumbs>
@@ -29,22 +23,17 @@ export default withLabLayout(function Index() {
 			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
-			{CreateMenuItem('lab.coil.button.create', '/lab/coil/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.coil.button.list', '/lab/coil/list', <ListIcon/>)}
+			<Menu.Item>
+				<CoilCreateButton/>
+			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<CoilButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<CoilCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
-		<Template
-			span={24}
-			mobileExtra={<>
-				<CoilButtonBar/>
-				<Divider/>
-			</>}
-		>
-			<CoilsFilterContext>
-				<CoilFilter/>
-				<CoilTable/>
-			</CoilsFilterContext>
-		</Template>
+		<CoilsFilterContext>
+			<CoilFilter/>
+			<CoilTable/>
+		</CoilsFilterContext>
 	</LabPage>;
 });
