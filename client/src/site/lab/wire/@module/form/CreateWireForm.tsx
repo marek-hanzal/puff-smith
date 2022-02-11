@@ -14,6 +14,7 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 	const wiresQueryInvalidate = useWiresQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.wire'}
 		onSuccess={response => {
 			message.success(t("lab.wire.create.success", {data: response.response}));
 			wiresQueryInvalidate();
@@ -23,12 +24,10 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.wire.name.label']}
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.wire.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -36,17 +35,15 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 		</FormItem>
 		<FormItem
 			field={'description'}
-			labels={['lab.wire.description.label']}
 		/>
 		<FormItem
 			field={'ga'}
-			labels={['lab.wire.ga.label']}
 		>
 			<InputNumber style={{width: '100%'}} min={20} max={48}/>
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<WireIcon/>} label={'lab.wire.create.submit'}/>
+			<Submit icon={<WireIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

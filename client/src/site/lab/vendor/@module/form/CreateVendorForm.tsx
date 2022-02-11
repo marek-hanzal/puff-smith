@@ -13,6 +13,7 @@ export const CreateVendorForm: FC<ICreateVendorFormProps> = ({onSuccess, ...prop
 	const vendorsQueryInvalidate = useVendorsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.vendor'}
 		onSuccess={response => {
 			message.success(t("lab.vendor.create.success", {data: response.response}));
 			vendorsQueryInvalidate();
@@ -22,13 +23,12 @@ export const CreateVendorForm: FC<ICreateVendorFormProps> = ({onSuccess, ...prop
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.vendor.name.label']}
-			tooltip={'lab.vendor.name.label.tooltip'}
+			hasTooltip
 			required
 		/>
 		<Divider/>
 		<Centered>
-			<Submit icon={<VendorIcon/>} label={'lab.vendor.create.submit'}/>
+			<Submit icon={<VendorIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }
