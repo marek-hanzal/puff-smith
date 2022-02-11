@@ -23,6 +23,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.build'}
 		toForm={() => ({
 			coils: 1,
 			coilOffset: 0,
@@ -52,7 +53,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		<Card title={t('lab.build.build.title')}>
 			<FormItem
 				field={'atomizerId'}
-				labels={['lab.build.atomizerId.label']}
 				required
 				help={<AtomizerTooltip/>}
 			>
@@ -60,7 +60,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			</FormItem>
 			<FormItem
 				field={'cottonId'}
-				labels={['lab.build.cottonId.label']}
 				required
 				help={<CottonTooltip/>}
 			>
@@ -68,17 +67,15 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			</FormItem>
 			<FormItem
 				field={'created'}
-				labels={['lab.build.created.label']}
 			>
 				<DatePicker showTime/>
 			</FormItem>
 		</Card>
 		<Divider/>
 		<Card title={t('lab.build.coil.title')}>
-			<ItemGroup prefix={'coil'}>
+			<ItemGroup prefix={'coil'} translation={'lab.coil'}>
 				<FormItem
 					field={'wireId'}
-					labels={['lab.coil.wireId.label']}
 					required
 					help={<WireTooltip/>}
 				>
@@ -86,21 +83,18 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				</FormItem>
 				<FormItem
 					field={'wraps'}
-					labels={['lab.coil.wraps.label']}
-					tooltip={t('lab.coil.wraps.label.tooltip')}
+					hasTooltip
 					required
 				>
 					<WrapsInput/>
 				</FormItem>
 				<FormItem
 					field={'size'}
-					labels={['lab.coil.size.label']}
 				>
 					<SizeInput/>
 				</FormItem>
 				<SwitchItem
 					field={'spaced'}
-					labels={['lab.coil.spaced.label']}
 				/>
 			</ItemGroup>
 		</Card>
@@ -108,47 +102,41 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		<Card title={t('lab.build.advanced.title')}>
 			<FormItem
 				field={'coilOffset'}
-				labels={['lab.build.coil.label']}
-				tooltip={t('lab.build.coil.label.tooltip')}
+				hasTooltip
 			>
 				<CoilOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'cottonOffset'}
-				labels={['lab.build.cotton.label']}
-				tooltip={t('lab.build.cotton.label.tooltip')}
+				hasTooltip
 			>
 				<CottonOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'glow'}
-				labels={['lab.build.glow.label']}
-				tooltip={t('lab.build.glow.label.tooltip')}
+				hasTooltip
 			>
 				<GlowInput/>
 			</FormItem>
 			<FormItem
 				field={'coils'}
-				labels={['lab.build.coils.label']}
 			>
 				<CoilCountInput/>
 			</FormItem>
 			<FormItem
 				field={'ohm'}
-				labels={['lab.build.ohm.label']}
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>
 			<SwitchItem
 				field={'deactivate'}
-				tooltip={t('lab.build.deactivate.label.tooltip')}
-				labels={['lab.build.deactivate.label']}
+				hasTooltip
 			/>
 		</Card>
 		<Divider/>
 		<Centered>
 			<ButtonBar align={'baseline'}>
-				<Submit icon={<BuildIcon/>} label={'lab.build.create.submit'}/>
+				<Submit icon={<BuildIcon/>} label={'create.submit'}/>
 				{buttons}
 			</ButtonBar>
 		</Centered>

@@ -14,6 +14,7 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 	const boostersQueryInvalidate = useBoostersQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.booster'}
 		onSuccess={response => {
 			message.success(t("lab.booster.create.success", {data: response.response}));
 			boostersQueryInvalidate();
@@ -27,12 +28,10 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.booster.name.label']}
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.booster.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -40,7 +39,6 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<FormItem
 			field={'pg'}
-			labels={['lab.booster.pg.label']}
 			required
 		>
 			<InputNumber
@@ -51,7 +49,6 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<FormItem
 			field={'vg'}
-			labels={['lab.booster.vg.label']}
 			required
 		>
 			<InputNumber
@@ -62,7 +59,6 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<FormItem
 			field={'nicotine'}
-			labels={['lab.booster.nicotine.label']}
 			required
 		>
 			<Slider
@@ -83,7 +79,6 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<FormItem
 			field={'volume'}
-			labels={['lab.booster.volume.label']}
 			required
 		>
 			<InputNumber
@@ -94,7 +89,7 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<BoosterIcon/>} label={'lab.booster.create.submit'}/>
+			<Submit icon={<BoosterIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

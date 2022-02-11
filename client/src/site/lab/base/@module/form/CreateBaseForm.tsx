@@ -14,6 +14,7 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 	const basesQueryInvalidate = useBasesQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.base'}
 		onSuccess={response => {
 			message.success(t("lab.base.create.success", {data: response.response}));
 			basesQueryInvalidate();
@@ -23,12 +24,10 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.base.name.label']}
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.base.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -36,7 +35,6 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 		</FormItem>
 		<FormItem
 			field={'pg'}
-			labels={['lab.base.pg.label']}
 			required
 		>
 			<InputNumber
@@ -47,7 +45,6 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 		</FormItem>
 		<FormItem
 			field={'vg'}
-			labels={['lab.base.vg.label']}
 			required
 		>
 			<InputNumber
@@ -58,7 +55,7 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<BaseIcon/>} label={'lab.base.create.submit'}/>
+			<Submit icon={<BaseIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

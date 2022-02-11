@@ -17,6 +17,7 @@ export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSucc
 	const atomizersQueryInvalidate = useAtomizersQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
+		translation={'lab.atomizer'}
 		onSuccess={response => {
 			message.success(t("lab.atomizer.update.message", {data: response.response}));
 			atomizerQueryInvalidate();
@@ -32,10 +33,12 @@ export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSucc
 		})}
 		{...props}
 	>
-		<FormItem field={'name'} labels={['lab.atomizer.name.label']} required/>
+		<FormItem
+			field={'name'}
+			required
+		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.atomizer.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -43,7 +46,7 @@ export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSucc
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<AtomizerIcon/>} label={'lab.atomizer.update.submit'}/>
+			<Submit icon={<AtomizerIcon/>} label={'update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }
