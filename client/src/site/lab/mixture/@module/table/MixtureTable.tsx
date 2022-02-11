@@ -16,7 +16,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 	return <MixturesSourceTable
 		filter={filterContext?.filter}
 		scroll={{x: 2200}}
-		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data})}
+		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data} || {total: 0})}
 		listItemRender={mixture => <MixtureListItem mixture={mixture}/>}
 		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
 		{...props}
@@ -32,18 +32,21 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				title: "lab.mixture.table.liquid",
 				width: 300,
 				render: (_, mixture) => <MixturePreviewButton title={mixture.liquid.name} mixture={mixture}/>,
+				sorter: true,
 			}),
 			column({
 				key: "code",
 				dataIndex: "code",
 				title: "lab.mixture.table.code",
 				width: 120,
+				sorter: true,
 			}),
 			column({
 				key: "age",
 				title: "lab.mixture.table.age",
 				render: (_, mixture) => durationOf(mixture.mixed).humanize(),
 				width: 140,
+				sorter: true,
 			}),
 			column({
 				key: "steep",
@@ -56,14 +59,16 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				key: "pgvg",
 				title: "lab.mixture.table.pgvg",
 				width: 100,
-				render: (_, mixture) => <>{mixture.pg}/{mixture.vg}</>
+				render: (_, mixture) => <>{mixture.pg}/{mixture.vg}</>,
+				sorter: true,
 			}),
 			column({
 				key: "nicotine",
 				dataIndex: "nicotine",
 				title: "lab.mixture.table.nicotine",
-				width: 140,
-				render: nicotine => <>{nicotine}mg</>
+				width: 160,
+				render: nicotine => <>{nicotine}mg</>,
+				sorter: true,
 			}),
 			column({
 				key: "base",
@@ -82,18 +87,21 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				title: "lab.mixture.table.mixed",
 				width: 160,
 				render: (_, mixture) => toLocalDate(mixture.mixed),
+				sorter: true,
 			}),
 			column({
 				key: "volume",
 				dataIndex: "volume",
 				title: "lab.mixture.table.volume",
 				width: 120,
-				render: volume => <>{volume}ml</>
+				render: volume => <>{volume}ml</>,
+				sorter: true,
 			}),
 			column({
 				key: "expires",
 				title: "lab.mixture.table.expires",
 				render: (_, mixture) => asDayjs(mixture.expires)?.format('MMMM YYYY') || '-',
+				sorter: true,
 			}),
 		]}
 	</MixturesSourceTable>

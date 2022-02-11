@@ -26,6 +26,11 @@ class MixtureRepository extends AbstractRepository {
 			'$_name_unique',
 			'$_code_unique',
 		]);
+		$this->orderByMap = [
+			'liquid' => 'l.name',
+			'age'    => '$.mixed',
+			'pgvg'   => '$.pg',
+		];
 	}
 
 	public function select($fields = null): Select {
