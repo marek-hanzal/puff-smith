@@ -1,35 +1,22 @@
 import {CoilIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
-import {useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
-import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {CreateCoilForm} from "@/puff-smith/site/lab/coil";
-import {message} from "antd";
+import {useOptionalFormItemContext} from "@leight-core/leight/dist";
 
 export interface ICoilTooltipProps extends Partial<IFormTooltipProps> {
 }
 
 export const CoilTooltip: FC<ICoilTooltipProps> = props => {
-	const {t} = useTranslation();
-	const coilsQueryInvalidate = useCoilsQueryInvalidate();
-	const formContext = useFormContext();
+	const formItem = useOptionalFormItemContext();
 	return <FormTooltip
 		icon={<CoilIcon/>}
 		label={'lab.coil'}
 		{...props}
 	>
-		<DrawerContext.Consumer>
-			{drawerContext => <CreateCoilForm
-				onSuccess={({response}) => {
-					message.success(t("lab.coil.create.success", {data: response}));
-					coilsQueryInvalidate().then(() => {
-						drawerContext.setVisible(false);
-						formContext.setValues({
-							coilId: response.id,
-						});
-					});
-				}}
-			/>}
-		</DrawerContext.Consumer>
+		<CreateCoilForm
+			onSuccess={({response}) => {
+				formItem?.setValue(response.id);
+			}}
+		/>
 	</FormTooltip>
 }

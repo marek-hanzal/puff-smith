@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC, ReactNode} from "react";
 import {Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -18,8 +18,9 @@ export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> 
 	buttons?: ReactNode;
 }
 
-export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, ...props}) => {
+export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
 		toForm={() => ({
@@ -37,9 +38,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, ...p
 			description: null,
 			deactivate: true,
 		})}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.build.created.message", {data: response}));
-			navigate("/lab/build/list");
+		onSuccess={response => {
+			message.success(t("lab.build.created.message", {data: response.response}));
+			buildsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_build_name_unique] of [z_build].": {id: ["name"], error},

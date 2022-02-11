@@ -1,16 +1,24 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/booster/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useBoostersQueryInvalidate} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, Slider} from "antd";
+import {Divider, InputNumber, message, Slider} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {BoosterIcon} from "@/puff-smith";
+import {useTranslation} from "react-i18next";
 
 export interface ICreateBoosterFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CreateBoosterForm: FC<ICreateBoosterFormProps> = props => {
+export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...props}) => {
+	const {t} = useTranslation();
+	const boostersQueryInvalidate = useBoostersQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		onSuccess={response => {
+			message.success(t("lab.booster.create.success", {data: response.response}));
+			boostersQueryInvalidate();
+			onSuccess?.(response);
+		}}
 		toForm={() => ({
 			nicotine: 6,
 			volume: 10,

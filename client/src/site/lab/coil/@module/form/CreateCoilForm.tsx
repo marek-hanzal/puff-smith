@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
@@ -13,13 +13,15 @@ export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 	coil?: CoilDto;
 }
 
-export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, ...props}) => {
+export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.coil.created.message", {data: response}));
-			navigate("/lab/coil/list");
+		onSuccess={response => {
+			message.success(t("lab.coil.created.message", {data: response.response}));
+			coilsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toForm={() => ({
 			wraps: 7,

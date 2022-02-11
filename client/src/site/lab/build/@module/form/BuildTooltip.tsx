@@ -1,34 +1,21 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
-import {useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {DrawerContext, useFormContext} from "@leight-core/leight";
 import {CreateBuildForm} from "@/puff-smith/site/lab/build";
-import {message} from "antd";
+import {useOptionalFormItemContext} from "@leight-core/leight/dist";
 
 export interface IBuildTooltipProps extends Partial<IFormTooltipProps> {
 }
 
 export const BuildTooltip: FC<IBuildTooltipProps> = props => {
-	const {t} = useTranslation();
-	const buildsQueryInvalidate = useBuildsQueryInvalidate();
-	const formContext = useFormContext();
+	const formItem = useOptionalFormItemContext();
 	return <FormTooltip
 		label={'lab.build'}
 		{...props}
 	>
-		<DrawerContext.Consumer>
-			{drawerContext => <CreateBuildForm
-				onSuccess={({response}) => {
-					message.success(t("lab.build.create.success", {data: response}));
-					buildsQueryInvalidate().then(() => {
-						drawerContext.setVisible(false);
-						formContext.setValues({
-							buildId: response.id,
-						});
-					});
-				}}
-			/>}
-		</DrawerContext.Consumer>
+		<CreateBuildForm
+			onSuccess={({response}) => {
+				formItem?.setValue(response.id);
+			}}
+		/>
 	</FormTooltip>
 }
