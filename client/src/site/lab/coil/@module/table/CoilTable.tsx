@@ -16,7 +16,7 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext?.result?.data})}
 		listItemRender={coil => <CoilListItem coil={coil}/>}
-		scroll={{x: 1600}}
+		scroll={{x: 1500}}
 		{...props}
 	>
 		{({column}) => [

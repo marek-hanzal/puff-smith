@@ -18,6 +18,7 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, onSuccess, ...pr
 	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.coil'}
 		onSuccess={response => {
 			message.success(t("lab.coil.created.message", {data: response.response}));
 			coilsQueryInvalidate();
@@ -33,7 +34,6 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, onSuccess, ...pr
 	>
 		<FormItem
 			field={'wireId'}
-			labels={'lab.coil.wireId.label'}
 			required
 			help={<WireTooltip/>}
 		>
@@ -41,25 +41,22 @@ export const CreateCoilForm: FC<ICreateCoilFormProps> = ({coil, onSuccess, ...pr
 		</FormItem>
 		<FormItem
 			field={'wraps'}
-			labels={'lab.coil.wraps.label'}
-			tooltip={t('lab.coil.wraps.label.tooltip')}
+			hasTooltip
 			required
 		>
 			<WrapsInput/>
 		</FormItem>
 		<FormItem
 			field={'size'}
-			labels={'lab.coil.size.label'}
 		>
 			<SizeInput/>
 		</FormItem>
 		<SwitchItem
 			field={'spaced'}
-			labels={['lab.coil.spaced.label']}
 		/>
 		<Divider/>
 		<Centered>
-			<Submit icon={<CoilIcon/>} label={'lab.coil.create.submit'}/>
+			<Submit icon={<CoilIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

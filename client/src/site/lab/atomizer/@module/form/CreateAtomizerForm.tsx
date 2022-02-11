@@ -14,6 +14,7 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = ({onSuccess, ...
 	const atomizersQueryInvalidate = useAtomizersQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.atomizer'}
 		onSuccess={response => {
 			message.success(t("lab.atomizer.create.success", {data: response.response}));
 			atomizersQueryInvalidate();
@@ -23,12 +24,10 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = ({onSuccess, ...
 	>
 		<FormItem
 			field={'name'}
-			labels={'lab.atomizer.name.label'}
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={'lab.atomizer.vendorId.label'}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -36,7 +35,7 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = ({onSuccess, ...
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<AtomizerIcon/>} label={'lab.atomizer.create.submit'}/>
+			<Submit icon={<AtomizerIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {CoilIcon} from "@/puff-smith";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 	coil: CoilDto;
@@ -17,6 +18,7 @@ export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, onSuccess, ...prop
 	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
+		translation={'lab.coil'}
 		onSuccess={response => {
 			message.success(t("lab.coil.update.message", {data: response.response}));
 			coilsQueryInvalidate();
@@ -33,7 +35,6 @@ export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, onSuccess, ...prop
 	>
 		<FormItem
 			field={'wireId'}
-			labels={['lab.coil.wireId.label']}
 			required
 			help={<WireTooltip/>}
 		>
@@ -41,21 +42,20 @@ export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, onSuccess, ...prop
 		</FormItem>
 		<FormItem
 			field={'wraps'}
-			labels={['lab.coil.wraps.label']}
-			tooltip={t('lab.coil.wraps.label.tooltip')}
+			hasTooltip
 			required
 		>
 			<WrapsInput/>
 		</FormItem>
 		<FormItem
 			field={'size'}
-			labels={['lab.coil.size.label']}
 		>
 			<SizeInput/>
 		</FormItem>
+		<SwitchItem field={'spaced'}/>
 		<Divider/>
 		<Centered>
-			<Submit icon={<CoilIcon/>} label={'lab.coil.update.submit'}/>
+			<Submit icon={<CoilIcon/>} label={'update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }
