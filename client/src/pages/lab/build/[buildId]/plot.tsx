@@ -1,8 +1,8 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider} from "antd";
-import {BuildCreateButton, BuildListButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, useParams} from "@leight-core/leight";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
@@ -25,10 +25,6 @@ export default withLabLayout(function Plot() {
 				title={'lab.build.label'}
 			/>
 			<BreadcrumbButton
-				href={'/lab/build/list'}
-				title={'lab.build.list.label'}
-			/>
-			<BreadcrumbButton
 				href={'/lab/build/[buildId]'}
 				query={{buildId}}
 				title={'lab.build.index.label'}
@@ -40,11 +36,9 @@ export default withLabLayout(function Plot() {
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
-			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={({entity}) => <ButtonBar>
-			<BuildListButton/>
-			{entity && <BuildVapeButton build={entity}/>}
+		extraBrowser={({entity}) => entity && <ButtonBar>
+			<BuildVapeButton build={entity}/>
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

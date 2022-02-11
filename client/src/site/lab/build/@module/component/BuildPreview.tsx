@@ -4,7 +4,7 @@ import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {BuildAge, BuildCloneButton, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -35,8 +35,12 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				browserExtra={<>
 					<ButtonBar>
 						<BuildEditButton build={build}/>
-						<BuildCloneButton build={build}/>
-						<BuildVapeButton build={build}/>
+						<BuildVapeButton
+							build={build}
+							onSuccess={({navigate}) => {
+								navigate('/lab/build/[buildId]/plot', {buildId: build.id});
+							}}
+						/>
 					</ButtonBar>
 					<Divider/>
 				</>}

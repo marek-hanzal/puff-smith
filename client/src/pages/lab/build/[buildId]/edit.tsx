@@ -1,21 +1,9 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {BuildIcon} from "@/puff-smith";
-import {Divider} from "antd";
-import {BuildCloneButton, BuildCreateButton, BuildLinkButton, BuildListButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, PatchBuildForm} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
-import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {FC} from "react";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Template} from "@leight-core/leight/dist";
 
-interface IBuildButtonBarProps {
-	build: BuildDto;
-}
-
-const BuildButtonBar: FC<IBuildButtonBarProps> = ({build}) => <ButtonBar>
-	<BuildLinkButton icon={<BackIcon/>} build={build} title={'lab.build.link.button'}/>
-	<BuildCloneButton build={build}/>
-</ButtonBar>
 
 export default withLabLayout(function Edit() {
 	const {buildId} = useParams();
@@ -34,10 +22,6 @@ export default withLabLayout(function Edit() {
 				title={'lab.build.label'}
 			/>
 			<BreadcrumbButton
-				href={'/lab/build/list'}
-				title={'lab.build.list.label'}
-			/>
-			<BreadcrumbButton
 				href={'/lab/build/[buildId]'}
 				query={{buildId}}
 				title={'lab.build.index.label'}
@@ -51,22 +35,19 @@ export default withLabLayout(function Edit() {
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
 			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
-			<BuildListButton/>
+		extraBrowser={({entity}) => entity && <ButtonBar>
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
 		{build => <>
-			<EditTemplate
-				icon={<BuildIcon/>}
-				label={'lab.build'}
-				extra={<>
-					<BuildButtonBar build={build}/>
-					<Divider/>
-				</>}
-			>
-				<PatchBuildForm build={build}/>
-			</EditTemplate>
+			<Template>
+				<PatchBuildForm
+					build={build}
+					onSuccess={({navigate}) => {
+						navigate('/lab/build/[buildId]', {buildId: build.id})
+					}}
+				/>
+			</Template>
 		</>}
 	</BuildPage>;
 });

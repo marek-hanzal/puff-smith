@@ -4,12 +4,15 @@ import {VapeIcon} from "@/puff-smith";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CreateVapeForm} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
+import {IFormOnSuccess} from "@leight-core/leight/dist";
 
 export interface IBuildVapeButtonProps extends Partial<IDrawerButtonProps> {
 	build: BuildDto;
+	onSuccess?: IFormOnSuccess<any, VapeDto>;
 }
 
-export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, ...props}) => {
+export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerButton
 		size={'large'}
@@ -22,6 +25,7 @@ export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, ...props}) =>
 	>
 		<CreateVapeForm
 			vape={{buildId: build.id}}
+			onSuccess={onSuccess}
 			exclude={['buildId']}
 		/>
 	</DrawerButton>

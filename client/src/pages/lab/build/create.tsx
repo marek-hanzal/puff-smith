@@ -25,6 +25,9 @@ const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeF
 		});
 	}, []);
 	return <CreateBuildForm
+		onSuccess={({navigate, response}) => {
+			navigate('/lab/build/[buildId]', {buildId: response.id});
+		}}
 		onValuesChange={(_, values) => {
 			const filter = {
 				atomizerIds: values?.atomizerId ? [values?.atomizerId] : undefined,

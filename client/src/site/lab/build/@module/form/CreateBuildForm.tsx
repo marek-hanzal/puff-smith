@@ -31,6 +31,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			coil: {
 				wraps: 7,
 				size: 0.3,
+				spaced: false,
 			},
 			...build,
 			created: moment(),
