@@ -35,6 +35,13 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 				sorter: true,
 			}),
 			column({
+				key: "vendor",
+				title: "lab.mixture.table.vendor",
+				width: 240,
+				render: (_, mixture) => mixture.liquid.vendor.name,
+				sorter: true,
+			}),
+			column({
 				key: "code",
 				dataIndex: "code",
 				title: "lab.mixture.table.code",

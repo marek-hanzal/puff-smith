@@ -30,6 +30,7 @@ class MixtureRepository extends AbstractRepository {
 			'liquid' => 'l.name',
 			'age'    => '$.mixed',
 			'pgvg'   => '$.pg',
+			'vendor' => 'v.name',
 		];
 	}
 

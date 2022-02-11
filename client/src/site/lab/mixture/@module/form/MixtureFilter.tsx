@@ -25,10 +25,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = props => {
 			labels={['lab.mixture.name.label']}
 		/>
 		<FormItem
-			field={'code'}
-			labels={['lab.mixture.code.label']}
-		/>
-		<FormItem
 			field={'vendorIds'}
 			labels={['lab.mixture.vendorId.label']}
 		>
@@ -46,6 +42,10 @@ export const MixtureFilter: FC<IMixtureFilterProps> = props => {
 		>
 			<BoosterSelect mode={'multiple'} allowClear/>
 		</FormItem>
+		<FormItem
+			field={'code'}
+			labels={['lab.mixture.code.label']}
+		/>
 		<SwitchItem
 			field={'active'}
 			labels={['lab.mixture.active.label']}
