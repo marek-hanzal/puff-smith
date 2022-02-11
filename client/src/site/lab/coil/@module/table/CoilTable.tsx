@@ -1,10 +1,10 @@
 import {CoilsSourceTable, ICoilsSourceTableProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
+import {CoilLinkButton, CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {PreviewBool} from "@leight-core/leight/dist";
+import {ButtonBar, PreviewBool} from "@leight-core/leight/dist";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
@@ -22,7 +22,10 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, coil) => <CoilQuickMenu coil={coil}/>,
+				render: (_, coil) => <ButtonBar>
+					<CoilLinkButton title={null} coil={coil}/>
+					<CoilQuickMenu coil={coil}/>
+				</ButtonBar>,
 				width: 0,
 			}),
 			column({

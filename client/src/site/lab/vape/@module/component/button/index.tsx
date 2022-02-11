@@ -5,7 +5,6 @@ export * from './VapeDeleteButton';
 export * from './VapeDrawerCreateButton';
 export * from './VapeEditButton';
 export * from './VapeLinkButton';
-export * from './VapeListButton';
 export * from './VapePlotButton';
 export * from './VapePreviewButton';
 export * from './VapeRateButton';

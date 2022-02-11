@@ -3,11 +3,12 @@ import {FC} from "react";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
-import {BuildAge, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {useOptionalFilterContext} from "@leight-core/leight";
 import {Ohm, SimpleRating} from "@/puff-smith";
+import {ButtonBar} from "@leight-core/leight/dist";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -20,13 +21,16 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext?.result?.data || {total: 0}})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1500}}
+		scroll={{x: 1600}}
 		{...props}
 	>
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, build) => <BuildQuickMenu build={build}/>,
+				render: (_, build) => <ButtonBar>
+					<BuildLinkButton title={null} build={build}/>
+					<BuildQuickMenu build={build}/>
+				</ButtonBar>,
 				width: 0,
 			}),
 			column({

@@ -1,16 +1,20 @@
-import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/leight";
+import {CreateIcon} from "@leight-core/leight";
 import {FC} from "react";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {CreateVapeForm, ICreateVapeFormProps} from "@/puff-smith/site/lab/vape";
 
-export interface IVapeCreateButtonProps extends Partial<IButtonLinkProps> {
+export interface IVapeCreateButtonProps extends Partial<IDrawerButtonProps> {
+	formProps?: Partial<ICreateVapeFormProps>;
 }
 
-export const VapeCreateButton: FC<IVapeCreateButtonProps> = props => {
-	return <ButtonLink
+export const VapeCreateButton: FC<IVapeCreateButtonProps> = ({formProps, ...props}) => {
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/vape/create'}
 		icon={<CreateIcon/>}
 		title={'lab.vape.button.create'}
 		{...props}
-	/>;
+	>
+		<CreateVapeForm {...formProps}/>
+	</DrawerButton>
 }

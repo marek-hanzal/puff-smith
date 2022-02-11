@@ -3,9 +3,10 @@ import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/a
 import {asDayjs, durationOf, toLocalDate, useOptionalFilterContext} from "@leight-core/leight";
 import {BoosterInline} from "@/puff-smith/site/lab/booster";
 import {BaseInline} from "@/puff-smith/site/lab/base";
-import {MixtureListItem, MixturePreviewButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
+import {MixtureLinkButton, MixtureListItem, MixturePreviewButton, MixtureQuickMenu, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {useTranslation} from "react-i18next";
+import {ButtonBar} from "@leight-core/leight/dist";
 
 export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 }
@@ -15,7 +16,7 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 	const {t} = useTranslation();
 	return <MixturesSourceTable
 		filter={filterContext?.filter}
-		scroll={{x: 2500}}
+		scroll={{x: 2600}}
 		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext?.result?.data} || {total: 0})}
 		listItemRender={mixture => <MixtureListItem mixture={mixture}/>}
 		rowClassName={mixture => mixture.active ? 'active' : 'inactive'}
@@ -24,7 +25,10 @@ export const MixtureTable: FC<IMixtureTableProps> = props => {
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, mixture) => <MixtureQuickMenu mixture={mixture}/>,
+				render: (_, mixture) => <ButtonBar>
+					<MixtureLinkButton title={null} mixture={mixture}/>
+					<MixtureQuickMenu mixture={mixture}/>
+				</ButtonBar>,
 				width: 0,
 			}),
 			column({

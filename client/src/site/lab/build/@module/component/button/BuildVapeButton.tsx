@@ -14,6 +14,7 @@ export interface IBuildVapeButtonProps extends Partial<IDrawerButtonProps> {
 
 export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	console.error('Replace this with VapeCreateButton!');
 	return <DrawerButton
 		size={'large'}
 		type={'link'}
