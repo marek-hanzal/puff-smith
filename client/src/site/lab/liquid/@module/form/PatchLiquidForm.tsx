@@ -17,6 +17,7 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
+		translation={'lab.liquid'}
 		toForm={() => ({
 			...liquid,
 		})}
@@ -36,18 +37,15 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.liquid.name.label']}
 			required
 		/>
 		<FormItem
 			field={'description'}
-			labels={['lab.liquid.description.label']}
 		>
 			<TextArea autoSize={{minRows: 6, maxRows: 6}}/>
 		</FormItem>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.liquid.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -56,7 +54,6 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 		<Divider/>
 		<FormItem
 			field={'pg'}
-			labels={['lab.liquid.pg.label']}
 			rules={[
 				({setFieldsValue}) => ({
 					validator(_, value) {
@@ -72,7 +69,6 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 		</FormItem>
 		<FormItem
 			field={'vg'}
-			labels={['lab.liquid.vg.label']}
 			rules={[
 				({setFieldsValue}) => ({
 					validator(_, value) {
@@ -88,7 +84,6 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 		</FormItem>
 		<FormItem
 			field={'volume'}
-			labels={['lab.liquid.volume.label']}
 			required
 		>
 			<InputNumber
@@ -99,7 +94,7 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, .
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<LiquidIcon/>} label={'lab.liquid.update.submit'}/>
+			<Submit icon={<LiquidIcon/>} label={'update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }

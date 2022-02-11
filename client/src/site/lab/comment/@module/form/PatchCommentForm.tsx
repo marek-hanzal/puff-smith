@@ -15,6 +15,7 @@ export const PatchCommentForm: FC<IPatchCommentFormProps> = ({comment, onSuccess
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
+		translation={'lab.comment'}
 		onSuccess={response => {
 			message.success(t('lab.comment.update.success'));
 			commentsQueryInvalidate();
@@ -30,7 +31,6 @@ export const PatchCommentForm: FC<IPatchCommentFormProps> = ({comment, onSuccess
 		{...props}>
 		<FormItem
 			field={'comment'}
-			labels={['lab.comment.comment.label']}
 		>
 			<TextArea
 				autoSize={{minRows: 6}}
@@ -41,7 +41,7 @@ export const PatchCommentForm: FC<IPatchCommentFormProps> = ({comment, onSuccess
 		<Centered>
 			<Submit
 				icon={<CommentOutlined/>}
-				label={'lab.comment.update.submit'}
+				label={'update.submit'}
 			/>
 		</Centered>
 	</PatchDefaultForm>

@@ -18,6 +18,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.mixture'}
 		toForm={() => ({
 			pg: 30,
 			vg: 70,
@@ -39,19 +40,16 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		<Card title={t('lab.mixture.common.label')}>
 			<FormItem
 				field={'code'}
-				labels={'lab.mixture.code.label'}
-				tooltip={t('lab.mixture.code.label.tooltip')}
+				hasTooltip
 			/>
 			<FormItem
 				field={'steep'}
-				labels={'lab.mixture.steep.label'}
-				tooltip={t('lab.mixture.steep.label.tooltip')}
+				hasTooltip
 			>
 				<SteepSlider/>
 			</FormItem>
 			<FormItem
 				field={'mixed'}
-				labels={'lab.mixture.mixed.label'}
 				required
 			>
 				<DatePicker showTime/>
@@ -61,7 +59,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		<Card title={t('lab.mixture.mixture.label')}>
 			<FormItem
 				field={'liquidId'}
-				labels={'lab.mixture.liquidId.label'}
 				required
 				help={<LiquidTooltip/>}
 			>
@@ -69,22 +66,19 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 			</FormItem>
 			<FormItem
 				field={'baseId'}
-				labels={'lab.mixture.baseId.label'}
 				help={<BaseTooltip/>}
 			>
 				<BaseSelect/>
 			</FormItem>
 			<FormItem
 				field={'boosterId'}
-				labels={'lab.mixture.boosterId.label'}
 				help={<BoosterTooltip/>}
 			>
 				<BoosterSelect/>
 			</FormItem>
 			<FormItem
 				field={'expires'}
-				labels={'lab.mixture.expires.label'}
-				tooltip={t('lab.mixture.expires.label.tooltip')}
+				hasTooltip
 			>
 				<DatePicker picker={'month'}/>
 			</FormItem>
@@ -93,7 +87,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		<Card title={t('lab.mixture.content.label')}>
 			<FormItem
 				field={'pg'}
-				labels={'lab.mixture.pg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -109,7 +102,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 			</FormItem>
 			<FormItem
 				field={'vg'}
-				labels={'lab.mixture.vg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -125,13 +117,11 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 			</FormItem>
 			<FormItem
 				field={'nicotine'}
-				labels={'lab.mixture.nicotine.label'}
 			>
 				<NicotineSlider/>
 			</FormItem>
 			<FormItem
 				field={'volume'}
-				labels={'lab.mixture.volume.label'}
 				required
 			>
 				<VolumeSlider/>
@@ -139,7 +129,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit icon={<MixtureIcon/>} label={'lab.mixture.create.submit'}/>
+			<Submit icon={<MixtureIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>;
 }

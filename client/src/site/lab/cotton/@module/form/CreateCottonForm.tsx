@@ -14,6 +14,7 @@ export const CreateCottonForm: FC<ICreateCottonFormProps> = ({onSuccess, ...prop
 	const cottonsQueryInvalidate = useCottonsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.cotton'}
 		onSuccess={response => {
 			message.success(t("lab.cotton.create.success", {data: response.response}));
 			cottonsQueryInvalidate();
@@ -23,16 +24,13 @@ export const CreateCottonForm: FC<ICreateCottonFormProps> = ({onSuccess, ...prop
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.cotton.name.label']}
 			required
 		/>
 		<FormItem
 			field={'description'}
-			labels={['lab.cotton.description.label']}
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.cotton.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -40,7 +38,7 @@ export const CreateCottonForm: FC<ICreateCottonFormProps> = ({onSuccess, ...prop
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<CottonIcon/>} label={'lab.cotton.create.submit'}/>
+			<Submit icon={<CottonIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

@@ -15,6 +15,7 @@ export const CreateCommentForm: FC<ICreateCommentFormProps> = ({liquid, onSucces
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.comment'}
 		onSuccess={response => {
 			message.success(t('lab.comment.create.success'));
 			commentsQueryInvalidate();
@@ -29,7 +30,6 @@ export const CreateCommentForm: FC<ICreateCommentFormProps> = ({liquid, onSucces
 	>
 		<FormItem
 			field={'comment'}
-			labels={['lab.comment.comment.label']}
 		>
 			<TextArea
 				autoSize={{minRows: 6}}
@@ -40,7 +40,7 @@ export const CreateCommentForm: FC<ICreateCommentFormProps> = ({liquid, onSucces
 		<Centered>
 			<Submit
 				icon={<CommentOutlined/>}
-				label={'lab.comment.create.submit'}
+				label={'create.submit'}
 			/>
 		</Centered>
 	</CreateDefaultForm>

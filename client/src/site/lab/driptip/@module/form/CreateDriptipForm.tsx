@@ -14,6 +14,7 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = ({onSuccess, ...pr
 	const driptipsQueryInvalidate = useDriptipsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
+		translation={'lab.driptip'}
 		onSuccess={response => {
 			message.success(t("lab.driptip.created.message", {data: response.response}));
 			driptipsQueryInvalidate();
@@ -26,13 +27,11 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = ({onSuccess, ...pr
 	>
 		<FormItem
 			field={'name'}
-			labels={['lab.driptip.name.label']}
-			tooltip={t('lab.driptip.name.label.tooltip')}
+			hasTooltip
 			required
 		/>
 		<FormItem
 			field={'vendorId'}
-			labels={['lab.driptip.vendorId.label']}
 			required
 			help={<VendorTooltip/>}
 		>
@@ -40,7 +39,7 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = ({onSuccess, ...pr
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<DriptipIcon/>} label={'lab.driptip.create.submit'}/>
+			<Submit icon={<DriptipIcon/>} label={'create.submit'}/>
 		</Centered>
 	</CreateDefaultForm>
 }

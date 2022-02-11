@@ -20,6 +20,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
+		translation={'lab.build'}
 		toForm={() => ({
 			...build,
 			created: moment(build.created),
@@ -38,7 +39,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		<Card title={t('lab.build.build.title')}>
 			<FormItem
 				field={'atomizerId'}
-				labels={['lab.build.atomizerId.label']}
 				required
 				help={<AtomizerTooltip/>}
 			>
@@ -46,7 +46,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			</FormItem>
 			<FormItem
 				field={'cottonId'}
-				labels={['lab.build.cottonId.label']}
 				required
 				help={<CottonTooltip/>}
 			>
@@ -54,7 +53,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			</FormItem>
 			<FormItem
 				field={'coilId'}
-				labels={['lab.build.coilId.label']}
 				required
 				help={<CoilTooltip/>}
 			>
@@ -62,7 +60,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			</FormItem>
 			<FormItem
 				field={'created'}
-				labels={['lab.build.created.label']}
 			>
 				<DatePicker showTime/>
 			</FormItem>
@@ -71,41 +68,33 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		<Card title={t('lab.build.advanced.title')}>
 			<FormItem
 				field={'coilOffset'}
-				labels={['lab.build.coil.label']}
-				tooltip={t('lab.build.coil.label.tooltip')}
 			>
 				<CoilOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'cottonOffset'}
-				labels={['lab.build.cotton.label']}
-				tooltip={t('lab.build.cotton.label.tooltip')}
 			>
 				<CottonOffsetInput/>
 			</FormItem>
 			<FormItem
 				field={'glow'}
-				labels={['lab.build.glow.label']}
-				tooltip={t('lab.build.glow.label.tooltip')}
 			>
 				<GlowInput/>
 			</FormItem>
 			<FormItem
 				field={'coils'}
-				labels={['lab.build.coils.label']}
 			>
 				<CoilCountInput/>
 			</FormItem>
 			<FormItem
 				field={'ohm'}
-				labels={['lab.build.ohm.label']}
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
 			</FormItem>
 		</Card>
 		<Divider/>
 		<Centered>
-			<Submit icon={<BuildIcon/>} label={'lab.build.update.submit'}/>
+			<Submit icon={<BuildIcon/>} label={'update.submit'}/>
 		</Centered>
 	</PatchDefaultForm>
 }
