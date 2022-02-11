@@ -1,19 +1,21 @@
-import {ButtonLink, EditIcon, IButtonLinkProps} from "@leight-core/leight";
+import {EditIcon} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
 
-export interface ILiquidEditButtonProps extends Partial<IButtonLinkProps> {
-	liquid: LiquidDto
+export interface ILiquidEditButtonProps extends Partial<IDrawerButtonProps> {
+	liquid: LiquidDto;
 }
 
 export const LiquidEditButton: FC<ILiquidEditButtonProps> = ({liquid, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/liquid/[liquidId]/edit'}
-		query={{liquidId: liquid.id}}
 		icon={<EditIcon/>}
 		title={'lab.liquid.button.edit'}
 		{...props}
-	/>;
+	>
+		<PatchLiquidForm liquid={liquid}/>
+	</DrawerButton>
 }

@@ -1,16 +1,19 @@
-import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/leight";
+import {CreateIcon} from "@leight-core/leight";
 import {FC} from "react";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {CreateLiquidForm} from "@/puff-smith/site/lab/liquid";
 
-export interface ILiquidCreateButtonProps extends Partial<IButtonLinkProps> {
+export interface ILiquidCreateButtonProps extends Partial<IDrawerButtonProps> {
 }
 
 export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/liquid/create'}
 		icon={<CreateIcon/>}
 		title={'lab.liquid.button.create'}
 		{...props}
-	/>;
+	>
+		<CreateLiquidForm/>
+	</DrawerButton>
 }

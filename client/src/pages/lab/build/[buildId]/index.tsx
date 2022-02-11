@@ -1,10 +1,11 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon} from "@/puff-smith";
-import {BuildCreateButton, BuildPlotButton, BuildPreview} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, BuildEditButton, BuildPlotButton, BuildPreview, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, HomeIcon} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {BarChartOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function Index() {
 	return <BuildPage
@@ -27,8 +28,18 @@ export default withLabLayout(function Index() {
 			/>
 		</Breadcrumbs>}
 		extraMobile={({entity}) => entity && <LabMenuDrawerButton>
+			<Menu.Item>
+				<BuildVapeButton
+					build={entity}
+					onSuccess={({navigate, response}) => {
+						navigate('/lab/vape/[vapeId]', {vapeId: response.id});
+					}}
+				/>
+			</Menu.Item>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
-			{CreateMenuItem('lab.build.button.edit', '/lab/build/[buildId]/edit', <EditIcon/>, {buildId: entity.id})}
+			<Menu.Item>
+				<BuildEditButton build={entity}/>
+			</Menu.Item>
 			{CreateMenuItem('lab.build.button.plot', '/lab/build/[buildId]/plot', <BarChartOutlined/>, {buildId: entity.id})}
 		</LabMenuDrawerButton>}
 		extraBrowser={({entity}) => entity && <ButtonBar>

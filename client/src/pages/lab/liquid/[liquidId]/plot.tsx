@@ -1,17 +1,12 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider} from "antd";
-import {LiquidCreateButton, LiquidListButton} from "@/puff-smith/site/lab/liquid";
+import {Divider, Menu} from "antd";
+import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
 import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 import {PlotIcon} from "@/puff-smith";
-
-const LiquidButtonBar = () => <ButtonBar>
-	<LiquidListButton/>
-	<LiquidCreateButton type={'primary'}/>
-</ButtonBar>;
 
 export default withLabLayout(function Plot() {
 	const {liquidId} = useParams();
@@ -30,10 +25,6 @@ export default withLabLayout(function Plot() {
 				title={'lab.liquid.label'}
 			/>
 			<BreadcrumbButton
-				href={'/lab/liquid/list'}
-				title={'lab.liquid.list.label'}
-			/>
-			<BreadcrumbButton
 				href={'/lab/liquid/[liquidId]'}
 				query={{liquidId}}
 				title={'lab.liquid.index.label'}
@@ -44,10 +35,13 @@ export default withLabLayout(function Plot() {
 			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
-			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
+			<Menu.Item>
+				<LiquidCreateButton type={'primary'}/>
+			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<LiquidButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<LiquidCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		{liquid => <VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
 			<VapeFilter disabled={['atomizerIds']}/>

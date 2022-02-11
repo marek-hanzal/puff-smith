@@ -1,27 +1,16 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon, PlotIcon} from "@/puff-smith";
-import {LiquidCreateButton, LiquidListButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
+import {LiquidCreateButton, LiquidPlotButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {FC} from "react";
-
-interface ILiquidButtonBarProps {
-	liquid?: LiquidDto;
-}
-
-const LiquidButtonBar: FC<ILiquidButtonBarProps> = ({liquid}) => <ButtonBar>
-	{liquid && <LiquidPlotButton liquid={liquid}/>}
-	<LiquidListButton/>
-	<LiquidCreateButton type={'primary'}/>
-</ButtonBar>
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {Menu} from "antd";
 
 export default withLabLayout(function Index() {
 	return <LiquidPage
 		title={"lab.liquid.index"}
 		collapsed
 		menuSelection={['/lab/liquid']}
-		onBack={navigate => navigate('/lab/liquid/list')}
+		onBack={navigate => navigate('/lab/liquid')}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={'/lab'}
@@ -31,21 +20,21 @@ export default withLabLayout(function Index() {
 				href={'/lab/liquid'}
 				title={'lab.liquid.label'}
 			/>
-			<BreadcrumbButton
-				href={'/lab/liquid/list'}
-				title={'lab.liquid.list.label'}
-			/>
 			<BreadcrumbIcon
 				icon={<LiquidIcon/>}
 				label={'lab.liquid.index.label'}
 			/>
 		</Breadcrumbs>}
-		extraMobile={({entity}) => <LabMenuDrawerButton>
-			{CreateMenuItem('lab.liquid.button.create', '/lab/liquid/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.liquid.button.list', '/lab/liquid/list', <ListIcon/>)}
-			{entity && CreateMenuItem('lab.liquid.button.plot', '/lab/liquid/[liquidId]/plot', <PlotIcon/>, {liquidId: entity.id})}
+		extraMobile={({entity}) => entity && <LabMenuDrawerButton>
+			<Menu.Item>
+				<LiquidCreateButton/>
+			</Menu.Item>
+			{CreateMenuItem('lab.liquid.button.plot', '/lab/liquid/[liquidId]/plot', <PlotIcon/>, {liquidId: entity.id})}
 		</LabMenuDrawerButton>}
-		extraBrowser={({entity}) => <LiquidButtonBar liquid={entity}/>}
+		extraBrowser={({entity}) => entity && <ButtonBar>
+			<LiquidPlotButton liquid={entity}/>
+			<LiquidCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		{liquid => <LiquidPreview liquid={liquid}/>}
 	</LiquidPage>;

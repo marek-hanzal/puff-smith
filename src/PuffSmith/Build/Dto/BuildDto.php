@@ -28,7 +28,7 @@ class BuildDto extends AbstractDto {
 	/** @var AtomizerDto */
 	public AtomizerDto $atomizer;
 	/** @var string|null */
-	public string $driptipId;
+	public ?string $driptipId;
 	/** @var DriptipDto|null */
 	public ?DriptipDto $driptip;
 
