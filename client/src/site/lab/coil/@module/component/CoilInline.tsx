@@ -1,15 +1,16 @@
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Divider, Space, Typography} from "antd";
-import {isMobile} from "react-device-detect";
 import {ArrowsAltOutlined, ReloadOutlined} from "@ant-design/icons";
+import {useIsMobile} from "@leight-core/leight/dist";
 
 export interface ICoilInlineProps {
-	coil: CoilDto
-	inline?: boolean
+	coil: CoilDto;
+	inline?: boolean;
 }
 
 export const CoilInline: FC<ICoilInlineProps> = ({coil, inline}) => {
+	const isMobile = useIsMobile();
 	inline = inline !== undefined ? inline : isMobile;
 	return <Space direction={inline ? 'horizontal' : 'vertical'}>
 		<Space direction={inline ? 'horizontal' : 'vertical'}>

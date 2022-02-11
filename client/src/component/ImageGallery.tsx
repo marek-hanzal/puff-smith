@@ -4,8 +4,7 @@ import {useDiscoveryContext, useLinkContext} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 import {ImagesSource, useImagesSource} from "@/sdk/edde/api/shared/image/endpoint";
-import {Centered} from "@leight-core/leight/dist";
-import {isMobile} from "react-device-detect";
+import {Centered, useIsMobile} from "@leight-core/leight/dist";
 
 interface IImageGalleryInternalProps {
 	size?: number;
@@ -18,6 +17,7 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmp
 	const discoveryContext = useDiscoveryContext();
 	const linkContext = useLinkContext();
 	const imagesSource = useImagesSource();
+	const isMobile = useIsMobile();
 
 	useEffect(() => {
 		imagesSource.setSize(isMobile ? 1 : size);

@@ -8,8 +8,7 @@ import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smit
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {isBrowser} from "react-device-detect";
-import {BreadcrumbButton, BreadcrumbIcon, DrawerButton} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, DrawerButton, useIsMobile} from "@leight-core/leight/dist";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -65,9 +64,10 @@ interface IComposeFormProps {
 }
 
 const ComposeForm: FC<IComposeFormProps> = () => {
+	const isMobile = useIsMobile();
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto>();
 	const {t} = useTranslation();
-	return isBrowser ? <Row gutter={32}>
+	return !isMobile ? <Row gutter={32}>
 		<Col span={10}>
 			<Form setBuildFilter={setBuildFilter}/>
 		</Col>
