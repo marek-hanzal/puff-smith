@@ -1,20 +1,19 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon, PlotIcon} from "@/puff-smith";
-import {MixtureCreateButton, MixtureListButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
+import {MixtureCreateButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {Breadcrumbs, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
-import {Space} from "antd";
+import {Breadcrumbs, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {Menu, Space} from "antd";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 
 interface IMixtureButtonBarProps {
-	mixture?: MixtureDto;
+	mixture: MixtureDto;
 }
 
 const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
-	{mixture && <MixturePlotButton mixture={mixture}/>}
-	<MixtureListButton/>
+	<MixturePlotButton mixture={mixture}/>
 	<MixtureCreateButton type={'primary'}/>
 </Space>;
 
@@ -33,21 +32,18 @@ export default withLabLayout(function Index() {
 				href={'/lab/mixture'}
 				title={'lab.mixture.label'}
 			/>
-			<BreadcrumbButton
-				href={'/lab/mixture/list'}
-				title={'lab.mixture.list.label'}
-			/>
 			<BreadcrumbIcon
 				icon={<MixtureIcon/>}
 				label={'lab.mixture.index.label'}
 			/>
 		</Breadcrumbs>}
-		extraMobile={({entity}) => <LabMenuDrawerButton>
-			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
-			{entity && CreateMenuItem('lab.mixture.button.plot', '/lab/mixture/[mixtureId]/plot', <PlotIcon/>, {mixtureId: entity.id})}
+		extraMobile={({entity}) => entity && <LabMenuDrawerButton>
+			<Menu.Item>
+				<MixtureCreateButton/>
+			</Menu.Item>
+			{CreateMenuItem('lab.mixture.button.plot', '/lab/mixture/[mixtureId]/plot', <PlotIcon/>, {mixtureId: entity.id})}
 		</LabMenuDrawerButton>}
-		extraBrowser={({entity}) => <MixtureButtonBar mixture={entity}/>}
+		extraBrowser={({entity}) => entity && <MixtureButtonBar mixture={entity}/>}
 	>
 		{mixture => <MixturePreview mixture={mixture}/>}
 	</MixturePage>;

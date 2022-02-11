@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -17,6 +17,7 @@ export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> 
 
 export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}) => {
 	const {t} = useTranslation();
+	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
 		toForm={() => ({
@@ -28,42 +29,42 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			...values,
 			...{id: mixture.id}
 		})}
-		onSuccess={({navigate, response}) => {
+		onSuccess={({response}) => {
 			message.success(t("lab.mixture.update.success", {data: response}));
-			navigate("/lab/mixture/[mixtureId]", {mixtureId: response.id});
+			mixturesQueryInvalidate();
 		}}
 		{...props}
 	>
 		<Card title={t('lab.mixture.common.label')}>
 			<FormItem
 				field={'code'}
-				labels={['lab.mixture.code.label']}
+				labels={'lab.mixture.code.label'}
 				tooltip={t('lab.mixture.code.label.tooltip')}
 			/>
 			<FormItem
 				field={'steep'}
-				labels={['lab.mixture.steep.label']}
+				labels={'lab.mixture.steep.label'}
 				tooltip={t('lab.mixture.steep.label.tooltip')}
 			>
 				<SteepSlider/>
 			</FormItem>
 			<FormItem
 				field={'mixed'}
-				labels={['lab.mixture.mixed.label']}
+				labels={'lab.mixture.mixed.label'}
 				required
 			>
 				<DatePicker showTime/>
 			</FormItem>
 			<SwitchItem
 				field={'active'}
-				labels={['lab.mixture.active.label']}
+				labels={'lab.mixture.active.label'}
 			/>
 		</Card>
 		<Divider/>
 		<Card title={t('lab.mixture.mixture.label')}>
 			<FormItem
 				field={'liquidId'}
-				labels={['lab.mixture.liquidId.label']}
+				labels={'lab.mixture.liquidId.label'}
 				required
 				help={<LiquidTooltip/>}
 			>
@@ -71,21 +72,21 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			</FormItem>
 			<FormItem
 				field={'baseId'}
-				labels={['lab.mixture.baseId.label']}
+				labels={'lab.mixture.baseId.label'}
 				help={<BaseTooltip/>}
 			>
 				<BaseSelect/>
 			</FormItem>
 			<FormItem
 				field={'boosterId'}
-				labels={['lab.mixture.boosterId.label']}
+				labels={'lab.mixture.boosterId.label'}
 				help={<BoosterTooltip/>}
 			>
 				<BoosterSelect/>
 			</FormItem>
 			<FormItem
 				field={'expires'}
-				labels={['lab.mixture.expires.label']}
+				labels={'lab.mixture.expires.label'}
 				tooltip={t('lab.mixture.expires.label.tooltip')}
 			>
 				<DatePicker picker={'month'} format={'MMMM YYYY'}/>
@@ -95,7 +96,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 		<Card title={t('lab.mixture.content.label')}>
 			<FormItem
 				field={'pg'}
-				labels={['lab.mixture.pg.label']}
+				labels={'lab.mixture.pg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -111,7 +112,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			</FormItem>
 			<FormItem
 				field={'vg'}
-				labels={['lab.mixture.vg.label']}
+				labels={'lab.mixture.vg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -127,13 +128,13 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			</FormItem>
 			<FormItem
 				field={'nicotine'}
-				labels={['lab.mixture.nicotine.label']}
+				labels={'lab.mixture.nicotine.label'}
 			>
 				<NicotineSlider/>
 			</FormItem>
 			<FormItem
 				field={'volume'}
-				labels={['lab.mixture.volume.label']}
+				labels={'lab.mixture.volume.label'}
 				required
 			>
 				<VolumeSlider/>

@@ -1,16 +1,19 @@
-import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/leight";
+import {CreateIcon} from "@leight-core/leight";
 import {FC} from "react";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture";
 
-export interface IMixtureCreateButtonProps extends Partial<IButtonLinkProps> {
+export interface IMixtureCreateButtonProps extends Partial<IDrawerButtonProps> {
 }
 
 export const MixtureCreateButton: FC<IMixtureCreateButtonProps> = props => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/mixture/create'}
 		icon={<CreateIcon/>}
 		title={'lab.mixture.button.create'}
 		{...props}
-	/>;
+	>
+		<CreateMixtureForm/>
+	</DrawerButton>
 }

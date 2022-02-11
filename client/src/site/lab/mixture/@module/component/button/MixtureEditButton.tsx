@@ -1,19 +1,21 @@
-import {ButtonLink, EditIcon, IButtonLinkProps} from "@leight-core/leight";
+import {EditIcon} from "@leight-core/leight";
 import {FC} from "react";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
 
-export interface IMixtureEditButtonProps extends Partial<IButtonLinkProps> {
+export interface IMixtureEditButtonProps extends Partial<IDrawerButtonProps> {
 	mixture: MixtureDto
 }
 
 export const MixtureEditButton: FC<IMixtureEditButtonProps> = ({mixture, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/mixture/[mixtureId]/edit'}
-		query={{mixtureId: mixture.id}}
 		icon={<EditIcon/>}
 		title={'lab.mixture.button.edit'}
 		{...props}
-	/>;
+	>
+		<PatchMixtureForm mixture={mixture}/>
+	</DrawerButton>
 }

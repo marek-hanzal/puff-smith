@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message} from "antd";
@@ -15,6 +15,7 @@ export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps
 
 export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 	const {t} = useTranslation();
+	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
 		toForm={() => ({
@@ -25,9 +26,9 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			steep: 14,
 			mixed: moment(),
 		})}
-		onSuccess={({navigate, response}) => {
+		onSuccess={({response}) => {
 			message.success(t("lab.mixture.created.message", {data: response}));
-			navigate("/lab/mixture/list");
+			mixturesQueryInvalidate();
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_mixture_code_unique] of [z_mixture].": {id: ["code"], error},
@@ -37,19 +38,19 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<Card title={t('lab.mixture.common.label')}>
 			<FormItem
 				field={'code'}
-				labels={['lab.mixture.code.label']}
+				labels={'lab.mixture.code.label'}
 				tooltip={t('lab.mixture.code.label.tooltip')}
 			/>
 			<FormItem
 				field={'steep'}
-				labels={['lab.mixture.steep.label']}
+				labels={'lab.mixture.steep.label'}
 				tooltip={t('lab.mixture.steep.label.tooltip')}
 			>
 				<SteepSlider/>
 			</FormItem>
 			<FormItem
 				field={'mixed'}
-				labels={['lab.mixture.mixed.label']}
+				labels={'lab.mixture.mixed.label'}
 				required
 			>
 				<DatePicker showTime/>
@@ -59,7 +60,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<Card title={t('lab.mixture.mixture.label')}>
 			<FormItem
 				field={'liquidId'}
-				labels={['lab.mixture.liquidId.label']}
+				labels={'lab.mixture.liquidId.label'}
 				required
 				help={<LiquidTooltip/>}
 			>
@@ -67,21 +68,21 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			</FormItem>
 			<FormItem
 				field={'baseId'}
-				labels={['lab.mixture.baseId.label']}
+				labels={'lab.mixture.baseId.label'}
 				help={<BaseTooltip/>}
 			>
 				<BaseSelect/>
 			</FormItem>
 			<FormItem
 				field={'boosterId'}
-				labels={['lab.mixture.boosterId.label']}
+				labels={'lab.mixture.boosterId.label'}
 				help={<BoosterTooltip/>}
 			>
 				<BoosterSelect/>
 			</FormItem>
 			<FormItem
 				field={'expires'}
-				labels={['lab.mixture.expires.label']}
+				labels={'lab.mixture.expires.label'}
 				tooltip={t('lab.mixture.expires.label.tooltip')}
 			>
 				<DatePicker picker={'month'}/>
@@ -91,7 +92,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 		<Card title={t('lab.mixture.content.label')}>
 			<FormItem
 				field={'pg'}
-				labels={['lab.mixture.pg.label']}
+				labels={'lab.mixture.pg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -107,7 +108,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			</FormItem>
 			<FormItem
 				field={'vg'}
-				labels={['lab.mixture.vg.label']}
+				labels={'lab.mixture.vg.label'}
 				rules={[
 					({setFieldsValue}) => ({
 						validator(_, value) {
@@ -123,13 +124,13 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			</FormItem>
 			<FormItem
 				field={'nicotine'}
-				labels={['lab.mixture.nicotine.label']}
+				labels={'lab.mixture.nicotine.label'}
 			>
 				<NicotineSlider/>
 			</FormItem>
 			<FormItem
 				field={'volume'}
-				labels={['lab.mixture.volume.label']}
+				labels={'lab.mixture.volume.label'}
 				required
 			>
 				<VolumeSlider/>

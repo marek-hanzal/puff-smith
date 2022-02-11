@@ -1,15 +1,9 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {MixtureIcon} from "@/puff-smith";
-import {Divider} from "antd";
-import {MixtureCreateButton, MixtureLinkButton, MixtureListButton, PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
+import {MixtureCreateButton, PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
-
-const MixtureButtonBar = () => <ButtonBar>
-	<MixtureListButton/>
-	<MixtureCreateButton type={'primary'}/>
-</ButtonBar>;
+import {Breadcrumbs, ButtonBar, EditIcon, HomeIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Template} from "@leight-core/leight/dist";
+import {Menu} from "antd";
 
 export default withLabLayout(function Edit() {
 	const {mixtureId} = useParams();
@@ -28,10 +22,6 @@ export default withLabLayout(function Edit() {
 				title={'lab.mixture.label'}
 			/>
 			<BreadcrumbButton
-				href={'/lab/mixture/list'}
-				title={'lab.mixture.list.label'}
-			/>
-			<BreadcrumbButton
 				href={'/lab/mixture/[mixtureId]'}
 				query={{mixtureId}}
 				title={'lab.mixture.index.label'}
@@ -42,22 +32,16 @@ export default withLabLayout(function Edit() {
 			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
-			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.mixture.button.list', '/lab/mixture/list', <ListIcon/>)}
+			<Menu.Item>
+				<MixtureCreateButton type={'primary'}/>
+			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<MixtureButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<MixtureCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
-		{mixture => <EditTemplate
-			icon={<MixtureIcon/>}
-			label={'lab.mixture'}
-			extra={<>
-				<ButtonBar>
-					<MixtureLinkButton icon={<BackIcon/>} mixture={mixture} title={'lab.mixture.link.button'}/>
-				</ButtonBar>
-				<Divider/>
-			</>}
-		>
+		{mixture => <Template>
 			<PatchMixtureForm mixture={mixture}/>
-		</EditTemplate>}
+		</Template>}
 	</MixturePage>;
 });
