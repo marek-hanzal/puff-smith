@@ -12,7 +12,6 @@ const MixtureButtonBar = () => <ButtonBar>
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.mixture"}
-		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumbs>

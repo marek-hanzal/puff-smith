@@ -8,7 +8,6 @@ import {Menu} from "antd";
 export default withLabLayout(function Index() {
 	return <LiquidPage
 		title={"lab.liquid.index"}
-		collapsed
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab/liquid')}
 		breadcrumbProps={<Breadcrumbs>

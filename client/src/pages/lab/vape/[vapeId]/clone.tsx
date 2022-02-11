@@ -12,7 +12,6 @@ export default withLabLayout(function Clone() {
 	const {vapeId} = useParams();
 	return <VapePage
 		title={"lab.vape.clone"}
-		collapsed
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape/[vapeId]', {vapeId})}
 		breadcrumbProps={<Breadcrumbs>

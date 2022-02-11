@@ -13,7 +13,6 @@ const VapeButtonBar = () => <ButtonBar>
 export default withLabLayout(function Index() {
 	return <VapePage
 		title={"lab.vape.index"}
-		collapsed
 		menuSelection={['/lab/vape']}
 		onBack={navigate => navigate('/lab/vape/list')}
 		breadcrumbProps={<Breadcrumbs>

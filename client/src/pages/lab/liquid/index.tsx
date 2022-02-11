@@ -9,7 +9,6 @@ import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.liquid"}
-		collapsed
 		menuSelection={['/lab/liquid']}
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumbs>

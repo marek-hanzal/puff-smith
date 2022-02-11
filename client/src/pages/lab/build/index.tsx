@@ -12,7 +12,6 @@ const BuildButtonBar = () => <ButtonBar>
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.build"}
-		collapsed
 		onBack={navigate => navigate('/lab')}
 		menuSelection={['/lab/build']}
 		breadcrumbProps={<Breadcrumbs>

@@ -9,7 +9,6 @@ import {Menu} from "antd";
 export default withLabLayout(function Index() {
 	return <CoilPage
 		title={"lab.coil.index"}
-		collapsed
 		menuSelection={['/lab/coil']}
 		onBack={navigate => navigate('/lab/coil/list')}
 		breadcrumbProps={<Breadcrumbs>

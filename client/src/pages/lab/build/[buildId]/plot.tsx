@@ -12,7 +12,6 @@ export default withLabLayout(function Plot() {
 	const {buildId} = useParams();
 	return <BuildPage
 		title={"lab.build.plot"}
-		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build/[buildId]', {buildId})}
 		breadcrumbProps={<Breadcrumbs>

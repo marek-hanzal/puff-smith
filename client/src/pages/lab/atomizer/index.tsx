@@ -9,7 +9,6 @@ import {Menu} from "antd";
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.atomizer"}
-		collapsed
 		menuSelection={['/lab/atomizer']}
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumbs>

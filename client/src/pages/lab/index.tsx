@@ -6,6 +6,7 @@ import {BrowserView, isMobile, MobileView} from "react-device-detect";
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.home"}
+		collapsed={false}
 		icon={<LiquidIcon/>}
 		menuSelection={['/lab']}
 		extraMobile={<LogoIcon style={{width: '7.5em'}}/>}

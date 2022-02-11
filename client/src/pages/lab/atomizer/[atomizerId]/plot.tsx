@@ -14,7 +14,6 @@ export default withLabLayout(function Plot() {
 	const {atomizerId} = useParams();
 	return <AtomizerPage
 		title={"lab.atomizer.plot"}
-		collapsed
 		menuSelection={['/lab/atomizer']}
 		onBack={navigate => navigate('/lab/atomizer/[atomizerId]', {atomizerId})}
 		breadcrumbProps={<Breadcrumbs>

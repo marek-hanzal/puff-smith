@@ -20,7 +20,6 @@ const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
 export default withLabLayout(function Index() {
 	return <MixturePage
 		title={"lab.mixture.index"}
-		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/list')}
 		breadcrumbProps={<Breadcrumbs>

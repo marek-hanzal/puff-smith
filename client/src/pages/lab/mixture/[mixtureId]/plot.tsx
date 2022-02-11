@@ -12,7 +12,6 @@ export default withLabLayout(function Plot() {
 	const {mixtureId} = useParams();
 	return <MixturePage
 		title={"lab.mixture.plot"}
-		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture/[mixtureId]', {mixtureId})}
 		breadcrumbProps={<Breadcrumbs>

@@ -9,7 +9,6 @@ export default withLabLayout(function Edit() {
 	const {mixtureId} = useParams();
 	return <MixturePage
 		title={"lab.mixture.edit"}
-		collapsed
 		menuSelection={['/lab/mixture']}
 		onBack={navigate => navigate('/lab/mixture', {mixtureId})}
 		breadcrumbProps={<Breadcrumbs>

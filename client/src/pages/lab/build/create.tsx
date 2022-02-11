@@ -122,7 +122,6 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 export default withLabLayout(function Create() {
 	return <LabPage
 		title={"lab.build.create"}
-		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build')}
 		breadcrumbProps={<Breadcrumbs>

@@ -10,7 +10,6 @@ import {Menu} from "antd";
 export default withLabLayout(function Index() {
 	return <BuildPage
 		title={"lab.build.index"}
-		collapsed
 		menuSelection={['/lab/build']}
 		onBack={navigate => navigate('/lab/build')}
 		breadcrumbProps={_ => <Breadcrumbs>

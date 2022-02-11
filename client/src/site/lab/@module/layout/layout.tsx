@@ -6,6 +6,7 @@ import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import i18n from "i18next";
 import {LockOutlined} from "@ant-design/icons";
 import {Footer, Header, LabMenu, UserSettingsCheck} from "@/puff-smith/site/lab";
+import {isBrowser} from "react-device-detect";
 
 export interface ILabLayoutProps {
 }
@@ -41,7 +42,7 @@ export const LabLayout: FC<ILabLayoutProps> = ({children}) => {
 		</LoaderLayout>;
 	};
 
-	return <AppLayout>
+	return <AppLayout defaultCollapsed={isBrowser}>
 		<NotificationProvider>
 			<LabLayoutInternal/>
 		</NotificationProvider>
