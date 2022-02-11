@@ -13,7 +13,7 @@ import {MixtureIcon} from "@/puff-smith";
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
+export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <CreateDefaultForm
@@ -26,9 +26,10 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = props => {
 			steep: 14,
 			mixed: moment(),
 		})}
-		onSuccess={({response}) => {
-			message.success(t("lab.mixture.created.message", {data: response}));
+		onSuccess={response => {
+			message.success(t("lab.mixture.created.message", {data: response.response}));
 			mixturesQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_mixture_code_unique] of [z_mixture].": {id: ["code"], error},

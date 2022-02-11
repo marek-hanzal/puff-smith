@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Divider, message} from "antd";
-import {Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {MixtureSelect, MixtureTooltip} from "@/puff-smith/site/lab/mixture";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useTranslation} from "react-i18next";
@@ -15,16 +15,15 @@ export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
 	exclude?: string[];
 }
 
-export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], ...props}) => {
+export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], onSuccess, ...props}) => {
 	const {t} = useTranslation();
-	const drawerContext = useOptionalDrawerContext();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.vape.created.message", {data: response}));
-			drawerContext ? drawerContext.setVisible(false) : navigate("/lab/vape/list");
+		onSuccess={response => {
+			message.success(t("lab.vape.created.message", {data: response.response}));
 			vapesQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toForm={() => vape}
 		toMutation={values => ({

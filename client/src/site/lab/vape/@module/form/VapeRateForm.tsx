@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {Card, Centered, FormItem, Submit, useOptionalDrawerContext} from "@leight-core/leight";
+import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message, Slider} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
@@ -10,9 +10,8 @@ export interface IVapeRateFormProps extends Partial<IRateDefaultFormProps> {
 	vape: VapeDto;
 }
 
-export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
+export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}) => {
 	const {t} = useTranslation();
-	const drawerContext = useOptionalDrawerContext();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	const vapeQueryInvalidate = useVapeQueryInvalidate();
 	const plotQueryInvalidate = usePlotQueryInvalidate()
@@ -23,19 +22,19 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 			id: vape.id,
 			...values,
 		})}
-		onSuccess={() => {
+		onSuccess={response => {
 			message.success(t('lab.vape.rate.update.success'));
-			drawerContext && drawerContext.setVisible(false);
 			vapesQueryInvalidate();
 			vapeQueryInvalidate();
 			plotQueryInvalidate();
+			onSuccess?.(response)
 		}}
 		{...props}
 	>
 		<Card title={t('lab.vape.common.title')}>
 			<FormItem
 				field={'leaks'}
-				labels={['lab.vape.leaks.label']}
+				labels={'lab.vape.leaks.label'}
 				tooltip={t('lab.vape.leaks.label.tooltip')}
 				required
 			>
@@ -43,7 +42,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 			</FormItem>
 			<FormItem
 				field={'dryhit'}
-				labels={['lab.vape.dryhit.label']}
+				labels={'lab.vape.dryhit.label'}
 				tooltip={t('lab.vape.dryhit.label.tooltip')}
 				required
 			>
@@ -54,7 +53,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 		<Card title={t('lab.vape.rating.title')}>
 			<FormItem
 				field={'rating'}
-				labels={['lab.vape.rating.label']}
+				labels={'lab.vape.rating.label'}
 				tooltip={t('lab.vape.rating.label.tooltip')}
 				required
 			>
@@ -62,7 +61,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 			</FormItem>
 			<FormItem
 				field={'taste'}
-				labels={['lab.vape.taste.label']}
+				labels={'lab.vape.taste.label'}
 				tooltip={t('lab.vape.taste.label.tooltip')}
 				required
 			>
@@ -73,21 +72,21 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 		<Card title={t('lab.vape.vape.title')}>
 			<FormItem
 				field={'mtl'}
-				labels={['lab.vape.mtl.label']}
+				labels={'lab.vape.mtl.label'}
 				tooltip={t('lab.vape.mtl.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'dl'}
-				labels={['lab.vape.dl.label']}
+				labels={'lab.vape.dl.label'}
 				tooltip={t('lab.vape.dl.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'clouds'}
-				labels={['lab.vape.clouds.label']}
+				labels={'lab.vape.clouds.label'}
 				tooltip={t('lab.vape.clouds.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
@@ -97,28 +96,28 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, ...props}) => {
 		<Card title={t('lab.vape.rating-advanced.title')}>
 			<FormItem
 				field={'throathit'}
-				labels={['lab.vape.throathit.label']}
+				labels={'lab.vape.throathit.label'}
 				tooltip={t('lab.vape.throathit.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'complex'}
-				labels={['lab.vape.complex.label']}
+				labels={'lab.vape.complex.label'}
 				tooltip={t('lab.vape.complex.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'fruits'}
-				labels={['lab.vape.fruits.label']}
+				labels={'lab.vape.fruits.label'}
 				tooltip={t('lab.vape.fruits.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>
 			</FormItem>
 			<FormItem
 				field={'tobacco'}
-				labels={['lab.vape.tobacco.label']}
+				labels={'lab.vape.tobacco.label'}
 				tooltip={t('lab.vape.tobacco.label.tooltip')}
 			>
 				<CommonRateInput allowClear/>

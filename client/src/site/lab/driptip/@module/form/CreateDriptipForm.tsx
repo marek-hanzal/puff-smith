@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/driptip/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useDriptipsQueryInvalidate} from "@/sdk/puff-smith/api/lab/driptip/endpoint";
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -9,12 +9,14 @@ import {DriptipIcon} from "@/puff-smith";
 export interface ICreateDriptipFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CreateDriptipForm: FC<ICreateDriptipFormProps> = props => {
+export const CreateDriptipForm: FC<ICreateDriptipFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const driptipsQueryInvalidate = useDriptipsQueryInvalidate();
 	return <CreateDefaultForm
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.driptip.created.message", {data: response}));
-			navigate("/lab/driptip/list");
+		onSuccess={response => {
+			message.success(t("lab.driptip.created.message", {data: response.response}));
+			driptipsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_driptip_name_unique] of [z_driptip].": {id: ["name"], error},

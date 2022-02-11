@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -10,17 +10,19 @@ import {LiquidIcon} from "@/puff-smith";
 export interface ICreateLiquidFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CreateLiquidForm: FC<ICreateLiquidFormProps> = props => {
+export const CreateLiquidForm: FC<ICreateLiquidFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
 		toForm={() => ({
 			pg: 50,
 			vg: 50,
 		})}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.liquid.created.message", {data: response}));
-			navigate("/lab/liquid/list");
+		onSuccess={response => {
+			message.success(t("lab.liquid.created.message", {data: response.response}));
+			liquidsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_liquid_name_unique] of [z_liquid].": {id: ["name"], error},

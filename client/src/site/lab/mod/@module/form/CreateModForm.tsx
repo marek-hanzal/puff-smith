@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/puff-smith/api/lab/mod/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useModsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mod/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -9,12 +9,14 @@ import {ModIcon} from "@/puff-smith";
 export interface ICreateModFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CreateModForm: FC<ICreateModFormProps> = props => {
+export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const modsQueryInvalidate = useModsQueryInvalidate();
 	return <CreateDefaultForm
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.mod.created.message", {data: response}));
-			navigate("/lab/mod/list");
+		onSuccess={response => {
+			message.success(t("lab.mod.created.message", {data: response.response}));
+			modsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_mod_name_unique] of [z_mod].": {id: ["name"], error},

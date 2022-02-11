@@ -3,24 +3,23 @@ import {CreateDefaultForm, ICreateDefaultFormProps, useCommentsQueryInvalidate} 
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit, TextArea, useOptionalDrawerContext} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
 import {CommentOutlined} from "@ant-design/icons";
 
 export interface ICreateCommentFormProps extends Partial<ICreateDefaultFormProps> {
 	atomizer: AtomizerDto;
 }
 
-export const CreateCommentForm: FC<ICreateCommentFormProps> = ({atomizer, ...props}) => {
+export const CreateCommentForm: FC<ICreateCommentFormProps> = ({atomizer, onSuccess, ...props}) => {
 	const {t} = useTranslation();
-	const drawerContext = useOptionalDrawerContext();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
-		onSuccess={({formContext}) => {
+		onSuccess={response => {
 			message.success(t('lab.comment.create.success'));
-			drawerContext && drawerContext.setVisible(false);
 			commentsQueryInvalidate();
-			formContext.reset();
+			response.formContext.reset();
+			onSuccess?.(response);
 		}}
 		toMutation={values => ({
 			atomizerId: atomizer.id,
