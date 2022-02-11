@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Divider, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
@@ -14,8 +14,9 @@ export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
 	vape: VapeDto;
 }
 
-export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
+export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <PatchDefaultForm
 		toForm={() => ({
 			...vape,
@@ -24,9 +25,10 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, ...props}) => {
 			...values,
 			...{id: vape.id}
 		})}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.vape.update.success", {data: response}));
-			navigate("/lab/vape/[vapeId]", {vapeId: response.id});
+		onSuccess={response => {
+			message.success(t("lab.vape.update.success", {data: response.response}));
+			vapesQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		{...props}
 	>

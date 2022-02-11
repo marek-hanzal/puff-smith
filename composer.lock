@@ -1521,14 +1521,14 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leight-core/edde.git",
-                "reference": "d4c7632edce53c8191fce399653c0a03865513a6"
+                "reference": "7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41"
             },
             "dist": {
-				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/d4c7632edce53c8191fce399653c0a03865513a6",
-				"reference": "d4c7632edce53c8191fce399653c0a03865513a6",
-				"shasum": ""
-			},
+                "type": "zip",
+                "url": "https://api.github.com/repos/leight-core/edde/zipball/7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41",
+                "reference": "7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41",
+                "shasum": ""
+            },
             "require": {
                 "cache/void-adapter": "^1.1",
                 "clancats/hydrahon": "^1.1",
@@ -1599,7 +1599,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-10T23:00:21+00:00"
+            "time": "2022-02-11T12:12:23+00:00"
         },
         {
             "name": "maennchen/zipstream-php",

@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
@@ -12,13 +12,15 @@ export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 	coil: CoilDto;
 }
 
-export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, ...props}) => {
+export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.coil.update.message", {data: response}));
-			navigate("/lab/coil/[coilId]", {coilId: response.id});
+		onSuccess={response => {
+			message.success(t("lab.coil.update.message", {data: response.response}));
+			coilsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toForm={() => ({
 			...coil,

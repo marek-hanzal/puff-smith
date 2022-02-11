@@ -15,7 +15,7 @@ export const CreateCottonForm: FC<ICreateCottonFormProps> = ({onSuccess, ...prop
 	return <CreateDefaultForm
 		layout={'vertical'}
 		onSuccess={response => {
-			message.success(t("lab.cotton.create.success", {data: response.resposne}));
+			message.success(t("lab.cotton.create.success", {data: response.response}));
 			cottonsQueryInvalidate();
 			onSuccess?.(response);
 		}}

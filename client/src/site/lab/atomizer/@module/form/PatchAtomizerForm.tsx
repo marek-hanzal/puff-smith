@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {Divider, message} from "antd";
@@ -11,13 +11,15 @@ export interface IPatchAtomizerFormProps extends Partial<IPatchDefaultFormProps>
 	atomizer: AtomizerDto;
 }
 
-export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, ...props}) => {
+export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const atomizersQueryInvalidate = useAtomizersQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
-		onSuccess={({navigate, response}) => {
+		onSuccess={response => {
 			message.success(t("lab.atomizer.update.message", {data: response}));
-			navigate("/lab/atomizer/[atomizerId]", {atomizerId: response.id});
+			atomizersQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toForm={() => ({
 			...atomizer,

@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
@@ -12,8 +12,9 @@ export interface IPatchLiquidFormProps extends Partial<IPatchDefaultFormProps> {
 	liquid: LiquidDto;
 }
 
-export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, ...props}) => {
+export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
 		toForm={() => ({
@@ -23,9 +24,10 @@ export const PatchLiquidForm: FC<IPatchLiquidFormProps> = ({liquid, ...props}) =
 			id: liquid.id,
 			...values,
 		})}
-		onSuccess={({navigate, response}) => {
-			message.success(t("lab.liquid.updated.message", {data: response}));
-			navigate("/lab/liquid/[liquidId]", {liquidId: response.id});
+		onSuccess={response => {
+			message.success(t("lab.liquid.updated.message", {data: response.response}));
+			liquidsQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_liquid_name_unique] of [z_liquid].": {id: ["name"], error},

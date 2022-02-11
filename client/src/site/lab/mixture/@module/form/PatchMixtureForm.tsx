@@ -15,7 +15,7 @@ export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> 
 	mixture: MixtureDto;
 }
 
-export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}) => {
+export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const mixturesQueryInvalidate = useMixturesQueryInvalidate();
 	return <PatchDefaultForm
@@ -29,9 +29,10 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, ...props}
 			...values,
 			...{id: mixture.id}
 		})}
-		onSuccess={({response}) => {
-			message.success(t("lab.mixture.update.success", {data: response}));
+		onSuccess={response => {
+			message.success(t("lab.mixture.update.success", {data: response.response}));
 			mixturesQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		{...props}
 	>
