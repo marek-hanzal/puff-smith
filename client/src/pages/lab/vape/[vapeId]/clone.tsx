@@ -1,13 +1,11 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {CloneIcon} from "@/puff-smith";
-import {Divider} from "antd";
-import {CreateVapeForm, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
+import {CreateVapeForm, VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template, useParams} from "@leight-core/leight";
 
 const VapeButtonBar = () => <ButtonBar>
-	<VapeListButton/>
-	<VapeCreateButton type={'primary'}/>
+	<VapeDrawerCreateButton type={'primary'}/>
 </ButtonBar>
 
 export default withLabLayout(function Clone() {
@@ -16,7 +14,7 @@ export default withLabLayout(function Clone() {
 		title={"lab.vape.clone"}
 		collapsed
 		menuSelection={['/lab/vape']}
-		onBack={navigate => navigate('/lab/vape', {vapeId})}
+		onBack={navigate => navigate('/lab/vape/[vapeId]', {vapeId})}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={'/lab'}
@@ -25,10 +23,6 @@ export default withLabLayout(function Clone() {
 			<BreadcrumbButton
 				href={'/lab/vape'}
 				title={'lab.vape.label'}
-			/>
-			<BreadcrumbButton
-				href={'/lab/vape/list'}
-				title={'lab.vape.list.label'}
 			/>
 			<BreadcrumbButton
 				href={'/lab/vape/[vapeId]'}
@@ -46,14 +40,7 @@ export default withLabLayout(function Clone() {
 		</LabMenuDrawerButton>}
 		extraBrowser={<VapeButtonBar/>}
 	>
-		{vape => <Template
-			extra={<>
-				<ButtonBar>
-					<VapeLinkButton icon={<BackIcon/>} vape={vape} title={'lab.vape.link.button'}/>
-				</ButtonBar>
-				<Divider/>
-			</>}
-		>
+		{vape => <Template>
 			<CreateVapeForm vape={vape}/>
 		</Template>}
 	</VapePage>;

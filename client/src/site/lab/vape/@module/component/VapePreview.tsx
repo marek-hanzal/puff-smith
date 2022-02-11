@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-import {VapeComments, VapeEditButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
+import {VapeCloneButton, VapeComments, VapeEditButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
 import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
 import {AtomizerComments, AtomizerInline} from "@/puff-smith/site/lab/atomizer";
@@ -28,6 +28,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 						extra={<>
 							<ButtonBar>
 								<VapeEditButton vape={vape}/>
+								<VapeCloneButton vape={vape}/>
 								<VapeRateButton vape={vape}/>
 							</ButtonBar>
 							<Divider/>

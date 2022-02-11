@@ -1,13 +1,18 @@
 import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {Divider} from "antd";
-import {PatchVapeForm, VapeCloneButton, VapeCreateButton, VapeLinkButton, VapeListButton} from "@/puff-smith/site/lab/vape";
+import {Menu} from "antd";
+import {PatchVapeForm, VapeCloneButton, VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape";
 import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {BackIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, EditIcon, EditTemplate, HomeIcon, ListIcon, useParams} from "@leight-core/leight";
-import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, EditIcon, HomeIcon, Template, useParams} from "@leight-core/leight";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
+import {FC} from "react";
 
-const VapeButtonBar = () => <ButtonBar>
-	<VapeListButton/>
-	<VapeCreateButton type={'primary'}/>
+interface IVapeButtonBarProps {
+	vape: VapeDto;
+}
+
+const VapeButtonBar: FC<IVapeButtonBarProps> = ({vape}) => <ButtonBar>
+	<VapeCloneButton vape={vape}/>
+	<VapeDrawerCreateButton type={'primary'}/>
 </ButtonBar>
 
 export default withLabLayout(function Edit() {
@@ -27,10 +32,6 @@ export default withLabLayout(function Edit() {
 				title={'lab.vape.label'}
 			/>
 			<BreadcrumbButton
-				href={'/lab/vape/list'}
-				title={'lab.vape.list.label'}
-			/>
-			<BreadcrumbButton
 				href={'/lab/vape/[vapeId]'}
 				query={{vapeId}}
 				title={'lab.vape.index.label'}
@@ -41,21 +42,14 @@ export default withLabLayout(function Edit() {
 			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
-			{CreateMenuItem('lab.vape.button.create', '/lab/vape/create', <CreateIcon/>)}
-			{CreateMenuItem('lab.vape.button.list', '/lab/vape/list', <ListIcon/>)}
+			<Menu.Item>
+				<VapeDrawerCreateButton type={'primary'}/>
+			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<VapeButtonBar/>}
+		extraBrowser={({entity}) => entity && <VapeButtonBar vape={entity}/>}
 	>
-		{vape => <EditTemplate
-			extra={<>
-				<ButtonBar>
-					<VapeLinkButton icon={<BackIcon/>} vape={vape}/>
-					<VapeCloneButton vape={vape}/>
-				</ButtonBar>
-				<Divider/>
-			</>}
-		>
+		{vape => <Template>
 			<PatchVapeForm vape={vape}/>
-		</EditTemplate>}
+		</Template>}
 	</VapePage>;
 });

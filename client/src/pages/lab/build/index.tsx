@@ -1,18 +1,18 @@
 import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon, Template} from "@leight-core/leight";
+import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
-import {Divider} from "antd";
-import {BuildCreateButton, BuildListButton, LatestBuildTable} from "@/puff-smith/site/lab/build";
+import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
 import {BreadcrumbButton, BreadcrumbIcon} from "@leight-core/leight/dist";
+import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 
 const BuildButtonBar = () => <ButtonBar>
-	<BuildListButton/>
 	<BuildCreateButton type={'primary'}/>
 </ButtonBar>
 
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.build"}
+		collapsed
 		onBack={navigate => navigate('/lab')}
 		menuSelection={['/lab/build']}
 		breadcrumbProps={<Breadcrumbs>
@@ -27,18 +27,12 @@ export default withLabLayout(function Index() {
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
-			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
 		</LabMenuDrawerButton>}
 		extraBrowser={<BuildButtonBar/>}
 	>
-		<Template
-			span={24}
-			mobileExtra={<>
-				<BuildButtonBar/>
-				<Divider/>
-			</>}
-		>
-			<LatestBuildTable/>
-		</Template>
+		<BuildsFilterContext>
+			<BuildFilter/>
+			<BuildTable/>
+		</BuildsFilterContext>
 	</LabPage>;
 });

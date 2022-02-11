@@ -1,7 +1,7 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {ImageGallery, PlotIcon} from "@/puff-smith";
-import {BuildComments, BuildListButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
-import {Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, ListIcon} from "@leight-core/leight";
+import {BuildComments, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
+import {Breadcrumbs, CreateIcon, HomeIcon} from "@leight-core/leight";
 import {Col, List, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -131,21 +131,11 @@ export default withLabLayout(function Create() {
 				href={'/lab/build'}
 				title={'lab.build.label'}
 			/>
-			<BreadcrumbButton
-				href={'/lab/build/list'}
-				title={'lab.build.list.label'}
-			/>
 			<BreadcrumbIcon
 				icon={<CreateIcon/>}
 				label={'lab.build.create.label'}
 			/>
 		</Breadcrumbs>}
-		extraMobile={<LabMenuDrawerButton>
-			{CreateMenuItem("lab.build.button.list", "/lab/build/list", <ListIcon/>)}
-		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
-			<BuildListButton/>
-		</ButtonBar>}
 	>
 		<VapesFilterContext>
 			<ComposeForm/>
