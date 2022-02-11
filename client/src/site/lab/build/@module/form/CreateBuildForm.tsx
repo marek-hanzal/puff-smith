@@ -12,6 +12,7 @@ import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/p
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 import {ButtonBar} from "@leight-core/leight/dist";
+import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -59,6 +60,13 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				<AtomizerSelect allowClear/>
 			</FormItem>
 			<FormItem
+				field={'driptipId'}
+				hasTooltip
+				help={<DriptipTooltip/>}
+			>
+				<DriptipSelect allowClear/>
+			</FormItem>
+			<FormItem
 				field={'cottonId'}
 				required
 				help={<CottonTooltip/>}
@@ -73,7 +81,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		</Card>
 		<Divider/>
 		<Card title={t('lab.build.coil.title')}>
-			<ItemGroup prefix={'coil'} translation={'lab.coil'}>
+			<ItemGroup
+				translation={'lab'}
+				prefix={'coil'}
+			>
 				<FormItem
 					field={'wireId'}
 					required

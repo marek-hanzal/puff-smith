@@ -7,6 +7,8 @@ export interface BuildDto {
 	disabledOn?: string | null | undefined;
 	atomizerId: string;
 	atomizer: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto;
+	driptipId: string | null;
+	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	coilId: string;
 	coil: import("@/sdk/puff-smith/coil/dto/index").CoilDto;
 	coilOffset: number;
@@ -51,6 +53,7 @@ export interface CreateDto {
 	created: string | null;
 	glow: number | null;
 	atomizerId: string;
+	driptipId: string | null;
 	coil: import("@/sdk/puff-smith/coil/dto/index").CreateDto;
 	cottonId: string;
 	coils: number;
@@ -79,6 +82,7 @@ export interface PatchDto {
 	glow: number | null;
 	created?: string | null | undefined;
 	atomizerId?: string | null | undefined;
+	driptipId?: string | null | undefined;
 	coilId?: string | null | undefined;
 	cottonId?: string | null | undefined;
 	coils?: number | null | undefined;

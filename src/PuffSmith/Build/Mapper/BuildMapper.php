@@ -11,6 +11,8 @@ use PuffSmith\Coil\Mapper\CoilMapperTrait;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 use PuffSmith\Cotton\Mapper\CottonMapperTrait;
 use PuffSmith\Cotton\Repository\CottonRepositoryTrait;
+use PuffSmith\Driptip\Mapper\DriptipMapperTrait;
+use PuffSmith\Driptip\Repository\DriptipRepositoryTrait;
 
 class BuildMapper extends AbstractMapper {
 	use AtomizerRepositoryTrait;
@@ -19,6 +21,8 @@ class BuildMapper extends AbstractMapper {
 	use CoilMapperTrait;
 	use CottonRepositoryTrait;
 	use CottonMapperTrait;
+	use DriptipRepositoryTrait;
+	use DriptipMapperTrait;
 
 	public function item($item) {
 		return $this->dtoService->fromArray(BuildDto::class, [
@@ -30,6 +34,8 @@ class BuildMapper extends AbstractMapper {
 			'coils'        => $item->coils,
 			'coilOffset'   => $item->coilOffset,
 			'cottonOffset' => $item->cottonOffset,
+			'driptipId'    => $item->driptip_id,
+			'driptip'      => $item->driptip_id ? $this->driptipMapper->item($this->driptipRepository->find($item->driptip_id)) : null,
 			'atomizerId'   => ($atomizer = $this->atomizerRepository->find($item->atomizer_id))->id,
 			'atomizer'     => $this->atomizerMapper->item($atomizer),
 			'coilId'       => ($coil = $this->coilRepository->find($item->coil_id))->id,

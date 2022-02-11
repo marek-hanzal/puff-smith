@@ -41,6 +41,7 @@ class BuildRepository extends AbstractRepository {
 		$this->join($select, 'z_coil', 'c', '$.coil_id');
 		$this->join($select, 'z_cotton', 'co', '$.cotton_id');
 		$this->join($select, 'z_wire', 'w', 'c.wire_id');
+		$this->join($select, 'z_driptip', 'd', '$.driptip_id');
 		return $select;
 	}
 
@@ -95,6 +96,7 @@ class BuildRepository extends AbstractRepository {
 			'coil_id'      => $coil->id,
 			'glow'         => $createDto->glow,
 			'cotton_id'    => $createDto->cottonId,
+			'driptip_id'   => $createDto->driptipId,
 			'coils'        => $createDto->coils,
 			'coilOffset'   => $createDto->coilOffset,
 			'cottonOffset' => $createDto->cottonOffset,
@@ -120,6 +122,7 @@ class BuildRepository extends AbstractRepository {
 			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'glow'         => $patchDto->glow,
 			'atomizer_id'  => $patchDto->atomizerId,
+			'driptip_id'   => $patchDto->driptipId,
 			'coil_id'      => $patchDto->coilId,
 			'cotton_id'    => $patchDto->cottonId,
 			'coils'        => $patchDto->coils,

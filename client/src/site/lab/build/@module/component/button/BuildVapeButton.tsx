@@ -24,7 +24,10 @@ export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, onSuccess, ..
 		{...props}
 	>
 		<CreateVapeForm
-			vape={{buildId: build.id}}
+			vape={{
+				buildId: build.id,
+				driptipId: build.driptipId,
+			}}
 			onSuccess={onSuccess}
 			exclude={['buildId']}
 		/>

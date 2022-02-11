@@ -10,6 +10,7 @@ import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight"
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
+import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -43,6 +44,13 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 				help={<AtomizerTooltip/>}
 			>
 				<AtomizerSelect/>
+			</FormItem>
+			<FormItem
+				field={'driptipId'}
+				hasTooltip
+				help={<DriptipTooltip/>}
+			>
+				<DriptipSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'cottonId'}

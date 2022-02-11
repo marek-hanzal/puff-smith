@@ -12,6 +12,8 @@ class CreateDto extends AbstractDto {
 	public ?int $glow;
 	/** @var string */
 	public string $atomizerId;
+	/** @var string|null */
+	public ?string $driptipId;
 	/** @var \PuffSmith\Coil\Dto\CreateDto */
 	public \PuffSmith\Coil\Dto\CreateDto $coil;
 	/** @var string */

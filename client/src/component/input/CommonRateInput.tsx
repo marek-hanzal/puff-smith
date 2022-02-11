@@ -10,6 +10,7 @@ export const CommonRateInput: FC<ICommonRateInputProps> = forwardRef(({value, ..
 		count={9}
 		ref={ref as any}
 		value={value || undefined}
+		allowClear
 		{...props}
 	/>
 });
