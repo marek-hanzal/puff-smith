@@ -13,6 +13,7 @@ export const CreateDriptipForm: FC<ICreateDriptipFormProps> = ({onSuccess, ...pr
 	const {t} = useTranslation();
 	const driptipsQueryInvalidate = useDriptipsQueryInvalidate();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		onSuccess={response => {
 			message.success(t("lab.driptip.created.message", {data: response.response}));
 			driptipsQueryInvalidate();

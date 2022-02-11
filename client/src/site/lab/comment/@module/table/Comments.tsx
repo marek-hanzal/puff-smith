@@ -1,5 +1,5 @@
 import {Comment, CommentProps, List, ListProps, message, Space} from "antd";
-import {PropsWithChildren, ReactElement, ReactNode} from "react";
+import {PropsWithChildren, ReactElement, ReactNode, useEffect} from "react";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
 import {ListItemProps} from "antd/lib/list";
 import {EditIcon, IFormOnSuccess, OrderButtonBar, Template, TextArea, toLocalDateTime, useSourceContext} from "@leight-core/leight";
@@ -24,6 +24,11 @@ export function Comments<TComment>({form, toComment, toListItemProps = () => und
 	const sourceContext = useSourceContext<any, TComment, any, any>();
 	const deleteMutation = useDeleteMutation();
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
+
+	useEffect(() => {
+		sourceContext.setSize(5);
+	}, []);
+
 	return <List
 		itemLayout={'vertical'}
 		loading={sourceContext.result.isLoading}
@@ -42,14 +47,14 @@ export function Comments<TComment>({form, toComment, toListItemProps = () => und
 		pagination={sourceContext.pagination()}
 		{...props}
 	>
-		{!sourceContext?.result?.data?.count && <Template
+		{!sourceContext.result.isLoading && !sourceContext?.result?.data?.count && <Template
 			icon={<CommentOutlined/>}
 			label={'lab.comment.no-comments'}
 		/>}
 		{form && <List.Item>
 			{form}
 		</List.Item>}
-		{sourceContext.result.isSuccess && sourceContext.result.data.items.map(dto => {
+		{sourceContext?.result?.data?.items.map(dto => {
 			const comment = toComment(dto);
 			return <List.Item key={comment.id} {...toListItemProps(dto)}>
 				{toListItemMeta(dto)}

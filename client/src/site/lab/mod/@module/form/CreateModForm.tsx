@@ -13,6 +13,7 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 	const {t} = useTranslation();
 	const modsQueryInvalidate = useModsQueryInvalidate();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		onSuccess={response => {
 			message.success(t("lab.mod.created.message", {data: response.response}));
 			modsQueryInvalidate();

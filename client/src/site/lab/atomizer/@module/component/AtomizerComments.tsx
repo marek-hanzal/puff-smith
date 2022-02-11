@@ -19,7 +19,7 @@ export const AtomizerComments: FC<IAtomizerCommentsProps> = ({atomizer, ...props
 		{...props}
 	>
 		<Comments<AtomizerCommentDto>
-			form={atomizer && <CreateCommentForm atomizer={atomizer}/>}
+			form={atomizer && <CreateCommentForm closeDrawer={false} atomizer={atomizer}/>}
 			toComment={dto => dto.comment}
 			toCommentProps={dto => ({
 				author: <Space size={0} split={<Divider type={'vertical'}/>}>

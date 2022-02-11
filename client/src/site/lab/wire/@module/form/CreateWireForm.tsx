@@ -13,6 +13,7 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 	const {t} = useTranslation();
 	const wiresQueryInvalidate = useWiresQueryInvalidate();
 	return <CreateDefaultForm
+		layout={'vertical'}
 		onSuccess={response => {
 			message.success(t("lab.wire.create.success", {data: response.response}));
 			wiresQueryInvalidate();
