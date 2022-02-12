@@ -1,6 +1,6 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ImageGallery, PlotIcon} from "@/puff-smith";
-import {BuildComments, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
+import {BuildIcon, ImageGallery, PlotIcon} from "@/puff-smith";
+import {BuildComments, BuildPreviewButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateIcon, DrawerButton, HomeIcon, useIsMobile} from "@leight-core/leight";
 import {Col, List, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -15,7 +15,6 @@ import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-sm
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {Template, useParams} from "@leight-core/leight/dist";
-import {FileImageOutlined} from "@ant-design/icons";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -99,21 +98,22 @@ const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
 						<VapeComments/>
 					</VapeCommentsFilterContext>
 				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.images'} tab={t('lab.build.create.vape.images.tab')}>
+				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.other'} tab={t('lab.build.create.other.tab')}>
 					<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
 						<BuildsSourceConsumer>
 							{sourceContext => sourceContext.hasData() ? <>
 								<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
 									{sourceContext.map(build => <List.Item key={build.id}>
 										<List.Item.Meta
+											title={<BuildPreviewButton title={build.atomizer.name} build={build}/>}
 											description={<CoilInline inline coil={build.coil}/>}
 										/>
 										<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
 									</List.Item>)}
 								</List>
 							</> : <Template
-								icon={<FileImageOutlined/>}
-								label={'lab.build.create.no-images'}
+								icon={<BuildIcon/>}
+								label={'lab.build.other.no-builds'}
 							/>}
 						</BuildsSourceConsumer>
 					</BuildsSource>

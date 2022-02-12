@@ -54,7 +54,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 				key: "mod",
 				title: "lab.vape.table.mod",
 				render: (_, vape) => <ModPreviewButton title={vape.mod.name} mod={vape.mod}/>,
-				width: 280,
+				width: 320,
 				sorter: true,
 			}),
 			column({

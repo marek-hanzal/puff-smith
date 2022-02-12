@@ -54,6 +54,7 @@ export interface IImageGalleryProps {
 }
 
 export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, hideEmpty = false, gallery}) => {
+	const isMobile = useIsMobile();
 	return <ImagesSource
 		filter={{
 			gallery,
@@ -62,6 +63,6 @@ export const ImageGallery: FC<IImageGalleryProps> = ({size = 4, hideEmpty = fals
 			stamp: false,
 		}}
 	>
-		<ImageGalleryInternal hideEmpty={hideEmpty} size={size}/>
+		<ImageGalleryInternal hideEmpty={hideEmpty} size={isMobile ? 1 : size}/>
 	</ImagesSource>
 }

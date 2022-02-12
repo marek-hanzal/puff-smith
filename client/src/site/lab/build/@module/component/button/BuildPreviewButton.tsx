@@ -21,7 +21,7 @@ export const BuildPreviewButton: FC<IBuildPreviewButtonProps> = ({build, buildPr
 		>
 			<BuildPreview
 				forceList
-				hidden={['upload', 'images']}
+				hidden={['upload']}
 				{...buildPreviewProps}
 				build={build}
 			/>
