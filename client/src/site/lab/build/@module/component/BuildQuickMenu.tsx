@@ -7,12 +7,15 @@ import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
+import {IFormOnSuccess} from "@leight-core/leight/dist";
+import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 
 export interface IBuildQuickMenu extends Partial<IDrawerMenuProps> {
 	build: BuildDto;
+	onCreateVape?: IFormOnSuccess<any, VapeDto>;
 }
 
-export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
+export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, onCreateVape, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerMenu
 		header={t('lab.build.context.menu', {data: build})}
@@ -24,7 +27,10 @@ export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, ...props}) => {
 		<Menu.Divider/>
 		{build.active && <>
 			<Menu.Item>
-				<BuildVapeButton build={build}/>
+				<BuildVapeButton
+					build={build}
+					onSuccess={onCreateVape}
+				/>
 			</Menu.Item>
 		</>}
 		<Menu.Item>

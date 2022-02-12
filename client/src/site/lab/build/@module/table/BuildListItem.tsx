@@ -12,7 +12,13 @@ export interface IBuildListItemProps extends Partial<ListItemProps> {
 export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
 	return <List.Item
 		className={build.active ? 'active' : 'inactive'}
-		actions={[<BuildQuickMenu key={'quick-menu'} build={build}/>]}
+		actions={[<BuildQuickMenu
+			key={'quick-menu'}
+			build={build}
+			onCreateVape={({navigate, response}) => {
+				navigate('/lab/vape/[vapeId]', {vapeId: response.id});
+			}}
+		/>]}
 		{...props}
 	>
 		<List.Item.Meta

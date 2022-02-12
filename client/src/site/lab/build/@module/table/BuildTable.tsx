@@ -28,7 +28,12 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "id",
 				render: (_, build) => <ButtonBar>
 					<BuildLinkButton title={null} build={build}/>
-					<BuildQuickMenu build={build}/>
+					<BuildQuickMenu
+						onCreateVape={({navigate, response}) => {
+							navigate('/lab/vape/[vapeId]', {vapeId: response.id});
+						}}
+						build={build}
+					/>
 				</ButtonBar>,
 				width: 0,
 			}),
