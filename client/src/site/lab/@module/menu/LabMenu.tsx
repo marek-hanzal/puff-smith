@@ -1,6 +1,6 @@
 import {CreateMenuItem, HomeIcon, Menu, MenuDivider, useIsMobile} from "@leight-core/leight";
 import {FC, ReactNode} from "react";
-import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, IMenuProps, LiquidIcon, MixtureIcon, ModIcon, ToolIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
+import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, IMenuProps, LiquidIcon, MixtureIcon, ModIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
 	prepend?: ReactNode;
@@ -28,7 +28,5 @@ export const LabMenu: FC<ILabMenuProps> = ({prepend, ...props}) => {
 		{CreateMenuItem("lab.wire.menu", "/lab/wire", <WireIcon/>)}
 		{CreateMenuItem("lab.coil.menu", "/lab/coil", <CoilIcon/>)}
 		{CreateMenuItem("lab.vendor.menu", "/lab/vendor", <VendorIcon/>)}
-		<MenuDivider/>
-		{CreateMenuItem("lab.tool.menu", "/lab/tool", <ToolIcon/>)}
 	</Menu>;
 };
