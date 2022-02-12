@@ -3,6 +3,7 @@ import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {FC} from "react";
 import {CottonIcon} from "@/puff-smith";
 import {CottonLinkButton, CottonPreview} from "@/puff-smith/site/lab/cotton";
+import {ExportOutlined} from "@ant-design/icons";
 
 export interface ICottonPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	cotton: CottonDto;
@@ -27,6 +28,11 @@ export const CottonPreviewButton: FC<ICottonPreviewButtonProps> = ({cotton, ...p
 				<CottonPreview cotton={cotton}/>
 			</PreviewTemplate>
 		</DrawerButton>
-		<CottonLinkButton title={null} cotton={cotton}/>
+		<CottonLinkButton
+			size={'small'}
+			title={null}
+			cotton={cotton}
+			icon={<ExportOutlined/>}
+		/>
 	</>
 }
