@@ -10,12 +10,12 @@ import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {IFormOnSuccess} from "@leight-core/leight/dist";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 
-export interface IBuildQuickMenu extends Partial<IDrawerMenuProps> {
+export interface IBuildQuickMenuProps extends Partial<IDrawerMenuProps> {
 	build: BuildDto;
 	onCreateVape?: IFormOnSuccess<any, VapeDto>;
 }
 
-export const BuildQuickMenu: FC<IBuildQuickMenu> = ({build, onCreateVape, ...props}) => {
+export const BuildQuickMenu: FC<IBuildQuickMenuProps> = ({build, onCreateVape, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerMenu
 		header={t('lab.build.context.menu', {data: build})}

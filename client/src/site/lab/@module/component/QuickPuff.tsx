@@ -26,7 +26,13 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 				<BuildsSource defaultSize={3} filter={{active: true}}>
 					<BuildsSourceConsumer>
 						{sourceContext => sourceContext.hasData() && <List>
-							{sourceContext.map(build => <BuildListItem key={build.id} build={build}/>)}
+							{sourceContext.map(build => <BuildListItem
+								key={build.id}
+								build={build}
+								quickMenuProps={{
+									onCreateVape: () => null,
+								}}
+							/>)}
 						</List>}
 					</BuildsSourceConsumer>
 				</BuildsSource>

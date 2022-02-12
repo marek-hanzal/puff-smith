@@ -1,15 +1,16 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
-import {BuildAge, BuildPreviewButton, BuildQuickMenu} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildPreviewButton, BuildQuickMenu, IBuildQuickMenuProps} from "@/puff-smith/site/lab/build";
 import {List} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 
 export interface IBuildListItemProps extends Partial<ListItemProps> {
 	build: BuildDto;
+	quickMenuProps?: Partial<IBuildQuickMenuProps>;
 }
 
-export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
+export const BuildListItem: FC<IBuildListItemProps> = ({build, quickMenuProps, ...props}) => {
 	return <List.Item
 		className={build.active ? 'active' : 'inactive'}
 		actions={[<BuildQuickMenu
@@ -18,6 +19,7 @@ export const BuildListItem: FC<IBuildListItemProps> = ({build, ...props}) => {
 			onCreateVape={({navigate, response}) => {
 				navigate('/lab/vape/[vapeId]', {vapeId: response.id});
 			}}
+			{...quickMenuProps}
 		/>]}
 		{...props}
 	>
