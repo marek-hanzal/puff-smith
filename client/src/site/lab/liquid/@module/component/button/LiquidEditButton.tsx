@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {PatchLiquidForm} from "@/puff-smith/site/lab/liquid";
+import {PatchLiquidForm} from "@/puff-smith/site/lab/liquid/@module/form/PatchLiquidForm";
 
 export interface ILiquidEditButtonProps extends Partial<IDrawerButtonProps> {
 	liquid: LiquidDto;

@@ -1,9 +1,12 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidIcon} from "@/puff-smith";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
-import {LiquidCreateButton, LiquidFilter, LiquidTable} from "@/puff-smith/site/lab/liquid";
 import {Menu} from "antd";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCreateButton";
+import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/form/LiquidFilter";
+import {LiquidTable} from "@/puff-smith/site/lab/liquid/@module/table/LiquidTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage

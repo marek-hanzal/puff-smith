@@ -2,19 +2,27 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
-import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {BuildAge, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton, CoilCountInput} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {ImageGallery, Ohm} from "@/puff-smith";
-import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
-import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
+import {BuildEditButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildEditButton";
+import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";
+import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
+import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
+import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
+import {BuildPlotButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPlotButton";
+import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
+import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -84,7 +92,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					/>
 				</Space>
 				<VapePlot
-					selected={['median', 'count']}
+					selected={['median']}
 					emptyResultProps={{
 						extra: <BuildVapeButton type={'primary'} build={build}/>
 					}}

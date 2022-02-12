@@ -1,10 +1,12 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {CottonIcon} from "@/puff-smith";
-import {CottonCreateButton, CottonPreview} from "@/puff-smith/site/lab/cotton";
 import {CottonPage} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {CottonCreateButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonCreateButton";
+import {CottonPreview} from "@/puff-smith/site/lab/cotton/@module/component/CottonPreview";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

@@ -1,10 +1,11 @@
 import {FC} from "react";
 import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {CreateCommentForm, MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 import {MixtureCommentDto} from "@/sdk/puff-smith/mixture/dto/comment";
-import {Comments} from "@/puff-smith/site/lab/comment";
 import {Divider, Space} from "antd";
+import {CreateCommentForm} from "@/puff-smith/site/lab/mixture/@module/form/CreateCommentForm";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
+import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
 
 export interface IMixtureCommentsProps extends Partial<ICommentsSourceProps> {
 	mixture?: MixtureDto;
@@ -30,8 +31,8 @@ export const MixtureComments: FC<IMixtureCommentsProps> = ({mixture, ...props}) 
 					/>
 				</Space>,
 			})}
-			onEdit={() => commentsQueryInvalidate()}
-			onDelete={() => commentsQueryInvalidate()}
+			onEdit={commentsQueryInvalidate}
+			onDelete={commentsQueryInvalidate}
 		/>
 	</CommentsSource>
 }

@@ -1,10 +1,9 @@
 import {FC} from "react";
 import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {AtomizerPreviewButton, CreateCommentForm} from "@/puff-smith/site/lab/atomizer";
 import {AtomizerCommentDto} from "@/sdk/puff-smith/atomizer/dto/comment";
-import {Comments} from "@/puff-smith/site/lab/comment";
-import {Divider, Space} from "antd";
+import {CreateCommentForm} from "@/puff-smith/site/lab/atomizer/@module/form/CreateCommentForm";
+import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
 
 export interface IAtomizerCommentsProps extends Partial<ICommentsSourceProps> {
 	atomizer?: AtomizerDto;
@@ -20,18 +19,10 @@ export const AtomizerComments: FC<IAtomizerCommentsProps> = ({atomizer, ...props
 			form={atomizer && <CreateCommentForm closeDrawer={false} atomizer={atomizer}/>}
 			toComment={dto => dto.comment}
 			toCommentProps={dto => ({
-				author: <Space size={0} split={<Divider type={'vertical'}/>}>
-					<AtomizerPreviewButton
-						size={'small'}
-						style={{padding: 0}}
-						title={dto.atomizer.name}
-						icon={null}
-						atomizer={dto.atomizer}
-					/>
-				</Space>,
+				author: dto.atomizer.name,
 			})}
-			onEdit={() => commentsQueryInvalidate()}
-			onDelete={() => commentsQueryInvalidate()}
+			onEdit={commentsQueryInvalidate}
+			onDelete={commentsQueryInvalidate}
 		/>
 	</CommentsSource>
 }

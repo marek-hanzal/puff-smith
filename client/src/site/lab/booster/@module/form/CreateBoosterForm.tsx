@@ -1,10 +1,11 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBoostersQueryInvalidate} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, message, Slider} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
-import {BoosterIcon} from "@/puff-smith";
+import {BoosterIcon, NicotineSlider} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICreateBoosterFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -61,21 +62,7 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 			field={'nicotine'}
 			required
 		>
-			<Slider
-				marks={{
-					0: 0,
-					3: 3,
-					6: 6,
-					9: 9,
-					12: 12,
-					16: 16,
-					18: 18,
-					20: 20,
-				}}
-				min={0}
-				max={20}
-				step={1}
-			/>
+			<NicotineSlider/>
 		</FormItem>
 		<FormItem
 			field={'volume'}

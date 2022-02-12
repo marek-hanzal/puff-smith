@@ -1,9 +1,11 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
-import {BuildAge, BuildPreviewButton, BuildQuickMenu, IBuildQuickMenuProps} from "@/puff-smith/site/lab/build";
 import {List} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {BuildQuickMenu, IBuildQuickMenuProps} from "@/puff-smith/site/lab/build/@module/component/BuildQuickMenu";
+import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
+import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 
 export interface IBuildListItemProps extends Partial<ListItemProps> {
 	build: BuildDto;
@@ -31,7 +33,7 @@ export const BuildListItem: FC<IBuildListItemProps> = ({build, quickMenuProps, .
 				drawerProps={{title: <AtomizerInline inline atomizer={build.atomizer}/>}}
 				build={build}
 				buildPreviewProps={{
-					hidden: ['upload', 'images']
+					hidden: ['upload']
 				}}
 			/>}
 			description={build.coil.wire.name}

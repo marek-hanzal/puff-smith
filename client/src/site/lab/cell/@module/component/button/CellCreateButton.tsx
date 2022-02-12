@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateCellForm} from "@/puff-smith/site/lab/cell";
+import {CreateCellForm} from "@/puff-smith/site/lab/cell/@module/form/CreateCellForm";
 
 export interface ICellCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

@@ -1,10 +1,11 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBasesQueryInvalidate} from "@/sdk/puff-smith/api/lab/base/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, message} from "antd";
+import {Divider, message} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
-import {BaseIcon} from "@/puff-smith";
+import {BaseIcon, PgSlider, VgSlider} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICreateBaseFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -37,21 +38,13 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 			field={'pg'}
 			required
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={100}
-			/>
+			<PgSlider/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
 			required
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={100}
-			/>
+			<VgSlider/>
 		</FormItem>
 		<Divider/>
 		<Centered>

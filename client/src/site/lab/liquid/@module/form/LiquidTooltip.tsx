@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {CreateLiquidForm} from "@/puff-smith/site/lab/liquid";
 import {useOptionalFormItemContext} from "@leight-core/leight";
+import {CreateLiquidForm} from "@/puff-smith/site/lab/liquid/@module/form/CreateLiquidForm";
 
 export interface ILiquidTooltipProps extends Partial<IFormTooltipProps> {
 }

@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {FC} from "react";
 import {AtomizerIcon} from "@/puff-smith";
-import {AtomizerLinkButton, AtomizerPreview} from "@/puff-smith/site/lab/atomizer";
 import {ExportOutlined} from "@ant-design/icons";
+import {AtomizerLinkButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerLinkButton";
+import {AtomizerPreview} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerPreview";
 
 export interface IAtomizerPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	atomizer: AtomizerDto;

@@ -3,7 +3,7 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CommentOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {CreateCommentForm} from "@/puff-smith/site/lab/liquid";
+import {CreateCommentForm} from "@/puff-smith/site/lab/liquid/@module/form/CreateCommentForm";
 
 export interface ILiquidCommentButtonProps extends Partial<IDrawerButtonProps> {
 	liquid: LiquidDto;

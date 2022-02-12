@@ -1,6 +1,6 @@
 import {BasesSourceSelect, IBasesSourceSelectProps} from "@/sdk/puff-smith/api/lab/base/endpoint";
 import {FC} from "react";
-import {BaseInline} from "@/puff-smith/site/lab/base";
+import {BaseInline} from "@/puff-smith/site/lab/base/@module/component/BaseInline";
 
 export interface IBaseSelectProps extends Partial<IBasesSourceSelectProps> {
 }

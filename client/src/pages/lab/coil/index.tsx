@@ -1,9 +1,12 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CoilIcon} from "@/puff-smith";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
-import {CoilCreateButton, CoilFilter, CoilTable} from "@/puff-smith/site/lab/coil";
 import {Menu} from "antd";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {CoilCreateButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilCreateButton";
+import {CoilFilter} from "@/puff-smith/site/lab/coil/@module/form/CoilFilter";
+import {CoilTable} from "@/puff-smith/site/lab/coil/@module/table/CoilTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage

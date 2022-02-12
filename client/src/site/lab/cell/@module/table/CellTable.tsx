@@ -1,9 +1,12 @@
 import {CellsSourceTable, ICellsSourceTableProps} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
-import {CellLinkButton, CellListItem, CellPreviewButton, CellQuickMenu} from "@/puff-smith/site/lab/cell";
 import {ButtonBar, toHumanNumber} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Ohm} from "@/puff-smith";
+import {CellListItem} from "@/puff-smith/site/lab/cell/@module/table/CellListItem";
+import {CellLinkButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellLinkButton";
+import {CellQuickMenu} from "@/puff-smith/site/lab/cell/@module/component/CellQuickMenu";
+import {CellPreviewButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellPreviewButton";
 
 export interface ICellTableProps extends Partial<ICellsSourceTableProps> {
 }

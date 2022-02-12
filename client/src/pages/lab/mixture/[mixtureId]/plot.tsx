@@ -1,11 +1,14 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider, Menu} from "antd";
-import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
 import {BarChartOutlined} from "@ant-design/icons";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
 
 export default withLabLayout(function Plot() {
 	const {mixtureId} = useParams();
@@ -44,7 +47,7 @@ export default withLabLayout(function Plot() {
 		{mixture => <VapesFilterContext defaultFilter={{mixtureIds: [mixture.id]}}>
 			<VapeFilter disabled={['atomizerIds']}/>
 			<VapePlot
-				selected={['median', 'count']}
+				selected={['median']}
 			/>
 			<Divider/>
 			<VapeTable defaultFilter={{mixtureIds: [mixture.id]}}/>

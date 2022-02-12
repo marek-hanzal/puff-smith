@@ -1,6 +1,6 @@
 import {ILiquidsSourceSelectProps, LiquidsSourceSelect} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {LiquidInline} from "@/puff-smith/site/lab/liquid";
+import {LiquidInline} from "@/puff-smith/site/lab/liquid/@module/component/LiquidInline";
 
 export interface ILiquidSelectProps extends Partial<ILiquidsSourceSelectProps> {
 }

@@ -1,8 +1,10 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
-import {MixtureCreateButton, PatchMixtureForm} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, EditIcon, HomeIcon, Template, useParams} from "@leight-core/leight";
 import {Menu} from "antd";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
+import {PatchMixtureForm} from "@/puff-smith/site/lab/mixture/@module/form/PatchMixtureForm";
 
 export default withLabLayout(function Edit() {
 	const {mixtureId} = useParams();

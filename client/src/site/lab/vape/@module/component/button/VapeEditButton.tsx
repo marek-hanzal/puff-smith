@@ -1,10 +1,10 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {PatchVapeForm} from "@/puff-smith/site/lab/vape";
+import {PatchVapeForm} from "@/puff-smith/site/lab/vape/@module/form/PatchVapeForm";
 
 export interface IVapeEditButtonProps extends Partial<IDrawerButtonProps> {
-	vape: VapeDto
+	vape: VapeDto;
 }
 
 export const VapeEditButton: FC<IVapeEditButtonProps> = ({vape, ...props}) => {

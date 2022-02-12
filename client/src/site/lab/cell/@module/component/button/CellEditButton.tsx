@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
-import {PatchCellForm} from "@/puff-smith/site/lab/cell";
+import {PatchCellForm} from "@/puff-smith/site/lab/cell/@module/form/PatchCellForm";
 
 export interface ICellEditButtonProps extends Partial<IDrawerButtonProps> {
 	cell: CellDto;

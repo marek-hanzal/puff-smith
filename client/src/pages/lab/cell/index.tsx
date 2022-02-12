@@ -1,9 +1,12 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CellIcon} from "@/puff-smith";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
-import {CellCreateButton, CellFilter, CellTable} from "@/puff-smith/site/lab/cell";
 import {CellsFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {Menu} from "antd";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {CellCreateButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellCreateButton";
+import {CellFilter} from "@/puff-smith/site/lab/cell/@module/form/CellFilter";
+import {CellTable} from "@/puff-smith/site/lab/cell/@module/table/CellTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage

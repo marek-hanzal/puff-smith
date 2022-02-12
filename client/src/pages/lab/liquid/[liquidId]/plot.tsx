@@ -1,11 +1,14 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider, Menu} from "antd";
-import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidPage} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {PlotIcon} from "@/puff-smith";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCreateButton";
 
 export default withLabLayout(function Plot() {
 	const {liquidId} = useParams();
@@ -44,7 +47,7 @@ export default withLabLayout(function Plot() {
 		{liquid => <VapesFilterContext defaultFilter={{liquidIds: [liquid.id]}}>
 			<VapeFilter disabled={['atomizerIds']}/>
 			<VapePlot
-				selected={['median', 'count']}
+				selected={['median']}
 			/>
 			<Divider/>
 			<VapeTable defaultFilter={{liquidIds: [liquid.id]}}/>

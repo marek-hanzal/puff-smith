@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {BuildIcon} from "@/puff-smith";
-import {BuildLinkButton, BuildPreview, IBuildPreviewProps} from "@/puff-smith/site/lab/build";
 import {ExportOutlined} from "@ant-design/icons";
+import {BuildPreview, IBuildPreviewProps} from "@/puff-smith/site/lab/build/@module/component/BuildPreview";
+import {BuildLinkButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildLinkButton";
 
 export interface IBuildPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	build: BuildDto;

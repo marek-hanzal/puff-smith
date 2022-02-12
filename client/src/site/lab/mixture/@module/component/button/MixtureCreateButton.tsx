@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture";
+import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture/@module/form/CreateMixtureForm";
 
 export interface IMixtureCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

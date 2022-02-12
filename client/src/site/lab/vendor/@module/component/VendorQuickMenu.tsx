@@ -1,9 +1,11 @@
 import {FC} from "react";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {Menu} from "antd";
-import {VendorDeleteButton, VendorEditButton, VendorPreviewButton} from "@/puff-smith/site/lab/vendor";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {VendorPreviewButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorPreviewButton";
+import {VendorEditButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorEditButton";
+import {VendorDeleteButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorDeleteButton";
 
 export interface IVendorQuickMenuProps extends Partial<IDrawerMenuProps> {
 	vendor: VendorDto;

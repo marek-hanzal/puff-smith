@@ -1,13 +1,13 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {VapeDrawerCreateButton, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
 import {Divider, Menu} from "antd";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BarChartOutlined} from "@ant-design/icons";
-
-const VapeButtonBar = () => <ButtonBar>
-	<VapeDrawerCreateButton type={'primary'}/>
-</ButtonBar>;
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeDrawerCreateButton";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 
 export default withLabLayout(function List() {
 	return <LabPage
@@ -33,7 +33,9 @@ export default withLabLayout(function List() {
 				<VapeDrawerCreateButton/>
 			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<VapeButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<VapeDrawerCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		<VapesFilterContext>
 			<VapeFilter/>

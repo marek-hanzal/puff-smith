@@ -5,7 +5,8 @@ import {FullLogoIcon, NotificationProvider} from "@/puff-smith";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import i18n from "i18next";
 import {LockOutlined} from "@ant-design/icons";
-import {Footer, Header, LabMenu, UserSettingsCheck} from "@/puff-smith/site/lab";
+import {Footer, Header, UserSettingsCheck} from "@/puff-smith/site/lab/@module/component";
+import {LabMenu} from "@/puff-smith/site/lab/@module/menu";
 
 export interface ILabLayoutProps {
 }

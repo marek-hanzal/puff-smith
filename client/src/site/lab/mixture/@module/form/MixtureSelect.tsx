@@ -1,6 +1,6 @@
 import {IMixturesSourceSelectProps, MixturesSourceSelect} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {FC} from "react";
-import {MixtureInline} from "@/puff-smith/site/lab/mixture";
+import {MixtureInline} from "@/puff-smith/site/lab/mixture/@module/component/MixtureInline";
 
 export interface IMixtureSelectProps extends Partial<IMixturesSourceSelectProps> {
 }

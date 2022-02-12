@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {DrawerButton, IDrawerButtonProps, IFormOnSuccess} from "@leight-core/leight";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
-import {PatchCommentForm} from "@/puff-smith/site/lab/comment";
+import {PatchCommentForm} from "@/puff-smith/site/lab/comment/@module/form/PatchCommentForm";
 
 export interface IDrawerCommentEditButtonProps extends Partial<IDrawerButtonProps> {
 	comment: CommentDto;

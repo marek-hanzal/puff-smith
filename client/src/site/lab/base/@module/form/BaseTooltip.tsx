@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {CreateBaseForm} from "@/puff-smith/site/lab/base";
 import {useOptionalFormItemContext} from "@leight-core/leight";
+import {CreateBaseForm} from "@/puff-smith/site/lab/base/@module/form/CreateBaseForm";
 
 export interface IBaseTooltipProps extends Partial<IFormTooltipProps> {
 }

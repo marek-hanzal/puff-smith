@@ -1,8 +1,11 @@
 import {ILiquidsSourceTableProps, LiquidsSourceTable} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {LiquidLinkButton, LiquidListItem, LiquidPreviewButton, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {LiquidListItem} from "@/puff-smith/site/lab/liquid/@module/table/LiquidListItem";
+import {LiquidLinkButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidLinkButton";
+import {LiquidQuickMenu} from "@/puff-smith/site/lab/liquid/@module/component/LiquidQuickMenu";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
 
 export interface ILiquidTableProps extends Partial<ILiquidsSourceTableProps> {
 }

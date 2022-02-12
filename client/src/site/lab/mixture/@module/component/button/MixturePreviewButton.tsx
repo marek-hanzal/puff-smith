@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureLinkButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {ExportOutlined} from "@ant-design/icons";
+import {MixturePreview} from "@/puff-smith/site/lab/mixture/@module/component/MixturePreview";
+import {MixtureLinkButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureLinkButton";
 
 export interface IMixturePreviewButtonProps extends Partial<IDrawerButtonProps> {
 	mixture: MixtureDto;

@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
-import {CellPreviewButton, CellQuickMenu} from "@/puff-smith/site/lab/cell";
 import {List} from "antd";
+import {CellQuickMenu} from "@/puff-smith/site/lab/cell/@module/component/CellQuickMenu";
+import {CellPreviewButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellPreviewButton";
 
 export interface ICellListItemProps extends Partial<ListItemProps> {
 	cell: CellDto;

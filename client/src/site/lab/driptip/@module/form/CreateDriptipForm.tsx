@@ -3,8 +3,9 @@ import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {DriptipIcon} from "@/puff-smith";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICreateDriptipFormProps extends Partial<ICreateDefaultFormProps> {
 }

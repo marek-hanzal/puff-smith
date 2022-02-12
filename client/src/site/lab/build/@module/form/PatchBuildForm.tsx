@@ -3,15 +3,18 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
-import {CoilSelect, CoilTooltip} from "@/puff-smith/site/lab/coil";
-import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {CoilCountInput} from "@/puff-smith/site/lab/build";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
+import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
+import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
+import {CoilTooltip} from "@/puff-smith/site/lab/coil/@module/form/CoilTooltip";
+import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
+import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
+import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;

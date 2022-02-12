@@ -1,20 +1,13 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon, PlotIcon} from "@/puff-smith";
-import {MixtureCreateButton, MixturePlotButton, MixturePreview} from "@/puff-smith/site/lab/mixture";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateMenuItem, HomeIcon} from "@leight-core/leight";
-import {Menu, Space} from "antd";
-import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {FC} from "react";
-
-interface IMixtureButtonBarProps {
-	mixture: MixtureDto;
-}
-
-const MixtureButtonBar: FC<IMixtureButtonBarProps> = ({mixture}) => <Space>
-	<MixturePlotButton mixture={mixture}/>
-	<MixtureCreateButton type={'primary'}/>
-</Space>;
+import {Menu} from "antd";
+import {ButtonBar} from "@leight-core/leight/dist";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
+import {MixturePlotButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePlotButton";
+import {MixturePreview} from "@/puff-smith/site/lab/mixture/@module/component/MixturePreview";
 
 export default withLabLayout(function Index() {
 	return <MixturePage
@@ -41,7 +34,10 @@ export default withLabLayout(function Index() {
 			</Menu.Item>
 			{CreateMenuItem('lab.mixture.button.plot', '/lab/mixture/[mixtureId]/plot', <PlotIcon/>, {mixtureId: entity.id})}
 		</LabMenuDrawerButton>}
-		extraBrowser={({entity}) => entity && <MixtureButtonBar mixture={entity}/>}
+		extraBrowser={({entity}) => entity && <ButtonBar>
+			<MixturePlotButton mixture={entity}/>
+			<MixtureCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		{mixture => <MixturePreview mixture={mixture}/>}
 	</MixturePage>;

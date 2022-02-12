@@ -1,9 +1,12 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CottonIcon} from "@/puff-smith";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
-import {CottonCreateButton, CottonFilter, CottonTable} from "@/puff-smith/site/lab/cotton";
 import {CottonsFilterContext} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {Menu} from "antd";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {CottonCreateButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonCreateButton";
+import {CottonFilter} from "@/puff-smith/site/lab/cotton/@module/form/CottonFilter";
+import {CottonTable} from "@/puff-smith/site/lab/cotton/@module/table/CottonTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage

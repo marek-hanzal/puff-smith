@@ -1,11 +1,11 @@
 import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
-import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
-import {CoilSelect} from "@/puff-smith/site/lab/coil";
-import {CottonSelect} from "@/puff-smith/site/lab/cotton";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
+import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
+import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
+import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 
 export interface IBuildFilterProps extends IFilterWithoutTranslationProps<BuildFilterDto> {
 }

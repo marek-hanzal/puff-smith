@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateVendorForm} from "@/puff-smith/site/lab/vendor";
+import {CreateVendorForm} from "@/puff-smith/site/lab/vendor/@module/form/CreateVendorForm";
 
 export interface IVendorCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

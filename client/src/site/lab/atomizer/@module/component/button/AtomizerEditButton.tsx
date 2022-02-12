@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer";
+import {PatchAtomizerForm} from "@/puff-smith/site/lab/atomizer/@module/form/PatchAtomizerForm";
 
 export interface IAtomizerEditButtonProps extends Partial<IDrawerButtonProps> {
 	atomizer: AtomizerDto;

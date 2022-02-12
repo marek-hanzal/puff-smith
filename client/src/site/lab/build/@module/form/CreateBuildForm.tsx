@@ -2,16 +2,19 @@ import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} fr
 import {FC, ReactNode} from "react";
 import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {AtomizerSelect, AtomizerTooltip} from "@/puff-smith/site/lab/atomizer";
 import {Divider, InputNumber, message} from "antd";
-import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {CoilCountInput} from "@/puff-smith/site/lab/build";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
-import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
+import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
+import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
+import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
+import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
+import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
+import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
+import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto

@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {AtomizerPreviewButton, AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer";
 import {List} from "antd";
+import {AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerQuickMenu";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 
 export interface IAtomizerListItemProps extends Partial<ListItemProps> {
 	atomizer: AtomizerDto;

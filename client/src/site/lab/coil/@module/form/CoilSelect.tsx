@@ -1,6 +1,6 @@
 import {CoilsSourceSelect, ICoilsSourceSelectProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 
 export interface ICoilSelectProps extends Partial<ICoilsSourceSelectProps> {
 }

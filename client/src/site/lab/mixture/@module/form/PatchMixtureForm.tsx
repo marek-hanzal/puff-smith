@@ -3,13 +3,16 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useMixtureQueryInvalidate, use
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
-import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
-import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
 import {asMoment, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
 import {MixtureIcon} from "@/puff-smith";
+import {LiquidTooltip} from "@/puff-smith/site/lab/liquid/@module/form/LiquidTooltip";
+import {LiquidSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidSelect";
+import {BaseTooltip} from "@/puff-smith/site/lab/base/@module/form/BaseTooltip";
+import {BaseSelect} from "@/puff-smith/site/lab/base/@module/form/BaseSelect";
+import {BoosterTooltip} from "@/puff-smith/site/lab/booster/@module/form/BoosterTooltip";
+import {BoosterSelect} from "@/puff-smith/site/lab/booster/@module/form/BoosterSelect";
 
 export interface IPatchMixtureFormProps extends Partial<IPatchDefaultFormProps> {
 	mixture: MixtureDto;

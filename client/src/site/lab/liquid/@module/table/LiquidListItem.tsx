@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {LiquidPreviewButton, LiquidQuickMenu} from "@/puff-smith/site/lab/liquid";
 import {List} from "antd";
+import {LiquidQuickMenu} from "@/puff-smith/site/lab/liquid/@module/component/LiquidQuickMenu";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
 
 export interface ILiquidListItemProps extends Partial<ListItemProps> {
 	liquid: LiquidDto;

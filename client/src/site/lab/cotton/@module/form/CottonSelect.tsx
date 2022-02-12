@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CottonsSourceSelect, ICottonsSourceSelectProps} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
-import {CottonInline} from "@/puff-smith/site/lab/cotton";
+import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
 
 export interface ICottonSelectProps extends Partial<ICottonsSourceSelectProps> {
 }

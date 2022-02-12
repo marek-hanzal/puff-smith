@@ -1,13 +1,18 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Menu} from "antd";
-import {BuildActiveButton, BuildCommentButton, BuildDeleteButton, BuildEditButton, BuildPreviewButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/leight";
-import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
-import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
-import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
+import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
+import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";
+import {BuildCommentButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCommentButton";
+import {BuildEditButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildEditButton";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
+import {BuildActiveButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildActiveButton";
+import {BuildDeleteButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildDeleteButton";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 
 export interface IBuildQuickMenuProps extends Partial<IDrawerMenuProps> {
 	build: BuildDto;

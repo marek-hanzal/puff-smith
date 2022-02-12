@@ -1,10 +1,12 @@
 import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Menu} from "antd";
-import {AtomizerDeleteButton, AtomizerEditButton, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {useTranslation} from "react-i18next";
 import {ButtonLink, DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
+import {AtomizerEditButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerEditButton";
+import {AtomizerDeleteButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerDeleteButton";
 
 export interface IAtomizerQuickMenuProps extends Partial<IDrawerMenuProps> {
 	atomizer: AtomizerDto;

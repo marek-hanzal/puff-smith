@@ -1,12 +1,12 @@
 import {FC} from "react";
 import {DrawerButton, IDrawerButtonProps, Preview} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {VapeRateForm} from "@/puff-smith/site/lab/vape";
 import {DotChartOutlined} from "@ant-design/icons";
 import {Divider} from "antd";
-import {BuildInline} from "@/puff-smith/site/lab/build";
-import {MixtureInline} from "@/puff-smith/site/lab/mixture";
 import {ModInline} from "@/puff-smith/site/lab/mod";
+import {BuildInline} from "@/puff-smith/site/lab/build/@module/component/BuildInline";
+import {VapeRateForm} from "@/puff-smith/site/lab/vape/@module/form/VapeRateForm";
+import {MixtureInline} from "@/puff-smith/site/lab/mixture/@module/component/MixtureInline";
 
 export interface IVapeRateButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;

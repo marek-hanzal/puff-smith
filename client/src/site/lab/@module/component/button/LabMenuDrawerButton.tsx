@@ -1,7 +1,7 @@
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {MenuOutlined} from "@ant-design/icons";
-import {ILabMenuProps, LabMenu} from "@/puff-smith/site/lab";
+import {ILabMenuProps, LabMenu} from "@/puff-smith/site/lab/@module/menu";
 import {LogoIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 

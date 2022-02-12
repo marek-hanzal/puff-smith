@@ -1,15 +1,16 @@
 import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
-import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer";
 import {ModSelect} from "@/puff-smith/site/lab/mod";
-import {MixtureSelect} from "@/puff-smith/site/lab/mixture";
-import {CoilSelect, SizeInput} from "@/puff-smith/site/lab/coil";
-import {LiquidSelect} from "@/puff-smith/site/lab/liquid";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {Radio} from "antd";
 import {useTranslation} from "react-i18next";
 import {WireSelect} from "@/puff-smith/site/lab/wire";
-import {CottonSelect} from "@/puff-smith/site/lab/cotton";
+import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
+import {MixtureSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureSelect";
+import {LiquidSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidSelect";
+import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
+import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
+import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 
 export interface IVapeFilterProps extends IFilterWithoutTranslationProps<VapeFilterDto> {
 	disabled?: (keyof VapeFilterDto)[]

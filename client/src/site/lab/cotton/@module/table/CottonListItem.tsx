@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
-import {CottonPreviewButton, CottonQuickMenu} from "@/puff-smith/site/lab/cotton";
 import {List} from "antd";
+import {CottonQuickMenu} from "@/puff-smith/site/lab/cotton/@module/component/CottonQuickMenu";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 
 export interface ICottonListItemProps extends Partial<ListItemProps> {
 	cotton: CottonDto;

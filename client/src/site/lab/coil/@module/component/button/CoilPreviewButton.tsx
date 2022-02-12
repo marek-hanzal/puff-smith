@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {FC} from "react";
 import {CoilIcon} from "@/puff-smith";
-import {CoilLinkButton, CoilPreview} from "@/puff-smith/site/lab/coil";
 import {ExportOutlined} from "@ant-design/icons";
+import {CoilPreview} from "@/puff-smith/site/lab/coil/@module/component/CoilPreview";
+import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";
 
 export interface ICoilPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	coil: CoilDto;

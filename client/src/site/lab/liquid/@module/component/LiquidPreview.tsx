@@ -2,15 +2,20 @@ import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
-import {LiquidComments, LiquidEditButton, LiquidInline, LiquidPlotButton} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
 import {ImageGallery} from "@/puff-smith";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext} from "@/sdk/puff-smith/api/lab/mixture/comment/endpoint";
-import {MixtureComments} from "@/puff-smith/site/lab/mixture";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {MixtureComments} from "@/puff-smith/site/lab/mixture/@module/component/MixtureComments";
+import {LiquidInline} from "@/puff-smith/site/lab/liquid/@module/component/LiquidInline";
+import {LiquidEditButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidEditButton";
+import {LiquidComments} from "@/puff-smith/site/lab/liquid/@module/component/LiquidComments";
+import {LiquidPlotButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPlotButton";
 
 export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 
@@ -66,7 +71,7 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 					/>
 				</Space>
 				<VapePlot
-					selected={['median', 'count']}
+					selected={['median']}
 				/>
 				<Divider/>
 				<VapeTable

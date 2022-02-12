@@ -1,12 +1,11 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
-import {BuildCreateButton, BuildFilter, BuildTable} from "@/puff-smith/site/lab/build";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
-
-const BuildButtonBar = () => <ButtonBar>
-	<BuildCreateButton type={'primary'}/>
-</ButtonBar>
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
+import {BuildFilter} from "@/puff-smith/site/lab/build/@module/form/BuildFilter";
+import {BuildTable} from "@/puff-smith/site/lab/build/@module/table/BuildTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -26,7 +25,9 @@ export default withLabLayout(function Index() {
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<BuildButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<BuildCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		<BuildsFilterContext>
 			<BuildFilter/>

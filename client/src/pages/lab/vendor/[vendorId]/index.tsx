@@ -1,10 +1,12 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {VendorIcon} from "@/puff-smith";
-import {VendorCreateButton, VendorPreview} from "@/puff-smith/site/lab/vendor";
 import {VendorPage} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {VendorCreateButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorCreateButton";
+import {VendorPreview} from "@/puff-smith/site/lab/vendor/@module/component/VendorPreview";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

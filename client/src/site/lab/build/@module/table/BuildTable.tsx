@@ -1,12 +1,15 @@
 import {BuildsSourceTable, IBuildsSourceTableProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
-import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
-import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
-import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {ButtonBar} from "@leight-core/leight";
 import {Ohm} from "@/puff-smith";
+import {BuildListItem} from "@/puff-smith/site/lab/build/@module/table/BuildListItem";
+import {BuildLinkButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildLinkButton";
+import {BuildQuickMenu} from "@/puff-smith/site/lab/build/@module/component/BuildQuickMenu";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
+import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }

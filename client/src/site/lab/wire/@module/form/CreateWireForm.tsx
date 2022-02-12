@@ -1,10 +1,11 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {Divider, InputNumber, message} from "antd";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
-import {WireIcon} from "@/puff-smith";
+import {Divider, message} from "antd";
+import {GaInput, WireIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICreateWireFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -39,7 +40,7 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 		<FormItem
 			field={'ga'}
 		>
-			<InputNumber style={{width: '100%'}} min={20} max={48}/>
+			<GaInput/>
 		</FormItem>
 		<Divider/>
 		<Centered>

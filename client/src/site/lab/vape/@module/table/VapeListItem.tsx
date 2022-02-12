@@ -2,10 +2,11 @@ import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Divider, List, Space, Tooltip} from "antd";
-import {VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {durationOf} from "@leight-core/leight";
 import {Ohm} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {VapeQuickMenu} from "@/puff-smith/site/lab/vape/@module/component/VapeQuickMenu";
+import {VapePreviewButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePreviewButton";
 
 export interface IVapeListItemProps extends Partial<ListItemProps> {
 	vape: VapeDto;

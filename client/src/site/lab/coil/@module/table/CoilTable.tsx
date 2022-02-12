@@ -1,8 +1,11 @@
 import {CoilsSourceTable, ICoilsSourceTableProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {CoilLinkButton, CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
 import {ButtonBar, PreviewBool} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {CoilListItem} from "@/puff-smith/site/lab/coil/@module/table/CoilListItem";
+import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";
+import {CoilQuickMenu} from "@/puff-smith/site/lab/coil/@module/component/CoilQuickMenu";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }

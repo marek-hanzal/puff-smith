@@ -1,6 +1,5 @@
 import {ButtonLink, IButtonLinkProps} from "@leight-core/leight";
 import {FC} from "react";
-import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {BarChartOutlined} from "@ant-design/icons";
 
 export interface IVapePlotButtonProps extends Partial<IButtonLinkProps> {

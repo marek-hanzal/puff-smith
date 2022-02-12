@@ -4,12 +4,17 @@ import {ButtonBar, durationOf, Preview, PreviewTemplate, toLocalDateTime} from "
 import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {ModInline} from "@/puff-smith/site/lab/mod";
-import {VapeCloneButton, VapeComments, VapeEditButton, VapeRateButton} from "@/puff-smith/site/lab/vape";
 import {CommonRateInput} from "@/puff-smith";
-import {BuildAge, BuildComments} from "@/puff-smith/site/lab/build";
-import {AtomizerComments, AtomizerInline} from "@/puff-smith/site/lab/atomizer";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
+import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
+import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
+import {VapeEditButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeEditButton";
+import {VapeCloneButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCloneButton";
+import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeRateButton";
+import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
+import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;

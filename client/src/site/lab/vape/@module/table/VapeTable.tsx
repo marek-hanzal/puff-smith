@@ -1,14 +1,16 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 import {ButtonBar, durationOf, toLocalDateTime} from "@leight-core/leight";
-import {VapeLinkButton, VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
-import {BuildAge} from "@/puff-smith/site/lab/build";
-import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
-import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod";
+import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
+import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
+import {VapeListItem} from "@/puff-smith/site/lab/vape/@module/table/VapeListItem";
+import {VapeLinkButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeLinkButton";
+import {VapeQuickMenu} from "@/puff-smith/site/lab/vape/@module/component/VapeQuickMenu";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 

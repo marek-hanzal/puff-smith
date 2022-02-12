@@ -1,9 +1,10 @@
 import {VapeIcon} from "@/puff-smith";
-import {VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 import {ExportOutlined} from "@ant-design/icons";
+import {VapePreview} from "@/puff-smith/site/lab/vape/@module/component/VapePreview";
+import {VapeLinkButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeLinkButton";
 
 export interface IVapePreviewButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;

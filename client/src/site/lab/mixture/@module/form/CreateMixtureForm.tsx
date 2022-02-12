@@ -3,12 +3,15 @@ import {CreateDefaultForm, ICreateDefaultFormProps, useMixturesQueryInvalidate} 
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {Divider, message} from "antd";
-import {LiquidSelect, LiquidTooltip} from "@/puff-smith/site/lab/liquid";
-import {BaseSelect, BaseTooltip} from "@/puff-smith/site/lab/base";
-import {BoosterSelect, BoosterTooltip} from "@/puff-smith/site/lab/booster";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
 import {MixtureIcon} from "@/puff-smith";
+import {LiquidTooltip} from "@/puff-smith/site/lab/liquid/@module/form/LiquidTooltip";
+import {LiquidSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidSelect";
+import {BaseTooltip} from "@/puff-smith/site/lab/base/@module/form/BaseTooltip";
+import {BaseSelect} from "@/puff-smith/site/lab/base/@module/form/BaseSelect";
+import {BoosterTooltip} from "@/puff-smith/site/lab/booster/@module/form/BoosterTooltip";
+import {BoosterSelect} from "@/puff-smith/site/lab/booster/@module/form/BoosterSelect";
 
 export interface ICreateMixtureFormProps extends Partial<ICreateDefaultFormProps> {
 }

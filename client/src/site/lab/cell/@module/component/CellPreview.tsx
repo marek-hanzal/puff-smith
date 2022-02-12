@@ -1,8 +1,8 @@
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
 import {IPreviewProps, Preview, toHumanNumber} from "@leight-core/leight";
 import {FC} from "react";
-import {CellInline} from "@/puff-smith/site/lab/cell";
 import {Ohm} from "@/puff-smith";
+import {CellInline} from "@/puff-smith/site/lab/cell/@module/component/CellInline";
 
 export interface ICellPreviewProps extends Partial<IPreviewProps> {
 	cell: CellDto;

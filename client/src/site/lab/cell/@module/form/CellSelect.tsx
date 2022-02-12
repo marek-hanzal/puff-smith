@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CellsSourceSelect, ICellsSourceSelectProps} from "@/sdk/puff-smith/api/lab/cell/endpoint";
-import {CellInline} from "@/puff-smith/site/lab/cell";
+import {CellInline} from "@/puff-smith/site/lab/cell/@module/component/CellInline";
 
 export interface ICellSelectProps extends Partial<ICellsSourceSelectProps> {
 }

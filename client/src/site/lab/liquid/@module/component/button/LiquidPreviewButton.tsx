@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {FC} from "react";
 import {LiquidIcon} from "@/puff-smith";
-import {ILiquidPreviewProps, LiquidLinkButton, LiquidPreview} from "@/puff-smith/site/lab/liquid";
 import {ExportOutlined} from "@ant-design/icons";
+import {ILiquidPreviewProps, LiquidPreview} from "@/puff-smith/site/lab/liquid/@module/component/LiquidPreview";
+import {LiquidLinkButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidLinkButton";
 
 export interface ILiquidPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	liquid: LiquidDto;
@@ -20,7 +21,7 @@ export const LiquidPreviewButton: FC<ILiquidPreviewButtonProps> = ({liquid, liqu
 			{...props}
 		>
 			<LiquidPreview
-				hidden={['upload', 'images']}
+				hidden={['upload']}
 				forceList
 				liquid={liquid}
 				{...liquidPreviewProps}

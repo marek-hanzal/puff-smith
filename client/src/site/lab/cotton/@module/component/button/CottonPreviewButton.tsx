@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {FC} from "react";
 import {CottonIcon} from "@/puff-smith";
-import {CottonLinkButton, CottonPreview} from "@/puff-smith/site/lab/cotton";
 import {ExportOutlined} from "@ant-design/icons";
+import {CottonPreview} from "@/puff-smith/site/lab/cotton/@module/component/CottonPreview";
+import {CottonLinkButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonLinkButton";
 
 export interface ICottonPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	cotton: CottonDto;

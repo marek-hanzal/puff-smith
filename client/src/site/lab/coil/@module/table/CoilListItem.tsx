@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
-import {CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
 import {List} from "antd";
+import {CoilQuickMenu} from "@/puff-smith/site/lab/coil/@module/component/CoilQuickMenu";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 
 export interface ICoilListItemProps extends Partial<ListItemProps> {
 	coil: CoilDto;

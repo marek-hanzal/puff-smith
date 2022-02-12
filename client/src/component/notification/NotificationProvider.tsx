@@ -1,4 +1,4 @@
-import {NotificationContext} from "@/puff-smith";
+import {NotificationContext} from "./NotificationContext";
 import {FC, useState} from "react";
 
 export interface INotificationProviderProps {

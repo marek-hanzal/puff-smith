@@ -1,8 +1,9 @@
 import {ListItemProps} from "antd/lib/list";
 import {FC} from "react";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {MixturePreviewButton, MixtureQuickMenu} from "@/puff-smith/site/lab/mixture";
 import {List} from "antd";
+import {MixtureQuickMenu} from "@/puff-smith/site/lab/mixture/@module/component/MixtureQuickMenu";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
 
 export interface IMixtureListItemProps extends Partial<ListItemProps> {
 	mixture: MixtureDto;

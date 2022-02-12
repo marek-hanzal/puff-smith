@@ -1,6 +1,6 @@
 import {BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
-import {BoosterInline} from "@/puff-smith/site/lab/booster";
+import {BoosterInline} from "@/puff-smith/site/lab/booster/@module/component/BoosterInline";
 
 export interface IBoosterSelectProps extends Partial<IBoostersSourceSelectProps> {
 }

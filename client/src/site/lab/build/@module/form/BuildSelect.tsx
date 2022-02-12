@@ -1,6 +1,6 @@
 import {BuildsSourceSelect, IBuildsSourceSelectProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
-import {BuildInline} from "@/puff-smith/site/lab/build";
+import {BuildInline} from "@/puff-smith/site/lab/build/@module/component/BuildInline";
 
 export interface IBuildSelectProps extends Partial<IBuildsSourceSelectProps> {
 }

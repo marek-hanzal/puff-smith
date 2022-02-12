@@ -1,10 +1,13 @@
 import {FC} from "react";
 import {Menu} from "antd";
-import {MixtureActiveButton, MixtureCommentButton, MixtureEditButton, MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
+import {MixtureCommentButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCommentButton";
+import {MixtureEditButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureEditButton";
+import {MixtureActiveButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureActiveButton";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
 
 export interface IMixtureQuickMenuProps extends Partial<IDrawerMenuProps> {
 	mixture: MixtureDto;

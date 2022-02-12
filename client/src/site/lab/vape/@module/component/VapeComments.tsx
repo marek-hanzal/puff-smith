@@ -1,12 +1,13 @@
 import {FC} from "react";
 import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
-import {Comments} from "@/puff-smith/site/lab/comment";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeCommentDto} from "@/sdk/puff-smith/vape/dto/comment";
-import {CreateCommentForm, VapePreviewButton} from "@/puff-smith/site/lab/vape";
 import {Divider, Space} from "antd";
-import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
-import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {CreateCommentForm} from "@/puff-smith/site/lab/vape/@module/form/CreateCommentForm";
+import {VapePreviewButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePreviewButton";
+import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
+import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
+import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
 
 export interface IVapeCommentsProps extends Partial<ICommentsSourceProps> {
 	vape?: VapeDto;
@@ -46,8 +47,8 @@ export const VapeComments: FC<IVapeCommentsProps> = ({vape, ...props}) => {
 					/>
 				</Space>,
 			})}
-			onEdit={() => commentsQueryInvalidate()}
-			onDelete={() => commentsQueryInvalidate()}
+			onEdit={commentsQueryInvalidate}
+			onDelete={commentsQueryInvalidate}
 		/>
 	</CommentsSource>
 }

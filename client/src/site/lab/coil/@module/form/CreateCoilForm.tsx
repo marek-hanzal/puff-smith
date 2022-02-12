@@ -6,7 +6,8 @@ import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {CoilIcon} from "@/puff-smith";
-import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
+import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
+import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
 
 export interface ICreateCoilFormProps extends Partial<ICreateDefaultFormProps> {
 	coil?: CoilDto;

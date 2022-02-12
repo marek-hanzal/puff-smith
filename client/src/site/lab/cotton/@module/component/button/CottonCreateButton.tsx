@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateCottonForm} from "@/puff-smith/site/lab/cotton";
+import {CreateCottonForm} from "@/puff-smith/site/lab/cotton/@module/form/CreateCottonForm";
 
 export interface ICottonCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

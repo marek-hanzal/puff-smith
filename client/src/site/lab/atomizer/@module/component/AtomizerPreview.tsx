@@ -1,14 +1,20 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
-import {AtomizerComments, AtomizerEditButton, AtomizerInline, AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
-import {BuildComments} from "@/puff-smith/site/lab/build";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
-import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
+import {AtomizerEditButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerEditButton";
+import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
+import {AtomizerPlotButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPlotButton";
+import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
@@ -66,7 +72,7 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 					/>
 				</Space>
 				<VapePlot
-					selected={['median', 'count']}
+					selected={['median']}
 				/>
 				<Divider/>
 				<VapeTable

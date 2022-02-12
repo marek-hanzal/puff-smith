@@ -1,11 +1,15 @@
-import {LabMenuDrawerButton, withLabLayout} from "@/puff-smith/site/lab";
 import {Divider} from "antd";
-import {BuildCreateButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, useParams} from "@leight-core/leight";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {PlotIcon} from "@/puff-smith";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";
+import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 
 export default withLabLayout(function Plot() {
 	const {buildId} = useParams();
@@ -43,7 +47,7 @@ export default withLabLayout(function Plot() {
 		{build => <VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
 			<VapeFilter disabled={['atomizerIds']}/>
 			<VapePlot
-				selected={['median', 'count']}
+				selected={['median']}
 				emptyResultProps={{
 					extra: <BuildVapeButton type={'primary'} build={build}/>,
 				}}

@@ -3,10 +3,11 @@ import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {PgSlider, VgSlider} from "@/puff-smith/component/input";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {LiquidIcon} from "@/puff-smith";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface IPatchLiquidFormProps extends Partial<IPatchDefaultFormProps> {
 	liquid: LiquidDto;

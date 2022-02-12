@@ -1,11 +1,10 @@
 import {FC} from "react";
 import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {BuildPreviewButton, CreateCommentForm} from "@/puff-smith/site/lab/build";
 import {BuildCommentDto} from "@/sdk/puff-smith/build/dto/comment";
-import {Comments} from "@/puff-smith/site/lab/comment";
 import {Divider, Space} from "antd";
-import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
+import {CreateCommentForm} from "@/puff-smith/site/lab/build/@module/form/CreateCommentForm";
+import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
 
 export interface IBuildCommentsProps extends Partial<ICommentsSourceProps> {
 	build?: BuildDto;
@@ -22,24 +21,12 @@ export const BuildComments: FC<IBuildCommentsProps> = ({build, ...props}) => {
 			toComment={dto => dto.comment}
 			toCommentProps={dto => ({
 				author: <Space size={0} split={<Divider type={'vertical'}/>}>
-					<BuildPreviewButton
-						size={'small'}
-						style={{padding: 0}}
-						title={dto.build.atomizer.name}
-						icon={null}
-						build={dto.build}
-					/>
-					<CoilPreviewButton
-						size={'small'}
-						style={{padding: 0}}
-						title={dto.build.coil.wire.name}
-						icon={null}
-						coil={dto.build.coil}
-					/>
+					<span>{dto.build.atomizer.name}</span>
+					<span>{dto.build.coil.wire.name}</span>
 				</Space>,
 			})}
-			onEdit={() => commentsQueryInvalidate()}
-			onDelete={() => commentsQueryInvalidate()}
+			onEdit={commentsQueryInvalidate}
+			onDelete={commentsQueryInvalidate}
 		/>
 	</CommentsSource>
 }

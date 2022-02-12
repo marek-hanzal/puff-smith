@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateCoilForm} from "@/puff-smith/site/lab/coil";
+import {CreateCoilForm} from "@/puff-smith/site/lab/coil/@module/form/CreateCoilForm";
 
 export interface ICoilCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

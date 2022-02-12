@@ -2,7 +2,7 @@ import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CloneIcon} from "@/puff-smith";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
-import {CreateVapeForm} from "@/puff-smith/site/lab/vape";
+import {CreateVapeForm} from "@/puff-smith/site/lab/vape/@module/form/CreateVapeForm";
 
 export interface IVapeCloneButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto

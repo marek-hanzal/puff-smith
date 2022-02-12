@@ -1,12 +1,11 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {MixtureIcon} from "@/puff-smith";
-import {MixtureCreateButton, MixtureFilter, MixtureTable} from "@/puff-smith/site/lab/mixture";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {MixturesFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-
-const MixtureButtonBar = () => <ButtonBar>
-	<MixtureCreateButton type={'primary'}/>
-</ButtonBar>;
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
+import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/form/MixtureFilter";
+import {MixtureTable} from "@/puff-smith/site/lab/mixture/@module/table/MixtureTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -26,7 +25,9 @@ export default withLabLayout(function Index() {
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
 		</LabMenuDrawerButton>}
-		extraBrowser={<MixtureButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<MixtureCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		<MixturesFilterContext>
 			<MixtureFilter/>

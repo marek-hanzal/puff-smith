@@ -1,9 +1,12 @@
 import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {Menu} from "antd";
-import {LiquidCommentButton, LiquidDeleteButton, LiquidEditButton, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
+import {LiquidCommentButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCommentButton";
+import {LiquidEditButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidEditButton";
+import {LiquidDeleteButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidDeleteButton";
 
 export interface ILiquidQuickMenuProps extends Partial<IDrawerMenuProps> {
 	liquid: LiquidDto;

@@ -1,19 +1,25 @@
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon, ImageGallery, PlotIcon} from "@/puff-smith";
-import {BuildComments, BuildPreviewButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateIcon, DrawerButton, HomeIcon, Template, useIsMobile, useParams} from "@leight-core/leight";
 import {Col, List, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {FC, useEffect, useState} from "react";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
-import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabPage} from "@/puff-smith/site/lab/@module/component";
+import {CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build/@module/form/CreateBuildForm";
+import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
+import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
+import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
+import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();

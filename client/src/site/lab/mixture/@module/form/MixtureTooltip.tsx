@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture";
 import {useOptionalFormItemContext} from "@leight-core/leight";
+import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture/@module/form/CreateMixtureForm";
 
 export interface IMixtureTooltipProps extends Partial<IFormTooltipProps> {
 }

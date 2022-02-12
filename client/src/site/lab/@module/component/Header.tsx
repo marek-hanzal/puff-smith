@@ -1,6 +1,7 @@
 import {LinkTo} from "@leight-core/leight";
 import {Col, Divider, Row, Space} from "antd";
-import {LogoIcon, LogoutButton} from "@/puff-smith";
+import {LogoutButton} from "@/puff-smith/component/button";
+import {LogoIcon} from "@/puff-smith/component/icon";
 import {NotificationButton, UserProfileButton} from "@/puff-smith/site/lab/@module/component/button";
 
 export const Header = () => {

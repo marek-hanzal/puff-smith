@@ -1,10 +1,11 @@
 import {FC} from "react";
 import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/comment/endpoint";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {CreateCommentForm, LiquidPreviewButton} from "@/puff-smith/site/lab/liquid";
 import {LiquidCommentDto} from "@/sdk/puff-smith/liquid/dto/comment";
-import {Comments} from "@/puff-smith/site/lab/comment";
 import {Divider, Space} from "antd";
+import {CreateCommentForm} from "@/puff-smith/site/lab/liquid/@module/form/CreateCommentForm";
+import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
+import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
 
 export interface ILiquidCommentsProps extends Partial<ICommentsSourceProps> {
 	liquid?: LiquidDto;
@@ -30,8 +31,8 @@ export const LiquidComments: FC<ILiquidCommentsProps> = ({liquid, ...props}) => 
 					/>
 				</Space>,
 			})}
-			onEdit={() => commentsQueryInvalidate()}
-			onDelete={() => commentsQueryInvalidate()}
+			onEdit={commentsQueryInvalidate}
+			onDelete={commentsQueryInvalidate}
 		/>
 	</CommentsSource>
 }

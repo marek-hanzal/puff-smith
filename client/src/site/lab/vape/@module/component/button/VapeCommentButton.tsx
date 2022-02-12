@@ -3,7 +3,7 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CommentOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {CreateCommentForm} from "@/puff-smith/site/lab/vape";
+import {CreateCommentForm} from "@/puff-smith/site/lab/vape/@module/form/CreateCommentForm";
 
 export interface IVapeCommentButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;

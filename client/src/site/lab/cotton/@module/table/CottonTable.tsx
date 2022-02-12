@@ -1,8 +1,11 @@
 import {CottonsSourceTable, ICottonsSourceTableProps} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {FC} from "react";
-import {CottonLinkButton, CottonListItem, CottonPreviewButton, CottonQuickMenu} from "@/puff-smith/site/lab/cotton";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {CottonListItem} from "@/puff-smith/site/lab/cotton/@module/table/CottonListItem";
+import {CottonLinkButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonLinkButton";
+import {CottonQuickMenu} from "@/puff-smith/site/lab/cotton/@module/component/CottonQuickMenu";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 
 export interface ICottonTableProps extends Partial<ICottonsSourceTableProps> {
 }

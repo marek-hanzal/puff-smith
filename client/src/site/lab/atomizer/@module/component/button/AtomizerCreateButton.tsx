@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer";
+import {CreateAtomizerForm} from "@/puff-smith/site/lab/atomizer/@module/form/CreateAtomizerForm";
 
 export interface IAtomizerCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

@@ -1,11 +1,12 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {Divider, InputNumber, message} from "antd";
-import {CellIcon} from "@/puff-smith";
+import {CellIcon, VoltageInput} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
-import {DrainInput} from "@/puff-smith/site/lab/cell";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {DrainInput} from "@/puff-smith/site/lab/cell/@module/form/input/DrainInput";
 
 export interface ICreateCellFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -59,7 +60,7 @@ export const CreateCellForm: FC<ICreateCellFormProps> = ({onSuccess, ...props}) 
 			hasTooltip
 			required
 		>
-			<InputNumber min={2} max={10} style={{width: '100%'}}/>
+			<VoltageInput/>
 		</FormItem>
 		<Divider/>
 		<Centered>

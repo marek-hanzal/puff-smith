@@ -1,14 +1,21 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {asDayjs, durationOf, Preview, PreviewBool, PreviewTemplate, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
-import {LiquidComments, LiquidInline} from "@/puff-smith/site/lab/liquid";
 import {Divider, Space, Tabs} from "antd";
-import {BaseInline} from "@/puff-smith/site/lab/base";
-import {BoosterInline} from "@/puff-smith/site/lab/booster";
-import {MixtureComments, MixtureEditButton, MixtureInline, MixturePlotButton, MixtureSteeping} from "@/puff-smith/site/lab/mixture";
 import {useTranslation} from "react-i18next";
-import {VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {MixtureInline} from "@/puff-smith/site/lab/mixture/@module/component/MixtureInline";
+import {MixtureEditButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureEditButton";
+import {MixtureSteeping} from "@/puff-smith/site/lab/mixture/@module/component/MixtureSteeping";
+import {MixtureComments} from "@/puff-smith/site/lab/mixture/@module/component/MixtureComments";
+import {MixturePlotButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePlotButton";
+import {LiquidInline} from "@/puff-smith/site/lab/liquid/@module/component/LiquidInline";
+import {LiquidComments} from "@/puff-smith/site/lab/liquid/@module/component/LiquidComments";
+import {BaseInline} from "@/puff-smith/site/lab/base/@module/component/BaseInline";
+import {BoosterInline} from "@/puff-smith/site/lab/booster/@module/component/BoosterInline";
 
 export interface IMixturePreviewProps {
 	mixture: MixtureDto;
@@ -66,7 +73,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 					/>
 				</Space>
 				<VapePlot
-					selected={['median', 'count']}
+					selected={['median']}
 				/>
 				<Divider/>
 				<VapeTable

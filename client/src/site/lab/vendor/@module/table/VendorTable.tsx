@@ -1,8 +1,11 @@
 import {IVendorsSourceTableProps, VendorsSourceTable} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
 import {FC} from "react";
-import {VendorLinkButton, VendorListItem, VendorPreviewButton, VendorQuickMenu} from "@/puff-smith/site/lab/vendor";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {VendorListItem} from "@/puff-smith/site/lab/vendor/@module/table/VendorListItem";
+import {VendorLinkButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorLinkButton";
+import {VendorQuickMenu} from "@/puff-smith/site/lab/vendor/@module/component/VendorQuickMenu";
+import {VendorPreviewButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorPreviewButton";
 
 export interface IVendorTableProps extends Partial<IVendorsSourceTableProps> {
 }

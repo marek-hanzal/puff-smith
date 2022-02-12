@@ -1,7 +1,9 @@
-import {LabMenu, LabPage, QuickPuff, withLabLayout} from "@/puff-smith/site/lab";
 import {FullLogoIcon, LiquidIcon, LogoIcon} from "@/puff-smith";
 import {Template, useIsMobile} from "@leight-core/leight";
 import {Divider} from "antd";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabPage, QuickPuff} from "@/puff-smith/site/lab/@module/component";
+import {LabMenu} from "@/puff-smith/site/lab/@module/menu";
 
 export default withLabLayout(function Index() {
 	const isMobile = useIsMobile();

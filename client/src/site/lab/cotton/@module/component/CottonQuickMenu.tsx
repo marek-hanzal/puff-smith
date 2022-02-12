@@ -1,9 +1,11 @@
 import {FC} from "react";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {Menu} from "antd";
-import {CottonDeleteButton, CottonEditButton, CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
+import {CottonEditButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonEditButton";
+import {CottonDeleteButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonDeleteButton";
 
 export interface ICottonQuickMenuProps extends Partial<IDrawerMenuProps> {
 	cotton: CottonDto;

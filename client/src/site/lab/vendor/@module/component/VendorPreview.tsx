@@ -1,15 +1,15 @@
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {IPreviewProps, Preview} from "@leight-core/leight";
 import {FC} from "react";
-import {VendorInline} from "@/puff-smith/site/lab/vendor";
 import {Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {AtomizerTable} from "@/puff-smith/site/lab/atomizer";
 import {AtomizersFilterContext, useAtomizersQuery} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {ModsFilterContext, useModsQuery} from "@/sdk/puff-smith/api/lab/mod/endpoint";
 import {ModTable} from "@/puff-smith/site/lab/mod";
 import {LiquidsFilterContext, useLiquidsQuery} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
-import {LiquidTable} from "@/puff-smith/site/lab/liquid";
+import {AtomizerTable} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerTable";
+import {VendorInline} from "@/puff-smith/site/lab/vendor/@module/component/VendorInline";
+import {LiquidTable} from "@/puff-smith/site/lab/liquid/@module/table/LiquidTable";
 
 export interface IVendorPreviewProps extends Partial<IPreviewProps> {
 	vendor: VendorDto;

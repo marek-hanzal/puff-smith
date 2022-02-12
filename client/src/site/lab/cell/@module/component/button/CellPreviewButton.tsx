@@ -2,7 +2,8 @@ import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/le
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
 import {FC} from "react";
 import {CellIcon} from "@/puff-smith";
-import {CellLinkButton, CellPreview} from "@/puff-smith/site/lab/cell";
+import {CellPreview} from "@/puff-smith/site/lab/cell/@module/component/CellPreview";
+import {CellLinkButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellLinkButton";
 
 export interface ICellPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	cell: CellDto;

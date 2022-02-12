@@ -3,7 +3,7 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CommentOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {CreateCommentForm} from "@/puff-smith/site/lab/build";
+import {CreateCommentForm} from "@/puff-smith/site/lab/build/@module/form/CreateCommentForm";
 
 export interface IBuildCommentButtonProps extends Partial<IDrawerButtonProps> {
 	build: BuildDto;

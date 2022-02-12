@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {CottonFilterDto} from "@/sdk/puff-smith/cotton/dto";
-import {VendorSelect} from "@/puff-smith/site/lab/vendor";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICottonFilterProps extends IFilterWithoutTranslationProps<CottonFilterDto> {
 }

@@ -3,7 +3,7 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {CommentOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {CreateCommentForm} from "@/puff-smith/site/lab/mixture";
+import {CreateCommentForm} from "@/puff-smith/site/lab/mixture/@module/form/CreateCommentForm";
 
 export interface IMixtureCommentButtonProps extends Partial<IDrawerButtonProps> {
 	mixture: MixtureDto;

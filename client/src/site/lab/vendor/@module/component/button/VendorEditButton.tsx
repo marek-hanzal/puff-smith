@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
-import {PatchVendorForm} from "@/puff-smith/site/lab/vendor";
+import {PatchVendorForm} from "@/puff-smith/site/lab/vendor/@module/form/PatchVendorForm";
 
 export interface IVendorEditButtonProps extends Partial<IDrawerButtonProps> {
 	vendor: VendorDto;

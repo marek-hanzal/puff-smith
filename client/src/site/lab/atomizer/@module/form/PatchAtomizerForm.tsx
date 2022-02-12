@@ -5,7 +5,8 @@ import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {AtomizerIcon} from "@/puff-smith";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface IPatchAtomizerFormProps extends Partial<IPatchDefaultFormProps> {
 	atomizer: AtomizerDto;

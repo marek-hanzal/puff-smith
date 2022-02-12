@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
-import {PatchCottonForm} from "@/puff-smith/site/lab/cotton";
+import {PatchCottonForm} from "@/puff-smith/site/lab/cotton/@module/form/PatchCottonForm";
 
 export interface ICottonEditButtonProps extends Partial<IDrawerButtonProps> {
 	cotton: CottonDto;

@@ -7,7 +7,8 @@ import {useTranslation} from "react-i18next";
 import {useDeleteMutation} from "@/sdk/puff-smith/api/lab/comment/endpoint";
 import {useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentOutlined} from "@ant-design/icons";
-import {CommentDeleteButton, DrawerCommentEditButton} from "@/puff-smith/site/lab/comment";
+import {DrawerCommentEditButton} from "@/puff-smith/site/lab/comment/@module/component/button/DrawerCommentEditButton";
+import {CommentDeleteButton} from "@/puff-smith/site/lab/comment/@module/component/button/CommentDeleteButton";
 
 export interface IComments<TComment> extends Partial<ListProps<any>> {
 	form?: ReactNode;

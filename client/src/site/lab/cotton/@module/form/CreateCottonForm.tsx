@@ -1,10 +1,11 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCottonsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {VendorSelect, VendorTooltip} from "@/puff-smith/site/lab/vendor";
 import {Divider, message} from "antd";
 import {CottonIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
+import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 
 export interface ICreateCottonFormProps extends Partial<ICreateDefaultFormProps> {
 }

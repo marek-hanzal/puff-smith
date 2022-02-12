@@ -56,7 +56,7 @@ class CellRepository extends AbstractRepository {
 			'size'      => $createDto->size,
 			'drain'     => $createDto->drain,
 			'voltage'   => $createDto->voltage,
-			'ohm'       => $this->ohmService->toOhm($createDto->voltage, $createDto->drain * 0.75),
+			'ohm'       => min(0.2, $this->ohmService->toOhm($createDto->voltage, $createDto->drain * 0.75)),
 			'vendor_id' => $createDto->vendorId,
 		]);
 	}
@@ -68,7 +68,7 @@ class CellRepository extends AbstractRepository {
 			'size'      => $patchDto->size,
 			'drain'     => $patchDto->drain,
 			'voltage'   => $patchDto->voltage,
-			'ohm'       => $this->ohmService->toOhm($patchDto->voltage, $patchDto->drain * 0.75),
+			'ohm'       => max(0.2, $this->ohmService->toOhm($patchDto->voltage, $patchDto->drain * 0.75)),
 			'vendor_id' => $patchDto->vendorId,
 		]);
 	}

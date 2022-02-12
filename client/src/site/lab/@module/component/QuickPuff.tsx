@@ -3,10 +3,14 @@ import {useTranslation} from "react-i18next";
 import {Card, Col, List, Row, Typography} from "antd";
 import {ButtonLink} from "@leight-core/leight";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
-import {BuildCreateButton, BuildListItem} from "@/puff-smith/site/lab/build";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {VapeCreateButton, VapeListItem, VapePlot, VapePlotButton} from "@/puff-smith/site/lab/vape";
 import {VapesSource, VapesSourceConsumer} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
+import {BuildListItem} from "@/puff-smith/site/lab/build/@module/table/BuildListItem";
+import {VapeCreateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCreateButton";
+import {VapeListItem} from "@/puff-smith/site/lab/vape/@module/table/VapeListItem";
+import {VapePlotButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePlotButton";
+import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 
 export interface IQuickPuffProps {
 }

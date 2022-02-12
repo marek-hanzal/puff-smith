@@ -1,7 +1,7 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {CreateCellForm} from "@/puff-smith/site/lab/cell";
 import {useOptionalFormItemContext} from "@leight-core/leight";
+import {CreateCellForm} from "@/puff-smith/site/lab/cell/@module/form/CreateCellForm";
 
 export interface ICellTooltipProps extends Partial<IFormTooltipProps> {
 }

@@ -1,13 +1,13 @@
-import {LabMenuDrawerButton, LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {PlotIcon, VapeIcon} from "@/puff-smith";
-import {VapeDrawerCreateButton, VapeFilter, VapePlotButton, VapeTable} from "@/puff-smith/site/lab/vape";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-
-const VapeButtonBar = () => <ButtonBar>
-	<VapePlotButton/>
-	<VapeDrawerCreateButton type={'primary'}/>
-</ButtonBar>;
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
+import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";
+import {Menu} from "antd";
+import {VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeDrawerCreateButton";
+import {VapePlotButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePlotButton";
+import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
+import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -26,9 +26,14 @@ export default withLabLayout(function Index() {
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>
 			{CreateMenuItem("lab.vape.button.plot", "/lab/vape/plot", <PlotIcon/>)}
-			{CreateMenuItem("lab.vape.button.create", "/lab/vape/create", <CreateIcon/>)}
+			<Menu.Item>
+				<VapeDrawerCreateButton/>
+			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<VapeButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<VapePlotButton/>
+			<VapeDrawerCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		<VapesFilterContext>
 			<VapeFilter/>
