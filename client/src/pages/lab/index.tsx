@@ -17,7 +17,7 @@ export default withLabLayout(function Index() {
 			<Template
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 				label={"lab.home"}
-				span={20}
+				span={24}
 			>
 				<Divider/>
 				<QuickPuff/>

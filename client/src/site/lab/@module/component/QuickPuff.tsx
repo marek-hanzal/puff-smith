@@ -5,7 +5,7 @@ import {ButtonLink} from "@leight-core/leight/dist";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildCreateButton, BuildListItem} from "@/puff-smith/site/lab/build";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {VapeCreateButton, VapeListItem} from "@/puff-smith/site/lab/vape";
+import {VapeCreateButton, VapeListItem, VapePlot, VapePlotButton} from "@/puff-smith/site/lab/vape";
 import {VapesSource, VapesSourceConsumer} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IQuickPuffProps {
@@ -14,7 +14,7 @@ export interface IQuickPuffProps {
 export const QuickPuff: FC<IQuickPuffProps> = () => {
 	const {t} = useTranslation();
 	return <Row gutter={32}>
-		<Col span={12}>
+		<Col span={8}>
 			<Card
 				title={t('lab.quick-puff.builds.title')}
 				extra={<>
@@ -38,7 +38,7 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 				</BuildsSource>
 			</Card>
 		</Col>
-		<Col span={12}>
+		<Col span={8}>
 			<Card
 				title={t('lab.quick-puff.vapes.title')}
 				extra={<>
@@ -54,6 +54,16 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 						</List>}
 					</VapesSourceConsumer>
 				</VapesSource>
+			</Card>
+		</Col>
+		<Col span={8}>
+			<Card
+				title={t('lab.quick-puff.plot.title')}
+				extra={<>
+					<VapePlotButton/>
+				</>}
+			>
+				<VapePlot selected={['median']}/>
 			</Card>
 		</Col>
 	</Row>;
