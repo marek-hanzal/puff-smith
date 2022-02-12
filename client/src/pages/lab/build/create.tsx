@@ -79,7 +79,9 @@ const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
 			<Form setBuildFilter={setBuildFilter} {...props}/>
 		</Col>
 		<Col span={14}>
-			<Tabs destroyInactiveTabPane>
+			<Tabs
+				destroyInactiveTabPane
+			>
 				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
 					<Plot buildFilter={buildFilter}/>
 				</Tabs.TabPane>
