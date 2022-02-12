@@ -4,6 +4,8 @@ import {Menu} from "antd";
 import {AtomizerDeleteButton, AtomizerEditButton, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {ButtonLink} from "@leight-core/leight/dist";
+import {BuildIcon} from "@/puff-smith";
 
 export interface IAtomizerQuickMenuProps extends Partial<IDrawerMenuProps> {
 	atomizer: AtomizerDto;
@@ -21,6 +23,16 @@ export const AtomizerQuickMenu: FC<IAtomizerQuickMenuProps> = ({atomizer, ...pro
 		<Menu.Divider/>
 		<Menu.Item>
 			<AtomizerEditButton atomizer={atomizer}/>
+		</Menu.Item>
+		<Menu.Item>
+			<ButtonLink
+				type={'link'}
+				size={'large'}
+				icon={<BuildIcon/>}
+				href={'/lab/build/create'}
+				query={{atomizerId: atomizer.id}}
+				title={'lab.atomizer.build.create'}
+			/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
