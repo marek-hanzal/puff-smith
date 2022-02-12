@@ -85,22 +85,22 @@ const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
 				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
 					<Plot buildFilter={buildFilter}/>
 				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.comment'} tab={t('lab.build.create.build.comments.tab')}>
+				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'build.comment'} tab={t('lab.build.create.build.comments.tab')}>
 					<BuildCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
 						<BuildComments/>
 					</BuildCommentsFilterContext>
-				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
+				</Tabs.TabPane>}
+				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
 					{buildFilter?.atomizerIds?.[0] ? <AtomizerCommentsFilterContext defaultFilter={{atomizerId: buildFilter.atomizerIds[0]}}>
 						<AtomizerComments/>
 					</AtomizerCommentsFilterContext> : null}
-				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')}>
+				</Tabs.TabPane>}
+				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')}>
 					<VapeCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
 						<VapeComments/>
 					</VapeCommentsFilterContext>
-				</Tabs.TabPane>
-				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.other'} tab={t('lab.build.create.other.tab')}>
+				</Tabs.TabPane>}
+				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'build.other'} tab={t('lab.build.create.other.tab')}>
 					<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
 						<BuildsSourceConsumer>
 							{sourceContext => sourceContext.hasData() ? <>
@@ -119,7 +119,7 @@ const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
 							/>}
 						</BuildsSourceConsumer>
 					</BuildsSource>
-				</Tabs.TabPane>
+				</Tabs.TabPane>}
 			</Tabs>
 		</Col>
 	</Row> : <>
