@@ -12,6 +12,40 @@ export module WireDto {
 }
 
 
+export interface CreateDto {
+	name: string;
+	description: string | null;
+	vendorId: string;
+	ga: number | null;
+}
+
+export module CreateDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	name: string;
+	description: string | null;
+	vendorId: string;
+	ga: number | null;
+}
+
+export module PatchDto {
+
+}
+
+
 export interface WireOrderByDto {
 
 }

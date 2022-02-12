@@ -4,13 +4,14 @@ import {FC} from "react";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
 
 export interface ICottonPreviewProps extends Partial<IPreviewProps> {
-	cotton: CottonDto
+	cotton: CottonDto;
 }
 
 export const CottonPreview: FC<ICottonPreviewProps> = ({cotton, ...props}) => {
 	return <Preview translation={'lab.cotton.preview'} {...props}>
 		{{
 			"name": <CottonInline cotton={cotton}/>,
+			"description": cotton.description,
 		}}
 	</Preview>
 }
