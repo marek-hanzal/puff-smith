@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Cotton\Dto\Import;
+namespace PuffSmith\Cotton\Dto;
 
 use Edde\Dto\AbstractDto;
 

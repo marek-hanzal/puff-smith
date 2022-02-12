@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Cotton\Dto\Create;
+namespace PuffSmith\Cotton\Dto;
 
 use Edde\Dto\AbstractDto;
 
-class CreateDto extends AbstractDto {
+class PatchDto extends AbstractDto {
+	/** @var string */
+	public string $id;
 	/** @var string */
 	public string $name;
 	/** @var string|null */

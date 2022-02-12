@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Cotton\Import;
 
 use Edde\Import\AbstractImporter;
-use PuffSmith\Cotton\Dto\Create\CreateDto;
-use PuffSmith\Cotton\Dto\Import\CottonImportDto;
+use PuffSmith\Cotton\Dto\CottonImportDto;
+use PuffSmith\Cotton\Dto\CreateDto;
 use PuffSmith\Cotton\Repository\CottonRepositoryTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 

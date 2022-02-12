@@ -28,3 +28,35 @@ export interface CottonFilterDto {
 export module CottonFilterDto {
 
 }
+
+
+export interface CreateDto {
+	name: string;
+	description: string | null;
+	vendorId: string;
+}
+
+export module CreateDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	name: string;
+	description: string | null;
+	vendorId: string;
+}
+
+export module PatchDto {
+
+}
