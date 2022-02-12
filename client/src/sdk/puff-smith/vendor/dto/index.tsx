@@ -46,6 +46,7 @@ export module VendorOrderByDto {
 
 
 export interface VendorFilterDto {
+	name: string | null;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

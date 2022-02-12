@@ -42,6 +42,7 @@ export module ModOrderByDto {
 
 export interface ModFilterDto {
 	name?: string | null | undefined;
+	vendorIds: string[] | null;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

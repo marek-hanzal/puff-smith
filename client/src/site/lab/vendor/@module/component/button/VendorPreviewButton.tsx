@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {FC} from "react";
 import {VendorIcon} from "@/puff-smith";
@@ -17,14 +17,7 @@ export const VendorPreviewButton: FC<IVendorPreviewButtonProps> = ({vendor, ...p
 			title={'lab.vendor.preview'}
 			{...props}
 		>
-			<PreviewTemplate
-				icon={<VendorIcon/>}
-				label={'lab.vendor.preview'}
-				title={vendor.name}
-				span={24}
-			>
-				<VendorPreview vendor={vendor}/>
-			</PreviewTemplate>
+			<VendorPreview vendor={vendor}/>
 		</DrawerButton>
 		<VendorLinkButton title={null} vendor={vendor}/>
 	</>

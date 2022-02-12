@@ -24,21 +24,13 @@ export const VendorTable: FC<IVendorTableProps> = props => {
 					<VendorLinkButton title={null} vendor={vendor}/>
 					<VendorQuickMenu vendor={vendor}/>
 				</ButtonBar>,
-				width: 0,
+				width: 1,
 			}),
 			column({
 				key: "name",
 				title: 'lab.vendor.table.name',
 				render: (_, vendor) => <VendorPreviewButton title={vendor.name} vendor={vendor}/>,
 				sorter: true,
-				width: 240,
-			}),
-			column({
-				key: "vendor",
-				title: 'lab.vendor.table.vendor',
-				render: (_, vendor) => vendor.name,
-				sorter: true,
-				width: 260,
 			}),
 		]}
 	</VendorsSourceTable>

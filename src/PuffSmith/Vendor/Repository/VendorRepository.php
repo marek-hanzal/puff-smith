@@ -30,6 +30,7 @@ class VendorRepository extends AbstractRepository {
 			'$.id',
 			'$.name',
 		], $filter->fulltext);
+		isset($filter->name) && $this->fulltext($select, ['$.name'], $filter->name);
 
 		$this->toOrderBy($query->orderBy, $select);
 
