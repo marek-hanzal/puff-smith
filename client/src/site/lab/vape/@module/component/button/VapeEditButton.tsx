@@ -1,19 +1,21 @@
-import {ButtonLink, EditIcon, IButtonLinkProps} from "@leight-core/leight";
+import {EditIcon} from "@leight-core/leight";
 import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {PatchVapeForm} from "@/puff-smith/site/lab/vape";
 
-export interface IVapeEditButtonProps extends Partial<IButtonLinkProps> {
+export interface IVapeEditButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto
 }
 
 export const VapeEditButton: FC<IVapeEditButtonProps> = ({vape, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		size={'large'}
 		type={'link'}
-		href={'/lab/vape/[vapeId]/edit'}
-		query={{vapeId: vape.id}}
 		icon={<EditIcon/>}
 		title={'lab.vape.button.edit'}
 		{...props}
-	/>;
+	>
+		<PatchVapeForm vape={vape}/>
+	</DrawerButton>
 }

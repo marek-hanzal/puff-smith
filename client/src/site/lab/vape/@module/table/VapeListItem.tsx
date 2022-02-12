@@ -1,16 +1,18 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Divider, List, Space} from "antd";
+import {Divider, List, Space, Tooltip} from "antd";
 import {VapePreviewButton, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {durationOf} from "@leight-core/leight";
 import {Ohm} from "@/puff-smith";
+import {useTranslation} from "react-i18next";
 
 export interface IVapeListItemProps extends Partial<ListItemProps> {
 	vape: VapeDto;
 }
 
 export const VapeListItem: FC<IVapeListItemProps> = ({vape, ...props}) => {
+	const {t} = useTranslation();
 	return <List.Item
 		actions={[<VapeQuickMenu key={'quick-menu'} vape={vape}/>]}
 		{...props}
@@ -29,6 +31,8 @@ export const VapeListItem: FC<IVapeListItemProps> = ({vape, ...props}) => {
 				{vape.build.coil.size || '-'}
 			</Space>}
 		/>
-		<span>{durationOf(vape.stamp).humanize()}</span>
+		<Tooltip title={t('lab.vape.age.tooltip')}>
+			{durationOf(vape.stamp).humanize()}
+		</Tooltip>
 	</List.Item>;
 }

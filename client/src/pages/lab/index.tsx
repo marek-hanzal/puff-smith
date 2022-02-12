@@ -7,7 +7,6 @@ export default withLabLayout(function Index() {
 	const isMobile = useIsMobile();
 	return <LabPage
 		title={"lab.home"}
-		collapsed={false}
 		icon={<LiquidIcon/>}
 		menuSelection={['/lab']}
 		extraMobile={<LogoIcon style={{width: '7.5em'}}/>}
@@ -18,6 +17,7 @@ export default withLabLayout(function Index() {
 			<Template
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 				label={"lab.home"}
+				span={20}
 			>
 				<Divider/>
 				<QuickPuff/>

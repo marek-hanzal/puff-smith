@@ -5,10 +5,6 @@ import {VapePage} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 
-const VapeButtonBar = () => <ButtonBar>
-	<VapeDrawerCreateButton type={'primary'}/>
-</ButtonBar>;
-
 export default withLabLayout(function Index() {
 	return <VapePage
 		title={"lab.vape.index"}
@@ -34,7 +30,9 @@ export default withLabLayout(function Index() {
 			</Menu.Item>
 			{entity && CreateMenuItem('lab.vape.button.clone', '/lab/vape/[vapeId]/clone', <CloneIcon/>, {vapeId: entity.id})}
 		</LabMenuDrawerButton>}
-		extraBrowser={<VapeButtonBar/>}
+		extraBrowser={<ButtonBar>
+			<VapeDrawerCreateButton type={'primary'}/>
+		</ButtonBar>}
 	>
 		{vape => <VapePreview vape={vape}/>}
 	</VapePage>;

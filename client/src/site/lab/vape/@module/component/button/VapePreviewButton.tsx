@@ -1,9 +1,8 @@
 import {VapeIcon} from "@/puff-smith";
 import {VapeLinkButton, VapePreview} from "@/puff-smith/site/lab/vape";
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer";
 import {ExportOutlined} from "@ant-design/icons";
 
 export interface IVapePreviewButtonProps extends Partial<IDrawerButtonProps> {
@@ -19,14 +18,7 @@ export const VapePreviewButton: FC<IVapePreviewButtonProps> = ({vape, ...props})
 			title={'lab.vape.preview'}
 			{...props}
 		>
-			<PreviewTemplate
-				icon={<VapeIcon/>}
-				title={<AtomizerInline atomizer={vape.build.atomizer}/>}
-				subTitle={vape.mixture.liquid.name}
-				span={24}
-			>
-				<VapePreview vape={vape}/>
-			</PreviewTemplate>
+			<VapePreview vape={vape}/>
 		</DrawerButton>
 		<VapeLinkButton
 			size={'small'}
