@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useBuildQueryInvalidate, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
@@ -18,6 +18,7 @@ export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 
 export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const buildQueryInvalidate = useBuildQueryInvalidate();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
@@ -32,6 +33,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		})}
 		onSuccess={response => {
 			message.success(t("lab.build.update.success", {data: response.response}));
+			buildQueryInvalidate();
 			buildsQueryInvalidate();
 			onSuccess?.(response);
 		}}

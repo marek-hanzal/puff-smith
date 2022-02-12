@@ -4,16 +4,17 @@ import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
 import {CottonInline} from "@/puff-smith/site/lab/cotton";
-import {BuildAge, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
+import {BuildAge, BuildComments, BuildEditButton, BuildPlotButton, BuildVapeButton, CoilCountInput} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
-import {ImageGallery, Ohm, PreviewTag} from "@/puff-smith";
+import {ImageGallery, Ohm} from "@/puff-smith";
 import {VapeComments, VapeFilter, VapePlot, VapeTable} from "@/puff-smith/site/lab/vape";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer";
 import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
+import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -51,7 +52,8 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": <Ohm ohm={build?.ohm}/>,
 					"age": <BuildAge build={build}/>,
-					"coils": <PreviewTag label={'lab.build.coilCount.' + build.coils}/>,
+					"coils": <CoilCountInput value={build.coils} disabled/>,
+					"driptip": <DriptipInline driptip={build.driptip}/>,
 					"created": toLocalDateTime(build.created),
 					"active": <PreviewBool bool={build.active}/>,
 				}}
