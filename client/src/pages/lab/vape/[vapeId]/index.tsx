@@ -11,7 +11,7 @@ export default withLabLayout(function Index() {
 	return <VapePage
 		title={"lab.vape.index"}
 		menuSelection={['/lab/vape']}
-		onBack={navigate => navigate('/lab/vape/list')}
+		onBack={navigate => navigate('/lab/vape')}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={'/lab'}
