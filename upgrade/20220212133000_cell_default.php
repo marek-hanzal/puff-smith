@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 use Edde\Phinx\CommonMigration;
 
-final class BatterDefault extends CommonMigration {
+final class CellDefault extends CommonMigration {
 	public function change(): void {
 		$this
 			->createUuidTable('z_cell', ['comment' => 'Table of generic cells (batteries) for mods.'])
-			->addStringColumn('model', 64, ['comment' => 'Model of the cell (for example HG2 or something like that)'])
+			->addStringColumn('name', 64, ['comment' => 'Model of the cell (for example HG2 or something like that)'])
 			->addColumn('drain', 'integer', ['comment' => 'Maximum (real, not the one from vendor) cell drain (in ampers).'])
+			->addColumn('size', 'integer', ['comment' => 'Size of the cell (18650, ...)'])
 			->addColumn('voltage', 'decimal', [
 				'precision' => 10,
 				'scale'     => 1,
@@ -21,6 +22,10 @@ final class BatterDefault extends CommonMigration {
 				'comment'   => 'Minimum resistance this cell can (safely) handle.',
 			])
 			->addUuidForeignColumn('vendor', 'z_vendor', ['comment' => 'Vendor of the cell'])
+			->addUniqueIndex([
+				'name',
+				'vendor_id',
+			], 'name')
 			->save();
 
 		$this
@@ -38,6 +43,7 @@ final class BatterDefault extends CommonMigration {
 			], 'code')
 			->save();
 
+		$this->importExcel(__DIR__ . '/fixtures/cells.xlsx');
 		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }
