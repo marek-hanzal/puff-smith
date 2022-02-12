@@ -11,6 +11,7 @@ import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {CoilCountInput} from "@/puff-smith/site/lab/build";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
+import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -20,6 +21,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 	const {t} = useTranslation();
 	const buildQueryInvalidate = useBuildQueryInvalidate();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
+	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
 		translation={'lab.build'}
@@ -35,6 +37,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			message.success(t("lab.build.update.success", {data: response.response}));
 			buildQueryInvalidate();
 			buildsQueryInvalidate();
+			vapesQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}
