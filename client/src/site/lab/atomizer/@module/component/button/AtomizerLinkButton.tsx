@@ -4,7 +4,7 @@ import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {AtomizerIcon} from "@/puff-smith";
 
 export interface IAtomizerLinkButtonProps extends Partial<IButtonLinkProps> {
-	atomizer: AtomizerDto
+	atomizer: AtomizerDto;
 }
 
 export const AtomizerLinkButton: FC<IAtomizerLinkButtonProps> = ({atomizer, ...props}) => {

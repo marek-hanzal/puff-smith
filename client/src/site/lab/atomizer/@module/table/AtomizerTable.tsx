@@ -13,7 +13,7 @@ export const AtomizerTable: FC<IAtomizerTableProps> = props => {
 	const {t} = useTranslation();
 	return <AtomizersSourceTable
 		filter={filterContext?.filter}
-		footer={sourceContext => t('lab.atomizer.table.footer.label', {data: sourceContext?.result?.data})}
+		footer={sourceContext => t('lab.atomizer.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={atomizer => <AtomizerListItem atomizer={atomizer}/>}
 		{...props}
 	>

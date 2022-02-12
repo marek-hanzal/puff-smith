@@ -7,12 +7,16 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
-use PuffSmith\Mod\Dto\Create\CreateDto;
+use PuffSmith\Mod\Dto\CreateDto;
 use PuffSmith\Mod\Dto\ModFilterDto;
+use PuffSmith\Mod\Dto\PatchDto;
 
 class ModRepository extends AbstractRepository {
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
+		$this->orderByMap = [
+			'vendor' => 'v.name',
+		];
 	}
 
 	public function select($fields = null): Select {
@@ -46,6 +50,15 @@ class ModRepository extends AbstractRepository {
 			'name'      => $createDto->name,
 			'power'     => $createDto->power,
 			'vendor_id' => $createDto->vendorId,
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->change([
+			'id'        => $patchDto->id,
+			'name'      => $patchDto->name,
+			'power'     => $patchDto->power,
+			'vendor_id' => $patchDto->vendorId,
 		]);
 	}
 }

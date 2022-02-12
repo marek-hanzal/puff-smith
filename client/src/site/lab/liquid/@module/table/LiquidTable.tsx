@@ -13,7 +13,7 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 	const {t} = useTranslation();
 	return <LiquidsSourceTable
 		filter={filterContext?.filter}
-		footer={sourceContext => t('lab.liquid.table.footer.label', {data: sourceContext?.result?.data})}
+		footer={sourceContext => t('lab.liquid.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={liquid => <LiquidListItem liquid={liquid}/>}
 		{...props}
 	>

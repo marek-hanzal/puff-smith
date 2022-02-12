@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Mod\Dto\Create;
+namespace PuffSmith\Mod\Dto;
 
 use Edde\Dto\AbstractDto;
 

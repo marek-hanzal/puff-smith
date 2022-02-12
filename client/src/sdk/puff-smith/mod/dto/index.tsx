@@ -1,3 +1,14 @@
+export interface CreateDto {
+	name: string;
+	power: number | null;
+	vendorId: string;
+}
+
+export module CreateDto {
+
+}
+
+
 export interface ModDto {
 	id: string;
 	name: string;
@@ -7,6 +18,15 @@ export interface ModDto {
 }
 
 export module ModDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
 
 }
 
@@ -27,5 +47,17 @@ export interface ModFilterDto {
 }
 
 export module ModFilterDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	name: string;
+	power: number | null;
+	vendorId: string;
+}
+
+export module PatchDto {
 
 }

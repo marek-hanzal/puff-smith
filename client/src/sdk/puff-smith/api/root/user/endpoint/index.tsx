@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -147,8 +155,8 @@ export interface IUserPageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: IUserPageBreadcrumb;
 	breadcrumbBrowserProps?: IUserPageBreadcrumb;
 	extra?: IUserPageExtra;
-	extraMobile?: IUserPageExtra;
-	extraBrowser?: IUserPageExtra;
+	extraMobile?: IUserPageExtra; 
+	extraBrowser?: IUserPageExtra; 
 }
 
 export const UserPage: FC<IUserPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {

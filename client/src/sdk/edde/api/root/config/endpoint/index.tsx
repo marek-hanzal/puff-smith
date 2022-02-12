@@ -1,10 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createDeleteMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -18,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,6 +29,15 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createDeleteMutation,
+	createDeleteQuery,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -137,8 +146,8 @@ export interface IConfigPageProps extends Omit<IPageProps, "breadcrumbProps" | "
 	breadcrumbMobileProps?: IConfigPageBreadcrumb;
 	breadcrumbBrowserProps?: IConfigPageBreadcrumb;
 	extra?: IConfigPageExtra;
-	extraMobile?: IConfigPageExtra;
-	extraBrowser?: IConfigPageExtra;
+	extraMobile?: IConfigPageExtra; 
+	extraBrowser?: IConfigPageExtra; 
 }
 
 export const ConfigPage: FC<IConfigPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {

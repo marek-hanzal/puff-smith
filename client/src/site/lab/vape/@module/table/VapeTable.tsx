@@ -23,7 +23,7 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	return <VapesSourceTable
 		filter={filterContext?.filter}
 		scroll={{x: 2550}}
-		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext?.result?.data})}
+		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={vape => <VapeListItem vape={vape}/>}
 		{...props}
 	>

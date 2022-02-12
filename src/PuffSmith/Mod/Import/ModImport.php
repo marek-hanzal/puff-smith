@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Mod\Import;
 
 use Edde\Import\AbstractImporter;
-use PuffSmith\Mod\Dto\Create\CreateDto;
-use PuffSmith\Mod\Dto\Import\ModImportDto;
+use PuffSmith\Mod\Dto\CreateDto;
+use PuffSmith\Mod\Dto\ModImportDto;
 use PuffSmith\Mod\Repository\ModRepositoryTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 

@@ -13,7 +13,7 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 	const {t} = useTranslation();
 	return <CoilsSourceTable
 		filter={filterContext?.filter}
-		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext?.result?.data || {total: 0}})}
+		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={coil => <CoilListItem coil={coil}/>}
 		scroll={{x: 1500}}
 		{...props}
