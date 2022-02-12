@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Vendor\Dto\Ensure;
+namespace PuffSmith\Vendor\Dto;
 
 use Edde\Dto\AbstractDto;
 

@@ -30,13 +30,13 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 			<Preview translation={'lab.mixture.preview'}>
 				{{
 					"liquid": <LiquidInline liquid={mixture.liquid}/>,
-					"code": mixture.code,
-					"base": <BaseInline base={mixture.base}/>,
-					"booster": <BoosterInline booster={mixture.booster}/>,
-					"pgvg": <span><span>{mixture.pg}</span>/<span>{mixture.vg}</span></span>,
 					"nicotine": mixture.nicotine + 'mg',
 					"age": durationOf(mixture.mixed).humanize(),
 					"steep": <MixtureSteeping mixture={mixture}/>,
+					"pgvg": <span><span>{mixture.pg}</span>/<span>{mixture.vg}</span></span>,
+					"code": mixture.code,
+					"base": <BaseInline base={mixture.base}/>,
+					"booster": <BoosterInline booster={mixture.booster}/>,
 					"mixed": toLocalDate(mixture.mixed),
 					"expires": asDayjs(mixture.expires)?.format('MMMM YYYY'),
 					"volume": mixture.volume + 'ml',

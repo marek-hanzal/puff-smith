@@ -1,35 +1,69 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
+	EntityContext,
+	EntityProvider,
 	FilterContextProvider,
 	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFilterContextProviderProps,
 	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
+	useContext,
 	useFilterContext,
+	useOptionalContext,
 	useOptionalFilterContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/create/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>("PuffSmith.Lab.Vendor.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>("PuffSmith.Lab.Vendor.Create");
+
+export type IDeleteQueryParams = void;
+
+
+export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/vendor/dto/index").DeleteDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>("PuffSmith.Lab.Vendor.Delete");
+
+export type IPatchQueryParams = void;
+
+
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/vendor/dto/index").PatchDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>("PuffSmith.Lab.Vendor.Patch");
+
+export type IVendorQueryParams = {
+	vendorId: string;
+}
+
+
+export const useVendorQuery = createGetQuery<IVendorQueryParams, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>("PuffSmith.Lab.Vendor.Vendor");
+export const useVendorQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Vendor.Vendor"])
+}
 
 export type IVendorsQueryParams = void;
 
@@ -40,15 +74,102 @@ export const useVendorsQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Vendor.Vendors"])
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/create/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/create/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/vendor/dto/index").CreateDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
+
+export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQueryParams, import("@/sdk/puff-smith/vendor/dto/index").DeleteDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>> {
+}
+
+export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
+	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/vendor/dto/index").DeleteDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>
+		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/vendor/dto/index").PatchDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>> {
+}
+
+export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/vendor/dto/index").PatchDto, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>
+		useMutation={usePatchMutation}
+		{...props}
+	/>
+}
+
+export const VendorContext = createContext(null as unknown as IEntityContext<import("@/sdk/puff-smith/vendor/dto/index").VendorDto>);
+
+export const useVendorContext = (): IEntityContext<import("@/sdk/puff-smith/vendor/dto/index").VendorDto> => useContext(VendorContext, "VendorContext");
+
+export const useOptionalVendorContext = () => useOptionalContext<IEntityContext<import("@/sdk/puff-smith/vendor/dto/index").VendorDto>>(VendorContext as any);
+
+export interface IVendorProvider extends IEntityProviderProps<import("@/sdk/puff-smith/vendor/dto/index").VendorDto> {
+}
+
+export const VendorProvider: FC<IVendorProvider> = ({defaultEntity, children}) => {
+	return <EntityProvider defaultEntity={defaultEntity}>
+		<EntityContext.Consumer>
+			{entityContext => <VendorContext.Provider value={entityContext}>
+				{children}
+			</VendorContext.Provider>}
+		</EntityContext.Consumer>
+	</EntityProvider>;
+};
+
+export interface IFetchVendorProps extends Partial<IQueryProps<IVendorQueryParams, void, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>> {
+	query: IVendorQueryParams;
+}
+
+export const FetchVendor: FC<IFetchVendorProps> = ({query, ...props}) => <Query<IVendorQueryParams, void, import("@/sdk/puff-smith/vendor/dto/index").VendorDto>
+	useQuery={useVendorQuery}
+	query={query}
+	request={undefined}
+	context={useOptionalVendorContext()}
+	{...props}
+/>;
+
+export type IVendorPageExtra = ReactElement | ((entityContext: IEntityContext<import("@/sdk/puff-smith/vendor/dto/index").VendorDto>) => ReactElement);
+export type IVendorPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<import("@/sdk/puff-smith/vendor/dto/index").VendorDto>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+
+export interface IVendorPageProps extends Omit<IPageProps, "breadcrumbProps" | "breadcrumbMobileProps" | "breadcrumbBrowserProps" | "extra" | "extraBrowser" | "extraMobile"> {
+	children?: ReactNode | ((data: import("@/sdk/puff-smith/vendor/dto/index").VendorDto) => ReactNode);
+	breadcrumbProps?: IVendorPageBreadcrumb;
+	breadcrumbMobileProps?: IVendorPageBreadcrumb;
+	breadcrumbBrowserProps?: IVendorPageBreadcrumb;
+	extra?: IVendorPageExtra;
+	extraMobile?: IVendorPageExtra;
+	extraBrowser?: IVendorPageExtra;
+}
+
+export const VendorPage: FC<IVendorPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
+	const {vendorId} = useParams();
+	return <VendorProvider>
+		<VendorContext.Consumer>
+			{entityContext => <Page
+				breadcrumbProps={breadcrumbProps ? isCallable(breadcrumbProps) ? (breadcrumbProps as any)(entityContext) : breadcrumbProps : undefined}
+				breadcrumbMobileProps={breadcrumbMobileProps ? isCallable(breadcrumbMobileProps) ? (breadcrumbMobileProps as any)(entityContext) : breadcrumbMobileProps : undefined}
+				breadcrumbBrowserProps={breadcrumbBrowserProps ? isCallable(breadcrumbBrowserProps) ? (breadcrumbBrowserProps as any)(entityContext) : breadcrumbBrowserProps : undefined}
+				extra={extra ? (isCallable(extra) ? (extra as any)(entityContext) : extra) : undefined}
+				extraBrowser={extraBrowser ? (isCallable(extraBrowser) ? (extraBrowser as any)(entityContext) : extraBrowser) : undefined}
+				extraMobile={extraMobile ? (isCallable(extraMobile) ? (extraMobile as any)(entityContext) : extraMobile) : undefined}
+				{...props}
+			>
+				<FetchVendor
+					query={{vendorId}}
+				>
+					{client => isCallable(children) ? (children as any)(client) : children}
+				</FetchVendor>
+			</Page>}
+		</VendorContext.Consumer>
+	</VendorProvider>;
+};
 
 export const useVendorsSource = () => useSourceContext<IVendorsQueryParams, import("@/sdk/puff-smith/vendor/dto/index").VendorDto, import("@/sdk/puff-smith/vendor/dto/index").VendorOrderByDto, import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto>()
 

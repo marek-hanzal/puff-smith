@@ -5,7 +5,7 @@ namespace PuffSmith\Api\Lab\Vendor\Endpoint;
 
 use Edde\Repository\Exception\DuplicateEntryException;
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
-use PuffSmith\Vendor\Dto\Create\CreateDto;
+use PuffSmith\Vendor\Dto\CreateDto;
 use PuffSmith\Vendor\Dto\VendorDto;
 use PuffSmith\Vendor\Mapper\VendorMapperTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;

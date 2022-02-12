@@ -8,6 +8,34 @@ export module VendorDto {
 }
 
 
+export interface CreateDto {
+	name: string;
+}
+
+export module CreateDto {
+
+}
+
+
+export interface DeleteDto {
+	id: string;
+}
+
+export module DeleteDto {
+
+}
+
+
+export interface PatchDto {
+	id: string;
+	name: string;
+}
+
+export module PatchDto {
+
+}
+
+
 export interface VendorOrderByDto {
 
 }

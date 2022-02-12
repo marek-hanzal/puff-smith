@@ -9,8 +9,9 @@ use Edde\Repository\AbstractRepository;
 use Edde\Repository\Exception\DuplicateEntryException;
 use Edde\Repository\Exception\RequiredResultException;
 use Edde\Repository\IRepository;
-use PuffSmith\Vendor\Dto\Create\CreateDto;
-use PuffSmith\Vendor\Dto\Ensure\EnsureDto;
+use PuffSmith\Vendor\Dto\CreateDto;
+use PuffSmith\Vendor\Dto\EnsureDto;
+use PuffSmith\Vendor\Dto\PatchDto;
 use PuffSmith\Vendor\Dto\VendorFilterDto;
 
 class VendorRepository extends AbstractRepository {
@@ -53,6 +54,13 @@ class VendorRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name' => $createDto->name,
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->change([
+			'id'   => $patchDto->id,
+			'name' => $patchDto->name,
 		]);
 	}
 
