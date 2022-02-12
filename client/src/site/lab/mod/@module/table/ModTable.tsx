@@ -33,6 +33,13 @@ export const ModTable: FC<IModTableProps> = props => {
 				sorter: true,
 			}),
 			column({
+				key: "power",
+				title: 'lab.mod.table.power',
+				render: (_, mod) => mod.power + 'W',
+				sorter: true,
+				width: 140,
+			}),
+			column({
 				key: "vendor",
 				title: 'lab.mod.table.vendor',
 				render: (_, mod) => mod.vendor.name,

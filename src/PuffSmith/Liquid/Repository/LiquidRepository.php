@@ -14,6 +14,9 @@ use PuffSmith\Liquid\Dto\PatchDto;
 class LiquidRepository extends AbstractRepository {
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
+		$this->orderByMap = [
+			'vendor' => 'v.name',
+		];
 	}
 
 	public function select($fields = null): Select {

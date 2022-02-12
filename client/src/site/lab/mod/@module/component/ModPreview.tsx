@@ -18,6 +18,7 @@ export const ModPreview: FC<IModPreviewProps> = ({mod, ...props}) => {
 		<Preview translation={'lab.mod.preview'} {...props}>
 			{{
 				"name": <ModInline mod={mod}/>,
+				"power": mod.power + 'W',
 			}}
 		</Preview>
 	</>

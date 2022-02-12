@@ -33,6 +33,13 @@ export const LiquidTable: FC<ILiquidTableProps> = props => {
 				sorter: true,
 			}),
 			column({
+				key: "vendor",
+				title: 'lab.liquid.table.vendor',
+				render: (_, liquid) => liquid.vendor.name,
+				sorter: true,
+				width: 240,
+			}),
+			column({
 				key: "pgvg",
 				title: "lab.liquid.table.pgvg",
 				width: 140,
