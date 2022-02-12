@@ -1,20 +1,21 @@
-import {ButtonLink, IButtonLinkProps} from "@leight-core/leight";
 import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CloneIcon} from "@/puff-smith";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {CreateVapeForm} from "@/puff-smith/site/lab/vape";
 
-export interface IVapeCloneButtonProps extends Partial<IButtonLinkProps> {
+export interface IVapeCloneButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto
 }
 
 export const VapeCloneButton: FC<IVapeCloneButtonProps> = ({vape, ...props}) => {
-	return <ButtonLink
+	return <DrawerButton
 		type={'link'}
 		size={'large'}
-		href={'/lab/vape/[vapeId]/clone'}
-		query={{vapeId: vape.id}}
 		icon={<CloneIcon/>}
 		title={'lab.vape.button.clone'}
 		{...props}
-	/>
+	>
+		<CreateVapeForm vape={vape}/>
+	</DrawerButton>
 }
