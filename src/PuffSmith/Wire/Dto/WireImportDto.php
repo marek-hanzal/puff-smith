@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\Wire\Dto\Import;
+namespace PuffSmith\Wire\Dto;
 
 use Edde\Dto\AbstractDto;
 

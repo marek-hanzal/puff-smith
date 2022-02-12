@@ -5,8 +5,8 @@ namespace PuffSmith\Wire\Import;
 
 use Edde\Import\AbstractImporter;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
-use PuffSmith\Wire\Dto\Create\CreateDto;
-use PuffSmith\Wire\Dto\Import\WireImportDto;
+use PuffSmith\Wire\Dto\CreateDto;
+use PuffSmith\Wire\Dto\WireImportDto;
 use PuffSmith\Wire\Repository\WireRepositoryTrait;
 
 class WireImport extends AbstractImporter {

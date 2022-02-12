@@ -7,7 +7,8 @@ use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
-use PuffSmith\Wire\Dto\Create\CreateDto;
+use PuffSmith\Wire\Dto\CreateDto;
+use PuffSmith\Wire\Dto\PatchDto;
 use PuffSmith\Wire\Dto\WireFilterDto;
 
 class WireRepository extends AbstractRepository {
@@ -16,6 +17,9 @@ class WireRepository extends AbstractRepository {
 			'name' => IRepository::ORDER_ASC,
 			'ga'   => IRepository::ORDER_ASC,
 		], ['$_name_unique']);
+		$this->orderByMap = [
+			'vendor' => 'v.name',
+		];
 	}
 
 	public function select($fields = null): Select {
@@ -53,6 +57,16 @@ class WireRepository extends AbstractRepository {
 			'description' => $createDto->description,
 			'ga'          => $createDto->ga,
 			'vendor_id'   => $createDto->vendorId,
+		]);
+	}
+
+	public function update(PatchDto $patchDto) {
+		return $this->insert([
+			'id'          => $patchDto->id,
+			'name'        => $patchDto->name,
+			'description' => $patchDto->description,
+			'ga'          => $patchDto->ga,
+			'vendor_id'   => $patchDto->vendorId,
 		]);
 	}
 }
