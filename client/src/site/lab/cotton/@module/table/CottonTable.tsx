@@ -31,13 +31,20 @@ export const CottonTable: FC<ICottonTableProps> = props => {
 				title: 'lab.cotton.table.name',
 				render: (_, cotton) => <CottonPreviewButton title={cotton.name} cotton={cotton}/>,
 				sorter: true,
+				width: 240,
+			}),
+			column({
+				key: "description",
+				title: 'lab.cotton.table.description',
+				render: (_, cotton) => cotton.description,
+				sorter: true,
 			}),
 			column({
 				key: "vendor",
 				title: 'lab.cotton.table.vendor',
 				render: (_, cotton) => cotton.vendor.name,
 				sorter: true,
-				width: 220,
+				width: 260,
 			}),
 		]}
 	</CottonsSourceTable>

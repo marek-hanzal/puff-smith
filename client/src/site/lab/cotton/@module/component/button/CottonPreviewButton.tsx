@@ -2,28 +2,31 @@ import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/le
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {FC} from "react";
 import {CottonIcon} from "@/puff-smith";
-import {CottonPreview} from "@/puff-smith/site/lab/cotton";
+import {CottonLinkButton, CottonPreview} from "@/puff-smith/site/lab/cotton";
 
 export interface ICottonPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	cotton: CottonDto;
 }
 
 export const CottonPreviewButton: FC<ICottonPreviewButtonProps> = ({cotton, ...props}) => {
-	return <DrawerButton
-		type={'link'}
-		size={'large'}
-		icon={<CottonIcon/>}
-		title={'lab.cotton.preview'}
-		{...props}
-	>
-		<PreviewTemplate
+	return <>
+		<DrawerButton
+			type={'link'}
+			size={'large'}
 			icon={<CottonIcon/>}
-			label={'lab.cotton.preview'}
-			title={cotton.name}
-			subTitle={cotton.vendor.name}
-			span={24}
+			title={'lab.cotton.preview'}
+			{...props}
 		>
-			<CottonPreview cotton={cotton}/>
-		</PreviewTemplate>
-	</DrawerButton>
+			<PreviewTemplate
+				icon={<CottonIcon/>}
+				label={'lab.cotton.preview'}
+				title={cotton.name}
+				subTitle={cotton.vendor.name}
+				span={24}
+			>
+				<CottonPreview cotton={cotton}/>
+			</PreviewTemplate>
+		</DrawerButton>
+		<CottonLinkButton title={null} cotton={cotton}/>
+	</>
 }

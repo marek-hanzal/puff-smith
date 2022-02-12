@@ -54,7 +54,7 @@ class CottonRepository extends AbstractRepository {
 	}
 
 	public function update(PatchDto $patchDto) {
-		return $this->chage([
+		return $this->change([
 			'id'          => $patchDto->id,
 			'name'        => $patchDto->name,
 			'description' => $patchDto->description,
