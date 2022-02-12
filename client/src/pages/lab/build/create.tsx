@@ -1,7 +1,7 @@
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BuildIcon, ImageGallery, PlotIcon} from "@/puff-smith";
 import {BuildComments, BuildPreviewButton, CreateBuildForm, ICreateBuildFormProps} from "@/puff-smith/site/lab/build";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateIcon, DrawerButton, HomeIcon, useIsMobile} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateIcon, DrawerButton, HomeIcon, Template, useIsMobile, useParams} from "@leight-core/leight";
 import {Col, List, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useVapesOptionalFilterContext, VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -14,7 +14,6 @@ import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smi
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
-import {Template, useParams} from "@leight-core/leight/dist";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();

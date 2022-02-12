@@ -26,7 +26,7 @@ const config = plugins([
 		return patchWebpackConfig(config, options);
 	},
 	reactStrictMode:             true,
-	staticPageGenerationTimeout: 15,
+	staticPageGenerationTimeout: 30,
 	basePath:                    process.env.NEXT_PUBLIC_PUBLIC_URL,
 	async rewrites() {
 		return [

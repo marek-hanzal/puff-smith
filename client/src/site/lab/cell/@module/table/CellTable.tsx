@@ -1,9 +1,8 @@
 import {CellsSourceTable, ICellsSourceTableProps} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
 import {CellLinkButton, CellListItem, CellPreviewButton, CellQuickMenu} from "@/puff-smith/site/lab/cell";
-import {ButtonBar} from "@leight-core/leight";
+import {ButtonBar, toHumanNumber} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {toHumanNumber} from "@leight-core/leight/dist";
 import {Ohm} from "@/puff-smith";
 
 export interface ICellTableProps extends Partial<ICellsSourceTableProps> {

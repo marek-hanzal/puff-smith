@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Card, Col, List, Row, Typography} from "antd";
-import {ButtonLink} from "@leight-core/leight/dist";
+import {ButtonLink} from "@leight-core/leight";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildCreateButton, BuildListItem} from "@/puff-smith/site/lab/build";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";

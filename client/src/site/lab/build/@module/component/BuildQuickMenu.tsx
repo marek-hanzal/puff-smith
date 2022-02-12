@@ -3,11 +3,10 @@ import {FC} from "react";
 import {Menu} from "antd";
 import {BuildActiveButton, BuildCommentButton, BuildDeleteButton, BuildEditButton, BuildPreviewButton, BuildVapeButton} from "@/puff-smith/site/lab/build";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/leight";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
-import {IFormOnSuccess} from "@leight-core/leight/dist";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 
 export interface IBuildQuickMenuProps extends Partial<IDrawerMenuProps> {

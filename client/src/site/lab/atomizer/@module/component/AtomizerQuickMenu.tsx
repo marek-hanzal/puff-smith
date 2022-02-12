@@ -3,8 +3,7 @@ import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Menu} from "antd";
 import {AtomizerDeleteButton, AtomizerEditButton, AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
-import {ButtonLink} from "@leight-core/leight/dist";
+import {ButtonLink, DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
 import {BuildIcon} from "@/puff-smith";
 
 export interface IAtomizerQuickMenuProps extends Partial<IDrawerMenuProps> {
