@@ -105,7 +105,7 @@ const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
 								<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
 									{sourceContext.map(build => <List.Item key={build.id}>
 										<List.Item.Meta
-											title={<BuildPreviewButton title={build.atomizer.name} build={build}/>}
+											title={<BuildPreviewButton build={build}/>}
 											description={<CoilInline inline coil={build.coil}/>}
 										/>
 										<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
