@@ -3,7 +3,6 @@ import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {FC} from "react";
 import {ModIcon} from "@/puff-smith";
 import {ModLinkButton, ModPreview} from "@/puff-smith/site/lab/mod";
-import {Space} from "antd";
 import {ExportOutlined} from "@ant-design/icons";
 
 export interface IModPreviewButtonProps extends Partial<IDrawerButtonProps> {
@@ -11,7 +10,7 @@ export interface IModPreviewButtonProps extends Partial<IDrawerButtonProps> {
 }
 
 export const ModPreviewButton: FC<IModPreviewButtonProps> = ({mod, ...props}) => {
-	return <Space size={0}>
+	return <>
 		<DrawerButton
 			type={'link'}
 			size={'large'}
@@ -27,5 +26,5 @@ export const ModPreviewButton: FC<IModPreviewButtonProps> = ({mod, ...props}) =>
 			icon={<ExportOutlined/>}
 			mod={mod}
 		/>
-	</Space>
+	</>
 }
