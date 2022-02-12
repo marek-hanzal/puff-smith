@@ -7,7 +7,6 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
-import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
@@ -15,6 +14,8 @@ import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInp
 import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
 import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
+import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
+import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto

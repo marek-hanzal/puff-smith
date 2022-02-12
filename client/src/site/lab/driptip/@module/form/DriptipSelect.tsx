@@ -1,6 +1,6 @@
-import {IDriptipsSourceSelectProps, DriptipsSourceSelect} from "@/sdk/puff-smith/api/lab/driptip/endpoint";
+import {DriptipsSourceSelect, IDriptipsSourceSelectProps} from "@/sdk/puff-smith/api/lab/driptip/endpoint";
 import {FC} from "react";
-import {DriptipInline} from "@/puff-smith/site/lab/driptip";
+import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/DriptipInline";
 
 export interface IDriptipSelectProps extends Partial<IDriptipsSourceSelectProps> {
 }

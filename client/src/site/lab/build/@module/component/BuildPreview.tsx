@@ -9,7 +9,6 @@ import {ImageGallery, Ohm} from "@/puff-smith";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
-import {DriptipInline} from "@/puff-smith/site/lab/driptip";
 import {BuildEditButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildEditButton";
 import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
@@ -23,6 +22,7 @@ import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
+import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/DriptipInline";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 

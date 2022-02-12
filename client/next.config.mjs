@@ -1,5 +1,5 @@
 import analyzer from '@next/bundle-analyzer';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
+// import CircularDependencyPlugin from 'circular-dependency-plugin';
 import plugins from 'next-compose-plugins';
 import { patchWebpackConfig } from 'next-global-css';
 import images from 'next-images';
@@ -24,13 +24,13 @@ const config = plugins([
 				'process.env.BUILD_ID': JSON.stringify(buildId),
 			}),
 		);
-		config.plugins.push(
-			new CircularDependencyPlugin({
-				exclude:          /node_modules/,
-				failOnError:      true,
-				allowAsyncCycles: false,
-			})
-		);
+		// config.plugins.push(
+		// 	new CircularDependencyPlugin({
+		// 		exclude:          /node_modules/,
+		// 		failOnError:      true,
+		// 		allowAsyncCycles: false,
+		// 	})
+		// );
 		return patchWebpackConfig(config, options);
 	},
 	reactStrictMode:             true,

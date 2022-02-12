@@ -6,7 +6,6 @@ import {useTranslation} from "react-i18next";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
@@ -15,6 +14,8 @@ import {CoilTooltip} from "@/puff-smith/site/lab/coil/@module/form/CoilTooltip";
 import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
 import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
+import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
+import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;

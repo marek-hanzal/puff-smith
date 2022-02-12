@@ -4,13 +4,14 @@ import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Divider, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
-import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 import {ModSelect, ModTooltip} from "@/puff-smith/site/lab/mod";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
 import {BuildTooltip} from "@/puff-smith/site/lab/build/@module/form/BuildTooltip";
 import {BuildSelect} from "@/puff-smith/site/lab/build/@module/form/BuildSelect";
 import {MixtureTooltip} from "@/puff-smith/site/lab/mixture/@module/form/MixtureTooltip";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureSelect";
+import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
+import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 
 export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
 	vape: VapeDto;
