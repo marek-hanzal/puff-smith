@@ -8,6 +8,7 @@ use PuffSmith\Api\Lab\Atomizer\AtomizerRouterGroup;
 use PuffSmith\Api\Lab\Base\BaseRouterGroup;
 use PuffSmith\Api\Lab\Booster\BoosterRouterGroup;
 use PuffSmith\Api\Lab\Build\BuildRouterGroup;
+use PuffSmith\Api\Lab\Cell\CellRouterGroup;
 use PuffSmith\Api\Lab\Coil\CoilRouterGroup;
 use PuffSmith\Api\Lab\Comment\CommentRouterGroup;
 use PuffSmith\Api\Lab\Cotton\CottonRouterGroup;
@@ -27,6 +28,7 @@ class LabRouterGroup extends AbstractRouterGroup {
 			BaseRouterGroup::class,
 			BoosterRouterGroup::class,
 			BuildRouterGroup::class,
+			CellRouterGroup::class,
 			CoilRouterGroup::class,
 			CommentRouterGroup::class,
 			CottonRouterGroup::class,
