@@ -1,11 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,13 +28,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -152,8 +144,8 @@ export interface IMixturePageProps extends Omit<IPageProps, "breadcrumbProps" | 
 	breadcrumbMobileProps?: IMixturePageBreadcrumb;
 	breadcrumbBrowserProps?: IMixturePageBreadcrumb;
 	extra?: IMixturePageExtra;
-	extraMobile?: IMixturePageExtra; 
-	extraBrowser?: IMixturePageExtra; 
+	extraMobile?: IMixturePageExtra;
+	extraBrowser?: IMixturePageExtra;
 }
 
 export const MixturePage: FC<IMixturePageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -190,6 +182,7 @@ export interface IMixturesSourceProps extends Partial<ISourceContextProviderProp
 export const MixturesSource: FC<IMixturesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IMixturesQueryParams, import("@/sdk/puff-smith/mixture/dto/index").MixtureDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureOrderByDto, import("@/sdk/puff-smith/mixture/dto/index").MixtureFilterDto>
 		useQuery={useMixturesQuery}
+		filter={useMixturesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

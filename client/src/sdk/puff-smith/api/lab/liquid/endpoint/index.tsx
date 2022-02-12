@@ -1,11 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,13 +28,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -152,8 +144,8 @@ export interface ILiquidPageProps extends Omit<IPageProps, "breadcrumbProps" | "
 	breadcrumbMobileProps?: ILiquidPageBreadcrumb;
 	breadcrumbBrowserProps?: ILiquidPageBreadcrumb;
 	extra?: ILiquidPageExtra;
-	extraMobile?: ILiquidPageExtra; 
-	extraBrowser?: ILiquidPageExtra; 
+	extraMobile?: ILiquidPageExtra;
+	extraBrowser?: ILiquidPageExtra;
 }
 
 export const LiquidPage: FC<ILiquidPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -190,6 +182,7 @@ export interface ILiquidsSourceProps extends Partial<ISourceContextProviderProps
 export const LiquidsSource: FC<ILiquidsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ILiquidsQueryParams, import("@/sdk/puff-smith/liquid/dto/index").LiquidDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidOrderByDto, import("@/sdk/puff-smith/liquid/dto/index").LiquidFilterDto>
 		useQuery={useLiquidsQuery}
+		filter={useLiquidsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

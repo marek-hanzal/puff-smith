@@ -1,11 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,13 +28,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -152,8 +144,8 @@ export interface IAtomizerPageProps extends Omit<IPageProps, "breadcrumbProps" |
 	breadcrumbMobileProps?: IAtomizerPageBreadcrumb;
 	breadcrumbBrowserProps?: IAtomizerPageBreadcrumb;
 	extra?: IAtomizerPageExtra;
-	extraMobile?: IAtomizerPageExtra; 
-	extraBrowser?: IAtomizerPageExtra; 
+	extraMobile?: IAtomizerPageExtra;
+	extraBrowser?: IAtomizerPageExtra;
 }
 
 export const AtomizerPage: FC<IAtomizerPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -190,6 +182,7 @@ export interface IAtomizersSourceProps extends Partial<ISourceContextProviderPro
 export const AtomizersSource: FC<IAtomizersSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>
 		useQuery={useAtomizersQuery}
+		filter={useAtomizersOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

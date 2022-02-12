@@ -1,12 +1,9 @@
+import {ConsumerProps, FC} from "react";
 import {
-	ConsumerProps,
-	FC
-} from "react";
-import {
+	createDeleteMutation,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -18,10 +15,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -53,6 +46,7 @@ export interface ILogsSourceProps extends Partial<ISourceContextProviderProps<IL
 export const LogsSource: FC<ILogsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ILogsQueryParams, import("@/sdk/edde/log/dto/index").LogDto, import("@/sdk/edde/log/dto/index").LogOrderByDto, import("@/sdk/edde/log/dto/index").LogFilterDto>
 		useQuery={useLogsQuery}
+		filter={useLogsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

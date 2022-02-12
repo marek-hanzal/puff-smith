@@ -1,24 +1,20 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
-	Form,
 	IEntityContext,
 	IEntityProviderProps,
 	IFilterContextProviderProps,
-	IFormProps,
 	IPageProps,
 	IQueryOptions,
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,11 +25,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -120,8 +111,8 @@ export interface IJobPageProps extends Omit<IPageProps, "breadcrumbProps" | "bre
 	breadcrumbMobileProps?: IJobPageBreadcrumb;
 	breadcrumbBrowserProps?: IJobPageBreadcrumb;
 	extra?: IJobPageExtra;
-	extraMobile?: IJobPageExtra; 
-	extraBrowser?: IJobPageExtra; 
+	extraMobile?: IJobPageExtra;
+	extraBrowser?: IJobPageExtra;
 }
 
 export const JobPage: FC<IJobPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -158,6 +149,7 @@ export interface IJobsSourceProps extends Partial<ISourceContextProviderProps<IJ
 export const JobsSource: FC<IJobsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IJobsQueryParams, import("@/sdk/edde/job/dto/index").JobDto, import("@/sdk/edde/job/dto/index").JobOrderByDto, import("@/sdk/edde/job/dto/index").JobFilterDto>
 		useQuery={useJobsQuery}
+		filter={useJobsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

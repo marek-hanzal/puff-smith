@@ -182,6 +182,7 @@ export interface IVendorsSourceProps extends Partial<ISourceContextProviderProps
 export const VendorsSource: FC<IVendorsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IVendorsQueryParams, import("@/sdk/puff-smith/vendor/dto/index").VendorDto, import("@/sdk/puff-smith/vendor/dto/index").VendorOrderByDto, import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto>
 		useQuery={useVendorsQuery}
+		filter={useVendorsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

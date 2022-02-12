@@ -1,11 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,13 +28,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -176,8 +168,8 @@ export interface IVapePageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: IVapePageBreadcrumb;
 	breadcrumbBrowserProps?: IVapePageBreadcrumb;
 	extra?: IVapePageExtra;
-	extraMobile?: IVapePageExtra; 
-	extraBrowser?: IVapePageExtra; 
+	extraMobile?: IVapePageExtra;
+	extraBrowser?: IVapePageExtra;
 }
 
 export const VapePage: FC<IVapePageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -214,6 +206,7 @@ export interface IVapesSourceProps extends Partial<ISourceContextProviderProps<I
 export const VapesSource: FC<IVapesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IVapesQueryParams, import("@/sdk/puff-smith/vape/dto/index").VapeDto, import("@/sdk/puff-smith/vape/dto/index").VapeOrderByDto, import("@/sdk/puff-smith/vape/dto/index").VapeFilterDto>
 		useQuery={useVapesQuery}
+		filter={useVapesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

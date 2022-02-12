@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {CommentsSource, ICommentsSourceProps, useCommentsOptionalFilterContext, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
+import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
 import {Comments} from "@/puff-smith/site/lab/comment";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeCommentDto} from "@/sdk/puff-smith/vape/dto/comment";
@@ -14,9 +14,7 @@ export interface IVapeCommentsProps extends Partial<ICommentsSourceProps> {
 
 export const VapeComments: FC<IVapeCommentsProps> = ({vape, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
-	const filterContext = useCommentsOptionalFilterContext();
 	return <CommentsSource
-		filter={filterContext?.filter}
 		defaultFilter={vape && {vapeId: vape.id}}
 		{...props}
 	>

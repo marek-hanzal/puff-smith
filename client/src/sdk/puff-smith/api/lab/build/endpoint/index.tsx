@@ -1,11 +1,9 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +17,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,13 +28,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -167,8 +159,8 @@ export interface IBuildPageProps extends Omit<IPageProps, "breadcrumbProps" | "b
 	breadcrumbMobileProps?: IBuildPageBreadcrumb;
 	breadcrumbBrowserProps?: IBuildPageBreadcrumb;
 	extra?: IBuildPageExtra;
-	extraMobile?: IBuildPageExtra; 
-	extraBrowser?: IBuildPageExtra; 
+	extraMobile?: IBuildPageExtra;
+	extraBrowser?: IBuildPageExtra;
 }
 
 export const BuildPage: FC<IBuildPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -205,6 +197,7 @@ export interface IBuildsSourceProps extends Partial<ISourceContextProviderProps<
 export const BuildsSource: FC<IBuildsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IBuildsQueryParams, import("@/sdk/puff-smith/build/dto/index").BuildDto, import("@/sdk/puff-smith/build/dto/index").BuildOrderByDto, import("@/sdk/puff-smith/build/dto/index").BuildFilterDto>
 		useQuery={useBuildsQuery}
+		filter={useBuildsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

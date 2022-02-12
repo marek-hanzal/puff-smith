@@ -1,18 +1,15 @@
 import {CoilsSourceTable, ICoilsSourceTableProps} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
 import {CoilLinkButton, CoilListItem, CoilPreviewButton, CoilQuickMenu} from "@/puff-smith/site/lab/coil";
-import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
-import {ButtonBar, PreviewBool, useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar, PreviewBool} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
 
 export const CoilTable: FC<ICoilTableProps> = props => {
-	const filterContext = useOptionalFilterContext<CoilFilterDto>();
 	const {t} = useTranslation();
 	return <CoilsSourceTable
-		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={coil => <CoilListItem coil={coil}/>}
 		scroll={{x: 1500}}

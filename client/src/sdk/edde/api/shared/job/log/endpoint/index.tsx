@@ -1,12 +1,8 @@
+import {ConsumerProps, FC} from "react";
 import {
-	ConsumerProps,
-	FC
-} from "react";
-import {
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -18,8 +14,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -64,6 +58,7 @@ export interface IJobLogsSourceProps extends Partial<ISourceContextProviderProps
 export const JobLogsSource: FC<IJobLogsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IJobLogsQueryParams, import("@/sdk/edde/job/dto/log/index").JobLogDto, import("@/sdk/edde/job/dto/log/index").JobLogOrderByDto, import("@/sdk/edde/job/dto/log/index").JobLogFilterDto>
 		useQuery={useJobLogsQuery}
+		filter={useJobLogsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -144,6 +139,7 @@ export interface ILevelsSourceProps extends Partial<ISourceContextProviderProps<
 export const LevelsSource: FC<ILevelsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ILevelsQueryParams, import("@/sdk/edde/job/dto/log/index").LogLevelDto, void | undefined, void | undefined>
 		useQuery={useLevelsQuery}
+		filter={useLevelsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -224,6 +220,7 @@ export interface ITypesSourceProps extends Partial<ISourceContextProviderProps<I
 export const TypesSource: FC<ITypesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ITypesQueryParams, import("@/sdk/edde/job/dto/log/index").LogTypeDto, void | undefined, void | undefined>
 		useQuery={useTypesQuery}
+		filter={useTypesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

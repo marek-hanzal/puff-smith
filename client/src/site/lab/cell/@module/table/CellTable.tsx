@@ -1,8 +1,7 @@
 import {CellsSourceTable, ICellsSourceTableProps} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
 import {CellLinkButton, CellListItem, CellPreviewButton, CellQuickMenu} from "@/puff-smith/site/lab/cell";
-import {CellFilterDto} from "@/sdk/puff-smith/cell/dto";
-import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {toHumanNumber} from "@leight-core/leight/dist";
 import {Ohm} from "@/puff-smith";
@@ -11,10 +10,8 @@ export interface ICellTableProps extends Partial<ICellsSourceTableProps> {
 }
 
 export const CellTable: FC<ICellTableProps> = props => {
-	const filterContext = useOptionalFilterContext<CellFilterDto>();
 	const {t} = useTranslation();
 	return <CellsSourceTable
-		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.cell.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={cell => <CellListItem cell={cell}/>}
 		{...props}

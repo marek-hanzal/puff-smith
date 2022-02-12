@@ -182,6 +182,7 @@ export interface ICellsSourceProps extends Partial<ISourceContextProviderProps<I
 export const CellsSource: FC<ICellsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICellsQueryParams, import("@/sdk/puff-smith/cell/dto/index").CellDto, import("@/sdk/puff-smith/cell/dto/index").CellOrderByDto, import("@/sdk/puff-smith/cell/dto/index").CellFilterDto>
 		useQuery={useCellsQuery}
+		filter={useCellsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

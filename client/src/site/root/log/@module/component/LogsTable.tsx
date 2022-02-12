@@ -3,17 +3,15 @@ import {QuickMenu, toLocalDateTime} from "@leight-core/leight";
 import {Menu, Tag, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ILogsSourceTableProps, LogsSourceTable, useLogsOptionalFilterContext} from "@/sdk/edde/api/root/log/endpoint";
+import {ILogsSourceTableProps, LogsSourceTable} from "@/sdk/edde/api/root/log/endpoint";
 
 export interface ILogsTableProps extends Partial<ILogsSourceTableProps> {
 }
 
 export const LogsTable: FC<ILogsTableProps> = props => {
 	const {t} = useTranslation();
-	const filterContext = useLogsOptionalFilterContext();
 	return <LogsSourceTable
 		scroll={{x: 2200}}
-		filter={filterContext?.filter}
 		expandable={{
 			expandedRowRender: item => (
 				<pre>

@@ -1,12 +1,10 @@
+import {ConsumerProps, FC} from "react";
 import {
-	ConsumerProps,
-	FC
-} from "react";
-import {
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
-	Form,
 	IFilterContextProviderProps,
-	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -18,10 +16,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createGetMutation,
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -76,6 +70,7 @@ export interface INamesSourceProps extends Partial<ISourceContextProviderProps<I
 export const NamesSource: FC<INamesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<INamesQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerNameDto, void | undefined, void | undefined>
 		useQuery={useNamesQuery}
+		filter={useNamesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -156,6 +151,7 @@ export interface IProfilersSourceProps extends Partial<ISourceContextProviderPro
 export const ProfilersSource: FC<IProfilersSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IProfilersQueryParams, import("@/sdk/edde/profiler/dto/index").ProfilerDto, import("@/sdk/edde/profiler/dto/index").ProfilerOrderByDto, import("@/sdk/edde/profiler/dto/index").ProfilerFilterDto>
 		useQuery={useProfilersQuery}
+		filter={useProfilersOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

@@ -1,11 +1,10 @@
 import {Column} from "@ant-design/plots";
-import {usePlotQuery} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {usePlotQuery, useVapesOptionalFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {FC} from "react";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {useTranslation} from "react-i18next";
 import {Result, ResultProps} from "antd";
 import {BarChartOutlined} from "@ant-design/icons";
-import {toHumanNumber, useOptionalFilterContext} from "@leight-core/leight";
+import {toHumanNumber} from "@leight-core/leight";
 
 export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | string;
 
@@ -16,7 +15,7 @@ export interface IVapePlotProps {
 
 export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 	const {t} = useTranslation();
-	const filterContext = useOptionalFilterContext<VapeFilterDto>();
+	const filterContext = useVapesOptionalFilterContext();
 	const plotQuery = usePlotQuery({filter: filterContext?.filter});
 
 	return plotQuery?.data?.data?.length ?

@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture";
-import {ButtonBar, durationOf, toLocalDateTime, useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar, durationOf, toLocalDateTime} from "@leight-core/leight";
 import {VapeLinkButton, VapeListItem, VapeQuickMenu} from "@/puff-smith/site/lab/vape";
 import {useTranslation} from "react-i18next";
 import {BuildAge} from "@/puff-smith/site/lab/build";
@@ -9,7 +9,6 @@ import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod";
-import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 
@@ -18,10 +17,8 @@ export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 }
 
 export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
-	const filterContext = useOptionalFilterContext<VapeFilterDto>();
 	const {t} = useTranslation();
 	return <VapesSourceTable
-		filter={filterContext?.filter}
 		scroll={{x: 2550}}
 		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={vape => <VapeListItem vape={vape}/>}

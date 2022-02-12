@@ -1,18 +1,15 @@
 import {CottonsSourceTable, ICottonsSourceTableProps} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {FC} from "react";
 import {CottonLinkButton, CottonListItem, CottonPreviewButton, CottonQuickMenu} from "@/puff-smith/site/lab/cotton";
-import {CottonFilterDto} from "@/sdk/puff-smith/cotton/dto";
-import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 
 export interface ICottonTableProps extends Partial<ICottonsSourceTableProps> {
 }
 
 export const CottonTable: FC<ICottonTableProps> = props => {
-	const filterContext = useOptionalFilterContext<CottonFilterDto>();
 	const {t} = useTranslation();
 	return <CottonsSourceTable
-		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.cotton.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={cotton => <CottonListItem cotton={cotton}/>}
 		{...props}

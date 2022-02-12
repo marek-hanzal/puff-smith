@@ -1,11 +1,10 @@
+import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	ConsumerProps,
-	FC,
-	ReactElement,
-	ReactNode,
-	createContext
-} from "react";
-import {
+	createDeleteMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPostMutation,
+	createPostQuery,
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -19,6 +18,7 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
+	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -29,15 +29,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createDeleteMutation,
-	createDeleteQuery,
-	createGetMutation,
-	createGetQuery,
-	createPatchMutation,
-	createPatchQuery,
-	createPostMutation,
-	createPostQuery,
-	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -146,8 +137,8 @@ export interface IConfigPageProps extends Omit<IPageProps, "breadcrumbProps" | "
 	breadcrumbMobileProps?: IConfigPageBreadcrumb;
 	breadcrumbBrowserProps?: IConfigPageBreadcrumb;
 	extra?: IConfigPageExtra;
-	extraMobile?: IConfigPageExtra; 
-	extraBrowser?: IConfigPageExtra; 
+	extraMobile?: IConfigPageExtra;
+	extraBrowser?: IConfigPageExtra;
 }
 
 export const ConfigPage: FC<IConfigPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -184,6 +175,7 @@ export interface IConfigsSourceProps extends Partial<ISourceContextProviderProps
 export const ConfigsSource: FC<IConfigsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IConfigsQueryParams, import("@/sdk/edde/config/dto/index").ConfigDto, import("@/sdk/edde/config/dto/index").ConfigOrderByDto, import("@/sdk/edde/config/dto/index").ConfigFilterDto>
 		useQuery={useConfigsQuery}
+		filter={useConfigsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

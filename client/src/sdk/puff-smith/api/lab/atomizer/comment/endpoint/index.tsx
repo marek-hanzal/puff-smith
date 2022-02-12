@@ -1,8 +1,7 @@
+import {ConsumerProps, FC} from "react";
 import {
-	ConsumerProps,
-	FC
-} from "react";
-import {
+	createPostMutation,
+	createPostQuery,
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -18,8 +17,6 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
-	createPostMutation,
-	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -61,6 +58,7 @@ export interface ICommentsSourceProps extends Partial<ISourceContextProviderProp
 export const CommentsSource: FC<ICommentsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICommentsQueryParams, import("@/sdk/puff-smith/atomizer/dto/comment/index").AtomizerCommentDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentOrderByDto, import("@/sdk/puff-smith/atomizer/dto/comment/index").CommentFilterDto>
 		useQuery={useCommentsQuery}
+		filter={useCommentsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

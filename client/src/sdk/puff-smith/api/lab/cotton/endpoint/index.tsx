@@ -182,6 +182,7 @@ export interface ICottonsSourceProps extends Partial<ISourceContextProviderProps
 export const CottonsSource: FC<ICottonsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>
 		useQuery={useCottonsQuery}
+		filter={useCottonsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

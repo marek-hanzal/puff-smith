@@ -1521,12 +1521,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/leight-core/edde.git",
-                "reference": "7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41"
+                "reference": "a0d12f95ff19a75deb96d0d9107b091e796ff8fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leight-core/edde/zipball/7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41",
-                "reference": "7dba2eb26ed9d7a8ed3d30980dab172d4ff12e41",
+                "url": "https://api.github.com/repos/leight-core/edde/zipball/a0d12f95ff19a75deb96d0d9107b091e796ff8fb",
+                "reference": "a0d12f95ff19a75deb96d0d9107b091e796ff8fb",
                 "shasum": ""
             },
             "require": {
@@ -1599,7 +1599,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-            "time": "2022-02-11T12:12:23+00:00"
+            "time": "2022-02-12T18:26:56+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -6311,12 +6311,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [

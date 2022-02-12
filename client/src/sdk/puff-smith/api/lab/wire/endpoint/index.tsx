@@ -182,6 +182,7 @@ export interface IWiresSourceProps extends Partial<ISourceContextProviderProps<I
 export const WiresSource: FC<IWiresSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IWiresQueryParams, import("@/sdk/puff-smith/wire/dto/index").WireDto, import("@/sdk/puff-smith/wire/dto/index").WireOrderByDto, import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>
 		useQuery={useWiresQuery}
+		filter={useWiresOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

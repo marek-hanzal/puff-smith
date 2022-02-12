@@ -4,19 +4,16 @@ import {CoilPreviewButton} from "@/puff-smith/site/lab/coil";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton";
 import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-smith/site/lab/build";
-import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/leight";
 import {Ohm} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
 
 export const BuildTable: FC<IBuildTableProps> = props => {
-	const filterContext = useOptionalFilterContext<BuildFilterDto>();
 	const {t} = useTranslation();
 	return <BuildsSourceTable
-		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
