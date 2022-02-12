@@ -9,7 +9,7 @@ import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
+import {CoilCountInput} from "@/puff-smith/site/lab/build";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
@@ -74,21 +74,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		</Card>
 		<Divider/>
 		<Card title={t('lab.build.advanced.title')}>
-			<FormItem
-				field={'coilOffset'}
-			>
-				<CoilOffsetInput/>
-			</FormItem>
-			<FormItem
-				field={'cottonOffset'}
-			>
-				<CottonOffsetInput/>
-			</FormItem>
-			<FormItem
-				field={'glow'}
-			>
-				<GlowInput/>
-			</FormItem>
 			<FormItem
 				field={'coils'}
 			>

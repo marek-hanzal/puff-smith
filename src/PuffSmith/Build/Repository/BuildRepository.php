@@ -92,18 +92,15 @@ class BuildRepository extends AbstractRepository {
 			$coil = $this->coilRepository->findByCreate($createDto->coil);
 		}
 		return $this->insert([
-			'atomizer_id'  => $createDto->atomizerId,
-			'coil_id'      => $coil->id,
-			'glow'         => $createDto->glow,
-			'cotton_id'    => $createDto->cottonId,
-			'driptip_id'   => $createDto->driptipId,
-			'coils'        => $createDto->coils,
-			'coilOffset'   => $createDto->coilOffset,
-			'cottonOffset' => $createDto->cottonOffset,
-			'ohm'          => $createDto->ohm,
-			'active'       => true,
-			'created'      => new DateTime($createDto->created ?? 'now'),
-			'user_id'      => $this->currentUserService->requiredId(),
+			'atomizer_id' => $createDto->atomizerId,
+			'coil_id'     => $coil->id,
+			'cotton_id'   => $createDto->cottonId,
+			'driptip_id'  => $createDto->driptipId,
+			'coils'       => $createDto->coils,
+			'ohm'         => $createDto->ohm,
+			'active'      => true,
+			'created'     => new DateTime($createDto->created ?? 'now'),
+			'user_id'     => $this->currentUserService->requiredId(),
 		]);
 	}
 
@@ -118,17 +115,14 @@ class BuildRepository extends AbstractRepository {
 	 */
 	public function update(PatchDto $patchDto) {
 		return $this->change([
-			'id'           => $patchDto->id,
-			'created'      => $patchDto->created ? new DateTime($patchDto->created) : null,
-			'glow'         => $patchDto->glow,
-			'atomizer_id'  => $patchDto->atomizerId,
-			'driptip_id'   => $patchDto->driptipId,
-			'coil_id'      => $patchDto->coilId,
-			'cotton_id'    => $patchDto->cottonId,
-			'coils'        => $patchDto->coils,
-			'coilOffset'   => $patchDto->coilOffset,
-			'cottonOffset' => $patchDto->cottonOffset,
-			'ohm'          => $patchDto->ohm,
+			'id'          => $patchDto->id,
+			'created'     => $patchDto->created ? new DateTime($patchDto->created) : null,
+			'atomizer_id' => $patchDto->atomizerId,
+			'driptip_id'  => $patchDto->driptipId,
+			'coil_id'     => $patchDto->coilId,
+			'cotton_id'   => $patchDto->cottonId,
+			'coils'       => $patchDto->coils,
+			'ohm'         => $patchDto->ohm,
 		]);
 	}
 }

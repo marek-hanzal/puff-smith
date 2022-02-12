@@ -16,8 +16,6 @@ class BuildDto extends AbstractDto {
 	public ?float $ohm;
 	/** @var string */
 	public string $created;
-	/** @var int|null */
-	public ?int $glow;
 	/** @var bool */
 	public bool $active;
 	/** @var string|null|void */
@@ -37,14 +35,10 @@ class BuildDto extends AbstractDto {
 	/** @var CoilDto */
 	public CoilDto $coil;
 	/** @var int */
-	public int $coilOffset;
-	/** @var int */
 	public int $coils;
 
 	/** @var string */
 	public string $cottonId;
 	/** @var CottonDto */
 	public CottonDto $cotton;
-	/** @var int */
-	public int $cottonOffset;
 }

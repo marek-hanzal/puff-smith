@@ -7,7 +7,7 @@ import {BuildAge, BuildLinkButton, BuildListItem, BuildQuickMenu} from "@/puff-s
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
 import {ButtonBar, useOptionalFilterContext} from "@leight-core/leight";
-import {Ohm, SimpleRating} from "@/puff-smith";
+import {Ohm} from "@/puff-smith";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -60,14 +60,6 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				render: (_, build) => <Ohm ohm={build?.ohm}/>,
 				width: 160,
 				sorter: true,
-			}),
-			column({
-				key: "glow",
-				dataIndex: "glow",
-				title: "lab.build.table.glow",
-				render: (_, build) => <SimpleRating value={build.glow}/>,
-				sorter: true,
-				width: 140,
 			}),
 			column({
 				key: "age",

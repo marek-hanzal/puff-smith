@@ -14,6 +14,8 @@ import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smi
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {CoilInline} from "@/puff-smith/site/lab/coil";
+import {Template} from "@leight-core/leight/dist";
+import {FileImageOutlined} from "@ant-design/icons";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -93,16 +95,19 @@ const ComposeForm: FC<IComposeFormProps> = () => {
 				<Tabs.TabPane disabled={!buildFilter?.atomizerIds?.length} key={'build.images'} tab={t('lab.build.create.vape.images.tab')}>
 					<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
 						<BuildsSourceConsumer>
-							{sourceContext => sourceContext.result.isSuccess && <>
+							{sourceContext => sourceContext.hasData() ? <>
 								<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
-									{sourceContext.result.data.items.map(build => <List.Item key={build.id}>
+									{sourceContext.map(build => <List.Item key={build.id}>
 										<List.Item.Meta
 											description={<CoilInline inline coil={build.coil}/>}
 										/>
 										<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
 									</List.Item>)}
 								</List>
-							</>}
+							</> : <Template
+								icon={<FileImageOutlined/>}
+								label={'lab.build.create.no-images'}
+							/>}
 						</BuildsSourceConsumer>
 					</BuildsSource>
 				</Tabs.TabPane>

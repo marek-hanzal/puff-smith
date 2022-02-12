@@ -2,7 +2,6 @@ export interface BuildDto {
 	id: string;
 	ohm: number | null;
 	created: string;
-	glow: number | null;
 	active: boolean;
 	disabledOn?: string | null | undefined;
 	atomizerId: string;
@@ -11,11 +10,9 @@ export interface BuildDto {
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	coilId: string;
 	coil: import("@/sdk/puff-smith/coil/dto/index").CoilDto;
-	coilOffset: number;
 	coils: number;
 	cottonId: string;
 	cotton: import("@/sdk/puff-smith/cotton/dto/index").CottonDto;
-	cottonOffset: number;
 }
 
 export module BuildDto {
@@ -51,14 +48,11 @@ export module BuildFilterDto {
 
 export interface CreateDto {
 	created: string | null;
-	glow: number | null;
 	atomizerId: string;
 	driptipId: string | null;
 	coil: import("@/sdk/puff-smith/coil/dto/index").CreateDto;
 	cottonId: string;
 	coils: number;
-	coilOffset: number;
-	cottonOffset: number;
 	ohm: number | null;
 	deactivate: boolean | null;
 }
@@ -79,15 +73,12 @@ export module DeleteDto {
 
 export interface PatchDto {
 	id: string;
-	glow: number | null;
 	created?: string | null | undefined;
 	atomizerId?: string | null | undefined;
 	driptipId?: string | null | undefined;
 	coilId?: string | null | undefined;
 	cottonId?: string | null | undefined;
 	coils?: number | null | undefined;
-	coilOffset?: number | null | undefined;
-	cottonOffset?: number | null | undefined;
 	ohm?: number | null | undefined;
 }
 

@@ -1,14 +1,20 @@
 import {FC} from "react";
-import {IRateInputProps, RateInput} from "@/puff-smith";
+import {Slider} from "antd";
+import {SliderProps} from "rc-slider";
 
-export interface ICoilCountInputProps extends Partial<IRateInputProps> {
+export interface ICoilCountInputProps extends Partial<SliderProps> {
 }
 
 export const CoilCountInput: FC<ICoilCountInputProps> = props => {
-	return <RateInput
-		translation={'lab.build.coilCount'}
+	return <Slider
 		min={1}
 		max={4}
+		marks={{
+			1: 1,
+			2: 2,
+			3: 3,
+			4: 4,
+		}}
 		{...props}
 	/>
 }

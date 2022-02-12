@@ -22,11 +22,11 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmp
 		imagesSource.setSize(isMobile ? 1 : size);
 	}, []);
 
-	return imagesSource.result.isSuccess && imagesSource.result?.data?.count > 0 ? <>
+	return imagesSource.hasData() ? <>
 		<Image.PreviewGroup preview={{visible, onVisibleChange: setVisible}}>
 			<Centered>
 				<Space size={'large'}>
-					{imagesSource.result.data.items.map(({preview, original}) => <Image
+					{imagesSource.map(({preview, original}) => <Image
 						height={200}
 						key={preview.id}
 						src={linkContext.link('Edde.Shared.File.Download', {fileId: preview.id}, discoveryContext)}

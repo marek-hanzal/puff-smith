@@ -8,7 +8,7 @@ import {CottonSelect, CottonTooltip} from "@/puff-smith/site/lab/cotton";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {CoilCountInput, CoilOffsetInput, CottonOffsetInput, GlowInput} from "@/puff-smith/site/lab/build";
+import {CoilCountInput} from "@/puff-smith/site/lab/build";
 import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {SizeInput, WrapsInput} from "@/puff-smith/site/lab/coil";
 import {DriptipSelect, DriptipTooltip} from "@/puff-smith/site/lab/driptip";
@@ -110,24 +110,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		</Card>
 		<Divider/>
 		<Card title={t('lab.build.advanced.title')}>
-			<FormItem
-				field={'coilOffset'}
-				hasTooltip
-			>
-				<CoilOffsetInput/>
-			</FormItem>
-			<FormItem
-				field={'cottonOffset'}
-				hasTooltip
-			>
-				<CottonOffsetInput/>
-			</FormItem>
-			<FormItem
-				field={'glow'}
-				hasTooltip
-			>
-				<GlowInput/>
-			</FormItem>
 			<FormItem
 				field={'coils'}
 			>

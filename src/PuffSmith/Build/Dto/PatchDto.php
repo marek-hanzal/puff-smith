@@ -10,8 +10,6 @@ class PatchDto extends AbstractDto {
 	 * @var string
 	 */
 	public string $id;
-	/** @var int|null */
-	public ?int $glow;
 	/** @var string|null|void */
 	public ?string $created;
 	/** @var string|null|void */
@@ -24,10 +22,6 @@ class PatchDto extends AbstractDto {
 	public ?string $cottonId;
 	/** @var int|null|void */
 	public ?int $coils;
-	/** @var int|null|void */
-	public ?int $coilOffset;
-	/** @var int|null|void */
-	public ?int $cottonOffset;
 	/** @var float|null|void */
 	public ?float $ohm;
 }
