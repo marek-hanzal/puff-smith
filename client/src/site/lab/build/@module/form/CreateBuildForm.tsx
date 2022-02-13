@@ -16,6 +16,7 @@ import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonToo
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
+import {useParams} from "@leight-core/leight/dist";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -24,11 +25,13 @@ export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> 
 
 export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const {atomizerId} = useParams();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
 		translation={'lab.build'}
 		toForm={() => ({
+			atomizerId,
 			coils: 1,
 			coilOffset: 0,
 			cottonOffset: 0,

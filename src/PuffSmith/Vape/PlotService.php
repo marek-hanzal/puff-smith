@@ -31,6 +31,7 @@ class PlotService extends AbstractPlotService {
 			$count++;
 			$ratings['rating'][] = $result->rating;
 			$ratings['taste'][] = $result->taste;
+			$ratings['leaks'][] = $result->leaks;
 			$ratings['fruits'][] = $result->fruits;
 			$ratings['tobacco'][] = $result->tobacco;
 			$ratings['cakes'][] = $result->cakes;
