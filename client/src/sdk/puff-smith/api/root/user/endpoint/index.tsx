@@ -42,12 +42,12 @@ import Breadcrumb from "antd/lib/breadcrumb";
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Create");
 
 export type IPatchQueryParams = void;
 
 
-export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Patch");
+export const usePatchMutation = createPatchMutation<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>("PuffSmith.Root.User.Patch");
 
 export type IRolesQueryParams = void;
 
@@ -87,21 +87,21 @@ export const useUsersQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Root.User.Users"])
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/create/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/user/dto/index").CreateDto, import("@/sdk/edde/bridge/user/index").UserDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>
 }
 
-export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
+export interface IPatchDefaultFormProps extends Partial<IFormProps<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>> {
 }
 
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => {
-	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/patch/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>
+	return <Form<IPatchQueryParams, import("@/sdk/puff-smith/user/dto/index").PatchDto, import("@/sdk/edde/bridge/user/index").UserDto>
 		useMutation={usePatchMutation}
 		{...props}
 	/>
