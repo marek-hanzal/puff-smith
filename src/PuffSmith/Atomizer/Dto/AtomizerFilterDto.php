@@ -10,4 +10,6 @@ class AtomizerFilterDto extends AbstractFilterDto {
 	public ?string $name;
 	/** @var string[]|null|void */
 	public ?array $vendorIds;
+	/** @var string|null|void */
+	public ?string $userId;
 }

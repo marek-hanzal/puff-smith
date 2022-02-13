@@ -22,6 +22,7 @@ class AtomizerRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		$this->join($select, 'z_user_atomizer', 'ua', '$.id', 'atomizer_id');
 		return $select;
 	}
 
@@ -40,6 +41,7 @@ class AtomizerRepository extends AbstractRepository {
 			'$.name',
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
+		isset($filter->userId) && $this->where($select, 'ua.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

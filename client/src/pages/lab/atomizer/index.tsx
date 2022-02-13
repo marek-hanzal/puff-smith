@@ -8,8 +8,10 @@ import {AtomizerCreateButton} from "@/puff-smith/site/lab/atomizer/@module/compo
 import {AtomizerFilter} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerFilter";
 import {AtomizerTable} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerTable";
 import {useTranslation} from "react-i18next";
+import {usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 
 export default withLabLayout(function Index() {
+	const {user} = usePuffSmithSessionContext().session;
 	const {t} = useTranslation();
 	return <LabPage
 		title={"lab.atomizer"}
@@ -36,6 +38,10 @@ export default withLabLayout(function Index() {
 	>
 		<Tabs>
 			<Tabs.TabPane key={'user'} tab={t('lab.atomizer.user.tab')}>
+				<AtomizersFilterContext defaultFilter={{userId: user.id}}>
+					<AtomizerFilter/>
+					<AtomizerTable/>
+				</AtomizersFilterContext>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={'shop'} tab={t('lab.atomizer.shop.tab')}>
 				<AtomizersFilterContext>
