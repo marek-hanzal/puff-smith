@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\User\Repository;
+namespace PuffSmith\User\Repository\Atomizer;
 
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
