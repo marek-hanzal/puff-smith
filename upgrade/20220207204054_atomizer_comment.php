@@ -10,7 +10,5 @@ final class AtomizerComment extends CommonMigration {
 			->addUuidForeignColumn('atomizer', 'z_atomizer')
 			->addUuidForeignColumn('comment', 'z_comment')
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

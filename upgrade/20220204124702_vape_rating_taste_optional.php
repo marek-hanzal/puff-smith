@@ -10,7 +10,5 @@ final class VapeRatingTasteOptional extends CommonMigration {
 			->changeColumn('rating', 'integer', ['null' => true])
 			->changeColumn('taste', 'integer', ['null' => true])
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

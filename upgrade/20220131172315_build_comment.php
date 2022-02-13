@@ -10,7 +10,5 @@ final class BuildComment extends CommonMigration {
 			->addUuidForeignColumn('build', 'z_build')
 			->addUuidForeignColumn('comment', 'z_comment')
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

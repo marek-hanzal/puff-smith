@@ -44,6 +44,5 @@ final class CellDefault extends CommonMigration {
 			->save();
 
 		$this->importExcel(__DIR__ . '/fixtures/cells.xlsx');
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

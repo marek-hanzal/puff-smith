@@ -21,7 +21,5 @@ final class BuildOhmDecimal extends CommonMigration {
 				'scale'     => 3,
 			])
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

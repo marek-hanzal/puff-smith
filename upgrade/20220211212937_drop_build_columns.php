@@ -11,6 +11,5 @@ final class DropBuildColumns extends CommonMigration {
 			->removeColumn('cottonOffset')
 			->removeColumn('glow')
 			->save();
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

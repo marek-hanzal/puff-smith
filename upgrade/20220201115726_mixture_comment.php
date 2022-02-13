@@ -10,7 +10,5 @@ final class MixtureComment extends CommonMigration {
 			->addUuidForeignColumn('mixture', 'z_mixture')
 			->addUuidForeignColumn('comment', 'z_comment')
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }

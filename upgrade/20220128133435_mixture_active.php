@@ -12,7 +12,5 @@ final class MixtureActive extends CommonMigration {
 				'default' => true,
 			])
 			->save();
-
-		$this->importExcel(__DIR__ . '/fixtures/translations.xlsx');
 	}
 }
