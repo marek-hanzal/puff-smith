@@ -1,7 +1,8 @@
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
-import {ModInline} from "@/puff-smith/site/lab/mod";
+import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
+import {Watt} from "@/puff-smith";
 
 export interface IModPreviewProps extends Partial<IPreviewProps> {
 	mod: ModDto
@@ -18,7 +19,7 @@ export const ModPreview: FC<IModPreviewProps> = ({mod, ...props}) => {
 		<Preview translation={'lab.mod.preview'} {...props}>
 			{{
 				"name": <ModInline mod={mod}/>,
-				"power": mod.power + 'W',
+				"power": <Watt watt={mod.power}/>,
 			}}
 		</Preview>
 	</>

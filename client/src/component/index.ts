@@ -11,3 +11,4 @@ export * from "./PageMenu";
 export * from "./PreviewTag";
 export * from "./SimpleRating";
 export * from "./VersionStamp";
+export * from "./Watt";

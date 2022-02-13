@@ -6,7 +6,6 @@ import {Divider, InputNumber, message} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {WireSelect, WireTooltip} from "@/puff-smith/site/lab/wire";
 import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
@@ -17,6 +16,8 @@ import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSele
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {useParams} from "@leight-core/leight/dist";
+import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
+import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto

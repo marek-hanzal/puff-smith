@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateWireForm} from "@/puff-smith/site/lab/wire";
+import {CreateWireForm} from "@/puff-smith/site/lab/wire/@module/form/CreateWireForm";
 
 export interface IWireCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

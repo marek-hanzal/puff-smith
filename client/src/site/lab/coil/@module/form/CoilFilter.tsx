@@ -1,8 +1,8 @@
 import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
-import {WireSelect} from "@/puff-smith/site/lab/wire";
 import {CoilFilterDto} from "@/sdk/puff-smith/coil/dto";
 import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
+import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 
 export interface ICoilFilterProps extends IFilterWithoutTranslationProps<CoilFilterDto> {
 }

@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
-import {PatchModForm} from "@/puff-smith/site/lab/mod";
+import {PatchModForm} from "@/puff-smith/site/lab/mod/@module/form/PatchModForm";
 
 export interface IModEditButtonProps extends Partial<IDrawerButtonProps> {
 	mod: ModDto;

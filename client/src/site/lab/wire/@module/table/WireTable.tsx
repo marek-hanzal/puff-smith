@@ -1,8 +1,11 @@
 import {IWiresSourceTableProps, WiresSourceTable} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {WireLinkButton, WireListItem, WirePreviewButton, WireQuickMenu} from "@/puff-smith/site/lab/wire";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {WireListItem} from "@/puff-smith/site/lab/wire/@module/table/WireListItem";
+import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireLinkButton";
+import {WireQuickMenu} from "@/puff-smith/site/lab/wire/@module/component/WireQuickMenu";
+import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
 
 export interface IWireTableProps extends Partial<IWiresSourceTableProps> {
 }

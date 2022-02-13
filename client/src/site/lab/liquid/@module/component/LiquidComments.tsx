@@ -4,8 +4,8 @@ import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {LiquidCommentDto} from "@/sdk/puff-smith/liquid/dto/comment";
 import {Divider, Space} from "antd";
 import {CreateCommentForm} from "@/puff-smith/site/lab/liquid/@module/form/CreateCommentForm";
-import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
 import {Comments} from "@/puff-smith/site/lab/comment/@module/table/Comments";
+import {LiquidInline} from "@/puff-smith/site/lab/liquid/@module/component/LiquidInline";
 
 export interface ILiquidCommentsProps extends Partial<ICommentsSourceProps> {
 	liquid?: LiquidDto;
@@ -22,13 +22,7 @@ export const LiquidComments: FC<ILiquidCommentsProps> = ({liquid, ...props}) => 
 			toComment={dto => dto.comment}
 			toCommentProps={dto => ({
 				author: <Space size={0} split={<Divider type={'vertical'}/>}>
-					<LiquidPreviewButton
-						size={'small'}
-						style={{padding: 0}}
-						title={dto.liquid.name}
-						icon={null}
-						liquid={dto.liquid}
-					/>
+					<LiquidInline liquid={dto.liquid}/>
 				</Space>,
 			})}
 			onEdit={commentsQueryInvalidate}

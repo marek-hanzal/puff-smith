@@ -1,7 +1,7 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
-import {PatchWireForm} from "@/puff-smith/site/lab/wire";
+import {PatchWireForm} from "@/puff-smith/site/lab/wire/@module/form/PatchWireForm";
 
 export interface IWireEditButtonProps extends Partial<IDrawerButtonProps> {
 	wire: WireDto;

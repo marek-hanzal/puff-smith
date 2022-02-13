@@ -1,11 +1,12 @@
 import {WireIcon} from "@/puff-smith";
-import {WireCreateButton, WirePreview} from "@/puff-smith/site/lab/wire";
 import {WirePage} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
+import {WireCreateButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireCreateButton";
+import {WirePreview} from "@/puff-smith/site/lab/wire/@module/component/WirePreview";
 
 export default withLabLayout(function Index() {
 	const {t} = useTranslation();

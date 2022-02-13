@@ -1,6 +1,6 @@
 import {IWiresSourceSelectProps, WiresSourceSelect} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {WireInline} from "@/puff-smith/site/lab/wire";
+import {WireInline} from "@/puff-smith/site/lab/wire/@module/component/WireInline";
 
 export interface IWireSelectProps extends Partial<IWiresSourceSelectProps> {
 }

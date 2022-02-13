@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
-import {CreateWireForm} from "@/puff-smith/site/lab/wire";
 import {useOptionalFormItemContext} from "@leight-core/leight";
+import {CreateWireForm} from "@/puff-smith/site/lab/wire/@module/form/CreateWireForm";
 
 export interface IWireTooltipProps extends Partial<IFormTooltipProps> {
 }

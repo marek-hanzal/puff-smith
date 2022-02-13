@@ -3,10 +3,10 @@ import {DrawerButton, IDrawerButtonProps, Preview} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {DotChartOutlined} from "@ant-design/icons";
 import {Divider} from "antd";
-import {ModInline} from "@/puff-smith/site/lab/mod";
 import {BuildInline} from "@/puff-smith/site/lab/build/@module/component/BuildInline";
 import {VapeRateForm} from "@/puff-smith/site/lab/vape/@module/form/VapeRateForm";
 import {MixtureInline} from "@/puff-smith/site/lab/mixture/@module/component/MixtureInline";
+import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 
 export interface IVapeRateButtonProps extends Partial<IDrawerButtonProps> {
 	vape: VapeDto;

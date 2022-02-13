@@ -5,11 +5,11 @@ import {Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizersFilterContext, useAtomizersQuery} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {ModsFilterContext, useModsQuery} from "@/sdk/puff-smith/api/lab/mod/endpoint";
-import {ModTable} from "@/puff-smith/site/lab/mod";
 import {LiquidsFilterContext, useLiquidsQuery} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {AtomizerTable} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerTable";
 import {VendorInline} from "@/puff-smith/site/lab/vendor/@module/component/VendorInline";
 import {LiquidTable} from "@/puff-smith/site/lab/liquid/@module/table/LiquidTable";
+import {ModTable} from "@/puff-smith/site/lab/mod/@module/table/ModTable";
 
 export interface IVendorPreviewProps extends Partial<IPreviewProps> {
 	vendor: VendorDto;

@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {FC} from "react";
 import {ModIcon} from "@/puff-smith";
-import {ModLinkButton, ModPreview} from "@/puff-smith/site/lab/mod";
 import {ExportOutlined} from "@ant-design/icons";
+import {ModPreview} from "@/puff-smith/site/lab/mod/@module/component/ModPreview";
+import {ModLinkButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModLinkButton";
 
 export interface IModPreviewButtonProps extends Partial<IDrawerButtonProps> {
 	mod: ModDto;

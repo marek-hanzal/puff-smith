@@ -1,9 +1,11 @@
 import {FC} from "react";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {Menu} from "antd";
-import {WireDeleteButton, WireEditButton, WirePreviewButton} from "@/puff-smith/site/lab/wire";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
+import {WireEditButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireEditButton";
+import {WireDeleteButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireDeleteButton";
 
 export interface IWireQuickMenuProps extends Partial<IDrawerMenuProps> {
 	wire: WireDto;

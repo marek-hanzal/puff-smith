@@ -1,9 +1,8 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {ButtonBar, durationOf, Preview, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
+import {ButtonBar, durationOf, Preview, PreviewTemplate} from "@leight-core/leight";
 import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {ModInline} from "@/puff-smith/site/lab/mod";
 import {CommonRateInput} from "@/puff-smith";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
@@ -15,6 +14,8 @@ import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/butto
 import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/DriptipInline";
+import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
+import {VapeAge} from "@/puff-smith/site/lab/vape/@module/component/VapeAge";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -48,7 +49,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 							"driptip": <DriptipInline driptip={vape.driptip}/>,
 							"leaks": <CommonRateInput disabled value={vape.leaks}/>,
 							"dryhit": <CommonRateInput disabled value={vape.dryhit}/>,
-							"stamp": toLocalDateTime(vape.stamp),
+							"stamp": <VapeAge vape={vape}/>,
 						}}
 					</Preview>
 				</Tabs.TabPane>

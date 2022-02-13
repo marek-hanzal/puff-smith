@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
-import {WirePreviewButton, WireQuickMenu} from "@/puff-smith/site/lab/wire";
 import {List} from "antd";
+import {WireQuickMenu} from "@/puff-smith/site/lab/wire/@module/component/WireQuickMenu";
+import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
 
 export interface IWireListItemProps extends Partial<ListItemProps> {
 	wire: WireDto;

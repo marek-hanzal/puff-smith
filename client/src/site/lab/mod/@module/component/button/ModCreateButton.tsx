@@ -1,6 +1,6 @@
 import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
-import {CreateModForm} from "@/puff-smith/site/lab/mod";
+import {CreateModForm} from "@/puff-smith/site/lab/mod/@module/form/CreateModForm";
 
 export interface IModCreateButtonProps extends Partial<IDrawerButtonProps> {
 }

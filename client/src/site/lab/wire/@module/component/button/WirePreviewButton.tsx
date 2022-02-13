@@ -2,8 +2,9 @@ import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/le
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {FC} from "react";
 import {WireIcon} from "@/puff-smith";
-import {WireLinkButton, WirePreview} from "@/puff-smith/site/lab/wire";
 import {ExportOutlined} from "@ant-design/icons";
+import {WirePreview} from "@/puff-smith/site/lab/wire/@module/component/WirePreview";
+import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireLinkButton";
 
 export interface IWirePreviewButtonProps extends Partial<IDrawerButtonProps> {
 	wire: WireDto;

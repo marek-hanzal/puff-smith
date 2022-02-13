@@ -1,8 +1,11 @@
 import {IModsSourceTableProps, ModsSourceTable} from "@/sdk/puff-smith/api/lab/mod/endpoint";
 import {FC} from "react";
-import {ModLinkButton, ModListItem, ModPreviewButton, ModQuickMenu} from "@/puff-smith/site/lab/mod";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
+import {ModListItem} from "@/puff-smith/site/lab/mod/@module/table/ModListItem";
+import {ModLinkButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModLinkButton";
+import {ModQuickMenu} from "@/puff-smith/site/lab/mod/@module/component/ModQuickMenu";
+import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 
 export interface IModTableProps extends Partial<IModsSourceTableProps> {
 }

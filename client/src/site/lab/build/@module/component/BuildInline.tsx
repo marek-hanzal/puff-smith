@@ -2,8 +2,8 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Divider, Space, Typography} from "antd";
 import {AtomizerIcon, CoilIcon, Ohm} from "@/puff-smith";
-import {WireInline} from "@/puff-smith/site/lab/wire";
 import {ArrowsAltOutlined} from "@ant-design/icons";
+import {WireInline} from "@/puff-smith/site/lab/wire/@module/component/WireInline";
 
 export interface IBuildInlineProps {
 	build: BuildDto;

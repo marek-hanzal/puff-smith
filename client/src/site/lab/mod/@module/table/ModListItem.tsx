@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
-import {ModPreviewButton, ModQuickMenu} from "@/puff-smith/site/lab/mod";
 import {List} from "antd";
+import {ModQuickMenu} from "@/puff-smith/site/lab/mod/@module/component/ModQuickMenu";
+import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 
 export interface IModListItemProps extends Partial<ListItemProps> {
 	mod: ModDto;
