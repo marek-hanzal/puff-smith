@@ -8,8 +8,8 @@ services:
             - db
             - memcached
         ports:
-            - "5388:3000"
-            - "5088:80"
+            - "6388:3000"
+            - "6088:80"
 
     memcached:
         image: memcached:1.6-alpine
@@ -21,7 +21,7 @@ services:
         image: mariadb:10
         hostname: mariadb
         ports:
-            - "5306:3306"
+            - "6306:3306"
         networks:
             - db
         environment:

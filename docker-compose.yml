@@ -18,12 +18,14 @@ services:
     memcached:
         image: memcached:1.6-alpine
         hostname: memcached
+        restart: always
         networks:
             - memcached
 
     mariadb:
         image: mariadb:10
         hostname: mariadb
+        restart: always
         ports:
             - "5306:3306"
         networks:
