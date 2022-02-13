@@ -11,7 +11,7 @@ use Edde\Repository\Exception\RepositoryException;
 use Edde\Rest\Endpoint\AbstractPatchEndpoint;
 use Edde\User\Mapper\UserMapperTrait;
 use Edde\User\Repository\UserRepositoryTrait;
-use PuffSmith\User\Dto\Patch\PatchDto;
+use PuffSmith\User\Dto\PatchDto;
 use Throwable;
 
 /**

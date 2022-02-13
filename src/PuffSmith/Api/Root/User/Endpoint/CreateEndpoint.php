@@ -7,7 +7,7 @@ use Edde\Bridge\User\UserDto;
 use Edde\Rest\Endpoint\AbstractCreateEndpoint;
 use Edde\User\Mapper\UserMapperTrait;
 use Edde\User\Repository\UserRepositoryTrait;
-use PuffSmith\User\Dto\Create\CreateDto;
+use PuffSmith\User\Dto\CreateDto;
 
 class CreateEndpoint extends AbstractCreateEndpoint {
 	use UserRepositoryTrait;

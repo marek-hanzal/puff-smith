@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PuffSmith\User\Dto\Patch;
+namespace PuffSmith\User\Dto;
 
 use Edde\Dto\AbstractDto;
 

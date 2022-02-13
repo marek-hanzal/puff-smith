@@ -11,7 +11,7 @@ use Edde\Session\SessionTrait;
 use Edde\User\Mapper\CurrentUserMapperTrait;
 use Edde\User\Repository\UserRepositoryTrait;
 use PuffSmith\Api\Shared\User\Endpoint\Dto\SignUpDto;
-use PuffSmith\User\Dto\Create\CreateDto;
+use PuffSmith\User\Dto\CreateDto;
 
 class SignUpEndpoint extends AbstractMutationEndpoint {
 	use UserRepositoryTrait;
