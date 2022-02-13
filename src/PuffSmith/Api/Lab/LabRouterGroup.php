@@ -16,6 +16,7 @@ use PuffSmith\Api\Lab\Driptip\DriptipRouterGroup;
 use PuffSmith\Api\Lab\Liquid\LiquidRouterGroup;
 use PuffSmith\Api\Lab\Mixture\MixtureRouterGroup;
 use PuffSmith\Api\Lab\Mod\ModRouterGroup;
+use PuffSmith\Api\Lab\User\UserRouterGroup;
 use PuffSmith\Api\Lab\Vape\VapeRouterGroup;
 use PuffSmith\Api\Lab\Vendor\VendorRouterGroup;
 use PuffSmith\Api\Lab\Wire\WireRouterGroup;
@@ -36,6 +37,7 @@ class LabRouterGroup extends AbstractRouterGroup {
 			LiquidRouterGroup::class,
 			MixtureRouterGroup::class,
 			ModRouterGroup::class,
+			UserRouterGroup::class,
 			VapeRouterGroup::class,
 			VendorRouterGroup::class,
 			WireRouterGroup::class,

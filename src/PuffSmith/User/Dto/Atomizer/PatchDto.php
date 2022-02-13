@@ -11,10 +11,6 @@ class PatchDto extends AbstractDto {
 	 */
 	public string $id;
 	/**
-	 * @var string
-	 */
-	public string $atomizerId;
-	/**
 	 * @var string|null
 	 */
 	public ?string $driptipId;
