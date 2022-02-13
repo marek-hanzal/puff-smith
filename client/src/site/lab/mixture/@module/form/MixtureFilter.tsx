@@ -1,6 +1,5 @@
 import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps, SwitchItem} from "@leight-core/leight";
-import {Rate} from "antd";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {BaseSelect} from "@/puff-smith/site/lab/base/@module/form/BaseSelect";
@@ -14,12 +13,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = props => {
 		{...props}
 		translation={'lab.mixture'}
 	>
-		<FormItem
-			field={'rating'}
-			labels={['lab.mixture.rating.label']}
-		>
-			<Rate count={10}/>
-		</FormItem>
 		<FormItem
 			field={'name'}
 			labels={['lab.mixture.name.label']}

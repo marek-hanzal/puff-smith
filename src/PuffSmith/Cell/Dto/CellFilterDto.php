@@ -6,4 +6,12 @@ namespace PuffSmith\Cell\Dto;
 use Edde\Repository\Dto\AbstractFilterDto;
 
 class CellFilterDto extends AbstractFilterDto {
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $name;
+	/**
+	 * @var string[]|null|void
+	 */
+	public ?array $vendorIds;
 }

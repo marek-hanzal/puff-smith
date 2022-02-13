@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -147,8 +155,8 @@ export interface IUserPageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: IUserPageBreadcrumb;
 	breadcrumbBrowserProps?: IUserPageBreadcrumb;
 	extra?: IUserPageExtra;
-	extraMobile?: IUserPageExtra;
-	extraBrowser?: IUserPageExtra;
+	extraMobile?: IUserPageExtra; 
+	extraBrowser?: IUserPageExtra; 
 }
 
 export const UserPage: FC<IUserPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -185,7 +193,6 @@ export interface IRolesSourceProps extends Partial<ISourceContextProviderProps<I
 export const RolesSource: FC<IRolesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IRolesQueryParams, import("@/sdk/edde/role/dto/index").RoleDto, void | undefined, void | undefined>
 		useQuery={useRolesQuery}
-		filter={useRolesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -266,7 +273,6 @@ export interface ISitesSourceProps extends Partial<ISourceContextProviderProps<I
 export const SitesSource: FC<ISitesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ISitesQueryParams, import("@/sdk/puff-smith/api/root/user/dto/index").SiteDto, void | undefined, void | undefined>
 		useQuery={useSitesQuery}
-		filter={useSitesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -347,7 +353,6 @@ export interface IUsersSourceProps extends Partial<ISourceContextProviderProps<I
 export const UsersSource: FC<IUsersSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IUsersQueryParams, import("@/sdk/edde/bridge/user/index").UserDto, import("@/sdk/puff-smith/user/dto/index").UserOrderByDto, import("@/sdk/puff-smith/user/dto/index").UserFilterDto>
 		useQuery={useUsersQuery}
-		filter={useUsersOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

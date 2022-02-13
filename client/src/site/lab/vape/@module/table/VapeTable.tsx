@@ -12,6 +12,7 @@ import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/compon
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 import {VapeAge} from "@/puff-smith/site/lab/vape/@module/component/VapeAge";
+import {useBuildsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 
 export type VapeTableColumns = 'atomizer' | 'mixture' | string;
 
@@ -21,7 +22,9 @@ export interface IVapeTableProps extends Partial<IVapesSourceTableProps> {
 
 export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 	const {t} = useTranslation();
+	const filterContext = useBuildsOptionalFilterContext();
 	return <VapesSourceTable
+		filter={filterContext?.filter}
 		scroll={{x: 2550}}
 		footer={sourceContext => t('lab.vape.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={vape => <VapeListItem vape={vape}/>}

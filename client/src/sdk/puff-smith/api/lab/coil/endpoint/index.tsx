@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface ICoilPageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: ICoilPageBreadcrumb;
 	breadcrumbBrowserProps?: ICoilPageBreadcrumb;
 	extra?: ICoilPageExtra;
-	extraMobile?: ICoilPageExtra;
-	extraBrowser?: ICoilPageExtra;
+	extraMobile?: ICoilPageExtra; 
+	extraBrowser?: ICoilPageExtra; 
 }
 
 export const CoilPage: FC<ICoilPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface ICoilsSourceProps extends Partial<ISourceContextProviderProps<I
 export const CoilsSource: FC<ICoilsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICoilsQueryParams, import("@/sdk/puff-smith/coil/dto/index").CoilDto, import("@/sdk/puff-smith/coil/dto/index").CoilOrderByDto, import("@/sdk/puff-smith/coil/dto/index").CoilFilterDto>
 		useQuery={useCoilsQuery}
-		filter={useCoilsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

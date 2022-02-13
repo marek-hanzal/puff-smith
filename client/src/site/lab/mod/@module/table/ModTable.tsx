@@ -1,4 +1,4 @@
-import {IModsSourceTableProps, ModsSourceTable} from "@/sdk/puff-smith/api/lab/mod/endpoint";
+import {IModsSourceTableProps, ModsSourceTable, useModsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/mod/endpoint";
 import {FC} from "react";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,9 @@ export interface IModTableProps extends Partial<IModsSourceTableProps> {
 
 export const ModTable: FC<IModTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useModsOptionalFilterContext();
 	return <ModsSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.mod.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={mod => <ModListItem mod={mod}/>}
 		{...props}

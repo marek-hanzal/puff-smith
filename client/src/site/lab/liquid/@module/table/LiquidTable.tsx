@@ -1,4 +1,4 @@
-import {ILiquidsSourceTableProps, LiquidsSourceTable} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
+import {ILiquidsSourceTableProps, LiquidsSourceTable, useLiquidsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,9 @@ export interface ILiquidTableProps extends Partial<ILiquidsSourceTableProps> {
 
 export const LiquidTable: FC<ILiquidTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useLiquidsOptionalFilterContext();
 	return <LiquidsSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.liquid.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={liquid => <LiquidListItem liquid={liquid}/>}
 		{...props}

@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface IModPageProps extends Omit<IPageProps, "breadcrumbProps" | "bre
 	breadcrumbMobileProps?: IModPageBreadcrumb;
 	breadcrumbBrowserProps?: IModPageBreadcrumb;
 	extra?: IModPageExtra;
-	extraMobile?: IModPageExtra;
-	extraBrowser?: IModPageExtra;
+	extraMobile?: IModPageExtra; 
+	extraBrowser?: IModPageExtra; 
 }
 
 export const ModPage: FC<IModPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface IModsSourceProps extends Partial<ISourceContextProviderProps<IM
 export const ModsSource: FC<IModsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IModsQueryParams, import("@/sdk/puff-smith/mod/dto/index").ModDto, import("@/sdk/puff-smith/mod/dto/index").ModOrderByDto, import("@/sdk/puff-smith/mod/dto/index").ModFilterDto>
 		useQuery={useModsQuery}
-		filter={useModsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

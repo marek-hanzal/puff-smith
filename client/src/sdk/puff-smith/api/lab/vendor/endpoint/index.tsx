@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface IVendorPageProps extends Omit<IPageProps, "breadcrumbProps" | "
 	breadcrumbMobileProps?: IVendorPageBreadcrumb;
 	breadcrumbBrowserProps?: IVendorPageBreadcrumb;
 	extra?: IVendorPageExtra;
-	extraMobile?: IVendorPageExtra;
-	extraBrowser?: IVendorPageExtra;
+	extraMobile?: IVendorPageExtra; 
+	extraBrowser?: IVendorPageExtra; 
 }
 
 export const VendorPage: FC<IVendorPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface IVendorsSourceProps extends Partial<ISourceContextProviderProps
 export const VendorsSource: FC<IVendorsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IVendorsQueryParams, import("@/sdk/puff-smith/vendor/dto/index").VendorDto, import("@/sdk/puff-smith/vendor/dto/index").VendorOrderByDto, import("@/sdk/puff-smith/vendor/dto/index").VendorFilterDto>
 		useQuery={useVendorsQuery}
-		filter={useVendorsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

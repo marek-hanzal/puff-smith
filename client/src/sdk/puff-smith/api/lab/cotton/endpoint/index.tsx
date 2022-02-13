@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface ICottonPageProps extends Omit<IPageProps, "breadcrumbProps" | "
 	breadcrumbMobileProps?: ICottonPageBreadcrumb;
 	breadcrumbBrowserProps?: ICottonPageBreadcrumb;
 	extra?: ICottonPageExtra;
-	extraMobile?: ICottonPageExtra;
-	extraBrowser?: ICottonPageExtra;
+	extraMobile?: ICottonPageExtra; 
+	extraBrowser?: ICottonPageExtra; 
 }
 
 export const CottonPage: FC<ICottonPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface ICottonsSourceProps extends Partial<ISourceContextProviderProps
 export const CottonsSource: FC<ICottonsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICottonsQueryParams, import("@/sdk/puff-smith/cotton/dto/index").CottonDto, import("@/sdk/puff-smith/cotton/dto/index").CottonOrderByDto, import("@/sdk/puff-smith/cotton/dto/index").CottonFilterDto>
 		useQuery={useCottonsQuery}
-		filter={useCottonsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

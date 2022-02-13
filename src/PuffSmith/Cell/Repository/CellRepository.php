@@ -44,6 +44,7 @@ class CellRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
+		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -56,7 +57,7 @@ class CellRepository extends AbstractRepository {
 			'size'      => $createDto->size,
 			'drain'     => $createDto->drain,
 			'voltage'   => $createDto->voltage,
-			'ohm'       => min(0.2, $this->ohmService->toOhm($createDto->voltage, $createDto->drain * 0.75)),
+			'ohm'       => max(0.2, $this->ohmService->toOhm($createDto->voltage, $createDto->drain * 0.75)),
 			'vendor_id' => $createDto->vendorId,
 		]);
 	}

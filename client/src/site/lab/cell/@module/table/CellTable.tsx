@@ -1,4 +1,4 @@
-import {CellsSourceTable, ICellsSourceTableProps} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {CellsSourceTable, ICellsSourceTableProps, useCellsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
 import {ButtonBar, toHumanNumber} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -13,7 +13,9 @@ export interface ICellTableProps extends Partial<ICellsSourceTableProps> {
 
 export const CellTable: FC<ICellTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useCellsOptionalFilterContext();
 	return <CellsSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.cell.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={cell => <CellListItem cell={cell}/>}
 		{...props}

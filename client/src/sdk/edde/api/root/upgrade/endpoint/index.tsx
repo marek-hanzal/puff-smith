@@ -1,10 +1,12 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC
+} from "react";
+import {
 	FilterContextProvider,
+	Form,
 	IFilterContextProviderProps,
+	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -16,6 +18,10 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -56,7 +62,6 @@ export interface IUpgradesSourceProps extends Partial<ISourceContextProviderProp
 export const UpgradesSource: FC<IUpgradesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IUpgradesQueryParams, import("@/sdk/edde/phinx/dto/index").UpgradeDto, import("@/sdk/edde/phinx/dto/index").UpgradeOrderByDto, import("@/sdk/edde/phinx/dto/index").UpgradeFilterDto>
 		useQuery={useUpgradesQuery}
-		filter={useUpgradesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

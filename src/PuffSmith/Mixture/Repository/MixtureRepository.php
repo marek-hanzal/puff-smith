@@ -54,7 +54,6 @@ class MixtureRepository extends AbstractRepository {
 			'v.name',
 		], $filter->fulltext);
 		isset($filter->active) && $this->where($select, '$.active', $filter->active);
-		isset($filter->rating) && $this->where($select, '$.rating', '>=', $filter->rating);
 		isset($filter->name) && $this->fulltext($select, ['l.name'], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, 'l.vendor_id', 'in', $filter->vendorIds);
 		!empty($filter->baseIds) && $this->where($select, '$.base_id', 'in', $filter->baseIds);

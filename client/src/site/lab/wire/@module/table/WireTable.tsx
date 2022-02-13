@@ -1,4 +1,4 @@
-import {IWiresSourceTableProps, WiresSourceTable} from "@/sdk/puff-smith/api/lab/wire/endpoint";
+import {IWiresSourceTableProps, useWiresOptionalFilterContext, WiresSourceTable} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,9 @@ export interface IWireTableProps extends Partial<IWiresSourceTableProps> {
 
 export const WireTable: FC<IWireTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useWiresOptionalFilterContext();
 	return <WiresSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.wire.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={wire => <WireListItem wire={wire}/>}
 		scroll={{x: 1500}}

@@ -1,9 +1,12 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC
+} from "react";
+import {
 	FilterContextProvider,
+	Form,
 	IFilterContextProviderProps,
+	IFormProps,
 	IQueryOptions,
 	IQueryResult,
 	IQuerySourceSelectProps,
@@ -15,6 +18,8 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createPostMutation,
+	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -46,7 +51,6 @@ export interface IImagesSourceProps extends Partial<ISourceContextProviderProps<
 export const ImagesSource: FC<IImagesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IImagesQueryParams, import("@/sdk/edde/image/dto/index").ImageDto, import("@/sdk/edde/image/dto/index").ImageOrderByDto, import("@/sdk/edde/image/dto/index").ImageFilterDto>
 		useQuery={useImagesQuery}
-		filter={useImagesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

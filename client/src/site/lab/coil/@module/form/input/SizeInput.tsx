@@ -1,8 +1,8 @@
 import {FC} from "react";
-import {SliderProps} from "rc-slider";
 import {Slider} from "antd";
 
-export interface ISizeInputProps extends Partial<SliderProps> {
+export interface ISizeInputProps {
+	range?: boolean;
 }
 
 export const SizeInput: FC<ISizeInputProps> = props => {

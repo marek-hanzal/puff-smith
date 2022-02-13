@@ -1,8 +1,8 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createGetQuery,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC
+} from "react";
+import {
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -18,6 +18,10 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -112,7 +116,6 @@ export interface IFilesSourceProps extends Partial<ISourceContextProviderProps<I
 export const FilesSource: FC<IFilesSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IFilesQueryParams, import("@/sdk/edde/file/dto/index").FileDto, import("@/sdk/edde/file/dto/index").FileOrderByDto, import("@/sdk/edde/file/dto/index").FileFilterDto>
 		useQuery={useFilesQuery}
-		filter={useFilesOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

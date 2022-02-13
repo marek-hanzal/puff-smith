@@ -58,7 +58,6 @@ export interface MixtureFilterDto {
 	vendorIds?: string[] | null | undefined;
 	baseIds?: string[] | null | undefined;
 	boosterIds?: string[] | null | undefined;
-	rating?: number | null | undefined;
 	active?: boolean | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;

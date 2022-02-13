@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface ICellPageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: ICellPageBreadcrumb;
 	breadcrumbBrowserProps?: ICellPageBreadcrumb;
 	extra?: ICellPageExtra;
-	extraMobile?: ICellPageExtra;
-	extraBrowser?: ICellPageExtra;
+	extraMobile?: ICellPageExtra; 
+	extraBrowser?: ICellPageExtra; 
 }
 
 export const CellPage: FC<ICellPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface ICellsSourceProps extends Partial<ISourceContextProviderProps<I
 export const CellsSource: FC<ICellsSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ICellsQueryParams, import("@/sdk/puff-smith/cell/dto/index").CellDto, import("@/sdk/puff-smith/cell/dto/index").CellOrderByDto, import("@/sdk/puff-smith/cell/dto/index").CellFilterDto>
 		useQuery={useCellsQuery}
-		filter={useCellsOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

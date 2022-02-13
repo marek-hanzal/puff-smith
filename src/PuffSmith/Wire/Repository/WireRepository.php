@@ -45,6 +45,7 @@ class WireRepository extends AbstractRepository {
 		isset($filter->name) && $this->fulltext($select, [
 			'$.name',
 		], $filter->name);
+		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 

@@ -25,7 +25,7 @@ class VapeRepository extends AbstractRepository {
 			'atomizer' => 'a.name',
 			'mixture'  => 'l.name',
 			'mod'      => 'mo.name',
-			'coil'      => 'w.name',
+			'coil'     => 'w.name',
 		];
 	}
 
@@ -65,7 +65,7 @@ class VapeRepository extends AbstractRepository {
 		!empty($filter->mixtureIds) && $this->where($select, '$.mixture_id', 'in', $filter->mixtureIds);
 		!empty($filter->liquidIds) && $this->where($select, 'm.liquid_id', 'in', $filter->liquidIds);
 		!empty($filter->buildOhm) && $this->where($select, 'b.ohm', '>=', $filter->buildOhm[0]) && $this->where($select, 'b.ohm', '<=', $filter->buildOhm[1]);
-		isset($filter->coilSize) && $this->where($select, 'c.size', $filter->coilSize);
+		!empty($filter->coilSize) && $this->where($select, 'c.size', '>=', $filter->coilSize[0]) && $this->where($select, 'c.size', '<=', $filter->coilSize[1]);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);

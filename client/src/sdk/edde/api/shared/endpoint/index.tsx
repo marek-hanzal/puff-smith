@@ -1,25 +1,49 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createGetQuery,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
+	EntityContext,
+	EntityProvider,
 	FilterContextProvider,
+	Form,
+	IEntityContext,
+	IEntityProviderProps,
 	IFilterContextProviderProps,
+	IFormProps,
+	IPageProps,
 	IQueryOptions,
+	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
 	IToOptionMapper,
+	Page,
+	Query,
 	QuerySourceSelect,
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
+	useContext,
 	useFilterContext,
+	useOptionalContext,
 	useOptionalFilterContext,
+	useParams,
 	useSourceContext
 } from "@leight-core/leight";
 import {useQueryClient} from "react-query";
+import {BreadcrumbProps} from "antd";
+import Breadcrumb from "antd/lib/breadcrumb";
 
 export type IClientConfigQueryParams = void;
 
@@ -86,7 +110,6 @@ export interface IDateFormatListSourceProps extends Partial<ISourceContextProvid
 export const DateFormatListSource: FC<IDateFormatListSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IDateFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateDto, void | undefined, void | undefined>
 		useQuery={useDateFormatListQuery}
-		filter={useDateFormatListOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -167,7 +190,6 @@ export interface IDateTimeFormatListSourceProps extends Partial<ISourceContextPr
 export const DateTimeFormatListSource: FC<IDateTimeFormatListSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IDateTimeFormatListQueryParams, import("@/sdk/edde/api/shared/dto/index").DateTimeDto, void | undefined, void | undefined>
 		useQuery={useDateTimeFormatListQuery}
-		filter={useDateTimeFormatListOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}
@@ -248,7 +270,6 @@ export interface ILanguageListSourceProps extends Partial<ISourceContextProvider
 export const LanguageListSource: FC<ILanguageListSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<ILanguageListQueryParams, import("@/sdk/edde/api/shared/dto/index").LanguageDto, void | undefined, void | undefined>
 		useQuery={useLanguageListQuery}
-		filter={useLanguageListOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

@@ -32,10 +32,10 @@ class VapeFilterDto extends AbstractFilterDto {
 	 */
 	public ?array $buildOhm;
 	/**
-	 * @var float|null|void
-	 * @description Filter vapes by an wire
+	 * @var float[]|null|void
+	 * @description Filter vapes by an coil size
 	 */
-	public ?float $coilSize;
+	public ?array $coilSize;
 	/**
 	 * @var string[]|null|void
 	 * @description Filter vapes by a mod

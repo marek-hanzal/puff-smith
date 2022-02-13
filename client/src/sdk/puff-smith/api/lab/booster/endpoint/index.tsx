@@ -1,7 +1,8 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC
+} from "react";
+import {
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -17,6 +18,8 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createPostMutation,
+	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -58,7 +61,6 @@ export interface IBoostersSourceProps extends Partial<ISourceContextProviderProp
 export const BoostersSource: FC<IBoostersSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IBoostersQueryParams, import("@/sdk/puff-smith/booster/dto/index").BoosterDto, import("@/sdk/puff-smith/booster/dto/index").BoosterOrderByDto, import("@/sdk/puff-smith/booster/dto/index").BoosterFilterDto>
 		useQuery={useBoostersQuery}
-		filter={useBoostersOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

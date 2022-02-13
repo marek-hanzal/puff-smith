@@ -1,4 +1,4 @@
-import {AtomizersSourceTable, IAtomizersSourceTableProps} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
+import {AtomizersSourceTable, IAtomizersSourceTableProps, useAtomizersOptionalFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
 import {ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,9 @@ export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps>
 
 export const AtomizerTable: FC<IAtomizerTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useAtomizersOptionalFilterContext();
 	return <AtomizersSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.atomizer.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={atomizer => <AtomizerListItem atomizer={atomizer}/>}
 		{...props}

@@ -1,4 +1,4 @@
-import {BuildsSourceTable, IBuildsSourceTableProps} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {BuildsSourceTable, IBuildsSourceTableProps, useBuildsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {ButtonBar} from "@leight-core/leight";
@@ -16,7 +16,9 @@ export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 
 export const BuildTable: FC<IBuildTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useBuildsOptionalFilterContext();
 	return <BuildsSourceTable
+		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}

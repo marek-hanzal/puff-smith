@@ -68,7 +68,7 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 			field={'coilSize'}
 			labels={['lab.vape.coilSize.label']}
 		>
-			<SizeInput/>
+			<SizeInput range/>
 		</FormItem>
 		{!disabled?.includes('rate') && <FormItem
 			field={'rate'}

@@ -1,9 +1,11 @@
-import {ConsumerProps, createContext, FC, ReactElement, ReactNode} from "react";
 import {
-	createGetQuery,
-	createPatchMutation,
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC,
+	ReactElement,
+	ReactNode,
+	createContext
+} from "react";
+import {
 	EntityContext,
 	EntityProvider,
 	FilterContextProvider,
@@ -17,7 +19,6 @@ import {
 	IQueryProps,
 	IQueryResult,
 	IQuerySourceSelectProps,
-	isCallable,
 	ISourceContext,
 	ISourceContextProviderProps,
 	ITableProps,
@@ -28,6 +29,13 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createGetMutation,
+	createGetQuery,
+	createPatchMutation,
+	createPatchQuery,
+	createPostMutation,
+	createPostQuery,
+	isCallable,
 	useContext,
 	useFilterContext,
 	useOptionalContext,
@@ -144,8 +152,8 @@ export interface IWirePageProps extends Omit<IPageProps, "breadcrumbProps" | "br
 	breadcrumbMobileProps?: IWirePageBreadcrumb;
 	breadcrumbBrowserProps?: IWirePageBreadcrumb;
 	extra?: IWirePageExtra;
-	extraMobile?: IWirePageExtra;
-	extraBrowser?: IWirePageExtra;
+	extraMobile?: IWirePageExtra; 
+	extraBrowser?: IWirePageExtra; 
 }
 
 export const WirePage: FC<IWirePageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -182,7 +190,6 @@ export interface IWiresSourceProps extends Partial<ISourceContextProviderProps<I
 export const WiresSource: FC<IWiresSourceProps> = ({children, ...props}) => {
 	return <SourceContextProvider<IWiresQueryParams, import("@/sdk/puff-smith/wire/dto/index").WireDto, import("@/sdk/puff-smith/wire/dto/index").WireOrderByDto, import("@/sdk/puff-smith/wire/dto/index").WireFilterDto>
 		useQuery={useWiresQuery}
-		filter={useWiresOptionalFilterContext()?.filter}
 		{...props}
 	>
 		{children}

@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IMixturesSourceTableProps, MixturesSourceTable} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
+import {IMixturesSourceTableProps, MixturesSourceTable, useMixturesOptionalFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {asDayjs, ButtonBar, durationOf, toLocalDate} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {MixtureListItem} from "@/puff-smith/site/lab/mixture/@module/table/MixtureListItem";
@@ -15,7 +15,9 @@ export interface IMixtureTableProps extends Partial<IMixturesSourceTableProps> {
 
 export const MixtureTable: FC<IMixtureTableProps> = props => {
 	const {t} = useTranslation();
+	const filterContext = useMixturesOptionalFilterContext();
 	return <MixturesSourceTable
+		filter={filterContext?.filter}
 		scroll={{x: 2600}}
 		footer={sourceContext => t('lab.mixture.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={mixture => <MixtureListItem mixture={mixture}/>}
