@@ -23,7 +23,7 @@ const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeF
 	const filterContext = useVapesOptionalFilterContext();
 	useEffect(() => {
 		filterContext?.setFilter({
-			coilSize: [0.3, 0.3],
+			coilSize: 0.3,
 		});
 	}, []);
 	return <CreateBuildForm

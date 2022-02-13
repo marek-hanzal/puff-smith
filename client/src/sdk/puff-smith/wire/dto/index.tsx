@@ -56,6 +56,8 @@ export module WireOrderByDto {
 
 
 export interface WireFilterDto {
+	name?: string | null | undefined;
+	vendorIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
