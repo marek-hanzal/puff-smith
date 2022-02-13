@@ -16,7 +16,7 @@ final class BuildDisabledOn extends CommonMigration {
 			])
 			->save();
 
-		foreach ($this->buildRepository->all() as $build) {
+		foreach ($this->buildRepository->table()->select()->execute() as $build) {
 			$this->buildRepository->change([
 				'id'         => $build->id,
 				'disabledOn' => $build->active ? null : new DateTime(),

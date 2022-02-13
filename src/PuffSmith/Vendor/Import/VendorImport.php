@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace PuffSmith\Vendor\Import;
 
 use Edde\Import\AbstractImporter;
-use PuffSmith\Vendor\Dto\Ensure\EnsureDto;
-use PuffSmith\Vendor\Dto\Import\VendorImportDto;
+use PuffSmith\Vendor\Dto\EnsureDto;
+use PuffSmith\Vendor\Dto\VendorImportDto;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 
 class VendorImport extends AbstractImporter {

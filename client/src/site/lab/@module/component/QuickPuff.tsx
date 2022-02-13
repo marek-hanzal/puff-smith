@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Card, Col, List, Row, Typography} from "antd";
+import {Card, Col, Divider, List, Row, Typography} from "antd";
 import {ButtonLink} from "@leight-core/leight";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
@@ -11,6 +11,7 @@ import {VapeCreateButton} from "@/puff-smith/site/lab/vape/@module/component/but
 import {VapeListItem} from "@/puff-smith/site/lab/vape/@module/table/VapeListItem";
 import {VapePlotButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePlotButton";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
+import {Template} from "@leight-core/leight/dist";
 
 export interface IQuickPuffProps {
 }
@@ -27,9 +28,10 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 				</>}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.builds.subtitle')}</Typography.Title>
+				<Divider/>
 				<BuildsSource defaultSize={3} filter={{active: true}}>
 					<BuildsSourceConsumer>
-						{sourceContext => sourceContext.hasData() && <List>
+						{sourceContext => sourceContext.hasData() ? <List>
 							{sourceContext.map(build => <BuildListItem
 								key={build.id}
 								build={build}
@@ -37,7 +39,10 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 									onCreateVape: () => null,
 								}}
 							/>)}
-						</List>}
+						</List> : <Template
+							icon={<BuildIcon/>}
+							label={'lab.quick-puff.no-builds'}
+						/>}
 					</BuildsSourceConsumer>
 				</BuildsSource>
 			</Card>
@@ -51,11 +56,15 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 				</>}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.vapes.subtitle')}</Typography.Title>
+				<Divider/>
 				<VapesSource defaultSize={3}>
 					<VapesSourceConsumer>
-						{sourceContext => sourceContext.hasData() && <List>
+						{sourceContext => sourceContext.hasData() ? <List>
 							{sourceContext.map(vape => <VapeListItem key={vape.id} vape={vape}/>)}
-						</List>}
+						</List> : <Template
+							icon={<VapeIcon/>}
+							label={'lab.quick-puff.no-vapes'}
+						/>}
 					</VapesSourceConsumer>
 				</VapesSource>
 			</Card>

@@ -119,7 +119,6 @@ jobs:
                     script: |
                         cd /opt/app/config/staging
                         docker system prune -f --all
-                        docker volume prune -f
                         docker compose pull
                         docker compose down
                         docker compose up -d

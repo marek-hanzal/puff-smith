@@ -10,7 +10,7 @@ final class DropCoilOhm extends CommonMigration {
 	use CoilRepositoryTrait;
 
 	public function change(): void {
-		foreach ($this->buildRepository->all() as $build) {
+		foreach ($this->buildRepository->table()->select()->execute() as $build) {
 			$coil = $this->coilRepository->find($build->coil_id);
 			$this->buildRepository->change([
 				'id'  => $build->id,
