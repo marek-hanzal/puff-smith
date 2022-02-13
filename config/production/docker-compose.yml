@@ -26,11 +26,8 @@ services:
     memcached:
         image: memcached:1.6-alpine
         hostname: memcached
-        ports:
-            - "3306:3306"
         networks:
             - memcached
-            - web
 
     mariadb:
         image: mariadb:10
