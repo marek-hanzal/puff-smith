@@ -65,7 +65,7 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 			<WireSelect mode={'multiple'} allowClear/>
 		</FormItem>
 		<FormItem
-			field={'coilSize'}
+			field={'coilSizes'}
 			labels={['lab.vape.coilSize.label']}
 		>
 			<SizeInput range/>

@@ -27,7 +27,10 @@ export default withLabLayout(function Create() {
 	>
 		<VapesFilterContext>
 			<ComposeForm
-				defaultBuildFilter={{atomizerIds: atomizerId ? [atomizerId] : undefined}}
+				defaultBuildFilter={{
+					atomizerIds: atomizerId ? [atomizerId] : undefined,
+					coilSize: 0.3,
+				}}
 			/>
 		</VapesFilterContext>
 	</LabPage>;
