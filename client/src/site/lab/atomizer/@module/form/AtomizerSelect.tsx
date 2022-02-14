@@ -2,11 +2,13 @@ import {AtomizersSourceSelect, IAtomizersSourceSelectProps} from "@/sdk/puff-smi
 import {FC} from "react";
 import {Typography} from "antd";
 import {usePuffSmithSessionContext} from "@/puff-smith/site/shared";
+import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 
-export interface IAtomizerSelectProps extends Partial<IAtomizersSourceSelectProps> {
+export interface IAtomizerSelectProps extends Partial<Omit<IAtomizersSourceSelectProps, "onSelect">> {
+	onSelect?: (atomizer: AtomizerDto) => void;
 }
 
-export const AtomizerSelect: FC<IAtomizerSelectProps> = props => {
+export const AtomizerSelect: FC<IAtomizerSelectProps> = ({onSelect, ...props}) => {
 	const {user} = usePuffSmithSessionContext().session;
 	return <AtomizersSourceSelect
 		source={{
@@ -18,6 +20,7 @@ export const AtomizerSelect: FC<IAtomizerSelectProps> = props => {
 			value: atomizer.id,
 			atomizer,
 		})}
+		onSelect={(a: any, {atomizer}: any) => onSelect?.(atomizer)}
 		{...props}
 	/>
 }
