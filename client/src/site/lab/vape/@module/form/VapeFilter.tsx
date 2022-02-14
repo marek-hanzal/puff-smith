@@ -11,6 +11,7 @@ import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface IVapeFilterProps extends IFilterWithoutTranslationProps<VapeFilterDto> {
 	disabled?: (keyof VapeFilterDto)[]
@@ -33,6 +34,12 @@ export const VapeFilter: FC<IVapeFilterProps> = ({disabled = [], ...props}) => {
 			labels={['lab.vape.modId.label']}
 		>
 			<ModSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'drawIds'}
+			labels={['lab.vape.drawIds.label']}
+		>
+			<DrawSelect/>
 		</FormItem>
 		{!disabled?.includes('mixtureIds') && <FormItem
 			field={'mixtureIds'}

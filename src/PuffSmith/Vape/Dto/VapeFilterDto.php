@@ -69,4 +69,6 @@ class VapeFilterDto extends AbstractFilterDto {
 	 * @var string|null|void
 	 */
 	public ?string $rate;
+	/** @var string[]|null|void */
+	public ?array $drawIds;
 }
