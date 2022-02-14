@@ -50,7 +50,7 @@ class WireRepository extends AbstractRepository {
 			'$.name',
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
-		!empty($filter->drawIds) && $this->where($select, 'wt.tag_id', $filter->drawIds);
+		!empty($filter->drawIds) && $this->where($select, 'wt.tag_id', 'in', $filter->drawIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
