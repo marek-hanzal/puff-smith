@@ -16,6 +16,7 @@ import {LiquidInline} from "@/puff-smith/site/lab/liquid/@module/component/Liqui
 import {LiquidEditButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidEditButton";
 import {LiquidComments} from "@/puff-smith/site/lab/liquid/@module/component/LiquidComments";
 import {LiquidPlotButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPlotButton";
+import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
 
 export type LiquidPreviewTabs = 'plot' | 'images' | 'upload' | string;
 
@@ -27,6 +28,7 @@ export interface ILiquidPreviewProps extends Partial<IPreviewProps> {
 
 export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceList = false, ...props}) => {
 	const {t} = useTranslation();
+	const updateMutation = useUpdateMutation();
 	return <Tabs>
 		<Tabs.TabPane key={'common'} tab={t('lab.liquid.common.tab')}>
 			<PreviewTemplate
@@ -87,7 +89,8 @@ export const LiquidPreview: FC<ILiquidPreviewProps> = ({liquid, hidden, forceLis
 			<Uploader
 				icon={<FileImageOutlined/>}
 				translation={'lab.liquid.image'}
-				path={'/liquid/image/' + liquid.id}
+				path={'/liquid/image/' + liquid.id + '/image.raw'}
+				onSuccess={() => updateMutation.mutate()}
 			/>
 		</Tabs.TabPane>}
 	</Tabs>
