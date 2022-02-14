@@ -6,6 +6,7 @@ import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/compon
 import {BuildCreateButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCreateButton";
 import {BuildFilter} from "@/puff-smith/site/lab/build/@module/form/BuildFilter";
 import {BuildTable} from "@/puff-smith/site/lab/build/@module/table/BuildTable";
+import {BuildCommentDrawerButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildCommentDrawerButton";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -26,6 +27,7 @@ export default withLabLayout(function Index() {
 			{CreateMenuItem("lab.build.button.create", "/lab/build/create", <CreateIcon/>)}
 		</LabMenuDrawerButton>}
 		extraBrowser={<ButtonBar>
+			<BuildCommentDrawerButton/>
 			<BuildCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

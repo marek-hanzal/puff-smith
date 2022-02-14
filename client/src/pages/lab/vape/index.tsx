@@ -8,6 +8,7 @@ import {VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape/@module/compone
 import {VapePlotButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePlotButton";
 import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {VapeCommentDrawerButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCommentDrawerButton";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -31,6 +32,7 @@ export default withLabLayout(function Index() {
 			</Menu.Item>
 		</LabMenuDrawerButton>}
 		extraBrowser={<ButtonBar>
+			<VapeCommentDrawerButton/>
 			<VapePlotButton/>
 			<VapeDrawerCreateButton type={'primary'}/>
 		</ButtonBar>}
