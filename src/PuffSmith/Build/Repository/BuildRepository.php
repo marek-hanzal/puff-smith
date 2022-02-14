@@ -120,7 +120,7 @@ class BuildRepository extends AbstractRepository {
 			'id'          => $patchDto->id,
 			'created'     => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'atomizer_id' => $patchDto->atomizerId,
-			'driptip_id'  => $patchDto->driptipId ?: $this->userAtomizerRepository->findByUser($patchDto->atomizerId)->driptip_id ?? null,
+			'driptip_id'  => $patchDto->driptipId,
 			'coil_id'     => $patchDto->coilId,
 			'cotton_id'   => $patchDto->cottonId,
 			'coils'       => $patchDto->coils,
