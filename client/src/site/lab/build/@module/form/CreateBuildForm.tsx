@@ -18,7 +18,6 @@ import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipS
 import {useParams} from "@leight-core/leight/dist";
 import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
-import {AtomizerContext, AtomizerProvider} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -59,113 +58,87 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		})}
 		{...props}
 	>
-		<AtomizerProvider>
-			<AtomizerContext.Consumer>
-				{entityContext => <>
-					<Card title={t('lab.build.build.title')}>
-						<FormItem
-							field={'atomizerId'}
-							required
-							help={<AtomizerTooltip/>}
-							rules={[
-								({setFieldsValue}) => ({
-									validator() {
-										setFieldsValue({
-											coil: {
-												wireId: undefined,
-											}
-										});
-										return Promise.resolve();
-									},
-								}),
-							]}
-						>
-							<AtomizerSelect
-								allowClear
-								onSelect={entityContext.update}
-							/>
-						</FormItem>
-						<FormItem
-							field={'driptipId'}
-							hasTooltip
-							help={<DriptipTooltip/>}
-						>
-							<DriptipSelect allowClear/>
-						</FormItem>
-						<FormItem
-							field={'cottonId'}
-							required
-							help={<CottonTooltip/>}
-						>
-							<CottonSelect allowClear/>
-						</FormItem>
-						<FormItem
-							field={'created'}
-						>
-							<DatePicker showTime/>
-						</FormItem>
-					</Card>
-					<Divider/>
-					<Card title={t('lab.build.coil.title')}>
-						<ItemGroup
-							translation={'lab'}
-							prefix={'coil'}
-						>
-							<FormItem
-								field={'wireId'}
-								required
-								help={<WireTooltip/>}
-							>
-								<WireSelect
-									source={{
-										filter: {drawIds: entityContext?.entity?.drawIds},
-									}}
-									allowClear
-								/>
-							</FormItem>
-							<FormItem
-								field={'wraps'}
-								hasTooltip
-								required
-							>
-								<WrapsInput/>
-							</FormItem>
-							<FormItem
-								field={'size'}
-							>
-								<SizeInput/>
-							</FormItem>
-							<SwitchItem
-								field={'spaced'}
-							/>
-						</ItemGroup>
-					</Card>
-					<Divider/>
-					<Card title={t('lab.build.advanced.title')}>
-						<FormItem
-							field={'coils'}
-						>
-							<CoilCountInput/>
-						</FormItem>
-						<FormItem
-							field={'ohm'}
-						>
-							<InputNumber style={{width: '100%'}} min={0} max={4}/>
-						</FormItem>
-						<SwitchItem
-							field={'deactivate'}
-							hasTooltip
-						/>
-					</Card>
-					<Divider/>
-					<Centered>
-						<ButtonBar align={'baseline'}>
-							<Submit icon={<BuildIcon/>} label={'create.submit'}/>
-							{buttons}
-						</ButtonBar>
-					</Centered>
-				</>}
-			</AtomizerContext.Consumer>
-		</AtomizerProvider>
+		<Card title={t('lab.build.build.title')}>
+			<FormItem
+				field={'atomizerId'}
+				required
+				help={<AtomizerTooltip/>}
+			>
+				<AtomizerSelect allowClear/>
+			</FormItem>
+			<FormItem
+				field={'driptipId'}
+				hasTooltip
+				help={<DriptipTooltip/>}
+			>
+				<DriptipSelect allowClear/>
+			</FormItem>
+			<FormItem
+				field={'cottonId'}
+				required
+				help={<CottonTooltip/>}
+			>
+				<CottonSelect allowClear/>
+			</FormItem>
+			<FormItem
+				field={'created'}
+			>
+				<DatePicker showTime/>
+			</FormItem>
+		</Card>
+		<Divider/>
+		<Card title={t('lab.build.coil.title')}>
+			<ItemGroup
+				translation={'lab'}
+				prefix={'coil'}
+			>
+				<FormItem
+					field={'wireId'}
+					required
+					help={<WireTooltip/>}
+				>
+					<WireSelect allowClear/>
+				</FormItem>
+				<FormItem
+					field={'wraps'}
+					hasTooltip
+					required
+				>
+					<WrapsInput/>
+				</FormItem>
+				<FormItem
+					field={'size'}
+				>
+					<SizeInput/>
+				</FormItem>
+				<SwitchItem
+					field={'spaced'}
+				/>
+			</ItemGroup>
+		</Card>
+		<Divider/>
+		<Card title={t('lab.build.advanced.title')}>
+			<FormItem
+				field={'coils'}
+			>
+				<CoilCountInput/>
+			</FormItem>
+			<FormItem
+				field={'ohm'}
+			>
+				<InputNumber style={{width: '100%'}} min={0} max={4}/>
+			</FormItem>
+			<SwitchItem
+				field={'deactivate'}
+				hasTooltip
+			/>
+		</Card>
+		<Divider/>
+		<Centered>
+			<ButtonBar align={'baseline'}>
+				<Submit icon={<BuildIcon/>} label={'create.submit'}/>
+				{buttons}
+			</ButtonBar>
+		</Centered>
 	</CreateDefaultForm>;
 }
