@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {CommentsSource, ICommentsSourceProps, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
+import {CommentsSource, ICommentsSourceProps, useCommentsOptionalFilterContext, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {AtomizerCommentDto} from "@/sdk/puff-smith/atomizer/dto/comment";
 import {CreateCommentForm} from "@/puff-smith/site/lab/atomizer/@module/form/CreateCommentForm";
@@ -11,7 +11,9 @@ export interface IAtomizerCommentsProps extends Partial<ICommentsSourceProps> {
 
 export const AtomizerComments: FC<IAtomizerCommentsProps> = ({atomizer, ...props}) => {
 	const commentsQueryInvalidate = useCommentsQueryInvalidate();
+	const filterContext = useCommentsOptionalFilterContext();
 	return <CommentsSource
+		filter={filterContext?.filter}
 		defaultFilter={atomizer && {atomizerId: atomizer.id}}
 		{...props}
 	>

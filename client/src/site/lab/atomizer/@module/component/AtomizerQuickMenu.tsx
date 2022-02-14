@@ -9,6 +9,7 @@ import {AtomizerDeleteButton} from "@/puff-smith/site/lab/atomizer/@module/compo
 import {PurchaseAtomizer} from "@/puff-smith/site/lab/user/atomizer/@module/component/button/PurchaseAtomizer";
 import {IFormOnSuccess} from "@leight-core/leight/dist";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
+import {AtomizerCommentButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerCommentButton";
 
 export interface IAtomizerQuickMenuProps extends Partial<IDrawerMenuProps> {
 	atomizer: AtomizerDto;
@@ -27,6 +28,9 @@ export const AtomizerQuickMenu: FC<IAtomizerQuickMenuProps> = ({atomizer, onPurc
 		<Menu.Divider/>
 		<Menu.Item>
 			<PurchaseAtomizer onPurchase={onPurchase} atomizer={atomizer}/>
+		</Menu.Item>
+		<Menu.Item>
+			<AtomizerCommentButton atomizer={atomizer}/>
 		</Menu.Item>
 		<Menu.Item>
 			<AtomizerEditButton atomizer={atomizer}/>

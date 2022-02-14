@@ -7,6 +7,7 @@ import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/comp
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {UserAtomizerDeleteButton} from "@/puff-smith/site/lab/user/atomizer/@module/component/button/UserAtomizerDeleteButton";
 import {UserAtomizerEditButton} from "@/puff-smith/site/lab/user/atomizer/@module/component/button/UserAtomizerEditButton";
+import {AtomizerCommentButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerCommentButton";
 
 export interface IUserAtomizerQuickMenuProps extends Partial<IDrawerMenuProps> {
 	userAtomizer: UserAtomizerDto;
@@ -22,6 +23,9 @@ export const UserAtomizerQuickMenu: FC<IUserAtomizerQuickMenuProps> = ({userAtom
 			<AtomizerPreviewButton atomizer={userAtomizer.atomizer}/>
 		</Menu.Item>
 		<Menu.Divider/>
+		<Menu.Item>
+			<AtomizerCommentButton atomizer={userAtomizer.atomizer}/>
+		</Menu.Item>
 		<Menu.Item>
 			<ButtonLink
 				type={'link'}
