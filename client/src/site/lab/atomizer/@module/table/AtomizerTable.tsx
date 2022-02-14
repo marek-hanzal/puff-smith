@@ -6,11 +6,14 @@ import {AtomizerListItem} from "@/puff-smith/site/lab/atomizer/@module/table/Ato
 import {AtomizerLinkButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerLinkButton";
 import {AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerQuickMenu";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
+import {IFormOnSuccess} from "@leight-core/leight/dist";
+import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
+	onPurchase?: IFormOnSuccess<any, UserAtomizerDto>;
 }
 
-export const AtomizerTable: FC<IAtomizerTableProps> = props => {
+export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) => {
 	const {t} = useTranslation();
 	const filterContext = useAtomizersOptionalFilterContext();
 	return <AtomizersSourceTable
@@ -24,7 +27,7 @@ export const AtomizerTable: FC<IAtomizerTableProps> = props => {
 				key: "id",
 				render: (_, atomizer) => <ButtonBar>
 					<AtomizerLinkButton title={null} atomizer={atomizer}/>
-					<AtomizerQuickMenu atomizer={atomizer}/>
+					<AtomizerQuickMenu onPurchase={onPurchase} atomizer={atomizer}/>
 				</ButtonBar>,
 				width: 0,
 			}),

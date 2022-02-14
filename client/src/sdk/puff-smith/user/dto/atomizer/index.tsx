@@ -9,6 +9,7 @@ export module CreateDto {
 
 
 export interface UserAtomizerDto {
+	id: string;
 	atomizerId: string;
 	atomizer: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto;
 	driptipId: string | null;
@@ -50,6 +51,7 @@ export module UserAtomizerOrderByDto {
 
 
 export interface UserAtomizerFilterDto {
+	userId?: string | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

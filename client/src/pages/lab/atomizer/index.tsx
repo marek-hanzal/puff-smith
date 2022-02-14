@@ -9,8 +9,12 @@ import {AtomizerFilter} from "@/puff-smith/site/lab/atomizer/@module/form/Atomiz
 import {AtomizerTable} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerTable";
 import {useTranslation} from "react-i18next";
 import {usePuffSmithSessionContext} from "@/puff-smith/site/shared";
+import {UserAtomizerTable} from "@/puff-smith/site/lab/user/atomizer/@module/table/UserAtomizerTable";
+import {UserAtomizersFilterContext} from "@/sdk/puff-smith/api/lab/user/atomizer/endpoint";
+import {useState} from "react";
 
 export default withLabLayout(function Index() {
+	const [tab, setTab] = useState('user');
 	const {user} = usePuffSmithSessionContext().session;
 	const {t} = useTranslation();
 	return <LabPage
@@ -36,17 +40,18 @@ export default withLabLayout(function Index() {
 			<AtomizerCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
-		<Tabs>
+		<Tabs size={'large'} onChange={setTab} activeKey={tab}>
 			<Tabs.TabPane key={'user'} tab={t('lab.atomizer.user.tab')}>
-				<AtomizersFilterContext defaultFilter={{userId: user.id}}>
-					<AtomizerFilter/>
-					<AtomizerTable/>
-				</AtomizersFilterContext>
+				<UserAtomizersFilterContext defaultFilter={{userId: user.id}}>
+					<UserAtomizerTable/>
+				</UserAtomizersFilterContext>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={'shop'} tab={t('lab.atomizer.shop.tab')}>
 				<AtomizersFilterContext>
 					<AtomizerFilter/>
-					<AtomizerTable/>
+					<AtomizerTable
+						onPurchase={() => setTab('user')}
+					/>
 				</AtomizersFilterContext>
 			</Tabs.TabPane>
 		</Tabs>

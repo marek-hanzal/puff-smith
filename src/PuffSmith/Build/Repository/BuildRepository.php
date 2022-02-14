@@ -17,11 +17,13 @@ use PuffSmith\Build\Dto\BuildFilterDto;
 use PuffSmith\Build\Dto\CreateDto;
 use PuffSmith\Build\Dto\PatchDto;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
+use PuffSmith\User\Repository\Atomizer\UserAtomizerRepositoryTrait;
 use Throwable;
 
 class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 	use CoilRepositoryTrait;
+	use UserAtomizerRepositoryTrait;
 
 	public function __construct() {
 		parent::__construct([
@@ -95,7 +97,7 @@ class BuildRepository extends AbstractRepository {
 			'atomizer_id' => $createDto->atomizerId,
 			'coil_id'     => $coil->id,
 			'cotton_id'   => $createDto->cottonId,
-			'driptip_id'  => $createDto->driptipId,
+			'driptip_id'  => $createDto->driptipId ?: $this->userAtomizerRepository->findByUser($createDto->atomizerId)->driptip_id ?? null,
 			'coils'       => $createDto->coils,
 			'ohm'         => $createDto->ohm,
 			'active'      => true,
@@ -118,7 +120,7 @@ class BuildRepository extends AbstractRepository {
 			'id'          => $patchDto->id,
 			'created'     => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'atomizer_id' => $patchDto->atomizerId,
-			'driptip_id'  => $patchDto->driptipId,
+			'driptip_id'  => $patchDto->driptipId ?: $this->userAtomizerRepository->findByUser($patchDto->atomizerId)->driptip_id ?? null,
 			'coil_id'     => $patchDto->coilId,
 			'cotton_id'   => $patchDto->cottonId,
 			'coils'       => $patchDto->coils,

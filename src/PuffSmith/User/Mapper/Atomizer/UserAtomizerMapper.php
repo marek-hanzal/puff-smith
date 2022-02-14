@@ -32,6 +32,7 @@ class UserAtomizerMapper extends AbstractMapper {
 	 */
 	public function item($item) {
 		return $this->dtoService->fromArray(UserAtomizerDto::class, [
+			'id'         => $item->id,
 			'atomizerId' => $item->atomizer_id,
 			'atomizer'   => $this->atomizerMapper->item($this->atomizerRepository->find($item->atomizer_id)),
 			'driptipId'  => $item->driptip_id,

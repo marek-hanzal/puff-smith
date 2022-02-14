@@ -11,6 +11,10 @@ class UserAtomizerDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
+	public string $id;
+	/**
+	 * @var string
+	 */
 	public string $atomizerId;
 	/**
 	 * @var AtomizerDto
