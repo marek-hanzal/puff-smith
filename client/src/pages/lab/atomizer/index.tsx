@@ -12,6 +12,7 @@ import {usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {UserAtomizerTable} from "@/puff-smith/site/lab/user/atomizer/@module/table/UserAtomizerTable";
 import {UserAtomizersFilterContext} from "@/sdk/puff-smith/api/lab/user/atomizer/endpoint";
 import {useState} from "react";
+import {AtomizerCommentDrawerButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerCommentDrawerButton";
 
 export default withLabLayout(function Index() {
 	const [tab, setTab] = useState('user');
@@ -37,6 +38,7 @@ export default withLabLayout(function Index() {
 			</Menu.Item>
 		</LabMenuDrawerButton>}
 		extraBrowser={<ButtonBar>
+			<AtomizerCommentDrawerButton/>
 			<AtomizerCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>
