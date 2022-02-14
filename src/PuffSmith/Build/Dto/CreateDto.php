@@ -22,4 +22,8 @@ class CreateDto extends AbstractDto {
 	public ?float $ohm;
 	/** @var bool|null */
 	public ?bool $deactivate;
+	/**
+	 * @var string[]
+	 */
+	public array $drawIds = [];
 }

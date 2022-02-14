@@ -5,6 +5,7 @@ import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/Atomiz
 import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface IBuildFilterProps extends IFilterWithoutTranslationProps<BuildFilterDto> {
 }
@@ -37,6 +38,12 @@ export const BuildFilter: FC<IBuildFilterProps> = props => {
 			labels={['lab.build.cottonId.label']}
 		>
 			<CottonSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'drawIds'}
+			labels={['lab.build.drawIds.label']}
+		>
+			<DrawSelect/>
 		</FormItem>
 	</Filter>
 }

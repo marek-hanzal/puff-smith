@@ -10,6 +10,7 @@ import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/comp
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
+import {Tag} from "antd";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -22,7 +23,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1500}}
+		scroll={{x: 1850}}
 		{...props}
 	>
 		{({column}) => [
@@ -67,6 +68,12 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				render: (_, build) => <Ohm ohm={build?.ohm}/>,
 				width: 160,
 				sorter: true,
+			}),
+			column({
+				key: "draw",
+				title: "lab.build.table.draw",
+				render: (_, build) => build.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+				width: 300,
 			}),
 			column({
 				key: "age",

@@ -34,4 +34,6 @@ class BuildFilterDto extends AbstractFilterDto {
 	 * @description Filter build by a coil
 	 */
 	public ?array $wireIds;
+	/** @var string[]|null|void */
+	public ?array $drawIds;
 }

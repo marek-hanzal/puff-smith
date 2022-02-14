@@ -13,6 +13,8 @@ export interface BuildDto {
 	coils: number;
 	cottonId: string;
 	cotton: import("@/sdk/puff-smith/cotton/dto/index").CottonDto;
+	draws: import("@/sdk/edde/tag/dto/index").TagDto[];
+	drawIds: string[];
 }
 
 export module BuildDto {
@@ -36,6 +38,7 @@ export interface BuildFilterDto {
 	coilIds?: string[] | null | undefined;
 	cottonIds?: string[] | null | undefined;
 	wireIds?: string[] | null | undefined;
+	drawIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
@@ -54,6 +57,7 @@ export interface CreateDto {
 	coils: number;
 	ohm: number | null;
 	deactivate: boolean | null;
+	drawIds: string[];
 }
 
 export module CreateDto {
@@ -79,6 +83,7 @@ export interface PatchDto {
 	cottonId?: string | null | undefined;
 	coils?: number | null | undefined;
 	ohm?: number | null | undefined;
+	drawIds: string[];
 }
 
 export module PatchDto {

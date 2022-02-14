@@ -18,6 +18,7 @@ import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipS
 import {useParams} from "@leight-core/leight/dist";
 import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -127,6 +128,11 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				field={'ohm'}
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
+			</FormItem>
+			<FormItem
+				field={'drawIds'}
+			>
+				<DrawSelect/>
 			</FormItem>
 			<SwitchItem
 				field={'deactivate'}

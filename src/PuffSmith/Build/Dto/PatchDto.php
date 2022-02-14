@@ -24,4 +24,8 @@ class PatchDto extends AbstractDto {
 	public ?int $coils;
 	/** @var float|null|void */
 	public ?float $ohm;
+	/**
+	 * @var string[]
+	 */
+	public array $drawIds = [];
 }

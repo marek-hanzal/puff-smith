@@ -19,11 +19,13 @@ use PuffSmith\Build\Dto\PatchDto;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
 use PuffSmith\User\Repository\Atomizer\UserAtomizerRepositoryTrait;
 use Throwable;
+use function array_merge;
 
 class BuildRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
 	use CoilRepositoryTrait;
 	use UserAtomizerRepositoryTrait;
+	use BuildTagRepositoryTrait;
 
 	public function __construct() {
 		parent::__construct([
@@ -44,7 +46,8 @@ class BuildRepository extends AbstractRepository {
 		$this->join($select, 'z_cotton', 'co', '$.cotton_id');
 		$this->join($select, 'z_wire', 'w', 'c.wire_id');
 		$this->join($select, 'z_driptip', 'd', '$.driptip_id');
-		return $select;
+		$this->join($select, 'z_build_tag', 'bt', '$.id', 'build_id');
+		return $select->distinct();
 	}
 
 	public function toQuery(Query $query): Select {
@@ -68,6 +71,7 @@ class BuildRepository extends AbstractRepository {
 		!empty($filter->wireIds) && $this->where($select, 'c.wire_id', 'in', $filter->wireIds);
 		isset($filter->active) && $this->where($select, '$.active', $filter->active);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
+		!empty($filter->drawIds) && $this->where($select, 'bt.tag_id', 'in', $filter->drawIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -93,7 +97,7 @@ class BuildRepository extends AbstractRepository {
 		} catch (DuplicateEntryException $_) {
 			$coil = $this->coilRepository->findByCreate($createDto->coil);
 		}
-		return $this->insert([
+		$build = $this->insert([
 			'atomizer_id' => $createDto->atomizerId,
 			'coil_id'     => $coil->id,
 			'cotton_id'   => $createDto->cottonId,
@@ -104,6 +108,10 @@ class BuildRepository extends AbstractRepository {
 			'created'     => new DateTime($createDto->created ?? 'now'),
 			'user_id'     => $this->currentUserService->requiredId(),
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $createDto->drawIds);
+		$this->buildTagRepository->syncWith('build_id', 'tag_id', $build->id, $tags);
+		return $build;
 	}
 
 	/**
@@ -116,7 +124,7 @@ class BuildRepository extends AbstractRepository {
 	 * @throws RepositoryException
 	 */
 	public function update(PatchDto $patchDto) {
-		return $this->change([
+		$build = $this->change([
 			'id'          => $patchDto->id,
 			'created'     => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'atomizer_id' => $patchDto->atomizerId,
@@ -126,5 +134,9 @@ class BuildRepository extends AbstractRepository {
 			'coils'       => $patchDto->coils,
 			'ohm'         => $patchDto->ohm,
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $patchDto->drawIds);
+		$this->buildTagRepository->syncWith('build_id', 'tag_id', $build->id, $tags);
+		return $build;
 	}
 }

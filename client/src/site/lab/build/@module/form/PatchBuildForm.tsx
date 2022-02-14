@@ -16,6 +16,7 @@ import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonToo
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -92,6 +93,11 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 				field={'ohm'}
 			>
 				<InputNumber style={{width: '100%'}} min={0} max={4}/>
+			</FormItem>
+			<FormItem
+				field={'drawIds'}
+			>
+				<DrawSelect/>
 			</FormItem>
 		</Card>
 		<Divider/>

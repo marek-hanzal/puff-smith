@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Build\Dto;
 
 use Edde\Dto\AbstractDto;
+use Edde\Tag\Dto\TagDto;
 use PuffSmith\Atomizer\Dto\AtomizerDto;
 use PuffSmith\Coil\Dto\CoilDto;
 use PuffSmith\Cotton\Dto\CottonDto;
@@ -41,4 +42,13 @@ class BuildDto extends AbstractDto {
 	public string $cottonId;
 	/** @var CottonDto */
 	public CottonDto $cotton;
+
+	/**
+	 * @var TagDto[]
+	 */
+	public array $draws = [];
+	/**
+	 * @var string[]
+	 */
+	public array $drawIds = [];
 }

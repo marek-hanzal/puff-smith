@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Space, Tabs} from "antd";
+import {Divider, Space, Tabs, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -59,6 +59,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					"coil": <CoilInline inline coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": <Ohm ohm={build?.ohm}/>,
+					"draw": build.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
 					"age": <BuildAge build={build}/>,
 					"coils": <CoilCountInput value={build.coils} disabled/>,
 					"driptip": <DriptipInline driptip={build.driptip}/>,
