@@ -11,7 +11,7 @@ export interface ILogsTableProps extends Partial<ILogsSourceTableProps> {
 export const LogsTable: FC<ILogsTableProps> = props => {
 	const {t} = useTranslation();
 	return <LogsSourceTable
-		scroll={{x: 2200}}
+		scroll={{x: 2600}}
 		expandable={{
 			expandedRowRender: item => (
 				<pre>
