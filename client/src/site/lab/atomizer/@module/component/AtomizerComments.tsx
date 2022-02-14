@@ -14,7 +14,7 @@ export const AtomizerComments: FC<IAtomizerCommentsProps> = ({atomizer, ...props
 	const filterContext = useCommentsOptionalFilterContext();
 	return <CommentsSource
 		filter={filterContext?.filter}
-		defaultFilter={atomizer && {atomizerId: atomizer.id}}
+		defaultFilter={atomizer && {atomizerIds: [atomizer.id]}}
 		{...props}
 	>
 		<Comments<AtomizerCommentDto>

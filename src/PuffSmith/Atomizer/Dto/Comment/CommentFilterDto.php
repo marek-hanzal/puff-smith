@@ -7,7 +7,7 @@ use Edde\Repository\Dto\AbstractFilterDto;
 
 class CommentFilterDto extends AbstractFilterDto {
 	/**
-	 * @var string|null|void
+	 * @var string[]|null|void
 	 */
-	public ?string $atomizerId;
+	public ?array $atomizerIds;
 }

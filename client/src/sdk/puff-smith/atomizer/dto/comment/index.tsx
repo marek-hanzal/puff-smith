@@ -8,7 +8,7 @@ export module CommentOrderByDto {
 
 
 export interface CommentFilterDto {
-	atomizerId?: string | null | undefined;
+	atomizerIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

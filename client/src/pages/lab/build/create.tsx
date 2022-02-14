@@ -2,7 +2,7 @@ import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateIcon, HomeIcon, use
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabPage} from "@/puff-smith/site/lab/@module/component";
-import {ComposeForm} from "@/puff-smith/site/lab/build/@module/form/ComposerForm";
+import {ComposeForm} from "@/puff-smith/site/lab/build/@module/form/ComposeForm";
 
 export default withLabLayout(function Create() {
 	const {atomizerId} = useParams();

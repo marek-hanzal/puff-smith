@@ -35,7 +35,7 @@ class AtomizerCommentRepository extends AbstractRepository {
 
 		/** @var $filter CommentFilterDto */
 		$filter = $query->filter;
-		isset($filter->atomizerId) && $this->where($select, '$.atomizer_id', $filter->atomizerId);
+		!empty($filter->atomizerIds) && $this->where($select, '$.atomizer_id', 'in', $filter->atomizerIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 

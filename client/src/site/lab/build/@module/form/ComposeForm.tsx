@@ -94,9 +94,9 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 					</BuildCommentsFilterContext>
 				</Tabs.TabPane>}
 				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
-					{buildFilter?.atomizerIds?.[0] ? <AtomizerCommentsFilterContext defaultFilter={{atomizerId: buildFilter.atomizerIds[0]}}>
+					<AtomizerCommentsFilterContext defaultFilter={{atomizerIds: buildFilter.atomizerIds}}>
 						<AtomizerComments/>
-					</AtomizerCommentsFilterContext> : null}
+					</AtomizerCommentsFilterContext>
 				</Tabs.TabPane>}
 				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')}>
 					<VapeCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
