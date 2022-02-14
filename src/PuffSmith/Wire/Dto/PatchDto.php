@@ -26,4 +26,8 @@ class PatchDto extends AbstractDto {
 	 * @var int|null
 	 */
 	public ?int $ga;
+	/**
+	 * @var string[]
+	 */
+	public array $drawIds = [];
 }

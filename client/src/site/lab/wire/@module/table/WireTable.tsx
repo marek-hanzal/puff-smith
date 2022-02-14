@@ -6,6 +6,7 @@ import {WireListItem} from "@/puff-smith/site/lab/wire/@module/table/WireListIte
 import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireLinkButton";
 import {WireQuickMenu} from "@/puff-smith/site/lab/wire/@module/component/WireQuickMenu";
 import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
+import {Tag} from "antd";
 
 export interface IWireTableProps extends Partial<IWiresSourceTableProps> {
 }
@@ -48,6 +49,12 @@ export const WireTable: FC<IWireTableProps> = props => {
 				title: 'lab.wire.table.description',
 				render: (_, wire) => wire.description,
 				sorter: true,
+			}),
+			column({
+				key: "draw",
+				title: 'lab.wire.table.draw',
+				render: (_, wire) => wire.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+				width: 300,
 			}),
 			column({
 				key: "vendor",

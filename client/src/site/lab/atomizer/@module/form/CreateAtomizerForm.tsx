@@ -6,7 +6,7 @@ import {AtomizerIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
-import {DrawSelect} from "@/puff-smith/site/lab/atomizer/@module/form/DrawSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface ICreateAtomizerFormProps extends Partial<ICreateDefaultFormProps> {
 }

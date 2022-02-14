@@ -6,6 +6,7 @@ import {GaInput, WireIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface ICreateWireFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -41,6 +42,11 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 			field={'ga'}
 		>
 			<GaInput/>
+		</FormItem>
+		<FormItem
+			field={'drawIds'}
+		>
+			<DrawSelect/>
 		</FormItem>
 		<Divider/>
 		<Centered>

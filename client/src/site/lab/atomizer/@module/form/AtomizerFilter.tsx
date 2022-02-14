@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
-import {DrawSelect} from "@/puff-smith/site/lab/atomizer/@module/form/DrawSelect";
+import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 
 export interface IAtomizerFilterProps extends IFilterWithoutTranslationProps<AtomizerFilterDto> {
 }
