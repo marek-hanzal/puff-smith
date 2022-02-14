@@ -15,7 +15,8 @@ export const AtomizerSelect: FC<IAtomizerSelectProps> = props => {
 		showSearch
 		toOption={atomizer => ({
 			label: <>{atomizer.name}&nbsp;<Typography.Text type={'secondary'}>{atomizer.vendor.name}</Typography.Text></>,
-			value: atomizer.id
+			value: atomizer.id,
+			atomizer,
 		})}
 		{...props}
 	/>
