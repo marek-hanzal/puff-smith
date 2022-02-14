@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Atomizer\Dto;
 
 use Edde\Dto\AbstractDto;
+use Edde\Tag\Dto\TagDto;
 use PuffSmith\Vendor\Dto\VendorDto;
 
 class AtomizerDto extends AbstractDto {
@@ -15,4 +16,12 @@ class AtomizerDto extends AbstractDto {
 	public string $vendorId;
 	/** @var VendorDto */
 	public VendorDto $vendor;
+	/**
+	 * @var TagDto[]
+	 */
+	public array $draws = [];
+	/**
+	 * @var string[]
+	 */
+	public array $drawIds = [];
 }

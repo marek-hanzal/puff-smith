@@ -13,6 +13,7 @@ use Edde\Api\Shared\File\FileRouterGroup;
 use Edde\Api\Shared\Image\ImageRouterGroup;
 use Edde\Api\Shared\Import\ImportRouterGroup;
 use Edde\Api\Shared\Job\JobRouterGroup;
+use Edde\Api\Shared\Tag\TagRouterGroup;
 use Edde\Api\Shared\User\UserRouterGroup as EddeUserRouterGroup;
 use Edde\Http\AbstractRouterGroup;
 use PuffSmith\Api\Shared\User\UserRouterGroup;
@@ -33,6 +34,7 @@ class SharedRouterGroup extends AbstractRouterGroup {
 			ImageRouterGroup::class,
 			JobRouterGroup::class,
 			EddeUserRouterGroup::class,
+			TagRouterGroup::class,
 			UserRouterGroup::class,
 		]);
 	}

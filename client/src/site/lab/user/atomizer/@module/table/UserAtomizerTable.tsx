@@ -7,6 +7,7 @@ import {AtomizerLinkButton} from "@/puff-smith/site/lab/atomizer/@module/compone
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {IUserAtomizersSourceTableProps, UserAtomizersSourceTable} from "@/sdk/puff-smith/api/lab/user/atomizer/endpoint";
 import {UserAtomizerQuickMenu} from "@/puff-smith/site/lab/user/atomizer/@module/component/UserAtomizerQuickMenu";
+import {Tag} from "antd";
 
 export interface IUserAtomizerTableProps extends Partial<IUserAtomizersSourceTableProps> {
 }
@@ -34,6 +35,12 @@ export const UserAtomizerTable: FC<IUserAtomizerTableProps> = props => {
 				title: 'lab.atomizer.table.name',
 				render: (_, userAtomizer) => <AtomizerPreviewButton title={userAtomizer.atomizer.name} atomizer={userAtomizer.atomizer}/>,
 				sorter: true,
+			}),
+			column({
+				key: "draw",
+				title: 'lab.atomizer.table.draw',
+				render: (_, userAtomizer) => userAtomizer.atomizer.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+				width: 300,
 			}),
 			column({
 				key: "vendor",

@@ -8,6 +8,7 @@ import {AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer/@module/componen
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {IFormOnSuccess} from "@leight-core/leight/dist";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
+import {Tag} from "antd";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
 	onPurchase?: IFormOnSuccess<any, UserAtomizerDto>;
@@ -36,6 +37,12 @@ export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) =
 				title: 'lab.atomizer.table.name',
 				render: (_, atomizer) => <AtomizerPreviewButton title={atomizer.name} atomizer={atomizer}/>,
 				sorter: true,
+			}),
+			column({
+				key: "draw",
+				title: 'lab.atomizer.table.draw',
+				render: (_, atomizer) => atomizer.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+				width: 300,
 			}),
 			column({
 				key: "vendor",

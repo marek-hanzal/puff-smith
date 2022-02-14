@@ -6,6 +6,7 @@ import {AtomizerIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {DrawSelect} from "@/puff-smith/site/lab/atomizer/@module/form/DrawSelect";
 
 export interface ICreateAtomizerFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -33,6 +34,11 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = ({onSuccess, ...
 			help={<VendorTooltip/>}
 		>
 			<VendorSelect/>
+		</FormItem>
+		<FormItem
+			field={'drawIds'}
+		>
+			<DrawSelect/>
 		</FormItem>
 		<Divider/>
 		<Centered>

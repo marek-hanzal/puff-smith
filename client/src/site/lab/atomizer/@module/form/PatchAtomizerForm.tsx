@@ -7,6 +7,7 @@ import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {AtomizerIcon} from "@/puff-smith";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {DrawSelect} from "@/puff-smith/site/lab/atomizer/@module/form/DrawSelect";
 
 export interface IPatchAtomizerFormProps extends Partial<IPatchDefaultFormProps> {
 	atomizer: AtomizerDto;
@@ -44,6 +45,11 @@ export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSucc
 			help={<VendorTooltip/>}
 		>
 			<VendorSelect/>
+		</FormItem>
+		<FormItem
+			field={'drawIds'}
+		>
+			<DrawSelect/>
 		</FormItem>
 		<Divider/>
 		<Centered>

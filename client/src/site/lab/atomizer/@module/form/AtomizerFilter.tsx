@@ -2,6 +2,7 @@ import {FC} from "react";
 import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
 import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {DrawSelect} from "@/puff-smith/site/lab/atomizer/@module/form/DrawSelect";
 
 export interface IAtomizerFilterProps extends IFilterWithoutTranslationProps<AtomizerFilterDto> {
 }
@@ -15,6 +16,12 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = props => {
 			field={'name'}
 			labels={['lab.atomizer.name.label']}
 		/>
+		<FormItem
+			field={'drawIds'}
+			labels={['lab.atomizer.drawIds.label']}
+		>
+			<DrawSelect/>
+		</FormItem>
 		<FormItem
 			field={'vendorIds'}
 			labels={['lab.atomizer.vendorId.label']}

@@ -10,8 +10,11 @@ use Edde\Repository\IRepository;
 use PuffSmith\Atomizer\Dto\AtomizerFilterDto;
 use PuffSmith\Atomizer\Dto\CreateDto;
 use PuffSmith\Atomizer\Dto\PatchDto;
+use function array_merge;
 
 class AtomizerRepository extends AbstractRepository {
+	use AtomizerTagRepositoryTrait;
+
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 		$this->orderByMap = [
@@ -23,7 +26,8 @@ class AtomizerRepository extends AbstractRepository {
 		$select = parent::select($fields);
 		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
 		$this->join($select, 'z_user_atomizer', 'ua', '$.id', 'atomizer_id');
-		return $select;
+		$this->join($select, 'z_atomizer_tag', 'at', '$.id', 'atomizer_id');
+		return $select->distinct();
 	}
 
 	public function toQuery(Query $query): Select {
@@ -42,6 +46,7 @@ class AtomizerRepository extends AbstractRepository {
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 		isset($filter->userId) && $this->where($select, 'ua.user_id', $filter->userId);
+		!empty($filter->drawIds) && $this->where($select, 'at.tag_id', $filter->drawIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -49,17 +54,25 @@ class AtomizerRepository extends AbstractRepository {
 	}
 
 	public function create(CreateDto $createDto) {
-		return $this->insert([
+		$atomizer = $this->insert([
 			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $createDto->drawIds);
+		$this->atomizerTagRepository->syncWith('atomizer_id', 'tag_id', $atomizer->id, $tags);
+		return $atomizer;
 	}
 
 	public function update(PatchDto $patchDto) {
-		return $this->change([
+		$atomizer = $this->change([
 			'id'        => $patchDto->id,
 			'name'      => $patchDto->name,
 			'vendor_id' => $patchDto->vendorId,
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $patchDto->drawIds);
+		$this->atomizerTagRepository->syncWith('atomizer_id', 'tag_id', $atomizer->id, $tags);
+		return $atomizer;
 	}
 }
