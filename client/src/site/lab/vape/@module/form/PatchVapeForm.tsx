@@ -131,7 +131,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 						240: 240,
 					}}
 					min={0}
-					max={0}
+					max={240}
 				/>
 			</FormItem>
 			<FormItem
