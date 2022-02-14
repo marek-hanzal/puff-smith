@@ -22,7 +22,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1600}}
+		scroll={{x: 1500}}
 		{...props}
 	>
 		{({column}) => [
