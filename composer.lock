@@ -1516,29 +1516,29 @@
             "time": "2021-06-28T04:27:21+00:00"
         },
         {
-            "name": "leight-core/edde",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/leight-core/edde.git",
-                "reference": "d1fee73b58be7ec91b7967c1e4663f3709ea1128"
-            },
-            "dist": {
+			"name": "leight-core/edde",
+			"version": "dev-main",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/leight-core/edde.git",
+				"reference": "0581fbe1e5aa5b17aadee9f50635bdcadd0633a1"
+			},
+			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/d1fee73b58be7ec91b7967c1e4663f3709ea1128",
-				"reference": "d1fee73b58be7ec91b7967c1e4663f3709ea1128",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/0581fbe1e5aa5b17aadee9f50635bdcadd0633a1",
+				"reference": "0581fbe1e5aa5b17aadee9f50635bdcadd0633a1",
 				"shasum": ""
 			},
-            "require": {
-                "cache/void-adapter": "^1.1",
-                "clancats/hydrahon": "^1.1",
-                "dibi/dibi": "^4.1",
-                "diff/diff": "^3.2",
-                "doctrine/annotations": "^1.12",
-                "ext-json": "*",
-                "ext-pdo": "*",
-                "ext-zip": "*",
-                "ext-zlib": "*",
+			"require": {
+				"cache/void-adapter": "^1.1",
+				"clancats/hydrahon": "^1.1",
+				"dibi/dibi": "^4.1",
+				"diff/diff": "^3.2",
+				"doctrine/annotations": "^1.12",
+				"ext-json": "*",
+				"ext-pdo": "*",
+				"ext-zip": "*",
+				"ext-zlib": "*",
                 "gabrielelana/byte-units": "^0.5.0",
                 "league/flysystem": "^2.2.3",
                 "league/uri": "^6.4",
@@ -1600,7 +1600,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-14T04:07:32+00:00"
+			"time": "2022-02-14T04:47:30+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
