@@ -1,9 +1,9 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useLiquidsQueryInvalidate} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, message} from "antd";
+import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
-import {PgSlider, VgSlider} from "@/puff-smith/component/input";
+import {PgSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import {LiquidIcon} from "@/puff-smith";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
@@ -18,6 +18,7 @@ export const CreateLiquidForm: FC<ICreateLiquidFormProps> = ({onSuccess, ...prop
 		layout={'vertical'}
 		translation={'lab.liquid'}
 		toForm={() => ({
+			volume: 15,
 			pg: 50,
 			vg: 50,
 		})}
@@ -82,11 +83,7 @@ export const CreateLiquidForm: FC<ICreateLiquidFormProps> = ({onSuccess, ...prop
 			field={'volume'}
 			required
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={1000}
-			/>
+			<VolumeSlider step={1} max={240}/>
 		</FormItem>
 		<Divider/>
 		<Centered>

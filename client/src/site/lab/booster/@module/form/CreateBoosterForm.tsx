@@ -1,8 +1,8 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBoostersQueryInvalidate} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
-import {Divider, InputNumber, message} from "antd";
+import {Divider, message} from "antd";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {BoosterIcon, NicotineSlider} from "@/puff-smith";
+import {BoosterIcon, NicotineSlider, PgSlider, VgSlider, VolumeSlider} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
@@ -24,6 +24,8 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		toForm={() => ({
 			nicotine: 6,
 			volume: 10,
+			pg: 50,
+			vg: 50,
 		})}
 		{...props}
 	>
@@ -41,22 +43,34 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 		<FormItem
 			field={'pg'}
 			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'vg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={100}
-			/>
+			<PgSlider/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
 			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'pg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={100}
-			/>
+			<VgSlider/>
 		</FormItem>
 		<FormItem
 			field={'nicotine'}
@@ -68,11 +82,7 @@ export const CreateBoosterForm: FC<ICreateBoosterFormProps> = ({onSuccess, ...pr
 			field={'volume'}
 			required
 		>
-			<InputNumber
-				style={{width: '100%'}}
-				min={0}
-				max={1000}
-			/>
+			<VolumeSlider/>
 		</FormItem>
 		<Divider/>
 		<Centered>

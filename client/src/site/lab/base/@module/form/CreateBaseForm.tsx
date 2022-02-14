@@ -21,6 +21,10 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 			basesQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		toForm={() => ({
+			pg: 50,
+			vg: 50,
+		})}
 		{...props}
 	>
 		<FormItem
@@ -37,12 +41,32 @@ export const CreateBaseForm: FC<ICreateBaseFormProps> = ({onSuccess, ...props}) 
 		<FormItem
 			field={'pg'}
 			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'vg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
 			<PgSlider/>
 		</FormItem>
 		<FormItem
 			field={'vg'}
 			required
+			rules={[
+				({setFieldsValue}) => ({
+					validator(_, value) {
+						setFieldsValue({
+							'pg': 100 - value,
+						});
+						return Promise.resolve();
+					},
+				}),
+			]}
 		>
 			<VgSlider/>
 		</FormItem>

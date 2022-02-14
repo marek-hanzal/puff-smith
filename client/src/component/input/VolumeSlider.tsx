@@ -11,7 +11,7 @@ export const VolumeSlider: FC<IVolumeSliderProps> = props => {
 			10: 10 + 'ml',
 			60: 60,
 			120: 120,
-			500: 500 + 'ml',
+			[props.max || 500]: [props.max || 500] + 'ml',
 		}}
 		min={10}
 		max={500}
