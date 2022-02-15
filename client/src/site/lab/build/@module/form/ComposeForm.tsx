@@ -6,7 +6,7 @@ import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {useTranslation} from "react-i18next";
-import {Col, List, Row, Tabs} from "antd";
+import {List, Tabs} from "antd";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
 import {CommentsFilterContext as AtomizerCommentsFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/comment/endpoint";
@@ -72,60 +72,57 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto | undefined>(defaultBuildFilter);
 	const filterContext = useVapesOptionalFilterContext();
 	const {t} = useTranslation();
+	const hasAtomizer = buildFilter?.atomizerIds?.length;
 
 	useEffect(() => {
 		filterContext?.setFilter(defaultBuildFilter);
 	}, []);
 
-	return !isMobile ? <Row gutter={32}>
-		<Col span={10}>
+	return !isMobile ? <Tabs
+		destroyInactiveTabPane
+	>
+		<Tabs.TabPane key={'form'} tab={t('lab.build.create.form.tab')}>
 			<Form setBuildFilter={setBuildFilter} {...props}/>
-		</Col>
-		<Col span={14}>
-			<Tabs
-				destroyInactiveTabPane
-			>
-				<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
-					<Plot buildFilter={buildFilter}/>
-				</Tabs.TabPane>
-				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'build.comment'} tab={t('lab.build.create.build.comments.tab')}>
-					<BuildCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
-						<BuildComments/>
-					</BuildCommentsFilterContext>
-				</Tabs.TabPane>}
-				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')}>
-					<AtomizerCommentsFilterContext defaultFilter={{atomizerIds: buildFilter.atomizerIds}}>
-						<AtomizerComments/>
-					</AtomizerCommentsFilterContext>
-				</Tabs.TabPane>}
-				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')}>
-					<VapeCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
-						<VapeComments/>
-					</VapeCommentsFilterContext>
-				</Tabs.TabPane>}
-				{buildFilter?.atomizerIds?.length && <Tabs.TabPane key={'build.other'} tab={t('lab.build.create.other.tab')}>
-					<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
-						<BuildsSourceConsumer>
-							{sourceContext => sourceContext.hasData() ? <>
-								<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
-									{sourceContext.map(build => <List.Item key={build.id}>
-										<List.Item.Meta
-											title={<BuildPreviewButton build={build}/>}
-											description={<CoilInline inline coil={build.coil}/>}
-										/>
-										<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
-									</List.Item>)}
-								</List>
-							</> : <Template
-								icon={<BuildIcon/>}
-								label={'lab.build.other.no-builds'}
-							/>}
-						</BuildsSourceConsumer>
-					</BuildsSource>
-				</Tabs.TabPane>}
-			</Tabs>
-		</Col>
-	</Row> : <>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'plot'} tab={t('lab.build.create.plot.tab')}>
+			<Plot buildFilter={buildFilter}/>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'build.comment'} tab={t('lab.build.create.build.comments.tab')} disabled={!hasAtomizer}>
+			<BuildCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
+				<BuildComments/>
+			</BuildCommentsFilterContext>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'atomizer.comment'} tab={t('lab.build.create.atomizer.comments.tab')} disabled={!hasAtomizer}>
+			<AtomizerCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
+				<AtomizerComments/>
+			</AtomizerCommentsFilterContext>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'vape.comment'} tab={t('lab.build.create.vape.comments.tab')} disabled={!hasAtomizer}>
+			<VapeCommentsFilterContext defaultFilter={{atomizerIds: buildFilter?.atomizerIds}}>
+				<VapeComments/>
+			</VapeCommentsFilterContext>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'build.other'} tab={t('lab.build.create.other.tab')} disabled={!hasAtomizer}>
+			<BuildsSource filter={{atomizerIds: buildFilter?.atomizerIds}}>
+				<BuildsSourceConsumer>
+					{sourceContext => sourceContext.hasData() ? <>
+						<List itemLayout={'vertical'} pagination={sourceContext.pagination()}>
+							{sourceContext.map(build => <List.Item key={build.id}>
+								<List.Item.Meta
+									title={<BuildPreviewButton build={build}/>}
+									description={<CoilInline inline coil={build.coil}/>}
+								/>
+								<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
+							</List.Item>)}
+						</List>
+					</> : <Template
+						icon={<BuildIcon/>}
+						label={'lab.build.other.no-builds'}
+					/>}
+				</BuildsSourceConsumer>
+			</BuildsSource>
+		</Tabs.TabPane>
+	</Tabs> : <>
 		<Form
 			setBuildFilter={setBuildFilter}
 			buttons={<DrawerButton icon={<PlotIcon/>} type={'link'} title={'lab.build.create.preview.button'}>
