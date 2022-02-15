@@ -38,8 +38,8 @@ export const CellTable: FC<ICellTableProps> = props => {
 				width: 240,
 			}),
 			column({
-				key: "size",
-				title: 'lab.cell.table.size',
+				key: "type",
+				title: 'lab.cell.table.type',
 				render: (_, cell) => <Tags tags={[cell.type]}/>,
 				sorter: true,
 				width: 160,

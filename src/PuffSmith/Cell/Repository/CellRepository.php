@@ -21,7 +21,7 @@ class CellRepository extends AbstractRepository {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 		$this->orderByMap = [
 			'vendor' => 'v.name',
-			'size'   => 'ty.code',
+			'type'   => 'ty.code',
 		];
 	}
 

@@ -11,11 +11,11 @@ class ModFilterDto extends AbstractFilterDto {
 	 */
 	public ?string $name;
 	/**
-	 * @var string[]|null
+	 * @var string[]|null|void
 	 */
 	public ?array $vendorIds;
 	/**
-	 * @var string[]|null
+	 * @var string[]|null|void
 	 */
 	public ?array $cellTypeIds;
 }

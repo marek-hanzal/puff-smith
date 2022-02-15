@@ -3,6 +3,7 @@ import {IPreviewProps, Preview, toHumanNumber} from "@leight-core/leight";
 import {FC} from "react";
 import {Ohm} from "@/puff-smith";
 import {CellInline} from "@/puff-smith/site/lab/cell/@module/component/CellInline";
+import {Tags} from "@/puff-smith/component/Tags";
 
 export interface ICellPreviewProps extends Partial<IPreviewProps> {
 	cell: CellDto;
@@ -14,7 +15,7 @@ export const CellPreview: FC<ICellPreviewProps> = ({cell, ...props}) => {
 			"name": <CellInline cell={cell}/>,
 			"ohm": <Ohm ohm={cell.ohm}/>,
 			"drain": cell.drain,
-			"size": cell.size,
+			"type": <Tags tags={[cell.type]}/>,
 			"voltage": toHumanNumber(cell.voltage, 2),
 		}}
 	</Preview>
