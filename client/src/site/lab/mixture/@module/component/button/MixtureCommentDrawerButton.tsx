@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight/dist";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
 import {FC} from "react";
 import {CommentOutlined} from "@ant-design/icons";
 import {MixtureComments} from "@/puff-smith/site/lab/mixture/@module/component/MixtureComments";

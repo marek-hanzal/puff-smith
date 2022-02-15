@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {durationOf, toLocalDateTime} from "@leight-core/leight/dist";
+import {durationOf, toLocalDateTime} from "@leight-core/leight";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Space, Typography} from "antd";
 

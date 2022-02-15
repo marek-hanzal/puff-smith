@@ -2,12 +2,11 @@ import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/leight";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {AtomizerEditButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerEditButton";
 import {AtomizerDeleteButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerDeleteButton";
 import {PurchaseAtomizer} from "@/puff-smith/site/lab/user/atomizer/@module/component/button/PurchaseAtomizer";
-import {IFormOnSuccess} from "@leight-core/leight/dist";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {AtomizerCommentButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerCommentButton";
 

@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useUserAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/user/atomizer/endpoint";
 import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {Centered, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {PurchaseIcon} from "@/puff-smith";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";

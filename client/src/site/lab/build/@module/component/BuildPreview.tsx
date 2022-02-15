@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
 import {FC} from "react";
 import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -25,7 +25,6 @@ import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/Dri
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
-import {useOptionalDrawerContext} from "@leight-core/leight/dist";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 

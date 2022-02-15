@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Card, Col, Divider, List, Row, Typography} from "antd";
-import {ButtonLink} from "@leight-core/leight";
+import {ButtonLink, Template} from "@leight-core/leight";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {VapesSource, VapesSourceConsumer} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -11,7 +11,6 @@ import {VapeCreateButton} from "@/puff-smith/site/lab/vape/@module/component/but
 import {VapeListItem} from "@/puff-smith/site/lab/vape/@module/table/VapeListItem";
 import {VapePlotButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapePlotButton";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
-import {Template} from "@leight-core/leight/dist";
 
 export interface IQuickPuffProps {
 }

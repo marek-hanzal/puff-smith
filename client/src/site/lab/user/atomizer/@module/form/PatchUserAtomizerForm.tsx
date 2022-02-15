@@ -3,7 +3,7 @@ import {FC} from "react";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {useTranslation} from "react-i18next";
 import {Divider, message} from "antd";
-import {Centered, EditIcon, FormItem, Submit} from "@leight-core/leight/dist";
+import {Centered, EditIcon, FormItem, Submit} from "@leight-core/leight";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 

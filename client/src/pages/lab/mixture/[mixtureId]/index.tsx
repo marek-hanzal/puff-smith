@@ -1,8 +1,7 @@
 import {MixtureIcon, PlotIcon} from "@/puff-smith";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
 import {Menu} from "antd";
-import {ButtonBar} from "@leight-core/leight/dist";
 import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
