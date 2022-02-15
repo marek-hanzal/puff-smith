@@ -6,6 +6,7 @@ import {CoilListItem} from "@/puff-smith/site/lab/coil/@module/table/CoilListIte
 import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";
 import {CoilQuickMenu} from "@/puff-smith/site/lab/coil/@module/component/CoilQuickMenu";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
+import {Ohm} from "@/puff-smith";
 
 export interface ICoilTableProps extends Partial<ICoilsSourceTableProps> {
 }
@@ -35,6 +36,13 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				render: (_, coil) => <CoilPreviewButton title={coil.wire.name} coil={coil}/>,
 				sorter: true,
 				width: 440,
+			}),
+			column({
+				key: "ohm",
+				title: 'lab.coil.table.ohm',
+				render: (_, coil) => <Ohm ohm={coil.ohm}/>,
+				sorter: true,
+				width: 120,
 			}),
 			column({
 				key: "ga",
