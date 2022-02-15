@@ -111,6 +111,7 @@ export module VapeOrderByDto {
 
 
 export interface VapeFilterDto {
+	vapeIds?: string[] | null | undefined;
 	buildIds?: string[] | null | undefined;
 	atomizerIds?: string[] | null | undefined;
 	wireIds?: string[] | null | undefined;
@@ -125,6 +126,7 @@ export interface VapeFilterDto {
 	userId?: string | null | undefined;
 	rate?: string | null | undefined;
 	drawIds?: string[] | null | undefined;
+	plot?: any | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

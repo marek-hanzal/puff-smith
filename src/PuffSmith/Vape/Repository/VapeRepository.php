@@ -57,6 +57,7 @@ class VapeRepository extends AbstractRepository {
 			$filter->rate === 'unrated' && $this->where($select, '$.rating', 0);
 			$filter->rate === 'rated' && $this->where($select, '$.rating', '>', 0);
 		}
+		!empty($filter->vapeIds) && $this->where($select, '$.id', 'in', $filter->vapeIds);
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
 		!empty($filter->wireIds) && $this->where($select, 'c.wire_id', 'in', $filter->wireIds);
 		!empty($filter->buildIds) && $this->where($select, '$.build_id', 'in', $filter->buildIds);

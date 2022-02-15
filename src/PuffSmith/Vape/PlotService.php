@@ -12,6 +12,7 @@ use Edde\Utils\ArrayUtils;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
 use function array_filter;
 use function array_map;
+use function array_merge;
 use function array_values;
 use function count;
 use function max;
@@ -27,20 +28,34 @@ class PlotService extends AbstractPlotService {
 		$data = [];
 		$count = 0;
 
+		$export = [
+			'rating'  => false,
+			'median'  => true,
+			'average' => true,
+			'min'     => true,
+			'max'     => true,
+		];
+
+		$filter = $query->filter;
+		$export = array_merge($export, (array)($filter->plot ?? []));
+
 		foreach ($this->vapeRepository->execute($query) as $result) {
 			$count++;
 			$ratings['rating'][] = $result->rating;
 			$ratings['taste'][] = $result->taste;
-			$ratings['leaks'][] = $result->leaks;
-			$ratings['fruits'][] = $result->fruits;
-			$ratings['tobacco'][] = $result->tobacco;
-			$ratings['cakes'][] = $result->cakes;
 			$ratings['complex'][] = $result->complex;
+			$ratings['fruits'][] = $result->fruits;
+			$ratings['cakes'][] = $result->cakes;
+			$ratings['tobacco'][] = $result->tobacco;
 			$ratings['fresh'][] = $result->fresh;
-			$ratings['clouds'][] = $result->clouds;
 			$ratings['mtl'][] = $result->mtl;
 			$ratings['dl'][] = $result->dl;
+			$ratings['clouds'][] = $result->clouds;
 			$ratings['throathit'][] = $result->throathit;
+			$ratings['leaks'][] = $result->leaks;
+			$ratings['dryhit'][] = $result->dryhit;
+			$ratings['juice'][] = $result->juice;
+			$ratings['airflow'][] = $result->airflow;
 		}
 
 		foreach ($ratings as $k => $v) {
@@ -51,25 +66,31 @@ class PlotService extends AbstractPlotService {
 			sort($ratings[$k]);
 			$count = count($ratings[$k]);
 
-			$data[] = [
+			$export['rating'] && $data[] = [
+				'column' => $k,
+				'value'  => ArrayUtils::median($ratings[$k]),
+				'group'  => 'rating',
+				'count'  => $count,
+			];
+			$export['median'] && $data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::median($ratings[$k]),
 				'group'  => 'median',
 				'count'  => $count,
 			];
-			$data[] = [
+			$export['average'] && $data[] = [
 				'column' => $k,
 				'value'  => ArrayUtils::avg($ratings[$k]),
 				'group'  => 'average',
 				'count'  => $count,
 			];
-			$data[] = [
+			$export['min'] && $data[] = [
 				'column' => $k,
 				'value'  => min($ratings[$k]),
 				'group'  => 'min',
 				'count'  => $count,
 			];
-			$data[] = [
+			$export['max'] && $data[] = [
 				'column' => $k,
 				'value'  => max($ratings[$k]),
 				'group'  => 'max',

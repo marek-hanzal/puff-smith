@@ -10,6 +10,7 @@ export type SelectedEnum = 'median' | 'rating' | 'min' | 'max' | 'average' | str
 
 export interface IVapePlotProps {
 	selected?: SelectedEnum[];
+	enabled?: SelectedEnum[];
 	emptyResultProps?: ResultProps;
 }
 

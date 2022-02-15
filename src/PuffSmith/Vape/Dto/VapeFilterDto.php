@@ -8,6 +8,10 @@ use Edde\Repository\Dto\AbstractFilterDto;
 class VapeFilterDto extends AbstractFilterDto {
 	/**
 	 * @var string[]|null|void
+	 */
+	public ?array $vapeIds;
+	/**
+	 * @var string[]|null|void
 	 * @description Filter vapes by the build
 	 */
 	public ?array $buildIds;
@@ -71,4 +75,8 @@ class VapeFilterDto extends AbstractFilterDto {
 	public ?string $rate;
 	/** @var string[]|null|void */
 	public ?array $drawIds;
+	/**
+	 * @var mixed|null|void
+	 */
+	public $plot;
 }
