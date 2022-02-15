@@ -24,9 +24,9 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 			animation={false}
 			meta={{
 				value: {
-					min: 1,
+					min: 0,
 					max: 9,
-					formatter: toHumanNumber,
+					formatter: value => toHumanNumber(value, 2),
 				}
 			}}
 			loading={plotQuery.isLoading}
@@ -34,7 +34,7 @@ export const VapePlot: FC<IVapePlotProps> = ({selected, emptyResultProps}) => {
 			isGroup={plotQuery?.data?.isGroup}
 			xField={plotQuery?.data?.x || 'x'}
 			yField={plotQuery?.data?.y || 'y'}
-			seriesField={plotQuery?.data?.group || 'group'}
+			seriesField={plotQuery?.data?.group}
 			minColumnWidth={16}
 			legend={{
 				position: 'top-left',

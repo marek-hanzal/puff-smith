@@ -14,7 +14,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 	const {t} = useTranslation();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
 	const vapeQueryInvalidate = useVapeQueryInvalidate();
-	const plotQueryInvalidate = usePlotQueryInvalidate()
+	const plotQueryInvalidate = usePlotQueryInvalidate();
 	return <RateDefaultForm
 		toForm={() => vape}
 		translation={'lab.vape'}

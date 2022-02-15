@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {IPatchDefaultFormProps, PatchDefaultForm, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Divider, message, Slider} from "antd";
 import {useTranslation} from "react-i18next";
@@ -22,6 +22,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 	const {t} = useTranslation();
 	const vapeQueryInvalidate = useVapeQueryInvalidate();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	const plotQueryInvalidate = usePlotQueryInvalidate();
 	return <PatchDefaultForm
 		translation={'lab.vape'}
 		toForm={() => ({
@@ -35,6 +36,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 			message.success(t("lab.vape.update.success", {data: response.response}));
 			vapeQueryInvalidate();
 			vapesQueryInvalidate();
+			plotQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}
