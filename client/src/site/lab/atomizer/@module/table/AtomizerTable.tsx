@@ -8,6 +8,7 @@ import {AtomizerQuickMenu} from "@/puff-smith/site/lab/atomizer/@module/componen
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {Tags} from "@/puff-smith/component/Tags";
+import {RangeInline} from "@/puff-smith";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
 	onPurchase?: IFormOnSuccess<any, UserAtomizerDto>;
@@ -41,6 +42,12 @@ export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) =
 				key: "type",
 				title: 'lab.atomizer.table.type',
 				render: (_, atomizer) => <Tags tags={atomizer.type ? [atomizer.type] : []}/>,
+				width: 160,
+			}),
+			column({
+				key: "coilSize",
+				title: 'lab.atomizer.table.coilSize',
+				render: (_, atomizer) => <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
 				width: 160,
 			}),
 			column({

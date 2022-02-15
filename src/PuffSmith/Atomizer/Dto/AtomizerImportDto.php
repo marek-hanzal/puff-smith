@@ -15,4 +15,12 @@ class AtomizerImportDto extends AbstractDto {
 	 * @description vendor name or an ID
 	 */
 	public string $vendor;
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $coilMin;
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $coilMax;
 }

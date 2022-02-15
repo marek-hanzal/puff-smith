@@ -7,6 +7,8 @@ export interface AtomizerDto {
 	drawIds: string[];
 	typeId?: string | null | undefined;
 	type?: import("@/sdk/edde/tag/dto/index").TagDto | null | undefined;
+	coilMin?: number | null | undefined;
+	coilMax?: number | null | undefined;
 }
 
 export module AtomizerDto {
@@ -43,6 +45,8 @@ export interface CreateDto {
 	vendorId: string;
 	drawIds: string[];
 	typeId?: string | null | undefined;
+	coilMin?: number | null | undefined;
+	coilMax?: number | null | undefined;
 }
 
 export module CreateDto {
@@ -65,6 +69,8 @@ export interface PatchDto {
 	vendorId: string;
 	drawIds: string[];
 	typeId?: string | null | undefined;
+	coilMin?: number | null | undefined;
+	coilMax?: number | null | undefined;
 }
 
 export module PatchDto {

@@ -59,6 +59,8 @@ class AtomizerRepository extends AbstractRepository {
 			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
 			'type_id'   => $createDto->typeId,
+			'coilMin'   => $createDto->coilMin,
+			'coilMax'   => $createDto->coilMax,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $createDto->drawIds);
@@ -72,6 +74,8 @@ class AtomizerRepository extends AbstractRepository {
 			'name'      => $patchDto->name,
 			'vendor_id' => $patchDto->vendorId,
 			'type_id'   => $patchDto->typeId,
+			'coilMin'   => $patchDto->coilMin,
+			'coilMax'   => $patchDto->coilMax,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $patchDto->drawIds);

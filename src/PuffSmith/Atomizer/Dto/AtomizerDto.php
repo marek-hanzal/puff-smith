@@ -32,4 +32,12 @@ class AtomizerDto extends AbstractDto {
 	 * @var TagDto|null|void
 	 */
 	public ?TagDto $type;
+	/**
+	 * @var float|null|void
+	 */
+	public ?float $coilMin;
+	/**
+	 * @var float|null|void
+	 */
+	public ?float $coilMax;
 }

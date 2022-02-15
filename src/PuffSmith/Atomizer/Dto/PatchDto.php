@@ -26,4 +26,12 @@ class PatchDto extends AbstractDto {
 	 * @var string|null|void
 	 */
 	public ?string $typeId;
+	/**
+	 * @var float|null|void
+	 */
+	public ?float $coilMin;
+	/**
+	 * @var float|null|void
+	 */
+	public ?float $coilMax;
 }

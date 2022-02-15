@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {Divider, message} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {AtomizerIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
@@ -45,6 +45,18 @@ export const CreateAtomizerForm: FC<ICreateAtomizerFormProps> = ({onSuccess, ...
 			field={'typeId'}
 		>
 			<AtomizerTypeSelect/>
+		</FormItem>
+		<FormItem
+			field={'coilMin'}
+			hasTooltip
+		>
+			<InputNumber style={{width: '100%'}} min={0.1} max={0.6}/>
+		</FormItem>
+		<FormItem
+			field={'coilMax'}
+			hasTooltip
+		>
+			<InputNumber style={{width: '100%'}} min={0.2} max={0.6}/>
 		</FormItem>
 		<Divider/>
 		<Centered>

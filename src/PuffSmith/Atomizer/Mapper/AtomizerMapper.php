@@ -37,6 +37,8 @@ class AtomizerMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(AtomizerDto::class, [
 			'id'       => $item->id,
 			'name'     => $item->name,
+			'coilMin'  => $item->coilMin,
+			'coilMax'  => $item->coilMax,
 			'vendorId' => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
 			'vendor'   => $this->vendorMapper->item($vendor),
 			'draws'    => $draws = $this->tagMapper->map($this->atomizerTagRepository->findByGroup($item->id, 'draw')),

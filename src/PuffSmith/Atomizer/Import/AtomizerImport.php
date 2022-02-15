@@ -19,6 +19,8 @@ class AtomizerImport extends AbstractImporter {
 	public function handle($item) {
 		return $this->atomizerRepository->create($this->dtoService->fromArray(CreateDto::class, [
 			'name'     => trim($item->name),
+			'coilMin'  => isset($item->coilMin) ? (float)$item->coilMin : null,
+			'coilMax'  => isset($item->coilMax) ? (float)$item->coilMax : null,
 			'vendorId' => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]));
 	}

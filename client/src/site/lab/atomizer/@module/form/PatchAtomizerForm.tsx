@@ -1,7 +1,7 @@
 import {IPatchDefaultFormProps, PatchDefaultForm, useAtomizerQueryInvalidate, useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {Divider, message} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {AtomizerIcon} from "@/puff-smith";
@@ -56,6 +56,18 @@ export const PatchAtomizerForm: FC<IPatchAtomizerFormProps> = ({atomizer, onSucc
 			field={'typeId'}
 		>
 			<AtomizerTypeSelect/>
+		</FormItem>
+		<FormItem
+			field={'coilMin'}
+			hasTooltip
+		>
+			<InputNumber style={{width: '100%'}} min={0.1} max={0.6}/>
+		</FormItem>
+		<FormItem
+			field={'coilMax'}
+			hasTooltip
+		>
+			<InputNumber style={{width: '100%'}} min={0.2} max={0.6}/>
 		</FormItem>
 		<Divider/>
 		<Centered>

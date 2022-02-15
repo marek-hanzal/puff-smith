@@ -16,6 +16,7 @@ import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {Tags} from "@/puff-smith/component/Tags";
+import {RangeInline} from "@/puff-smith";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
@@ -44,6 +45,8 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 				{{
 					"name": <AtomizerInline atomizer={atomizer}/>,
 					"draw": <Tags tags={atomizer.draws}/>,
+					"type": <Tags tags={atomizer.type ? [atomizer.type] : undefined}/>,
+					"coilSize": <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>
