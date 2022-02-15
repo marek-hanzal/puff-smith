@@ -1,8 +1,6 @@
-import {UserSelect} from "@/puff-smith/site/root/user";
 import {DownloadFile, FileRowQuickMenu, FileToolQuickMenu} from "@/puff-smith/site/shared/file";
 import {FilesSourceTable, IFilesSourceTableProps} from "@/sdk/edde/api/shared/file/endpoint";
 import {toLocalDateTime} from "@leight-core/leight";
-import {Card} from "antd";
 import dayjs from "dayjs";
 import fileSize from "filesize";
 import {FC} from "react";
@@ -73,14 +71,6 @@ export const FileTable: FC<IFileTableProps> = props => {
 				title: "shared.file.column.user",
 				width: 220,
 				render: (_, file) => file?.user?.name,
-				filterDropdown: () => <Card>
-					<UserSelect
-						style={{width: "24em"}}
-						mode={"multiple"}
-						allowClear
-						onChange={userIds => sourceContext.setFilter({userIds})}
-					/>
-				</Card>
 			}),
 			column({
 				key: "created",
