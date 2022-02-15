@@ -22,6 +22,6 @@ class CommentsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<VapeCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->vapeCommentRepository->toResult($query, $this->vapeCommentMapper);
+		return $this->vapeCommentRepository->toResult($query->withFilter(['userId' => $this->currentUserService->requiredId()]), $this->vapeCommentMapper);
 	}
 }

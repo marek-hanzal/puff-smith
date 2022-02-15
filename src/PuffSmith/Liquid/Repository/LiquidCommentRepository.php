@@ -36,10 +36,11 @@ class LiquidCommentRepository extends AbstractRepository {
 		/** @var $filter CommentFilterDto */
 		$filter = $query->filter;
 		isset($filter->liquidId) && $this->where($select, '$.liquid_id', $filter->liquidId);
+		isset($filter->userId) && $this->where($select, 'c.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 
-		return $select;
+		return $select->distinct();
 	}
 
 	public function create(CreateDto $createDto) {

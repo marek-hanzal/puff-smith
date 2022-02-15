@@ -37,6 +37,7 @@ class BuildCommentRepository extends AbstractRepository {
 		$filter = $query->filter;
 		isset($filter->buildId) && $this->where($select, '$.build_id', $filter->buildId);
 		isset($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
+		isset($filter->userId) && $this->where($select, 'c.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

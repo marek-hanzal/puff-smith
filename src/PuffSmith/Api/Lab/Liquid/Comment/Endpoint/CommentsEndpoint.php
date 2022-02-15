@@ -22,6 +22,6 @@ class CommentsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<LiquidCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->liquidCommentRepository->toResult($query, $this->liquidCommentMapper);
+		return $this->liquidCommentRepository->toResult($query->withFilter(['userId' => $this->currentUserService->requiredId()]), $this->liquidCommentMapper);
 	}
 }

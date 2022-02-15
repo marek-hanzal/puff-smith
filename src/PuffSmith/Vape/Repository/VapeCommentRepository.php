@@ -39,6 +39,7 @@ class VapeCommentRepository extends AbstractRepository {
 		isset($filter->vapeId) && $this->where($select, '$.vape_id', $filter->vapeId);
 		!empty($filter->buildIds) && $this->where($select, 'v.build_id', 'in', $filter->buildIds);
 		!empty($filter->atomizerIds) && $this->where($select, 'b.atomizer_id', 'in', $filter->atomizerIds);
+		isset($filter->userId) && $this->where($select, 'c.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

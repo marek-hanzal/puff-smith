@@ -22,6 +22,6 @@ class CommentsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<AtomizerCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->atomizerCommentRepository->toResult($query, $this->atomizerCommentMapper);
+		return $this->atomizerCommentRepository->toResult($query->withFilter(['userId' => $this->currentUserService->requiredId()]), $this->atomizerCommentMapper);
 	}
 }

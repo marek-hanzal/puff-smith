@@ -6,6 +6,7 @@ import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/compon
 import {MixtureCreateButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCreateButton";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/form/MixtureFilter";
 import {MixtureTable} from "@/puff-smith/site/lab/mixture/@module/table/MixtureTable";
+import {MixtureCommentDrawerButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCommentDrawerButton";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -26,6 +27,7 @@ export default withLabLayout(function Index() {
 			{CreateMenuItem('lab.mixture.button.create', '/lab/mixture/create', <CreateIcon/>)}
 		</LabMenuDrawerButton>}
 		extraBrowser={<ButtonBar>
+			<MixtureCommentDrawerButton/>
 			<MixtureCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

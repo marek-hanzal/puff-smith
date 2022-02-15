@@ -22,6 +22,6 @@ class CommentsEndpoint extends AbstractQueryEndpoint {
 	 * @return QueryResult<MixtureCommentDto>
 	 */
 	public function post(Query $query): QueryResult {
-		return $this->mixtureCommentRepository->toResult($query, $this->mixtureCommentMapper);
+		return $this->mixtureCommentRepository->toResult($query->withFilter(['userId' => $this->currentUserService->requiredId()]), $this->mixtureCommentMapper);
 	}
 }

@@ -37,6 +37,7 @@ class MixtureCommentRepository extends AbstractRepository {
 		$filter = $query->filter;
 		isset($filter->mixtureId) && $this->where($select, '$.mixture_id', $filter->mixtureId);
 		isset($filter->liquidId) && $this->where($select, 'm.liquid_id', $filter->liquidId);
+		isset($filter->userId) && $this->where($select, 'c.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
 

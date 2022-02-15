@@ -9,6 +9,10 @@ class CommentFilterDto extends AbstractFilterDto {
 	/**
 	 * @var string|null|void
 	 */
+	public ?string $userId;
+	/**
+	 * @var string|null|void
+	 */
 	public ?string $vapeId;
 	/**
 	 * @var string[]|null|void
