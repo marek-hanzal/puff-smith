@@ -55,6 +55,7 @@ class ModRepository extends AbstractRepository {
 		$mod = $this->insert([
 			'name'      => $createDto->name,
 			'power'     => $createDto->power,
+			'voltage'   => $createDto->voltage,
 			'vendor_id' => $createDto->vendorId,
 		]);
 		$tags = [];
@@ -68,6 +69,7 @@ class ModRepository extends AbstractRepository {
 			'id'        => $patchDto->id,
 			'name'      => $patchDto->name,
 			'power'     => $patchDto->power,
+			'voltage'   => $patchDto->voltage,
 			'vendor_id' => $patchDto->vendorId,
 		]);
 		$tags = [];

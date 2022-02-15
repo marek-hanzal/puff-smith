@@ -48,9 +48,9 @@ export interface VapeDto {
 	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
-	dryhit: number;
-	leaks: number;
-	airflow: number;
+	dryhit: number | null;
+	leaks: number | null;
+	airflow: number | null;
 	juice: number | null;
 	power: number | null;
 	tc: number | null;
@@ -88,9 +88,9 @@ export interface PatchDto {
 	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
-	dryhit: number;
-	leaks: number;
-	airflow: number;
+	dryhit: number | null;
+	leaks: number | null;
+	airflow: number | null;
 	juice: number | null;
 	power: number | null;
 	tc: number | null;
@@ -127,6 +127,8 @@ export interface VapeFilterDto {
 	rate?: string | null | undefined;
 	drawIds?: string[] | null | undefined;
 	plot?: any | null | undefined;
+	ratingLte?: number | null | undefined;
+	tasteLte?: number | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
@@ -149,9 +151,9 @@ export interface RateDto {
 	clouds: number | null;
 	mtl: number | null;
 	dl: number | null;
-	dryhit: number;
-	leaks: number;
-	airflow: number;
+	dryhit: number | null;
+	leaks: number | null;
+	airflow: number | null;
 	juice: number | null;
 	power: number | null;
 	tc: number | null;

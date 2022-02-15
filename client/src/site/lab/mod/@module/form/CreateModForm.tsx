@@ -3,9 +3,10 @@ import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {ModIcon} from "@/puff-smith";
+import {ModIcon, VoltageInput} from "@/puff-smith";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {CellTypeSelect} from "@/puff-smith/component/input/CellTypeSelect";
 
 export interface ICreateModFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -24,6 +25,9 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 		toError={({error}) => ({
 			"Duplicate entry [z_mod_name_unique] of [z_mod].": {id: ["name"], error},
 		})}
+		toForm={() => ({
+			voltage: 3.7,
+		})}
 		{...props}
 	>
 		<FormItem
@@ -38,7 +42,19 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 			<VendorSelect/>
 		</FormItem>
 		<FormItem
+			field={'cellTypeIds'}
+		>
+			<CellTypeSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'voltage'}
+			hasTooltip
+		>
+			<VoltageInput/>
+		</FormItem>
+		<FormItem
 			field={'power'}
+			hasTooltip
 		>
 			<InputNumber
 				style={{width: '100%'}}

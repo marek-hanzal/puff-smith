@@ -19,6 +19,10 @@ class PatchDto extends AbstractDto {
 	 */
 	public ?int $power;
 	/**
+	 * @var float|null
+	 */
+	public ?float $voltage;
+	/**
 	 * @var string
 	 */
 	public string $vendorId;

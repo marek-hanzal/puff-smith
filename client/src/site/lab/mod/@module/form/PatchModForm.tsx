@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/leight";
-import {ModIcon} from "@/puff-smith";
+import {ModIcon, VoltageInput} from "@/puff-smith";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
@@ -51,6 +51,12 @@ export const PatchModForm: FC<IPatchModFormProps> = ({onSuccess, mod, ...props})
 			field={'cellTypeIds'}
 		>
 			<CellTypeSelect mode={'multiple'} allowClear/>
+		</FormItem>
+		<FormItem
+			field={'voltage'}
+			hasTooltip
+		>
+			<VoltageInput/>
 		</FormItem>
 		<FormItem
 			field={'power'}

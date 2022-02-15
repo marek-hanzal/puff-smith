@@ -2,6 +2,7 @@ export interface ModDto {
 	id: string;
 	name: string;
 	power: number | null;
+	voltage: number | null;
 	vendorId: string;
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 	cellTypes: import("@/sdk/edde/tag/dto/index").TagDto[];
@@ -16,6 +17,7 @@ export module ModDto {
 export interface CreateDto {
 	name: string;
 	power: number | null;
+	voltage: number | null;
 	vendorId: string;
 	cellTypeIds: string[];
 }
@@ -60,6 +62,7 @@ export interface PatchDto {
 	id: string;
 	name: string;
 	power: number | null;
+	voltage: number | null;
 	vendorId: string;
 	cellTypeIds: string[];
 }

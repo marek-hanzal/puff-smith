@@ -20,6 +20,7 @@ class ModImport extends AbstractImporter {
 		return $this->modRepository->create($this->dtoService->fromArray(CreateDto::class, [
 			'name'     => $item->name,
 			'power'    => isset($item->power) ? (int)$item->power : null,
+			'voltage'  => isset($item->voltage) ? (float)$item->voltage : null,
 			'vendorId' => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]));
 	}

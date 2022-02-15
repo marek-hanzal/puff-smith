@@ -16,6 +16,10 @@ class ModImportDto extends AbstractDto {
 	 */
 	public ?string $power;
 	/**
+	 * @var string|null
+	 */
+	public ?string $voltage;
+	/**
 	 * @var string
 	 */
 	public string $vendor;

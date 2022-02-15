@@ -7,6 +7,7 @@ import {ModLinkButton} from "@/puff-smith/site/lab/mod/@module/component/button/
 import {ModQuickMenu} from "@/puff-smith/site/lab/mod/@module/component/ModQuickMenu";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
+import {Volt, Watt} from "@/puff-smith";
 
 export interface IModTableProps extends Partial<IModsSourceTableProps> {
 }
@@ -42,9 +43,16 @@ export const ModTable: FC<IModTableProps> = props => {
 				width: 240,
 			}),
 			column({
+				key: "voltage",
+				title: 'lab.mod.table.voltage',
+				render: (_, mod) => <Volt volt={mod.voltage}/>,
+				sorter: true,
+				width: 180,
+			}),
+			column({
 				key: "power",
 				title: 'lab.mod.table.power',
-				render: (_, mod) => mod.power + 'W',
+				render: (_, mod) => <Watt watt={mod.power}/>,
 				sorter: true,
 				width: 140,
 			}),

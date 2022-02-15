@@ -22,6 +22,7 @@ class ModMapper extends AbstractMapper {
 			'id'          => $item->id,
 			'name'        => $item->name,
 			'power'       => $item->power,
+			'voltage'     => $item->voltage,
 			'vendorId'    => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
 			'vendor'      => $this->vendorMapper->item($vendor),
 			'cellTypes'   => $cellTypes = $this->tagMapper->map($this->modTagRepository->findByGroup($item->id, 'cell-type')),
