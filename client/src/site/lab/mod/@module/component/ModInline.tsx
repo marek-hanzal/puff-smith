@@ -10,7 +10,7 @@ export interface IModInlineProps {
 export const ModInline: FC<IModInlineProps> = ({mod}) => {
 	const isMobile = useIsMobile();
 	return mod ? <Space direction={isMobile ? 'vertical' : 'horizontal'}>
-		<span>{mod.name}</span>
+		<Typography.Text>{mod.name}</Typography.Text>
 		<Typography.Text type={'secondary'}>{mod.vendor.name}</Typography.Text>
 	</Space> : <>-</>
 }
