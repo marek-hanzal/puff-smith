@@ -1,7 +1,7 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Space, Tabs} from "antd";
+import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {FileImageOutlined} from "@ant-design/icons";
@@ -25,6 +25,7 @@ import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/Dri
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
+import {useOptionalDrawerContext} from "@leight-core/leight/dist";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -37,6 +38,7 @@ export interface IBuildPreviewProps extends Partial<IPreviewProps> {
 export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, hidden = [], ...props}) => {
 	const {t} = useTranslation();
 	const updateMutation = useUpdateMutation();
+	const isDrawer = !!useOptionalDrawerContext();
 	return <Tabs destroyInactiveTabPane size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.build.preview.tab')}>
 			<PreviewTemplate
@@ -56,20 +58,36 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				</>}
 				span={24}
 			/>
-			<Preview translation={'lab.build.preview'} {...props}>
-				{{
-					"mod": <ModInline mod={build.mod}/>,
-					"coil": <CoilInline inline coil={build.coil}/>,
-					"cotton": <CottonInline cotton={build.cotton}/>,
-					"ohm": <Ohm ohm={build?.ohm}/>,
-					"draw": <Tags tags={build.draws}/>,
-					"age": <BuildAge build={build}/>,
-					"coils": <CoilCountInput value={build.coils} disabled/>,
-					"driptip": <DriptipInline driptip={build.driptip}/>,
-					"created": toLocalDateTime(build.created),
-					"active": <PreviewBool bool={build.active}/>,
-				}}
-			</Preview>
+			<Row gutter={16}>
+				<Col span={isDrawer ? 24 : 8}>
+					<Preview translation={'lab.build.preview'} {...props}>
+						{{
+							"mod": <ModInline mod={build.mod}/>,
+							"coil": <CoilInline inline coil={build.coil}/>,
+							"cotton": <CottonInline cotton={build.cotton}/>,
+						}}
+					</Preview>
+				</Col>
+				<Col span={isDrawer ? 24 : 8}>
+					<Preview translation={'lab.build.preview'} {...props}>
+						{{
+							"ohm": <Ohm ohm={build?.ohm}/>,
+							"draw": <Tags tags={build.draws}/>,
+							"age": <BuildAge build={build}/>,
+						}}
+					</Preview>
+				</Col>
+				<Col span={isDrawer ? 24 : 8}>
+					<Preview translation={'lab.build.preview'} {...props}>
+						{{
+							"coils": <CoilCountInput value={build.coils} disabled/>,
+							"driptip": <DriptipInline driptip={build.driptip}/>,
+							"created": toLocalDateTime(build.created),
+							"active": <PreviewBool bool={build.active}/>,
+						}}
+					</Preview>
+				</Col>
+			</Row>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.build.comments.tab')}>
 			<Tabs destroyInactiveTabPane size={'small'}>
