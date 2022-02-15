@@ -25,7 +25,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		toForm={() => ({
 			pg: 30,
 			vg: 70,
-			nicotine: 6,
+			nicotine: 0,
 			volume: 60,
 			steep: 14,
 			mixed: moment(),
@@ -40,7 +40,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		})}
 		{...props}
 	>
-		<Card title={t('lab.mixture.common.label')}>
+		<Card title={'lab.mixture.common.label'} bordered={false}>
 			<FormItem
 				field={'code'}
 				hasTooltip
@@ -58,8 +58,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 				<DatePicker showTime/>
 			</FormItem>
 		</Card>
-		<Divider/>
-		<Card title={t('lab.mixture.mixture.label')}>
+		<Card title={'lab.mixture.mixture.label'} bordered={false}>
 			<FormItem
 				field={'liquidId'}
 				required
@@ -86,8 +85,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 				<DatePicker picker={'month'}/>
 			</FormItem>
 		</Card>
-		<Divider/>
-		<Card title={t('lab.mixture.content.label')}>
+		<Card title={'lab.mixture.content.label'} bordered={false}>
 			<FormItem
 				field={'pg'}
 				rules={[
@@ -130,7 +128,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 				<VolumeSlider/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Centered>
 			<Submit icon={<MixtureIcon/>} label={'create.submit'}/>
 		</Centered>

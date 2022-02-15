@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Card, Col, Divider, List, Row, Typography} from "antd";
-import {ButtonLink, Template} from "@leight-core/leight";
+import {Col, Divider, List, Row, Typography} from "antd";
+import {ButtonLink, Card, Template} from "@leight-core/leight";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {VapesSource, VapesSourceConsumer} from "@/sdk/puff-smith/api/lab/vape/endpoint";
@@ -17,14 +17,15 @@ export interface IQuickPuffProps {
 
 export const QuickPuff: FC<IQuickPuffProps> = () => {
 	const {t} = useTranslation();
-	return <Row gutter={32}>
+	return <Row gutter={0}>
 		<Col span={8}>
 			<Card
-				title={t('lab.quick-puff.builds.title')}
+				title={'lab.quick-puff.builds.title'}
 				extra={<>
 					<ButtonLink type={'link'} href={'/lab/build'} icon={<BuildIcon/>}/>
 					<BuildCreateButton/>
 				</>}
+				bordered={false}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.builds.subtitle')}</Typography.Title>
 				<Divider/>
@@ -48,11 +49,12 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 		</Col>
 		<Col span={8}>
 			<Card
-				title={t('lab.quick-puff.vapes.title')}
+				title={'lab.quick-puff.vapes.title'}
 				extra={<>
 					<ButtonLink type={'link'} href={'/lab/vape'} icon={<VapeIcon/>}/>
 					<VapeCreateButton/>
 				</>}
+				bordered={false}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.vapes.subtitle')}</Typography.Title>
 				<Divider/>
@@ -70,10 +72,11 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 		</Col>
 		<Col span={8}>
 			<Card
-				title={t('lab.quick-puff.plot.title')}
+				title={'lab.quick-puff.plot.title'}
 				extra={<>
 					<VapePlotButton/>
 				</>}
+				bordered={false}
 			>
 				<VapePlot selected={['median']}/>
 			</Card>

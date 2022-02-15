@@ -11,8 +11,8 @@ export const TcSlider: FC<ITcSliderProps> = props => {
 			0: 0,
 			80: 80,
 			120: 120,
+			160: 160,
 			200: 200,
-			240: 240,
 			260: 260,
 		}}
 		min={0}

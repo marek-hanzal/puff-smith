@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
-import {Divider, message} from "antd";
+import {message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
@@ -86,8 +86,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Divider/>
-		<Card title={t('lab.vape.rating.title')}>
+		<Card title={'lab.vape.rating.title'} bordered={false}>
 			<FormItem
 				field={'rating'}
 				hasTooltip
@@ -103,7 +102,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Card title={'lab.vape.settings.title'} bordered={false}>
 			<FormItem
 				field={'power'}
@@ -132,7 +130,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<JuiceFlowInput/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Card title={'lab.vape.vape.title'} bordered={false}>
 			<FormItem
 				field={'mtl'}
@@ -153,7 +150,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Card title={'lab.vape.rating-advanced.title'} bordered={false}>
 			<FormItem
 				field={'throathit'}
@@ -192,7 +188,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Centered>
 			<Submit icon={<VapeIcon/>} label={'update.submit'}/>
 		</Centered>

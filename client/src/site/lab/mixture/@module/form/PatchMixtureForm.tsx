@@ -42,7 +42,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess
 		}}
 		{...props}
 	>
-		<Card title={t('lab.mixture.common.label')}>
+		<Card title={'lab.mixture.common.label'} bordered={false}>
 			<FormItem
 				field={'code'}
 				hasTooltip
@@ -63,8 +63,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess
 				field={'active'}
 			/>
 		</Card>
-		<Divider/>
-		<Card title={t('lab.mixture.mixture.label')}>
+		<Card title={'lab.mixture.mixture.label'} bordered={false}>
 			<FormItem
 				field={'liquidId'}
 				required
@@ -91,8 +90,7 @@ export const PatchMixtureForm: FC<IPatchMixtureFormProps> = ({mixture, onSuccess
 				<DatePicker picker={'month'} format={'MMMM YYYY'}/>
 			</FormItem>
 		</Card>
-		<Divider/>
-		<Card title={t('lab.mixture.content.label')}>
+		<Card title={'lab.mixture.content.label'} bordered={false}>
 			<FormItem
 				field={'pg'}
 				rules={[
