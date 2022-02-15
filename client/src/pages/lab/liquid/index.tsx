@@ -7,6 +7,7 @@ import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/compon
 import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCreateButton";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/form/LiquidFilter";
 import {LiquidTable} from "@/puff-smith/site/lab/liquid/@module/table/LiquidTable";
+import {LiquidCommentDrawerButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCommentDrawerButton";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -29,6 +30,7 @@ export default withLabLayout(function Index() {
 			</Menu.Item>
 		</LabMenuDrawerButton>}
 		extraBrowser={<ButtonBar>
+			<LiquidCommentDrawerButton/>
 			<LiquidCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

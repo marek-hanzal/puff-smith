@@ -19,6 +19,6 @@ class PlotEndpoint extends AbstractPlotEndpoint {
 	 * @return PlotDto
 	 */
 	public function post(Query $query): PlotDto {
-		return $this->plotService->plot($query);
+		return $this->plotService->plot($query->withFilter(['userId' => $this->currentUserService->requiredId()]));
 	}
 }
