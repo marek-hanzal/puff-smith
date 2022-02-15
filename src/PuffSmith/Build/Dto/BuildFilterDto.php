@@ -26,6 +26,11 @@ class BuildFilterDto extends AbstractFilterDto {
 	public ?array $coilIds;
 	/**
 	 * @var string[]|null|void
+	 * @description Filter builds by a mod
+	 */
+	public ?array $modIds;
+	/**
+	 * @var string[]|null|void
 	 * @description Filter build by a cotton
 	 */
 	public ?array $cottonIds;

@@ -19,6 +19,8 @@ import {useParams} from "@leight-core/leight/dist";
 import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
+import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
+import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -66,6 +68,13 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				help={<AtomizerTooltip/>}
 			>
 				<AtomizerSelect allowClear/>
+			</FormItem>
+			<FormItem
+				field={'modId'}
+				hasTooltip
+				help={<ModTooltip/>}
+			>
+				<ModSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'driptipId'}

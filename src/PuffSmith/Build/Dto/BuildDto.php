@@ -9,6 +9,7 @@ use PuffSmith\Atomizer\Dto\AtomizerDto;
 use PuffSmith\Coil\Dto\CoilDto;
 use PuffSmith\Cotton\Dto\CottonDto;
 use PuffSmith\Driptip\Dto\DriptipDto;
+use PuffSmith\Mod\Dto\ModDto;
 
 class BuildDto extends AbstractDto {
 	/** @var string */
@@ -26,6 +27,10 @@ class BuildDto extends AbstractDto {
 	public string $atomizerId;
 	/** @var AtomizerDto */
 	public AtomizerDto $atomizer;
+	/** @var string|null|void */
+	public ?string $modId;
+	/** @var ModDto|null|void */
+	public ?ModDto $mod;
 	/** @var string|null */
 	public ?string $driptipId;
 	/** @var DriptipDto|null */

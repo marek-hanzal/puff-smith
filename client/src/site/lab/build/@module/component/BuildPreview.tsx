@@ -21,9 +21,10 @@ import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
-import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/DriptipInline";
 import {Tags} from "@/puff-smith/component/Tags";
+import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
+import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -57,6 +58,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 			/>
 			<Preview translation={'lab.build.preview'} {...props}>
 				{{
+					"mod": <ModInline mod={build.mod}/>,
 					"coil": <CoilInline inline coil={build.coil}/>,
 					"cotton": <CottonInline cotton={build.cotton}/>,
 					"ohm": <Ohm ohm={build?.ohm}/>,

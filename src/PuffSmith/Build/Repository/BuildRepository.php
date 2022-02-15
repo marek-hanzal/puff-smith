@@ -36,12 +36,14 @@ class BuildRepository extends AbstractRepository {
 			'atomizer' => 'a.name',
 			'coil'     => 'w.name',
 			'cotton'   => 'co.name',
+			'mod'      => 'm.name',
 		];
 	}
 
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_atomizer', 'a', '$.atomizer_id');
+		$this->join($select, 'z_mod', 'm', '$.mod_id');
 		$this->join($select, 'z_coil', 'c', '$.coil_id');
 		$this->join($select, 'z_cotton', 'co', '$.cotton_id');
 		$this->join($select, 'z_wire', 'w', 'c.wire_id');
@@ -99,6 +101,7 @@ class BuildRepository extends AbstractRepository {
 		}
 		$build = $this->insert([
 			'atomizer_id' => $createDto->atomizerId,
+			'mod_id'      => $createDto->modId,
 			'coil_id'     => $coil->id,
 			'cotton_id'   => $createDto->cottonId,
 			'driptip_id'  => $createDto->driptipId ?: $this->userAtomizerRepository->findByUser($createDto->atomizerId)->driptip_id ?? null,
@@ -128,6 +131,7 @@ class BuildRepository extends AbstractRepository {
 			'id'          => $patchDto->id,
 			'created'     => $patchDto->created ? new DateTime($patchDto->created) : null,
 			'atomizer_id' => $patchDto->atomizerId,
+			'mod_id'      => $patchDto->modId,
 			'driptip_id'  => $patchDto->driptipId,
 			'coil_id'     => $patchDto->coilId,
 			'cotton_id'   => $patchDto->cottonId,

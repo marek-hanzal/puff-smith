@@ -26,6 +26,7 @@ export const BuildVapeButton: FC<IBuildVapeButtonProps> = ({build, onSuccess, ..
 		<CreateVapeForm
 			vape={{
 				buildId: build.id,
+				modId: build.modId,
 				driptipId: build.driptipId,
 			}}
 			onSuccess={onSuccess}

@@ -1,15 +1,3 @@
-export interface CreateDto {
-	name: string;
-	power: number | null;
-	vendorId: string;
-	cellTypeIds: string[];
-}
-
-export module CreateDto {
-
-}
-
-
 export interface ModDto {
 	id: string;
 	name: string;
@@ -21,6 +9,18 @@ export interface ModDto {
 }
 
 export module ModDto {
+
+}
+
+
+export interface CreateDto {
+	name: string;
+	power: number | null;
+	vendorId: string;
+	cellTypeIds: string[];
+}
+
+export module CreateDto {
 
 }
 

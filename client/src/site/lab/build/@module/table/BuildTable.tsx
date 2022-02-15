@@ -11,6 +11,7 @@ import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
+import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -23,7 +24,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 1850}}
+		scroll={{x: 2200}}
 		{...props}
 	>
 		{({column}) => [
@@ -44,6 +45,13 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				key: "atomizer",
 				title: "lab.build.table.atomizer",
 				render: (_, build) => <AtomizerPreviewButton title={build.atomizer.name} atomizer={build.atomizer}/>,
+				width: 360,
+				sorter: true,
+			}),
+			column({
+				key: "mod",
+				title: "lab.build.table.mod",
+				render: (_, build) => build.mod ? <ModPreviewButton title={build.mod.name} mod={build.mod}/> : '-',
 				width: 360,
 				sorter: true,
 			}),

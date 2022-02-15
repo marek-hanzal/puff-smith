@@ -17,6 +17,8 @@ import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSele
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
+import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
+import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -54,6 +56,13 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 				help={<AtomizerTooltip/>}
 			>
 				<AtomizerSelect/>
+			</FormItem>
+			<FormItem
+				field={'modId'}
+				hasTooltip
+				help={<ModTooltip/>}
+			>
+				<ModSelect allowClear/>
 			</FormItem>
 			<FormItem
 				field={'driptipId'}
