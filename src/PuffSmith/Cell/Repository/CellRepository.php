@@ -21,12 +21,14 @@ class CellRepository extends AbstractRepository {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 		$this->orderByMap = [
 			'vendor' => 'v.name',
+			'size'   => 'ty.code',
 		];
 	}
 
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
+		$this->join($select, 'z_tag', 'ty', '$.type_id');
 		return $select;
 	}
 
@@ -45,6 +47,7 @@ class CellRepository extends AbstractRepository {
 			'$.name',
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
+		!empty($filter->typeIds) && $this->where($select, '$.type_id', 'in', $filter->typeIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -54,7 +57,7 @@ class CellRepository extends AbstractRepository {
 	public function create(CreateDto $createDto) {
 		return $this->insert([
 			'name'      => $createDto->name,
-			'size'      => $createDto->size,
+			'type_id'   => $createDto->typeId,
 			'drain'     => $createDto->drain,
 			'voltage'   => $createDto->voltage,
 			'ohm'       => max(0.2, $this->ohmService->toOhm($createDto->voltage, $createDto->drain * 0.75)),
@@ -66,7 +69,7 @@ class CellRepository extends AbstractRepository {
 		return $this->change([
 			'id'        => $patchDto->id,
 			'name'      => $patchDto->name,
-			'size'      => $patchDto->size,
+			'type_id'   => $patchDto->typeId,
 			'drain'     => $patchDto->drain,
 			'voltage'   => $patchDto->voltage,
 			'ohm'       => max(0.2, $this->ohmService->toOhm($patchDto->voltage, $patchDto->drain * 0.75)),

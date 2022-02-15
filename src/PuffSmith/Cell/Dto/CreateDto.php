@@ -8,8 +8,8 @@ use Edde\Dto\AbstractDto;
 class CreateDto extends AbstractDto {
 	/** @var string */
 	public string $name;
-	/** @var int */
-	public int $size;
+	/** @var string */
+	public string $typeId;
 	/** @var int */
 	public int $drain;
 	/** @var float */

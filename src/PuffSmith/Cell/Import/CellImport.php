@@ -5,6 +5,7 @@ namespace PuffSmith\Cell\Import;
 
 use Edde\Import\AbstractImporter;
 use Edde\Repository\Exception\DuplicateEntryException;
+use Edde\Tag\Repository\TagRepositoryTrait;
 use PuffSmith\Cell\Dto\CellImportDto;
 use PuffSmith\Cell\Dto\CreateDto;
 use PuffSmith\Cell\Dto\PatchDto;
@@ -15,6 +16,7 @@ use function trim;
 class CellImport extends AbstractImporter {
 	use CellRepositoryTrait;
 	use VendorRepositoryTrait;
+	use TagRepositoryTrait;
 
 	/**
 	 * @param CellImportDto $item
@@ -23,7 +25,7 @@ class CellImport extends AbstractImporter {
 		$create = $this->dtoService->fromArray(CreateDto::class, [
 			'name'     => trim($item->name),
 			'drain'    => (int)$item->drain,
-			'size'     => (int)$item->size,
+			'typeId'   => $this->tagRepository->requireByCodeGroup($item->type, 'cell-type')->id,
 			'voltage'  => (float)$item->voltage,
 			'vendorId' => $this->vendorRepository->findByVarious($item->vendor)->id,
 		]);
@@ -35,7 +37,7 @@ class CellImport extends AbstractImporter {
 				'id'       => $cell->id,
 				'name'     => trim($item->name),
 				'drain'    => (int)$item->drain,
-				'size'     => (int)$item->size,
+				'typeId'   => $this->tagRepository->requireByCodeGroup($item->type, 'cell-type')->id,
 				'voltage'  => (float)$item->voltage,
 				'vendorId' => $this->vendorRepository->findByVarious($item->vendor)->id,
 			]));

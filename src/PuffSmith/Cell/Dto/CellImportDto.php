@@ -17,7 +17,7 @@ class CellImportDto extends AbstractDto {
 	/**
 	 * @var string
 	 */
-	public string $size;
+	public string $type;
 	/**
 	 * @var string
 	 */

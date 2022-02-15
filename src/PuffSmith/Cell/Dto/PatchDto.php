@@ -10,8 +10,8 @@ class PatchDto extends AbstractDto {
 	public string $id;
 	/** @var string */
 	public string $name;
-	/** @var int */
-	public int $size;
+	/** @var string */
+	public string $typeId;
 	/** @var int */
 	public int $drain;
 	/** @var float */

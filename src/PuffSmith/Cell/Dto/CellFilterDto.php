@@ -11,6 +11,10 @@ class CellFilterDto extends AbstractFilterDto {
 	 */
 	public ?string $name;
 	/**
+	 * @var string[]|null
+	 */
+	public ?array $typeIds;
+	/**
 	 * @var string[]|null|void
 	 */
 	public ?array $vendorIds;

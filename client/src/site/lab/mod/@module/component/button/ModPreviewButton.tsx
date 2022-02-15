@@ -19,7 +19,7 @@ export const ModPreviewButton: FC<IModPreviewButtonProps> = ({mod, ...props}) =>
 			title={'lab.mod.preview'}
 			{...props}
 		>
-			<ModPreview mod={mod}/>
+			<ModPreview forceList mod={mod}/>
 		</DrawerButton>
 		<ModLinkButton
 			size={'small'}

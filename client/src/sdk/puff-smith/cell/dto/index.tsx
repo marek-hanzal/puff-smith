@@ -1,7 +1,8 @@
 export interface CellDto {
 	id: string;
 	name: string;
-	size: number;
+	typeId: string;
+	type: import("@/sdk/edde/tag/dto/index").TagDto;
 	drain: number;
 	voltage: number;
 	ohm: number;
@@ -25,6 +26,7 @@ export module CellOrderByDto {
 
 export interface CellFilterDto {
 	name?: string | null | undefined;
+	typeIds: string[] | null;
 	vendorIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
@@ -37,7 +39,7 @@ export module CellFilterDto {
 
 export interface CreateDto {
 	name: string;
-	size: number;
+	typeId: string;
 	drain: number;
 	voltage: number;
 	vendorId: string;
@@ -60,7 +62,7 @@ export module DeleteDto {
 export interface PatchDto {
 	id: string;
 	name: string;
-	size: number;
+	typeId: string;
 	drain: number;
 	voltage: number;
 	vendorId: string;

@@ -8,6 +8,8 @@ use Edde\Mapper\AbstractMapper;
 use Edde\Mapper\Exception\ItemException;
 use Edde\Mapper\Exception\SkipException;
 use Edde\Repository\Exception\RepositoryException;
+use Edde\Tag\Mapper\TagMapperTrait;
+use Edde\Tag\Repository\TagRepositoryTrait;
 use PuffSmith\Cell\Dto\CellDto;
 use PuffSmith\Vendor\Mapper\VendorMapperTrait;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
@@ -15,6 +17,8 @@ use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 class CellMapper extends AbstractMapper {
 	use VendorRepositoryTrait;
 	use VendorMapperTrait;
+	use TagRepositoryTrait;
+	use TagMapperTrait;
 
 	/**
 	 * @param $item
@@ -30,7 +34,8 @@ class CellMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(CellDto::class, [
 			'id'       => $item->id,
 			'name'     => $item->name,
-			'size'     => $item->size,
+			'typeId'   => $item->type_id,
+			'type'     => $this->tagMapper->item($this->tagRepository->find($item->type_id)),
 			'drain'    => $item->drain,
 			'voltage'  => $item->voltage,
 			'ohm'      => $item->ohm,

@@ -7,6 +7,7 @@ import {CellListItem} from "@/puff-smith/site/lab/cell/@module/table/CellListIte
 import {CellLinkButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellLinkButton";
 import {CellQuickMenu} from "@/puff-smith/site/lab/cell/@module/component/CellQuickMenu";
 import {CellPreviewButton} from "@/puff-smith/site/lab/cell/@module/component/button/CellPreviewButton";
+import {Tags} from "@/puff-smith/component/Tags";
 
 export interface ICellTableProps extends Partial<ICellsSourceTableProps> {
 }
@@ -39,7 +40,7 @@ export const CellTable: FC<ICellTableProps> = props => {
 			column({
 				key: "size",
 				title: 'lab.cell.table.size',
-				render: (_, cell) => cell.size,
+				render: (_, cell) => <Tags tags={[cell.type]}/>,
 				sorter: true,
 				width: 160,
 			}),
