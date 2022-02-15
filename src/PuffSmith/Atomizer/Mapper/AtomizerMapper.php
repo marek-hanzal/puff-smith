@@ -9,6 +9,7 @@ use Edde\Mapper\Exception\ItemException;
 use Edde\Mapper\Exception\SkipException;
 use Edde\Repository\Exception\RepositoryException;
 use Edde\Tag\Mapper\TagMapperTrait;
+use Edde\Tag\Repository\TagRepositoryTrait;
 use PuffSmith\Atomizer\Dto\AtomizerDto;
 use PuffSmith\Atomizer\Repository\AtomizerTagRepositoryTrait;
 use PuffSmith\Vendor\Mapper\VendorMapperTrait;
@@ -19,6 +20,7 @@ class AtomizerMapper extends AbstractMapper {
 	use VendorRepositoryTrait;
 	use VendorMapperTrait;
 	use AtomizerTagRepositoryTrait;
+	use TagRepositoryTrait;
 	use TagMapperTrait;
 
 	/**
@@ -41,6 +43,8 @@ class AtomizerMapper extends AbstractMapper {
 			'drawIds'  => array_map(function ($draw) {
 				return $draw->id;
 			}, $draws),
+			'typeId'   => $item->type_id,
+			'type'     => isset($item->type_id) ? $this->tagMapper->item($this->tagRepository->find($item->type_id)) : null,
 		]);
 	}
 }

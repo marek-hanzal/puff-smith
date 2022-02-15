@@ -37,6 +37,12 @@ export const UserAtomizerTable: FC<IUserAtomizerTableProps> = props => {
 				sorter: true,
 			}),
 			column({
+				key: "type",
+				title: 'lab.atomizer.table.type',
+				render: (_, userAtomizer) => <Tags tags={userAtomizer.atomizer.type ? [userAtomizer.atomizer.type] : []}/>,
+				width: 160,
+			}),
+			column({
 				key: "draw",
 				title: 'lab.atomizer.table.draw',
 				render: (_, userAtomizer) => <Tags tags={userAtomizer.atomizer.draws}/>,

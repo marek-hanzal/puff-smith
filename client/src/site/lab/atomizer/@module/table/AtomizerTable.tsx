@@ -39,6 +39,12 @@ export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) =
 				sorter: true,
 			}),
 			column({
+				key: "type",
+				title: 'lab.atomizer.table.type',
+				render: (_, atomizer) => <Tags tags={atomizer.type ? [atomizer.type] : []}/>,
+				width: 160,
+			}),
+			column({
 				key: "draw",
 				title: 'lab.atomizer.table.draw',
 				render: (_, atomizer) => <Tags tags={atomizer.draws}/>,

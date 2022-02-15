@@ -22,4 +22,8 @@ class PatchDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $drawIds = [];
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $typeId;
 }

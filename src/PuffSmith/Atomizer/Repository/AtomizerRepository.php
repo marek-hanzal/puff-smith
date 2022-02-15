@@ -47,6 +47,7 @@ class AtomizerRepository extends AbstractRepository {
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 		isset($filter->userId) && $this->where($select, 'ua.user_id', $filter->userId);
 		!empty($filter->drawIds) && $this->where($select, 'at.tag_id', 'in', $filter->drawIds);
+		!empty($filter->typeIds) && $this->where($select, '$.type_id', 'in', $filter->typeIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -57,6 +58,7 @@ class AtomizerRepository extends AbstractRepository {
 		$atomizer = $this->insert([
 			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
+			'type_id'   => $createDto->typeId,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $createDto->drawIds);
@@ -69,6 +71,7 @@ class AtomizerRepository extends AbstractRepository {
 			'id'        => $patchDto->id,
 			'name'      => $patchDto->name,
 			'vendor_id' => $patchDto->vendorId,
+			'type_id'   => $patchDto->typeId,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $patchDto->drawIds);

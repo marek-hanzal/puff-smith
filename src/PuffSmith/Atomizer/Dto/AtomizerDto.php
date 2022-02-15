@@ -24,4 +24,12 @@ class AtomizerDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $drawIds = [];
+	/**
+	 * @var string|null|void
+	 */
+	public ?string $typeId;
+	/**
+	 * @var TagDto|null|void
+	 */
+	public ?TagDto $type;
 }

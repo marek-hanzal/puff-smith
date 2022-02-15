@@ -5,6 +5,8 @@ export interface AtomizerDto {
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 	draws: import("@/sdk/edde/tag/dto/index").TagDto[];
 	drawIds: string[];
+	typeId?: string | null | undefined;
+	type?: import("@/sdk/edde/tag/dto/index").TagDto | null | undefined;
 }
 
 export module AtomizerDto {
@@ -39,6 +41,7 @@ export interface CreateDto {
 	name: string;
 	vendorId: string;
 	drawIds: string[];
+	typeId?: string | null | undefined;
 }
 
 export module CreateDto {
@@ -60,6 +63,7 @@ export interface PatchDto {
 	name: string;
 	vendorId: string;
 	drawIds: string[];
+	typeId?: string | null | undefined;
 }
 
 export module PatchDto {
