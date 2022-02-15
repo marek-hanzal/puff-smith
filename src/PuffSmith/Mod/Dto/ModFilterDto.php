@@ -14,4 +14,8 @@ class ModFilterDto extends AbstractFilterDto {
 	 * @var string[]|null
 	 */
 	public ?array $vendorIds;
+	/**
+	 * @var string[]|null
+	 */
+	public ?array $cellTypeIds;
 }

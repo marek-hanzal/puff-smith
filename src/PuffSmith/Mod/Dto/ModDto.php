@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Mod\Dto;
 
 use Edde\Dto\AbstractDto;
+use Edde\Tag\Dto\TagDto;
 use PuffSmith\Vendor\Dto\VendorDto;
 
 class ModDto extends AbstractDto {
@@ -27,4 +28,12 @@ class ModDto extends AbstractDto {
 	 * @var VendorDto
 	 */
 	public VendorDto $vendor;
+	/**
+	 * @var TagDto[]
+	 */
+	public array $cellTypes = [];
+	/**
+	 * @var string[]
+	 */
+	public array $cellTypeIds = [];
 }

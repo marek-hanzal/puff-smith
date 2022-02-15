@@ -9,7 +9,7 @@ use Edde\Repository\AbstractRepository;
 class WireTagRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
-		$this->join($select, 'z_wire', 'a', 'wire_id');
+		$this->join($select, 'z_wire', 'w', 'wire_id');
 		$this->join($select, 'z_tag', 't', 'tag_id');
 		return $select->distinct();
 	}

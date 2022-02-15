@@ -7,6 +7,7 @@ import {ModIcon} from "@/puff-smith";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
+import {CellTypeSelect} from "@/puff-smith/component/input/CellTypeSelect";
 
 export interface IPatchModFormProps extends Partial<IPatchDefaultFormProps> {
 	mod: ModDto;
@@ -45,6 +46,11 @@ export const PatchModForm: FC<IPatchModFormProps> = ({onSuccess, mod, ...props})
 			help={<VendorTooltip/>}
 		>
 			<VendorSelect/>
+		</FormItem>
+		<FormItem
+			field={'cellTypeIds'}
+		>
+			<CellTypeSelect mode={'multiple'} allowClear/>
 		</FormItem>
 		<FormItem
 			field={'power'}

@@ -152,8 +152,8 @@ export interface IAtomizerPageProps extends Omit<IPageProps, "breadcrumbProps" |
 	breadcrumbMobileProps?: IAtomizerPageBreadcrumb;
 	breadcrumbBrowserProps?: IAtomizerPageBreadcrumb;
 	extra?: IAtomizerPageExtra;
-	extraMobile?: IAtomizerPageExtra;
-	extraBrowser?: IAtomizerPageExtra;
+	extraMobile?: IAtomizerPageExtra; 
+	extraBrowser?: IAtomizerPageExtra; 
 }
 
 export const AtomizerPage: FC<IAtomizerPageProps> = ({children, breadcrumbProps, breadcrumbMobileProps, breadcrumbBrowserProps, extraMobile, extraBrowser, extra, ...props}) => {
@@ -245,9 +245,7 @@ export interface IAtomizersSourceSelectProps extends Partial<IQuerySourceSelectP
 
 export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({source, ...props}) => {
 	return <AtomizersSource defaultSize={100} {...source}>
-		<QuerySourceSelect<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto>
-			{...props}
-		/>
+		<QuerySourceSelect<IAtomizersQueryParams, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerOrderByDto, import("@/sdk/puff-smith/atomizer/dto/index").AtomizerFilterDto> {...props}/>
 	</AtomizersSource>;
 };
 

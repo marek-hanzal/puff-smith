@@ -8,6 +8,7 @@ export module CommentOrderByDto {
 
 
 export interface CommentFilterDto {
+	userId?: string | null | undefined;
 	mixtureId?: string | null | undefined;
 	liquidId?: string | null | undefined;
 	id?: string | undefined;

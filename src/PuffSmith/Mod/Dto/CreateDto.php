@@ -18,4 +18,8 @@ class CreateDto extends AbstractDto {
 	 * @var string
 	 */
 	public string $vendorId;
+	/**
+	 * @var string[]
+	 */
+	public array $cellTypeIds = [];
 }

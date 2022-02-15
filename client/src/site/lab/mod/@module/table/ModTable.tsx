@@ -6,6 +6,7 @@ import {ModListItem} from "@/puff-smith/site/lab/mod/@module/table/ModListItem";
 import {ModLinkButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModLinkButton";
 import {ModQuickMenu} from "@/puff-smith/site/lab/mod/@module/component/ModQuickMenu";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
+import {Tags} from "@/puff-smith/component/Tags";
 
 export interface IModTableProps extends Partial<IModsSourceTableProps> {
 }
@@ -33,6 +34,12 @@ export const ModTable: FC<IModTableProps> = props => {
 				title: 'lab.mod.table.name',
 				render: (_, mod) => <ModPreviewButton title={mod.name} mod={mod}/>,
 				sorter: true,
+			}),
+			column({
+				key: "cellTypes",
+				title: 'lab.mod.table.cellTypes',
+				render: (_, mod) => <Tags tags={mod.cellTypes}/>,
+				width: 240,
 			}),
 			column({
 				key: "power",

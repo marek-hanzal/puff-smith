@@ -9,7 +9,7 @@ use Edde\Repository\AbstractRepository;
 class BuildTagRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
-		$this->join($select, 'z_build', 'a', 'build_id');
+		$this->join($select, 'z_build', 'b', 'build_id');
 		$this->join($select, 'z_tag', 't', 'tag_id');
 		return $select->distinct();
 	}

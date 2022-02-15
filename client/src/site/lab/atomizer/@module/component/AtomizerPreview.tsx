@@ -1,7 +1,7 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Space, Tabs, Tag} from "antd";
+import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -15,6 +15,7 @@ import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeCom
 import {VapeFilter} from "@/puff-smith/site/lab/vape/@module/form/VapeFilter";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
+import {Tags} from "@/puff-smith/component/Tags";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
@@ -42,7 +43,7 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 			<Preview translation={'lab.atomizer.preview'} {...props}>
 				{{
 					"name": <AtomizerInline atomizer={atomizer}/>,
-					"draw": atomizer.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+					"draw": <Tags tags={atomizer.draws}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>

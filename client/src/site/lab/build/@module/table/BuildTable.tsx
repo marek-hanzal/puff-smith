@@ -10,7 +10,7 @@ import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/comp
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilPreviewButton";
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
-import {Tag} from "antd";
+import {Tags} from "@/puff-smith/component/Tags";
 
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
 }
@@ -72,7 +72,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 			column({
 				key: "draw",
 				title: "lab.build.table.draw",
-				render: (_, build) => build.draws.map(tag => <Tag key={tag.id}>{t('tag.' + tag.code)}</Tag>),
+				render: (_, build) => <Tags tags={build.draws}/>,
 				width: 300,
 			}),
 			column({

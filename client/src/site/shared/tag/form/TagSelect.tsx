@@ -12,7 +12,7 @@ export const TagSelect: FC<ITagSelectProps> = ({groups, ...props}) => {
 		source={{
 			filter: {groups},
 		}}
-		toOption={tag => ({value: tag.id, label: t('tag.' + tag.code)})}
+		toOption={tag => ({value: tag.id, label: t('tag.' + tag.code, tag.label)})}
 		{...props}
 	/>
 }

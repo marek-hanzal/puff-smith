@@ -2,6 +2,7 @@ export interface CreateDto {
 	name: string;
 	power: number | null;
 	vendorId: string;
+	cellTypeIds: string[];
 }
 
 export module CreateDto {
@@ -15,6 +16,8 @@ export interface ModDto {
 	power: number | null;
 	vendorId: string;
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
+	cellTypes: import("@/sdk/edde/tag/dto/index").TagDto[];
+	cellTypeIds: string[];
 }
 
 export module ModDto {
@@ -43,6 +46,7 @@ export module ModOrderByDto {
 export interface ModFilterDto {
 	name?: string | null | undefined;
 	vendorIds: string[] | null;
+	cellTypeIds: string[] | null;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
@@ -57,6 +61,7 @@ export interface PatchDto {
 	name: string;
 	power: number | null;
 	vendorId: string;
+	cellTypeIds: string[];
 }
 
 export module PatchDto {

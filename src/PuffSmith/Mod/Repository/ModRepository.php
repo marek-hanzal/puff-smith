@@ -10,8 +10,11 @@ use Edde\Repository\IRepository;
 use PuffSmith\Mod\Dto\CreateDto;
 use PuffSmith\Mod\Dto\ModFilterDto;
 use PuffSmith\Mod\Dto\PatchDto;
+use function array_merge;
 
 class ModRepository extends AbstractRepository {
+	use ModTagRepositoryTrait;
+
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_name_unique']);
 		$this->orderByMap = [
@@ -22,7 +25,8 @@ class ModRepository extends AbstractRepository {
 	public function select($fields = null): Select {
 		$select = parent::select($fields);
 		$this->join($select, 'z_vendor', 'v', '$.vendor_id');
-		return $select;
+		$this->join($select, 'z_mod_tag', 'mt', '$.id', 'mod_id');
+		return $select->distinct();
 	}
 
 	public function toQuery(Query $query): Select {
@@ -40,6 +44,7 @@ class ModRepository extends AbstractRepository {
 			'$.name',
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
+		!empty($filter->cellTypeIds) && $this->where($select, 'mt.tag_id', 'in', $filter->cellTypeIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -47,19 +52,27 @@ class ModRepository extends AbstractRepository {
 	}
 
 	public function create(CreateDto $createDto) {
-		return $this->insert([
+		$mod = $this->insert([
 			'name'      => $createDto->name,
 			'power'     => $createDto->power,
 			'vendor_id' => $createDto->vendorId,
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $createDto->cellTypeIds);
+		$this->modTagRepository->syncWith('mod_id', 'tag_id', $mod->id, $tags);
+		return $mod;
 	}
 
 	public function update(PatchDto $patchDto) {
-		return $this->change([
+		$mod = $this->change([
 			'id'        => $patchDto->id,
 			'name'      => $patchDto->name,
 			'power'     => $patchDto->power,
 			'vendor_id' => $patchDto->vendorId,
 		]);
+		$tags = [];
+		$tags = array_merge($tags, $patchDto->cellTypeIds);
+		$this->modTagRepository->syncWith('mod_id', 'tag_id', $mod->id, $tags);
+		return $mod;
 	}
 }

@@ -124,6 +124,7 @@ export interface VapeFilterDto {
 	coilIds?: string[] | null | undefined;
 	userId?: string | null | undefined;
 	rate?: string | null | undefined;
+	drawIds?: string[] | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
