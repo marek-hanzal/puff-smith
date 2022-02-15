@@ -1,8 +1,8 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, useState} from "react";
 import {ButtonBar, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Col, Divider, InputNumber, message, Row} from "antd";
+import {Col, Divider, InputNumber, message, Row, Spin} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
@@ -27,10 +27,15 @@ export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> 
 	buttons?: ReactNode;
 }
 
-export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSuccess, ...props}) => {
+export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSuccess, onValuesChange, ...props}) => {
 	const {t} = useTranslation();
 	const {atomizerId} = useParams();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
+	const [values, setValues] = useState<any>();
+
+	const canCoil = values?.atomizerId && values?.cottonId;
+	const cacAdvanced = canCoil && values?.coil?.wireId;
+
 	return <CreateDefaultForm
 		layout={'vertical'}
 		translation={'lab.build'}
@@ -56,6 +61,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			buildsQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		onValuesChange={(_, values) => {
+			setValues(values);
+			onValuesChange?.(_, values);
+		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_build_name_unique] of [z_build].": {id: ["name"], error},
 		})}
@@ -72,6 +81,13 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 						<AtomizerSelect allowClear/>
 					</FormItem>
 					<FormItem
+						field={'cottonId'}
+						required
+						help={<CottonTooltip/>}
+					>
+						<CottonSelect allowClear/>
+					</FormItem>
+					<FormItem
 						field={'modId'}
 						hasTooltip
 						help={<ModTooltip/>}
@@ -85,72 +101,68 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 					>
 						<DriptipSelect allowClear/>
 					</FormItem>
-					<FormItem
-						field={'cottonId'}
-						required
-						help={<CottonTooltip/>}
-					>
-						<CottonSelect allowClear/>
-					</FormItem>
-					<FormItem
-						field={'created'}
-					>
-						<DatePicker showTime/>
-					</FormItem>
 				</Card>
 			</Col>
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.coil.title')} bordered={false}>
-					<ItemGroup
-						translation={'lab'}
-						prefix={'coil'}
-					>
-						<FormItem
-							field={'wireId'}
-							required
-							help={<WireTooltip/>}
+					<Spin spinning={!canCoil} indicator={<></>}>
+						<ItemGroup
+							translation={'lab'}
+							prefix={'coil'}
 						>
-							<WireSelect allowClear/>
-						</FormItem>
-						<FormItem
-							field={'wraps'}
-							hasTooltip
-							required
-						>
-							<WrapsInput/>
-						</FormItem>
-						<FormItem
-							field={'size'}
-						>
-							<SizeInput/>
-						</FormItem>
-						<SwitchItem
-							field={'spaced'}
-						/>
-					</ItemGroup>
+							<FormItem
+								field={'wireId'}
+								required
+								help={<WireTooltip/>}
+							>
+								<WireSelect allowClear/>
+							</FormItem>
+							<FormItem
+								field={'wraps'}
+								hasTooltip
+							>
+								<WrapsInput/>
+							</FormItem>
+							<FormItem
+								field={'size'}
+							>
+								<SizeInput/>
+							</FormItem>
+							<SwitchItem
+								field={'spaced'}
+							/>
+						</ItemGroup>
+					</Spin>
 				</Card>
 			</Col>
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.advanced.title')} bordered={false}>
-					<FormItem
-						field={'coils'}
-					>
-						<CoilCountInput/>
-					</FormItem>
-					<FormItem
-						field={'ohm'}
-					>
-						<InputNumber style={{width: '100%'}} min={0} max={4}/>
-					</FormItem>
-					<FormItem
-						field={'drawIds'}
-					>
-						<DrawSelect/>
-					</FormItem>
-					<SwitchItem
-						field={'deactivate'}
-						hasTooltip
-					/>
+					<Spin spinning={!cacAdvanced} indicator={<></>}>
+						<FormItem
+							field={'coils'}
+						>
+							<CoilCountInput/>
+						</FormItem>
+						<FormItem
+							field={'ohm'}
+						>
+							<InputNumber style={{width: '100%'}} min={0} max={4}/>
+						</FormItem>
+						<FormItem
+							field={'drawIds'}
+						>
+							<DrawSelect/>
+						</FormItem>
+						<SwitchItem
+							field={'deactivate'}
+							hasTooltip
+						/>
+						<FormItem
+							field={'created'}
+						>
+							<DatePicker showTime/>
+						</FormItem>
+					</Spin>
 				</Card>
 			</Col>
 		</Row>
