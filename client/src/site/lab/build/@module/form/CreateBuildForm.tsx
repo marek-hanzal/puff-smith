@@ -1,26 +1,26 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC, ReactNode} from "react";
-import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/leight";
+import {ButtonBar, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, InputNumber, message} from "antd";
+import {Col, Divider, InputNumber, message, Row} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
-import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
-import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
 import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
-import {useParams} from "@leight-core/leight/dist";
-import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
-import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
+import {ItemGroup, useParams} from "@leight-core/leight/dist";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
+import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
+import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
+import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
+import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -61,93 +61,99 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		})}
 		{...props}
 	>
-		<Card title={t('lab.build.build.title')}>
-			<FormItem
-				field={'atomizerId'}
-				required
-				help={<AtomizerTooltip/>}
-			>
-				<AtomizerSelect allowClear/>
-			</FormItem>
-			<FormItem
-				field={'modId'}
-				hasTooltip
-				help={<ModTooltip/>}
-			>
-				<ModSelect allowClear/>
-			</FormItem>
-			<FormItem
-				field={'driptipId'}
-				hasTooltip
-				help={<DriptipTooltip/>}
-			>
-				<DriptipSelect allowClear/>
-			</FormItem>
-			<FormItem
-				field={'cottonId'}
-				required
-				help={<CottonTooltip/>}
-			>
-				<CottonSelect allowClear/>
-			</FormItem>
-			<FormItem
-				field={'created'}
-			>
-				<DatePicker showTime/>
-			</FormItem>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.build.coil.title')}>
-			<ItemGroup
-				translation={'lab'}
-				prefix={'coil'}
-			>
-				<FormItem
-					field={'wireId'}
-					required
-					help={<WireTooltip/>}
-				>
-					<WireSelect allowClear/>
-				</FormItem>
-				<FormItem
-					field={'wraps'}
-					hasTooltip
-					required
-				>
-					<WrapsInput/>
-				</FormItem>
-				<FormItem
-					field={'size'}
-				>
-					<SizeInput/>
-				</FormItem>
-				<SwitchItem
-					field={'spaced'}
-				/>
-			</ItemGroup>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.build.advanced.title')}>
-			<FormItem
-				field={'coils'}
-			>
-				<CoilCountInput/>
-			</FormItem>
-			<FormItem
-				field={'ohm'}
-			>
-				<InputNumber style={{width: '100%'}} min={0} max={4}/>
-			</FormItem>
-			<FormItem
-				field={'drawIds'}
-			>
-				<DrawSelect/>
-			</FormItem>
-			<SwitchItem
-				field={'deactivate'}
-				hasTooltip
-			/>
-		</Card>
+		<Row gutter={16}>
+			<Col sm={24} md={24} lg={8}>
+				<Card title={t('lab.build.build.title')}>
+					<FormItem
+						field={'atomizerId'}
+						required
+						help={<AtomizerTooltip/>}
+					>
+						<AtomizerSelect allowClear/>
+					</FormItem>
+					<FormItem
+						field={'modId'}
+						hasTooltip
+						help={<ModTooltip/>}
+					>
+						<ModSelect allowClear/>
+					</FormItem>
+					<FormItem
+						field={'driptipId'}
+						hasTooltip
+						help={<DriptipTooltip/>}
+					>
+						<DriptipSelect allowClear/>
+					</FormItem>
+					<FormItem
+						field={'cottonId'}
+						required
+						help={<CottonTooltip/>}
+					>
+						<CottonSelect allowClear/>
+					</FormItem>
+					<FormItem
+						field={'created'}
+					>
+						<DatePicker showTime/>
+					</FormItem>
+				</Card>
+			</Col>
+			<Col sm={24} md={24} lg={8}>
+				<Card title={t('lab.build.coil.title')}>
+					<ItemGroup
+						translation={'lab'}
+						prefix={'coil'}
+					>
+						<FormItem
+							field={'wireId'}
+							required
+							help={<WireTooltip/>}
+						>
+							<WireSelect allowClear/>
+						</FormItem>
+						<FormItem
+							field={'wraps'}
+							hasTooltip
+							required
+						>
+							<WrapsInput/>
+						</FormItem>
+						<FormItem
+							field={'size'}
+						>
+							<SizeInput/>
+						</FormItem>
+						<SwitchItem
+							field={'spaced'}
+						/>
+					</ItemGroup>
+				</Card>
+			</Col>
+			<Col sm={24} md={24} lg={8}>
+				<Card title={t('lab.build.advanced.title')}>
+					<FormItem
+						field={'coils'}
+					>
+						<CoilCountInput/>
+					</FormItem>
+					<FormItem
+						field={'ohm'}
+					>
+						<InputNumber style={{width: '100%'}} min={0} max={4}/>
+					</FormItem>
+					<FormItem
+						field={'drawIds'}
+					>
+						<DrawSelect/>
+					</FormItem>
+					<SwitchItem
+						field={'deactivate'}
+						hasTooltip
+					/>
+				</Card>
+			</Col>
+		</Row>
 		<Divider/>
 		<Centered>
 			<ButtonBar align={'baseline'}>

@@ -27,9 +27,9 @@ class BuildDto extends AbstractDto {
 	public string $atomizerId;
 	/** @var AtomizerDto */
 	public AtomizerDto $atomizer;
-	/** @var string|null|void */
+	/** @var string|null */
 	public ?string $modId;
-	/** @var ModDto|null|void */
+	/** @var ModDto|null */
 	public ?ModDto $mod;
 	/** @var string|null */
 	public ?string $driptipId;

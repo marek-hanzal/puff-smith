@@ -6,8 +6,8 @@ export interface BuildDto {
 	disabledOn?: string | null | undefined;
 	atomizerId: string;
 	atomizer: import("@/sdk/puff-smith/atomizer/dto/index").AtomizerDto;
-	modId?: string | null | undefined;
-	mod?: import("@/sdk/puff-smith/mod/dto/index").ModDto | null | undefined;
+	modId: string | null;
+	mod: import("@/sdk/puff-smith/mod/dto/index").ModDto | null;
 	driptipId: string | null;
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	coilId: string;
