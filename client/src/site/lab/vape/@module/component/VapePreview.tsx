@@ -3,7 +3,6 @@ import {FC} from "react";
 import {ButtonBar, Card, durationOf, Preview, PreviewTemplate} from "@leight-core/leight";
 import {Col, Divider, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
@@ -29,7 +28,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 	return <Tabs size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.vape.common.tab')}>
 			<PreviewTemplate
-				title={<AtomizerInline atomizer={vape.build.atomizer}/>}
+				title={vape.build.atomizer.name}
 				subTitle={vape.mixture.liquid.name}
 				extra={<>
 					<ButtonBar>
