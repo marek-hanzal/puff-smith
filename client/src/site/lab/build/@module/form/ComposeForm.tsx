@@ -16,8 +16,8 @@ import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeCom
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
-import {BuildIcon, ImageGallery, PlotIcon} from "@/puff-smith";
-import {DrawerButton, Template, useIsMobile} from "@leight-core/leight";
+import {BuildIcon, ImageGallery} from "@/puff-smith";
+import {Template} from "@leight-core/leight";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();
@@ -68,7 +68,6 @@ export interface IComposeFormProps extends Partial<ICreateBuildFormProps> {
 }
 
 export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props}) => {
-	const isMobile = useIsMobile();
 	const [buildFilter, setBuildFilter] = useState<VapeFilterDto | undefined>(defaultBuildFilter);
 	const filterContext = useVapesOptionalFilterContext();
 	const {t} = useTranslation();
@@ -78,7 +77,7 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 		filterContext?.setFilter(defaultBuildFilter);
 	}, []);
 
-	return !isMobile ? <Tabs
+	return <Tabs
 		destroyInactiveTabPane
 	>
 		<Tabs.TabPane key={'form'} tab={t('lab.build.create.form.tab')}>
@@ -122,13 +121,5 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 				</BuildsSourceConsumer>
 			</BuildsSource>
 		</Tabs.TabPane>
-	</Tabs> : <>
-		<Form
-			setBuildFilter={setBuildFilter}
-			buttons={<DrawerButton icon={<PlotIcon/>} type={'link'} title={'lab.build.create.preview.button'}>
-				<Plot/>
-			</DrawerButton>}
-			{...props}
-		/>
-	</>
+	</Tabs>
 }
