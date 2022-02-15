@@ -63,7 +63,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 	>
 		<Row gutter={16}>
 			<Col sm={24} md={24} lg={8}>
-				<Card title={t('lab.build.build.title')}>
+				<Card title={t('lab.build.build.title')} bordered={false}>
 					<FormItem
 						field={'atomizerId'}
 						required
@@ -100,7 +100,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				</Card>
 			</Col>
 			<Col sm={24} md={24} lg={8}>
-				<Card title={t('lab.build.coil.title')}>
+				<Card title={t('lab.build.coil.title')} bordered={false}>
 					<ItemGroup
 						translation={'lab'}
 						prefix={'coil'}
@@ -131,7 +131,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				</Card>
 			</Col>
 			<Col sm={24} md={24} lg={8}>
-				<Card title={t('lab.build.advanced.title')}>
+				<Card title={t('lab.build.advanced.title')} bordered={false}>
 					<FormItem
 						field={'coils'}
 					>
