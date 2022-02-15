@@ -1521,12 +1521,12 @@
 			"source": {
 				"type": "git",
 				"url": "https://github.com/leight-core/edde.git",
-				"reference": "f30180087b9f91499b422e18e93fc459be7bae25"
+				"reference": "ba82623c5af518a735f61bd2916b321bc0d8acd5"
 			},
 			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/f30180087b9f91499b422e18e93fc459be7bae25",
-				"reference": "f30180087b9f91499b422e18e93fc459be7bae25",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/ba82623c5af518a735f61bd2916b321bc0d8acd5",
+				"reference": "ba82623c5af518a735f61bd2916b321bc0d8acd5",
 				"shasum": ""
 			},
 			"require": {
@@ -1559,16 +1559,16 @@
 				"robmorgan/phinx": "^0.12",
 				"symfony/cache": "*",
 				"symfony/http-foundation": "^v5.4.1",
-                "symfony/process": "^5.2",
-                "symfony/yaml": "^5.2",
-                "tracy/tracy": "^v2.8"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=8.5.21"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
+				"symfony/process": "^5.2",
+				"symfony/yaml": "^5.2",
+				"tracy/tracy": "^v2.8"
+			},
+			"require-dev": {
+				"phpunit/phpunit": ">=8.5.21"
+			},
+			"default-branch": true,
+			"type": "library",
+			"autoload": {
                 "files": [
                     "./src/ClanCats/Hydrahon/Query/Sql/Select.php"
                 ],
@@ -1600,7 +1600,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-15T11:41:30+00:00"
+			"time": "2022-02-15T14:40:03+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -2886,16 +2886,16 @@
                 "doctrine/annotations": "~1.2",
                 "friendsofphp/php-cs-fixer": "^2.4",
                 "mnapoli/phpunit-easymock": "^1.2",
-                "ocramius/proxy-manager": "^2.0.2",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^8.5|^9.0"
-            },
-            "suggest": {
-                "doctrine/annotations": "Install it if you want to use annotations (version ~1.2)",
-                "ocramius/proxy-manager": "Install it if you want to use lazy injection (version ~2.0)"
-            },
-            "type": "library",
-            "autoload": {
+				"ocramius/proxy-manager": "^2.0.2",
+				"phpstan/phpstan": "^0.12",
+				"phpunit/phpunit": "^8.5|^9.0"
+			},
+			"suggest": {
+				"doctrine/annotations": "Install it if you want to use annotations (version ~1.2)",
+				"ocramius/proxy-manager": "Install it if you want to use lazy injection (version ~2.0)"
+			},
+			"type": "library",
+			"autoload": {
 				"files": [
 					"src/functions.php"
 				],
@@ -2903,16 +2903,16 @@
 					"DI\\": "src/"
 				}
 			},
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "The dependency injection container for humans",
-            "homepage": "https://php-di.org/",
-            "keywords": [
-                "PSR-11",
-                "container",
-                "container-interop",
+			"notification-url": "https://packagist.org/downloads/",
+			"license": [
+				"MIT"
+			],
+			"description": "The dependency injection container for humans",
+			"homepage": "https://php-di.org/",
+			"keywords": [
+				"PSR-11",
+				"container",
+				"container-interop",
                 "dependency injection",
                 "di",
                 "ioc",

@@ -46,7 +46,7 @@ class AtomizerRepository extends AbstractRepository {
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 		isset($filter->userId) && $this->where($select, 'ua.user_id', $filter->userId);
-		!empty($filter->drawIds) && $this->where($select, 'at.tag_id', $filter->drawIds);
+		!empty($filter->drawIds) && $this->where($select, 'at.tag_id', 'in', $filter->drawIds);
 
 		$this->toOrderBy($query->orderBy, $select);
 
