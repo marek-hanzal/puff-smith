@@ -79,4 +79,12 @@ class VapeFilterDto extends AbstractFilterDto {
 	 * @var mixed|null|void
 	 */
 	public $plot;
+	/**
+	 * @var int|null|void
+	 */
+	public ?int $ratingLte;
+	/**
+	 * @var int|null|void
+	 */
+	public ?int $tasteLte;
 }

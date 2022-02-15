@@ -33,7 +33,7 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $throathit = 0;
+	public ?int $throathit;
 	/**
 	 * @var int|null
 	 */
@@ -69,19 +69,19 @@ class CreateDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $dryhit = 0;
+	public ?int $dryhit;
 	/**
 	 * @var int|null
 	 */
-	public ?int $leaks = 0;
+	public ?int $leaks;
 	/**
 	 * @var int|null
 	 */
-	public ?int $airflow = 10;
+	public ?int $airflow;
 	/**
 	 * @var int|null
 	 */
-	public ?int $juice = 10;
+	public ?int $juice;
 	/**
 	 * @var float|null
 	 */

@@ -70,6 +70,8 @@ class VapeRepository extends AbstractRepository {
 		!empty($filter->coilSizes) && $this->where($select, 'c.size', '>=', $filter->coilSizes[0]) && $this->where($select, 'c.size', '<=', $filter->coilSizes[1]);
 		!empty($filter->coilSize) && $this->where($select, 'c.size', $filter->coilSize);
 		!empty($filter->drawIds) && $this->where($select, 'bt.tag_id', 'in', $filter->drawIds);
+		isset($filter->ratingLte) && $this->where($select, '$.rating', '>=', $filter->ratingLte);
+		isset($filter->tasteLte) && $this->where($select, '$.taste', '>=', $filter->tasteLte);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);

@@ -2,9 +2,13 @@ import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message, Slider} from "antd";
+import {Divider, message} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
+import {PowerSlider} from "@/puff-smith/component/input/PowerSlider";
+import {TcSlider} from "@/puff-smith/component/input/TcSlider";
+import {AirflowInput} from "@/puff-smith/component/input/AirflowInput";
+import {JuiceFlowInput} from "@/puff-smith/component/input/JuiceFlowInput";
 
 export interface IVapeRateFormProps extends Partial<IRateDefaultFormProps> {
 	vape: VapeDto;
@@ -32,24 +36,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 		}}
 		{...props}
 	>
-		<Card title={t('lab.vape.common.title')}>
-			<FormItem
-				field={'leaks'}
-				hasTooltip
-				required
-			>
-				<CommonRateInput/>
-			</FormItem>
-			<FormItem
-				field={'dryhit'}
-				hasTooltip
-				required
-			>
-				<CommonRateInput/>
-			</FormItem>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.vape.rating.title')}>
+		<Card title={'lab.vape.rating.title'} bordered={false}>
 			<FormItem
 				field={'rating'}
 				hasTooltip
@@ -66,28 +53,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={t('lab.vape.vape.title')}>
-			<FormItem
-				field={'mtl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'dl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'clouds'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-		</Card>
-		<Divider/>
-		<Card title={t('lab.vape.rating-advanced.title')}>
+		<Card title={'lab.vape.rating-advanced.title'} bordered={false}>
 			<FormItem
 				field={'throathit'}
 				hasTooltip
@@ -126,51 +92,63 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={t('lab.vape.settings.title')}>
+		<Card title={'lab.vape.common.title'} bordered={false}>
+			<FormItem
+				field={'leaks'}
+				hasTooltip
+			>
+				<CommonRateInput allowClear/>
+			</FormItem>
+			<FormItem
+				field={'dryhit'}
+				hasTooltip
+			>
+				<CommonRateInput allowClear/>
+			</FormItem>
+			<FormItem
+				field={'mtl'}
+				hasTooltip
+			>
+				<CommonRateInput allowClear/>
+			</FormItem>
+			<FormItem
+				field={'dl'}
+				hasTooltip
+			>
+				<CommonRateInput allowClear/>
+			</FormItem>
+			<FormItem
+				field={'clouds'}
+				hasTooltip
+			>
+				<CommonRateInput allowClear/>
+			</FormItem>
+		</Card>
+		<Divider/>
+		<Card title={'lab.vape.settings.title'} bordered={false}>
 			<FormItem
 				field={'power'}
 				hasTooltip
 			>
-				<Slider
-					marks={{
-						0: 0,
-						20: 20,
-						40: 40,
-						60: 60,
-						80: 80,
-					}}
-					min={0}
-					max={80}
-					step={0.5}
-				/>
+				<PowerSlider/>
 			</FormItem>
 			<FormItem
 				field={'tc'}
 				hasTooltip
 			>
-				<Slider
-					marks={{
-						0: 0,
-						80: 80,
-						120: 120,
-						200: 200,
-						240: 240,
-					}}
-					min={0}
-					max={240}
-				/>
+				<TcSlider/>
 			</FormItem>
 			<FormItem
 				field={'airflow'}
 				hasTooltip
 			>
-				<CommonRateInput/>
+				<AirflowInput/>
 			</FormItem>
 			<FormItem
 				field={'juice'}
 				hasTooltip
 			>
-				<CommonRateInput/>
+				<JuiceFlowInput/>
 			</FormItem>
 		</Card>
 		<Divider/>

@@ -3,7 +3,7 @@ import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {useTranslation} from "react-i18next";
 import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
 import {ButtonProps, message} from "antd";
-import {useDeleteMutation, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
+import {useDeleteMutation, usePlotQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 
 export interface IVapeDeleteButtonProps extends Partial<ButtonProps> {
 	vape: VapeDto;
@@ -14,6 +14,7 @@ export const VapeDeleteButton: FC<IVapeDeleteButtonProps> = ({vape, onOk, ...pro
 	const {t} = useTranslation();
 	const deleteMutation = useDeleteMutation();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	const plotQueryInvalidate = usePlotQueryInvalidate();
 	return <ModalButton
 		title={'lab.vape.button.delete.confirm.title'}
 		okText={t('lab.vape.button.delete.confirm.ok')}
@@ -25,6 +26,7 @@ export const VapeDeleteButton: FC<IVapeDeleteButtonProps> = ({vape, onOk, ...pro
 				onSuccess: () => {
 					message.success(t('lab.vape.deleted.success'))
 					vapesQueryInvalidate();
+					plotQueryInvalidate();
 				},
 			})
 			onOk ? onOk(setShow) : setShow(false);

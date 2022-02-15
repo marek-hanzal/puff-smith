@@ -71,17 +71,17 @@ class PatchDto extends AbstractDto {
 	 */
 	public ?int $dl;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $dryhit;
+	public ?int $dryhit;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $leaks;
+	public ?int $leaks;
 	/**
-	 * @var int
+	 * @var int|null
 	 */
-	public int $airflow;
+	public ?int $airflow;
 	/**
 	 * @var int|null
 	 */

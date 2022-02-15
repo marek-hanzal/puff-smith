@@ -35,11 +35,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 			...values,
 			rating: 0,
 			taste: 0,
-			airflow: 10,
-			juice: 10,
-			clouds: 0,
-			leaks: 0,
-			dryhit: 0,
 		})}
 		{...props}
 	>
