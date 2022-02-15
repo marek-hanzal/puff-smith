@@ -1,7 +1,7 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {ButtonBar, durationOf, Preview, PreviewTemplate} from "@leight-core/leight";
-import {Card, Col, Divider, Row, Tabs} from "antd";
+import {ButtonBar, Card, durationOf, Preview, PreviewTemplate} from "@leight-core/leight";
+import {Col, Divider, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerInline} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerInline";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
