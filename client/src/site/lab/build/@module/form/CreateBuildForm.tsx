@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate, useOhmMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC, ReactNode, useState} from "react";
 import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem, useParams} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
@@ -32,6 +32,8 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	const [values, setValues] = useState<any>();
 
+	const ohmMutation = useOhmMutation();
+
 	const canCoil = values?.atomizerId && values?.cottonId;
 	const cacAdvanced = canCoil && values?.coil?.wireId;
 
@@ -60,9 +62,21 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			buildsQueryInvalidate();
 			onSuccess?.(response);
 		}}
-		onValuesChange={(_, values) => {
+		onValuesChange={change => {
+			const values = change.values;
 			setValues(values);
-			onValuesChange?.(_, values);
+			values?.coil?.wireId && values?.coil?.wraps && values?.coil?.size && ohmMutation.mutate({
+				wireId: values?.coil?.wireId,
+				wraps: values?.coil?.wraps,
+				size: values?.coil?.size,
+			}, {
+				onSuccess: ohm => {
+					change.formContext.setValues({
+						ohm,
+					});
+				},
+			})
+			onValuesChange?.(change);
 		}}
 		toError={({error}) => ({
 			"Duplicate entry [z_build_name_unique] of [z_build].": {id: ["name"], error},

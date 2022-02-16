@@ -82,6 +82,11 @@ export type IDeleteQueryParams = void;
 
 export const useDeleteMutation = createPostMutation<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>("PuffSmith.Lab.Build.Delete");
 
+export type IOhmQueryParams = void;
+
+
+export const useOhmMutation = createPostMutation<IOhmQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").OhmDto, number | null>("PuffSmith.Lab.Build.Ohm");
+
 export type IPatchQueryParams = void;
 
 
@@ -113,6 +118,16 @@ export interface IDeleteDefaultFormProps extends Partial<IFormProps<IDeleteQuery
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => {
 	return <Form<IDeleteQueryParams, import("@/sdk/puff-smith/build/dto/index").DeleteDto, import("@/sdk/puff-smith/build/dto/index").BuildDto>
 		useMutation={useDeleteMutation}
+		{...props}
+	/>
+}
+
+export interface IOhmDefaultFormProps extends Partial<IFormProps<IOhmQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").OhmDto, number | null>> {
+}
+
+export const OhmDefaultForm: FC<IOhmDefaultFormProps> = props => {
+	return <Form<IOhmQueryParams, import("@/sdk/puff-smith/api/lab/build/dto/index").OhmDto, number | null>
+		useMutation={useOhmMutation}
 		{...props}
 	/>
 }
