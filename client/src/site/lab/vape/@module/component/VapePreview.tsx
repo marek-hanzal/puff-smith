@@ -45,7 +45,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 					<Col span={isDrawer ? 24 : 12}>
 						<Preview translation={'lab.vape.preview'}>
 							{{
-								"coil": <CoilInline inline coil={vape.build.coil}/>,
+								"coil": <CoilInline coil={vape.build.coil}/>,
 								"mod": <ModInline mod={vape.mod}/>,
 								"build.age": <BuildAge build={vape.build}/>,
 								"mixture.age": durationOf(vape.mixture.mixed, vape.stamp).humanize(),

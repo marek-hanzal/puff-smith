@@ -109,7 +109,7 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 							{sourceContext.map(build => <List.Item key={build.id}>
 								<List.Item.Meta
 									title={<BuildPreviewButton build={build}/>}
-									description={<CoilInline inline coil={build.coil}/>}
+									description={<CoilInline coil={build.coil}/>}
 								/>
 								<ImageGallery hideEmpty size={2} gallery={'/build/image/' + build.id}/>
 							</List.Item>)}

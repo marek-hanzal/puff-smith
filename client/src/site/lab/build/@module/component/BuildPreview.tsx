@@ -62,7 +62,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					<Preview translation={'lab.build.preview'} {...props}>
 						{{
 							"mod": build?.mod && <ModInline mod={build.mod}/>,
-							"coil": <CoilInline inline coil={build.coil}/>,
+							"coil": <CoilInline coil={build.coil}/>,
 							"cotton": <CottonInline cotton={build.cotton}/>,
 						}}
 					</Preview>
