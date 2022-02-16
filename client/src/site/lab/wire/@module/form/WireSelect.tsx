@@ -10,7 +10,7 @@ export const WireSelect: FC<IWireSelectProps> = props => {
 		showSearch
 		optionLabelProp={'name'}
 		toOption={wire => ({
-			label: <WireInline wire={wire}/>,
+			label: <WireInline withVendor wire={wire}/>,
 			value: wire.id,
 			...wire
 		})}

@@ -22,7 +22,7 @@ class CoilService {
 			if (!$build->ohm) {
 				continue;
 			}
-			$ohm += $build->dual ? ($build->dualMode === 1 ? $build->ohm * 2 : $build->ohm / 2) : $build->ohm;
+			$ohm += $build->dual ? ($build->dualMode === 1 ? $build->ohm / 2 : $build->ohm * 2) : $build->ohm;
 			$count++;
 		}
 		return $count > 0 ? $ohm / $count : null;

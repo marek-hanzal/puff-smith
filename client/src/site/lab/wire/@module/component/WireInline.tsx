@@ -4,15 +4,17 @@ import {Divider, Space, Tooltip, Typography} from "antd";
 
 export interface IWireInlineProps {
 	wire: WireDto;
+	withVendor?: boolean;
 }
 
-export const WireInline: FC<IWireInlineProps> = ({wire}) => {
+export const WireInline: FC<IWireInlineProps> = ({wire, withVendor = false}) => {
 	return <Space size={0} split={<Divider type={'vertical'}/>}>
 		<Typography.Text>
 			<Tooltip title={wire.vendor.name}>
 				{wire.name}
 			</Tooltip>
 		</Typography.Text>
+		{withVendor && <Typography.Text type={'secondary'}>{wire.vendor.name}</Typography.Text>}
 		<Space>
 			<Tooltip title={wire.description}>
 				<Typography.Text>{wire.ga}</Typography.Text>
