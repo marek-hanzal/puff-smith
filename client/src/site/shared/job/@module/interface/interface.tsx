@@ -38,7 +38,3 @@ export enum IJobStatus {
 	 */
 	JOB_CHECK = 6,
 }
-
-export interface IJobLogMissingValues {
-	missing: string[];
-}

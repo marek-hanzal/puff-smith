@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 
+// noinspection JSUnusedGlobalSymbols
 export default withPublicLayout(function Custom404() {
 	const {t} = useTranslation();
 	const router = useRouter();

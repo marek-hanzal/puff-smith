@@ -31,4 +31,5 @@ i18n
 		},
 	});
 
+// noinspection JSUnusedGlobalSymbols
 export default i18n;

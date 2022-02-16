@@ -7,6 +7,7 @@ import {Button, Result} from "antd";
 import {useTranslation} from "react-i18next";
 import {useJobsQueryInvalidate} from "@/sdk/edde/api/shared/job/endpoint";
 
+// noinspection JSUnusedGlobalSymbols
 export default withRootLayout(function Run() {
 	const {t} = useTranslation();
 	const upgradeMutation = useUpgradeMutation();

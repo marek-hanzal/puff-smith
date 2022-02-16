@@ -5,13 +5,10 @@ import {Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {VapeIcon} from "@/puff-smith";
-import {BuildTooltip} from "@/puff-smith/site/lab/build/@module/form/BuildTooltip";
 import {BuildSelect} from "@/puff-smith/site/lab/build/@module/form/BuildSelect";
-import {MixtureTooltip} from "@/puff-smith/site/lab/mixture/@module/form/MixtureTooltip";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
-import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 
 export interface ICreateVapeFormProps extends Partial<ICreateDefaultFormProps> {
@@ -45,7 +42,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 			<FormItem
 				field={'buildId'}
 				required
-				help={<BuildTooltip/>}
 			>
 				<BuildSelect/>
 			</FormItem>
@@ -53,14 +49,12 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 		<FormItem
 			field={'mixtureId'}
 			required
-			help={<MixtureTooltip/>}
 		>
 			<MixtureSelect/>
 		</FormItem>
 		<FormItem
 			field={'modId'}
 			required
-			help={<ModTooltip/>}
 		>
 			<ModSelect/>
 		</FormItem>

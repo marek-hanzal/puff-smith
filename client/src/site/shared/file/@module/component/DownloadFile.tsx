@@ -17,6 +17,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
 
+	// noinspection JSUnusedGlobalSymbols
 	const promise = useGetPromise<IDownloadQueryParams, any>("Edde.Shared.File.Download", {fileId: file.id}, {
 		responseType: "blob",
 		timeout: 0,

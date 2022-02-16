@@ -2,6 +2,7 @@ import {SignUpIcon, Template} from "@leight-core/leight";
 import {PublicPage, SignUpForm, withPublicLayout} from "@/puff-smith/site/public";
 import {Divider} from "antd";
 
+// noinspection JSUnusedGlobalSymbols
 export default withPublicLayout(function Login() {
 	return <PublicPage
 		title={"public.sign-up"}

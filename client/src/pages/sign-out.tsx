@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {useLogoutMutation} from "@/sdk/edde/api/shared/user/endpoint";
 
+// noinspection JSUnusedGlobalSymbols
 export default withPublicLayout(function SignOut() {
 	const {t} = useTranslation();
 	const navigate = useNavigate();
