@@ -6,17 +6,13 @@ import {Col, Divider, InputNumber, message, Row, Spin} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
-import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
-import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
-import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
-import {WireTooltip} from "@/puff-smith/site/lab/wire/@module/form/WireTooltip";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
 import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
@@ -89,21 +85,18 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 					<FormItem
 						field={'atomizerId'}
 						required
-						help={<AtomizerTooltip/>}
 					>
 						<AtomizerSelect allowClear/>
 					</FormItem>
 					<FormItem
 						field={'cottonId'}
 						required
-						help={<CottonTooltip/>}
 					>
 						<CottonSelect allowClear/>
 					</FormItem>
 					<FormItem
 						field={'modId'}
 						hasTooltip
-						help={<ModTooltip/>}
 					>
 						<ModSelect allowClear/>
 					</FormItem>
@@ -126,7 +119,6 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 							<FormItem
 								field={'wireId'}
 								required
-								help={<WireTooltip/>}
 							>
 								<WireSelect allowClear/>
 							</FormItem>

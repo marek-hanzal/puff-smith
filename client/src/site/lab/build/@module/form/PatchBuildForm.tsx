@@ -7,17 +7,14 @@ import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight"
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {AtomizerTooltip} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerTooltip";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
 import {CoilTooltip} from "@/puff-smith/site/lab/coil/@module/form/CoilTooltip";
 import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
-import {CottonTooltip} from "@/puff-smith/site/lab/cotton/@module/form/CottonTooltip";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
-import {ModTooltip} from "@/puff-smith/site/lab/mod/@module/form/ModTooltip";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
@@ -53,14 +50,12 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			<FormItem
 				field={'atomizerId'}
 				required
-				help={<AtomizerTooltip/>}
 			>
 				<AtomizerSelect/>
 			</FormItem>
 			<FormItem
 				field={'modId'}
 				hasTooltip
-				help={<ModTooltip/>}
 			>
 				<ModSelect allowClear/>
 			</FormItem>
@@ -74,7 +69,6 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			<FormItem
 				field={'cottonId'}
 				required
-				help={<CottonTooltip/>}
 			>
 				<CottonSelect/>
 			</FormItem>
