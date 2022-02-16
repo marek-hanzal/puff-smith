@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {asDayjs, durationOf, Preview, PreviewBool, PreviewTemplate, toLocalDate} from "@leight-core/leight";
+import {asDayjs, durationOf, Preview, BoolInline, PreviewTemplate, toLocalDate} from "@leight-core/leight";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -47,7 +47,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture, forceList = f
 					"mixed": toLocalDate(mixture.mixed),
 					"expires": asDayjs(mixture.expires)?.format('MMMM YYYY'),
 					"volume": mixture.volume + 'ml',
-					"active": <PreviewBool bool={mixture.active}/>,
+					"active": <BoolInline bool={mixture.active}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>

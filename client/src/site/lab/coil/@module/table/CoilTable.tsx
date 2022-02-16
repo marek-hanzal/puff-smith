@@ -1,6 +1,6 @@
 import {CoilsSourceTable, ICoilsSourceTableProps, useCoilsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {ButtonBar, PreviewBool} from "@leight-core/leight";
+import {ButtonBar, BoolInline} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {CoilListItem} from "@/puff-smith/site/lab/coil/@module/table/CoilListItem";
 import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";
@@ -74,7 +74,7 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 			column({
 				key: "spaced",
 				title: 'lab.coil.table.spaced',
-				render: (_, coil) => <PreviewBool bool={coil.spaced}/>,
+				render: (_, coil) => <BoolInline bool={coil.spaced}/>,
 				width: 200,
 				sorter: true,
 			}),

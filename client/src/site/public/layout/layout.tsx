@@ -7,7 +7,7 @@ export interface IPublicLayoutProps {
 }
 
 export const PublicLayout: FC<IPublicLayoutProps> = ({children}) => {
-	return <AppLayout>
+	return <AppLayout defaultCollapsed={false}>
 		<HeaderSiderLayout
 			header={<Header/>}
 			footer={<Footer/>}

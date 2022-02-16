@@ -7,6 +7,7 @@ import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/butto
 import {WireQuickMenu} from "@/puff-smith/site/lab/wire/@module/component/WireQuickMenu";
 import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
+import {BoolInline} from "@leight-core/leight/dist";
 
 export interface IWireTableProps extends Partial<IWiresSourceTableProps> {
 }
@@ -18,7 +19,7 @@ export const WireTable: FC<IWireTableProps> = props => {
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.wire.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={wire => <WireListItem wire={wire}/>}
-		scroll={{x: 1500}}
+		scroll={{x: 1900}}
 		{...props}
 	>
 		{({column}) => [
@@ -45,16 +46,23 @@ export const WireTable: FC<IWireTableProps> = props => {
 				width: 120,
 			}),
 			column({
-				key: "description",
-				title: 'lab.wire.table.description',
-				render: (_, wire) => wire.description,
+				key: "tc",
+				title: 'lab.wire.table.tc',
+				render: (_, wire) => <BoolInline bool={wire.tc}/>,
 				sorter: true,
+				width: 170,
 			}),
 			column({
 				key: "draw",
 				title: 'lab.wire.table.draw',
 				render: (_, wire) => <Tags tags={wire.draws}/>,
-				width: 300,
+				width: 350,
+			}),
+			column({
+				key: "description",
+				title: 'lab.wire.table.description',
+				render: (_, wire) => wire.description,
+				sorter: true,
 			}),
 			column({
 				key: "vendor",

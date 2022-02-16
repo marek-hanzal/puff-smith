@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, BoolInline, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
 import {FC} from "react";
 import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -82,7 +82,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 							"coils": <CoilCountInput value={build.coils} disabled/>,
 							"driptip": <DriptipInline driptip={build.driptip}/>,
 							"created": toLocalDateTime(build.created),
-							"active": <PreviewBool bool={build.active}/>,
+							"active": <BoolInline bool={build.active}/>,
 						}}
 					</Preview>
 				</Col>

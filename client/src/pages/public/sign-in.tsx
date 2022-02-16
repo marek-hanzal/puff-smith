@@ -10,7 +10,7 @@ export default withPublicLayout(function Login() {
 		<Template
 			icon={<SignInIcon/>}
 			label={"public.sign-in.content"}
-			span={10}
+			span={8}
 			extra={<Divider/>}
 		>
 			<SignInForm/>

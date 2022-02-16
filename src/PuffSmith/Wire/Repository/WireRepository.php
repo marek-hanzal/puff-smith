@@ -51,6 +51,7 @@ class WireRepository extends AbstractRepository {
 		], $filter->name);
 		!empty($filter->vendorIds) && $this->where($select, '$.vendor_id', 'in', $filter->vendorIds);
 		!empty($filter->drawIds) && $this->where($select, 'wt.tag_id', 'in', $filter->drawIds);
+		!empty($filter->tc) && $this->where($select, '$.tc', $filter->tc);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -61,6 +62,7 @@ class WireRepository extends AbstractRepository {
 		$wire = $this->insert([
 			'name'        => $createDto->name,
 			'description' => $createDto->description,
+			'tc'          => $createDto->tc,
 			'ga'          => $createDto->ga,
 			'vendor_id'   => $createDto->vendorId,
 		]);
@@ -74,6 +76,7 @@ class WireRepository extends AbstractRepository {
 		$wire = $this->change([
 			'id'          => $patchDto->id,
 			'name'        => $patchDto->name,
+			'tc'          => $patchDto->tc,
 			'description' => $patchDto->description,
 			'ga'          => $patchDto->ga,
 			'vendor_id'   => $patchDto->vendorId,
@@ -82,5 +85,13 @@ class WireRepository extends AbstractRepository {
 		$tags = array_merge($tags, $patchDto->drawIds);
 		$this->wireTagRepository->syncWith('wire_id', 'tag_id', $wire->id, $tags);
 		return $wire;
+	}
+
+	public function findByCreate(CreateDto $createDto) {
+		return $this->table()->select()->where([
+			'vendor_id' => $createDto->vendorId,
+			'ga'        => $createDto->ga,
+			'name'      => $createDto->name,
+		])->execute()->fetch();
 	}
 }

@@ -1,7 +1,7 @@
 import {IUploaderProps, Uploader} from "@/puff-smith/site/shared/file";
 import {CopyOutlined, EditOutlined, SaveOutlined} from "@ant-design/icons";
 import {Centered, Form, FormItem, Preview, Submit} from "@leight-core/leight";
-import {PreviewBool, SwitchItem} from "@leight-core/leight";
+import {BoolInline, SwitchItem} from "@leight-core/leight";
 import {Col, Divider, Input, Row} from "antd";
 import {FC, useState} from "react";
 
@@ -38,7 +38,7 @@ export const FileUpload: FC<IFileUploadProps> = props => {
 				{{
 					path,
 					name,
-					replace: <PreviewBool bool={replace}/>,
+					replace: <BoolInline bool={replace}/>,
 				}}
 			</Preview>
 		</Col>

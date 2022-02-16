@@ -40,4 +40,8 @@ class WireDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $drawIds = [];
+	/**
+	 * @var bool
+	 */
+	public bool $tc;
 }

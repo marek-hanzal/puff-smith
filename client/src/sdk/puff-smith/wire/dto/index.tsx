@@ -7,6 +7,7 @@ export interface WireDto {
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 	draws: import("@/sdk/edde/tag/dto/index").TagDto[];
 	drawIds: string[];
+	tc: boolean;
 }
 
 export module WireDto {
@@ -20,6 +21,7 @@ export interface CreateDto {
 	vendorId: string;
 	ga: number | null;
 	drawIds: string[];
+	tc: boolean;
 }
 
 export module CreateDto {
@@ -43,6 +45,7 @@ export interface PatchDto {
 	vendorId: string;
 	ga: number | null;
 	drawIds: string[];
+	tc: boolean;
 }
 
 export module PatchDto {
@@ -63,6 +66,7 @@ export interface WireFilterDto {
 	name?: string | null | undefined;
 	vendorIds?: string[] | null | undefined;
 	drawIds?: string[] | null | undefined;
+	tc?: boolean | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }

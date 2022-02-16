@@ -8,12 +8,13 @@ export interface IAirflowInputProps extends Partial<SliderProps> {
 export const AirflowInput: FC<IAirflowInputProps> = props => {
 	return <Slider
 		marks={{
-			0: 0,
+			1: 1,
 			3: 3,
-			6: 6,
+			5: 5,
+			7: 7,
 			9: 9,
 		}}
-		min={0}
+		min={1}
 		max={9}
 		step={1}
 		{...props}

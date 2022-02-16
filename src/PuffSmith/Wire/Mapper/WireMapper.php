@@ -23,6 +23,7 @@ class WireMapper extends AbstractMapper {
 			'name'        => $item->name,
 			'description' => $item->description,
 			'ga'          => $item->ga,
+			'tc'          => (bool)$item->tc,
 			'vendorId'    => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,
 			'vendor'      => $this->vendorMapper->item($vendor),
 			'draws'       => $draws = $this->tagMapper->map($this->wireTagRepository->findByGroup($item->id, 'draw')),

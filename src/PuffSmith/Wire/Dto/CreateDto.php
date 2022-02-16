@@ -26,4 +26,8 @@ class CreateDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $drawIds = [];
+	/**
+	 * @var bool
+	 */
+	public bool $tc;
 }

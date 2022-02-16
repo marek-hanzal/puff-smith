@@ -16,4 +16,8 @@ class WireFilterDto extends AbstractFilterDto {
 	public ?array $vendorIds;
 	/** @var string[]|null|void */
 	public ?array $drawIds;
+	/**
+	 * @var bool|null|void
+	 */
+	public ?bool $tc;
 }

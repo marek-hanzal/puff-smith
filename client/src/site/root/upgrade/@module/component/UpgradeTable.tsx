@@ -1,5 +1,5 @@
 import {IUpgradesSourceTableProps, UpgradesSourceTable} from "@/sdk/edde/api/root/upgrade/endpoint";
-import {PreviewBool} from "@leight-core/leight";
+import {BoolInline} from "@leight-core/leight";
 import {FC} from "react";
 
 export interface IUpgradeTableProps extends Partial<IUpgradesSourceTableProps> {
@@ -18,7 +18,7 @@ export const UpgradeTable: FC<IUpgradeTableProps> = props => {
 				align: "center",
 				width: 110,
 				sorter: true,
-				render: active => <PreviewBool bool={active}/>,
+				render: active => <BoolInline bool={active}/>,
 			}),
 			column({
 				key: "version",

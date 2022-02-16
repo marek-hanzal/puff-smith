@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {ButtonBar, IPreviewProps, Preview, PreviewBool, PreviewTemplate} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, BoolInline, PreviewTemplate} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Divider} from "antd";
 import {CoilEditButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilEditButton";
@@ -29,7 +29,7 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 				ohm: <Ohm ohm={coil.ohm}/>,
 				wraps: coil.wraps,
 				size: coil.size,
-				spaced: <PreviewBool bool={coil.spaced}/>,
+				spaced: <BoolInline bool={coil.spaced}/>,
 			}}
 		</Preview>
 	</>

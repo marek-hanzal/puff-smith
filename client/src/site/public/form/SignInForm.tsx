@@ -13,7 +13,6 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 	return <Form<void, LoginRequest, SessionDto>
 		useMutation={useLoginMutation}
 		size={"large"}
-		wrapperCol={{span: 24}}
 		onSuccess={({navigate, response}) => {
 			navigate("/" + response.user.site);
 		}}
