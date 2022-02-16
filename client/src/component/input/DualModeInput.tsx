@@ -7,7 +7,7 @@ export interface IDualModeInputProps extends Partial<RadioProps> {
 
 export const DualModeInput: FC<IDualModeInputProps> = props => {
 	const {t} = useTranslation();
-	return <Radio.Group optionType={'button'} {...props}>
+	return <Radio.Group optionType={'button'} buttonStyle={'solid'} {...props}>
 		<Radio.Button value={1}>{t('lab.dual-coil.1')}</Radio.Button>
 		<Radio.Button value={2}>{t('lab.dual-coil.2')}</Radio.Button>
 	</Radio.Group>

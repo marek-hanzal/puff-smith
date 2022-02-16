@@ -12,6 +12,7 @@ import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/bu
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
+import {BoolInline} from "@leight-core/leight/dist";
 
 export type IBuildTableColumns = 'coil';
 
@@ -27,7 +28,7 @@ export const BuildTable: FC<IBuildTableProps> = ({hidden, ...props}) => {
 		footer={sourceContext => t('lab.build.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={build => <BuildListItem build={build}/>}
 		rowClassName={build => build.active ? 'active' : 'inactive'}
-		scroll={{x: 2200}}
+		scroll={{x: 2500}}
 		{...props}
 	>
 		{({column}) => [
@@ -63,6 +64,20 @@ export const BuildTable: FC<IBuildTableProps> = ({hidden, ...props}) => {
 				title: "lab.build.table.coil",
 				render: (_, build) => <CoilPreviewButton title={build.coil.wire.name} coil={build.coil}/>,
 				width: 420,
+				sorter: true,
+			}),
+			!hidden?.includes('coil') && column({
+				key: "dual",
+				title: "lab.build.table.dual",
+				render: (_, build) => <BoolInline bool={build.dual}/>,
+				width: 140,
+				sorter: true,
+			}),
+			!hidden?.includes('coil') && column({
+				key: "dualMode",
+				title: "lab.build.table.dualMode",
+				render: (_, build) => t('lab.dual-coil.' + build.dualMode, '-'),
+				width: 180,
 				sorter: true,
 			}),
 			column({
