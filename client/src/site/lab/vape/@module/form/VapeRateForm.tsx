@@ -36,7 +36,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 		}}
 		{...props}
 	>
-		<Card title={'lab.vape.rating.title'} bordered={false}>
+		<Card title={'lab.vape.rating.title'}>
 			<FormItem
 				field={'rating'}
 				hasTooltip
@@ -53,7 +53,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={'lab.vape.rating-advanced.title'} bordered={false}>
+		<Card title={'lab.vape.rating-advanced.title'}>
 			<FormItem
 				field={'throathit'}
 				hasTooltip
@@ -92,7 +92,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={'lab.vape.common.title'} bordered={false}>
+		<Card title={'lab.vape.common.title'}>
 			<FormItem
 				field={'leaks'}
 				hasTooltip
@@ -125,7 +125,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={'lab.vape.settings.title'} bordered={false}>
+		<Card title={'lab.vape.settings.title'}>
 			<FormItem
 				field={'power'}
 				hasTooltip

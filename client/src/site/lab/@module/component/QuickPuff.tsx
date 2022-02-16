@@ -25,7 +25,6 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 					<ButtonLink type={'link'} href={'/lab/build'} icon={<BuildIcon/>}/>
 					<BuildCreateButton/>
 				</>}
-				bordered={false}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.builds.subtitle')}</Typography.Title>
 				<Divider/>
@@ -54,7 +53,6 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 					<ButtonLink type={'link'} href={'/lab/vape'} icon={<VapeIcon/>}/>
 					<VapeCreateButton/>
 				</>}
-				bordered={false}
 			>
 				<Typography.Title level={5}>{t('lab.quick-puff.vapes.subtitle')}</Typography.Title>
 				<Divider/>
@@ -76,7 +74,6 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 				extra={<>
 					<VapePlotButton/>
 				</>}
-				bordered={false}
 			>
 				<VapePlot selected={['median']}/>
 			</Card>

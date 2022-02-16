@@ -40,7 +40,7 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				</>}
 				span={24}
 			/>
-			<Card title={t('lab.vape.common.title')} bordered={false}>
+			<Card title={t('lab.vape.common.title')}>
 				<Row gutter={8}>
 					<Col span={isDrawer ? 24 : 12}>
 						<Preview translation={'lab.vape.preview'}>

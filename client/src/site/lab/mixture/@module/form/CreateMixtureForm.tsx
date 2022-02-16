@@ -40,7 +40,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 		})}
 		{...props}
 	>
-		<Card title={'lab.mixture.common.label'} bordered={false}>
+		<Card title={'lab.mixture.common.label'}>
 			<FormItem
 				field={'code'}
 				hasTooltip
@@ -58,7 +58,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 				<DatePicker showTime/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.mixture.mixture.label'} bordered={false}>
+		<Card title={'lab.mixture.mixture.label'}>
 			<FormItem
 				field={'liquidId'}
 				required
@@ -85,7 +85,7 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 				<DatePicker picker={'month'}/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.mixture.content.label'} bordered={false}>
+		<Card title={'lab.mixture.content.label'}>
 			<FormItem
 				field={'pg'}
 				rules={[

@@ -45,7 +45,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 		}}
 		{...props}
 	>
-		<Card title={'lab.vape.common.title'} bordered={false}>
+		<Card title={'lab.vape.common.title'}>
 			<FormItem
 				field={'buildId'}
 				required
@@ -86,7 +86,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.vape.rating.title'} bordered={false}>
+		<Card title={'lab.vape.rating.title'}>
 			<FormItem
 				field={'rating'}
 				hasTooltip
@@ -102,7 +102,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.vape.settings.title'} bordered={false}>
+		<Card title={'lab.vape.settings.title'}>
 			<FormItem
 				field={'power'}
 				hasTooltip
@@ -130,7 +130,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<JuiceFlowInput/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.vape.vape.title'} bordered={false}>
+		<Card title={'lab.vape.vape.title'}>
 			<FormItem
 				field={'mtl'}
 				hasTooltip
@@ -150,7 +150,7 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Card title={'lab.vape.rating-advanced.title'} bordered={false}>
+		<Card title={'lab.vape.rating-advanced.title'}>
 			<FormItem
 				field={'throathit'}
 				hasTooltip
