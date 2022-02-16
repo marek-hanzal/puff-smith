@@ -10,6 +10,7 @@ import {BuildFilter} from "@/puff-smith/site/lab/build/@module/form/BuildFilter"
 import {BuildTable} from "@/puff-smith/site/lab/build/@module/table/BuildTable";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
+import {useOptionalDrawerContext} from "@leight-core/leight/dist";
 
 export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 	coil: CoilDto;
@@ -17,6 +18,7 @@ export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 
 export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 	const {t} = useTranslation();
+	const isDrawer = !!useOptionalDrawerContext();
 	return <Tabs size={'large'}>
 		<Tabs.TabPane key={'common'} tab={t('lab.coil.common.tab')}>
 			<Row>
@@ -42,7 +44,7 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 		<Tabs.TabPane key={'builds'} tab={t('lab.coil.builds.tab')}>
 			<BuildsFilterContext defaultFilter={{coilIds: [coil.id]}}>
 				<BuildFilter disabled={['coilIds']}/>
-				<BuildTable hidden={['coil']}/>
+				<BuildTable forceList={isDrawer} hidden={['coil']}/>
 			</BuildsFilterContext>
 		</Tabs.TabPane>
 	</Tabs>
