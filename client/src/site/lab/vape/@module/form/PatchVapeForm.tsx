@@ -109,12 +109,12 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 			>
 				<PowerSlider/>
 			</FormItem>
-			<FormItem
+			{vape.build.coil.wire.tc && <FormItem
 				field={'tc'}
 				hasTooltip
 			>
 				<TcSlider/>
-			</FormItem>
+			</FormItem>}
 			<FormItem
 				field={'airflow'}
 				hasTooltip

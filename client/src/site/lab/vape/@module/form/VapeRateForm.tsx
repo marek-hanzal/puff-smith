@@ -132,12 +132,12 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 			>
 				<PowerSlider/>
 			</FormItem>
-			<FormItem
+			{vape.build.coil.wire.tc && <FormItem
 				field={'tc'}
 				hasTooltip
 			>
 				<TcSlider/>
-			</FormItem>
+			</FormItem>}
 			<FormItem
 				field={'airflow'}
 				hasTooltip
