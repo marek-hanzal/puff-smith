@@ -19,7 +19,10 @@ class CoilService {
 		$ohm = 0;
 		$count = 0;
 		foreach ($this->buildsOf($coilId) as $build) {
-			$build->ohm && ($ohm += $build->ohm);
+			if (!$build->ohm) {
+				continue;
+			}
+			$ohm += $build->dual ? ($build->dualMode === 1 ? $build->ohm * 2 : $build->ohm / 2) : $build->ohm;
 			$count++;
 		}
 		return $count > 0 ? $ohm / $count : null;

@@ -1,4 +1,4 @@
-import {IPatchDefaultFormProps, PatchDefaultForm, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useCoilQueryInvalidate, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {Divider, message} from "antd";
@@ -16,12 +16,14 @@ export interface IPatchCoilFormProps extends Partial<IPatchDefaultFormProps> {
 
 export const PatchCoilForm: FC<IPatchCoilFormProps> = ({coil, onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const coilQueryInvalidate = useCoilQueryInvalidate();
 	const coilsQueryInvalidate = useCoilsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
 		translation={'lab.coil'}
 		onSuccess={response => {
 			message.success(t("lab.coil.update.message", {data: response.response}));
+			coilQueryInvalidate();
 			coilsQueryInvalidate();
 			onSuccess?.(response);
 		}}

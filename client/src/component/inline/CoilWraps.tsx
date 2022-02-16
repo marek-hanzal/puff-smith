@@ -1,17 +1,19 @@
-import {Space, Tooltip} from "antd";
+import {Space, Tooltip, Typography} from "antd";
 import {ReloadOutlined} from "@ant-design/icons";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICoilWrapsProps {
 	wraps: number;
+	noTooltip?: boolean;
 }
 
-export const CoilWraps: FC<ICoilWrapsProps> = ({wraps}) => {
+export const CoilWraps: FC<ICoilWrapsProps> = ({noTooltip = false, wraps}) => {
 	const {t} = useTranslation();
-	return <Tooltip title={t('lab.coil.preview.wraps')}>
+	return <Tooltip title={noTooltip ? undefined : t('lab.coil.preview.wraps')}>
 		<Space size={1}>
-			<span>{wraps}</span><ReloadOutlined/>
+			<ReloadOutlined/>
+			<Typography.Text>{wraps}</Typography.Text>
 		</Space>
 	</Tooltip>
 }

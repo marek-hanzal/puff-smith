@@ -8,10 +8,13 @@ import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 
+export type IBuildFilter = 'coilIds';
+
 export interface IBuildFilterProps extends IFilterWithoutTranslationProps<BuildFilterDto> {
+	disabled?: IBuildFilter[];
 }
 
-export const BuildFilter: FC<IBuildFilterProps> = props => {
+export const BuildFilter: FC<IBuildFilterProps> = ({disabled = [], ...props}) => {
 	return <Filter<BuildFilterDto>
 		{...props}
 		translation={'lab.build'}
@@ -28,12 +31,12 @@ export const BuildFilter: FC<IBuildFilterProps> = props => {
 		>
 			<ModSelect mode={'multiple'} allowClear/>
 		</FormItem>
-		<FormItem
+		{!disabled?.includes('coilIds') && <FormItem
 			field={'coilIds'}
 			labels={['lab.build.coilId.label']}
 		>
 			<CoilSelect mode={'multiple'} allowClear/>
-		</FormItem>
+		</FormItem>}
 		<FormItem
 			field={'wireIds'}
 			labels={['lab.build.wireId.label']}

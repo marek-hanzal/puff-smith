@@ -6,6 +6,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
 import {CoilCreateButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilCreateButton";
 import {CoilPreview} from "@/puff-smith/site/lab/coil/@module/component/CoilPreview";
+import {CoilEditButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilEditButton";
 
 export default withLabLayout(function Index() {
 	return <CoilPage
@@ -31,7 +32,8 @@ export default withLabLayout(function Index() {
 				<CoilCreateButton/>
 			</Menu.Item>
 		</LabMenuDrawerButton>}
-		extraBrowser={<ButtonBar>
+		extraBrowser={({entity}) => entity && <ButtonBar>
+			<CoilEditButton coil={entity}/>
 			<CoilCreateButton type={'primary'}/>
 		</ButtonBar>}
 	>

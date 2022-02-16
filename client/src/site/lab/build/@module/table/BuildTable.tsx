@@ -13,10 +13,13 @@ import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/componen
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 
+export type IBuildTableColumns = 'coil';
+
 export interface IBuildTableProps extends Partial<IBuildsSourceTableProps> {
+	hidden?: IBuildTableColumns[];
 }
 
-export const BuildTable: FC<IBuildTableProps> = props => {
+export const BuildTable: FC<IBuildTableProps> = ({hidden, ...props}) => {
 	const {t} = useTranslation();
 	const filterContext = useBuildsOptionalFilterContext();
 	return <BuildsSourceTable
@@ -55,7 +58,7 @@ export const BuildTable: FC<IBuildTableProps> = props => {
 				width: 360,
 				sorter: true,
 			}),
-			column({
+			!hidden?.includes('coil') && column({
 				key: "coil",
 				title: "lab.build.table.coil",
 				render: (_, build) => <CoilPreviewButton title={build.coil.wire.name} coil={build.coil}/>,

@@ -1,36 +1,49 @@
 import {FC} from "react";
-import {ButtonBar, IPreviewProps, Preview, BoolInline, PreviewTemplate} from "@leight-core/leight";
+import {BoolInline, IPreviewProps, Preview} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
-import {Divider} from "antd";
-import {CoilEditButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilEditButton";
+import {Col, Row, Tabs} from "antd";
 import {WireInline} from "@/puff-smith/site/lab/wire/@module/component/WireInline";
 import {Ohm} from "@/puff-smith";
+import {useTranslation} from "react-i18next";
+import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
+import {BuildFilter} from "@/puff-smith/site/lab/build/@module/form/BuildFilter";
+import {BuildTable} from "@/puff-smith/site/lab/build/@module/table/BuildTable";
+import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
+import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 
 export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 	coil: CoilDto;
 }
 
 export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
-	return <>
-		<PreviewTemplate
-			title={coil.wire.name}
-			subTitle={coil.wire.vendor.name}
-			extra={<>
-				<ButtonBar>
-					<CoilEditButton coil={coil}/>
-				</ButtonBar>
-				<Divider/>
-			</>}
-			span={24}
-		/>
-		<Preview translation={'lab.coil.preview'} {...props}>
-			{{
-				wire: <WireInline wire={coil.wire}/>,
-				ohm: <Ohm ohm={coil.ohm}/>,
-				wraps: coil.wraps,
-				size: coil.size,
-				spaced: <BoolInline bool={coil.spaced}/>,
-			}}
-		</Preview>
-	</>
+	const {t} = useTranslation();
+	return <Tabs size={'large'}>
+		<Tabs.TabPane key={'common'} tab={t('lab.coil.common.tab')}>
+			<Row>
+				<Col span={12}>
+					<Preview translation={'lab.coil.preview'} {...props}>
+						{{
+							wire: <WireInline wire={coil.wire}/>,
+							ohm: coil.ohm && <Ohm ohm={coil.ohm}/>,
+							wraps: <CoilWraps noTooltip wraps={coil.wraps}/>,
+						}}
+					</Preview>
+				</Col>
+				<Col span={12}>
+					<Preview translation={'lab.coil.preview'} {...props}>
+						{{
+							size: <CoilSize noTooltip size={coil.size}/>,
+							spaced: <BoolInline bool={coil.spaced}/>,
+						}}
+					</Preview>
+				</Col>
+			</Row>
+		</Tabs.TabPane>
+		<Tabs.TabPane key={'builds'} tab={t('lab.coil.builds.tab')}>
+			<BuildsFilterContext defaultFilter={{coilIds: [coil.id]}}>
+				<BuildFilter disabled={['coilIds']}/>
+				<BuildTable hidden={['coil']}/>
+			</BuildsFilterContext>
+		</Tabs.TabPane>
+	</Tabs>
 }

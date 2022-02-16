@@ -1,13 +1,23 @@
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {FC} from "react";
-import {Typography} from "antd";
+import {Divider, Space, Tooltip, Typography} from "antd";
 
 export interface IWireInlineProps {
 	wire: WireDto;
 }
 
 export const WireInline: FC<IWireInlineProps> = ({wire}) => {
-	return <>
-		{wire.name}&nbsp;<Typography.Text type={'secondary'}>{wire.vendor.name}</Typography.Text><br/><Typography.Text type={'success'}>{(wire.ga ? wire.ga + 'GA' : null) || wire.description}</Typography.Text>
-	</>;
+	return <Space size={0} split={<Divider type={'vertical'}/>}>
+		<Typography.Text>
+			<Tooltip title={wire.vendor.name}>
+				{wire.name}
+			</Tooltip>
+		</Typography.Text>
+		<Space>
+			<Tooltip title={wire.description}>
+				<Typography.Text>{wire.ga}</Typography.Text>
+				<Typography.Text type={'secondary'}>GA</Typography.Text>
+			</Tooltip>
+		</Space>
+	</Space>
 }
