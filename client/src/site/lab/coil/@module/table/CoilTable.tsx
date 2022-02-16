@@ -1,6 +1,6 @@
 import {CoilsSourceTable, ICoilsSourceTableProps, useCoilsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {ButtonBar, BoolInline} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {CoilListItem} from "@/puff-smith/site/lab/coil/@module/table/CoilListItem";
 import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";
@@ -18,7 +18,7 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.coil.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={coil => <CoilListItem coil={coil}/>}
-		scroll={{x: 1500}}
+		scroll={{x: 1900}}
 		{...props}
 	>
 		{({column}) => [
@@ -45,6 +45,13 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				width: 120,
 			}),
 			column({
+				key: "nominalOhm",
+				title: 'lab.coil.table.nominalOhm',
+				render: (_, coil) => <Ohm ohm={coil.nominalOhm}/>,
+				sorter: true,
+				width: 180,
+			}),
+			column({
 				key: "size",
 				title: 'lab.coil.table.size',
 				render: (_, coil) => coil.size || '-',
@@ -66,16 +73,16 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				width: 140,
 			}),
 			column({
-				key: "description",
-				title: 'lab.coil.table.wire.description',
-				render: (_, coil) => coil.wire.description,
-				sorter: true,
-			}),
-			column({
 				key: "spaced",
 				title: 'lab.coil.table.spaced',
 				render: (_, coil) => <BoolInline bool={coil.spaced}/>,
 				width: 200,
+				sorter: true,
+			}),
+			column({
+				key: "description",
+				title: 'lab.coil.table.wire.description',
+				render: (_, coil) => coil.wire.description,
 				sorter: true,
 			}),
 		]}

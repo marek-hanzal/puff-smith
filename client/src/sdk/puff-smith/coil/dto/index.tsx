@@ -7,6 +7,7 @@ export interface CoilDto {
 	wireId: string;
 	wire: import("@/sdk/puff-smith/wire/dto/index").WireDto;
 	ohm: number | null;
+	nominalOhm: number | null;
 }
 
 export module CoilDto {

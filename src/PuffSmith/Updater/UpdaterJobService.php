@@ -20,9 +20,13 @@ class UpdaterJobService extends AbstractJobService {
 		$progress->onStart($coils);
 		foreach ($this->coilRepository->all() as $coil) {
 			$progress->onProgress();
+
+			$ohm = $this->coilService->toCoilOhm($coil->id);
+
 			$this->coilRepository->change([
-				'id'  => $coil->id,
-				'ohm' => $this->coilService->toCoilOhm($coil->id),
+				'id'         => $coil->id,
+				'ohm'        => $ohm,
+				'nominalOhm' => $ohm ? $this->coilService->toNominalOhm($coil->wraps, $coil->size, $ohm) : null,
 			]);
 		}
 

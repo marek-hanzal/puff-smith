@@ -14,14 +14,15 @@ class CoilMapper extends AbstractMapper {
 
 	public function item($item) {
 		return $this->dtoService->fromArray(CoilDto::class, [
-			'id'     => $item->id,
-			'wraps'  => $item->wraps,
-			'spaced' => (bool)$item->spaced,
-			'stamp'  => $this->isoDateNull($item->stamp),
-			'size'   => $item->size,
-			'wireId' => ($wire = $this->wireRepository->find($item->wire_id))->id,
-			'wire'   => $this->wireMapper->item($wire),
-			'ohm'    => $item->ohm,
+			'id'         => $item->id,
+			'wraps'      => $item->wraps,
+			'spaced'     => (bool)$item->spaced,
+			'stamp'      => $this->isoDateNull($item->stamp),
+			'size'       => $item->size,
+			'wireId'     => ($wire = $this->wireRepository->find($item->wire_id))->id,
+			'wire'       => $this->wireMapper->item($wire),
+			'ohm'        => $item->ohm,
+			'nominalOhm' => $item->nominalOhm,
 		]);
 	}
 }

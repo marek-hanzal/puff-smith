@@ -27,13 +27,14 @@ export const CoilPreview: FC<ICoilPreviewProps> = ({coil, ...props}) => {
 						{{
 							wire: <WireInline wire={coil.wire}/>,
 							ohm: coil.ohm && <Ohm ohm={coil.ohm}/>,
-							wraps: <CoilWraps noTooltip wraps={coil.wraps}/>,
+							nominalOhm: coil.nominalOhm && <Ohm ohm={coil.nominalOhm}/>,
 						}}
 					</Preview>
 				</Col>
 				<Col span={12}>
 					<Preview translation={'lab.coil.preview'} {...props}>
 						{{
+							wraps: <CoilWraps noTooltip wraps={coil.wraps}/>,
 							size: <CoilSize noTooltip size={coil.size}/>,
 							spaced: <BoolInline bool={coil.spaced}/>,
 						}}

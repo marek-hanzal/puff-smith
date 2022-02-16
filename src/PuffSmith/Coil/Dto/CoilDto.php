@@ -23,4 +23,6 @@ class CoilDto extends AbstractDto {
 	public WireDto $wire;
 	/** @var float|null */
 	public ?float $ohm;
+	/** @var float|null */
+	public ?float $nominalOhm;
 }

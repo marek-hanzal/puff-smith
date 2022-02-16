@@ -11,8 +11,12 @@ use PuffSmith\Build\Repository\BuildRepositoryTrait;
 class CoilService {
 	use BuildRepositoryTrait;
 
-	public function toOhm(int $wraps, int $ohm): float {
+	public function toOhm(int $wraps, float $ohm): float {
 		return $ohm / $wraps;
+	}
+
+	public function toNominalOhm(int $wraps, float $size, float $ohm): float {
+		return $this->toOhm($wraps, $ohm) / $size;
 	}
 
 	public function toCoilOhm(string $coilId): ?float {

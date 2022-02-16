@@ -1208,16 +1208,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "2.4.2",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "ca8e4c10535be5c59c03f491310b60b9d6a60e24"
+                "reference": "4c56e451e10e3d9478f42f44c3d744bc17cdcede"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/ca8e4c10535be5c59c03f491310b60b9d6a60e24",
-                "reference": "ca8e4c10535be5c59c03f491310b60b9d6a60e24",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/4c56e451e10e3d9478f42f44c3d744bc17cdcede",
+                "reference": "4c56e451e10e3d9478f42f44c3d744bc17cdcede",
                 "shasum": ""
             },
             "require": {
@@ -1274,7 +1274,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/2.4.2"
+                "source": "https://github.com/thephpleague/flysystem/tree/2.4.3"
             },
             "funding": [
                 {
@@ -1290,7 +1290,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-31T19:40:25+00:00"
+            "time": "2022-02-16T18:44:00+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -1524,11 +1524,11 @@
                 "reference": "69810dd7baee16fa8e05c9f6d8d6b242bd429592"
             },
             "dist": {
-				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/69810dd7baee16fa8e05c9f6d8d6b242bd429592",
-				"reference": "69810dd7baee16fa8e05c9f6d8d6b242bd429592",
-				"shasum": ""
-			},
+                "type": "zip",
+                "url": "https://api.github.com/repos/leight-core/edde/zipball/69810dd7baee16fa8e05c9f6d8d6b242bd429592",
+                "reference": "69810dd7baee16fa8e05c9f6d8d6b242bd429592",
+                "shasum": ""
+            },
             "require": {
                 "cache/void-adapter": "^1.1",
                 "clancats/hydrahon": "^1.1",
@@ -1600,7 +1600,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-15T21:38:32+00:00"
+            "time": "2022-02-15T21:38:32+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
