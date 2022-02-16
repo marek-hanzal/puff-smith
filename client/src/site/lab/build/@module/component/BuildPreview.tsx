@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {ButtonBar, IPreviewProps, Preview, BoolInline, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
+import {BoolInline, ButtonBar, IPreviewProps, Preview, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
 import {FC} from "react";
 import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,6 @@ import {useUpdateMutation} from "@/sdk/edde/api/shared/image/endpoint";
 import {BuildEditButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildEditButton";
 import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
-import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
 import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
 import {BuildPlotButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPlotButton";
@@ -25,6 +24,7 @@ import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/Dri
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
+import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -61,7 +61,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				<Col span={isDrawer ? 24 : 8}>
 					<Preview translation={'lab.build.preview'} {...props}>
 						{{
-							"mod": <ModInline mod={build.mod}/>,
+							"mod": build?.mod && <ModInline mod={build.mod}/>,
 							"coil": <CoilInline inline coil={build.coil}/>,
 							"cotton": <CottonInline cotton={build.cotton}/>,
 						}}
@@ -70,8 +70,8 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				<Col span={isDrawer ? 24 : 8}>
 					<Preview translation={'lab.build.preview'} {...props}>
 						{{
-							"ohm": <Ohm ohm={build?.ohm}/>,
-							"draw": <Tags tags={build.draws}/>,
+							"ohm": build?.ohm && <Ohm ohm={build?.ohm}/>,
+							"draw": build.draws.length && <Tags tags={build.draws}/>,
 							"age": <BuildAge build={build}/>,
 						}}
 					</Preview>
@@ -79,7 +79,8 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 				<Col span={isDrawer ? 24 : 8}>
 					<Preview translation={'lab.build.preview'} {...props}>
 						{{
-							"coils": <CoilCountInput value={build.coils} disabled/>,
+							"dual": <BoolInline bool={build.dual}/>,
+							"dualMode": build.dual && <DualModeInput value={build.dualMode}/>,
 							"driptip": <DriptipInline driptip={build.driptip}/>,
 							"created": toLocalDateTime(build.created),
 							"active": <BoolInline bool={build.active}/>,

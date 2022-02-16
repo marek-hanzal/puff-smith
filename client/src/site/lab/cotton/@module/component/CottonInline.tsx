@@ -10,6 +10,7 @@ export interface ICottonInlineProps {
 export const CottonInline: FC<ICottonInlineProps> = ({cotton}) => {
 	const isMobile = useIsMobile();
 	return <Space direction={isMobile ? 'vertical' : 'horizontal'}>
-		{cotton.name}<Typography.Text type={'secondary'}>{cotton.vendor.name}</Typography.Text>
+		<Typography.Text>{cotton.name}</Typography.Text>
+		<Typography.Text type={'secondary'}>{cotton.vendor.name}</Typography.Text>
 	</Space>;
 }

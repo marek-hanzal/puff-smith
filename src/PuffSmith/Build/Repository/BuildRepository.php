@@ -111,7 +111,8 @@ class BuildRepository extends AbstractRepository {
 			'coil_id'     => $coil->id,
 			'cotton_id'   => $createDto->cottonId,
 			'driptip_id'  => $createDto->driptipId ?: $this->userAtomizerRepository->findByUser($createDto->atomizerId)->driptip_id ?? null,
-			'coils'       => $createDto->coils,
+			'dual'        => $createDto->dual,
+			'dualMode'    => $createDto->dualMode,
 			'ohm'         => $createDto->ohm,
 			'active'      => true,
 			'created'     => new DateTime($createDto->created ?? 'now'),
@@ -142,7 +143,8 @@ class BuildRepository extends AbstractRepository {
 			'driptip_id'  => $patchDto->driptipId,
 			'coil_id'     => $patchDto->coilId,
 			'cotton_id'   => $patchDto->cottonId,
-			'coils'       => $patchDto->coils,
+			'dual'        => $patchDto->dual,
+			'dualMode'    => $patchDto->dualMode,
 			'ohm'         => $patchDto->ohm,
 		]);
 		$tags = [];

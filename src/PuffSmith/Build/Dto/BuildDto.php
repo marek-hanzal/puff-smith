@@ -40,8 +40,10 @@ class BuildDto extends AbstractDto {
 	public string $coilId;
 	/** @var CoilDto */
 	public CoilDto $coil;
-	/** @var int */
-	public int $coils;
+	/** @var bool */
+	public bool $dual;
+	/** @var int|null */
+	public ?int $dualMode;
 
 	/** @var string */
 	public string $cottonId;

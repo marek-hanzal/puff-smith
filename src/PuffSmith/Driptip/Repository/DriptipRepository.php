@@ -8,12 +8,11 @@ use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
 use Edde\Repository\IRepository;
 use Edde\User\CurrentUserServiceTrait;
-use PuffSmith\Driptip\Dto\Create\CreateDto;
+use PuffSmith\Driptip\Dto\CreateDto;
 use PuffSmith\Driptip\Dto\DriptipFilterDto;
 
 class DriptipRepository extends AbstractRepository {
 	use CurrentUserServiceTrait;
-	use DriptipMaterialRepositoryTrait;
 
 	public function __construct() {
 		parent::__construct(['name' => IRepository::ORDER_ASC], ['$_code_unique']);
@@ -48,7 +47,6 @@ class DriptipRepository extends AbstractRepository {
 			'vendor_id' => $createDto->vendorId,
 			'user_id'   => $this->currentUserService->requiredId(),
 		]);
-		$this->driptipMaterialRepository->sync($driptip->id, $createDto->materials);
 		return $driptip;
 	}
 }

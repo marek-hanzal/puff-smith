@@ -30,4 +30,8 @@ class PatchDto extends AbstractDto {
 	 * @var string[]
 	 */
 	public array $drawIds = [];
+	/** @var bool */
+	public bool $dual;
+	/** @var int|null */
+	public ?int $dualMode;
 }

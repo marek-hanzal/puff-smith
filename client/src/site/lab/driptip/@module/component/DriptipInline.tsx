@@ -1,16 +1,14 @@
 import {FC} from "react";
 import {DriptipDto} from "@/sdk/puff-smith/driptip/dto";
-import {Typography} from "antd";
-import {useTranslation} from "react-i18next";
+import {Space, Typography} from "antd";
 
 export interface IDriptipInlineProps {
 	driptip: DriptipDto | null;
 }
 
 export const DriptipInline: FC<IDriptipInlineProps> = ({driptip}) => {
-	const {t} = useTranslation();
-	return driptip ? <>
-		{driptip.name}&nbsp;<Typography.Text type={'secondary'}>{driptip.vendor.name}</Typography.Text><br/>
-		{driptip.materials.map(material => <Typography.Text key={material.id} type={'secondary'}>{t('tag.' + material.group + '.' + material.label)}</Typography.Text>)}
-	</> : <>-</>
+	return driptip ? <Space>
+		<Typography.Text>{driptip.name}</Typography.Text>
+		<Typography.Text type={'secondary'}>{driptip.vendor.name}</Typography.Text><br/>
+	</Space> : <>-</>
 }

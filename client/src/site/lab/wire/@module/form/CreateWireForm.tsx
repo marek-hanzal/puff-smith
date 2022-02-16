@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface ICreateWireFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -22,6 +23,9 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 			wiresQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		toForm={() => ({
+			tc: false,
+		})}
 		{...props}
 	>
 		<FormItem
@@ -43,6 +47,9 @@ export const CreateWireForm: FC<ICreateWireFormProps> = ({onSuccess, ...props}) 
 		>
 			<GaInput/>
 		</FormItem>
+		<SwitchItem
+			field={'tc'}
+		/>
 		<FormItem
 			field={'drawIds'}
 		>

@@ -8,6 +8,7 @@ import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface IPatchWireFormProps extends Partial<IPatchDefaultFormProps> {
 	wire: WireDto;
@@ -55,6 +56,9 @@ export const PatchWireForm: FC<IPatchWireFormProps> = ({onSuccess, wire, ...prop
 		>
 			<GaInput/>
 		</FormItem>
+		<SwitchItem
+			field={'tc'}
+		/>
 		<FormItem
 			field={'drawIds'}
 		>

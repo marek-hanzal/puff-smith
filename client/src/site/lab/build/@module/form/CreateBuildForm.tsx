@@ -7,7 +7,6 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
-import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
@@ -16,6 +15,8 @@ import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 import {WireSelect} from "@/puff-smith/site/lab/wire/@module/form/WireSelect";
 import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInput";
 import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
+import {DualCoilInput} from "@/puff-smith/component/input/DualCoilInput";
+import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -52,6 +53,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			name: null,
 			description: null,
 			deactivate: true,
+			dual: false,
 		})}
 		onSuccess={response => {
 			message.success(t("lab.build.created.message", {data: response.response}));
@@ -67,7 +69,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 				size: values?.coil?.size,
 			}, {
 				onSuccess: ohm => {
-					change.formContext.setValues({
+					ohm && ohm > 0 && change.formContext.setValues({
 						ohm,
 					});
 				},
@@ -143,11 +145,15 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.advanced.title')}>
 					<Spin spinning={!cacAdvanced} indicator={<></>}>
-						<FormItem
-							field={'coils'}
+						<DualCoilInput
+							field={'dual'}
+						/>
+						{values?.dual && <FormItem
+							field={'dualMode'}
+							required
 						>
-							<CoilCountInput/>
-						</FormItem>
+							<DualModeInput/>
+						</FormItem>}
 						<FormItem
 							field={'ohm'}
 						>

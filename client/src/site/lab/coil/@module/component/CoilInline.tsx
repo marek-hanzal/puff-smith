@@ -1,28 +1,29 @@
 import {FC} from "react";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
-import {Divider, Space, Typography} from "antd";
-import {ArrowsAltOutlined, ReloadOutlined} from "@ant-design/icons";
-import {useIsMobile} from "@leight-core/leight";
+import {Divider, Space, Tooltip, Typography} from "antd";
+import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
+import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 
 export interface ICoilInlineProps {
 	coil: CoilDto;
-	inline?: boolean;
 }
 
-export const CoilInline: FC<ICoilInlineProps> = ({coil, inline}) => {
-	const isMobile = useIsMobile();
-	inline = inline !== undefined ? inline : isMobile;
-	return <Space direction={inline ? 'horizontal' : 'vertical'}>
-		<Space direction={inline ? 'horizontal' : 'vertical'}>
-			<Typography.Text>{coil.wire.name}</Typography.Text>
-			<Typography.Text type={'secondary'}>{coil.wire.vendor.name}</Typography.Text>
-		</Space>
-		<Space split={<Divider type={'vertical'}/>}>
-			<Space><span>{coil.wraps}</span><ReloadOutlined/></Space>
-			<Space><span>{coil.size}</span><ArrowsAltOutlined/></Space>
-		</Space>
+export const CoilInline: FC<ICoilInlineProps> = ({coil}) => {
+	return <Space size={0} split={<Divider type={'vertical'}/>}>
+		<Typography.Text>
+			<Tooltip title={coil.wire.vendor.name}>
+				{coil.wire.name}
+			</Tooltip>
+		</Typography.Text>
 		<Space>
-			{(coil.wire.ga || coil.wire.description) && <Typography.Text type={'secondary'}>{(coil.wire.ga ? coil.wire.ga + 'GA' : null)} {coil.wire.description}</Typography.Text>}
+			{coil.wire.ga && !coil.wire.description && <Typography.Text type={'secondary'}>{coil.wire.ga + 'GA'}</Typography.Text>}
+			{coil.wire.ga && coil.wire.description && <Typography.Text type={'secondary'}>
+				<Tooltip title={coil.wire.description}>
+					{coil.wire.ga + 'GA'}
+				</Tooltip>
+			</Typography.Text>}
 		</Space>
+		<CoilWraps wraps={coil.wraps}/>
+		<CoilSize size={coil.size}/>
 	</Space>
 }

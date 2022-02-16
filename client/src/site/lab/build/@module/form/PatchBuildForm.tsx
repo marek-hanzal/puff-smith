@@ -1,6 +1,6 @@
 import {IPatchDefaultFormProps, PatchDefaultForm, useBuildQueryInvalidate, useBuildsQueryInvalidate} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
@@ -8,7 +8,6 @@ import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
-import {CoilCountInput} from "@/puff-smith/site/lab/build/@module/form/input/CoilCountInput";
 import {CoilTooltip} from "@/puff-smith/site/lab/coil/@module/form/CoilTooltip";
 import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";
 import {CottonSelect} from "@/puff-smith/site/lab/cotton/@module/form/CottonSelect";
@@ -16,6 +15,8 @@ import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/Driptip
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
+import {DualCoilInput} from "@/puff-smith/component/input/DualCoilInput";
+import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
 
 export interface IPatchBuildFormProps extends Partial<IPatchDefaultFormProps> {
 	build: BuildDto;
@@ -26,6 +27,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 	const buildQueryInvalidate = useBuildQueryInvalidate();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	const vapesQueryInvalidate = useVapesQueryInvalidate();
+	const [dual, setDual] = useState<boolean>(build.dual);
 	return <PatchDefaultForm
 		layout={'vertical'}
 		translation={'lab.build'}
@@ -87,11 +89,18 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		</Card>
 		<Divider/>
 		<Card title={'lab.build.advanced.title'}>
-			<FormItem
-				field={'coils'}
+			<DualCoilInput
+				field={'dual'}
+				switchProps={{
+					onChange: setDual,
+				}}
+			/>
+			{dual && <FormItem
+				field={'dualMode'}
+				required
 			>
-				<CoilCountInput/>
-			</FormItem>
+				<DualModeInput/>
+			</FormItem>}
 			<FormItem
 				field={'ohm'}
 			>
