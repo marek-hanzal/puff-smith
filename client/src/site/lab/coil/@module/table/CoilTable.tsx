@@ -45,19 +45,6 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				width: 120,
 			}),
 			column({
-				key: "ga",
-				title: 'lab.coil.table.wire.ga',
-				render: (_, coil) => coil.wire.ga || '-',
-				sorter: true,
-				width: 140,
-			}),
-			column({
-				key: "description",
-				title: 'lab.coil.table.wire.description',
-				render: (_, coil) => coil.wire.description,
-				sorter: true,
-			}),
-			column({
 				key: "size",
 				title: 'lab.coil.table.size',
 				render: (_, coil) => coil.size || '-',
@@ -69,6 +56,19 @@ export const CoilTable: FC<ICoilTableProps> = props => {
 				title: 'lab.coil.table.wraps',
 				render: (_, coil) => coil.wraps,
 				width: 160,
+				sorter: true,
+			}),
+			column({
+				key: "ga",
+				title: 'lab.coil.table.wire.ga',
+				render: (_, coil) => coil.wire.ga || '-',
+				sorter: true,
+				width: 140,
+			}),
+			column({
+				key: "description",
+				title: 'lab.coil.table.wire.description',
+				render: (_, coil) => coil.wire.description,
 				sorter: true,
 			}),
 			column({

@@ -17,6 +17,7 @@ use PuffSmith\Build\Dto\BuildFilterDto;
 use PuffSmith\Build\Dto\CreateDto;
 use PuffSmith\Build\Dto\PatchDto;
 use PuffSmith\Coil\Repository\CoilRepositoryTrait;
+use PuffSmith\Updater\UpdaterJobServiceTrait;
 use PuffSmith\User\Repository\Atomizer\UserAtomizerRepositoryTrait;
 use Throwable;
 use function array_merge;
@@ -26,6 +27,7 @@ class BuildRepository extends AbstractRepository {
 	use CoilRepositoryTrait;
 	use UserAtomizerRepositoryTrait;
 	use BuildTagRepositoryTrait;
+	use UpdaterJobServiceTrait;
 
 	public function __construct() {
 		parent::__construct([
@@ -80,6 +82,10 @@ class BuildRepository extends AbstractRepository {
 		return $select;
 	}
 
+	public function findByCoil(string $coilId) {
+		return $this->table()->select()->where('coil_id', $coilId)->execute();
+	}
+
 	/**
 	 * @param CreateDto $createDto
 	 *
@@ -114,6 +120,7 @@ class BuildRepository extends AbstractRepository {
 		$tags = [];
 		$tags = array_merge($tags, $createDto->drawIds);
 		$this->buildTagRepository->syncWith('build_id', 'tag_id', $build->id, $tags);
+		$this->updaterJobService->async();
 		return $build;
 	}
 
@@ -141,6 +148,7 @@ class BuildRepository extends AbstractRepository {
 		$tags = [];
 		$tags = array_merge($tags, $patchDto->drawIds);
 		$this->buildTagRepository->syncWith('build_id', 'tag_id', $build->id, $tags);
+		$this->updaterJobService->async();
 		return $build;
 	}
 }
