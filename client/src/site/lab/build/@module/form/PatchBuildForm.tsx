@@ -49,7 +49,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 		}}
 		{...props}
 	>
-		<Card title={t('lab.build.build.title')}>
+		<Card title={'lab.build.build.title'} bordered={false}>
 			<FormItem
 				field={'atomizerId'}
 				required
@@ -92,7 +92,7 @@ export const PatchBuildForm: FC<IPatchBuildFormProps> = ({build, onSuccess, ...p
 			</FormItem>
 		</Card>
 		<Divider/>
-		<Card title={t('lab.build.advanced.title')}>
+		<Card title={'lab.build.advanced.title'} bordered={false}>
 			<FormItem
 				field={'coils'}
 			>
