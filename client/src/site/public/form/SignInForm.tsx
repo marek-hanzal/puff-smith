@@ -34,7 +34,7 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 				{required: true, whitespace: false, message: t("public.sign-in.login.required")},
 			]}
 		>
-			<Input autoComplete={"username"}/>
+			<Input autoFocus autoComplete={"username"}/>
 		</FormItem>
 		<FormItem
 			field={"password"}

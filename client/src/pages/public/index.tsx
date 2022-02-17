@@ -14,12 +14,14 @@ export default withPublicLayout(function Index() {
 			extra={<Divider/>}
 		>
 			<Row gutter={32}>
-				<Col span={12}>
+				<Col span={11}>
 					<Card title={'public.sing-in.card.title'}>
 						<SignInForm/>
 					</Card>
 				</Col>
-				<Col span={12}>
+				<Col span={2}>
+				</Col>
+				<Col span={11}>
 					<Card title={'public.sing-up.card.title'}>
 						<SignUpForm/>
 					</Card>
