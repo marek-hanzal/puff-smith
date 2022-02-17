@@ -26,7 +26,7 @@ final class VapeBuildId extends CommonMigration {
 			$this->debugService->save($throwable);
 		}
 
-		foreach ($this->vapeRepository->all() as $vape) {
+		foreach ($this->vapeRepository->table()->select()->execute() as $vape) {
 			$setup = $this->storage->table('z_setup')->select()->where('id', $vape->setup_id)->execute()->fetch();
 			$this->vapeRepository->change([
 				'id'       => $vape->id,

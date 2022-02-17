@@ -18,7 +18,6 @@ export default withLabLayout(function Index() {
 			<LabMenu/> :
 			<Template
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
-				label={"lab.home"}
 				span={24}
 			>
 				<Divider/>

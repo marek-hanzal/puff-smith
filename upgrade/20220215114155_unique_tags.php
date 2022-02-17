@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Edde\Phinx\CommonMigration;
+use Edde\Phinx\PhinxTable;
 use Edde\Tag\Repository\TagRepositoryTrait;
 
 final class UniqueTags extends CommonMigration {
@@ -14,13 +15,12 @@ final class UniqueTags extends CommonMigration {
 			->where('group', 'material')
 			->execute();
 
-		$this
-			->table('z_tag')
-			->addUniqueIndex([
+		$this->tryTable('z_tag', function (PhinxTable $phinxTable) {
+			$phinxTable->addUniqueIndex([
 				'code',
 				'group',
-			], 'code')
-			->save();
+			], 'code');
+		});
 
 		$this->importExcel(__DIR__ . '/fixtures/tags.xlsx');
 	}

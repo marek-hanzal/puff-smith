@@ -12,7 +12,8 @@ export interface BuildDto {
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	coilId: string;
 	coil: import("@/sdk/puff-smith/coil/dto/index").CoilDto;
-	coils: number;
+	dual: boolean;
+	dualMode: number | null;
 	cottonId: string;
 	cotton: import("@/sdk/puff-smith/cotton/dto/index").CottonDto;
 	draws: import("@/sdk/edde/tag/dto/index").TagDto[];
@@ -62,6 +63,8 @@ export interface CreateDto {
 	ohm: number | null;
 	deactivate: boolean | null;
 	drawIds: string[];
+	dual: boolean;
+	dualMode: number | null;
 }
 
 export module CreateDto {
@@ -89,6 +92,8 @@ export interface PatchDto {
 	coils?: number | null | undefined;
 	ohm?: number | null | undefined;
 	drawIds: string[];
+	dual: boolean;
+	dualMode: number | null;
 }
 
 export module PatchDto {

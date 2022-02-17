@@ -1,7 +1,8 @@
-import {ConsumerProps, FC} from "react";
 import {
-	createPostMutation,
-	createPostQuery,
+	ConsumerProps,
+	FC
+} from "react";
+import {
 	FilterContextProvider,
 	Form,
 	IFilterContextProviderProps,
@@ -17,6 +18,8 @@ import {
 	SourceContext,
 	SourceContextProvider,
 	Table,
+	createPostMutation,
+	createPostQuery,
 	useFilterContext,
 	useOptionalFilterContext,
 	useSourceContext
@@ -26,7 +29,7 @@ import {useQueryClient} from "react-query";
 export type ICreateQueryParams = void;
 
 
-export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/create/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>("PuffSmith.Lab.Driptip.Create");
+export const useCreateMutation = createPostMutation<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>("PuffSmith.Lab.Driptip.Create");
 
 export type IDriptipsQueryParams = void;
 
@@ -37,11 +40,11 @@ export const useDriptipsQueryInvalidate = () => {
 	return () => queryClient.invalidateQueries(["PuffSmith.Lab.Driptip.Driptips"])
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/create/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>> {
 }
 
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => {
-	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/create/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>
+	return <Form<ICreateQueryParams, import("@/sdk/puff-smith/driptip/dto/index").CreateDto, import("@/sdk/puff-smith/driptip/dto/index").DriptipDto>
 		useMutation={useCreateMutation}
 		{...props}
 	/>

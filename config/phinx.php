@@ -19,6 +19,15 @@ return [
 			'port'    => '3306',
 			'charset' => 'utf8',
 		],
+		'local'                   => [
+			'adapter' => 'mysql',
+			'host'    => 'mariadb-local',
+			'name'    => 'puff-smith',
+			'user'    => 'puff-smith',
+			'pass'    => '1234',
+			'port'    => '3306',
+			'charset' => 'utf8',
+		],
 	],
 	'version_order'        => 'creation',
 ];

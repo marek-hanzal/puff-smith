@@ -8,7 +8,7 @@ final class VapeRatingTo9 extends CommonMigration {
 	use VapeRepositoryTrait;
 
 	public function change(): void {
-		foreach ($this->vapeRepository->all() as $vape) {
+		foreach ($this->vapeRepository->table()->select()->execute() as $vape) {
 			$this->vapeRepository->change([
 				'id'      => $vape->id,
 				'rating'  => $vape->rating ? min($vape->rating, 9) : $vape->rating,

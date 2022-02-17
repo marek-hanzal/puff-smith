@@ -1,27 +1,24 @@
 version: '3'
 services:
-    puff-smith:
+    puff-smith-local:
         image: marekhanzal/puff-smith:latest
         depends_on:
-            - mysql
+            - mariadb
+        environment:
+            - PHINX=local
         networks:
             - db
             - memcached
         ports:
-            - "6388:3000"
-            - "6088:80"
+            - "42000:3000"
 
-    memcached:
+    memcached-local:
         image: memcached:1.6-alpine
-        hostname: memcached
         networks:
             - memcached
 
-    mariadb:
+    mariadb-local:
         image: mariadb:10
-        hostname: mariadb
-        ports:
-            - "6306:3306"
         networks:
             - db
         environment:
