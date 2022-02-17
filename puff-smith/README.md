@@ -24,6 +24,7 @@ Access http://localhost:42000/
 
 - login by the `root` user with `1234` password
 - or login by the `test` user with `1234` password
+- if you want to cleanup the installation, use `$ docker compose rm` in this folder (where this README.md lies)
 
 ### Last notes
 
