@@ -1,7 +1,7 @@
 import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/leight";
 import {FC} from "react";
 import {AppLayout} from "@/puff-smith/site/shared";
-import {Footer, Header, PublicMenu} from "@/puff-smith/site/public";
+import {Footer, Header} from "@/puff-smith/site/public";
 
 export interface IPublicLayoutProps {
 }
@@ -11,7 +11,6 @@ export const PublicLayout: FC<IPublicLayoutProps> = ({children}) => {
 		<HeaderSiderLayout
 			header={<Header/>}
 			footer={<Footer/>}
-			menu={<PublicMenu/>}
 		>
 			{children}
 		</HeaderSiderLayout>

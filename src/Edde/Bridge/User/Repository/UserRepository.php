@@ -24,7 +24,7 @@ use function json_encode;
  */
 class UserRepository extends AbstractRepository implements IUserRepository {
 	public function __construct() {
-		parent::__construct();
+		parent::__construct(null, ['$_email_unique']);
 	}
 
 	public function toQuery(Query $query): Select {

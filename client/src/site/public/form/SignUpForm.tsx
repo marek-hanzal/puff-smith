@@ -17,14 +17,21 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 		onSuccess={({navigate, response}) => {
 			navigate("/" + response.user.site);
 		}}
-		toError={() => ({
+		toError={({error}) => ({
 			"Unknown login": (({formContext}) => {
 				formContext.setErrors({
 					errors: [
 						{id: "login", error: "Who are you?"},
 					],
 				});
-			})
+			}),
+			"Duplicate entry [z_user_email_unique] of [z_user].": (({formContext}) => {
+				formContext.setErrors({
+					errors: [
+						{id: "email", error},
+					],
+				});
+			}),
 		})}
 		{...props}
 	>

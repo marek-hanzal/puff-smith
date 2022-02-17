@@ -1,20 +1,30 @@
 import icon from "@/puff-smith/assets/logo/logo-full.svg";
-import {BulletCard, ButtonLink, SignInIcon} from "@leight-core/leight";
-import {Image} from "antd";
-import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
+import {Col, Divider, Image, Row} from "antd";
+import {PublicPage, SignInForm, SignUpForm, withPublicLayout} from "@/puff-smith/site/public";
+import {Card, Template} from "@leight-core/leight";
 
 export default withPublicLayout(function Index() {
 	return <PublicPage
 		title={"public.index"}
 		menuSelection={['/public']}
+		fullwidth
 	>
-		<BulletCard
-			title={'public.home.welcome'}
-			count={4}
+		<Template
 			icon={<Image alt={"logo"} height={160} preview={false} src={icon}/>}
-			extra={
-				<ButtonLink size={"large"} href={"/public/sign-in"} icon={<SignInIcon/>} title={"public.home.sign-in.title"}/>
-			}
-		/>
+			extra={<Divider/>}
+		>
+			<Row gutter={32}>
+				<Col span={12}>
+					<Card title={'public.sing-in.card.title'}>
+						<SignInForm/>
+					</Card>
+				</Col>
+				<Col span={12}>
+					<Card title={'public.sing-up.card.title'}>
+						<SignUpForm/>
+					</Card>
+				</Col>
+			</Row>
+		</Template>
 	</PublicPage>;
 });
