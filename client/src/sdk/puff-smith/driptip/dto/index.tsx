@@ -1,21 +1,12 @@
 export interface DriptipDto {
 	id: string;
 	name: string;
+	materials: import("@/sdk/edde/tag/dto/index").TagDto[];
 	vendorId: string;
 	vendor: import("@/sdk/puff-smith/vendor/dto/index").VendorDto;
 }
 
 export module DriptipDto {
-
-}
-
-
-export interface CreateDto {
-	name: string;
-	vendorId: string;
-}
-
-export module CreateDto {
 
 }
 

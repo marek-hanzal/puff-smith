@@ -1,3 +1,15 @@
+export interface CommitDto {
+	uuid: string;
+	path: string;
+	name?: string | undefined;
+	replace?: boolean | undefined;
+}
+
+export module CommitDto {
+
+}
+
+
 export interface FileDto {
 	id: string;
 	path: string;
@@ -12,18 +24,6 @@ export interface FileDto {
 }
 
 export module FileDto {
-
-}
-
-
-export interface CommitDto {
-	uuid: string;
-	path: string;
-	name?: string | undefined;
-	replace?: boolean | undefined;
-}
-
-export module CommitDto {
 
 }
 
@@ -56,17 +56,5 @@ export interface FileFilterDto {
 }
 
 export module FileFilterDto {
-
-}
-
-
-export interface GcResultDto {
-	hit: boolean;
-	records: number;
-	files: number;
-	runtime: number;
-}
-
-export module GcResultDto {
 
 }

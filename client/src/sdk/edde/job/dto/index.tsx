@@ -1,4 +1,4 @@
-export interface JobDto<TResult = void | undefined> {
+export interface JobDto<TResult = any> {
 	id: string;
 	total: number;
 	success: number;
