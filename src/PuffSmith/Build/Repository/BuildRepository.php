@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PuffSmith\Build\Repository;
 
 use ClanCats\Hydrahon\Query\Sql\Select;
+use ClanCats\Hydrahon\Query\Sql\SelectBase;
 use DateTime;
 use Dibi\Exception;
 use Edde\Query\Dto\Query;
@@ -98,7 +99,12 @@ class BuildRepository extends AbstractRepository {
 	 */
 	public function create(CreateDto $createDto) {
 		if ($createDto->deactivate) {
-			$this->table()->update(['active' => false])->where('atomizer_id', $createDto->atomizerId)->execute();
+			$this
+				->table()
+				->update(['active' => false])
+				->where('atomizer_id', $createDto->atomizerId)
+				->where('user_id', $this->currentUserService->requiredId())
+				->execute();
 		}
 		try {
 			$coil = $this->coilRepository->create($createDto->coil);
@@ -152,5 +158,15 @@ class BuildRepository extends AbstractRepository {
 		$this->buildTagRepository->syncWith('build_id', 'tag_id', $build->id, $tags);
 		$this->updaterJobService->async();
 		return $build;
+	}
+
+	public function active(string $buildId, bool $active) {
+		return $this->changeWhere([
+			'id'         => $buildId,
+			'active'     => $active,
+			'disabledOn' => $active ? null : new DateTime(),
+		], function (SelectBase $select) {
+			$select->where('user_id', $this->currentUserService->requiredId());
+		});
 	}
 }
