@@ -31,9 +31,6 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 		toMutation={values => ({
 			...values,
 			rating: 0,
-			taste: 0,
-			airflow: 9,
-			juice: 9,
 		})}
 		{...props}
 	>

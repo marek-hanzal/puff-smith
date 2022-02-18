@@ -58,29 +58,10 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 			>
 				<DriptipSelect allowClear/>
 			</FormItem>
-			<FormItem
-				field={'leaks'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'dryhit'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
 		</Card>
 		<Card title={'lab.vape.rating.title'}>
 			<FormItem
 				field={'rating'}
-				hasTooltip
-				required
-			>
-				<CommonRateInput/>
-			</FormItem>
-			<FormItem
-				field={'taste'}
 				hasTooltip
 				required
 			>
@@ -100,26 +81,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 			>
 				<TcSlider/>
 			</FormItem>}
-		</Card>
-		<Card title={'lab.vape.vape.title'}>
-			<FormItem
-				field={'mtl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'dl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'clouds'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
 		</Card>
 		<Card title={'lab.vape.rating-advanced.title'}>
 			<FormItem

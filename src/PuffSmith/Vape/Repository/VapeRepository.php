@@ -71,7 +71,6 @@ class VapeRepository extends AbstractRepository {
 		!empty($filter->coilSize) && $this->where($select, 'c.size', $filter->coilSize);
 		!empty($filter->drawIds) && $this->where($select, 'bt.tag_id', 'in', $filter->drawIds);
 		isset($filter->ratingLte) && $this->where($select, '$.rating', '>=', $filter->ratingLte);
-		isset($filter->tasteLte) && $this->where($select, '$.taste', '>=', $filter->tasteLte);
 		isset($filter->userId) && $this->where($select, '$.user_id', $filter->userId);
 
 		$this->toOrderBy($query->orderBy, $select);
@@ -87,12 +86,6 @@ class VapeRepository extends AbstractRepository {
 			'driptip_id' => $createDto->driptipId,
 			'stamp'      => new DateTime(),
 			'rating'     => $createDto->rating,
-			'taste'      => $createDto->taste,
-			'clouds'     => $createDto->clouds,
-			'mtl'        => $createDto->mtl,
-			'dl'         => $createDto->dl,
-			'dryhit'     => $createDto->dryhit,
-			'leaks'      => $createDto->leaks,
 			'user_id'    => $this->currentUserService->requiredId(),
 		]);
 	}
@@ -105,18 +98,12 @@ class VapeRepository extends AbstractRepository {
 			'mixture_id' => $patchDto->mixtureId,
 			'driptip_id' => $patchDto->driptipId,
 			'rating'     => $patchDto->rating,
-			'taste'      => $patchDto->taste,
 			'throathit'  => $patchDto->throathit,
 			'fruits'     => $patchDto->fruits,
 			'tobacco'    => $patchDto->tobacco,
 			'cakes'      => $patchDto->cakes,
 			'complex'    => $patchDto->complex,
 			'fresh'      => $patchDto->fresh,
-			'clouds'     => $patchDto->clouds,
-			'mtl'        => $patchDto->mtl,
-			'dl'         => $patchDto->dl,
-			'dryhit'     => $patchDto->dryhit,
-			'leaks'      => $patchDto->leaks,
 			'power'      => $patchDto->power,
 			'tc'         => $patchDto->tc,
 		]);
@@ -126,18 +113,12 @@ class VapeRepository extends AbstractRepository {
 		return $this->change([
 			'id'        => $rateDto->id,
 			'rating'    => $rateDto->rating,
-			'taste'     => $rateDto->taste,
 			'throathit' => $rateDto->throathit,
 			'fruits'    => $rateDto->fruits,
 			'tobacco'   => $rateDto->tobacco,
 			'cakes'     => $rateDto->cakes,
 			'complex'   => $rateDto->complex,
 			'fresh'     => $rateDto->fresh,
-			'clouds'    => $rateDto->clouds,
-			'mtl'       => $rateDto->mtl,
-			'dl'        => $rateDto->dl,
-			'dryhit'    => $rateDto->dryhit,
-			'leaks'     => $rateDto->leaks,
 			'power'     => $rateDto->power,
 			'tc'        => $rateDto->tc,
 		]);

@@ -42,18 +42,12 @@ class PlotService extends AbstractPlotService {
 		foreach ($this->vapeRepository->execute($query) as $result) {
 			$count++;
 			$ratings['rating'][] = $result->rating;
-			$ratings['taste'][] = $result->taste;
 			$ratings['complex'][] = $result->complex;
 			$ratings['fruits'][] = $result->fruits;
 			$ratings['cakes'][] = $result->cakes;
 			$ratings['tobacco'][] = $result->tobacco;
 			$ratings['fresh'][] = $result->fresh;
-			$ratings['mtl'][] = $result->mtl;
-			$ratings['dl'][] = $result->dl;
-			$ratings['clouds'][] = $result->clouds;
 			$ratings['throathit'][] = $result->throathit;
-			$ratings['leaks'][] = $result->leaks;
-			$ratings['dryhit'][] = $result->dryhit;
 		}
 
 		foreach ($ratings as $k => $v) {

@@ -33,10 +33,6 @@ class PatchDto extends AbstractDto {
 	/**
 	 * @var int|null
 	 */
-	public ?int $taste;
-	/**
-	 * @var int|null
-	 */
 	public ?int $throathit;
 	/**
 	 * @var int|null
@@ -58,26 +54,6 @@ class PatchDto extends AbstractDto {
 	 * @var int|null
 	 */
 	public ?int $fresh;
-	/**
-	 * @var int|null
-	 */
-	public ?int $clouds;
-	/**
-	 * @var int|null
-	 */
-	public ?int $mtl;
-	/**
-	 * @var int|null
-	 */
-	public ?int $dl;
-	/**
-	 * @var int|null
-	 */
-	public ?int $dryhit;
-	/**
-	 * @var int|null
-	 */
-	public ?int $leaks;
 	/**
 	 * @var float|null
 	 */

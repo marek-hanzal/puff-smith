@@ -3567,280 +3567,276 @@ user_id</ColNames>
       <DataType>int(11)|0s</DataType>
       <Position>15</Position>
     </column>
-    <column id="766" parent="368" name="airflow">
+    <column id="766" parent="368" name="power">
+      <Comment>Power in watts used for this setup.</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>16</Position>
     </column>
-    <column id="767" parent="368" name="power">
-      <Comment>Power in watts used for this setup.</Comment>
+    <column id="767" parent="368" name="tc">
+      <Comment>Temperature in Celsius used for this setup.</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>17</Position>
     </column>
-    <column id="768" parent="368" name="tc">
-      <Comment>Temperature in Celsius used for this setup.</Comment>
-      <DataType>int(11)|0s</DataType>
-      <Position>18</Position>
-    </column>
-    <column id="769" parent="368" name="stamp">
+    <column id="768" parent="368" name="stamp">
       <Comment>Timestamp of this vaping experience</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>19</Position>
+      <Position>18</Position>
     </column>
-    <column id="770" parent="368" name="user_id">
+    <column id="769" parent="368" name="user_id">
       <Comment>Owner of this vaping experience</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>20</Position>
+      <Position>19</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="771" parent="368" name="throathit">
+    <column id="770" parent="368" name="throathit">
       <Comment>Rating of throat hit (of nicotine); highest values means uncomfortable vape</Comment>
       <DataType>int(11)|0s</DataType>
-      <Position>21</Position>
+      <Position>20</Position>
     </column>
-    <column id="772" parent="368" name="build_id">
+    <column id="771" parent="368" name="build_id">
+      <DataType>varchar(36)|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>21</Position>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </column>
+    <column id="772" parent="368" name="mod_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>22</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="773" parent="368" name="mod_id">
-      <DataType>varchar(36)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>23</Position>
-      <CollationName>utf8mb3_unicode_ci</CollationName>
-    </column>
-    <foreign-key id="774" parent="368" name="z_vape_ibfk_2">
+    <foreign-key id="773" parent="368" name="z_vape_ibfk_2">
       <ColNames>mixture_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_mixture</RefTableName>
     </foreign-key>
-    <foreign-key id="775" parent="368" name="z_vape_ibfk_3">
+    <foreign-key id="774" parent="368" name="z_vape_ibfk_3">
       <ColNames>driptip_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_driptip</RefTableName>
     </foreign-key>
-    <foreign-key id="776" parent="368" name="z_vape_ibfk_4">
+    <foreign-key id="775" parent="368" name="z_vape_ibfk_4">
       <ColNames>user_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_user</RefTableName>
     </foreign-key>
-    <foreign-key id="777" parent="368" name="z_vape_ibfk_5">
+    <foreign-key id="776" parent="368" name="z_vape_ibfk_5">
       <ColNames>build_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_build</RefTableName>
     </foreign-key>
-    <foreign-key id="778" parent="368" name="z_vape_ibfk_6">
+    <foreign-key id="777" parent="368" name="z_vape_ibfk_6">
       <ColNames>mod_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_mod</RefTableName>
     </foreign-key>
-    <index id="779" parent="368" name="mixture_id">
+    <index id="778" parent="368" name="mixture_id">
       <ColNames>mixture_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="780" parent="368" name="driptip_id">
+    <index id="779" parent="368" name="driptip_id">
       <ColNames>driptip_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="781" parent="368" name="user_id">
+    <index id="780" parent="368" name="user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="782" parent="368" name="build_id">
+    <index id="781" parent="368" name="build_id">
       <ColNames>build_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="783" parent="368" name="mod_id">
+    <index id="782" parent="368" name="mod_id">
       <ColNames>mod_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="784" parent="368" name="PRIMARY">
+    <key id="783" parent="368" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="785" parent="369" name="id">
+    <column id="784" parent="369" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="786" parent="369" name="vape_id">
+    <column id="785" parent="369" name="vape_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="787" parent="369" name="comment_id">
+    <column id="786" parent="369" name="comment_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="788" parent="369" name="z_vape_comment_ibfk_1">
+    <foreign-key id="787" parent="369" name="z_vape_comment_ibfk_1">
       <ColNames>vape_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_vape</RefTableName>
     </foreign-key>
-    <foreign-key id="789" parent="369" name="z_vape_comment_ibfk_2">
+    <foreign-key id="788" parent="369" name="z_vape_comment_ibfk_2">
       <ColNames>comment_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_comment</RefTableName>
     </foreign-key>
-    <index id="790" parent="369" name="vape_id">
+    <index id="789" parent="369" name="vape_id">
       <ColNames>vape_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="791" parent="369" name="comment_id">
+    <index id="790" parent="369" name="comment_id">
       <ColNames>comment_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="792" parent="369" name="PRIMARY">
+    <key id="791" parent="369" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="793" parent="370" name="id">
+    <column id="792" parent="370" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="794" parent="370" name="name">
+    <column id="793" parent="370" name="name">
       <Comment>The name of a vendor.</Comment>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <index id="795" parent="370" name="z_vendor_name_unique">
+    <index id="794" parent="370" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="796" parent="370" name="PRIMARY">
+    <key id="795" parent="370" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="797" parent="370" name="z_vendor_name_unique">
+    <key id="796" parent="370" name="z_vendor_name_unique">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>z_vendor_name_unique</UnderlyingIndexName>
     </key>
-    <column id="798" parent="371" name="id">
+    <column id="797" parent="371" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="799" parent="371" name="name">
+    <column id="798" parent="371" name="name">
       <Comment>A name (or short description) of the wire, just for lookup.</Comment>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="800" parent="371" name="description">
+    <column id="799" parent="371" name="description">
       <Comment>Description for cases when a wire is complex (like claptons).</Comment>
       <DataType>varchar(512)|0s</DataType>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="801" parent="371" name="ga">
+    <column id="800" parent="371" name="ga">
       <Comment>GA of this wire (in case of simple wires).</Comment>
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="802" parent="371" name="vendor_id">
+    <column id="801" parent="371" name="vendor_id">
       <Comment>Vendor of a wire.</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="803" parent="371" name="tc">
+    <column id="802" parent="371" name="tc">
       <Comment>Does a wire support TC?</Comment>
       <DataType>tinyint(1)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <foreign-key id="804" parent="371" name="z_wire_ibfk_1">
+    <foreign-key id="803" parent="371" name="z_wire_ibfk_1">
       <ColNames>vendor_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_vendor</RefTableName>
     </foreign-key>
-    <index id="805" parent="371" name="z_wire_name_unique">
+    <index id="804" parent="371" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="806" parent="371" name="PRIMARY">
+    <key id="805" parent="371" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <key id="807" parent="371" name="z_wire_name_unique">
+    <key id="806" parent="371" name="z_wire_name_unique">
       <ColNames>vendor_id
 name
 ga</ColNames>
       <UnderlyingIndexName>z_wire_name_unique</UnderlyingIndexName>
     </key>
-    <column id="808" parent="372" name="id">
+    <column id="807" parent="372" name="id">
       <Comment>UUID primary key of the table (full 36 chars).</Comment>
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="809" parent="372" name="wire_id">
+    <column id="808" parent="372" name="wire_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <column id="810" parent="372" name="tag_id">
+    <column id="809" parent="372" name="tag_id">
       <DataType>varchar(36)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8mb3_unicode_ci</CollationName>
     </column>
-    <foreign-key id="811" parent="372" name="z_wire_tag_ibfk_1">
+    <foreign-key id="810" parent="372" name="z_wire_tag_ibfk_1">
       <ColNames>wire_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_wire</RefTableName>
     </foreign-key>
-    <foreign-key id="812" parent="372" name="z_wire_tag_ibfk_2">
+    <foreign-key id="811" parent="372" name="z_wire_tag_ibfk_2">
       <ColNames>tag_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>z_tag</RefTableName>
     </foreign-key>
-    <index id="813" parent="372" name="wire_id">
+    <index id="812" parent="372" name="wire_id">
       <ColNames>wire_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="814" parent="372" name="tag_id">
+    <index id="813" parent="372" name="tag_id">
       <ColNames>tag_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="815" parent="372" name="PRIMARY">
+    <key id="814" parent="372" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>

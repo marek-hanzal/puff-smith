@@ -8,15 +8,16 @@ export interface ITcSliderProps extends Partial<SliderProps> {
 export const TcSlider: FC<ITcSliderProps> = props => {
 	return <Slider
 		marks={{
-			0: 0,
-			80: 80,
+			0: 0 + '°C',
+			90: 90,
 			120: 120,
 			160: 160,
 			200: 200,
-			260: 260,
+			240: 240,
+			280: 280 + '°C',
 		}}
 		min={0}
-		max={260}
+		max={280}
 		{...props}
 	/>
 }

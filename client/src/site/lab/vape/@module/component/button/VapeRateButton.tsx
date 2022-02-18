@@ -14,7 +14,7 @@ export const VapeRateButton: FC<IVapeRateButtonProps> = ({vape, ...props}) => {
 		type={'link'}
 		icon={<DotChartOutlined/>}
 		title={'lab.vape.rate.button'}
-		width={700}
+		width={750}
 		{...props}
 	>
 		<VapeRateForm

@@ -2,7 +2,7 @@ import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {message} from "antd";
+import {Col, Divider, message, Row} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
 import {PowerSlider} from "@/puff-smith/component/input/PowerSlider";
@@ -34,105 +34,80 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 		}}
 		{...props}
 	>
-		<Card title={'lab.vape.settings.title'}>
-			<FormItem
-				field={'power'}
-				hasTooltip
-			>
-				<PowerSlider/>
-			</FormItem>
-			{vape.build.coil.wire.tc && <FormItem
-				field={'tc'}
-				hasTooltip
-			>
-				<TcSlider/>
-			</FormItem>}
-		</Card>
-		<Card title={'lab.vape.rating.title'}>
-			<FormItem
-				field={'rating'}
-				hasTooltip
-				required
-			>
-				<CommonRateInput/>
-			</FormItem>
-			<FormItem
-				field={'taste'}
-				hasTooltip
-				required
-			>
-				<CommonRateInput/>
-			</FormItem>
+		<Card title={'lab.vape.common.title'}>
+			<Centered>
+				<FormItem
+					field={'rating'}
+					hasTooltip
+					required
+				>
+					<CommonRateInput/>
+				</FormItem>
+			</Centered>
+			<Divider/>
+			<Row>
+				<Col span={11}>
+					<FormItem
+						field={'power'}
+						hasTooltip
+					>
+						<PowerSlider/>
+					</FormItem>
+				</Col>
+				<Col span={2}/>
+				<Col span={11}>
+					<FormItem
+						field={'tc'}
+						hasTooltip
+					>
+						<TcSlider disabled={!vape.build.coil.wire.tc}/>
+					</FormItem>
+				</Col>
+			</Row>
 		</Card>
 		<Card title={'lab.vape.rating-advanced.title'}>
-			<FormItem
-				field={'throathit'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'complex'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'fruits'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'tobacco'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'cakes'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'fresh'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-		</Card>
-		<Card title={'lab.vape.common.title'}>
-			<FormItem
-				field={'leaks'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'dryhit'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'mtl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'dl'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
-			<FormItem
-				field={'clouds'}
-				hasTooltip
-			>
-				<CommonRateInput allowClear/>
-			</FormItem>
+			<Row>
+				<Col span={12}>
+					<FormItem
+						field={'throathit'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+					<FormItem
+						field={'complex'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+					<FormItem
+						field={'fruits'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+				</Col>
+				<Col span={12}>
+					<FormItem
+						field={'tobacco'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+					<FormItem
+						field={'cakes'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+					<FormItem
+						field={'fresh'}
+						hasTooltip
+					>
+						<CommonRateInput allowClear/>
+					</FormItem>
+				</Col>
+			</Row>
 		</Card>
 		<Centered>
 			<Submit icon={<VapeIcon/>} label={'rate.submit'}/>

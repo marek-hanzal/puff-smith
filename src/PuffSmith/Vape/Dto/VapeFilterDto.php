@@ -83,8 +83,4 @@ class VapeFilterDto extends AbstractFilterDto {
 	 * @var int|null|void
 	 */
 	public ?int $ratingLte;
-	/**
-	 * @var int|null|void
-	 */
-	public ?int $tasteLte;
 }
