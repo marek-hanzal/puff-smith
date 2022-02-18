@@ -10,7 +10,6 @@ use Edde\Plot\Dto\PlotDto;
 use Edde\Query\Dto\Query;
 use Edde\Utils\ArrayUtils;
 use PuffSmith\Vape\Repository\VapeRepositoryTrait;
-use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_values;
@@ -51,7 +50,7 @@ class PlotService extends AbstractPlotService {
 		}
 
 		foreach ($ratings as $k => $v) {
-			$ratings[$k] = array_values(array_filter($v));
+			$ratings[$k] = array_values($v);
 			if (empty($ratings[$k])) {
 				continue;
 			}
@@ -60,31 +59,31 @@ class PlotService extends AbstractPlotService {
 
 			$export['rating'] && $data[] = [
 				'column' => $k,
-				'value'  => ArrayUtils::median($ratings[$k]),
+				'value'  => ArrayUtils::median($ratings[$k]) ?? 0,
 				'group'  => 'rating',
 				'count'  => $count,
 			];
 			$export['median'] && $data[] = [
 				'column' => $k,
-				'value'  => ArrayUtils::median($ratings[$k]),
+				'value'  => ArrayUtils::median($ratings[$k]) ?? 0,
 				'group'  => 'median',
 				'count'  => $count,
 			];
 			$export['average'] && $data[] = [
 				'column' => $k,
-				'value'  => ArrayUtils::avg($ratings[$k]),
+				'value'  => ArrayUtils::avg($ratings[$k]) ?? 0,
 				'group'  => 'average',
 				'count'  => $count,
 			];
 			$export['min'] && $data[] = [
 				'column' => $k,
-				'value'  => min($ratings[$k]),
+				'value'  => min($ratings[$k]) ?? 0,
 				'group'  => 'min',
 				'count'  => $count,
 			];
 			$export['max'] && $data[] = [
 				'column' => $k,
-				'value'  => max($ratings[$k]),
+				'value'  => max($ratings[$k]) ?? 0,
 				'group'  => 'max',
 				'count'  => $count,
 			];
