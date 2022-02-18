@@ -18,6 +18,7 @@ import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput
 import {DualCoilInput} from "@/puff-smith/component/input/DualCoilInput";
 import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
+import {FetchAtomizer} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -83,6 +84,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		})}
 		{...props}
 	>
+		<FetchAtomizer
+			query={{atomizerId}}
+			onUpdate={setAtomizer}
+		/>
 		<Row gutter={16}>
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.build.title')}>
@@ -92,7 +97,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 					>
 						<AtomizerSelect
 							allowClear
-							onChange={(_, value: any) => setAtomizer(value.entity)}
+							onChange={(_, {entity}: any) => setAtomizer(entity)}
 						/>
 					</FormItem>
 					<FormItem
