@@ -24,7 +24,7 @@ class AtomizerImportDto extends AbstractDto {
 	 */
 	public ?string $coilMax;
 	/**
-	 * @var bool
+	 * @var string
 	 */
-	public bool $dual = false;
+	public string $dual = 'false';
 }

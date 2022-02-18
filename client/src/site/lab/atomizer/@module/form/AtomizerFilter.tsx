@@ -4,6 +4,7 @@ import {AtomizerFilterDto} from "@/sdk/puff-smith/atomizer/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 import {AtomizerTypeSelect} from "@/puff-smith/component/input/AtomizerTypeSelect";
+import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface IAtomizerFilterProps extends IFilterWithoutTranslationProps<AtomizerFilterDto> {
 }
@@ -23,6 +24,10 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = props => {
 		>
 			<DrawSelect/>
 		</FormItem>
+		<SwitchItem
+			field={'dual'}
+			labels={['lab.atomizer.dual.label']}
+		/>
 		<FormItem
 			field={'typeIds'}
 			labels={['lab.atomizer.typeId.label']}

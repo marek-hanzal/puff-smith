@@ -9,6 +9,7 @@ import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/comp
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {Tags} from "@/puff-smith/component/Tags";
 import {RangeInline} from "@/puff-smith";
+import {BoolInline} from "@leight-core/leight/dist";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
 	onPurchase?: IFormOnSuccess<any, UserAtomizerDto>;
@@ -42,6 +43,12 @@ export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) =
 				key: "type",
 				title: 'lab.atomizer.table.type',
 				render: (_, atomizer) => <Tags tags={atomizer.type ? [atomizer.type] : []}/>,
+				width: 160,
+			}),
+			column({
+				key: "dual",
+				title: 'lab.atomizer.table.dual',
+				render: (_, atomizer) => <BoolInline bool={atomizer.dual}/>,
 				width: 160,
 			}),
 			column({

@@ -85,4 +85,11 @@ class AtomizerRepository extends AbstractRepository {
 		$this->atomizerTagRepository->syncWith('atomizer_id', 'tag_id', $atomizer->id, $tags);
 		return $atomizer;
 	}
+
+	public function findByCreate(CreateDto $createDto) {
+		return $this->table()->select()->where([
+			'name'      => $createDto->name,
+			'vendor_id' => $createDto->vendorId,
+		])->execute()->fetch();
+	}
 }
