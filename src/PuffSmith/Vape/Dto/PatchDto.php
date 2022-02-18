@@ -83,10 +83,6 @@ class PatchDto extends AbstractDto {
 	 */
 	public ?int $airflow;
 	/**
-	 * @var int|null
-	 */
-	public ?int $juice;
-	/**
 	 * @var float|null
 	 */
 	public ?float $power;

@@ -7,8 +7,6 @@ import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
 import {BuildComments} from "@/puff-smith/site/lab/build/@module/component/BuildComments";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";
 import {VapeEditButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeEditButton";
-import {VapeCloneButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCloneButton";
-import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeRateButton";
 import {VapeComments} from "@/puff-smith/site/lab/vape/@module/component/VapeComments";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/DriptipInline";
@@ -33,8 +31,6 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 				extra={<>
 					<ButtonBar>
 						<VapeEditButton vape={vape}/>
-						<VapeCloneButton vape={vape}/>
-						<VapeRateButton vape={vape}/>
 					</ButtonBar>
 					<Divider/>
 				</>}

@@ -5,7 +5,6 @@ import {message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
-import {BuildSelect} from "@/puff-smith/site/lab/build/@module/form/BuildSelect";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";
 import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipSelect";
@@ -43,12 +42,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 		{...props}
 	>
 		<Card title={'lab.vape.common.title'}>
-			<FormItem
-				field={'buildId'}
-				required
-			>
-				<BuildSelect/>
-			</FormItem>
 			<FormItem
 				field={'mixtureId'}
 				required

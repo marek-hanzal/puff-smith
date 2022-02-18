@@ -94,7 +94,6 @@ class VapeRepository extends AbstractRepository {
 			'dryhit'     => $createDto->dryhit,
 			'leaks'      => $createDto->leaks,
 			'airflow'    => $createDto->airflow,
-			'juice'      => $createDto->juice,
 			'user_id'    => $this->currentUserService->requiredId(),
 		]);
 	}
@@ -120,7 +119,6 @@ class VapeRepository extends AbstractRepository {
 			'dryhit'     => $patchDto->dryhit,
 			'leaks'      => $patchDto->leaks,
 			'airflow'    => $patchDto->airflow,
-			'juice'      => $patchDto->juice,
 			'power'      => $patchDto->power,
 			'tc'         => $patchDto->tc,
 		]);
@@ -143,7 +141,6 @@ class VapeRepository extends AbstractRepository {
 			'dryhit'    => $rateDto->dryhit,
 			'leaks'     => $rateDto->leaks,
 			'airflow'   => $rateDto->airflow,
-			'juice'     => $rateDto->juice,
 			'power'     => $rateDto->power,
 			'tc'        => $rateDto->tc,
 		]);

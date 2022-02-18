@@ -49,7 +49,6 @@ class VapeMapper extends AbstractMapper {
 			'dryhit'    => $item->dryhit,
 			'leaks'     => $item->leaks,
 			'airflow'   => $item->airflow,
-			'juice'     => $item->juice,
 			'power'     => $item->power,
 			'tc'        => $item->tc,
 			'stamp'     => $this->isoDateNull($item->stamp),

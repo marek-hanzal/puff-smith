@@ -9,7 +9,6 @@ import {VapePreviewButton} from "@/puff-smith/site/lab/vape/@module/component/bu
 import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeRateButton";
 import {VapeCommentButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCommentButton";
 import {VapeEditButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeEditButton";
-import {VapeCloneButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeCloneButton";
 import {VapeDeleteButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeDeleteButton";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
 import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
@@ -38,9 +37,6 @@ export const VapeQuickMenu: FC<IVapeQuickMenuProps> = ({vape, ...props}) => {
 		</Menu.Item>
 		<Menu.Item>
 			<VapeEditButton vape={vape}/>
-		</Menu.Item>
-		<Menu.Item>
-			<VapeCloneButton vape={vape}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>

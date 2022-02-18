@@ -54,7 +54,6 @@ class PlotService extends AbstractPlotService {
 			$ratings['throathit'][] = $result->throathit;
 			$ratings['leaks'][] = $result->leaks;
 			$ratings['dryhit'][] = $result->dryhit;
-			$ratings['juice'][] = $result->juice;
 			$ratings['airflow'][] = $result->airflow;
 		}
 
