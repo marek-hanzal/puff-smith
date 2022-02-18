@@ -84,10 +84,11 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		})}
 		{...props}
 	>
-		<FetchAtomizer
+		{atomizerId && <FetchAtomizer
 			query={{atomizerId}}
 			onUpdate={setAtomizer}
-		/>
+			placeholder={() => <></>}
+		/>}
 		<Row gutter={16}>
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.build.title')}>
