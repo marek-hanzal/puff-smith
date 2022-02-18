@@ -24,7 +24,6 @@ import {DriptipInline} from "@/puff-smith/site/lab/driptip/@module/component/Dri
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {CottonInline} from "@/puff-smith/site/lab/cotton/@module/component/CottonInline";
-import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
 
 export type BuildPreviewTabs = 'common' | 'comments' | 'plot' | 'upload' | 'images' | string;
 
@@ -80,7 +79,7 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					<Preview translation={'lab.build.preview'} {...props}>
 						{{
 							"dual": <BoolInline bool={build.dual}/>,
-							"dualMode": build.dual && <DualModeInput value={build.dualMode}/>,
+							"dualMode": build.dual && t('lab.dual-coil.' + build.dualMode),
 							"driptip": <DriptipInline driptip={build.driptip}/>,
 							"created": toLocalDateTime(build.created),
 							"active": <BoolInline bool={build.active}/>,

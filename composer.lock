@@ -1516,29 +1516,29 @@
             "time": "2021-06-28T04:27:21+00:00"
         },
         {
-            "name": "leight-core/edde",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/leight-core/edde.git",
-                "reference": "4ec67f08bd1be8348e86a3d92e8e2c33610624bb"
-            },
-            "dist": {
+			"name": "leight-core/edde",
+			"version": "dev-main",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/leight-core/edde.git",
+				"reference": "346772b793414f1f388ed31572e80fe5963ce674"
+			},
+			"dist": {
 				"type": "zip",
-				"url": "https://api.github.com/repos/leight-core/edde/zipball/4ec67f08bd1be8348e86a3d92e8e2c33610624bb",
-				"reference": "4ec67f08bd1be8348e86a3d92e8e2c33610624bb",
+				"url": "https://api.github.com/repos/leight-core/edde/zipball/346772b793414f1f388ed31572e80fe5963ce674",
+				"reference": "346772b793414f1f388ed31572e80fe5963ce674",
 				"shasum": ""
 			},
-            "require": {
-                "cache/void-adapter": "^1.1",
-                "clancats/hydrahon": "^1.1",
-                "dibi/dibi": "^4.1",
-                "diff/diff": "^3.2",
-                "doctrine/annotations": "^1.12",
-                "ext-json": "*",
-                "ext-pdo": "*",
-                "ext-zip": "*",
-                "ext-zlib": "*",
+			"require": {
+				"cache/void-adapter": "^1.1",
+				"clancats/hydrahon": "^1.1",
+				"dibi/dibi": "^4.1",
+				"diff/diff": "^3.2",
+				"doctrine/annotations": "^1.12",
+				"ext-json": "*",
+				"ext-pdo": "*",
+				"ext-zip": "*",
+				"ext-zlib": "*",
                 "gabrielelana/byte-units": "^0.5.0",
                 "league/flysystem": "^2.2.3",
                 "league/uri": "^6.4",
@@ -1600,7 +1600,7 @@
                 "issues": "https://github.com/leight-core/edde/issues",
                 "source": "https://github.com/leight-core/edde/tree/main"
             },
-			"time": "2022-02-17T17:50:47+00:00"
+			"time": "2022-02-18T14:50:52+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -3231,20 +3231,20 @@
             },
             "time": "2022-01-04T19:58:01+00:00"
         },
-        {
-            "name": "phpoffice/phpspreadsheet",
-            "version": "1.21.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "1a359d2ccbb89c05f5dffb32711a95f4afc67964"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/1a359d2ccbb89c05f5dffb32711a95f4afc67964",
-                "reference": "1a359d2ccbb89c05f5dffb32711a95f4afc67964",
-                "shasum": ""
-            },
+		{
+			"name": "phpoffice/phpspreadsheet",
+			"version": "1.22.0",
+			"source": {
+				"type": "git",
+				"url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
+				"reference": "3a9e29b4f386a08a151a33578e80ef1747037a48"
+			},
+			"dist": {
+				"type": "zip",
+				"url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/3a9e29b4f386a08a151a33578e80ef1747037a48",
+				"reference": "3a9e29b4f386a08a151a33578e80ef1747037a48",
+				"shasum": ""
+			},
             "require": {
                 "ext-ctype": "*",
                 "ext-dom": "*",
@@ -3269,18 +3269,18 @@
                 "psr/simple-cache": "^1.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "dev-master",
-                "dompdf/dompdf": "^1.0",
-                "friendsofphp/php-cs-fixer": "^3.2",
-                "jpgraph/jpgraph": "^4.0",
-                "mpdf/mpdf": "^8.0",
-                "phpcompatibility/php-compatibility": "^9.3",
-                "phpstan/phpstan": "^1.1",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^8.5 || ^9.0",
-                "squizlabs/php_codesniffer": "^3.6",
-                "tecnickcom/tcpdf": "^6.4"
-            },
+				"dealerdirect/phpcodesniffer-composer-installer": "dev-master",
+				"dompdf/dompdf": "^1.0",
+				"friendsofphp/php-cs-fixer": "^3.2",
+				"jpgraph/jpgraph": "^4.0",
+				"mpdf/mpdf": "8.0.17",
+				"phpcompatibility/php-compatibility": "^9.3",
+				"phpstan/phpstan": "^1.1",
+				"phpstan/phpstan-phpunit": "^1.0",
+				"phpunit/phpunit": "^8.5 || ^9.0",
+				"squizlabs/php_codesniffer": "^3.6",
+				"tecnickcom/tcpdf": "^6.4"
+			},
             "suggest": {
                 "dompdf/dompdf": "Option for rendering PDF with PDF Writer (doesn't yet support PHP8)",
                 "jpgraph/jpgraph": "Option for rendering charts, or including charts with PDF or HTML Writers",
@@ -3331,9 +3331,9 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.21.0"
+				"source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.22.0"
             },
-            "time": "2022-01-06T11:10:08+00:00"
+			"time": "2022-02-18T12:57:07+00:00"
         },
         {
             "name": "phpspec/prophecy",
