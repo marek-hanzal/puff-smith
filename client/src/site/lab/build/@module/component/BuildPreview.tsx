@@ -87,6 +87,10 @@ export const BuildPreview: FC<IBuildPreviewProps> = ({build, forceList = false, 
 					</Preview>
 				</Col>
 			</Row>
+			<Divider/>
+			<VapesFilterContext defaultFilter={{buildIds: [build.id]}}>
+				<VapePlot selected={['median']}/>
+			</VapesFilterContext>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.build.comments.tab')}>
 			<Tabs destroyInactiveTabPane size={'small'}>
