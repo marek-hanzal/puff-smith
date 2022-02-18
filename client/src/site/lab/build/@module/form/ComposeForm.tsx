@@ -77,9 +77,7 @@ export const ComposeForm: FC<IComposeFormProps> = ({defaultBuildFilter, ...props
 		filterContext?.setFilter(defaultBuildFilter);
 	}, []);
 
-	return <Tabs
-		destroyInactiveTabPane
-	>
+	return <Tabs>
 		<Tabs.TabPane key={'form'} tab={t('lab.build.create.form.tab')}>
 			<Form setBuildFilter={setBuildFilter} {...props}/>
 		</Tabs.TabPane>
