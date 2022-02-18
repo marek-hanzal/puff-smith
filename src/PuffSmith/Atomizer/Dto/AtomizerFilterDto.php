@@ -16,4 +16,8 @@ class AtomizerFilterDto extends AbstractFilterDto {
 	public ?array $typeIds;
 	/** @var string[]|null|void */
 	public ?array $drawIds;
+	/**
+	 * @var bool|void
+	 */
+	public ?bool $dual;
 }

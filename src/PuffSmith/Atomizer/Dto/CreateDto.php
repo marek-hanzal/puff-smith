@@ -30,4 +30,8 @@ class CreateDto extends AbstractDto {
 	 * @var float|null|void
 	 */
 	public ?float $coilMax;
+	/**
+	 * @var bool
+	 */
+	public bool $dual = false;
 }

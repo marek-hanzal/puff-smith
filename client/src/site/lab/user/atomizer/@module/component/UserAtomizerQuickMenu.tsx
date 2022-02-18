@@ -24,9 +24,6 @@ export const UserAtomizerQuickMenu: FC<IUserAtomizerQuickMenuProps> = ({userAtom
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<AtomizerCommentButton atomizer={userAtomizer.atomizer}/>
-		</Menu.Item>
-		<Menu.Item>
 			<ButtonLink
 				type={'link'}
 				size={'large'}
@@ -35,6 +32,9 @@ export const UserAtomizerQuickMenu: FC<IUserAtomizerQuickMenuProps> = ({userAtom
 				query={{atomizerId: userAtomizer.atomizer.id}}
 				title={'lab.atomizer.build.create'}
 			/>
+		</Menu.Item>
+		<Menu.Item>
+			<AtomizerCommentButton atomizer={userAtomizer.atomizer}/>
 		</Menu.Item>
 		<Menu.Item>
 			<UserAtomizerEditButton userAtomizer={userAtomizer}/>

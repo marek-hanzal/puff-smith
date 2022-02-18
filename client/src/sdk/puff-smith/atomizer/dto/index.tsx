@@ -9,6 +9,7 @@ export interface AtomizerDto {
 	type?: import("@/sdk/edde/tag/dto/index").TagDto | null | undefined;
 	coilMin?: number | null | undefined;
 	coilMax?: number | null | undefined;
+	dual: boolean;
 }
 
 export module AtomizerDto {
@@ -31,6 +32,7 @@ export interface AtomizerFilterDto {
 	userId?: string | null | undefined;
 	typeIds?: string[] | null | undefined;
 	drawIds?: string[] | null | undefined;
+	dual?: boolean | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
@@ -47,6 +49,7 @@ export interface CreateDto {
 	typeId?: string | null | undefined;
 	coilMin?: number | null | undefined;
 	coilMax?: number | null | undefined;
+	dual: boolean;
 }
 
 export module CreateDto {
@@ -71,6 +74,7 @@ export interface PatchDto {
 	typeId?: string | null | undefined;
 	coilMin?: number | null | undefined;
 	coilMax?: number | null | undefined;
+	dual: boolean;
 }
 
 export module PatchDto {

@@ -48,6 +48,7 @@ class AtomizerRepository extends AbstractRepository {
 		isset($filter->userId) && $this->where($select, 'ua.user_id', $filter->userId);
 		!empty($filter->drawIds) && $this->where($select, 'at.tag_id', 'in', $filter->drawIds);
 		!empty($filter->typeIds) && $this->where($select, '$.type_id', 'in', $filter->typeIds);
+		isset($filter->dual) && $this->where($select, '$.dual', $filter->dual);
 
 		$this->toOrderBy($query->orderBy, $select);
 
@@ -61,6 +62,7 @@ class AtomizerRepository extends AbstractRepository {
 			'type_id'   => $createDto->typeId,
 			'coilMin'   => $createDto->coilMin,
 			'coilMax'   => $createDto->coilMax,
+			'dual'      => $createDto->dual,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $createDto->drawIds);
@@ -76,6 +78,7 @@ class AtomizerRepository extends AbstractRepository {
 			'type_id'   => $patchDto->typeId,
 			'coilMin'   => $patchDto->coilMin,
 			'coilMax'   => $patchDto->coilMax,
+			'dual'      => $patchDto->dual,
 		]);
 		$tags = [];
 		$tags = array_merge($tags, $patchDto->drawIds);

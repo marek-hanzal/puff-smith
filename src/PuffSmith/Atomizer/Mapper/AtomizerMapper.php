@@ -37,6 +37,7 @@ class AtomizerMapper extends AbstractMapper {
 		return $this->dtoService->fromArray(AtomizerDto::class, [
 			'id'       => $item->id,
 			'name'     => $item->name,
+			'dual'     => (bool)$item->dual,
 			'coilMin'  => $item->coilMin,
 			'coilMax'  => $item->coilMax,
 			'vendorId' => ($vendor = $this->vendorRepository->find($item->vendor_id))->id,

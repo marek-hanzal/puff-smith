@@ -17,6 +17,7 @@ import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {Tags} from "@/puff-smith/component/Tags";
 import {RangeInline} from "@/puff-smith";
+import {BoolInline} from "@leight-core/leight/dist";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
@@ -47,6 +48,7 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 					"draw": <Tags tags={atomizer.draws}/>,
 					"type": <Tags tags={atomizer.type ? [atomizer.type] : undefined}/>,
 					"coilSize": <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
+					"dual": <BoolInline bool={atomizer.dual}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>

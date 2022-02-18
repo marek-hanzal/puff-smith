@@ -17,6 +17,7 @@ import {WrapsInput} from "@/puff-smith/site/lab/coil/@module/form/input/WrapsInp
 import {SizeInput} from "@/puff-smith/site/lab/coil/@module/form/input/SizeInput";
 import {DualCoilInput} from "@/puff-smith/component/input/DualCoilInput";
 import {DualModeInput} from "@/puff-smith/component/input/DualModeInput";
+import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 
 export interface ICreateBuildFormProps extends Partial<ICreateDefaultFormProps> {
 	build?: BuildDto
@@ -28,6 +29,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 	const {atomizerId} = useParams();
 	const buildsQueryInvalidate = useBuildsQueryInvalidate();
 	const [values, setValues] = useState<any>();
+	const [atomizer, setAtomizer] = useState<AtomizerDto | undefined>();
 
 	const ohmMutation = useOhmMutation();
 
@@ -88,7 +90,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 						field={'atomizerId'}
 						required
 					>
-						<AtomizerSelect allowClear/>
+						<AtomizerSelect
+							allowClear
+							onChange={(_, value: any) => setAtomizer(value.entity)}
+						/>
 					</FormItem>
 					<FormItem
 						field={'cottonId'}
@@ -145,9 +150,9 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 			<Col sm={24} md={24} lg={8}>
 				<Card title={t('lab.build.advanced.title')}>
 					<Spin spinning={!cacAdvanced} indicator={<></>}>
-						<DualCoilInput
+						{atomizer && atomizer.dual && <DualCoilInput
 							field={'dual'}
-						/>
+						/>}
 						{values?.dual && <FormItem
 							field={'dualMode'}
 							required
