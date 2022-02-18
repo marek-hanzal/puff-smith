@@ -4,20 +4,12 @@ export interface CreateDto {
 	mixtureId: string;
 	driptipId: string | null;
 	rating: number | null;
-	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number | null;
-	mtl: number | null;
-	dl: number | null;
-	dryhit: number | null;
-	leaks: number | null;
-	airflow: number | null;
-	juice: number | null;
 	power: number | null;
 	tc: number | null;
 }
@@ -38,20 +30,12 @@ export interface VapeDto {
 	driptipId: string | null;
 	driptip: import("@/sdk/puff-smith/driptip/dto/index").DriptipDto | null;
 	rating: number | null;
-	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number | null;
-	mtl: number | null;
-	dl: number | null;
-	dryhit: number | null;
-	leaks: number | null;
-	airflow: number | null;
-	juice: number | null;
 	power: number | null;
 	tc: number | null;
 	stamp: string;
@@ -78,20 +62,12 @@ export interface PatchDto {
 	mixtureId: string;
 	driptipId: string | null;
 	rating: number | null;
-	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number | null;
-	mtl: number | null;
-	dl: number | null;
-	dryhit: number | null;
-	leaks: number | null;
-	airflow: number | null;
-	juice: number | null;
 	power: number | null;
 	tc: number | null;
 }
@@ -128,7 +104,6 @@ export interface VapeFilterDto {
 	drawIds?: string[] | null | undefined;
 	plot?: any | null | undefined;
 	ratingLte?: number | null | undefined;
-	tasteLte?: number | null | undefined;
 	id?: string | undefined;
 	fulltext?: string | undefined;
 }
@@ -141,20 +116,12 @@ export module VapeFilterDto {
 export interface RateDto {
 	id: string;
 	rating: number | null;
-	taste: number | null;
 	throathit: number | null;
 	fruits: number | null;
 	tobacco: number | null;
 	cakes: number | null;
 	complex: number | null;
 	fresh: number | null;
-	clouds: number | null;
-	mtl: number | null;
-	dl: number | null;
-	dryhit: number | null;
-	leaks: number | null;
-	airflow: number | null;
-	juice: number | null;
 	power: number | null;
 	tc: number | null;
 }

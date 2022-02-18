@@ -80,13 +80,6 @@ export const VapeTable: FC<IVapeTableProps> = ({hidden = [], ...props}) => {
 				sorter: true,
 			}),
 			column({
-				key: "taste",
-				title: "lab.vape.table.taste",
-				render: (_, vape) => <SimpleRating value={vape.taste}/>,
-				width: 120,
-				sorter: true,
-			}),
-			column({
 				key: "power",
 				title: "lab.vape.table.power",
 				render: (_, vape) => vape.power ? vape.power + ' W' : '-',
