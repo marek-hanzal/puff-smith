@@ -63,10 +63,6 @@ class RateDto extends AbstractDto {
 	 */
 	public ?int $leaks;
 	/**
-	 * @var int|null
-	 */
-	public ?int $airflow;
-	/**
 	 * @var float|null
 	 */
 	public ?float $power;

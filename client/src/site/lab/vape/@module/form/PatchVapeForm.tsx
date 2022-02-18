@@ -11,8 +11,6 @@ import {DriptipSelect} from "@/puff-smith/site/lab/driptip/@module/form/DriptipS
 import {ModSelect} from "@/puff-smith/site/lab/mod/@module/form/ModSelect";
 import {PowerSlider} from "@/puff-smith/component/input/PowerSlider";
 import {TcSlider} from "@/puff-smith/component/input/TcSlider";
-import {AirflowInput} from "@/puff-smith/component/input/AirflowInput";
-import {JuiceFlowInput} from "@/puff-smith/component/input/JuiceFlowInput";
 
 export interface IPatchVapeFormProps extends Partial<IPatchDefaultFormProps> {
 	vape: VapeDto;
@@ -102,20 +100,6 @@ export const PatchVapeForm: FC<IPatchVapeFormProps> = ({vape, onSuccess, ...prop
 			>
 				<TcSlider/>
 			</FormItem>}
-			<FormItem
-				field={'airflow'}
-				hasTooltip
-				required
-			>
-				<AirflowInput/>
-			</FormItem>
-			<FormItem
-				field={'juice'}
-				hasTooltip
-				required
-			>
-				<JuiceFlowInput/>
-			</FormItem>
 		</Card>
 		<Card title={'lab.vape.vape.title'}>
 			<FormItem

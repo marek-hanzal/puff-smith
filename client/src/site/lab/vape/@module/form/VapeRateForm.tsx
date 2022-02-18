@@ -2,13 +2,11 @@ import {FC} from "react";
 import {IRateDefaultFormProps, RateDefaultForm, usePlotQueryInvalidate, useVapeQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message} from "antd";
+import {message} from "antd";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
 import {PowerSlider} from "@/puff-smith/component/input/PowerSlider";
 import {TcSlider} from "@/puff-smith/component/input/TcSlider";
-import {AirflowInput} from "@/puff-smith/component/input/AirflowInput";
-import {JuiceFlowInput} from "@/puff-smith/component/input/JuiceFlowInput";
 
 export interface IVapeRateFormProps extends Partial<IRateDefaultFormProps> {
 	vape: VapeDto;
@@ -36,6 +34,20 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 		}}
 		{...props}
 	>
+		<Card title={'lab.vape.settings.title'}>
+			<FormItem
+				field={'power'}
+				hasTooltip
+			>
+				<PowerSlider/>
+			</FormItem>
+			{vape.build.coil.wire.tc && <FormItem
+				field={'tc'}
+				hasTooltip
+			>
+				<TcSlider/>
+			</FormItem>}
+		</Card>
 		<Card title={'lab.vape.rating.title'}>
 			<FormItem
 				field={'rating'}
@@ -52,7 +64,6 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 				<CommonRateInput/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Card title={'lab.vape.rating-advanced.title'}>
 			<FormItem
 				field={'throathit'}
@@ -91,7 +102,6 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Divider/>
 		<Card title={'lab.vape.common.title'}>
 			<FormItem
 				field={'leaks'}
@@ -124,34 +134,6 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 				<CommonRateInput allowClear/>
 			</FormItem>
 		</Card>
-		<Divider/>
-		<Card title={'lab.vape.settings.title'}>
-			<FormItem
-				field={'power'}
-				hasTooltip
-			>
-				<PowerSlider/>
-			</FormItem>
-			{vape.build.coil.wire.tc && <FormItem
-				field={'tc'}
-				hasTooltip
-			>
-				<TcSlider/>
-			</FormItem>}
-			<FormItem
-				field={'airflow'}
-				hasTooltip
-			>
-				<AirflowInput/>
-			</FormItem>
-			<FormItem
-				field={'juice'}
-				hasTooltip
-			>
-				<JuiceFlowInput/>
-			</FormItem>
-		</Card>
-		<Divider/>
 		<Centered>
 			<Submit icon={<VapeIcon/>} label={'rate.submit'}/>
 		</Centered>
