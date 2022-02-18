@@ -66,7 +66,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 		onValuesChange={change => {
 			const values = change.values;
 			setValues(values);
-			values?.coil?.wireId && values?.coil?.wraps && values?.coil?.size && ohmMutation.mutate({
+			!change?.changed?.ohm && values?.coil?.wireId && values?.coil?.wraps && values?.coil?.size && ohmMutation.mutate({
 				wireId: values?.coil?.wireId,
 				wraps: values?.coil?.wraps,
 				size: values?.coil?.size,
