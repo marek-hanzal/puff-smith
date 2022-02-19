@@ -1,13 +1,12 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {Divider, message} from "antd";
 import {GaInput, WireIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
-import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface ICreateWireFormProps extends Partial<ICreateDefaultFormProps> {
 }

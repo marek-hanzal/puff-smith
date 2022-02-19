@@ -1,6 +1,6 @@
 import {AtomizersSourceTable, IAtomizersSourceTableProps, useAtomizersOptionalFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {ButtonBar, IFormOnSuccess} from "@leight-core/leight";
+import {BoolInline, ButtonBar, IFormOnSuccess} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {AtomizerListItem} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerListItem";
 import {AtomizerLinkButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerLinkButton";
@@ -9,7 +9,6 @@ import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/comp
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {Tags} from "@/puff-smith/component/Tags";
 import {RangeInline} from "@/puff-smith";
-import {BoolInline} from "@leight-core/leight/dist";
 
 export interface IAtomizerTableProps extends Partial<IAtomizersSourceTableProps> {
 	onPurchase?: IFormOnSuccess<any, UserAtomizerDto>;
@@ -22,6 +21,7 @@ export const AtomizerTable: FC<IAtomizerTableProps> = ({onPurchase, ...props}) =
 		filter={filterContext?.filter}
 		footer={sourceContext => t('lab.atomizer.table.footer.label', {data: sourceContext.data()})}
 		listItemRender={atomizer => <AtomizerListItem atomizer={atomizer}/>}
+		scroll={{x: 1500}}
 		{...props}
 	>
 		{({column}) => [

@@ -1,7 +1,7 @@
 import {BuildsSourceTable, IBuildsSourceTableProps, useBuildsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ButtonBar} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/leight";
 import {Ohm} from "@/puff-smith";
 import {BuildListItem} from "@/puff-smith/site/lab/build/@module/table/BuildListItem";
 import {BuildLinkButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildLinkButton";
@@ -12,7 +12,6 @@ import {CoilPreviewButton} from "@/puff-smith/site/lab/coil/@module/component/bu
 import {CottonPreviewButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonPreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
-import {BoolInline} from "@leight-core/leight/dist";
 
 export type IBuildTableColumns = 'coil';
 

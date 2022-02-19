@@ -1,6 +1,6 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {ButtonBar, Card, durationOf, Preview, PreviewTemplate} from "@leight-core/leight";
+import {ButtonBar, Card, durationOf, Preview, PreviewTemplate, useOptionalDrawerContext} from "@leight-core/leight";
 import {Col, Divider, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";
@@ -14,7 +14,6 @@ import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {VapeAge} from "@/puff-smith/site/lab/vape/@module/component/VapeAge";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {useOptionalDrawerContext} from "@leight-core/leight/dist";
 import {Watt} from "@/puff-smith";
 
 export interface IVapePreviewProps {

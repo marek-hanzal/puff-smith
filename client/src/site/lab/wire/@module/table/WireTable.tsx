@@ -1,13 +1,12 @@
 import {IWiresSourceTableProps, useWiresOptionalFilterContext, WiresSourceTable} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {ButtonBar} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
 import {WireListItem} from "@/puff-smith/site/lab/wire/@module/table/WireListItem";
 import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireLinkButton";
 import {WireQuickMenu} from "@/puff-smith/site/lab/wire/@module/component/WireQuickMenu";
 import {WirePreviewButton} from "@/puff-smith/site/lab/wire/@module/component/button/WirePreviewButton";
 import {Tags} from "@/puff-smith/component/Tags";
-import {BoolInline} from "@leight-core/leight/dist";
 
 export interface IWireTableProps extends Partial<IWiresSourceTableProps> {
 }

@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {BoolInline, IPreviewProps, Preview} from "@leight-core/leight";
+import {BoolInline, IPreviewProps, Preview, useOptionalDrawerContext} from "@leight-core/leight";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Col, Row, Tabs} from "antd";
 import {WireInline} from "@/puff-smith/site/lab/wire/@module/component/WireInline";
@@ -10,7 +10,6 @@ import {BuildFilter} from "@/puff-smith/site/lab/build/@module/form/BuildFilter"
 import {BuildTable} from "@/puff-smith/site/lab/build/@module/table/BuildTable";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
-import {useOptionalDrawerContext} from "@leight-core/leight/dist";
 
 export interface ICoilPreviewProps extends Partial<IPreviewProps> {
 	coil: CoilDto;

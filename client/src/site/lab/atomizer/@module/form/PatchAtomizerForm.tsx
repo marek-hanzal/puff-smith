@@ -1,6 +1,6 @@
 import {IPatchDefaultFormProps, PatchDefaultForm, useAtomizerQueryInvalidate, useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
@@ -9,7 +9,6 @@ import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorToo
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {DrawSelect} from "@/puff-smith/component/input/DrawSelect";
 import {AtomizerTypeSelect} from "@/puff-smith/component/input/AtomizerTypeSelect";
-import {SwitchItem} from "@leight-core/leight/dist";
 
 export interface IPatchAtomizerFormProps extends Partial<IPatchDefaultFormProps> {
 	atomizer: AtomizerDto;

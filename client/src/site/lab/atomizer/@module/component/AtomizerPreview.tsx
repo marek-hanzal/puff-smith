@@ -1,7 +1,7 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
+import {BoolInline, ButtonBar, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
-import {Divider, Space, Tabs} from "antd";
+import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentsFilterContext as BuildCommentsFilterContext} from "@/sdk/puff-smith/api/lab/build/comment/endpoint";
 import {CommentsFilterContext as VapeCommentsFilterContext} from "@/sdk/puff-smith/api/lab/vape/comment/endpoint";
@@ -17,11 +17,10 @@ import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapeTable} from "@/puff-smith/site/lab/vape/@module/table/VapeTable";
 import {Tags} from "@/puff-smith/component/Tags";
 import {RangeInline} from "@/puff-smith";
-import {BoolInline} from "@leight-core/leight/dist";
 
 export type AtomizerPreviewTabs = 'plot' | string;
 
-export interface IAtomizerPreviewProps extends Partial<IPreviewProps> {
+export interface IAtomizerPreviewProps {
 	atomizer: AtomizerDto;
 	forceList?: boolean;
 	hidden?: AtomizerPreviewTabs[];
@@ -42,15 +41,25 @@ export const AtomizerPreview: FC<IAtomizerPreviewProps> = ({atomizer, forceList 
 				</>}
 				span={24}
 			/>
-			<Preview translation={'lab.atomizer.preview'} {...props}>
-				{{
-					"name": <AtomizerInline atomizer={atomizer}/>,
-					"draw": <Tags tags={atomizer.draws}/>,
-					"type": <Tags tags={atomizer.type ? [atomizer.type] : undefined}/>,
-					"coilSize": <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
-					"dual": <BoolInline bool={atomizer.dual}/>,
-				}}
-			</Preview>
+			<Row>
+				<Col span={12}>
+					<Preview translation={'lab.atomizer.preview'}>
+						{{
+							"name": <AtomizerInline atomizer={atomizer}/>,
+							"draw": <Tags tags={atomizer.draws}/>,
+							"type": <Tags tags={atomizer.type ? [atomizer.type] : undefined}/>,
+						}}
+					</Preview>
+				</Col>
+				<Col span={12}>
+					<Preview translation={'lab.atomizer.preview'}>
+						{{
+							"coilSize": <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
+							"dual": <BoolInline bool={atomizer.dual}/>,
+						}}
+					</Preview>
+				</Col>
+			</Row>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'comments'} tab={t('lab.atomizer.comments.tab')}>
 			<Tabs destroyInactiveTabPane size={'small'}>
