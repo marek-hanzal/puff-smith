@@ -2,7 +2,7 @@ import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
 import {FC} from "react";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
-import {Watt} from "@/puff-smith";
+import {Volt, Watt} from "@/puff-smith";
 import {Tags} from "@/puff-smith/component/Tags";
 import {Alert, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
@@ -27,8 +27,9 @@ export const ModPreview: FC<IModPreviewProps> = ({mod, forceList, ...props}) => 
 			<Preview translation={'lab.mod.preview'} {...props}>
 				{{
 					"name": <ModInline mod={mod}/>,
-					"cellTypes": <Tags tags={mod.cellTypes}/>,
-					"power": <Watt watt={mod.power}/>,
+					"cellTypes": mod.cellTypes.length && <Tags tags={mod.cellTypes}/>,
+					"power": mod.power && <Watt watt={mod.power}/>,
+					"voltage": mod.voltage && <Volt volt={mod.voltage}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>

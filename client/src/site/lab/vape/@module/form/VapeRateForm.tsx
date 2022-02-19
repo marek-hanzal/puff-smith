@@ -45,7 +45,7 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 				</FormItem>
 			</Centered>
 			<Divider/>
-			<Row>
+			{vape.build.coil.wire.tc && <Row>
 				<Col span={11}>
 					<FormItem
 						field={'power'}
@@ -60,31 +60,37 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 						field={'tc'}
 						hasTooltip
 					>
-						<TcSlider disabled={!vape.build.coil.wire.tc}/>
+						<TcSlider/>
 					</FormItem>
 				</Col>
-			</Row>
+			</Row>}
+			{!vape.build.coil.wire.tc && <FormItem
+				field={'power'}
+				hasTooltip
+			>
+				<PowerSlider/>
+			</FormItem>}
 		</Card>
 		<Card title={'lab.vape.rating-advanced.title'}>
 			<Row>
 				<Col span={12}>
-					<FormItem
+					{vape.mixture.nicotine ? <FormItem
 						field={'throathit'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
-					</FormItem>
+						<CommonRateInput/>
+					</FormItem> : null}
 					<FormItem
 						field={'complex'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
+						<CommonRateInput/>
 					</FormItem>
 					<FormItem
 						field={'fruits'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
+						<CommonRateInput/>
 					</FormItem>
 				</Col>
 				<Col span={12}>
@@ -92,19 +98,19 @@ export const VapeRateForm: FC<IVapeRateFormProps> = ({vape, onSuccess, ...props}
 						field={'tobacco'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
+						<CommonRateInput/>
 					</FormItem>
 					<FormItem
 						field={'cakes'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
+						<CommonRateInput/>
 					</FormItem>
 					<FormItem
 						field={'fresh'}
 						hasTooltip
 					>
-						<CommonRateInput allowClear/>
+						<CommonRateInput/>
 					</FormItem>
 				</Col>
 			</Row>
