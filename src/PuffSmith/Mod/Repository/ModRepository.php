@@ -6,6 +6,7 @@ namespace PuffSmith\Mod\Repository;
 use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use Edde\Repository\Exception\RequiredResultException;
 use Edde\Repository\IRepository;
 use PuffSmith\Mod\Dto\CreateDto;
 use PuffSmith\Mod\Dto\ModFilterDto;
@@ -75,6 +76,17 @@ class ModRepository extends AbstractRepository {
 		$tags = [];
 		$tags = array_merge($tags, $patchDto->cellTypeIds);
 		$this->modTagRepository->syncWith('mod_id', 'tag_id', $mod->id, $tags);
+		return $mod;
+	}
+
+	public function findByCreate(CreateDto $createDto) {
+		$mod = $this->table()->select()->where([
+			'name'      => $createDto->name,
+			'vendor_id' => $createDto->vendorId,
+		])->execute()->fetch();
+		if (!$mod) {
+			throw new RequiredResultException(sprintf('Cannot find mod [%s] with vendor id [%s] by create dto', $createDto->name, $createDto->vendorId));
+		}
 		return $mod;
 	}
 }

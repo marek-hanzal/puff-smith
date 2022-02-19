@@ -6,11 +6,13 @@ namespace PuffSmith\Atomizer\Repository;
 use ClanCats\Hydrahon\Query\Sql\Select;
 use Edde\Query\Dto\Query;
 use Edde\Repository\AbstractRepository;
+use Edde\Repository\Exception\RequiredResultException;
 use Edde\Repository\IRepository;
 use PuffSmith\Atomizer\Dto\AtomizerFilterDto;
 use PuffSmith\Atomizer\Dto\CreateDto;
 use PuffSmith\Atomizer\Dto\PatchDto;
 use function array_merge;
+use function sprintf;
 
 class AtomizerRepository extends AbstractRepository {
 	use AtomizerTagRepositoryTrait;
@@ -87,9 +89,13 @@ class AtomizerRepository extends AbstractRepository {
 	}
 
 	public function findByCreate(CreateDto $createDto) {
-		return $this->table()->select()->where([
+		$atomizer = $this->table()->select()->where([
 			'name'      => $createDto->name,
 			'vendor_id' => $createDto->vendorId,
 		])->execute()->fetch();
+		if (!$atomizer) {
+			throw new RequiredResultException(sprintf('Cannot find atomizer [%s] with vendor id [%s] by create dto', $createDto->name, $createDto->vendorId));
+		}
+		return $atomizer;
 	}
 }

@@ -30,5 +30,9 @@ class AtomizerImportDto extends AbstractDto {
 	/**
 	 * @var string|null
 	 */
+	public ?string $type;
+	/**
+	 * @var string|null
+	 */
 	public ?string $draw;
 }
