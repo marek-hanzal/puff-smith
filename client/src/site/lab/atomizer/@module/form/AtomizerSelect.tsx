@@ -16,7 +16,6 @@ export const AtomizerSelect: FC<IAtomizerSelectProps> = ({onSelect, ...props}) =
 		toOption={atomizer => ({
 			label: <AtomizerInline atomizer={atomizer}/>,
 			value: atomizer.id,
-			atomizer,
 		})}
 		{...props}
 	/>

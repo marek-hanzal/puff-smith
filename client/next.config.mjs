@@ -24,7 +24,7 @@ const config = plugins([
 				'process.env.BUILD_ID': JSON.stringify(buildId),
 			}),
 		);
-		config.plugins.push(
+		false && config.plugins.push(
 			new CircularDependencyPlugin({
 				exclude:          /node_modules/,
 				failOnError:      false,
