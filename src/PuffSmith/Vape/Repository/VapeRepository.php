@@ -93,7 +93,6 @@ class VapeRepository extends AbstractRepository {
 	public function update(PatchDto $patchDto) {
 		return $this->change([
 			'id'         => $patchDto->id,
-			'build_id'   => $patchDto->buildId,
 			'mod_id'     => $patchDto->modId,
 			'mixture_id' => $patchDto->mixtureId,
 			'driptip_id' => $patchDto->driptipId,

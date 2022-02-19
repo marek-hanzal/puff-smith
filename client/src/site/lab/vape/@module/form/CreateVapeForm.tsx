@@ -40,14 +40,14 @@ export const CreateVapeForm: FC<ICreateVapeFormProps> = ({vape, exclude = [], on
 				field={'buildId'}
 				required
 			>
-				<BuildSelect/>
+				<BuildSelect autoFocus/>
 			</FormItem>
 		}
 		<FormItem
 			field={'mixtureId'}
 			required
 		>
-			<MixtureSelect/>
+			<MixtureSelect autoFocus={exclude?.includes('buildId')}/>
 		</FormItem>
 		<FormItem
 			field={'modId'}

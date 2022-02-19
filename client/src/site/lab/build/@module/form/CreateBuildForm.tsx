@@ -98,6 +98,7 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 					>
 						<AtomizerSelect
 							allowClear
+							autoFocus={!atomizerId}
 							onChange={(_, value: any) => setAtomizer(value?.entity)}
 						/>
 					</FormItem>
@@ -105,7 +106,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 						field={'cottonId'}
 						required
 					>
-						<CottonSelect allowClear/>
+						<CottonSelect
+							allowClear
+							autoFocus={!!atomizerId}
+						/>
 					</FormItem>
 					<FormItem
 						field={'modId'}

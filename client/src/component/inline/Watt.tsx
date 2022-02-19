@@ -1,9 +1,10 @@
 import {FC} from "react";
+import {toHumanNumber} from "@leight-core/leight/dist";
 
 export interface IWattProps {
 	watt?: number | null;
 }
 
 export const Watt: FC<IWattProps> = ({watt}) => {
-	return <>{watt ? watt + 'W' : '-'}</>
+	return <>{watt ? toHumanNumber(watt, 3) + 'W' : '-'}</>
 }

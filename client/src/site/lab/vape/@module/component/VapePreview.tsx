@@ -15,6 +15,7 @@ import {VapeAge} from "@/puff-smith/site/lab/vape/@module/component/VapeAge";
 import {VapePlot} from "@/puff-smith/site/lab/vape/@module/plot/VapePlot";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {useOptionalDrawerContext} from "@leight-core/leight/dist";
+import {Watt} from "@/puff-smith";
 
 export interface IVapePreviewProps {
 	vape: VapeDto;
@@ -53,8 +54,8 @@ export const VapePreview: FC<IVapePreviewProps> = ({vape}) => {
 							{{
 								"driptip": <DriptipInline driptip={vape.driptip}/>,
 								"stamp": <VapeAge vape={vape}/>,
-								"power": vape.power ? vape.power + ' W' : '-',
-								"tc": vape.tc ? vape.tc + ' °C' : '-',
+								"power": vape.power && <Watt watt={vape.power}/>,
+								"tc": vape.tc && vape.tc + ' °C',
 							}}
 						</Preview>
 					</Col>

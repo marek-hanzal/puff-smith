@@ -2,7 +2,7 @@ import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
 import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
 import {useTranslation} from "react-i18next";
-import {Divider, message} from "antd";
+import {message} from "antd";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
 import {MixtureIcon} from "@/puff-smith";
@@ -42,15 +42,22 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 	>
 		<Card title={'lab.mixture.common.label'}>
 			<FormItem
-				field={'code'}
-				hasTooltip
-			/>
+				field={'liquidId'}
+				required
+				help={<LiquidTooltip/>}
+			>
+				<LiquidSelect autoFocus/>
+			</FormItem>
 			<FormItem
 				field={'steep'}
 				hasTooltip
 			>
 				<SteepSlider/>
 			</FormItem>
+			<FormItem
+				field={'code'}
+				hasTooltip
+			/>
 			<FormItem
 				field={'mixed'}
 				required
@@ -59,13 +66,6 @@ export const CreateMixtureForm: FC<ICreateMixtureFormProps> = ({onSuccess, ...pr
 			</FormItem>
 		</Card>
 		<Card title={'lab.mixture.mixture.label'}>
-			<FormItem
-				field={'liquidId'}
-				required
-				help={<LiquidTooltip/>}
-			>
-				<LiquidSelect/>
-			</FormItem>
 			<FormItem
 				field={'baseId'}
 				help={<BaseTooltip/>}
