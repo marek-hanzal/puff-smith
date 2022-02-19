@@ -2,7 +2,7 @@ version: '3.4'
 services:
     puff-smith-production:
         image: marekhanzal/puff-smith:latest
-        env_file: ../.env
+        env_file: .env
         networks:
             - web
             - db
@@ -22,6 +22,7 @@ services:
             - 'traefik.http.services.puff-smith-production-tls.loadbalancer.server.port=3000'
         volumes:
             - puff-smith-files:/var/www/.data
+            - puff-smith-session:/var/www/.session
 
     memcached:
         image: memcached:1.6-alpine
@@ -51,3 +52,4 @@ networks:
 volumes:
     puff-smith-data:
     puff-smith-files:
+    puff-smith-session:
