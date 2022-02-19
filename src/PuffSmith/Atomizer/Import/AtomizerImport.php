@@ -8,6 +8,7 @@ use Edde\Repository\Exception\DuplicateEntryException;
 use PuffSmith\Atomizer\Dto\AtomizerImportDto;
 use PuffSmith\Atomizer\Dto\CreateDto;
 use PuffSmith\Atomizer\Repository\AtomizerRepositoryTrait;
+use PuffSmith\Vendor\Dto\EnsureDto;
 use PuffSmith\Vendor\Repository\VendorRepositoryTrait;
 use function filter_var;
 use function trim;
@@ -23,10 +24,11 @@ class AtomizerImport extends AbstractImporter {
 	public function handle($item) {
 		$create = $this->dtoService->fromArray(CreateDto::class, [
 			'name'     => trim($item->name),
-			'vendorId' => $this->vendorRepository->findByVarious($item->vendor)->id,
+			'vendorId' => $this->vendorRepository->ensure($this->dtoService->fromArray(EnsureDto::class, ['name' => $item->vendor]))->id,
 			'coilMin'  => isset($item->coilMin) ? (float)$item->coilMin : null,
 			'coilMax'  => isset($item->coilMax) ? (float)$item->coilMax : null,
 			'dual'     => filter_var($item->dual, FILTER_VALIDATE_BOOLEAN),
+			'draw'     => '',
 		]);
 		try {
 			return $this->atomizerRepository->create($create);
@@ -37,6 +39,7 @@ class AtomizerImport extends AbstractImporter {
 				'coilMin' => isset($item->coilMin) ? (float)$item->coilMin : null,
 				'coilMax' => isset($item->coilMax) ? (float)$item->coilMax : null,
 				'dual'    => filter_var($item->dual, FILTER_VALIDATE_BOOLEAN),
+				'draw'    => '',
 			]);
 		}
 	}

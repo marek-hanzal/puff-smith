@@ -27,4 +27,8 @@ class AtomizerImportDto extends AbstractDto {
 	 * @var string
 	 */
 	public string $dual = 'false';
+	/**
+	 * @var string|null
+	 */
+	public ?string $draw;
 }

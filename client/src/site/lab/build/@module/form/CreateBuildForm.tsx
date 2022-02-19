@@ -98,7 +98,10 @@ export const CreateBuildForm: FC<ICreateBuildFormProps> = ({build, buttons, onSu
 					>
 						<AtomizerSelect
 							allowClear
-							onChange={(_, {entity}: any) => setAtomizer(entity)}
+							onChange={(_, {entity}: any) => {
+								console.log('set atomizer', entity);
+								setAtomizer(entity);
+							}}
 						/>
 					</FormItem>
 					<FormItem
