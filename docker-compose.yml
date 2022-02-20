@@ -1,46 +1,22 @@
 version: '2'
 services:
-    php:
-        image: marekhanzal/php:8.0
-        container_name: puff-smith
-        hostname: puff-smith
-        restart: always
+    postgres:
+        image: postgres:14.2
         ports:
-            - "5088:80"
-            - "5022:22"
-        volumes:
-            - source:/var/www
-        networks:
-            - db
-            - memcached
-            - common
-
-    memcached:
-        image: memcached:1.6-alpine
-        hostname: memcached
-        restart: always
-        networks:
-            - memcached
-
-    mariadb:
-        image: mariadb:10
-        hostname: mariadb
-        restart: always
-        ports:
-            - "5306:3306"
+            - "5432:5432"
         networks:
             - db
         environment:
-            MYSQL_ROOT_PASSWORD: 1234
-            MYSQL_DATABASE: puff-smith
-            MYSQL_USER: puff-smith
-            MYSQL_PASSWORD: 1234
+            POSTGRES_USER: puff-smith
+            POSTGRES_DB: puff-smith
+            POSTGRES_PASSWORD: 1234
 
-volumes:
-    source:
+    adminer:
+        image: adminer
+        ports:
+            - "5808:8080"
+        networks:
+            - db
 
 networks:
-    common:
-        external: true
     db:
-    memcached:
