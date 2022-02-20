@@ -38,12 +38,12 @@ const config = plugins([
 	basePath:                    process.env.NEXT_PUBLIC_PUBLIC_URL,
 	async rewrites() {
 		return [
-			{
-				source:      '/puff-smith/api/shared/translation',
-				destination: '/api/shared/translation',
-				basePath:    undefined,
-				locale:      false,
-			},
+			// {
+			// 	source:      '/puff-smith/api/shared/translation',
+			// 	destination: '/api/shared/translation',
+			// 	basePath:    undefined,
+			// 	locale:      false,
+			// },
 			{
 				source:      '/puff-smith/:path*',
 				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/puff-smith/:path*',
