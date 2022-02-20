@@ -7,15 +7,10 @@ import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
 import {VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeDrawerCreateButton";
 import {VapePreview} from "@/puff-smith/site/lab/vape/@module/component/VapePreview";
 import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeRateButton";
-import {createPostQuery} from "@leight-core/leight/dist";
-import {Prisma, z_vape} from "@prisma/client";
-
-const useVape = <T extends Prisma.z_vapeFindManyArgs>(arg?: Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>) => {
-	return createPostQuery<any, Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>, Prisma.CheckSelect<T, Array<z_vape>, Array<Prisma.z_vapeGetPayload<T>>>>('/api/lab/vape/query')(arg);
-}
+import {useQueryApi} from "@/puff-smith/api/lab/vape";
 
 export default withLabLayout(function Index() {
-	const a = useVape({
+	const a = useQueryApi({
 		where: {
 			z_build: {
 				z_atomizer: {
