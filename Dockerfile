@@ -60,7 +60,7 @@ WORKDIR /var/www/
 
 COPY --from=server-deps --chown=www-data:www-data /opt/server/vendor vendor
 COPY *.php .
-COPY config config
+COPY .docker config
 COPY public public
 COPY src src
 COPY upgrade upgrade

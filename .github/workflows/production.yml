@@ -78,7 +78,7 @@ jobs:
                     host: ${{ secrets.HOST }}
                     username: root
                     key: ${{ secrets.SSHKEY }}
-                    source: "./config"
+                    source: "./.docker"
                     target: "/opt/app"
                     rm: true
 
@@ -96,7 +96,7 @@ jobs:
                     script_stop: true
                     script: |
                         docker network create web --attachable || true
-                        cd /opt/app/config/traefik
+                        cd /opt/app/.docker/traefik
                         docker compose pull
                         docker compose up -d
 
@@ -114,9 +114,8 @@ jobs:
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
                     script: |
-                        cd /opt/app/config/production
+                        cd /opt/app/.docker/production
                         docker system prune -f --all
-                        docker volume prune -f
                         docker compose pull
                         docker compose down
                         docker compose up -d
