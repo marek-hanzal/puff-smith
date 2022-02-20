@@ -10,10 +10,12 @@ import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/butto
 import {createPostQuery} from "@leight-core/leight/dist";
 import {Prisma, z_vape} from "@prisma/client";
 
-const useVp = createPostQuery<any, Prisma.z_vapeFindManyArgs, z_vape[]>("/api/lab/vape/query");
+const useVape = <T extends Prisma.z_vapeFindManyArgs>(arg?: Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>) => {
+	return createPostQuery<any, Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>, Prisma.CheckSelect<T, Array<z_vape>, Array<Prisma.z_vapeGetPayload<T>>>>('/api/lab/vape/query')(arg);
+}
 
 export default withLabLayout(function Index() {
-	const a = useVp({
+	const a = useVape({
 		where: {
 			z_build: {
 				z_atomizer: {
