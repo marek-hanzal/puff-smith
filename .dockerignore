@@ -1,9 +1,6 @@
 .git
 .data
-vendor
-misc
-client/.next
-client/build
-client/out
-client/dist
-client/node_modules
+.next
+build
+dist
+node_modules
