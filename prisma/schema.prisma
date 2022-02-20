@@ -3,19 +3,11 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model migrations {
-  version        BigInt    @id
-  migration_name String?   @db.VarChar(100)
-  start_time     DateTime? @db.Timestamp(0)
-  end_time       DateTime? @db.Timestamp(0)
-  breakpoint     Boolean   @default(false)
-}
-
-model z_atomizer {
+model atomizer {
   id                 String               @id @db.VarChar(36)
   name               String               @db.VarChar(128)
   vendor_id          String               @db.VarChar(36)
@@ -23,53 +15,53 @@ model z_atomizer {
   coilMin            Decimal?             @db.Decimal(3, 2)
   coilMax            Decimal?             @db.Decimal(3, 2)
   dual               Boolean              @default(false)
-  z_tag              z_tag?               @relation(fields: [type_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_ibfk_2")
-  z_vendor           z_vendor             @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_ibfk_1")
-  z_atomizer_comment z_atomizer_comment[]
-  z_atomizer_tag     z_atomizer_tag[]
-  z_build            z_build[]
-  z_user_atomizer    z_user_atomizer[]
+  tag              tag?               @relation(fields: [type_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_ibfk_2")
+  vendor           vendor             @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_ibfk_1")
+  atomizer_comment atomizer_comment[]
+  atomizer_tag     atomizer_tag[]
+  build            build[]
+  user_atomizer    user_atomizer[]
 
-  @@unique([name, vendor_id], map: "z_atomizer_name_unique")
+  @@unique([name, vendor_id], map: "atomizer_name_unique")
   @@index([type_id], map: "type_id")
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_atomizer_comment {
+model atomizer_comment {
   id          String     @id @db.VarChar(36)
   atomizer_id String     @db.VarChar(36)
   comment_id  String     @db.VarChar(36)
-  z_atomizer  z_atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_comment_ibfk_1")
-  z_comment   z_comment  @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_comment_ibfk_2")
+  atomizer  atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_comment_ibfk_1")
+  comment   comment  @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_comment_ibfk_2")
 
   @@index([atomizer_id], map: "atomizer_id")
   @@index([comment_id], map: "comment_id")
 }
 
-model z_atomizer_tag {
+model atomizer_tag {
   id          String     @id @db.VarChar(36)
   atomizer_id String     @db.VarChar(36)
   tag_id      String     @db.VarChar(36)
-  z_atomizer  z_atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_tag_ibfk_1")
-  z_tag       z_tag      @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_atomizer_tag_ibfk_2")
+  atomizer  atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_tag_ibfk_1")
+  tag       tag      @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "atomizer_tag_ibfk_2")
 
   @@index([atomizer_id], map: "atomizer_id")
   @@index([tag_id], map: "tag_id")
 }
 
-model z_base {
+model base {
   id        String      @id @db.VarChar(36)
   name      String      @db.VarChar(128)
   pg        Int
   vg        Int
   vendor_id String      @db.VarChar(36)
-  z_vendor  z_vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_base_ibfk_1")
-  z_mixture z_mixture[]
+  vendor  vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "base_ibfk_1")
+  mixture mixture[]
 
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_booster {
+model booster {
   id        String      @id @db.VarChar(36)
   name      String      @db.VarChar(128)
   pg        Int
@@ -77,13 +69,13 @@ model z_booster {
   nicotine  Int
   volume    Int
   vendor_id String      @db.VarChar(36)
-  z_vendor  z_vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_booster_ibfk_1")
-  z_mixture z_mixture[]
+  vendor  vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "booster_ibfk_1")
+  mixture mixture[]
 
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_build {
+model build {
   id              String            @id @db.VarChar(36)
   atomizer_id     String            @db.VarChar(36)
   coil_id         String            @db.VarChar(36)
@@ -97,15 +89,15 @@ model z_build {
   mod_id          String?           @db.VarChar(36)
   dual            Boolean           @default(false)
   dualMode        Int?
-  z_atomizer      z_atomizer        @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_1")
-  z_coil          z_coil            @relation(fields: [coil_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_2")
-  z_cotton        z_cotton          @relation(fields: [cotton_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_3")
-  z_driptip       z_driptip?        @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_5")
-  z_mod           z_mod?            @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_6")
-  z_user          z_user            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_ibfk_4")
-  z_build_comment z_build_comment[]
-  z_build_tag     z_build_tag[]
-  z_vape          z_vape[]
+  atomizer      atomizer        @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_1")
+  coil          coil            @relation(fields: [coil_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_2")
+  cotton        cotton          @relation(fields: [cotton_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_3")
+  driptip       driptip?        @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_5")
+  mod           mod?            @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_6")
+  user          user            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_ibfk_4")
+  build_comment build_comment[]
+  build_tag     build_tag[]
+  vape          vape[]
 
   @@index([atomizer_id], map: "atomizer_id")
   @@index([coil_id], map: "coil_id")
@@ -115,37 +107,37 @@ model z_build {
   @@index([user_id], map: "user_id")
 }
 
-model z_build_comment {
+model build_comment {
   id         String    @id @db.VarChar(36)
   build_id   String    @db.VarChar(36)
   comment_id String    @db.VarChar(36)
-  z_build    z_build   @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_comment_ibfk_1")
-  z_comment  z_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_comment_ibfk_2")
+  build    build   @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_comment_ibfk_1")
+  comment  comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_comment_ibfk_2")
 
   @@index([build_id], map: "build_id")
   @@index([comment_id], map: "comment_id")
 }
 
-model z_build_tag {
+model build_tag {
   id       String  @id @db.VarChar(36)
   build_id String  @db.VarChar(36)
   tag_id   String  @db.VarChar(36)
-  z_build  z_build @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_tag_ibfk_1")
-  z_tag    z_tag   @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_build_tag_ibfk_2")
+  build  build @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_tag_ibfk_1")
+  tag    tag   @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "build_tag_ibfk_2")
 
   @@index([build_id], map: "build_id")
   @@index([tag_id], map: "tag_id")
 }
 
-model z_cache {
+model cache {
   id    String    @id @db.VarChar(36)
-  key   String    @unique(map: "z_cache_key_unique") @db.VarChar(128)
+  key   String    @unique(map: "cache_key_unique") @db.VarChar(128)
   value Bytes?    @db.MediumBlob
   hash  String?   @db.VarChar(512)
   ttl   DateTime? @db.DateTime(0)
 }
 
-model z_cell {
+model cell {
   id          String        @id @db.VarChar(36)
   name        String        @db.VarChar(64)
   drain       Int
@@ -153,16 +145,16 @@ model z_cell {
   ohm         Decimal       @db.Decimal(10, 3)
   vendor_id   String        @db.VarChar(36)
   type_id     String        @db.VarChar(36)
-  z_tag       z_tag         @relation(fields: [type_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_cell_ibfk_2")
-  z_vendor    z_vendor      @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_cell_ibfk_1")
-  z_user_cell z_user_cell[]
+  tag       tag         @relation(fields: [type_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "cell_ibfk_2")
+  vendor    vendor      @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "cell_ibfk_1")
+  user_cell user_cell[]
 
-  @@unique([name, vendor_id], map: "z_cell_name_unique")
+  @@unique([name, vendor_id], map: "cell_name_unique")
   @@index([type_id], map: "type_id")
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_coil {
+model coil {
   id         String    @id @db.VarChar(36)
   wraps      Int
   wire_id    String    @db.VarChar(36)
@@ -171,74 +163,74 @@ model z_coil {
   spaced     Boolean   @default(false)
   ohm        Decimal?  @db.Decimal(3, 2)
   nominalOhm Decimal?  @db.Decimal(4, 3)
-  z_wire     z_wire    @relation(fields: [wire_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_coil_ibfk_1")
-  z_build    z_build[]
+  wire     wire    @relation(fields: [wire_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "coil_ibfk_1")
+  build    build[]
 
-  @@unique([wraps, size, wire_id], map: "z_coil_coil_unique")
+  @@unique([wraps, size, wire_id], map: "coil_coil_unique")
   @@index([wire_id], map: "wire_id")
 }
 
-model z_comment {
+model comment {
   id                 String               @id @db.VarChar(36)
   user_id            String               @db.VarChar(36)
   stamp              DateTime             @db.DateTime(0)
   comment            String               @db.Text
-  z_user             z_user               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_comment_ibfk_1")
-  z_atomizer_comment z_atomizer_comment[]
-  z_build_comment    z_build_comment[]
-  z_comment_tag      z_comment_tag[]
-  z_liquid_comment   z_liquid_comment[]
-  z_mixture_comment  z_mixture_comment[]
-  z_vape_comment     z_vape_comment[]
+  user             user               @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "comment_ibfk_1")
+  atomizer_comment atomizer_comment[]
+  build_comment    build_comment[]
+  comment_tag      comment_tag[]
+  liquid_comment   liquid_comment[]
+  mixture_comment  mixture_comment[]
+  vape_comment     vape_comment[]
 
   @@index([user_id], map: "user_id")
 }
 
-model z_comment_tag {
+model comment_tag {
   id         String    @id @db.VarChar(36)
   comment_id String    @db.VarChar(36)
   tag_id     String    @db.VarChar(36)
-  z_comment  z_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_comment_tag_ibfk_1")
-  z_tag      z_tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_comment_tag_ibfk_2")
+  comment  comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "comment_tag_ibfk_1")
+  tag      tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "comment_tag_ibfk_2")
 
   @@index([comment_id], map: "comment_id")
   @@index([tag_id], map: "tag_id")
 }
 
-model z_config {
+model config {
   id    String  @id @db.VarChar(36)
-  key   String  @unique(map: "z_config_key_unique") @db.VarChar(256)
+  key   String  @unique(map: "config_key_unique") @db.VarChar(256)
   value String? @db.Text
 }
 
-model z_cotton {
+model cotton {
   id          String    @id @db.VarChar(36)
-  name        String    @unique(map: "z_cotton_name_unique") @db.VarChar(128)
+  name        String    @unique(map: "cotton_name_unique") @db.VarChar(128)
   description String?   @db.VarChar(512)
   vendor_id   String    @db.VarChar(36)
-  z_vendor    z_vendor  @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_cotton_ibfk_1")
-  z_build     z_build[]
+  vendor    vendor  @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "cotton_ibfk_1")
+  build     build[]
 
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_driptip {
+model driptip {
   id              String            @id @db.VarChar(36)
   name            String            @db.VarChar(256)
   user_id         String            @db.VarChar(36)
   vendor_id       String            @db.VarChar(36)
-  z_user          z_user            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_driptip_ibfk_1")
-  z_vendor        z_vendor          @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_driptip_ibfk_2")
-  z_build         z_build[]
-  z_user_atomizer z_user_atomizer[]
-  z_vape          z_vape[]
+  user          user            @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "driptip_ibfk_1")
+  vendor        vendor          @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "driptip_ibfk_2")
+  build         build[]
+  user_atomizer user_atomizer[]
+  vape          vape[]
 
-  @@unique([name, user_id], map: "z_driptip_code_unique")
+  @@unique([name, user_id], map: "driptip_code_unique")
   @@index([user_id], map: "user_id")
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_file {
+model file {
   id                                  String    @id @db.VarChar(36)
   path                                String    @db.VarChar(256)
   name                                String    @db.VarChar(256)
@@ -248,33 +240,33 @@ model z_file {
   updated                             DateTime? @db.DateTime(0)
   ttl                                 Float?
   native                              String    @db.VarChar(2048)
-  native_hash                         String    @unique(map: "z_file_native_unique") @db.VarChar(128)
+  native_hash                         String    @unique(map: "file_native_unique") @db.VarChar(128)
   user_id                             String?   @db.VarChar(36)
-  z_user                              z_user?   @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "z_file_ibfk_1")
-  z_image_z_fileToz_image_original_id z_image[] @relation("z_fileToz_image_original_id")
-  z_image_z_fileToz_image_preview_id  z_image[] @relation("z_fileToz_image_preview_id")
+  user                              user?   @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "file_ibfk_1")
+  image_fileToimage_original_id image[] @relation("fileToimage_original_id")
+  image_fileToimage_preview_id  image[] @relation("fileToimage_preview_id")
 
-  @@unique([path, name], map: "z_file_name_unique")
+  @@unique([path, name], map: "file_name_unique")
   @@index([user_id], map: "user_id")
 }
 
-model z_image {
+model image {
   id                                 String   @id @db.VarChar(36)
   gallery                            String?  @db.VarChar(128)
   user_id                            String   @db.VarChar(36)
   preview_id                         String   @db.VarChar(36)
   original_id                        String   @db.VarChar(36)
   stamp                              DateTime @db.DateTime(0)
-  z_file_z_fileToz_image_original_id z_file   @relation("z_fileToz_image_original_id", fields: [original_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_image_ibfk_3")
-  z_file_z_fileToz_image_preview_id  z_file   @relation("z_fileToz_image_preview_id", fields: [preview_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_image_ibfk_2")
-  z_user                             z_user   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_image_ibfk_1")
+  file_fileToimage_original_id file   @relation("fileToimage_original_id", fields: [original_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "image_ibfk_3")
+  file_fileToimage_preview_id  file   @relation("fileToimage_preview_id", fields: [preview_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "image_ibfk_2")
+  user                             user   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "image_ibfk_1")
 
   @@index([original_id], map: "original_id")
   @@index([preview_id], map: "preview_id")
   @@index([user_id], map: "user_id")
 }
 
-model z_job {
+model job {
   id          String       @id @db.VarChar(36)
   service     String       @db.VarChar(256)
   params      String?      @db.Text
@@ -290,25 +282,25 @@ model z_job {
   done        DateTime?    @db.DateTime(0)
   user_id     String?      @db.VarChar(36)
   commit      Boolean      @default(false)
-  z_user      z_user?      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_job_ibfk_1")
-  z_job_lock  z_job_lock[]
-  z_job_log   z_job_log[]
+  user      user?      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "job_ibfk_1")
+  job_lock  job_lock[]
+  job_log   job_log[]
 
   @@index([user_id], map: "user_id")
 }
 
-model z_job_lock {
+model job_lock {
   id     String  @id @db.VarChar(36)
   job_id String  @db.VarChar(36)
   name   String  @db.VarChar(128)
   active Boolean
   stamp  Float
-  z_job  z_job   @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_job_lock_ibfk_1")
+  job  job   @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "job_lock_ibfk_1")
 
   @@index([job_id], map: "job_id")
 }
 
-model z_job_log {
+model job_log {
   id        String  @id @db.VarChar(36)
   job_id    String  @db.VarChar(36)
   type      String? @db.VarChar(128)
@@ -317,12 +309,12 @@ model z_job_log {
   reference String? @db.VarChar(512)
   message   String  @db.Text
   stamp     Float
-  z_job     z_job   @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_job_log_ibfk_1")
+  job     job   @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "job_log_ibfk_1")
 
   @@index([job_id], map: "job_id")
 }
 
-model z_liquid {
+model liquid {
   id               String             @id @db.VarChar(36)
   name             String             @db.VarChar(128)
   description      String?            @db.VarChar(512)
@@ -330,26 +322,26 @@ model z_liquid {
   vg               Int
   volume           Int
   vendor_id        String             @db.VarChar(36)
-  z_vendor         z_vendor           @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_liquid_ibfk_1")
-  z_liquid_comment z_liquid_comment[]
-  z_mixture        z_mixture[]
+  vendor         vendor           @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "liquid_ibfk_1")
+  liquid_comment liquid_comment[]
+  mixture        mixture[]
 
-  @@unique([name, vendor_id], map: "z_liquid_name_unique")
+  @@unique([name, vendor_id], map: "liquid_name_unique")
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_liquid_comment {
+model liquid_comment {
   id         String    @id @db.VarChar(36)
   liquid_id  String    @db.VarChar(36)
   comment_id String    @db.VarChar(36)
-  z_comment  z_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_liquid_comment_ibfk_2")
-  z_liquid   z_liquid  @relation(fields: [liquid_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_liquid_comment_ibfk_1")
+  comment  comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "liquid_comment_ibfk_2")
+  liquid   liquid  @relation(fields: [liquid_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "liquid_comment_ibfk_1")
 
   @@index([comment_id], map: "comment_id")
   @@index([liquid_id], map: "liquid_id")
 }
 
-model z_log {
+model log {
   id        String   @id @db.VarChar(36)
   type      String   @db.VarChar(24)
   log       String   @db.Text
@@ -361,12 +353,12 @@ model z_log {
   microtime Float
   context   String?  @db.Text
   user_id   String?  @db.VarChar(36)
-  z_user    z_user?  @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "z_log_ibfk_1")
+  user    user?  @relation(fields: [user_id], references: [id], onUpdate: Restrict, map: "log_ibfk_1")
 
   @@index([user_id], map: "user_id")
 }
 
-model z_mixture {
+model mixture {
   id                String              @id @db.VarChar(36)
   code              String              @db.VarChar(64)
   steep             Int?
@@ -381,141 +373,141 @@ model z_mixture {
   base_id           String?             @db.VarChar(36)
   user_id           String              @db.VarChar(36)
   active            Boolean             @default(true)
-  z_base            z_base?             @relation(fields: [base_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_ibfk_3")
-  z_booster         z_booster?          @relation(fields: [booster_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_ibfk_2")
-  z_liquid          z_liquid            @relation(fields: [liquid_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_ibfk_1")
-  z_user            z_user              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_ibfk_4")
-  z_mixture_comment z_mixture_comment[]
-  z_vape            z_vape[]
+  base            base?             @relation(fields: [base_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_ibfk_3")
+  booster         booster?          @relation(fields: [booster_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_ibfk_2")
+  liquid          liquid            @relation(fields: [liquid_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_ibfk_1")
+  user            user              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_ibfk_4")
+  mixture_comment mixture_comment[]
+  vape            vape[]
 
-  @@unique([code, user_id], map: "z_mixture_code_unique")
+  @@unique([code, user_id], map: "mixture_code_unique")
   @@index([base_id], map: "base_id")
   @@index([booster_id], map: "booster_id")
   @@index([liquid_id], map: "liquid_id")
   @@index([user_id], map: "user_id")
 }
 
-model z_mixture_comment {
+model mixture_comment {
   id         String    @id @db.VarChar(36)
   mixture_id String    @db.VarChar(36)
   comment_id String    @db.VarChar(36)
-  z_comment  z_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_comment_ibfk_2")
-  z_mixture  z_mixture @relation(fields: [mixture_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mixture_comment_ibfk_1")
+  comment  comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_comment_ibfk_2")
+  mixture  mixture @relation(fields: [mixture_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mixture_comment_ibfk_1")
 
   @@index([comment_id], map: "comment_id")
   @@index([mixture_id], map: "mixture_id")
 }
 
-model z_mod {
+model mod {
   id        String      @id @db.VarChar(36)
   name      String      @db.VarChar(128)
   power     Int?
   vendor_id String      @db.VarChar(36)
   voltage   Decimal?    @db.Decimal(10, 1)
-  z_vendor  z_vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mod_ibfk_1")
-  z_build   z_build[]
-  z_mod_tag z_mod_tag[]
-  z_vape    z_vape[]
+  vendor  vendor    @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mod_ibfk_1")
+  build   build[]
+  mod_tag mod_tag[]
+  vape    vape[]
 
-  @@unique([name, vendor_id], map: "z_mod_name_unique")
+  @@unique([name, vendor_id], map: "mod_name_unique")
   @@index([vendor_id], map: "vendor_id")
 }
 
-model z_mod_tag {
+model mod_tag {
   id     String @id @db.VarChar(36)
   mod_id String @db.VarChar(36)
   tag_id String @db.VarChar(36)
-  z_mod  z_mod  @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mod_tag_ibfk_1")
-  z_tag  z_tag  @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_mod_tag_ibfk_2")
+  mod  mod  @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mod_tag_ibfk_1")
+  tag  tag  @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "mod_tag_ibfk_2")
 
   @@index([mod_id], map: "mod_id")
   @@index([tag_id], map: "tag_id")
 }
 
-model z_profiler {
+model profiler {
   id      String @id @db.VarChar(36)
   stamp   Float
   name    String @db.VarChar(1024)
   runtime Float
 }
 
-model z_tag {
+model tag {
   id             String           @id @db.VarChar(36)
   code           String           @db.VarChar(128)
   label          String           @db.VarChar(128)
   group          String?          @db.VarChar(128)
   sort           Int              @default(0)
-  z_atomizer     z_atomizer[]
-  z_atomizer_tag z_atomizer_tag[]
-  z_build_tag    z_build_tag[]
-  z_cell         z_cell[]
-  z_comment_tag  z_comment_tag[]
-  z_mod_tag      z_mod_tag[]
-  z_wire_tag     z_wire_tag[]
+  atomizer     atomizer[]
+  atomizer_tag atomizer_tag[]
+  build_tag    build_tag[]
+  cell         cell[]
+  comment_tag  comment_tag[]
+  mod_tag      mod_tag[]
+  wire_tag     wire_tag[]
 
-  @@unique([code, group], map: "z_tag_code_unique")
+  @@unique([code, group], map: "tag_code_unique")
 }
 
-model z_translation {
+model translation {
   id          String @id @db.VarChar(36)
   locale      String @db.VarChar(32)
   key         String @db.Text
   hash        String @db.VarChar(128)
   translation String @db.Text
 
-  @@unique([locale, hash], map: "z_translation_hash_unique")
+  @@unique([locale, hash], map: "translation_hash_unique")
 }
 
-model z_user {
+model user {
   id              String            @id @db.VarChar(36)
   name            String            @db.VarChar(256)
-  email           String            @unique(map: "z_user_email_unique") @db.VarChar(256)
+  email           String            @unique(map: "user_email_unique") @db.VarChar(256)
   password        String?           @db.VarChar(256)
   site            String            @db.VarChar(32)
   settings        String?           @db.VarChar(2048)
-  z_build         z_build[]
-  z_comment       z_comment[]
-  z_driptip       z_driptip[]
-  z_file          z_file[]
-  z_image         z_image[]
-  z_job           z_job[]
-  z_log           z_log[]
-  z_mixture       z_mixture[]
-  z_user_atomizer z_user_atomizer[]
-  z_user_cell     z_user_cell[]
-  z_vape          z_vape[]
+  build         build[]
+  comment       comment[]
+  driptip       driptip[]
+  file          file[]
+  image         image[]
+  job           job[]
+  log           log[]
+  mixture       mixture[]
+  user_atomizer user_atomizer[]
+  user_cell     user_cell[]
+  vape          vape[]
 }
 
-model z_user_atomizer {
+model user_atomizer {
   id          String     @id @db.VarChar(36)
   stamp       DateTime   @db.DateTime(0)
   driptip_id  String?    @db.VarChar(36)
   atomizer_id String     @db.VarChar(36)
   user_id     String     @db.VarChar(36)
-  z_atomizer  z_atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_user_atomizer_ibfk_2")
-  z_driptip   z_driptip? @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_user_atomizer_ibfk_1")
-  z_user      z_user     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_user_atomizer_ibfk_3")
+  atomizer  atomizer @relation(fields: [atomizer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_atomizer_ibfk_2")
+  driptip   driptip? @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_atomizer_ibfk_1")
+  user      user     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_atomizer_ibfk_3")
 
   @@index([atomizer_id], map: "atomizer_id")
   @@index([driptip_id], map: "driptip_id")
   @@index([user_id], map: "user_id")
 }
 
-model z_user_cell {
+model user_cell {
   id      String   @id @db.VarChar(36)
   code    String?  @db.VarChar(128)
   stamp   DateTime @db.Date
   cell_id String   @db.VarChar(36)
   user_id String   @db.VarChar(36)
-  z_cell  z_cell   @relation(fields: [cell_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_user_cell_ibfk_1")
-  z_user  z_user   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_user_cell_ibfk_2")
+  cell  cell   @relation(fields: [cell_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_cell_ibfk_1")
+  user  user   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_cell_ibfk_2")
 
-  @@unique([code, user_id], map: "z_user_cell_code_unique")
+  @@unique([code, user_id], map: "user_cell_code_unique")
   @@index([cell_id], map: "cell_id")
   @@index([user_id], map: "user_id")
 }
 
-model z_vape {
+model vape {
   id             String           @id @db.VarChar(36)
   mixture_id     String           @db.VarChar(36)
   driptip_id     String?          @db.VarChar(36)
@@ -532,12 +524,12 @@ model z_vape {
   throathit      Int?
   build_id       String           @db.VarChar(36)
   mod_id         String           @db.VarChar(36)
-  z_build        z_build          @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_ibfk_5")
-  z_driptip      z_driptip?       @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_ibfk_3")
-  z_mixture      z_mixture        @relation(fields: [mixture_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_ibfk_2")
-  z_mod          z_mod            @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_ibfk_6")
-  z_user         z_user           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_ibfk_4")
-  z_vape_comment z_vape_comment[]
+  build        build          @relation(fields: [build_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_ibfk_5")
+  driptip      driptip?       @relation(fields: [driptip_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_ibfk_3")
+  mixture      mixture        @relation(fields: [mixture_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_ibfk_2")
+  mod          mod            @relation(fields: [mod_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_ibfk_6")
+  user         user           @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_ibfk_4")
+  vape_comment vape_comment[]
 
   @@index([build_id], map: "build_id")
   @@index([driptip_id], map: "driptip_id")
@@ -546,51 +538,51 @@ model z_vape {
   @@index([user_id], map: "user_id")
 }
 
-model z_vape_comment {
+model vape_comment {
   id         String    @id @db.VarChar(36)
   vape_id    String    @db.VarChar(36)
   comment_id String    @db.VarChar(36)
-  z_comment  z_comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_comment_ibfk_2")
-  z_vape     z_vape    @relation(fields: [vape_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_vape_comment_ibfk_1")
+  comment  comment @relation(fields: [comment_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_comment_ibfk_2")
+  vape     vape    @relation(fields: [vape_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "vape_comment_ibfk_1")
 
   @@index([comment_id], map: "comment_id")
   @@index([vape_id], map: "vape_id")
 }
 
-model z_vendor {
+model vendor {
   id         String       @id @db.VarChar(36)
-  name       String       @unique(map: "z_vendor_name_unique") @db.VarChar(128)
-  z_atomizer z_atomizer[]
-  z_base     z_base[]
-  z_booster  z_booster[]
-  z_cell     z_cell[]
-  z_cotton   z_cotton[]
-  z_driptip  z_driptip[]
-  z_liquid   z_liquid[]
-  z_mod      z_mod[]
-  z_wire     z_wire[]
+  name       String       @unique(map: "vendor_name_unique") @db.VarChar(128)
+  atomizer atomizer[]
+  base     base[]
+  booster  booster[]
+  cell     cell[]
+  cotton   cotton[]
+  driptip  driptip[]
+  liquid   liquid[]
+  mod      mod[]
+  wire     wire[]
 }
 
-model z_wire {
+model wire {
   id          String       @id @db.VarChar(36)
   name        String       @db.VarChar(256)
   description String?      @db.VarChar(512)
   ga          Int?
   vendor_id   String       @db.VarChar(36)
   tc          Boolean      @default(false)
-  z_vendor    z_vendor     @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_wire_ibfk_1")
-  z_coil      z_coil[]
-  z_wire_tag  z_wire_tag[]
+  vendor    vendor     @relation(fields: [vendor_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "wire_ibfk_1")
+  coil      coil[]
+  wire_tag  wire_tag[]
 
-  @@unique([vendor_id, name, ga], map: "z_wire_name_unique")
+  @@unique([vendor_id, name, ga], map: "wire_name_unique")
 }
 
-model z_wire_tag {
+model wire_tag {
   id      String @id @db.VarChar(36)
   wire_id String @db.VarChar(36)
   tag_id  String @db.VarChar(36)
-  z_tag   z_tag  @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_wire_tag_ibfk_2")
-  z_wire  z_wire @relation(fields: [wire_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "z_wire_tag_ibfk_1")
+  tag   tag  @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "wire_tag_ibfk_2")
+  wire  wire @relation(fields: [wire_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "wire_tag_ibfk_1")
 
   @@index([tag_id], map: "tag_id")
   @@index([wire_id], map: "wire_id")
