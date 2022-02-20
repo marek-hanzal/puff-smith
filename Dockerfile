@@ -23,6 +23,7 @@ RUN echo "NEXT_PUBLIC_PUFF_SMITH=http://localhost:80" >> .env.local
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
 RUN echo "NEXT_PUBLIC_PUBLIC_URL=" >> .env.local
 
+RUN npx prisma generate
 RUN npm run build
 
 FROM marekhanzal/php:8.0 as server-deps
