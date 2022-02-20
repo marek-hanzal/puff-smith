@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "cross-env NODE_OPTIONS='--trace-warnings' next dev",
-		"build": "next build && next export -o dist",
+		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"start": "next start",
 		"lint": "next lint"
@@ -14,6 +14,7 @@
 		"@ant-design/icons": "^4.7.0",
 		"@ant-design/plots": "^1.0.8",
 		"@leight-core/leight": "^0.12.141",
+		"@prisma/client": "^3.9.2",
 		"antd": "^4.18.2",
 		"axios": "^0.24.0",
 		"country-locale-map": "^1.8.0",
@@ -48,6 +49,7 @@
 		"cross-env": "^7.0.3",
 		"eslint": "^7.32.0",
 		"eslint-config-next": "^12.0.7",
+		"prisma": "^3.9.2",
 		"typescript": "^4.5.4"
 	}
 }

@@ -39,6 +39,12 @@ const config = plugins([
 	async rewrites() {
 		return [
 			{
+				source:      '/puff-smith/api/shared/translation',
+				destination: '/api/shared/translation',
+				basePath:    undefined,
+				locale:      false,
+			},
+			{
 				source:      '/puff-smith/:path*',
 				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/puff-smith/:path*',
 				basePath:    false,
@@ -49,7 +55,7 @@ const config = plugins([
 				destination: process.env.NEXT_PUBLIC_PUFF_SMITH + '/puff-smith/:path*',
 				basePath:    false,
 				locale:      false,
-			},
+			}
 		];
 	}
 });
