@@ -6,6 +6,7 @@ services:
             - mariadb
         environment:
             PHINX: local
+            DATABASE_URL: "mysql://puff-smith:1234@mariadb:3306/puff-smith"
         networks:
             - db
             - memcached

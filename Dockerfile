@@ -50,6 +50,7 @@ ADD rootfs/runtime /
 WORKDIR /opt/app/client
 
 COPY --from=client-builder --chown=www-data:www-data /opt/client/next.config.mjs ./next.config.mjs
+COPY --from=client-builder --chown=www-data:www-data /opt/client/prisma ./prisma
 COPY --from=client-builder --chown=www-data:www-data /opt/client/public ./public
 COPY --from=client-builder --chown=www-data:www-data /opt/client/.next ./.next
 COPY --from=client-builder --chown=www-data:www-data /opt/client/node_modules ./node_modules
