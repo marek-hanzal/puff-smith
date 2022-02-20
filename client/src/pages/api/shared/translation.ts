@@ -1,8 +1,8 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {TranslationsDto} from "@/sdk/edde/translation/dto";
-import {PrismaClient} from '@prisma/client';
+import {createPrismaClient} from "@/sdk/prisma";
 
-const prisma = new PrismaClient();
+const prisma = createPrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse<TranslationsDto>) => {
 	res.status(200).json({
