@@ -32,7 +32,7 @@ export default withLabLayout(function Index() {
 		}
 	});
 
-	console.log('data?', a.data);
+	console.log('data?', a.data?.[0]?.z_build);
 
 	return <VapePage
 		title={"lab.vape.index"}
