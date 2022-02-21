@@ -6,7 +6,6 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 FROM node:16 as client-builder
-ARG BASE_URL=/puff-smith
 ARG BUILD=edge
 
 ENV \
@@ -14,10 +13,11 @@ ENV \
 	NEXT_TELEMETRY_DISABLED=1 \
 	BUILD=${BUILD}
 
-WORKDIR /opt/client
+WORKDIR /opt/app
 
 COPY src src
 COPY prisma prisma
+COPY public public
 COPY .env .env
 COPY .eslintrc .eslintrc
 COPY next.config.mjs next.config.mjs
@@ -46,9 +46,9 @@ WORKDIR /opt/app
 RUN addgroup app
 RUN adduser --disabled-password --system --shell /bin/false --no-create-home --gecos "" --home /opt/app --ingroup app app
 
-COPY --from=client-builder --chown=app:app /opt/client/next.config.mjs ./next.config.mjs
-COPY --from=client-builder --chown=app:app /opt/client/prisma ./prisma
-COPY --from=client-builder --chown=app:app /opt/client/public ./public
-COPY --from=client-builder --chown=app:app /opt/client/.next ./.next
-COPY --from=client-builder --chown=app:app /opt/client/node_modules ./node_modules
-COPY --from=client-builder --chown=app:app /opt/client/package.json ./package.json
+COPY --from=client-deps /opt/app/node_modules ./node_modules
+COPY --from=client-builder --chown=app:app /opt/app/next.config.mjs ./next.config.mjs
+COPY --from=client-builder --chown=app:app /opt/app/prisma ./prisma
+COPY --from=client-builder --chown=app:app /opt/app/public ./public
+COPY --from=client-builder --chown=app:app /opt/app/.next ./.next
+COPY --from=client-builder --chown=app:app /opt/app/package.json ./package.json
