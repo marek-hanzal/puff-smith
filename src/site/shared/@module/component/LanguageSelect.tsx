@@ -1,4 +1,3 @@
-import {ILanguageListSourceSelectProps, LanguageListSourceSelect} from "@/sdk/edde/api/shared/endpoint";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 

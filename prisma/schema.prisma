@@ -10,9 +10,9 @@ datasource db {
 model translation {
 	id			String	@id @db.Uuid @default(uuid())
 	language	String	@db.VarChar(32)
-	title       String	@db.Text
-	hash        String	@db.VarChar(128)
+	label       String	@db.Text
 	text		String	@db.Text
+	hash        String	@db.VarChar(128)
 
 	@@unique([language, hash])
 }

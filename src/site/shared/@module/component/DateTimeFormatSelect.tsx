@@ -1,4 +1,3 @@
-import {DateTimeFormatListSourceSelect, IDateTimeFormatListSourceSelectProps} from "@/sdk/edde/api/shared/endpoint";
 import {FC} from "react";
 
 export interface IDateTimeFormatSelectProps extends Partial<IDateTimeFormatListSourceSelectProps> {

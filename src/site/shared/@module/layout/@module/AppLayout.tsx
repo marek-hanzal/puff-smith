@@ -12,7 +12,9 @@ export interface IAppLayoutProps extends Partial<IAppProps> {
 export const AppLayout: FC<IAppLayoutProps> = props => {
 	console.log(useQueryPersistence(queryClient, "puff-smith") ? 'Cache enabled' : 'Cache disabled');
 	return <App
-		clientLink={process.env.NEXT_PUBLIC_PUBLIC_URL + "/puff-smith/client.json"}
+		clientLink={"/api/client.json"}
+		translationLink={"/api/shared/translation"}
+		sessionLink={"/api/shared/user/session"}
 		queryClient={queryClient}
 		logo={<FullLogoIcon/>}
 		dayjs={dayjs}

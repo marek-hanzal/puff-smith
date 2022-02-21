@@ -1,6 +1,3 @@
-import {IUpdateSettingsQueryParams, useUpdateSettingsMutation} from "@/sdk/edde/api/shared/user/endpoint";
-import {UserDto} from "@/sdk/edde/bridge/user";
-import {UpdateSettingsDto, UserSettingsDto} from "@/sdk/edde/user/dto/settings";
 import {SettingOutlined} from "@ant-design/icons";
 import {BackIcon, ButtonLink, Centered, Form, FormItem, IFormProps, ItemGroup, Submit, useLayoutBlockContext} from "@leight-core/leight";
 import {Divider, message, Space} from "antd";

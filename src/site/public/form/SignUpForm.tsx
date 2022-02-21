@@ -1,17 +1,15 @@
-import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, Input, ISession, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {SessionDto} from "@/sdk/edde/session/dto";
-import {SignUpDto} from "@/sdk/puff-smith/api/shared/user/endpoint/dto";
-import {useSignUpMutation} from "@/sdk/puff-smith/api/shared/user/endpoint";
+import {ISignUpRequest} from "@/sdk/shared/user/interface";
 
-export interface ISignUpFormProps extends Partial<IFormProps<void, SignUpDto, SessionDto>> {
+export interface ISignUpFormProps extends Partial<IFormProps<void, ISignUpRequest, ISession>> {
 }
 
 export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const {t} = useTranslation();
-	return <Form<void, SignUpDto, SessionDto>
-		useMutation={useSignUpMutation}
+	return <Form<void, ISignUpRequest, ISession>
+		// useMutation={useSignUpMutation}
 		size={"large"}
 		wrapperCol={{span: 24}}
 		onSuccess={({navigate, response}) => {

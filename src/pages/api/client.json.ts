@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {ClientConfigDto} from "@/sdk/edde/config/dto";
+import {IClient} from "@leight-core/leight";
 
-export default (req: NextApiRequest, res: NextApiResponse<ClientConfigDto>) => {
+export default (req: NextApiRequest, res: NextApiResponse<IClient>) => {
 	res.status(200).json({
 		discovery: '/api/discovery',
 	})

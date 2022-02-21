@@ -6,6 +6,7 @@
 		"dev": "cross-env NODE_OPTIONS='--trace-warnings' next dev",
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
+		"prisma.migration.create": "npx dotenv -c development npx prisma migratetrans dev",
 		"prisma.generate": "npx dotenv -c development npx prisma generate",
 		"start": "next start",
 		"lint": "next lint"

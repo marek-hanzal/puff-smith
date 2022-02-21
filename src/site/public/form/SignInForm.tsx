@@ -1,17 +1,16 @@
-import {LoginRequest} from "@/sdk/edde/dto/common";
 import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {SessionDto} from "@/sdk/edde/session/dto";
-import {useLoginMutation} from "@/sdk/edde/api/shared/user/endpoint";
+import {ILoginRequest} from "@/sdk/shared/user/login";
+import {ISession} from "@leight-core/leight/dist";
 
-export interface ISignInFormProps extends Partial<IFormProps<void, LoginRequest, SessionDto>> {
+export interface ISignInFormProps extends Partial<IFormProps<void, ILoginRequest, ISession>> {
 }
 
 export const SignInForm: FC<ISignInFormProps> = props => {
 	const {t} = useTranslation();
-	return <Form<void, LoginRequest, SessionDto>
-		useMutation={useLoginMutation}
+	return <Form<void, ILoginRequest, ISession>
+		// useMutation={useLoginMutation}
 		size={"large"}
 		onSuccess={({navigate, response}) => {
 			navigate("/" + response.user.site);

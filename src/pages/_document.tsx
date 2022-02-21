@@ -5,7 +5,7 @@ class Document extends CoolDocument {
 		return (
 			<Html>
 				<Head>
-					<link rel={"shortcut icon"} href={(process.env.NEXT_PUBLIC_PUBLIC_URL || "") + "/favicon.ico"}/>
+					<link rel={"shortcut icon"} href={"/favicon.ico"}/>
 				</Head>
 				<body>
 					<Main/>
