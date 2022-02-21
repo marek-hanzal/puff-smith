@@ -3,7 +3,7 @@ FROM node:16 as client-deps
 WORKDIR /opt/app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
 FROM node:16 as client-builder
 ARG BASE_URL=/puff-smith
@@ -16,35 +16,26 @@ ENV \
 
 WORKDIR /opt/client
 
-COPY . .
+COPY src src
+COPY prisma prisma
+COPY .env .env
+COPY .eslintrc .eslintrc
+COPY next.config.mjs next.config.mjs
+COPY next-env.d.ts next-env.d.ts
+COPY package.json package.json
+COPY tsconfig.json tsconfig.json
 COPY --from=client-deps /opt/app/node_modules ./node_modules
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
 
 RUN npx prisma generate
 RUN npm run build
 
-FROM debian as runtime
-
-ENV \
-    DEBIAN_FRONTEND=noninteractive
+FROM alpine:3.15 as runtime
 
 RUN \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --no-install-suggests \
-        ca-certificates curl wget xz-utils zip unzip bzip2 re2c supervisor
-
-RUN \
-    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --no-install-suggests \
-      nodejs
-
-RUN \
-	apt-get clean autoclean && \
-	apt-get autoremove --yes && \
-	rm -rf /var/lib/{apt,dpkg,cache,log}/
-
-RUN mkdir -p /etc/supervisor/conf.d
+    apk add --no-cache \
+        nodejs curl wget supervisor && \
+	rm -rf /var/cache/apk/*
 
 ADD rootfs/runtime /
 
@@ -52,9 +43,12 @@ CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
 WORKDIR /opt/app
 
-COPY --from=client-builder --chown=www-data:www-data /opt/client/next.config.mjs ./next.config.mjs
-COPY --from=client-builder --chown=www-data:www-data /opt/client/prisma ./prisma
-COPY --from=client-builder --chown=www-data:www-data /opt/client/public ./public
-COPY --from=client-builder --chown=www-data:www-data /opt/client/.next ./.next
-COPY --from=client-builder --chown=www-data:www-data /opt/client/node_modules ./node_modules
-COPY --from=client-builder --chown=www-data:www-data /opt/client/package.json ./package.json
+RUN addgroup app
+RUN adduser --disabled-password --system --shell /bin/false --no-create-home --gecos "" --home /opt/app --ingroup app app
+
+COPY --from=client-builder --chown=app:app /opt/client/next.config.mjs ./next.config.mjs
+COPY --from=client-builder --chown=app:app /opt/client/prisma ./prisma
+COPY --from=client-builder --chown=app:app /opt/client/public ./public
+COPY --from=client-builder --chown=app:app /opt/client/.next ./.next
+COPY --from=client-builder --chown=app:app /opt/client/node_modules ./node_modules
+COPY --from=client-builder --chown=app:app /opt/client/package.json ./package.json

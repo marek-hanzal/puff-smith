@@ -4,3 +4,5 @@
 // export const useQueryApi = <T extends Prisma.z_vapeFindManyArgs>(select?: Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>) => {
 // 	return createPostQuery<never, Prisma.SelectSubset<T, Prisma.z_vapeFindManyArgs>, IQueryApiResponse<T>>('/api/lab/vape/query')(select);
 // }
+
+export const aaa = 1;
