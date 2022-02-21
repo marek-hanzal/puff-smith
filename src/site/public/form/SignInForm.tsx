@@ -1,15 +1,15 @@
 import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ILoginRequest} from "@/sdk/shared/user/login";
+import {ISignInRequest} from "@/sdk/shared/user";
 import {ISession} from "@leight-core/leight/dist";
 
-export interface ISignInFormProps extends Partial<IFormProps<void, ILoginRequest, ISession>> {
+export interface ISignInFormProps extends Partial<IFormProps<void, ISignInRequest, ISession>> {
 }
 
 export const SignInForm: FC<ISignInFormProps> = props => {
 	const {t} = useTranslation();
-	return <Form<void, ILoginRequest, ISession>
+	return <Form<void, ISignInRequest, ISession>
 		// useMutation={useLoginMutation}
 		size={"large"}
 		onSuccess={({navigate, response}) => {
