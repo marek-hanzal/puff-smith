@@ -50,8 +50,7 @@ ENV \
 
 RUN \
     apk add --no-cache \
-        nodejs curl wget supervisor && \
-	rm -rf /var/cache/apk/*
+        bash nodejs supervisor
 
 ADD rootfs/runtime /
 
@@ -70,3 +69,5 @@ COPY --from=prod-deps --chown=app:app /opt/app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /opt/app/.next ./.next
 
 # du -sh ./node_modules/* | sort -nr | grep '\dM.*'
+
+EXPOSE 3000
