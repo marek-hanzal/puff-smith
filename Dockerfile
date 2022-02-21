@@ -9,8 +9,13 @@ FROM node:16 as prod-deps
 
 WORKDIR /opt/app
 
+RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 COPY package.json package-lock.json ./
-RUN npm install --production
+RUN \
+	npm install modclean --save && \
+	npm install --production && \
+    node-prune && \
+	npx modclean -n default:safe,default:caution
 
 FROM node:16 as builder
 ARG BUILD=edge
@@ -59,6 +64,8 @@ RUN adduser --disabled-password --system --shell /bin/false --no-create-home --g
 COPY --chown=app:app next.config.mjs next.config.mjs
 COPY --chown=app:app prisma prisma
 COPY --chown=app:app public public
-COPY package.json package-lock.json ./
+COPY --chown=app:app package.json package-lock.json ./
 COPY --from=prod-deps --chown=app:app /opt/app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /opt/app/.next ./.next
+
+# du -sh ./node_modules/* | sort -nr | grep '\dM.*'
