@@ -1,16 +1,15 @@
-import type {NextApiRequest, NextApiResponse} from 'next'
-import {createPrismaClient} from "@/sdk/prisma";
-import {ISession} from "@leight-core/leight";
-import {ISignUpRequest} from "@/sdk/shared/user";
+import {createPrismaClient} from "@/puff-smith/prisma";
+import {IEndpoint, ISession} from "@leight-core/leight";
 
 const prisma = createPrismaClient();
 
-type IGenericEndpoint<TRequest, TResponse> = (req: NextApiRequest, res: NextApiResponse<TResponse>) => void;
-
-export interface IEndpoint extends IGenericEndpoint<ISignUpRequest, ISession | null> {
+export interface ISignUpRequest {
+	readonly name: string;
+	readonly login: string;
+	readonly password: string;
 }
 
-const SignInEndpoint: IEndpoint = async (req, res) => {
+export const SignInEndpoint: IEndpoint<ISignUpRequest, ISession | null> = async (req, res) => {
 	res.status(200).json(null);
 };
 

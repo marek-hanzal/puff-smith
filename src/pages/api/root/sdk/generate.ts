@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {createPrismaClient} from "@/sdk/prisma";
+import {createPrismaClient} from "@/puff-smith/prisma";
 import {glob} from "glob";
 import ts from 'typescript';
 import * as fs from "fs";

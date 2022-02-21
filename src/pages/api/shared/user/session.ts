@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {createPrismaClient} from "@/sdk/prisma";
+import {createPrismaClient} from "@/puff-smith/prisma";
 import {ISession} from "@leight-core/leight";
 
 const prisma = createPrismaClient();

@@ -1,4 +1,4 @@
-import {createPrismaClient} from "../src/sdk/prisma";
+import {createPrismaClient} from "@/puff-smith/prisma";
 
 const prisma = createPrismaClient();
 
