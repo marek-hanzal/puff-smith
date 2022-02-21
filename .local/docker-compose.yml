@@ -5,7 +5,7 @@ services:
         depends_on:
             - mariadb
         environment:
-            DATABASE_URL: "postgresql://puff-smith:1234@postgrees:5432/puff-smith?schema=public"
+            DATABASE_URL: "postgresql://puff-smith:1234@postgres:5432/puff-smith?schema=public"
         networks:
             - db
         ports:
