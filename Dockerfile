@@ -53,8 +53,6 @@ RUN \
     apk add --no-cache \
         bash npm supervisor
 
-RUN mkdir -p /root/.npm && chmod -R 777 /root/.npm
-
 ADD rootfs/runtime /
 
 CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
