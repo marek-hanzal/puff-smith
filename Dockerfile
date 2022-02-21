@@ -1,8 +1,8 @@
 FROM node:16 as client-deps
 
-WORKDIR /opt/client
+WORKDIR /opt/app
 
-COPY client/package.json client/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
 FROM node:16 as client-builder
@@ -16,11 +16,9 @@ ENV \
 
 WORKDIR /opt/client
 
-COPY client .
-COPY --from=client-deps /opt/client/node_modules ./node_modules
-RUN echo "NEXT_PUBLIC_PUFF_SMITH=http://localhost:80" >> .env.local
+COPY . .
+COPY --from=client-deps /opt/app/node_modules ./node_modules
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
-RUN echo "NEXT_PUBLIC_PUBLIC_URL=" >> .env.local
 
 RUN npx prisma generate
 RUN npm run build
@@ -54,4 +52,9 @@ CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]
 
 WORKDIR /opt/app
 
-# copy from builder ....
+COPY --from=client-builder --chown=www-data:www-data /opt/client/next.config.mjs ./next.config.mjs
+COPY --from=client-builder --chown=www-data:www-data /opt/client/prisma ./prisma
+COPY --from=client-builder --chown=www-data:www-data /opt/client/public ./public
+COPY --from=client-builder --chown=www-data:www-data /opt/client/.next ./.next
+COPY --from=client-builder --chown=www-data:www-data /opt/client/node_modules ./node_modules
+COPY --from=client-builder --chown=www-data:www-data /opt/client/package.json ./package.json

@@ -5,31 +5,29 @@ services:
         depends_on:
             - mariadb
         environment:
-            PHINX: local
-            DATABASE_URL: "mysql://puff-smith:1234@mariadb:3306/puff-smith"
+            DATABASE_URL: "postgresql://puff-smith:1234@postgrees:5432/puff-smith?schema=public"
         networks:
             - db
-            - memcached
         ports:
             - "42000:3000"
 
-    memcached:
-        image: memcached:1.6-alpine
-        hostname: memcached-local
-        networks:
-            - memcached
-
-    mariadb:
-        image: mariadb:10
-        hostname: mariadb-local
+    postgres:
+        image: postgres:14.2
+        ports:
+            - "42532:5432"
         networks:
             - db
         environment:
-            MYSQL_ROOT_PASSWORD: 1234
-            MYSQL_DATABASE: puff-smith
-            MYSQL_USER: puff-smith
-            MYSQL_PASSWORD: 1234
+            POSTGRES_USER: puff-smith
+            POSTGRES_DB: puff-smith
+            POSTGRES_PASSWORD: 1234
+
+    adminer:
+        image: adminer
+        ports:
+            - "42080:8080"
+        networks:
+            - db
 
 networks:
     db:
-    memcached:

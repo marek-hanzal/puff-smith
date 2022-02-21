@@ -7,28 +7,8 @@ import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";
 import {VapeDrawerCreateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeDrawerCreateButton";
 import {VapePreview} from "@/puff-smith/site/lab/vape/@module/component/VapePreview";
 import {VapeRateButton} from "@/puff-smith/site/lab/vape/@module/component/button/VapeRateButton";
-import {useQueryApi} from "@/puff-smith/api/lab/vape";
 
 export default withLabLayout(function Index() {
-	const a = useQueryApi({
-		where: {
-			z_build: {
-				z_atomizer: {
-					name: 'APEX RDA'
-				}
-			}
-		},
-		include: {
-			z_build: {
-				include: {
-					z_atomizer: true
-				}
-			},
-		}
-	});
-
-	console.log('data?', a.data?.[0]?.z_build);
-
 	return <VapePage
 		title={"lab.vape.index"}
 		menuSelection={['/lab/vape']}
