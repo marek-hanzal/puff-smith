@@ -1,4 +1,3 @@
-import CircularDependencyPlugin from 'circular-dependency-plugin';
 import plugins from 'next-compose-plugins';
 import { patchWebpackConfig } from 'next-global-css';
 import images from 'next-images';
@@ -19,13 +18,6 @@ const config = plugins([
 			new webpack.DefinePlugin({
 				'process.env.BUILD_ID': JSON.stringify(buildId),
 			}),
-		);
-		false && config.plugins.push(
-			new CircularDependencyPlugin({
-				exclude:          /node_modules/,
-				failOnError:      false,
-				allowAsyncCycles: false,
-			})
 		);
 		return patchWebpackConfig(config, options);
 	},
