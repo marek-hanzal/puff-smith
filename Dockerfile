@@ -51,7 +51,7 @@ ENV \
 
 RUN \
     apk add --no-cache \
-        bash nodejs supervisor
+        bash npm supervisor
 
 ADD rootfs/runtime /
 
@@ -68,7 +68,5 @@ COPY --chown=app:app public public
 COPY --chown=app:app package.json package-lock.json ./
 COPY --from=prod-deps --chown=app:app /opt/app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /opt/app/.next ./.next
-
-# du -sh ./node_modules/* | sort -nr | grep '\dM.*'
 
 EXPOSE 3000
