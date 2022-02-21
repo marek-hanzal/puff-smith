@@ -13,9 +13,10 @@ RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 COPY package.json package-lock.json ./
 RUN \
 	npm install modclean --save && \
-	npm install --production && \
+	npm install --production
+RUN \
     node-prune && \
-	npx modclean -n default:safe,default:caution
+	npx modclean -n default:safe,default:caution,default:danger
 
 FROM node:16 as builder
 ARG BUILD=edge
