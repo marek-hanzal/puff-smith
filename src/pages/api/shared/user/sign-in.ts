@@ -8,8 +8,8 @@ export interface ISignInRequest {
 	readonly password: string;
 }
 
-export const SignInEndpoint: IMutationEndpoint<ISignInRequest, ISession | null> = async (req, res) => {
-	res.status(200).json(null);
+export const SignInEndpoint: IMutationEndpoint<ISignInRequest, ISession> = async (req, res) => {
+	res.status(200).json(null as any);
 };
 
 export default SignInEndpoint;

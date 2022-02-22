@@ -50,30 +50,31 @@ export function foreachNode(node: ts.Node, sourceFile: ts.SourceFile, callback: 
 	node.forEachChild(node => callback(toNode(node, sourceFile)));
 }
 
-export function pickNodes(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node[] {
-	let node: ts.Node = root;
-	const nodes: ts.Node[] = [];
-	path.forEach((name, index) => {
-		if (!node) {
-			return;
+export type INodePath = {
+	path: string;
+	node: ts.Node;
+};
+
+export function toNodePaths(root: ts.Node, sourceFile: ts.SourceFile, path: string[] = []): INodePath[] {
+	let paths = [
+		{
+			path: [...path, ts.SyntaxKind[root.kind]].join('/'),
+			node: root,
 		}
-		const found = node.getChildren(sourceFile).filter(node => ts.SyntaxKind[node.kind] === name);
-		console.log(`(${toNode(node, sourceFile).source}) searching [${name}] found #`, found.length);
-		(index + 1) === (path.length - 1) && nodes.push(...found);
-		node = found?.[0];
+	];
+	root.getChildren(sourceFile).forEach(node => {
+		paths.push(...toNodePaths(node, sourceFile, [...path, ts.SyntaxKind[root.kind]]));
 	});
-	return nodes;
+	return paths;
+}
+
+export function pickNodes(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node[] {
+	const request = path.join('/');
+	return toNodePaths(root, sourceFile).filter(node => node.path === request).map(node => node.node);
 }
 
 export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node | undefined {
-	let node = root;
-	path.forEach(name => {
-		if (!node) {
-			return;
-		}
-		node = node.getChildren(sourceFile).filter(node => ts.SyntaxKind[node.kind] === name)?.[0];
-	});
-	return node;
+	return pickNodes(path, root, sourceFile)?.[0]
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
@@ -118,7 +119,7 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 
 	toPrint(nodes[2]!!, sourceFile);
 
-	const types = pickNodes(['TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
+	const types = pickNodes(['SyntaxList', 'TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
 
 	console.log('num of types', types.length);
 
