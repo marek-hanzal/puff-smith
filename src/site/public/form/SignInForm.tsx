@@ -1,8 +1,8 @@
 import {Centered, Form, FormItem, IFormProps, Input, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ISignInRequest} from "@/sdk/shared/user";
 import {ISession} from "@leight-core/leight/dist";
+import {ISignInRequest} from "@/puff-smith/pages/api/shared/user/sign-in";
 
 export interface ISignInFormProps extends Partial<IFormProps<void, ISignInRequest, ISession>> {
 }

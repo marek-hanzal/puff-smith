@@ -1,15 +1,14 @@
 import {createPrismaClient} from "@/puff-smith/prisma";
-import {IEndpoint, ISession} from "@leight-core/leight";
+import {IMutationEndpoint, ISession} from "@leight-core/leight";
 
 const prisma = createPrismaClient();
 
-export interface ISignUpRequest {
-	readonly name: string;
+export interface ISignInRequest {
 	readonly login: string;
 	readonly password: string;
 }
 
-export const SignInEndpoint: IEndpoint<ISignUpRequest, ISession | null> = async (req, res) => {
+export const SignInEndpoint: IMutationEndpoint<ISignInRequest, ISession | null> = async (req, res) => {
 	res.status(200).json(null);
 };
 
