@@ -9,6 +9,28 @@ export interface ISdk {
 	interfaces: string[];
 }
 
+export interface INode {
+	node: ts.Node;
+	sourceFile: ts.SourceFile;
+	syntaxKind: string;
+	source: string;
+}
+
+export type IForeachNodeCallback = (node: INode) => void;
+
+export function toNode(node: ts.Node, sourceFile: ts.SourceFile) {
+	return {
+		node,
+		sourceFile,
+		syntaxKind: ts.SyntaxKind[node.kind],
+		source: node.getText(sourceFile),
+	};
+}
+
+export function foreachNode(node: ts.Node, sourceFile: ts.SourceFile, callback: IForeachNodeCallback) {
+	node.forEachChild(node => callback(toNode(node, sourceFile)));
+}
+
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
 	return node.getChildren(sourceFile).filter(node => {
 		return ts.SyntaxKind[node.kind] === 'SyntaxList' && node.getText(sourceFile) === 'export';
@@ -22,25 +44,64 @@ export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): strin
 	return withExport && source;
 }
 
+export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string | false {
+	const source = node.getText(sourceFile);
+	const withExport = isExport(node, sourceFile);
+
+	console.info(withExport ? "Export\n" : "Skip\n", source);
+
+	if (!withExport) {
+		return false;
+	}
+
+	foreachNode(node, sourceFile, ({node, syntaxKind}) => {
+		switch (syntaxKind) {
+			case 'VariableDeclarationList':
+				console.log(`Resolving [${syntaxKind}]`);
+				foreachNode(node, sourceFile, ({node, syntaxKind}) => {
+					console.log(`Resolving [${syntaxKind}]`);
+					foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
+						console.log(`${syntaxKind}: ${source}`);
+						switch (syntaxKind) {
+							case 'VariableDeclaration':
+								foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
+									switch (syntaxKind) {
+										case 'Identifier':
+											console.log(`Found ${source}`);
+											// endpoint type
+											break;
+									}
+									console.log(`${syntaxKind}: ${source}`);
+								});
+								break;
+						}
+					});
+				})
+				break;
+		}
+	});
+
+	return false;
+}
+
+export function toEndpointKind(node: ts.Node, sourceFile: ts.SourceFile): string | false {
+	return false;
+}
+
 export function toSdk(endpoint: string): ISdk {
 	const interfaces: (string | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
-	root.forEachChild(node => {
-		const syntaxKind = ts.SyntaxKind[node.kind];
-		const nodeText = node.getText(root);
-
-		// console.log(`${syntaxKind}: ${nodeText}`);
-
+	foreachNode(root, root, ({node, syntaxKind}) => {
 		switch (syntaxKind) {
-			case 'ExportKeyword':
-				console.log('Found export!', nodeText);
-				break;
 			case 'InterfaceDeclaration':
 				interfaces.push(exportInterface(node, root));
 				break;
+			case 'FirstStatement':
+				exportEndpoint(node, root);
+				break;
 		}
-	})
+	});
 
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
