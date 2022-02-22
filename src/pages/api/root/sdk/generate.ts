@@ -18,7 +18,7 @@ export interface INode {
 
 export type IForeachNodeCallback = (node: INode) => void;
 
-export function toNode(node: ts.Node, sourceFile: ts.SourceFile) {
+export function toNode(node: ts.Node, sourceFile: ts.SourceFile): INode {
 	return {
 		node,
 		sourceFile,
@@ -29,6 +29,25 @@ export function toNode(node: ts.Node, sourceFile: ts.SourceFile) {
 
 export function foreachNode(node: ts.Node, sourceFile: ts.SourceFile, callback: IForeachNodeCallback) {
 	node.forEachChild(node => callback(toNode(node, sourceFile)));
+}
+
+export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node | undefined {
+	let node = root;
+	path.forEach(name => {
+		if (!node) {
+			console.log(`End of story [${name}]`);
+			return;
+		}
+		const _node = toNode(node, sourceFile);
+		console.log(`(${_node.syntaxKind}) searching [${name}]`);
+		node = node.getChildren(sourceFile).filter(node => {
+			const _node = toNode(node, sourceFile);
+			const match = toNode(node, sourceFile).syntaxKind === name;
+			console.log(`\tMatching [${_node.syntaxKind}]`, match);
+			return match;
+		})?.[0];
+	});
+	return node;
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
@@ -54,36 +73,8 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 		return false;
 	}
 
-	foreachNode(node, sourceFile, ({node, syntaxKind}) => {
-		switch (syntaxKind) {
-			case 'VariableDeclarationList':
-				console.log(`Resolving [${syntaxKind}]`);
-				foreachNode(node, sourceFile, ({node, syntaxKind}) => {
-					console.log(`Resolving [${syntaxKind}]`);
-					foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
-						console.log(`${syntaxKind}: ${source}`);
-						switch (syntaxKind) {
-							case 'Identifier':
-								console.log(`Found something ${source}`);
-								// endpoint type
-								break;
-							case 'VariableDeclaration':
-								foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
-									switch (syntaxKind) {
-										case 'Identifier':
-											console.log(`Found ${source}`);
-											// endpoint type
-											break;
-									}
-									console.log(`low deep ${syntaxKind}: ${source}`);
-								});
-								break;
-						}
-					});
-				})
-				break;
-		}
-	});
+	const pick = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile);
+	pick ? console.log('found ', toNode(pick, sourceFile).source) : console.log('nothing');
 
 	return false;
 }
