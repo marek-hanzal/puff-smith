@@ -50,6 +50,21 @@ export function foreachNode(node: ts.Node, sourceFile: ts.SourceFile, callback: 
 	node.forEachChild(node => callback(toNode(node, sourceFile)));
 }
 
+export function pickNodes(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node[] {
+	let node: ts.Node = root;
+	const nodes: ts.Node[] = [];
+	path.forEach((name, index) => {
+		if (!node) {
+			return;
+		}
+		const found = node.getChildren(sourceFile).filter(node => ts.SyntaxKind[node.kind] === name);
+		console.log(`(${toNode(node, sourceFile).source}) searching [${name}] found #`, found.length);
+		(index + 1) === (path.length - 1) && nodes.push(...found);
+		node = found?.[0];
+	});
+	return nodes;
+}
+
 export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node | undefined {
 	let node = root;
 	path.forEach(name => {
@@ -83,22 +98,35 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 
-	console.info(withExport ? "Export Endpoint\n" : "Skip\n", source);
-
-	toPrint(node, sourceFile);
+	console.info(`Parsing\n${source}`);
 
 	if (!withExport) {
+		console.info('- not exported');
 		return false;
 	}
 
 	const nodes = [
 		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile),
-		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile)
+		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile),
+		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'SyntaxList'], node, sourceFile),
 	].filter(node => node);
 
-	if (!nodes.length) {
+	if (nodes.length !== 3) {
+		console.info('- some of syntax nodes missing');
 		return false;
 	}
+
+	toPrint(nodes[2]!!, sourceFile);
+
+	const types = pickNodes(['TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
+
+	console.log('num of types', types.length);
+
+	types.map(node => {
+		console.log('types', toNode(node, sourceFile).source);
+	});
+
+	console.info('- success');
 
 	return {
 		name: toNode(nodes[0]!!, sourceFile).source,
