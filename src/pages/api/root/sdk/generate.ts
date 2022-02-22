@@ -18,6 +18,14 @@ export interface INode {
 
 export type IForeachNodeCallback = (node: INode) => void;
 
+export function toPrint(node: ts.Node, sourceFile: ts.SourceFile, indentLevel: number = 0) {
+	const indentation = "    ".repeat(indentLevel);
+	const syntaxKind = ts.SyntaxKind[node.kind];
+	const nodeText = node.getText(sourceFile);
+	console.log(`${indentation}${syntaxKind}: ${nodeText}`);
+	node.getChildren(sourceFile).forEach(child => toPrint(child, sourceFile, indentLevel + 1));
+}
+
 export function toNode(node: ts.Node, sourceFile: ts.SourceFile): INode {
 	return {
 		node,
@@ -37,15 +45,13 @@ export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFil
 		if (!node) {
 			return;
 		}
-		node = node.getChildren(sourceFile).filter(node => toNode(node, sourceFile).syntaxKind === name)?.[0];
+		node = node.getChildren(sourceFile).filter(node => ts.SyntaxKind[node.kind] === name)?.[0];
 	});
 	return node;
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
-	return node.getChildren(sourceFile).filter(node => {
-		return ts.SyntaxKind[node.kind] === 'SyntaxList' && node.getText(sourceFile) === 'export';
-	}).length > 0;
+	return !!pickNode(['SyntaxList', 'ExportKeyword'], node, sourceFile);
 }
 
 export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string | false {
@@ -59,25 +65,28 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 
-	console.info(withExport ? "Export\n" : "Skip\n", source);
+	console.info(withExport ? "Export Endpoint\n" : "Skip\n", source);
+
+	toPrint(node, sourceFile);
 
 	if (!withExport) {
 		return false;
 	}
 
-	const pick = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile);
-	if (!pick) {
+	const endpointNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile);
+	if (!endpointNode) {
+		return false;
+	}
+	const endpointTypeNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile);
+	if (!endpointTypeNode) {
 		return false;
 	}
 
-	const endpointName = toNode(pick, sourceFile).source;
+	const endpointName = toNode(endpointNode, sourceFile).source;
+	const endpointType = toNode(endpointTypeNode, sourceFile).source;
 
-	console.log(`\tEndpoint name [${endpointName}]`);
+	console.log(`- Endpoint name [${endpointName} : ${endpointType}]`);
 
-	return false;
-}
-
-export function toEndpointKind(node: ts.Node, sourceFile: ts.SourceFile): string | false {
 	return false;
 }
 
