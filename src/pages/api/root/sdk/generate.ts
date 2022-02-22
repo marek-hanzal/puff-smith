@@ -15,23 +15,15 @@ export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
 	}).length > 0;
 }
 
-export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string {
+export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string | false {
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
-
-	console.info('Interface ' + (withExport ? '(export)' : '(internal)'), source);
-
-	// node.forEachChild(node => {
-	// 	const syntaxKind = ts.SyntaxKind[node.kind];
-	// 	const nodeText = node.getText(sourceFile);
-	// 	console.log(`${syntaxKind}: ${nodeText}`);
-	// });
-
-	return isExport(node, sourceFile) ? source : '';
+	console.info(withExport ? "Export\n" : "Skip\n", source);
+	return withExport && source;
 }
 
 export function toSdk(endpoint: string): ISdk {
-	const interfaces: string[] = [];
+	const interfaces: (string | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
 	root.forEachChild(node => {
@@ -52,7 +44,7 @@ export function toSdk(endpoint: string): ISdk {
 
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
-		interfaces: interfaces.filter(item => item.length),
+		interfaces: interfaces.filter(item => item).map<string>(item => item as string),
 	};
 }
 
