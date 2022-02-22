@@ -13,6 +13,7 @@ export interface IInterfaceReflection {
 export interface IEndpointReflection {
 	name: string;
 	type: string;
+	generics: string[];
 }
 
 export interface ISdk {
@@ -118,21 +119,25 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 		return false;
 	}
 
-	toPrint(nodes[2]!!, sourceFile);
+	const accept = [
+		'IMutationEndpoint',
+		'ICreateEndpoint',
+		'IPatchEndpoint',
+		'IQueryEndpoint',
+	];
 
-	const types = pickNodes(['TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
-
-	console.log('num of types', types.length);
-
-	types.map(node => {
-		console.log('types', toNode(node, sourceFile).source);
-	});
+	const type = toNode(nodes[1]!!, sourceFile).source;
+	if (!accept.includes(type)) {
+		console.info(`- unknown endpoint type [${type}]`);
+		return false;
+	}
 
 	console.info('- success');
 
 	return {
 		name: toNode(nodes[0]!!, sourceFile).source,
-		type: toNode(nodes[1]!!, sourceFile).source,
+		type,
+		generics: pickNodes(['+(TypeReference|UnionType|VoidKeyword|UndefinedKeyword|TypeLiteral)'], nodes[2]!!, sourceFile).map(node => toNode(node, sourceFile).source),
 	};
 }
 
@@ -141,16 +146,8 @@ export function toSdk(endpoint: string): ISdk {
 	const endpoints: (IEndpointReflection | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
-	foreachNode(root, root, ({node, syntaxKind}) => {
-		switch (syntaxKind) {
-			case 'InterfaceDeclaration':
-				interfaces.push(exportInterface(node, root));
-				break;
-			case 'FirstStatement':
-				endpoints.push(exportEndpoint(node, root));
-				break;
-		}
-	});
+	pickNodes(['*', 'InterfaceDeclaration'], root, root).forEach(node => interfaces.push(exportInterface(node, root)));
+	pickNodes(['*', 'FirstStatement'], root, root).forEach(node => endpoints.push(exportEndpoint(node, root)));
 
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
