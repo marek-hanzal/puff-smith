@@ -4,9 +4,20 @@ import * as fs from "fs";
 import {IEndpoint} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
 
+export interface IInterfaceReflection {
+	name: string;
+	source: string;
+}
+
+export interface IEndpointReflection {
+	name: string;
+	type: string;
+}
+
 export interface ISdk {
 	file: string;
-	interfaces: string[];
+	interfaces: IInterfaceReflection[];
+	endpoints: IEndpointReflection[];
 }
 
 export interface INode {
@@ -54,14 +65,21 @@ export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
 	return !!pickNode(['SyntaxList', 'ExportKeyword'], node, sourceFile);
 }
 
-export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string | false {
+export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInterfaceReflection | false {
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
+	const name = toNode(pickNode(['Identifier'], node, sourceFile)!!, sourceFile);
+
+	toPrint(node, sourceFile);
+
 	console.info(withExport ? "Export\n" : "Skip\n", source);
-	return withExport && source;
+	return withExport && {
+		source,
+		name: name.source,
+	};
 }
 
-export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string | false {
+export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpointReflection | false {
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 
@@ -73,25 +91,24 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 		return false;
 	}
 
-	const endpointNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile);
-	if (!endpointNode) {
+	const nodes = [
+		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile),
+		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile)
+	].filter(node => node);
+
+	if (!nodes.length) {
 		return false;
 	}
-	const endpointTypeNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile);
-	if (!endpointTypeNode) {
-		return false;
-	}
 
-	const endpointName = toNode(endpointNode, sourceFile).source;
-	const endpointType = toNode(endpointTypeNode, sourceFile).source;
-
-	console.log(`- Endpoint name [${endpointName} : ${endpointType}]`);
-
-	return false;
+	return {
+		name: toNode(nodes[0]!!, sourceFile).source,
+		type: toNode(nodes[1]!!, sourceFile).source,
+	};
 }
 
 export function toSdk(endpoint: string): ISdk {
-	const interfaces: (string | false)[] = [];
+	const interfaces: (IInterfaceReflection | false)[] = [];
+	const endpoints: (IEndpointReflection | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
 	foreachNode(root, root, ({node, syntaxKind}) => {
@@ -100,20 +117,21 @@ export function toSdk(endpoint: string): ISdk {
 				interfaces.push(exportInterface(node, root));
 				break;
 			case 'FirstStatement':
-				exportEndpoint(node, root);
+				endpoints.push(exportEndpoint(node, root));
 				break;
 		}
 	});
 
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
-		interfaces: interfaces.filter(item => item).map<string>(item => item as string),
+		interfaces: interfaces.filter(item => item).map<IInterfaceReflection>(item => item as IInterfaceReflection),
+		endpoints: endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection),
 	};
 }
 
 export function toSource(sdk: ISdk): string {
 	const source: string[] = [];
-	source.push(...sdk.interfaces);
+	source.push(...sdk.interfaces.map(item => item.source));
 	return source.join("\n");
 }
 
