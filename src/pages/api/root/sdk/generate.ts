@@ -63,6 +63,10 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 					foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
 						console.log(`${syntaxKind}: ${source}`);
 						switch (syntaxKind) {
+							case 'Identifier':
+								console.log(`Found something ${source}`);
+								// endpoint type
+								break;
 							case 'VariableDeclaration':
 								foreachNode(node, sourceFile, ({node, syntaxKind, source}) => {
 									switch (syntaxKind) {
@@ -71,7 +75,7 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 											// endpoint type
 											break;
 									}
-									console.log(`${syntaxKind}: ${source}`);
+									console.log(`low deep ${syntaxKind}: ${source}`);
 								});
 								break;
 						}
