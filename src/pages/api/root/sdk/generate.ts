@@ -1,9 +1,8 @@
 import {glob} from "glob";
 import ts from 'typescript';
 import * as fs from "fs";
-import {IEndpoint} from "@leight-core/leight";
+import {IEndpoint, pickNode, pickNodes, toNode} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
-import minimatch from 'minimatch';
 
 export interface IInterfaceReflection {
 	name: string;
@@ -19,64 +18,7 @@ export interface IEndpointReflection {
 export interface ISdk {
 	file: string;
 	interfaces: IInterfaceReflection[];
-	endpoints: IEndpointReflection[];
-}
-
-export interface INode {
-	node: ts.Node;
-	sourceFile: ts.SourceFile;
-	syntaxKind: string;
-	source: string;
-}
-
-export type IForeachNodeCallback = (node: INode) => void;
-
-export function toPrint(node: ts.Node, sourceFile: ts.SourceFile, indentLevel: number = 0) {
-	const indentation = "    ".repeat(indentLevel);
-	const syntaxKind = ts.SyntaxKind[node.kind];
-	const nodeText = node.getText(sourceFile);
-	console.log(`${indentation}${syntaxKind}: ${nodeText}`);
-	node.getChildren(sourceFile).forEach(child => toPrint(child, sourceFile, indentLevel + 1));
-}
-
-export function toNode(node: ts.Node, sourceFile: ts.SourceFile): INode {
-	return {
-		node,
-		sourceFile,
-		syntaxKind: ts.SyntaxKind[node.kind],
-		source: node.getText(sourceFile),
-	};
-}
-
-export function foreachNode(node: ts.Node, sourceFile: ts.SourceFile, callback: IForeachNodeCallback) {
-	node.forEachChild(node => callback(toNode(node, sourceFile)));
-}
-
-export type INodePath = {
-	path: string;
-	node: ts.Node;
-};
-
-export function toNodePaths(root: ts.Node, sourceFile: ts.SourceFile, path: string[] = []): INodePath[] {
-	let paths = [
-		{
-			path: [...path, ts.SyntaxKind[root.kind]].join('/'),
-			node: root,
-		}
-	];
-	root.getChildren(sourceFile).forEach(node => {
-		paths.push(...toNodePaths(node, sourceFile, [...path, ts.SyntaxKind[root.kind]]));
-	});
-	return paths;
-}
-
-export function pickNodes(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node[] {
-	const request = ['*', ...path].join('/');
-	return toNodePaths(root, sourceFile).filter(node => minimatch(node.path, request)).map(node => node.node);
-}
-
-export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node | undefined {
-	return pickNodes(path, root, sourceFile)?.[0];
+	endpoint?: IEndpointReflection;
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
@@ -87,10 +29,7 @@ export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInte
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 	const name = toNode(pickNode(['Identifier'], node, sourceFile)!!, sourceFile);
-
-	toPrint(node, sourceFile);
-
-	console.info(withExport ? "Export\n" : "Skip\n", source);
+	console.info(`=== Export interface (${withExport}) ===\n${source}\n`);
 	return withExport && {
 		source,
 		name: name.source,
@@ -101,25 +40,33 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 	const source = node.getText(sourceFile);
 	const withExport = isExport(node, sourceFile);
 
-	console.info(`Parsing\n${source}`);
+	console.info(`=== Checking Endpoint Node ===\n${source}`);
 
 	if (!withExport) {
-		console.info('- not exported');
+		console.info('- not exported\n');
+		return false;
+	}
+
+	const variableDeclarationNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration'], node, sourceFile);
+
+	if (!variableDeclarationNode) {
+		console.info('- variable declaration node not found\n');
 		return false;
 	}
 
 	const nodes = [
-		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile),
-		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'Identifier'], node, sourceFile),
-		pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'TypeReference', 'SyntaxList'], node, sourceFile),
+		pickNode(['Identifier'], variableDeclarationNode, sourceFile),
+		pickNode(['TypeReference', 'Identifier'], variableDeclarationNode, sourceFile),
+		pickNode(['TypeReference', 'SyntaxList'], variableDeclarationNode, sourceFile),
 	].filter(node => node);
 
 	if (nodes.length !== 3) {
-		console.info('- some of syntax nodes missing');
+		console.info('- some of syntax nodes missing\n');
 		return false;
 	}
 
 	const accept = [
+		'IEndpoint',
 		'IMutationEndpoint',
 		'ICreateEndpoint',
 		'IPatchEndpoint',
@@ -128,11 +75,11 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 
 	const type = toNode(nodes[1]!!, sourceFile).source;
 	if (!accept.includes(type)) {
-		console.info(`- unknown endpoint type [${type}]`);
+		console.info(`- unknown endpoint type [${type}]\n`);
 		return false;
 	}
 
-	console.info('- success');
+	console.info('- success\n');
 
 	return {
 		name: toNode(nodes[0]!!, sourceFile).source,
@@ -152,7 +99,7 @@ export function toSdk(endpoint: string): ISdk {
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
 		interfaces: interfaces.filter(item => item).map<IInterfaceReflection>(item => item as IInterfaceReflection),
-		endpoints: endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection),
+		endpoint: endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection)?.[0],
 	};
 }
 
@@ -162,22 +109,18 @@ export function toSource(sdk: ISdk): string {
 	return source.join("\n");
 }
 
+export function toSdks(path: string): ISdk[] {
+	return glob.sync(path).map(toSdk).filter(sdk => !!sdk.endpoint);
+}
+
 export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
 	await remove('src/sdk');
 
 	const exported: string[] = [];
 
-	glob.sync('src/pages/api/**/*.ts').forEach(source => {
-		if (!source.match(/sign-in/ig)) {
-			return;
-		}
-		console.log(`Parsing [${source}]`);
-		const sdk = toSdk(source);
-		console.log('Generated package', sdk);
-		exported.push(sdk.file);
-		console.log(`Exporting [${sdk.file}]`);
+	toSdks('src/pages/api/**/*.ts').forEach(sdk => {
+		console.log(`Exporting [${sdk.file}]`, sdk);
 		outputFile(sdk.file, toSource(sdk));
-
 	})
 	res.status(200).json(exported);
 }
