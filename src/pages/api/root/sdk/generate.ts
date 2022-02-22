@@ -3,6 +3,7 @@ import ts from 'typescript';
 import * as fs from "fs";
 import {IEndpoint} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
+import minimatch from 'minimatch';
 
 export interface IInterfaceReflection {
 	name: string;
@@ -69,12 +70,12 @@ export function toNodePaths(root: ts.Node, sourceFile: ts.SourceFile, path: stri
 }
 
 export function pickNodes(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node[] {
-	const request = path.join('/');
-	return toNodePaths(root, sourceFile).filter(node => node.path === request).map(node => node.node);
+	const request = ['*', ...path].join('/');
+	return toNodePaths(root, sourceFile).filter(node => minimatch(node.path, request)).map(node => node.node);
 }
 
 export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFile): ts.Node | undefined {
-	return pickNodes(path, root, sourceFile)?.[0]
+	return pickNodes(path, root, sourceFile)?.[0];
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
@@ -119,7 +120,7 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 
 	toPrint(nodes[2]!!, sourceFile);
 
-	const types = pickNodes(['SyntaxList', 'TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
+	const types = pickNodes(['TypeReference', 'Identifier'], nodes[2]!!, sourceFile);
 
 	console.log('num of types', types.length);
 
