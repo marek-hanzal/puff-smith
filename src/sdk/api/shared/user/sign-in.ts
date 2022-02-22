@@ -1,1 +1,4 @@
-export const aaa = 1;
+export interface ISignInRequest {
+	readonly login: string;
+	readonly password: string;
+}

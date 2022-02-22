@@ -4,21 +4,33 @@ import * as fs from "fs";
 import {IEndpoint} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
 
-export interface IPackage {
+export interface ISdk {
 	file: string;
 	interfaces: string[];
 }
 
-export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string {
-	const syntaxKind = ts.SyntaxKind[node.kind];
-	const nodeText = node.getText(sourceFile);
-
-	console.log('exporting interface', nodeText);
-
-	return '';
+export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
+	return node.getChildren(sourceFile).filter(node => {
+		return ts.SyntaxKind[node.kind] === 'SyntaxList' && node.getText(sourceFile) === 'export';
+	}).length > 0;
 }
 
-export function toPackage(endpoint: string): IPackage {
+export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string {
+	const source = node.getText(sourceFile);
+	const withExport = isExport(node, sourceFile);
+
+	console.info('Interface ' + (withExport ? '(export)' : '(internal)'), source);
+
+	// node.forEachChild(node => {
+	// 	const syntaxKind = ts.SyntaxKind[node.kind];
+	// 	const nodeText = node.getText(sourceFile);
+	// 	console.log(`${syntaxKind}: ${nodeText}`);
+	// });
+
+	return isExport(node, sourceFile) ? source : '';
+}
+
+export function toSdk(endpoint: string): ISdk {
 	const interfaces: string[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
@@ -26,7 +38,7 @@ export function toPackage(endpoint: string): IPackage {
 		const syntaxKind = ts.SyntaxKind[node.kind];
 		const nodeText = node.getText(root);
 
-		console.log(`${syntaxKind}: ${nodeText}`);
+		// console.log(`${syntaxKind}: ${nodeText}`);
 
 		switch (syntaxKind) {
 			case 'ExportKeyword':
@@ -44,6 +56,12 @@ export function toPackage(endpoint: string): IPackage {
 	};
 }
 
+export function toSource(sdk: ISdk): string {
+	const source: string[] = [];
+	source.push(...sdk.interfaces);
+	return source.join("\n");
+}
+
 export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
 	await remove('src/sdk');
 
@@ -54,11 +72,11 @@ export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
 			return;
 		}
 		console.log(`Parsing [${source}]`);
-		const sdk = toPackage(source);
+		const sdk = toSdk(source);
 		console.log('Generated package', sdk);
 		exported.push(sdk.file);
 		console.log(`Exporting [${sdk.file}]`);
-		outputFile(sdk.file, "export const aaa = 1;");
+		outputFile(sdk.file, toSource(sdk));
 
 	})
 	res.status(200).json(exported);
