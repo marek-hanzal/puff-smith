@@ -35,17 +35,9 @@ export function pickNode(path: string[], root: ts.Node, sourceFile: ts.SourceFil
 	let node = root;
 	path.forEach(name => {
 		if (!node) {
-			console.log(`End of story [${name}]`);
 			return;
 		}
-		const _node = toNode(node, sourceFile);
-		console.log(`(${_node.syntaxKind}) searching [${name}]`);
-		node = node.getChildren(sourceFile).filter(node => {
-			const _node = toNode(node, sourceFile);
-			const match = toNode(node, sourceFile).syntaxKind === name;
-			console.log(`\tMatching [${_node.syntaxKind}]`, match);
-			return match;
-		})?.[0];
+		node = node.getChildren(sourceFile).filter(node => toNode(node, sourceFile).syntaxKind === name)?.[0];
 	});
 	return node;
 }
@@ -74,7 +66,13 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): string
 	}
 
 	const pick = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration', 'Identifier'], node, sourceFile);
-	pick ? console.log('found ', toNode(pick, sourceFile).source) : console.log('nothing');
+	if (!pick) {
+		return false;
+	}
+
+	const endpointName = toNode(pick, sourceFile).source;
+
+	console.log(`\tEndpoint name [${endpointName}]`);
 
 	return false;
 }
