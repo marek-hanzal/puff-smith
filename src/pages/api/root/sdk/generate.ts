@@ -4,18 +4,22 @@ import * as fs from "fs";
 import {IEndpoint} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
 
-interface IPackage {
+export interface IPackage {
 	file: string;
 	interfaces: string[];
 }
 
-function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string[] {
-	return [];
+export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): string {
+	const syntaxKind = ts.SyntaxKind[node.kind];
+	const nodeText = node.getText(sourceFile);
+
+	console.log('exporting interface', nodeText);
+
+	return '';
 }
 
-function parse(endpoint: string): IPackage {
-	let interfaces: string[] = [];
-
+export function toPackage(endpoint: string): IPackage {
+	const interfaces: string[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
 
 	root.forEachChild(node => {
@@ -29,14 +33,14 @@ function parse(endpoint: string): IPackage {
 				console.log('Found export!', nodeText);
 				break;
 			case 'InterfaceDeclaration':
-				interfaces = exportInterface(node, root);
+				interfaces.push(exportInterface(node, root));
 				break;
 		}
 	})
 
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
-		interfaces,
+		interfaces: interfaces.filter(item => item.length),
 	};
 }
 
@@ -50,7 +54,7 @@ export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
 			return;
 		}
 		console.log(`Parsing [${source}]`);
-		const sdk = parse(source);
+		const sdk = toPackage(source);
 		console.log('Generated package', sdk);
 		exported.push(sdk.file);
 		console.log(`Exporting [${sdk.file}]`);
