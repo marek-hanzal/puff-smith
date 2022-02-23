@@ -7,20 +7,21 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import {ConfigProvider} from "antd";
 import {useEffect, useState} from "react";
+import {SessionProvider} from "next-auth/react";
 
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
-// noinspection JSUnusedGlobalSymbols
-export default function PuffSmith({Component, pageProps}: AppProps) {
+export default function PuffSmith({Component, pageProps: {session, ...pageProps}}: AppProps) {
 	const [antd, setAntd] = useState<any>();
 
 	useEffect(() => {
 		(async () => setAntd((await bootstrap()).locale.antd))();
 	}, []);
 
-	return antd ? <ConfigProvider locale={antd}>
+	return <SessionProvider session={session}> antd ? <ConfigProvider locale={antd}>
 		{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
-	</ConfigProvider> : null;
+	</ConfigProvider> : null
+	</SessionProvider>
 }

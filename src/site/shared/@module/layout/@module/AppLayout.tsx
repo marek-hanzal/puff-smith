@@ -14,7 +14,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
 	return <App
 		clientLink={"/api/client.json"}
 		translationLink={"/api/shared/translation"}
-		sessionLink={"/api/shared/user/session"}
+		sessionLink={false}
 		queryClient={queryClient}
 		logo={<FullLogoIcon/>}
 		dayjs={dayjs}

@@ -6,7 +6,7 @@ const generators: IGenerators = {
 };
 
 export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
-	res.status(200).json(generateSdkFor('src/pages/api/**/*.ts', generators));
+	res.status(200).json(await generateSdkFor('src/pages/api/**/*.ts', generators));
 }
 
 export default GenerateEndpoint;
