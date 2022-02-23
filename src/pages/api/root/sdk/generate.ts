@@ -1,8 +1,8 @@
 import {glob} from "glob";
 import ts from 'typescript';
 import * as fs from "fs";
-import {IEndpoint, pickNode, pickNodes, toNode} from "@leight-core/leight";
 import {outputFile, remove} from 'fs-extra';
+import {IEndpoint, pickNode, pickNodes, toNode} from "@leight-core/leight";
 
 export interface IInterfaceReflection {
 	name: string;
@@ -18,7 +18,7 @@ export interface IEndpointReflection {
 export interface ISdk {
 	file: string;
 	interfaces: IInterfaceReflection[];
-	endpoint?: IEndpointReflection;
+	endpoint: IEndpointReflection;
 }
 
 export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
@@ -67,10 +67,13 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 
 	const accept = [
 		'IEndpoint',
+		'IFetchEndpoint',
+		'IListEndpoint',
 		'IMutationEndpoint',
 		'ICreateEndpoint',
 		'IPatchEndpoint',
 		'IQueryEndpoint',
+		'IDeleteEndpoint',
 	];
 
 	const type = toNode(nodes[1]!!, sourceFile).source;
@@ -88,7 +91,7 @@ export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpo
 	};
 }
 
-export function toSdk(endpoint: string): ISdk {
+export function toSdk(endpoint: string): ISdk | undefined {
 	const interfaces: (IInterfaceReflection | false)[] = [];
 	const endpoints: (IEndpointReflection | false)[] = [];
 	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
@@ -96,21 +99,44 @@ export function toSdk(endpoint: string): ISdk {
 	pickNodes(['*', 'InterfaceDeclaration'], root, root).forEach(node => interfaces.push(exportInterface(node, root)));
 	pickNodes(['*', 'FirstStatement'], root, root).forEach(node => endpoints.push(exportEndpoint(node, root)));
 
+	const _endpoint = endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection)?.[0];
+
+	if (!_endpoint) {
+		return undefined;
+	}
+
 	return {
 		file: root.fileName.replace('/pages', '/sdk'),
 		interfaces: interfaces.filter(item => item).map<IInterfaceReflection>(item => item as IInterfaceReflection),
-		endpoint: endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection)?.[0],
+		endpoint: _endpoint,
 	};
 }
 
+export interface IGenerator {
+	(sdk: ISdk): string;
+}
+
+export interface IGenerators {
+	[index: string]: IGenerator;
+}
+
+export function generateIEndpoint(sdk: ISdk): string {
+	return 'iendpoint';
+}
+
 export function toSource(sdk: ISdk): string {
+	const generators: IGenerators = {
+		'IEndpoint': generateIEndpoint,
+	};
+
 	const source: string[] = [];
 	source.push(...sdk.interfaces.map(item => item.source));
+	source.push(generators[sdk.endpoint.type]?.(sdk) || '');
 	return source.join("\n");
 }
 
 export function toSdks(path: string): ISdk[] {
-	return glob.sync(path).map(toSdk).filter(sdk => !!sdk.endpoint);
+	return glob.sync(path).map(toSdk).filter(sdk => sdk) as ISdk[];
 }
 
 export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {

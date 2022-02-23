@@ -1,5 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {IDiscovery} from "@leight-core/leight/dist";
+import {IDiscovery} from "@leight-core/leight";
 
 export default (req: NextApiRequest, res: NextApiResponse<IDiscovery>) => {
 	// glob.sync('src/pages/api/**/*.ts').forEach(source => {

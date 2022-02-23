@@ -12,5 +12,15 @@ export interface IEndpointReflection {
 export interface ISdk {
 	file: string;
 	interfaces: IInterfaceReflection[];
-	endpoint?: IEndpointReflection;
+	endpoint: IEndpointReflection;
 }
+
+export interface IGenerator {
+	(sdk: ISdk): string;
+}
+
+export interface IGenerators {
+	[index: string]: IGenerator;
+}
+
+iendpoint
