@@ -1,9 +1,9 @@
 import {createPrismaClient} from "@/puff-smith/prisma";
-import {IEndpoint, ISession} from "@leight-core/leight";
+import {IFetchEndpoint, ISession} from "@leight-core/leight";
 
 const prisma = createPrismaClient();
 
-export const SessionEndpoint: IEndpoint<void, ISession | null> = async (req, res) => {
+export const SessionEndpoint: IFetchEndpoint<ISession | null> = async (req, res) => {
 	res.status(200).json(null);
 }
 

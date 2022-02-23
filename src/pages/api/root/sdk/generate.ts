@@ -1,154 +1,39 @@
-import {glob} from "glob";
-import ts from 'typescript';
-import * as fs from "fs";
-import {outputFile, remove} from 'fs-extra';
-import {IEndpoint, pickNode, pickNodes, toNode} from "@leight-core/leight";
+import {generateSdkFor, IEndpoint, IGenerators, ISdk} from "@leight-core/leight";
 
-export interface IInterfaceReflection {
-	name: string;
-	source: string;
+export function generateIMutationEndpoint(sdk: ISdk): string {
+	const name = sdk.endpoint.name.replace('Endpoint', '');
+	const pair = (sdk.endpoint.generics?.[0] || 'void') + ', ' + (sdk.endpoint.generics?.[1] || 'void');
+	const api = sdk.endpoint.api;
+	const query = sdk.endpoint.generics?.[2] || 'void';
+	const generics = query + ', ' + pair;
+
+	return `
+import {FC} from "react";
+import {createPostMutation, Form, IFormProps} from "@leight-core/leight";	
+${sdk.imports.map(_import => `import {${_import.imports.join(', ')}} from ${_import.from};`).join("\n")}
+
+${sdk.interfaces.map(item => item.source).join("\n")}
+
+export type I${name}QueryParams = ${query};
+
+export const use${name}Mutation = createPostMutation<I${name}QueryParams, ${pair}>("${api}");
+
+export interface I${name}DefaultFormProps extends Partial<IFormProps<${generics}>> {
 }
 
-export interface IEndpointReflection {
-	name: string;
-	type: string;
-	generics: string[];
+export const ${name}DefaultForm: FC<I${name}DefaultFormProps> = props => <Form<${generics}>
+	useMutation={use${name}Mutation}
+	{...props}
+/>
+`.trim();
 }
 
-export interface ISdk {
-	file: string;
-	interfaces: IInterfaceReflection[];
-	endpoint: IEndpointReflection;
-}
-
-export function isExport(node: ts.Node, sourceFile: ts.SourceFile): boolean {
-	return !!pickNode(['SyntaxList', 'ExportKeyword'], node, sourceFile);
-}
-
-export function exportInterface(node: ts.Node, sourceFile: ts.SourceFile): IInterfaceReflection | false {
-	const source = node.getText(sourceFile);
-	const withExport = isExport(node, sourceFile);
-	const name = toNode(pickNode(['Identifier'], node, sourceFile)!!, sourceFile);
-	console.info(`=== Export interface (${withExport}) ===\n${source}\n`);
-	return withExport && {
-		source,
-		name: name.source,
-	};
-}
-
-export function exportEndpoint(node: ts.Node, sourceFile: ts.SourceFile): IEndpointReflection | false {
-	const source = node.getText(sourceFile);
-	const withExport = isExport(node, sourceFile);
-
-	console.info(`=== Checking Endpoint Node ===\n${source}`);
-
-	if (!withExport) {
-		console.info('- not exported\n');
-		return false;
-	}
-
-	const variableDeclarationNode = pickNode(['VariableDeclarationList', 'SyntaxList', 'VariableDeclaration'], node, sourceFile);
-
-	if (!variableDeclarationNode) {
-		console.info('- variable declaration node not found\n');
-		return false;
-	}
-
-	const nodes = [
-		pickNode(['Identifier'], variableDeclarationNode, sourceFile),
-		pickNode(['TypeReference', 'Identifier'], variableDeclarationNode, sourceFile),
-		pickNode(['TypeReference', 'SyntaxList'], variableDeclarationNode, sourceFile),
-	].filter(node => node);
-
-	if (nodes.length !== 3) {
-		console.info('- some of syntax nodes missing\n');
-		return false;
-	}
-
-	const accept = [
-		'IEndpoint',
-		'IFetchEndpoint',
-		'IListEndpoint',
-		'IMutationEndpoint',
-		'ICreateEndpoint',
-		'IPatchEndpoint',
-		'IQueryEndpoint',
-		'IDeleteEndpoint',
-	];
-
-	const type = toNode(nodes[1]!!, sourceFile).source;
-	if (!accept.includes(type)) {
-		console.info(`- unknown endpoint type [${type}]\n`);
-		return false;
-	}
-
-	console.info('- success\n');
-
-	return {
-		name: toNode(nodes[0]!!, sourceFile).source,
-		type,
-		generics: pickNodes(['+(TypeReference|UnionType|VoidKeyword|UndefinedKeyword|TypeLiteral)'], nodes[2]!!, sourceFile).map(node => toNode(node, sourceFile).source),
-	};
-}
-
-export function toSdk(endpoint: string): ISdk | undefined {
-	const interfaces: (IInterfaceReflection | false)[] = [];
-	const endpoints: (IEndpointReflection | false)[] = [];
-	const root = ts.createSourceFile(endpoint, fs.readFileSync(endpoint, 'utf8'), ts.ScriptTarget.Latest)
-
-	pickNodes(['*', 'InterfaceDeclaration'], root, root).forEach(node => interfaces.push(exportInterface(node, root)));
-	pickNodes(['*', 'FirstStatement'], root, root).forEach(node => endpoints.push(exportEndpoint(node, root)));
-
-	const _endpoint = endpoints.filter(item => item).map<IEndpointReflection>(item => item as IEndpointReflection)?.[0];
-
-	if (!_endpoint) {
-		return undefined;
-	}
-
-	return {
-		file: root.fileName.replace('/pages', '/sdk'),
-		interfaces: interfaces.filter(item => item).map<IInterfaceReflection>(item => item as IInterfaceReflection),
-		endpoint: _endpoint,
-	};
-}
-
-export interface IGenerator {
-	(sdk: ISdk): string;
-}
-
-export interface IGenerators {
-	[index: string]: IGenerator;
-}
-
-export function generateIEndpoint(sdk: ISdk): string {
-	return 'iendpoint';
-}
-
-export function toSource(sdk: ISdk): string {
-	const generators: IGenerators = {
-		'IEndpoint': generateIEndpoint,
-	};
-
-	const source: string[] = [];
-	source.push(...sdk.interfaces.map(item => item.source));
-	source.push(generators[sdk.endpoint.type]?.(sdk) || '');
-	return source.join("\n");
-}
-
-export function toSdks(path: string): ISdk[] {
-	return glob.sync(path).map(toSdk).filter(sdk => sdk) as ISdk[];
-}
+const generators: IGenerators = {
+	"IMutationEndpoint": generateIMutationEndpoint,
+};
 
 export const GenerateEndpoint: IEndpoint<void, any> = async (req, res) => {
-	await remove('src/sdk');
-
-	const exported: string[] = [];
-
-	toSdks('src/pages/api/**/*.ts').forEach(sdk => {
-		console.log(`Exporting [${sdk.file}]`, sdk);
-		outputFile(sdk.file, toSource(sdk));
-	})
-	res.status(200).json(exported);
+	res.status(200).json(generateSdkFor('src/pages/api/**/*.ts', generators));
 }
 
 export default GenerateEndpoint;
