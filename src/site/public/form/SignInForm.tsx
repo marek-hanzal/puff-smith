@@ -1,18 +1,17 @@
-import {Centered, Form, FormItem, IFormProps, Input, ISession, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Input, PasswordInput, SignInIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ISignInRequest} from "@/puff-smith/pages/api/shared/user/sign-in";
+import {ISignInDefaultFormProps, SignInDefaultForm} from "@/sdk/api/shared/user/sign-in";
 
-export interface ISignInFormProps extends Partial<IFormProps<void, ISignInRequest, ISession>> {
+export interface ISignInFormProps extends ISignInDefaultFormProps {
 }
 
 export const SignInForm: FC<ISignInFormProps> = props => {
 	const {t} = useTranslation();
-	return <Form<void, ISignInRequest, ISession>
-		// useMutation={useLoginMutation}
+	return <SignInDefaultForm
 		size={"large"}
 		onSuccess={({navigate, response}) => {
-			navigate("/" + response.user.site);
+			response && navigate("/" + response.user.site);
 		}}
 		toError={() => ({
 			"Unknown login": (({formContext}) => {
@@ -43,5 +42,5 @@ export const SignInForm: FC<ISignInFormProps> = props => {
 		<Centered>
 			<Submit icon={<SignInIcon/>} size={"large"} label={"public.sign-in.form.submit.label"}/>
 		</Centered>
-	</Form>;
+	</SignInDefaultForm>;
 };

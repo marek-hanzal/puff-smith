@@ -1,19 +1,18 @@
-import {Centered, Form, FormItem, IFormProps, Input, ISession, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Input, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {ISignUpRequest} from "@/sdk/shared/user/interface";
+import {ISignUpDefaultFormProps, SignUpDefaultForm} from "@/sdk/api/shared/user/sign-up";
 
-export interface ISignUpFormProps extends Partial<IFormProps<void, ISignUpRequest, ISession>> {
+export interface ISignUpFormProps extends ISignUpDefaultFormProps {
 }
 
 export const SignUpForm: FC<ISignUpFormProps> = props => {
 	const {t} = useTranslation();
-	return <Form<void, ISignUpRequest, ISession>
-		// useMutation={useSignUpMutation}
+	return <SignUpDefaultForm
 		size={"large"}
 		wrapperCol={{span: 24}}
 		onSuccess={({navigate, response}) => {
-			navigate("/" + response.user.site);
+			response && navigate("/" + response.user.site);
 		}}
 		toError={({error}) => ({
 			"Unknown login": (({formContext}) => {
@@ -88,5 +87,5 @@ export const SignUpForm: FC<ISignUpFormProps> = props => {
 		<Centered>
 			<Submit icon={<SignUpIcon/>} size={"large"} label={"public.sign-up.form.submit.label"}/>
 		</Centered>
-	</Form>;
+	</SignUpDefaultForm>;
 };

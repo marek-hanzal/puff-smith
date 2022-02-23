@@ -9,7 +9,7 @@ export interface ISignInRequest {
 }
 
 export const SignInEndpoint: IMutationEndpoint<ISignInRequest, ISession | null> = async (req, res) => {
-	res.status(200).json(null as any);
+	res.status(200).json(req.body as any);
 };
 
 export default SignInEndpoint;

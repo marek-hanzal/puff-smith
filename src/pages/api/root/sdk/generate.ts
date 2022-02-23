@@ -1,32 +1,5 @@
-import {generateSdkFor, IEndpoint, IGenerators, ISdk} from "@leight-core/leight";
-
-export function generateIMutationEndpoint(sdk: ISdk): string {
-	const name = sdk.endpoint.name.replace('Endpoint', '');
-	const pair = (sdk.endpoint.generics?.[0] || 'void') + ', ' + (sdk.endpoint.generics?.[1] || 'void');
-	const api = sdk.endpoint.api;
-	const query = sdk.endpoint.generics?.[2] || 'void';
-	const generics = query + ', ' + pair;
-
-	return `
-import {FC} from "react";
-import {createPostMutation, Form, IFormProps} from "@leight-core/leight";	
-${sdk.imports.map(_import => `import {${_import.imports.join(', ')}} from ${_import.from};`).join("\n")}
-
-${sdk.interfaces.map(item => item.source).join("\n")}
-
-export type I${name}QueryParams = ${query};
-
-export const use${name}Mutation = createPostMutation<I${name}QueryParams, ${pair}>("${api}");
-
-export interface I${name}DefaultFormProps extends Partial<IFormProps<${generics}>> {
-}
-
-export const ${name}DefaultForm: FC<I${name}DefaultFormProps> = props => <Form<${generics}>
-	useMutation={use${name}Mutation}
-	{...props}
-/>
-`.trim();
-}
+import {generateIMutationEndpoint, generateSdkFor, IGenerators} from "@leight-core/sdk";
+import {IEndpoint} from "@leight-core/leight";
 
 const generators: IGenerators = {
 	"IMutationEndpoint": generateIMutationEndpoint,

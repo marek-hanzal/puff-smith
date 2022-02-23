@@ -15,16 +15,6 @@ const config = plugins([
 		isServer,
 		...options
 	}) => {
-		!isServer && (config.resolve.fallback = {
-			fs:        false,
-			path:      false,
-			assert:    false,
-			process:   false,
-			util:      false,
-			stream:    false,
-			constants: false,
-			buffer:    false,
-		});
 		config.plugins.push(
 			new webpack.DefinePlugin({
 				'process.env.BUILD_ID': JSON.stringify(buildId),
