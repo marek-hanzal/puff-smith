@@ -6,5 +6,8 @@ const prisma = createPrismaClient();
 
 export default NextAuth({
 	adapter: PrismaAdapter(prisma),
-	providers: [],
+	providers: [
+		// https://next-auth.js.org/providers/google
+		// https://console.developers.google.com/apis/credentials?project=puff-smith&supportedpurview=project
+	],
 })
