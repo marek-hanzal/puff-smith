@@ -38,6 +38,8 @@ const generators: IGenerators = {
 export default Endpoint<"Generate", void, void>(() => {
 	/**
 	 * Check if async/await stuff works properly
+	 *
+	 * - update SDK with new Endpoint stuff
 	 */
 
 	return GenerateEndpoint('src/pages/api/**/*.ts', generators);
