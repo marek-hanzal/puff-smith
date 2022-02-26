@@ -1,6 +1,6 @@
 import icon from "@/puff-smith/assets/logo/logo-full.svg";
 import {Col, Divider, Image, Row} from "antd";
-import {PublicPage, SignInForm, SignUpForm, withPublicLayout} from "@/puff-smith/site/public";
+import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {Card, Template} from "@leight-core/common";
 
 export default withPublicLayout(function Index() {
@@ -16,14 +16,14 @@ export default withPublicLayout(function Index() {
 			<Row gutter={32}>
 				<Col span={11}>
 					<Card title={'public.sing-in.card.title'}>
-						<SignInForm/>
+						{/*<SignInForm/>*/}
 					</Card>
 				</Col>
 				<Col span={2}>
 				</Col>
 				<Col span={11}>
 					<Card title={'public.sing-up.card.title'}>
-						<SignUpForm/>
+						{/*<SignUpForm/>*/}
 					</Card>
 				</Col>
 			</Row>

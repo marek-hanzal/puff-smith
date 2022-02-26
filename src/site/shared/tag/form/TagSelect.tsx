@@ -1,6 +1,16 @@
-import {ITagsSourceSelectProps, TagsSourceSelect} from "@/sdk/edde/api/shared/tag/endpoint";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
+
+interface ITagsSourceSelectProps {
+	source: any;
+	toOption: (item: any) => any
+	allowClear?: boolean;
+	mode: string;
+}
+
+const TagsSourceSelect: FC<ITagsSourceSelectProps> = props => {
+	return null as any;
+}
 
 export interface ITagSelectProps extends Partial<ITagsSourceSelectProps> {
 	groups?: string[];

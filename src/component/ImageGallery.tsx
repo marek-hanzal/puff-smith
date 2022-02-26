@@ -5,6 +5,14 @@ import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
 import {useIsMobile, useLinkContext} from "@leight-core/context";
 
+function useImagesSource(): any {
+	return null as any;
+}
+
+function ImagesSource(props: any): any {
+}
+
+
 interface IImageGalleryInternalProps {
 	size?: number;
 	hideEmpty?: boolean;
@@ -25,7 +33,7 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmp
 		<Image.PreviewGroup preview={{visible, onVisibleChange: setVisible}}>
 			<Centered>
 				<Space size={'large'}>
-					{imagesSource.map(({preview, original}) => <Image
+					{imagesSource.map(({preview, original}: any) => <Image
 						height={200}
 						key={preview.id}
 						src={linkContext.link('/api/leight/file/download', {fileId: preview.id})}

@@ -1,7 +1,8 @@
 import {FC} from "react";
-import {TagDto} from "@/sdk/edde/tag/dto";
 import {Tag, TagProps} from "antd";
 import {useTranslation} from "react-i18next";
+
+type TagDto = any;
 
 export interface ITagsProps extends Partial<TagProps> {
 	tags?: TagDto[];

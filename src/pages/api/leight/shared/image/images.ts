@@ -1,9 +1,9 @@
-import {IQueryEndpoint} from "@leight-core/common";
+import {QueryEndpoint} from "@leight-core/endpoint";
 
 export interface IImagesDto {
 }
 
-export const ImagesEndpoint: IQueryEndpoint<any, IImagesDto> = async (req, res) => {
+export default QueryEndpoint<"Images", any, IImagesDto>(({res}) => {
 	res.status(200).json({
 		count: 0,
 		items: [],
@@ -11,6 +11,4 @@ export const ImagesEndpoint: IQueryEndpoint<any, IImagesDto> = async (req, res) 
 		size: 0,
 		total: 0,
 	});
-}
-
-export default ImagesEndpoint;
+});

@@ -1,6 +1,6 @@
 import {bootstrap} from "@/puff-smith";
 import "@/puff-smith/assets/styles/app.css";
-import {IPageWithLayout} from "@leight-core/common";
+import {IPageWithLayout} from "@leight-core/api";
 import type {AppProps} from "next/app";
 import {Router} from "next/router";
 import NProgress from "nprogress";
@@ -20,8 +20,9 @@ export default function PuffSmith({Component, pageProps: {session, ...pageProps}
 		(async () => setAntd((await bootstrap()).locale.antd))();
 	}, []);
 
-	return <SessionProvider session={session}> antd ? <ConfigProvider locale={antd}>
-		{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
-	</ConfigProvider> : null
+	return <SessionProvider session={session}>
+		{antd ? <ConfigProvider locale={antd}>
+			{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
+		</ConfigProvider> : null}
 	</SessionProvider>
 }

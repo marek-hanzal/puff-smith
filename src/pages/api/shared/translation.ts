@@ -1,12 +1,9 @@
-import {createPrismaClient} from "@/puff-smith/prisma";
-import {IEndpoint, ITranslations} from "@leight-core/common";
+import {ListEndpoint} from "@leight-core/endpoint";
+import {ITranslations} from "@leight-core/api";
 
-const prisma = createPrismaClient();
-
-export const TranslationEndpoint: IEndpoint<void, ITranslations> = async (req, res) => {
+export default ListEndpoint<"Translations", ITranslations>(({res}) => {
 	res.status(200).json({
 		translations: [],
 	});
-}
+});
 
-export default TranslationEndpoint;
