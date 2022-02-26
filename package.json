@@ -8,6 +8,7 @@
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
 		"prisma generate": "npx dotenv -c development npx prisma generate",
+		"prisma db push": "npx dotenv -c development npx prisma db push",
 		"start": "next start",
 		"lint": "next lint"
 	},
