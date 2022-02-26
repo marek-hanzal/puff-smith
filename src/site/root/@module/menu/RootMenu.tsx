@@ -11,9 +11,9 @@ export const RootMenu: FC<IRootMenuProps> = props => {
 		<MenuDivider/>
 		{CreateMenuItem("root.home.menu", "/root", <HomeIcon/>)}
 		<MenuDivider/>
-		{CreateMenuItem("root.import.index.menu", "/root/import", <ImportIcon/>)}
-		{CreateMenuItem("root.job.index.menu", "/root/job", <JobIcon/>)}
-		{CreateMenuItem("root.common.index.menu", "/root/common", <CommonIcon/>)}
+		{CreateMenuItem("root.import.menu", "/root/import", <ImportIcon/>)}
+		{CreateMenuItem("root.job.menu", "/root/job", <JobIcon/>)}
+		{CreateMenuItem("root.common.menu", "/root/common", <CommonIcon/>)}
 		{CreateMenuItem("root.file.menu", "/root/file/list", <FileOutlined/>)}
 		{CreateMenuItem("root.user.menu", "/root/user", <UserOutlined/>)}
 		<SubMenu
