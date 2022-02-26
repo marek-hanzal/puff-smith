@@ -20,7 +20,10 @@ export default function PuffSmith({Component, pageProps: {session, ...pageProps}
 		(async () => setAntd((await bootstrap()).locale.antd))();
 	}, []);
 
-	return <SessionProvider session={session}>
+	return <SessionProvider
+		session={session}
+		refetchOnWindowFocus={true}
+	>
 		{antd ? <ConfigProvider locale={antd}>
 			{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
 		</ConfigProvider> : null}

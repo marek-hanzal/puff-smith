@@ -1,9 +1,13 @@
 import icon from "@/puff-smith/assets/logo/logo-full.svg";
-import {Col, Divider, Image, Row} from "antd";
+import {Button, Col, Divider, Image, Row} from "antd";
 import {Card, Template} from "@leight-core/common";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
+import {signIn, useSession} from "next-auth/react";
 
 export default withPublicLayout(function Index() {
+
+	console.log('session', useSession());
+
 	return <PublicPage
 		title={"public.index"}
 		menuSelection={['/public']}
@@ -16,7 +20,13 @@ export default withPublicLayout(function Index() {
 			<Row gutter={32}>
 				<Col span={11}>
 					<Card title={'public.sing-in.card.title'}>
-						{/*<SignInForm/>*/}
+						<Button
+							type={'primary'}
+							size={'large'}
+							onClick={() => signIn(undefined, {callbackUrl: '/'})}
+						>
+							[Sign In]
+						</Button>
 					</Card>
 				</Col>
 				<Col span={2}>

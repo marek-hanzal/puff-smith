@@ -7,6 +7,7 @@ export default function Index() {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
 	const session = await getSession({ctx});
+	console.log('session', session);
 	return {
 		redirect: session ? {destination: '/lab'} : {destination: '/public'},
 		props: {},

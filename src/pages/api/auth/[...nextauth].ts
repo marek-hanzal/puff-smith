@@ -1,36 +1,23 @@
 import NextAuth from "next-auth"
 import {createPrismaClient} from "@/puff-smith/prisma";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 
 const prisma = createPrismaClient();
 
 export default NextAuth({
+	theme: {
+		logo: '/logo.png',
+		brandColor: '#1890ff',
+		colorScheme: 'light',
+	},
 	adapter: PrismaAdapter(prisma),
+	debug: process.env.NODE_ENV === 'development',
 	providers: [
-		CredentialsProvider({
-			name: 'credential',
-			credentials: {
-				username: {
-					label: 'Email',
-					type: 'text',
-					placeholder: 'john.doe@example.com',
-				},
-				password: {
-					label: 'Password',
-					type: 'password',
-				},
-			},
-			authorize: credentials => {
-				/**
-				 * @TODO prisma lookup here
-				 */
-				return credentials?.username === 'test' && credentials?.password === '1234' ? {
-					id: '1234',
-					name: 'test',
-					email: 'test@example.com',
-				} : null;
-			},
+		GitHub({
+			name: 'github',
+			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID,
+			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET,
 		}),
 
 		// https://next-auth.js.org/providers/google
@@ -52,11 +39,8 @@ export default NextAuth({
 			return session;
 		},
 	},
-	/**
-	 * @TODO take a secret from ENV
-	 */
-	secret: '1234',
+	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
-		secret: '1234',
+		secret: process.env.NEXTAUTH_SECRET,
 	},
 })

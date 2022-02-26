@@ -1,6 +1,6 @@
 import {HomeOutlined} from "@ant-design/icons";
 import {BackIcon, ButtonBar, ButtonLink, Template} from "@leight-core/common";
-import {Button} from "antd";
+import {Button, Divider} from "antd";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
@@ -16,7 +16,7 @@ export default withPublicLayout(function Custom404() {
 			status={"404"}
 			label={'public.404'}
 			extra={
-				<ButtonBar>
+				<ButtonBar split={<Divider type={'vertical'}/>}>
 					<Button icon={<BackIcon/>} onClick={() => router.back()}>{t("public.404.back")}</Button>
 					<ButtonLink size={"large"} icon={<HomeOutlined/>} href={"/"} title={"public.404.home"}/>
 				</ButtonBar>
