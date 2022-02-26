@@ -4,13 +4,19 @@ import {useEffect} from "react";
 import {useNavigate} from "@leight-core/utils";
 import {withAppLayout} from "@/puff-smith/site/shared";
 import {FullLogoIcon} from "@/puff-smith";
+import {GetServerSideProps} from "next";
+import {getSession} from "next-auth/react";
+import {Session} from "next-auth";
 
-export default withAppLayout(function Index() {
+interface IIndexProps {
+	_session: Session | null;
+}
+
+export default withAppLayout(function Index({_session}: IIndexProps) {
 	const navigate = useNavigate();
-	// const sessionContext = usePuffSmithSessionContext();
 	useEffect(() => {
 		setTimeout(() => {
-			// navigate("/" + (sessionContext?.session?.user?.site || "public"));
+			navigate("/" + "public");
 		}, 1500);
 	}, []);
 	return <LoaderLayout
@@ -18,3 +24,11 @@ export default withAppLayout(function Index() {
 		icon={<HomeOutlined/>}
 	/>;
 });
+
+export const getServerSideProps: GetServerSideProps<IIndexProps> = async ctx => {
+	return {
+		props: {
+			_session: await getSession({ctx}),
+		},
+	}
+}
