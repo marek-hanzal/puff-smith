@@ -1,19 +1,19 @@
-import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/common";
+import {HeaderSiderLayout} from "@leight-core/common";
 import {FC} from "react";
 import {AppLayout} from "@/puff-smith/site/shared";
 import {Footer, Header} from "@/puff-smith/site/public";
+import {IPageWithLayout} from "@leight-core/api";
 
 export interface IPublicLayoutProps {
 }
 
-export const PublicLayout: FC<IPublicLayoutProps> = ({children}) => {
+export const PublicLayout: FC<IPublicLayoutProps> = props => {
 	return <AppLayout defaultCollapsed={false}>
 		<HeaderSiderLayout
 			header={<Header/>}
 			footer={<Footer/>}
-		>
-			{children}
-		</HeaderSiderLayout>
+			{...props}
+		/>
 	</AppLayout>;
 };
 

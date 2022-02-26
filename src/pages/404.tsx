@@ -1,11 +1,10 @@
 import {HomeOutlined} from "@ant-design/icons";
-import {BackIcon, ButtonLink} from "@leight-core/common";
-import {Button, Divider, Result, Space} from "antd";
+import {BackIcon, ButtonBar, ButtonLink, Template} from "@leight-core/common";
+import {Button} from "antd";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 
-// noinspection JSUnusedGlobalSymbols
 export default withPublicLayout(function Custom404() {
 	const {t} = useTranslation();
 	const router = useRouter();
@@ -13,15 +12,14 @@ export default withPublicLayout(function Custom404() {
 		title={"public.404"}
 		fullwidth
 	>
-		<Result
+		<Template
 			status={"404"}
-			title={t("public.404.title")}
-			subTitle={t("public.404.subtitle")}
+			label={'public.404'}
 			extra={
-				<Space split={<Divider type={"vertical"}/>}>
+				<ButtonBar>
 					<Button icon={<BackIcon/>} onClick={() => router.back()}>{t("public.404.back")}</Button>
-					<ButtonLink size={"large"} icon={<HomeOutlined/>} href={"/"} title={t("public.404.home")}/>
-				</Space>
+					<ButtonLink size={"large"} icon={<HomeOutlined/>} href={"/"} title={"public.404.home"}/>
+				</ButtonBar>
 			}
 		/>
 	</PublicPage>;

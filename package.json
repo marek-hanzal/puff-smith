@@ -20,6 +20,7 @@
 		"@ant-design/plots": "^1.0.8",
 		"@leight-core/api": "^0.5.11",
 		"@leight-core/endpoint": "^0.5.4",
+		"@leight-core/source": "^0.5.1",
 		"@leight-core/common": "^0.5.2",
 		"@leight-core/context": "^0.5.4",
 		"@leight-core/sdk": "^0.5.5",

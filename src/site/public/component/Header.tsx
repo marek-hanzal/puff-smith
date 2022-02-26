@@ -1,8 +1,12 @@
 import {LogoIcon} from "@/puff-smith";
-import {LinkTo} from "@leight-core/common";
 import {Col, Divider, Row, Space} from "antd";
+import {LinkTo} from "@leight-core/utils";
+import {FC} from "react";
 
-export const Header = () => {
+export interface IHeaderProps {
+}
+
+export const Header: FC<IHeaderProps> = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
 			<LinkTo href={"/public"}>

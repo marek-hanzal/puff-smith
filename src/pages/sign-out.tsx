@@ -1,25 +1,24 @@
 import {LockOutlined} from "@ant-design/icons";
-import {LoaderIcon, useNavigate} from "@leight-core/common";
+import {LoaderIcon} from "@leight-core/common";
 import {Result} from "antd";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "@leight-core/utils";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
-import {useLogoutMutation} from "@/sdk/edde/api/shared/user/endpoint";
 
-// noinspection JSUnusedGlobalSymbols
 export default withPublicLayout(function SignOut() {
 	const {t} = useTranslation();
 	const navigate = useNavigate();
 
-	const logout = useLogoutMutation(undefined, {
-		onSuccess: () => {
-			setTimeout(() => {
-				navigate("/public");
-			}, 1500);
-		},
-	});
+	// const logout = useLogoutMutation(undefined, {
+	// 	onSuccess: () => {
+	// 		setTimeout(() => {
+	// 			navigate("/public");
+	// 		}, 1500);
+	// 	},
+	// });
 	useEffect(() => {
-		logout.mutate(undefined);
+		// logout.mutate();
 	}, []);
 
 	return <PublicPage

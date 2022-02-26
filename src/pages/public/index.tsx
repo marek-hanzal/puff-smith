@@ -1,7 +1,7 @@
 import icon from "@/puff-smith/assets/logo/logo-full.svg";
 import {Col, Divider, Image, Row} from "antd";
-import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {Card, Template} from "@leight-core/common";
+import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 
 export default withPublicLayout(function Index() {
 	return <PublicPage
