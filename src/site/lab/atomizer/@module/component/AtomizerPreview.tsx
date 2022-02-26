@@ -1,5 +1,5 @@
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
-import {BoolInline, ButtonBar, Preview, PreviewTemplate} from "@leight-core/leight";
+import {BoolInline, ButtonBar, Preview, PreviewTemplate} from "@leight-core/common";
 import {FC} from "react";
 import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";

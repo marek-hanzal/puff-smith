@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {VapeIcon} from "@/puff-smith";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {CreateVapeForm} from "@/puff-smith/site/lab/vape/@module/form/CreateVapeForm";
 

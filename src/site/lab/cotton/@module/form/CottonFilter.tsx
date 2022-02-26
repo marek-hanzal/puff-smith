@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/common";
 import {CottonFilterDto} from "@/sdk/puff-smith/cotton/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 

@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/common";
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
 import {FC} from "react";
 import {CellIcon} from "@/puff-smith";

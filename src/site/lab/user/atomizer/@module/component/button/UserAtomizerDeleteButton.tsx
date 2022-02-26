@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";
 import {useDeleteMutation, useUserAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/user/atomizer/endpoint";

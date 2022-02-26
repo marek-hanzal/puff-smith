@@ -1,4 +1,4 @@
-import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {FC} from "react";
 import {CreateMixtureForm} from "@/puff-smith/site/lab/mixture/@module/form/CreateMixtureForm";
 

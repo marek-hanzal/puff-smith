@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps} from "antd";
 
 export interface ICommentDeleteButtonProps extends Partial<ButtonProps> {

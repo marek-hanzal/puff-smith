@@ -1,6 +1,6 @@
 import {ImportIcon, IPageMenuProps, PageMenu} from "@/puff-smith";
 import {ArrowUpOutlined, CopyOutlined, FileAddOutlined} from "@ant-design/icons";
-import {CreateMenuItem} from "@leight-core/leight";
+import {CreateMenuItem} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IImportPageMenuProps extends IPageMenuProps {

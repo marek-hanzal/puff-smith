@@ -1,4 +1,4 @@
-import {ButtonLink, IButtonLinkProps} from "@leight-core/leight";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/common";
 import {FC} from "react";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {VendorIcon} from "@/puff-smith";

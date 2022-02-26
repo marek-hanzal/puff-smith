@@ -1,5 +1,5 @@
 import {DownloadIcon} from "@/puff-smith";
-import {useGetPromise} from "@leight-core/leight";
+import {useGetPromise} from "@leight-core/common";
 import {Button, ButtonProps, message, Progress, Tooltip} from "antd";
 import fileDownload from "js-file-download";
 import {FC, useState} from "react";

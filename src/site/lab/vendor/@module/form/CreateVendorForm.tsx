@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useVendorsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {VendorIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";

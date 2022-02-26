@@ -1,4 +1,4 @@
-import {Centered} from "@leight-core/leight";
+import {Centered} from "@leight-core/common";
 import {VersionStamp} from "@/puff-smith";
 
 export const Footer = () => {

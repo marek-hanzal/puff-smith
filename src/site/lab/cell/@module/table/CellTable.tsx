@@ -1,6 +1,6 @@
 import {CellsSourceTable, ICellsSourceTableProps, useCellsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
-import {ButtonBar, toHumanNumber} from "@leight-core/leight";
+import {ButtonBar, toHumanNumber} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {Ohm} from "@/puff-smith";
 import {CellListItem} from "@/puff-smith/site/lab/cell/@module/table/CellListItem";

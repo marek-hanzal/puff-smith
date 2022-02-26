@@ -1,5 +1,5 @@
 import {VapeIcon} from "@/puff-smith";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
 import {ExportOutlined} from "@ant-design/icons";

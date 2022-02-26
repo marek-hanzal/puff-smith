@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {FC} from "react";
 import {CoilIcon} from "@/puff-smith";

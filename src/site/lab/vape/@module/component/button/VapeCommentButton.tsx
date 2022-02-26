@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {CommentOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";

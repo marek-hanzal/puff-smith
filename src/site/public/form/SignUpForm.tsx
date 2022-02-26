@@ -1,4 +1,4 @@
-import {Centered, FormItem, Input, PasswordInput, SignUpIcon, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Input, PasswordInput, SignUpIcon, Submit} from "@leight-core/common";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {ISignUpDefaultFormProps, SignUpDefaultForm} from "@/sdk/api/shared/user/sign-up";

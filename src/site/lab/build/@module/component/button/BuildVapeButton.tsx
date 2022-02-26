@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {VapeIcon} from "@/puff-smith";
-import {DrawerButton, IDrawerButtonProps, IFormOnSuccess} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, IFormOnSuccess} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {CreateVapeForm} from "@/puff-smith/site/lab/vape/@module/form/CreateVapeForm";

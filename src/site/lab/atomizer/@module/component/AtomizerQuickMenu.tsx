@@ -2,7 +2,7 @@ import {FC} from "react";
 import {AtomizerDto} from "@/sdk/puff-smith/atomizer/dto";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/common";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {AtomizerEditButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerEditButton";
 import {AtomizerDeleteButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerDeleteButton";

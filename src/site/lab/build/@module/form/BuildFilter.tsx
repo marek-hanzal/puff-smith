@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/common";
 import {BuildFilterDto} from "@/sdk/puff-smith/build/dto";
 import {AtomizerSelect} from "@/puff-smith/site/lab/atomizer/@module/form/AtomizerSelect";
 import {CoilSelect} from "@/puff-smith/site/lab/coil/@module/form/CoilSelect";

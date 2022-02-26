@@ -1,5 +1,5 @@
 import {PlotIcon, VapeIcon} from "@/puff-smith";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/common";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabMenuDrawerButton, LabPage} from "@/puff-smith/site/lab/@module/component";

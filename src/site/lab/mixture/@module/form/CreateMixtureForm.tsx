@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {CreateDefaultForm, ICreateDefaultFormProps, useMixturesQueryInvalidate} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {message} from "antd";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";

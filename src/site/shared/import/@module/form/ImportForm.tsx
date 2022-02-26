@@ -2,7 +2,7 @@ import {ImportIcon} from "@/puff-smith";
 import {JobDto} from "@/sdk/edde/job/dto";
 import {useExcelMutation} from "@/sdk/edde/api/shared/import/endpoint";
 import {CheckOutlined, UploadOutlined} from "@ant-design/icons";
-import {Centered, Form, FormItem, IFormProps, Submit} from "@leight-core/leight";
+import {Centered, Form, FormItem, IFormProps, Submit} from "@leight-core/common";
 import {Space, Typography, Upload} from "antd";
 import {RcFile} from "antd/lib/upload";
 import {FC, useState} from "react";

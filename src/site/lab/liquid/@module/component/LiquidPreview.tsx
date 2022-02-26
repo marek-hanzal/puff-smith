@@ -1,5 +1,5 @@
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
-import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
+import {ButtonBar, IPreviewProps, Preview, PreviewTemplate} from "@leight-core/common";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";

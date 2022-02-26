@@ -1,6 +1,6 @@
 import {AtomizerIcon, PlotIcon} from "@/puff-smith";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateMenuItem, HomeIcon} from "@leight-core/common";
 import {Menu} from "antd";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";

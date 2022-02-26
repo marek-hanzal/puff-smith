@@ -1,4 +1,4 @@
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/common";
 import {BuildIcon} from "@/puff-smith";
 import {BuildsFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

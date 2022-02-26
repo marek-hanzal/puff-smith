@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {FC} from "react";
 import {CommentOutlined} from "@ant-design/icons";
 import {AtomizerComments} from "@/puff-smith/site/lab/atomizer/@module/component/AtomizerComments";

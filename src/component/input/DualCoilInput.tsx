@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {ISwitchItemProps, SwitchItem} from "@leight-core/leight";
+import {ISwitchItemProps, SwitchItem} from "@leight-core/common";
 
 export interface IDualCoilInputProps extends ISwitchItemProps {
 }

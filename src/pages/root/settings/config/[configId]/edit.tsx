@@ -1,7 +1,7 @@
 import {withRootLayout} from "@/puff-smith/site/root";
 import {ConfigHomeMenu, ConfigPatchForm} from "@/puff-smith/site/root/settings/config";
 import {ToolOutlined} from "@ant-design/icons";
-import {EditTemplate} from "@leight-core/leight";
+import {EditTemplate} from "@leight-core/common";
 import {ConfigPage} from "@/sdk/edde/api/root/config/endpoint";
 
 export default withRootLayout(function Edit() {

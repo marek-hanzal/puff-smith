@@ -1,7 +1,7 @@
 import {LogoIcon} from "@/puff-smith";
 import {Footer, Header} from "@/puff-smith/site/root";
 import {LockOutlined} from "@ant-design/icons";
-import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/leight";
+import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/common";
 import {FC} from "react";
 import {useSessionCheck} from "@/puff-smith/site/shared/session";
 import {AppLayout} from "@/puff-smith/site/shared";

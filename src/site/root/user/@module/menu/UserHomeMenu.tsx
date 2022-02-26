@@ -1,5 +1,5 @@
 import {IMenuProps, Menu, UserIcon} from "@/puff-smith";
-import {BackIcon, CreateMenuItem, EditIcon, MenuDivider} from "@leight-core/leight";
+import {BackIcon, CreateMenuItem, EditIcon, MenuDivider} from "@leight-core/common";
 import {FC} from "react";
 import {useUserContext} from "@/sdk/puff-smith/api/root/user/endpoint";
 

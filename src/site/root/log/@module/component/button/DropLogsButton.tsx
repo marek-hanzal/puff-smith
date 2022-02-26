@@ -1,4 +1,4 @@
-import {DeleteItemIcon} from "@leight-core/leight";
+import {DeleteItemIcon} from "@leight-core/common";
 import {Button, ButtonProps, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

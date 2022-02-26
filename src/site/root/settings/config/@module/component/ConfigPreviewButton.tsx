@@ -1,7 +1,7 @@
 import {ConfigPreview} from "@/puff-smith/site/root/settings/config";
 import {ConfigDto} from "@/sdk/edde/config/dto";
 import {EyeOutlined} from "@ant-design/icons";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

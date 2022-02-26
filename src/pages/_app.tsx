@@ -1,6 +1,6 @@
 import {bootstrap} from "@/puff-smith";
 import "@/puff-smith/assets/styles/app.css";
-import {IPageWithLayout} from "@leight-core/leight";
+import {IPageWithLayout} from "@leight-core/common";
 import type {AppProps} from "next/app";
 import {Router} from "next/router";
 import NProgress from "nprogress";

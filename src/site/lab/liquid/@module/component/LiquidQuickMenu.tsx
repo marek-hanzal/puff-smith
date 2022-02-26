@@ -2,7 +2,7 @@ import {FC} from "react";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps} from "@leight-core/common";
 import {LiquidPreviewButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidPreviewButton";
 import {LiquidCommentButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidCommentButton";
 import {LiquidEditButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidEditButton";

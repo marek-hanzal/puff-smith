@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cell/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {Divider, InputNumber, message} from "antd";
 import {CellIcon, VoltageInput} from "@/puff-smith";
 import {useTranslation} from "react-i18next";

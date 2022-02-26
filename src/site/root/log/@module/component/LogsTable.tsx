@@ -1,5 +1,5 @@
 import {DropLogsButton} from "@/puff-smith/site/root/log";
-import {QuickMenu, toLocalDateTime} from "@leight-core/leight";
+import {QuickMenu, toLocalDateTime} from "@leight-core/common";
 import {Menu, Tag, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

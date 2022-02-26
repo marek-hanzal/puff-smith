@@ -1,4 +1,4 @@
-import {useSessionContext} from "@leight-core/leight";
+import {useSessionContext} from "@leight-core/common";
 import {SessionDto} from "@/sdk/edde/session/dto";
 
 /**

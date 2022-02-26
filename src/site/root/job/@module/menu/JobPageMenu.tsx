@@ -1,5 +1,5 @@
 import {IPageMenuProps, JobIcon, PageMenu} from "@/puff-smith";
-import {CreateMenuItem, ListIcon} from "@leight-core/leight";
+import {CreateMenuItem, ListIcon} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IJobPageMenuProps extends IPageMenuProps {

@@ -1,7 +1,7 @@
 import {ImportIcon} from "@/puff-smith";
 import {RootMenu, RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {ImportPageMenu} from "@/puff-smith/site/root/import";
-import {Template} from "@leight-core/leight";
+import {Template} from "@leight-core/common";
 
 export default withRootLayout(function Index() {
 	return <RootPage

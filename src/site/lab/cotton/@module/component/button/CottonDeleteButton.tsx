@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {useCottonsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 

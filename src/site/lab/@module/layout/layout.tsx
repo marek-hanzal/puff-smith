@@ -1,4 +1,4 @@
-import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/leight";
+import {HeaderSiderLayout, IPageWithLayout, LoaderLayout} from "@leight-core/common";
 import {FC, useEffect} from "react";
 import {AppLayout, usePuffSmithSessionContext} from "@/puff-smith/site/shared";
 import {FullLogoIcon, NotificationProvider} from "@/puff-smith";

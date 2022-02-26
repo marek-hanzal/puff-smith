@@ -1,5 +1,5 @@
 import {LockOutlined} from "@ant-design/icons";
-import {LoaderIcon, useNavigate} from "@leight-core/leight";
+import {LoaderIcon, useNavigate} from "@leight-core/common";
 import {Result} from "antd";
 import {useEffect} from "react";
 import {useTranslation} from "react-i18next";

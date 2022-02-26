@@ -1,6 +1,6 @@
 import {CottonsSourceTable, ICottonsSourceTableProps, useCottonsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {FC} from "react";
-import {ButtonBar} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {CottonListItem} from "@/puff-smith/site/lab/cotton/@module/table/CottonListItem";
 import {CottonLinkButton} from "@/puff-smith/site/lab/cotton/@module/component/button/CottonLinkButton";

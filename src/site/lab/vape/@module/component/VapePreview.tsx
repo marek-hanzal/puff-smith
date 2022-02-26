@@ -1,6 +1,6 @@
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {FC} from "react";
-import {ButtonBar, Card, durationOf, Preview, PreviewTemplate, useOptionalDrawerContext} from "@leight-core/leight";
+import {ButtonBar, Card, durationOf, Preview, PreviewTemplate, useOptionalDrawerContext} from "@leight-core/common";
 import {Col, Divider, Row, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {BuildAge} from "@/puff-smith/site/lab/build/@module/component/BuildAge";

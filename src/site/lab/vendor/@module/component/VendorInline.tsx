@@ -1,7 +1,7 @@
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {Space} from "antd";
 import {FC} from "react";
-import {useIsMobile} from "@leight-core/leight";
+import {useIsMobile} from "@leight-core/common";
 
 export interface IVendorInlineProps {
 	vendor: VendorDto;

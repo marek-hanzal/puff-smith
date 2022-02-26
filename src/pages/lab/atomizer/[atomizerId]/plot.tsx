@@ -1,6 +1,6 @@
 import {Divider, Menu} from "antd";
 import {AtomizerPage} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {PlotIcon} from "@/puff-smith";

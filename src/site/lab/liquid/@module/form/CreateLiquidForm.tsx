@@ -2,7 +2,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps, useLiquidsQueryInvalidate} f
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/common";
 import {PgSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import {LiquidIcon} from "@/puff-smith";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";

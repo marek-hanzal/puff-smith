@@ -2,7 +2,7 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps, IFormOnSuccess} from "@leight-core/common";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
 import {BuildVapeButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildVapeButton";

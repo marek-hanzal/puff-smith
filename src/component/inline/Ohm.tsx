@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {toHumanNumber} from "@leight-core/leight";
+import {toHumanNumber} from "@leight-core/common";
 import {Typography} from "antd";
 
 export interface IOhmProps {

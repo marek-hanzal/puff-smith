@@ -1,6 +1,6 @@
 import {DownloadFile, FileRowQuickMenu, FileToolQuickMenu} from "@/puff-smith/site/shared/file";
 import {FilesSourceTable, IFilesSourceTableProps} from "@/sdk/edde/api/shared/file/endpoint";
-import {toLocalDateTime} from "@leight-core/leight";
+import {toLocalDateTime} from "@leight-core/common";
 import dayjs from "dayjs";
 import fileSize from "filesize";
 import {FC} from "react";

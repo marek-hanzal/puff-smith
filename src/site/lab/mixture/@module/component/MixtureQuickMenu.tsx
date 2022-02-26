@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Menu} from "antd";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {MixturePreviewButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixturePreviewButton";
 import {MixtureCommentButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureCommentButton";

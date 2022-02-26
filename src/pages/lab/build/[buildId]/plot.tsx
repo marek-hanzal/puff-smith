@@ -1,6 +1,6 @@
 import {Divider} from "antd";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon, useParams} from "@leight-core/common";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {PlotIcon} from "@/puff-smith";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

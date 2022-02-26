@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {useBuildsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 

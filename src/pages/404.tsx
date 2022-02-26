@@ -1,5 +1,5 @@
 import {HomeOutlined} from "@ant-design/icons";
-import {BackIcon, ButtonLink} from "@leight-core/leight";
+import {BackIcon, ButtonLink} from "@leight-core/common";
 import {Button, Divider, Result, Space} from "antd";
 import {useRouter} from "next/router";
 import {useTranslation} from "react-i18next";

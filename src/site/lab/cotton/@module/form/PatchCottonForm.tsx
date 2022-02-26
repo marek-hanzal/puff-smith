@@ -2,7 +2,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useCottonQueryInvalidate, useC
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {CottonIcon} from "@/puff-smith";
 import {CottonDto} from "@/sdk/puff-smith/cotton/dto";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";

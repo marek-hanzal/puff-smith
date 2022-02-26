@@ -1,7 +1,7 @@
 import {FileDto} from "@/sdk/edde/file/dto";
 import {useCommitMutation, useFilesQueryInvalidate} from "@/sdk/edde/api/shared/file/endpoint";
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {DeleteItemIcon, formatBytes, isString, useDiscoveryContext} from "@leight-core/leight";
+import {DeleteItemIcon, formatBytes, isString, useDiscoveryContext} from "@leight-core/common";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
 import axios from "axios";

@@ -3,7 +3,7 @@ import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC, useState} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/leight";
+import {Card, Centered, DatePicker, FormItem, Submit} from "@leight-core/common";
 import moment from "moment";
 import {BuildIcon} from "@/puff-smith";
 import {useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";

@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IVapesSourceTableProps, useVapesOptionalFilterContext, VapesSourceTable} from "@/sdk/puff-smith/api/lab/vape/endpoint";
-import {ButtonBar, durationOf} from "@leight-core/leight";
+import {ButtonBar, durationOf} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {SimpleRating} from "@/puff-smith";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";

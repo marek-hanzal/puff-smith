@@ -2,7 +2,7 @@ import {FC} from "react";
 import {ListItemProps} from "antd/lib/list";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {Divider, List, Space, Tooltip} from "antd";
-import {durationOf} from "@leight-core/leight";
+import {durationOf} from "@leight-core/common";
 import {Ohm} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VapeQuickMenu} from "@/puff-smith/site/lab/vape/@module/component/VapeQuickMenu";

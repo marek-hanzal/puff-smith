@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useAtomizersQueryInvalidate} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/common";
 import {Divider, InputNumber, message} from "antd";
 import {AtomizerIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";

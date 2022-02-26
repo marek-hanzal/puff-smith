@@ -3,7 +3,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, usePlotQueryInvalidate, useVap
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Card, Centered, FormItem, Submit} from "@leight-core/leight";
+import {Card, Centered, FormItem, Submit} from "@leight-core/common";
 import {CommonRateInput, VapeIcon} from "@/puff-smith";
 import {MixtureSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureSelect";
 import {DriptipTooltip} from "@/puff-smith/site/lab/driptip/@module/form/DriptipTooltip";

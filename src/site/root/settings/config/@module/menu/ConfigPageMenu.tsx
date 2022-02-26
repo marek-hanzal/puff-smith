@@ -1,6 +1,6 @@
 import {IPageMenuProps, PageMenu} from "@/puff-smith";
 import {ToolOutlined} from "@ant-design/icons";
-import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/leight";
+import {CreateIcon, CreateMenuItem, ListIcon} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IConfigPageMenuProps extends Partial<IPageMenuProps> {

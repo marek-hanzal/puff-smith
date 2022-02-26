@@ -1,7 +1,7 @@
 import {FileDto} from "@/sdk/edde/file/dto";
 import {IFilesSourceContext, useRefreshMutation, useStaleMutation} from "@/sdk/edde/api/shared/file/endpoint";
 import {RedoOutlined, StopOutlined} from "@ant-design/icons";
-import {IQuickMenuProps, QuickMenu} from "@leight-core/leight";
+import {IQuickMenuProps, QuickMenu} from "@leight-core/common";
 import {Button, Menu, message, Tooltip} from "antd";
 import dayjs from "dayjs";
 import {FC} from "react";

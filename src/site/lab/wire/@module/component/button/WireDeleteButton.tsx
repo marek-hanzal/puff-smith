@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {useDeleteMutation, useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 

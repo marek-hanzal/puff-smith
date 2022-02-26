@@ -1,6 +1,6 @@
 import {AtomizersSourceTable, IAtomizersSourceTableProps, useAtomizersOptionalFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {FC} from "react";
-import {BoolInline, ButtonBar, IFormOnSuccess} from "@leight-core/leight";
+import {BoolInline, ButtonBar, IFormOnSuccess} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {AtomizerListItem} from "@/puff-smith/site/lab/atomizer/@module/table/AtomizerListItem";
 import {AtomizerLinkButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerLinkButton";

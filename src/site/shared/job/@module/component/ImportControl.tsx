@@ -3,7 +3,7 @@ import {IJobTableProps, JobTable} from "@/puff-smith/site/shared/job";
 import {CommitDto} from "@/sdk/edde/job/dto/commit";
 import {DeleteDto} from "@/sdk/edde/job/dto/delete";
 import {InterruptDto} from "@/sdk/edde/job/dto/interrupt";
-import {merge} from "@leight-core/leight";
+import {merge} from "@leight-core/common";
 import {message, Tabs} from "antd";
 import {FC, useCallback, useState} from "react";
 import {useTranslation} from "react-i18next";

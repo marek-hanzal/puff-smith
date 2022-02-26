@@ -1,5 +1,5 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
-import {BoolInline, ButtonBar, IPreviewProps, Preview, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/leight";
+import {BoolInline, ButtonBar, IPreviewProps, Preview, PreviewTemplate, toLocalDateTime, useOptionalDrawerContext} from "@leight-core/common";
 import {FC} from "react";
 import {Col, Divider, Row, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";

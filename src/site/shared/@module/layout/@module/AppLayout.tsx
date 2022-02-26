@@ -1,4 +1,4 @@
-import {App, createQueryClient, IAppProps, IPageWithLayout, useQueryPersistence} from "@leight-core/leight";
+import {App, createQueryClient, IAppProps, IPageWithLayout, useQueryPersistence} from "@leight-core/common";
 import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";

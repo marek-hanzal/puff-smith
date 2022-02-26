@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBasesQueryInvalidate} from "@/sdk/puff-smith/api/lab/base/endpoint";
 import {FC} from "react";
 import {Divider, message} from "antd";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {BaseIcon, PgSlider, VgSlider} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";

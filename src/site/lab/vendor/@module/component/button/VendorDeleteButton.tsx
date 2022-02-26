@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {useDeleteMutation, useVendorsQueryInvalidate} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
 

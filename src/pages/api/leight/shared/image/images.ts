@@ -1,4 +1,4 @@
-import {IQueryEndpoint} from "@leight-core/leight";
+import {IQueryEndpoint} from "@leight-core/common";
 
 export interface IImagesDto {
 }

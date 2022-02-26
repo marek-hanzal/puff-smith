@@ -1,6 +1,6 @@
 import {UserPreview, UserPreviewButton} from "@/puff-smith/site/root/user";
 import {UserDto} from "@/sdk/edde/bridge/user";
-import {ButtonLink, EditIcon, IQuickMenuProps, QuickMenu, toFilters} from "@leight-core/leight";
+import {ButtonLink, EditIcon, IQuickMenuProps, QuickMenu, toFilters} from "@leight-core/common";
 import {Card, Menu, Tag} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

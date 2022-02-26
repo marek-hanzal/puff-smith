@@ -1,4 +1,4 @@
-import {ButtonLink, IButtonLinkProps} from "@leight-core/leight";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/common";
 import {FC} from "react";
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {BarChartOutlined} from "@ant-design/icons";

@@ -17,7 +17,7 @@ import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build
 import {BuildPreviewButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildPreviewButton";
 import {CoilInline} from "@/puff-smith/site/lab/coil/@module/component/CoilInline";
 import {BuildIcon, ImageGallery} from "@/puff-smith";
-import {Template} from "@leight-core/leight";
+import {Template} from "@leight-core/common";
 
 const Form: FC<Partial<ICreateBuildFormProps> & { setBuildFilter: (filter: VapeFilterDto) => void }> = ({setBuildFilter, ...props}) => {
 	const filterContext = useVapesOptionalFilterContext();

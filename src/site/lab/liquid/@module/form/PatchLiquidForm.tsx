@@ -2,7 +2,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useLiquidQueryInvalidate, useL
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/common";
 import {PgSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import {LiquidDto} from "@/sdk/puff-smith/liquid/dto";
 import {LiquidIcon} from "@/puff-smith";

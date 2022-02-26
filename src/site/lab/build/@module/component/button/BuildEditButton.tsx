@@ -1,4 +1,4 @@
-import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/common";
 import {FC} from "react";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {PatchBuildForm} from "@/puff-smith/site/lab/build/@module/form/PatchBuildForm";

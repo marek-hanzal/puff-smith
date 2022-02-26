@@ -2,7 +2,7 @@ import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {SettingsMenu} from "@/puff-smith/site/root/settings";
 import {ConfigCreateForm, ConfigPageMenu} from "@/puff-smith/site/root/settings/config";
 import {ToolOutlined} from "@ant-design/icons";
-import {CreateTemplate} from "@leight-core/leight";
+import {CreateTemplate} from "@leight-core/common";
 
 export default withRootLayout(function Create() {
 	return <RootPage

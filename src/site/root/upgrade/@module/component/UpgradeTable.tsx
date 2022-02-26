@@ -1,5 +1,5 @@
 import {IUpgradesSourceTableProps, UpgradesSourceTable} from "@/sdk/edde/api/root/upgrade/endpoint";
-import {BoolInline} from "@leight-core/leight";
+import {BoolInline} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IUpgradeTableProps extends Partial<IUpgradesSourceTableProps> {

@@ -1,6 +1,6 @@
 import {CoilIcon, FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {useOptionalFormItemContext} from "@leight-core/leight";
+import {useOptionalFormItemContext} from "@leight-core/common";
 import {CreateCoilForm} from "@/puff-smith/site/lab/coil/@module/form/CreateCoilForm";
 
 export interface ICoilTooltipProps extends Partial<IFormTooltipProps> {

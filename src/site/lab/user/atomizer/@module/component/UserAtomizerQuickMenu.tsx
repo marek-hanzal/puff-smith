@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {ButtonLink, DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {ButtonLink, DrawerMenu, IDrawerMenuProps} from "@leight-core/common";
 import {BuildIcon} from "@/puff-smith";
 import {AtomizerPreviewButton} from "@/puff-smith/site/lab/atomizer/@module/component/button/AtomizerPreviewButton";
 import {UserAtomizerDto} from "@/sdk/puff-smith/user/dto/atomizer";

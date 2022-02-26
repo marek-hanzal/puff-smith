@@ -1,7 +1,7 @@
 import {UserPreview} from "@/puff-smith/site/root/user";
 import {UserDto} from "@/sdk/edde/bridge/user";
 import {EyeOutlined} from "@ant-design/icons";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

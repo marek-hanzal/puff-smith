@@ -1,5 +1,5 @@
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
-import {IPreviewProps, Preview, toHumanNumber} from "@leight-core/leight";
+import {IPreviewProps, Preview, toHumanNumber} from "@leight-core/common";
 import {FC} from "react";
 import {Ohm} from "@/puff-smith";
 import {CellInline} from "@/puff-smith/site/lab/cell/@module/component/CellInline";

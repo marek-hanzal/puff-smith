@@ -1,4 +1,4 @@
-import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/leight";
+import {HeaderSiderLayout, IPageWithLayout} from "@leight-core/common";
 import {FC} from "react";
 import {AppLayout} from "@/puff-smith/site/shared";
 import {Footer, Header} from "@/puff-smith/site/public";

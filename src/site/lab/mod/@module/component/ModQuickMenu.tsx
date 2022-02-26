@@ -2,7 +2,7 @@ import {FC} from "react";
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
-import {DrawerMenu, IDrawerMenuProps} from "@leight-core/leight";
+import {DrawerMenu, IDrawerMenuProps} from "@leight-core/common";
 import {ModPreviewButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModPreviewButton";
 import {ModEditButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModEditButton";
 import {ModDeleteButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModDeleteButton";

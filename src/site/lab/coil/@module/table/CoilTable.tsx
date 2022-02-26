@@ -1,6 +1,6 @@
 import {CoilsSourceTable, ICoilsSourceTableProps, useCoilsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {BoolInline, ButtonBar} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {CoilListItem} from "@/puff-smith/site/lab/coil/@module/table/CoilListItem";
 import {CoilLinkButton} from "@/puff-smith/site/lab/coil/@module/component/button/CoilLinkButton";

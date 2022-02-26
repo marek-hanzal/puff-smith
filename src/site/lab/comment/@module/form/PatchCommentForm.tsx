@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {IPatchDefaultFormProps, PatchDefaultForm, useCommentsQueryInvalidate} from "@/sdk/puff-smith/api/lab/comment/endpoint";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
-import {Centered, FormItem, Submit, TextArea} from "@leight-core/leight";
+import {Centered, FormItem, Submit, TextArea} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CommentOutlined} from "@ant-design/icons";

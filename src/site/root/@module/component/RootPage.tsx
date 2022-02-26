@@ -1,4 +1,4 @@
-import {IPageProps, Page} from "@leight-core/leight";
+import {IPageProps, Page} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IRootPageProps extends IPageProps {

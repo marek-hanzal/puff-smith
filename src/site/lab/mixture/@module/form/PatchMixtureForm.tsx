@@ -3,7 +3,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useMixtureQueryInvalidate, use
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {asMoment, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {asMoment, Card, Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/common";
 import {NicotineSlider, PgSlider, SteepSlider, VgSlider, VolumeSlider} from "@/puff-smith/component/input";
 import moment from "moment";
 import {MixtureIcon} from "@/puff-smith";

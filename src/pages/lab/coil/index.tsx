@@ -1,5 +1,5 @@
 import {CoilIcon} from "@/puff-smith";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
 import {Menu} from "antd";
 import {CoilsFilterContext} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

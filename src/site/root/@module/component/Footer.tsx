@@ -1,5 +1,5 @@
 import {VersionStamp} from "@/puff-smith/component/VersionStamp";
-import {Centered} from "@leight-core/leight";
+import {Centered} from "@leight-core/common";
 
 export const Footer = () => {
 	return (

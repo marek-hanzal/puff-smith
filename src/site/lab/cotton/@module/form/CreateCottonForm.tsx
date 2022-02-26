@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCottonsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cotton/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {CottonIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";

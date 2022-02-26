@@ -1,6 +1,6 @@
 import {IMenuProps, Menu} from "@/puff-smith";
 import {SettingOutlined, ToolOutlined} from "@ant-design/icons";
-import {BackIcon, CreateMenuItem, MenuDivider} from "@leight-core/leight";
+import {BackIcon, CreateMenuItem, MenuDivider} from "@leight-core/common";
 import {FC} from "react";
 
 export interface ISettingsMenuProps extends Partial<IMenuProps> {

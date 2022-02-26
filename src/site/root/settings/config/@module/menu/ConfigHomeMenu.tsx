@@ -1,6 +1,6 @@
 import {IMenuProps, Menu} from "@/puff-smith";
 import {ToolOutlined} from "@ant-design/icons";
-import {BackIcon, CreateMenuItem, DeleteItemIcon, EditIcon, MenuDivider} from "@leight-core/leight";
+import {BackIcon, CreateMenuItem, DeleteItemIcon, EditIcon, MenuDivider} from "@leight-core/common";
 import {FC} from "react";
 import {useConfigContext} from "@/sdk/edde/api/root/config/endpoint";
 

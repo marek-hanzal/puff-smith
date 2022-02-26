@@ -1,5 +1,5 @@
 import {UserDto} from "@/sdk/edde/bridge/user";
-import {Preview} from "@leight-core/leight";
+import {Preview} from "@leight-core/common";
 import {Tabs, Tag, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

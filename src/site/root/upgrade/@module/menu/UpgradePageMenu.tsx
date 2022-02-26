@@ -1,6 +1,6 @@
 import {IPageMenuProps, PageMenu, UpgradeIcon} from "@/puff-smith";
 import {ArrowRightOutlined} from "@ant-design/icons";
-import {CreateMenuItem, ListIcon} from "@leight-core/leight";
+import {CreateMenuItem, ListIcon} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IUpgradePageMenuProps extends Partial<IPageMenuProps> {

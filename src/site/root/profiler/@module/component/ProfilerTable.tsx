@@ -1,7 +1,7 @@
 import {ProfilerNamesSelect} from "@/puff-smith/site/root/profiler";
 import {IProfilersSourceTableProps, ProfilersSourceTable, useDisableMutation, useEnableMutation, useIsEnabledQuery, useProfilersQueryInvalidate} from "@/sdk/edde/api/root/profiler/endpoint";
 import {RightCircleOutlined, StopOutlined} from "@ant-design/icons";
-import {Centered, Form, FormItem, Submit, toLocalDateTime} from "@leight-core/leight";
+import {Centered, Form, FormItem, Submit, toLocalDateTime} from "@leight-core/common";
 import {Alert, Button, Card, message} from "antd";
 import dayjs from "dayjs";
 import {FC} from "react";

@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {BoolInline, IPreviewProps, Preview, useOptionalDrawerContext} from "@leight-core/leight";
+import {BoolInline, IPreviewProps, Preview, useOptionalDrawerContext} from "@leight-core/common";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
 import {Col, Row, Tabs} from "antd";
 import {WireInline} from "@/puff-smith/site/lab/wire/@module/component/WireInline";

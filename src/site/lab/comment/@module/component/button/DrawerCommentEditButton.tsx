@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps, IFormOnSuccess} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, IFormOnSuccess} from "@leight-core/common";
 import {CommentDto} from "@/sdk/puff-smith/comment/dto";
 import {PatchCommentForm} from "@/puff-smith/site/lab/comment/@module/form/PatchCommentForm";
 

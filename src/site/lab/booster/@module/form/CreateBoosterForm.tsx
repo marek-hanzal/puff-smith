@@ -1,7 +1,7 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBoostersQueryInvalidate} from "@/sdk/puff-smith/api/lab/booster/endpoint";
 import {FC} from "react";
 import {Divider, message} from "antd";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {BoosterIcon, NicotineSlider, PgSlider, VgSlider, VolumeSlider} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";

@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useBuildsQueryInvalidate, useOhmMutation} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC, ReactNode, useState} from "react";
-import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem, useParams} from "@leight-core/leight";
+import {ButtonBar, Card, Centered, DatePicker, FormItem, ItemGroup, Submit, SwitchItem, useParams} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {Col, Divider, InputNumber, message, Row, Spin} from "antd";
 import {BuildDto} from "@/sdk/puff-smith/build/dto";

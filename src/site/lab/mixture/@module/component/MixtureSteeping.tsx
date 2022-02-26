@@ -2,7 +2,7 @@ import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
 import {FC} from "react";
 import {Space, Typography} from "antd";
 import {useTranslation} from "react-i18next";
-import {durationOf} from "@leight-core/leight";
+import {durationOf} from "@leight-core/common";
 import dayjs from "dayjs";
 
 export interface IMixtureSteepingProps {

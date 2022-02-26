@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Col, Divider, List, Row, Typography} from "antd";
-import {ButtonLink, Card, Template} from "@leight-core/leight";
+import {ButtonLink, Card, Template} from "@leight-core/common";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 import {BuildsSource, BuildsSourceConsumer} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {VapesSource, VapesSourceConsumer} from "@/sdk/puff-smith/api/lab/vape/endpoint";

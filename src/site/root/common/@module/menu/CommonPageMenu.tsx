@@ -1,6 +1,6 @@
 import {CommonIcon, IPageMenuProps, PageMenu} from "@/puff-smith";
 import {BookOutlined} from "@ant-design/icons";
-import {CreateMenuItem} from "@leight-core/leight";
+import {CreateMenuItem} from "@leight-core/common";
 import {FC} from "react";
 
 export interface ICommonPageMenuProps extends Partial<IPageMenuProps> {

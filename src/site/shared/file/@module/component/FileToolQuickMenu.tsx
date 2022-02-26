@@ -1,6 +1,6 @@
 import {IFilesSourceContext, useGcMutation} from "@/sdk/edde/api/shared/file/endpoint";
 import {BarsOutlined} from "@ant-design/icons";
-import {DeleteItemIcon, IQuickMenuProps, QuickMenu} from "@leight-core/leight";
+import {DeleteItemIcon, IQuickMenuProps, QuickMenu} from "@leight-core/common";
 import {Button, Menu, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

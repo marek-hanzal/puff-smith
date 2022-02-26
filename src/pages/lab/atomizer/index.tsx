@@ -1,5 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
 import {AtomizersFilterContext} from "@/sdk/puff-smith/api/lab/atomizer/endpoint";
 import {Menu, Tabs} from "antd";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

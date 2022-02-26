@@ -1,5 +1,5 @@
 import {ConfigDto} from "@/sdk/edde/config/dto";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {IPreviewProps, Preview} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IConfigPreviewProps extends Partial<IPreviewProps> {

@@ -1,5 +1,5 @@
 import {LogFilterDto} from "@/sdk/edde/log/dto";
-import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/common";
 import {FC} from "react";
 import {LogTypeSelect} from "@/puff-smith/site/root/log";
 

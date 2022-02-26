@@ -1,6 +1,6 @@
 import {IModsSourceTableProps, ModsSourceTable, useModsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/mod/endpoint";
 import {FC} from "react";
-import {ButtonBar} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {ModListItem} from "@/puff-smith/site/lab/mod/@module/table/ModListItem";
 import {ModLinkButton} from "@/puff-smith/site/lab/mod/@module/component/button/ModLinkButton";

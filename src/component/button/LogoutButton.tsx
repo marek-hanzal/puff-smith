@@ -1,5 +1,5 @@
 import {PoweroffOutlined} from "@ant-design/icons";
-import {ButtonLink, IButtonLinkProps} from "@leight-core/leight";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/common";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

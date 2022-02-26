@@ -1,6 +1,6 @@
 import {BuildDto} from "@/sdk/puff-smith/build/dto";
 import {FC} from "react";
-import {durationOf} from "@leight-core/leight";
+import {durationOf} from "@leight-core/common";
 import {Tooltip} from "antd";
 import {useTranslation} from "react-i18next";
 

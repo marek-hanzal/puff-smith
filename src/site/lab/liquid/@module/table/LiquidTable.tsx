@@ -1,6 +1,6 @@
 import {ILiquidsSourceTableProps, LiquidsSourceTable, useLiquidsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {FC} from "react";
-import {ButtonBar} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {LiquidListItem} from "@/puff-smith/site/lab/liquid/@module/table/LiquidListItem";
 import {LiquidLinkButton} from "@/puff-smith/site/lab/liquid/@module/component/button/LiquidLinkButton";

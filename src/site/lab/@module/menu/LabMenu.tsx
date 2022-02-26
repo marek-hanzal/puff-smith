@@ -1,4 +1,4 @@
-import {CreateMenuItem, HomeIcon, Menu, MenuDivider, useIsMobile} from "@leight-core/leight";
+import {CreateMenuItem, HomeIcon, Menu, MenuDivider, useIsMobile} from "@leight-core/common";
 import {FC, ReactNode} from "react";
 import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, IMenuProps, LiquidIcon, MixtureIcon, ModIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
 

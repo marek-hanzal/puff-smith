@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useWiresQueryInvalidate} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {GaInput, WireIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";

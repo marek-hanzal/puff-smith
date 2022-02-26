@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {VapeDto} from "@/sdk/puff-smith/vape/dto";
 import {useTranslation} from "react-i18next";
-import {DeleteItemIcon, ModalButton} from "@leight-core/leight";
+import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
 import {useDeleteMutation, usePlotQueryInvalidate, useVapesQueryInvalidate} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 

@@ -1,7 +1,7 @@
 import {JsonPrint} from "@/puff-smith/component/JsonPrint";
 import {JobLogTypePreview} from "@/puff-smith/site/shared/job";
 import {JobLogDto} from "@/sdk/edde/job/dto/log";
-import {Preview} from "@leight-core/leight";
+import {Preview} from "@leight-core/common";
 import {Tabs} from "antd";
 import {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";

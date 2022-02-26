@@ -2,7 +2,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useVendorQueryInvalidate, useV
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {VendorIcon} from "@/puff-smith";
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
 

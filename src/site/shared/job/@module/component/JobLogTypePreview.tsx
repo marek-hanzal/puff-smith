@@ -1,5 +1,5 @@
 import {JobLogDto} from "@/sdk/edde/job/dto/log";
-import {IndexOf} from "@leight-core/leight";
+import {IndexOf} from "@leight-core/common";
 import {Result} from "antd";
 import {FC, ReactElement} from "react";
 import {useTranslation} from "react-i18next";

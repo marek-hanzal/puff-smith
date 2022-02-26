@@ -1,5 +1,5 @@
 import {VendorDto} from "@/sdk/puff-smith/vendor/dto";
-import {IPreviewProps, Preview} from "@leight-core/leight";
+import {IPreviewProps, Preview} from "@leight-core/common";
 import {FC} from "react";
 import {Tabs} from "antd";
 import {useTranslation} from "react-i18next";

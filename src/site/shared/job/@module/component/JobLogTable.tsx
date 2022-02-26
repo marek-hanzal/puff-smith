@@ -3,7 +3,7 @@ import {JobDto} from "@/sdk/edde/job/dto";
 import {JobLogDto} from "@/sdk/edde/job/dto/log";
 import {IJobLogsSourceTableProps, JobLogsSourceTable, TypesSourceSelect, useLevelsQuery} from "@/sdk/edde/api/shared/job/log/endpoint";
 import {FilterOutlined} from "@ant-design/icons";
-import {Centered, DeleteItemIcon, Form, FormContext, FormItem, IndexOf, Submit, toFilters} from "@leight-core/leight";
+import {Centered, DeleteItemIcon, Form, FormContext, FormItem, IndexOf, Submit, toFilters} from "@leight-core/common";
 import {Button, Card, Space, Typography} from "antd";
 import {BaseType} from "antd/lib/typography/Base";
 import {FC, ReactElement} from "react";

@@ -1,8 +1,9 @@
 import {Divider, Image, Pagination, Result, Space} from "antd";
 import {FC, useEffect, useState} from "react";
-import {Centered, useDiscoveryContext, useIsMobile, useLinkContext} from "@leight-core/leight";
+import {Centered} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {FileImageOutlined} from "@ant-design/icons";
+import {useIsMobile, useLinkContext} from "@leight-core/context";
 
 interface IImageGalleryInternalProps {
 	size?: number;
@@ -12,7 +13,6 @@ interface IImageGalleryInternalProps {
 const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmpty = false}) => {
 	const {t} = useTranslation();
 	const [visible, setVisible] = useState(false);
-	const discoveryContext = useDiscoveryContext();
 	const linkContext = useLinkContext();
 	const imagesSource = useImagesSource();
 	const isMobile = useIsMobile();
@@ -28,9 +28,9 @@ const ImageGalleryInternal: FC<IImageGalleryInternalProps> = ({size = 4, hideEmp
 					{imagesSource.map(({preview, original}) => <Image
 						height={200}
 						key={preview.id}
-						src={linkContext.link('Edde.Shared.File.Download', {fileId: preview.id}, discoveryContext)}
+						src={linkContext.link('/api/leight/file/download', {fileId: preview.id})}
 						preview={{
-							src: linkContext.link('Edde.Shared.File.Download', {fileId: original.id}, discoveryContext)
+							src: linkContext.link('/api/leight/file/download', {fileId: original.id})
 						}}
 					/>)}
 				</Space>

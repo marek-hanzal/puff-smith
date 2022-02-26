@@ -1,7 +1,7 @@
 import {BuildsSourceTable, IBuildsSourceTableProps, useBuildsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/build/endpoint";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {BoolInline, ButtonBar} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/common";
 import {Ohm} from "@/puff-smith";
 import {BuildListItem} from "@/puff-smith/site/lab/build/@module/table/BuildListItem";
 import {BuildLinkButton} from "@/puff-smith/site/lab/build/@module/component/button/BuildLinkButton";

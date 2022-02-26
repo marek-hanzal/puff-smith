@@ -2,7 +2,7 @@ import {JsonPrint} from "@/puff-smith/component/JsonPrint";
 import {IJobStatus, JobLogTable, JobProgress} from "@/puff-smith/site/shared/job";
 import {JobDto} from "@/sdk/edde/job/dto";
 import {JobLogDto} from "@/sdk/edde/job/dto/log";
-import {Preview, secDuration, toLocalDateTime} from "@leight-core/leight";
+import {Preview, secDuration, toLocalDateTime} from "@leight-core/common";
 import {Statistic, Tabs, Typography} from "antd";
 import {prettyPrintJson} from "pretty-print-json";
 import {FC, ReactElement, ReactNode} from "react";

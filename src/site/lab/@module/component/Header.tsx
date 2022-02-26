@@ -1,4 +1,4 @@
-import {LinkTo} from "@leight-core/leight";
+import {LinkTo} from "@leight-core/common";
 import {Col, Divider, Row, Space} from "antd";
 import {LogoutButton} from "@/puff-smith/component/button";
 import {LogoIcon} from "@/puff-smith/component/icon";

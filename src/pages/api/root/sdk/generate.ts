@@ -1,6 +1,34 @@
-import {GenerateEndpoint, generateIMutationEndpoint} from "@leight-core/sdk";
+import {GenerateEndpoint} from "@leight-core/sdk";
 import {IGenerators, ISdk} from "@leight-core/api";
 import {Endpoint} from "@leight-core/endpoint";
+
+export function generateIMutationEndpoint(sdk: ISdk): string {
+	const name = sdk.endpoint.name.replace("Endpoint", "");
+	const pair = (sdk.endpoint.generics?.[0] || "void") + ", " + (sdk.endpoint.generics?.[1] || "void");
+	const api = sdk.endpoint.api;
+	const query = sdk.endpoint.generics?.[2] || "void";
+	const generics = query + ", " + pair;
+
+	return `
+import {FC} from "react";
+import {createPostMutation, Form, IFormProps} from "@leight-core/common";	
+${sdk.imports.map(_import => `import {${_import.imports.join(", ")}} from ${_import.from};`).join("\n")}
+
+${sdk.interfaces.map(item => item.source).join("\n")}
+
+export type I${name}QueryParams = ${query};
+
+export const use${name}Mutation = createPostMutation<I${name}QueryParams, ${pair}>("${api}");
+
+export interface I${name}DefaultFormProps extends Partial<IFormProps<${generics}>> {
+}
+
+export const ${name}DefaultForm: FC<I${name}DefaultFormProps> = props => <Form<${generics}>
+	useMutation={use${name}Mutation}
+	{...props}
+/>
+`.trim();
+}
 
 export function generateIQueryEndpoint(sdk: ISdk): string {
 	const name = sdk.endpoint.name.replace("Endpoint", "");
@@ -11,7 +39,7 @@ export function generateIQueryEndpoint(sdk: ISdk): string {
 
 	return `
 import {FC} from "react";
-import {ISourceContextProviderProps, ISourceContext, useSourceContext, createPostQuery, Form, IFormProps} from "@leight-core/leight";	
+import {ISourceContextProviderProps, ISourceContext, useSourceContext, createPostQuery, Form, IFormProps} from "@leight-core/common";	
 ${sdk.imports.map(_import => `import {${_import.imports.join(", ")}} from ${_import.from};`).join("\n")}
 
 ${sdk.interfaces.map(item => item.source).join("\n")}

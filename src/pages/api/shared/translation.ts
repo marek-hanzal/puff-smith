@@ -1,5 +1,5 @@
 import {createPrismaClient} from "@/puff-smith/prisma";
-import {IEndpoint, ITranslations} from "@leight-core/leight";
+import {IEndpoint, ITranslations} from "@leight-core/common";
 
 const prisma = createPrismaClient();
 

@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/common";
 import {VapeFilterDto} from "@/sdk/puff-smith/vape/dto";
 import {Radio} from "antd";
 import {useTranslation} from "react-i18next";

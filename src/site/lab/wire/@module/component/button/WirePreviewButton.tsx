@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/leight";
+import {DrawerButton, IDrawerButtonProps, PreviewTemplate} from "@leight-core/common";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {FC} from "react";
 import {WireIcon} from "@/puff-smith";

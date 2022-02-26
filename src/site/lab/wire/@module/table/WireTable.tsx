@@ -1,6 +1,6 @@
 import {IWiresSourceTableProps, useWiresOptionalFilterContext, WiresSourceTable} from "@/sdk/puff-smith/api/lab/wire/endpoint";
 import {FC} from "react";
-import {BoolInline, ButtonBar} from "@leight-core/leight";
+import {BoolInline, ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {WireListItem} from "@/puff-smith/site/lab/wire/@module/table/WireListItem";
 import {WireLinkButton} from "@/puff-smith/site/lab/wire/@module/component/button/WireLinkButton";

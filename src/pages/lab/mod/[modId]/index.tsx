@@ -1,6 +1,6 @@
 import {ModIcon} from "@/puff-smith";
 import {ModPage} from "@/sdk/puff-smith/api/lab/mod/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
 import {Menu} from "antd";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabMenuDrawerButton} from "@/puff-smith/site/lab/@module/component";

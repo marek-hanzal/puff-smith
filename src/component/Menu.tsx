@@ -1,4 +1,4 @@
-import {IMenuProps as ICoolMenuProps, Menu as CoolMenu, MenuPortal} from "@leight-core/leight";
+import {IMenuProps as ICoolMenuProps, Menu as CoolMenu, MenuPortal} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IMenuProps extends Partial<ICoolMenuProps> {

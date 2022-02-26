@@ -1,5 +1,5 @@
 import {ConfigPreview, ConfigPreviewButton} from "@/puff-smith/site/root/settings/config";
-import {ButtonLink, EditIcon, IQuickMenuProps, QuickMenu} from "@leight-core/leight";
+import {ButtonLink, EditIcon, IQuickMenuProps, QuickMenu} from "@leight-core/common";
 import {Card, Menu} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

@@ -1,6 +1,6 @@
 import {FormTooltip, IFormTooltipProps} from "@/puff-smith";
 import {FC} from "react";
-import {useOptionalFormItemContext} from "@leight-core/leight";
+import {useOptionalFormItemContext} from "@leight-core/common";
 import {CreateDriptipForm} from "@/puff-smith/site/lab/driptip/@module/form/CreateDriptipForm";
 
 export interface IDriptipTooltipProps extends Partial<IFormTooltipProps> {

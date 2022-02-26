@@ -1,4 +1,4 @@
-import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/leight";
+import {CreateIcon, DrawerButton, IDrawerButtonProps} from "@leight-core/common";
 import {FC} from "react";
 import {CreateWireForm} from "@/puff-smith/site/lab/wire/@module/form/CreateWireForm";
 

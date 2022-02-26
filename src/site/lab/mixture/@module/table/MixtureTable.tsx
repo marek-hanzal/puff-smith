@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IMixturesSourceTableProps, MixturesSourceTable, useMixturesOptionalFilterContext} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {asDayjs, ButtonBar, durationOf, toLocalDate} from "@leight-core/leight";
+import {asDayjs, ButtonBar, durationOf, toLocalDate} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {MixtureListItem} from "@/puff-smith/site/lab/mixture/@module/table/MixtureListItem";
 import {MixtureLinkButton} from "@/puff-smith/site/lab/mixture/@module/component/button/MixtureLinkButton";

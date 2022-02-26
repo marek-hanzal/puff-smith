@@ -1,5 +1,5 @@
 import {ModDto} from "@/sdk/puff-smith/mod/dto";
-import {IPreviewProps, Preview, PreviewTemplate} from "@leight-core/leight";
+import {IPreviewProps, Preview, PreviewTemplate} from "@leight-core/common";
 import {FC} from "react";
 import {ModInline} from "@/puff-smith/site/lab/mod/@module/component/ModInline";
 import {Volt, Watt} from "@/puff-smith";

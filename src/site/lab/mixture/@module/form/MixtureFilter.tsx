@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Filter, FormItem, IFilterWithoutTranslationProps, SwitchItem} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps, SwitchItem} from "@leight-core/common";
 import {MixtureFilterDto} from "@/sdk/puff-smith/mixture/dto";
 import {VendorSelect} from "@/puff-smith/site/lab/vendor/@module/form/VendorSelect";
 import {BaseSelect} from "@/puff-smith/site/lab/base/@module/form/BaseSelect";

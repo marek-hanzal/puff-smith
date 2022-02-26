@@ -1,6 +1,6 @@
 import {FullLogoIcon} from "@/puff-smith";
 import {HomeOutlined} from "@ant-design/icons";
-import {LoaderLayout, useNavigate} from "@leight-core/leight";
+import {LoaderLayout, useNavigate} from "@leight-core/common";
 import {useEffect} from "react";
 import {usePuffSmithSessionContext, withAppLayout} from "@/puff-smith/site/shared";
 

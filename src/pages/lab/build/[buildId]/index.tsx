@@ -1,6 +1,6 @@
 import {BuildIcon} from "@/puff-smith";
 import {BuildPage} from "@/sdk/puff-smith/api/lab/build/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, CreateIcon, CreateMenuItem, HomeIcon} from "@leight-core/common";
 import {BarChartOutlined} from "@ant-design/icons";
 import {Menu} from "antd";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

@@ -1,5 +1,5 @@
 import {MixtureDto} from "@/sdk/puff-smith/mixture/dto";
-import {asDayjs, BoolInline, durationOf, Preview, PreviewTemplate, toLocalDate} from "@leight-core/leight";
+import {asDayjs, BoolInline, durationOf, Preview, PreviewTemplate, toLocalDate} from "@leight-core/common";
 import {FC} from "react";
 import {Divider, Space, Tabs} from "antd";
 import {useTranslation} from "react-i18next";

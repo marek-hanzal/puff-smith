@@ -1,6 +1,6 @@
 import {IVendorsSourceTableProps, useVendorsOptionalFilterContext, VendorsSourceTable} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
 import {FC} from "react";
-import {ButtonBar} from "@leight-core/leight";
+import {ButtonBar} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
 import {VendorListItem} from "@/puff-smith/site/lab/vendor/@module/table/VendorListItem";
 import {VendorLinkButton} from "@/puff-smith/site/lab/vendor/@module/component/button/VendorLinkButton";

@@ -1,6 +1,6 @@
 import {Divider, Menu} from "antd";
 import {MixturePage} from "@/sdk/puff-smith/api/lab/mixture/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon, useParams} from "@leight-core/common";
 import {BarChartOutlined} from "@ant-design/icons";
 import {VapesFilterContext} from "@/sdk/puff-smith/api/lab/vape/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

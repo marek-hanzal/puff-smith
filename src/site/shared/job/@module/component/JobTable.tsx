@@ -6,7 +6,7 @@ import {InterruptDto} from "@/sdk/edde/job/dto/interrupt";
 import {JobLogDto} from "@/sdk/edde/job/dto/log";
 import {IJobsSourceContext, IJobsSourceTableProps, JobsSourceTable, useCommitMutation, useDeleteMutation, useInterruptMutation} from "@/sdk/edde/api/shared/job/endpoint";
 import {CheckCircleOutlined, CloseCircleOutlined, StopOutlined} from "@ant-design/icons";
-import {DeleteItemIcon, IndexOf, QuickMenu, secDuration} from "@leight-core/leight";
+import {DeleteItemIcon, IndexOf, QuickMenu, secDuration} from "@leight-core/common";
 import {Button, Menu, message, Popconfirm, Statistic} from "antd";
 import {FC, ReactElement, ReactNode, useRef} from "react";
 import {useTranslation} from "react-i18next";

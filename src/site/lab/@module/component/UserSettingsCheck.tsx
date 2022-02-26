@@ -1,4 +1,4 @@
-import {Page} from "@leight-core/leight";
+import {Page} from "@leight-core/common";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {usePuffSmithSessionContext, UserSettingsForm} from "@/puff-smith/site/shared";

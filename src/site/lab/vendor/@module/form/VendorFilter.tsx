@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/leight";
+import {Filter, FormItem, IFilterWithoutTranslationProps} from "@leight-core/common";
 import {VendorFilterDto} from "@/sdk/puff-smith/vendor/dto";
 
 export interface IVendorFilterProps extends IFilterWithoutTranslationProps<VendorFilterDto> {

@@ -1,5 +1,5 @@
 import {LiquidIcon} from "@/puff-smith";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
 import {Menu} from "antd";
 import {LiquidsFilterContext} from "@/sdk/puff-smith/api/lab/liquid/endpoint";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

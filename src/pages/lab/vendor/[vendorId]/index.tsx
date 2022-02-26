@@ -1,6 +1,6 @@
 import {VendorIcon} from "@/puff-smith";
 import {VendorPage} from "@/sdk/puff-smith/api/lab/vendor/endpoint";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/leight";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";

@@ -1,4 +1,4 @@
-import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/leight";
+import {ButtonLink, CreateIcon, IButtonLinkProps} from "@leight-core/common";
 import {FC} from "react";
 
 export interface IBuildCreateButtonProps extends Partial<IButtonLinkProps> {

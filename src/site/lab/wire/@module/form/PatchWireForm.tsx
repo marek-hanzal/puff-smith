@@ -2,7 +2,7 @@ import {IPatchDefaultFormProps, PatchDefaultForm, useWireQueryInvalidate, useWir
 import {FC} from "react";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/common";
 import {GaInput, WireIcon} from "@/puff-smith";
 import {WireDto} from "@/sdk/puff-smith/wire/dto";
 import {VendorTooltip} from "@/puff-smith/site/lab/vendor/@module/form/VendorTooltip";

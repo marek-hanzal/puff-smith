@@ -1,5 +1,5 @@
 import {SettingOutlined} from "@ant-design/icons";
-import {BackIcon, ButtonLink, Centered, Form, FormItem, IFormProps, ItemGroup, Submit, useLayoutBlockContext} from "@leight-core/leight";
+import {BackIcon, ButtonLink, Centered, Form, FormItem, IFormProps, ItemGroup, Submit, useLayoutBlockContext} from "@leight-core/common";
 import {Divider, message, Space} from "antd";
 import i18next from "i18next";
 import {FC} from "react";

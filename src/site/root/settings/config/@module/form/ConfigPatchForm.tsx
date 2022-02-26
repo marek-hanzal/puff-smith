@@ -1,5 +1,5 @@
 import {ToolOutlined} from "@ant-design/icons";
-import {Centered, FormItem, ItemGroup, Submit} from "@leight-core/leight";
+import {Centered, FormItem, ItemGroup, Submit} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

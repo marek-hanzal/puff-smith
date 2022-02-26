@@ -2,7 +2,7 @@ import {UserDto} from "@/sdk/edde/bridge/user";
 import {Tabs, Tag} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Preview} from "@leight-core/leight";
+import {Preview} from "@leight-core/common";
 
 export interface IProfilePreviewProps {
 	user: UserDto;

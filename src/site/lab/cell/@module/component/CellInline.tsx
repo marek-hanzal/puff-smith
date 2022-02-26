@@ -1,7 +1,7 @@
 import {CellDto} from "@/sdk/puff-smith/cell/dto";
 import {Space, Typography} from "antd";
 import {FC} from "react";
-import {useIsMobile} from "@leight-core/leight";
+import {useIsMobile} from "@leight-core/common";
 
 export interface ICellInlineProps {
 	cell: CellDto;

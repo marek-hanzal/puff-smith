@@ -1,5 +1,5 @@
 import {RolesSelect, SiteSelect} from "@/puff-smith/site/root/user";
-import {Centered, FormItem, Submit} from "@leight-core/leight";
+import {Centered, FormItem, Submit} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

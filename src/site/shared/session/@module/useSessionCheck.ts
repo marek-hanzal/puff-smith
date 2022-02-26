@@ -1,5 +1,5 @@
 import {SessionDto} from "@/sdk/edde/session/dto";
-import {useNavigate} from "@leight-core/leight";
+import {useNavigate} from "@leight-core/common";
 import {useEffect} from "react";
 import {UseQueryResult} from "react-query";
 import {useTicketQuery} from "@/sdk/edde/api/shared/user/endpoint";

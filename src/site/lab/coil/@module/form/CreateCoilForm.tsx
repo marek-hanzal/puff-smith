@@ -1,6 +1,6 @@
 import {CreateDefaultForm, ICreateDefaultFormProps, useCoilsQueryInvalidate} from "@/sdk/puff-smith/api/lab/coil/endpoint";
 import {FC} from "react";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/leight";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/common";
 import {Divider, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {CoilDto} from "@/sdk/puff-smith/coil/dto";
