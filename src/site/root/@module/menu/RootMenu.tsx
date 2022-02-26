@@ -1,6 +1,6 @@
-import {CommonIcon, IMenuProps, ImportIcon, JobIcon, LabIcon, Menu, UpgradeIcon} from "@/puff-smith";
+import {CommonIcon, ImportIcon, JobIcon, LabIcon, UpgradeIcon} from "@/puff-smith";
 import {ArrowRightOutlined, CodeOutlined, ExportOutlined, FileOutlined, GlobalOutlined, RiseOutlined, UnlockOutlined, UserOutlined} from "@ant-design/icons";
-import {CreateMenuItem, HomeIcon, MenuDivider, SimpleMenuItem, SubMenu} from "@leight-core/common";
+import {CreateMenuItem, HomeIcon, IMenuProps, Menu, MenuDivider, SimpleMenuItem, SubMenu} from "@leight-core/common";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 

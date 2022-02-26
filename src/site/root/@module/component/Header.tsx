@@ -1,15 +1,21 @@
-import {LogoIcon, LogoutButton} from "@/puff-smith";
-import {LinkTo} from "@leight-core/common";
 import {Col, Divider, Row, Space} from "antd";
+import {LogoIcon, LogoutButton} from "@/puff-smith";
+import {LinkTo} from "@leight-core/utils";
+import {FC} from "react";
 
-export const Header = () => {
+export interface IHeaderProps {
+}
+
+export const Header: FC<IHeaderProps> = () => {
 	return <Row style={{margin: "0 1em"}}>
 		<Col flex={"auto"}>
-			<LinkTo href={"/root"}>
+			<LinkTo href={"/lab"}>
 				<LogoIcon style={{width: "7.5em", display: "inline"}}/>
 			</LinkTo>
 		</Col>
 		<Col span={12}>
+			{/*<Moodle*/}
+			{/*/>*/}
 		</Col>
 		<Col flex={"auto"} style={{textAlign: "right"}}>
 			<Space size={"middle"} split={<Divider type={"vertical"}/>}>
