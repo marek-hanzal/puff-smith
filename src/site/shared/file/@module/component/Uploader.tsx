@@ -85,7 +85,7 @@ export const Uploader: FC<IUploaderProps> = (
 
 	async function chunk(chunk?: Blob | string) {
 		try {
-			await axios.post(linkContext.link(option.action, {uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
+			await axios.post(linkContext.link(option.action, {chunkId: uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
 			setBeginningOfTheChunk(endOfTheChunk);
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
@@ -152,7 +152,7 @@ export const Uploader: FC<IUploaderProps> = (
 	return <>
 		<Upload.Dragger
 			listType={"text"}
-			action={"/api/leight/file/upload"}
+			action={"/api/leight/shared/file/upload"}
 			customRequest={setOption}
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;
