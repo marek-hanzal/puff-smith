@@ -1,5 +1,5 @@
 import {FullLogoIcon, LiquidIcon, LogoIcon} from "@/puff-smith";
-import {Template} from "@leight-core/common";
+import {Template} from "@leight-core/component";
 import {Divider} from "antd";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
 import {LabPage} from "@/puff-smith/site/lab/@module/component";

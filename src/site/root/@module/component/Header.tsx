@@ -1,6 +1,6 @@
 import {Col, Divider, Row, Space} from "antd";
 import {LogoIcon, LogoutButton} from "@/puff-smith";
-import {LinkTo} from "@leight-core/utils";
+import {LinkTo} from "@leight-core/link";
 import {FC} from "react";
 
 export interface IHeaderProps {

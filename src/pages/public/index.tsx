@@ -1,6 +1,6 @@
 import icon from "@/puff-smith/assets/logo/logo-full.svg";
 import {Button, Col, Divider, Image, Row} from "antd";
-import {Card, Template} from "@leight-core/common";
+import {Card, Template} from "@leight-core/component";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {signIn, useSession} from "next-auth/react";
 

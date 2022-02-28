@@ -1,7 +1,7 @@
 import {Tabs, Tag} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Preview} from "@leight-core/common";
+import {Preview} from "@leight-core/component";
 
 export interface IProfilePreviewProps {
 	user: any;

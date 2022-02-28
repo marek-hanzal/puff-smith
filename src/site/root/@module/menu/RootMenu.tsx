@@ -1,6 +1,6 @@
 import {CommonIcon, ImportIcon, JobIcon, LabIcon} from "@/puff-smith";
 import {FileOutlined, GlobalOutlined, UnlockOutlined, UserOutlined} from "@ant-design/icons";
-import {CreateMenuItem, HomeIcon, IMenuProps, Menu, MenuDivider, SubMenu} from "@leight-core/common";
+import {CreateMenuItem, HomeIcon, IMenuProps, Menu, MenuDivider, SubMenu} from "@leight-core/component";
 import {FC} from "react";
 
 export interface IRootMenuProps extends Partial<IMenuProps> {

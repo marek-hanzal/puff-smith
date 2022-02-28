@@ -1,6 +1,6 @@
 import {ImportIcon} from "@/puff-smith";
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {Template} from "@leight-core/common";
+import {Template} from "@leight-core/component";
 import {Divider} from "antd";
 import {Uploader} from "@/puff-smith/site/shared/file";
 

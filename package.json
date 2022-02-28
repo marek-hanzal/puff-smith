@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@leight-core/api": "^0.5.13",
+		"@leight-core/app": "^0.5.0",
 		"@leight-core/endpoint": "^0.5.5",
 		"@leight-core/component": "^0.5.1",
 		"@leight-core/form": "^0.5.0",

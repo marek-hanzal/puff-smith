@@ -1,4 +1,4 @@
-import {IPageProps, Page} from "@leight-core/common";
+import {IPageProps, Page} from "@leight-core/component";
 import {FC} from "react";
 
 export interface IPublicPageProps extends IPageProps {

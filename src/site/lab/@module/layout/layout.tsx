@@ -1,4 +1,4 @@
-import {HeaderSiderLayout} from "@leight-core/common";
+import {HeaderSiderLayout} from "@leight-core/component";
 import {FC} from "react";
 import {NotificationProvider} from "@/puff-smith";
 import {IPageWithLayout} from "@leight-core/api";

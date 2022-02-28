@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
-import {App, IAppProps} from "@leight-core/common";
+import {App, IAppProps} from "@leight-core/app";
 import {IPageWithLayout} from "@leight-core/api";
 import {createQueryClient, useQueryPersistence} from "@leight-core/source";
 
