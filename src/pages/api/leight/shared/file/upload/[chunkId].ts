@@ -6,6 +6,9 @@ import {MutationEndpoint} from "@leight-core/endpoint";
 // 	},
 // }
 
+export interface IFooBar {
+}
+
 export default MutationEndpoint<"Upload", string, void, { chunkId: string }>(({req, res}) => {
 	res.status(200).end();
 });
