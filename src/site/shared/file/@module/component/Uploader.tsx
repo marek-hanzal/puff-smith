@@ -8,7 +8,7 @@ import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
 import {formatBytes, isString} from "@leight-core/utils";
-import {useLinkContext} from "@leight-core/context";
+import {ChunkApi, useChunkLink} from "@/sdk/api/leight/shared/file/[chunkId]/chunk";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -43,7 +43,7 @@ export const Uploader: FC<IUploaderProps> = (
 		...props
 	}) => {
 	const {t} = useTranslation();
-	const linkContext = useLinkContext();
+	const chunkLink = useChunkLink();
 
 	const defaultChunkSize = 1048576 * chunkSize;
 
@@ -85,7 +85,7 @@ export const Uploader: FC<IUploaderProps> = (
 
 	async function chunk(chunk?: Blob | string) {
 		try {
-			await axios.post(linkContext.link(option.action, {chunkId: uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
+			await axios.post(chunkLink({chunkId: uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
 			setBeginningOfTheChunk(endOfTheChunk);
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
@@ -152,7 +152,7 @@ export const Uploader: FC<IUploaderProps> = (
 	return <>
 		<Upload.Dragger
 			listType={"text"}
-			action={"/api/leight/shared/file/upload"}
+			action={ChunkApi}
 			customRequest={setOption}
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;

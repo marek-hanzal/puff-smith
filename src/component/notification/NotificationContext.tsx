@@ -1,6 +1,6 @@
 import {createContext} from "react";
 import {INotificationContext} from "./interface";
-import {useContext} from "@leight-core/utils";
+import {useContext} from "@leight-core/context";
 
 export const NotificationContext = createContext(null as unknown as INotificationContext);
 
