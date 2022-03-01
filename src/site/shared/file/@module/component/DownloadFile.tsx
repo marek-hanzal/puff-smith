@@ -4,9 +4,10 @@ import {Button, ButtonProps, message, Progress, Tooltip} from "antd";
 import fileDownload from "js-file-download";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {IFile} from "@leight-core/api";
 
 export interface IDownloadFileProps extends Partial<ButtonProps> {
-	file: FileDto;
+	file: IFile;
 	name?: string;
 }
 
