@@ -9,6 +9,8 @@ import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
 import {formatBytes, isString} from "@leight-core/utils";
 import {ChunkApiLink, useChunkLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
+import {useCommitMutation} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
+import {IFile} from "@leight-core/api";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -25,7 +27,7 @@ export interface IUploaderProps extends Partial<UploadProps> {
 	 */
 	filename?: string | (() => string);
 	disabled?: boolean;
-	onSuccess?: (file: any) => void;
+	onSuccess?: (file: IFile) => void;
 }
 
 export const Uploader: FC<IUploaderProps> = (
@@ -44,6 +46,7 @@ export const Uploader: FC<IUploaderProps> = (
 	}) => {
 	const {t} = useTranslation();
 	const chunkLink = useChunkLink();
+	const commitMutation = useCommitMutation();
 
 	const defaultChunkSize = 1048576 * chunkSize;
 
@@ -97,25 +100,24 @@ export const Uploader: FC<IUploaderProps> = (
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
 				setProgress(99.99);
-				// commitMutation.mutate({
-				// 	uuid,
-				// 	path,
-				// 	name: currentName.current,
-				// 	replace,
-				// }, {
-				// 	onSuccess: file => {
-				// 		setProgress(100);
-				// 		message.success(t(translation + ".upload.success"));
-				// 		filesQueryInvalidate();
-				// 		onSuccess(file);
-				// 		setTimeout(() => reset(), 2500);
-				// 	},
-				// 	onError: () => {
-				// 		setError(true);
-				// 		message.error(t(translation + ".upload.failed"));
-				// 		console.error(error);
-				// 	},
-				// });
+				commitMutation({chunkId: uuid}).mutate({
+					path,
+					name: currentName.current,
+					replace,
+				}, {
+					onSuccess: file => {
+						setProgress(100);
+						message.success(t(translation + ".upload.success"));
+						// filesQueryInvalidate();
+						onSuccess(file);
+						setTimeout(() => reset(), 2500);
+					},
+					onError: () => {
+						setError(true);
+						message.error(t(translation + ".upload.failed"));
+						console.error(error);
+					},
+				});
 			} else {
 				setProgress((counter / chunkCount) * 100);
 			}

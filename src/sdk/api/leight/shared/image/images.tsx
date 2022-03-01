@@ -1,6 +1,7 @@
 import {ISourceContext} from "@leight-core/api";
-import {createPostQuery, ISourceProviderProps, useSourceContext} from "@leight-core/source";
+import {createPostQuery, ISourceProviderProps, usePostPromise, useSourceContext} from "@leight-core/source";
 import {useLinkContext} from "@leight-core/link";
+import {AxiosRequestConfig} from "axios";
 
 export interface IImagesDto {
 }
@@ -22,4 +23,8 @@ export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImages
 export const useImagesLink = (): ((query: IImagesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(ImagesApiLink, query);
+}
+
+export const useImagesPromise = (request: any, query: IImagesQueryParams, config?: AxiosRequestConfig) => {
+	return usePostPromise<IImagesQueryParams, any, IImagesDto>(ImagesApiLink, query, request, config);
 }
