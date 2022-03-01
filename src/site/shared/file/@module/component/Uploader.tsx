@@ -36,7 +36,7 @@ export const Uploader: FC<IUploaderProps> = (
 		filename,
 		replace = false,
 		disabled = false,
-		chunkSize = 8,
+		chunkSize = 16,
 		limit = 64,
 		onSuccess = () => null,
 		children,
