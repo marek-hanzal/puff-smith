@@ -18,7 +18,7 @@ export const PublicLayout: FC<IPublicLayoutProps> = props => {
 };
 
 export function withPublicLayout(Component: FC<any>) {
-	(Component as IPageWithLayout<any>).layout = children => {
+	(Component as unknown as IPageWithLayout<any>).layout = children => {
 		return <PublicLayout>
 			{children}
 		</PublicLayout>;

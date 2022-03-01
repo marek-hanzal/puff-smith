@@ -5,6 +5,7 @@ import {FullLogoIcon} from "@/puff-smith";
 import {App, IAppProps} from "@leight-core/app";
 import {IPageWithLayout} from "@leight-core/api";
 import {createQueryClient, useQueryPersistence} from "@leight-core/source";
+import {TranslationsApiLink} from "@/sdk/api/shared/translation";
 
 const queryClient = createQueryClient();
 
@@ -14,7 +15,7 @@ export interface IAppLayoutProps extends Partial<IAppProps> {
 export const AppLayout: FC<IAppLayoutProps> = props => {
 	console.log(useQueryPersistence(queryClient, "puff-smith") ? 'Cache enabled' : 'Cache disabled');
 	return <App
-		translationLink={"/api/shared/translation"}
+		translationLink={TranslationsApiLink}
 		queryClient={queryClient}
 		logo={<FullLogoIcon/>}
 		dayjs={dayjs}
@@ -24,7 +25,7 @@ export const AppLayout: FC<IAppLayoutProps> = props => {
 };
 
 export function withAppLayout(Component: FC<any>) {
-	(Component as IPageWithLayout<any>).layout = children => {
+	(Component as unknown as IPageWithLayout<any>).layout = children => {
 		return <AppLayout>
 			{children}
 		</AppLayout>;

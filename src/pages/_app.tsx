@@ -25,7 +25,7 @@ export default function PuffSmith({Component, pageProps: {session, ...pageProps}
 		refetchOnWindowFocus={true}
 	>
 		{antd ? <ConfigProvider locale={antd}>
-			{((Component as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
+			{((Component as unknown as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
 		</ConfigProvider> : null}
 	</SessionProvider>
 }
