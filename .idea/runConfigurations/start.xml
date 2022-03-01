@@ -3,7 +3,11 @@
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="start" />
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
+      <env name="NEXTAUTH_SECRET" value="1234" />
+      <env name="NEXTAUTH_URL" value="http://localhost:3000" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

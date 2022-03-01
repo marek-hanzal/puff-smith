@@ -9,6 +9,7 @@ const config = plugins([
 	images:                      {
 		formats: ['image/avif', 'image/webp']
 	},
+	productionBrowserSourceMaps: false,
 	webpack:                     (config, {
 		webpack,
 		buildId,
