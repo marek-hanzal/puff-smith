@@ -53,6 +53,7 @@ export const Uploader: FC<IUploaderProps> = (
 	const [beginningOfTheChunk, setBeginningOfTheChunk] = useState(0);
 	const [endOfTheChunk, setEndOfTheChunk] = useState(defaultChunkSize);
 	const [chunkCount, setChunkCount] = useState(0);
+	const [progressSize, setProgressSize] = useState(0);
 	const [fileSize, setFileSize] = useState(0);
 	const [uuid, setUuid] = useState<string>(v4());
 	const [option, setOption] = useState<UploadRequestOption>(undefined as any);
@@ -61,6 +62,7 @@ export const Uploader: FC<IUploaderProps> = (
 
 	function reset() {
 		setFileSize(0);
+		setProgressSize(0);
 		setOption(undefined as any);
 		setError(false);
 		setProgress(0);
@@ -85,7 +87,12 @@ export const Uploader: FC<IUploaderProps> = (
 
 	async function chunk(chunk?: Blob | string) {
 		try {
-			await axios.post(chunkLink({chunkId: uuid}), chunk, {headers: {'Content-Type': 'application/octet-stream'}});
+			await axios.post(chunkLink({chunkId: uuid}), chunk, {
+				headers: {
+					'Content-Type': 'application/octet-stream',
+				},
+				onUploadProgress: event => setProgressSize(size => size + event.loaded),
+			});
 			setBeginningOfTheChunk(endOfTheChunk);
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
@@ -183,7 +190,7 @@ export const Uploader: FC<IUploaderProps> = (
 				status={progress < 100 ? "info" : "success"}
 				title={t(translation + ".upload")}
 				subTitle={t(translation + ".upload.hint")}
-				extra={<Progress size={"default"} type={"dashboard"} percent={progress} format={item => item?.toFixed(1) + "%"} status={progress < 100 ? "active" : "success"}/>}
+				extra={<Progress size={"default"} type={"dashboard"} percent={Math.min(100 * progressSize / fileSize, 100)} format={item => item?.toFixed(1) + "%"} status={progress < 100 ? "active" : "success"}/>}
 			>
 				<Buttons/>
 			</Result>}
@@ -192,7 +199,7 @@ export const Uploader: FC<IUploaderProps> = (
 				status={"error"}
 				title={t(translation + ".upload.error")}
 				subTitle={t(translation + ".upload.error.hint")}
-				extra={<Progress size={"default"} type={"dashboard"} percent={progress} format={item => item?.toFixed(1) + "%"} status={"exception"}/>}
+				extra={<Progress size={"default"} type={"dashboard"} percent={Math.min(100 * progressSize / fileSize, 100)} format={item => item?.toFixed(1) + "%"} status={"exception"}/>}
 			>
 				<Buttons/>
 			</Result>}
