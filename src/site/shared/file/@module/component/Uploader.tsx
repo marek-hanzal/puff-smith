@@ -1,5 +1,5 @@
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {DeleteItemIcon} from "@leight-core/common";
+import {DeleteItemIcon} from "@leight-core/component";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
 import axios from "axios";
@@ -8,7 +8,7 @@ import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
 import {formatBytes, isString} from "@leight-core/utils";
-import {ChunkApi, useChunkLink} from "@/sdk/api/leight/shared/file/[chunkId]/chunk";
+import {ChunkApiLink, useChunkLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -152,7 +152,7 @@ export const Uploader: FC<IUploaderProps> = (
 	return <>
 		<Upload.Dragger
 			listType={"text"}
-			action={ChunkApi}
+			action={ChunkApiLink}
 			customRequest={setOption}
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;

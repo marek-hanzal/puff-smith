@@ -1,6 +1,4 @@
 @import '~antd/dist/antd.css';
-@import "~@ant-design/flowchart/dist/index.css";
-@import "~@ant-design/charts/dist/index.css";
 @import './json.css';
 
 .module-menu {

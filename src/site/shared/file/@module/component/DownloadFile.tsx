@@ -1,10 +1,10 @@
 import {DownloadIcon} from "@/puff-smith";
-import {useGetPromise} from "@leight-core/source";
 import {Button, ButtonProps, message, Progress, Tooltip} from "antd";
 import fileDownload from "js-file-download";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IFile} from "@leight-core/api";
+import {useDownloadPromise} from "@/sdk/api/leight/shared/file/[fileId]/download";
 
 export interface IDownloadFileProps extends Partial<ButtonProps> {
 	file: IFile;
@@ -16,7 +16,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
 
-	const promise = useGetPromise<IDownloadQueryParams, any>("Edde.Shared.File.Download", {fileId: file.id}, {
+	const promise = useDownloadPromise({fileId: file.id}, {
 		responseType: "blob",
 		timeout: 0,
 		onDownloadProgress: event => setProgress(Math.round((event.loaded * 100) / event.total))
