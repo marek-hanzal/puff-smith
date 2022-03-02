@@ -1,5 +1,5 @@
 import {MutationEndpoint} from "@leight-core/endpoint";
-import {outputFile} from "fs-extra";
+import {outputFileSync} from "fs-extra";
 
 export const config = {
 	api: {
@@ -7,7 +7,7 @@ export const config = {
 	},
 }
 
-export default MutationEndpoint<"Chunk", string, void, { chunkId: string }>(async ({req, res}) => {
-	await outputFile(`.data/chunk/${req.query.chunkId}`, req.body, {flag: 'a+'});
+export default MutationEndpoint<"Upload", string, void, { chunkId: string }>(async ({req, res, toBody}) => {
+	outputFileSync(`.data/chunk/${req.query.chunkId.split('-').join('/')}`, await toBody(), {flag: 'a'})
 	res.status(200).end('ok');
 });

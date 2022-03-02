@@ -8,9 +8,9 @@ import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
 import {formatBytes, isString} from "@leight-core/utils";
-import {ChunkApiLink, useChunkLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
 import {useCommitMutation} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
 import {IFile} from "@leight-core/api";
+import {UploadApiLink, useUploadLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -38,14 +38,14 @@ export const Uploader: FC<IUploaderProps> = (
 		filename,
 		replace = false,
 		disabled = false,
-		chunkSize = 16,
+		chunkSize = 4,
 		limit = 64,
 		onSuccess = () => null,
 		children,
 		...props
 	}) => {
 	const {t} = useTranslation();
-	const chunkLink = useChunkLink();
+	const chunkLink = useUploadLink();
 	const commitMutation = useCommitMutation();
 
 	const defaultChunkSize = 1048576 * chunkSize;
@@ -161,7 +161,7 @@ export const Uploader: FC<IUploaderProps> = (
 	return <>
 		<Upload.Dragger
 			listType={"text"}
-			action={ChunkApiLink}
+			action={UploadApiLink}
 			customRequest={setOption}
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;
