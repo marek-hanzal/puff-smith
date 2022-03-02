@@ -1,19 +1,18 @@
 import {FC} from "react";
 import {Form, IFormProps} from "@leight-core/form";
-import {createPostMutation, usePostPromise} from "@leight-core/source";
+import {createMutationHook, createPromiseHook} from "@leight-core/source";
 import {useLinkContext} from "@leight-core/link";
-import {AxiosRequestConfig} from "axios";
 
 export const UploadApiLink = "/api/leight/shared/file/chunk/[chunkId]/upload";
 
 export type IUploadQueryParams = { chunkId: string };
 
-export const useUploadMutation = createPostMutation<IUploadQueryParams, string, void>(UploadApiLink);
+export const useUploadMutation = createMutationHook<string, void, IUploadQueryParams>(UploadApiLink, "post");
 
-export interface IUploadDefaultFormProps extends Partial<IFormProps<IUploadQueryParams, string, void>> {
+export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void, IUploadQueryParams>> {
 }
 
-export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<IUploadQueryParams, string, void>
+export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<string, void, IUploadQueryParams>
 	useMutation={useUploadMutation}
 	{...props}
 />
@@ -23,6 +22,4 @@ export const useUploadLink = (): ((query: IUploadQueryParams) => string) => {
 	return query => linkContext.link(UploadApiLink, query);
 }
 
-export const useUploadPromise = (request: string, query: IUploadQueryParams, config?: AxiosRequestConfig) => {
-	return usePostPromise<IUploadQueryParams, string, void>(UploadApiLink, query, request, config);
-}
+export const useUploadPromise = createPromiseHook<string, void, IUploadQueryParams>(UploadApiLink, "post");

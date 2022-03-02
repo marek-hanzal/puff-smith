@@ -8,7 +8,7 @@ import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
 import {formatBytes, isString} from "@leight-core/utils";
-import {useCommitMutation} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
+import {useCommitPromise} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
 import {IFile} from "@leight-core/api";
 import {UploadApiLink, useUploadLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
 
@@ -46,7 +46,7 @@ export const Uploader: FC<IUploaderProps> = (
 	}) => {
 	const {t} = useTranslation();
 	const chunkLink = useUploadLink();
-	const commitMutation = useCommitMutation();
+	const commitMutation = useCommitPromise();
 
 	const defaultChunkSize = 1048576 * chunkSize;
 
