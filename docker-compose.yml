@@ -2,6 +2,7 @@ version: '2'
 services:
     postgres:
         image: postgres:14.2
+        restart: always
         ports:
             - "5532:5432"
         networks:
@@ -13,6 +14,7 @@ services:
 
     adminer:
         image: adminer
+        restart: always
         ports:
             - "5808:8080"
         networks:
