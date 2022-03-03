@@ -11,12 +11,12 @@ export type IImagesQueryParams = void;
 
 export const useImagesQuery = createQueryHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
 
-export const useImagesSource = () => useSourceContext<IQuery, IImagesDto, IImagesQueryParams>()
+export const useImagesSource = () => useSourceContext<IImagesDto, IImagesQueryParams>()
 
-export interface IImagesSourceContext extends ISourceContext<IQuery, IImagesDto, IImagesQueryParams> {
+export interface IImagesSourceContext extends ISourceContext<IImagesDto, IImagesQueryParams> {
 }
 
-export interface IImagesSourceProps extends Partial<ISourceProviderProps<IQuery, IImagesDto, IImagesQueryParams>> {
+export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImagesDto, IImagesQueryParams>> {
 }
 
 export const useImagesLink = (): ((query: IImagesQueryParams) => string) => {

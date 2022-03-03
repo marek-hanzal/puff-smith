@@ -46,7 +46,7 @@ export const Uploader: FC<IUploaderProps> = (
 	}) => {
 	const {t} = useTranslation();
 	const chunkLink = useUploadLink();
-	const commitMutation = useCommitPromise();
+	const commitPromise = useCommitPromise();
 
 	const defaultChunkSize = 1048576 * chunkSize;
 
@@ -100,24 +100,23 @@ export const Uploader: FC<IUploaderProps> = (
 			setEndOfTheChunk(endOfTheChunk + defaultChunkSize);
 			if (counter === chunkCount) {
 				setProgress(99.99);
-				commitMutation({chunkId: uuid}).mutate({
+				commitPromise({
 					path,
 					name: currentName.current,
 					replace,
-				}, {
-					onSuccess: file => {
+				}, {chunkId: uuid})
+					.then(file => {
 						setProgress(100);
 						message.success(t(translation + ".upload.success"));
 						// filesQueryInvalidate();
 						onSuccess(file);
 						setTimeout(() => reset(), 2500);
-					},
-					onError: () => {
+					})
+					.catch(e => {
 						setError(true);
 						message.error(t(translation + ".upload.failed"));
-						console.error(error);
-					},
-				});
+						console.error(e);
+					});
 			} else {
 				setProgress((counter / chunkCount) * 100);
 			}

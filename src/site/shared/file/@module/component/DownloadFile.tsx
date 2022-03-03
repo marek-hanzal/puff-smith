@@ -16,7 +16,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
 
-	const promise = useDownloadPromise({fileId: file.id}, {
+	const promise = useDownloadPromise()(undefined, {fileId: file.id}, {
 		responseType: "blob",
 		timeout: 0,
 		onDownloadProgress: event => setProgress(Math.round((event.loaded * 100) / event.total))
@@ -31,7 +31,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 			onClick={() => {
 				setLoading(true);
 				setProgress(0);
-				promise()
+				promise
 					.then(data => {
 						message.success(t("puff-smith.file.download-success"));
 						fileDownload(data, name || file.name);
