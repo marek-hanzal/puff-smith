@@ -1,6 +1,6 @@
 import {FullLogoIcon} from "@/puff-smith";
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {Template} from "@leight-core/component";
+import {Template} from "@leight-core/client";
 
 export default withRootLayout(function Index() {
 	return <RootPage

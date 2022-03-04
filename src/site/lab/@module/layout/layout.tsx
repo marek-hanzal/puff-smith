@@ -1,9 +1,9 @@
-import {HeaderSiderLayout} from "@leight-core/component";
+import {HeaderSiderLayout} from "@leight-core/client";
 import {FC} from "react";
 import {NotificationProvider} from "@/puff-smith";
-import {IPageWithLayout} from "@leight-core/api";
 import {Footer, Header, LabMenu} from "@/puff-smith/site/lab";
 import {AppLayout} from "@/puff-smith/site/shared";
+import {IPageWithLayout} from "@leight-core/api";
 
 export interface ILabLayoutProps {
 }

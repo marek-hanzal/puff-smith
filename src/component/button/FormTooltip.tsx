@@ -1,6 +1,6 @@
 import {FC, ReactNode} from "react";
 import {PlusOutlined} from "@ant-design/icons";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/component";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
 
 export interface IFormTooltipProps extends Partial<IDrawerButtonProps> {
 	icon?: ReactNode

@@ -1,4 +1,4 @@
-import {Centered} from "@leight-core/component";
+import {Centered} from "@leight-core/client";
 import {VersionStamp} from "@/puff-smith";
 import {FC} from "react";
 

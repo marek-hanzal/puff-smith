@@ -1,5 +1,5 @@
 import {UserOutlined} from "@ant-design/icons";
-import {ButtonLink, IButtonLinkProps} from "@leight-core/component";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

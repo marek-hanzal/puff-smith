@@ -1,4 +1,4 @@
-import {HeaderSiderLayout} from "@leight-core/component";
+import {HeaderSiderLayout} from "@leight-core/client";
 import {FC} from "react";
 import {AppLayout} from "@/puff-smith/site/shared";
 import {Footer, Header} from "@/puff-smith/site/public";

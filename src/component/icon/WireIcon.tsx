@@ -1,4 +1,4 @@
-import {IIconProps} from "@leight-core/component";
+import {IIconProps} from "@leight-core/client";
 import {FC} from "react";
 import {BranchesOutlined} from "@ant-design/icons";
 

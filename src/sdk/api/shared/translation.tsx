@@ -1,5 +1,4 @@
-import {createPromiseHook, createQueryHook} from "@leight-core/source";
-import {useLinkContext} from "@leight-core/link";
+import {createPromiseHook, createQueryHook, useLinkContext} from "@leight-core/client";
 import {ITranslations} from "@leight-core/api";
 
 export const TranslationsApiLink = "/api/shared/translation";

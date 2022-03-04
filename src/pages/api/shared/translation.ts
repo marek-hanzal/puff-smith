@@ -1,4 +1,4 @@
-import {ListEndpoint} from "@leight-core/endpoint";
+import {ListEndpoint} from "@leight-core/server";
 import {ITranslations} from "@leight-core/api";
 
 export default ListEndpoint<"Translations", ITranslations>(({res}) => {

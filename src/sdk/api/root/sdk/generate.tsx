@@ -1,7 +1,5 @@
 import {FC} from "react";
-import {Form, IFormProps} from "@leight-core/form";
-import {createMutationHook, createPromiseHook} from "@leight-core/source";
-import {useLinkContext} from "@leight-core/link";
+import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
 export const GenerateApiLink = "/api/root/sdk/generate";
 

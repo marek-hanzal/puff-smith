@@ -1,12 +1,8 @@
-import {MutationEndpoint} from "@leight-core/endpoint";
+import {ChunkService, IChunkCommit} from "@/puff-smith/component/temp";
+import {MutationEndpoint} from "@leight-core/server";
 import {IFile} from "@leight-core/api";
 
-export interface ICommitRequest {
-	path: string;
-	name: string,
-	replace: boolean;
-}
-
-export default MutationEndpoint<"Commit", ICommitRequest, IFile, { chunkId: string }>(({req, res}) => {
+export default MutationEndpoint<"Commit", IChunkCommit, IFile, { chunkId: string }>(({req, res}) => {
+	ChunkService().commit(req.query.chunkId, req.body);
 	res.status(200).end('ok');
 });

@@ -1,5 +1,5 @@
-import {MutationEndpoint} from "@leight-core/endpoint";
-import {outputFileSync} from "fs-extra";
+import {ChunkService} from "@/puff-smith/component/temp";
+import {MutationEndpoint} from "@leight-core/server";
 
 export const config = {
 	api: {
@@ -8,6 +8,6 @@ export const config = {
 }
 
 export default MutationEndpoint<"Upload", string, void, { chunkId: string }>(async ({req, res, toBody}) => {
-	outputFileSync(`.data/chunk/${req.query.chunkId.split('-').join('/')}`, await toBody(), {flag: 'a'})
+	ChunkService().chunk(req.query.chunkId, await toBody());
 	res.status(200).end('ok');
 });

@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {Col, Divider, Row, Typography} from "antd";
-import {ButtonLink, Card} from "@leight-core/component";
+import {ButtonLink, Card} from "@leight-core/client";
 import {BuildIcon, VapeIcon} from "@/puff-smith";
 
 export interface IQuickPuffProps {

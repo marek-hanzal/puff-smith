@@ -1,7 +1,6 @@
-import {CreateMenuItem, HomeIcon, IMenuProps, Menu, MenuDivider} from "@leight-core/component";
+import {CreateMenuItem, HomeIcon, IMenuProps, Menu, MenuDivider, useIsMobile} from "@leight-core/client";
 import {FC, ReactNode} from "react";
 import {AtomizerIcon, BuildIcon, CellIcon, CoilIcon, CottonIcon, LiquidIcon, MixtureIcon, ModIcon, VapeIcon, VendorIcon, WireIcon} from "@/puff-smith";
-import {useIsMobile} from "@leight-core/responsive";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
 	prepend?: ReactNode;

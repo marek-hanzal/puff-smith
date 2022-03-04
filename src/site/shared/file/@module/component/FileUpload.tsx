@@ -1,7 +1,6 @@
 import {IUploaderProps, Uploader} from "../../index";
 import {CopyOutlined, EditOutlined, SaveOutlined} from "@ant-design/icons";
-import {Form, FormItem, Submit, SwitchItem} from "@leight-core/form";
-import {BoolInline, Centered, Preview} from "@leight-core/component";
+import {BoolInline, Centered, Form, FormItem, Preview, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, Input, Row} from "antd";
 import {FC, useState} from "react";
 

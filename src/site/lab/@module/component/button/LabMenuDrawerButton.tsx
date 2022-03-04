@@ -1,4 +1,4 @@
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/component";
+import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
 import {FC} from "react";
 import {MenuOutlined} from "@ant-design/icons";
 import {ILabMenuProps, LabMenu} from "../../menu";

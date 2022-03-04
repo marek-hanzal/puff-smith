@@ -1,5 +1,5 @@
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {DeleteItemIcon} from "@leight-core/component";
+import {DeleteItemIcon, formatBytes, isString} from "@leight-core/client";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
 import axios from "axios";
@@ -7,10 +7,9 @@ import {UploadRequestOption} from "rc-upload/lib/interface";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
-import {formatBytes, isString} from "@leight-core/utils";
 import {useCommitPromise} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
-import {IFile} from "@leight-core/api";
 import {UploadApiLink, useUploadLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
+import {IFile} from "@leight-core/api";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;

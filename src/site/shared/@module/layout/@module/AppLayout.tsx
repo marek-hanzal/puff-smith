@@ -2,10 +2,9 @@ import dayjs from "dayjs";
 import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
-import {App, IAppProps} from "@leight-core/app";
-import {IPageWithLayout} from "@leight-core/api";
-import {createQueryClient, useQueryPersistence} from "@leight-core/source";
+import {App, createQueryClient, IAppProps, useQueryPersistence} from "@leight-core/client";
 import {TranslationsApiLink} from "@/sdk/api/shared/translation";
+import {IPageWithLayout} from "@leight-core/api";
 
 const queryClient = createQueryClient();
 
