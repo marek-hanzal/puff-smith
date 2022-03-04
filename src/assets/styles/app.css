@@ -1,5 +1,7 @@
 @import '~antd/dist/antd.css';
 @import './json.css';
+@import "~nprogress/nprogress.css";
+
 
 .module-menu {
 	border: none;

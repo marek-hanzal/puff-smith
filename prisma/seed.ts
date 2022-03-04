@@ -1,15 +1,13 @@
-import {createPrismaClient} from "@/puff-smith/prisma";
+import prismaClient from "@/puff-smith/prisma/prisma";
 
-const prisma = createPrismaClient();
-
-export async function main() {
+const main = async () => {
 }
 
 main()
-	.catch((e) => {
+	.catch(e => {
 		console.error(e)
 		process.exit(1)
 	})
 	.finally(async () => {
-		await prisma.$disconnect()
+		await prismaClient.$disconnect()
 	})

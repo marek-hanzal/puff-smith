@@ -1,7 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {createPrismaClient} from "@/puff-smith/prisma";
-
-const prisma = createPrismaClient();
 
 //
 // export type IQueryApiResponse<T extends Prisma.z_vapeFindManyArgs> = Prisma.CheckSelect<T, Array<z_vape>, Array<Prisma.z_vapeGetPayload<T>>>;

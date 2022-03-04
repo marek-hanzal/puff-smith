@@ -1,7 +1,11 @@
 import {PrismaClient} from "@prisma/client";
 
-export const createPrismaClient = () => {
+const createPrismaClient = () => {
 	return new PrismaClient({
 		log: ['query', 'info', 'warn', 'error'],
 	});
 }
+
+const prismaClient = createPrismaClient();
+
+export default prismaClient;

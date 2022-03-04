@@ -1,9 +1,7 @@
 import NextAuth from "next-auth"
-import {createPrismaClient} from "@/puff-smith/prisma";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
-
-const prisma = createPrismaClient();
+import prismaClient from "@/puff-smith/prisma/prisma";
 
 export default NextAuth({
 	theme: {
@@ -11,7 +9,7 @@ export default NextAuth({
 		brandColor: '#1890ff',
 		colorScheme: 'light',
 	},
-	adapter: PrismaAdapter(prisma),
+	adapter: PrismaAdapter(prismaClient),
 	debug: process.env.NODE_ENV === 'development',
 	providers: [
 		GitHub({

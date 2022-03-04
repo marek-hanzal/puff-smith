@@ -3,7 +3,7 @@ import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
 import {App, createQueryClient, IAppProps, useQueryPersistence} from "@leight-core/client";
-import {TranslationsApiLink} from "@/sdk/api/shared/translation";
+import {useTranslationsQuery} from "@/sdk/api/shared/translation";
 import {IPageWithLayout} from "@leight-core/api";
 
 const queryClient = createQueryClient();
@@ -14,7 +14,7 @@ export interface IAppLayoutProps extends Partial<IAppProps> {
 export const AppLayout: FC<IAppLayoutProps> = props => {
 	console.log(useQueryPersistence(queryClient, "puff-smith") ? 'Cache enabled' : 'Cache disabled');
 	return <App
-		translationLink={TranslationsApiLink}
+		useTranslationQuery={useTranslationsQuery}
 		queryClient={queryClient}
 		logo={<FullLogoIcon/>}
 		dayjs={dayjs}
