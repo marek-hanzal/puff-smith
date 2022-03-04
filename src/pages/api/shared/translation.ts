@@ -6,7 +6,9 @@ export default ListEndpoint<"Translations", ITranslationBundle>(async () => {
 		bundles: [
 			{
 				language: 'cs',
-				translations: [],
+				translations: [
+					{key: 'root.import.title', value: 'Translations works!'},
+				],
 			}
 		],
 	};
