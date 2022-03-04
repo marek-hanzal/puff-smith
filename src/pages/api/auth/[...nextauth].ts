@@ -10,7 +10,13 @@ export default NextAuth({
 		colorScheme: 'light',
 	},
 	adapter: PrismaAdapter(prismaClient),
-	debug: process.env.NODE_ENV === 'development',
+	session: {
+		strategy: 'jwt',
+	},
+	pages: {
+		newUser: '/auth/new-user',
+	},
+	// debug: process.env.NODE_ENV === 'development',
 	providers: [
 		GitHub({
 			name: 'github',
@@ -21,22 +27,6 @@ export default NextAuth({
 		// https://next-auth.js.org/providers/google
 		// https://console.developers.google.com/apis/credentials?project=puff-smith&supportedpurview=project
 	],
-	callbacks: {
-		jwt: ({token, user}) => {
-			if (!user) {
-				return token;
-			}
-			token.id = user.id;
-			return token;
-		},
-		session: ({session, token}) => {
-			if (!token) {
-				return session;
-			}
-			session.id = token.id;
-			return session;
-		},
-	},
 	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
 		secret: process.env.NEXTAUTH_SECRET,
