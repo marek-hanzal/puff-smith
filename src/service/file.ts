@@ -1,7 +1,7 @@
 import {IFile} from "@leight-core/api";
 import {FileService} from "@leight-core/server";
 
-export const fileService = FileService({
+const fileService = FileService({
 	config: {
 		path: '.data/file/{fileId}',
 		persistor(file: IFile) {
@@ -9,3 +9,5 @@ export const fileService = FileService({
 		}
 	}
 });
+
+export default fileService;
