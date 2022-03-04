@@ -1,4 +1,4 @@
-import {IQuery, ISourceContext} from "@leight-core/api";
+import {IQuery, IQueryParams, ISourceContext} from "@leight-core/api";
 import {createPromiseHook, createQueryHook, ISourceProviderProps, useLinkContext, useSourceContext} from "@leight-core/client";
 
 export interface IImagesDto {
@@ -6,7 +6,7 @@ export interface IImagesDto {
 
 export const ImagesApiLink = "/api/leight/shared/image/images";
 
-export type IImagesQueryParams = void;
+export type IImagesQueryParams = IQueryParams;
 
 export const useImagesQuery = createQueryHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
 

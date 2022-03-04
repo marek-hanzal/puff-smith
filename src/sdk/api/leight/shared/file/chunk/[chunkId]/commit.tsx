@@ -1,10 +1,11 @@
+import {IChunkEndpointQuery} from "@leight-core/server";
+import {IChunkCommit, IFile} from "@leight-core/api";
 import {FC} from "react";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
-import {IChunkCommit, IFile} from "@leight-core/api";
 
 export const CommitApiLink = "/api/leight/shared/file/chunk/[chunkId]/commit";
 
-export type ICommitQueryParams = { chunkId: string; };
+export type ICommitQueryParams = IChunkEndpointQuery;
 
 export const useCommitMutation = createMutationHook<IChunkCommit, IFile, ICommitQueryParams>(CommitApiLink, "post");
 

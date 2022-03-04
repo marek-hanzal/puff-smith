@@ -81,7 +81,7 @@ export const Uploader: FC<IUploaderProps> = (
 	function upload() {
 		counter === 1 && (() => {
 			message.success(t(translation + ".upload.started"));
-			currentName.current = filename ? (isString(filename) ? filename : (filename as any)()) : null;
+			currentName.current = filename ? (isString(filename) ? filename : (filename as any)()) : currentName.current;
 		})();
 		setCounter(counter => counter + 1);
 		counter <= chunkCount && chunk(option.file.slice(beginningOfTheChunk, endOfTheChunk));
@@ -173,6 +173,7 @@ export const Uploader: FC<IUploaderProps> = (
 				reset();
 				setFileSize(size);
 				setChunkCount(size % defaultChunkSize == 0 ? size / defaultChunkSize : Math.floor(size / defaultChunkSize) + 1);
+				currentName.current = info.file.name;
 			}}
 			disabled={!!option || disabled}
 			showUploadList={false}

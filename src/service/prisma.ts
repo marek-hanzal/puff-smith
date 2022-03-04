@@ -6,6 +6,4 @@ const createPrismaClient = () => {
 	});
 }
 
-const prismaClient = createPrismaClient();
-
-export default prismaClient;
+export const prismaClient = createPrismaClient();

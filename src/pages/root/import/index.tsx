@@ -17,6 +17,7 @@ export default withRootLayout(function Index() {
 			<Uploader
 				limit={2048 * 1000}
 				path={'/import'}
+				replace
 				translation={'root.import'}
 			/>
 		</Template>

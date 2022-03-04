@@ -1,4 +1,4 @@
-import prismaClient from "@/puff-smith/prisma/prisma";
+import {prismaClient} from "@/puff-smith/service";
 
 const main = async () => {
 }

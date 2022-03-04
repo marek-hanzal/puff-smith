@@ -1,9 +1,10 @@
+import {IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
 export const UploadApiLink = "/api/leight/shared/file/chunk/[chunkId]/upload";
 
-export type IUploadQueryParams = { chunkId: string };
+export type IUploadQueryParams = IChunkEndpointQuery;
 
 export const useUploadMutation = createMutationHook<string, void, IUploadQueryParams>(UploadApiLink, "post");
 

@@ -1,4 +1,5 @@
-import {Endpoint, UploadChunkEndpoint} from "@leight-core/server";
+import {Endpoint, IChunkEndpointQuery, UploadChunkEndpoint} from "@leight-core/server";
+import {chunkService} from "@/puff-smith/service";
 
 export const config = {
 	api: {
@@ -6,4 +7,4 @@ export const config = {
 	},
 }
 
-export default Endpoint<"Upload", string, void, { chunkId: string }>(UploadChunkEndpoint());
+export default Endpoint<"Upload", string, void, IChunkEndpointQuery>(UploadChunkEndpoint(chunkService));

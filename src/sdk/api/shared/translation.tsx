@@ -1,9 +1,9 @@
+import {IQueryParams, ITranslationBundle} from "@leight-core/api";
 import {createPromiseHook, createQueryHook, useLinkContext} from "@leight-core/client";
-import {ITranslationBundle} from "@leight-core/api";
 
 export const TranslationsApiLink = "/api/shared/translation";
 
-export type ITranslationsQueryParams = void;
+export type ITranslationsQueryParams = IQueryParams;
 
 export const useTranslationsQuery = createQueryHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
 

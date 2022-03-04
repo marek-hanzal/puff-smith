@@ -1,4 +1,5 @@
-import {CommitChunkEndpoint, Endpoint} from "@leight-core/server";
+import {CommitChunkEndpoint, Endpoint, IChunkEndpointQuery} from "@leight-core/server";
 import {IChunkCommit, IFile} from "@leight-core/api";
+import {chunkService} from "@/puff-smith/service";
 
-export default Endpoint<"Commit", IChunkCommit, IFile, { chunkId: string; }>(CommitChunkEndpoint());
+export default Endpoint<"Commit", IChunkCommit, IFile, IChunkEndpointQuery>(CommitChunkEndpoint(chunkService));

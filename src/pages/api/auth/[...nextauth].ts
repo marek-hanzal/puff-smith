@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
-import prismaClient from "@/puff-smith/prisma/prisma";
+import {prismaClient} from "@/puff-smith/service";
 
 export default NextAuth({
 	theme: {
