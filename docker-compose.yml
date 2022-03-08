@@ -13,14 +13,6 @@ services:
             POSTGRES_DB: puff-smith
             POSTGRES_PASSWORD: 1234
 
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - "5808:8080"
-        networks:
-            - db
-
     mongo:
         image: mongo:5
         restart: always
@@ -41,11 +33,24 @@ services:
         environment:
             ME_CONFIG_MONGODB_ADMINUSERNAME: root
             ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
-            ME_CONFIG_MONGODB_URL: mongodb://root:1234@mongo:27017/
+            ME_CONFIG_MONGODB_URL: mongodb://root:1234@mongo:27017
         ports:
             - "48081:8081"
         networks:
             - mongo
+
+    agendash:
+        image: agenda/agendash
+        restart: always
+        depends_on:
+            - mongo
+        networks:
+            - mongo
+        ports:
+            - "43000:3000"
+        environment:
+            MONGODB_URI: mongodb://root:1234@mongo:27017
+            COLLECTION: agenda
 
 networks:
     db:
