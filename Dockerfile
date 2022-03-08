@@ -1,29 +1,17 @@
-FROM node:16 as dev-deps
+FROM node:16-alpine as dev-deps
 
 WORKDIR /opt/app
 
 COPY package.json package-lock.json ./
 RUN npm install
 
-FROM node:16 as prod-deps
-
-WORKDIR /opt/app
-
-RUN curl -sf https://gobinaries.com/tj/node-prune | sh
-COPY package.json package-lock.json ./
-RUN \
-	npm install modclean --save && \
-	npm install --production
-RUN \
-    node-prune && \
-	npx modclean -n default:safe,default:caution,default:danger
-
-FROM node:16 as builder
+FROM node:16-alpine as builder
 ARG BUILD=edge
 
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
+	DISABLE_TELEMETRY=1 \
 	BUILD=${BUILD}
 
 WORKDIR /opt/app
@@ -47,11 +35,16 @@ RUN npm run build
 FROM alpine:3.15 as runtime
 
 ENV \
-	NODE_ENV=production
+	NODE_ENV=production \
+	NEXT_TELEMETRY_DISABLED=1 \
+	DISABLE_TELEMETRY=1 \
+	BUILD=${BUILD}
 
 RUN \
     apk add --no-cache \
         bash npm supervisor
+
+RUN npm install pm2 -g
 
 ADD rootfs/runtime /
 
@@ -66,7 +59,7 @@ COPY --chown=app:app next.config.mjs next.config.mjs
 COPY --chown=app:app prisma prisma
 COPY --chown=app:app public public
 COPY --chown=app:app package.json package-lock.json ./
-COPY --from=prod-deps --chown=app:app /opt/app/node_modules ./node_modules
+COPY --from=builder --chown=app:app /opt/app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /opt/app/.next ./.next
 
 EXPOSE 3000

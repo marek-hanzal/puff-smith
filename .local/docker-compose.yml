@@ -2,12 +2,22 @@ version: '3'
 services:
     app:
         image: marekhanzal/puff-smith:latest
+        hostname: puff-smith
         depends_on:
             - mariadb
         environment:
             DATABASE_URL: "postgresql://puff-smith:1234@postgres:5432/puff-smith?schema=public"
+            QUIRREL_BASE_URL: 'http://app:3000'
+            QUIRREL_API_URL: 'http://quirrel:9181'
+#            QUIRREL_TOKEN: '1800089494374-98ba-47ae-81bf-39b2d477abb0'
+#            QUIRREL_ENCRYPTION_SECRET: '06b3673c19b20f87d0d1232ee1cfd392'
+            NEXTAUTH_URL: 'http://localhost:42000'
+            NEXTAUTH_SECRET: '1234'
+            NEXTAUTH_GITHUB_CLIENT_ID: 'abbc01fc85709ab26921'
+            NEXTAUTH_GITHUB_CLIENT_SECRET: 'd1d4c98417588b8280c60ee0b3b4233761d529f7'
         networks:
             - db
+            - quirrel
         ports:
             - "42000:3000"
 
@@ -22,6 +32,24 @@ services:
             POSTGRES_DB: puff-smith
             POSTGRES_PASSWORD: 1234
 
+    quirrel:
+        image: ghcr.io/quirrel-dev/quirrel:main
+        environment:
+            DISABLE_TELEMETRY: 1
+            REDIS_URL: 'redis://redis:6379'
+#            PASSPHRASES: '06b3673c19b20f87d0d1232ee1cfd392'
+        ports:
+            - "49181:9181"
+        networks:
+            - quirrel
+            - redis
+
+    redis:
+        image: redis:6-alpine
+        command: redis-server --appendonly yes
+        networks:
+            - redis
+
     adminer:
         image: adminer
         ports:
@@ -31,3 +59,5 @@ services:
 
 networks:
     db:
+    quirrel:
+    redis:

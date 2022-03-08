@@ -1,5 +1,7 @@
 .git
 .data
+.docker
+.local
 .next
 build
 dist
