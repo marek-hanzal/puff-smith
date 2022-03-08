@@ -7,6 +7,7 @@ services:
             - "5532:5432"
         networks:
             - db
+            - mongo
         environment:
             POSTGRES_USER: puff-smith
             POSTGRES_DB: puff-smith
@@ -20,5 +21,32 @@ services:
         networks:
             - db
 
+    mongo:
+        image: mongo:5
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 1234
+            MONGO_INITDB_DATABASE: agenda
+        ports:
+            - "47017:27017"
+        networks:
+            - mongo
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        depends_on:
+            - mongo
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
+            ME_CONFIG_MONGODB_URL: mongodb://root:1234@mongo:27017/
+        ports:
+            - "48081:8081"
+        networks:
+            - mongo
+
 networks:
     db:
+    mongo:

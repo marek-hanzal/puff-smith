@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"next:dev": "next dev",
-		"dev": "concurrently 'npm:next:dev'",
+		"agenda": "npx dotenv -c development node ./.next/server/agenda.js",
+		"dev": "concurrently 'npm:next:dev' 'npm:agenda'",
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
@@ -37,7 +38,8 @@
 		"uuid": "^8.3.2",
 		"nprogress": "^0.2.0",
 		"concurrently": "^7.0.0",
-		"typescript": "^4.6.2"
+		"typescript": "^4.6.2",
+		"agenda": "^4.2.1"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.21",
@@ -51,6 +53,8 @@
 		"eslint-config-next": "^12.1.0",
 		"eslint-plugin-react-hooks": "^4.3.0",
 		"prisma": "^3.10.0",
-		"ts-node": "^10.5.0"
+		"ts-node": "^10.5.0",
+		"webpack-merge": "^5.8.0",
+		"path": "^0.12.7"
 	}
 }

@@ -5,16 +5,32 @@ services:
         hostname: puff-smith
         depends_on:
             - mariadb
+            - mongo
+            - postgres
         environment:
             DATABASE_URL: "postgresql://puff-smith:1234@postgres:5432/puff-smith?schema=public"
             NEXTAUTH_URL: 'http://localhost:42000'
             NEXTAUTH_SECRET: '1234'
             NEXTAUTH_GITHUB_CLIENT_ID: 'abbc01fc85709ab26921'
             NEXTAUTH_GITHUB_CLIENT_SECRET: 'd1d4c98417588b8280c60ee0b3b4233761d529f7'
+            AGENDA_DB: root:1234@mongo:27017/?authSource=admin
         networks:
             - db
+            - mongo
         ports:
             - "42000:3000"
+
+    mongo:
+        image: mongo:5
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: 1234
+            MONGO_INITDB_DATABASE: agenda
+        ports:
+            - "47017:27017"
+        networks:
+            - mongo
 
     postgres:
         image: postgres:14.2
@@ -36,3 +52,4 @@ services:
 
 networks:
     db:
+    mongo:
