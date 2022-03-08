@@ -9,12 +9,8 @@ import ImportJob from "@/puff-smith/agenda/job/import";
 	console.log('Registering jobs...');
 	jobs.map(job => job(agenda))
 	console.log('Starting Agenda...');
-	await agenda.on("ready", async () => {
-		console.log('Ready, starting Agenda!');
-		await agenda.start();
-		console.log('Started!');
-	})
-	console.log('Finished.');
+	await agenda.start();
+	console.log('Started!');
 
 	async function graceful() {
 		console.log('Graceful shutdown of Agenda');
