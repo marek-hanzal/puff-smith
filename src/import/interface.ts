@@ -11,3 +11,9 @@ export interface IImportMeta {
 	tabs: IImportTabs[];
 	translations: IImportTranslations;
 }
+
+export type IImportHandler<TItem> = (item: TItem) => void;
+
+export interface IImportHandlers {
+	[index: string]: IImportHandler<any>;
+}
