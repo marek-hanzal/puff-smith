@@ -37,22 +37,28 @@ export const toImport = async (workbook: xlsx.WorkBook, handlers: IImportHandler
 		if (!workSheet) {
 			return;
 		}
-		return tab.services.map(async service => {
+		return Promise.all(tab.services.map(async service => {
 			console.log(`- Executing service [${service}]`);
-			const handler = handlers[service];
+			const handler = handlers[service]?.();
 			if (!handler) {
 				console.log(`- Service [${service}] not found.`);
 				return;
 			}
 			const stream: Readable = xlsx.stream.to_json(workSheet);
+			await handler.begin?.();
 			for await (const item of stream) {
-				handler(Object.keys(item).reduce<any>((obj, key) => {
-					obj[meta.translations[key] || key] = item[key];
-					return obj;
-				}, {}));
+				try {
+					await handler.handler(Object.keys(item).reduce<any>((obj, key) => {
+						obj[meta.translations[key] || key] = item[key];
+						return obj;
+					}, {}));
+				} catch (e) {
+					console.error('Error on item', item, e);
+				}
 			}
+			await handler.end?.();
 			console.log(`- Service [${service}] done.`);
-		});
+		}));
 	});
 	console.log('- Done');
 	return Promise.all(promise);

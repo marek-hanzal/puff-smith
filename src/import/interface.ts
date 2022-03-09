@@ -12,8 +12,14 @@ export interface IImportMeta {
 	translations: IImportTranslations;
 }
 
-export type IImportHandler<TItem> = (item: TItem) => void;
+export interface IImportHandler<TItem> {
+	begin?(): Promise<void>;
+
+	end?(): Promise<void>;
+
+	handler(item: TItem): Promise<void>;
+}
 
 export interface IImportHandlers {
-	[index: string]: IImportHandler<any>;
+	[index: string]: () => IImportHandler<any>;
 }
