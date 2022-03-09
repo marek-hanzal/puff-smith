@@ -46,7 +46,10 @@ export const toImport = async (workbook: xlsx.WorkBook, handlers: IImportHandler
 			}
 			const stream: Readable = xlsx.stream.to_json(workSheet);
 			for await (const item of stream) {
-				handler(item);
+				handler(Object.keys(item).reduce<any>((obj, key) => {
+					obj[meta.translations[key] || key] = item[key];
+					return obj;
+				}, {}));
 			}
 			console.log(`- Service [${service}] done.`);
 		});
