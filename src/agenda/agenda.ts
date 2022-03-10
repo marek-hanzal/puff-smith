@@ -26,8 +26,10 @@ export const asyncJob = async <TParams>(name: string, params: TParams, userId?: 
 		}, prisma);
 		const job: IJob<TParams> = {
 			...entity,
+			progress: entity.progress?.toNumber(),
 			successRatio: entity.successRatio?.toNumber(),
 			failureRatio: entity.failureRatio?.toNumber(),
+			skipRatio: entity.skipRatio?.toNumber(),
 			params: entity.params && JSON.parse(entity.params),
 		};
 		await (await Agenda()).now(name, job);

@@ -13,16 +13,9 @@ export interface IImportMeta {
 }
 
 export interface IImportBeginEvent {
-	count: number;
 }
 
 export interface IImportEndEvent {
-	count: number;
-	success?: number;
-	successRatio?: number;
-	failure?: number;
-	failureRatio?: number;
-	runtime: number;
 }
 
 export interface IImportHandler<TItem> {

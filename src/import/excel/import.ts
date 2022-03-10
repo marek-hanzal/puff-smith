@@ -1,8 +1,11 @@
 import xlsx from "xlsx";
-import {IImportBeginEvent, IImportEndEvent, IImportHandlers, IImportMeta, IImportTabs, IImportTranslations} from "@/puff-smith/import";
+import {IImportHandlers, IImportMeta, IImportTabs, IImportTranslations} from "@/puff-smith/import";
 import {Readable} from "node:stream";
 import {measureTime} from "measure-time";
-import {toHumanNumber, toHumanTimeMs} from "@leight-core/client";
+import {toHumanNumber, toHumanTimeMs, toPercent} from "@leight-core/client";
+import {IJob} from "@leight-core/api";
+import {IImportParams} from "@/puff-smith/agenda/job/import";
+import {jobUpdateFailure, jobUpdateSkip, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
 
 export const toTabs = (workbook: xlsx.WorkBook): IImportTabs[] => {
 	const tabs = workbook.Sheets['tabs'];
@@ -30,65 +33,76 @@ export const toMeta = (workbook: xlsx.WorkBook): IImportMeta => {
 	};
 }
 
-export const toImport = async (workbook: xlsx.WorkBook, handlers: IImportHandlers) => {
+export const toImport = async (job: IJob<IImportParams>, workbook: xlsx.WorkBook, handlers: IImportHandlers) => {
 	console.log('Generating import');
 	const meta = toMeta(workbook);
 	console.log('- Meta\n', meta);
-	const promise = meta.tabs.map(tab => {
+
+	let total = 0;
+	let processed = 0;
+	let success = 0;
+	let failure = 0;
+	let skip = 0;
+	await Promise.all(meta.tabs.map(async tab => {
 		const workSheet = workbook.Sheets[tab.tab];
 		if (!workSheet) {
 			return;
 		}
-		return Promise.all(tab.services.map(async service => {
+		await Promise.all(tab.services.map(async () => {
+			for await (const item of xlsx.stream.to_json(workSheet)) {
+				total++;
+			}
+		}))
+	}));
+
+	console.log('Total', total);
+	await jobUpdateTotal(job.id, total);
+
+	await Promise.all(meta.tabs.map(async tab => {
+		const workSheet = workbook.Sheets[tab.tab];
+		if (!workSheet) {
+			return;
+		}
+		return await Promise.all(tab.services.map(async service => {
 			console.log(`- Executing service [${service}]`);
+			const stream: Readable = xlsx.stream.to_json(workSheet);
 			const handler = handlers[service]?.();
 			if (!handler) {
 				console.log(`- Service [${service}] not found.`);
+				for await (const item of stream) {
+					skip++;
+					processed++;
+					await jobUpdateSkip(job.id, skip, total, processed);
+				}
 				return;
 			}
-			let count = 0;
-			for await (const item of xlsx.stream.to_json(workSheet)) {
-				count++;
-			}
-			const beginEvent: IImportBeginEvent = {count};
-			console.log(`Total [${service}] [${beginEvent.count}].`)
-			await handler.begin?.(beginEvent);
-			const stream: Readable = xlsx.stream.to_json(workSheet);
-			let success = 0;
-			let failure = 0;
+			await handler.begin?.({});
 			const getElapsed = measureTime();
 			for await (const item of stream) {
+				processed++;
 				try {
 					await handler.handler(Object.keys(item).reduce<any>((obj, key) => {
 						obj[meta.translations[key] || key] = item[key];
 						return obj;
 					}, {}));
 					success++;
+					await jobUpdateSuccess(job.id, success, total, processed);
 				} catch (e) {
 					failure++;
+					await jobUpdateFailure(job.id, failure, total, processed);
 					console.error('Error on item', item, e);
 				}
 			}
-			const endEvent: IImportEndEvent = count > 0 ? {
-				count,
-				success,
-				failure,
-				successRatio: 100 * success / count,
-				failureRatio: 100 * failure / count,
-				runtime: getElapsed().millisecondsTotal,
-			} : {
-				count,
-				runtime: getElapsed().millisecondsTotal,
-			};
 			console.log(`Import [${service}] results:
-	success [${endEvent.success}/${endEvent.count} (${toHumanNumber(endEvent.successRatio, 2)}%)]
-	failure [${endEvent.failure}/${endEvent.count} (${toHumanNumber(endEvent.failureRatio, 2)}%)] 				
-	runtime [${toHumanTimeMs(endEvent.runtime)}].
+	imported [${success}]
+	success [${success}/${total} (${toHumanNumber(toPercent(success, total), 2)}%)]
+	failure [${failure}/${total} (${toHumanNumber(toPercent(failure, total), 2)}%)] 				
+	skip [${skip}/${total} (${toHumanNumber(toPercent(skip, total), 2)}%)] 				
+	runtime [${toHumanTimeMs(getElapsed().millisecondsTotal)}].
 `)
-			await handler.end?.(endEvent);
+			await handler.end?.({});
 			console.log(`- Service [${service}] done.`);
 		}));
-	});
+	}));
 	console.log('- Done');
-	return Promise.all(promise);
 }

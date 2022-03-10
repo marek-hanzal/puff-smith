@@ -1,6 +1,8 @@
 import {IJobCreate} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import prismaClient from "@/puff-smith/service/prisma";
+import {IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
+import {toPercent} from "@leight-core/client";
 
 export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTransaction = prisma) {
 	return await prismaClient.job.create({
@@ -8,6 +10,67 @@ export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTran
 			...job,
 			params: job.params && JSON.stringify(job.params),
 			created: new Date(),
+		}
+	})
+}
+
+export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
+	return await prismaClient.job.update({
+		data: {
+			status,
+		},
+		where: {
+			id: jobId,
+		}
+	})
+}
+
+export async function jobUpdateTotal(jobId: string, total: number) {
+	return await prismaClient.job.update({
+		data: {
+			total,
+		},
+		where: {
+			id: jobId,
+		}
+	})
+}
+
+export async function jobUpdateSuccess(jobId: string, success: number, total: number, processed: number) {
+	return await prismaClient.job.update({
+		data: {
+			success,
+			successRatio: toPercent(success, total),
+			progress: toPercent(processed, total),
+		},
+		where: {
+			id: jobId,
+		}
+	})
+}
+
+export async function jobUpdateFailure(jobId: string, failure: number, total: number, processed: number) {
+	return await prismaClient.job.update({
+		data: {
+			failure,
+			failureRatio: toPercent(failure, total),
+			progress: toPercent(processed, total),
+		},
+		where: {
+			id: jobId,
+		}
+	})
+}
+
+export async function jobUpdateSkip(jobId: string, skip: number, total: number, processed: number) {
+	return await prismaClient.job.update({
+		data: {
+			skip,
+			skipRatio: toPercent(skip, total),
+			progress: toPercent(processed, total),
+		},
+		where: {
+			id: jobId,
 		}
 	})
 }

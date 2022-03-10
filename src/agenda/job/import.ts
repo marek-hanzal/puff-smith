@@ -6,6 +6,7 @@ import {TranslationImport} from "@/puff-smith/service/translation";
 import {measureTime} from "measure-time";
 import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
+import {jobUpdateStatus} from "@/puff-smith/service/job";
 
 export const ImportJobName = 'import';
 
@@ -16,17 +17,30 @@ export interface IImportParams extends IQueryParams {
 export default function ImportJob(agenda: Agenda) {
 	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
 		console.log(`Preparing import`);
-		const fileId = job.attrs.data?.params?.fileId;
+		const theJob = job.attrs.data;
+		if (!theJob) {
+			console.log(` - Missing data (job) for ImportJob`);
+			return;
+		}
+		const fileId = theJob.params?.fileId;
 		if (!fileId) {
+			await jobUpdateStatus(theJob.id, "FAILURE");
 			console.log(` - Missing fileId for ImportJob`, job.attrs.data);
 			return;
 		}
-		const workbook = xlsx.readFile(fileService.toLocation(fileId));
-		console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
-		const getElapsed = measureTime();
-		await toImport(workbook, {
-			...TranslationImport,
-		});
-		console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
+		await jobUpdateStatus(theJob.id, "RUNNING");
+		try {
+			const workbook = xlsx.readFile(fileService.toLocation(fileId));
+			console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
+			const getElapsed = measureTime();
+			await toImport(theJob, workbook, {
+				...TranslationImport,
+			});
+			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
+			await jobUpdateStatus(theJob.id, "SUCCESS");
+		} catch (e) {
+			console.error(` - Import of [${fileId}] failed.`, e);
+			await jobUpdateStatus(theJob.id, "FAILURE");
+		}
 	}) as Processor)
 };
