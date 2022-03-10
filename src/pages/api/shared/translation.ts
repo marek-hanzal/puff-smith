@@ -1,14 +1,20 @@
 import {ListEndpoint} from "@leight-core/server";
-import {ITranslationBundle} from "@leight-core/api";
+import {ITranslation, ITranslationBundle} from "@leight-core/api";
+import prismaClient from "@/puff-smith/service/prisma";
 
 export default ListEndpoint<"Translations", ITranslationBundle>(async () => {
 	return {
 		bundles: [
 			{
 				language: 'cs',
-				translations: [
-					{key: 'root.import.title', value: 'Translations works!'},
-				],
+				translations: (await prismaClient.translation.findMany({
+					where: {
+						language: 'cs',
+					}
+				})).map<ITranslation>(item => ({
+					key: item.label,
+					value: item.text,
+				})),
 			}
 		],
 	};
