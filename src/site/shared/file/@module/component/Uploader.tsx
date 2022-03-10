@@ -80,7 +80,6 @@ export const Uploader: FC<IUploaderProps> = (
 
 	function upload() {
 		counter === 1 && (() => {
-			message.success(t(translation + ".upload.started"));
 			currentName.current = filename ? (isString(filename) ? filename : (filename as any)()) : currentName.current;
 		})();
 		setCounter(counter => counter + 1);
@@ -179,14 +178,14 @@ export const Uploader: FC<IUploaderProps> = (
 			{...props}
 		>
 			{!option && !error && <Result
-				icon={icon}
+				icon={icon ? icon : <></>}
 				status={disabled ? "warning" : "info"}
 				title={t(translation + ".upload")}
 				subTitle={t(translation + ".upload.hint")}
 				extra={<Progress size={"default"} type={"dashboard"} format={item => item?.toFixed(1) + "%"}/>}
 			/>}
 			{option && !error && <Result
-				icon={icon}
+				icon={icon ? icon : <></>}
 				status={progress < 100 ? "info" : "success"}
 				title={t(translation + ".upload")}
 				subTitle={t(translation + ".upload.hint")}
@@ -195,7 +194,7 @@ export const Uploader: FC<IUploaderProps> = (
 				<Buttons/>
 			</Result>}
 			{option && error && <Result
-				icon={icon}
+				icon={icon ? icon : <></>}
 				status={"error"}
 				title={t(translation + ".upload.error")}
 				subTitle={t(translation + ".upload.error.hint")}
