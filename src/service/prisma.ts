@@ -2,7 +2,7 @@ import {PrismaClient} from "@prisma/client";
 
 const createPrismaClient = () => {
 	return new PrismaClient({
-		log: ['query', 'info', 'warn', 'error'],
+		log: ['info', 'warn', 'error'],
 	});
 }
 
