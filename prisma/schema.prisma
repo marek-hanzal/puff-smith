@@ -1,20 +1,21 @@
 generator client {
-	provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
-	provider = "postgresql"
-	url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Translation {
-	id			String	@id @default(cuid())
-	language	String	@db.VarChar(32)
-	label       String	@db.Text
-	text		String	@db.Text
-	hash        String	@db.VarChar(128)
+  id       String @id @default(cuid())
+  language String @db.VarChar(32)
+  label    String @db.Text
+  text     String @db.Text
+  hash     String @db.VarChar(128)
 
-	@@unique([language, hash])
+  @@unique([language, hash])
 }
 
 model Account {
@@ -23,12 +24,12 @@ model Account {
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String? @db.Text
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
@@ -54,7 +55,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  files      	File[]
+  files         File[]
+  jobs          Job[]
 }
 
 model VerificationToken {
@@ -66,16 +68,45 @@ model VerificationToken {
 }
 
 model File {
-    id			String    @id @default(cuid())
-    path		String
-    name		String
-    mime		String
-    size		Int
-    location	String
-    ttl			Int?
-    created		DateTime
-    updated		DateTime?
-	userId      String
+  id       String    @id @default(cuid())
+  path     String
+  name     String
+  mime     String
+  size     Int
+  location String
+  ttl      Int?
+  created  DateTime
+  updated  DateTime?
+  userId   String
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Job {
+  id           String    @id @default(cuid())
+  status       JobStatus @default(NEW)
+  total        Int       @default(0)
+  success      Int?
+  successRatio Decimal?  @db.Decimal(3, 2)
+  failure      Int?
+  failureRatio Decimal?  @db.Decimal(3, 2)
+  created      DateTime
+  logs         JobLog[]
+  userId       String?
+  user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  params       String?
+}
+
+model JobLog {
+  id      String @id @default(cuid())
+  jobId   String
+  job     Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  message String @db.Text
+}
+
+enum JobStatus {
+  NEW
+  RUNNING
+  SUCCESS
+  FAILURE
+  DONE
 }

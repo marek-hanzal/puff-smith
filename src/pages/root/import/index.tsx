@@ -1,6 +1,6 @@
 import {ImportIcon} from "@/puff-smith";
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {Template} from "@leight-core/client";
+import {Template, useNavigate} from "@leight-core/client";
 import {Uploader} from "@/puff-smith/site/shared/file";
 import {useImportPromise} from "@/sdk/api/leight/shared/file/[fileId]/import";
 import {message} from "antd";
@@ -9,6 +9,7 @@ import {useTranslation} from "react-i18next";
 export default withRootLayout(function Index() {
 	const {t} = useTranslation();
 	const importPromise = useImportPromise();
+	const navigate = useNavigate();
 	return <RootPage
 		title={"root.import"}
 		menuSelection={['/root/import']}
@@ -24,6 +25,7 @@ export default withRootLayout(function Index() {
 					importPromise(undefined, {fileId: file.id})
 						.then(e => {
 							message.success(t('root.import.execute.success'));
+							navigate('/root/job/list');
 						})
 						.catch(e => {
 							console.error(e);

@@ -2,7 +2,7 @@ import xlsx from "xlsx";
 import {IImportBeginEvent, IImportEndEvent, IImportHandlers, IImportMeta, IImportTabs, IImportTranslations} from "@/puff-smith/import";
 import {Readable} from "node:stream";
 import {measureTime} from "measure-time";
-import {miliDuration, toHumanNumber} from "@leight-core/client";
+import {toHumanNumber, toHumanTimeMs} from "@leight-core/client";
 
 export const toTabs = (workbook: xlsx.WorkBook): IImportTabs[] => {
 	const tabs = workbook.Sheets['tabs'];
@@ -83,7 +83,7 @@ export const toImport = async (workbook: xlsx.WorkBook, handlers: IImportHandler
 			console.log(`Import [${service}] results:
 	success [${endEvent.success}/${endEvent.count} (${toHumanNumber(endEvent.successRatio, 2)}%)]
 	failure [${endEvent.failure}/${endEvent.count} (${toHumanNumber(endEvent.failureRatio, 2)}%)] 				
-	runtime [${miliDuration(endEvent.runtime)}].
+	runtime [${toHumanTimeMs(endEvent.runtime)}].
 `)
 			await handler.end?.(endEvent);
 			console.log(`- Service [${service}] done.`);

@@ -5,6 +5,7 @@ import {Template} from "@leight-core/client";
 export default withRootLayout(function Index() {
 	return <RootPage
 		title={"root.index"}
+		menuSelection={['/root']}
 	>
 		<Template
 			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}

@@ -14,7 +14,7 @@ export default NextAuth({
 		strategy: 'jwt',
 	},
 	pages: {
-		newUser: '/auth/new-user',
+		newUser: '/lab/welcome',
 	},
 	// debug: process.env.NODE_ENV === 'development',
 	providers: [
