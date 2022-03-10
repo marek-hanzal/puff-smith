@@ -12,10 +12,23 @@ export interface IImportMeta {
 	translations: IImportTranslations;
 }
 
-export interface IImportHandler<TItem> {
-	begin?(): Promise<void>;
+export interface IImportBeginEvent {
+	count: number;
+}
 
-	end?(): Promise<void>;
+export interface IImportEndEvent {
+	count: number;
+	success?: number;
+	successRatio?: number;
+	failure?: number;
+	failureRatio?: number;
+	runtime: number;
+}
+
+export interface IImportHandler<TItem> {
+	begin?(event: IImportBeginEvent): Promise<void>;
+
+	end?(event: IImportEndEvent): Promise<void>;
 
 	handler(item: TItem): Promise<void>;
 }
