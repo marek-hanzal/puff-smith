@@ -6,7 +6,15 @@ export default withRootLayout(function List() {
 		title={"root.job"}
 		menuSelection={['/root/job']}
 	>
-		<JobsSource live={1000} defaultOrderBy={{created: 'desc'}}>
+		<JobsSource
+			live={1000}
+			defaultOrderBy={{
+				created: 'desc',
+			}}
+			defaultFilter={{
+				status: 'SUCCESS',
+			}}
+		>
 			<JobsSourceConsumer>
 				{sourceContext => sourceContext.data().items.map(job => <div key={job.id}>
 					{job.status}

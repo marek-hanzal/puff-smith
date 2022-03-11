@@ -1,16 +1,14 @@
-import {IFilter, IOrderBy, IQuery, ISortOrder} from "@leight-core/api";
+import {IQuery} from "@leight-core/api";
+import {Prisma} from '@prisma/client';
 
 export interface IJobCreate {
 	userId?: string;
 	params?: any;
 }
 
-export interface IJobFilter extends IFilter {
-}
+export type IJobFilter = Prisma.JobWhereInput;
 
-export interface IJobOrderBy extends IOrderBy {
-	created?: ISortOrder;
-}
+export type IJobOrderBy = Prisma.JobOrderByWithRelationInput;
 
 export interface IJobQuery extends IQuery<IJobFilter, IJobOrderBy> {
 }

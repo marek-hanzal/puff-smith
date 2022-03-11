@@ -20,9 +20,10 @@ export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
 	query.size,
 	prismaClient.job.count(),
 	jobListMapper(prismaClient.job.findMany({
-		orderBy: {
-			...query.orderBy as any,
-		}
+		where: {
+			...query.filter,
+		},
+		orderBy: query.orderBy,
 	}))
 )
 
