@@ -7,12 +7,12 @@ export const CommitApiLink = "/api/leight/shared/file/chunk/[chunkId]/commit";
 
 export type ICommitQueryParams = IChunkEndpointQuery;
 
-export const useCommitMutation = createMutationHook<IChunkCommit, IFile, ICommitQueryParams>(CommitApiLink, "post");
+export const useCommitMutation = createMutationHook<IChunkCommit, IFile, IChunkEndpointQuery>(CommitApiLink, "post");
 
-export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit, IFile, ICommitQueryParams>> {
+export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit, IFile, IChunkEndpointQuery>> {
 }
 
-export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<IChunkCommit, IFile, ICommitQueryParams>
+export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<IChunkCommit, IFile, IChunkEndpointQuery>
 	useMutation={useCommitMutation}
 	{...props}
 />
@@ -22,4 +22,4 @@ export const useCommitLink = (): ((query: ICommitQueryParams) => string) => {
 	return query => linkContext.link(CommitApiLink, query);
 }
 
-export const useCommitPromise = createPromiseHook<IChunkCommit, IFile, ICommitQueryParams>(CommitApiLink, "post");
+export const useCommitPromise = createPromiseHook<IChunkCommit, IFile, IChunkEndpointQuery>(CommitApiLink, "post");

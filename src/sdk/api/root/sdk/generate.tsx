@@ -1,17 +1,16 @@
 import {FC} from "react";
-import {IQueryParams} from "@leight-core/api";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
 export const GenerateApiLink = "/api/root/sdk/generate";
 
-export type IGenerateQueryParams = IQueryParams;
+export type IGenerateQueryParams = void;
 
-export const useGenerateMutation = createMutationHook<void, string[], IGenerateQueryParams>(GenerateApiLink, "post");
+export const useGenerateMutation = createMutationHook<void, string[]>(GenerateApiLink, "post");
 
-export interface IGenerateDefaultFormProps extends Partial<IFormProps<void, string[], IGenerateQueryParams>> {
+export interface IGenerateDefaultFormProps extends Partial<IFormProps<void, string[]>> {
 }
 
-export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form<void, string[], IGenerateQueryParams>
+export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form<void, string[]>
 	useMutation={useGenerateMutation}
 	{...props}
 />
@@ -21,4 +20,4 @@ export const useGenerateLink = (): ((query: IGenerateQueryParams) => string) => 
 	return query => linkContext.link(GenerateApiLink, query);
 }
 
-export const useGeneratePromise = createPromiseHook<void, string[], IGenerateQueryParams>(GenerateApiLink, "post");
+export const useGeneratePromise = createPromiseHook<void, string[]>(GenerateApiLink, "post");

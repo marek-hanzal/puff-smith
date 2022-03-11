@@ -6,12 +6,12 @@ export const UploadApiLink = "/api/leight/shared/file/chunk/[chunkId]/upload";
 
 export type IUploadQueryParams = IChunkEndpointQuery;
 
-export const useUploadMutation = createMutationHook<string, void, IUploadQueryParams>(UploadApiLink, "post");
+export const useUploadMutation = createMutationHook<string, void, IChunkEndpointQuery>(UploadApiLink, "post");
 
-export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void, IUploadQueryParams>> {
+export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void, IChunkEndpointQuery>> {
 }
 
-export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<string, void, IUploadQueryParams>
+export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<string, void, IChunkEndpointQuery>
 	useMutation={useUploadMutation}
 	{...props}
 />
@@ -21,4 +21,4 @@ export const useUploadLink = (): ((query: IUploadQueryParams) => string) => {
 	return query => linkContext.link(UploadApiLink, query);
 }
 
-export const useUploadPromise = createPromiseHook<string, void, IUploadQueryParams>(UploadApiLink, "post");
+export const useUploadPromise = createPromiseHook<string, void, IChunkEndpointQuery>(UploadApiLink, "post");

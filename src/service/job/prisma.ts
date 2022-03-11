@@ -1,8 +1,10 @@
-import {IJobCreate} from "@/puff-smith/service/job/interface";
+import {IJobCreate, IJobQuery} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/prisma";
 import prismaClient from "@/puff-smith/service/prisma";
-import {IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
+import {IJob, IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
+import {jobListMapper} from "@/puff-smith/service/job/mapper";
+import {toResult} from "@leight-core/server";
 
 export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTransaction = prisma) {
 	return await prismaClient.job.create({
@@ -13,6 +15,16 @@ export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTran
 		}
 	})
 }
+
+export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
+	query.size,
+	prismaClient.job.count(),
+	jobListMapper(prismaClient.job.findMany({
+		orderBy: {
+			...query.orderBy as any,
+		}
+	}))
+)
 
 export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
 	return await prismaClient.job.update({

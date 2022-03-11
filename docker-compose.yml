@@ -25,20 +25,6 @@ services:
         networks:
             - mongo
 
-    mongo-express:
-        image: mongo-express
-        restart: always
-        depends_on:
-            - mongo
-        environment:
-            ME_CONFIG_MONGODB_ADMINUSERNAME: root
-            ME_CONFIG_MONGODB_ADMINPASSWORD: 1234
-            ME_CONFIG_MONGODB_URL: mongodb://root:1234@mongo:27017
-        ports:
-            - "48081:8081"
-        networks:
-            - mongo
-
     agendash:
         image: agenda/agendash
         restart: always

@@ -7,12 +7,12 @@ export const ImportApiLink = "/api/leight/shared/file/[fileId]/import";
 
 export type IImportQueryParams = IImportParams;
 
-export const useImportMutation = createMutationHook<void, IJob<IImportParams>, IImportQueryParams>(ImportApiLink, "post");
+export const useImportMutation = createMutationHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");
 
-export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<IImportParams>, IImportQueryParams>> {
+export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<IImportParams>, IImportParams>> {
 }
 
-export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<void, IJob<IImportParams>, IImportQueryParams>
+export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<void, IJob<IImportParams>, IImportParams>
 	useMutation={useImportMutation}
 	{...props}
 />
@@ -22,4 +22,4 @@ export const useImportLink = (): ((query: IImportQueryParams) => string) => {
 	return query => linkContext.link(ImportApiLink, query);
 }
 
-export const useImportPromise = createPromiseHook<void, IJob<IImportParams>, IImportQueryParams>(ImportApiLink, "post");
+export const useImportPromise = createPromiseHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");

@@ -1,12 +1,5 @@
 import {QueryEndpoint} from "@leight-core/server";
-import {IJob, IQuery} from "@leight-core/api";
+import {IJob} from "@leight-core/api";
+import {IJobFilter, IJobOrderBy, IJobQuery, jobQuery} from "@/puff-smith/service/job";
 
-export default QueryEndpoint<"Jobs", IQuery, IJob[]>(async params => {
-	return {
-		count: 0,
-		pages: 0,
-		total: 0,
-		size: 10,
-		items: [],
-	}
-});
+export default QueryEndpoint<"Jobs", IJobQuery, IJob, IJobFilter, IJobOrderBy>(async ({req: {body}}) => await jobQuery(body));

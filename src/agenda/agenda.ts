@@ -20,7 +20,7 @@ export async function Agenda(): Promise<CoolAgenda> {
 export const asyncJob = async <TParams>(name: string, params: TParams, userId?: string): Promise<IJob<TParams> | void> => {
 	console.log(`Async job [${name}].`);
 	return prismaClient.$transaction(async prisma => {
-		const job = await jobMapper<TParams>(jobCreate({
+		const job = jobMapper<TParams>(await jobCreate({
 			userId,
 			params,
 		}, prisma));

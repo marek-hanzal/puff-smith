@@ -1,18 +1,34 @@
-import {IJob, IQuery, IQueryParams, ISourceContext} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, ISourceProviderProps, useLinkContext, useSourceContext} from "@leight-core/client";
+import {IJob, IQueryResult, ISourceContext} from "@leight-core/api";
+import {IJobFilter, IJobOrderBy, IJobQuery} from "@/puff-smith/service/job";
+import {ConsumerProps, FC} from "react";
+import {createPromiseHook, createQueryHook, ISourceProviderProps, SourceContext, SourceProvider, useLinkContext, useSourceContext} from "@leight-core/client";
 
 export const JobsApiLink = "/api/shared/job/query";
 
-export type IJobsQueryParams = IQueryParams;
+export type IJobsQueryParams = void;
 
-export const useJobsQuery = createQueryHook<IQuery, IJob[], IJobsQueryParams>(JobsApiLink, "post");
+export const useJobsQuery = createQueryHook<IJobQuery, IQueryResult<IJob>, IJobsQueryParams>(JobsApiLink, "post");
 
-export const useJobsSource = () => useSourceContext<IJob[], IJobsQueryParams>()
+export const useJobsSource = () => useSourceContext<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>()
 
-export interface IJobsSourceContext extends ISourceContext<IJob[], IJobsQueryParams> {
+export interface IJobsSourceContext extends ISourceContext<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams> {
 }
 
-export interface IJobsSourceProps extends Partial<ISourceProviderProps<IJob[], IJobsQueryParams>> {
+export interface IJobsSourceProps extends Partial<ISourceProviderProps<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>> {
+}
+
+export interface IJobsSourceConsumerProps extends ConsumerProps<ISourceContext<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>> {
+}
+
+export const JobsSourceConsumer: FC<IJobsSourceConsumerProps> = props => {
+	return <SourceContext.Consumer {...props}/>
+}
+
+export const JobsSource: FC<IJobsSourceProps> = props => {
+	return <SourceProvider<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>
+		useQuery={useJobsQuery}
+		{...props}
+	/>;
 }
 
 export const useJobsLink = (): ((query: IJobsQueryParams) => string) => {
@@ -20,4 +36,4 @@ export const useJobsLink = (): ((query: IJobsQueryParams) => string) => {
 	return query => linkContext.link(JobsApiLink, query);
 }
 
-export const useJobsPromise = createPromiseHook<IQuery, IJob[], IJobsQueryParams>(JobsApiLink, "post");
+export const useJobsPromise = createPromiseHook<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
