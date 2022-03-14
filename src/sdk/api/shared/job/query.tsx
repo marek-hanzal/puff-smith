@@ -1,7 +1,7 @@
 import {IJob, IQueryResult, ISourceContext} from "@leight-core/api";
 import {IJobFilter, IJobOrderBy, IJobQuery} from "@/puff-smith/service/job";
 import {ConsumerProps, FC} from "react";
-import {createPromiseHook, createQueryHook, ISourceProviderProps, SourceContext, SourceProvider, useLinkContext, useSourceContext} from "@leight-core/client";
+import {createPromiseHook, createQueryHook, IListProps, ISourceProviderProps, List, SourceContext, SourceProvider, useLinkContext, useSourceContext} from "@leight-core/client";
 
 export const JobsApiLink = "/api/shared/job/query";
 
@@ -37,3 +37,15 @@ export const useJobsLink = (): ((query: IJobsQueryParams) => string) => {
 }
 
 export const useJobsPromise = createPromiseHook<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
+
+export interface IJobsListSourceProps extends Partial<IListProps<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>> {
+	sourceProps?: Partial<IJobsSourceProps>;
+}
+
+export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}) => {
+	return <JobsSource {...sourceProps}>
+		<List<IJob, IJobFilter, IJobOrderBy, IJobsQueryParams>
+			{...props}
+		/>
+	</JobsSource>
+}

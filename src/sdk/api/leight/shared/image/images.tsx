@@ -1,6 +1,6 @@
 import {IQuery, IQueryResult, ISourceContext} from "@leight-core/api";
 import {ConsumerProps, FC} from "react";
-import {createPromiseHook, createQueryHook, ISourceProviderProps, SourceContext, SourceProvider, useLinkContext, useSourceContext} from "@leight-core/client";
+import {createPromiseHook, createQueryHook, IListProps, ISourceProviderProps, List, SourceContext, SourceProvider, useLinkContext, useSourceContext} from "@leight-core/client";
 
 export interface IImagesDto {
 }
@@ -39,3 +39,15 @@ export const useImagesLink = (): ((query: IImagesQueryParams) => string) => {
 }
 
 export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
+
+export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto, void, void, IImagesQueryParams>> {
+	sourceProps?: Partial<IImagesSourceProps>;
+}
+
+export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...props}) => {
+	return <ImagesSource {...sourceProps}>
+		<List<IImagesDto, void, void, IImagesQueryParams>
+			{...props}
+		/>
+	</ImagesSource>
+}

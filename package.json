@@ -19,7 +19,7 @@
 		"src/service/*"
 	],
 	"dependencies": {
-		"@leight-core/api": "^0.5.68",
+		"@leight-core/api": "^0.5.69",
 		"@leight-core/client": "^0.5.18",
 		"@leight-core/server": "^0.5.30",
 		"@ant-design/icons": "^4.7.0",
