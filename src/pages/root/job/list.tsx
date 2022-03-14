@@ -1,29 +1,25 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {JobsListSource} from "@/sdk/api/shared/job/query";
-import {ListItem, ListItemMeta, toLocalDateTime} from '@leight-core/client';
+import {JobsFilter, JobsSourceControlProvider} from "@/sdk/api/shared/job/query";
+import {JobsList} from "@/puff-smith/site/leight";
 
 export default withRootLayout(function List() {
 	return <RootPage
 		title={"root.job"}
 		menuSelection={['/root/job']}
 	>
-		<JobsListSource
-			sourceProps={{
-				live: 1000,
-				defaultFilter: {
-					status: 'SUCCESS',
-				},
-				defaultOrderBy: {
-					created: 'asc',
-				}
+		<JobsSourceControlProvider
+			defaultFilter={{status: 'SUCCESS'}}
+			defaultOrderBy={{
+				created: 'desc',
 			}}
 		>
-			{job => <ListItem key={job.id}>
-				<ListItemMeta
-					title={job.status}
-					description={toLocalDateTime(job.created)}
-				/>
-			</ListItem>}
-		</JobsListSource>
+			<JobsFilter
+				toFilter={values => ({
+					status: 'FAILURE',
+				})}
+			>
+			</JobsFilter>
+			<JobsList/>
+		</JobsSourceControlProvider>
 	</RootPage>;
 });
