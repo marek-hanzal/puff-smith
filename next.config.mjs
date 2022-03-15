@@ -21,12 +21,6 @@ const config = plugins([
 		isServer,
 		...options
 	}) => {
-		config.optimization = {
-			...config.optimization,
-			runtimeChunk: {
-				name: 'commons',
-			},
-		};
 		config.plugins.push(
 			new webpack.DefinePlugin({
 				'process.env.BUILD_ID': JSON.stringify(buildId),
