@@ -27,6 +27,29 @@ export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
 	}))
 )
 
+export const jobCleanup = async () => {
+	await prismaClient.job.deleteMany({
+		where: {
+			status: {
+				in: ['DONE'],
+			}
+		}
+	});
+};
+
+export const jobCommit = async () => {
+	await prismaClient.job.updateMany({
+		where: {
+			status: {
+				in: ['REVIEW', 'FAILURE', 'SUCCESS'],
+			}
+		},
+		data: {
+			status: 'DONE',
+		}
+	});
+}
+
 export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
 	return await prismaClient.job.update({
 		data: {

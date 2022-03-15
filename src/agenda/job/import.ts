@@ -37,7 +37,7 @@ export default function ImportJob(agenda: Agenda) {
 				...TranslationImport,
 			});
 			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
-			await (result.failure || 0 > 0 ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
+			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {
 			console.error(` - Import of [${fileId}] failed.`, e);
 			await jobUpdateStatus(theJob.id, "FAILURE");

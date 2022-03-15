@@ -1,30 +1,34 @@
-import {ListItem, ListItemMeta, toHumanNumber, toLocalDateTime} from "@leight-core/client";
-import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/shared/job/query";
+import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {FC} from "react";
-import {Progress} from "antd";
+import {JobProgress, JobsListHeader} from "@/puff-smith/site/leight";
+import {Button} from "antd";
+import {useTranslation} from "react-i18next";
+import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/leight/shared/job/query";
 
 export interface IJobListProps extends Partial<IJobsListSourceProps> {
 }
 
 export const JobsList: FC<IJobListProps> = props => {
+	const {t} = useTranslation();
 	return <JobsListSource
 		sourceProps={{
-			live: 1000,
+			live: 500,
 		}}
 		itemLayout={'vertical'}
+		header={() => <JobsListHeader/>}
 		{...props}
 	>
-		{job => <ListItem key={job.id}>
+		{job => <ListItem
+			key={job.id}
+			extra={[
+				<Button key={'commit'}>[commit]</Button>
+			]}
+		>
 			<ListItemMeta
-				title={job.status}
+				title={t('common.job.status.' + job.status)}
 				description={toLocalDateTime(job.created)}
 			/>
-			<Progress
-				status={(job.failure || 0) > 0 ? "exception" : "active"}
-				success={{percent: job.successRatio || 0}}
-				percent={job.progress}
-				format={item => toHumanNumber(item) + "%"}
-			/>
+			<JobProgress job={job}/>
 		</ListItem>}
 	</JobsListSource>;
 }

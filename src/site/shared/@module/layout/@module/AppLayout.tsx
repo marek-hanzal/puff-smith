@@ -3,8 +3,8 @@ import i18next from "i18next";
 import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
 import {App, createQueryClient, IAppProps, useQueryPersistence} from "@leight-core/client";
-import {useTranslationsQuery} from "@/sdk/api/shared/translation";
 import {IPageWithLayout} from "@leight-core/api";
+import {useTranslationsQuery} from "@/sdk/api/leight/shared/translation";
 
 const queryClient = createQueryClient();
 

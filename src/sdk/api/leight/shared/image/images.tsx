@@ -1,5 +1,6 @@
-import {IQuery, IQueryResult, ISourceContext} from "@leight-core/api";
+import {IQuery, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 import {
 	createPromiseHook,
 	createQueryHook,
@@ -9,10 +10,12 @@ import {
 	IFilterWithoutTranslationProps,
 	IListProps,
 	IOrderByProviderProps,
+	IQuerySourceSelectProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
 	OrderByProvider,
+	QuerySourceSelect,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -29,7 +32,7 @@ export interface IImagesDto {
 
 export const ImagesApiLink = "/api/leight/shared/image/images";
 
-export type IImagesQueryParams = void;
+export type IImagesQueryParams = undefined;
 
 export const useImagesQuery = createQueryHook<IQuery, IQueryResult<IImagesDto>, IImagesQueryParams>(ImagesApiLink, "post");
 
@@ -44,9 +47,7 @@ export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImages
 export interface IImagesSourceConsumerProps extends ConsumerProps<ISourceContext<IImagesDto>> {
 }
 
-export const ImagesSourceConsumer: FC<IImagesSourceConsumerProps> = props => {
-	return <SourceContext.Consumer {...props}/>
-}
+export const ImagesSourceConsumer: FC<IImagesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
 export const ImagesSource: FC<IImagesSourceProps> = props => {
 	return <SourceProvider<IImagesDto>
@@ -55,9 +56,9 @@ export const ImagesSource: FC<IImagesSourceProps> = props => {
 	/>;
 }
 
-export const useImagesLink = (): ((query: IImagesQueryParams) => string) => {
+export const useImagesLink = (): ((queryParams?: IImagesQueryParams) => string) => {
 	const linkContext = useLinkContext();
-	return query => linkContext.link(ImagesApiLink, query);
+	return queryParams => linkContext.link(ImagesApiLink, queryParams);
 }
 
 export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
@@ -65,29 +66,23 @@ export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQue
 export interface IImagesFilterProviderProps extends Partial<IFilterProviderProps<void>> {
 }
 
-export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => {
-	return <FilterProvider<void> {...props}/>
-}
+export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<void> {...props}/>;
 
 export const useImagesOptionalFilterContext = () => useOptionalFilterContext<void>()
 export const useImagesFilterContext = () => useFilterContext<void>()
 
-export interface IImagesFilterProps extends IFilterWithoutTranslationProps<void> {
+export interface IImagesSourceFilterProps extends IFilterWithoutTranslationProps<void> {
 }
 
-export const ImagesFilter: FC<IImagesFilterProps> = props => {
-	return <Filter
-		{...props}
-		translation={'common.filter.Images'}
-	/>
-}
+export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
+	{...props}
+	translation={'common.filter.Images'}
+/>;
 
 export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<void>> {
 }
 
-export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => {
-	return <OrderByProvider<void> {...props}/>
-}
+export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<void> {...props}/>;
 
 export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<void>()
 export const useImagesOrderByContext = () => useOrderByContext<void>()
@@ -99,9 +94,7 @@ export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto>> 
 export interface IImagesSourceControlProviderProps extends Partial<ISourceControlProviderProps<void, void, IImagesQueryParams>> {
 }
 
-export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => {
-	return <SourceControlProvider<void, void> {...props}/>
-}
+export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => <SourceControlProvider<void, void> {...props}/>;
 
 export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...props}) => {
 	return <ImagesSource
@@ -111,4 +104,20 @@ export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</ImagesSource>
+}
+
+export interface IImagesSourceSelectProps extends Partial<IQuerySourceSelectProps<IImagesDto>> {
+	toOption: IToOptionMapper<IImagesDto>;
+	sourceProps?: IImagesSourceProps;
+}
+
+export const ImagesSourceSelect: FC<IImagesSourceSelectProps> = ({sourceProps, ...props}) => {
+	return <ImagesSource {...sourceProps}>
+		<QuerySourceSelect<IImagesDto> {...props}/>
+	</ImagesSource>;
+};
+
+export const useImagesQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ImagesApiLink]);
 }

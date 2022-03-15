@@ -1,6 +1,6 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {JobsSourceControlProvider} from "@/sdk/api/shared/job/query";
-import {JobsFilter, JobsList} from "@/puff-smith/site/leight";
+import {JobsList} from "@/puff-smith/site/leight";
+import {JobsSourceControlProvider} from "@/sdk/api/leight/shared/job/query";
 
 export default withRootLayout(function List() {
 	return <RootPage
@@ -12,7 +12,6 @@ export default withRootLayout(function List() {
 				created: 'desc',
 			}}
 		>
-			<JobsFilter/>
 			<JobsList/>
 		</JobsSourceControlProvider>
 	</RootPage>;

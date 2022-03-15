@@ -1,5 +1,5 @@
-import {IJobsSourceFilterProps, JobsSourceFilter} from "@/sdk/api/shared/job/query";
 import {FC} from "react";
+import {IJobsSourceFilterProps, JobsSourceFilter} from "@/sdk/api/leight/shared/job/query";
 
 export interface IJobsFilterProps extends Partial<IJobsSourceFilterProps> {
 }
