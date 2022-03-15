@@ -70,10 +70,10 @@ export const JobsFilterProvider: FC<IJobsFilterProviderProps> = props => {
 export const useJobsOptionalFilterContext = () => useOptionalFilterContext<IJobFilter>()
 export const useJobsFilterContext = () => useFilterContext<IJobFilter>()
 
-export interface IJobsFilterProps extends IFilterWithoutTranslationProps<IJobFilter> {
+export interface IJobsSourceFilterProps extends IFilterWithoutTranslationProps<IJobFilter> {
 }
 
-export const JobsFilter: FC<IJobsFilterProps> = props => {
+export const JobsSourceFilter: FC<IJobsSourceFilterProps> = props => {
 	return <Filter
 		{...props}
 		translation={'common.filter.Jobs'}

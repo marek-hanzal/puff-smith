@@ -1,6 +1,6 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {JobsFilter, JobsSourceControlProvider} from "@/sdk/api/shared/job/query";
-import {JobsList} from "@/puff-smith/site/leight";
+import {JobsSourceControlProvider} from "@/sdk/api/shared/job/query";
+import {JobsFilter, JobsList} from "@/puff-smith/site/leight";
 
 export default withRootLayout(function List() {
 	return <RootPage
@@ -8,17 +8,11 @@ export default withRootLayout(function List() {
 		menuSelection={['/root/job']}
 	>
 		<JobsSourceControlProvider
-			defaultFilter={{status: 'SUCCESS'}}
 			defaultOrderBy={{
 				created: 'desc',
 			}}
 		>
-			<JobsFilter
-				toFilter={values => ({
-					status: 'FAILURE',
-				})}
-			>
-			</JobsFilter>
+			<JobsFilter/>
 			<JobsList/>
 		</JobsSourceControlProvider>
 	</RootPage>;

@@ -24,7 +24,7 @@ export default function ImportJob(agenda: Agenda) {
 		}
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
-			await jobUpdateStatus(theJob.id, "FAILURE");
+			await jobUpdateStatus(theJob.id, "REVIEW");
 			console.log(` - Missing fileId for ImportJob`, job.attrs.data);
 			return;
 		}
@@ -33,11 +33,11 @@ export default function ImportJob(agenda: Agenda) {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
 			const getElapsed = measureTime();
-			await toImport(theJob, workbook, {
+			const result = await toImport(theJob, workbook, {
 				...TranslationImport,
 			});
 			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
-			await jobUpdateStatus(theJob.id, "SUCCESS");
+			await (result.failure || 0 > 0 ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {
 			console.error(` - Import of [${fileId}] failed.`, e);
 			await jobUpdateStatus(theJob.id, "FAILURE");

@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "JobStatus" AS ENUM ('NEW', 'RUNNING', 'SUCCESS', 'FAILURE');
+CREATE TYPE "JobStatus" AS ENUM ('NEW', 'RUNNING', 'SUCCESS', 'FAILURE', 'REVIEW', 'DONE');
 
 -- CreateTable
 CREATE TABLE "Job" (

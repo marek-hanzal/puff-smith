@@ -111,4 +111,6 @@ enum JobStatus {
   RUNNING
   SUCCESS
   FAILURE
+  REVIEW
+  DONE
 }
