@@ -12,10 +12,10 @@ const config = plugins([
 		formats: ['image/avif', 'image/webp']
 	},
 	productionBrowserSourceMaps: false,
-	experimental:                {
-		outputStandalone: false,
-	},
-	webpack:                     (config, {
+	// experimental:                {
+	// 	outputStandalone: true,
+	// },
+	webpack: (config, {
 		webpack,
 		buildId,
 		isServer,

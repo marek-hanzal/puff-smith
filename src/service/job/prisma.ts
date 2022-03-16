@@ -1,4 +1,4 @@
-import {IJobCreate, IJobQuery} from "@/puff-smith/service/job/interface";
+import {IJobCreate, IJobFilter, IJobQuery} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/prisma";
 import prismaClient from "@/puff-smith/service/prisma";
 import {IJob, IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
@@ -27,13 +27,10 @@ export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
 	}))
 )
 
-export const jobCleanup = async () => {
+export const jobCleanup = async (filter?: IJobFilter) => {
+	console.log('filter?', filter);
 	await prismaClient.job.deleteMany({
-		where: {
-			status: {
-				in: ['DONE'],
-			}
-		}
+		where: filter,
 	});
 	return true;
 };

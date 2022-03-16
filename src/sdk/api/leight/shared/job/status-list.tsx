@@ -1,4 +1,4 @@
-import {IJobStatus, IQuery, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IBaseSelectOption, IQuery, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
 import {
@@ -31,23 +31,23 @@ export const StatusListApiLink = "/api/leight/shared/job/status-list";
 
 export type IStatusListQueryParams = undefined;
 
-export const useStatusListQuery = createQueryHook<IQuery, IQueryResult<IJobStatus>, IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListQuery = createQueryHook<IQuery, IQueryResult<IBaseSelectOption>, IStatusListQueryParams>(StatusListApiLink, "post");
 
-export const useStatusListSource = () => useSourceContext<IJobStatus>()
+export const useStatusListSource = () => useSourceContext<IBaseSelectOption>()
 
-export interface IStatusListSourceContext extends ISourceContext<IJobStatus> {
+export interface IStatusListSourceContext extends ISourceContext<IBaseSelectOption> {
 }
 
-export interface IStatusListSourceConsumerProps extends ConsumerProps<ISourceContext<IJobStatus>> {
+export interface IStatusListSourceConsumerProps extends ConsumerProps<ISourceContext<IBaseSelectOption>> {
 }
 
 export const StatusListSourceConsumer: FC<IStatusListSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IStatusListSourceProps extends Partial<ISourceProviderProps<IJobStatus>> {
+export interface IStatusListSourceProps extends Partial<ISourceProviderProps<IBaseSelectOption>> {
 }
 
 export const StatusListSource: FC<IStatusListSourceProps> = props => {
-	return <SourceProvider<IJobStatus>
+	return <SourceProvider<IBaseSelectOption>
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
@@ -58,7 +58,7 @@ export const useStatusListLink = (): ((queryParams?: IStatusListQueryParams) => 
 	return queryParams => linkContext.link(StatusListApiLink, queryParams);
 }
 
-export const useStatusListPromise = createPromiseHook<IQuery, IJobStatus, IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListPromise = createPromiseHook<IQuery, IBaseSelectOption, IStatusListQueryParams>(StatusListApiLink, "post");
 
 export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<void>> {
 }
@@ -84,7 +84,7 @@ export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = pr
 export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<void>()
 export const useStatusListOrderByContext = () => useOrderByContext<void>()
 
-export interface IStatusListListSourceProps extends Partial<IListProps<IJobStatus>> {
+export interface IStatusListListSourceProps extends Partial<IListProps<IBaseSelectOption>> {
 	sourceProps?: Partial<IStatusListSourceProps>;
 }
 
@@ -97,20 +97,20 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 	return <StatusListSource
 		{...sourceProps}
 	>
-		<List<IJobStatus>
+		<List<IBaseSelectOption>
 			{...props}
 		/>
 	</StatusListSource>
 }
 
-export interface IStatusListSourceSelectProps extends Partial<IQuerySourceSelectProps<IJobStatus>> {
-	toOption: IToOptionMapper<IJobStatus>;
+export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {
+	toOption: IToOptionMapper<IBaseSelectOption>;
 	sourceProps?: IStatusListSourceProps;
 }
 
 export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, ...props}) => {
 	return <StatusListSource {...sourceProps}>
-		<QuerySourceSelect<IJobStatus> {...props}/>
+		<QuerySourceSelect<IBaseSelectOption> {...props}/>
 	</StatusListSource>;
 };
 

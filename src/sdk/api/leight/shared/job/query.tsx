@@ -104,7 +104,7 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 	</JobsSource>
 }
 
-export interface IJobsSourceSelectProps extends Partial<IQuerySourceSelectProps<IJob>> {
+export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 	toOption: IToOptionMapper<IJob>;
 	sourceProps?: IJobsSourceProps;
 }

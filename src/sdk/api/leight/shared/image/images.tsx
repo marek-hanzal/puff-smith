@@ -106,7 +106,7 @@ export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...pr
 	</ImagesSource>
 }
 
-export interface IImagesSourceSelectProps extends Partial<IQuerySourceSelectProps<IImagesDto>> {
+export interface IImagesSourceSelectProps extends IQuerySourceSelectProps<IImagesDto> {
 	toOption: IToOptionMapper<IImagesDto>;
 	sourceProps?: IImagesSourceProps;
 }
