@@ -6,15 +6,19 @@ import {JobMenu} from "@/puff-smith/site/root/job";
 import {useParams} from "@leight-core/client";
 import {JobIcon} from "@/puff-smith";
 
+interface IJobConfig {
+	filter?: IJobStatus[];
+	listProps?: Partial<IJobListProps>;
+}
+
+interface IJobConfigObject {
+	[index: string]: IJobConfig;
+}
+
 export default withRootLayout(function Index() {
 	const {status} = useParams();
 
-	const tabs: {
-		[index in string]: {
-			filter?: IJobStatus[],
-			listProps?: Partial<IJobListProps>,
-		}
-	} = {
+	const configs: IJobConfigObject = {
 		'running': {
 			filter: ['RUNNING', 'NEW'],
 			listProps: {
@@ -52,7 +56,7 @@ export default withRootLayout(function Index() {
 		},
 	};
 
-	const config = tabs[status || 'running'];
+	const config = configs[status || 'running'];
 
 	return <RootPage
 		title={"root.job"}
