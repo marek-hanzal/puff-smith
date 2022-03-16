@@ -8,7 +8,6 @@ export default withPublicLayout(function Index() {
 	return <PublicPage
 		title={"public.index"}
 		menuSelection={['/public']}
-		fullwidth
 	>
 		<Template
 			icon={<Image alt={"logo"} height={160} preview={false} src={icon}/>}

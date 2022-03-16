@@ -10,7 +10,6 @@ export default withPublicLayout(function Custom404() {
 	const router = useRouter();
 	return <PublicPage
 		title={"public.404"}
-		fullwidth
 	>
 		<Template
 			status={"404"}

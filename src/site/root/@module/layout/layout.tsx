@@ -1,18 +1,17 @@
-import {HeaderSiderLayout} from "@leight-core/client";
-import {FC} from "react";
-import {Footer, Header, RootMenu} from "@/puff-smith/site/root";
+import React, {FC} from "react";
+import {Footer, Header} from "@/puff-smith/site/root";
 import {AppLayout} from "@/puff-smith/site/shared";
 import {IPageWithLayout} from "@leight-core/api";
+import {ApplicationLayout} from "@leight-core/client";
 
 export interface IRootLayoutProps {
 }
 
 export const RootLayout: FC<IRootLayoutProps> = props => {
 	return <AppLayout defaultCollapsed={false}>
-		<HeaderSiderLayout
+		<ApplicationLayout
 			header={<Header/>}
 			footer={<Footer/>}
-			menu={<RootMenu/>}
 			{...props}
 		/>
 	</AppLayout>;

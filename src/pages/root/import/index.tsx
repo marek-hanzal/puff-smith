@@ -25,7 +25,7 @@ export default withRootLayout(function Index() {
 					importPromise(undefined, {fileId: file.id})
 						.then(e => {
 							message.success(t('root.import.execute.success'));
-							navigate('/root/job/list');
+							navigate('/root/job');
 						})
 						.catch(e => {
 							console.error(e);

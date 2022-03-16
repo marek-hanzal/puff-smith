@@ -1,12 +1,13 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {IJobListProps, JobsList} from "@/puff-smith/site/leight";
 import {JobsSourceControlProvider} from "@/sdk/api/leight/shared/job/query";
-import {Tabs} from "antd";
-import {useTranslation} from "react-i18next";
 import {IJobStatus} from "@leight-core/api";
+import {JobMenu} from "@/puff-smith/site/root/job";
+import {useParams} from "@leight-core/client";
+import {JobIcon} from "@/puff-smith";
 
-export default withRootLayout(function List() {
-	const {t} = useTranslation();
+export default withRootLayout(function Index() {
+	const {status} = useParams();
 
 	const tabs: {
 		[index in string]: {
@@ -14,62 +15,62 @@ export default withRootLayout(function List() {
 			listProps?: Partial<IJobListProps>,
 		}
 	} = {
-		'RUNNING': {
+		'running': {
 			filter: ['RUNNING', 'NEW'],
 			listProps: {
 				disableToolbar: true,
 			},
 		},
-		'REVIEW': {
+		'review': {
 			filter: ['REVIEW'],
 			listProps: {
 				showFilter: false,
 			},
 		},
-		'FAILURE': {
+		'failure': {
 			filter: ['FAILURE'],
 			listProps: {
 				showFilter: false,
 			},
 		},
-		'SUCCESS': {
+		'success': {
 			filter: ['SUCCESS'],
 			listProps: {
 				showFilter: false,
 			},
 		},
-		'DONE': {
+		'done': {
 			filter: ['DONE'],
 			listProps: {
 				showFilter: false,
 			},
 		},
-		'ALL': {
+		'all': {
 			listProps: {
 				showCommit: false,
 			},
 		},
 	};
 
+	const config = tabs[status || 'running'];
+
 	return <RootPage
 		title={"root.job"}
-		menuSelection={['/root/job']}
+		menuSelection={['/root/job', '/root/job/' + (status || 'running')]}
+		icon={<JobIcon/>}
+		headerPostfix={<JobMenu/>}
 	>
-		<Tabs size={'large'}>
-			{Object.entries(tabs).map(([tab, config]) => <Tabs.TabPane key={tab} tab={t(`common.job.status.${tab}.tab`)}>
-				<JobsSourceControlProvider
-					applyFilter={config.filter && {
-						status: {
-							in: config.filter,
-						},
-					}}
-					defaultOrderBy={{
-						created: 'desc',
-					}}
-				>
-					<JobsList {...config.listProps}/>
-				</JobsSourceControlProvider>
-			</Tabs.TabPane>)}
-		</Tabs>
+		<JobsSourceControlProvider
+			applyFilter={config.filter && {
+				status: {
+					in: config.filter,
+				},
+			}}
+			defaultOrderBy={{
+				created: 'desc',
+			}}
+		>
+			<JobsList {...config.listProps}/>
+		</JobsSourceControlProvider>
 	</RootPage>;
 });
