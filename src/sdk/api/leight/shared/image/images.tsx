@@ -41,13 +41,13 @@ export const useImagesSource = () => useSourceContext<IImagesDto>()
 export interface IImagesSourceContext extends ISourceContext<IImagesDto> {
 }
 
-export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImagesDto>> {
-}
-
 export interface IImagesSourceConsumerProps extends ConsumerProps<ISourceContext<IImagesDto>> {
 }
 
 export const ImagesSourceConsumer: FC<IImagesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+
+export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImagesDto>> {
+}
 
 export const ImagesSource: FC<IImagesSourceProps> = props => {
 	return <SourceProvider<IImagesDto>

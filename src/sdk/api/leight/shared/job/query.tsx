@@ -39,13 +39,13 @@ export const useJobsSource = () => useSourceContext<IJob>()
 export interface IJobsSourceContext extends ISourceContext<IJob> {
 }
 
-export interface IJobsSourceProps extends Partial<ISourceProviderProps<IJob>> {
-}
-
 export interface IJobsSourceConsumerProps extends ConsumerProps<ISourceContext<IJob>> {
 }
 
 export const JobsSourceConsumer: FC<IJobsSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+
+export interface IJobsSourceProps extends Partial<ISourceProviderProps<IJob>> {
+}
 
 export const JobsSource: FC<IJobsSourceProps> = props => {
 	return <SourceProvider<IJob>

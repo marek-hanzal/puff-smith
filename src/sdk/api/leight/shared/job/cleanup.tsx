@@ -6,17 +6,17 @@ export const CleanupApiLink = "/api/leight/shared/job/cleanup";
 
 export type ICleanupQueryParams = undefined;
 
-export const useCleanupMutation = createMutationHook<void, void>(CleanupApiLink, "post");
+export const useCleanupMutation = createMutationHook<void, boolean>(CleanupApiLink, "post");
 
 export const useCleanupQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CleanupApiLink]);
 }
 
-export interface ICleanupDefaultFormProps extends Partial<IFormProps<void, void>> {
+export interface ICleanupDefaultFormProps extends Partial<IFormProps<void, boolean>> {
 }
 
-export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<void, void>
+export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<void, boolean>
 	useMutation={useCleanupMutation}
 	{...props}
 />
@@ -26,4 +26,4 @@ export const useCleanupLink = (): ((query: ICleanupQueryParams) => string) => {
 	return query => linkContext.link(CleanupApiLink, query);
 }
 
-export const useCleanupPromise = createPromiseHook<void, void>(CleanupApiLink, "post");
+export const useCleanupPromise = createPromiseHook<void, boolean>(CleanupApiLink, "post");

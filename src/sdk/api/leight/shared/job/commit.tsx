@@ -6,17 +6,17 @@ export const CommitApiLink = "/api/leight/shared/job/commit";
 
 export type ICommitQueryParams = undefined;
 
-export const useCommitMutation = createMutationHook<void, void>(CommitApiLink, "post");
+export const useCommitMutation = createMutationHook<void, boolean>(CommitApiLink, "post");
 
 export const useCommitQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CommitApiLink]);
 }
 
-export interface ICommitDefaultFormProps extends Partial<IFormProps<void, void>> {
+export interface ICommitDefaultFormProps extends Partial<IFormProps<void, boolean>> {
 }
 
-export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, void>
+export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, boolean>
 	useMutation={useCommitMutation}
 	{...props}
 />
@@ -26,4 +26,4 @@ export const useCommitLink = (): ((query: ICommitQueryParams) => string) => {
 	return query => linkContext.link(CommitApiLink, query);
 }
 
-export const useCommitPromise = createPromiseHook<void, void>(CommitApiLink, "post");
+export const useCommitPromise = createPromiseHook<void, boolean>(CommitApiLink, "post");

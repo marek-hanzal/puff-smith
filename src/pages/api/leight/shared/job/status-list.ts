@@ -1,7 +1,7 @@
 import {QueryEndpoint} from '@leight-core/server';
-import {IJobStatus} from "@leight-core/api";
+import {IJobStatus, IQuery} from "@leight-core/api";
 
-export default QueryEndpoint<"StatusList", undefined, IJobStatus>(async () => {
+export default QueryEndpoint<"StatusList", IQuery, IJobStatus>(async () => {
 	const items: IJobStatus[] = [
 		'NEW',
 		'FAILURE',
