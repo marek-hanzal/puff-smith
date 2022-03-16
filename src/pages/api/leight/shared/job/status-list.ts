@@ -1,8 +1,8 @@
-import {FetchEndpoint} from '@leight-core/server';
+import {QueryEndpoint} from '@leight-core/server';
 import {IJobStatus} from "@leight-core/api";
 
-export default FetchEndpoint<"StatusList", IJobStatus[]>(async () => {
-	return [
+export default QueryEndpoint<"StatusList", undefined, IJobStatus>(async () => {
+	const items: IJobStatus[] = [
 		'NEW',
 		'FAILURE',
 		'SUCCESS',
@@ -10,4 +10,9 @@ export default FetchEndpoint<"StatusList", IJobStatus[]>(async () => {
 		'REVIEW',
 		'DONE',
 	];
+	return {
+		total: items.length,
+		count: items.length,
+		items,
+	};
 });

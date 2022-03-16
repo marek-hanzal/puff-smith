@@ -35,6 +35,7 @@ export const jobCleanup = async () => {
 			}
 		}
 	});
+	return true;
 };
 
 export const jobCommit = async () => {
@@ -48,6 +49,7 @@ export const jobCommit = async () => {
 			status: 'DONE',
 		}
 	});
+	return true;
 }
 
 export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
