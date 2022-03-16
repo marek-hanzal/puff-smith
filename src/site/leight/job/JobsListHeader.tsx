@@ -38,9 +38,7 @@ export const JobsListHeader: FC<IJobsListHeaderProps> = ({showCommit = true, sho
 			type={'ghost'}
 			danger
 			onClick={() => {
-				cleanupMutation.mutate(filterContext?.filter || {
-					status: 'DONE',
-				}, {
+				cleanupMutation.mutate(filterContext?.filter, {
 					onSuccess: async () => {
 						message.success(t('common.job.cleanup.success'));
 						await jobsQueryInvalidate();

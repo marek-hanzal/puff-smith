@@ -28,8 +28,7 @@ export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
 )
 
 export const jobCleanup = async (filter?: IJobFilter) => {
-	console.log('filter?', filter);
-	await prismaClient.job.deleteMany({
+	await prismaClient.job.deleteMany(filter && {
 		where: filter,
 	});
 	return true;

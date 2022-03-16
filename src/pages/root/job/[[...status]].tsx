@@ -50,6 +50,7 @@ export default withRootLayout(function Index() {
 			},
 		},
 		'all': {
+			filter: undefined,
 			listProps: {
 				showCommit: false,
 			},
