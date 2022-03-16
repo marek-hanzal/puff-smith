@@ -4,7 +4,7 @@ import {FC} from "react";
 import {FullLogoIcon} from "@/puff-smith";
 import {App, createQueryClient, IAppProps, useQueryPersistence} from "@leight-core/client";
 import {IPageWithLayout} from "@leight-core/api";
-import {useTranslationsQuery} from "@/sdk/api/leight/shared/translation";
+import {useTranslationsQuery} from "@/sdk/api/leight/public/translation";
 
 const queryClient = createQueryClient();
 

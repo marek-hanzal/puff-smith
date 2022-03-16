@@ -1,11 +1,13 @@
-import plugins from 'next-compose-plugins';
+import withPlugins from 'next-compose-plugins';
 import { patchWebpackConfig } from 'next-global-css';
 import images from 'next-images';
+import withTM from 'next-transpile-modules';
 import path from 'path';
 import { merge } from 'webpack-merge';
 
-const config = plugins([
+const config = withPlugins([
 	images,
+	withTM(['@next-auth/prisma-adapter']),
 ], {
 	swcMinify:                   true,
 	images:                      {
