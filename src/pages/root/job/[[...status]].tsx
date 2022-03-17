@@ -22,36 +22,54 @@ export default withRootLayout(function Index() {
 		'running': {
 			filter: ['RUNNING', 'NEW'],
 			listProps: {
+				sourceProps: {
+					live: 1000,
+				},
 				disableToolbar: true,
 			},
 		},
 		'review': {
 			filter: ['REVIEW'],
 			listProps: {
+				sourceProps: {
+					live: 0,
+				},
 				showFilter: false,
 			},
 		},
 		'failure': {
 			filter: ['FAILURE'],
 			listProps: {
+				sourceProps: {
+					live: 0,
+				},
 				showFilter: false,
 			},
 		},
 		'success': {
 			filter: ['SUCCESS'],
 			listProps: {
+				sourceProps: {
+					live: 0,
+				},
 				showFilter: false,
 			},
 		},
 		'done': {
 			filter: ['DONE'],
 			listProps: {
+				sourceProps: {
+					live: 0,
+				},
 				showFilter: false,
 			},
 		},
 		'all': {
 			filter: undefined,
 			listProps: {
+				sourceProps: {
+					live: 5000,
+				},
 				showCommit: false,
 			},
 		},
@@ -79,3 +97,4 @@ export default withRootLayout(function Index() {
 		</JobsSourceControlProvider>
 	</RootPage>;
 });
+
