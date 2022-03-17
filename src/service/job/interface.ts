@@ -1,8 +1,7 @@
 import {IQuery} from "@leight-core/api";
-import {Prisma} from '@prisma/client';
-import prismaClient from "@/puff-smith/service/prisma";
+import {Job, Prisma} from '@prisma/client';
 
-export type IJobs = ReturnType<typeof prismaClient.job.findMany>;
+export type IJobs = Promise<Job[]>;
 
 export interface IJobCreate {
 	userId?: string;

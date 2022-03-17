@@ -1,10 +1,11 @@
-import {IJobCreate, IJobFilter, IJobQuery} from "@/puff-smith/service/job/interface";
+import {IJobCreate, IJobFilter, IJobOrderBy, IJobQuery} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/prisma";
 import prismaClient from "@/puff-smith/service/prisma";
 import {IJob, IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {jobListMapper} from "@/puff-smith/service/job/mapper";
-import {toResult} from "@leight-core/server";
+import {toQuery} from "@leight-core/server";
+import {Job} from "@prisma/client";
 
 export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTransaction = prisma) {
 	return await prismaClient.job.create({
@@ -16,16 +17,11 @@ export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTran
 	})
 }
 
-export const jobQuery = async (query: IJobQuery) => toResult<IJob>(
-	query.size,
-	prismaClient.job.count(),
-	jobListMapper(prismaClient.job.findMany({
-		where: {
-			...query.filter,
-		},
-		orderBy: query.orderBy,
-	}))
-)
+export const jobQuery = async (query: IJobQuery) => toQuery<Job, IJob, IJobQuery, IJobFilter, IJobOrderBy>({
+	query,
+	source: prismaClient.job,
+	mapper: jobListMapper,
+})
 
 export const jobCleanup = async (filter?: IJobFilter) => {
 	await prismaClient.job.deleteMany(filter && {
