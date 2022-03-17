@@ -1,0 +1,5 @@
+id,name,email,password,site,settings
+41e6a934-d768-449a-a5f6-88939c968ff8,root,root,$2y$12$s01aN80dmg7tmTqCuw3gUO3f7l/H2wweRz1uxQbQnSWFD/HVHTEIe,root,
+909a7512-1c56-4db6-b206-38f70895f187,test,test,$2y$12$jEFq/1AooIBsQj7eJtri9OwFOckuoSa72gHcHo0WMgaTWpGsI8GhK,lab,
+cefce5d6-ebbc-42be-b135-0e4c713da34a,upgrade,upgrade,,root,
+ef1bb964-8099-4d5d-9484-d4d8174c6c33,Marek Hanzal,marek.hanzal@x32.cz,$2y$12$dMFU4XUpwrq145cH.uJzauV7AzFNFVq0XO29fbKRPdKNu3QHpSA8C,lab,"{""date"":""LL"",""datetime"":""LLLL""}"
