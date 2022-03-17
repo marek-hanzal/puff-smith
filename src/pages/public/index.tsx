@@ -1,18 +1,19 @@
-import icon from "@/puff-smith/assets/logo/logo-full.svg";
-import {Button, Divider, Image} from "antd";
+import {Button} from "antd";
 import {Card, Template} from "@leight-core/client";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
-import {signIn} from "next-auth/react";
+import {getProviders, signIn} from "next-auth/react";
 
-export default withPublicLayout(function Index() {
+interface IIndexProps {
+	providers: Awaited<ReturnType<typeof getProviders>>;
+}
+
+export default withPublicLayout(function Index({providers}: IIndexProps) {
+	console.log('providers', providers);
 	return <PublicPage
 		title={"public.index"}
 		menuSelection={['/public']}
 	>
-		<Template
-			icon={<Image alt={"logo"} height={160} preview={false} src={icon}/>}
-			extra={<Divider/>}
-		>
+		<Template>
 			<Card title={'public.sing-in.card.title'}>
 				<Button
 					type={'primary'}
@@ -25,3 +26,11 @@ export default withPublicLayout(function Index() {
 		</Template>
 	</PublicPage>;
 });
+
+export const getServerSideProps = async () => {
+	return {
+		props: {
+			providers: await getProviders(),
+		},
+	}
+}

@@ -2,7 +2,7 @@ import {FetchEndpoint} from "@leight-core/server";
 import {fileFetch} from "@/puff-smith/service/file";
 import fs from 'node:fs';
 
-export default FetchEndpoint<"Download", void, { fileId: string }>(async ({res, query: {fileId}}) => {
+export default FetchEndpoint<"Download", string, { fileId: string }>(async ({res, query: {fileId}}) => {
 	const file = await fileFetch(fileId);
 	if (!file) {
 		res.status(404).end();

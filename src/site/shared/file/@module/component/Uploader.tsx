@@ -1,5 +1,5 @@
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {DeleteItemIcon, formatBytes, isString} from "@leight-core/client";
+import {DeleteItemIcon, isString, toHumanBytes} from "@leight-core/client";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
 import axios from "axios";
@@ -162,7 +162,7 @@ export const Uploader: FC<IUploaderProps> = (
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;
 				if (!hasValidSize) {
-					message.error(t([translation + ".file-too-large", "common.error.file-too-large"], {size: formatBytes(file.size), limit: formatBytes(limit * 1024 * 1024)}));
+					message.error(t([translation + ".file-too-large", "common.error.file-too-large"], {size: toHumanBytes(file.size), limit: toHumanBytes(limit * 1024 * 1024)}));
 				}
 				return hasValidSize;
 			}}
