@@ -1,12 +1,12 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {Template} from "@leight-core/client";
-import {FileOutlined} from "@ant-design/icons";
+import {UserIcon} from "@/puff-smith";
 
 export default withRootLayout(function Index() {
 	return <RootPage
-		title={"root.file"}
-		menuSelection={['/root/file']}
-		icon={<FileOutlined/>}
+		title={"root.user"}
+		menuSelection={['/root/user']}
+		icon={<UserIcon/>}
 	>
 		<Template>
 		</Template>

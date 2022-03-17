@@ -16,7 +16,7 @@ export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTran
 	})
 }
 
-export const jobQuery = async (query: IJobQuery) => toResult<IJob<any>>(
+export const jobQuery = async (query: IJobQuery) => toResult<IJob>(
 	query.size,
 	prismaClient.job.count(),
 	jobListMapper(prismaClient.job.findMany({

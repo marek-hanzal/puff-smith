@@ -1,6 +1,6 @@
 import {Agenda, Job, Processor} from "agenda";
 import xlsx from 'xlsx';
-import fileService from "@/puff-smith/service/file";
+import {fileService} from "@/puff-smith/service/file";
 import {toImport} from "@/puff-smith/import";
 import {TranslationImport} from "@/puff-smith/service/translation";
 import {measureTime} from "measure-time";
