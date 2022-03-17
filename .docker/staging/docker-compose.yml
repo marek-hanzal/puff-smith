@@ -4,7 +4,6 @@ services:
         image: marekhanzal/puff-smith:staging
         env_file: .env
         networks:
-#            - web
             - db
             - mongo
         labels:
@@ -40,7 +39,5 @@ services:
             - mongo
 
 networks:
-#    web:
-#        external: true
     db:
     mongo:
