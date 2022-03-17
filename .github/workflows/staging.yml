@@ -118,6 +118,16 @@ jobs:
                     script_stop: true
                     script: |
                         cd /opt/app/.docker/staging
+
+                        echo AGENDA_DB=${{ secrets.AGENDA_DB }} >> .env
+                        echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+                        echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
+                        echo NEXTAUTH_GITHUB_CLIENT_ID=${{ secrets.NEXTAUTH_GITHUB_CLIENT_ID }} >> .env
+                        echo NEXTAUTH_GITHUB_CLIENT_SECRET=${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }} >> .env
+                        echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
+                        echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env
+                        echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+
                         docker system prune -f --all
                         docker compose pull
                         docker compose down
