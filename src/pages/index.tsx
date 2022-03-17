@@ -1,14 +1,16 @@
 import {GetServerSideProps} from "next";
-import {getSession} from "next-auth/react";
+import {getToken} from "next-auth/jwt";
 
 export default function Index() {
 	return null;
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-	const session = await getSession({ctx});
+	console.log('Waiting for session')
+	const token: any = await getToken({req: ctx.req});
+	console.log('Done!')
 	return {
-		redirect: session ? {destination: '/lab'} : {destination: '/public'},
+		redirect: token ? {destination: '/lab'} : {destination: '/public'},
 		props: {},
 	}
 }

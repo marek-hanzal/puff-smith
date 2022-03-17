@@ -13,6 +13,7 @@ export default withRootLayout(function Index() {
 	return <RootPage
 		title={"root.import"}
 		menuSelection={['/root/import']}
+		icon={<ImportIcon/>}
 	>
 		<Template>
 			<Uploader
