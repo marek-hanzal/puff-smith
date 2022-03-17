@@ -2,14 +2,14 @@
 
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=4d6f69f77e31&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-This is the application for Vapers who want to:
+## This is the application for Vapers who want to:
 
 - manage builds
 - manage atomizers
 - track liquid steeping
 - track taste of liquids
 - manage cell health
-- ...and finally: find the best puff ever!
+- and a lot of more, and finally: find the best puff ever!
 
 ### Stack
 

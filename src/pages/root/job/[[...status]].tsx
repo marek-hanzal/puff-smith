@@ -62,6 +62,7 @@ export default withRootLayout(function Index() {
 					live: 0,
 				},
 				showFilter: false,
+				showCommit: false,
 			},
 		},
 		'all': {
