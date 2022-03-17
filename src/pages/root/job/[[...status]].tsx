@@ -15,69 +15,67 @@ interface IJobConfigObject {
 	[index: string]: IJobConfig;
 }
 
+const configs: IJobConfigObject = {
+	'running': {
+		filter: ['RUNNING', 'NEW'],
+		listProps: {
+			sourceProps: {
+				live: 1000,
+			},
+			disableToolbar: true,
+		},
+	},
+	'review': {
+		filter: ['REVIEW'],
+		listProps: {
+			sourceProps: {
+				live: 0,
+			},
+			showFilter: false,
+		},
+	},
+	'failure': {
+		filter: ['FAILURE'],
+		listProps: {
+			sourceProps: {
+				live: 0,
+			},
+			showFilter: false,
+		},
+	},
+	'success': {
+		filter: ['SUCCESS'],
+		listProps: {
+			sourceProps: {
+				live: 0,
+			},
+			showFilter: false,
+		},
+	},
+	'done': {
+		filter: ['DONE'],
+		listProps: {
+			sourceProps: {
+				live: 0,
+			},
+			showFilter: false,
+			showCommit: false,
+		},
+	},
+	'all': {
+		filter: undefined,
+		listProps: {
+			sourceProps: {
+				live: 5000,
+			},
+			showCommit: false,
+		},
+	},
+};
+
 export default withRootLayout(function Index() {
 	const {status} = useParams();
-
-	const configs: IJobConfigObject = {
-		'running': {
-			filter: ['RUNNING', 'NEW'],
-			listProps: {
-				sourceProps: {
-					live: 1000,
-				},
-				disableToolbar: true,
-			},
-		},
-		'review': {
-			filter: ['REVIEW'],
-			listProps: {
-				sourceProps: {
-					live: 0,
-				},
-				showFilter: false,
-			},
-		},
-		'failure': {
-			filter: ['FAILURE'],
-			listProps: {
-				sourceProps: {
-					live: 0,
-				},
-				showFilter: false,
-			},
-		},
-		'success': {
-			filter: ['SUCCESS'],
-			listProps: {
-				sourceProps: {
-					live: 0,
-				},
-				showFilter: false,
-			},
-		},
-		'done': {
-			filter: ['DONE'],
-			listProps: {
-				sourceProps: {
-					live: 0,
-				},
-				showFilter: false,
-				showCommit: false,
-			},
-		},
-		'all': {
-			filter: undefined,
-			listProps: {
-				sourceProps: {
-					live: 5000,
-				},
-				showCommit: false,
-			},
-		},
-	};
-
 	const config = configs[status || 'running'];
-
 	return <RootPage
 		title={"root.job"}
 		menuSelection={['/root/job', '/root/job/' + (status || 'running')]}
