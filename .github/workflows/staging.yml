@@ -126,7 +126,6 @@ jobs:
                         echo NEXTAUTH_GITHUB_CLIENT_ID=${{ secrets.NEXTAUTH_GITHUB_CLIENT_ID }} >> .env
                         echo NEXTAUTH_GITHUB_CLIENT_SECRET=${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }} >> .env
                         echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
-                        echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env
                         echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
 
                         docker system prune -f --all
