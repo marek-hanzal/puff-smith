@@ -25,9 +25,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 		/>)}
 		{...props}
 	>
-		{job => <ListItem
-			key={job.id}
-		>
+		{job => <ListItem key={job.id}>
 			<ListItemMeta
 				title={t('common.job.status.' + job.status)}
 				description={toLocalDateTime(job.created)}

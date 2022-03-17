@@ -10,3 +10,9 @@ export const fileQuery = async (query: IFileQuery) => toQuery<File, IFile, IFile
 	source: prismaClient.file,
 	mapper: fileListMapper,
 });
+
+export const fileFetch = async (fileId: string) => prismaClient.file.findFirst({
+	where: {
+		id: fileId,
+	}
+})
