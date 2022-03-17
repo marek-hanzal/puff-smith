@@ -1,10 +1,10 @@
 version: '3.4'
 services:
-    puff-smith-staging:
+    app:
         image: marekhanzal/puff-smith:staging
         env_file: .env
         networks:
-            - web
+#            - web
             - db
             - mongo
         labels:
@@ -40,7 +40,7 @@ services:
             - mongo
 
 networks:
-    web:
-        external: true
+#    web:
+#        external: true
     db:
     mongo:
