@@ -40,15 +40,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   files         File[]
   jobs          Job[]
+  Transaction   Transaction[]
 }
 
 model VerificationToken {
@@ -158,6 +159,7 @@ model Atomizer {
   dualCoil     Boolean        @default(false)
   squonk       Boolean        @default(false)
   AtomizerDraw AtomizerDraw[]
+  cost         Decimal?       @db.Decimal(5, 2)
 
   @@unique([name, vendorId])
 }
@@ -168,4 +170,13 @@ model AtomizerDraw {
   atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
   drawId     String
   draw       Tag      @relation(fields: [drawId], references: [id], onDelete: Cascade)
+}
+
+model Transaction {
+  id      String   @id @default(cuid())
+  amount  Decimal  @db.Decimal(10, 2)
+  created DateTime
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  note    String?
 }

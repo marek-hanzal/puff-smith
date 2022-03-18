@@ -12,6 +12,7 @@ export async function atomizerCreate({draw, type, vendor, ...atomizer}: IAtomize
 				...atomizer,
 				dualCoil: boolean(atomizer?.dualCoil),
 				squonk: boolean(atomizer?.squonk),
+				cost: atomizer.cost && parseFloat(atomizer.cost),
 				vendor: {
 					connect: {
 						name: vendor,
@@ -57,6 +58,7 @@ export async function atomizerCreate({draw, type, vendor, ...atomizer}: IAtomize
 					...atomizer,
 					dualCoil: boolean(atomizer?.dualCoil),
 					squonk: boolean(atomizer?.squonk),
+					cost: atomizer.cost && parseFloat(atomizer.cost),
 					type: {
 						connect: {
 							code_group: {

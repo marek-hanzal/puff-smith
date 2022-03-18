@@ -9,5 +9,6 @@ export const atomizerMapper = async (atomizer: Atomizer): Promise<IAtomizer> => 
 	return {
 		...atomizer,
 		vendor: vendorMapper(vendor),
+		cost: atomizer?.cost?.toNumber(),
 	};
 }

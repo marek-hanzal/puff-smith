@@ -9,6 +9,7 @@ export interface IAtomizerCreate {
 	type: string;
 	draw?: string;
 	squonk?: string;
+	cost?: string;
 }
 
 export type IAtomizers = Promise<Atomizer[]>;
@@ -22,5 +23,6 @@ export interface IAtomizerQuery extends IQuery<IAtomizerFilter, IAtomizerOrderBy
 export interface IAtomizer {
 	id: string;
 	name: string;
+	cost?: number | null;
 	vendor: IVendor;
 }
