@@ -23,7 +23,7 @@ export interface IImportHandler<TItem> {
 
 	end?(event: IImportEndEvent): Promise<void>;
 
-	handler(item: TItem): Promise<void>;
+	handler(item: TItem): Promise<any>;
 }
 
 export interface IImportHandlers {

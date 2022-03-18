@@ -3,6 +3,7 @@ import {FC} from "react";
 import {JobProgress, JobsListHeader} from "@/puff-smith/site/shared/job";
 import {useTranslation} from "react-i18next";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
+import {Space, Typography} from "antd";
 
 export interface IJobListProps extends Partial<IJobsListSourceProps> {
 	showCommit?: boolean;
@@ -27,14 +28,17 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 	>
 		{job => <ListItem key={job.id}>
 			<ListItemMeta
-				title={t('common.job.status.' + job.status, {
-					data: {
-						success: job.success || 0,
-						failure: job.failure || 0,
-						skip: job.skip || 0,
-						total: job.total,
-					}
-				})}
+				title={<Space>
+					{t('common.job.status.' + job.status, {
+						data: {
+							success: job.success || 0,
+							failure: job.failure || 0,
+							skip: job.skip || 0,
+							total: job.total,
+						}
+					})}
+					<Typography.Text type={'secondary'}>{t('common.job.name.' + job.name)}</Typography.Text>
+				</Space>}
 				description={toLocalDateTime(job.created)}
 			/>
 			<JobProgress job={job}/>

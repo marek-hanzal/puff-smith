@@ -74,7 +74,7 @@ interface IJobConfigObject {
 }
 
 export default withRootLayout(function Index() {
-	const {status} = useParams();
+	const {status, name} = useParams();
 	const config = configs[status || 'running'];
 	return <RootPage
 		title={"root.job"}
@@ -83,10 +83,11 @@ export default withRootLayout(function Index() {
 		headerPostfix={<JobMenu/>}
 	>
 		<JobsSourceControlProvider
-			applyFilter={config.filter && {
-				status: {
+			applyFilter={{
+				status: config.filter && {
 					in: config.filter,
 				},
+				name,
 			}}
 			defaultOrderBy={{
 				created: 'desc',

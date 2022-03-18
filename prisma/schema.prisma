@@ -8,15 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Translation {
-  id       String @id @default(cuid())
-  language String @db.VarChar(32)
-  label    String @db.Text
-  text     String @db.Text
-  hash     String @db.VarChar(128)
-
-  @@unique([language, hash])
-}
+// Next Auth Stuff
 
 model Account {
   id                 String  @id @default(cuid())
@@ -67,6 +59,18 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+// Leight Core Stuff
+
+model Translation {
+  id       String @id @default(cuid())
+  language String @db.VarChar(32)
+  label    String @db.Text
+  text     String @db.Text
+  hash     String @db.VarChar(128)
+
+  @@unique([language, hash])
+}
+
 model File {
   id       String    @id @default(cuid())
   path     String
@@ -83,6 +87,7 @@ model File {
 
 model Job {
   id           String    @id @default(cuid())
+  name         String
   status       JobStatus @default(NEW)
   total        Int       @default(0)
   progress     Decimal   @default(0) @db.Decimal(5, 2)
@@ -119,4 +124,37 @@ enum JobStatus {
   REVIEW
   //  When everything is OK, it's done: goes from review->done and failure->done
   DONE
+}
+
+// Puff Smith Stuff
+
+model Tag {
+  id       String     @id @default(cuid())
+  code     String
+  label    String?
+  group    String
+  sort     Int?
+  Atomizer Atomizer[]
+
+  @@unique([code, group])
+}
+
+model Vendor {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  atomizers Atomizer[]
+}
+
+model Atomizer {
+  id       String   @id @default(cuid())
+  name     String
+  vendorId String
+  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  typeId   String
+  type     Tag      @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  coilMin  Decimal? @db.Decimal(3, 2)
+  coilMax  Decimal? @db.Decimal(3, 2)
+  dualCoil Boolean  @default(false)
+
+  @@unique([name, vendorId])
 }

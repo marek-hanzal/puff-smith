@@ -7,8 +7,14 @@ import {measureTime} from "measure-time";
 import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
 import {jobUpdateStatus} from "@/puff-smith/service/job";
+import {TagImport} from "@/puff-smith/service/tag";
 
 export const ImportJobName = 'import';
+
+const importHandlers = {
+	...TranslationImport,
+	...TagImport,
+};
 
 export interface IImportParams extends IQueryParams {
 	fileId: string;
@@ -33,9 +39,7 @@ export default function ImportJob(agenda: Agenda) {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
 			const getElapsed = measureTime();
-			const result = await toImport(theJob, workbook, {
-				...TranslationImport,
-			});
+			const result = await toImport(theJob, workbook, importHandlers);
 			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
 			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {

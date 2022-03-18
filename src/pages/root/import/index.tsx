@@ -9,7 +9,7 @@ import {useTranslation} from "react-i18next";
 export default withRootLayout(function Index() {
 	const {t} = useTranslation();
 	const importPromise = useImportPromise();
-	const navigate = useNavigate();
+	const navigate = useNavigate<{ name: string }>();
 	return <RootPage
 		title={"root.import"}
 		menuSelection={['/root/import']}
@@ -26,7 +26,7 @@ export default withRootLayout(function Index() {
 					importPromise(undefined, {fileId: file.id})
 						.then(e => {
 							message.success(t('root.import.execute.success'));
-							navigate('/root/job');
+							navigate('/root/job', {name: 'import'});
 						})
 						.catch(e => {
 							console.error(e);

@@ -22,6 +22,7 @@ export const asyncJob = async <TParams>(name: string, params: TParams, userId?: 
 	return prismaClient.$transaction(async prisma => {
 		const job = jobMapper<TParams>(await jobCreate({
 			userId,
+			name,
 			params,
 		}, prisma));
 		await (await Agenda()).now(name, job);

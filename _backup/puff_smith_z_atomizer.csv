@@ -1,4 +1,4 @@
-id,name,vendor_id,type_id,coilMin,coilMax,dual
+id,name,vendor_id,type_id,coilMin,coilMax,dualCoil
 1787c303-c251-4bba-b24e-7a1cd35ac37c,Extreme 23mm,da7d69c0-8de7-4e51-b350-7658553db8c0,a135e1c9-9fe8-4bdf-9bc6-84214eee3a0f,0.20,0.35,1
 1f9e9a42-22da-4e61-a1a2-1bc14c9ac381,Brunhilde MTL RTA,23c4d51e-56db-4b7e-8bc6-e4d5d37922a5,a135e1c9-9fe8-4bdf-9bc6-84214eee3a0f,0.25,0.40,0
 23d20ce2-13cc-427f-846b-63cf36818951,Expromizer V5 MTL RTA,b26d1411-02f7-4e45-b34a-30ca0794df5e,6fec477c-8f18-4c9e-82aa-e280f1fe9a07,,,0

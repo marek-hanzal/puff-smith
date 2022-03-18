@@ -33,7 +33,7 @@ export const toMeta = (workbook: xlsx.WorkBook): IImportMeta => {
 	};
 }
 
-export const toImport = async (job: IJob<IImportParams>, workbook: xlsx.WorkBook, handlers: IImportHandlers): Promise<Omit<IJob, "params" | "skipRatio" | "successRatio" | "failureRatio" | "id" | "userId" | "status" | "progress" | "created">> => {
+export const toImport = async (job: IJob<IImportParams>, workbook: xlsx.WorkBook, handlers: IImportHandlers): Promise<Omit<IJob, "params" | "name" | "skipRatio" | "successRatio" | "failureRatio" | "id" | "userId" | "status" | "progress" | "created">> => {
 	console.log('Generating import');
 	const meta = toMeta(workbook);
 	console.log('- Meta\n', meta);
