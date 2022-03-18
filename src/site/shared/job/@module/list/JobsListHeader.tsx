@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Button, message} from "antd";
-import {JobsFilter} from "@/puff-smith/site/leight";
+import {JobsFilter} from "@/puff-smith/site/shared/job";
 import {ButtonBar} from "@leight-core/client";
 import {useTranslation} from "react-i18next";
 import {useCleanupMutation} from "@/sdk/api/job/cleanup";

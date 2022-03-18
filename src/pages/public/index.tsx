@@ -1,14 +1,9 @@
 import {Button} from "antd";
 import {Card, Template} from "@leight-core/client";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
-import {getProviders, signIn} from "next-auth/react";
+import {signIn} from "next-auth/react";
 
-interface IIndexProps {
-	providers: Awaited<ReturnType<typeof getProviders>>;
-}
-
-export default withPublicLayout(function Index({providers}: IIndexProps) {
-	console.log('providers', providers);
+export default withPublicLayout(function Index() {
 	return <PublicPage
 		title={"public.index"}
 		menuSelection={['/public']}
@@ -26,11 +21,3 @@ export default withPublicLayout(function Index({providers}: IIndexProps) {
 		</Template>
 	</PublicPage>;
 });
-
-export const getServerSideProps = async () => {
-	return {
-		props: {
-			providers: await getProviders(),
-		},
-	}
-}

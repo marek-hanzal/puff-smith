@@ -1,5 +1,5 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {IJobListProps, JobsList} from "@/puff-smith/site/leight";
+import {IJobListProps, JobsList} from "@/puff-smith/site/shared/job";
 import {JobsSourceControlProvider} from "@/sdk/api/job/query";
 import {IJobStatus} from "@leight-core/api";
 import {JobMenu} from "@/puff-smith/site/root/job";
@@ -9,10 +9,6 @@ import {JobIcon} from "@/puff-smith";
 interface IJobConfig {
 	filter?: IJobStatus[];
 	listProps?: Partial<IJobListProps>;
-}
-
-interface IJobConfigObject {
-	[index: string]: IJobConfig;
 }
 
 const configs: IJobConfigObject = {
@@ -72,6 +68,10 @@ const configs: IJobConfigObject = {
 		},
 	},
 };
+
+interface IJobConfigObject {
+	[index: string]: IJobConfig;
+}
 
 export default withRootLayout(function Index() {
 	const {status} = useParams();

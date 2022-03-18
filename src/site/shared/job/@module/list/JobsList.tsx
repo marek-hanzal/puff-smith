@@ -1,6 +1,6 @@
 import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {FC} from "react";
-import {JobProgress, JobsListHeader} from "@/puff-smith/site/leight";
+import {JobProgress, JobsListHeader} from "@/puff-smith/site/shared/job";
 import {useTranslation} from "react-i18next";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
 
