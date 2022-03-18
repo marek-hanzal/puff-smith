@@ -1,7 +1,9 @@
 import prismaClient from "@/puff-smith/service/prisma";
-import {IAtomizerCreate} from "@/puff-smith/service/atomizer/interface";
+import {IAtomizerCreate, IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import {boolean} from "boolean";
 import {tagByCodes} from "@/puff-smith/service/tag";
+import {toQuery} from "@leight-core/server";
+import {atomizerListMapper} from "@/puff-smith/service/atomizer/mapper";
 
 export async function atomizerCreate({draw, type, vendor, ...atomizer}: IAtomizerCreate) {
 	try {
@@ -76,3 +78,9 @@ export async function atomizerCreate({draw, type, vendor, ...atomizer}: IAtomize
 		throw e;
 	}
 }
+
+export const atomizerQuery = async (query: IAtomizerQuery) => toQuery<typeof atomizerListMapper, IAtomizerQuery>({
+	query,
+	source: prismaClient.atomizer,
+	mapper: atomizerListMapper,
+})
