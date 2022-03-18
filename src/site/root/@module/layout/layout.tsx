@@ -1,8 +1,8 @@
-import React, {FC} from "react";
-import {Footer, Header} from "@/puff-smith/site/root";
-import {AppLayout} from "@/puff-smith/site/shared";
-import {IPageWithLayout} from "@leight-core/api";
 import {ApplicationLayout, IApplicationLayoutProps} from "@leight-core/client";
+import {FC} from "react";
+import {AppLayout} from "@/puff-smith/site/shared";
+import {Footer, Header} from "@/puff-smith/site/root";
+import {IPageWithLayout} from "@leight-core/api";
 
 export interface IRootLayoutProps extends Partial<IApplicationLayoutProps> {
 }

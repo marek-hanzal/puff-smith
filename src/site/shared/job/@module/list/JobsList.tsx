@@ -27,7 +27,14 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 	>
 		{job => <ListItem key={job.id}>
 			<ListItemMeta
-				title={t('common.job.status.' + job.status)}
+				title={t('common.job.status.' + job.status, {
+					data: {
+						success: job.success || 0,
+						failure: job.failure || 0,
+						skip: job.skip || 0,
+						total: job.total,
+					}
+				})}
 				description={toLocalDateTime(job.created)}
 			/>
 			<JobProgress job={job}/>

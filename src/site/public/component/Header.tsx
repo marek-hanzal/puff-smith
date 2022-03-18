@@ -10,7 +10,7 @@ export interface IHeaderProps extends Partial<PageHeaderProps> {
 export const Header: FC<IHeaderProps> = props => {
 	return <PageHeader
 		ghost
-		title={<LinkTo href={"/root"}>
+		title={<LinkTo href={"/public"}>
 			<LogoIcon height={64}/>
 		</LinkTo>}
 		subTitle={<PublicMenu/>}
