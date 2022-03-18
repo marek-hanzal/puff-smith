@@ -136,6 +136,7 @@ model Tag {
   sort     Int?
   Atomizer Atomizer[]
 
+  AtomizerDraw AtomizerDraw[]
   @@unique([code, group])
 }
 
@@ -146,15 +147,25 @@ model Vendor {
 }
 
 model Atomizer {
-  id       String   @id @default(cuid())
-  name     String
-  vendorId String
-  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  typeId   String
-  type     Tag      @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  coilMin  Decimal? @db.Decimal(3, 2)
-  coilMax  Decimal? @db.Decimal(3, 2)
-  dualCoil Boolean  @default(false)
+  id           String         @id @default(cuid())
+  name         String
+  vendorId     String
+  vendor       Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  typeId       String
+  type         Tag            @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  coilMin      Decimal?       @db.Decimal(3, 2)
+  coilMax      Decimal?       @db.Decimal(3, 2)
+  dualCoil     Boolean        @default(false)
+  squonk       Boolean        @default(false)
+  AtomizerDraw AtomizerDraw[]
 
   @@unique([name, vendorId])
+}
+
+model AtomizerDraw {
+  id         String   @id @default(cuid())
+  atomizerId String
+  atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  drawId     String
+  draw       Tag      @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }

@@ -8,12 +8,16 @@ import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
 import {jobUpdateStatus} from "@/puff-smith/service/job";
 import {TagImport} from "@/puff-smith/service/tag";
+import {AtomizerImport} from "@/puff-smith/service/atomizer";
+import {VendorImport} from "@/puff-smith/service/vendor";
 
 export const ImportJobName = 'import';
 
 const importHandlers = {
 	...TranslationImport,
 	...TagImport,
+	...AtomizerImport,
+	...VendorImport,
 };
 
 export interface IImportParams extends IQueryParams {
