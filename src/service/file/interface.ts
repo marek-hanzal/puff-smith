@@ -1,13 +1,11 @@
 import {IQuery} from "@leight-core/api";
-import {File} from "@prisma/client";
+import {File, Prisma} from "@prisma/client";
 
 export type IFiles = Promise<File[]>;
 
-export interface IFileFilter {
-}
+export type IFileFilter = Prisma.FileWhereInput;
 
-export interface IFileOrderBy {
-}
+export type IFileOrderBy = Prisma.FileOrderByWithRelationInput;
 
 export interface IFileQuery extends IQuery<IFileFilter, IFileOrderBy> {
 }

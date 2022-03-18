@@ -1,6 +1,5 @@
-import {IFileQuery} from "@/puff-smith/service/file";
+import {fileListMapper, IFileQuery} from "@/puff-smith/service/file";
 import {toQuery} from "@leight-core/server";
-import {fileListMapper} from "@/puff-smith/service/file/mapper";
 import prismaClient from "@/puff-smith/service/prisma";
 
 export const fileQuery = async (query: IFileQuery) => toQuery<typeof fileListMapper, IFileQuery>({

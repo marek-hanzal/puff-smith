@@ -1,10 +1,10 @@
 import {IJob} from "@leight-core/api";
 import {Job} from '@prisma/client';
-import {IJobs} from "@/puff-smith/service/job/interface";
+import {IJobs} from "@/puff-smith/service/job";
 
-export const jobListMapper = async (jobs: IJobs): Promise<IJob[]> => (await jobs).map(jobMapper);
+export const jobListMapper = async (jobs: IJobs) => (await jobs).map(jobMapper);
 
-export const jobMapper = <TParams>(job: Job): IJob<TParams> => {
+export const jobMapper = <TParams = any>(job: Job): IJob<TParams> => {
 	return {
 		...job,
 		progress: job.progress?.toNumber(),
