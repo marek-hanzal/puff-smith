@@ -1,6 +1,6 @@
 import {FC} from "react";
-import {IJobsSourceFilterProps, JobsSourceFilter} from "@/sdk/api/leight/shared/job/query";
-import {StatusListSourceSelect} from "@/sdk/api/leight/shared/job/status-list";
+import {IJobsSourceFilterProps, JobsSourceFilter} from "@/sdk/api/job/query";
+import {StatusListSourceSelect} from "@/sdk/api/job/status-list";
 import {FormItem, toOption} from "@leight-core/client";
 
 export interface IJobsFilterProps extends Partial<IJobsSourceFilterProps> {

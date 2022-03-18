@@ -4,7 +4,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const CommitApiLink = "/api/leight/shared/file/chunk/[chunkId]/commit";
+export const CommitApiLink = "/api/file/chunk/[chunkId]/commit";
 
 export type ICommitQueryParams = IChunkEndpointQuery;
 

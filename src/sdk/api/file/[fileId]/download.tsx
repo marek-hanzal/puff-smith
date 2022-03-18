@@ -2,7 +2,7 @@ import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";
 import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
 
-export const DownloadApiLink = "/api/leight/shared/file/[fileId]/download";
+export const DownloadApiLink = "/api/file/[fileId]/download";
 
 export type IDownloadQueryParams = { fileId: string };
 

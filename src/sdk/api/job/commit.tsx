@@ -2,7 +2,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const CommitApiLink = "/api/leight/shared/job/commit";
+export const CommitApiLink = "/api/job/commit";
 
 export type ICommitQueryParams = undefined;
 

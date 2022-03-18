@@ -28,7 +28,7 @@ import {
 	useSourceContext
 } from "@leight-core/client";
 
-export const JobsApiLink = "/api/leight/shared/job/query";
+export const JobsApiLink = "/api/job/query";
 
 export type IJobsQueryParams = undefined;
 

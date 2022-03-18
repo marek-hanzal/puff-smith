@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {FilesListSource, IFilesListSourceProps} from "@/sdk/api/leight/shared/file/query";
+import {FilesListSource, IFilesListSourceProps} from "@/sdk/api/file/query";
 import {ListItem, ListItemMeta, toHumanBytes} from "@leight-core/client";
 import {Space, Typography} from "antd";
 import {DownloadFile} from "@/puff-smith/site/shared/file";

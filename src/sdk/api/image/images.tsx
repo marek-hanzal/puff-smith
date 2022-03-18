@@ -30,7 +30,7 @@ import {
 export interface IImagesDto {
 }
 
-export const ImagesApiLink = "/api/leight/shared/image/images";
+export const ImagesApiLink = "/api/image/images";
 
 export type IImagesQueryParams = undefined;
 

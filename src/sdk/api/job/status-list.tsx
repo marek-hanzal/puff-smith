@@ -27,7 +27,7 @@ import {
 	useSourceContext
 } from "@leight-core/client";
 
-export const StatusListApiLink = "/api/leight/shared/job/status-list";
+export const StatusListApiLink = "/api/job/status-list";
 
 export type IStatusListQueryParams = undefined;
 

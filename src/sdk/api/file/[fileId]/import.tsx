@@ -4,7 +4,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const ImportApiLink = "/api/leight/shared/file/[fileId]/import";
+export const ImportApiLink = "/api/file/[fileId]/import";
 
 export type IImportQueryParams = IImportParams;
 

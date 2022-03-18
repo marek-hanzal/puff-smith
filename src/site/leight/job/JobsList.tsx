@@ -2,7 +2,7 @@ import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {FC} from "react";
 import {JobProgress, JobsListHeader} from "@/puff-smith/site/leight";
 import {useTranslation} from "react-i18next";
-import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/leight/shared/job/query";
+import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
 
 export interface IJobListProps extends Partial<IJobsListSourceProps> {
 	showCommit?: boolean;

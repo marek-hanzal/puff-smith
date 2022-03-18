@@ -3,7 +3,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const CleanupApiLink = "/api/leight/shared/job/cleanup";
+export const CleanupApiLink = "/api/job/cleanup";
 
 export type ICleanupQueryParams = undefined;
 

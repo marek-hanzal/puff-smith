@@ -2,7 +2,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const GenerateApiLink = "/api/root/sdk/generate";
+export const GenerateApiLink = "/api/sdk/generate";
 
 export type IGenerateQueryParams = undefined;
 

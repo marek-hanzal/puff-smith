@@ -28,7 +28,7 @@ import {
 	useSourceContext
 } from "@leight-core/client";
 
-export const FilesApiLink = "/api/leight/shared/file/query";
+export const FilesApiLink = "/api/file/query";
 
 export type IFilesQueryParams = undefined;
 

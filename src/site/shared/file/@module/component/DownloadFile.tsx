@@ -4,7 +4,7 @@ import fileDownload from "js-file-download";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {IFile} from "@leight-core/api";
-import {useDownloadPromise} from "@/sdk/api/leight/shared/file/[fileId]/download";
+import {useDownloadPromise} from "@/sdk/api/file/[fileId]/download";
 
 export interface IDownloadFileProps extends Partial<ButtonProps> {
 	file: IFile;
@@ -35,12 +35,12 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 					.then(data => {
 						message.success(t("puff-smith.file.download-success"));
 						fileDownload(data, name || file.name);
-						setLoading(false);
-						setProgress(0);
 					})
 					.catch(e => {
 						console.error(e);
 						message.error(t("puff-smith.file.download-error"));
+					})
+					.finally(() => {
 						setLoading(false);
 						setProgress(0);
 					});

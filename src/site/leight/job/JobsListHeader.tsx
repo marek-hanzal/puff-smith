@@ -3,9 +3,9 @@ import {Button, message} from "antd";
 import {JobsFilter} from "@/puff-smith/site/leight";
 import {ButtonBar} from "@leight-core/client";
 import {useTranslation} from "react-i18next";
-import {useCleanupMutation} from "@/sdk/api/leight/shared/job/cleanup";
-import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/leight/shared/job/query";
-import {useCommitMutation} from "@/sdk/api/leight/shared/job/commit";
+import {useCleanupMutation} from "@/sdk/api/job/cleanup";
+import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/job/query";
+import {useCommitMutation} from "@/sdk/api/job/commit";
 
 export interface IJobsListHeaderProps {
 	showCommit?: boolean;

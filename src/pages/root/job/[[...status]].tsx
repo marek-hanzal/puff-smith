@@ -1,6 +1,6 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {IJobListProps, JobsList} from "@/puff-smith/site/leight";
-import {JobsSourceControlProvider} from "@/sdk/api/leight/shared/job/query";
+import {JobsSourceControlProvider} from "@/sdk/api/job/query";
 import {IJobStatus} from "@leight-core/api";
 import {JobMenu} from "@/puff-smith/site/root/job";
 import {useParams} from "@leight-core/client";

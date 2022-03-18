@@ -2,7 +2,7 @@ import {IEntityContext, ITranslationBundle} from "@leight-core/api";
 import {createContext, FC} from "react";
 import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
 
-export const TranslationsApiLink = "/api/leight/public/translation";
+export const TranslationsApiLink = "/api/translation";
 
 export type ITranslationsQueryParams = undefined;
 

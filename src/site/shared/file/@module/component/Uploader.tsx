@@ -7,8 +7,8 @@ import {UploadRequestOption} from "rc-upload/lib/interface";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
-import {useCommitPromise} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/commit";
-import {UploadApiLink, useUploadLink} from "@/sdk/api/leight/shared/file/chunk/[chunkId]/upload";
+import {useCommitPromise} from "@/sdk/api/file/chunk/[chunkId]/commit";
+import {UploadApiLink, useUploadLink} from "@/sdk/api/file/chunk/[chunkId]/upload";
 import {IFile} from "@leight-core/api";
 
 export interface IUploaderProps extends Partial<UploadProps> {

@@ -2,7 +2,7 @@ import {ImportIcon} from "@/puff-smith";
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {Template, useNavigate} from "@leight-core/client";
 import {Uploader} from "@/puff-smith/site/shared/file";
-import {useImportPromise} from "@/sdk/api/leight/shared/file/[fileId]/import";
+import {useImportPromise} from "@/sdk/api/file/[fileId]/import";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
