@@ -1,5 +1,5 @@
 import {ImportIcon, JobIcon, LabIcon} from "@/puff-smith";
-import {FileOutlined, GlobalOutlined, PoundCircleOutlined, UnlockOutlined} from "@ant-design/icons";
+import {FileOutlined, GlobalOutlined, PoundCircleOutlined, UnlockOutlined, UserOutlined} from "@ant-design/icons";
 import {CreateMenuItem, HomeIcon, IMenuProps, Menu, SubMenu} from "@leight-core/client";
 import {FC} from "react";
 
@@ -12,6 +12,7 @@ export const RootMenu: FC<IRootMenuProps> = props => {
 		{CreateMenuItem("root.import.menu", "/root/import", <ImportIcon/>)}
 		{CreateMenuItem("root.job.menu", "/root/job", <JobIcon/>)}
 		{CreateMenuItem("root.file.menu", "/root/file", <FileOutlined/>)}
+		{CreateMenuItem("root.user.menu", "/root/user", <UserOutlined/>)}
 		<SubMenu
 			key={"root.sites"}
 			id={"root.sites"}

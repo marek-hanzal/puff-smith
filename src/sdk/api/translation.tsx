@@ -24,6 +24,11 @@ export const TranslationsProvider: FC<ITranslationsProvider> = ({defaultEntity, 
 
 export const useTranslationsQuery = createQueryHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
 
+export const useTranslationsQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([TranslationsApiLink]);
+}
+
 export const useTranslationsLink = (): ((query: ITranslationsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(TranslationsApiLink, query);

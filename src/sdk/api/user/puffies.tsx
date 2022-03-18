@@ -24,6 +24,11 @@ export const PuffiesProvider: FC<IPuffiesProvider> = ({defaultEntity, ...props})
 
 export const usePuffiesQuery = createQueryHook<void, number, IPuffiesQueryParams>(PuffiesApiLink, "get");
 
+export const usePuffiesQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([PuffiesApiLink]);
+}
+
 export const usePuffiesLink = (): ((query: IPuffiesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(PuffiesApiLink, query);
