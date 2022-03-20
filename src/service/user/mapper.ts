@@ -2,9 +2,9 @@ import {IUser, IUsers} from "@/puff-smith/service/user/interface";
 import {User} from "@prisma/client";
 import prismaClient from "@/puff-smith/service/prisma";
 
-export const userListMapper = async (users: IUsers) => (await users).map(userMapper);
+export const userListMapper = async (users: IUsers) => await Promise.all((await users).map(userMapper));
 
-export const userMapper = (user: User): IUser => {
+export const userMapper = async (user: User): Promise<IUser> => {
 	return {
 		...user,
 	};

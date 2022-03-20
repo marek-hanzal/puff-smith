@@ -2,9 +2,9 @@ import {ITransaction, ITransactions} from "@/puff-smith/service/transaction/inte
 import {Transaction} from "@prisma/client";
 import prismaClient from "@/puff-smith/service/prisma";
 
-export const transactionListMapper = async (transactions: ITransactions) => (await transactions).map(transactionMapper);
+export const transactionListMapper = async (transactions: ITransactions) => await Promise.all((await transactions).map(transactionMapper));
 
-export const transactionMapper = (transaction: Transaction): ITransaction => {
+export const transactionMapper = async (transaction: Transaction): Promise<ITransaction> => {
 	return {
 		...transaction,
 		amount: transaction.amount.toNumber(),
