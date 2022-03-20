@@ -6,6 +6,15 @@ const createPrismaClient = () => {
 	});
 }
 
-const prismaClient = createPrismaClient();
+let prisma;
 
-export default prismaClient;
+if (process.env.NODE_ENV === "production") {
+	prisma = createPrismaClient();
+} else {
+	if (!(global as any).prisma) {
+		(global as any).prisma = createPrismaClient();
+	}
+	prisma = (global as any).prisma;
+}
+
+export default prisma;

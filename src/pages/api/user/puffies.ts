@@ -4,5 +4,5 @@ import {transactionPuffiesOf} from "@/puff-smith/service/transaction";
 
 export default FetchEndpoint<"Puffies", number>(async ({req}) => {
 	const token: any = await getToken({req});
-	return (await transactionPuffiesOf(token.sub));
+	return transactionPuffiesOf(token.sub);
 })

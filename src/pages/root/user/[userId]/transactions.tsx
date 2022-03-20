@@ -12,7 +12,10 @@ export default withRootLayout(function Transactions({user}: IUserFetchProps) {
 		icon={<Avatar src={user.image} size={'large'}/>}
 		headerPostfix={<UserContextMenu user={user}/>}
 	>
-		<TransactionsSourceControlProvider>
+		<TransactionsSourceControlProvider
+			applyFilter={{userId: user.id}}
+			defaultOrderBy={{created: 'desc'}}
+		>
 			<TransactionList user={user}/>
 		</TransactionsSourceControlProvider>
 	</RootPage>;

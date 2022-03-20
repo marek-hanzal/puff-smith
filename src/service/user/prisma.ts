@@ -7,10 +7,8 @@ export const userQuery = async (query: IUserQuery) => toQuery<typeof userListMap
 	query,
 	source: prismaClient.user,
 	mapper: userListMapper,
-	toFilter: ({fulltext, ...filter}: any) => {
-		return {
-			...filter,
-			...toFulltext(fulltext, ['name', 'email']),
-		};
-	},
+	toFilter: ({fulltext, ...filter}: any) => ({
+		...filter,
+		...toFulltext(fulltext, ['name', 'email']),
+	}),
 })
