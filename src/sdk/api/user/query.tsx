@@ -1,7 +1,7 @@
-import {IUser, IUserFilter, IUserOrderBy, IUserQuery} from "@/puff-smith/service/user";
+import {IUser, IUserQuery} from "@/puff-smith/service/user";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
-import {IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
 	createQueryHook,
@@ -61,15 +61,15 @@ export const useUsersLink = (): ((queryParams?: IUsersQueryParams) => string) =>
 
 export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
 
-export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<IUserFilter>> {
+export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IUserQuery>>> {
 }
 
-export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IUserFilter> {...props}/>;
+export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> {...props}/>;
 
-export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IUserFilter>()
-export const useUsersFilterContext = () => useFilterContext<IUserFilter>()
+export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>()
+export const useUsersFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>()
 
-export interface IUsersSourceFilterProps extends IFilterWithoutTranslationProps<IUserFilter> {
+export interface IUsersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IUserQuery>> {
 }
 
 export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
@@ -77,22 +77,22 @@ export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
 	translation={'common.filter.Users'}
 />;
 
-export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IUserFilter>> {
+export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IUserQuery>>> {
 }
 
-export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IUserFilter> {...props}/>;
+export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IUserQuery>> {...props}/>;
 
-export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IUserFilter>()
-export const useUsersOrderByContext = () => useOrderByContext<IUserFilter>()
+export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IUserQuery>>()
+export const useUsersOrderByContext = () => useOrderByContext<IQueryFilter<IUserQuery>>()
 
 export interface IUsersListSourceProps extends Partial<IListProps<IUser>> {
 	sourceProps?: Partial<IUsersSourceProps>;
 }
 
-export interface IUsersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IUserFilter, IUserOrderBy, IUsersQueryParams>> {
+export interface IUsersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>, IUsersQueryParams>> {
 }
 
-export const UsersSourceControlProvider: FC<IUsersSourceControlProviderProps> = props => <SourceControlProvider<IUserFilter, IUserOrderBy> {...props}/>;
+export const UsersSourceControlProvider: FC<IUsersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>> {...props}/>;
 
 export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...props}) => {
 	return <UsersSource

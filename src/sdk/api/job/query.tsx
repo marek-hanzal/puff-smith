@@ -1,5 +1,5 @@
-import {IJob, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {IJobFilter, IJobOrderBy, IJobQuery} from "@/puff-smith/service/job";
+import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IJobQuery} from "@/puff-smith/service/job";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
 import {
@@ -61,15 +61,15 @@ export const useJobsLink = (): ((queryParams?: IJobsQueryParams) => string) => {
 
 export const useJobsPromise = createPromiseHook<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
 
-export interface IJobsFilterProviderProps extends Partial<IFilterProviderProps<IJobFilter>> {
+export interface IJobsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IJobQuery>>> {
 }
 
-export const JobsFilterProvider: FC<IJobsFilterProviderProps> = props => <FilterProvider<IJobFilter> {...props}/>;
+export const JobsFilterProvider: FC<IJobsFilterProviderProps> = props => <FilterProvider<IQueryFilter<IJobQuery>> {...props}/>;
 
-export const useJobsOptionalFilterContext = () => useOptionalFilterContext<IJobFilter>()
-export const useJobsFilterContext = () => useFilterContext<IJobFilter>()
+export const useJobsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IJobQuery>>()
+export const useJobsFilterContext = () => useFilterContext<IQueryFilter<IJobQuery>>()
 
-export interface IJobsSourceFilterProps extends IFilterWithoutTranslationProps<IJobFilter> {
+export interface IJobsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IJobQuery>> {
 }
 
 export const JobsSourceFilter: FC<IJobsSourceFilterProps> = props => <Filter
@@ -77,22 +77,22 @@ export const JobsSourceFilter: FC<IJobsSourceFilterProps> = props => <Filter
 	translation={'common.filter.Jobs'}
 />;
 
-export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps<IJobFilter>> {
+export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IJobQuery>>> {
 }
 
-export const JobsOrderByProvider: FC<IJobsOrderByProviderProps> = props => <OrderByProvider<IJobFilter> {...props}/>;
+export const JobsOrderByProvider: FC<IJobsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IJobQuery>> {...props}/>;
 
-export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IJobFilter>()
-export const useJobsOrderByContext = () => useOrderByContext<IJobFilter>()
+export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IJobQuery>>()
+export const useJobsOrderByContext = () => useOrderByContext<IQueryFilter<IJobQuery>>()
 
 export interface IJobsListSourceProps extends Partial<IListProps<IJob>> {
 	sourceProps?: Partial<IJobsSourceProps>;
 }
 
-export interface IJobsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IJobFilter, IJobOrderBy, IJobsQueryParams>> {
+export interface IJobsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IJobQuery>, IQueryOrderBy<IJobQuery>, IJobsQueryParams>> {
 }
 
-export const JobsSourceControlProvider: FC<IJobsSourceControlProviderProps> = props => <SourceControlProvider<IJobFilter, IJobOrderBy> {...props}/>;
+export const JobsSourceControlProvider: FC<IJobsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IJobQuery>, IQueryOrderBy<IJobQuery>> {...props}/>;
 
 export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}) => {
 	return <JobsSource

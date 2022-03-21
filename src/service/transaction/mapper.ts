@@ -11,10 +11,11 @@ export const transactionMapper = async (transaction: Transaction): Promise<ITran
 	};
 }
 
-export const transactionFetch = async (transactionId: string) => prismaClient.transaction.findFirst({
+export const transactionFetch = async (transactionId: string) => prismaClient.transaction.findUnique({
 	where: {
 		id: transactionId,
-	}
+	},
+	rejectOnNotFound: true,
 })
 
 export const transactionRequire = async (transactionId: string) => (await transactionFetch(transactionId))!!;

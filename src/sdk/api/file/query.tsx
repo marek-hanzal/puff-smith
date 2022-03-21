@@ -1,5 +1,5 @@
-import {IFile, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {IFileFilter, IFileOrderBy, IFileQuery} from "@/puff-smith/service/file";
+import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IFileQuery} from "@/puff-smith/service/file";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
 import {
@@ -61,15 +61,15 @@ export const useFilesLink = (): ((queryParams?: IFilesQueryParams) => string) =>
 
 export const useFilesPromise = createPromiseHook<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
 
-export interface IFilesFilterProviderProps extends Partial<IFilterProviderProps<IFileFilter>> {
+export interface IFilesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IFileQuery>>> {
 }
 
-export const FilesFilterProvider: FC<IFilesFilterProviderProps> = props => <FilterProvider<IFileFilter> {...props}/>;
+export const FilesFilterProvider: FC<IFilesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IFileQuery>> {...props}/>;
 
-export const useFilesOptionalFilterContext = () => useOptionalFilterContext<IFileFilter>()
-export const useFilesFilterContext = () => useFilterContext<IFileFilter>()
+export const useFilesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IFileQuery>>()
+export const useFilesFilterContext = () => useFilterContext<IQueryFilter<IFileQuery>>()
 
-export interface IFilesSourceFilterProps extends IFilterWithoutTranslationProps<IFileFilter> {
+export interface IFilesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IFileQuery>> {
 }
 
 export const FilesSourceFilter: FC<IFilesSourceFilterProps> = props => <Filter
@@ -77,22 +77,22 @@ export const FilesSourceFilter: FC<IFilesSourceFilterProps> = props => <Filter
 	translation={'common.filter.Files'}
 />;
 
-export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IFileFilter>> {
+export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IFileQuery>>> {
 }
 
-export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IFileFilter> {...props}/>;
+export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IFileQuery>> {...props}/>;
 
-export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IFileFilter>()
-export const useFilesOrderByContext = () => useOrderByContext<IFileFilter>()
+export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IFileQuery>>()
+export const useFilesOrderByContext = () => useOrderByContext<IQueryFilter<IFileQuery>>()
 
 export interface IFilesListSourceProps extends Partial<IListProps<IFile>> {
 	sourceProps?: Partial<IFilesSourceProps>;
 }
 
-export interface IFilesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IFileFilter, IFileOrderBy, IFilesQueryParams>> {
+export interface IFilesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IFileQuery>, IQueryOrderBy<IFileQuery>, IFilesQueryParams>> {
 }
 
-export const FilesSourceControlProvider: FC<IFilesSourceControlProviderProps> = props => <SourceControlProvider<IFileFilter, IFileOrderBy> {...props}/>;
+export const FilesSourceControlProvider: FC<IFilesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IFileQuery>, IQueryOrderBy<IFileQuery>> {...props}/>;
 
 export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...props}) => {
 	return <FilesSource

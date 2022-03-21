@@ -1,7 +1,7 @@
-import {ITransaction, ITransactionFilter, ITransactionOrderBy, ITransactionQuery} from "@/puff-smith/service/transaction";
+import {ITransaction, ITransactionQuery} from "@/puff-smith/service/transaction";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
-import {IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
 	createQueryHook,
@@ -61,15 +61,15 @@ export const useTransactionsLink = (): ((queryParams?: ITransactionsQueryParams)
 
 export const useTransactionsPromise = createPromiseHook<ITransactionQuery, ITransaction, ITransactionsQueryParams>(TransactionsApiLink, "post");
 
-export interface ITransactionsFilterProviderProps extends Partial<IFilterProviderProps<ITransactionFilter>> {
+export interface ITransactionsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const TransactionsFilterProvider: FC<ITransactionsFilterProviderProps> = props => <FilterProvider<ITransactionFilter> {...props}/>;
+export const TransactionsFilterProvider: FC<ITransactionsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
 
-export const useTransactionsOptionalFilterContext = () => useOptionalFilterContext<ITransactionFilter>()
-export const useTransactionsFilterContext = () => useFilterContext<ITransactionFilter>()
+export const useTransactionsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>()
+export const useTransactionsFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>()
 
-export interface ITransactionsSourceFilterProps extends IFilterWithoutTranslationProps<ITransactionFilter> {
+export interface ITransactionsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ITransactionQuery>> {
 }
 
 export const TransactionsSourceFilter: FC<ITransactionsSourceFilterProps> = props => <Filter
@@ -77,22 +77,22 @@ export const TransactionsSourceFilter: FC<ITransactionsSourceFilterProps> = prop
 	translation={'common.filter.Transactions'}
 />;
 
-export interface ITransactionsOrderByProviderProps extends Partial<IOrderByProviderProps<ITransactionFilter>> {
+export interface ITransactionsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<ITransactionFilter> {...props}/>;
+export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
 
-export const useTransactionsOptionalOrderByContext = () => useOptionalOrderByContext<ITransactionFilter>()
-export const useTransactionsOrderByContext = () => useOrderByContext<ITransactionFilter>()
+export const useTransactionsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>()
+export const useTransactionsOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>()
 
 export interface ITransactionsListSourceProps extends Partial<IListProps<ITransaction>> {
 	sourceProps?: Partial<ITransactionsSourceProps>;
 }
 
-export interface ITransactionsSourceControlProviderProps extends Partial<ISourceControlProviderProps<ITransactionFilter, ITransactionOrderBy, ITransactionsQueryParams>> {
+export interface ITransactionsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>, ITransactionsQueryParams>> {
 }
 
-export const TransactionsSourceControlProvider: FC<ITransactionsSourceControlProviderProps> = props => <SourceControlProvider<ITransactionFilter, ITransactionOrderBy> {...props}/>;
+export const TransactionsSourceControlProvider: FC<ITransactionsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>> {...props}/>;
 
 export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({sourceProps, ...props}) => {
 	return <TransactionsSource

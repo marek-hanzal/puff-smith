@@ -6,6 +6,7 @@ import {Divider, InputNumber, message} from "antd";
 import {PurchaseIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
 import {useTransactionsQueryInvalidate} from "@/sdk/api/transaction/query";
+import {useSumQueryInvalidate} from "@/sdk/api/transaction/sum";
 
 export interface ITransactionCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -13,11 +14,13 @@ export interface ITransactionCreateFormProps extends Partial<ICreateDefaultFormP
 export const TransactionCreateForm: FC<ITransactionCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const transactionsQueryInvalidate = useTransactionsQueryInvalidate();
+	const sumQueryInvalidate = useSumQueryInvalidate();
 	return <CreateDefaultForm
 		translation={'root.transaction'}
-		onSuccess={response => {
+		onSuccess={async response => {
 			message.success(t("root.transaction.create.success", {data: response.response}));
-			transactionsQueryInvalidate();
+			await transactionsQueryInvalidate();
+			await sumQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}

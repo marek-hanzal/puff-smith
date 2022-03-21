@@ -40,16 +40,17 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String?
-  email         String?       @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  files         File[]
-  jobs          Job[]
-  Transaction   Transaction[]
+  id                  String                @id @default(cuid())
+  name                String?
+  email               String?               @unique
+  emailVerified       DateTime?
+  image               String?
+  accounts            Account[]
+  sessions            Session[]
+  files               File[]
+  jobs                Job[]
+  Transaction         Transaction[]
+  AtomizerTransaction AtomizerTransaction[]
 }
 
 model VerificationToken {
@@ -138,6 +139,7 @@ model Tag {
   Atomizer Atomizer[]
 
   AtomizerDraw AtomizerDraw[]
+
   @@unique([code, group])
 }
 
@@ -161,6 +163,8 @@ model Atomizer {
   AtomizerDraw AtomizerDraw[]
   cost         Decimal?       @db.Decimal(5, 2)
 
+  AtomizerTransaction AtomizerTransaction[]
+
   @@unique([name, vendorId])
 }
 
@@ -179,4 +183,16 @@ model Transaction {
   userId  String
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   note    String?
+
+  AtomizerTransaction AtomizerTransaction[]
+}
+
+model AtomizerTransaction {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atomizerId    String
+  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }

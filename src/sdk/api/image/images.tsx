@@ -1,4 +1,4 @@
-import {IQuery, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";
 import {
@@ -63,15 +63,15 @@ export const useImagesLink = (): ((queryParams?: IImagesQueryParams) => string) 
 
 export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
 
-export interface IImagesFilterProviderProps extends Partial<IFilterProviderProps<void>> {
+export interface IImagesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<void> {...props}/>;
+export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> {...props}/>;
 
-export const useImagesOptionalFilterContext = () => useOptionalFilterContext<void>()
-export const useImagesFilterContext = () => useFilterContext<void>()
+export const useImagesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
+export const useImagesFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
 
-export interface IImagesSourceFilterProps extends IFilterWithoutTranslationProps<void> {
+export interface IImagesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
 }
 
 export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
@@ -79,22 +79,22 @@ export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
 	translation={'common.filter.Images'}
 />;
 
-export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<void>> {
+export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<void> {...props}/>;
+export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> {...props}/>;
 
-export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<void>()
-export const useImagesOrderByContext = () => useOrderByContext<void>()
+export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>()
+export const useImagesOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>()
 
 export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto>> {
 	sourceProps?: Partial<IImagesSourceProps>;
 }
 
-export interface IImagesSourceControlProviderProps extends Partial<ISourceControlProviderProps<void, void, IImagesQueryParams>> {
+export interface IImagesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, IImagesQueryParams>> {
 }
 
-export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => <SourceControlProvider<void, void> {...props}/>;
+export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> {...props}/>;
 
 export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...props}) => {
 	return <ImagesSource
