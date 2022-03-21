@@ -51,6 +51,10 @@ model User {
   jobs                Job[]
   Transaction         Transaction[]
   AtomizerTransaction AtomizerTransaction[]
+  ModTransaction      ModTransaction[]
+  CellTransaction     CellTransaction[]
+  CottonTransaction   CottonTransaction[]
+  Comment             Comment[]
 }
 
 model VerificationToken {
@@ -130,15 +134,30 @@ enum JobStatus {
 
 // Puff Smith Stuff
 
-model Tag {
-  id       String     @id @default(cuid())
-  code     String
-  label    String?
-  group    String
-  sort     Int?
-  Atomizer Atomizer[]
+model Comment {
+  id      String   @id @default(cuid())
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment String   @db.Text
+  created DateTime
+  public  Boolean  @default(false)
 
+  AtomizerComment AtomizerComment[]
+  CellComment     CellComment[]
+  ModComment      ModComment[]
+  CottonComment   CottonComment[]
+}
+
+model Tag {
+  id    String  @id @default(cuid())
+  code  String
+  label String?
+  group String
+  sort  Int?
+
+  Atomizer     Atomizer[]
   AtomizerDraw AtomizerDraw[]
+  Cell         Cell[]
 
   @@unique([code, group])
 }
@@ -147,6 +166,9 @@ model Vendor {
   id        String     @id @default(cuid())
   name      String     @unique
   atomizers Atomizer[]
+  Cell      Cell[]
+  Mod       Mod[]
+  Cotton    Cotton[]
 }
 
 model Atomizer {
@@ -164,6 +186,7 @@ model Atomizer {
   cost         Decimal?       @db.Decimal(5, 2)
 
   AtomizerTransaction AtomizerTransaction[]
+  AtomizerComment     AtomizerComment[]
 
   @@unique([name, vendorId])
 }
@@ -176,6 +199,14 @@ model AtomizerDraw {
   draw       Tag      @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
+model AtomizerComment {
+  id         String   @id @default(cuid())
+  atomizerId String
+  atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  commentId  String
+  comment    Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
 model Transaction {
   id      String   @id @default(cuid())
   amount  Decimal  @db.Decimal(10, 2)
@@ -185,6 +216,9 @@ model Transaction {
   note    String?
 
   AtomizerTransaction AtomizerTransaction[]
+  ModTransaction      ModTransaction[]
+  CellTransaction     CellTransaction[]
+  CottonTransaction   CottonTransaction[]
 }
 
 model AtomizerTransaction {
@@ -195,4 +229,113 @@ model AtomizerTransaction {
   atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model Cell {
+  id       String  @id @default(cuid())
+  name     String
+  drain    Decimal @db.Decimal(10, 2)
+  voltage  Decimal @db.Decimal(10, 2)
+  ohm      Decimal @db.Decimal(10, 2)
+  cost     Decimal @db.Decimal(10, 2)
+  typeId   String
+  type     Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  vendorId String
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  ModCell         ModCell[]
+  CellTransaction CellTransaction[]
+  CellComment     CellComment[]
+
+  @@unique([name, vendorId])
+}
+
+model CellTransaction {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cellId        String
+  cell          Cell        @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model CellComment {
+  id        String  @id @default(cuid())
+  cellId    String
+  cell      Cell    @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model Mod {
+  id       String  @id @default(cuid())
+  name     String
+  vendorId String
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cost     Decimal @db.Decimal(10, 2)
+  voltage  Decimal @db.Decimal(10, 2)
+  power    Decimal @db.Decimal(10, 2)
+
+  ModCell        ModCell[]
+  ModTransaction ModTransaction[]
+  ModComment     ModComment[]
+
+  @@unique([name, vendorId])
+}
+
+model ModCell {
+  id     String @id @default(cuid())
+  modId  String
+  mod    Mod    @relation(fields: [modId], references: [id], onDelete: Cascade)
+  cellId String
+  cell   Cell   @relation(fields: [cellId], references: [id], onDelete: Cascade)
+}
+
+model ModTransaction {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modId         String
+  mod           Mod         @relation(fields: [modId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model ModComment {
+  id        String  @id @default(cuid())
+  modId     String
+  mod       Mod     @relation(fields: [modId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model Cotton {
+  id                String              @id @default(cuid())
+  name              String
+  vendorId          String
+  vendor            Vendor              @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cost              Decimal             @db.Decimal(10, 2)
+  CottonTransaction CottonTransaction[]
+  CottonComment     CottonComment[]
+
+  @@unique([name, vendorId])
+}
+
+model CottonTransaction {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cottonId      String
+  cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model CottonComment {
+  id        String  @id @default(cuid())
+  cottonId  String
+  cotton    Cotton  @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
