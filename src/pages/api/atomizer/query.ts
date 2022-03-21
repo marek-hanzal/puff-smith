@@ -1,4 +1,5 @@
 import {QueryEndpoint} from "@leight-core/server";
-import {atomizerQuery, IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer";
+import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer";
+import {AtomizerService} from "@/puff-smith/service/atomizer/service";
 
-export default QueryEndpoint<"Atomizers", IAtomizerQuery, IAtomizer>(async ({req: {body}}) => atomizerQuery(body));
+export default QueryEndpoint<"Atomizers", IAtomizerQuery, IAtomizer>(async ({request}) => AtomizerService().query(request));
