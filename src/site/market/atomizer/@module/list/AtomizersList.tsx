@@ -1,6 +1,6 @@
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {FC} from "react";
-import {Space, Typography} from "antd";
+import {Divider, Space, Typography} from "antd";
 import {AtomizersListSource, IAtomizersListSourceProps} from "@/sdk/api/atomizer/query";
 import {AtomizerTransactionCreateButton} from "@/puff-smith/site/market/atomizer";
 
@@ -14,11 +14,11 @@ export const AtomizersList: FC<IAtomizersListProps> = props => {
 	>
 		{atomizer => <ListItem key={atomizer.id}>
 			<ListItemMeta
-				title={<Space>
+				title={<Space size={0} split={<Divider type={'vertical'}/>}>
 					{atomizer.name}
 					<Typography.Text type={'secondary'}>{atomizer.vendor.name}</Typography.Text>
+					<AtomizerTransactionCreateButton type={'link'} atomizer={atomizer}/>
 				</Space>}
-				description={<AtomizerTransactionCreateButton atomizer={atomizer}/>}
 			/>
 		</ListItem>}
 	</AtomizersListSource>;
