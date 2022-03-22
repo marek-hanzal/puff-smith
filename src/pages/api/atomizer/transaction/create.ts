@@ -1,9 +1,10 @@
 import {MutationEndpoint} from "@leight-core/server";
-import {atomizerTransactionCreate, atomizerTransactionMapper, IAtomizerTransaction, IAtomizerTransactionCreate} from "@/puff-smith/service/atomizer";
+import {AtomizerTransactionService, IAtomizerTransaction, IAtomizerTransactionCreate} from "@/puff-smith/service/atomizer";
 
 export default MutationEndpoint<"Create", Omit<IAtomizerTransactionCreate, "userId">, IAtomizerTransaction>(async ({res, request, toUserId}) => {
+	const atomizerTransactionService = AtomizerTransactionService();
 	try {
-		return atomizerTransactionMapper(await atomizerTransactionCreate({
+		return atomizerTransactionService.map(await atomizerTransactionService.create({
 			...request,
 			userId: await toUserId(),
 		}));

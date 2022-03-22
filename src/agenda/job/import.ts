@@ -1,15 +1,15 @@
 import {Agenda, Job, Processor} from "agenda";
 import xlsx from 'xlsx';
 import {fileService} from "@/puff-smith/service/file";
-import {toImport} from "@/puff-smith/import";
 import {TranslationImport} from "@/puff-smith/service/translation";
 import {measureTime} from "measure-time";
 import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
-import {jobUpdateStatus} from "@/puff-smith/service/job";
+import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
 import {TagImport} from "@/puff-smith/service/tag";
 import {VendorImport} from "@/puff-smith/service/vendor";
-import {AtomizerService} from "@/puff-smith/service/atomizer/service";
+import {AtomizerService} from "@/puff-smith/service/atomizer";
+import {toImport} from "@leight-core/server";
 
 export const ImportJobName = 'import';
 
@@ -43,7 +43,20 @@ export default function ImportJob(agenda: Agenda) {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
 			const getElapsed = measureTime();
-			const result = await toImport(theJob, workbook, importHandlers);
+			const result = await toImport(theJob, workbook, importHandlers, {
+				async onTotal(total: number): Promise<void> {
+					await jobUpdateTotal(theJob.id, total);
+				},
+				async onSuccess(success: number, total: number, processed: number): Promise<void> {
+					await jobUpdateSuccess(theJob.id, success, total, processed);
+				},
+				async onSkip(skip: number, total: number, processed: number): Promise<void> {
+					await jobUpdateSkip(theJob.id, skip, total, processed);
+				},
+				async onFailure(error: Error, failure: number, total: number, processed: number): Promise<void> {
+					await jobUpdateFailure(theJob.id, failure, total, processed);
+				}
+			});
 			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
 			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {

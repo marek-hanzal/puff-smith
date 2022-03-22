@@ -1,7 +1,6 @@
-import {Atomizer, AtomizerTransaction, Prisma} from "@prisma/client";
-import {IQuery} from "@leight-core/api";
+import {Atomizer, Prisma} from "@prisma/client";
+import {IQuery, IRepositoryServiceFactory} from "@leight-core/api";
 import {IVendor} from "@/puff-smith/service/vendor";
-import {ITransaction} from "@/puff-smith/service/transaction";
 
 export interface IAtomizerCreate {
 	vendor: string;
@@ -12,20 +11,6 @@ export interface IAtomizerCreate {
 	squonk?: string;
 	cost?: string;
 }
-
-export interface IAtomizerTransactionCreate {
-	userId: string;
-	atomizerId: string;
-}
-
-export interface IAtomizerTransaction {
-	id: string;
-	atomizer: IAtomizer;
-	transaction: ITransaction;
-}
-
-export type IAtomizers = Promise<Atomizer[]>;
-export type IAtomizerTransactions = Promise<AtomizerTransaction[]>;
 
 export type IAtomizerFilter = Prisma.AtomizerWhereInput;
 export type IAtomizerOrderBy = Prisma.AtomizerOrderByWithRelationInput;
@@ -39,3 +24,5 @@ export interface IAtomizer {
 	cost?: number | null;
 	vendor: IVendor;
 }
+
+export type IAtomizerServiceFactory = IRepositoryServiceFactory<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery>;
