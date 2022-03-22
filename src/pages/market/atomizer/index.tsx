@@ -13,6 +13,8 @@ export default withMarketLayout(function Index() {
 			defaultOrderBy={{
 				name: 'asc',
 			}}
+			defaultPage={0}
+			defaultSize={5}
 		>
 			<AtomizersList/>
 		</AtomizersSourceControlProvider>
