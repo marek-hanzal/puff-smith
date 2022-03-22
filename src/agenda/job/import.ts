@@ -1,7 +1,7 @@
 import {Agenda, Job, Processor} from "agenda";
 import xlsx from 'xlsx';
 import {fileService} from "@/puff-smith/service/file";
-import {TranslationImport} from "@/puff-smith/service/translation";
+import {TranslationService} from "@/puff-smith/service/translation";
 import {measureTime} from "measure-time";
 import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
@@ -14,7 +14,7 @@ import {toImport} from "@leight-core/server";
 export const ImportJobName = 'import';
 
 const importHandlers = {
-	...TranslationImport,
+	...TranslationService().importers(),
 	...TagImport,
 	...AtomizerService().importers(),
 	...VendorImport,
