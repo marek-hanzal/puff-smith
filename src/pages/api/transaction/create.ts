@@ -1,6 +1,4 @@
 import {CreateEndpoint} from "@leight-core/server";
-import {ITransaction, ITransactionCreate, transactionCreate, transactionMapper} from "@/puff-smith/service/transaction";
+import {ITransaction, ITransactionCreate, TransactionService} from "@/puff-smith/service/transaction";
 
-export default CreateEndpoint<"Create", ITransactionCreate, ITransaction>(async ({request}) => {
-	return transactionMapper(await transactionCreate(request));
-});
+export default CreateEndpoint<"Create", ITransactionCreate, ITransaction>(TransactionService().handleCreate);

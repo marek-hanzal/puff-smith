@@ -2,8 +2,9 @@ import {ITranslationService} from "@/puff-smith/service/translation/interface";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
 import {sha256} from "@/puff-smith/service/sha256";
+import {IPrismaClientTransaction} from "@leight-core/api";
 
-export const TranslationService = (prismaClient = prisma): ITranslationService => ({
+export const TranslationService = (prismaClient: IPrismaClientTransaction = prisma): ITranslationService => ({
 	...AbstractRepositoryService<ITranslationService>(prismaClient, prismaClient.translation, async translation => ({
 		key: translation.label,
 		value: translation.text,
@@ -15,6 +16,9 @@ export const TranslationService = (prismaClient = prisma): ITranslationService =
 				handler,
 			}),
 		})
+	},
+	async handleCreate({request}) {
+		return this.map(await this.create(request));
 	},
 	create: async create => {
 		const hash = sha256(create.label);

@@ -4,8 +4,9 @@ import {tagByCodes} from "@/puff-smith/service/tag";
 import {vendorMapper, vendorRequire} from "@/puff-smith/service/vendor";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
+import {IPrismaClientTransaction} from "@leight-core/api";
 
-export const AtomizerService = (prismaClient = prisma): IAtomizerService => {
+export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma): IAtomizerService => {
 	return {
 		...AbstractRepositoryService<IAtomizerService>(prismaClient, prismaClient.atomizer, async atomizer => {
 			const vendor = await vendorRequire(atomizer.vendorId);
@@ -15,6 +16,9 @@ export const AtomizerService = (prismaClient = prisma): IAtomizerService => {
 				cost: atomizer?.cost?.toNumber(),
 			};
 		}),
+		async handleCreate({request}) {
+			return this.map(await this.create(request));
+		},
 		importers() {
 			const handler = this.create;
 			return ({

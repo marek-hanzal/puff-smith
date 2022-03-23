@@ -1,5 +1,6 @@
 import {Prisma, Transaction} from "@prisma/client";
-import {IQuery} from "@leight-core/api";
+import {IQuery, IRepositoryService} from "@leight-core/api";
+import {ParsedUrlQuery} from "querystring";
 
 export interface ITransactionCreate {
 	amount: number;
@@ -7,12 +8,7 @@ export interface ITransactionCreate {
 	note?: string | null;
 }
 
-export type ITransactions = Promise<Transaction[]>;
-
-export type ITransactionFilter = Prisma.TransactionWhereInput;
-export type ITransactionOrderBy = Prisma.TransactionOrderByWithRelationInput;
-
-export interface ITransactionQuery extends IQuery<ITransactionFilter, ITransactionOrderBy> {
+export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, Prisma.TransactionOrderByWithRelationInput> {
 }
 
 export interface ITransaction {
@@ -20,4 +16,18 @@ export interface ITransaction {
 	amount: number;
 	created: Date;
 	note?: string | null;
+}
+
+export interface ITransactionFetchProps {
+	transaction: ITransaction;
+}
+
+export interface ITransactionFetchQuery extends ParsedUrlQuery {
+	transactionId: string;
+}
+
+export interface ITransactionService extends IRepositoryService<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
+	sum(query: ITransactionQuery): Promise<number>;
+
+	sumOf(userId: string): Promise<number>;
 }

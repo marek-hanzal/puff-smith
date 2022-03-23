@@ -1,6 +1,4 @@
 import {FetchEndpoint} from "@leight-core/server";
-import {transactionPuffiesOf} from "@/puff-smith/service/transaction";
+import {TransactionService} from "@/puff-smith/service/transaction";
 
-export default FetchEndpoint<"Puffies", number>(async ({toUserId}) => {
-	return transactionPuffiesOf(await toUserId());
-})
+export default FetchEndpoint<"Puffies", number>(async ({toUserId}) => TransactionService().sumOf(await toUserId()));
