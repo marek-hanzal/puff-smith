@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
 import prismaClient from "@/puff-smith/service/prisma";
+import {UserService} from "@/puff-smith/service/user";
 
 export default NextAuth({
 	theme: {
@@ -29,11 +30,11 @@ export default NextAuth({
 	],
 	callbacks: {
 		jwt: async ({token}) => {
-			console.log('jwt callback', token?.sub);
+			token?.sub && await UserService().fetch(token.sub);
 			return token;
 		},
 		session: async ({session, token}) => {
-			console.log('session callback', token?.sub);
+			token?.sub && await UserService().fetch(token.sub);
 			return session;
 		},
 	},
