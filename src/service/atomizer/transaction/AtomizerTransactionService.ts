@@ -5,7 +5,7 @@ import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
 
 export const AtomizerTransactionService = (prismaClient: IPrismaClientTransaction = prisma): IAtomizerTransactionService => {
-	return {
+	const service: IAtomizerTransactionService = {
 		...AbstractRepositoryService<IAtomizerTransactionService>(prismaClient, prismaClient.atomizerTransaction, async atomizerTransaction => {
 			const atomizerService = AtomizerService(prisma);
 			const transactionService = TransactionService(prisma);
@@ -17,7 +17,7 @@ export const AtomizerTransactionService = (prismaClient: IPrismaClientTransactio
 			}
 		}),
 		async handleCreate({request}) {
-			return this.map(await this.create(request));
+			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
 			const atomizerService = AtomizerService(prisma);
@@ -39,5 +39,7 @@ export const AtomizerTransactionService = (prismaClient: IPrismaClientTransactio
 				}
 			});
 		}),
-	}
+	};
+
+	return service;
 }

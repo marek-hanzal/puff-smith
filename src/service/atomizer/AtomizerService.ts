@@ -7,7 +7,7 @@ import {VendorService} from "@/puff-smith/service/vendor";
 import {TagService} from "@/puff-smith/service/tag";
 
 export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma): IAtomizerService => {
-	return {
+	const service: IAtomizerService = {
 		...AbstractRepositoryService<IAtomizerService>(prismaClient, prismaClient.atomizer, async atomizer => {
 			return {
 				...atomizer,
@@ -16,10 +16,10 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			};
 		}),
 		async handleCreate({request}) {
-			return this.map(await this.create(request));
+			return service.map(await service.create(request));
 		},
 		importers() {
-			const handler = this.create;
+			const handler = service.create;
 			return ({
 				atomizer: () => ({
 					handler,
@@ -102,5 +102,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 				throw e;
 			}
 		},
-	}
+	};
+
+	return service;
 }
