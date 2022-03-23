@@ -11,7 +11,7 @@ export const VendorService = (prismaClient: IPrismaClientTransaction = prisma): 
 	importers() {
 		const handler = this.create;
 		return ({
-			atomizer: () => ({
+			vendor: () => ({
 				handler,
 			}),
 		})

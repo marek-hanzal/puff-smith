@@ -35,7 +35,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 	importers() {
 		const handler = this.create;
 		return ({
-			atomizer: () => ({
+			tag: () => ({
 				handler,
 			}),
 		})
