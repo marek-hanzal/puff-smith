@@ -1,8 +1,8 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {UserContextMenu} from "@/puff-smith/site/root/user";
-import {handleUserFetch, IUserFetchProps} from "@/puff-smith/service/user";
 import {Preview} from "@leight-core/client";
 import {Avatar, Col, Row} from "antd";
+import {IUserFetchProps, UserService} from "@/puff-smith/service/user";
 
 export default withRootLayout(function Index({user}: IUserFetchProps) {
 	return <RootPage
@@ -24,4 +24,4 @@ export default withRootLayout(function Index({user}: IUserFetchProps) {
 	</RootPage>;
 });
 
-export const getServerSideProps = handleUserFetch;
+export const getServerSideProps = UserService().pageFetch('user', 'userId');

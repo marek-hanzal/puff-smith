@@ -6,9 +6,7 @@ export default function Index() {
 };
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
-	console.log('Waiting for session')
 	const token: any = await getToken({req: ctx.req});
-	console.log('Done!')
 	return {
 		redirect: token ? {destination: '/lab'} : {destination: '/public'},
 		props: {},

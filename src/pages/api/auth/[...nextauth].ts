@@ -27,6 +27,16 @@ export default NextAuth({
 		// https://next-auth.js.org/providers/google
 		// https://console.developers.google.com/apis/credentials?project=puff-smith&supportedpurview=project
 	],
+	callbacks: {
+		jwt: async ({token}) => {
+			console.log('jwt callback', token?.sub);
+			return token;
+		},
+		session: async ({session, token}) => {
+			console.log('session callback', token?.sub);
+			return session;
+		},
+	},
 	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
 		secret: process.env.NEXTAUTH_SECRET,

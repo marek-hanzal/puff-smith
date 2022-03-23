@@ -1,12 +1,11 @@
-import {AtomizerTransaction} from "@prisma/client";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
 import {transactionCreate, transactionFetch, transactionMapper, transactionSum} from "@/puff-smith/service/transaction";
-import {AtomizerService, IAtomizerTransaction, IAtomizerTransactionQuery, IAtomizerTransactionServiceFactory} from "@/puff-smith/service/atomizer";
+import {AtomizerService, IAtomizerTransactionService} from "@/puff-smith/service/atomizer";
 
-export const AtomizerTransactionService: IAtomizerTransactionServiceFactory = (prismaClient = prisma) => {
+export const AtomizerTransactionService = (prismaClient = prisma): IAtomizerTransactionService => {
 	return {
-		...AbstractRepositoryService<AtomizerTransaction, IAtomizerTransaction, IAtomizerTransactionQuery>(prismaClient, prismaClient.atomizerTransaction, async atomizerTransaction => {
+		...AbstractRepositoryService<IAtomizerTransactionService>(prismaClient, prismaClient.atomizerTransaction, async atomizerTransaction => {
 			const atomizerService = AtomizerService(prisma);
 			const transaction = await transactionFetch(atomizerTransaction.transactionId);
 			return {
@@ -16,7 +15,7 @@ export const AtomizerTransactionService: IAtomizerTransactionServiceFactory = (p
 			}
 		}),
 		create: async create => prisma.$transaction(async prisma => {
-			const atomizerService = AtomizerService(prisma);
+			const atomizerService = AtomizerService(prismaClient);
 			const atomizer = await atomizerService.toMap(create.atomizerId);
 			const transaction = await transactionCreate({
 				amount: -1 * (atomizer.cost || 0),

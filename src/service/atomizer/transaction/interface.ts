@@ -1,7 +1,8 @@
 import {AtomizerTransaction, Prisma} from "@prisma/client";
-import {IQuery, IRepositoryServiceFactory} from "@leight-core/api";
+import {IQuery, IRepositoryService} from "@leight-core/api";
 import {ITransaction} from "@/puff-smith/service/transaction";
 import {IAtomizer} from "@/puff-smith/service/atomizer";
+import {ParsedUrlQuery} from "querystring";
 
 export interface IAtomizerTransactionCreate {
 	userId: string;
@@ -14,10 +15,15 @@ export interface IAtomizerTransaction {
 	transaction: ITransaction;
 }
 
-export type IAtomizerTransactionFilter = Prisma.AtomizerWhereInput;
-export type IAtomizerTransactionOrderBy = Prisma.AtomizerOrderByWithRelationInput;
-
-export interface IAtomizerTransactionQuery extends IQuery<IAtomizerTransactionFilter, IAtomizerTransactionOrderBy> {
+export interface IAtomizerTransactionQuery extends IQuery<Prisma.AtomizerWhereInput, Prisma.AtomizerOrderByWithRelationInput> {
 }
 
-export type IAtomizerTransactionServiceFactory = IRepositoryServiceFactory<IAtomizerTransactionCreate, AtomizerTransaction, IAtomizerTransaction, IAtomizerTransactionQuery>;
+export interface IAtomizerTransactionFetchProps {
+	atomizerTransaction: IAtomizerTransaction;
+}
+
+export interface IAtomizerTransactionFetchQuery extends ParsedUrlQuery {
+	atomizerTransactionId: string;
+}
+
+export type IAtomizerTransactionService = IRepositoryService<IAtomizerTransactionCreate, AtomizerTransaction, IAtomizerTransaction, IAtomizerTransactionQuery, IAtomizerTransactionFetchProps, IAtomizerTransactionFetchQuery>;

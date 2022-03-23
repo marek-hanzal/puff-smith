@@ -1,6 +1,6 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
 import {UserContextMenu} from "@/puff-smith/site/root/user";
-import {handleUserFetch, IUserFetchProps} from "@/puff-smith/service/user";
+import {IUserFetchProps, UserService} from "@/puff-smith/service/user";
 import {Avatar} from "antd";
 import {TransactionsSourceControlProvider} from "@/sdk/api/transaction/query";
 import {TransactionList} from "@/puff-smith/site/root/transaction";
@@ -21,4 +21,4 @@ export default withRootLayout(function Transactions({user}: IUserFetchProps) {
 	</RootPage>;
 });
 
-export const getServerSideProps = handleUserFetch;
+export const getServerSideProps = UserService().pageFetch('user', 'userId');

@@ -1,5 +1,6 @@
-import {IQuery} from "@leight-core/api";
-import {Prisma} from "@prisma/client";
+import {IQuery, IRepositoryService, ITranslation} from "@leight-core/api";
+import {Prisma, Translation} from "@prisma/client";
+import {ParsedUrlQuery} from "querystring";
 
 export interface ITranslationCreate {
 	language: string;
@@ -7,8 +8,15 @@ export interface ITranslationCreate {
 	text: string;
 }
 
-export type ITranslationFilter = Prisma.TranslationWhereInput;
-export type ITranslationOrderBy = Prisma.TranslationOrderByWithRelationInput;
-
-export interface ITranslationQuery extends IQuery<ITranslationFilter, ITranslationOrderBy> {
+export interface ITranslationQuery extends IQuery<Prisma.TranslationWhereInput, Prisma.TranslationOrderByWithRelationInput> {
 }
+
+export interface ITranslationFetchProps {
+	translation: ITranslation;
+}
+
+export interface ITranslationFetchQuery extends ParsedUrlQuery {
+	translationId: string;
+}
+
+export type ITranslationService = IRepositoryService<ITranslationCreate, Translation, ITranslation, ITranslationQuery, ITranslationFetchProps, ITranslationFetchQuery>;

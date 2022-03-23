@@ -1,12 +1,11 @@
 import {Prisma, User} from "@prisma/client";
-import {IQuery} from "@leight-core/api";
+import {IQuery, IRepositoryService} from "@leight-core/api";
+import {ParsedUrlQuery} from "querystring";
 
-export type IUsers = Promise<User[]>;
+export interface IUserCreate {
+}
 
-export type IUserFilter = Prisma.UserWhereInput & { fulltext?: string };
-export type IUserOrderBy = Prisma.UserOrderByWithRelationInput;
-
-export interface IUserQuery extends IQuery<IUserFilter, IUserOrderBy> {
+export interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
 
 export interface IUser {
@@ -15,3 +14,13 @@ export interface IUser {
 	email?: string | null;
 	image?: string | null;
 }
+
+export interface IUserFetchProps {
+	user: IUser;
+}
+
+export interface IUserFetchQuery extends ParsedUrlQuery {
+	userId: string;
+}
+
+export type IUserService = IRepositoryService<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery>;
