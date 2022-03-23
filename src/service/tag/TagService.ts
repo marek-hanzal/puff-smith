@@ -18,7 +18,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 						code: `${tag.code}`,
 					},
 				})
-			} catch (e: any) {
+			} catch (e) {
 				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
 					return await prismaClient.tag.update({
 						where: {
