@@ -29,8 +29,10 @@ export default NextAuth({
 		// https://console.developers.google.com/apis/credentials?project=puff-smith&supportedpurview=project
 	],
 	callbacks: {
-		jwt: async ({token}) => {
-			token?.sub && await UserService().fetch(token.sub);
+		jwt: async ({token, isNewUser}) => {
+			const userService = UserService();
+			token?.sub && await userService.fetch(token.sub);
+			token?.sub && isNewUser && (await prismaClient.user.count()) === 1 && await userService.handleRootUser(token.sub);
 			return token;
 		},
 		session: async ({session, token}) => {
