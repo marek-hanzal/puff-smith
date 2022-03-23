@@ -1,19 +1,25 @@
 import {Prisma, Vendor} from "@prisma/client";
-import {IQuery} from "@leight-core/api";
+import {IQuery, IRepositoryService} from "@leight-core/api";
+import {ParsedUrlQuery} from "querystring";
 
 export interface IVendorCreate {
 	name: string;
 }
 
-export type IVendors = Promise<Vendor[]>;
-
-export type IVendorFilter = Prisma.VendorWhereInput;
-export type IVendorOrderBy = Prisma.VendorOrderByWithRelationInput;
-
-export interface IVendorQuery extends IQuery<IVendorFilter, IVendorOrderBy> {
+export interface IVendorQuery extends IQuery<Prisma.VendorWhereInput, Prisma.VendorOrderByWithRelationInput> {
 }
 
 export interface IVendor {
 	id: string;
 	name: string;
 }
+
+export interface IVendorFetchProps {
+	vendor: IVendor;
+}
+
+export interface IVendorFetchQuery extends ParsedUrlQuery {
+	vendorId: string;
+}
+
+export type IVendorService = IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery>;

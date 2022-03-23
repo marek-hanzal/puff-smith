@@ -1,18 +1,17 @@
-import {IAtomizerService} from "@/puff-smith/service/atomizer/interface";
+import {IAtomizerService} from "@/puff-smith/service/atomizer";
 import {boolean} from "boolean";
 import {tagByCodes} from "@/puff-smith/service/tag";
-import {vendorMapper, vendorRequire} from "@/puff-smith/service/vendor";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {VendorService} from "@/puff-smith/service/vendor";
 
 export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma): IAtomizerService => {
 	return {
 		...AbstractRepositoryService<IAtomizerService>(prismaClient, prismaClient.atomizer, async atomizer => {
-			const vendor = await vendorRequire(atomizer.vendorId);
 			return {
 				...atomizer,
-				vendor: vendorMapper(vendor),
+				vendor: await VendorService(prismaClient).toMap(atomizer.vendorId),
 				cost: atomizer?.cost?.toNumber(),
 			};
 		}),
