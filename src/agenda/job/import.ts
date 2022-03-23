@@ -6,7 +6,7 @@ import {measureTime} from "measure-time";
 import {toHumanTimeMs} from "@leight-core/client";
 import {IJob, IQueryParams} from "@leight-core/api";
 import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
-import {TagImport} from "@/puff-smith/service/tag";
+import {TagService} from "@/puff-smith/service/tag";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {toImport} from "@leight-core/server";
@@ -15,7 +15,7 @@ export const ImportJobName = 'import';
 
 const importHandlers = {
 	...TranslationService().importers(),
-	...TagImport,
+	...TagService().importers(),
 	...AtomizerService().importers(),
 	...VendorService().importers(),
 };

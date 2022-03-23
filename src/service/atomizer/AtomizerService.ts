@@ -1,10 +1,10 @@
 import {IAtomizerService} from "@/puff-smith/service/atomizer";
 import {boolean} from "boolean";
-import {tagByCodes} from "@/puff-smith/service/tag";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
+import {TagService} from "@/puff-smith/service/tag";
 
 export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma): IAtomizerService => {
 	return {
@@ -27,6 +27,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			})
 		},
 		create: async ({draw, type, vendor, ...atomizer}) => {
+			const tagService = TagService(prismaClient);
 			try {
 				return await prismaClient.atomizer.create({
 					data: {
@@ -49,7 +50,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 						},
 						AtomizerDraw: {
 							createMany: {
-								data: draw ? (await tagByCodes(draw, 'draw')).map(tag => ({
+								data: draw ? (await tagService.fetchCodes(draw, 'draw')).map(tag => ({
 									drawId: tag.id,
 								})) : [],
 							}
@@ -90,7 +91,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 							},
 							AtomizerDraw: {
 								createMany: {
-									data: draw ? (await tagByCodes(draw, 'draw')).map(tag => ({
+									data: draw ? (await tagService.fetchCodes(draw, 'draw')).map(tag => ({
 										drawId: tag.id,
 									})) : [],
 								}
