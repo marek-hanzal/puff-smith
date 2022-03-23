@@ -14,9 +14,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 			...filter,
 			...toFulltext(fulltext, ['name', 'email']),
 		})),
-		async handleCreate({request}) {
-			return service.map(await service.create(request));
-		},
+		handleCreate: async ({request}) => service.map(await service.create(request)),
 		create: async create => (await prismaClient.user.create({
 			data: create,
 		})),
