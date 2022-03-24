@@ -29,7 +29,7 @@ export const TransactionCreateForm: FC<ITransactionCreateFormProps> = ({onSucces
 			<UserSelect/>
 		</FormItem>
 		<FormItem field={'amount'} required>
-			<InputNumber min={-1000} max={1000} style={{width: '100%'}}/>
+			<InputNumber min={-100000} max={100000} style={{width: '100%'}}/>
 		</FormItem>
 		<FormItem field={'note'}/>
 		<Divider/>
