@@ -31,7 +31,7 @@ export const AtomizerTransactionService = (prismaClient: IPrismaClientTransactio
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {
 				throw new Error("Not enough puffies")
 			})();
-			return await prisma.atomizerTransaction.create({
+			return prisma.atomizerTransaction.create({
 				data: {
 					atomizerId: atomizer.id,
 					transactionId: transaction.id,

@@ -21,7 +21,7 @@ export const TranslationService = (prismaClient: IPrismaClientTransaction = pris
 		create: async create => {
 			const hash = sha256(create.label);
 			try {
-				return prismaClient.translation.create({
+				return await prismaClient.translation.create({
 					data: {
 						...create,
 						hash,

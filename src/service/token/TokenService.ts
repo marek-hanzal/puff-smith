@@ -11,7 +11,7 @@ export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): I
 		},
 		create: async create => {
 			try {
-				return prismaClient.token.create({
+				return await prismaClient.token.create({
 					data: create,
 				});
 			} catch (e) {

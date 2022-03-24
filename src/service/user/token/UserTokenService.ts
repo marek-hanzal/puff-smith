@@ -17,9 +17,9 @@ export const UserTokenService = (prismaClient: IPrismaClientTransaction = prisma
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
-		create: async create => (await prismaClient.userToken.create({
+		create: async create => prismaClient.userToken.create({
 			data: create,
-		})),
+		}),
 	};
 
 	return service;

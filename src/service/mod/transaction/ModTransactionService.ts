@@ -31,7 +31,7 @@ export const ModTransactionService = (prismaClient: IPrismaClientTransaction = p
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {
 				throw new Error("Not enough puffies")
 			})();
-			return await prisma.modTransaction.create({
+			return prisma.modTransaction.create({
 				data: {
 					modId: mod.id,
 					transactionId: transaction.id,

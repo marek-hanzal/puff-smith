@@ -12,7 +12,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 		},
 		create: async tag => {
 			try {
-				return prismaClient.tag.create({
+				return await prismaClient.tag.create({
 					data: {
 						...tag,
 						code: `${tag.code}`,

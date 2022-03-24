@@ -28,7 +28,7 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 		}),
 		create: async ({type, vendor, ...cell}) => {
 			try {
-				return prismaClient.cell.create({
+				return await prismaClient.cell.create({
 					data: {
 						...cell,
 						vendor: {

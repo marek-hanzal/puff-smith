@@ -12,7 +12,7 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
-		create: async create => await prismaClient.transaction.create({
+		create: async create => prismaClient.transaction.create({
 			data: {
 				...create,
 				created: new Date(),

@@ -31,7 +31,7 @@ export const CellTransactionService = (prismaClient: IPrismaClientTransaction = 
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {
 				throw new Error("Not enough puffies")
 			})();
-			return await prisma.cellTransaction.create({
+			return prisma.cellTransaction.create({
 				data: {
 					cellId: cell.id,
 					transactionId: transaction.id,

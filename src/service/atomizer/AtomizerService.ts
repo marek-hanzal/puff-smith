@@ -26,7 +26,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 		create: async ({draw, type, vendor, ...atomizer}) => {
 			const tagService = TagService(prismaClient);
 			try {
-				return prismaClient.atomizer.create({
+				return await prismaClient.atomizer.create({
 					data: {
 						...atomizer,
 						dualCoil: boolean(atomizer?.dualCoil),

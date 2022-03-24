@@ -25,7 +25,7 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 		}),
 		create: async ({vendor, cells, ...create}) => {
 			try {
-				return prismaClient.mod.create({
+				return await prismaClient.mod.create({
 					data: {
 						...create,
 						vendor: {
