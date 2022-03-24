@@ -33,6 +33,21 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 				'*'
 			);
 		},
+		async handleCommonUser(userId: string) {
+			await TransactionService(prismaClient).create({
+				userId,
+				amount: 250,
+				note: 'Welcome gift!',
+			});
+			await service.createToken(
+				userId,
+				'/lab*'
+			);
+			await service.createToken(
+				userId,
+				'/market*'
+			);
+		},
 		createToken: async (userId, token) => {
 			const _token = await TokenService(prismaClient).create({
 				name: token,

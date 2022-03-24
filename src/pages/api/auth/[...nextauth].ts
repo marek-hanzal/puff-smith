@@ -33,7 +33,9 @@ export default NextAuth({
 			const userService = UserService();
 			if (token?.sub) {
 				const user = await userService.toMap(token.sub);
-				isNewUser && (await prismaClient.user.count()) === 1 && await userService.handleRootUser(token.sub);
+				if (isNewUser) {
+					(await prismaClient.user.count()) === 1 ? await userService.handleRootUser(token.sub) : await userService.handleCommonUser(token.sub);
+				}
 				token.tokens = user.tokens.map(token => token.name);
 			}
 			return token;

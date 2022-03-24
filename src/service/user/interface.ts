@@ -28,5 +28,7 @@ export interface IUserFetchQuery extends ParsedUrlQuery {
 export interface IUserService extends IRepositoryService<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery> {
 	handleRootUser(userId: string): Promise<void>;
 
+	handleCommonUser(userId: string): Promise<void>;
+
 	createToken(userId: string, token: string): Promise<void>;
 }
