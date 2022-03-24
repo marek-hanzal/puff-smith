@@ -11,11 +11,13 @@ import {VendorService} from "@/puff-smith/service/vendor";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {toImport} from "@leight-core/server";
 import {ModService} from "@/puff-smith/service/mod";
+import {CellService} from "@/puff-smith/service/cell";
 
 export const ImportJobName = 'import';
 
 const importHandlers = {
 	...AtomizerService().importers(),
+	...CellService().importers(),
 	...ModService().importers(),
 	...TagService().importers(),
 	...TranslationService().importers(),

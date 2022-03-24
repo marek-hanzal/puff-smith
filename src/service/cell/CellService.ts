@@ -67,7 +67,7 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 							type: {
 								connect: {
 									code_group: {
-										code: type,
+										code: `${type}`,
 										group: 'cell-type',
 									}
 								}

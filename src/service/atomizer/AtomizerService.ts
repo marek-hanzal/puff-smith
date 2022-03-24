@@ -40,7 +40,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 						type: {
 							connect: {
 								code_group: {
-									code: type,
+									code: `${type}`,
 									group: 'atomizer-type',
 								}
 							}

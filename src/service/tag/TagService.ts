@@ -23,7 +23,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 					return prismaClient.tag.update({
 						where: {
 							code_group: {
-								code: tag.code,
+								code: `${tag.code}`,
 								group: tag.group,
 							},
 						},
@@ -40,7 +40,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 		async fetchCodes(codes, group) {
 			return (await Promise.all(codes.split(/,\s+/ig).map(async code => await prismaClient.tag.findFirst({
 				where: {
-					code: code.toLowerCase(),
+					code: `${code}`.toLowerCase(),
 					group,
 				}
 			})))).filter(tag => tag !== null) as Tag[];
