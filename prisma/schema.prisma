@@ -242,16 +242,16 @@ model AtomizerTransaction {
 }
 
 model Cell {
-  id       String  @id @default(cuid())
+  id       String   @id @default(cuid())
   name     String
-  drain    Decimal @db.Decimal(10, 2)
-  voltage  Decimal @db.Decimal(10, 2)
-  ohm      Decimal @db.Decimal(10, 2)
-  cost     Decimal @db.Decimal(10, 2)
+  voltage  Decimal  @db.Decimal(10, 2)
+  drain    Decimal? @db.Decimal(10, 2)
+  ohm      Decimal? @db.Decimal(10, 2)
+  cost     Decimal  @db.Decimal(10, 2)
   typeId   String
-  type     Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  type     Tag      @relation(fields: [typeId], references: [id], onDelete: Cascade)
   vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   ModCell         ModCell[]
   CellTransaction CellTransaction[]
