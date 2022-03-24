@@ -48,7 +48,7 @@ export const PatchModForm: FC<IPatchModFormProps> = ({onSuccess, mod, ...props})
 			<VendorSelect/>
 		</FormItem>
 		<FormItem
-			field={'cellTypeIds'}
+			field={'voucherTypeIds'}
 		>
 			<CellTypeSelect mode={'multiple'} allowClear/>
 		</FormItem>

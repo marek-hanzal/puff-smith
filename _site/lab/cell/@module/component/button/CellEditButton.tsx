@@ -1,20 +1,20 @@
 import {DrawerButton, EditIcon, IDrawerButtonProps} from "@leight-core/common";
 import {FC} from "react";
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {PatchCellForm} from "../../form/PatchCellForm";
 
 export interface ICellEditButtonProps extends Partial<IDrawerButtonProps> {
-	cell: CellDto;
+	voucher: CellDto;
 }
 
-export const CellEditButton: FC<ICellEditButtonProps> = ({cell, ...props}) => {
+export const CellEditButton: FC<ICellEditButtonProps> = ({voucher, ...props}) => {
 	return <DrawerButton
 		size={'large'}
 		type={'link'}
 		icon={<EditIcon/>}
-		title={'lab.cell.button.edit'}
+		title={'lab.voucher.button.edit'}
 		{...props}
 	>
-		<PatchCellForm cell={cell}/>
+		<PatchCellForm voucher={voucher}/>
 	</DrawerButton>
 }

@@ -6,8 +6,8 @@ import {Volt, Watt} from "@/puff-smith";
 import {Tags} from "@/puff-smith/component/Tags";
 import {Alert, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
-import {CellTable} from "../../../cell/@module/table/CellTable";
-import {CellsFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {CellTable} from "../../../voucher/@module/table/CellTable";
+import {CellsFilterContext} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 
 export interface IModPreviewProps extends Partial<IPreviewProps> {
 	mod: ModDto
@@ -27,18 +27,18 @@ export const ModPreview: FC<IModPreviewProps> = ({mod, forceList, ...props}) => 
 			<Preview translation={'lab.mod.preview'} {...props}>
 				{{
 					"name": <ModInline mod={mod}/>,
-					"cellTypes": mod.cellTypes.length && <Tags tags={mod.cellTypes}/>,
+					"voucherTypes": mod.voucherTypes.length && <Tags tags={mod.voucherTypes}/>,
 					"power": mod.power && <Watt watt={mod.power}/>,
 					"voltage": mod.voltage && <Volt volt={mod.voltage}/>,
 				}}
 			</Preview>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={'cells'} tab={t('lab.mod.preview.cells.tab')}>
+		<Tabs.TabPane key={'vouchers'} tab={t('lab.mod.preview.vouchers.tab')}>
 			<Alert
-				message={t('lab.mod.preview.cells.hint')}
+				message={t('lab.mod.preview.vouchers.hint')}
 				closable
 			/>
-			<CellsFilterContext defaultFilter={{typeIds: mod.cellTypeIds}}>
+			<CellsFilterContext defaultFilter={{typeIds: mod.voucherTypeIds}}>
 				<CellTable forceList={forceList}/>
 			</CellsFilterContext>
 		</Tabs.TabPane>

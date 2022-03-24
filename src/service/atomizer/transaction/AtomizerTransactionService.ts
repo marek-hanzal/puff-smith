@@ -25,7 +25,7 @@ export const AtomizerTransactionService = (prismaClient: IPrismaClientTransactio
 			const atomizer = await atomizerService.toMap(create.atomizerId);
 			const transaction = await transactionService.create({
 				amount: -1 * (atomizer.cost || 0),
-				note: `Purchase of [${atomizer.vendor.name} ${atomizer.name}]`,
+				note: `Purchase of atomizer [${atomizer.vendor.name} ${atomizer.name}]`,
 				userId: create.userId,
 			});
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {

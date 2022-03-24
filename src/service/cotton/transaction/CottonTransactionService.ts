@@ -25,7 +25,7 @@ export const CottonTransactionService = (prismaClient: IPrismaClientTransaction 
 			const cotton = await cottonService.toMap(create.cottonId);
 			const transaction = await transactionService.create({
 				amount: -1 * (cotton.cost || 0),
-				note: `Purchase of [${cotton.vendor.name} ${cotton.name}]`,
+				note: `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`,
 				userId: create.userId,
 			});
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {

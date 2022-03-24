@@ -10,7 +10,7 @@ export const CellCreateButton: FC<ICellCreateButtonProps> = props => {
 		size={'large'}
 		type={'link'}
 		icon={<CreateIcon/>}
-		title={'lab.cell.button.create'}
+		title={'lab.voucher.button.create'}
 		{...props}
 	>
 		<CreateCellForm/>

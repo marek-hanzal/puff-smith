@@ -1,20 +1,20 @@
 import {ButtonLink, IButtonLinkProps} from "@leight-core/common";
 import {FC} from "react";
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {CellIcon} from "@/puff-smith";
 
 export interface ICellLinkButtonProps extends Partial<IButtonLinkProps> {
-	cell: CellDto;
+	voucher: CellDto;
 }
 
-export const CellLinkButton: FC<ICellLinkButtonProps> = ({cell, ...props}) => {
+export const CellLinkButton: FC<ICellLinkButtonProps> = ({voucher, ...props}) => {
 	return <ButtonLink
 		size={'large'}
 		type={'link'}
-		href={'/lab/cell/[cellId]'}
-		query={{cellId: cell.id}}
+		href={'/lab/voucher/[voucherId]'}
+		query={{voucherId: voucher.id}}
 		icon={<CellIcon/>}
-		title={'lab.cell.button.index'}
+		title={'lab.voucher.button.index'}
 		{...props}
 	/>;
 }

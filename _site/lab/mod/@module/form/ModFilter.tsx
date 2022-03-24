@@ -17,8 +17,8 @@ export const ModFilter: FC<IModFilterProps> = props => {
 			labels={['lab.mod.name.label']}
 		/>
 		<FormItem
-			field={'cellTypeIds'}
-			labels={['lab.mod.cellTypeIds.label']}
+			field={'voucherTypeIds'}
+			labels={['lab.mod.voucherTypeIds.label']}
 		>
 			<CellTypeSelect/>
 		</FormItem>

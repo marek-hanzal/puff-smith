@@ -1,38 +1,38 @@
-import {IPatchDefaultFormProps, PatchDefaultForm, useCellQueryInvalidate, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {IPatchDefaultFormProps, PatchDefaultForm, useCellQueryInvalidate, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 import {FC} from "react";
 import {Divider, InputNumber, message} from "antd";
 import {useTranslation} from "react-i18next";
 import {Centered, FormItem, Submit} from "@leight-core/common";
 import {CellIcon, VoltageInput} from "@/puff-smith";
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {VendorTooltip} from "../../../vendor/@module/form/VendorTooltip";
 import {VendorSelect} from "../../../vendor/@module/form/VendorSelect";
 import {DrainInput} from "./input/DrainInput";
 
 export interface IPatchCellFormProps extends Partial<IPatchDefaultFormProps> {
-	cell: CellDto;
+	voucher: CellDto;
 }
 
-export const PatchCellForm: FC<IPatchCellFormProps> = ({onSuccess, cell, ...props}) => {
+export const PatchCellForm: FC<IPatchCellFormProps> = ({onSuccess, voucher, ...props}) => {
 	const {t} = useTranslation();
-	const cellQueryInvalidate = useCellQueryInvalidate()
-	const cellsQueryInvalidate = useCellsQueryInvalidate();
+	const voucherQueryInvalidate = useCellQueryInvalidate()
+	const vouchersQueryInvalidate = useCellsQueryInvalidate();
 	return <PatchDefaultForm
 		layout={'vertical'}
-		translation={'lab.cell'}
+		translation={'lab.voucher'}
 		onSuccess={response => {
-			message.success(t("lab.cell.updated.message", {data: response.response}));
-			cellQueryInvalidate();
-			cellsQueryInvalidate();
+			message.success(t("lab.voucher.updated.message", {data: response.response}));
+			voucherQueryInvalidate();
+			vouchersQueryInvalidate();
 			onSuccess?.(response);
 		}}
-		toForm={() => cell}
+		toForm={() => voucher}
 		toMutation={values => ({
-			id: cell.id,
+			id: voucher.id,
 			...values,
 		})}
 		toError={({error}) => ({
-			"Duplicate entry [z_cell_name_unique] of [z_cell].": {id: ["name"], error},
+			"Duplicate entry [z_voucher_name_unique] of [z_voucher].": {id: ["name"], error},
 		})}
 		{...props}
 	>

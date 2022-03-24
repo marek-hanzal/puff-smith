@@ -13,6 +13,7 @@ import {toImport} from "@leight-core/server";
 import {ModService} from "@/puff-smith/service/mod";
 import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
+import {VoucherService} from "@/puff-smith/service/voucher";
 
 export const ImportJobName = 'import';
 
@@ -24,6 +25,7 @@ const importHandlers = {
 	...TagService().importers(),
 	...TranslationService().importers(),
 	...VendorService().importers(),
+	...VoucherService().importers(),
 };
 
 export interface IImportParams extends IQueryParams {

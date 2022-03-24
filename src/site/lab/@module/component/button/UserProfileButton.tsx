@@ -1,8 +1,8 @@
-import {UserOutlined} from "@ant-design/icons";
 import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
+import {UserIcon} from "@/puff-smith";
 
 export interface IUserProfileButtonProps extends Partial<IButtonLinkProps> {
 }
@@ -13,7 +13,7 @@ export const UserProfileButton: FC<IUserProfileButtonProps> = (props) => {
 		<ButtonLink
 			type={"link"}
 			href={"/lab/user/profile"}
-			icon={<UserOutlined/>}
+			icon={<UserIcon/>}
 			{...props}
 		/>
 	</Tooltip>;

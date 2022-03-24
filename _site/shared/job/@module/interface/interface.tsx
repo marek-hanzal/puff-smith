@@ -30,7 +30,7 @@ export enum IJobStatus {
 	 */
 	JOB_FAILURE = 4,
 	/**
-	 * When a job is cancelled, this state should be used.
+	 * When a job is canvouchered, this state should be used.
 	 */
 	JOB_INTERRUPTED = 5,
 	/**

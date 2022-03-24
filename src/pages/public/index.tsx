@@ -2,8 +2,7 @@ import {Button, Col, Row, Typography} from "antd";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {signIn} from "next-auth/react";
 import {Trans, useTranslation} from "react-i18next";
-import {GithubOutlined} from "@ant-design/icons";
-import {Card, NumberRange, Template} from "@leight-core/client";
+import {Card, GithubIcon, NumberRange, Template} from "@leight-core/client";
 import {FullLogoIcon} from "@/puff-smith";
 
 export default withPublicLayout(function Index() {
@@ -31,7 +30,7 @@ export default withPublicLayout(function Index() {
 						<Button
 							type={'primary'}
 							size={'large'}
-							icon={<GithubOutlined/>}
+							icon={<GithubIcon/>}
 							ghost
 							onClick={() => signIn('github', {callbackUrl: '/'})}
 						>

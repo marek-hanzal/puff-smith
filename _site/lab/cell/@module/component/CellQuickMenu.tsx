@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {Menu} from "antd";
 import {useTranslation} from "react-i18next";
 import {DrawerMenu, IDrawerMenuProps} from "@leight-core/common";
@@ -8,25 +8,25 @@ import {CellEditButton} from "./button/CellEditButton";
 import {CellDeleteButton} from "./button/CellDeleteButton";
 
 export interface ICellQuickMenuProps extends Partial<IDrawerMenuProps> {
-	cell: CellDto;
+	voucher: CellDto;
 }
 
-export const CellQuickMenu: FC<ICellQuickMenuProps> = ({cell, ...props}) => {
+export const CellQuickMenu: FC<ICellQuickMenuProps> = ({voucher, ...props}) => {
 	const {t} = useTranslation();
 	return <DrawerMenu
-		header={t('lab.cell.context.menu', {data: cell})}
+		header={t('lab.voucher.context.menu', {data: voucher})}
 		{...props}
 	>
 		<Menu.Item>
-			<CellPreviewButton cell={cell}/>
+			<CellPreviewButton voucher={voucher}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<CellEditButton cell={cell}/>
+			<CellEditButton voucher={voucher}/>
 		</Menu.Item>
 		<Menu.Divider/>
 		<Menu.Item>
-			<CellDeleteButton cell={cell}/>
+			<CellDeleteButton voucher={voucher}/>
 		</Menu.Item>
 	</DrawerMenu>
 }

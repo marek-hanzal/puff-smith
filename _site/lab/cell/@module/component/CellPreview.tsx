@@ -1,4 +1,4 @@
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {IPreviewProps, Preview, toHumanNumber} from "@leight-core/common";
 import {FC} from "react";
 import {Ohm} from "@/puff-smith";
@@ -6,17 +6,17 @@ import {CellInline} from "./CellInline";
 import {Tags} from "@/puff-smith/component/Tags";
 
 export interface ICellPreviewProps extends Partial<IPreviewProps> {
-	cell: CellDto;
+	voucher: CellDto;
 }
 
-export const CellPreview: FC<ICellPreviewProps> = ({cell, ...props}) => {
-	return <Preview translation={'lab.cell.preview'} {...props}>
+export const CellPreview: FC<ICellPreviewProps> = ({voucher, ...props}) => {
+	return <Preview translation={'lab.voucher.preview'} {...props}>
 		{{
-			"name": <CellInline cell={cell}/>,
-			"ohm": <Ohm ohm={cell.ohm}/>,
-			"drain": cell.drain,
-			"type": <Tags tags={[cell.type]}/>,
-			"voltage": toHumanNumber(cell.voltage, 2),
+			"name": <CellInline voucher={voucher}/>,
+			"ohm": <Ohm ohm={voucher.ohm}/>,
+			"drain": voucher.drain,
+			"type": <Tags tags={[voucher.type]}/>,
+			"voltage": toHumanNumber(voucher.voltage, 2),
 		}}
 	</Preview>
 }

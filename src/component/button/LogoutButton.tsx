@@ -1,8 +1,8 @@
-import {PoweroffOutlined} from "@ant-design/icons";
 import {Button, ButtonProps, Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {signOut} from "next-auth/react";
+import {SignOutIcon} from "@leight-core/client";
 
 export interface ILogoutButtonProps extends Partial<ButtonProps> {
 }
@@ -13,7 +13,7 @@ export const LogoutButton: FC<ILogoutButtonProps> = props => {
 		<Button
 			type={"link"}
 			onClick={() => signOut({callbackUrl: '/'})}
-			icon={<PoweroffOutlined/>}
+			icon={<SignOutIcon/>}
 			{...props}
 		/>
 	</Tooltip>;

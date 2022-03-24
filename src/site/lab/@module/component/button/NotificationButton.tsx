@@ -1,8 +1,8 @@
-import {BellOutlined} from "@ant-design/icons";
 import {Badge, Button, ButtonProps, Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 import {useNotificationContext} from "@/puff-smith";
+import {NotificationIcon} from "@leight-core/client";
 
 export interface INotificationButtonProps extends Partial<ButtonProps> {
 }
@@ -18,7 +18,7 @@ export const NotificationButton: FC<INotificationButtonProps> = props => {
 				<Button
 					type={"link"}
 					disabled={!notificationContext.hasNotifications()}
-					icon={<BellOutlined/>}
+					icon={<NotificationIcon/>}
 					{...props}
 				/>
 			</Badge>

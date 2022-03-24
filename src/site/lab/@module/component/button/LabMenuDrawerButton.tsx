@@ -1,9 +1,8 @@
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
+import {DrawerButton, IDrawerButtonProps, MenuIcon} from "@leight-core/client";
 import {FC} from "react";
-import {MenuOutlined} from "@ant-design/icons";
-import {ILabMenuProps, LabMenu} from "../../menu";
 import {LogoIcon} from "@/puff-smith";
 import {useTranslation} from "react-i18next";
+import {ILabMenuProps, LabMenu} from "@/puff-smith/site/lab";
 
 export interface ILabMenuDrawerButtonProps extends Partial<IDrawerButtonProps> {
 	labMenuProps?: ILabMenuProps;
@@ -13,7 +12,7 @@ export const LabMenuDrawerButton: FC<ILabMenuDrawerButtonProps> = ({labMenuProps
 	const {t} = useTranslation();
 	return <DrawerButton
 		type={'text'}
-		icon={<MenuOutlined/>}
+		icon={<MenuIcon/>}
 		drawerProps={{
 			title: t('lab.drawer.menu'),
 			extra: <LogoIcon/>,

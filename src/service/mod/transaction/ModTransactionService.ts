@@ -25,7 +25,7 @@ export const ModTransactionService = (prismaClient: IPrismaClientTransaction = p
 			const mod = await modService.toMap(create.modId);
 			const transaction = await transactionService.create({
 				amount: -1 * (mod.cost || 0),
-				note: `Purchase of [${mod.vendor.name} ${mod.name}]`,
+				note: `Purchase of mod [${mod.vendor.name} ${mod.name}]`,
 				userId: create.userId,
 			});
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {

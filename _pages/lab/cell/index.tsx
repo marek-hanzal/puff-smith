@@ -1,17 +1,17 @@
 import {CellIcon} from "@/puff-smith";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, HomeIcon} from "@leight-core/common";
-import {CellsFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {CellsFilterContext} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 import {Menu} from "antd";
 import {withLabLayout} from "@/puff-smith/../../../_site/lab/@module/layout";
 import {LabMenuDrawerButton, LabPage} from "@/puff-smith/../../../_site/lab/@module/component";
-import {CellCreateButton} from "@/puff-smith/../../../_site/lab/cell/@module/component/button/CellCreateButton";
-import {CellFilter} from "@/puff-smith/../../../_site/lab/cell/@module/form/CellFilter";
-import {CellTable} from "@/puff-smith/../../../_site/lab/cell/@module/table/CellTable";
+import {CellCreateButton} from "@/puff-smith/../../../_site/lab/voucher/@module/component/button/CellCreateButton";
+import {CellFilter} from "@/puff-smith/../../../_site/lab/voucher/@module/form/CellFilter";
+import {CellTable} from "@/puff-smith/../../../_site/lab/voucher/@module/table/CellTable";
 
 export default withLabLayout(function Index() {
 	return <LabPage
-		title={"lab.cell"}
-		menuSelection={['/lab/cell']}
+		title={"lab.voucher"}
+		menuSelection={['/lab/voucher']}
 		onBack={navigate => navigate('/lab')}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
@@ -20,7 +20,7 @@ export default withLabLayout(function Index() {
 			/>
 			<BreadcrumbIcon
 				icon={<CellIcon/>}
-				label={'lab.cell.label'}
+				label={'lab.voucher.label'}
 			/>
 		</Breadcrumbs>}
 		extraMobile={<LabMenuDrawerButton>

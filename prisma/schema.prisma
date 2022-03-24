@@ -47,6 +47,7 @@ model User {
   CottonTransaction   CottonTransaction[]
   Comment             Comment[]
   UserToken           UserToken[]
+  VoucherTransaction  VoucherTransaction[]
 }
 
 model VerificationToken {
@@ -229,6 +230,7 @@ model Transaction {
   ModTransaction      ModTransaction[]
   CellTransaction     CellTransaction[]
   CottonTransaction   CottonTransaction[]
+  VoucherTransaction  VoucherTransaction[]
 }
 
 model AtomizerTransaction {
@@ -348,4 +350,23 @@ model CottonComment {
   cotton    Cotton  @relation(fields: [cottonId], references: [id], onDelete: Cascade)
   commentId String
   comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model Voucher {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  cost       Decimal  @db.Decimal(10, 2)
+  maxFortune Decimal? @db.Decimal(10, 2)
+
+  VoucherTransaction VoucherTransaction[]
+}
+
+model VoucherTransaction {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  voucherId     String
+  voucher       Voucher     @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }

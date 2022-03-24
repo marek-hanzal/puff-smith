@@ -1,13 +1,13 @@
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {FileOutlined} from "@ant-design/icons";
 import {FileList} from "@/puff-smith/site/shared/file";
 import {FilesSourceControlProvider} from "@/sdk/api/file/query";
+import {FileIcon} from "@leight-core/client";
 
 export default withRootLayout(function Index() {
 	return <RootPage
 		title={"root.file"}
 		menuSelection={['/root/file']}
-		icon={<FileOutlined/>}
+		icon={<FileIcon/>}
 	>
 		<FilesSourceControlProvider>
 			<FileList/>

@@ -5,5 +5,5 @@ export interface ICellTypeSelectProps extends Partial<ITagSelectProps> {
 }
 
 export const CellTypeSelect: FC<ICellTypeSelectProps> = props => {
-	return <TagSelect mode={'multiple'} groups={['cell-type']} allowClear {...props}/>
+	return <TagSelect mode={'multiple'} groups={['voucher-type']} allowClear {...props}/>
 }

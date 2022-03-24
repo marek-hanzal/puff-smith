@@ -25,7 +25,7 @@ export const CellTransactionService = (prismaClient: IPrismaClientTransaction = 
 			const cell = await cellService.toMap(create.cellId);
 			const transaction = await transactionService.create({
 				amount: -1 * (cell.cost || 0),
-				note: `Purchase of [${cell.vendor.name} ${cell.name}]`,
+				note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
 				userId: create.userId,
 			});
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {

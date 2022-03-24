@@ -1,4 +1,4 @@
-import {CellsSourceTable, ICellsSourceTableProps, useCellsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {CellsSourceTable, ICellsSourceTableProps, useCellsOptionalFilterContext} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 import {FC} from "react";
 import {ButtonBar, toHumanNumber} from "@leight-core/common";
 import {useTranslation} from "react-i18next";
@@ -17,58 +17,58 @@ export const CellTable: FC<ICellTableProps> = props => {
 	const filterContext = useCellsOptionalFilterContext();
 	return <CellsSourceTable
 		filter={filterContext?.filter}
-		footer={sourceContext => t('lab.cell.table.footer.label', {data: sourceContext.data()})}
-		listItemRender={cell => <CellListItem cell={cell}/>}
+		footer={sourceContext => t('lab.voucher.table.footer.label', {data: sourceContext.data()})}
+		listItemRender={voucher => <CellListItem voucher={voucher}/>}
 		{...props}
 	>
 		{({column}) => [
 			column({
 				key: "id",
-				render: (_, cell) => <ButtonBar>
-					<CellLinkButton title={null} cell={cell}/>
-					<CellQuickMenu cell={cell}/>
+				render: (_, voucher) => <ButtonBar>
+					<CellLinkButton title={null} voucher={voucher}/>
+					<CellQuickMenu voucher={voucher}/>
 				</ButtonBar>,
 				width: 0,
 			}),
 			column({
 				key: "name",
-				title: 'lab.cell.table.name',
-				render: (_, cell) => <CellPreviewButton title={cell.name} cell={cell}/>,
+				title: 'lab.voucher.table.name',
+				render: (_, voucher) => <CellPreviewButton title={voucher.name} voucher={voucher}/>,
 				sorter: true,
 				width: 240,
 			}),
 			column({
 				key: "type",
-				title: 'lab.cell.table.type',
-				render: (_, cell) => <Tags tags={[cell.type]}/>,
+				title: 'lab.voucher.table.type',
+				render: (_, voucher) => <Tags tags={[voucher.type]}/>,
 				sorter: true,
 				width: 160,
 			}),
 			column({
 				key: "drain",
-				title: 'lab.cell.table.drain',
-				render: (_, cell) => cell.drain + ' A',
+				title: 'lab.voucher.table.drain',
+				render: (_, voucher) => voucher.drain + ' A',
 				sorter: true,
 				width: 180,
 			}),
 			column({
 				key: "voltage",
-				title: 'lab.cell.table.voltage',
-				render: (_, cell) => toHumanNumber(cell.voltage, 2),
+				title: 'lab.voucher.table.voltage',
+				render: (_, voucher) => toHumanNumber(voucher.voltage, 2),
 				sorter: true,
 				width: 160,
 			}),
 			column({
 				key: "ohm",
-				title: 'lab.cell.table.ohm',
-				render: (_, cell) => <Ohm ohm={cell.ohm}/>,
+				title: 'lab.voucher.table.ohm',
+				render: (_, voucher) => <Ohm ohm={voucher.ohm}/>,
 				sorter: true,
 				width: 160,
 			}),
 			column({
 				key: "vendor",
-				title: 'lab.cell.table.vendor',
-				render: (_, cell) => cell.vendor.name,
+				title: 'lab.voucher.table.vendor',
+				render: (_, voucher) => voucher.vendor.name,
 				sorter: true,
 				width: 260,
 			}),

@@ -37,9 +37,9 @@ export const ModTable: FC<IModTableProps> = props => {
 				sorter: true,
 			}),
 			column({
-				key: "cellTypes",
-				title: 'lab.mod.table.cellTypes',
-				render: (_, mod) => <Tags tags={mod.cellTypes}/>,
+				key: "voucherTypes",
+				title: 'lab.mod.table.voucherTypes',
+				render: (_, mod) => <Tags tags={mod.voucherTypes}/>,
 				width: 240,
 			}),
 			column({

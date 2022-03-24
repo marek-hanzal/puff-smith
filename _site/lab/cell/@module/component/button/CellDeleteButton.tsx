@@ -1,30 +1,30 @@
 import {FC} from "react";
-import {CellDto} from "@/sdk/puff-smith/cell/dto";
+import {CellDto} from "@/sdk/puff-smith/voucher/dto";
 import {useTranslation} from "react-i18next";
 import {DeleteItemIcon, ModalButton} from "@leight-core/common";
 import {ButtonProps, message} from "antd";
-import {useCellsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {useCellsQueryInvalidate, useDeleteMutation} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 
 export interface ICellDeleteButtonProps extends Partial<ButtonProps> {
-	cell: CellDto;
+	voucher: CellDto;
 	onOk?: (setShow: (show: boolean) => void) => void,
 }
 
-export const CellDeleteButton: FC<ICellDeleteButtonProps> = ({cell, onOk, ...props}) => {
+export const CellDeleteButton: FC<ICellDeleteButtonProps> = ({voucher, onOk, ...props}) => {
 	const {t} = useTranslation();
 	const deleteMutation = useDeleteMutation();
-	const cellsQueryInvalidate = useCellsQueryInvalidate();
+	const vouchersQueryInvalidate = useCellsQueryInvalidate();
 	return <ModalButton
-		title={'lab.cell.button.delete.confirm.title'}
-		okText={t('lab.cell.button.delete.confirm.ok')}
+		title={'lab.voucher.button.delete.confirm.title'}
+		okText={t('lab.voucher.button.delete.confirm.ok')}
 		cancelText={t('common.cancel')}
 		onOk={setShow => {
 			deleteMutation.mutate({
-				id: cell.id,
+				id: voucher.id,
 			}, {
 				onSuccess: response => {
-					message.success(t('lab.cell.deleted.success', {data: response}))
-					cellsQueryInvalidate();
+					message.success(t('lab.voucher.deleted.success', {data: response}))
+					vouchersQueryInvalidate();
 				},
 			})
 			onOk ? onOk(setShow) : setShow(false);
@@ -39,10 +39,10 @@ export const CellDeleteButton: FC<ICellDeleteButtonProps> = ({cell, onOk, ...pro
 			size: 'large',
 			danger: true,
 			icon: <DeleteItemIcon/>,
-			children: 'lab.cell.button.delete',
+			children: 'lab.voucher.button.delete',
 			...props,
 		}}
 	>
-		lab.cell.button.delete.confirm
+		lab.voucher.button.delete.confirm
 	</ModalButton>
 }

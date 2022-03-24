@@ -42,7 +42,7 @@ export const CreateModForm: FC<ICreateModFormProps> = ({onSuccess, ...props}) =>
 			<VendorSelect/>
 		</FormItem>
 		<FormItem
-			field={'cellTypeIds'}
+			field={'voucherTypeIds'}
 		>
 			<CellTypeSelect mode={'multiple'} allowClear/>
 		</FormItem>

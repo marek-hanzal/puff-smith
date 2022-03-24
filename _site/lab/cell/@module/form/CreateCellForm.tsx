@@ -1,4 +1,4 @@
-import {CreateDefaultForm, ICreateDefaultFormProps, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/cell/endpoint";
+import {CreateDefaultForm, ICreateDefaultFormProps, useCellsQueryInvalidate} from "@/sdk/puff-smith/api/lab/voucher/endpoint";
 import {FC} from "react";
 import {Centered, FormItem, Submit} from "@leight-core/common";
 import {Divider, InputNumber, message} from "antd";
@@ -13,13 +13,13 @@ export interface ICreateCellFormProps extends Partial<ICreateDefaultFormProps> {
 
 export const CreateCellForm: FC<ICreateCellFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
-	const cellsQueryInvalidate = useCellsQueryInvalidate();
+	const vouchersQueryInvalidate = useCellsQueryInvalidate();
 	return <CreateDefaultForm
 		layout={'vertical'}
-		translation={'lab.cell'}
+		translation={'lab.voucher'}
 		onSuccess={response => {
-			message.success(t("lab.cell.create.success", {data: response.response}));
-			cellsQueryInvalidate();
+			message.success(t("lab.voucher.create.success", {data: response.response}));
+			vouchersQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		toForm={() => ({
