@@ -8,9 +8,13 @@ import {TokenService} from "@/puff-smith/service/token";
 
 export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IUserService => {
 	const service: IUserService = {
-		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async user => ({
-			...user,
-		}), ({fulltext, ...filter}: any) => ({
+		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async user => {
+			const tokenService = TokenService();
+			return {
+				...user,
+				tokens: await tokenService.tokensOf(user.id),
+			};
+		}, ({fulltext, ...filter}: any) => ({
 			...filter,
 			...toFulltext(fulltext, ['name', 'email']),
 		})),
@@ -26,7 +30,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 			});
 			await service.createToken(
 				userId,
-				'/root/*'
+				'*'
 			);
 		},
 		createToken: async (userId, token) => {

@@ -7,7 +7,7 @@ import { merge } from 'webpack-merge';
 
 const config = withPlugins([
 	images,
-	withTM(['@next-auth/prisma-adapter']),
+	withTM([]),
 ], {
 	swcMinify:                   true,
 	images:                      {

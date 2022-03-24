@@ -31,12 +31,17 @@ export default NextAuth({
 	callbacks: {
 		jwt: async ({token, isNewUser}) => {
 			const userService = UserService();
-			token?.sub && await userService.fetch(token.sub);
-			token?.sub && isNewUser && (await prismaClient.user.count()) === 1 && await userService.handleRootUser(token.sub);
+			if (token?.sub) {
+				const user = await userService.toMap(token.sub);
+				isNewUser && (await prismaClient.user.count()) === 1 && await userService.handleRootUser(token.sub);
+				token.tokens = user.tokens.map(token => token.name);
+			}
 			return token;
 		},
 		session: async ({session, token}) => {
-			token?.sub && await UserService().fetch(token.sub);
+			if (session && token?.sub) {
+				session.tokens = token.tokens;
+			}
 			return session;
 		},
 	},

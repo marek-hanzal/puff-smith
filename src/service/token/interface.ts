@@ -25,4 +25,5 @@ export interface ITokenFetchQuery extends ParsedUrlQuery {
 }
 
 export interface ITokenService extends IRepositoryService<ITokenCreate, Token, IToken, ITokenQuery, ITokenFetchProps, ITokenFetchQuery> {
+	tokensOf(userId: string): Promise<IToken[]>;
 }

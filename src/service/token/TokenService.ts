@@ -1,6 +1,6 @@
 import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
-import {ITokenService} from "@/puff-smith/service/token/interface";
+import {ITokenService} from "@/puff-smith/service/token";
 import {AbstractRepositoryService} from "@leight-core/server";
 
 export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): ITokenService => {
@@ -25,7 +25,16 @@ export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): I
 				}
 				throw e;
 			}
-		}
+		},
+		tokensOf: userId => service.list(prismaClient.token.findMany({
+			where: {
+				UserToken: {
+					every: {
+						userId,
+					}
+				}
+			}
+		})),
 	});
 
 	return service;

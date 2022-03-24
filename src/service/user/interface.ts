@@ -1,6 +1,7 @@
 import {Prisma, User} from "@prisma/client";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {ParsedUrlQuery} from "querystring";
+import {IToken} from "@/puff-smith/service/token";
 
 export interface IUserCreate {
 }
@@ -13,6 +14,7 @@ export interface IUser {
 	name?: string | null;
 	email?: string | null;
 	image?: string | null;
+	tokens: IToken[];
 }
 
 export interface IUserFetchProps {
