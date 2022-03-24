@@ -12,12 +12,14 @@ import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {toImport} from "@leight-core/server";
 import {ModService} from "@/puff-smith/service/mod";
 import {CellService} from "@/puff-smith/service/cell";
+import {CottonService} from "@/puff-smith/service/cotton";
 
 export const ImportJobName = 'import';
 
 const importHandlers = {
 	...AtomizerService().importers(),
 	...CellService().importers(),
+	...CottonService().importers(),
 	...ModService().importers(),
 	...TagService().importers(),
 	...TranslationService().importers(),
