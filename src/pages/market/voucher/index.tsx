@@ -11,7 +11,7 @@ export default withMarketLayout(function Index() {
 	>
 		<VouchersSourceControlProvider
 			defaultOrderBy={{
-				name: 'asc',
+				cost: 'asc',
 			}}
 			defaultPage={0}
 			defaultSize={5}

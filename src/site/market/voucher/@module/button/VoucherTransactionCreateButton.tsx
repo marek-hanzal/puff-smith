@@ -23,7 +23,7 @@ export const VoucherTransactionCreateButton: FC<IVoucherTransactionCreateButtonP
 				type: 'primary',
 				ghost: true,
 				size: 'large',
-				disabled: puffiesQuery.isLoading || (puffiesQuery.isSuccess && (voucher.cost || 0) > puffiesQuery.data),
+				disabled: puffiesQuery.isLoading || (puffiesQuery.isSuccess && voucher.maxFortune && puffiesQuery.data >= voucher.maxFortune) || false,
 				children: <span><Price price={voucher.cost} defaultText={'market.voucher.buy.free'}/></span>,
 				...props,
 			}}

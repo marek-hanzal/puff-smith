@@ -23,14 +23,14 @@ export const VoucherTransactionService = (prismaClient: IPrismaClientTransaction
 			const voucherService = VoucherService(prisma);
 			const transactionService = TransactionService(prisma);
 			const voucher = await voucherService.toMap(create.voucherId);
+			voucher.maxFortune && (await transactionService.sumOf(create.userId)) >= voucher.maxFortune && (() => {
+				throw new Error("Too much puffies")
+			})();
 			const transaction = await transactionService.create({
-				amount: -1 * (voucher.cost || 0),
-				note: `Purchase of voucher [${voucher.name}]`,
+				amount: voucher.cost,
+				note: `Gift from voucher [${voucher.name}]`,
 				userId: create.userId,
 			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
 			return prisma.voucherTransaction.create({
 				data: {
 					voucherId: voucher.id,
