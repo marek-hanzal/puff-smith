@@ -1,7 +1,7 @@
 import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
 import {ITokenService} from "@/puff-smith/service/token";
-import {AbstractRepositoryService} from "@leight-core/server";
+import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 
 export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): ITokenService => {
 	const service: ITokenService = ({
@@ -15,15 +15,12 @@ export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): I
 					data: create,
 				});
 			} catch (e) {
-				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
-					return prismaClient.token.findFirst({
-						where: {
-							name: create.name,
-						},
-						rejectOnNotFound: true,
-					});
-				}
-				throw e;
+				return handleUniqueException(e, async () => prismaClient.token.findFirst({
+					where: {
+						name: create.name,
+					},
+					rejectOnNotFound: true,
+				}));
 			}
 		},
 		tokensOf: userId => service.list(prismaClient.token.findMany({

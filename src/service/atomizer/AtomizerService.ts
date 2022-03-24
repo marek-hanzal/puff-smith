@@ -1,7 +1,7 @@
 import {IAtomizerService} from "@/puff-smith/service/atomizer";
 import {boolean} from "boolean";
 import prisma from "@/puff-smith/service/prisma";
-import {AbstractRepositoryService} from "@leight-core/server";
+import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {TagService} from "@/puff-smith/service/tag";
@@ -18,18 +18,15 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
-		importers() {
-			const handler = service.create;
-			return ({
-				atomizer: () => ({
-					handler,
-				}),
-			})
-		},
+		importers: () => ({
+			atomizer: () => ({
+				handler: service.create,
+			}),
+		}),
 		create: async ({draw, type, vendor, ...atomizer}) => {
 			const tagService = TagService(prismaClient);
 			try {
-				return await prismaClient.atomizer.create({
+				return prismaClient.atomizer.create({
 					data: {
 						...atomizer,
 						dualCoil: boolean(atomizer?.dualCoil),
@@ -57,8 +54,8 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 						}
 					},
 				})
-			} catch (e: any) {
-				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
+			} catch (e) {
+				return handleUniqueException(e, async () => {
 					const _atomizer = (await prismaClient.atomizer.findFirst({
 						where: {
 							name: atomizer.name,
@@ -99,8 +96,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 							}
 						},
 					})
-				}
-				throw e;
+				});
 			}
 		},
 	};

@@ -1,6 +1,6 @@
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {ITagService} from "@/puff-smith/service/tag/interface";
-import {AbstractRepositoryService} from "@leight-core/server";
+import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import prisma from "@/puff-smith/service/prisma";
 import {Tag} from "@prisma/client";
 
@@ -12,15 +12,15 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 		},
 		create: async tag => {
 			try {
-				return await prismaClient.tag.create({
+				return prismaClient.tag.create({
 					data: {
 						...tag,
 						code: `${tag.code}`,
 					},
 				})
 			} catch (e) {
-				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
-					return await prismaClient.tag.update({
+				return handleUniqueException(e, async () => {
+					return prismaClient.tag.update({
 						where: {
 							code_group: {
 								code: tag.code,
@@ -29,18 +29,14 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 						},
 						data: tag,
 					})
-				}
-				throw e;
+				});
 			}
 		},
-		importers() {
-			const handler = service.create;
-			return ({
-				tag: () => ({
-					handler,
-				}),
-			})
-		},
+		importers: () => ({
+			tag: () => ({
+				handler: service.create,
+			}),
+		}),
 		async fetchCodes(codes, group) {
 			return (await Promise.all(codes.split(/,\s+/ig).map(async code => await prismaClient.tag.findFirst({
 				where: {

@@ -1,6 +1,6 @@
 import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
-import {AbstractRepositoryService} from "@leight-core/server";
+import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import {IModService} from "@/puff-smith/service/mod/interface";
 import {VendorService} from "@/puff-smith/service/vendor";
 
@@ -18,15 +18,12 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
-		importers() {
-			const handler = service.create;
-			return ({
-				mod: () => ({
-					handler,
-				}),
-			})
-		},
-		create: async ({vendor, ...create}) => {
+		importers: () => ({
+			mod: () => ({
+				handler: service.create,
+			}),
+		}),
+		create: async ({vendor, cells, ...create}) => {
 			try {
 				return prismaClient.mod.create({
 					data: {
@@ -39,7 +36,7 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 					},
 				});
 			} catch (e) {
-				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
+				return handleUniqueException(e, async () => {
 					const _mod = (await prismaClient.mod.findFirst({
 						where: {
 							name: create.name,
@@ -49,14 +46,25 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 						},
 						rejectOnNotFound: true,
 					}));
+					await prismaClient.modCell.deleteMany({
+						where: {
+							modId: _mod.id,
+						}
+					});
 					return prismaClient.mod.update({
 						where: {
 							id: _mod.id,
 						},
-						data: create,
+						data: {
+							...create,
+							ModCell: {
+								createMany: {
+									data: [],
+								}
+							}
+						},
 					});
-				}
-				throw e;
+				})
 			}
 		},
 	};

@@ -1,6 +1,6 @@
 import {IUserService} from "@/puff-smith/service/user/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {AbstractRepositoryService, toFulltext} from "@leight-core/server";
+import {AbstractRepositoryService, handleUniqueException, toFulltext} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {UserTokenService} from "@/puff-smith/service/user/token";
@@ -43,10 +43,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 					tokenId: _token.id,
 				});
 			} catch (e) {
-				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
-					return;
-				}
-				throw e;
+				return handleUniqueException(e, async () => undefined);
 			}
 		}
 	};

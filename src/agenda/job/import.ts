@@ -10,13 +10,15 @@ import {TagService} from "@/puff-smith/service/tag";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {toImport} from "@leight-core/server";
+import {ModService} from "@/puff-smith/service/mod";
 
 export const ImportJobName = 'import';
 
 const importHandlers = {
-	...TranslationService().importers(),
-	...TagService().importers(),
 	...AtomizerService().importers(),
+	...ModService().importers(),
+	...TagService().importers(),
+	...TranslationService().importers(),
 	...VendorService().importers(),
 };
 

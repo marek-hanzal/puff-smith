@@ -6,6 +6,7 @@ import {IVendor} from "@/puff-smith/service/vendor";
 export interface IModCreate {
 	name: string;
 	vendor: string;
+	cells: string;
 	cost: number;
 	voltage: number;
 	power: number;
