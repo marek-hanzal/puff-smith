@@ -10,8 +10,8 @@ export const UserTokenService = (prismaClient: IPrismaClientTransaction = prisma
 		...AbstractRepositoryService<IUserTokenService>(prismaClient, prismaClient.userToken, async userToken => {
 			return {
 				...userToken,
-				user: await UserService().fetch(userToken.userId),
-				token: await TokenService().fetch(userToken.tokenId),
+				user: await UserService().toMap(userToken.userId),
+				token: await TokenService().toMap(userToken.tokenId),
 			};
 		}),
 		async handleCreate({request}) {

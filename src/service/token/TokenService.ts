@@ -11,12 +11,12 @@ export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): I
 		},
 		create: async create => {
 			try {
-				return await prismaClient.token.create({
+				return prismaClient.token.create({
 					data: create,
 				});
 			} catch (e) {
 				if ((e as Error)?.message?.includes('Unique constraint failed on the fields')) {
-					return await prismaClient.token.findFirst({
+					return prismaClient.token.findFirst({
 						where: {
 							name: create.name,
 						},

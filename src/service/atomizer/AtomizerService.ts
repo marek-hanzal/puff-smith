@@ -65,14 +65,15 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 							vendor: {
 								name: vendor,
 							}
-						}
-					}))!!;
+						},
+						rejectOnNotFound: true,
+					}));
 					await prismaClient.atomizerDraw.deleteMany({
 						where: {
 							atomizerId: _atomizer.id,
 						}
 					});
-					return await prismaClient.atomizer.update({
+					return prismaClient.atomizer.update({
 						where: {
 							id: _atomizer.id,
 						},
