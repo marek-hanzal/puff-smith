@@ -14,11 +14,15 @@ import {ModService} from "@/puff-smith/service/mod";
 import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {VoucherService} from "@/puff-smith/service/voucher";
+import {AromaService} from "@/puff-smith/service/aroma";
+import {BoosterService} from "@/puff-smith/service/booster";
 
 export const ImportJobName = 'import';
 
 const importHandlers = {
+	...AromaService().importers(),
 	...AtomizerService().importers(),
+	...BoosterService().importers(),
 	...CellService().importers(),
 	...CottonService().importers(),
 	...ModService().importers(),

@@ -1,31 +1,34 @@
-import {ICottonService} from "@/puff-smith/service/cotton";
+import {IBaseService} from "@/puff-smith/service/base";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 
-export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): ICottonService => {
-	const service: ICottonService = {
-		...AbstractRepositoryService<ICottonService>(prismaClient, prismaClient.cotton, async cotton => {
+export const BaseService = (prismaClient: IPrismaClientTransaction = prisma): IBaseService => {
+	const service: IBaseService = {
+		...AbstractRepositoryService<IBaseService>(prismaClient, prismaClient.base, async base => {
 			return {
-				...cotton,
-				vendor: await VendorService(prismaClient).toMap(cotton.vendorId),
-				cost: cotton.cost.toNumber(),
+				...base,
+				vendor: await VendorService(prismaClient).toMap(base.vendorId),
+				cost: base.cost.toNumber(),
+				nicotine: base.nicotine.toNumber(),
+				pg: base.pg.toNumber(),
+				vg: base.vg.toNumber(),
 			};
 		}),
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
 		importers: () => ({
-			cotton: () => ({
+			base: () => ({
 				handler: service.create,
 			}),
 		}),
-		create: async ({vendor, ...cotton}) => {
+		create: async ({vendor, ...base}) => {
 			try {
-				return await prismaClient.cotton.create({
+				return await prismaClient.base.create({
 					data: {
-						...cotton,
+						...base,
 						vendor: {
 							connect: {
 								name: vendor,
@@ -35,20 +38,20 @@ export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): 
 				})
 			} catch (e) {
 				return handleUniqueException(e, async () => {
-					const _cotton = (await prismaClient.cotton.findFirst({
+					const _base = (await prismaClient.base.findFirst({
 						where: {
-							name: cotton.name,
+							name: base.name,
 							vendor: {
 								name: vendor,
 							}
 						},
 						rejectOnNotFound: true,
 					}));
-					return prismaClient.cotton.update({
+					return prismaClient.base.update({
 						where: {
-							id: _cotton.id,
+							id: _base.id,
 						},
-						data: cotton,
+						data: base,
 					})
 				});
 			}

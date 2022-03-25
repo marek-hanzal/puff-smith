@@ -1,31 +1,34 @@
-import {ICottonService} from "@/puff-smith/service/cotton";
+import {IAromaService} from "@/puff-smith/service/aroma";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 
-export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): ICottonService => {
-	const service: ICottonService = {
-		...AbstractRepositoryService<ICottonService>(prismaClient, prismaClient.cotton, async cotton => {
+export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => {
+	const service: IAromaService = {
+		...AbstractRepositoryService<IAromaService>(prismaClient, prismaClient.aroma, async aroma => {
 			return {
-				...cotton,
-				vendor: await VendorService(prismaClient).toMap(cotton.vendorId),
-				cost: cotton.cost.toNumber(),
+				...aroma,
+				vendor: await VendorService(prismaClient).toMap(aroma.vendorId),
+				cost: aroma.cost.toNumber(),
+				volume: aroma.volume.toNumber(),
+				pg: aroma.pg.toNumber(),
+				vg: aroma.vg.toNumber(),
 			};
 		}),
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
 		importers: () => ({
-			cotton: () => ({
+			aroma: () => ({
 				handler: service.create,
 			}),
 		}),
-		create: async ({vendor, ...cotton}) => {
+		create: async ({vendor, ...aroma}) => {
 			try {
-				return await prismaClient.cotton.create({
+				return await prismaClient.aroma.create({
 					data: {
-						...cotton,
+						...aroma,
 						vendor: {
 							connect: {
 								name: vendor,
@@ -35,20 +38,20 @@ export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): 
 				})
 			} catch (e) {
 				return handleUniqueException(e, async () => {
-					const _cotton = (await prismaClient.cotton.findFirst({
+					const _aroma = (await prismaClient.aroma.findFirst({
 						where: {
-							name: cotton.name,
+							name: aroma.name,
 							vendor: {
 								name: vendor,
 							}
 						},
 						rejectOnNotFound: true,
 					}));
-					return prismaClient.cotton.update({
+					return prismaClient.aroma.update({
 						where: {
-							id: _cotton.id,
+							id: _aroma.id,
 						},
-						data: cotton,
+						data: aroma,
 					})
 				});
 			}

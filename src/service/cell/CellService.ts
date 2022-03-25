@@ -63,7 +63,6 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 						},
 						data: {
 							...cell,
-							cost: cell.cost,
 							type: {
 								connect: {
 									code_group: {
