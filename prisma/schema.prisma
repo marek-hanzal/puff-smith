@@ -449,7 +449,6 @@ model Base {
   id       String  @id @default(cuid())
   name     String
   cost     Decimal @db.Decimal(10, 2)
-  nicotine Decimal @default(0) @db.Decimal(10, 2)
   pg       Decimal @db.Decimal(10, 2)
   vg       Decimal @db.Decimal(10, 2)
   vendorId String

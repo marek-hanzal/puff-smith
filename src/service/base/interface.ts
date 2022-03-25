@@ -6,7 +6,6 @@ import {IVendor} from "@/puff-smith/service/vendor";
 export interface IBaseCreate {
 	name: string;
 	cost: number;
-	nicotine?: number;
 	pg: number;
 	vg: number;
 	vendor: string;
@@ -19,7 +18,6 @@ export interface IBase {
 	id: string;
 	name: string;
 	cost: number;
-	nicotine?: number;
 	pg: number;
 	vg: number;
 	vendor: IVendor;

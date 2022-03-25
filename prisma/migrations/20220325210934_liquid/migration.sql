@@ -60,7 +60,6 @@ CREATE TABLE "Base" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "cost" DECIMAL(10,2) NOT NULL,
-    "nicotine" DECIMAL(10,2) NOT NULL DEFAULT 0,
     "pg" DECIMAL(10,2) NOT NULL,
     "vg" DECIMAL(10,2) NOT NULL,
     "vendorId" TEXT NOT NULL,

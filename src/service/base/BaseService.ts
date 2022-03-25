@@ -11,7 +11,6 @@ export const BaseService = (prismaClient: IPrismaClientTransaction = prisma): IB
 				...base,
 				vendor: await VendorService(prismaClient).toMap(base.vendorId),
 				cost: base.cost.toNumber(),
-				nicotine: base.nicotine.toNumber(),
 				pg: base.pg.toNumber(),
 				vg: base.vg.toNumber(),
 			};
