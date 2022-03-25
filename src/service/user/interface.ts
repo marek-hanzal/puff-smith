@@ -15,8 +15,6 @@ export interface IUser {
 	email?: string | null;
 	image?: string | null;
 	tokens: IToken[];
-
-	hasToken(token: string): boolean;
 }
 
 export interface IUserFetchProps {
