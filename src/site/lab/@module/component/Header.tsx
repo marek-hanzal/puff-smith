@@ -1,29 +1,27 @@
-import {Col, Divider, Row, Space} from "antd";
+import {Divider, PageHeader, PageHeaderProps} from "antd";
 import {LogoIcon, LogoutButton} from "@/puff-smith";
-import {NotificationButton, UserProfileButton} from "@/puff-smith/site/lab";
-import {LinkTo} from "@leight-core/client";
+import {LabMenu} from "@/puff-smith/site/lab";
+import {ButtonBar, LinkTo} from "@leight-core/client";
 import {FC} from "react";
+import {UserPuffies} from "@/puff-smith/site/shared/user";
 
-export interface IHeaderProps {
+export interface IHeaderProps extends Partial<PageHeaderProps> {
 }
 
-export const Header: FC<IHeaderProps> = () => {
-	return <Row style={{margin: "0 1em"}}>
-		<Col flex={"auto"}>
-			<LinkTo href={"/lab"}>
-				<LogoIcon style={{width: "7.5em", display: "inline"}}/>
-			</LinkTo>
-		</Col>
-		<Col span={12}>
-			{/*<Moodle*/}
-			{/*/>*/}
-		</Col>
-		<Col flex={"auto"} style={{textAlign: "right"}}>
-			<Space size={"middle"} split={<Divider type={"vertical"}/>}>
-				<NotificationButton/>
-				<UserProfileButton/>
-				<LogoutButton/>
-			</Space>
-		</Col>
-	</Row>;
+export const Header: FC<IHeaderProps> = props => {
+	return <PageHeader
+		ghost
+		title={<LinkTo href={"/lab"}>
+			<LogoIcon height={64}/>
+		</LinkTo>}
+		subTitle={<LabMenu/>}
+		style={{
+			minHeight: '8vh',
+		}}
+		extra={<ButtonBar split={<Divider type={'vertical'}/>}>
+			<UserPuffies/>
+			<LogoutButton/>
+		</ButtonBar>}
+		{...props}
+	/>
 };

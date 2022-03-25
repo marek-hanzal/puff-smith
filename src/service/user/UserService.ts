@@ -10,9 +10,12 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 	const service: IUserService = {
 		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async user => {
 			const tokenService = TokenService();
+			const tokens = await tokenService.tokensOf(user.id);
+			const tokenNames = tokens.map(token => token.name);
 			return {
 				...user,
-				tokens: await tokenService.tokensOf(user.id),
+				tokens,
+				hasToken: tokenNames.includes,
 			};
 		}, ({fulltext, ...filter}: any) => ({
 			...filter,
@@ -28,10 +31,16 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 				amount: 1000000,
 				note: 'Welcome gift for the Root User!',
 			});
-			await service.createToken(
-				userId,
-				'*'
-			);
+			await Promise.all([
+				service.createToken(
+					userId,
+					'root'
+				),
+				service.createToken(
+					userId,
+					'*'
+				)
+			]);
 		},
 		async handleCommonUser(userId: string) {
 			await TransactionService(prismaClient).create({
@@ -39,14 +48,20 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 				amount: 250,
 				note: 'Welcome gift!',
 			});
-			await service.createToken(
-				userId,
-				'/lab*'
-			);
-			await service.createToken(
-				userId,
-				'/market*'
-			);
+			await Promise.all([
+				service.createToken(
+					userId,
+					'user'
+				),
+				service.createToken(
+					userId,
+					'/lab*'
+				),
+				service.createToken(
+					userId,
+					'/market*'
+				)
+			]);
 		},
 		createToken: async (userId, token) => {
 			const _token = await TokenService(prismaClient).create({

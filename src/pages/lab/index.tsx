@@ -1,24 +1,17 @@
-import {FullLogoIcon, LiquidIcon, LogoIcon} from "@/puff-smith";
-import {MobileContent, Template} from "@leight-core/client";
-import {Divider} from "antd";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout";
-import {LabPage} from "@/puff-smith/site/lab/@module/component";
+import {FullLogoIcon} from "@/puff-smith";
+import {HomeIcon, Template} from "@leight-core/client";
+import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 
 export default withLabLayout(function Index() {
 	return <LabPage
-		title={"lab.home"}
-		icon={<LiquidIcon/>}
+		title={"lab.index"}
 		menuSelection={['/lab']}
-		extra={<MobileContent>
-			<LogoIcon style={{width: '7.5em'}}/>
-		</MobileContent>}
+		icon={<HomeIcon/>}
 	>
 		<Template
 			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
-			span={24}
-		>
-			<Divider/>
-			{/*<QuickPuff/>*/}
-		</Template>
+			status={"info"}
+			label={'lab.home'}
+		/>
 	</LabPage>;
 });

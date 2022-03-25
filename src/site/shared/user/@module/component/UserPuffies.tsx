@@ -8,7 +8,9 @@ export interface IUserPuffiesProps {
 
 export const UserPuffies: FC<IUserPuffiesProps> = () => {
 	const puffiesQuery = usePuffiesQuery(undefined, undefined, {
-		refetchInterval: 5000,
+		refetchInterval: 1000 * 60 * 5,
+		refetchOnWindowFocus: 'always',
+		staleTime: 1000 * 60 * 5,
 	});
 	return <Space>
 		<PurchaseIcon/>
