@@ -1,6 +1,6 @@
 import {CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
-import {AtomizerIcon, CellIcon, CottonIcon, LabIcon, ModIcon, VoucherIcon} from "@/puff-smith";
+import {AtomizerIcon, BaseIcon, BoosterIcon, CellIcon, CottonIcon, LabIcon, LiquidIcon, ModIcon, VoucherIcon} from "@/puff-smith";
 
 export interface IMarketMenuProps extends Partial<IMenuProps> {
 }
@@ -12,6 +12,9 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 		{CreateMenuItem("market.mod.menu", "/market/mod", <ModIcon/>)}
 		{CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>)}
 		{CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>)}
+		{CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>)}
+		{CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>)}
+		{CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>)}
 		{CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>)}
 		{CreateMenuItem("market.lab.menu", "/lab", <LabIcon/>)}
 	</Menu>;
