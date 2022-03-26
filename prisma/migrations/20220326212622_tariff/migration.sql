@@ -8,6 +8,7 @@ ALTER TABLE "User" ADD COLUMN     "tariffId" TEXT;
 CREATE TABLE "Tariff" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "description" TEXT,
     "from" TIMESTAMP(3),
     "to" TIMESTAMP(3),
@@ -28,6 +29,9 @@ CREATE TABLE "Price" (
 
     CONSTRAINT "Price_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Tariff_code_key" ON "Tariff"("code");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_tariffId_fkey" FOREIGN KEY ("tariffId") REFERENCES "Tariff"("id") ON DELETE SET NULL ON UPDATE CASCADE;

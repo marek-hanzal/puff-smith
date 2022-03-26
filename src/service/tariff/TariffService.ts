@@ -1,70 +1,58 @@
 import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
-import {IModService} from "@/puff-smith/service/mod/interface";
-import {VendorService} from "@/puff-smith/service/vendor";
+import {ITariffService} from "@/puff-smith/service/tariff/interface";
+import {CodeService} from "@/puff-smith/service/code";
 
-export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): IModService => {
-	const service: IModService = {
-		...AbstractRepositoryService<IModService>(prismaClient, prismaClient.mod, async mod => {
+export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): ITariffService => {
+	const service: ITariffService = {
+		...AbstractRepositoryService<ITariffService>(prismaClient, prismaClient.tariff, async tariff => {
 			return {
-				...mod,
-				cost: mod.cost.toNumber(),
-				power: mod.power.toNumber(),
-				voltage: mod.voltage.toNumber(),
-				vendor: await VendorService(prismaClient).toMap(mod.vendorId),
+				...tariff,
+				from: tariff.from?.toUTCString(),
+				to: tariff.to?.toUTCString(),
+				created: tariff.created.toUTCString(),
 			};
 		}),
 		async handleCreate({request}) {
 			return service.map(await service.create(request));
 		},
 		importers: () => ({
-			mod: () => ({
+			tariff: () => ({
 				handler: service.create,
 			}),
 		}),
-		create: async ({vendor, cells, ...create}) => {
+		create: async create => {
+			const code: string = create.code || CodeService().code();
 			try {
-				return await prismaClient.mod.create({
+				return await prismaClient.tariff.create({
 					data: {
 						...create,
-						vendor: {
-							connect: {
-								name: vendor,
-							}
-						}
+						code,
+						from: create.from ? new Date(create.from) : undefined,
+						to: create.to ? new Date(create.to) : undefined,
+						created: new Date(),
 					},
 				});
 			} catch (e) {
 				return handleUniqueException(e, async () => {
-					const _mod = (await prismaClient.mod.findFirst({
+					const _tariff = await prismaClient.tariff.findFirst({
 						where: {
-							name: create.name,
-							vendor: {
-								name: vendor,
-							}
+							code,
 						},
 						rejectOnNotFound: true,
-					}));
-					await prismaClient.modCell.deleteMany({
-						where: {
-							modId: _mod.id,
-						}
 					});
-					return prismaClient.mod.update({
+					return prismaClient.tariff.update({
 						where: {
-							id: _mod.id,
+							id: _tariff.id,
 						},
 						data: {
 							...create,
-							ModCell: {
-								createMany: {
-									data: [],
-								}
-							}
+							from: create.from ? new Date(create.from) : null,
+							to: create.to ? new Date(create.to) : null,
 						},
 					});
-				})
+				});
 			}
 		},
 	};

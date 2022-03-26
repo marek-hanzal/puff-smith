@@ -26,6 +26,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 			{CreateMenuItem("lab.booster.inventory.menu", "/lab/booster/inventory", <BoosterIcon/>)}
 		</SubMenu>
 		{CreateMenuItem("lab.market.menu", "/market", <MarketIcon/>)}
-		{whoamiQuery.isSuccess && hasToken(whoamiQuery.data, 'root') && CreateMenuItem("lab.root.home.menu", "/root", <SlidersOutlined/>)}
+		{whoamiQuery.isSuccess && hasToken(whoamiQuery.data, 'site.root') && CreateMenuItem("lab.root.home.menu", "/root", <SlidersOutlined/>)}
 	</Menu>;
 };

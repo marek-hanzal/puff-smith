@@ -6,6 +6,7 @@ import {DateTime} from "next-auth/providers/kakao";
 export interface ITariffCreate {
 	name: string;
 	description?: string;
+	code?: string;
 	from?: DateTime;
 	to?: DateTime;
 }
@@ -13,6 +14,7 @@ export interface ITariffCreate {
 export interface ITariff {
 	id: string;
 	name: string;
+	code: string;
 	description?: string | null;
 	from?: string | null;
 	to?: string | null;
