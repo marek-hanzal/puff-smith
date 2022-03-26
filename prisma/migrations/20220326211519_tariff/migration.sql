@@ -1,4 +1,7 @@
 -- AlterTable
+ALTER TABLE "Transaction" ADD COLUMN     "priceId" TEXT;
+
+-- AlterTable
 ALTER TABLE "User" ADD COLUMN     "tariffId" TEXT;
 
 -- CreateTable
@@ -31,3 +34,6 @@ ALTER TABLE "User" ADD CONSTRAINT "User_tariffId_fkey" FOREIGN KEY ("tariffId") 
 
 -- AddForeignKey
 ALTER TABLE "Price" ADD CONSTRAINT "Price_tariffId_fkey" FOREIGN KEY ("tariffId") REFERENCES "Tariff"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_priceId_fkey" FOREIGN KEY ("priceId") REFERENCES "Price"("id") ON DELETE SET NULL ON UPDATE CASCADE;

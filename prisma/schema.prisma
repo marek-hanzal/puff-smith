@@ -206,14 +206,16 @@ model Tariff {
 }
 
 model Price {
-  id       String    @id @default(cuid())
-  name     String
-  price    Decimal   @db.Decimal(10, 2)
-  tariffId String
-  tariff   Tariff    @relation(fields: [tariffId], references: [id])
-  from     DateTime?
-  to       DateTime?
-  created  DateTime
+  id          String        @id @default(cuid())
+  name        String
+  price       Decimal       @db.Decimal(10, 2)
+  tariffId    String
+  tariff      Tariff        @relation(fields: [tariffId], references: [id])
+  from        DateTime?
+  to          DateTime?
+  created     DateTime
+
+  Transaction Transaction[]
 }
 
 model Transaction {
@@ -222,6 +224,8 @@ model Transaction {
   created DateTime
   userId  String
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  priceId String?
+  price   Price?   @relation(fields: [priceId], references: [id])
   note    String?
 
   AtomizerInventory AtomizerInventory[]
