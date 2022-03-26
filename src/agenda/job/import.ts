@@ -17,6 +17,8 @@ import {VoucherService} from "@/puff-smith/service/voucher";
 import {AromaService} from "@/puff-smith/service/aroma";
 import {BoosterService} from "@/puff-smith/service/booster";
 import {BaseService} from "@/puff-smith/service/base";
+import {TariffService} from "@/puff-smith/service/tariff";
+import {PriceService} from "@/puff-smith/service/price";
 
 export const ImportJobName = 'import';
 
@@ -28,7 +30,9 @@ const importHandlers = {
 	...CellService().importers(),
 	...CottonService().importers(),
 	...ModService().importers(),
+	...PriceService().importers(),
 	...TagService().importers(),
+	...TariffService().importers(),
 	...TranslationService().importers(),
 	...VendorService().importers(),
 	...VoucherService().importers(),
