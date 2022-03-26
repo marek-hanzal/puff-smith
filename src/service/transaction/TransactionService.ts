@@ -7,6 +7,7 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 	const service: ITransactionService = {
 		...AbstractRepositoryService<ITransactionService>(prismaClient, prismaClient.transaction, async transaction => ({
 			...transaction,
+			created: transaction.created.toUTCString(),
 			amount: transaction.amount.toNumber(),
 		})),
 		async handleCreate({request}) {

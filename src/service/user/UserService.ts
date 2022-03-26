@@ -10,9 +10,11 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 	const service: IUserService = {
 		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async ({emailVerified, ...user}) => {
 			const tokenService = TokenService();
+			const tokens = await tokenService.tokensOf(user.id);
 			return {
 				...user,
-				tokens: await tokenService.tokensOf(user.id),
+				tokens,
+				tokenIds: tokens.map(token => token.id),
 			};
 		}, ({fulltext, ...filter}: any) => ({
 			...filter,

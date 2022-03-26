@@ -21,6 +21,7 @@ export interface IBase {
 	pg: number;
 	vg: number;
 	vendor: IVendor;
+	vendorId: string;
 }
 
 export interface IBaseFetchProps {

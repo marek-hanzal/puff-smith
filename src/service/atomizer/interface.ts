@@ -21,6 +21,7 @@ export interface IAtomizer {
 	name: string;
 	cost?: number | null;
 	vendor: IVendor;
+	vendorId: string;
 }
 
 export interface IAtomizerFetchProps {

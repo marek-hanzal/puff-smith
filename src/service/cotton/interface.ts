@@ -16,6 +16,7 @@ export interface ICotton {
 	id: string;
 	name: string;
 	vendor: IVendor;
+	vendorId: string;
 	cost: number;
 }
 

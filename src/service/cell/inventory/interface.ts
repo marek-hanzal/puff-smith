@@ -12,7 +12,9 @@ export interface ICellInventoryCreate {
 export interface ICellInventory {
 	id: string;
 	cell: ICell;
+	cellId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface ICellInventoryQuery extends IQuery<Prisma.CellInventoryWhereInput, Prisma.CellInventoryOrderByWithRelationInput> {

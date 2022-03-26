@@ -12,7 +12,9 @@ export interface IAtomizerInventoryCreate {
 export interface IAtomizerInventory {
 	id: string;
 	atomizer: IAtomizer;
+	atomizerId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IAtomizerInventoryQuery extends IQuery<Prisma.AtomizerInventoryWhereInput, Prisma.AtomizerInventoryOrderByWithRelationInput> {

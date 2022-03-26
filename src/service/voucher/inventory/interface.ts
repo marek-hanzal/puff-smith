@@ -12,7 +12,9 @@ export interface IVoucherInventoryCreate {
 export interface IVoucherInventory {
 	id: string;
 	voucher: IVoucher;
+	voucherId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IVoucherInventoryQuery extends IQuery<Prisma.VoucherInventoryWhereInput, Prisma.VoucherInventoryOrderByWithRelationInput> {

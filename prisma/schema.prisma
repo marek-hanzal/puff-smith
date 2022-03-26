@@ -483,7 +483,7 @@ model Liquid {
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   steep         Int
   created       DateTime
-  mxied         DateTime
+  mixed         DateTime
   archived      DateTime?
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)

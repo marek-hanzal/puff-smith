@@ -12,7 +12,9 @@ export interface ICottonInventoryCreate {
 export interface ICottonInventory {
 	id: string;
 	cotton: ICotton;
+	cottonId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface ICottonInventoryQuery extends IQuery<Prisma.CottonInventoryWhereInput, Prisma.CottonInventoryOrderByWithRelationInput> {

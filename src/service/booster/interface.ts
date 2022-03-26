@@ -20,6 +20,7 @@ export interface IBooster {
 	id: string;
 	name: string;
 	vendor: IVendor;
+	vendorId: string;
 	cost: number;
 	pg: number;
 	vg: number;

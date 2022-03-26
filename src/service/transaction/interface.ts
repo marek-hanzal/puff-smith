@@ -14,7 +14,7 @@ export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, 
 export interface ITransaction {
 	id: string;
 	amount: number;
-	created: Date;
+	created: string;
 	note?: string | null;
 }
 

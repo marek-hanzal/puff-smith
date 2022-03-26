@@ -16,6 +16,7 @@ export interface IMod {
 	id: string;
 	name: string;
 	vendor: IVendor;
+	vendorId: string;
 	cost: number;
 	voltage: number;
 	power: number;

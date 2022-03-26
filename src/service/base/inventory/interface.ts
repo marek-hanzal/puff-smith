@@ -12,7 +12,9 @@ export interface IBaseInventoryCreate {
 export interface IBaseInventory {
 	id: string;
 	base: IBase;
+	baseId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationInput> {

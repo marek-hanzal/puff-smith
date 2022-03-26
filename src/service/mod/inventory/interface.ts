@@ -12,7 +12,9 @@ export interface IModInventoryCreate {
 export interface IModInventory {
 	id: string;
 	mod: IMod;
+	modId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IModInventoryQuery extends IQuery<Prisma.ModInventoryWhereInput, Prisma.ModInventoryOrderByWithRelationInput> {

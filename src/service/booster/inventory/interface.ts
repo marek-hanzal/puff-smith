@@ -12,7 +12,9 @@ export interface IBoosterInventoryCreate {
 export interface IBoosterInventory {
 	id: string;
 	booster: IBooster;
+	boosterId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationInput> {

@@ -21,11 +21,13 @@ export interface ICell {
 	id: string;
 	name: string;
 	vendor: IVendor;
+	vendorId: string;
 	voltage: number;
 	cost: number;
 	drain?: number | null;
 	ohm?: number | null;
 	type: ITag;
+	typeId: string;
 }
 
 export interface ICellFetchProps {

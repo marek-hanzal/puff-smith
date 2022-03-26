@@ -12,7 +12,9 @@ export interface IAromaInventoryCreate {
 export interface IAromaInventory {
 	id: string;
 	aroma: IAroma;
+	aromaId: string;
 	transaction: ITransaction;
+	transactionId: string;
 }
 
 export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {

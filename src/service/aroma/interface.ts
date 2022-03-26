@@ -20,6 +20,7 @@ export interface IAroma {
 	id: string;
 	name: string;
 	vendor: IVendor;
+	vendorId: string;
 	cost: number;
 	pg: number;
 	vg: number;
