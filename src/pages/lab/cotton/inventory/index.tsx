@@ -1,11 +1,11 @@
-import {BaseIcon} from "@/puff-smith";
+import {CottonIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 
 export default withLabLayout(function Index() {
 	return <LabPage
-		title={"lab.inventory.base.index"}
-		menuSelection={['/lab/inventory/base']}
-		icon={<BaseIcon/>}
+		title={"lab.cotton.inventory.index"}
+		menuSelection={['/lab/cotton/inventory']}
+		icon={<CottonIcon/>}
 	>
 
 	</LabPage>;

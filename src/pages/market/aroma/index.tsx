@@ -1,5 +1,5 @@
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {AromasList} from "@/puff-smith/site/market/aroma";
+import {AromaList} from "@/puff-smith/site/market/aroma";
 import {AromasSourceControlProvider} from "@/sdk/api/aroma/query";
 import {LiquidIcon} from "@/puff-smith";
 
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<AromasList/>
+			<AromaList/>
 		</AromasSourceControlProvider>
 	</MarketPage>;
 });

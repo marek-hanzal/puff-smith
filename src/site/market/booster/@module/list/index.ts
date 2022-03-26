@@ -1,1 +1,1 @@
-export * from './BoostersList';
+export * from './BoosterList';

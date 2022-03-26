@@ -1,1 +1,1 @@
-export * from './ModsList';
+export * from './ModList';

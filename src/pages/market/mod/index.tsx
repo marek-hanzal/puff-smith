@@ -1,6 +1,6 @@
 import {ModIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {ModsList} from "@/puff-smith/site/market/mod";
+import {ModList} from "@/puff-smith/site/market/mod";
 import {ModsSourceControlProvider} from "@/sdk/api/mod/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<ModsList/>
+			<ModList/>
 		</ModsSourceControlProvider>
 	</MarketPage>;
 });

@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {AromasListSource, IAromasListSourceProps} from "@/sdk/api/aroma/query";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
 
-export interface IAromasListProps extends Partial<IAromasListSourceProps> {
+export interface IAromaListProps extends Partial<IAromasListSourceProps> {
 }
 
-export const AromasList: FC<IAromasListProps> = props => {
+export const AromaList: FC<IAromaListProps> = props => {
 	return <AromasListSource
 		itemLayout={'vertical'}
 		{...props}

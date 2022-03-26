@@ -1,5 +1,5 @@
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {BasesList} from "@/puff-smith/site/market/base";
+import {BaseList} from "@/puff-smith/site/market/base";
 import {BasesSourceControlProvider} from "@/sdk/api/base/query";
 import {BaseIcon} from "@/puff-smith";
 
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<BasesList/>
+			<BaseList/>
 		</BasesSourceControlProvider>
 	</MarketPage>;
 });

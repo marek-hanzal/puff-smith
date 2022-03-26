@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {CottonsListSource, ICottonsListSourceProps} from "@/sdk/api/cotton/query";
 import {CottonInventoryCreateButton} from "@/puff-smith/site/market/cotton";
 
-export interface ICottonsListProps extends Partial<ICottonsListSourceProps> {
+export interface ICottonListProps extends Partial<ICottonsListSourceProps> {
 }
 
-export const CottonsList: FC<ICottonsListProps> = props => {
+export const CottonList: FC<ICottonListProps> = props => {
 	return <CottonsListSource
 		itemLayout={'vertical'}
 		{...props}

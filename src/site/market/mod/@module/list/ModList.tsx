@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {IModsListSourceProps, ModsListSource} from "@/sdk/api/mod/query";
 import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod";
 
-export interface IModsListProps extends Partial<IModsListSourceProps> {
+export interface IModListProps extends Partial<IModsListSourceProps> {
 }
 
-export const ModsList: FC<IModsListProps> = props => {
+export const ModList: FC<IModListProps> = props => {
 	return <ModsListSource
 		itemLayout={'vertical'}
 		{...props}

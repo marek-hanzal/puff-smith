@@ -1,5 +1,5 @@
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {BoostersList} from "@/puff-smith/site/market/booster";
+import {BoosterList} from "@/puff-smith/site/market/booster";
 import {BoostersSourceControlProvider} from "@/sdk/api/booster/query";
 import {BoosterIcon} from "@/puff-smith";
 
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<BoostersList/>
+			<BoosterList/>
 		</BoostersSourceControlProvider>
 	</MarketPage>;
 });

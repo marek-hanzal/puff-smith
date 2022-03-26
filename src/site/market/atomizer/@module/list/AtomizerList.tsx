@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {AtomizersListSource, IAtomizersListSourceProps} from "@/sdk/api/atomizer/query";
 import {AtomizerInventoryCreateButton} from "@/puff-smith/site/market/atomizer";
 
-export interface IAtomizersListProps extends Partial<IAtomizersListSourceProps> {
+export interface IAtomizerListProps extends Partial<IAtomizersListSourceProps> {
 }
 
-export const AtomizersList: FC<IAtomizersListProps> = props => {
+export const AtomizerList: FC<IAtomizerListProps> = props => {
 	return <AtomizersListSource
 		itemLayout={'vertical'}
 		{...props}

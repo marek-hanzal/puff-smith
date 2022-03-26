@@ -3,8 +3,8 @@ import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 
 export default withLabLayout(function Index() {
 	return <LabPage
-		title={"lab.inventory.atomizer.index"}
-		menuSelection={['/lab/inventory/atomizer']}
+		title={"lab.atomizer.inventory.index"}
+		menuSelection={['/lab/atomizer/inventory']}
 		icon={<AtomizerIcon/>}
 	>
 

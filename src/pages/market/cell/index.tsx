@@ -1,6 +1,6 @@
 import {CellIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {CellsList} from "@/puff-smith/site/market/cell";
+import {CellList} from "@/puff-smith/site/market/cell";
 import {CellsSourceControlProvider} from "@/sdk/api/cell/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<CellsList/>
+			<CellList/>
 		</CellsSourceControlProvider>
 	</MarketPage>;
 });

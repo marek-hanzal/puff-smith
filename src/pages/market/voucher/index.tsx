@@ -1,6 +1,6 @@
 import {VoucherIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {VouchersList} from "@/puff-smith/site/market/voucher";
+import {VoucherList} from "@/puff-smith/site/market/voucher";
 import {VouchersSourceControlProvider} from "@/sdk/api/voucher/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<VouchersList/>
+			<VoucherList/>
 		</VouchersSourceControlProvider>
 	</MarketPage>;
 });

@@ -1,6 +1,6 @@
 import {CottonIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {CottonsList} from "@/puff-smith/site/market/cotton";
+import {CottonList} from "@/puff-smith/site/market/cotton";
 import {CottonsSourceControlProvider} from "@/sdk/api/cotton/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<CottonsList/>
+			<CottonList/>
 		</CottonsSourceControlProvider>
 	</MarketPage>;
 });

@@ -1,6 +1,6 @@
 import {AtomizerIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {AtomizersList} from "@/puff-smith/site/market/atomizer";
+import {AtomizerList} from "@/puff-smith/site/market/atomizer";
 import {AtomizersSourceControlProvider} from "@/sdk/api/atomizer/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +16,7 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<AtomizersList/>
+			<AtomizerList/>
 		</AtomizersSourceControlProvider>
 	</MarketPage>;
 });

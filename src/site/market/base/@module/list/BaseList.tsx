@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {BasesListSource, IBasesListSourceProps} from "@/sdk/api/base/query";
 import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base";
 
-export interface IBasesListProps extends Partial<IBasesListSourceProps> {
+export interface IBaseListProps extends Partial<IBasesListSourceProps> {
 }
 
-export const BasesList: FC<IBasesListProps> = props => {
+export const BaseList: FC<IBaseListProps> = props => {
 	return <BasesListSource
 		itemLayout={'vertical'}
 		{...props}

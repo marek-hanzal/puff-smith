@@ -5,10 +5,10 @@ import {IVouchersListSourceProps, VouchersListSource} from "@/sdk/api/voucher/qu
 import {VoucherInventoryCreateButton} from "@/puff-smith/site/market/voucher";
 import {useTranslation} from "react-i18next";
 
-export interface IVouchersListProps extends Partial<IVouchersListSourceProps> {
+export interface IVoucherListProps extends Partial<IVouchersListSourceProps> {
 }
 
-export const VouchersList: FC<IVouchersListProps> = props => {
+export const VoucherList: FC<IVoucherListProps> = props => {
 	const {t} = useTranslation();
 	return <VouchersListSource
 		itemLayout={'vertical'}

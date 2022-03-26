@@ -1,1 +1,1 @@
-export * from './CellsList';
+export * from './CellList';

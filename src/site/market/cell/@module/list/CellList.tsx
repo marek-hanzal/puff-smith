@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {CellsListSource, ICellsListSourceProps} from "@/sdk/api/cell/query";
 import {CellInventoryCreateButton} from "@/puff-smith/site/market/cell";
 
-export interface ICellsListProps extends Partial<ICellsListSourceProps> {
+export interface ICellListProps extends Partial<ICellsListSourceProps> {
 }
 
-export const CellsList: FC<ICellsListProps> = props => {
+export const CellList: FC<ICellListProps> = props => {
 	return <CellsListSource
 		itemLayout={'vertical'}
 		{...props}

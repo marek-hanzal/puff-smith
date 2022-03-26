@@ -4,10 +4,10 @@ import {Divider, Space, Typography} from "antd";
 import {BoostersListSource, IBoostersListSourceProps} from "@/sdk/api/booster/query";
 import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster";
 
-export interface IBoostersListProps extends Partial<IBoostersListSourceProps> {
+export interface IBoosterListProps extends Partial<IBoostersListSourceProps> {
 }
 
-export const BoostersList: FC<IBoostersListProps> = props => {
+export const BoosterList: FC<IBoosterListProps> = props => {
 	return <BoostersListSource
 		itemLayout={'vertical'}
 		{...props}

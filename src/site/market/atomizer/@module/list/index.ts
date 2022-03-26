@@ -1,1 +1,1 @@
-export * from './AtomizersList';
+export * from './AtomizerList';

@@ -17,13 +17,13 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		{CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>)}
 		{CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>)}
 		<SubMenu key={'lab.inventory'} icon={<ContainerOutlined/>} id={'lab.inventory'}>
-			{CreateMenuItem("lab.inventory.atomizer.menu", "/lab/inventory/atomizer", <AtomizerIcon/>)}
-			{CreateMenuItem("lab.inventory.mod.menu", "/lab/inventory/mod", <ModIcon/>)}
-			{CreateMenuItem("lab.inventory.cell.menu", "/lab/inventory/cell", <CellIcon/>)}
-			{CreateMenuItem("lab.inventory.cotton.menu", "/lab/inventory/cotton", <CottonIcon/>)}
-			{CreateMenuItem("lab.inventory.aroma.menu", "/lab/inventory/aroma", <LiquidIcon/>)}
-			{CreateMenuItem("lab.inventory.base.menu", "/lab/inventory/base", <BaseIcon/>)}
-			{CreateMenuItem("lab.inventory.booster.menu", "/lab/inventory/booster", <BoosterIcon/>)}
+			{CreateMenuItem("lab.atomizer.inventory.menu", "/lab/atomizer/inventory", <AtomizerIcon/>)}
+			{CreateMenuItem("lab.mod.inventory.menu", "/lab/mod/inventory", <ModIcon/>)}
+			{CreateMenuItem("lab.cell.inventory.menu", "/lab/cell/inventory", <CellIcon/>)}
+			{CreateMenuItem("lab.cotton.inventory.menu", "/lab/cotton/inventory", <CottonIcon/>)}
+			{CreateMenuItem("lab.aroma.inventory.menu", "/lab/aroma/inventory", <LiquidIcon/>)}
+			{CreateMenuItem("lab.base.inventory.menu", "/lab/base/inventory", <BaseIcon/>)}
+			{CreateMenuItem("lab.booster.inventory.menu", "/lab/booster/inventory", <BoosterIcon/>)}
 		</SubMenu>
 		{whoamiQuery.isSuccess && hasToken(whoamiQuery.data, 'root') && CreateMenuItem("lab.root.home.menu", "/root", <SlidersOutlined/>)}
 	</Menu>;
