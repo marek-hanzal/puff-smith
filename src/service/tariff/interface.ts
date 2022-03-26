@@ -1,5 +1,5 @@
 import {IQuery, IRepositoryService} from "@leight-core/api";
-import {Prisma, Tariff} from "@prisma/client";
+import {Prisma, Tariff, Transaction} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 import {DateTime} from "next-auth/providers/kakao";
 
@@ -32,5 +32,16 @@ export interface ITariffFetchQuery extends ParsedUrlQuery {
 	tariffId: string;
 }
 
+export interface ITransactionOfRequest<T> {
+	userId: string;
+	tariff: string;
+	price: string;
+	fallback?: string;
+	required?: boolean;
+
+	callback(tariff: Tariff, transaction: Transaction): Promise<T>;
+}
+
 export interface ITariffService extends IRepositoryService<ITariffCreate, Tariff, ITariff, ITariffQuery, ITariffFetchProps, ITariffFetchQuery> {
+	transactionOf<T>(transactionOf: ITransactionOfRequest<T>): Promise<T>;
 }

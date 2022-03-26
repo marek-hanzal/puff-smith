@@ -55,6 +55,9 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 				});
 			}
 		},
+		transactionOf: request => {
+			return request.callback(null, null);
+		}
 	};
 
 	return service;
