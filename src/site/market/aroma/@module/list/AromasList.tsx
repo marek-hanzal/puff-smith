@@ -2,7 +2,7 @@ import {ListItem, ListItemMeta} from "@leight-core/client";
 import {FC} from "react";
 import {Divider, Space, Typography} from "antd";
 import {AromasListSource, IAromasListSourceProps} from "@/sdk/api/aroma/query";
-import {AromaTransactionCreateButton} from "@/puff-smith/site/market/aroma";
+import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
 
 export interface IAromasListProps extends Partial<IAromasListSourceProps> {
 }
@@ -17,7 +17,7 @@ export const AromasList: FC<IAromasListProps> = props => {
 				title={<Space size={0} split={<Divider type={'vertical'}/>}>
 					{aroma.name}
 					<Typography.Text type={'secondary'}>{aroma.vendor.name}</Typography.Text>
-					<AromaTransactionCreateButton type={'link'} aroma={aroma}/>
+					<AromaInventoryCreateButton type={'link'} aroma={aroma}/>
 				</Space>}
 			/>
 		</ListItem>}

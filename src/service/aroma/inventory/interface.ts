@@ -15,7 +15,7 @@ export interface IAromaInventory {
 	transaction: ITransaction;
 }
 
-export interface IAromaInventoryQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationInput> {
+export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {
 }
 
 export interface IAromaInventoryFetchProps {

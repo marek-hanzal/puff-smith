@@ -1,1 +1,1 @@
-export * from './AromaTransactionCreateButton';
+export * from './AromaInventoryCreateButton';

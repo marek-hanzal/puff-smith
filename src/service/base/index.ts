@@ -1,3 +1,3 @@
-export * from './transaction';
+export * from './inventory';
 export * from './BaseService';
 export * from './interface';

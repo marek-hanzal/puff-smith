@@ -1,12 +1,12 @@
 import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService} from "@leight-core/server";
-import {AromaService, IAromaTransactionService} from "@/puff-smith/service/aroma";
+import {AromaService, IAromaInventoryService} from "@/puff-smith/service/aroma";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
 
-export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IAromaTransactionService => {
-	const service: IAromaTransactionService = {
-		...AbstractRepositoryService<IAromaTransactionService>(prismaClient, prismaClient.aromaTransaction, async aromaTransaction => {
+export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IAromaInventoryService => {
+	const service: IAromaInventoryService = {
+		...AbstractRepositoryService<IAromaInventoryService>(prismaClient, prismaClient.aromaInventory, async aromaTransaction => {
 			const aromaService = AromaService(prisma);
 			const transactionService = TransactionService(prisma);
 			const transaction = await transactionService.toMap(aromaTransaction.transactionId);
@@ -31,7 +31,7 @@ export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = p
 			(await transactionService.sumOf(create.userId)) < 0 && (() => {
 				throw new Error("Not enough puffies")
 			})();
-			return prisma.aromaTransaction.create({
+			return prisma.aromaInventory.create({
 				data: {
 					aromaId: aroma.id,
 					transactionId: transaction.id,

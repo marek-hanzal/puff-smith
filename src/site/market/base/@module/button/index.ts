@@ -1,1 +1,1 @@
-export * from './BaseTransactionCreateButton';
+export * from './BaseInventoryCreateButton';

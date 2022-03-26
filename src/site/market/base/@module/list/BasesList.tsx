@@ -2,7 +2,7 @@ import {ListItem, ListItemMeta} from "@leight-core/client";
 import {FC} from "react";
 import {Divider, Space, Typography} from "antd";
 import {BasesListSource, IBasesListSourceProps} from "@/sdk/api/base/query";
-import {BaseTransactionCreateButton} from "@/puff-smith/site/market/base";
+import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base";
 
 export interface IBasesListProps extends Partial<IBasesListSourceProps> {
 }
@@ -17,7 +17,7 @@ export const BasesList: FC<IBasesListProps> = props => {
 				title={<Space size={0} split={<Divider type={'vertical'}/>}>
 					{base.name}
 					<Typography.Text type={'secondary'}>{base.vendor.name}</Typography.Text>
-					<BaseTransactionCreateButton type={'link'} base={base}/>
+					<BaseInventoryCreateButton type={'link'} base={base}/>
 				</Space>}
 			/>
 		</ListItem>}

@@ -1,1 +1,1 @@
-export * from './AtomizerTransactionCreateButton';
+export * from './AtomizerInventoryCreateButton';

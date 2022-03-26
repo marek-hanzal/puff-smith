@@ -1,1 +1,1 @@
-export * from './CottonTransactionCreateButton';
+export * from './CottonInventoryCreateButton';
