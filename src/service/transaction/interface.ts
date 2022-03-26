@@ -1,6 +1,7 @@
 import {Prisma, Transaction} from "@prisma/client";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {ParsedUrlQuery} from "querystring";
+import {IPrice} from "@/puff-smith/service/price";
 
 export interface ITransactionCreate {
 	amount: number;
@@ -16,6 +17,8 @@ export interface ITransaction {
 	amount: number;
 	created: string;
 	note?: string | null;
+	priceId?: string | null;
+	price?: IPrice | null;
 }
 
 export interface ITransactionFetchProps {
