@@ -8,6 +8,7 @@ services:
         networks:
             - db
             - mongo
+            - mailhog
         environment:
             POSTGRES_USER: puff-smith
             POSTGRES_DB: puff-smith
@@ -38,6 +39,14 @@ services:
             MONGODB_URI: mongodb://root:1234@mongo:27017
             COLLECTION: agenda
 
+    mailhog:
+        image: mailhog/mailhog
+        restart: always
+        ports:
+            - "5025:1025"
+            - "5085:8025"
+
 networks:
     db:
     mongo:
+    mailhog:

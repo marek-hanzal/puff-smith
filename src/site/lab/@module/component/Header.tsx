@@ -1,5 +1,5 @@
 import {Divider, PageHeader, PageHeaderProps} from "antd";
-import {LogoIcon, LogoutButton} from "@/puff-smith";
+import {LogoIcon, SignOutButton} from "@/puff-smith";
 import {LabMenu} from "@/puff-smith/site/lab";
 import {ButtonBar, LinkTo} from "@leight-core/client";
 import {FC} from "react";
@@ -20,7 +20,7 @@ export const Header: FC<IHeaderProps> = props => {
 		}}
 		extra={<ButtonBar split={<Divider type={'vertical'}/>}>
 			<UserPuffies/>
-			<LogoutButton/>
+			<SignOutButton/>
 		</ButtonBar>}
 		{...props}
 	/>

@@ -1,2 +1,2 @@
 export * from "./FormTooltip";
-export * from "./LogoutButton";
+export * from "./SignOutButton";

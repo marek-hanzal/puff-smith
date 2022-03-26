@@ -1,4 +1,4 @@
-import {LogoIcon, LogoutButton} from "@/puff-smith";
+import {LogoIcon, SignOutButton} from "@/puff-smith";
 import {PageHeader, PageHeaderProps} from "antd";
 import {LinkTo} from "@leight-core/client";
 import {FC} from "react";
@@ -18,7 +18,7 @@ export const Header: FC<IHeaderProps> = props => {
 			minHeight: '8vh',
 		}}
 		extra={[
-			<LogoutButton key={'logout'}/>,
+			<SignOutButton key={'logout'}/>,
 		]}
 		{...props}
 	/>

@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
+import EmailProvider from "next-auth/providers/email";
 import prismaClient from "@/puff-smith/service/prisma";
 import {UserService} from "@/puff-smith/service/user";
 
@@ -24,9 +25,11 @@ export default NextAuth({
 			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID,
 			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET,
 		}),
-
-		// https://next-auth.js.org/providers/google
-		// https://console.developers.google.com/apis/credentials?project=puff-smith&supportedpurview=project
+		// https://next-auth.js.org/providers/email
+		EmailProvider({
+			server: process.env.EMAIL_SERVER,
+			from: process.env.EMAIL_FROM,
+		}),
 	],
 	callbacks: {
 		jwt: async ({token, isNewUser}) => {

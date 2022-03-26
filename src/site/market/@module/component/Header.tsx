@@ -1,4 +1,4 @@
-import {LogoIcon, LogoutButton} from "@/puff-smith";
+import {LogoIcon, SignOutButton} from "@/puff-smith";
 import {Divider, PageHeader, PageHeaderProps} from "antd";
 import {ButtonBar, LinkTo} from "@leight-core/client";
 import {FC} from "react";
@@ -20,7 +20,7 @@ export const Header: FC<IHeaderProps> = props => {
 		}}
 		extra={<ButtonBar split={<Divider type={'vertical'}/>}>
 			<UserPuffies/>
-			<LogoutButton/>
+			<SignOutButton/>
 		</ButtonBar>}
 		{...props}
 	/>

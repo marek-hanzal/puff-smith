@@ -1,9 +1,10 @@
-import {Button, Col, Row, Typography} from "antd";
+import {Button, Col, Divider, Input, Row, Space, Typography} from "antd";
 import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
 import {signIn} from "next-auth/react";
 import {Trans, useTranslation} from "react-i18next";
-import {Card, GithubIcon, NumberRange, Template} from "@leight-core/client";
+import {Card, Form, FormItem, GithubIcon, NumberRange, Submit, Template} from "@leight-core/client";
 import {FullLogoIcon} from "@/puff-smith";
+import {MailOutlined} from "@ant-design/icons";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();
@@ -27,15 +28,35 @@ export default withPublicLayout(function Index() {
 						<Typography.Paragraph>
 							<Trans i18nKey={'public.intro.login.content'}/>
 						</Typography.Paragraph>
-						<Button
-							type={'primary'}
-							size={'large'}
-							icon={<GithubIcon/>}
-							ghost
-							onClick={() => signIn('github', {callbackUrl: '/'})}
-						>
-							{t('public.sign-in.github.button')}
-						</Button>
+						<Divider/>
+						<Space size={0} direction={'vertical'} split={<Divider/>}>
+							<Button
+								type={'primary'}
+								size={'large'}
+								icon={<GithubIcon/>}
+								ghost
+								onClick={() => signIn('github', {callbackUrl: '/'})}
+							>
+								{t('public.sign-in.github.button')}
+							</Button>
+							<Form
+								layout={'inline'}
+								onSuccess={async ({values: {email}}) => await signIn('email', {email, callbackUrl: '/'})}
+								translation={'public.sign-in'}
+							>
+								<Space align={'baseline'}>
+									<FormItem field={'email'} required showLabel={false}>
+										<Input type={'email'} prefix={<MailOutlined/>}/>
+									</FormItem>
+									<Submit
+										type={'primary'}
+										size={'large'}
+										ghost
+										label={'email.button'}
+									/>
+								</Space>
+							</Form>
+						</Space>
 					</Card>
 				</Col>
 			</Row>

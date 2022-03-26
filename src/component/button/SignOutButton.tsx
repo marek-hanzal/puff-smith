@@ -4,10 +4,10 @@ import {useTranslation} from "react-i18next";
 import {signOut} from "next-auth/react";
 import {SignOutIcon} from "@leight-core/client";
 
-export interface ILogoutButtonProps extends Partial<ButtonProps> {
+export interface ISignOutButtonProps extends Partial<ButtonProps> {
 }
 
-export const LogoutButton: FC<ILogoutButtonProps> = props => {
+export const SignOutButton: FC<ISignOutButtonProps> = props => {
 	const {t} = useTranslation();
 	return <Tooltip title={t("common.sign-out.tooltip")}>
 		<Button
