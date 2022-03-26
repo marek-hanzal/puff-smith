@@ -1,6 +1,6 @@
 import {CreateMenuItem, HomeIcon, IMenuProps, Menu, SubMenu} from "@leight-core/client";
 import {FC} from "react";
-import {AtomizerIcon, BaseIcon, BoosterIcon, BuildIcon, CellIcon, CottonIcon, LiquidIcon, ModIcon, VapeIcon} from "@/puff-smith";
+import {AtomizerIcon, BaseIcon, BoosterIcon, BuildIcon, CellIcon, CottonIcon, LiquidIcon, MarketIcon, ModIcon, VapeIcon} from "@/puff-smith";
 import {ContainerOutlined, SlidersOutlined} from "@ant-design/icons";
 import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {hasToken} from "@/puff-smith/service/user/utils";
@@ -25,6 +25,7 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 			{CreateMenuItem("lab.base.inventory.menu", "/lab/base/inventory", <BaseIcon/>)}
 			{CreateMenuItem("lab.booster.inventory.menu", "/lab/booster/inventory", <BoosterIcon/>)}
 		</SubMenu>
+		{CreateMenuItem("lab.market.menu", "/market", <MarketIcon/>)}
 		{whoamiQuery.isSuccess && hasToken(whoamiQuery.data, 'root') && CreateMenuItem("lab.root.home.menu", "/root", <SlidersOutlined/>)}
 	</Menu>;
 };

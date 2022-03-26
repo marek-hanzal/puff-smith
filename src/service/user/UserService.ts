@@ -34,7 +34,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 			await Promise.all([
 				service.createToken(
 					userId,
-					'root'
+					'site.root'
 				),
 				service.createToken(
 					userId,
@@ -52,6 +52,14 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 				service.createToken(
 					userId,
 					'user'
+				),
+				service.createToken(
+					userId,
+					'site.lab'
+				),
+				service.createToken(
+					userId,
+					'site.market'
 				),
 				service.createToken(
 					userId,
