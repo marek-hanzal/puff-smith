@@ -37,6 +37,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  tariffId      String?
+  tariff        Tariff?   @relation(fields: [tariffId], references: [id])
 
   accounts          Account[]
   files             File[]
@@ -189,6 +191,29 @@ model Vendor {
   Aroma     Aroma[]
   Booster   Booster[]
   Base      Base[]
+}
+
+model Tariff {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  from        DateTime?
+  to          DateTime?
+  created     DateTime
+
+  Price Price[]
+  User  User[]
+}
+
+model Price {
+  id       String    @id @default(cuid())
+  name     String
+  price    Decimal   @db.Decimal(10, 2)
+  tariffId String
+  tariff   Tariff    @relation(fields: [tariffId], references: [id])
+  from     DateTime?
+  to       DateTime?
+  created  DateTime
 }
 
 model Transaction {
