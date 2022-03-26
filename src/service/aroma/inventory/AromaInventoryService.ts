@@ -4,7 +4,7 @@ import {AromaService, IAromaTransactionService} from "@/puff-smith/service/aroma
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
 
-export const AromaTransactionService = (prismaClient: IPrismaClientTransaction = prisma): IAromaTransactionService => {
+export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IAromaTransactionService => {
 	const service: IAromaTransactionService = {
 		...AbstractRepositoryService<IAromaTransactionService>(prismaClient, prismaClient.aromaTransaction, async aromaTransaction => {
 			const aromaService = AromaService(prisma);

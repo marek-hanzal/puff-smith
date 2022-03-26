@@ -1,8 +1,8 @@
 import {MutationEndpoint} from "@leight-core/server";
-import {AromaTransactionService, IAromaTransaction, IAromaTransactionCreate} from "@/puff-smith/service/aroma";
+import {AromaInventoryService, IAromaTransaction, IAromaTransactionCreate} from "@/puff-smith/service/aroma";
 
 export default MutationEndpoint<"Create", Omit<IAromaTransactionCreate, "userId">, IAromaTransaction>(async ({res, request, toUserId}) => {
-	const aromaTransactionService = AromaTransactionService();
+	const aromaTransactionService = AromaInventoryService();
 	try {
 		return await aromaTransactionService.handleCreate({
 			request: {
