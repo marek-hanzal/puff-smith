@@ -20,24 +20,14 @@ export const BoosterInventoryService = (prismaClient: IPrismaClientTransaction =
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const boosterService = BoosterService(prisma);
-			const transactionService = TransactionService(prisma);
-			const booster = await boosterService.toMap(create.boosterId);
-			const transaction = await transactionService.create({
-				amount: -1 * (booster.cost || 0),
-				note: `Purchase of booster [${booster.vendor.name} ${booster.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.boosterInventory.create({
+			const booster = await BoosterService(prisma).toMap(create.boosterId);
+			return TransactionService(prisma).handleTransaction(create.userId, booster.cost, async transaction => prisma.boosterInventory.create({
 				data: {
 					boosterId: booster.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of booster [${booster.vendor.name} ${booster.name}]`);
 		}),
 	};
 

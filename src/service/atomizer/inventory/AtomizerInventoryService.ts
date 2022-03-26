@@ -20,24 +20,14 @@ export const AtomizerInventoryService = (prismaClient: IPrismaClientTransaction 
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const atomizerService = AtomizerService(prisma);
-			const transactionService = TransactionService(prisma);
-			const atomizer = await atomizerService.toMap(create.atomizerId);
-			const transaction = await transactionService.create({
-				amount: -1 * (atomizer.cost || 0),
-				note: `Purchase of atomizer [${atomizer.vendor.name} ${atomizer.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.atomizerInventory.create({
+			const atomizer = await AtomizerService(prisma).toMap(create.atomizerId);
+			return TransactionService(prisma).handleTransaction(create.userId, atomizer.cost, async transaction => prisma.atomizerInventory.create({
 				data: {
 					atomizerId: atomizer.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of atomizer [${atomizer.vendor.name} ${atomizer.name}]`);
 		}),
 	};
 

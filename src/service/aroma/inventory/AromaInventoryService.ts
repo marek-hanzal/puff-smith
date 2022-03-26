@@ -20,24 +20,14 @@ export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = p
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const aromaService = AromaService(prisma);
-			const transactionService = TransactionService(prisma);
-			const aroma = await aromaService.toMap(create.aromaId);
-			const transaction = await transactionService.create({
-				amount: -1 * (aroma.cost || 0),
-				note: `Purchase of aroma [${aroma.vendor.name} ${aroma.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.aromaInventory.create({
+			const aroma = await AromaService(prisma).toMap(create.aromaId);
+			return TransactionService(prisma).handleTransaction(create.userId, aroma.cost, async transaction => prisma.aromaInventory.create({
 				data: {
 					aromaId: aroma.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of aroma [${aroma.vendor.name} ${aroma.name}]`);
 		}),
 	};
 

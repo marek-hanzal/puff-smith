@@ -30,4 +30,6 @@ export interface ITransactionService extends IRepositoryService<ITransactionCrea
 	sum(query: ITransactionQuery): Promise<number>;
 
 	sumOf(userId: string): Promise<number>;
+
+	handleTransaction<T>(userId: string, cost: number | undefined | null, callback: (transaction: Transaction) => Promise<T>, note?: string): Promise<T>;
 }

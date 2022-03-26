@@ -8,7 +8,6 @@ export interface IUsersListProps extends Partial<IUsersListSourceProps> {
 
 export const UsersList: FC<IUsersListProps> = props => {
 	return <UsersListSource
-
 		{...props}
 	>
 		{user => <ListItem key={user.id}>
@@ -17,7 +16,7 @@ export const UsersList: FC<IUsersListProps> = props => {
 					type={'link'}
 					href={'/root/user/[userId]'}
 					query={{userId: user.id}}
-					title={user.name}
+					title={user.name || user.email}
 				/>}
 				avatar={<Avatar src={user.image}/>}
 			/>

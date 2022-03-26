@@ -20,24 +20,14 @@ export const CellInventoryService = (prismaClient: IPrismaClientTransaction = pr
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const cellService = CellService(prisma);
-			const transactionService = TransactionService(prisma);
-			const cell = await cellService.toMap(create.cellId);
-			const transaction = await transactionService.create({
-				amount: -1 * (cell.cost || 0),
-				note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.cellInventory.create({
+			const cell = await CellService(prisma).toMap(create.cellId);
+			return TransactionService(prisma).handleTransaction(create.userId, cell.cost, async transaction => prisma.cellInventory.create({
 				data: {
 					cellId: cell.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of cell [${cell.vendor.name} ${cell.name}]`);
 		}),
 	};
 

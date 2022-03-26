@@ -20,24 +20,14 @@ export const BaseInventoryService = (prismaClient: IPrismaClientTransaction = pr
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const baseService = BaseService(prisma);
-			const transactionService = TransactionService(prisma);
-			const base = await baseService.toMap(create.baseId);
-			const transaction = await transactionService.create({
-				amount: -1 * (base.cost || 0),
-				note: `Purchase of base [${base.vendor.name} ${base.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.baseInventory.create({
+			const base = await BaseService(prisma).toMap(create.baseId);
+			return TransactionService(prisma).handleTransaction(create.userId, base.cost, async transaction => prisma.baseInventory.create({
 				data: {
 					baseId: base.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of base [${base.vendor.name} ${base.name}]`);
 		}),
 	};
 

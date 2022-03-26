@@ -34,6 +34,17 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 					created: 'asc',
 				}
 			});
+		},
+		handleTransaction: async (userId, cost, callback, note) => {
+			const transaction = await service.create({
+				amount: -1 * (cost || 0),
+				note,
+				userId,
+			});
+			(await service.sumOf(userId)) < 0 && (() => {
+				throw new Error("Not enough puffies")
+			})();
+			return callback(transaction);
 		}
 	};
 

@@ -20,24 +20,14 @@ export const ModInventoryService = (prismaClient: IPrismaClientTransaction = pri
 			return service.map(await service.create(request));
 		},
 		create: async create => prisma.$transaction(async prisma => {
-			const modService = ModService(prisma);
-			const transactionService = TransactionService(prisma);
-			const mod = await modService.toMap(create.modId);
-			const transaction = await transactionService.create({
-				amount: -1 * (mod.cost || 0),
-				note: `Purchase of mod [${mod.vendor.name} ${mod.name}]`,
-				userId: create.userId,
-			});
-			(await transactionService.sumOf(create.userId)) < 0 && (() => {
-				throw new Error("Not enough puffies")
-			})();
-			return prisma.modInventory.create({
+			const mod = await ModService(prisma).toMap(create.modId);
+			return TransactionService(prisma).handleTransaction(create.userId, mod.cost, async transaction => prisma.modInventory.create({
 				data: {
 					modId: mod.id,
 					transactionId: transaction.id,
 					userId: create.userId,
 				}
-			});
+			}), `Purchase of mod [${mod.vendor.name} ${mod.name}]`);
 		}),
 	};
 

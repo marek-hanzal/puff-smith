@@ -8,14 +8,11 @@ import {TokenService} from "@/puff-smith/service/token";
 
 export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IUserService => {
 	const service: IUserService = {
-		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async user => {
+		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async ({emailVerified, ...user}) => {
 			const tokenService = TokenService();
-			const tokens = await tokenService.tokensOf(user.id);
-			const tokenNames = tokens.map(token => token.name);
 			return {
 				...user,
-				tokens,
-				hasToken: tokenNames.includes,
+				tokens: await tokenService.tokensOf(user.id),
 			};
 		}, ({fulltext, ...filter}: any) => ({
 			...filter,
