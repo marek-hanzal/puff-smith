@@ -32,26 +32,27 @@ model Account {
 }
 
 model User {
-  id                  String                @id @default(cuid())
-  name                String?
-  email               String?               @unique
-  emailVerified       DateTime?
-  image               String?
-  accounts            Account[]
-  files               File[]
-  jobs                Job[]
-  Transaction         Transaction[]
-  AtomizerTransaction AtomizerTransaction[]
-  ModTransaction      ModTransaction[]
-  CellTransaction     CellTransaction[]
-  CottonTransaction   CottonTransaction[]
-  Comment             Comment[]
-  UserToken           UserToken[]
-  VoucherTransaction  VoucherTransaction[]
-  AromaTransaction    AromaTransaction[]
-  BoosterTransaction  BoosterTransaction[]
-  BaseTransaction     BaseTransaction[]
-  Liquid              Liquid[]
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  emailVerified     DateTime?
+  image             String?
+
+  accounts          Account[]
+  files             File[]
+  jobs              Job[]
+  Transaction       Transaction[]
+  Comment           Comment[]
+  UserToken         UserToken[]
+  Liquid            Liquid[]
+  AtomizerInventory AtomizerInventory[]
+  CellInventory     CellInventory[]
+  ModInventory      ModInventory[]
+  CottonInventory   CottonInventory[]
+  VoucherInventory  VoucherInventory[]
+  AromaInventory    AromaInventory[]
+  BoosterInventory  BoosterInventory[]
+  BaseInventory     BaseInventory[]
 }
 
 model VerificationToken {
@@ -204,8 +205,8 @@ model Atomizer {
   AtomizerDraw AtomizerDraw[]
   cost         Decimal?       @db.Decimal(5, 2)
 
-  AtomizerTransaction AtomizerTransaction[]
-  AtomizerComment     AtomizerComment[]
+  AtomizerInventory AtomizerInventory[]
+  AtomizerComment   AtomizerComment[]
 
   @@unique([name, vendorId])
 }
@@ -234,17 +235,17 @@ model Transaction {
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   note    String?
 
-  AtomizerTransaction AtomizerTransaction[]
-  ModTransaction      ModTransaction[]
-  CellTransaction     CellTransaction[]
-  CottonTransaction   CottonTransaction[]
-  VoucherTransaction  VoucherTransaction[]
-  AromaTransaction    AromaTransaction[]
-  BoosterTransaction  BoosterTransaction[]
-  BaseTransaction     BaseTransaction[]
+  AtomizerInventory AtomizerInventory[]
+  ModInventory      ModInventory[]
+  CellInventory     CellInventory[]
+  CottonInventory   CottonInventory[]
+  VoucherInventory  VoucherInventory[]
+  AromaInventory    AromaInventory[]
+  BoosterInventory  BoosterInventory[]
+  BaseInventory     BaseInventory[]
 }
 
-model AtomizerTransaction {
+model AtomizerInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -266,14 +267,14 @@ model Cell {
   vendorId String
   vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  ModCell         ModCell[]
-  CellTransaction CellTransaction[]
-  CellComment     CellComment[]
+  ModCell       ModCell[]
+  CellInventory CellInventory[]
+  CellComment   CellComment[]
 
   @@unique([name, vendorId])
 }
 
-model CellTransaction {
+model CellInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -300,9 +301,9 @@ model Mod {
   voltage  Decimal @db.Decimal(10, 2)
   power    Decimal @db.Decimal(10, 2)
 
-  ModCell        ModCell[]
-  ModTransaction ModTransaction[]
-  ModComment     ModComment[]
+  ModCell      ModCell[]
+  ModInventory ModInventory[]
+  ModComment   ModComment[]
 
   @@unique([name, vendorId])
 }
@@ -315,7 +316,7 @@ model ModCell {
   cell   Cell   @relation(fields: [cellId], references: [id], onDelete: Cascade)
 }
 
-model ModTransaction {
+model ModInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -334,18 +335,18 @@ model ModComment {
 }
 
 model Cotton {
-  id                String              @id @default(cuid())
-  name              String
-  vendorId          String
-  vendor            Vendor              @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost              Decimal             @db.Decimal(10, 2)
-  CottonTransaction CottonTransaction[]
-  CottonComment     CottonComment[]
+  id              String            @id @default(cuid())
+  name            String
+  vendorId        String
+  vendor          Vendor            @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cost            Decimal           @db.Decimal(10, 2)
+  CottonInventory CottonInventory[]
+  CottonComment   CottonComment[]
 
   @@unique([name, vendorId])
 }
 
-model CottonTransaction {
+model CottonInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -369,10 +370,10 @@ model Voucher {
   cost       Decimal  @db.Decimal(10, 2)
   maxFortune Decimal? @db.Decimal(10, 2)
 
-  VoucherTransaction VoucherTransaction[]
+  VoucherInventory VoucherInventory[]
 }
 
-model VoucherTransaction {
+model VoucherInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -393,9 +394,9 @@ model Aroma {
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   steep    Int     @default(14)
 
-  AromaTransaction AromaTransaction[]
-  LiquidAroma LiquidAroma[]
-  AromaComment AromaComment[]
+  AromaInventory AromaInventory[]
+  LiquidAroma    LiquidAroma[]
+  AromaComment   AromaComment[]
 
   @@unique([name, vendorId])
 }
@@ -408,7 +409,7 @@ model AromaComment {
   comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
-model AromaTransaction {
+model AromaInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -429,13 +430,13 @@ model Booster {
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  BoosterTransaction BoosterTransaction[]
-  LiquidBooster LiquidBooster[]
+  BoosterInventory BoosterInventory[]
+  LiquidBooster    LiquidBooster[]
 
   @@unique([name, vendorId])
 }
 
-model BoosterTransaction {
+model BoosterInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -454,13 +455,13 @@ model Base {
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  BaseTransaction BaseTransaction[]
-  LiquidBase LiquidBase[]
+  BaseInventory BaseInventory[]
+  LiquidBase    LiquidBase[]
 
   @@unique([name, vendorId])
 }
 
-model BaseTransaction {
+model BaseInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
