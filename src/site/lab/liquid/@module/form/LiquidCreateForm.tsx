@@ -18,7 +18,12 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 		translation={'lab.liquid'}
 		onSuccess={async response => {
 			await liquidsQueryInvalidate();
-			message.success(t("lab.liquid.create.success", {data: response.response}));
+			message.success(t("lab.liquid.create.success", {
+				data: {
+					name: response.response.name,
+					amount: -1 * response.response.transaction.amount,
+				}
+			}));
 			await puffiesQueryInvalidate();
 			onSuccess?.(response);
 		}}
