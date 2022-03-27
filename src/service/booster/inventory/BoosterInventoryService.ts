@@ -16,18 +16,21 @@ export const BoosterInventoryService = (prismaClient: IPrismaClientTransaction =
 				transaction,
 			}
 		}),
-		async handleCreate({request}) {
-			return service.map(await service.create(request));
-		},
-		create: async create => prisma.$transaction(async prisma => {
-			const booster = await BoosterService(prisma).toMap(create.boosterId);
-			return TransactionService(prisma).handleTransaction(create.userId, booster.cost, async transaction => prisma.boosterInventory.create({
-				data: {
-					boosterId: booster.id,
-					transactionId: transaction.id,
-					userId: create.userId,
-				}
-			}), `Purchase of booster [${booster.vendor.name} ${booster.name}]`);
+		handleCreate: async ({request}) => service.map(await service.create(request)),
+		create: async create => prisma.$transaction(async prismaClient => {
+			const booster = await BoosterService(prismaClient).toMap(create.boosterId);
+			return TransactionService(prismaClient).handleTransaction({
+				userId: create.userId,
+				cost: booster.cost,
+				note: `Purchase of booster [${booster.vendor.name} ${booster.name}]`,
+				callback: async transaction => prismaClient.boosterInventory.create({
+					data: {
+						boosterId: booster.id,
+						transactionId: transaction.id,
+						userId: create.userId,
+					}
+				}),
+			});
 		}),
 	};
 

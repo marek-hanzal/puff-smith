@@ -5,7 +5,6 @@ import {ITransaction} from "@/puff-smith/service/transaction";
 
 export interface ILiquidCreate {
 	name: string;
-	steep: number;
 	volume: number;
 	mixed?: Date;
 	userId: string;

@@ -3,6 +3,9 @@ import prisma from "@/puff-smith/service/prisma";
 import {AbstractRepositoryService, handleUniqueException} from "@leight-core/server";
 import {ITariffService} from "@/puff-smith/service/tariff/interface";
 import {CodeService} from "@/puff-smith/service/code";
+import {PriceService} from "@/puff-smith/service/price";
+import {TransactionService} from "@/puff-smith/service/transaction";
+import {Price, Tariff} from "@prisma/client";
 
 export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): ITariffService => {
 	const service: ITariffService = {
@@ -55,8 +58,27 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 				});
 			}
 		},
-		transactionOf: request => {
-			return request.callback(null, null);
+		transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
+			const priceService = PriceService(prismaClient);
+			const transactionService = TransactionService(prismaClient);
+			let _tariff: Tariff;
+			let _price: Price;
+			try {
+				_price = await priceService.priceOf(tariff, price);
+				_tariff = await service.fetch(_price.tariffId);
+			} catch (e) {
+				if (!fallback) {
+					throw e;
+				}
+				_price = await priceService.priceOf(fallback, price);
+				_tariff = await service.fetch(_price.tariffId);
+			}
+			return transactionService.handleTransaction({
+				userId,
+				cost: _price.price.toNumber(),
+				callback: transaction => callback(_tariff, transaction),
+				note
+			})
 		}
 	};
 

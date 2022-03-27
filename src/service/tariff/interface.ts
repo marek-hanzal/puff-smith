@@ -37,11 +37,11 @@ export interface ITransactionOfRequest<T> {
 	tariff: string;
 	price: string;
 	fallback?: string;
-	required?: boolean;
+	note?: string;
 
 	callback(tariff: Tariff, transaction: Transaction): Promise<T>;
 }
 
 export interface ITariffService extends IRepositoryService<ITariffCreate, Tariff, ITariff, ITariffQuery, ITariffFetchProps, ITariffFetchQuery> {
-	transactionOf<T>(transactionOf: ITransactionOfRequest<T>): Promise<T>;
+	transactionOf<T>(request: ITransactionOfRequest<T>): Promise<T>;
 }

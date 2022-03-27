@@ -16,18 +16,21 @@ export const BaseInventoryService = (prismaClient: IPrismaClientTransaction = pr
 				transaction,
 			}
 		}),
-		async handleCreate({request}) {
-			return service.map(await service.create(request));
-		},
-		create: async create => prisma.$transaction(async prisma => {
-			const base = await BaseService(prisma).toMap(create.baseId);
-			return TransactionService(prisma).handleTransaction(create.userId, base.cost, async transaction => prisma.baseInventory.create({
-				data: {
-					baseId: base.id,
-					transactionId: transaction.id,
-					userId: create.userId,
-				}
-			}), `Purchase of base [${base.vendor.name} ${base.name}]`);
+		handleCreate: async ({request}) => service.map(await service.create(request)),
+		create: async create => prisma.$transaction(async prismaClient => {
+			const base = await BaseService(prismaClient).toMap(create.baseId);
+			return TransactionService(prismaClient).handleTransaction({
+				userId: create.userId,
+				cost: base.cost,
+				note: `Purchase of base [${base.vendor.name} ${base.name}]`,
+				callback: async transaction => prismaClient.baseInventory.create({
+					data: {
+						baseId: base.id,
+						transactionId: transaction.id,
+						userId: create.userId,
+					}
+				}),
+			});
 		}),
 	};
 

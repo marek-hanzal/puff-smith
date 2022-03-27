@@ -35,6 +35,25 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 				}
 			},
 		}),
+		priceOf: async (tariff, price) => prismaClient.price.findFirst({
+			where: {
+				name: price,
+				tariff: {
+					name: tariff,
+				}
+			},
+			orderBy: [
+				{
+					tariff: {
+						created: 'desc',
+					}
+				},
+				{
+					created: 'desc',
+				},
+			],
+			rejectOnNotFound: true,
+		}),
 	};
 
 	return service;

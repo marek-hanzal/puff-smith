@@ -29,10 +29,18 @@ export interface ITransactionFetchQuery extends ParsedUrlQuery {
 	transactionId: string;
 }
 
+export interface IHandleTransactionRequest<T> {
+	userId: string;
+	cost?: number | null;
+	note?: string;
+
+	callback(transaction: Transaction): Promise<T>;
+}
+
 export interface ITransactionService extends IRepositoryService<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
 	sum(query: ITransactionQuery): Promise<number>;
 
 	sumOf(userId: string): Promise<number>;
 
-	handleTransaction<T>(userId: string, cost: number | undefined | null, callback: (transaction: Transaction) => Promise<T>, note?: string): Promise<T>;
+	handleTransaction<T>(request: IHandleTransactionRequest<T>): Promise<T>;
 }

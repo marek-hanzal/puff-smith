@@ -16,18 +16,21 @@ export const CottonInventoryService = (prismaClient: IPrismaClientTransaction = 
 				transaction,
 			}
 		}),
-		async handleCreate({request}) {
-			return service.map(await service.create(request));
-		},
+		handleCreate: async ({request}) => service.map(await service.create(request)),
 		create: async create => prisma.$transaction(async prisma => {
 			const cotton = await CottonService(prisma).toMap(create.cottonId);
-			return TransactionService(prisma).handleTransaction(create.userId, cotton.cost, async transaction => prisma.cottonInventory.create({
-				data: {
-					cottonId: cotton.id,
-					transactionId: transaction.id,
-					userId: create.userId,
-				}
-			}), `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`);
+			return TransactionService(prisma).handleTransaction({
+				userId: create.userId,
+				cost: cotton.cost,
+				note: `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`,
+				callback: async transaction => prisma.cottonInventory.create({
+					data: {
+						cottonId: cotton.id,
+						transactionId: transaction.id,
+						userId: create.userId,
+					}
+				}),
+			});
 		}),
 	};
 

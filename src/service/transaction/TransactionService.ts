@@ -10,9 +10,7 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 			created: transaction.created.toUTCString(),
 			amount: transaction.amount.toNumber(),
 		})),
-		async handleCreate({request}) {
-			return service.map(await service.create(request));
-		},
+		handleCreate: async ({request}) => service.map(await service.create(request)),
 		create: async create => prismaClient.transaction.create({
 			data: {
 				...create,
@@ -36,7 +34,7 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 				}
 			});
 		},
-		handleTransaction: async (userId, cost, callback, note) => {
+		handleTransaction: async ({userId, cost, callback, note}) => {
 			const transaction = await service.create({
 				amount: -1 * (cost || 0),
 				note,
