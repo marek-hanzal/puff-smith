@@ -127,6 +127,8 @@ jobs:
                         echo NEXTAUTH_GITHUB_CLIENT_SECRET=${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }} >> .env
                         echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
                         echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+                        echo EMAIL_SERVER=smtp://maildev:1025 >> .env
+                        echo EMAIL_FROM=noreply@puff-smith.rocks >> .env
 
                         docker system prune -f --all
                         docker compose pull
