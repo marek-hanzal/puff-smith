@@ -7,7 +7,7 @@ services:
             - web
             - db
             - mongo
-            - maildev
+            - mailhog
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -22,24 +22,24 @@ services:
             - 'traefik.http.routers.puff-smith-staging-tls.tls.certresolver=default'
             - 'traefik.http.services.puff-smith-staging-tls.loadbalancer.server.port=3000'
 
-    maildev:
-        image: soulteary/maildev
+    mailhog:
+        image: mailhog/mailhog
         networks:
             - web
-            - maildev
+            - mailhog
         labels:
             - 'traefik.enable=true'
             # http stuff
-            - 'traefik.http.routers.puff-smith-staging-maildev.rule=Host(`mail.staging.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-staging-maildev.entrypoints=http'
-            - 'traefik.http.routers.puff-smith-staging-maildev.middlewares=redirect-to-https'
+            - 'traefik.http.routers.puff-smith-staging-mailhog.rule=Host(`mail.staging.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-staging-mailhog.entrypoints=http'
+            - 'traefik.http.routers.puff-smith-staging-mailhog.middlewares=redirect-to-https'
             - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
             # https stuff
-            - 'traefik.http.routers.puff-smith-staging-maildev-tls.rule=Host(`mail.staging.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-staging-maildev-tls.entrypoints=https'
-            - 'traefik.http.routers.puff-smith-staging-maildev-tls.tls=true'
-            - 'traefik.http.routers.puff-smith-staging-maildev-tls.tls.certresolver=default'
-            - 'traefik.http.services.puff-smith-staging-maildev-tls.loadbalancer.server.port=1080'
+            - 'traefik.http.routers.puff-smith-staging-mailhog-tls.rule=Host(`mail.staging.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-staging-mailhog-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-staging-mailhog-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-staging-mailhog-tls.tls.certresolver=default'
+            - 'traefik.http.services.puff-smith-staging-mailhog-tls.loadbalancer.server.port=8025'
 
     postgres:
         image: postgres:14.2
@@ -64,4 +64,4 @@ networks:
         external: true
     db:
     mongo:
-    maildev:
+    mailhog:
