@@ -36,4 +36,6 @@ export interface IPriceFetchQuery extends ParsedUrlQuery {
 
 export interface IPriceService extends IRepositoryService<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {
 	priceOf(tariff: string, price: string): Promise<Price>;
+
+	amountOf(tariff: string, price: string, fallback: number): Promise<number>;
 }

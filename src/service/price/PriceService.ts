@@ -54,6 +54,13 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 			],
 			rejectOnNotFound: true,
 		}),
+		amountOf: async (tariff, price, fallback) => {
+			try {
+				return (await service.priceOf(tariff, price))?.price.toNumber();
+			} catch (e) {
+				return fallback;
+			}
+		}
 	};
 
 	return service;

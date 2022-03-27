@@ -5,6 +5,7 @@ import {IPrismaClientTransaction} from "@leight-core/api";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {UserTokenService} from "@/puff-smith/service/user/token";
 import {TokenService} from "@/puff-smith/service/token";
+import {PriceService} from "@/puff-smith/service/price";
 
 export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IUserService => {
 	const service: IUserService = {
@@ -27,7 +28,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 		async handleRootUser(userId: string) {
 			await TransactionService(prismaClient).create({
 				userId,
-				amount: 1000000,
+				amount: await PriceService(prismaClient).amountOf('default', 'welcome-gift.root', 1000000),
 				note: 'Welcome gift for the Root User!',
 			});
 			await Promise.all([
@@ -44,7 +45,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 		async handleCommonUser(userId: string) {
 			await TransactionService(prismaClient).create({
 				userId,
-				amount: 250,
+				amount: await PriceService(prismaClient).amountOf('default', 'welcome-gift.user', 250),
 				note: 'Welcome gift!',
 			});
 			await Promise.all([
