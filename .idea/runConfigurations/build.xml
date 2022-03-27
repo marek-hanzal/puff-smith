@@ -6,7 +6,14 @@
       <script value="build" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="AGENDA_DB" value="root:1234@localhost:47017/?authSource=admin" />
+      <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
+      <env name="NEXTAUTH_GITHUB_CLIENT_ID" value="abbc01fc85709ab26921" />
+      <env name="NEXTAUTH_GITHUB_CLIENT_SECRET" value="d1d4c98417588b8280c60ee0b3b4233761d529f7" />
+      <env name="NEXTAUTH_SECRET" value="1234" />
+      <env name="NEXTAUTH_URL" value="http://localhost:3000" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>
