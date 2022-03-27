@@ -7,6 +7,7 @@ services:
             - mariadb
             - mongo
             - postgres
+            - mailhog
         environment:
             DATABASE_URL: "postgresql://puff-smith:1234@postgres:5432/puff-smith?schema=public"
             NEXTAUTH_URL: 'http://localhost:42000'
@@ -14,6 +15,8 @@ services:
             NEXTAUTH_GITHUB_CLIENT_ID: 'abbc01fc85709ab26921'
             NEXTAUTH_GITHUB_CLIENT_SECRET: 'd1d4c98417588b8280c60ee0b3b4233761d529f7'
             AGENDA_DB: root:1234@mongo:27017/?authSource=admin
+            EMAIL_SERVER: smtp://mailhog:1025
+            EMAIL_FROM: noreply@puff-smith.rocks
         networks:
             - db
             - mongo
@@ -43,6 +46,12 @@ services:
             POSTGRES_DB: puff-smith
             POSTGRES_PASSWORD: 1234
 
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "42080:8025"
+
 networks:
     db:
     mongo:
+    mailhog:
