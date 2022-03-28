@@ -10,7 +10,6 @@ export interface ILabMenuProps extends Partial<IMenuProps> {
 
 export const LabMenu: FC<ILabMenuProps> = props => {
 	const whoamiQuery = useWhoamiQuery();
-	console.log('query', whoamiQuery.data);
 	return <Menu style={{backgroundColor: 'transparent', minWidth: '50vw'}} mode={'horizontal'} {...props}>
 		{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
 		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
