@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
-import {PurchaseIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith";
 import {LiquidCreateForm} from "@/puff-smith/site/lab/liquid";
 import {IUser} from "@/puff-smith/service/user";
 
@@ -13,7 +13,7 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = ({user, ...props
 		size={'large'}
 		type={'primary'}
 		ghost
-		icon={<PurchaseIcon/>}
+		icon={<LiquidIcon/>}
 		title={'lab.liquid.create.title'}
 		{...props}
 	>
