@@ -1,2 +1,2 @@
 export * from './LiquidList';
-export * from './LiquidListHeader';
+export * from './LiquidListEmpty';
