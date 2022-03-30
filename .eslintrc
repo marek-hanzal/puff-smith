@@ -1,12 +1,10 @@
 {
 	"extends": [
 		"next",
-		"next/core-web-vitals",
-		"plugin:react-hooks/recommended"
+		"next/core-web-vitals"
 	],
 	"rules": {
 		"react/display-name": "off",
-		"react-hooks/exhaustive-deps": "off",
 		"@next/next/no-document-import-in-page": "off",
 		"import/no-anonymous-default-export": "off"
 	}

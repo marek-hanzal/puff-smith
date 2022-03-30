@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
 		"@leight-core/api": "^0.5.115",
-		"@leight-core/client": "^0.5.60",
+		"@leight-core/client": "^0.5.62",
 		"@leight-core/server": "^0.5.81",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.10.0",
@@ -59,7 +59,6 @@
 		"dotenv-cli": "^5.0.0",
 		"eslint": "^8.11.0",
 		"eslint-config-next": "^12.1.0",
-		"eslint-plugin-react-hooks": "^4.3.0",
 		"next-transpile-modules": "^9.0.0",
 		"path": "^0.12.7",
 		"prisma": "^3.10.0",
