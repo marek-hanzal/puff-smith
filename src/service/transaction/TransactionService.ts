@@ -2,6 +2,7 @@ import prisma from "@/puff-smith/service/prisma";
 import {ITransactionService} from "@/puff-smith/service/transaction/interface";
 import {AbstractRepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {PriceService} from "@/puff-smith/service/price";
 
 export const TransactionService = (prismaClient: IPrismaClientTransaction = prisma): ITransactionService => {
 	const service: ITransactionService = {
@@ -44,6 +45,14 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 				throw new Error("Not enough puffies")
 			})();
 			return callback(transaction);
+		},
+		check: async ({userId, price, tariff}) => {
+			const _sum = service.sumOf(userId);
+			const _price = await PriceService(prismaClient).priceOf(tariff || 'default', price);
+			return {
+				price: _price.price.toNumber(),
+				pass: (await _sum) >= _price.price.toNumber(),
+			};
 		}
 	};
 
