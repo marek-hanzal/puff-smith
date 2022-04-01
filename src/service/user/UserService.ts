@@ -1,6 +1,6 @@
 import {IUserService} from "@/puff-smith/service/user/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {AbstractRepositoryService, handleUniqueException, toFulltext} from "@leight-core/server";
+import {handleUniqueException, RepositoryService, toFulltext} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {UserTokenService} from "@/puff-smith/service/user/token";
@@ -9,21 +9,24 @@ import {PriceService} from "@/puff-smith/service/price";
 
 export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IUserService => {
 	const service: IUserService = {
-		...AbstractRepositoryService<IUserService>(prismaClient, prismaClient.user, async ({emailVerified, ...user}) => {
-			const tokenService = TokenService();
-			const tokens = await tokenService.tokensOf(user.id);
-			return {
-				...user,
-				tokens,
-				tokenIds: tokens.map(token => token.id),
-			};
-		}, ({fulltext, ...filter}: any) => ({
-			...filter,
-			...toFulltext(fulltext, ['name', 'email']),
-		})),
-		handleCreate: async ({request}) => service.map(await service.create(request)),
-		create: async create => prismaClient.user.create({
-			data: create,
+		...RepositoryService<IUserService>({
+			name: 'user',
+			source: prismaClient.user,
+			mapper: async ({emailVerified, ...user}) => {
+				const tokens = await TokenService().tokensOf(user.id);
+				return {
+					...user,
+					tokens,
+					tokenIds: tokens.map(token => token.id),
+				};
+			},
+			toFilter: ({fulltext, ...filter} = {}) => ({
+				...filter,
+				...toFulltext(fulltext, ['name', 'email']),
+			}),
+			create: async create => prismaClient.user.create({
+				data: create,
+			})
 		}),
 		async handleRootUser(userId: string) {
 			await TransactionService(prismaClient).create({
