@@ -18,32 +18,29 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma) =>
 		},
 	}),
 	onUnique: async ({vendor, ...create}) => {
-		const _aroma = (await prismaClient.aroma.findFirst({
-			where: {
-				name: create.name,
-				vendor: {
-					name: vendor,
-				}
-			},
-			rejectOnNotFound: true,
-		}));
 		return prismaClient.aroma.update({
 			where: {
-				id: _aroma.id,
+				id: (await prismaClient.aroma.findFirst({
+					where: {
+						name: create.name,
+						vendor: {
+							name: vendor,
+						}
+					},
+					rejectOnNotFound: true,
+				})).id,
 			},
 			data: create,
 		})
 	},
-	mapper: async aroma => {
-		return {
-			...aroma,
-			vendor: await VendorService(prismaClient).toMap(aroma.vendorId),
-			cost: aroma.cost.toNumber(),
-			volume: aroma.volume.toNumber(),
-			pg: aroma.pg.toNumber(),
-			vg: aroma.vg.toNumber(),
-		};
-	},
+	mapper: async aroma => ({
+		...aroma,
+		vendor: await VendorService(prismaClient).toMap(aroma.vendorId),
+		cost: aroma.cost.toNumber(),
+		volume: aroma.volume.toNumber(),
+		pg: aroma.pg.toNumber(),
+		vg: aroma.vg.toNumber(),
+	}),
 	toFilter: ({fulltext, ...filter} = {}) => {
 		console.log('wanna filter aroma', fulltext, 'filter', filter);
 		return {};

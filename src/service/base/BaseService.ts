@@ -24,21 +24,18 @@ export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => 
 			},
 		},
 	}),
-	onUnique: async ({vendor, ...create}) => {
-		const _base = (await prismaClient.base.findFirst({
-			where: {
-				name: create.name,
-				vendor: {
-					name: vendor,
-				}
-			},
-			rejectOnNotFound: true,
-		}));
-		return prismaClient.base.update({
-			where: {
-				id: _base.id,
-			},
-			data: create,
-		})
-	}
+	onUnique: async ({vendor, ...create}) => prismaClient.base.update({
+		where: {
+			id: (await prismaClient.base.findFirst({
+				where: {
+					name: create.name,
+					vendor: {
+						name: vendor,
+					}
+				},
+				rejectOnNotFound: true,
+			})).id,
+		},
+		data: create,
+	})
 })

@@ -7,16 +7,11 @@ import {RepositoryService} from "@leight-core/server";
 export const AromaInventoryService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAromaInventoryService>({
 	name: 'aroma-inventory',
 	source: prismaClient.aromaInventory,
-	mapper: async aromaTransaction => {
-		const aromaService = AromaService(prisma);
-		const transactionService = TransactionService(prisma);
-		const transaction = await transactionService.toMap(aromaTransaction.transactionId);
-		return {
-			...aromaTransaction,
-			aroma: await aromaService.toMap(aromaTransaction.aromaId),
-			transaction,
-		}
-	},
+	mapper: async aromaTransaction => ({
+		...aromaTransaction,
+		aroma: await AromaService(prisma).toMap(aromaTransaction.aromaId),
+		transaction: await TransactionService(prisma).toMap(aromaTransaction.transactionId),
+	}),
 	create: async create => prisma.$transaction(async prisma => {
 		const aroma = await AromaService(prisma).toMap(create.aromaId);
 		return TransactionService(prisma).handleTransaction({

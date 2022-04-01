@@ -26,21 +26,18 @@ export const BoosterService = (prismaClient: IPrismaClientTransaction = prisma) 
 			},
 		},
 	}),
-	onUnique: async ({vendor, ...create}) => {
-		const _booster = (await prismaClient.booster.findFirst({
-			where: {
-				name: create.name,
-				vendor: {
-					name: vendor,
-				}
-			},
-			rejectOnNotFound: true,
-		}));
-		return prismaClient.booster.update({
-			where: {
-				id: _booster.id,
-			},
-			data: create,
-		})
-	}
+	onUnique: async ({vendor, ...create}) => prismaClient.booster.update({
+		where: {
+			id: (await prismaClient.booster.findFirst({
+				where: {
+					name: create.name,
+					vendor: {
+						name: vendor,
+					}
+				},
+				rejectOnNotFound: true,
+			})).id,
+		},
+		data: create,
+	})
 })

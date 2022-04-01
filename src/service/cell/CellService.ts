@@ -35,31 +35,28 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 			},
 		},
 	}),
-	onUnique: async ({vendor, type, ...create}) => {
-		const _cell = (await prismaClient.cell.findFirst({
-			where: {
-				name: create.name,
-				vendor: {
-					name: vendor,
-				}
-			},
-			rejectOnNotFound: true,
-		}));
-		return prismaClient.cell.update({
-			where: {
-				id: _cell.id,
-			},
-			data: {
-				...create,
-				type: {
-					connect: {
-						code_group: {
-							code: `${type}`,
-							group: 'cell-type',
-						}
+	onUnique: async ({vendor, type, ...create}) => prismaClient.cell.update({
+		where: {
+			id: (await prismaClient.cell.findFirst({
+				where: {
+					name: create.name,
+					vendor: {
+						name: vendor,
 					}
 				},
+				rejectOnNotFound: true,
+			})).id,
+		},
+		data: {
+			...create,
+			type: {
+				connect: {
+					code_group: {
+						code: `${type}`,
+						group: 'cell-type',
+					}
+				}
 			},
-		})
-	}
+		},
+	}),
 });

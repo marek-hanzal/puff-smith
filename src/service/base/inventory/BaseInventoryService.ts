@@ -7,16 +7,11 @@ import {IPrismaClientTransaction} from "@leight-core/api";
 export const BaseInventoryService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IBaseTransactionService>({
 	name: 'base-inventory',
 	source: prismaClient.baseInventory,
-	mapper: async baseTransaction => {
-		const baseService = BaseService(prisma);
-		const transactionService = TransactionService(prisma);
-		const transaction = await transactionService.toMap(baseTransaction.transactionId);
-		return {
-			...baseTransaction,
-			base: await baseService.toMap(baseTransaction.baseId),
-			transaction,
-		}
-	},
+	mapper: async baseTransaction => ({
+		...baseTransaction,
+		base: await BaseService(prismaClient).toMap(baseTransaction.baseId),
+		transaction: await TransactionService(prismaClient).toMap(baseTransaction.transactionId),
+	}),
 	create: async create => prisma.$transaction(async prismaClient => {
 		const base = await BaseService(prismaClient).toMap(create.baseId);
 		return TransactionService(prismaClient).handleTransaction({

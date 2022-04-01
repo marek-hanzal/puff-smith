@@ -7,16 +7,11 @@ import {TransactionService} from "@/puff-smith/service/transaction";
 export const AtomizerInventoryService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAtomizerInventoryService>({
 	name: 'atomizer-inventory',
 	source: prismaClient.atomizerInventory,
-	mapper: async atomizerInventory => {
-		const atomizerService = AtomizerService(prisma);
-		const transactionService = TransactionService(prisma);
-		const transaction = await transactionService.toMap(atomizerInventory.transactionId);
-		return {
-			...atomizerInventory,
-			atomizer: await atomizerService.toMap(atomizerInventory.atomizerId),
-			transaction,
-		}
-	},
+	mapper: async atomizerInventory => ({
+		...atomizerInventory,
+		atomizer: await AtomizerService(prisma).toMap(atomizerInventory.atomizerId),
+		transaction: await TransactionService(prisma).toMap(atomizerInventory.transactionId),
+	}),
 	create: async create => prisma.$transaction(async prismaClient => {
 		const atomizer = await AtomizerService(prismaClient).toMap(create.atomizerId);
 		return TransactionService(prismaClient).handleTransaction({
