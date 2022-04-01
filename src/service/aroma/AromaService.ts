@@ -4,7 +4,7 @@ import {RepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 
-export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => RepositoryService<IAromaService>({
+export const AromaService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAromaService>({
 	name: 'aroma',
 	source: prismaClient.aroma,
 	create: async ({vendor, ...aroma}) => prismaClient.aroma.create({
