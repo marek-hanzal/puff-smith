@@ -59,5 +59,5 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 				}
 			},
 		],
-	} : filter
+	} : filter,
 })
