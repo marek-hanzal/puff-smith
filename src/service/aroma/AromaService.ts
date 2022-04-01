@@ -1,43 +1,38 @@
 import {IAromaService} from "@/puff-smith/service/aroma";
 import prisma from "@/puff-smith/service/prisma";
-import {handleUniqueException} from "@leight-core/server";
+import {RepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 
 export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => RepositoryService<IAromaService>({
 	name: 'aroma',
 	source: prismaClient.aroma,
-	create: async ({vendor, ...aroma}) => {
-		try {
-			return await prismaClient.aroma.create({
-				data: {
-					...aroma,
-					vendor: {
-						connect: {
-							name: vendor,
-						}
-					},
-				},
-			})
-		} catch (e) {
-			return handleUniqueException(e, async () => {
-				const _aroma = (await prismaClient.aroma.findFirst({
-					where: {
-						name: aroma.name,
-						vendor: {
-							name: vendor,
-						}
-					},
-					rejectOnNotFound: true,
-				}));
-				return prismaClient.aroma.update({
-					where: {
-						id: _aroma.id,
-					},
-					data: aroma,
-				})
-			});
-		}
+	create: async ({vendor, ...aroma}) => prismaClient.aroma.create({
+		data: {
+			...aroma,
+			vendor: {
+				connect: {
+					name: vendor,
+				}
+			},
+		},
+	}),
+	onUnique: async ({vendor, ...create}) => {
+		const _aroma = (await prismaClient.aroma.findFirst({
+			where: {
+				name: create.name,
+				vendor: {
+					name: vendor,
+				}
+			},
+			rejectOnNotFound: true,
+		}));
+		return prismaClient.aroma.update({
+			where: {
+				id: _aroma.id,
+			},
+			data: create,
+		})
 	},
 	mapper: async aroma => {
 		return {
