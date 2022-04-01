@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {ICheckRequest, ICheckResponse} from "@/puff-smith/service/transaction";
 import {useQueryClient} from "react-query";
 import {createPromiseHook, createQueryHook, useLinkContext} from "@leight-core/client";

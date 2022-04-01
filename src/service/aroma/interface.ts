@@ -36,4 +36,5 @@ export interface IAromaFetchQuery extends ParsedUrlQuery {
 	aromaId: string;
 }
 
-export type IAromaService = IRepositoryService<IAromaCreate, Aroma, IAroma, IAromaQuery, IAromaFetchProps, IAromaFetchQuery>;
+export interface IAromaService extends IRepositoryService<IAromaCreate, Aroma, IAroma, IAromaQuery, IAromaFetchProps, IAromaFetchQuery> {
+}

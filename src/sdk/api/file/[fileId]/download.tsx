@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";
 import {useQueryClient} from "react-query";

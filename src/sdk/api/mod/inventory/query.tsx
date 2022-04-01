@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";

@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {ILiquid, ILiquidCreate} from "@/puff-smith/service/liquid";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

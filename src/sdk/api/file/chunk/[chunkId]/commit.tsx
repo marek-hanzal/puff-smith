@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IChunkEndpointQuery} from "@leight-core/server";
 import {IChunkCommit, IFile} from "@leight-core/api";
 import {FC} from "react";

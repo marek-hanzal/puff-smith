@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {toHumanNumber} from "@leight-core/utils";
+import {toHumanNumber} from "@leight-core/client";
 
 export interface IWattProps {
 	watt?: number | null;

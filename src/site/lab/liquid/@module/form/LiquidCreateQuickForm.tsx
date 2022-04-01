@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
 import {Divider} from "antd";
 import {LiquidIcon} from "@/puff-smith";
-import {AromaSelect} from "@/puff-smith/site/shared/aroma";
+import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 
 export interface ILiquidCreateQuickFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -14,7 +14,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		{...props}
 	>
 		<FormItem field={'aromaId'} required>
-			<AromaSelect/>
+			<InventoryAromaSelect/>
 		</FormItem>
 		<FormItem field={'mixed'}>
 			<DatePicker style={{width: '100%'}}/>

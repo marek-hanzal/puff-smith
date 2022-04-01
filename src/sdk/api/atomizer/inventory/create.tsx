@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IAtomizerInventory, IAtomizerInventoryCreate} from "@/puff-smith/service/atomizer";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

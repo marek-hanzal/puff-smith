@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IUser} from "@/puff-smith/service/user";
 import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";

@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {ICellInventory, ICellInventoryCreate} from "@/puff-smith/service/cell";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

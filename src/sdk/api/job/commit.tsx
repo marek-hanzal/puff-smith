@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";

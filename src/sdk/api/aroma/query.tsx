@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";

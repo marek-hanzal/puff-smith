@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IVoucherInventory, IVoucherInventoryQuery} from "@/puff-smith/service/voucher";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";

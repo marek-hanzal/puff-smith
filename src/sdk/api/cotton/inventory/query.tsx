@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton";
 import {ConsumerProps, FC} from "react";
 import {useQueryClient} from "react-query";

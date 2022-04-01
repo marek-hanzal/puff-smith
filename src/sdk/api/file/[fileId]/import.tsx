@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {IJob} from "@leight-core/api";
 import {IImportParams} from "@/puff-smith/agenda/job/import";
 import {FC} from "react";

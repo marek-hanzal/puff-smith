@@ -1,3 +1,7 @@
+/**
+ * Generated file; DO NOT modify as it could be overridden by a generator.
+ */
+
 import {ITransaction, ITransactionCreate} from "@/puff-smith/service/transaction";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

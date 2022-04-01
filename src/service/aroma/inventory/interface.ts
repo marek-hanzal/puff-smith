@@ -28,4 +28,5 @@ export interface IAromaInventoryFetchQuery extends ParsedUrlQuery {
 	aromaInventoryId: string;
 }
 
-export type IAromaInventoryService = IRepositoryService<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery>;
+export interface IAromaInventoryService extends IRepositoryService<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery> {
+}

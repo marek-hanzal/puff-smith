@@ -4,7 +4,7 @@ import {RepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
 
-export const AromaService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAromaService>({
+export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => RepositoryService<IAromaService>({
 	name: 'aroma',
 	source: prismaClient.aroma,
 	create: async ({vendor, ...aroma}) => prismaClient.aroma.create({
@@ -42,7 +42,21 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma) =>
 		vg: aroma.vg.toNumber(),
 	}),
 	toFilter: ({fulltext, ...filter} = {}) => {
-		console.log('wanna filter aroma', fulltext, 'filter', filter);
-		return {};
+		if (fulltext) {
+			return {
+				...filter,
+				OR: {
+					name: {
+						search: fulltext,
+					},
+					vendor: {
+						name: {
+							search: fulltext,
+						}
+					}
+				},
+			}
+		}
+		return filter;
 	}
 })
