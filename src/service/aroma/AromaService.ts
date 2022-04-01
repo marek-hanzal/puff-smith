@@ -45,17 +45,23 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 		if (fulltext) {
 			return {
 				...filter,
-				OR: {
-					name: {
-						search: fulltext,
-					},
-					vendor: {
+				OR: [
+					{
 						name: {
-							search: fulltext,
+							contains: fulltext,
+							mode: 'insensitive',
 						}
-					}
-				},
-			}
+					},
+					{
+						vendor: {
+							name: {
+								contains: fulltext,
+								mode: 'insensitive',
+							},
+						}
+					},
+				],
+			};
 		}
 		return filter;
 	}
