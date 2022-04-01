@@ -10,6 +10,14 @@ export interface ILiquidCreate {
 	userId: string;
 }
 
+export interface ILiquidQuickMix {
+	name: string;
+	volume: number;
+	mixed?: Date;
+	userId: string;
+	aromaId: string;
+}
+
 export interface ILiquid {
 	id: string;
 	name: string;
@@ -37,4 +45,5 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
+	handleQuickMix(request: { request: ILiquidQuickMix }): Promise<ILiquid>;
 }
