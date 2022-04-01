@@ -21,7 +21,7 @@ export interface ITariff {
 	created?: string | null;
 }
 
-export interface ITariffQuery extends IQuery<Prisma.TariffWhereInput, Prisma.TariffOrderByWithRelationInput> {
+export interface ITariffQuery extends IQuery<Prisma.TariffWhereInput, Prisma.TariffOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface ITariffFetchProps {

@@ -17,7 +17,7 @@ export interface ITag {
 	sort?: number | null;
 }
 
-export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationInput> {
+export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface ITagFetchProps {

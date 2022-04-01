@@ -5,7 +5,7 @@ export type IFiles = Promise<File[]>;
 
 export type IFileFilter = Prisma.FileWhereInput;
 
-export type IFileOrderBy = Prisma.FileOrderByWithRelationInput;
+export type IFileOrderBy = Prisma.FileOrderByWithRelationAndSearchRelevanceInput;
 
 export interface IFileQuery extends IQuery<IFileFilter, IFileOrderBy> {
 }

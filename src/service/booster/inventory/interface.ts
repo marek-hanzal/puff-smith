@@ -17,7 +17,7 @@ export interface IBoosterInventory {
 	transactionId: string;
 }
 
-export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationInput> {
+export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IBoosterInventoryFetchProps {

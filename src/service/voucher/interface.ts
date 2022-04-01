@@ -8,7 +8,7 @@ export interface IVoucherCreate {
 	maxFortune?: number;
 }
 
-export interface IVoucherQuery extends IQuery<Prisma.VoucherWhereInput, Prisma.VoucherOrderByWithRelationInput> {
+export interface IVoucherQuery extends IQuery<Prisma.VoucherWhereInput, Prisma.VoucherOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IVoucher {

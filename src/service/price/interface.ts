@@ -23,7 +23,7 @@ export interface IPrice {
 	created?: string | null;
 }
 
-export interface IPriceQuery extends IQuery<Prisma.PriceWhereInput, Prisma.PriceOrderByWithRelationInput> {
+export interface IPriceQuery extends IQuery<Prisma.PriceWhereInput, Prisma.PriceOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IPriceFetchProps {

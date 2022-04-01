@@ -11,7 +11,7 @@ export interface IBaseCreate {
 	vendor: string;
 }
 
-export interface IBaseQuery extends IQuery<Prisma.BaseWhereInput, Prisma.BaseOrderByWithRelationInput> {
+export interface IBaseQuery extends IQuery<Prisma.BaseWhereInput, Prisma.BaseOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IBase {

@@ -22,7 +22,7 @@ export interface IMod {
 	power: number;
 }
 
-export interface IModQuery extends IQuery<Prisma.ModWhereInput, Prisma.ModOrderByWithRelationInput> {
+export interface IModQuery extends IQuery<Prisma.ModWhereInput, Prisma.ModOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IModFetchProps {

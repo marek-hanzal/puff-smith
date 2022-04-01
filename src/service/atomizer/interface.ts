@@ -13,7 +13,7 @@ export interface IAtomizerCreate {
 	cost?: string;
 }
 
-export interface IAtomizerQuery extends IQuery<Prisma.AtomizerWhereInput, Prisma.AtomizerOrderByWithRelationInput> {
+export interface IAtomizerQuery extends IQuery<Prisma.AtomizerWhereInput, Prisma.AtomizerOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IAtomizer {

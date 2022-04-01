@@ -17,7 +17,7 @@ export interface ICellInventory {
 	transactionId: string;
 }
 
-export interface ICellInventoryQuery extends IQuery<Prisma.CellInventoryWhereInput, Prisma.CellInventoryOrderByWithRelationInput> {
+export interface ICellInventoryQuery extends IQuery<Prisma.CellInventoryWhereInput, Prisma.CellInventoryOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface ICellInventoryFetchProps {

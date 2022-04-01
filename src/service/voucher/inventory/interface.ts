@@ -17,7 +17,7 @@ export interface IVoucherInventory {
 	transactionId: string;
 }
 
-export interface IVoucherInventoryQuery extends IQuery<Prisma.VoucherInventoryWhereInput, Prisma.VoucherInventoryOrderByWithRelationInput> {
+export interface IVoucherInventoryQuery extends IQuery<Prisma.VoucherInventoryWhereInput, Prisma.VoucherInventoryOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IVoucherInventoryFetchProps {

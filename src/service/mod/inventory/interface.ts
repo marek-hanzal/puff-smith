@@ -17,7 +17,7 @@ export interface IModInventory {
 	transactionId: string;
 }
 
-export interface IModInventoryQuery extends IQuery<Prisma.ModInventoryWhereInput, Prisma.ModInventoryOrderByWithRelationInput> {
+export interface IModInventoryQuery extends IQuery<Prisma.ModInventoryWhereInput, Prisma.ModInventoryOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IModInventoryFetchProps {

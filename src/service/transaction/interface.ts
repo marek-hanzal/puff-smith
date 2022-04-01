@@ -9,7 +9,7 @@ export interface ITransactionCreate {
 	note?: string | null;
 }
 
-export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, Prisma.TransactionOrderByWithRelationInput> {
+export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, Prisma.TransactionOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface ITransaction {

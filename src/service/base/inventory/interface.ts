@@ -17,7 +17,7 @@ export interface IBaseInventory {
 	transactionId: string;
 }
 
-export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationInput> {
+export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationAndSearchRelevanceInput> {
 }
 
 export interface IBaseInventoryFetchProps {
