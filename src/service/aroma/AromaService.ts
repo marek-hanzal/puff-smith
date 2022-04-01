@@ -41,28 +41,23 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 		pg: aroma.pg.toNumber(),
 		vg: aroma.vg.toNumber(),
 	}),
-	toFilter: ({fulltext, ...filter} = {}) => {
-		if (fulltext) {
-			return {
-				...filter,
-				OR: [
-					{
-						name: {
-							contains: fulltext,
-							mode: 'insensitive',
-						}
+	toFilter: ({fulltext, ...filter} = {}) => fulltext ? {
+		...filter,
+		OR: [
+			{
+				name: {
+					contains: fulltext,
+					mode: 'insensitive',
+				}
+			},
+			{
+				vendor: {
+					name: {
+						contains: fulltext,
+						mode: 'insensitive',
 					},
-					{
-						vendor: {
-							name: {
-								contains: fulltext,
-								mode: 'insensitive',
-							},
-						}
-					},
-				],
-			};
-		}
-		return filter;
-	}
+				}
+			},
+		],
+	} : filter
 })
