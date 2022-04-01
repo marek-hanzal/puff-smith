@@ -13,7 +13,7 @@ export interface IBoosterCreate {
 	volume: number;
 }
 
-export interface IBoosterQuery extends IQuery<Prisma.BoosterWhereInput, Prisma.BoosterOrderByWithRelationAndSearchRelevanceInput> {
+export interface IBoosterQuery extends IQuery<Prisma.BoosterWhereInput, Prisma.BoosterOrderByWithRelationInput> {
 }
 
 export interface IBooster {

@@ -14,7 +14,7 @@ export interface ICellCreate {
 	type: string;
 }
 
-export interface ICellQuery extends IQuery<Prisma.CellWhereInput, Prisma.CellOrderByWithRelationAndSearchRelevanceInput> {
+export interface ICellQuery extends IQuery<Prisma.CellWhereInput, Prisma.CellOrderByWithRelationInput> {
 }
 
 export interface ICell {

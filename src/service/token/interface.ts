@@ -13,7 +13,7 @@ export interface ITokenCreate {
 	until?: Date | null;
 }
 
-export interface ITokenQuery extends IQuery<Prisma.TokenWhereInput, Prisma.TokenOrderByWithRelationAndSearchRelevanceInput> {
+export interface ITokenQuery extends IQuery<Prisma.TokenWhereInput, Prisma.TokenOrderByWithRelationInput> {
 }
 
 export interface ITokenFetchProps {

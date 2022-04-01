@@ -25,7 +25,7 @@ export interface ILiquid {
 	transactionId: string;
 }
 
-export interface ILiquidQuery extends IQuery<Prisma.LiquidWhereInput, Prisma.LiquidOrderByWithRelationAndSearchRelevanceInput> {
+export interface ILiquidQuery extends IQuery<Prisma.LiquidWhereInput, Prisma.LiquidOrderByWithRelationInput> {
 }
 
 export interface ILiquidFetchProps {

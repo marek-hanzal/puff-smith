@@ -8,7 +8,7 @@ export interface ITranslationCreate {
 	text: string;
 }
 
-export interface ITranslationQuery extends IQuery<Prisma.TranslationWhereInput, Prisma.TranslationOrderByWithRelationAndSearchRelevanceInput> {
+export interface ITranslationQuery extends IQuery<Prisma.TranslationWhereInput, Prisma.TranslationOrderByWithRelationInput> {
 }
 
 export interface ITranslationFetchProps {

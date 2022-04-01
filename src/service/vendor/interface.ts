@@ -6,7 +6,7 @@ export interface IVendorCreate {
 	name: string;
 }
 
-export interface IVendorQuery extends IQuery<Prisma.VendorWhereInput, Prisma.VendorOrderByWithRelationAndSearchRelevanceInput> {
+export interface IVendorQuery extends IQuery<Prisma.VendorWhereInput, Prisma.VendorOrderByWithRelationInput> {
 }
 
 export interface IVendor {

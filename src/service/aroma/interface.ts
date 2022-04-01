@@ -13,7 +13,7 @@ export interface IAromaCreate {
 	steep?: number;
 }
 
-export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationAndSearchRelevanceInput> {
+export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationInput> {
 }
 
 export interface IAroma {

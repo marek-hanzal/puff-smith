@@ -9,7 +9,7 @@ export interface IUserTokenCreate {
 	tokenId: string;
 }
 
-export interface IUserTokenQuery extends IQuery<Prisma.UserTokenWhereInput, Prisma.UserTokenOrderByWithRelationAndSearchRelevanceInput> {
+export interface IUserTokenQuery extends IQuery<Prisma.UserTokenWhereInput, Prisma.UserTokenOrderByWithRelationInput> {
 }
 
 export interface IUserToken {

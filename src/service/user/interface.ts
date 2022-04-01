@@ -6,7 +6,7 @@ import {IToken} from "@/puff-smith/service/token";
 export interface IUserCreate {
 }
 
-export interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationAndSearchRelevanceInput> {
+export interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
 
 export interface IUser {

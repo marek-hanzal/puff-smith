@@ -5,7 +5,7 @@ export type IJobs = Promise<Job[]>;
 
 export type IJobFilter = Prisma.JobWhereInput;
 
-export type IJobOrderBy = Prisma.JobOrderByWithRelationAndSearchRelevanceInput;
+export type IJobOrderBy = Prisma.JobOrderByWithRelationInput;
 
 export interface IJobQuery extends IQuery<IJobFilter, IJobOrderBy> {
 }

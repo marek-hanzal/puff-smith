@@ -9,7 +9,7 @@ export interface ICottonCreate {
 	cost: number;
 }
 
-export interface ICottonQuery extends IQuery<Prisma.CottonWhereInput, Prisma.CottonOrderByWithRelationAndSearchRelevanceInput> {
+export interface ICottonQuery extends IQuery<Prisma.CottonWhereInput, Prisma.CottonOrderByWithRelationInput> {
 }
 
 export interface ICotton {

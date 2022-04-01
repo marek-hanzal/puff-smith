@@ -17,7 +17,7 @@ export interface IAtomizerInventory {
 	transactionId: string;
 }
 
-export interface IAtomizerInventoryQuery extends IQuery<Prisma.AtomizerInventoryWhereInput, Prisma.AtomizerInventoryOrderByWithRelationAndSearchRelevanceInput> {
+export interface IAtomizerInventoryQuery extends IQuery<Prisma.AtomizerInventoryWhereInput, Prisma.AtomizerInventoryOrderByWithRelationInput> {
 }
 
 export interface IAtomizerInventoryFetchProps {

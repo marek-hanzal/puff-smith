@@ -17,7 +17,7 @@ export interface IAromaInventory {
 	transactionId: string;
 }
 
-export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationAndSearchRelevanceInput> {
+export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {
 }
 
 export interface IAromaInventoryFetchProps {

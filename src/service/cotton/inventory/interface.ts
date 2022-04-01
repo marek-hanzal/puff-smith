@@ -17,7 +17,7 @@ export interface ICottonInventory {
 	transactionId: string;
 }
 
-export interface ICottonInventoryQuery extends IQuery<Prisma.CottonInventoryWhereInput, Prisma.CottonInventoryOrderByWithRelationAndSearchRelevanceInput> {
+export interface ICottonInventoryQuery extends IQuery<Prisma.CottonInventoryWhereInput, Prisma.CottonInventoryOrderByWithRelationInput> {
 }
 
 export interface ICottonInventoryFetchProps {
