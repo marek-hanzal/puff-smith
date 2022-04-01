@@ -9,8 +9,8 @@ export const BoosterInventoryService = (prismaClient: IPrismaClientTransaction =
 	source: prismaClient.boosterInventory,
 	mapper: async boosterTransaction => ({
 		...boosterTransaction,
-		booster: await BoosterService(prisma).toMap(boosterTransaction.boosterId),
-		transaction: await TransactionService(prisma).toMap(boosterTransaction.transactionId),
+		booster: await BoosterService(prismaClient).toMap(boosterTransaction.boosterId),
+		transaction: await TransactionService(prismaClient).toMap(boosterTransaction.transactionId),
 	}),
 	create: async create => prisma.$transaction(async prismaClient => {
 		const booster = await BoosterService(prismaClient).toMap(create.boosterId);

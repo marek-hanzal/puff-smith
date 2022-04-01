@@ -9,8 +9,8 @@ export const CellInventoryService = (prismaClient: IPrismaClientTransaction = pr
 	source: prismaClient.cellInventory,
 	mapper: async cellTransaction => ({
 		...cellTransaction,
-		cell: await CellService(prisma).toMap(cellTransaction.cellId),
-		transaction: await TransactionService(prisma).toMap(cellTransaction.transactionId),
+		cell: await CellService(prismaClient).toMap(cellTransaction.cellId),
+		transaction: await TransactionService(prismaClient).toMap(cellTransaction.transactionId),
 	}),
 	create: async create => prisma.$transaction(async prismaClient => {
 		const cell = await CellService(prismaClient).toMap(create.cellId);
