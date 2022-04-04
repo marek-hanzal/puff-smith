@@ -15,7 +15,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 	const [aroma, setAroma] = useState<IAroma>();
 	const [base, setBase] = useState<IBase>();
 	return <Row gutter={16}>
-		<Col span={14}>
+		<Col span={16}>
 			<CreateDefaultForm
 				translation={'lab.liquid'}
 				{...props}
@@ -35,7 +35,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 				</Centered>
 			</CreateDefaultForm>
 		</Col>
-		<Col span={10}>
+		<Col span={8}>
 			<Preview>
 				{{
 					"lab.liquid.preview.content": <ContentInline content={aroma?.content}/>,
