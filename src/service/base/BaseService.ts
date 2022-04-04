@@ -37,5 +37,24 @@ export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => 
 			})).id,
 		},
 		data: create,
-	})
+	}),
+	toFilter: ({fulltext, ...filter} = {}) => fulltext ? {
+		...filter,
+		OR: [
+			{
+				name: {
+					contains: fulltext,
+					mode: 'insensitive',
+				}
+			},
+			{
+				vendor: {
+					name: {
+						contains: fulltext,
+						mode: 'insensitive',
+					},
+				}
+			},
+		],
+	} : filter,
 })
