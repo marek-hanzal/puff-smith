@@ -3,7 +3,7 @@ import {FC} from "react";
 import {Divider, Space} from "antd";
 import {AromasListSource, IAromasListSourceProps} from "@/sdk/api/aroma/query";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
-import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 
 export interface IAromaListProps extends Partial<IAromasListSourceProps> {
 }
@@ -17,6 +17,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={'vertical'}/>}>
 					<AromaNameInline aroma={aroma}/>
+					<AromaContentInline aroma={aroma}/>
 					<AromaInventoryCreateButton type={'link'} aroma={aroma}/>
 				</Space>}
 			/>

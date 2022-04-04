@@ -1,19 +1,22 @@
 import {FC} from "react";
-import {LiquidIcon} from "@/puff-smith";
+import {BaseIcon, LiquidIcon} from "@/puff-smith";
 import {Divider} from "antd";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid";
 import {ButtonLink, Template} from "@leight-core/client";
 import {useAromasInventoryQuery} from "@/sdk/api/aroma/inventory/query";
+import {useBasesInventoryQuery} from "@/sdk/api/base/inventory/query";
 
 export interface ILiquidListEmptyProps {
 }
 
 export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 	const aromasInventoryQuery = useAromasInventoryQuery();
+	const basesInventoryQuery = useBasesInventoryQuery();
 	if (aromasInventoryQuery.isSuccess && !aromasInventoryQuery.data.count) {
 		return <Template
 			icon={<LiquidIcon/>}
 			label={'lab.aroma.list.empty'}
+			status={'warning'}
 			extra={<>
 				<Divider/>
 				<ButtonLink
@@ -23,6 +26,24 @@ export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 					icon={<LiquidIcon/>}
 					href={'/market/aroma'}
 					title={'lab.aroma.purchase.button'}
+				/>
+			</>}
+		/>;
+	}
+	if (basesInventoryQuery.isSuccess && !basesInventoryQuery.data.count) {
+		return <Template
+			icon={<BaseIcon/>}
+			label={'lab.base.list.empty'}
+			status={'warning'}
+			extra={<>
+				<Divider/>
+				<ButtonLink
+					size={'large'}
+					type={'primary'}
+					ghost
+					icon={<BaseIcon/>}
+					href={'/market/base'}
+					title={'lab.base.purchase.button'}
 				/>
 			</>}
 		/>;

@@ -13,8 +13,8 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 		{CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>)}
 		{CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>)}
 		{CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>)}
-		{CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>)}
 		{CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>)}
+		{CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>)}
 		{CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>)}
 		{CreateMenuItem("market.lab.menu", "/lab", <LabIcon/>)}
 	</Menu>;

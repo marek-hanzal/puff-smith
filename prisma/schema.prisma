@@ -415,15 +415,16 @@ model VoucherInventory {
 }
 
 model Aroma {
-  id       String  @id @default(cuid())
+  id       String   @id @default(cuid())
   name     String
-  cost     Decimal @db.Decimal(10, 2)
-  volume   Decimal @db.Decimal(10, 2)
-  pg       Decimal @db.Decimal(10, 2)
-  vg       Decimal @db.Decimal(10, 2)
+  cost     Decimal  @db.Decimal(10, 2)
+  content  Decimal  @db.Decimal(10, 2)
+  volume   Decimal? @db.Decimal(10, 2)
+  pg       Decimal  @db.Decimal(10, 2)
+  vg       Decimal  @db.Decimal(10, 2)
   vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  steep    Int     @default(14)
+  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  steep    Int      @default(14)
 
   AromaInventory AromaInventory[]
   LiquidAroma    LiquidAroma[]

@@ -9,7 +9,8 @@ export interface IAromaCreate {
 	cost: number;
 	pg: number;
 	vg: number;
-	volume: number;
+	volume?: number;
+	content: number;
 	steep?: number;
 }
 
@@ -24,7 +25,8 @@ export interface IAroma {
 	cost: number;
 	pg: number;
 	vg: number;
-	volume: number;
+	content: number;
+	volume?: number;
 	steep?: number | null;
 }
 
