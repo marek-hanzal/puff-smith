@@ -76,6 +76,15 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 				}
 			}
 
+			if (base) {
+				return {
+					base: {
+						pg: base.pg.toNumber(),
+						vg: base.vg.toNumber(),
+					}
+				}
+			}
+
 			return {};
 		}
 	};
