@@ -7,7 +7,7 @@ import {FC} from "react";
 import {useQueryClient} from "react-query";
 import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
 
-export const QuickMixApiLink = "/api/liquid/quick-mix";
+export const QuickMixApiLink = "/api/liquid/quick-mix/index";
 
 export type IQuickMixQueryParams = undefined;
 

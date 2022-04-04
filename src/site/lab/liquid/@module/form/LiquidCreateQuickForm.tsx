@@ -5,15 +5,16 @@ import {Col, Divider, Row} from "antd";
 import {ContentInline, LiquidIcon, PgVgInline} from "@/puff-smith";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
-import {IAroma} from "@/puff-smith/service/aroma";
-import {IBase} from "@/puff-smith/service/base";
+import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 
 export interface ILiquidCreateQuickFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
-	const [aroma, setAroma] = useState<IAroma>();
-	const [base, setBase] = useState<IBase>();
+	const [aromaId, setAromaId] = useState<string>();
+	const [baseId, setBaseId] = useState<string>();
+	const quickMixQuery = useQuickMixInfoQuery({aromaId, baseId});
+
 	return <Row gutter={16}>
 		<Col span={16}>
 			<CreateDefaultForm
@@ -21,10 +22,10 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 				{...props}
 			>
 				<FormItem hasTooltip field={'aromaId'} required>
-					<InventoryAromaSelect onSelect={({entity}) => setAroma(entity)}/>
+					<InventoryAromaSelect onClear={() => setAromaId(undefined)} onSelect={({entity: {id}}) => setAromaId(id)}/>
 				</FormItem>
 				<FormItem hasTooltip field={'baseId'} required>
-					<InventoryBaseSelect onSelect={({entity}) => setBase(entity)}/>
+					<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
 				</FormItem>
 				<FormItem field={'mixed'}>
 					<DatePicker style={{width: '100%'}}/>
@@ -38,11 +39,11 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		<Col span={8}>
 			<Preview>
 				{{
-					"lab.liquid.preview.content": <ContentInline content={aroma?.content}/>,
-					"lab.liquid.preview.volume": <ContentInline content={aroma?.volume}/>,
-					"lab.liquid.preview.base.content": <ContentInline content={aroma && aroma.volume ? aroma.volume - aroma.content : undefined}/>,
-					"lab.liquid.preview.aroma.pgvg": <PgVgInline pgvg={aroma}/>,
-					"lab.liquid.preview.base.pgvg": <PgVgInline pgvg={base}/>,
+					"lab.liquid.preview.content": <ContentInline content={quickMixQuery.data?.aroma?.content}/>,
+					"lab.liquid.preview.volume": <ContentInline content={quickMixQuery.data?.aroma?.volume}/>,
+					"lab.liquid.preview.base.content": <ContentInline content={quickMixQuery.data?.base?.volume}/>,
+					"lab.liquid.preview.aroma.pgvg": <PgVgInline pgvg={quickMixQuery.data?.aroma}/>,
+					"lab.liquid.preview.base.pgvg": <PgVgInline pgvg={quickMixQuery.data?.base}/>,
 				}}
 			</Preview>
 		</Col>

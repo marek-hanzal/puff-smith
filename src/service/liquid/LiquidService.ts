@@ -4,6 +4,8 @@ import {RepositoryService} from "@leight-core/server";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {TariffService} from "@/puff-smith/service/tariff";
+import {AromaService} from "@/puff-smith/service/aroma";
+import {BaseService} from "@/puff-smith/service/base";
 
 export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
 	const service = RepositoryService<ILiquidService>({
@@ -46,6 +48,35 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 		handleQuickMix: async request => {
 			// service.create();
 			throw new Error("boom");
+		},
+		handleQuickMixInfo: async ({request: {aromaId, baseId}}) => {
+			const aroma = aromaId && await AromaService(prismaClient).fetch(aromaId);
+			const base = baseId && await BaseService(prismaClient).fetch(baseId);
+
+			const _aroma = aroma ? {
+				content: aroma.content.toNumber(),
+				volume: aroma.volume?.toNumber(),
+				pg: aroma.pg.toNumber(),
+				vg: aroma.vg.toNumber(),
+			} : undefined;
+
+			if (aroma && base) {
+				return {
+					aroma: _aroma,
+					base: {
+						volume: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
+						pg: base.pg.toNumber(),
+						vg: base.vg.toNumber(),
+					}
+				}
+			}
+			if (aroma) {
+				return {
+					aroma: _aroma,
+				}
+			}
+
+			return {};
 		}
 	};
 }

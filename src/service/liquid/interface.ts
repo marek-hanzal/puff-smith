@@ -44,6 +44,18 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 	liquidId: string;
 }
 
+export interface ILiquidQuickMixInfoRequest {
+	aromaId?: string;
+	baseId?: string;
+}
+
+export interface ILiquidQuickMixInfo {
+	aroma?: { content: number; volume?: number | null, pg: number; vg: number };
+	base?: { volume?: number | null, pg: number; vg: number };
+}
+
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
 	handleQuickMix(request: { request: ILiquidQuickMix }): Promise<ILiquid>;
+
+	handleQuickMixInfo(request: { request: ILiquidQuickMixInfoRequest }): Promise<ILiquidQuickMixInfo>;
 }

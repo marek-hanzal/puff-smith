@@ -3,7 +3,7 @@ import {Space, Tooltip, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 
 export interface IContentInlineProps {
-	content?: number;
+	content?: number | null;
 	tooltip?: string;
 }
 
