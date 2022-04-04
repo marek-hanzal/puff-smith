@@ -1,7 +1,8 @@
 import {FC} from "react";
-import {Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {LiquidCreateForm, LiquidCreateQuickForm} from "@/puff-smith/site/lab/liquid";
+import {Template} from "@leight-core/client";
 
 export interface ILiquidCreateViewProps {
 }
@@ -10,7 +11,9 @@ export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
 	const {t} = useTranslation();
 	return <Tabs>
 		<Tabs.TabPane key={'simple'} tab={t('lab.liquid.create.simple.tab')}>
-			<LiquidCreateQuickForm/>
+			<Template label={'lab.liquid.create.quick-mix'} span={24} extra={<Divider/>}>
+				<LiquidCreateQuickForm/>
+			</Template>
 		</Tabs.TabPane>
 		<Tabs.TabPane key={'wizard'} tab={t('lab.liquid.create.wizard.tab')}>
 			<p>

@@ -40,6 +40,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 				{{
 					"lab.liquid.preview.content": <ContentInline content={aroma?.content}/>,
 					"lab.liquid.preview.volume": <ContentInline content={aroma?.volume}/>,
+					"lab.liquid.preview.base.content": <ContentInline content={aroma && aroma.volume ? aroma.volume - aroma.content : undefined}/>,
 					"lab.liquid.preview.aroma.pgvg": <PgVgInline pgvg={aroma}/>,
 					"lab.liquid.preview.base.pgvg": <PgVgInline pgvg={base}/>,
 				}}
