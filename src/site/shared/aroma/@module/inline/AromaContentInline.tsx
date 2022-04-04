@@ -1,20 +1,15 @@
 import {IAroma} from "@/puff-smith/service/aroma";
 import {FC} from "react";
-import {Space, Tooltip, Typography} from "antd";
-import {useTranslation} from "react-i18next";
+import {Space, Typography} from "antd";
+import {ContentInline} from "@/puff-smith";
 
 export interface IAromaContentInlineProps {
 	aroma: IAroma;
 }
 
 export const AromaContentInline: FC<IAromaContentInlineProps> = ({aroma}) => {
-	const {t} = useTranslation();
-	return <Space size={4} split={'/'}>
-		<Tooltip title={t('common.aroma.content.tooltip')}>
-			<Typography.Text>{aroma.content}ml</Typography.Text>
-		</Tooltip>
-		<Tooltip title={t('common.aroma.volume.tooltip')}>
-			<Typography.Text type={'secondary'}>{aroma.volume ? `${aroma.volume}ml` : '-'}</Typography.Text>
-		</Tooltip>
+	return <Space size={4} split={<Typography.Text type={'secondary'}>/</Typography.Text>}>
+		<ContentInline tooltip={'common.aroma.content.tooltip'} content={aroma.content}/>
+		<ContentInline tooltip={'common.aroma.volume.tooltip'} content={aroma.volume}/>
 	</Space>
 }
