@@ -9,6 +9,7 @@ export const AromaSelect: FC<IAromaSelectProps> = props => {
 	return <AromasFilterProvider>
 		<AromasSourceSelect
 			showSearch
+			allowClear
 			toOption={aroma => ({
 				label: <AromaNameInline aroma={aroma}/>,
 				value: aroma.id,

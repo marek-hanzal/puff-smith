@@ -8,6 +8,7 @@ export interface IInventoryAromaSelectProps extends Partial<IInventoryAromasSour
 export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 	return <InventoryAromasSourceSelect
 		showSearch
+		allowClear
 		toOption={aroma => ({
 			label: <AromaNameInline aroma={aroma}/>,
 			value: aroma.id,
