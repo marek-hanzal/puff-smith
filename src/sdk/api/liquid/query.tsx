@@ -53,6 +53,7 @@ export interface ILiquidsSourceProps extends Partial<ISourceProviderProps<ILiqui
 
 export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 	return <SourceProvider<ILiquid>
+		name={"Liquids"}
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useLiquidsPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiqui
 export interface ILiquidsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
 }
 
-export const LiquidsFilterProvider: FC<ILiquidsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> {...props}/>;
+export const LiquidsFilterProvider: FC<ILiquidsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
 export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>()
 export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>()
@@ -84,7 +85,7 @@ export const LiquidsSourceFilter: FC<ILiquidsSourceFilterProps> = props => <Filt
 export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ILiquidQuery>>> {
 }
 
-export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ILiquidQuery>> {...props}/>;
+export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
 export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ILiquidQuery>>()
 export const useLiquidsOrderByContext = () => useOrderByContext<IQueryFilter<ILiquidQuery>>()
@@ -96,7 +97,7 @@ export interface ILiquidsListSourceProps extends Partial<IListProps<ILiquid>> {
 export interface ILiquidsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>, ILiquidsQueryParams>> {
 }
 
-export const LiquidsSourceControlProvider: FC<ILiquidsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> {...props}/>;
+export const LiquidsSourceControlProvider: FC<ILiquidsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
 export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...props}) => {
 	return <LiquidsSource

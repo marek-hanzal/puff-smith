@@ -53,6 +53,7 @@ export interface IBoostersSourceProps extends Partial<ISourceProviderProps<IBoos
 
 export const BoostersSource: FC<IBoostersSourceProps> = props => {
 	return <SourceProvider<IBooster>
+		name={"Boosters"}
 		useQuery={useBoostersQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useBoostersPromise = createPromiseHook<IBoosterQuery, IBooster, IBo
 export interface IBoostersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterQuery>>> {
 }
 
-export const BoostersFilterProvider: FC<IBoostersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterQuery>> {...props}/>;
+export const BoostersFilterProvider: FC<IBoostersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterQuery>> name={"Boosters"} {...props}/>;
 
 export const useBoostersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>()
 export const useBoostersFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>()
@@ -84,7 +85,7 @@ export const BoostersSourceFilter: FC<IBoostersSourceFilterProps> = props => <Fi
 export interface IBoostersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBoosterQuery>>> {
 }
 
-export const BoostersOrderByProvider: FC<IBoostersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBoosterQuery>> {...props}/>;
+export const BoostersOrderByProvider: FC<IBoostersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBoosterQuery>> name={"Boosters"} {...props}/>;
 
 export const useBoostersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBoosterQuery>>()
 export const useBoostersOrderByContext = () => useOrderByContext<IQueryFilter<IBoosterQuery>>()
@@ -96,7 +97,7 @@ export interface IBoostersListSourceProps extends Partial<IListProps<IBooster>> 
 export interface IBoostersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBoosterQuery>, IQueryOrderBy<IBoosterQuery>, IBoostersQueryParams>> {
 }
 
-export const BoostersSourceControlProvider: FC<IBoostersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBoosterQuery>, IQueryOrderBy<IBoosterQuery>> {...props}/>;
+export const BoostersSourceControlProvider: FC<IBoostersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBoosterQuery>, IQueryOrderBy<IBoosterQuery>> name={"Boosters"} {...props}/>;
 
 export const BoostersListSource: FC<IBoostersListSourceProps> = ({sourceProps, ...props}) => {
 	return <BoostersSource

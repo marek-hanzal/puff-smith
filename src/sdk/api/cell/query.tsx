@@ -53,6 +53,7 @@ export interface ICellsSourceProps extends Partial<ISourceProviderProps<ICell>> 
 
 export const CellsSource: FC<ICellsSourceProps> = props => {
 	return <SourceProvider<ICell>
+		name={"Cells"}
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useCellsPromise = createPromiseHook<ICellQuery, ICell, ICellsQueryP
 export interface ICellsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
 }
 
-export const CellsFilterProvider: FC<ICellsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> {...props}/>;
+export const CellsFilterProvider: FC<ICellsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Cells"} {...props}/>;
 
 export const useCellsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>()
 export const useCellsFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>()
@@ -84,7 +85,7 @@ export const CellsSourceFilter: FC<ICellsSourceFilterProps> = props => <Filter
 export interface ICellsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICellQuery>>> {
 }
 
-export const CellsOrderByProvider: FC<ICellsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellQuery>> {...props}/>;
+export const CellsOrderByProvider: FC<ICellsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellQuery>> name={"Cells"} {...props}/>;
 
 export const useCellsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICellQuery>>()
 export const useCellsOrderByContext = () => useOrderByContext<IQueryFilter<ICellQuery>>()
@@ -96,7 +97,7 @@ export interface ICellsListSourceProps extends Partial<IListProps<ICell>> {
 export interface ICellsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>, ICellsQueryParams>> {
 }
 
-export const CellsSourceControlProvider: FC<ICellsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> {...props}/>;
+export const CellsSourceControlProvider: FC<ICellsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> name={"Cells"} {...props}/>;
 
 export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...props}) => {
 	return <CellsSource

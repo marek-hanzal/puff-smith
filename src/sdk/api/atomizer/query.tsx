@@ -53,6 +53,7 @@ export interface IAtomizersSourceProps extends Partial<ISourceProviderProps<IAto
 
 export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 	return <SourceProvider<IAtomizer>
+		name={"Atomizers"}
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useAtomizersPromise = createPromiseHook<IAtomizerQuery, IAtomizer, 
 export interface IAtomizersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
 }
 
-export const AtomizersFilterProvider: FC<IAtomizersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> {...props}/>;
+export const AtomizersFilterProvider: FC<IAtomizersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
 export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>()
 export const useAtomizersFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>()
@@ -84,7 +85,7 @@ export const AtomizersSourceFilter: FC<IAtomizersSourceFilterProps> = props => <
 export interface IAtomizersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAtomizerQuery>>> {
 }
 
-export const AtomizersOrderByProvider: FC<IAtomizersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAtomizerQuery>> {...props}/>;
+export const AtomizersOrderByProvider: FC<IAtomizersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
 export const useAtomizersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAtomizerQuery>>()
 export const useAtomizersOrderByContext = () => useOrderByContext<IQueryFilter<IAtomizerQuery>>()
@@ -96,7 +97,7 @@ export interface IAtomizersListSourceProps extends Partial<IListProps<IAtomizer>
 export interface IAtomizersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>, IAtomizersQueryParams>> {
 }
 
-export const AtomizersSourceControlProvider: FC<IAtomizersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> {...props}/>;
+export const AtomizersSourceControlProvider: FC<IAtomizersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
 export const AtomizersListSource: FC<IAtomizersListSourceProps> = ({sourceProps, ...props}) => {
 	return <AtomizersSource

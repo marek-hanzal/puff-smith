@@ -1,4 +1,4 @@
-import {IInventoryBoostersSourceSelectProps, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
+import {IInventoryBoostersSourceSelectProps, InventoryBoostersFilterProvider, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
 import {FC} from "react";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 
@@ -6,13 +6,15 @@ export interface IInventoryBoosterSelectProps extends Partial<IInventoryBoosters
 }
 
 export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props => {
-	return <InventoryBoostersSourceSelect
-		showSearch
-		allowClear
-		toOption={booster => ({
-			label: <BoosterNameInline booster={booster}/>,
-			value: booster.id,
-		})}
-		{...props}
-	/>
+	return <InventoryBoostersFilterProvider>
+		<InventoryBoostersSourceSelect
+			showSearch
+			allowClear
+			toOption={booster => ({
+				label: <BoosterNameInline booster={booster}/>,
+				value: booster.id,
+			})}
+			{...props}
+		/>
+	</InventoryBoostersFilterProvider>
 }

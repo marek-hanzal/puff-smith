@@ -38,7 +38,7 @@ export const useSumPromise = createPromiseHook<ITransactionQuery, number, ISumQu
 export interface ISumFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const SumFilterProvider: FC<ISumFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
+export const SumFilterProvider: FC<ISumFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> name={"Sum"} {...props}/>;
 
 export const useSumOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>()
 export const useSumFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>()
@@ -46,7 +46,7 @@ export const useSumFilterContext = () => useFilterContext<IQueryFilter<ITransact
 export interface ISumOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const SumOrderByProvider: FC<ISumOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
+export const SumOrderByProvider: FC<ISumOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> name={"Sum"} {...props}/>;
 
 export const useSumOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>()
 export const useSumOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>()
@@ -54,7 +54,7 @@ export const useSumOrderByContext = () => useOrderByContext<IQueryFilter<ITransa
 export interface ISumSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>, ISumQueryParams>> {
 }
 
-export const SumSourceControlProvider: FC<ISumSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>> {...props}/>;
+export const SumSourceControlProvider: FC<ISumSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>> name={"Sum"} {...props}/>;
 
 export const useSumQueryInvalidate = () => {
 	const queryClient = useQueryClient();

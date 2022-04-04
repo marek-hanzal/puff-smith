@@ -53,6 +53,7 @@ export interface IVouchersInventorySourceProps extends Partial<ISourceProviderPr
 
 export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props => {
 	return <SourceProvider<IVoucherInventory>
+		name={"VouchersInventory"}
 		useQuery={useVouchersInventoryQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useVouchersInventoryPromise = createPromiseHook<IVoucherInventoryQu
 export interface IVouchersInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherInventoryQuery>>> {
 }
 
-export const VouchersInventoryFilterProvider: FC<IVouchersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherInventoryQuery>> {...props}/>;
+export const VouchersInventoryFilterProvider: FC<IVouchersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
 export const useVouchersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
 export const useVouchersInventoryFilterContext = () => useFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
@@ -84,7 +85,7 @@ export const VouchersInventorySourceFilter: FC<IVouchersInventorySourceFilterPro
 export interface IVouchersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IVoucherInventoryQuery>>> {
 }
 
-export const VouchersInventoryOrderByProvider: FC<IVouchersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherInventoryQuery>> {...props}/>;
+export const VouchersInventoryOrderByProvider: FC<IVouchersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
 export const useVouchersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IVoucherInventoryQuery>>()
 export const useVouchersInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IVoucherInventoryQuery>>()
@@ -96,7 +97,8 @@ export interface IVouchersInventoryListSourceProps extends Partial<IListProps<IV
 export interface IVouchersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>, IVouchersInventoryQueryParams>> {
 }
 
-export const VouchersInventorySourceControlProvider: FC<IVouchersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> {...props}/>;
+export const VouchersInventorySourceControlProvider: FC<IVouchersInventorySourceControlProviderProps> = props =>
+	<SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
 export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <VouchersInventorySource

@@ -1,4 +1,4 @@
-import {IInventoryAromasSourceSelectProps, InventoryAromasSourceSelect} from "@/sdk/api/aroma/inventory/aroma/query";
+import {IInventoryAromasSourceSelectProps, InventoryAromasFilterProvider, InventoryAromasSourceSelect} from "@/sdk/api/aroma/inventory/aroma/query";
 import {FC} from "react";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
 
@@ -6,13 +6,15 @@ export interface IInventoryAromaSelectProps extends Partial<IInventoryAromasSour
 }
 
 export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
-	return <InventoryAromasSourceSelect
-		showSearch
-		allowClear
-		toOption={aroma => ({
-			label: <AromaNameInline aroma={aroma}/>,
-			value: aroma.id,
-		})}
-		{...props}
-	/>
+	return <InventoryAromasFilterProvider>
+		<InventoryAromasSourceSelect
+			showSearch
+			allowClear
+			toOption={aroma => ({
+				label: <AromaNameInline aroma={aroma}/>,
+				value: aroma.id,
+			})}
+			{...props}
+		/>
+	</InventoryAromasFilterProvider>
 }

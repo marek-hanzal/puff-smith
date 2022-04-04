@@ -53,6 +53,7 @@ export interface IModsSourceProps extends Partial<ISourceProviderProps<IMod>> {
 
 export const ModsSource: FC<IModsSourceProps> = props => {
 	return <SourceProvider<IMod>
+		name={"Mods"}
 		useQuery={useModsQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useModsPromise = createPromiseHook<IModQuery, IMod, IModsQueryParam
 export interface IModsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModQuery>>> {
 }
 
-export const ModsFilterProvider: FC<IModsFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModQuery>> {...props}/>;
+export const ModsFilterProvider: FC<IModsFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModQuery>> name={"Mods"} {...props}/>;
 
 export const useModsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModQuery>>()
 export const useModsFilterContext = () => useFilterContext<IQueryFilter<IModQuery>>()
@@ -84,7 +85,7 @@ export const ModsSourceFilter: FC<IModsSourceFilterProps> = props => <Filter
 export interface IModsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IModQuery>>> {
 }
 
-export const ModsOrderByProvider: FC<IModsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModQuery>> {...props}/>;
+export const ModsOrderByProvider: FC<IModsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModQuery>> name={"Mods"} {...props}/>;
 
 export const useModsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IModQuery>>()
 export const useModsOrderByContext = () => useOrderByContext<IQueryFilter<IModQuery>>()
@@ -96,7 +97,7 @@ export interface IModsListSourceProps extends Partial<IListProps<IMod>> {
 export interface IModsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModQuery>, IQueryOrderBy<IModQuery>, IModsQueryParams>> {
 }
 
-export const ModsSourceControlProvider: FC<IModsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModQuery>, IQueryOrderBy<IModQuery>> {...props}/>;
+export const ModsSourceControlProvider: FC<IModsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModQuery>, IQueryOrderBy<IModQuery>> name={"Mods"} {...props}/>;
 
 export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}) => {
 	return <ModsSource

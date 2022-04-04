@@ -22,7 +22,7 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
 		disabled={checkPrice.notPass}
 		{...props}
 	>
-		<FilterProvider>
+		<FilterProvider name={'LiquidCreateButton'}>
 			<LiquidCreateView/>
 		</FilterProvider>
 	</DrawerButton>

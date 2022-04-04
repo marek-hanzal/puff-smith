@@ -53,6 +53,7 @@ export interface ITransactionsSourceProps extends Partial<ISourceProviderProps<I
 
 export const TransactionsSource: FC<ITransactionsSourceProps> = props => {
 	return <SourceProvider<ITransaction>
+		name={"Transactions"}
 		useQuery={useTransactionsQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useTransactionsPromise = createPromiseHook<ITransactionQuery, ITran
 export interface ITransactionsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const TransactionsFilterProvider: FC<ITransactionsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
+export const TransactionsFilterProvider: FC<ITransactionsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> name={"Transactions"} {...props}/>;
 
 export const useTransactionsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>()
 export const useTransactionsFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>()
@@ -84,7 +85,7 @@ export const TransactionsSourceFilter: FC<ITransactionsSourceFilterProps> = prop
 export interface ITransactionsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
-export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> {...props}/>;
+export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> name={"Transactions"} {...props}/>;
 
 export const useTransactionsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>()
 export const useTransactionsOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>()
@@ -96,7 +97,7 @@ export interface ITransactionsListSourceProps extends Partial<IListProps<ITransa
 export interface ITransactionsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>, ITransactionsQueryParams>> {
 }
 
-export const TransactionsSourceControlProvider: FC<ITransactionsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>> {...props}/>;
+export const TransactionsSourceControlProvider: FC<ITransactionsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>> name={"Transactions"} {...props}/>;
 
 export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({sourceProps, ...props}) => {
 	return <TransactionsSource

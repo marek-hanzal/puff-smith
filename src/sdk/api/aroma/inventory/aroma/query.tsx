@@ -53,6 +53,7 @@ export interface IInventoryAromasSourceProps extends Partial<ISourceProviderProp
 
 export const InventoryAromasSource: FC<IInventoryAromasSourceProps> = props => {
 	return <SourceProvider<IAroma>
+		name={"InventoryAromas"}
 		useQuery={useInventoryAromasQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useInventoryAromasPromise = createPromiseHook<IAromaQuery, IAroma, 
 export interface IInventoryAromasFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaQuery>>> {
 }
 
-export const InventoryAromasFilterProvider: FC<IInventoryAromasFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaQuery>> {...props}/>;
+export const InventoryAromasFilterProvider: FC<IInventoryAromasFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaQuery>> name={"InventoryAromas"} {...props}/>;
 
 export const useInventoryAromasOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaQuery>>()
 export const useInventoryAromasFilterContext = () => useFilterContext<IQueryFilter<IAromaQuery>>()
@@ -84,7 +85,7 @@ export const InventoryAromasSourceFilter: FC<IInventoryAromasSourceFilterProps> 
 export interface IInventoryAromasOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAromaQuery>>> {
 }
 
-export const InventoryAromasOrderByProvider: FC<IInventoryAromasOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAromaQuery>> {...props}/>;
+export const InventoryAromasOrderByProvider: FC<IInventoryAromasOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAromaQuery>> name={"InventoryAromas"} {...props}/>;
 
 export const useInventoryAromasOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAromaQuery>>()
 export const useInventoryAromasOrderByContext = () => useOrderByContext<IQueryFilter<IAromaQuery>>()
@@ -96,7 +97,7 @@ export interface IInventoryAromasListSourceProps extends Partial<IListProps<IAro
 export interface IInventoryAromasSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>, IInventoryAromasQueryParams>> {
 }
 
-export const InventoryAromasSourceControlProvider: FC<IInventoryAromasSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>> {...props}/>;
+export const InventoryAromasSourceControlProvider: FC<IInventoryAromasSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>> name={"InventoryAromas"} {...props}/>;
 
 export const InventoryAromasListSource: FC<IInventoryAromasListSourceProps> = ({sourceProps, ...props}) => {
 	return <InventoryAromasSource

@@ -53,6 +53,7 @@ export interface IUsersSourceProps extends Partial<ISourceProviderProps<IUser>> 
 
 export const UsersSource: FC<IUsersSourceProps> = props => {
 	return <SourceProvider<IUser>
+		name={"Users"}
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryP
 export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IUserQuery>>> {
 }
 
-export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> {...props}/>;
+export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
 
 export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>()
 export const useUsersFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>()
@@ -84,7 +85,7 @@ export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
 export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IUserQuery>>> {
 }
 
-export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IUserQuery>> {...props}/>;
+export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
 
 export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IUserQuery>>()
 export const useUsersOrderByContext = () => useOrderByContext<IQueryFilter<IUserQuery>>()
@@ -96,7 +97,7 @@ export interface IUsersListSourceProps extends Partial<IListProps<IUser>> {
 export interface IUsersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>, IUsersQueryParams>> {
 }
 
-export const UsersSourceControlProvider: FC<IUsersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>> {...props}/>;
+export const UsersSourceControlProvider: FC<IUsersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>> name={"Users"} {...props}/>;
 
 export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...props}) => {
 	return <UsersSource

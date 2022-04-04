@@ -53,6 +53,7 @@ export interface IBasesInventorySourceProps extends Partial<ISourceProviderProps
 
 export const BasesInventorySource: FC<IBasesInventorySourceProps> = props => {
 	return <SourceProvider<IBaseInventory>
+		name={"BasesInventory"}
 		useQuery={useBasesInventoryQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useBasesInventoryPromise = createPromiseHook<IBaseInventoryQuery, I
 export interface IBasesInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseInventoryQuery>>> {
 }
 
-export const BasesInventoryFilterProvider: FC<IBasesInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseInventoryQuery>> {...props}/>;
+export const BasesInventoryFilterProvider: FC<IBasesInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseInventoryQuery>> name={"BasesInventory"} {...props}/>;
 
 export const useBasesInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseInventoryQuery>>()
 export const useBasesInventoryFilterContext = () => useFilterContext<IQueryFilter<IBaseInventoryQuery>>()
@@ -84,7 +85,7 @@ export const BasesInventorySourceFilter: FC<IBasesInventorySourceFilterProps> = 
 export interface IBasesInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseInventoryQuery>>> {
 }
 
-export const BasesInventoryOrderByProvider: FC<IBasesInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseInventoryQuery>> {...props}/>;
+export const BasesInventoryOrderByProvider: FC<IBasesInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseInventoryQuery>> name={"BasesInventory"} {...props}/>;
 
 export const useBasesInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseInventoryQuery>>()
 export const useBasesInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IBaseInventoryQuery>>()
@@ -96,7 +97,7 @@ export interface IBasesInventoryListSourceProps extends Partial<IListProps<IBase
 export interface IBasesInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseInventoryQuery>, IQueryOrderBy<IBaseInventoryQuery>, IBasesInventoryQueryParams>> {
 }
 
-export const BasesInventorySourceControlProvider: FC<IBasesInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseInventoryQuery>, IQueryOrderBy<IBaseInventoryQuery>> {...props}/>;
+export const BasesInventorySourceControlProvider: FC<IBasesInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseInventoryQuery>, IQueryOrderBy<IBaseInventoryQuery>> name={"BasesInventory"} {...props}/>;
 
 export const BasesInventoryListSource: FC<IBasesInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <BasesInventorySource

@@ -52,6 +52,7 @@ export interface IStatusListSourceProps extends Partial<ISourceProviderProps<IBa
 
 export const StatusListSource: FC<IStatusListSourceProps> = props => {
 	return <SourceProvider<IBaseSelectOption>
+		name={"StatusList"}
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
@@ -67,7 +68,7 @@ export const useStatusListPromise = createPromiseHook<IQuery, IBaseSelectOption,
 export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> {...props}/>;
+export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
 
 export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
 export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
@@ -83,7 +84,7 @@ export const StatusListSourceFilter: FC<IStatusListSourceFilterProps> = props =>
 export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> {...props}/>;
+export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
 
 export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>()
 export const useStatusListOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>()
@@ -95,7 +96,7 @@ export interface IStatusListListSourceProps extends Partial<IListProps<IBaseSele
 export interface IStatusListSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, IStatusListQueryParams>> {
 }
 
-export const StatusListSourceControlProvider: FC<IStatusListSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> {...props}/>;
+export const StatusListSourceControlProvider: FC<IStatusListSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> name={"StatusList"} {...props}/>;
 
 export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProps, ...props}) => {
 	return <StatusListSource

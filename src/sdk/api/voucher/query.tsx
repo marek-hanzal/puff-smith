@@ -53,6 +53,7 @@ export interface IVouchersSourceProps extends Partial<ISourceProviderProps<IVouc
 
 export const VouchersSource: FC<IVouchersSourceProps> = props => {
 	return <SourceProvider<IVoucher>
+		name={"Vouchers"}
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useVouchersPromise = createPromiseHook<IVoucherQuery, IVoucher, IVo
 export interface IVouchersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherQuery>>> {
 }
 
-export const VouchersFilterProvider: FC<IVouchersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherQuery>> {...props}/>;
+export const VouchersFilterProvider: FC<IVouchersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
 export const useVouchersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherQuery>>()
 export const useVouchersFilterContext = () => useFilterContext<IQueryFilter<IVoucherQuery>>()
@@ -84,7 +85,7 @@ export const VouchersSourceFilter: FC<IVouchersSourceFilterProps> = props => <Fi
 export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IVoucherQuery>>> {
 }
 
-export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherQuery>> {...props}/>;
+export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
 export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IVoucherQuery>>()
 export const useVouchersOrderByContext = () => useOrderByContext<IQueryFilter<IVoucherQuery>>()
@@ -96,7 +97,7 @@ export interface IVouchersListSourceProps extends Partial<IListProps<IVoucher>> 
 export interface IVouchersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVoucherQuery>, IQueryOrderBy<IVoucherQuery>, IVouchersQueryParams>> {
 }
 
-export const VouchersSourceControlProvider: FC<IVouchersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVoucherQuery>, IQueryOrderBy<IVoucherQuery>> {...props}/>;
+export const VouchersSourceControlProvider: FC<IVouchersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVoucherQuery>, IQueryOrderBy<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
 export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, ...props}) => {
 	return <VouchersSource

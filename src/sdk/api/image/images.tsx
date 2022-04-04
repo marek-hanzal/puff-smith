@@ -55,6 +55,7 @@ export interface IImagesSourceProps extends Partial<ISourceProviderProps<IImages
 
 export const ImagesSource: FC<IImagesSourceProps> = props => {
 	return <SourceProvider<IImagesDto>
+		name={"Images"}
 		useQuery={useImagesQuery}
 		{...props}
 	/>;
@@ -70,7 +71,7 @@ export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQue
 export interface IImagesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> {...props}/>;
+export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"Images"} {...props}/>;
 
 export const useImagesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
 export const useImagesFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
@@ -86,7 +87,7 @@ export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
 export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> {...props}/>;
+export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"Images"} {...props}/>;
 
 export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>()
 export const useImagesOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>()
@@ -98,7 +99,7 @@ export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto>> 
 export interface IImagesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, IImagesQueryParams>> {
 }
 
-export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> {...props}/>;
+export const ImagesSourceControlProvider: FC<IImagesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> name={"Images"} {...props}/>;
 
 export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...props}) => {
 	return <ImagesSource

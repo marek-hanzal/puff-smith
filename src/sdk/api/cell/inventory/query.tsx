@@ -53,6 +53,7 @@ export interface ICellsInventorySourceProps extends Partial<ISourceProviderProps
 
 export const CellsInventorySource: FC<ICellsInventorySourceProps> = props => {
 	return <SourceProvider<ICellInventory>
+		name={"CellsInventory"}
 		useQuery={useCellsInventoryQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useCellsInventoryPromise = createPromiseHook<ICellInventoryQuery, I
 export interface ICellsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellInventoryQuery>>> {
 }
 
-export const CellsInventoryFilterProvider: FC<ICellsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellInventoryQuery>> {...props}/>;
+export const CellsInventoryFilterProvider: FC<ICellsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellInventoryQuery>> name={"CellsInventory"} {...props}/>;
 
 export const useCellsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellInventoryQuery>>()
 export const useCellsInventoryFilterContext = () => useFilterContext<IQueryFilter<ICellInventoryQuery>>()
@@ -84,7 +85,7 @@ export const CellsInventorySourceFilter: FC<ICellsInventorySourceFilterProps> = 
 export interface ICellsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICellInventoryQuery>>> {
 }
 
-export const CellsInventoryOrderByProvider: FC<ICellsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellInventoryQuery>> {...props}/>;
+export const CellsInventoryOrderByProvider: FC<ICellsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellInventoryQuery>> name={"CellsInventory"} {...props}/>;
 
 export const useCellsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICellInventoryQuery>>()
 export const useCellsInventoryOrderByContext = () => useOrderByContext<IQueryFilter<ICellInventoryQuery>>()
@@ -96,7 +97,7 @@ export interface ICellsInventoryListSourceProps extends Partial<IListProps<ICell
 export interface ICellsInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellInventoryQuery>, IQueryOrderBy<ICellInventoryQuery>, ICellsInventoryQueryParams>> {
 }
 
-export const CellsInventorySourceControlProvider: FC<ICellsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellInventoryQuery>, IQueryOrderBy<ICellInventoryQuery>> {...props}/>;
+export const CellsInventorySourceControlProvider: FC<ICellsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellInventoryQuery>, IQueryOrderBy<ICellInventoryQuery>> name={"CellsInventory"} {...props}/>;
 
 export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <CellsInventorySource

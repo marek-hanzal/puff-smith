@@ -53,6 +53,7 @@ export interface IBasesSourceProps extends Partial<ISourceProviderProps<IBase>> 
 
 export const BasesSource: FC<IBasesSourceProps> = props => {
 	return <SourceProvider<IBase>
+		name={"Bases"}
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useBasesPromise = createPromiseHook<IBaseQuery, IBase, IBasesQueryP
 export interface IBasesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }
 
-export const BasesFilterProvider: FC<IBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> {...props}/>;
+export const BasesFilterProvider: FC<IBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
 
 export const useBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
 export const useBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
@@ -84,7 +85,7 @@ export const BasesSourceFilter: FC<IBasesSourceFilterProps> = props => <Filter
 export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseQuery>>> {
 }
 
-export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> {...props}/>;
+export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
 
 export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>()
 export const useBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>()
@@ -96,7 +97,7 @@ export interface IBasesListSourceProps extends Partial<IListProps<IBase>> {
 export interface IBasesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IBasesQueryParams>> {
 }
 
-export const BasesSourceControlProvider: FC<IBasesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> {...props}/>;
+export const BasesSourceControlProvider: FC<IBasesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"Bases"} {...props}/>;
 
 export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...props}) => {
 	return <BasesSource

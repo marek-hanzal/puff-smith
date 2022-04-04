@@ -53,6 +53,7 @@ export interface IAtomizersInventorySourceProps extends Partial<ISourceProviderP
 
 export const AtomizersInventorySource: FC<IAtomizersInventorySourceProps> = props => {
 	return <SourceProvider<IAtomizerInventory>
+		name={"AtomizersInventory"}
 		useQuery={useAtomizersInventoryQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useAtomizersInventoryPromise = createPromiseHook<IAtomizerInventory
 export interface IAtomizersInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerInventoryQuery>>> {
 }
 
-export const AtomizersInventoryFilterProvider: FC<IAtomizersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerInventoryQuery>> {...props}/>;
+export const AtomizersInventoryFilterProvider: FC<IAtomizersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
 export const useAtomizersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerInventoryQuery>>()
 export const useAtomizersInventoryFilterContext = () => useFilterContext<IQueryFilter<IAtomizerInventoryQuery>>()
@@ -84,7 +85,7 @@ export const AtomizersInventorySourceFilter: FC<IAtomizersInventorySourceFilterP
 export interface IAtomizersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAtomizerInventoryQuery>>> {
 }
 
-export const AtomizersInventoryOrderByProvider: FC<IAtomizersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAtomizerInventoryQuery>> {...props}/>;
+export const AtomizersInventoryOrderByProvider: FC<IAtomizersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
 export const useAtomizersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAtomizerInventoryQuery>>()
 export const useAtomizersInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IAtomizerInventoryQuery>>()
@@ -96,7 +97,8 @@ export interface IAtomizersInventoryListSourceProps extends Partial<IListProps<I
 export interface IAtomizersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>, IAtomizersInventoryQueryParams>> {
 }
 
-export const AtomizersInventorySourceControlProvider: FC<IAtomizersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>> {...props}/>;
+export const AtomizersInventorySourceControlProvider: FC<IAtomizersInventorySourceControlProviderProps> = props =>
+	<SourceControlProvider<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
 export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <AtomizersInventorySource

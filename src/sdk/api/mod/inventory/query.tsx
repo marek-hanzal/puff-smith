@@ -53,6 +53,7 @@ export interface IModsInventorySourceProps extends Partial<ISourceProviderProps<
 
 export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
 	return <SourceProvider<IModInventory>
+		name={"ModsInventory"}
 		useQuery={useModsInventoryQuery}
 		{...props}
 	/>;
@@ -68,7 +69,7 @@ export const useModsInventoryPromise = createPromiseHook<IModInventoryQuery, IMo
 export interface IModsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModInventoryQuery>>> {
 }
 
-export const ModsInventoryFilterProvider: FC<IModsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModInventoryQuery>> {...props}/>;
+export const ModsInventoryFilterProvider: FC<IModsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
 export const useModsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModInventoryQuery>>()
 export const useModsInventoryFilterContext = () => useFilterContext<IQueryFilter<IModInventoryQuery>>()
@@ -84,7 +85,7 @@ export const ModsInventorySourceFilter: FC<IModsInventorySourceFilterProps> = pr
 export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IModInventoryQuery>>> {
 }
 
-export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModInventoryQuery>> {...props}/>;
+export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
 export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IModInventoryQuery>>()
 export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IModInventoryQuery>>()
@@ -96,7 +97,7 @@ export interface IModsInventoryListSourceProps extends Partial<IListProps<IModIn
 export interface IModsInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>, IModsInventoryQueryParams>> {
 }
 
-export const ModsInventorySourceControlProvider: FC<IModsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>> {...props}/>;
+export const ModsInventorySourceControlProvider: FC<IModsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
 export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <ModsInventorySource

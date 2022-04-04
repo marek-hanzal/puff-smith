@@ -1,4 +1,4 @@
-import {IInventoryBasesSourceSelectProps, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
+import {IInventoryBasesSourceSelectProps, InventoryBasesFilterProvider, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
 import {FC} from "react";
 import {BaseNameInline} from "@/puff-smith/site/shared/base";
 
@@ -6,13 +6,15 @@ export interface IInventoryBaseSelectProps extends Partial<IInventoryBasesSource
 }
 
 export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
-	return <InventoryBasesSourceSelect
-		showSearch
-		allowClear
-		toOption={base => ({
-			label: <BaseNameInline base={base}/>,
-			value: base.id,
-		})}
-		{...props}
-	/>
+	return <InventoryBasesFilterProvider>
+		<InventoryBasesSourceSelect
+			showSearch
+			allowClear
+			toOption={base => ({
+				label: <BaseNameInline base={base}/>,
+				value: base.id,
+			})}
+			{...props}
+		/>
+	</InventoryBasesFilterProvider>
 }
