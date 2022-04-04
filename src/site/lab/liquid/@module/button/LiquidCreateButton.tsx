@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
+import {DrawerButton, FilterProvider, IDrawerButtonProps} from "@leight-core/client";
 import {LiquidIcon} from "@/puff-smith";
 import {LiquidCreateView} from "@/puff-smith/site/lab/liquid";
 import {useCheckPrice} from "@/puff-smith/site/shared/price";
@@ -21,6 +21,8 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
 		disabled={checkPrice.notPass}
 		{...props}
 	>
-		<LiquidCreateView/>
+		<FilterProvider>
+			<LiquidCreateView/>
+		</FilterProvider>
 	</DrawerButton>
 }
