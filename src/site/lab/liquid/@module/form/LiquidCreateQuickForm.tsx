@@ -1,10 +1,10 @@
-import {ContentInline, LiquidIcon, PgVgInline} from "@/puff-smith";
+import {Content2Inline, ContentInline, LiquidIcon, PgVgInline} from "@/puff-smith";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
-import {Col, Divider, Row} from "antd";
+import {Col, Divider, Row, Space} from "antd";
 import moment from "moment";
 import {FC, useState} from "react";
 
@@ -44,7 +44,10 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		<Col span={8}>
 			<Preview>
 				{{
-					"lab.liquid.preview.pgvg": <PgVgInline pgvg={quickMixInfo?.pgvg}/>,
+					"lab.liquid.preview.pgvg": <Space split={<Divider type={"vertical"}/>}>
+						<PgVgInline pgvg={quickMixInfo?.pgvg?.ratio}/>
+						<Content2Inline value1={quickMixInfo?.pgvg?.ml?.pg} value2={quickMixInfo?.pgvg?.ml?.vg}/>
+					</Space>,
 				}}
 			</Preview>
 			<Divider/>
@@ -53,8 +56,14 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					"lab.liquid.preview.content": <ContentInline content={quickMixInfo?.aroma?.content}/>,
 					"lab.liquid.preview.volume": <ContentInline content={quickMixInfo?.aroma?.volume}/>,
 					"lab.liquid.preview.base.content": <ContentInline content={quickMixInfo?.base?.volume}/>,
-					"lab.liquid.preview.aroma.pgvg": <PgVgInline pgvg={quickMixInfo?.aroma}/>,
-					"lab.liquid.preview.base.pgvg": <PgVgInline pgvg={quickMixInfo?.base}/>,
+					"lab.liquid.preview.aroma.pgvg": <Space split={<Divider type={"vertical"}/>}>
+						<PgVgInline pgvg={quickMixInfo?.aroma}/>
+						<Content2Inline value1={quickMixInfo?.aroma?.ml?.pg} value2={quickMixInfo?.aroma?.ml?.vg}/>
+					</Space>,
+					"lab.liquid.preview.base.pgvg": <Space split={<Divider type={"vertical"}/>}>
+						<PgVgInline pgvg={quickMixInfo?.base}/>
+						<Content2Inline value1={quickMixInfo?.base?.ml?.pg} value2={quickMixInfo?.base?.ml?.vg}/>
+					</Space>,
 				}}
 			</Preview>
 		</Col>

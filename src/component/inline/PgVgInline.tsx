@@ -1,3 +1,4 @@
+import {toHumanNumber} from "@leight-core/client";
 import {Space, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,12 +12,12 @@ export const PgVgInline: FC<IPgVgInlineProps> = ({pgvg}) => {
 	return pgvg ? <Space size={4} split={<Typography.Text type={"secondary"}>/</Typography.Text>}>
 		<Typography.Text type={"success"}>
 			<Tooltip title={t("common.pgvg.pg.tooltip")}>
-				{pgvg.pg}
+				{toHumanNumber(pgvg.pg)}%
 			</Tooltip>
 		</Typography.Text>
 		<Typography.Text type={"warning"}>
 			<Tooltip title={t("common.pgvg.vg.tooltip")}>
-				{pgvg.vg}
+				{toHumanNumber(pgvg.vg)}%
 			</Tooltip>
 		</Typography.Text>
 	</Space> : <>-</>;

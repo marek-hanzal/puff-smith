@@ -1,6 +1,7 @@
 import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
 import {ILiquidService} from "@/puff-smith/service/liquid";
+import {toMl, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
@@ -23,20 +24,20 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			transaction: await TransactionService(prismaClient).toMap(liquid.transactionId),
 		}),
 		create: async create => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
-			tariff: "default",
-			userId: create.userId,
-			price: "lab.liquid.create",
-			note: "New liquid",
-			callback: (_, transaction) => prismaClient.liquid.create({
-				data: {
-					...create,
-					transactionId: transaction.id,
-					created: new Date(),
-					mixed: create.mixed || new Date(),
-					steep: 14,
-					pg: 0,
-					vg: 0,
-					nicotine: 0,
+				tariff: "default",
+				userId: create.userId,
+				price: "lab.liquid.create",
+				note: "New liquid",
+				callback: (_, transaction) => prismaClient.liquid.create({
+					data: {
+						...create,
+						transactionId: transaction.id,
+						created: new Date(),
+						mixed: create.mixed || new Date(),
+						steep: 14,
+						pg: 0,
+						vg: 0,
+						nicotine: 0,
 					},
 				})
 			})
@@ -58,20 +59,40 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 				volume: aroma.volume?.toNumber(),
 				pg: aroma.pg.toNumber(),
 				vg: aroma.vg.toNumber(),
+				ml: toMl({
+					/**
+					 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
+					 * "content" of a liquid (not the size of a bottle).
+					 */
+					volume: aroma.content.toNumber(),
+					pg: aroma.pg.toNumber(),
+					vg: aroma.vg.toNumber(),
+				})
 			} : undefined;
+			const _aromaMl = _aroma?.ml;
 
 			if (aroma && base) {
+				const volume = aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber());
+				const _baseMl = toMl({
+					volume,
+					pg: base.pg.toNumber(),
+					vg: base.vg.toNumber(),
+				});
 				return {
 					aroma: _aroma,
 					base: {
-						volume: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
+						volume,
 						pg: base.pg.toNumber(),
 						vg: base.vg.toNumber(),
+						ml: _baseMl,
 					},
-					pgvg: {
-						pg: 23,
-						vg: 72,
-					}
+					pgvg: toPgVgRatio({
+						volume: aroma.volume?.toNumber(),
+						fluids: [
+							_aromaMl,
+							_baseMl,
+						],
+					})
 				};
 			}
 			if (aroma) {

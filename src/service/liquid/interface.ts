@@ -49,10 +49,26 @@ export interface ILiquidQuickMixInfoRequest {
 	baseId?: string;
 }
 
+export interface IPgVgMl {
+	pg: number;
+	vg: number;
+}
+
+export interface IPgVgRatio {
+	ml: {
+		pg: number;
+		vg: number;
+	},
+	ratio: {
+		pg: number;
+		vg: number;
+	};
+}
+
 export interface ILiquidQuickMixInfo {
-	aroma?: { content: number; volume?: number | null, pg: number; vg: number };
-	base?: { volume?: number | null, pg: number; vg: number };
-	pgvg?: { pg: number; vg: number; };
+	aroma?: { content: number; volume?: number | null; pg: number; vg: number; ml?: IPgVgMl; };
+	base?: { volume?: number | null; pg: number; vg: number; ml?: IPgVgMl; };
+	pgvg?: IPgVgRatio;
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
