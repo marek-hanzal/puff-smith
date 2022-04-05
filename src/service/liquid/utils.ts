@@ -1,5 +1,5 @@
-import {IAromaInfo, IPgVgMl, IPgVgRatio} from "@/puff-smith/service/liquid/interface";
-import {Aroma} from "@prisma/client";
+import {IAromaInfo, IBaseInfo, IPgVgMl, IPgVgRatio} from "@/puff-smith/service/liquid/interface";
+import {Aroma, Base} from "@prisma/client";
 
 export interface IToMlRequest {
 	volume?: number | null;
@@ -57,3 +57,14 @@ export const toAromaInfo = (aroma: Aroma | undefined): IAromaInfo | undefined =>
 		vg: aroma.vg.toNumber(),
 	})
 } : undefined;
+
+export const toBaseInfo = (aromaInfo: IAromaInfo, base: Base): IBaseInfo => ({
+	volume: aromaInfo?.available,
+	pg: base.pg.toNumber(),
+	vg: base.vg.toNumber(),
+	ml: toMl({
+		volume: aromaInfo?.available,
+		pg: base.pg.toNumber(),
+		vg: base.vg.toNumber(),
+	}),
+});

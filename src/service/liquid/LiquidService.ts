@@ -2,7 +2,7 @@ import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
 import {BoosterService} from "@/puff-smith/service/booster";
 import {ILiquidService} from "@/puff-smith/service/liquid";
-import {toAromaInfo, toMl, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
+import {toAromaInfo, toBaseInfo, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
@@ -56,45 +56,26 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			const base = baseId && await BaseService(prismaClient).fetch(baseId);
 			const booster = boosterId && await BoosterService(prismaClient).fetch(boosterId);
 
-			const _aroma = toAromaInfo(aroma);
-			const _aromaMl = _aroma?.ml;
+			const aromaInfo = toAromaInfo(aroma);
 
-			if (aroma && base) {
-				const _baseMl = toMl({
-					volume: _aroma?.available,
-					pg: base.pg.toNumber(),
-					vg: base.vg.toNumber(),
-				});
+			if (aromaInfo && base) {
+				const baseInfo = toBaseInfo(aromaInfo, base);
 				return {
-					aroma: _aroma,
-					base: {
-						volume: _aroma?.available,
-						pg: base.pg.toNumber(),
-						vg: base.vg.toNumber(),
-						ml: _baseMl,
-					},
+					aroma: aromaInfo,
+					base: baseInfo,
 					pgvg: toPgVgRatio({
-						volume: aroma.volume?.toNumber(),
+						volume: aromaInfo.available,
 						fluids: [
-							_aromaMl,
-							_baseMl,
+							aromaInfo.ml,
+							baseInfo.ml,
 						],
 					})
 				};
 			}
 
-			if (aroma) {
+			if (aromaInfo) {
 				return {
-					aroma: _aroma,
-				};
-			}
-
-			if (base) {
-				return {
-					base: {
-						pg: base.pg.toNumber(),
-						vg: base.vg.toNumber(),
-					}
+					aroma: aromaInfo,
 				};
 			}
 
