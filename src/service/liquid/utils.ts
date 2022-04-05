@@ -1,4 +1,4 @@
-import {ILiquidQuickMixInfo, IPgVgMl, IPgVgRatio} from "@/puff-smith/service/liquid/interface";
+import {ILiquidQuickMixInfo, IMixtureResult, IPgVgMl} from "@/puff-smith/service/liquid/interface";
 import {Aroma, Base, Booster} from "@prisma/client";
 
 export interface IToMlRequest {
@@ -22,14 +22,20 @@ export interface IToPgVgRatioRequest {
 	fluids: (IPgVgMl | undefined)[];
 }
 
-export const toPgVgRatio = ({volume, fluids}: IToPgVgRatioRequest): IPgVgRatio | undefined => {
+export const toPgVgRatio = ({volume, fluids}: IToPgVgRatioRequest): IMixtureResult | undefined => {
 	if (!volume) {
 		return undefined;
 	}
 	const _fluids = fluids.filter((ml): ml is IPgVgMl => !!ml);
 	const pg = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vg = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const total = pg + vg;
+
+	const error: IMixtureResult["error"] = total > volume ? "overflow" : total < volume ? "underflow" : undefined;
+
 	return {
+		volume: total,
+		error,
 		ml: {
 			pg,
 			vg,
@@ -72,31 +78,6 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 	 * https://www.youtube.com/watch?v=qLTgaX9gYPE
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
-	if (aroma && booster && nicotine) {
-		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
-		const boosterInfo = {
-			volume: boosterVolume,
-			count: boosterVolume / booster.volume.toNumber(),
-			pg: booster.pg.toNumber(),
-			vg: booster.vg.toNumber(),
-			ml: toMl({
-				volume: boosterVolume,
-				pg: booster.pg.toNumber(),
-				vg: booster.vg.toNumber(),
-			}),
-		};
-		return {
-			aroma: aromaInfo,
-			booster: boosterInfo,
-			pgvg: toPgVgRatio({
-				volume: aromaInfo.volume,
-				fluids: [
-					aromaInfo.ml,
-					boosterInfo.ml,
-				],
-			})
-		};
-	}
 	if (aroma && base && booster && nicotine) {
 		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
 		const boosterInfo = {
@@ -123,13 +104,38 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 
 		return {
 			aroma: aromaInfo,
-			base: baseInfo,
+			base: baseInfo.volume > 0 ? baseInfo : undefined,
 			booster: boosterInfo,
 			pgvg: toPgVgRatio({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
-					baseInfo.ml,
+					baseInfo.volume > 0 ? baseInfo.ml : undefined,
+					boosterInfo.ml,
+				],
+			})
+		};
+	}
+	if (aroma && booster && nicotine) {
+		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterInfo = {
+			volume: boosterVolume,
+			count: boosterVolume / booster.volume.toNumber(),
+			pg: booster.pg.toNumber(),
+			vg: booster.vg.toNumber(),
+			ml: toMl({
+				volume: boosterVolume,
+				pg: booster.pg.toNumber(),
+				vg: booster.vg.toNumber(),
+			}),
+		};
+		return {
+			aroma: aromaInfo,
+			booster: boosterInfo,
+			pgvg: toPgVgRatio({
+				volume: aromaInfo.volume,
+				fluids: [
+					aromaInfo.ml,
 					boosterInfo.ml,
 				],
 			})

@@ -56,7 +56,9 @@ export interface IPgVgMl {
 	vg: number;
 }
 
-export interface IPgVgRatio {
+export interface IMixtureResult {
+	volume: number;
+	error?: "overflow" | "underflow";
 	ml: {
 		pg: number;
 		vg: number;
@@ -95,7 +97,7 @@ export interface ILiquidQuickMixInfo {
 	aroma?: IAromaInfo;
 	base?: IBaseInfo;
 	booster?: IBoosterInfo;
-	pgvg?: IPgVgRatio;
+	pgvg?: IMixtureResult;
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {

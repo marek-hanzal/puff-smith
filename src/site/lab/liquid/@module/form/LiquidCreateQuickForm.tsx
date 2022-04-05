@@ -1,5 +1,5 @@
 import {Content2Inline, ContentInline, LiquidIcon, NicotineSlider, PgVgInline} from "@/puff-smith";
-import {LiquidRatioHint} from "@/puff-smith/site/lab/liquid";
+import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
@@ -22,7 +22,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
 	return <>
-		<LiquidRatioHint pgvg={quickMixInfo?.pgvg}/>
+		<MixtureHint result={quickMixInfo?.pgvg}/>
 		<Row gutter={32}>
 			<Col span={15}>
 				<CreateDefaultForm
@@ -51,7 +51,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					</FormItem>
 					<Divider/>
 					<Centered>
-						<Submit icon={<LiquidIcon/>} label={"create"}/>
+						<Submit disabled={!!quickMixInfo?.pgvg?.error || false} icon={<LiquidIcon/>} label={"create"}/>
 					</Centered>
 				</CreateDefaultForm>
 			</Col>
@@ -62,10 +62,11 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 							<PgVgInline pgvg={quickMixInfo?.pgvg?.ratio}/>
 							<Content2Inline value1={quickMixInfo?.pgvg?.ml?.vg} value2={quickMixInfo?.pgvg?.ml?.pg}/>
 						</Space>,
-						"lab.liquid.preview.booster.content": <Space split={<Divider type={"vertical"}/>}>
-							<ContentInline content={quickMixInfo?.booster?.volume}/>
-							<Typography.Text>{quickMixInfo?.booster?.count}x</Typography.Text>
+						"lab.liquid.preview.booster.content": quickMixInfo?.booster && <Space split={<Divider type={"vertical"}/>}>
+							<ContentInline content={quickMixInfo.booster?.volume}/>
+							<Typography.Text>{quickMixInfo.booster?.count}x</Typography.Text>
 						</Space>,
+						"lab.liquid.preview.mix.volume": <ContentInline content={quickMixInfo?.pgvg?.volume}/>,
 					}}
 				</Preview>
 				<Divider/>
@@ -77,6 +78,10 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 						"lab.liquid.preview.aroma.pgvg": <Space split={<Divider type={"vertical"}/>}>
 							<PgVgInline pgvg={quickMixInfo?.aroma}/>
 							<Content2Inline value1={quickMixInfo?.aroma?.ml?.vg} value2={quickMixInfo?.aroma?.ml?.pg}/>
+						</Space>,
+						"lab.liquid.preview.booster.pgvg": quickMixInfo?.booster && <Space split={<Divider type={"vertical"}/>}>
+							<PgVgInline pgvg={quickMixInfo.booster}/>
+							<Content2Inline value1={quickMixInfo.booster?.ml?.vg} value2={quickMixInfo.booster?.ml?.pg}/>
 						</Space>,
 						"lab.liquid.preview.base.pgvg": <Space split={<Divider type={"vertical"}/>}>
 							<PgVgInline pgvg={quickMixInfo?.base}/>
