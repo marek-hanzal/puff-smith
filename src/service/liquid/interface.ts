@@ -58,6 +58,7 @@ export interface IPgVgMl {
 
 export interface IMixtureResult {
 	volume: number;
+	content?: number;
 	error?: "overflow" | "underflow";
 	ml: {
 		pg: number;

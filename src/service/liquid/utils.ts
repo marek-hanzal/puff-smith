@@ -35,6 +35,7 @@ export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMix
 
 	return {
 		volume: total,
+		content: volume - total,
 		error,
 		ml: {
 			pg,

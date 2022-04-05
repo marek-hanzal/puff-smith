@@ -70,7 +70,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 						"lab.liquid.preview.base.content": quickMixInfo?.base?.volume && <ContentInline content={quickMixInfo?.base?.volume}/>,
 						"lab.liquid.preview.mix.volume": quickMixInfo?.result && <Space>
 							<ContentInline content={quickMixInfo?.result?.volume}/>
-							(<ContentInline tooltip={"lab.liquid.preview.mix.volume.hint"} content={(quickMixInfo?.aroma?.volume || 0) - (quickMixInfo?.result?.volume || 0)}/>)
+							{!!quickMixInfo?.result?.content && <>(<ContentInline tooltip={"lab.liquid.preview.mix.volume.hint"} content={quickMixInfo?.result?.content}/>)</>}
 						</Space>,
 					}}
 				</Preview>
