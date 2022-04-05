@@ -1,7 +1,8 @@
 import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
+import {BoosterService} from "@/puff-smith/service/booster";
 import {ILiquidService} from "@/puff-smith/service/liquid";
-import {toMl, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
+import {toAromaInfo, toMl, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
@@ -50,38 +51,24 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			// service.create();
 			throw new Error("boom");
 		},
-		handleQuickMixInfo: async ({request: {aromaId, baseId}}) => {
-			const aroma = aromaId && await AromaService(prismaClient).fetch(aromaId);
+		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => {
+			const aroma = aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined;
 			const base = baseId && await BaseService(prismaClient).fetch(baseId);
+			const booster = boosterId && await BoosterService(prismaClient).fetch(boosterId);
 
-			const _aroma = aroma ? {
-				content: aroma.content.toNumber(),
-				volume: aroma.volume?.toNumber(),
-				pg: aroma.pg.toNumber(),
-				vg: aroma.vg.toNumber(),
-				ml: toMl({
-					/**
-					 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
-					 * "content" of a liquid (not the size of a bottle).
-					 */
-					volume: aroma.content.toNumber(),
-					pg: aroma.pg.toNumber(),
-					vg: aroma.vg.toNumber(),
-				})
-			} : undefined;
+			const _aroma = toAromaInfo(aroma);
 			const _aromaMl = _aroma?.ml;
 
 			if (aroma && base) {
-				const volume = aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber());
 				const _baseMl = toMl({
-					volume,
+					volume: _aroma?.available,
 					pg: base.pg.toNumber(),
 					vg: base.vg.toNumber(),
 				});
 				return {
 					aroma: _aroma,
 					base: {
-						volume,
+						volume: _aroma?.available,
 						pg: base.pg.toNumber(),
 						vg: base.vg.toNumber(),
 						ml: _baseMl,
@@ -95,6 +82,7 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 					})
 				};
 			}
+
 			if (aroma) {
 				return {
 					aroma: _aroma,

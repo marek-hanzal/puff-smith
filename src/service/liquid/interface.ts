@@ -67,9 +67,25 @@ export interface IPgVgRatio {
 	};
 }
 
+export interface IAromaInfo {
+	content: number;
+	volume?: number | null;
+	available?: number | null;
+	pg: number;
+	vg: number;
+	ml?: IPgVgMl;
+}
+
+export interface IBaseInfo {
+	volume?: number | null;
+	pg: number;
+	vg: number;
+	ml?: IPgVgMl;
+}
+
 export interface ILiquidQuickMixInfo {
-	aroma?: { content: number; volume?: number | null; pg: number; vg: number; ml?: IPgVgMl; };
-	base?: { volume?: number | null; pg: number; vg: number; ml?: IPgVgMl; };
+	aroma?: IAromaInfo;
+	base?: IBaseInfo;
 	pgvg?: IPgVgRatio;
 }
 
