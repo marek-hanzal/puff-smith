@@ -1,5 +1,5 @@
-import {IAromaInfo, IBaseInfo, IPgVgMl, IPgVgRatio} from "@/puff-smith/service/liquid/interface";
-import {Aroma, Base} from "@prisma/client";
+import {ILiquidQuickMixInfo, IPgVgMl, IPgVgRatio} from "@/puff-smith/service/liquid/interface";
+import {Aroma, Base, Booster} from "@prisma/client";
 
 export interface IToMlRequest {
 	volume?: number | null;
@@ -41,30 +41,59 @@ export const toPgVgRatio = ({volume, fluids}: IToPgVgRatioRequest): IPgVgRatio |
 	};
 };
 
-export const toAromaInfo = (aroma: Aroma | undefined): IAromaInfo | undefined => aroma ? {
-	content: aroma.content.toNumber(),
-	volume: aroma.volume?.toNumber(),
-	available: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
-	pg: aroma.pg.toNumber(),
-	vg: aroma.vg.toNumber(),
-	ml: toMl({
-		/**
-		 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
-		 * "content" of a liquid (not the size of a bottle).
-		 */
-		volume: aroma.content.toNumber(),
+export interface IToLiquidQuickMixInfoRequest {
+	aroma?: Aroma;
+	base?: Base;
+	booster?: Booster;
+	nicotine?: number;
+}
+
+export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquidQuickMixInfoRequest): ILiquidQuickMixInfo => {
+	if (!aroma) {
+		return {};
+	}
+	const aromaInfo = {
+		content: aroma.content.toNumber(),
+		volume: aroma.volume?.toNumber(),
+		available: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
 		pg: aroma.pg.toNumber(),
 		vg: aroma.vg.toNumber(),
-	})
-} : undefined;
+		ml: toMl({
+			/**
+			 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
+			 * "content" of a liquid (not the size of a bottle).
+			 */
+			volume: aroma.content.toNumber(),
+			pg: aroma.pg.toNumber(),
+			vg: aroma.vg.toNumber(),
+		})
+	};
+	if (aroma && base && booster && nicotine) {
+		return {};
+	}
+	if (aroma && base) {
+		const baseInfo = {
+			volume: aromaInfo.available,
+			pg: base.pg.toNumber(),
+			vg: base.vg.toNumber(),
+			ml: toMl({
+				volume: aromaInfo.available,
+				pg: base.pg.toNumber(),
+				vg: base.vg.toNumber(),
+			}),
+		};
+		return {
+			aroma: aromaInfo,
+			base: baseInfo,
+			pgvg: toPgVgRatio({
+				volume: aromaInfo.volume,
+				fluids: [
+					aromaInfo.ml,
+					baseInfo.ml,
+				],
+			})
+		};
+	}
 
-export const toBaseInfo = (aromaInfo: IAromaInfo, base: Base): IBaseInfo => ({
-	volume: aromaInfo?.available,
-	pg: base.pg.toNumber(),
-	vg: base.vg.toNumber(),
-	ml: toMl({
-		volume: aromaInfo?.available,
-		pg: base.pg.toNumber(),
-		vg: base.vg.toNumber(),
-	}),
-});
+	return {};
+};

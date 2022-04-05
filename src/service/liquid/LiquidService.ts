@@ -2,7 +2,7 @@ import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
 import {BoosterService} from "@/puff-smith/service/booster";
 import {ILiquidService} from "@/puff-smith/service/liquid";
-import {toAromaInfo, toBaseInfo, toPgVgRatio} from "@/puff-smith/service/liquid/utils";
+import {toLiquidQuickMixInfo} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
@@ -51,35 +51,11 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			// service.create();
 			throw new Error("boom");
 		},
-		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => {
-			const aroma = aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined;
-			const base = baseId && await BaseService(prismaClient).fetch(baseId);
-			const booster = boosterId && await BoosterService(prismaClient).fetch(boosterId);
-
-			const aromaInfo = toAromaInfo(aroma);
-
-			if (aromaInfo && base) {
-				const baseInfo = toBaseInfo(aromaInfo, base);
-				return {
-					aroma: aromaInfo,
-					base: baseInfo,
-					pgvg: toPgVgRatio({
-						volume: aromaInfo.available,
-						fluids: [
-							aromaInfo.ml,
-							baseInfo.ml,
-						],
-					})
-				};
-			}
-
-			if (aromaInfo) {
-				return {
-					aroma: aromaInfo,
-				};
-			}
-
-			return {};
-		}
+		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => toLiquidQuickMixInfo({
+			aroma: aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined,
+			base: baseId ? await BaseService(prismaClient).fetch(baseId) : undefined,
+			booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
+			nicotine,
+		}),
 	};
 };
