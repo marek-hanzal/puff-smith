@@ -17,7 +17,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 	const [aromaId, setAromaId] = useState<string>();
 	const [baseId, setBaseId] = useState<string>();
 	const [boosterId, setBoosterId] = useState<string>();
-	const [nicotine, setNicotine] = useState<number>(6);
+	const [nicotine, setNicotine] = useState<number>(0);
 	const quickMixInfoQuery = useQuickMixInfoQuery({aromaId, baseId, boosterId, nicotine});
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
@@ -29,7 +29,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					translation={"lab.liquid"}
 					toForm={() => ({
 						mixed: moment(),
-						nicotine: 6,
+						nicotine,
 					})}
 					{...props}
 				>
@@ -40,7 +40,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					<FormItem hasTooltip field={"nicotine"}>
 						<NicotineSlider onChange={setNicotine}/>
 					</FormItem>
-					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"}>
+					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
 						<InventoryBoosterSelect onClear={() => setBoosterId(undefined)} onSelect={({entity: {id}}) => setBoosterId(id)}/>
 					</FormItem>}
 					<FormItem hasTooltip field={"baseId"}>
@@ -59,7 +59,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 			<Col span={9}>
 				<Preview hideEmpty>
 					{{
-						"lab.liquid.preview.pgvg": <Space split={<Divider type={"vertical"}/>}>
+						"lab.liquid.preview.pgvg": quickMixInfo?.result && <Space split={<Divider type={"vertical"}/>}>
 							<PgVgInline pgvg={quickMixInfo?.result?.ratio}/>
 							<Content2Inline value1={quickMixInfo?.result?.ml?.vg} value2={quickMixInfo?.result?.ml?.pg}/>
 						</Space>,
@@ -68,7 +68,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 							<Typography.Text>{quickMixInfo.booster?.count}x</Typography.Text>
 						</Space>,
 						"lab.liquid.preview.base.content": quickMixInfo?.base?.volume && <ContentInline content={quickMixInfo?.base?.volume}/>,
-						"lab.liquid.preview.mix.volume": <Space>
+						"lab.liquid.preview.mix.volume": quickMixInfo?.result && <Space>
 							<ContentInline content={quickMixInfo?.result?.volume}/>
 							(<ContentInline tooltip={"lab.liquid.preview.mix.volume.hint"} content={(quickMixInfo?.aroma?.volume || 0) - (quickMixInfo?.result?.volume || 0)}/>)
 						</Space>,
@@ -79,7 +79,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					{{
 						"lab.liquid.preview.content": <ContentInline content={quickMixInfo?.aroma?.content}/>,
 						"lab.liquid.preview.volume": <ContentInline content={quickMixInfo?.aroma?.volume}/>,
-						"lab.liquid.preview.aroma.pgvg": <Space split={<Divider type={"vertical"}/>}>
+						"lab.liquid.preview.aroma.pgvg": quickMixInfo?.aroma && <Space split={<Divider type={"vertical"}/>}>
 							<PgVgInline pgvg={quickMixInfo?.aroma}/>
 							<Content2Inline value1={quickMixInfo?.aroma?.ml?.vg} value2={quickMixInfo?.aroma?.ml?.pg}/>
 						</Space>,

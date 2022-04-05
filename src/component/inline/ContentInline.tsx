@@ -1,3 +1,4 @@
+import {QuestionCircleOutlined} from "@ant-design/icons";
 import {toHumanNumber} from "@leight-core/client";
 import {Space, Tooltip, Typography} from "antd";
 import {FC} from "react";
@@ -13,5 +14,6 @@ export const ContentInline: FC<IContentInlineProps> = ({content, tooltip}) => {
 	return content ? <Tooltip title={tooltip && t(tooltip)}><Space size={4}>
 		<Typography.Text>{toHumanNumber(content, 2)}</Typography.Text>
 		<Typography.Text type={"secondary"}>ml</Typography.Text>
+		{tooltip && <QuestionCircleOutlined/>}
 	</Space></Tooltip> : <>-</>;
 };
