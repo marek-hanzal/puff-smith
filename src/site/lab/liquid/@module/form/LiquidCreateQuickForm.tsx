@@ -36,14 +36,15 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					<FormItem hasTooltip field={"aromaId"} required>
 						<InventoryAromaSelect onClear={() => setAromaId(undefined)} onSelect={({entity: {id}}) => setAromaId(id)}/>
 					</FormItem>
-					<FormItem hasTooltip field={"baseId"}>
-						<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
+					<Divider/>
+					<FormItem hasTooltip field={"nicotine"}>
+						<NicotineSlider onChange={setNicotine}/>
 					</FormItem>
 					<FormItem hasTooltip field={"boosterId"}>
 						<InventoryBoosterSelect onClear={() => setBoosterId(undefined)} onSelect={({entity: {id}}) => setBoosterId(id)}/>
 					</FormItem>
-					<FormItem hasTooltip field={"nicotine"}>
-						<NicotineSlider onChange={setNicotine}/>
+					<FormItem hasTooltip field={"baseId"}>
+						<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
 					</FormItem>
 					<Divider/>
 					<FormItem field={"mixed"}>
@@ -66,6 +67,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 							<ContentInline content={quickMixInfo.booster?.volume}/>
 							<Typography.Text>{quickMixInfo.booster?.count}x</Typography.Text>
 						</Space>,
+						"lab.liquid.preview.base.content": quickMixInfo?.base?.volume && <ContentInline content={quickMixInfo?.base?.volume}/>,
 						"lab.liquid.preview.mix.volume": <Space>
 							<ContentInline content={quickMixInfo?.result?.volume}/>
 							(<ContentInline tooltip={"lab.liquid.preview.mix.volume.hint"} content={(quickMixInfo?.aroma?.volume || 0) - (quickMixInfo?.result?.volume || 0)}/>)
@@ -77,7 +79,6 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					{{
 						"lab.liquid.preview.content": <ContentInline content={quickMixInfo?.aroma?.content}/>,
 						"lab.liquid.preview.volume": <ContentInline content={quickMixInfo?.aroma?.volume}/>,
-						"lab.liquid.preview.base.content": quickMixInfo?.base?.volume && <ContentInline content={quickMixInfo?.base?.volume}/>,
 						"lab.liquid.preview.aroma.pgvg": <Space split={<Divider type={"vertical"}/>}>
 							<PgVgInline pgvg={quickMixInfo?.aroma}/>
 							<Content2Inline value1={quickMixInfo?.aroma?.ml?.vg} value2={quickMixInfo?.aroma?.ml?.pg}/>
