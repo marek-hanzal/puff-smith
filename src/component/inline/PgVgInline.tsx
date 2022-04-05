@@ -11,13 +11,13 @@ export const PgVgInline: FC<IPgVgInlineProps> = ({pgvg}) => {
 	const {t} = useTranslation();
 	return pgvg ? <Space size={4} split={<Typography.Text type={"secondary"}>/</Typography.Text>}>
 		<Typography.Text type={"success"}>
-			<Tooltip title={t("common.pgvg.pg.tooltip")}>
-				{toHumanNumber(pgvg.pg)}%
+			<Tooltip title={t("common.pgvg.vg.tooltip")}>
+				{toHumanNumber(pgvg.vg)}%
 			</Tooltip>
 		</Typography.Text>
 		<Typography.Text type={"warning"}>
-			<Tooltip title={t("common.pgvg.vg.tooltip")}>
-				{toHumanNumber(pgvg.vg)}%
+			<Tooltip title={t("common.pgvg.pg.tooltip")}>
+				{toHumanNumber(pgvg.pg)}%
 			</Tooltip>
 		</Typography.Text>
 	</Space> : <>-</>;
