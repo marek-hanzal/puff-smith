@@ -17,12 +17,12 @@ export const toMl = ({volume, pg, vg}: IToMlRequest): IPgVgMl | undefined => {
 	};
 };
 
-export interface IToPgVgRatioRequest {
+export interface IToMixtureResultRequest {
 	volume?: number | null;
 	fluids: (IPgVgMl | undefined)[];
 }
 
-export const toPgVgRatio = ({volume, fluids}: IToPgVgRatioRequest): IMixtureResult | undefined => {
+export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMixtureResult | undefined => {
 	if (!volume) {
 		return undefined;
 	}
@@ -106,7 +106,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 			aroma: aromaInfo,
 			base: baseInfo.volume > 0 ? baseInfo : undefined,
 			booster: boosterInfo,
-			pgvg: toPgVgRatio({
+			pgvg: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -132,7 +132,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 		return {
 			aroma: aromaInfo,
 			booster: boosterInfo,
-			pgvg: toPgVgRatio({
+			pgvg: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -155,7 +155,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 		return {
 			aroma: aromaInfo,
 			base: baseInfo,
-			pgvg: toPgVgRatio({
+			pgvg: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -167,7 +167,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 	if (aroma) {
 		return {
 			aroma: aromaInfo,
-			pgvg: toPgVgRatio({
+			pgvg: toMixtureResult({
 				volume: aromaInfo.content,
 				fluids: [
 					aromaInfo.ml,
