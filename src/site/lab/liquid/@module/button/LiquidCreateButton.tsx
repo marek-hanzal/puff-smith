@@ -18,7 +18,7 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
 		loading={checkPrice.loading && {
 			delay: 75,
 		}}
-		width={800}
+		width={875}
 		disabled={checkPrice.notPass}
 		{...props}
 	>

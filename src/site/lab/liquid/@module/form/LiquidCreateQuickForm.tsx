@@ -1,7 +1,8 @@
-import {Content2Inline, ContentInline, LiquidIcon, PgVgInline} from "@/puff-smith";
+import {Content2Inline, ContentInline, LiquidIcon, NicotineSlider, PgVgInline} from "@/puff-smith";
 import {LiquidRatioHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
+import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
@@ -15,13 +16,15 @@ export interface ILiquidCreateQuickFormProps extends Partial<ICreateDefaultFormP
 export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 	const [aromaId, setAromaId] = useState<string>();
 	const [baseId, setBaseId] = useState<string>();
-	const quickMixInfoQuery = useQuickMixInfoQuery({aromaId, baseId});
+	const [boosterId, setBoosterId] = useState<string>();
+	const [nicotine, setNicotine] = useState<number>();
+	const quickMixInfoQuery = useQuickMixInfoQuery({aromaId, baseId, boosterId, nicotine});
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
 	return <>
 		<LiquidRatioHint pgvg={quickMixInfo?.pgvg}/>
-		<Row gutter={16}>
-			<Col span={16}>
+		<Row gutter={32}>
+			<Col span={15}>
 				<CreateDefaultForm
 					translation={"lab.liquid"}
 					toForm={() => ({
@@ -33,8 +36,19 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 						<InventoryAromaSelect onClear={() => setAromaId(undefined)} onSelect={({entity: {id}}) => setAromaId(id)}/>
 					</FormItem>
 					<FormItem hasTooltip field={"baseId"} required>
-						<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
+						<InventoryBaseSelect onClear={() => {
+							setBaseId(undefined);
+							setBoosterId(undefined);
+							setNicotine(undefined);
+						}} onSelect={({entity: {id}}) => setBaseId(id)}/>
 					</FormItem>
+					{baseId && <FormItem hasTooltip field={"boosterId"}>
+						<InventoryBoosterSelect onClear={() => setBoosterId(undefined)} onSelect={({entity: {id}}) => setBoosterId(id)}/>
+					</FormItem>}
+					{boosterId && <FormItem hasTooltip field={"nicotine"}>
+						<NicotineSlider onChange={setNicotine}/>
+					</FormItem>}
+					<Divider/>
 					<FormItem field={"mixed"}>
 						<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
 					</FormItem>
@@ -44,7 +58,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					</Centered>
 				</CreateDefaultForm>
 			</Col>
-			<Col span={8}>
+			<Col span={9}>
 				<Preview>
 					{{
 						"lab.liquid.preview.pgvg": <Space split={<Divider type={"vertical"}/>}>

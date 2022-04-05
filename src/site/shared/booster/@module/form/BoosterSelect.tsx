@@ -1,5 +1,7 @@
+import {PgVgInline} from "@/puff-smith";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
+import {Space} from "antd";
 import {FC} from "react";
 
 export interface IBoosterSelectProps extends Partial<IBoostersSourceSelectProps> {
@@ -11,7 +13,10 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 			showSearch
 			allowClear
 			toOption={booster => ({
-				label: <BoosterNameInline booster={booster}/>,
+				label: <Space>
+					<BoosterNameInline booster={booster}/>
+					<PgVgInline pgvg={booster}/>
+				</Space>,
 				value: booster.id,
 			})}
 			{...props}

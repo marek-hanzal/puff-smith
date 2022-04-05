@@ -47,6 +47,8 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 export interface ILiquidQuickMixInfoRequest {
 	aromaId?: string;
 	baseId?: string;
+	boosterId?: string;
+	nicotine?: number;
 }
 
 export interface IPgVgMl {
