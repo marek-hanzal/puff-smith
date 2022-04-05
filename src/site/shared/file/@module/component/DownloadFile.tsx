@@ -1,10 +1,10 @@
 import {DownloadIcon} from "@/puff-smith";
+import {useDownloadPromise} from "@/sdk/api/file/[fileId]/download";
+import {IFile} from "@leight-core/api";
 import {Button, ButtonProps, message, Progress, Tooltip} from "antd";
 import fileDownload from "js-file-download";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {IFile} from "@leight-core/api";
-import {useDownloadPromise} from "@/sdk/api/file/[fileId]/download";
 
 export interface IDownloadFileProps extends Partial<ButtonProps> {
 	file: IFile;

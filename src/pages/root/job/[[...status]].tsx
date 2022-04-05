@@ -1,10 +1,10 @@
+import {JobIcon} from "@/puff-smith";
 import {RootPage, withRootLayout} from "@/puff-smith/site/root";
+import {JobMenu} from "@/puff-smith/site/root/job";
 import {IJobListProps, JobsList} from "@/puff-smith/site/shared/job";
 import {JobsSourceControlProvider} from "@/sdk/api/job/query";
 import {IJobStatus} from "@leight-core/api";
-import {JobMenu} from "@/puff-smith/site/root/job";
 import {useNavigate, useParams} from "@leight-core/client";
-import {JobIcon} from "@/puff-smith";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
@@ -22,19 +22,19 @@ export default withRootLayout(function Index() {
 	const {status, name} = useParams();
 	const navigate = useNavigate();
 	const configs: IJobConfigObject = {
-		'running': {
-			filter: ['RUNNING', 'NEW'],
+		"running": {
+			filter: ["RUNNING", "NEW"],
 			listProps: {
 				sourceProps: {
 					live: 1000,
 					options: {
 						onSuccess: async data => {
 							if (!data.count) {
-								navigate('/root/job/all');
+								navigate("/root/job/all");
 								await message.success({
-									content: t('common.job.all.done'),
-									key: 'common.job.all.done',
-								})
+									content: t("common.job.all.done"),
+									key: "common.job.all.done",
+								});
 							}
 						}
 					}
@@ -42,8 +42,8 @@ export default withRootLayout(function Index() {
 				disableToolbar: true,
 			},
 		},
-		'review': {
-			filter: ['REVIEW'],
+		"review": {
+			filter: ["REVIEW"],
 			listProps: {
 				sourceProps: {
 					live: 0,
@@ -51,8 +51,8 @@ export default withRootLayout(function Index() {
 				showFilter: false,
 			},
 		},
-		'failure': {
-			filter: ['FAILURE'],
+		"failure": {
+			filter: ["FAILURE"],
 			listProps: {
 				sourceProps: {
 					live: 0,
@@ -60,8 +60,8 @@ export default withRootLayout(function Index() {
 				showFilter: false,
 			},
 		},
-		'success': {
-			filter: ['SUCCESS'],
+		"success": {
+			filter: ["SUCCESS"],
 			listProps: {
 				sourceProps: {
 					live: 0,
@@ -69,8 +69,8 @@ export default withRootLayout(function Index() {
 				showFilter: false,
 			},
 		},
-		'done': {
-			filter: ['DONE'],
+		"done": {
+			filter: ["DONE"],
 			listProps: {
 				sourceProps: {
 					live: 0,
@@ -79,7 +79,7 @@ export default withRootLayout(function Index() {
 				showCommit: false,
 			},
 		},
-		'all': {
+		"all": {
 			filter: undefined,
 			listProps: {
 				sourceProps: {
@@ -89,10 +89,10 @@ export default withRootLayout(function Index() {
 			},
 		},
 	};
-	const config = configs[status || 'running'];
+	const config = configs[status || "running"];
 	return <RootPage
 		title={"root.job"}
-		menuSelection={['/root/job', '/root/job/' + (status || 'running')]}
+		menuSelection={["/root/job", "/root/job/" + (status || "running")]}
 		icon={<JobIcon/>}
 		headerPostfix={<JobMenu/>}
 	>
@@ -104,7 +104,7 @@ export default withRootLayout(function Index() {
 				name,
 			}}
 			defaultOrderBy={{
-				created: 'desc',
+				created: "desc",
 			}}
 		>
 			<JobsList {...config.listProps}/>

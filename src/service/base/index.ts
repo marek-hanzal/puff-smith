@@ -1,3 +1,3 @@
-export * from './inventory';
-export * from './BaseService';
-export * from './interface';
+export * from "./inventory";
+export * from "./BaseService";
+export * from "./interface";

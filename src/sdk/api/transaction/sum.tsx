@@ -3,8 +3,6 @@
  */
 
 import {ITransactionQuery} from "@/puff-smith/service/transaction";
-import {FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -21,6 +19,8 @@ import {
 	useOptionalOrderByContext,
 	useOrderByContext
 } from "@leight-core/client";
+import {FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const SumApiLink = "/api/transaction/sum";
 
@@ -31,7 +31,7 @@ export const useSumQuery = createQueryHook<ITransactionQuery, number, ISumQueryP
 export const useSumLink = (): ((queryParams?: ISumQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(SumApiLink, queryParams);
-}
+};
 
 export const useSumPromise = createPromiseHook<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
 
@@ -40,16 +40,16 @@ export interface ISumFilterProviderProps extends Partial<IFilterProviderProps<IQ
 
 export const SumFilterProvider: FC<ISumFilterProviderProps> = props => <FilterProvider<IQueryFilter<ITransactionQuery>> name={"Sum"} {...props}/>;
 
-export const useSumOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>()
-export const useSumFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>()
+export const useSumOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>();
+export const useSumFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>();
 
 export interface ISumOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
 }
 
 export const SumOrderByProvider: FC<ISumOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> name={"Sum"} {...props}/>;
 
-export const useSumOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>()
-export const useSumOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>()
+export const useSumOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>();
+export const useSumOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>();
 
 export interface ISumSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>, ISumQueryParams>> {
 }
@@ -59,4 +59,4 @@ export const SumSourceControlProvider: FC<ISumSourceControlProviderProps> = prop
 export const useSumQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([SumApiLink]);
-}
+};

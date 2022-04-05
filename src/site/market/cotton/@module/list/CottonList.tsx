@@ -1,25 +1,25 @@
-import {ListItem, ListItemMeta} from "@leight-core/client";
-import {FC} from "react";
-import {Divider, Space, Typography} from "antd";
-import {CottonsListSource, ICottonsListSourceProps} from "@/sdk/api/cotton/query";
 import {CottonInventoryCreateButton} from "@/puff-smith/site/market/cotton";
+import {CottonsListSource, ICottonsListSourceProps} from "@/sdk/api/cotton/query";
+import {ListItem, ListItemMeta} from "@leight-core/client";
+import {Divider, Space, Typography} from "antd";
+import {FC} from "react";
 
 export interface ICottonListProps extends Partial<ICottonsListSourceProps> {
 }
 
 export const CottonList: FC<ICottonListProps> = props => {
 	return <CottonsListSource
-		itemLayout={'vertical'}
+		itemLayout={"vertical"}
 		{...props}
 	>
 		{cotton => <ListItem key={cotton.id}>
 			<ListItemMeta
-				title={<Space size={0} split={<Divider type={'vertical'}/>}>
+				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{cotton.name}
-					<Typography.Text type={'secondary'}>{cotton.vendor.name}</Typography.Text>
-					<CottonInventoryCreateButton type={'link'} cotton={cotton}/>
+					<Typography.Text type={"secondary"}>{cotton.vendor.name}</Typography.Text>
+					<CottonInventoryCreateButton type={"link"} cotton={cotton}/>
 				</Space>}
 			/>
 		</ListItem>}
 	</CottonsListSource>;
-}
+};

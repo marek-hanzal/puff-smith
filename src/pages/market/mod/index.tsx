@@ -6,12 +6,12 @@ import {ModsSourceControlProvider} from "@/sdk/api/mod/query";
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.mod.index"}
-		menuSelection={['/market/mod']}
+		menuSelection={["/market/mod"]}
 		icon={<ModIcon/>}
 	>
 		<ModsSourceControlProvider
 			defaultOrderBy={{
-				name: 'asc',
+				name: "asc",
 			}}
 			defaultPage={0}
 			defaultSize={5}

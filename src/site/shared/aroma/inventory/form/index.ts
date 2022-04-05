@@ -1,1 +1,1 @@
-export * from './InventoryAromaSelect';
+export * from "./InventoryAromaSelect";

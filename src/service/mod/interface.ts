@@ -1,7 +1,7 @@
+import {IVendor} from "@/puff-smith/service/vendor";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mod, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
-import {IVendor} from "@/puff-smith/service/vendor";
 
 export interface IModCreate {
 	name: string;

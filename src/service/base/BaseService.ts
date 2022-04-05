@@ -1,11 +1,11 @@
 import {IBaseService} from "@/puff-smith/service/base";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IBaseService>({
-	name: 'base',
+	name: "base",
 	source: prismaClient.base,
 	mapper: async base => ({
 		...base,
@@ -44,17 +44,17 @@ export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => 
 			{
 				name: {
 					contains: fulltext,
-					mode: 'insensitive',
+					mode: "insensitive",
 				}
 			},
 			{
 				vendor: {
 					name: {
 						contains: fulltext,
-						mode: 'insensitive',
+						mode: "insensitive",
 					},
 				}
 			},
 		],
 	} : filter,
-})
+});

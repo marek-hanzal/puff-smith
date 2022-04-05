@@ -1,9 +1,9 @@
-import {ApplicationLayout} from "@leight-core/client";
-import {FC} from "react";
 import {NotificationProvider} from "@/puff-smith";
 import {Footer, Header} from "@/puff-smith/site/market";
 import {AppLayout} from "@/puff-smith/site/shared";
 import {IPageWithLayout} from "@leight-core/api";
+import {ApplicationLayout} from "@leight-core/client";
+import {FC} from "react";
 
 export interface IMarketLayoutProps {
 }

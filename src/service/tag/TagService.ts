@@ -1,12 +1,12 @@
-import {IPrismaClientTransaction} from "@leight-core/api";
-import {ITagService} from "@/puff-smith/service/tag/interface";
-import {RepositoryService} from "@leight-core/server";
 import prisma from "@/puff-smith/service/prisma";
+import {ITagService} from "@/puff-smith/service/tag/interface";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 import {Tag} from "@prisma/client";
 
 export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITagService => ({
 	...RepositoryService<ITagService>({
-		name: 'tag',
+		name: "tag",
 		source: prismaClient.tag,
 		mapper: async tag => tag,
 		create: async tag => prismaClient.tag.create({
@@ -36,4 +36,4 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 			}
 		})))).filter(tag => tag !== null) as Tag[];
 	}
-})
+});

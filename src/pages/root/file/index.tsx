@@ -6,7 +6,7 @@ import {FileIcon} from "@leight-core/client";
 export default withRootLayout(function Index() {
 	return <RootPage
 		title={"root.file"}
-		menuSelection={['/root/file']}
+		menuSelection={["/root/file"]}
 		icon={<FileIcon/>}
 	>
 		<FilesSourceControlProvider>

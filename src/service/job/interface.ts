@@ -1,5 +1,5 @@
 import {IQuery} from "@leight-core/api";
-import {Job, Prisma} from '@prisma/client';
+import {Job, Prisma} from "@prisma/client";
 
 export type IJobs = Promise<Job[]>;
 

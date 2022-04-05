@@ -1,11 +1,11 @@
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IVoucherInventoryService, VoucherService} from "@/puff-smith/service/voucher";
 import {TransactionService} from "@/puff-smith/service/transaction";
+import {IVoucherInventoryService, VoucherService} from "@/puff-smith/service/voucher";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IVoucherInventoryService => RepositoryService<IVoucherInventoryService>({
-	name: 'voucher-inventory',
+	name: "voucher-inventory",
 	source: prismaClient.voucherInventory,
 	mapper: async voucherTransaction => ({
 		...voucherTransaction,
@@ -16,7 +16,7 @@ export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction =
 		const transactionService = TransactionService(prismaClient);
 		const voucher = await VoucherService(prismaClient).toMap(create.voucherId);
 		voucher.maxFortune && (await transactionService.sumOf(create.userId)) >= voucher.maxFortune && (() => {
-			throw new Error("Too much puffies")
+			throw new Error("Too much puffies");
 		})();
 		const transaction = await transactionService.create({
 			amount: voucher.cost,
@@ -31,4 +31,4 @@ export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction =
 			}
 		});
 	}),
-})
+});

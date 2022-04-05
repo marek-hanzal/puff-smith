@@ -1,13 +1,13 @@
 import {IAtomizerService} from "@/puff-smith/service/atomizer";
-import {boolean} from "boolean";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
-import {VendorService} from "@/puff-smith/service/vendor";
 import {TagService} from "@/puff-smith/service/tag";
+import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
+import {boolean} from "boolean";
 
 export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAtomizerService>({
-	name: 'atomizer',
+	name: "atomizer",
 	source: prismaClient.atomizer,
 	mapper: async atomizer => ({
 		...atomizer,
@@ -29,13 +29,13 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 				connect: {
 					code_group: {
 						code: `${type}`,
-						group: 'atomizer-type',
+						group: "atomizer-type",
 					}
 				}
 			},
 			AtomizerDraw: {
 				createMany: {
-					data: draw ? (await TagService(prismaClient).fetchCodes(draw, 'draw')).map(tag => ({
+					data: draw ? (await TagService(prismaClient).fetchCodes(draw, "draw")).map(tag => ({
 						drawId: tag.id,
 					})) : [],
 				}
@@ -70,13 +70,13 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 					connect: {
 						code_group: {
 							code: type,
-							group: 'atomizer-type',
+							group: "atomizer-type",
 						}
 					}
 				},
 				AtomizerDraw: {
 					createMany: {
-						data: draw ? (await TagService(prismaClient).fetchCodes(draw, 'draw')).map(tag => ({
+						data: draw ? (await TagService(prismaClient).fetchCodes(draw, "draw")).map(tag => ({
 							drawId: tag.id,
 						})) : [],
 					}
@@ -84,4 +84,4 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			},
 		});
 	}
-})
+});

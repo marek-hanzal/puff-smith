@@ -1,7 +1,7 @@
-import {ILiquidsListSourceProps, LiquidsListSource} from "@/sdk/api/liquid/query";
-import {FC} from "react";
-import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid";
+import {ILiquidsListSourceProps, LiquidsListSource} from "@/sdk/api/liquid/query";
+import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
+import {FC} from "react";
 
 export interface ILiquidListProps extends Partial<ILiquidsListSourceProps> {
 }
@@ -19,5 +19,5 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 				description={toLocalDateTime(liquid.created)}
 			/>
 		</ListItem>}
-	</LiquidsListSource>
-}
+	</LiquidsListSource>;
+};

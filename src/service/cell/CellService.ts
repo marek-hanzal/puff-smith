@@ -1,12 +1,12 @@
 import {ICellService} from "@/puff-smith/service/cell";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
-import {VendorService} from "@/puff-smith/service/vendor";
 import {TagService} from "@/puff-smith/service/tag";
+import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const CellService = (prismaClient: IPrismaClientTransaction = prisma): ICellService => RepositoryService<ICellService>({
-	name: 'cell',
+	name: "cell",
 	source: prismaClient.cell,
 	mapper: async cell => ({
 		...cell,
@@ -29,7 +29,7 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 				connect: {
 					code_group: {
 						code: `${type}`,
-						group: 'cell-type',
+						group: "cell-type",
 					}
 				}
 			},
@@ -53,7 +53,7 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 				connect: {
 					code_group: {
 						code: `${type}`,
-						group: 'cell-type',
+						group: "cell-type",
 					}
 				}
 			},

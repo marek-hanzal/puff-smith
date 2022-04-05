@@ -1,8 +1,8 @@
 import {LogoIcon} from "@/puff-smith";
-import {PageHeader, PageHeaderProps} from "antd";
-import {LinkTo} from "@leight-core/client";
-import {FC} from "react";
 import {PublicMenu} from "@/puff-smith/site/public";
+import {LinkTo} from "@leight-core/client";
+import {PageHeader, PageHeaderProps} from "antd";
+import {FC} from "react";
 
 export interface IHeaderProps extends Partial<PageHeaderProps> {
 }
@@ -15,8 +15,8 @@ export const Header: FC<IHeaderProps> = props => {
 		</LinkTo>}
 		subTitle={<PublicMenu/>}
 		style={{
-			minHeight: '8vh',
+			minHeight: "8vh",
 		}}
 		{...props}
-	/>
+	/>;
 };

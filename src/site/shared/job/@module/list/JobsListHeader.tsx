@@ -1,11 +1,11 @@
-import {FC} from "react";
-import {Button, message} from "antd";
 import {JobsFilter} from "@/puff-smith/site/shared/job";
-import {ButtonBar} from "@leight-core/client";
-import {useTranslation} from "react-i18next";
 import {useCleanupMutation} from "@/sdk/api/job/cleanup";
-import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/job/query";
 import {useCommitMutation} from "@/sdk/api/job/commit";
+import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/job/query";
+import {ButtonBar} from "@leight-core/client";
+import {Button, message} from "antd";
+import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface IJobsListHeaderProps {
 	showCommit?: boolean;
@@ -22,31 +22,31 @@ export const JobsListHeader: FC<IJobsListHeaderProps> = ({showCommit = true, sho
 	return <ButtonBar>
 		{showFilter && <JobsFilter spaceProps={{split: undefined}}/>}
 		{showCommit && <Button
-			type={'link'}
+			type={"link"}
 			onClick={() => {
 				commitMutation.mutate(undefined, {
 					onSuccess: async () => {
-						message.success(t('common.job.commit-all.success'));
+						message.success(t("common.job.commit-all.success"));
 						await jobsQueryInvalidate();
 					}
 				});
 			}}
 		>
-			{t('common.job.commit-all.button')}
+			{t("common.job.commit-all.button")}
 		</Button>}
 		{showCleanup && <Button
-			type={'ghost'}
+			type={"ghost"}
 			danger
 			onClick={() => {
 				cleanupMutation.mutate(filterContext?.filter, {
 					onSuccess: async () => {
-						message.success(t('common.job.cleanup.success'));
+						message.success(t("common.job.cleanup.success"));
 						await jobsQueryInvalidate();
 					}
 				});
 			}}
 		>
-			{t('common.job.cleanup.button')}
+			{t("common.job.cleanup.button")}
 		</Button>}
 	</ButtonBar>;
-}
+};

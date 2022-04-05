@@ -1,2 +1,2 @@
-export * from './EmailButton';
-export * from './GithubButton';
+export * from "./EmailButton";
+export * from "./GithubButton";

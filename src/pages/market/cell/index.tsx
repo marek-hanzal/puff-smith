@@ -6,12 +6,12 @@ import {CellsSourceControlProvider} from "@/sdk/api/cell/query";
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.cell.index"}
-		menuSelection={['/market/cell']}
+		menuSelection={["/market/cell"]}
 		icon={<CellIcon/>}
 	>
 		<CellsSourceControlProvider
 			defaultOrderBy={{
-				name: 'asc',
+				name: "asc",
 			}}
 			defaultPage={0}
 			defaultSize={5}

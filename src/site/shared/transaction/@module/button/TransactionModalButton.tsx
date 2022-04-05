@@ -1,10 +1,10 @@
-import {PropsWithChildren} from "react";
-import {ModalButton, toHumanNumber} from "@leight-core/client";
-import {Trans, useTranslation} from "react-i18next";
-import {usePuffiesQuery, usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {Price, PurchaseIcon} from "@/puff-smith";
-import {ButtonProps, message, Tooltip} from "antd";
+import {usePuffiesQuery, usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {IMutationHook} from "@leight-core/api";
+import {ModalButton, toHumanNumber} from "@leight-core/client";
+import {ButtonProps, message, Tooltip} from "antd";
+import {PropsWithChildren} from "react";
+import {Trans, useTranslation} from "react-i18next";
 import {UseQueryResult} from "react-query";
 
 type IMutationRequest<T> = T extends IMutationHook<infer TRequest, any> ? TRequest : T;
@@ -32,33 +32,33 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 	const puffiesQuery = usePuffiesQuery();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const createMutation = useCreateMutation();
-	return <Tooltip title={t(translation + '.buy.tooltip')}>
+	return <Tooltip title={t(translation + ".buy.tooltip")}>
 		<ModalButton
 			button={{
 				icon: <PurchaseIcon/>,
-				type: 'primary',
+				type: "primary",
 				ghost: true,
-				size: 'large',
+				size: "large",
 				disabled: isDisabled(cost, puffiesQuery),
-				children: <span><Price price={cost} defaultText={translation + '.buy.free'}/></span>,
+				children: <span><Price price={cost} defaultText={translation + ".buy.free"}/></span>,
 				...props,
 			}}
-			okText={t(translation + '.buy.confirm.button')}
-			title={t(translation + '.buy.confirm.title')}
+			okText={t(translation + ".buy.confirm.button")}
+			title={t(translation + ".buy.confirm.title")}
 			onOk={setShow => {
 				createMutation.mutate(toMutate(), {
 					onSuccess: async data => {
-						message.success(t(translation + '.buy.success', {data}));
+						message.success(t(translation + ".buy.success", {data}));
 						await puffiesQueryInvalidate();
 					},
 					onError: error => {
-						message.error(t(translation + '.buy.error.' + error?.response?.data, t(translation + '.buy.error')));
+						message.error(t(translation + ".buy.error." + error?.response?.data, t(translation + ".buy.error")));
 					}
 				});
 				setShow(false);
 			}}
 		>
-			<Trans i18nKey={translation + '.buy.confirm.content'} values={{cost: toHumanNumber(cost || 0, 4)}}/>
+			<Trans i18nKey={translation + ".buy.confirm.content"} values={{cost: toHumanNumber(cost || 0, 4)}}/>
 		</ModalButton>
 	</Tooltip>;
 }

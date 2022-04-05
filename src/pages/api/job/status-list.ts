@@ -1,14 +1,14 @@
-import {QueryEndpoint} from '@leight-core/server';
 import {IBaseSelectOption, IJobStatus, IQuery} from "@leight-core/api";
+import {QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"StatusList", IQuery, IBaseSelectOption>(async () => {
 	const items: IJobStatus[] = [
-		'NEW',
-		'RUNNING',
-		'FAILURE',
-		'SUCCESS',
-		'REVIEW',
-		'DONE',
+		"NEW",
+		"RUNNING",
+		"FAILURE",
+		"SUCCESS",
+		"REVIEW",
+		"DONE",
 	];
 	return {
 		total: items.length,

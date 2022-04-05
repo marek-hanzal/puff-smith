@@ -1,1 +1,1 @@
-export * from './BaseNameInline';
+export * from "./BaseNameInline";

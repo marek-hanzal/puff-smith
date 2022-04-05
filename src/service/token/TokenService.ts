@@ -1,12 +1,12 @@
-import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
 import {ITokenService} from "@/puff-smith/service/token";
+import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
 export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): ITokenService => {
 	const service: ITokenService = ({
 		...RepositoryService<ITokenService>({
-			name: 'token',
+			name: "token",
 			source: prismaClient.token,
 			mapper: async token => token,
 			create: async create => prismaClient.token.create({
@@ -31,4 +31,4 @@ export const TokenService = (prismaClient: IPrismaClientTransaction = prisma): I
 	});
 
 	return service;
-}
+};

@@ -1,11 +1,11 @@
-import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
 import {AtomizerService, IAtomizerInventoryService} from "@/puff-smith/service/atomizer";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import prisma from "@/puff-smith/service/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const AtomizerInventoryService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAtomizerInventoryService>({
-	name: 'atomizer-inventory',
+	name: "atomizer-inventory",
 	source: prismaClient.atomizerInventory,
 	mapper: async atomizerInventory => ({
 		...atomizerInventory,

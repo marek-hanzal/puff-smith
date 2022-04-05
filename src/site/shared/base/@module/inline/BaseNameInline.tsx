@@ -1,6 +1,6 @@
-import {FC} from "react";
-import {Space, SpaceProps, Typography} from "antd";
 import {IBase} from "@/puff-smith/service/base";
+import {Space, SpaceProps, Typography} from "antd";
+import {FC} from "react";
 
 export interface IBaseNameInlineProps extends Partial<SpaceProps> {
 	base: IBase;
@@ -9,6 +9,6 @@ export interface IBaseNameInlineProps extends Partial<SpaceProps> {
 export const BaseNameInline: FC<IBaseNameInlineProps> = ({base, ...props}) => {
 	return <Space {...props}>
 		{base.name}
-		<Typography.Text type={'secondary'}>{base.vendor.name}</Typography.Text>
+		<Typography.Text type={"secondary"}>{base.vendor.name}</Typography.Text>
 	</Space>;
-}
+};

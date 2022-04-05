@@ -1,11 +1,11 @@
-import {ITranslationService} from "@/puff-smith/service/translation/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {handleUniqueException, RepositoryService} from "@leight-core/server";
 import {sha256} from "@/puff-smith/service/sha256";
+import {ITranslationService} from "@/puff-smith/service/translation/interface";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {handleUniqueException, RepositoryService} from "@leight-core/server";
 
 export const TranslationService = (prismaClient: IPrismaClientTransaction = prisma): ITranslationService => RepositoryService<ITranslationService>({
-	name: 'translation',
+	name: "translation",
 	source: prismaClient.translation,
 	mapper: async translation => ({
 		key: translation.label,
@@ -19,7 +19,7 @@ export const TranslationService = (prismaClient: IPrismaClientTransaction = pris
 					...create,
 					hash,
 				}
-			})
+			});
 		} catch (e) {
 			return handleUniqueException(e, async () => prismaClient.translation.update({
 				where: {
@@ -32,4 +32,4 @@ export const TranslationService = (prismaClient: IPrismaClientTransaction = pris
 			}));
 		}
 	}
-})
+});

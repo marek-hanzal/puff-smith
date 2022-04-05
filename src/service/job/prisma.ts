@@ -1,9 +1,9 @@
 import {IJobCreate, IJobFilter, IJobQuery} from "@/puff-smith/service/job/interface";
+import {jobListMapper} from "@/puff-smith/service/job/mapper";
 import prisma from "@/puff-smith/service/prisma";
 import prismaClient from "@/puff-smith/service/prisma";
 import {IJobStatus, IPrismaClientTransaction} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
-import {jobListMapper} from "@/puff-smith/service/job/mapper";
 import {toQuery} from "@leight-core/server";
 
 export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTransaction = prisma) {
@@ -13,14 +13,14 @@ export async function jobCreate(job: IJobCreate, prismaClient: IPrismaClientTran
 			params: job.params && JSON.stringify(job.params),
 			created: new Date(),
 		}
-	})
+	});
 }
 
 export const jobQuery = async (query: IJobQuery) => toQuery<typeof jobListMapper, IJobQuery>({
 	query,
 	source: prismaClient.job,
 	mapper: jobListMapper,
-})
+});
 
 export const jobCleanup = async (filter?: IJobFilter) => {
 	await prismaClient.job.deleteMany(filter && {
@@ -33,15 +33,15 @@ export const jobCommit = async () => {
 	await prismaClient.job.updateMany({
 		where: {
 			status: {
-				in: ['REVIEW', 'FAILURE', 'SUCCESS'],
+				in: ["REVIEW", "FAILURE", "SUCCESS"],
 			}
 		},
 		data: {
-			status: 'DONE',
+			status: "DONE",
 		}
 	});
 	return true;
-}
+};
 
 export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
 	return await prismaClient.job.update({
@@ -51,7 +51,7 @@ export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
 		where: {
 			id: jobId,
 		}
-	})
+	});
 }
 
 export async function jobUpdateTotal(jobId: string, total: number) {
@@ -62,7 +62,7 @@ export async function jobUpdateTotal(jobId: string, total: number) {
 		where: {
 			id: jobId,
 		}
-	})
+	});
 }
 
 export async function jobUpdateSuccess(jobId: string, success: number, total: number, processed: number) {
@@ -75,7 +75,7 @@ export async function jobUpdateSuccess(jobId: string, success: number, total: nu
 		where: {
 			id: jobId,
 		}
-	})
+	});
 }
 
 export async function jobUpdateFailure(jobId: string, failure: number, total: number, processed: number) {
@@ -88,7 +88,7 @@ export async function jobUpdateFailure(jobId: string, failure: number, total: nu
 		where: {
 			id: jobId,
 		}
-	})
+	});
 }
 
 export async function jobUpdateSkip(jobId: string, skip: number, total: number, processed: number) {
@@ -101,5 +101,5 @@ export async function jobUpdateSkip(jobId: string, skip: number, total: number, 
 		where: {
 			id: jobId,
 		}
-	})
+	});
 }

@@ -6,16 +6,16 @@ import ImportJob from "@/puff-smith/agenda/job/import";
 		ImportJob,
 	];
 
-	console.log('Registering jobs...');
-	jobs.map(job => job(agenda))
-	console.log('Starting Agenda...');
+	console.log("Registering jobs...");
+	jobs.map(job => job(agenda));
+	console.log("Starting Agenda...");
 	await agenda.start();
-	console.log('Started!');
+	console.log("Started!");
 
 	async function graceful() {
-		console.log('Graceful shutdown of Agenda');
+		console.log("Graceful shutdown of Agenda");
 		await agenda.stop();
-		console.log('Done!');
+		console.log("Done!");
 		process.exit(0);
 	}
 

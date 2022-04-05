@@ -1,8 +1,8 @@
 import {LogoIcon, SignOutButton} from "@/puff-smith";
-import {PageHeader, PageHeaderProps} from "antd";
-import {LinkTo} from "@leight-core/client";
-import {FC} from "react";
 import {RootMenu} from "@/puff-smith/site/root";
+import {LinkTo} from "@leight-core/client";
+import {PageHeader, PageHeaderProps} from "antd";
+import {FC} from "react";
 
 export interface IHeaderProps extends Partial<PageHeaderProps> {
 }
@@ -15,11 +15,11 @@ export const Header: FC<IHeaderProps> = props => {
 		</LinkTo>}
 		subTitle={<RootMenu/>}
 		style={{
-			minHeight: '8vh',
+			minHeight: "8vh",
 		}}
 		extra={[
-			<SignOutButton key={'logout'}/>,
+			<SignOutButton key={"logout"}/>,
 		]}
 		{...props}
-	/>
+	/>;
 };

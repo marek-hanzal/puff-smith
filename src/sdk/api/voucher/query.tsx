@@ -3,8 +3,6 @@
  */
 
 import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const VouchersApiLink = "/api/voucher/query";
 
@@ -38,7 +38,7 @@ export type IVouchersQueryParams = undefined;
 
 export const useVouchersQuery = createQueryHook<IVoucherQuery, IQueryResult<IVoucher>, IVouchersQueryParams>(VouchersApiLink, "post");
 
-export const useVouchersSource = () => useSourceContext<IVoucher>()
+export const useVouchersSource = () => useSourceContext<IVoucher>();
 
 export interface IVouchersSourceContext extends ISourceContext<IVoucher> {
 }
@@ -57,12 +57,12 @@ export const VouchersSource: FC<IVouchersSourceProps> = props => {
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useVouchersLink = (): ((queryParams?: IVouchersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(VouchersApiLink, queryParams);
-}
+};
 
 export const useVouchersPromise = createPromiseHook<IVoucherQuery, IVoucher, IVouchersQueryParams>(VouchersApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IVouchersFilterProviderProps extends Partial<IFilterProviderPro
 
 export const VouchersFilterProvider: FC<IVouchersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
-export const useVouchersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherQuery>>()
-export const useVouchersFilterContext = () => useFilterContext<IQueryFilter<IVoucherQuery>>()
+export const useVouchersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherQuery>>();
+export const useVouchersFilterContext = () => useFilterContext<IQueryFilter<IVoucherQuery>>();
 
 export interface IVouchersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVoucherQuery>> {
 }
 
 export const VouchersSourceFilter: FC<IVouchersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Vouchers'}
+	translation={"common.filter.Vouchers"}
 />;
 
 export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IVoucherQuery>>> {
@@ -87,8 +87,8 @@ export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderP
 
 export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
-export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IVoucherQuery>>()
-export const useVouchersOrderByContext = () => useOrderByContext<IQueryFilter<IVoucherQuery>>()
+export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IVoucherQuery>>();
+export const useVouchersOrderByContext = () => useOrderByContext<IQueryFilter<IVoucherQuery>>();
 
 export interface IVouchersListSourceProps extends Partial<IListProps<IVoucher>> {
 	sourceProps?: Partial<IVouchersSourceProps>;
@@ -106,8 +106,8 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 		<List<IVoucher>
 			{...props}
 		/>
-	</VouchersSource>
-}
+	</VouchersSource>;
+};
 
 export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVoucher> {
 	toOption: IToOptionMapper<IVoucher>;
@@ -123,4 +123,4 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersApiLink]);
-}
+};

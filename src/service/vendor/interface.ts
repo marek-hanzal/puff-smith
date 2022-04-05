@@ -1,5 +1,5 @@
-import {Prisma, Vendor} from "@prisma/client";
 import {IQuery, IRepositoryService} from "@leight-core/api";
+import {Prisma, Vendor} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IVendorCreate {

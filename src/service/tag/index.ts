@@ -1,2 +1,2 @@
-export * from './interface';
-export * from './TagService';
+export * from "./interface";
+export * from "./TagService";

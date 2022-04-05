@@ -1,2 +1,2 @@
-export * from './CellInventoryService';
-export * from './interface';
+export * from "./CellInventoryService";
+export * from "./interface";

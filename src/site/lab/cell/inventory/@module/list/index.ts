@@ -1,1 +1,1 @@
-export * from './CellInventoryList';
+export * from "./CellInventoryList";

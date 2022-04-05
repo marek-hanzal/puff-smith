@@ -3,8 +3,6 @@
  */
 
 import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {
 	createPromiseHook,
 	createQueryHook,
@@ -30,6 +28,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export interface IImagesDto {
 }
@@ -40,7 +40,7 @@ export type IImagesQueryParams = undefined;
 
 export const useImagesQuery = createQueryHook<IQuery, IQueryResult<IImagesDto>, IImagesQueryParams>(ImagesApiLink, "post");
 
-export const useImagesSource = () => useSourceContext<IImagesDto>()
+export const useImagesSource = () => useSourceContext<IImagesDto>();
 
 export interface IImagesSourceContext extends ISourceContext<IImagesDto> {
 }
@@ -59,12 +59,12 @@ export const ImagesSource: FC<IImagesSourceProps> = props => {
 		useQuery={useImagesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useImagesLink = (): ((queryParams?: IImagesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(ImagesApiLink, queryParams);
-}
+};
 
 export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
 
@@ -73,15 +73,15 @@ export interface IImagesFilterProviderProps extends Partial<IFilterProviderProps
 
 export const ImagesFilterProvider: FC<IImagesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"Images"} {...props}/>;
 
-export const useImagesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
-export const useImagesFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
+export const useImagesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
+export const useImagesFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
 
 export interface IImagesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
 }
 
 export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Images'}
+	translation={"common.filter.Images"}
 />;
 
 export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
@@ -89,8 +89,8 @@ export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderPro
 
 export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"Images"} {...props}/>;
 
-export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>()
-export const useImagesOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>()
+export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>();
+export const useImagesOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>();
 
 export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto>> {
 	sourceProps?: Partial<IImagesSourceProps>;
@@ -108,8 +108,8 @@ export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...pr
 		<List<IImagesDto>
 			{...props}
 		/>
-	</ImagesSource>
-}
+	</ImagesSource>;
+};
 
 export interface IImagesSourceSelectProps extends IQuerySourceSelectProps<IImagesDto> {
 	toOption: IToOptionMapper<IImagesDto>;
@@ -125,4 +125,4 @@ export const ImagesSourceSelect: FC<IImagesSourceSelectProps> = ({sourceProps, .
 export const useImagesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ImagesApiLink]);
-}
+};

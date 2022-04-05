@@ -1,8 +1,8 @@
+import {UserIcon} from "@/puff-smith";
 import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {Tooltip} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {UserIcon} from "@/puff-smith";
 
 export interface IUserProfileButtonProps extends Partial<IButtonLinkProps> {
 }

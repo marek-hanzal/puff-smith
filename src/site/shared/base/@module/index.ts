@@ -1,2 +1,2 @@
-export * from './form';
-export * from './inline';
+export * from "./form";
+export * from "./inline";

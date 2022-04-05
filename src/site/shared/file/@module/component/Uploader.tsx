@@ -1,4 +1,7 @@
+import {useCommitPromise} from "@/sdk/api/file/chunk/[chunkId]/commit";
+import {UploadApiLink, useUploadLink} from "@/sdk/api/file/chunk/[chunkId]/upload";
 import {CheckCircleOutlined} from "@ant-design/icons";
+import {IFile} from "@leight-core/api";
 import {DeleteItemIcon, isString, toHumanBytes} from "@leight-core/client";
 import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
 import {RcFile, UploadChangeParam} from "antd/lib/upload";
@@ -7,9 +10,6 @@ import {UploadRequestOption} from "rc-upload/lib/interface";
 import {FC, ReactNode, useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {v4} from "uuid";
-import {useCommitPromise} from "@/sdk/api/file/chunk/[chunkId]/commit";
-import {UploadApiLink, useUploadLink} from "@/sdk/api/file/chunk/[chunkId]/upload";
-import {IFile} from "@leight-core/api";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -90,7 +90,7 @@ export const Uploader: FC<IUploaderProps> = (
 		try {
 			await axios.post(chunkLink({chunkId: uuid}), chunk, {
 				headers: {
-					'Content-Type': 'application/octet-stream',
+					"Content-Type": "application/octet-stream",
 				},
 				onUploadProgress: event => setProgressSize(size => size + event.loaded),
 			});

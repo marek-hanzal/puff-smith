@@ -23,20 +23,20 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			transaction: await TransactionService(prismaClient).toMap(liquid.transactionId),
 		}),
 		create: async create => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
-				tariff: 'default',
-				userId: create.userId,
-				price: 'lab.liquid.create',
-				note: 'New liquid',
-				callback: (_, transaction) => prismaClient.liquid.create({
-					data: {
-						...create,
-						transactionId: transaction.id,
-						created: new Date(),
-						mixed: create.mixed || new Date(),
-						steep: 14,
-						pg: 0,
-						vg: 0,
-						nicotine: 0,
+			tariff: "default",
+			userId: create.userId,
+			price: "lab.liquid.create",
+			note: "New liquid",
+			callback: (_, transaction) => prismaClient.liquid.create({
+				data: {
+					...create,
+					transactionId: transaction.id,
+					created: new Date(),
+					mixed: create.mixed || new Date(),
+					steep: 14,
+					pg: 0,
+					vg: 0,
+					nicotine: 0,
 					},
 				})
 			})
@@ -72,12 +72,12 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 						pg: 23,
 						vg: 72,
 					}
-				}
+				};
 			}
 			if (aroma) {
 				return {
 					aroma: _aroma,
-				}
+				};
 			}
 
 			if (base) {
@@ -86,10 +86,10 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 						pg: base.pg.toNumber(),
 						vg: base.vg.toNumber(),
 					}
-				}
+				};
 			}
 
 			return {};
 		}
 	};
-}
+};

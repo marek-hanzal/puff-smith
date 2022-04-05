@@ -1,1 +1,1 @@
-export * from './CellInventoryCreateButton';
+export * from "./CellInventoryCreateButton";

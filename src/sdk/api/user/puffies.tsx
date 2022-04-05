@@ -2,10 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";
-import {useQueryClient} from "react-query";
 import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createContext, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const PuffiesApiLink = "/api/user/puffies";
 
@@ -32,12 +32,12 @@ export const usePuffiesQuery = createQueryHook<void, number, IPuffiesQueryParams
 export const usePuffiesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([PuffiesApiLink]);
-}
+};
 
 export const usePuffiesLink = (): ((query: IPuffiesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(PuffiesApiLink, query);
-}
+};
 
 export const usePuffiesPromise = createPromiseHook<void, number, IPuffiesQueryParams>(PuffiesApiLink, "get");
 

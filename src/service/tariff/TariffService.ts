@@ -1,15 +1,15 @@
-import {IPrismaClientTransaction} from "@leight-core/api";
-import prisma from "@/puff-smith/service/prisma";
-import {handleUniqueException, RepositoryService} from "@leight-core/server";
-import {ITariffService} from "@/puff-smith/service/tariff/interface";
 import {CodeService} from "@/puff-smith/service/code";
 import {PriceService} from "@/puff-smith/service/price";
+import prisma from "@/puff-smith/service/prisma";
+import {ITariffService} from "@/puff-smith/service/tariff/interface";
 import {TransactionService} from "@/puff-smith/service/transaction";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {handleUniqueException, RepositoryService} from "@leight-core/server";
 import {Price} from "@prisma/client";
 
 export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): ITariffService => ({
 	...RepositoryService<ITariffService>({
-		name: 'tariff',
+		name: "tariff",
 		source: prismaClient.tariff,
 		mapper: async tariff => ({
 			...tariff,
@@ -70,6 +70,6 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 				rejectOnNotFound: true,
 			}), transaction),
 			note
-		})
+		});
 	}
-})
+});

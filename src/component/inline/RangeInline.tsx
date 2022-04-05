@@ -1,5 +1,5 @@
-import {FC} from "react";
 import {toHumanNumber} from "@leight-core/client";
+import {FC} from "react";
 
 export interface IRangeInlineProps {
 	from?: number | null;
@@ -11,8 +11,8 @@ export const RangeInline: FC<IRangeInlineProps> = ({from, to}) => {
 	return <>
 		{from && to && from === to && <span>={toHumanNumber(from, max)}</span>}
 		{from && to && from !== to && <span>{toHumanNumber(from, max)}-{toHumanNumber(to, max)}</span>}
-		{from && !to && <span>{'>='}{toHumanNumber(from, max)}</span>}
-		{!from && to && <span>{'<='}{toHumanNumber(to, max)}</span>}
-		{!from && !to && '-'}
-	</>
-}
+		{from && !to && <span>{">="}{toHumanNumber(from, max)}</span>}
+		{!from && to && <span>{"<="}{toHumanNumber(to, max)}</span>}
+		{!from && !to && "-"}
+	</>;
+};

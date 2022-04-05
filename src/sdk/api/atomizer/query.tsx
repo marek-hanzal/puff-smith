@@ -3,8 +3,6 @@
  */
 
 import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const AtomizersApiLink = "/api/atomizer/query";
 
@@ -38,7 +38,7 @@ export type IAtomizersQueryParams = undefined;
 
 export const useAtomizersQuery = createQueryHook<IAtomizerQuery, IQueryResult<IAtomizer>, IAtomizersQueryParams>(AtomizersApiLink, "post");
 
-export const useAtomizersSource = () => useSourceContext<IAtomizer>()
+export const useAtomizersSource = () => useSourceContext<IAtomizer>();
 
 export interface IAtomizersSourceContext extends ISourceContext<IAtomizer> {
 }
@@ -57,12 +57,12 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useAtomizersLink = (): ((queryParams?: IAtomizersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(AtomizersApiLink, queryParams);
-}
+};
 
 export const useAtomizersPromise = createPromiseHook<IAtomizerQuery, IAtomizer, IAtomizersQueryParams>(AtomizersApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IAtomizersFilterProviderProps extends Partial<IFilterProviderPr
 
 export const AtomizersFilterProvider: FC<IAtomizersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
-export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>()
-export const useAtomizersFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>()
+export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useAtomizersFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
 
 export interface IAtomizersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
 }
 
 export const AtomizersSourceFilter: FC<IAtomizersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Atomizers'}
+	translation={"common.filter.Atomizers"}
 />;
 
 export interface IAtomizersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAtomizerQuery>>> {
@@ -87,8 +87,8 @@ export interface IAtomizersOrderByProviderProps extends Partial<IOrderByProvider
 
 export const AtomizersOrderByProvider: FC<IAtomizersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
-export const useAtomizersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAtomizerQuery>>()
-export const useAtomizersOrderByContext = () => useOrderByContext<IQueryFilter<IAtomizerQuery>>()
+export const useAtomizersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAtomizerQuery>>();
+export const useAtomizersOrderByContext = () => useOrderByContext<IQueryFilter<IAtomizerQuery>>();
 
 export interface IAtomizersListSourceProps extends Partial<IListProps<IAtomizer>> {
 	sourceProps?: Partial<IAtomizersSourceProps>;
@@ -106,8 +106,8 @@ export const AtomizersListSource: FC<IAtomizersListSourceProps> = ({sourceProps,
 		<List<IAtomizer>
 			{...props}
 		/>
-	</AtomizersSource>
-}
+	</AtomizersSource>;
+};
 
 export interface IAtomizersSourceSelectProps extends IQuerySourceSelectProps<IAtomizer> {
 	toOption: IToOptionMapper<IAtomizer>;
@@ -123,4 +123,4 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 export const useAtomizersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersApiLink]);
-}
+};

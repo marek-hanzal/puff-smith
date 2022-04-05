@@ -1,5 +1,5 @@
-import {MutationEndpoint} from "@leight-core/server";
 import {IVoucherInventory, IVoucherInventoryCreate, VoucherInventoryService} from "@/puff-smith/service/voucher";
+import {MutationEndpoint} from "@leight-core/server";
 
 export default MutationEndpoint<"Create", Omit<IVoucherInventoryCreate, "userId">, IVoucherInventory>(async ({res, request, toUserId}) => {
 	try {
@@ -11,7 +11,7 @@ export default MutationEndpoint<"Create", Omit<IVoucherInventoryCreate, "userId"
 		});
 	} catch (e) {
 		if ((e as Error).message?.includes("Too much puffies")) {
-			res.status(409).end('Too much puffies');
+			res.status(409).end("Too much puffies");
 			return;
 		}
 	}

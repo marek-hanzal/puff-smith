@@ -1,8 +1,8 @@
+import {IUploaderProps, Uploader} from "@/puff-smith/site/shared/file";
 import {CopyOutlined, EditOutlined, SaveOutlined} from "@ant-design/icons";
 import {BoolInline, Centered, Form, FormItem, Preview, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, Input, Row} from "antd";
 import {FC, useState} from "react";
-import {IUploaderProps, Uploader} from "@/puff-smith/site/shared/file";
 
 export interface IFileUploadProps extends Partial<IUploaderProps> {
 	translation: string;

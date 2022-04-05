@@ -1,6 +1,6 @@
-import {FC} from "react";
-import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
+import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
+import {FC} from "react";
 
 export interface IBoosterSelectProps extends Partial<IBoostersSourceSelectProps> {
 }
@@ -16,5 +16,5 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</BoostersFilterProvider>
-}
+	</BoostersFilterProvider>;
+};

@@ -6,12 +6,12 @@ import {CottonsSourceControlProvider} from "@/sdk/api/cotton/query";
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.cotton.index"}
-		menuSelection={['/market/cotton']}
+		menuSelection={["/market/cotton"]}
 		icon={<CottonIcon/>}
 	>
 		<CottonsSourceControlProvider
 			defaultOrderBy={{
-				name: 'asc',
+				name: "asc",
 			}}
 			defaultPage={0}
 			defaultSize={5}

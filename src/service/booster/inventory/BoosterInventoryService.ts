@@ -1,11 +1,11 @@
-import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
 import {BoosterService, IBoosterInventoryService} from "@/puff-smith/service/booster";
+import prisma from "@/puff-smith/service/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const BoosterInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IBoosterInventoryService => RepositoryService<IBoosterInventoryService>({
-	name: 'booster-inventory',
+	name: "booster-inventory",
 	source: prismaClient.boosterInventory,
 	mapper: async boosterTransaction => ({
 		...boosterTransaction,

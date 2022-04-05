@@ -1,11 +1,11 @@
-import {IPrismaClientTransaction} from "@leight-core/api";
-import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
 import {IPriceService} from "@/puff-smith/service/price/interface";
+import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): IPriceService => {
-	const priceOf: IPriceService['priceOf'] = async (tariff, price) => prismaClient.price.findFirst({
+	const priceOf: IPriceService["priceOf"] = async (tariff, price) => prismaClient.price.findFirst({
 		where: {
 			name: price,
 			tariff: {
@@ -15,11 +15,11 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 		orderBy: [
 			{
 				tariff: {
-					created: 'desc',
+					created: "desc",
 				}
 			},
 			{
-				created: 'desc',
+				created: "desc",
 			},
 		],
 		rejectOnNotFound: true,
@@ -27,7 +27,7 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 
 	return {
 		...RepositoryService<IPriceService>({
-			name: 'price',
+			name: "price",
 			source: prismaClient.price,
 			mapper: async price => ({
 				...price,
@@ -58,4 +58,4 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 			}
 		}
 	};
-}
+};

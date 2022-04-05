@@ -5,10 +5,10 @@ import {Trans} from "react-i18next";
 export default withPublicLayout(function Index() {
 	return <PublicPage
 		title={"public.tos"}
-		menuSelection={['/public/tos']}
+		menuSelection={["/public/tos"]}
 	>
 		<Template>
-			<Trans i18nKey={'public.tos.content'}/>
+			<Trans i18nKey={"public.tos.content"}/>
 		</Template>
 	</PublicPage>;
 });

@@ -1,2 +1,2 @@
-export * from './interface';
-export * from './VoucherInventoryService';
+export * from "./interface";
+export * from "./VoucherInventoryService";

@@ -6,7 +6,7 @@ import {AromasSourceControlProvider} from "@/sdk/api/aroma/query";
 export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.aroma.inventory.index"}
-		menuSelection={['/lab/aroma/inventory']}
+		menuSelection={["/lab/aroma/inventory"]}
 		icon={<LiquidIcon/>}
 	>
 		<AromasSourceControlProvider>

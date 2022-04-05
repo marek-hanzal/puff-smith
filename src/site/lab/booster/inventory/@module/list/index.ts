@@ -1,1 +1,1 @@
-export * from './BoosterInventoryList';
+export * from "./BoosterInventoryList";

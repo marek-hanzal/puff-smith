@@ -1,1 +1,1 @@
-export * from './ModInventoryCreateButton';
+export * from "./ModInventoryCreateButton";

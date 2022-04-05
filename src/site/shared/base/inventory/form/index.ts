@@ -1,1 +1,1 @@
-export * from './InventoryBaseSelect';
+export * from "./InventoryBaseSelect";

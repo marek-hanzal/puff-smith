@@ -3,8 +3,6 @@
  */
 
 import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {
 	createPromiseHook,
 	createQueryHook,
@@ -30,6 +28,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const StatusListApiLink = "/api/job/status-list";
 
@@ -37,7 +37,7 @@ export type IStatusListQueryParams = undefined;
 
 export const useStatusListQuery = createQueryHook<IQuery, IQueryResult<IBaseSelectOption>, IStatusListQueryParams>(StatusListApiLink, "post");
 
-export const useStatusListSource = () => useSourceContext<IBaseSelectOption>()
+export const useStatusListSource = () => useSourceContext<IBaseSelectOption>();
 
 export interface IStatusListSourceContext extends ISourceContext<IBaseSelectOption> {
 }
@@ -56,12 +56,12 @@ export const StatusListSource: FC<IStatusListSourceProps> = props => {
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useStatusListLink = (): ((queryParams?: IStatusListQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(StatusListApiLink, queryParams);
-}
+};
 
 export const useStatusListPromise = createPromiseHook<IQuery, IBaseSelectOption, IStatusListQueryParams>(StatusListApiLink, "post");
 
@@ -70,15 +70,15 @@ export interface IStatusListFilterProviderProps extends Partial<IFilterProviderP
 
 export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
-export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
+export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
+export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
 
 export interface IStatusListSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
 }
 
 export const StatusListSourceFilter: FC<IStatusListSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.StatusList'}
+	translation={"common.filter.StatusList"}
 />;
 
 export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
@@ -86,8 +86,8 @@ export interface IStatusListOrderByProviderProps extends Partial<IOrderByProvide
 
 export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>()
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>()
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>();
+export const useStatusListOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>();
 
 export interface IStatusListListSourceProps extends Partial<IListProps<IBaseSelectOption>> {
 	sourceProps?: Partial<IStatusListSourceProps>;
@@ -105,8 +105,8 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 		<List<IBaseSelectOption>
 			{...props}
 		/>
-	</StatusListSource>
-}
+	</StatusListSource>;
+};
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {
 	toOption: IToOptionMapper<IBaseSelectOption>;
@@ -122,4 +122,4 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
-}
+};

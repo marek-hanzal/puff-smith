@@ -3,8 +3,6 @@
  */
 
 import {IBaseInventory, IBaseInventoryQuery} from "@/puff-smith/service/base";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const BasesInventoryApiLink = "/api/base/inventory/query";
 
@@ -38,7 +38,7 @@ export type IBasesInventoryQueryParams = undefined;
 
 export const useBasesInventoryQuery = createQueryHook<IBaseInventoryQuery, IQueryResult<IBaseInventory>, IBasesInventoryQueryParams>(BasesInventoryApiLink, "post");
 
-export const useBasesInventorySource = () => useSourceContext<IBaseInventory>()
+export const useBasesInventorySource = () => useSourceContext<IBaseInventory>();
 
 export interface IBasesInventorySourceContext extends ISourceContext<IBaseInventory> {
 }
@@ -57,12 +57,12 @@ export const BasesInventorySource: FC<IBasesInventorySourceProps> = props => {
 		useQuery={useBasesInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useBasesInventoryLink = (): ((queryParams?: IBasesInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(BasesInventoryApiLink, queryParams);
-}
+};
 
 export const useBasesInventoryPromise = createPromiseHook<IBaseInventoryQuery, IBaseInventory, IBasesInventoryQueryParams>(BasesInventoryApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IBasesInventoryFilterProviderProps extends Partial<IFilterProvi
 
 export const BasesInventoryFilterProvider: FC<IBasesInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseInventoryQuery>> name={"BasesInventory"} {...props}/>;
 
-export const useBasesInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseInventoryQuery>>()
-export const useBasesInventoryFilterContext = () => useFilterContext<IQueryFilter<IBaseInventoryQuery>>()
+export const useBasesInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseInventoryQuery>>();
+export const useBasesInventoryFilterContext = () => useFilterContext<IQueryFilter<IBaseInventoryQuery>>();
 
 export interface IBasesInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseInventoryQuery>> {
 }
 
 export const BasesInventorySourceFilter: FC<IBasesInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.BasesInventory'}
+	translation={"common.filter.BasesInventory"}
 />;
 
 export interface IBasesInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseInventoryQuery>>> {
@@ -87,8 +87,8 @@ export interface IBasesInventoryOrderByProviderProps extends Partial<IOrderByPro
 
 export const BasesInventoryOrderByProvider: FC<IBasesInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseInventoryQuery>> name={"BasesInventory"} {...props}/>;
 
-export const useBasesInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseInventoryQuery>>()
-export const useBasesInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IBaseInventoryQuery>>()
+export const useBasesInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseInventoryQuery>>();
+export const useBasesInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IBaseInventoryQuery>>();
 
 export interface IBasesInventoryListSourceProps extends Partial<IListProps<IBaseInventory>> {
 	sourceProps?: Partial<IBasesInventorySourceProps>;
@@ -106,8 +106,8 @@ export const BasesInventoryListSource: FC<IBasesInventoryListSourceProps> = ({so
 		<List<IBaseInventory>
 			{...props}
 		/>
-	</BasesInventorySource>
-}
+	</BasesInventorySource>;
+};
 
 export interface IBasesInventorySourceSelectProps extends IQuerySourceSelectProps<IBaseInventory> {
 	toOption: IToOptionMapper<IBaseInventory>;
@@ -123,4 +123,4 @@ export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = 
 export const useBasesInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesInventoryApiLink]);
-}
+};

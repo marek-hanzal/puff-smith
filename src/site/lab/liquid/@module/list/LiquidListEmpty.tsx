@@ -1,10 +1,10 @@
-import {FC} from "react";
 import {BaseIcon, LiquidIcon} from "@/puff-smith";
-import {Divider} from "antd";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid";
-import {ButtonLink, Template} from "@leight-core/client";
 import {useAromasInventoryQuery} from "@/sdk/api/aroma/inventory/query";
 import {useBasesInventoryQuery} from "@/sdk/api/base/inventory/query";
+import {ButtonLink, Template} from "@leight-core/client";
+import {Divider} from "antd";
+import {FC} from "react";
 
 export interface ILiquidListEmptyProps {
 }
@@ -15,17 +15,17 @@ export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 	if (aromasInventoryQuery.isSuccess && !aromasInventoryQuery.data.count) {
 		return <Template
 			icon={<LiquidIcon/>}
-			label={'lab.aroma.list.empty'}
-			status={'warning'}
+			label={"lab.aroma.list.empty"}
+			status={"warning"}
 			extra={<>
 				<Divider/>
 				<ButtonLink
-					size={'large'}
-					type={'primary'}
+					size={"large"}
+					type={"primary"}
 					ghost
 					icon={<LiquidIcon/>}
-					href={'/market/aroma'}
-					title={'lab.aroma.purchase.button'}
+					href={"/market/aroma"}
+					title={"lab.aroma.purchase.button"}
 				/>
 			</>}
 		/>;
@@ -33,17 +33,17 @@ export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 	if (basesInventoryQuery.isSuccess && !basesInventoryQuery.data.count) {
 		return <Template
 			icon={<BaseIcon/>}
-			label={'lab.base.list.empty'}
-			status={'warning'}
+			label={"lab.base.list.empty"}
+			status={"warning"}
 			extra={<>
 				<Divider/>
 				<ButtonLink
-					size={'large'}
-					type={'primary'}
+					size={"large"}
+					type={"primary"}
 					ghost
 					icon={<BaseIcon/>}
-					href={'/market/base'}
-					title={'lab.base.purchase.button'}
+					href={"/market/base"}
+					title={"lab.base.purchase.button"}
 				/>
 			</>}
 		/>;
@@ -51,10 +51,10 @@ export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 
 	return <Template
 		icon={<LiquidIcon/>}
-		label={'lab.liquid.list.empty'}
+		label={"lab.liquid.list.empty"}
 		extra={<>
 			<Divider/>
 			<LiquidCreateButton/>
 		</>}
 	/>;
-}
+};

@@ -1,27 +1,27 @@
-import NextAuth from "next-auth"
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import GitHub from "next-auth/providers/github";
-import EmailProvider from "next-auth/providers/email";
 import prismaClient from "@/puff-smith/service/prisma";
 import {UserService} from "@/puff-smith/service/user";
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import NextAuth from "next-auth";
+import EmailProvider from "next-auth/providers/email";
+import GitHub from "next-auth/providers/github";
 
 export default NextAuth({
 	theme: {
-		logo: '/logo.png',
-		brandColor: '#1890ff',
-		colorScheme: 'light',
+		logo: "/logo.png",
+		brandColor: "#1890ff",
+		colorScheme: "light",
 	},
 	adapter: PrismaAdapter(prismaClient),
 	session: {
-		strategy: 'jwt',
+		strategy: "jwt",
 	},
 	pages: {
-		newUser: '/lab/welcome',
+		newUser: "/lab/welcome",
 	},
 	// debug: process.env.NODE_ENV === 'development',
 	providers: [
 		GitHub({
-			name: 'github',
+			name: "github",
 			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID,
 			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET,
 		}),
@@ -54,4 +54,4 @@ export default NextAuth({
 	jwt: {
 		secret: process.env.NEXTAUTH_SECRET,
 	},
-})
+});

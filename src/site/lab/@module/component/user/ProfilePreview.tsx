@@ -1,7 +1,7 @@
+import {Preview} from "@leight-core/client";
 import {Tabs, Tag} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Preview} from "@leight-core/client";
 
 export interface IProfilePreviewProps {
 	user: any;
@@ -14,7 +14,7 @@ export const ProfilePreview: FC<IProfilePreviewProps> = ({user}) => {
 			key={"common"}
 			tab={t("lab.user.profile.preview.info")}
 		>
-			<Preview translation={'lab.user.preview'}>
+			<Preview translation={"lab.user.preview"}>
 				{{
 					"name": user.name,
 					"email": user.email,

@@ -3,8 +3,6 @@
  */
 
 import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const LiquidsApiLink = "/api/liquid/query";
 
@@ -38,7 +38,7 @@ export type ILiquidsQueryParams = undefined;
 
 export const useLiquidsQuery = createQueryHook<ILiquidQuery, IQueryResult<ILiquid>, ILiquidsQueryParams>(LiquidsApiLink, "post");
 
-export const useLiquidsSource = () => useSourceContext<ILiquid>()
+export const useLiquidsSource = () => useSourceContext<ILiquid>();
 
 export interface ILiquidsSourceContext extends ISourceContext<ILiquid> {
 }
@@ -57,12 +57,12 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useLiquidsLink = (): ((queryParams?: ILiquidsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(LiquidsApiLink, queryParams);
-}
+};
 
 export const useLiquidsPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface ILiquidsFilterProviderProps extends Partial<IFilterProviderProp
 
 export const LiquidsFilterProvider: FC<ILiquidsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
-export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>()
-export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>()
+export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>();
+export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>();
 
 export interface ILiquidsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
 }
 
 export const LiquidsSourceFilter: FC<ILiquidsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Liquids'}
+	translation={"common.filter.Liquids"}
 />;
 
 export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ILiquidQuery>>> {
@@ -87,8 +87,8 @@ export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
-export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ILiquidQuery>>()
-export const useLiquidsOrderByContext = () => useOrderByContext<IQueryFilter<ILiquidQuery>>()
+export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ILiquidQuery>>();
+export const useLiquidsOrderByContext = () => useOrderByContext<IQueryFilter<ILiquidQuery>>();
 
 export interface ILiquidsListSourceProps extends Partial<IListProps<ILiquid>> {
 	sourceProps?: Partial<ILiquidsSourceProps>;
@@ -106,8 +106,8 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 		<List<ILiquid>
 			{...props}
 		/>
-	</LiquidsSource>
-}
+	</LiquidsSource>;
+};
 
 export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
@@ -123,4 +123,4 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidsApiLink]);
-}
+};

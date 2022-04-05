@@ -1,11 +1,11 @@
 import {IAromaService} from "@/puff-smith/service/aroma";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => RepositoryService<IAromaService>({
-	name: 'aroma',
+	name: "aroma",
 	source: prismaClient.aroma,
 	create: async ({vendor, ...aroma}) => prismaClient.aroma.create({
 		data: {
@@ -31,7 +31,7 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 				})).id,
 			},
 			data: create,
-		})
+		});
 	},
 	mapper: async aroma => ({
 		...aroma,
@@ -48,17 +48,17 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 			{
 				name: {
 					contains: fulltext,
-					mode: 'insensitive',
+					mode: "insensitive",
 				}
 			},
 			{
 				vendor: {
 					name: {
 						contains: fulltext,
-						mode: 'insensitive',
+						mode: "insensitive",
 					},
 				}
 			},
 		],
 	} : filter,
-})
+});

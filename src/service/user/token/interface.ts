@@ -1,8 +1,8 @@
-import {Prisma, UserToken} from "@prisma/client";
-import {IQuery, IRepositoryService} from "@leight-core/api";
-import {ParsedUrlQuery} from "querystring";
-import {IUser} from "@/puff-smith/service/user";
 import {IToken} from "@/puff-smith/service/token";
+import {IUser} from "@/puff-smith/service/user";
+import {IQuery, IRepositoryService} from "@leight-core/api";
+import {Prisma, UserToken} from "@prisma/client";
+import {ParsedUrlQuery} from "querystring";
 
 export interface IUserTokenCreate {
 	userId: string;

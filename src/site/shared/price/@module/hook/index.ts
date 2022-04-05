@@ -1,1 +1,1 @@
-export * from './useCheckPrice';
+export * from "./useCheckPrice";

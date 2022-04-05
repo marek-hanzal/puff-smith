@@ -2,10 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";
-import {useQueryClient} from "react-query";
 import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createContext, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const DownloadApiLink = "/api/file/[fileId]/download";
 
@@ -32,12 +32,12 @@ export const useDownloadQuery = createQueryHook<void, string, IDownloadQueryPara
 export const useDownloadQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DownloadApiLink]);
-}
+};
 
 export const useDownloadLink = (): ((query: IDownloadQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(DownloadApiLink, query);
-}
+};
 
 export const useDownloadPromise = createPromiseHook<void, string, IDownloadQueryParams>(DownloadApiLink, "get");
 

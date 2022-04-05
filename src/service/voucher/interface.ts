@@ -1,5 +1,5 @@
-import {Prisma, Voucher} from "@prisma/client";
 import {IQuery, IRepositoryService} from "@leight-core/api";
+import {Prisma, Voucher} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IVoucherCreate {

@@ -6,12 +6,12 @@ import {VouchersSourceControlProvider} from "@/sdk/api/voucher/query";
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.voucher.index"}
-		menuSelection={['/market/voucher']}
+		menuSelection={["/market/voucher"]}
 		icon={<VoucherIcon/>}
 	>
 		<VouchersSourceControlProvider
 			defaultOrderBy={{
-				cost: 'asc',
+				cost: "asc",
 			}}
 			defaultPage={0}
 			defaultSize={5}

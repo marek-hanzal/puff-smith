@@ -1,26 +1,26 @@
-import {Agenda, Job, Processor} from "agenda";
-import xlsx from 'xlsx';
-import {fileService} from "@/puff-smith/service/file";
-import {TranslationService} from "@/puff-smith/service/translation";
-import {measureTime} from "measure-time";
-import {toHumanTimeMs} from "@leight-core/client";
-import {IJob, IQueryParams} from "@leight-core/api";
-import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
-import {TagService} from "@/puff-smith/service/tag";
-import {VendorService} from "@/puff-smith/service/vendor";
+import {AromaService} from "@/puff-smith/service/aroma";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
-import {toImport} from "@leight-core/server";
-import {ModService} from "@/puff-smith/service/mod";
+import {BaseService} from "@/puff-smith/service/base";
+import {BoosterService} from "@/puff-smith/service/booster";
 import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
-import {VoucherService} from "@/puff-smith/service/voucher";
-import {AromaService} from "@/puff-smith/service/aroma";
-import {BoosterService} from "@/puff-smith/service/booster";
-import {BaseService} from "@/puff-smith/service/base";
-import {TariffService} from "@/puff-smith/service/tariff";
+import {fileService} from "@/puff-smith/service/file";
+import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
+import {ModService} from "@/puff-smith/service/mod";
 import {PriceService} from "@/puff-smith/service/price";
+import {TagService} from "@/puff-smith/service/tag";
+import {TariffService} from "@/puff-smith/service/tariff";
+import {TranslationService} from "@/puff-smith/service/translation";
+import {VendorService} from "@/puff-smith/service/vendor";
+import {VoucherService} from "@/puff-smith/service/voucher";
+import {IJob, IQueryParams} from "@leight-core/api";
+import {toHumanTimeMs} from "@leight-core/client";
+import {toImport} from "@leight-core/server";
+import {Agenda, Job, Processor} from "agenda";
+import {measureTime} from "measure-time";
+import xlsx from "xlsx";
 
-export const ImportJobName = 'import';
+export const ImportJobName = "import";
 
 const importHandlers = {
 	...AromaService().importers(),
@@ -59,7 +59,7 @@ export default function ImportJob(agenda: Agenda) {
 		await jobUpdateStatus(theJob.id, "RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
-			console.log(` - Available sheets [${workbook.SheetNames.join(', ')}]`);
+			console.log(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 			const getElapsed = measureTime();
 			const result = await toImport(theJob, workbook, importHandlers, {
 				async onTotal(total: number): Promise<void> {
@@ -81,5 +81,5 @@ export default function ImportJob(agenda: Agenda) {
 			console.error(` - Import of [${fileId}] failed.`, e);
 			await jobUpdateStatus(theJob.id, "FAILURE");
 		}
-	}) as Processor)
+	}) as Processor);
 };

@@ -1,7 +1,7 @@
 import "@/puff-smith/assets/styles/app.css";
 import {IPageWithLayout} from "@leight-core/api";
-import type {AppProps} from "next/app";
 import {BootstrapLoader} from "@leight-core/client";
+import type {AppProps} from "next/app";
 
 export default function PuffSmith({Component, pageProps: {session, ...pageProps}}: AppProps) {
 	return <BootstrapLoader session={session}>

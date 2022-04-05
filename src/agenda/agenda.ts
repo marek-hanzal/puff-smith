@@ -1,14 +1,14 @@
-import {Agenda as CoolAgenda} from 'agenda';
+import {jobCreate, jobMapper} from "@/puff-smith/service/job";
 import prismaClient from "@/puff-smith/service/prisma";
 import {IJob} from "@leight-core/api";
-import {jobCreate, jobMapper} from "@/puff-smith/service/job";
+import {Agenda as CoolAgenda} from "agenda";
 
 const agenda = new CoolAgenda({
 	db: {
 		address: process.env.AGENDA_DB || (() => {
-			throw new Error('Missing env variable "AGENDA_DB"!');
+			throw new Error("Missing env variable \"AGENDA_DB\"!");
 		})(),
-		collection: 'agenda',
+		collection: "agenda",
 	}
 });
 
@@ -28,6 +28,6 @@ export const asyncJob = async <TParams>(name: string, params: TParams, userId?: 
 		await (await Agenda()).now(name, job);
 		return job;
 	});
-}
+};
 
 export default agenda;

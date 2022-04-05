@@ -1,9 +1,9 @@
-import {Divider, PageHeader, PageHeaderProps} from "antd";
 import {LogoIcon, SignOutButton} from "@/puff-smith";
 import {LabMenu} from "@/puff-smith/site/lab";
-import {ButtonBar, LinkTo} from "@leight-core/client";
-import {FC} from "react";
 import {UserPuffies} from "@/puff-smith/site/shared/user";
+import {ButtonBar, LinkTo} from "@leight-core/client";
+import {Divider, PageHeader, PageHeaderProps} from "antd";
+import {FC} from "react";
 
 export interface IHeaderProps extends Partial<PageHeaderProps> {
 }
@@ -16,12 +16,12 @@ export const Header: FC<IHeaderProps> = props => {
 		</LinkTo>}
 		subTitle={<LabMenu/>}
 		style={{
-			minHeight: '8vh',
+			minHeight: "8vh",
 		}}
-		extra={<ButtonBar split={<Divider type={'vertical'}/>}>
+		extra={<ButtonBar split={<Divider type={"vertical"}/>}>
 			<UserPuffies/>
 			<SignOutButton/>
 		</ButtonBar>}
 		{...props}
-	/>
+	/>;
 };

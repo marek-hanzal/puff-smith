@@ -3,8 +3,6 @@
  */
 
 import {IBase, IBaseQuery} from "@/puff-smith/service/base";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const InventoryBasesApiLink = "/api/base/inventory/base/query";
 
@@ -38,7 +38,7 @@ export type IInventoryBasesQueryParams = undefined;
 
 export const useInventoryBasesQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
 
-export const useInventoryBasesSource = () => useSourceContext<IBase>()
+export const useInventoryBasesSource = () => useSourceContext<IBase>();
 
 export interface IInventoryBasesSourceContext extends ISourceContext<IBase> {
 }
@@ -57,12 +57,12 @@ export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
 		useQuery={useInventoryBasesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useInventoryBasesLink = (): ((queryParams?: IInventoryBasesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(InventoryBasesApiLink, queryParams);
-}
+};
 
 export const useInventoryBasesPromise = createPromiseHook<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IInventoryBasesFilterProviderProps extends Partial<IFilterProvi
 
 export const InventoryBasesFilterProvider: FC<IInventoryBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"InventoryBases"} {...props}/>;
 
-export const useInventoryBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
-export const useInventoryBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
+export const useInventoryBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
+export const useInventoryBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
 
 export interface IInventoryBasesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
 export const InventoryBasesSourceFilter: FC<IInventoryBasesSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.InventoryBases'}
+	translation={"common.filter.InventoryBases"}
 />;
 
 export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseQuery>>> {
@@ -87,8 +87,8 @@ export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByPro
 
 export const InventoryBasesOrderByProvider: FC<IInventoryBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> name={"InventoryBases"} {...props}/>;
 
-export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>()
-export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>()
+export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>();
+export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>();
 
 export interface IInventoryBasesListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IInventoryBasesSourceProps>;
@@ -106,8 +106,8 @@ export const InventoryBasesListSource: FC<IInventoryBasesListSourceProps> = ({so
 		<List<IBase>
 			{...props}
 		/>
-	</InventoryBasesSource>
-}
+	</InventoryBasesSource>;
+};
 
 export interface IInventoryBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -123,4 +123,4 @@ export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = 
 export const useInventoryBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBasesApiLink]);
-}
+};

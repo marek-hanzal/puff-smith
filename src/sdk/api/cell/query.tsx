@@ -3,8 +3,6 @@
  */
 
 import {ICell, ICellQuery} from "@/puff-smith/service/cell";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const CellsApiLink = "/api/cell/query";
 
@@ -38,7 +38,7 @@ export type ICellsQueryParams = undefined;
 
 export const useCellsQuery = createQueryHook<ICellQuery, IQueryResult<ICell>, ICellsQueryParams>(CellsApiLink, "post");
 
-export const useCellsSource = () => useSourceContext<ICell>()
+export const useCellsSource = () => useSourceContext<ICell>();
 
 export interface ICellsSourceContext extends ISourceContext<ICell> {
 }
@@ -57,12 +57,12 @@ export const CellsSource: FC<ICellsSourceProps> = props => {
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useCellsLink = (): ((queryParams?: ICellsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CellsApiLink, queryParams);
-}
+};
 
 export const useCellsPromise = createPromiseHook<ICellQuery, ICell, ICellsQueryParams>(CellsApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface ICellsFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const CellsFilterProvider: FC<ICellsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Cells"} {...props}/>;
 
-export const useCellsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>()
-export const useCellsFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>()
+export const useCellsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>();
+export const useCellsFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>();
 
 export interface ICellsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellQuery>> {
 }
 
 export const CellsSourceFilter: FC<ICellsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Cells'}
+	translation={"common.filter.Cells"}
 />;
 
 export interface ICellsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICellQuery>>> {
@@ -87,8 +87,8 @@ export interface ICellsOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const CellsOrderByProvider: FC<ICellsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellQuery>> name={"Cells"} {...props}/>;
 
-export const useCellsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICellQuery>>()
-export const useCellsOrderByContext = () => useOrderByContext<IQueryFilter<ICellQuery>>()
+export const useCellsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICellQuery>>();
+export const useCellsOrderByContext = () => useOrderByContext<IQueryFilter<ICellQuery>>();
 
 export interface ICellsListSourceProps extends Partial<IListProps<ICell>> {
 	sourceProps?: Partial<ICellsSourceProps>;
@@ -106,8 +106,8 @@ export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...prop
 		<List<ICell>
 			{...props}
 		/>
-	</CellsSource>
-}
+	</CellsSource>;
+};
 
 export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> {
 	toOption: IToOptionMapper<ICell>;
@@ -123,4 +123,4 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, ...
 export const useCellsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsApiLink]);
-}
+};

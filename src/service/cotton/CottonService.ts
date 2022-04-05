@@ -1,11 +1,11 @@
 import {ICottonService} from "@/puff-smith/service/cotton";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): ICottonService => RepositoryService<ICottonService>({
-	name: 'cotton',
+	name: "cotton",
 	source: prismaClient.cotton,
 	mapper: async cotton => ({
 		...cotton,
@@ -36,4 +36,4 @@ export const CottonService = (prismaClient: IPrismaClientTransaction = prisma): 
 		},
 		data: create,
 	}),
-})
+});

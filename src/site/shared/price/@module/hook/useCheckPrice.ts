@@ -6,7 +6,7 @@ export interface ICheckPriceResult {
 	readonly pass: boolean;
 	readonly notPass: boolean;
 
-	asPrice(): { price: string }
+	asPrice(): { price: string };
 }
 
 export const useCheckPrice = (price: string): ICheckPriceResult => {
@@ -21,7 +21,7 @@ export const useCheckPrice = (price: string): ICheckPriceResult => {
 		pass,
 		notPass: !pass,
 		asPrice: () => ({
-			price: checkPriceQuery.isSuccess ? toHumanNumber(checkPriceQuery.data.price) : '-',
+			price: checkPriceQuery.isSuccess ? toHumanNumber(checkPriceQuery.data.price) : "-",
 		})
 	};
-}
+};

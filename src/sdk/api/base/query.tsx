@@ -3,8 +3,6 @@
  */
 
 import {IBase, IBaseQuery} from "@/puff-smith/service/base";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const BasesApiLink = "/api/base/query";
 
@@ -38,7 +38,7 @@ export type IBasesQueryParams = undefined;
 
 export const useBasesQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IBasesQueryParams>(BasesApiLink, "post");
 
-export const useBasesSource = () => useSourceContext<IBase>()
+export const useBasesSource = () => useSourceContext<IBase>();
 
 export interface IBasesSourceContext extends ISourceContext<IBase> {
 }
@@ -57,12 +57,12 @@ export const BasesSource: FC<IBasesSourceProps> = props => {
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useBasesLink = (): ((queryParams?: IBasesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(BasesApiLink, queryParams);
-}
+};
 
 export const useBasesPromise = createPromiseHook<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IBasesFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const BasesFilterProvider: FC<IBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
 
-export const useBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
-export const useBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
+export const useBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
+export const useBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
 
 export interface IBasesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
 export const BasesSourceFilter: FC<IBasesSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Bases'}
+	translation={"common.filter.Bases"}
 />;
 
 export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseQuery>>> {
@@ -87,8 +87,8 @@ export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
 
-export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>()
-export const useBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>()
+export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>();
+export const useBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>();
 
 export interface IBasesListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IBasesSourceProps>;
@@ -106,8 +106,8 @@ export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...prop
 		<List<IBase>
 			{...props}
 		/>
-	</BasesSource>
-}
+	</BasesSource>;
+};
 
 export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -123,4 +123,4 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, ...
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesApiLink]);
-}
+};

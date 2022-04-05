@@ -1,9 +1,9 @@
-import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
-import {FC} from "react";
 import {JobProgress, JobsListHeader} from "@/puff-smith/site/shared/job";
-import {useTranslation} from "react-i18next";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
+import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {Space, Typography} from "antd";
+import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface IJobListProps extends Partial<IJobsListSourceProps> {
 	showCommit?: boolean;
@@ -18,7 +18,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 		sourceProps={{
 			live: 500,
 		}}
-		itemLayout={'vertical'}
+		itemLayout={"vertical"}
 		header={disableToolbar ? undefined : (() => <JobsListHeader
 			showCommit={showCommit}
 			showCleanup={showCleanup}
@@ -29,7 +29,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 		{job => <ListItem key={job.id}>
 			<ListItemMeta
 				title={<Space>
-					{t('common.job.status.' + job.status, {
+					{t("common.job.status." + job.status, {
 						data: {
 							success: job.success || 0,
 							failure: job.failure || 0,
@@ -37,11 +37,11 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 							total: job.total,
 						}
 					})}
-					<Typography.Text type={'secondary'}>{t('common.job.name.' + job.name)}</Typography.Text>
+					<Typography.Text type={"secondary"}>{t("common.job.name." + job.name)}</Typography.Text>
 				</Space>}
 				description={toLocalDateTime(job.created)}
 			/>
 			<JobProgress job={job}/>
 		</ListItem>}
 	</JobsListSource>;
-}
+};

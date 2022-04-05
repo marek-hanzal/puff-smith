@@ -3,8 +3,6 @@
  */
 
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const InventoryAromasApiLink = "/api/aroma/inventory/aroma/query";
 
@@ -38,7 +38,7 @@ export type IInventoryAromasQueryParams = undefined;
 
 export const useInventoryAromasQuery = createQueryHook<IAromaQuery, IQueryResult<IAroma>, IInventoryAromasQueryParams>(InventoryAromasApiLink, "post");
 
-export const useInventoryAromasSource = () => useSourceContext<IAroma>()
+export const useInventoryAromasSource = () => useSourceContext<IAroma>();
 
 export interface IInventoryAromasSourceContext extends ISourceContext<IAroma> {
 }
@@ -57,12 +57,12 @@ export const InventoryAromasSource: FC<IInventoryAromasSourceProps> = props => {
 		useQuery={useInventoryAromasQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useInventoryAromasLink = (): ((queryParams?: IInventoryAromasQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(InventoryAromasApiLink, queryParams);
-}
+};
 
 export const useInventoryAromasPromise = createPromiseHook<IAromaQuery, IAroma, IInventoryAromasQueryParams>(InventoryAromasApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IInventoryAromasFilterProviderProps extends Partial<IFilterProv
 
 export const InventoryAromasFilterProvider: FC<IInventoryAromasFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaQuery>> name={"InventoryAromas"} {...props}/>;
 
-export const useInventoryAromasOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaQuery>>()
-export const useInventoryAromasFilterContext = () => useFilterContext<IQueryFilter<IAromaQuery>>()
+export const useInventoryAromasOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaQuery>>();
+export const useInventoryAromasFilterContext = () => useFilterContext<IQueryFilter<IAromaQuery>>();
 
 export interface IInventoryAromasSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAromaQuery>> {
 }
 
 export const InventoryAromasSourceFilter: FC<IInventoryAromasSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.InventoryAromas'}
+	translation={"common.filter.InventoryAromas"}
 />;
 
 export interface IInventoryAromasOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAromaQuery>>> {
@@ -87,8 +87,8 @@ export interface IInventoryAromasOrderByProviderProps extends Partial<IOrderByPr
 
 export const InventoryAromasOrderByProvider: FC<IInventoryAromasOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAromaQuery>> name={"InventoryAromas"} {...props}/>;
 
-export const useInventoryAromasOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAromaQuery>>()
-export const useInventoryAromasOrderByContext = () => useOrderByContext<IQueryFilter<IAromaQuery>>()
+export const useInventoryAromasOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAromaQuery>>();
+export const useInventoryAromasOrderByContext = () => useOrderByContext<IQueryFilter<IAromaQuery>>();
 
 export interface IInventoryAromasListSourceProps extends Partial<IListProps<IAroma>> {
 	sourceProps?: Partial<IInventoryAromasSourceProps>;
@@ -106,8 +106,8 @@ export const InventoryAromasListSource: FC<IInventoryAromasListSourceProps> = ({
 		<List<IAroma>
 			{...props}
 		/>
-	</InventoryAromasSource>
-}
+	</InventoryAromasSource>;
+};
 
 export interface IInventoryAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
@@ -123,4 +123,4 @@ export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> 
 export const useInventoryAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryAromasApiLink]);
-}
+};

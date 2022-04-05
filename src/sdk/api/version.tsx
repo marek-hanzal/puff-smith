@@ -2,10 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createContext, FC} from "react";
 import {IEntityContext} from "@leight-core/api";
-import {useQueryClient} from "react-query";
 import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createContext, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const VersionApiLink = "/api/version";
 
@@ -32,12 +32,12 @@ export const useVersionQuery = createQueryHook<void, string, IVersionQueryParams
 export const useVersionQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VersionApiLink]);
-}
+};
 
 export const useVersionLink = (): ((query: IVersionQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(VersionApiLink, query);
-}
+};
 
 export const useVersionPromise = createPromiseHook<void, string, IVersionQueryParams>(VersionApiLink, "get");
 

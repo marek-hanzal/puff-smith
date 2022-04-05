@@ -1,10 +1,10 @@
-import {IVoucherService} from "@/puff-smith/service/voucher";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
+import {IVoucherService} from "@/puff-smith/service/voucher";
 import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const VoucherService = (prismaClient: IPrismaClientTransaction = prisma): IVoucherService => RepositoryService<IVoucherService>({
-	name: 'voucher',
+	name: "voucher",
 	source: prismaClient.voucher,
 	mapper: async voucher => ({
 		...voucher,
@@ -25,4 +25,4 @@ export const VoucherService = (prismaClient: IPrismaClientTransaction = prisma):
 		},
 		data: create,
 	})
-})
+});

@@ -3,8 +3,6 @@
  */
 
 import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const InventoryBoostersApiLink = "/api/booster/inventory/booster/query";
 
@@ -38,7 +38,7 @@ export type IInventoryBoostersQueryParams = undefined;
 
 export const useInventoryBoostersQuery = createQueryHook<IBoosterQuery, IQueryResult<IBooster>, IInventoryBoostersQueryParams>(InventoryBoostersApiLink, "post");
 
-export const useInventoryBoostersSource = () => useSourceContext<IBooster>()
+export const useInventoryBoostersSource = () => useSourceContext<IBooster>();
 
 export interface IInventoryBoostersSourceContext extends ISourceContext<IBooster> {
 }
@@ -57,12 +57,12 @@ export const InventoryBoostersSource: FC<IInventoryBoostersSourceProps> = props 
 		useQuery={useInventoryBoostersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useInventoryBoostersLink = (): ((queryParams?: IInventoryBoostersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(InventoryBoostersApiLink, queryParams);
-}
+};
 
 export const useInventoryBoostersPromise = createPromiseHook<IBoosterQuery, IBooster, IInventoryBoostersQueryParams>(InventoryBoostersApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IInventoryBoostersFilterProviderProps extends Partial<IFilterPr
 
 export const InventoryBoostersFilterProvider: FC<IInventoryBoostersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterQuery>> name={"InventoryBoosters"} {...props}/>;
 
-export const useInventoryBoostersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>()
-export const useInventoryBoostersFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>()
+export const useInventoryBoostersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>();
+export const useInventoryBoostersFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>();
 
 export interface IInventoryBoostersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterQuery>> {
 }
 
 export const InventoryBoostersSourceFilter: FC<IInventoryBoostersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.InventoryBoosters'}
+	translation={"common.filter.InventoryBoosters"}
 />;
 
 export interface IInventoryBoostersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBoosterQuery>>> {
@@ -87,8 +87,8 @@ export interface IInventoryBoostersOrderByProviderProps extends Partial<IOrderBy
 
 export const InventoryBoostersOrderByProvider: FC<IInventoryBoostersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBoosterQuery>> name={"InventoryBoosters"} {...props}/>;
 
-export const useInventoryBoostersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBoosterQuery>>()
-export const useInventoryBoostersOrderByContext = () => useOrderByContext<IQueryFilter<IBoosterQuery>>()
+export const useInventoryBoostersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBoosterQuery>>();
+export const useInventoryBoostersOrderByContext = () => useOrderByContext<IQueryFilter<IBoosterQuery>>();
 
 export interface IInventoryBoostersListSourceProps extends Partial<IListProps<IBooster>> {
 	sourceProps?: Partial<IInventoryBoostersSourceProps>;
@@ -106,8 +106,8 @@ export const InventoryBoostersListSource: FC<IInventoryBoostersListSourceProps> 
 		<List<IBooster>
 			{...props}
 		/>
-	</InventoryBoostersSource>
-}
+	</InventoryBoostersSource>;
+};
 
 export interface IInventoryBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
@@ -123,4 +123,4 @@ export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectPro
 export const useInventoryBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBoostersApiLink]);
-}
+};

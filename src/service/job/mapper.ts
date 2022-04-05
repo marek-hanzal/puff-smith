@@ -1,6 +1,6 @@
-import {IJob} from "@leight-core/api";
-import {Job} from '@prisma/client';
 import {IJobs} from "@/puff-smith/service/job";
+import {IJob} from "@leight-core/api";
+import {Job} from "@prisma/client";
 
 export const jobListMapper = async (jobs: IJobs) => (await jobs).map(jobMapper);
 
@@ -13,4 +13,4 @@ export const jobMapper = <TParams = any>(job: Job): IJob<TParams> => {
 		skipRatio: job.skipRatio?.toNumber(),
 		params: job.params && JSON.parse(job.params),
 	};
-}
+};

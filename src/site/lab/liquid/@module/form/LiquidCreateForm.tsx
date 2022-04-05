@@ -1,11 +1,11 @@
-import {FC} from "react";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
-import {Divider, InputNumber, message} from "antd";
-import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
 import {LiquidIcon} from "@/puff-smith";
+import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
-import {useTranslation} from "react-i18next";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
+import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
+import {Divider, InputNumber, message} from "antd";
+import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface ILiquidCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
@@ -15,7 +15,7 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	return <CreateDefaultForm
-		translation={'lab.liquid'}
+		translation={"lab.liquid"}
 		onSuccess={async response => {
 			await liquidsQueryInvalidate();
 			message.success(t("lab.liquid.create.success", {
@@ -29,16 +29,16 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 		}}
 		{...props}
 	>
-		<FormItem field={'name'} required/>
-		<FormItem field={'volume'} required>
-			<InputNumber min={10} max={1000} style={{width: '100%'}}/>
+		<FormItem field={"name"} required/>
+		<FormItem field={"volume"} required>
+			<InputNumber min={10} max={1000} style={{width: "100%"}}/>
 		</FormItem>
-		<FormItem field={'mixed'}>
-			<DatePicker style={{width: '100%'}}/>
+		<FormItem field={"mixed"}>
+			<DatePicker style={{width: "100%"}}/>
 		</FormItem>
 		<Divider/>
 		<Centered>
-			<Submit icon={<LiquidIcon/>} label={'create'}/>
+			<Submit icon={<LiquidIcon/>} label={"create"}/>
 		</Centered>
-	</CreateDefaultForm>
-}
+	</CreateDefaultForm>;
+};

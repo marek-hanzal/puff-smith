@@ -1,2 +1,2 @@
-export * from './interface';
-export * from './ModInventoryService';
+export * from "./interface";
+export * from "./ModInventoryService";

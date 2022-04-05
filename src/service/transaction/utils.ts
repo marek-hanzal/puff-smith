@@ -6,8 +6,8 @@ export const handlePuffiesException = async <T>(res: NextApiResponse, callback: 
 		return await callback();
 	} catch (e) {
 		if ((e as Error).message?.includes("Not enough puffies")) {
-			return withConflict(res, 'Not enough puffies');
+			return withConflict(res, "Not enough puffies");
 		}
 		throw e;
 	}
-}
+};

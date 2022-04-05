@@ -3,8 +3,6 @@
  */
 
 import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const CottonsApiLink = "/api/cotton/query";
 
@@ -38,7 +38,7 @@ export type ICottonsQueryParams = undefined;
 
 export const useCottonsQuery = createQueryHook<ICottonQuery, IQueryResult<ICotton>, ICottonsQueryParams>(CottonsApiLink, "post");
 
-export const useCottonsSource = () => useSourceContext<ICotton>()
+export const useCottonsSource = () => useSourceContext<ICotton>();
 
 export interface ICottonsSourceContext extends ISourceContext<ICotton> {
 }
@@ -57,12 +57,12 @@ export const CottonsSource: FC<ICottonsSourceProps> = props => {
 		useQuery={useCottonsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useCottonsLink = (): ((queryParams?: ICottonsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CottonsApiLink, queryParams);
-}
+};
 
 export const useCottonsPromise = createPromiseHook<ICottonQuery, ICotton, ICottonsQueryParams>(CottonsApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface ICottonsFilterProviderProps extends Partial<IFilterProviderProp
 
 export const CottonsFilterProvider: FC<ICottonsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICottonQuery>> name={"Cottons"} {...props}/>;
 
-export const useCottonsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonQuery>>()
-export const useCottonsFilterContext = () => useFilterContext<IQueryFilter<ICottonQuery>>()
+export const useCottonsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonQuery>>();
+export const useCottonsFilterContext = () => useFilterContext<IQueryFilter<ICottonQuery>>();
 
 export interface ICottonsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICottonQuery>> {
 }
 
 export const CottonsSourceFilter: FC<ICottonsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Cottons'}
+	translation={"common.filter.Cottons"}
 />;
 
 export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICottonQuery>>> {
@@ -87,8 +87,8 @@ export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const CottonsOrderByProvider: FC<ICottonsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICottonQuery>> name={"Cottons"} {...props}/>;
 
-export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICottonQuery>>()
-export const useCottonsOrderByContext = () => useOrderByContext<IQueryFilter<ICottonQuery>>()
+export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICottonQuery>>();
+export const useCottonsOrderByContext = () => useOrderByContext<IQueryFilter<ICottonQuery>>();
 
 export interface ICottonsListSourceProps extends Partial<IListProps<ICotton>> {
 	sourceProps?: Partial<ICottonsSourceProps>;
@@ -106,8 +106,8 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 		<List<ICotton>
 			{...props}
 		/>
-	</CottonsSource>
-}
+	</CottonsSource>;
+};
 
 export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICotton> {
 	toOption: IToOptionMapper<ICotton>;
@@ -123,4 +123,4 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsApiLink]);
-}
+};

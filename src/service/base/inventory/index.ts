@@ -1,2 +1,2 @@
-export * from './BaseInventoryService';
-export * from './interface';
+export * from "./BaseInventoryService";
+export * from "./interface";

@@ -1,6 +1,6 @@
+import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 import {IInventoryBoostersSourceSelectProps, InventoryBoostersFilterProvider, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
 import {FC} from "react";
-import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 
 export interface IInventoryBoosterSelectProps extends Partial<IInventoryBoostersSourceSelectProps> {
 }
@@ -16,5 +16,5 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 			})}
 			{...props}
 		/>
-	</InventoryBoostersFilterProvider>
-}
+	</InventoryBoostersFilterProvider>;
+};

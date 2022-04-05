@@ -1,16 +1,16 @@
-import {IUserService} from "@/puff-smith/service/user/interface";
-import prisma from "@/puff-smith/service/prisma";
-import {handleUniqueException, RepositoryService, toFulltext} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
-import {TransactionService} from "@/puff-smith/service/transaction";
-import {UserTokenService} from "@/puff-smith/service/user/token";
-import {TokenService} from "@/puff-smith/service/token";
 import {PriceService} from "@/puff-smith/service/price";
+import prisma from "@/puff-smith/service/prisma";
+import {TokenService} from "@/puff-smith/service/token";
+import {TransactionService} from "@/puff-smith/service/transaction";
+import {IUserService} from "@/puff-smith/service/user/interface";
+import {UserTokenService} from "@/puff-smith/service/user/token";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {handleUniqueException, RepositoryService, toFulltext} from "@leight-core/server";
 
 export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IUserService => {
 	const service: IUserService = {
 		...RepositoryService<IUserService>({
-			name: 'user',
+			name: "user",
 			source: prismaClient.user,
 			mapper: async ({emailVerified, ...user}) => {
 				const tokens = await TokenService().tokensOf(user.id);
@@ -22,7 +22,7 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 			},
 			toFilter: ({fulltext, ...filter} = {}) => ({
 				...filter,
-				...toFulltext(fulltext, ['name', 'email']),
+				...toFulltext(fulltext, ["name", "email"]),
 			}),
 			create: async create => prismaClient.user.create({
 				data: create,
@@ -31,46 +31,46 @@ export const UserService = (prismaClient: IPrismaClientTransaction = prisma): IU
 		async handleRootUser(userId: string) {
 			await TransactionService(prismaClient).create({
 				userId,
-				amount: await PriceService(prismaClient).amountOf('default', 'welcome-gift.root', 1000000),
-				note: 'Welcome gift for the Root User!',
+				amount: await PriceService(prismaClient).amountOf("default", "welcome-gift.root", 1000000),
+				note: "Welcome gift for the Root User!",
 			});
 			await Promise.all([
 				service.createToken(
 					userId,
-					'site.root'
+					"site.root"
 				),
 				service.createToken(
 					userId,
-					'*'
+					"*"
 				)
 			]);
 		},
 		async handleCommonUser(userId: string) {
 			await TransactionService(prismaClient).create({
 				userId,
-				amount: await PriceService(prismaClient).amountOf('default', 'welcome-gift.user', 250),
-				note: 'Welcome gift!',
+				amount: await PriceService(prismaClient).amountOf("default", "welcome-gift.user", 250),
+				note: "Welcome gift!",
 			});
 			await Promise.all([
 				service.createToken(
 					userId,
-					'user'
+					"user"
 				),
 				service.createToken(
 					userId,
-					'site.lab'
+					"site.lab"
 				),
 				service.createToken(
 					userId,
-					'site.market'
+					"site.market"
 				),
 				service.createToken(
 					userId,
-					'/lab*'
+					"/lab*"
 				),
 				service.createToken(
 					userId,
-					'/market*'
+					"/market*"
 				)
 			]);
 		},

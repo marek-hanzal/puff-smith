@@ -1,8 +1,8 @@
+import {BuildIcon, VapeIcon} from "@/puff-smith";
+import {ButtonLink, Card} from "@leight-core/client";
+import {Col, Divider, Row, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {Col, Divider, Row, Typography} from "antd";
-import {ButtonLink, Card} from "@leight-core/client";
-import {BuildIcon, VapeIcon} from "@/puff-smith";
 
 export interface IQuickPuffProps {
 }
@@ -12,13 +12,13 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 	return <Row gutter={0}>
 		<Col span={8}>
 			<Card
-				title={'lab.quick-puff.builds.title'}
+				title={"lab.quick-puff.builds.title"}
 				extra={<>
-					<ButtonLink type={'link'} href={'/lab/build'} icon={<BuildIcon/>}/>
+					<ButtonLink type={"link"} href={"/lab/build"} icon={<BuildIcon/>}/>
 					{/*<BuildCreateButton/>*/}
 				</>}
 			>
-				<Typography.Title level={5}>{t('lab.quick-puff.builds.subtitle')}</Typography.Title>
+				<Typography.Title level={5}>{t("lab.quick-puff.builds.subtitle")}</Typography.Title>
 				<Divider/>
 				{/*<BuildsSource defaultSize={3} filter={{active: true}}>*/}
 				{/*	<BuildsSourceConsumer>*/}
@@ -40,13 +40,13 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 		</Col>
 		<Col span={8}>
 			<Card
-				title={'lab.quick-puff.vapes.title'}
+				title={"lab.quick-puff.vapes.title"}
 				extra={<>
-					<ButtonLink type={'link'} href={'/lab/vape'} icon={<VapeIcon/>}/>
+					<ButtonLink type={"link"} href={"/lab/vape"} icon={<VapeIcon/>}/>
 					{/*<VapeCreateButton/>*/}
 				</>}
 			>
-				<Typography.Title level={5}>{t('lab.quick-puff.vapes.subtitle')}</Typography.Title>
+				<Typography.Title level={5}>{t("lab.quick-puff.vapes.subtitle")}</Typography.Title>
 				<Divider/>
 				{/*<VapesSource defaultSize={3}>*/}
 				{/*	<VapesSourceConsumer>*/}
@@ -62,7 +62,7 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 		</Col>
 		<Col span={8}>
 			<Card
-				title={'lab.quick-puff.plot.title'}
+				title={"lab.quick-puff.plot.title"}
 				extra={<>
 					{/*<VapePlotButton/>*/}
 				</>}
@@ -71,4 +71,4 @@ export const QuickPuff: FC<IQuickPuffProps> = () => {
 			</Card>
 		</Col>
 	</Row>;
-}
+};

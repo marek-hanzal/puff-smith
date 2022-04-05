@@ -3,8 +3,6 @@
  */
 
 import {IUser, IUserQuery} from "@/puff-smith/service/user";
-import {ConsumerProps, FC} from "react";
-import {useQueryClient} from "react-query";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromiseHook,
@@ -31,6 +29,8 @@ import {
 	useOrderByContext,
 	useSourceContext
 } from "@leight-core/client";
+import {ConsumerProps, FC} from "react";
+import {useQueryClient} from "react-query";
 
 export const UsersApiLink = "/api/user/query";
 
@@ -38,7 +38,7 @@ export type IUsersQueryParams = undefined;
 
 export const useUsersQuery = createQueryHook<IUserQuery, IQueryResult<IUser>, IUsersQueryParams>(UsersApiLink, "post");
 
-export const useUsersSource = () => useSourceContext<IUser>()
+export const useUsersSource = () => useSourceContext<IUser>();
 
 export interface IUsersSourceContext extends ISourceContext<IUser> {
 }
@@ -57,12 +57,12 @@ export const UsersSource: FC<IUsersSourceProps> = props => {
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const useUsersLink = (): ((queryParams?: IUsersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(UsersApiLink, queryParams);
-}
+};
 
 export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
 
@@ -71,15 +71,15 @@ export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
 
-export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>()
-export const useUsersFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>()
+export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>();
+export const useUsersFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>();
 
 export interface IUsersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IUserQuery>> {
 }
 
 export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Users'}
+	translation={"common.filter.Users"}
 />;
 
 export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IUserQuery>>> {
@@ -87,8 +87,8 @@ export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
 
-export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IUserQuery>>()
-export const useUsersOrderByContext = () => useOrderByContext<IQueryFilter<IUserQuery>>()
+export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IUserQuery>>();
+export const useUsersOrderByContext = () => useOrderByContext<IQueryFilter<IUserQuery>>();
 
 export interface IUsersListSourceProps extends Partial<IListProps<IUser>> {
 	sourceProps?: Partial<IUsersSourceProps>;
@@ -106,8 +106,8 @@ export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...prop
 		<List<IUser>
 			{...props}
 		/>
-	</UsersSource>
-}
+	</UsersSource>;
+};
 
 export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
@@ -123,4 +123,4 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, ...
 export const useUsersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UsersApiLink]);
-}
+};

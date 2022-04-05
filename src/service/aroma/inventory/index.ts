@@ -1,2 +1,2 @@
-export * from './AromaInventoryService';
-export * from './interface';
+export * from "./AromaInventoryService";
+export * from "./interface";

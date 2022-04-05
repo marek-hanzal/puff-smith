@@ -1,11 +1,11 @@
 import {IBoosterService} from "@/puff-smith/service/booster";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {VendorService} from "@/puff-smith/service/vendor";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const BoosterService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IBoosterService>({
-	name: 'booster',
+	name: "booster",
 	source: prismaClient.booster,
 	mapper: async booster => ({
 		...booster,
@@ -40,4 +40,4 @@ export const BoosterService = (prismaClient: IPrismaClientTransaction = prisma) 
 		},
 		data: create,
 	})
-})
+});

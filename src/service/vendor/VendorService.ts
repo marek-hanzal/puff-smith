@@ -1,10 +1,10 @@
-import {IPrismaClientTransaction} from "@leight-core/api";
 import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
 import {IVendorService} from "@/puff-smith/service/vendor/interface";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const VendorService = (prismaClient: IPrismaClientTransaction = prisma): IVendorService => RepositoryService<IVendorService>({
-	name: 'vendor',
+	name: "vendor",
 	source: prismaClient.vendor,
 	mapper: async vendor => vendor,
 	create: async create => prismaClient.vendor.create({
@@ -16,4 +16,4 @@ export const VendorService = (prismaClient: IPrismaClientTransaction = prisma): 
 		},
 		rejectOnNotFound: true,
 	}),
-})
+});

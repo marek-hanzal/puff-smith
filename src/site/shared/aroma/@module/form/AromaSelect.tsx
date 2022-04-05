@@ -1,6 +1,6 @@
-import {FC} from "react";
-import {AromasFilterProvider, AromasSourceSelect, IAromasSourceSelectProps} from "@/sdk/api/aroma/query";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {AromasFilterProvider, AromasSourceSelect, IAromasSourceSelectProps} from "@/sdk/api/aroma/query";
+import {FC} from "react";
 
 export interface IAromaSelectProps extends Partial<IAromasSourceSelectProps> {
 }
@@ -16,5 +16,5 @@ export const AromaSelect: FC<IAromaSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</AromasFilterProvider>
-}
+	</AromasFilterProvider>;
+};
