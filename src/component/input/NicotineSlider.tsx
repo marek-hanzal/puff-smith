@@ -10,7 +10,7 @@ export const NicotineSlider: FC<INicotineSliderProps> = props => {
 		min={0}
 		max={18}
 		marks={{
-			0: 0 + "mg",
+			0: 0,
 			3: 3,
 			6: 6,
 			9: 9,
