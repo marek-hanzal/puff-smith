@@ -1,15 +1,15 @@
-import {ILiquidService} from "@/puff-smith/service/liquid";
-import prisma from "@/puff-smith/service/prisma";
-import {RepositoryService} from "@leight-core/server";
-import {IPrismaClientTransaction} from "@leight-core/api";
-import {TransactionService} from "@/puff-smith/service/transaction";
-import {TariffService} from "@/puff-smith/service/tariff";
 import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
+import {ILiquidService} from "@/puff-smith/service/liquid";
+import prisma from "@/puff-smith/service/prisma";
+import {TariffService} from "@/puff-smith/service/tariff";
+import {TransactionService} from "@/puff-smith/service/transaction";
+import {IPrismaClientTransaction} from "@leight-core/api";
+import {RepositoryService} from "@leight-core/server";
 
 export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
 	const service = RepositoryService<ILiquidService>({
-		name: 'liquid',
+		name: "liquid",
 		source: prismaClient.liquid,
 		mapper: async liquid => ({
 			...liquid,
@@ -67,6 +67,10 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 						volume: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
 						pg: base.pg.toNumber(),
 						vg: base.vg.toNumber(),
+					},
+					pgvg: {
+						pg: 23,
+						vg: 72,
 					}
 				}
 			}

@@ -1,7 +1,7 @@
+import {ITransaction} from "@/puff-smith/service/transaction";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
-import {ITransaction} from "@/puff-smith/service/transaction";
 
 export interface ILiquidCreate {
 	name: string;
@@ -52,6 +52,7 @@ export interface ILiquidQuickMixInfoRequest {
 export interface ILiquidQuickMixInfo {
 	aroma?: { content: number; volume?: number | null, pg: number; vg: number };
 	base?: { volume?: number | null, pg: number; vg: number };
+	pgvg?: { pg: number; vg: number; };
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
