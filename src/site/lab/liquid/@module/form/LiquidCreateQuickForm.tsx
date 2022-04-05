@@ -43,7 +43,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
 						<InventoryBoosterSelect onClear={() => setBoosterId(undefined)} onSelect={({entity: {id}}) => setBoosterId(id)}/>
 					</FormItem>}
-					<FormItem hasTooltip field={"baseId"}>
+					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
 						<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
 					</FormItem>
 					<Divider/>
