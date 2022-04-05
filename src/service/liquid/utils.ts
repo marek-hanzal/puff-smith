@@ -79,10 +79,12 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
 	if (aroma && base && booster && nicotine) {
-		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterCount = Math.round(boosterBaseVolume / booster.volume.toNumber());
+		const boosterVolume = booster.volume.toNumber() * boosterCount;
 		const boosterInfo = {
 			volume: boosterVolume,
-			count: boosterVolume / booster.volume.toNumber(),
+			count: boosterCount,
 			pg: booster.pg.toNumber(),
 			vg: booster.vg.toNumber(),
 			ml: toMl({
@@ -106,7 +108,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 			aroma: aromaInfo,
 			base: baseInfo.volume > 0 ? baseInfo : undefined,
 			booster: boosterInfo,
-			pgvg: toMixtureResult({
+			result: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -117,10 +119,12 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 		};
 	}
 	if (aroma && booster && nicotine) {
-		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterCount = Math.round(boosterBaseVolume / booster.volume.toNumber());
+		const boosterVolume = booster.volume.toNumber() * boosterCount;
 		const boosterInfo = {
 			volume: boosterVolume,
-			count: boosterVolume / booster.volume.toNumber(),
+			count: boosterCount,
 			pg: booster.pg.toNumber(),
 			vg: booster.vg.toNumber(),
 			ml: toMl({
@@ -132,7 +136,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 		return {
 			aroma: aromaInfo,
 			booster: boosterInfo,
-			pgvg: toMixtureResult({
+			result: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -155,7 +159,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 		return {
 			aroma: aromaInfo,
 			base: baseInfo,
-			pgvg: toMixtureResult({
+			result: toMixtureResult({
 				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
@@ -167,8 +171,8 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 	if (aroma) {
 		return {
 			aroma: aromaInfo,
-			pgvg: toMixtureResult({
-				volume: aromaInfo.content,
+			result: toMixtureResult({
+				volume: aromaInfo.volume,
 				fluids: [
 					aromaInfo.ml,
 				],

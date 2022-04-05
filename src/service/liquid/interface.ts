@@ -97,7 +97,7 @@ export interface ILiquidQuickMixInfo {
 	aroma?: IAromaInfo;
 	base?: IBaseInfo;
 	booster?: IBoosterInfo;
-	pgvg?: IMixtureResult;
+	result?: IMixtureResult;
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
