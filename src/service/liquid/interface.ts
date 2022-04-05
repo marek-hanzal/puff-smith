@@ -83,9 +83,18 @@ export interface IBaseInfo {
 	ml?: IPgVgMl;
 }
 
+export interface IBoosterInfo {
+	volume?: number;
+	count?: number;
+	pg: number;
+	vg: number;
+	ml?: IPgVgMl;
+}
+
 export interface ILiquidQuickMixInfo {
 	aroma?: IAromaInfo;
 	base?: IBaseInfo;
+	booster?: IBoosterInfo;
 	pgvg?: IPgVgRatio;
 }
 

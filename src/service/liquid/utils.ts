@@ -55,7 +55,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 	const aromaInfo = {
 		content: aroma.content.toNumber(),
 		volume: aroma.volume?.toNumber(),
-		available: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()),
+		available: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()) || aroma.content.toNumber(),
 		pg: aroma.pg.toNumber(),
 		vg: aroma.vg.toNumber(),
 		ml: toMl({
@@ -68,8 +68,72 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 			vg: aroma.vg.toNumber(),
 		})
 	};
+	/**
+	 * https://www.youtube.com/watch?v=qLTgaX9gYPE
+	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
+	 */
+	if (aroma && booster && nicotine) {
+		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterInfo = {
+			volume: boosterVolume,
+			count: boosterVolume / booster.volume.toNumber(),
+			pg: booster.pg.toNumber(),
+			vg: booster.vg.toNumber(),
+			ml: toMl({
+				volume: boosterVolume,
+				pg: booster.pg.toNumber(),
+				vg: booster.vg.toNumber(),
+			}),
+		};
+		return {
+			aroma: aromaInfo,
+			booster: boosterInfo,
+			pgvg: toPgVgRatio({
+				volume: aromaInfo.volume,
+				fluids: [
+					aromaInfo.ml,
+					boosterInfo.ml,
+				],
+			})
+		};
+	}
 	if (aroma && base && booster && nicotine) {
-		return {};
+		const boosterVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
+		const boosterInfo = {
+			volume: boosterVolume,
+			count: boosterVolume / booster.volume.toNumber(),
+			pg: booster.pg.toNumber(),
+			vg: booster.vg.toNumber(),
+			ml: toMl({
+				volume: boosterVolume,
+				pg: booster.pg.toNumber(),
+				vg: booster.vg.toNumber(),
+			}),
+		};
+		const baseInfo = {
+			volume: aromaInfo.available - boosterInfo.volume,
+			pg: base.pg.toNumber(),
+			vg: base.vg.toNumber(),
+			ml: toMl({
+				volume: aromaInfo.available - boosterInfo.volume,
+				pg: base.pg.toNumber(),
+				vg: base.vg.toNumber(),
+			}),
+		};
+
+		return {
+			aroma: aromaInfo,
+			base: baseInfo,
+			booster: boosterInfo,
+			pgvg: toPgVgRatio({
+				volume: aromaInfo.volume,
+				fluids: [
+					aromaInfo.ml,
+					baseInfo.ml,
+					boosterInfo.ml,
+				],
+			})
+		};
 	}
 	if (aroma && base) {
 		const baseInfo = {
@@ -90,6 +154,17 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 				fluids: [
 					aromaInfo.ml,
 					baseInfo.ml,
+				],
+			})
+		};
+	}
+	if (aroma) {
+		return {
+			aroma: aromaInfo,
+			pgvg: toPgVgRatio({
+				volume: aromaInfo.content,
+				fluids: [
+					aromaInfo.ml,
 				],
 			})
 		};
