@@ -5,8 +5,6 @@ services:
         env_file: .env
         networks:
             - web
-            - db
-            - memcached
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -22,34 +20,11 @@ services:
             - 'traefik.http.services.puff-smith-production-tls.loadbalancer.server.port=3000'
         volumes:
             - puff-smith-files:/var/www/.data
-            - puff-smith-session:/var/www/.session
-
-    memcached:
-        image: memcached:1.6-alpine
-        hostname: memcached
-        networks:
-            - memcached
-
-    mariadb:
-        image: mariadb:10
-        hostname: mariadb
-        environment:
-            MYSQL_ROOT_PASSWORD: 1234
-            MYSQL_DATABASE: puff-smith
-            MYSQL_USER: puff-smith
-            MYSQL_PASSWORD: 1234
-        networks:
-            - db
-        volumes:
-            - puff-smith-data:/var/lib/mysql
 
 networks:
     web:
         external: true
-    db:
-    memcached:
 
 volumes:
     puff-smith-data:
     puff-smith-files:
-    puff-smith-session:

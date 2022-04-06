@@ -1,0 +1,66 @@
+version: '3.4'
+services:
+    app:
+        image: marekhanzal/puff-smith:alfa
+        env_file: .env
+        networks:
+            - web
+            - postgres
+            - mongo
+            - mailhog
+        labels:
+            - 'traefik.enable=true'
+            # http stuff
+            - 'traefik.http.routers.puff-smith-alfa.rule=Host(`alfa.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa.entrypoints=http'
+            - 'traefik.http.routers.puff-smith-alfa.middlewares=redirect-to-https'
+            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
+            # https stuff
+            - 'traefik.http.routers.puff-smith-alfa-tls.rule=Host(`alfa.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-alfa-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-alfa-tls.tls.certresolver=default'
+            - 'traefik.http.services.puff-smith-alfa-tls.loadbalancer.server.port=3000'
+
+    postgres:
+        image: postgres:14.2
+        env_file: .env
+        networks:
+            - postgres
+        environment:
+            POSTGRES_USER: puff-smith
+            POSTGRES_DB: puff-smith
+
+    mongo:
+        image: mongo:5
+        env_file: .env
+        environment:
+            MONGO_INITDB_DATABASE: agenda
+        networks:
+            - mongo
+
+    mailhog:
+        image: mailhog/mailhog
+        networks:
+            - web
+            - mailhog
+        labels:
+            - 'traefik.enable=true'
+            # http stuff
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.rule=Host(`mail.alfa.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.entrypoints=http'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.middlewares=redirect-to-https'
+            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
+            # https stuff
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.rule=Host(`mail.alfa.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls.certresolver=default'
+            - 'traefik.http.services.puff-smith-alfa-mailhog-tls.loadbalancer.server.port=8025'
+
+networks:
+    web:
+        external: true
+    postgres:
+    mongo:
+    mailhog:

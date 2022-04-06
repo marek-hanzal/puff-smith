@@ -1,9 +1,9 @@
-name: Staging Release
+name: Beta Release
 
 on:
     push:
         branches:
-            - staging
+            - beta
 
 jobs:
     build:
@@ -117,7 +117,7 @@ jobs:
                     key: ${{ secrets.SSHKEY }}
                     script_stop: true
                     script: |
-                        cd /opt/app/.docker/staging
+                        cd /opt/app/.docker/beta
 
                         echo AGENDA_DB=${{ secrets.AGENDA_DB }} >> .env
                         echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
@@ -132,6 +132,4 @@ jobs:
 
                         docker system prune -f --all
                         docker compose pull
-                        docker compose down
-                        docker compose rm -f
                         docker compose up -d
