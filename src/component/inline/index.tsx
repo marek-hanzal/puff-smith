@@ -2,6 +2,7 @@ export * from "./CoilSize";
 export * from "./CoilWraps";
 export * from "./Content2Inline";
 export * from "./ContentInline";
+export * from "./NicotineInline";
 export * from "./Ohm";
 export * from "./PgVgInline";
 export * from "./RangeInline";
