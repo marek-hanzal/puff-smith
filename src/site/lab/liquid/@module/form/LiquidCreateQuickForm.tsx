@@ -1,24 +1,34 @@
 import {Content2Inline, ContentInline, LiquidIcon, NicotineSlider, PgVgInline} from "@/puff-smith";
+import {ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
 import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
-import {Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
-import {Col, Divider, Row, Space, Typography} from "antd";
+import {IssuesCloseOutlined} from "@ant-design/icons";
+import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
+import {Button, Col, Divider, Row, Space, Typography} from "antd";
 import moment from "moment";
 import {FC, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface ILiquidCreateQuickFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
+	const {t} = useTranslation();
 	const [aromaId, setAromaId] = useState<string>();
 	const [baseId, setBaseId] = useState<string>();
 	const [boosterId, setBoosterId] = useState<string>();
 	const [nicotine, setNicotine] = useState<number>(0);
-	const quickMixInfoQuery = useQuickMixInfoQuery({aromaId, baseId, boosterId, nicotine});
+	const [request, setRequest] = useState<ILiquidQuickMixInfoRequest>();
+	const [check, setCheck] = useState(true);
+
+	const quickMixInfoQuery = useQuickMixInfoQuery(request, undefined, {
+		keepPreviousData: true,
+		onSuccess: () => setCheck(false),
+	});
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
 	return <>
@@ -31,6 +41,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 						mixed: moment(),
 						nicotine,
 					})}
+					onValuesChange={() => setCheck(true)}
 					{...props}
 				>
 					<FormItem hasTooltip field={"aromaId"} required>
@@ -52,7 +63,19 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					</FormItem>
 					<Divider/>
 					<Centered>
-						<Submit disabled={!!quickMixInfo?.result?.error || false} icon={<LiquidIcon/>} label={"create"}/>
+						<ButtonBar align={"baseline"}>
+							{check && <Button
+								type={"primary"}
+								ghost
+								icon={<IssuesCloseOutlined/>}
+								disabled={!aromaId}
+								onClick={() => setRequest({aromaId, baseId, boosterId, nicotine})}
+							>{t("lab.liquid.mixture.refresh")}</Button>}
+							{quickMixInfo?.result && !quickMixInfo?.result?.error && !check && <Submit
+								icon={<LiquidIcon/>}
+								label={"create"}
+							/>}
+						</ButtonBar>
 					</Centered>
 				</CreateDefaultForm>
 			</Col>
