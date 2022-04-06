@@ -71,8 +71,9 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 								disabled={!aromaId}
 								onClick={() => setRequest({aromaId, baseId, boosterId, nicotine})}
 							>{t("lab.liquid.mixture.refresh")}</Button>}
-							{quickMixInfo?.result && !quickMixInfo?.result?.error && !check && <Submit
+							{!check && <Submit
 								icon={<LiquidIcon/>}
+								disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
 								label={"create"}
 							/>}
 						</ButtonBar>
