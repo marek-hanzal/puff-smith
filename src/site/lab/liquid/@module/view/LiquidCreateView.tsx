@@ -15,7 +15,7 @@ export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
 				<LiquidCreateQuickForm/>
 			</Template>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={"advanced"} tab={t("lab.liquid.create.advanced.tab")}>
+		<Tabs.TabPane disabled key={"advanced"} tab={t("lab.liquid.create.advanced.tab")}>
 			<LiquidCreateForm/>
 		</Tabs.TabPane>
 	</Tabs>;

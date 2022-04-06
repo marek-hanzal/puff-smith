@@ -57,12 +57,12 @@ export const FilesSource: FC<IFilesSourceProps> = props => {
 		useQuery={useFilesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useFilesLink = (): ((queryParams?: IFilesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(FilesApiLink, queryParams);
-};
+}
 
 export const useFilesPromise = createPromiseHook<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
 
@@ -107,7 +107,7 @@ export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</FilesSource>;
-};
+}
 
 export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> {
 	toOption: IToOptionMapper<IFile>;
@@ -123,4 +123,4 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, ...
 export const useFilesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FilesApiLink]);
-};
+}

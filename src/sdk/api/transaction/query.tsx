@@ -57,12 +57,12 @@ export const TransactionsSource: FC<ITransactionsSourceProps> = props => {
 		useQuery={useTransactionsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useTransactionsLink = (): ((queryParams?: ITransactionsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(TransactionsApiLink, queryParams);
-};
+}
 
 export const useTransactionsPromise = createPromiseHook<ITransactionQuery, ITransaction, ITransactionsQueryParams>(TransactionsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({source
 			{...props}
 		/>
 	</TransactionsSource>;
-};
+}
 
 export interface ITransactionsSourceSelectProps extends IQuerySourceSelectProps<ITransaction> {
 	toOption: IToOptionMapper<ITransaction>;
@@ -123,4 +123,4 @@ export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({so
 export const useTransactionsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionsApiLink]);
-};
+}

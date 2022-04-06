@@ -57,12 +57,12 @@ export const CellsInventorySource: FC<ICellsInventorySourceProps> = props => {
 		useQuery={useCellsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useCellsInventoryLink = (): ((queryParams?: ICellsInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CellsInventoryApiLink, queryParams);
-};
+}
 
 export const useCellsInventoryPromise = createPromiseHook<ICellInventoryQuery, ICellInventory, ICellsInventoryQueryParams>(CellsInventoryApiLink, "post");
 
@@ -107,7 +107,7 @@ export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({so
 			{...props}
 		/>
 	</CellsInventorySource>;
-};
+}
 
 export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {
 	toOption: IToOptionMapper<ICellInventory>;
@@ -123,4 +123,4 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 export const useCellsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsInventoryApiLink]);
-};
+}

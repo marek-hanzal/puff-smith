@@ -15,7 +15,7 @@ export const useCommitMutation = createMutationHook<void, boolean>(CommitApiLink
 export const useCommitQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CommitApiLink]);
-};
+}
 
 export interface ICommitDefaultFormProps extends Partial<IFormProps<void, boolean>> {
 }
@@ -23,11 +23,11 @@ export interface ICommitDefaultFormProps extends Partial<IFormProps<void, boolea
 export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, boolean>
 	useMutation={useCommitMutation}
 	{...props}
-/>;
+/>
 
 export const useCommitLink = (): ((query: ICommitQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CommitApiLink, query);
-};
+}
 
 export const useCommitPromise = createPromiseHook<void, boolean>(CommitApiLink, "post");

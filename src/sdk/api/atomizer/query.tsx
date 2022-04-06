@@ -57,12 +57,12 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useAtomizersLink = (): ((queryParams?: IAtomizersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(AtomizersApiLink, queryParams);
-};
+}
 
 export const useAtomizersPromise = createPromiseHook<IAtomizerQuery, IAtomizer, IAtomizersQueryParams>(AtomizersApiLink, "post");
 
@@ -107,7 +107,7 @@ export const AtomizersListSource: FC<IAtomizersListSourceProps> = ({sourceProps,
 			{...props}
 		/>
 	</AtomizersSource>;
-};
+}
 
 export interface IAtomizersSourceSelectProps extends IQuerySourceSelectProps<IAtomizer> {
 	toOption: IToOptionMapper<IAtomizer>;
@@ -123,4 +123,4 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 export const useAtomizersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersApiLink]);
-};
+}

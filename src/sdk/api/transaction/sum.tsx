@@ -31,7 +31,7 @@ export const useSumQuery = createQueryHook<ITransactionQuery, number, ISumQueryP
 export const useSumLink = (): ((queryParams?: ISumQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(SumApiLink, queryParams);
-};
+}
 
 export const useSumPromise = createPromiseHook<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
 

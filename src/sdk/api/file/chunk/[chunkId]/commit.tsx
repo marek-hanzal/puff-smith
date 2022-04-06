@@ -17,7 +17,7 @@ export const useCommitMutation = createMutationHook<IChunkCommit, IFile, IChunkE
 export const useCommitQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CommitApiLink]);
-};
+}
 
 export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit, IFile, IChunkEndpointQuery>> {
 }
@@ -25,11 +25,11 @@ export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit
 export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<IChunkCommit, IFile, IChunkEndpointQuery>
 	useMutation={useCommitMutation}
 	{...props}
-/>;
+/>
 
 export const useCommitLink = (): ((query: ICommitQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CommitApiLink, query);
-};
+}
 
 export const useCommitPromise = createPromiseHook<IChunkCommit, IFile, IChunkEndpointQuery>(CommitApiLink, "post");

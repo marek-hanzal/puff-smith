@@ -17,7 +17,7 @@ export const useImportMutation = createMutationHook<void, IJob<IImportParams>, I
 export const useImportQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ImportApiLink]);
-};
+}
 
 export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<IImportParams>, IImportParams>> {
 }
@@ -25,11 +25,11 @@ export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<I
 export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<void, IJob<IImportParams>, IImportParams>
 	useMutation={useImportMutation}
 	{...props}
-/>;
+/>
 
 export const useImportLink = (): ((query: IImportQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(ImportApiLink, query);
-};
+}
 
 export const useImportPromise = createPromiseHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");

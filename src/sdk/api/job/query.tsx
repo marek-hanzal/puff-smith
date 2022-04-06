@@ -57,12 +57,12 @@ export const JobsSource: FC<IJobsSourceProps> = props => {
 		useQuery={useJobsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useJobsLink = (): ((queryParams?: IJobsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(JobsApiLink, queryParams);
-};
+}
 
 export const useJobsPromise = createPromiseHook<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</JobsSource>;
-};
+}
 
 export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 	toOption: IToOptionMapper<IJob>;
@@ -123,4 +123,4 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, ...pr
 export const useJobsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobsApiLink]);
-};
+}

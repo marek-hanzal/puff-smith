@@ -32,12 +32,12 @@ export const useVersionQuery = createQueryHook<void, string, IVersionQueryParams
 export const useVersionQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VersionApiLink]);
-};
+}
 
 export const useVersionLink = (): ((query: IVersionQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(VersionApiLink, query);
-};
+}
 
 export const useVersionPromise = createPromiseHook<void, string, IVersionQueryParams>(VersionApiLink, "get");
 

@@ -57,12 +57,12 @@ export const BasesSource: FC<IBasesSourceProps> = props => {
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useBasesLink = (): ((queryParams?: IBasesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(BasesApiLink, queryParams);
-};
+}
 
 export const useBasesPromise = createPromiseHook<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
 
@@ -107,7 +107,7 @@ export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</BasesSource>;
-};
+}
 
 export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -123,4 +123,4 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, ...
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesApiLink]);
-};
+}

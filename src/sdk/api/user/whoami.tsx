@@ -33,12 +33,12 @@ export const useWhoamiQuery = createQueryHook<void, IUser, IWhoamiQueryParams>(W
 export const useWhoamiQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WhoamiApiLink]);
-};
+}
 
 export const useWhoamiLink = (): ((query: IWhoamiQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(WhoamiApiLink, query);
-};
+}
 
 export const useWhoamiPromise = createPromiseHook<void, IUser, IWhoamiQueryParams>(WhoamiApiLink, "get");
 

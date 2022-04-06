@@ -57,12 +57,12 @@ export const BoostersInventorySource: FC<IBoostersInventorySourceProps> = props 
 		useQuery={useBoostersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useBoostersInventoryLink = (): ((queryParams?: IBoostersInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(BoostersInventoryApiLink, queryParams);
-};
+}
 
 export const useBoostersInventoryPromise = createPromiseHook<IBoosterInventoryQuery, IBoosterInventory, IBoostersInventoryQueryParams>(BoostersInventoryApiLink, "post");
 
@@ -108,7 +108,7 @@ export const BoostersInventoryListSource: FC<IBoostersInventoryListSourceProps> 
 			{...props}
 		/>
 	</BoostersInventorySource>;
-};
+}
 
 export interface IBoostersInventorySourceSelectProps extends IQuerySourceSelectProps<IBoosterInventory> {
 	toOption: IToOptionMapper<IBoosterInventory>;
@@ -124,4 +124,4 @@ export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectPro
 export const useBoostersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoostersInventoryApiLink]);
-};
+}

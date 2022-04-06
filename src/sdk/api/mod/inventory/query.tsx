@@ -57,12 +57,12 @@ export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
 		useQuery={useModsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useModsInventoryLink = (): ((queryParams?: IModsInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(ModsInventoryApiLink, queryParams);
-};
+}
 
 export const useModsInventoryPromise = createPromiseHook<IModInventoryQuery, IModInventory, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
 
@@ -107,7 +107,7 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 			{...props}
 		/>
 	</ModsInventorySource>;
-};
+}
 
 export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
 	toOption: IToOptionMapper<IModInventory>;
@@ -123,4 +123,4 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 export const useModsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsInventoryApiLink]);
-};
+}

@@ -57,12 +57,12 @@ export const VouchersSource: FC<IVouchersSourceProps> = props => {
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useVouchersLink = (): ((queryParams?: IVouchersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(VouchersApiLink, queryParams);
-};
+}
 
 export const useVouchersPromise = createPromiseHook<IVoucherQuery, IVoucher, IVouchersQueryParams>(VouchersApiLink, "post");
 
@@ -107,7 +107,7 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</VouchersSource>;
-};
+}
 
 export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVoucher> {
 	toOption: IToOptionMapper<IVoucher>;
@@ -123,4 +123,4 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersApiLink]);
-};
+}

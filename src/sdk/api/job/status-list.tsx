@@ -56,12 +56,12 @@ export const StatusListSource: FC<IStatusListSourceProps> = props => {
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useStatusListLink = (): ((queryParams?: IStatusListQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(StatusListApiLink, queryParams);
-};
+}
 
 export const useStatusListPromise = createPromiseHook<IQuery, IBaseSelectOption, IStatusListQueryParams>(StatusListApiLink, "post");
 
@@ -106,7 +106,7 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 			{...props}
 		/>
 	</StatusListSource>;
-};
+}
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {
 	toOption: IToOptionMapper<IBaseSelectOption>;
@@ -122,4 +122,4 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
-};
+}

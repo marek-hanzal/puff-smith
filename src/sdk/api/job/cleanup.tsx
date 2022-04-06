@@ -16,7 +16,7 @@ export const useCleanupMutation = createMutationHook<IJobFilter | undefined, boo
 export const useCleanupQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CleanupApiLink]);
-};
+}
 
 export interface ICleanupDefaultFormProps extends Partial<IFormProps<IJobFilter | undefined, boolean>> {
 }
@@ -24,11 +24,11 @@ export interface ICleanupDefaultFormProps extends Partial<IFormProps<IJobFilter 
 export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<IJobFilter | undefined, boolean>
 	useMutation={useCleanupMutation}
 	{...props}
-/>;
+/>
 
 export const useCleanupLink = (): ((query: ICleanupQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CleanupApiLink, query);
-};
+}
 
 export const useCleanupPromise = createPromiseHook<IJobFilter | undefined, boolean>(CleanupApiLink, "post");

@@ -59,12 +59,12 @@ export const ImagesSource: FC<IImagesSourceProps> = props => {
 		useQuery={useImagesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useImagesLink = (): ((queryParams?: IImagesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(ImagesApiLink, queryParams);
-};
+}
 
 export const useImagesPromise = createPromiseHook<IQuery, IImagesDto, IImagesQueryParams>(ImagesApiLink, "post");
 
@@ -109,7 +109,7 @@ export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</ImagesSource>;
-};
+}
 
 export interface IImagesSourceSelectProps extends IQuerySourceSelectProps<IImagesDto> {
 	toOption: IToOptionMapper<IImagesDto>;
@@ -125,4 +125,4 @@ export const ImagesSourceSelect: FC<IImagesSourceSelectProps> = ({sourceProps, .
 export const useImagesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ImagesApiLink]);
-};
+}

@@ -57,12 +57,12 @@ export const AtomizersInventorySource: FC<IAtomizersInventorySourceProps> = prop
 		useQuery={useAtomizersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useAtomizersInventoryLink = (): ((queryParams?: IAtomizersInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(AtomizersInventoryApiLink, queryParams);
-};
+}
 
 export const useAtomizersInventoryPromise = createPromiseHook<IAtomizerInventoryQuery, IAtomizerInventory, IAtomizersInventoryQueryParams>(AtomizersInventoryApiLink, "post");
 
@@ -108,7 +108,7 @@ export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps
 			{...props}
 		/>
 	</AtomizersInventorySource>;
-};
+}
 
 export interface IAtomizersInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
 	toOption: IToOptionMapper<IAtomizerInventory>;
@@ -124,4 +124,4 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 export const useAtomizersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersInventoryApiLink]);
-};
+}

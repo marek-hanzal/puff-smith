@@ -57,12 +57,12 @@ export const ModsSource: FC<IModsSourceProps> = props => {
 		useQuery={useModsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useModsLink = (): ((queryParams?: IModsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(ModsApiLink, queryParams);
-};
+}
 
 export const useModsPromise = createPromiseHook<IModQuery, IMod, IModsQueryParams>(ModsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</ModsSource>;
-};
+}
 
 export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 	toOption: IToOptionMapper<IMod>;
@@ -123,4 +123,4 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, ...pr
 export const useModsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsApiLink]);
-};
+}

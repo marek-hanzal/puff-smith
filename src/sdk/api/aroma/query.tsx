@@ -57,12 +57,12 @@ export const AromasSource: FC<IAromasSourceProps> = props => {
 		useQuery={useAromasQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useAromasLink = (): ((queryParams?: IAromasQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(AromasApiLink, queryParams);
-};
+}
 
 export const useAromasPromise = createPromiseHook<IAromaQuery, IAroma, IAromasQueryParams>(AromasApiLink, "post");
 
@@ -107,7 +107,7 @@ export const AromasListSource: FC<IAromasListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</AromasSource>;
-};
+}
 
 export interface IAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
@@ -123,4 +123,4 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, .
 export const useAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasApiLink]);
-};
+}

@@ -57,12 +57,12 @@ export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props 
 		useQuery={useVouchersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useVouchersInventoryLink = (): ((queryParams?: IVouchersInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(VouchersInventoryApiLink, queryParams);
-};
+}
 
 export const useVouchersInventoryPromise = createPromiseHook<IVoucherInventoryQuery, IVoucherInventory, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
 
@@ -108,7 +108,7 @@ export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> 
 			{...props}
 		/>
 	</VouchersInventorySource>;
-};
+}
 
 export interface IVouchersInventorySourceSelectProps extends IQuerySourceSelectProps<IVoucherInventory> {
 	toOption: IToOptionMapper<IVoucherInventory>;
@@ -124,4 +124,4 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 export const useVouchersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersInventoryApiLink]);
-};
+}

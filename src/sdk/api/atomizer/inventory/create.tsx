@@ -16,7 +16,7 @@ export const useCreateMutation = createMutationHook<Omit<IAtomizerInventoryCreat
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IAtomizerInventoryCreate, "userId">, IAtomizerInventory>> {
 }
@@ -24,11 +24,11 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IAtomiz
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IAtomizerInventoryCreate, "userId">, IAtomizerInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const useCreateLink = (): ((query: ICreateQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CreateApiLink, query);
-};
+}
 
 export const useCreatePromise = createPromiseHook<Omit<IAtomizerInventoryCreate, "userId">, IAtomizerInventory>(CreateApiLink, "post");

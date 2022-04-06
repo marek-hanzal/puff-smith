@@ -57,12 +57,12 @@ export const BoostersSource: FC<IBoostersSourceProps> = props => {
 		useQuery={useBoostersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useBoostersLink = (): ((queryParams?: IBoostersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(BoostersApiLink, queryParams);
-};
+}
 
 export const useBoostersPromise = createPromiseHook<IBoosterQuery, IBooster, IBoostersQueryParams>(BoostersApiLink, "post");
 
@@ -107,7 +107,7 @@ export const BoostersListSource: FC<IBoostersListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</BoostersSource>;
-};
+}
 
 export interface IBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
@@ -123,4 +123,4 @@ export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProp
 export const useBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoostersApiLink]);
-};
+}

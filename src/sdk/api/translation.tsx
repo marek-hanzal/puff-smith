@@ -32,12 +32,12 @@ export const useTranslationsQuery = createQueryHook<void, ITranslationBundle, IT
 export const useTranslationsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationsApiLink]);
-};
+}
 
 export const useTranslationsLink = (): ((query: ITranslationsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(TranslationsApiLink, query);
-};
+}
 
 export const useTranslationsPromise = createPromiseHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
 

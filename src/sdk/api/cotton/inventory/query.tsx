@@ -57,12 +57,12 @@ export const CottonsInventorySource: FC<ICottonsInventorySourceProps> = props =>
 		useQuery={useCottonsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useCottonsInventoryLink = (): ((queryParams?: ICottonsInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CottonsInventoryApiLink, queryParams);
-};
+}
 
 export const useCottonsInventoryPromise = createPromiseHook<ICottonInventoryQuery, ICottonInventory, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
 
@@ -108,7 +108,7 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 			{...props}
 		/>
 	</CottonsInventorySource>;
-};
+}
 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;
@@ -124,4 +124,4 @@ export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps
 export const useCottonsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsInventoryApiLink]);
-};
+}

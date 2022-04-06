@@ -57,12 +57,12 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useLiquidsLink = (): ((queryParams?: ILiquidsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(LiquidsApiLink, queryParams);
-};
+}
 
 export const useLiquidsPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 			{...props}
 		/>
 	</LiquidsSource>;
-};
+}
 
 export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
@@ -123,4 +123,4 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidsApiLink]);
-};
+}

@@ -57,12 +57,12 @@ export const AromasInventorySource: FC<IAromasInventorySourceProps> = props => {
 		useQuery={useAromasInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useAromasInventoryLink = (): ((queryParams?: IAromasInventoryQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(AromasInventoryApiLink, queryParams);
-};
+}
 
 export const useAromasInventoryPromise = createPromiseHook<IAromaInventoryQuery, IAromaInventory, IAromasInventoryQueryParams>(AromasInventoryApiLink, "post");
 
@@ -108,7 +108,7 @@ export const AromasInventoryListSource: FC<IAromasInventoryListSourceProps> = ({
 			{...props}
 		/>
 	</AromasInventorySource>;
-};
+}
 
 export interface IAromasInventorySourceSelectProps extends IQuerySourceSelectProps<IAromaInventory> {
 	toOption: IToOptionMapper<IAromaInventory>;
@@ -124,4 +124,4 @@ export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> 
 export const useAromasInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasInventoryApiLink]);
-};
+}

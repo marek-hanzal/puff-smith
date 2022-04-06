@@ -57,12 +57,12 @@ export const UsersSource: FC<IUsersSourceProps> = props => {
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useUsersLink = (): ((queryParams?: IUsersQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(UsersApiLink, queryParams);
-};
+}
 
 export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
 
@@ -107,7 +107,7 @@ export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</UsersSource>;
-};
+}
 
 export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
@@ -123,4 +123,4 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, ...
 export const useUsersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UsersApiLink]);
-};
+}

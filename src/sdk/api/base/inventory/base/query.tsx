@@ -57,12 +57,12 @@ export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
 		useQuery={useInventoryBasesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useInventoryBasesLink = (): ((queryParams?: IInventoryBasesQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(InventoryBasesApiLink, queryParams);
-};
+}
 
 export const useInventoryBasesPromise = createPromiseHook<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
 
@@ -107,7 +107,7 @@ export const InventoryBasesListSource: FC<IInventoryBasesListSourceProps> = ({so
 			{...props}
 		/>
 	</InventoryBasesSource>;
-};
+}
 
 export interface IInventoryBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -123,4 +123,4 @@ export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = 
 export const useInventoryBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBasesApiLink]);
-};
+}

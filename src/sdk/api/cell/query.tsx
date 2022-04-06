@@ -57,12 +57,12 @@ export const CellsSource: FC<ICellsSourceProps> = props => {
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useCellsLink = (): ((queryParams?: ICellsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CellsApiLink, queryParams);
-};
+}
 
 export const useCellsPromise = createPromiseHook<ICellQuery, ICell, ICellsQueryParams>(CellsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</CellsSource>;
-};
+}
 
 export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> {
 	toOption: IToOptionMapper<ICell>;
@@ -123,4 +123,4 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, ...
 export const useCellsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsApiLink]);
-};
+}

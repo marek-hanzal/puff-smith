@@ -16,7 +16,7 @@ export const useCreateMutation = createMutationHook<Omit<ILiquidCreate, "userId"
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ILiquidCreate, "userId">, ILiquid>> {
 }
@@ -24,11 +24,11 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ILiquid
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<ILiquidCreate, "userId">, ILiquid>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const useCreateLink = (): ((query: ICreateQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CreateApiLink, query);
-};
+}
 
 export const useCreatePromise = createPromiseHook<Omit<ILiquidCreate, "userId">, ILiquid>(CreateApiLink, "post");

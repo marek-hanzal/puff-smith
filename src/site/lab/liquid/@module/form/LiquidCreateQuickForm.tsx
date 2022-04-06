@@ -25,6 +25,8 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 	const [request, setRequest] = useState<ILiquidQuickMixInfoRequest>();
 	const [check, setCheck] = useState(true);
 
+	const toRequest = (request?: ILiquidQuickMixInfoRequest) => setRequest(request || {aromaId, baseId, boosterId, nicotine});
+
 	const quickMixInfoQuery = useQuickMixInfoQuery(request, undefined, {
 		keepPreviousData: true,
 		onSuccess: () => setCheck(false),
@@ -33,17 +35,13 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 
 	const CheckButton: FC<Partial<ButtonProps>> = props => {
 		const [enabled, setEnabled] = useState(false);
-		const formContext = useFormContext();
-		formContext.canSubmit(value => {
-			console.log("can submit", value);
-			setEnabled(value);
-		});
+		useFormContext().useCanSubmit(setEnabled);
 		return <Button
 			type={"primary"}
 			ghost
 			icon={<IssuesCloseOutlined/>}
 			disabled={!enabled}
-			onClick={() => setRequest({aromaId, baseId, boosterId, nicotine})}
+			onClick={() => toRequest()}
 			{...props}
 		>{t("lab.liquid.mixture.refresh")}</Button>;
 	};
@@ -62,17 +60,26 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					{...props}
 				>
 					<FormItem hasTooltip field={"aromaId"} required>
-						<InventoryAromaSelect onClear={() => setAromaId(undefined)} onSelect={({entity: {id}}) => setAromaId(id)}/>
+						<InventoryAromaSelect onClear={() => {
+							setAromaId(undefined);
+							toRequest({});
+						}} onSelect={({entity: {id}}) => setAromaId(id)}/>
 					</FormItem>
 					<Divider/>
 					<FormItem hasTooltip field={"nicotine"}>
 						<NicotineSlider onChange={setNicotine}/>
 					</FormItem>
 					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
-						<InventoryBoosterSelect onClear={() => setBoosterId(undefined)} onSelect={({entity: {id}}) => setBoosterId(id)}/>
+						<InventoryBoosterSelect onClear={() => {
+							setBoosterId(undefined);
+							toRequest({});
+						}} onSelect={({entity: {id}}) => setBoosterId(id)}/>
 					</FormItem>}
 					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
-						<InventoryBaseSelect onClear={() => setBaseId(undefined)} onSelect={({entity: {id}}) => setBaseId(id)}/>
+						<InventoryBaseSelect onClear={() => {
+							setBaseId(undefined);
+							toRequest({});
+						}} onSelect={({entity: {id}}) => setBaseId(id)}/>
 					</FormItem>
 					<Divider/>
 					<FormItem field={"mixed"}>

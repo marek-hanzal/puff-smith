@@ -57,12 +57,12 @@ export const CottonsSource: FC<ICottonsSourceProps> = props => {
 		useQuery={useCottonsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const useCottonsLink = (): ((queryParams?: ICottonsQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return queryParams => linkContext.link(CottonsApiLink, queryParams);
-};
+}
 
 export const useCottonsPromise = createPromiseHook<ICottonQuery, ICotton, ICottonsQueryParams>(CottonsApiLink, "post");
 
@@ -107,7 +107,7 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 			{...props}
 		/>
 	</CottonsSource>;
-};
+}
 
 export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICotton> {
 	toOption: IToOptionMapper<ICotton>;
@@ -123,4 +123,4 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsApiLink]);
-};
+}
