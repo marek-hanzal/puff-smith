@@ -82,13 +82,13 @@ export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
 	translation={"common.filter.Users"}
 />;
 
-export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IUserQuery>>> {
+export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IUserQuery>>> {
 }
 
-export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
+export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IUserQuery>> name={"Users"} {...props}/>;
 
-export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IUserQuery>>();
-export const useUsersOrderByContext = () => useOrderByContext<IQueryFilter<IUserQuery>>();
+export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IUserQuery>>();
+export const useUsersOrderByContext = () => useOrderByContext<IQueryOrderBy<IUserQuery>>();
 
 export interface IUsersListSourceProps extends Partial<IListProps<IUser>> {
 	sourceProps?: Partial<IUsersSourceProps>;

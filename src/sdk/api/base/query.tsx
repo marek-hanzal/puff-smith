@@ -82,13 +82,13 @@ export const BasesSourceFilter: FC<IBasesSourceFilterProps> = props => <Filter
 	translation={"common.filter.Bases"}
 />;
 
-export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseQuery>>> {
+export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
 }
 
-export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
+export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"Bases"} {...props}/>;
 
-export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>();
-export const useBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>();
+export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
 
 export interface IBasesListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IBasesSourceProps>;

@@ -81,13 +81,13 @@ export const StatusListSourceFilter: FC<IStatusListSourceFilterProps> = props =>
 	translation={"common.filter.StatusList"}
 />;
 
-export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
+export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
 }
 
-export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
+export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>();
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>();
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
+export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
 
 export interface IStatusListListSourceProps extends Partial<IListProps<IBaseSelectOption>> {
 	sourceProps?: Partial<IStatusListSourceProps>;

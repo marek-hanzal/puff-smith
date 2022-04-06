@@ -82,13 +82,13 @@ export const LiquidsSourceFilter: FC<ILiquidsSourceFilterProps> = props => <Filt
 	translation={"common.filter.Liquids"}
 />;
 
-export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ILiquidQuery>>> {
+export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
 }
 
-export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
+export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
-export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ILiquidQuery>>();
-export const useLiquidsOrderByContext = () => useOrderByContext<IQueryFilter<ILiquidQuery>>();
+export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>();
+export const useLiquidsOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>();
 
 export interface ILiquidsListSourceProps extends Partial<IListProps<ILiquid>> {
 	sourceProps?: Partial<ILiquidsSourceProps>;

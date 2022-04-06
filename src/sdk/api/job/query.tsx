@@ -82,13 +82,13 @@ export const JobsSourceFilter: FC<IJobsSourceFilterProps> = props => <Filter
 	translation={"common.filter.Jobs"}
 />;
 
-export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IJobQuery>>> {
+export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IJobQuery>>> {
 }
 
-export const JobsOrderByProvider: FC<IJobsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IJobQuery>> name={"Jobs"} {...props}/>;
+export const JobsOrderByProvider: FC<IJobsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IJobQuery>> name={"Jobs"} {...props}/>;
 
-export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IJobQuery>>();
-export const useJobsOrderByContext = () => useOrderByContext<IQueryFilter<IJobQuery>>();
+export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IJobQuery>>();
+export const useJobsOrderByContext = () => useOrderByContext<IQueryOrderBy<IJobQuery>>();
 
 export interface IJobsListSourceProps extends Partial<IListProps<IJob>> {
 	sourceProps?: Partial<IJobsSourceProps>;

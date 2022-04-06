@@ -82,13 +82,13 @@ export const VouchersSourceFilter: FC<IVouchersSourceFilterProps> = props => <Fi
 	translation={"common.filter.Vouchers"}
 />;
 
-export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IVoucherQuery>>> {
+export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVoucherQuery>>> {
 }
 
-export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
+export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
-export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IVoucherQuery>>();
-export const useVouchersOrderByContext = () => useOrderByContext<IQueryFilter<IVoucherQuery>>();
+export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherQuery>>();
+export const useVouchersOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherQuery>>();
 
 export interface IVouchersListSourceProps extends Partial<IListProps<IVoucher>> {
 	sourceProps?: Partial<IVouchersSourceProps>;

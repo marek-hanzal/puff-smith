@@ -82,13 +82,13 @@ export const CottonsSourceFilter: FC<ICottonsSourceFilterProps> = props => <Filt
 	translation={"common.filter.Cottons"}
 />;
 
-export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICottonQuery>>> {
+export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICottonQuery>>> {
 }
 
-export const CottonsOrderByProvider: FC<ICottonsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICottonQuery>> name={"Cottons"} {...props}/>;
+export const CottonsOrderByProvider: FC<ICottonsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICottonQuery>> name={"Cottons"} {...props}/>;
 
-export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICottonQuery>>();
-export const useCottonsOrderByContext = () => useOrderByContext<IQueryFilter<ICottonQuery>>();
+export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonQuery>>();
+export const useCottonsOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonQuery>>();
 
 export interface ICottonsListSourceProps extends Partial<IListProps<ICotton>> {
 	sourceProps?: Partial<ICottonsSourceProps>;

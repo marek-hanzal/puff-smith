@@ -82,13 +82,13 @@ export const ModsInventorySourceFilter: FC<IModsInventorySourceFilterProps> = pr
 	translation={"common.filter.ModsInventory"}
 />;
 
-export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IModInventoryQuery>>> {
+export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModInventoryQuery>>> {
 }
 
-export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
+export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
-export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IModInventoryQuery>>();
-export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IModInventoryQuery>>();
+export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
+export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
 
 export interface IModsInventoryListSourceProps extends Partial<IListProps<IModInventory>> {
 	sourceProps?: Partial<IModsInventorySourceProps>;

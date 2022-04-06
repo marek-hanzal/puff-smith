@@ -82,13 +82,13 @@ export const ModsSourceFilter: FC<IModsSourceFilterProps> = props => <Filter
 	translation={"common.filter.Mods"}
 />;
 
-export interface IModsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IModQuery>>> {
+export interface IModsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModQuery>>> {
 }
 
-export const ModsOrderByProvider: FC<IModsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IModQuery>> name={"Mods"} {...props}/>;
+export const ModsOrderByProvider: FC<IModsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModQuery>> name={"Mods"} {...props}/>;
 
-export const useModsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IModQuery>>();
-export const useModsOrderByContext = () => useOrderByContext<IQueryFilter<IModQuery>>();
+export const useModsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModQuery>>();
+export const useModsOrderByContext = () => useOrderByContext<IQueryOrderBy<IModQuery>>();
 
 export interface IModsListSourceProps extends Partial<IListProps<IMod>> {
 	sourceProps?: Partial<IModsSourceProps>;

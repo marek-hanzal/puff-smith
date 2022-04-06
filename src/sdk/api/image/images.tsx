@@ -84,13 +84,13 @@ export const ImagesSourceFilter: FC<IImagesSourceFilterProps> = props => <Filter
 	translation={"common.filter.Images"}
 />;
 
-export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IQuery>>> {
+export interface IImagesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
 }
 
-export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IQuery>> name={"Images"} {...props}/>;
+export const ImagesOrderByProvider: FC<IImagesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"Images"} {...props}/>;
 
-export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IQuery>>();
-export const useImagesOrderByContext = () => useOrderByContext<IQueryFilter<IQuery>>();
+export const useImagesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
+export const useImagesOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
 
 export interface IImagesListSourceProps extends Partial<IListProps<IImagesDto>> {
 	sourceProps?: Partial<IImagesSourceProps>;

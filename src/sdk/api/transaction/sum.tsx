@@ -43,13 +43,13 @@ export const SumFilterProvider: FC<ISumFilterProviderProps> = props => <FilterPr
 export const useSumOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ITransactionQuery>>();
 export const useSumFilterContext = () => useFilterContext<IQueryFilter<ITransactionQuery>>();
 
-export interface ISumOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
+export interface ISumOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ITransactionQuery>>> {
 }
 
-export const SumOrderByProvider: FC<ISumOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> name={"Sum"} {...props}/>;
+export const SumOrderByProvider: FC<ISumOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ITransactionQuery>> name={"Sum"} {...props}/>;
 
-export const useSumOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>();
-export const useSumOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>();
+export const useSumOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ITransactionQuery>>();
+export const useSumOrderByContext = () => useOrderByContext<IQueryOrderBy<ITransactionQuery>>();
 
 export interface ISumSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ITransactionQuery>, IQueryOrderBy<ITransactionQuery>, ISumQueryParams>> {
 }

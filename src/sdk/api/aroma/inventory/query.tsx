@@ -82,13 +82,13 @@ export const AromasInventorySourceFilter: FC<IAromasInventorySourceFilterProps> 
 	translation={"common.filter.AromasInventory"}
 />;
 
-export interface IAromasInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IAromaInventoryQuery>>> {
+export interface IAromasInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAromaInventoryQuery>>> {
 }
 
-export const AromasInventoryOrderByProvider: FC<IAromasInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IAromaInventoryQuery>> name={"AromasInventory"} {...props}/>;
+export const AromasInventoryOrderByProvider: FC<IAromasInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAromaInventoryQuery>> name={"AromasInventory"} {...props}/>;
 
-export const useAromasInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IAromaInventoryQuery>>();
-export const useAromasInventoryOrderByContext = () => useOrderByContext<IQueryFilter<IAromaInventoryQuery>>();
+export const useAromasInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAromaInventoryQuery>>();
+export const useAromasInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IAromaInventoryQuery>>();
 
 export interface IAromasInventoryListSourceProps extends Partial<IListProps<IAromaInventory>> {
 	sourceProps?: Partial<IAromasInventorySourceProps>;

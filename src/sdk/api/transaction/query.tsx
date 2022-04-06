@@ -82,13 +82,13 @@ export const TransactionsSourceFilter: FC<ITransactionsSourceFilterProps> = prop
 	translation={"common.filter.Transactions"}
 />;
 
-export interface ITransactionsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ITransactionQuery>>> {
+export interface ITransactionsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ITransactionQuery>>> {
 }
 
-export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ITransactionQuery>> name={"Transactions"} {...props}/>;
+export const TransactionsOrderByProvider: FC<ITransactionsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ITransactionQuery>> name={"Transactions"} {...props}/>;
 
-export const useTransactionsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ITransactionQuery>>();
-export const useTransactionsOrderByContext = () => useOrderByContext<IQueryFilter<ITransactionQuery>>();
+export const useTransactionsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ITransactionQuery>>();
+export const useTransactionsOrderByContext = () => useOrderByContext<IQueryOrderBy<ITransactionQuery>>();
 
 export interface ITransactionsListSourceProps extends Partial<IListProps<ITransaction>> {
 	sourceProps?: Partial<ITransactionsSourceProps>;

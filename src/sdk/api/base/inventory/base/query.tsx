@@ -82,13 +82,13 @@ export const InventoryBasesSourceFilter: FC<IInventoryBasesSourceFilterProps> = 
 	translation={"common.filter.InventoryBases"}
 />;
 
-export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IBaseQuery>>> {
+export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
 }
 
-export const InventoryBasesOrderByProvider: FC<IInventoryBasesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IBaseQuery>> name={"InventoryBases"} {...props}/>;
+export const InventoryBasesOrderByProvider: FC<IInventoryBasesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"InventoryBases"} {...props}/>;
 
-export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IBaseQuery>>();
-export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryFilter<IBaseQuery>>();
+export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
 
 export interface IInventoryBasesListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IInventoryBasesSourceProps>;

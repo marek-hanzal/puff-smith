@@ -82,13 +82,13 @@ export const CellsSourceFilter: FC<ICellsSourceFilterProps> = props => <Filter
 	translation={"common.filter.Cells"}
 />;
 
-export interface ICellsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<ICellQuery>>> {
+export interface ICellsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellQuery>>> {
 }
 
-export const CellsOrderByProvider: FC<ICellsOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<ICellQuery>> name={"Cells"} {...props}/>;
+export const CellsOrderByProvider: FC<ICellsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellQuery>> name={"Cells"} {...props}/>;
 
-export const useCellsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<ICellQuery>>();
-export const useCellsOrderByContext = () => useOrderByContext<IQueryFilter<ICellQuery>>();
+export const useCellsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellQuery>>();
+export const useCellsOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellQuery>>();
 
 export interface ICellsListSourceProps extends Partial<IListProps<ICell>> {
 	sourceProps?: Partial<ICellsSourceProps>;

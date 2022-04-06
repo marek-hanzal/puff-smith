@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith";
+import {NicotineInline, PgVgInline} from "@/puff-smith";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
 import {Space} from "antd";
@@ -16,6 +16,7 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 				label: <Space>
 					<BoosterNameInline booster={booster}/>
 					<PgVgInline pgvg={booster}/>
+					<NicotineInline nicotine={booster.nicotine}/>
 				</Space>,
 				value: booster.id,
 			})}

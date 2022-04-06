@@ -82,13 +82,13 @@ export const FilesSourceFilter: FC<IFilesSourceFilterProps> = props => <Filter
 	translation={"common.filter.Files"}
 />;
 
-export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryFilter<IFileQuery>>> {
+export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IFileQuery>>> {
 }
 
-export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IQueryFilter<IFileQuery>> name={"Files"} {...props}/>;
+export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IFileQuery>> name={"Files"} {...props}/>;
 
-export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryFilter<IFileQuery>>();
-export const useFilesOrderByContext = () => useOrderByContext<IQueryFilter<IFileQuery>>();
+export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IFileQuery>>();
+export const useFilesOrderByContext = () => useOrderByContext<IQueryOrderBy<IFileQuery>>();
 
 export interface IFilesListSourceProps extends Partial<IListProps<IFile>> {
 	sourceProps?: Partial<IFilesSourceProps>;
