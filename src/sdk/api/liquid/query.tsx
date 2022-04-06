@@ -106,7 +106,7 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 		<List<ILiquid>
 			{...props}
 		/>
-	</LiquidsSource>;
+	</LiquidsSource>
 }
 
 export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {

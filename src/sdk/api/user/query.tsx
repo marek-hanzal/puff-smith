@@ -106,7 +106,7 @@ export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...prop
 		<List<IUser>
 			{...props}
 		/>
-	</UsersSource>;
+	</UsersSource>
 }
 
 export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {

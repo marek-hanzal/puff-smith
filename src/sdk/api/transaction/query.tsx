@@ -106,7 +106,7 @@ export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({source
 		<List<ITransaction>
 			{...props}
 		/>
-	</TransactionsSource>;
+	</TransactionsSource>
 }
 
 export interface ITransactionsSourceSelectProps extends IQuerySourceSelectProps<ITransaction> {

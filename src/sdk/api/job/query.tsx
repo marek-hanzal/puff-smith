@@ -106,7 +106,7 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 		<List<IJob>
 			{...props}
 		/>
-	</JobsSource>;
+	</JobsSource>
 }
 
 export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {

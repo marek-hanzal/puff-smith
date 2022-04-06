@@ -106,7 +106,7 @@ export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({so
 		<List<ICellInventory>
 			{...props}
 		/>
-	</CellsInventorySource>;
+	</CellsInventorySource>
 }
 
 export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {

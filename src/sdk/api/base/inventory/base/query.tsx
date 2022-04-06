@@ -106,7 +106,7 @@ export const InventoryBasesListSource: FC<IInventoryBasesListSourceProps> = ({so
 		<List<IBase>
 			{...props}
 		/>
-	</InventoryBasesSource>;
+	</InventoryBasesSource>
 }
 
 export interface IInventoryBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {

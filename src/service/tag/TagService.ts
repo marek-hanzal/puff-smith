@@ -15,17 +15,20 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 				code: `${tag.code}`,
 			},
 		}),
-		onUnique: async create => prismaClient.tag.update({
+		onUnique: async data => prismaClient.tag.update({
 			where: {
 				id: (await prismaClient.tag.findFirst({
 					where: {
-						code: `${create.code}`,
-						group: create.group,
+						code: `${data.code}`,
+						group: data.group,
 					},
 					rejectOnNotFound: true,
 				})).id,
 			},
-			data: create,
+			data: {
+				...data,
+				code: `${data.code}`,
+			},
 		}),
 	}),
 	async fetchCodes(codes, group) {

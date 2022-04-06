@@ -106,7 +106,7 @@ export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...prop
 		<List<IFile>
 			{...props}
 		/>
-	</FilesSource>;
+	</FilesSource>
 }
 
 export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> {

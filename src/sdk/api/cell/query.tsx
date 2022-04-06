@@ -106,7 +106,7 @@ export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...prop
 		<List<ICell>
 			{...props}
 		/>
-	</CellsSource>;
+	</CellsSource>
 }
 
 export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> {

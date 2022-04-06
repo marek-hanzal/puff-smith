@@ -106,7 +106,7 @@ export const InventoryBoostersListSource: FC<IInventoryBoostersListSourceProps> 
 		<List<IBooster>
 			{...props}
 		/>
-	</InventoryBoostersSource>;
+	</InventoryBoostersSource>
 }
 
 export interface IInventoryBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {

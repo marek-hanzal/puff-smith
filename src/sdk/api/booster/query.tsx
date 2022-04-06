@@ -106,7 +106,7 @@ export const BoostersListSource: FC<IBoostersListSourceProps> = ({sourceProps, .
 		<List<IBooster>
 			{...props}
 		/>
-	</BoostersSource>;
+	</BoostersSource>
 }
 
 export interface IBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {

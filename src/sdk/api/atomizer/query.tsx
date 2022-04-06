@@ -106,7 +106,7 @@ export const AtomizersListSource: FC<IAtomizersListSourceProps> = ({sourceProps,
 		<List<IAtomizer>
 			{...props}
 		/>
-	</AtomizersSource>;
+	</AtomizersSource>
 }
 
 export interface IAtomizersSourceSelectProps extends IQuerySourceSelectProps<IAtomizer> {

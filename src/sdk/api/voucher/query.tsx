@@ -106,7 +106,7 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 		<List<IVoucher>
 			{...props}
 		/>
-	</VouchersSource>;
+	</VouchersSource>
 }
 
 export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVoucher> {

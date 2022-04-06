@@ -106,7 +106,7 @@ export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...prop
 		<List<IBase>
 			{...props}
 		/>
-	</BasesSource>;
+	</BasesSource>
 }
 
 export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {

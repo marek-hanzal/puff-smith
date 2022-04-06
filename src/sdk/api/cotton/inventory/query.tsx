@@ -107,7 +107,7 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 		<List<ICottonInventory>
 			{...props}
 		/>
-	</CottonsInventorySource>;
+	</CottonsInventorySource>
 }
 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {

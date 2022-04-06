@@ -108,7 +108,7 @@ export const ImagesListSource: FC<IImagesListSourceProps> = ({sourceProps, ...pr
 		<List<IImagesDto>
 			{...props}
 		/>
-	</ImagesSource>;
+	</ImagesSource>
 }
 
 export interface IImagesSourceSelectProps extends IQuerySourceSelectProps<IImagesDto> {

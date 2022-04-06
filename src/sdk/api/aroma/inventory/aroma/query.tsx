@@ -106,7 +106,7 @@ export const InventoryAromasListSource: FC<IInventoryAromasListSourceProps> = ({
 		<List<IAroma>
 			{...props}
 		/>
-	</InventoryAromasSource>;
+	</InventoryAromasSource>
 }
 
 export interface IInventoryAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {

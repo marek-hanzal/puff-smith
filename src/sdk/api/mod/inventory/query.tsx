@@ -106,7 +106,7 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 		<List<IModInventory>
 			{...props}
 		/>
-	</ModsInventorySource>;
+	</ModsInventorySource>
 }
 
 export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {

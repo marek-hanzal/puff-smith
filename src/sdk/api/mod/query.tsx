@@ -106,7 +106,7 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 		<List<IMod>
 			{...props}
 		/>
-	</ModsSource>;
+	</ModsSource>
 }
 
 export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {

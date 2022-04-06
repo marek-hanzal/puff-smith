@@ -105,7 +105,7 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 		<List<IBaseSelectOption>
 			{...props}
 		/>
-	</StatusListSource>;
+	</StatusListSource>
 }
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {

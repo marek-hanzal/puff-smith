@@ -107,7 +107,7 @@ export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps
 		<List<IAtomizerInventory>
 			{...props}
 		/>
-	</AtomizersInventorySource>;
+	</AtomizersInventorySource>
 }
 
 export interface IAtomizersInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
