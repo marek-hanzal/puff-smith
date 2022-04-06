@@ -10,25 +10,12 @@ export interface ILiquidCreateViewProps {
 export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
 	const {t} = useTranslation();
 	return <Tabs>
-		<Tabs.TabPane key={"simple"} tab={t("lab.liquid.create.simple.tab")}>
+		<Tabs.TabPane key={"quick-mix"} tab={t("lab.liquid.create.quick-mix.tab")}>
 			<Template label={"lab.liquid.create.quick-mix"} span={24} extra={<Divider/>}>
 				<LiquidCreateQuickForm/>
 			</Template>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={"wizard"} tab={t("lab.liquid.create.wizard.tab")}>
-			<p>
-				# wizard here - target volume, target PG/VG, target nic; results based on booster/base inventory
-			</p>
-
-			<p>
-				# wizard usage should take more puffies than common create as it is advanced function
-			</p>
-
-			<p>
-				# move puff check from create button to here; hide wizard/create when there are not enough puffies (conditional component)
-			</p>
-		</Tabs.TabPane>
-		<Tabs.TabPane key={"common"} tab={t("lab.liquid.create.common.tab")}>
+		<Tabs.TabPane key={"advanced"} tab={t("lab.liquid.create.advanced.tab")}>
 			<LiquidCreateForm/>
 		</Tabs.TabPane>
 	</Tabs>;

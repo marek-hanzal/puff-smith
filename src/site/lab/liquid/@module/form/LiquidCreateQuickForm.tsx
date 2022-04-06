@@ -7,8 +7,8 @@ import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {IssuesCloseOutlined} from "@ant-design/icons";
-import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
-import {Button, Col, Divider, Row, Space, Typography} from "antd";
+import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit, useFormContext} from "@leight-core/client";
+import {Button, ButtonProps, Col, Divider, Row, Space, Typography} from "antd";
 import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -30,6 +30,23 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		onSuccess: () => setCheck(false),
 	});
 	const {data: quickMixInfo} = quickMixInfoQuery;
+
+	const CheckButton: FC<Partial<ButtonProps>> = props => {
+		const [enabled, setEnabled] = useState(false);
+		const formContext = useFormContext();
+		formContext.canSubmit(value => {
+			console.log("can submit", value);
+			setEnabled(value);
+		});
+		return <Button
+			type={"primary"}
+			ghost
+			icon={<IssuesCloseOutlined/>}
+			disabled={!enabled}
+			onClick={() => setRequest({aromaId, baseId, boosterId, nicotine})}
+			{...props}
+		>{t("lab.liquid.mixture.refresh")}</Button>;
+	};
 
 	return <>
 		<MixtureHint result={quickMixInfo?.result}/>
@@ -64,13 +81,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					<Divider/>
 					<Centered>
 						<ButtonBar align={"baseline"}>
-							{check && <Button
-								type={"primary"}
-								ghost
-								icon={<IssuesCloseOutlined/>}
-								disabled={!aromaId}
-								onClick={() => setRequest({aromaId, baseId, boosterId, nicotine})}
-							>{t("lab.liquid.mixture.refresh")}</Button>}
+							{check && <CheckButton/>}
 							{!check && <Submit
 								icon={<LiquidIcon/>}
 								disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
