@@ -29,6 +29,7 @@ export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMix
 	const _fluids = fluids.filter((ml): ml is IPgVgMl => !!ml);
 	const pg = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vg = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const nicotine = 0;
 	const total = pg + vg;
 
 	const error: IMixtureResult["error"] = total > volume ? "overflow" : total < volume ? "underflow" : undefined;
@@ -37,6 +38,7 @@ export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMix
 		volume: total,
 		content: volume - total,
 		error,
+		nicotine,
 		ml: {
 			pg,
 			vg,

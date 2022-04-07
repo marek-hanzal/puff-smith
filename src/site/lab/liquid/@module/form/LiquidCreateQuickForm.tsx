@@ -4,7 +4,7 @@ import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
+import {CreateQuickMixDefaultForm, ICreateQuickMixDefaultFormProps} from "@/sdk/api/liquid/quick-mix/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {IssuesCloseOutlined} from "@ant-design/icons";
 import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit, useFormContext} from "@leight-core/client";
@@ -13,7 +13,7 @@ import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidCreateQuickFormProps extends Partial<ICreateDefaultFormProps> {
+export interface ILiquidCreateQuickFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
 }
 
 export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
@@ -50,7 +50,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		<MixtureHint result={quickMixInfo?.result}/>
 		<Row gutter={32}>
 			<Col span={15}>
-				<CreateDefaultForm
+				<CreateQuickMixDefaultForm
 					translation={"lab.liquid"}
 					toForm={() => ({
 						mixed: moment(),
@@ -96,7 +96,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 							/>}
 						</ButtonBar>
 					</Centered>
-				</CreateDefaultForm>
+				</CreateQuickMixDefaultForm>
 			</Col>
 			<Col span={9}>
 				<Preview hideEmpty>

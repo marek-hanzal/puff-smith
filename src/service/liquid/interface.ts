@@ -3,19 +3,43 @@ import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
+export interface IILiquidCreateAroma {
+	aromaId: string;
+	content: number;
+}
+
+export interface IILiquidCreateBooster {
+	boosterId: string;
+	content: number;
+}
+
+export interface IILiquidCreateBase {
+	baseId: string;
+	content: number;
+}
+
 export interface ILiquidCreate {
 	name: string;
 	volume: number;
 	mixed?: Date;
 	userId: string;
+	nicotine?: number;
+	pg: number,
+	vg: number,
+	steep: number,
+	aromas?: IILiquidCreateAroma[];
+	boosters?: IILiquidCreateBooster[];
+	bases?: IILiquidCreateBase[];
 }
 
 export interface ILiquidQuickMix {
-	name: string;
-	volume: number;
-	mixed?: Date;
+	name?: string;
 	userId: string;
 	aromaId: string;
+	boosterId?: string;
+	baseId?: string;
+	nicotine?: number;
+	mixed?: Date;
 }
 
 export interface ILiquid {
@@ -60,6 +84,7 @@ export interface IMixtureResult {
 	volume: number;
 	content?: number;
 	error?: "overflow" | "underflow";
+	nicotine: number;
 	ml: {
 		pg: number;
 		vg: number;
