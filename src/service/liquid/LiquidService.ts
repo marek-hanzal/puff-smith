@@ -3,6 +3,7 @@ import {BaseService} from "@/puff-smith/service/base";
 import {BoosterService} from "@/puff-smith/service/booster";
 import {ILiquidService} from "@/puff-smith/service/liquid";
 import {toLiquidQuickMixInfo} from "@/puff-smith/service/liquid/utils";
+import {ServerLogger} from "@/puff-smith/service/logger";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
@@ -93,11 +94,14 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 				}
 			});
 		},
-		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => toLiquidQuickMixInfo({
-			aroma: aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined,
-			base: baseId ? await BaseService(prismaClient).fetch(baseId) : undefined,
-			booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
-			nicotine,
-		}),
+		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => {
+			ServerLogger.info("Handling quick mix!");
+			return toLiquidQuickMixInfo({
+				aroma: aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined,
+				base: baseId ? await BaseService(prismaClient).fetch(baseId) : undefined,
+				booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
+				nicotine,
+			});
+		},
 	};
 };

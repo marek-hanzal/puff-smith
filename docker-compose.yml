@@ -6,7 +6,7 @@ services:
         ports:
             - "5532:5432"
         networks:
-            - db
+            - postgres
             - mongo
             - mailhog
         environment:
@@ -30,7 +30,8 @@ services:
         image: agenda/agendash
         restart: always
         depends_on:
-            - mongo
+            mongo:
+                condition: "service_started"
         networks:
             - mongo
         ports:
@@ -38,6 +39,21 @@ services:
         environment:
             MONGODB_URI: mongodb://root:1234@mongo:27017
             COLLECTION: agenda
+
+    loki:
+        image: grafana/loki
+        restart: always
+        networks:
+            - loki
+        ports:
+            - "3100:3100"
+
+    grafana:
+        image: grafana/grafana-oss
+        ports:
+            - "5300:3000"
+        networks:
+            - loki
 
     mailhog:
         image: mailhog/mailhog
@@ -47,6 +63,7 @@ services:
             - "5085:8025"
 
 networks:
-    db:
+    postgres:
     mongo:
+    loki:
     mailhog:

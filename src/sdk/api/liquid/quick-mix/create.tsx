@@ -16,7 +16,7 @@ export const useCreateQuickMixMutation = createMutationHook<Omit<ILiquidQuickMix
 export const useCreateQuickMixQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateQuickMixApiLink]);
-};
+}
 
 export interface ICreateQuickMixDefaultFormProps extends Partial<IFormProps<Omit<ILiquidQuickMix, "userId">, ILiquid>> {
 }
@@ -24,11 +24,11 @@ export interface ICreateQuickMixDefaultFormProps extends Partial<IFormProps<Omit
 export const CreateQuickMixDefaultForm: FC<ICreateQuickMixDefaultFormProps> = props => <Form<Omit<ILiquidQuickMix, "userId">, ILiquid>
 	useMutation={useCreateQuickMixMutation}
 	{...props}
-/>;
+/>
 
 export const useCreateQuickMixLink = (): ((query: ICreateQuickMixQueryParams) => string) => {
 	const linkContext = useLinkContext();
 	return query => linkContext.link(CreateQuickMixApiLink, query);
-};
+}
 
 export const useCreateQuickMixPromise = createPromiseHook<Omit<ILiquidQuickMix, "userId">, ILiquid>(CreateQuickMixApiLink, "post");

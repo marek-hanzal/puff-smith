@@ -6,6 +6,7 @@ import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {fileService} from "@/puff-smith/service/file";
 import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
+import {ImportLogger} from "@/puff-smith/service/logger";
 import {ModService} from "@/puff-smith/service/mod";
 import {PriceService} from "@/puff-smith/service/price";
 import {TagService} from "@/puff-smith/service/tag";
@@ -44,22 +45,22 @@ export interface IImportParams extends IQueryParams {
 
 export default function ImportJob(agenda: Agenda) {
 	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
-		console.log(`Preparing import`);
+		ImportLogger.info(`Preparing import`);
 		const theJob = job.attrs.data;
 		if (!theJob) {
-			console.log(` - Missing data (job) for ImportJob`);
+			ImportLogger.error(` - Missing data (job) for ImportJob`);
 			return;
 		}
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
 			await jobUpdateStatus(theJob.id, "REVIEW");
-			console.log(` - Missing fileId for ImportJob`, job.attrs.data);
+			ImportLogger.error(` - Missing fileId for ImportJob`, job.attrs.data);
 			return;
 		}
 		await jobUpdateStatus(theJob.id, "RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
-			console.log(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
+			ImportLogger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 			const getElapsed = measureTime();
 			const result = await toImport(theJob, workbook, importHandlers, {
 				async onTotal(total: number): Promise<void> {
@@ -75,10 +76,10 @@ export default function ImportJob(agenda: Agenda) {
 					await jobUpdateFailure(theJob.id, failure, total, processed);
 				}
 			});
-			console.log(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
+			ImportLogger.info(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
 			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {
-			console.error(` - Import of [${fileId}] failed.`, e);
+			ImportLogger.error(` - Import of [${fileId}] failed.`, e);
 			await jobUpdateStatus(theJob.id, "FAILURE");
 		}
 	}) as Processor);
