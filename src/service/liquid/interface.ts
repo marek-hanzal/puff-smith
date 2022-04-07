@@ -84,7 +84,7 @@ export interface IMixtureResult {
 	volume: number;
 	content?: number;
 	error?: "overflow" | "underflow";
-	nicotine: number;
+	nicotine?: number;
 	ml: {
 		pg: number;
 		vg: number;

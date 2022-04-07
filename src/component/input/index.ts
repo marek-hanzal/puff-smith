@@ -1,1 +1,1 @@
-export * from "./NicotineSlider";
+export * from "./NicotineSelect";

@@ -22,7 +22,11 @@ export default withLabLayout(function Index() {
 			}
 		</ButtonBar>}
 	>
-		<LiquidsSourceControlProvider defaultFilter={{fulltext: "jhj"}}>
+		<LiquidsSourceControlProvider
+			defaultOrderBy={{
+				mixed: "desc",
+			}}
+		>
 			<LiquidList/>
 		</LiquidsSourceControlProvider>
 	</LabPage>;

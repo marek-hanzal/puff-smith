@@ -7,7 +7,6 @@ import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
-import {toHumanNumber} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
@@ -26,32 +25,32 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			transaction: await TransactionService(prismaClient).toMap(liquid.transactionId),
 		}),
 		create: async ({aromas = [], bases = [], boosters = [], mixed, ...create}) => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
-			tariff: "default",
-			userId: create.userId,
-			price: "lab.liquid.create",
-			note: "New liquid",
-			callback: (_, transaction) => prismaClient.liquid.create({
-				data: {
-					...create,
-					transactionId: transaction.id,
-					created: new Date(),
-					mixed: mixed || new Date(),
-					LiquidAroma: {
-						createMany: {
-							data: aromas,
-						}
+				tariff: "default",
+				userId: create.userId,
+				price: "lab.liquid.create",
+				note: "New liquid",
+				callback: (_, transaction) => prismaClient.liquid.create({
+					data: {
+						...create,
+						transactionId: transaction.id,
+						created: new Date(),
+						mixed: mixed || new Date(),
+						LiquidAroma: {
+							createMany: {
+								data: aromas,
+							}
+						},
+						LiquidBooster: {
+							createMany: {
+								data: boosters,
+							}
+						},
+						LiquidBase: {
+							createMany: {
+								data: bases,
+							}
+						},
 					},
-					LiquidBooster: {
-						createMany: {
-							data: boosters,
-						}
-					},
-					LiquidBase: {
-						createMany: {
-							data: bases,
-						}
-					},
-				},
 				})
 			})
 		),
@@ -76,7 +75,7 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			return service.handleCreate({
 				request: {
 					...pgvg,
-					name: name || `${aroma.name} (VG/PG ${toHumanNumber(pgvg.vg)}/${toHumanNumber(pgvg.pg)} / ${toHumanNumber(quickMixInfo.result?.nicotine)}mg)`,
+					name: name || aroma.name,
 					userId,
 					mixed,
 					steep: aroma.steep,

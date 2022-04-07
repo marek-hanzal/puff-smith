@@ -11,7 +11,7 @@ export interface INicotineInlineProps {
 
 export const NicotineInline: FC<INicotineInlineProps> = ({nicotine, tooltip}) => {
 	const {t} = useTranslation();
-	return nicotine ? <Tooltip title={tooltip && t(tooltip)}><Space size={4}>
+	return nicotine != null ? <Tooltip title={tooltip && t(tooltip)}><Space size={4}>
 		<Typography.Text>{toHumanNumber(nicotine, 2)}</Typography.Text>
 		<Typography.Text type={"secondary"}>mg</Typography.Text>
 		{tooltip && <QuestionCircleOutlined/>}

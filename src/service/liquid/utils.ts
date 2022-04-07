@@ -19,17 +19,17 @@ export const toMl = ({volume, pg, vg}: IToMlRequest): IPgVgMl | undefined => {
 
 export interface IToMixtureResultRequest {
 	volume?: number | null;
+	nicotine?: number;
 	fluids: (IPgVgMl | undefined)[];
 }
 
-export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMixtureResult | undefined => {
+export const toMixtureResult = ({volume, nicotine, fluids}: IToMixtureResultRequest): IMixtureResult | undefined => {
 	if (!volume) {
 		return undefined;
 	}
 	const _fluids = fluids.filter((ml): ml is IPgVgMl => !!ml);
 	const pg = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vg = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
-	const nicotine = 0;
 	const total = pg + vg;
 
 	const error: IMixtureResult["error"] = total > volume ? "overflow" : total < volume ? "underflow" : undefined;
@@ -38,7 +38,7 @@ export const toMixtureResult = ({volume, fluids}: IToMixtureResultRequest): IMix
 		volume: total,
 		content: volume - total,
 		error,
-		nicotine,
+		nicotine: nicotine ? nicotine / volume : undefined,
 		ml: {
 			pg,
 			vg,
@@ -113,6 +113,7 @@ export const toLiquidQuickMixInfo = ({aroma, booster, base, nicotine}: IToLiquid
 			booster: boosterInfo,
 			result: toMixtureResult({
 				volume: aromaInfo.volume,
+				nicotine: boosterVolume * booster.nicotine.toNumber(),
 				fluids: [
 					aromaInfo.ml,
 					baseInfo.volume > 0 ? baseInfo.ml : undefined,

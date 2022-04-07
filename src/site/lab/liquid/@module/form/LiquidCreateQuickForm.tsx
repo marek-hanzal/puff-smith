@@ -1,14 +1,16 @@
-import {Content2Inline, ContentInline, LiquidIcon, NicotineSlider, PgVgInline} from "@/puff-smith";
+import {Content2Inline, ContentInline, LiquidIcon, NicotineInline, NicotineSelect, PgVgInline} from "@/puff-smith";
 import {ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
 import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
+import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
 import {CreateQuickMixDefaultForm, ICreateQuickMixDefaultFormProps} from "@/sdk/api/liquid/quick-mix/create";
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
+import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {IssuesCloseOutlined} from "@ant-design/icons";
 import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit, useFormContext} from "@leight-core/client";
-import {Button, ButtonProps, Col, Divider, Row, Space, Typography} from "antd";
+import {Button, ButtonProps, Col, Divider, message, Row, Space, Typography} from "antd";
 import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -16,8 +18,10 @@ import {useTranslation} from "react-i18next";
 export interface ILiquidCreateQuickFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
 }
 
-export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
+export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
+	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
+	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const [aromaId, setAromaId] = useState<string>();
 	const [baseId, setBaseId] = useState<string>();
 	const [boosterId, setBoosterId] = useState<string>();
@@ -51,6 +55,17 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 		<Row gutter={32}>
 			<Col span={15}>
 				<CreateQuickMixDefaultForm
+					onSuccess={async response => {
+						await liquidsQueryInvalidate();
+						message.success(t("lab.liquid.quick-mix.success", {
+							data: {
+								name: response.response.name,
+								amount: -1 * response.response.transaction.amount,
+							}
+						}));
+						await puffiesQueryInvalidate();
+						onSuccess?.(response);
+					}}
 					translation={"lab.liquid"}
 					toForm={() => ({
 						mixed: moment(),
@@ -67,7 +82,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 					</FormItem>
 					<Divider/>
 					<FormItem hasTooltip field={"nicotine"}>
-						<NicotineSlider onChange={setNicotine}/>
+						<NicotineSelect onChange={setNicotine}/>
 					</FormItem>
 					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
 						<InventoryBoosterSelect onClear={() => {
@@ -108,6 +123,7 @@ export const LiquidCreateQuickForm: FC<ILiquidCreateQuickFormProps> = props => {
 						"lab.liquid.preview.booster.content": quickMixInfo?.booster && <Space split={<Divider type={"vertical"}/>}>
 							<ContentInline content={quickMixInfo.booster?.volume}/>
 							<Typography.Text>{quickMixInfo.booster?.count}x</Typography.Text>
+							<NicotineInline nicotine={quickMixInfo.result?.nicotine}/>
 						</Space>,
 						"lab.liquid.preview.base.content": quickMixInfo?.base?.volume && <ContentInline content={quickMixInfo?.base?.volume}/>,
 					}}
