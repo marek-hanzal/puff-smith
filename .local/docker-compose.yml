@@ -8,7 +8,6 @@ services:
             - mongo
             - postgres
             - mailhog
-            - loki
         environment:
             DATABASE_URL: "postgresql://puff-smith:1234@postgres:5432/puff-smith?schema=public"
             NEXTAUTH_URL: 'http://localhost:42000'
@@ -22,6 +21,7 @@ services:
         networks:
             - postgres
             - mongo
+            - loki
         ports:
             - "42000:3000"
 
