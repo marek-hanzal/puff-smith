@@ -6,7 +6,7 @@ import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {fileService} from "@/puff-smith/service/file";
 import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
-import {ImportLogger} from "@/puff-smith/service/logger";
+import {Logger} from "@/puff-smith/service/logger";
 import {ModService} from "@/puff-smith/service/mod";
 import {PriceService} from "@/puff-smith/service/price";
 import {TagService} from "@/puff-smith/service/tag";
@@ -44,23 +44,24 @@ export interface IImportParams extends IQueryParams {
 }
 
 export default function ImportJob(agenda: Agenda) {
+	const logger = Logger("import");
 	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
-		ImportLogger.info(`Preparing import`);
+		logger.info(`Preparing import`);
 		const theJob = job.attrs.data;
 		if (!theJob) {
-			ImportLogger.error(` - Missing data (job) for ImportJob`);
+			logger.error(` - Missing data (job) for ImportJob`);
 			return;
 		}
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
 			await jobUpdateStatus(theJob.id, "REVIEW");
-			ImportLogger.error(` - Missing fileId for ImportJob`, job.attrs.data);
+			logger.error(` - Missing fileId for ImportJob`, job.attrs.data);
 			return;
 		}
 		await jobUpdateStatus(theJob.id, "RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
-			ImportLogger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
+			logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 			const getElapsed = measureTime();
 			const result = await toImport(theJob, workbook, importHandlers, {
 				async onTotal(total: number): Promise<void> {
@@ -76,10 +77,10 @@ export default function ImportJob(agenda: Agenda) {
 					await jobUpdateFailure(theJob.id, failure, total, processed);
 				}
 			});
-			ImportLogger.info(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
+			logger.info(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
 			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {
-			ImportLogger.error(` - Import of [${fileId}] failed.`, e);
+			logger.error(` - Import of [${fileId}] failed.`, e);
 			await jobUpdateStatus(theJob.id, "FAILURE");
 		}
 	}) as Processor);
