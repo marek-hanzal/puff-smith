@@ -1,10 +1,9 @@
-import {Logger} from "@/puff-smith/service/logger";
 import {TranslationService} from "@/puff-smith/service/translation";
 import {ITranslationBundle} from "@leight-core/api";
-import {ListEndpoint} from "@leight-core/server";
+import {ListEndpoint, Logger} from "@leight-core/server";
 
 export default ListEndpoint<"Translations", ITranslationBundle>(async () => {
-	Logger("endpoint").info("Translations", {labels: {"endpoint": "Translations"}});
+	Logger("endpoint").info("Translations", {"endpoint": "Translations"});
 	return ({
 		bundles: [
 			{

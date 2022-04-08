@@ -1,4 +1,4 @@
-import {createConsole, createLoki} from "@/puff-smith/service/logger/utils";
+import {createConsole, createLoki} from "@leight-core/server";
 import winston from "winston";
 
 winston.loggers.add("import", {
@@ -37,5 +37,3 @@ winston.loggers.add("endpoint", {
 		}),
 	],
 });
-
-export const Logger = (id: string) => winston.loggers.get(id);

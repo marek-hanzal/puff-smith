@@ -6,7 +6,6 @@ import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {fileService} from "@/puff-smith/service/file";
 import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
-import {Logger} from "@/puff-smith/service/logger";
 import {ModService} from "@/puff-smith/service/mod";
 import {PriceService} from "@/puff-smith/service/price";
 import {TagService} from "@/puff-smith/service/tag";
@@ -16,7 +15,7 @@ import {VendorService} from "@/puff-smith/service/vendor";
 import {VoucherService} from "@/puff-smith/service/voucher";
 import {IJob, IQueryParams} from "@leight-core/api";
 import {toHumanTimeMs} from "@leight-core/client";
-import {toImport} from "@leight-core/server";
+import {Logger, toImport} from "@leight-core/server";
 import {Agenda, Job, Processor} from "agenda";
 import {measureTime} from "measure-time";
 import xlsx from "xlsx";
@@ -44,7 +43,7 @@ export interface IImportParams extends IQueryParams {
 }
 
 export default function ImportJob(agenda: Agenda) {
-	const logger = Logger("import");
+	let logger = Logger("import");
 	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
 		logger.info(`Preparing import`);
 		const theJob = job.attrs.data;
@@ -52,12 +51,21 @@ export default function ImportJob(agenda: Agenda) {
 			logger.error(` - Missing data (job) for ImportJob`);
 			return;
 		}
+		logger = logger.child({labels: {jobId: theJob.id}});
+		logger.info(`Checking fileId`);
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
 			await jobUpdateStatus(theJob.id, "REVIEW");
-			logger.error(` - Missing fileId for ImportJob`, job.attrs.data);
+			logger.error(` - Missing fileId for ImportJob`, {labels: {job: job.attrs.data}});
 			return;
 		}
+
+		/**
+		 * Merge labels or find way how to attach metadata
+		 */
+
+		logger = logger.child({labels: {fileId}});
+		logger.info(`Marking job as running`);
 		await jobUpdateStatus(theJob.id, "RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
