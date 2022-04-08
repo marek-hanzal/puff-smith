@@ -7,6 +7,7 @@ services:
             - web
             - postgres
             - mongo
+            - loki
             - mailhog
         labels:
             - 'traefik.enable=true'
@@ -43,6 +44,30 @@ services:
         networks:
             - mongo
 
+    loki:
+        image: grafana/loki
+        restart: always
+        networks:
+            - loki
+
+    grafana:
+        image: grafana/grafana-oss
+        networks:
+            - loki
+        labels:
+            - 'traefik.enable=true'
+            # http stuff
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.rule=Host(`grafana.beta.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.entrypoints=http'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog.middlewares=redirect-to-https'
+            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
+            # https stuff
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.rule=Host(`grafana.beta.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls.certresolver=default'
+            - 'traefik.http.services.puff-smith-alfa-mailhog-tls.loadbalancer.server.port=3000'
+
     mailhog:
         image: mailhog/mailhog
         networks:
@@ -67,6 +92,7 @@ networks:
         external: true
     postgres:
     mongo:
+    loki:
     mailhog:
 
 volumes:
