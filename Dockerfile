@@ -7,12 +7,14 @@ RUN npm install
 
 FROM node:16-alpine as builder
 ARG BUILD=edge
+ARG DATABASE_URL=nope
 
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
 	DISABLE_TELEMETRY=1 \
-	BUILD=${BUILD}
+	BUILD=${BUILD} \
+	DATABASE_URL=${DATABASE_URL}
 
 WORKDIR /opt/app
 
