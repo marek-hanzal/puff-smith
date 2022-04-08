@@ -15,10 +15,8 @@ import {TranslationService} from "@/puff-smith/service/translation";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {VoucherService} from "@/puff-smith/service/voucher";
 import {IJob, IQueryParams} from "@leight-core/api";
-import {toHumanTimeMs} from "@leight-core/client";
 import {Logger, toImport} from "@leight-core/server";
 import {Agenda, Job, Processor} from "agenda";
-import {measureTime} from "measure-time";
 import xlsx from "xlsx";
 
 export const ImportJobName = "import";
@@ -48,32 +46,27 @@ export interface IImportParams extends IQueryParams {
 export default function ImportJob(agenda: Agenda) {
 	let logger = Logger("import");
 	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
-		logger.info(`Preparing import`);
+		const labels = {jobId: job.attrs.data?.id};
+		logger = logger.child({labels, jobId: labels.jobId});
+		logger.info("Preparing import");
 		const theJob = job.attrs.data;
 		if (!theJob) {
-			logger.error(` - Missing data (job) for ImportJob`);
+			logger.error(`Missing data (job) for ImportJob`);
 			return;
 		}
-		logger = logger.child({labels: {jobId: theJob.id}});
-		logger.info(`Checking fileId`);
+		logger.info("Checking fileId");
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
 			await jobUpdateStatus(theJob.id, "REVIEW");
-			logger.error(` - Missing fileId for ImportJob`, {labels: {job: job.attrs.data}});
+			logger.error(`Missing fileId for ImportJob`, {labels});
 			return;
 		}
-
-		/**
-		 * Merge labels or find way how to attach metadata
-		 */
-
-		logger = logger.child({labels: {fileId}});
+		logger = logger.child({labels: {...labels, fileId}, fileId});
 		logger.info(`Marking job as running`);
 		await jobUpdateStatus(theJob.id, "RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
-			const getElapsed = measureTime();
 			const result = await toImport(theJob, workbook, importHandlers, {
 				async onTotal(total: number): Promise<void> {
 					await jobUpdateTotal(theJob.id, total);
@@ -88,10 +81,10 @@ export default function ImportJob(agenda: Agenda) {
 					await jobUpdateFailure(theJob.id, failure, total, processed);
 				}
 			});
-			logger.info(` - Import of [${fileId}] done in [${toHumanTimeMs(getElapsed().millisecondsTotal)}s]`);
+			logger.info("Import done");
 			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
 		} catch (e) {
-			logger.error(` - Import of [${fileId}] failed.`, e);
+			logger.error(`Import failed.`, {error: e});
 			await jobUpdateStatus(theJob.id, "FAILURE");
 		}
 	}) as Processor);
