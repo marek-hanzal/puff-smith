@@ -1,9 +1,12 @@
+import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import prismaClient from "@/puff-smith/service/prisma";
 import {UserService} from "@/puff-smith/service/user";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GitHub from "next-auth/providers/github";
+
+ServerBootstrap();
 
 export default NextAuth({
 	theme: {

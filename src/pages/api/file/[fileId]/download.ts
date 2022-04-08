@@ -1,6 +1,9 @@
+import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import {fileFetch} from "@/puff-smith/service/file";
 import {FetchEndpoint} from "@leight-core/server";
 import fs from "node:fs";
+
+ServerBootstrap();
 
 export default FetchEndpoint<"Download", string, { fileId: string }>(async ({res, query: {fileId}}) => {
 	const file = await fileFetch(fileId);

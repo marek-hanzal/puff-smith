@@ -1,5 +1,8 @@
 import {BaseService, IBase, IBaseQuery} from "@/puff-smith/service/base";
+import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import {QueryEndpoint} from "@leight-core/server";
+
+ServerBootstrap();
 
 export default QueryEndpoint<"InventoryBases", IBaseQuery, IBase>(async ({request: {filter, ...request}, toUserId}) => BaseService().handleQuery({
 	request: {
@@ -8,7 +11,7 @@ export default QueryEndpoint<"InventoryBases", IBaseQuery, IBase>(async ({reques
 			...filter,
 			BaseInventory: {
 				some: {
-					userId: await toUserId(),
+					userId: toUserId(),
 				}
 			}
 		}
