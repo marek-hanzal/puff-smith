@@ -129,6 +129,7 @@ jobs:
                         echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
                         echo EMAIL_SERVER=smtp://mailhog:1025 >> .env
                         echo EMAIL_FROM=noreply@puff-smith.rocks >> .env
+                        echo LOKI_URL=http://loki:3100 >> .env
 
                         docker system prune -f --all
                         docker compose pull

@@ -22,7 +22,7 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: 1234
             MONGO_INITDB_DATABASE: agenda
         ports:
-            - "47017:27017"
+            - "57017:27017"
         networks:
             - mongo
 
