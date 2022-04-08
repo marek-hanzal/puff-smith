@@ -58,16 +58,16 @@ services:
         labels:
             - 'traefik.enable=true'
             # http stuff
-            - 'traefik.http.routers.puff-smith-alfa-mailhog.rule=Host(`grafana.beta.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-alfa-mailhog.entrypoints=http'
-            - 'traefik.http.routers.puff-smith-alfa-mailhog.middlewares=redirect-to-https'
+            - 'traefik.http.routers.puff-smith-alfa-grafana.rule=Host(`grafana.beta.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-grafana.entrypoints=http'
+            - 'traefik.http.routers.puff-smith-alfa-grafana.middlewares=redirect-to-https'
             - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
             # https stuff
-            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.rule=Host(`grafana.beta.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.entrypoints=https'
-            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls=true'
-            - 'traefik.http.routers.puff-smith-alfa-mailhog-tls.tls.certresolver=default'
-            - 'traefik.http.services.puff-smith-alfa-mailhog-tls.loadbalancer.server.port=3000'
+            - 'traefik.http.routers.puff-smith-alfa-grafana-tls.rule=Host(`grafana.beta.puff-smith.rocks`)'
+            - 'traefik.http.routers.puff-smith-alfa-grafana-tls.entrypoints=https'
+            - 'traefik.http.routers.puff-smith-alfa-grafana-tls.tls=true'
+            - 'traefik.http.routers.puff-smith-alfa-grafana-tls.tls.certresolver=default'
+            - 'traefik.http.services.puff-smith-alfa-grafana-tls.loadbalancer.server.port=3000'
 
     mailhog:
         image: mailhog/mailhog
