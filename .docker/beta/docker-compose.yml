@@ -53,6 +53,7 @@ services:
     grafana:
         image: grafana/grafana-oss
         networks:
+            - web
             - loki
         labels:
             - 'traefik.enable=true'
