@@ -1,9 +1,32 @@
-version: '2'
+version: '3.4'
+
+x-environment:
+  &env
+    POSTGRES_USER: puff-smith
+    POSTGRES_DB: puff-smith
+    POSTGRES_PASSWORD: 1234
+
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: 1234
+    MONGO_INITDB_DATABASE: agenda
+
+    MONGODB_URI: mongodb://root:1234@mongo:27017
+    COLLECTION: agenda
+
+    DATABASE_URL: postgres://puff-smith:1234@postgres:5432/postgres
+    SECRET_KEY: secret-key
+    PORT: 8000
+
+x-depends_on:
+  &glitchtip-deps
+    - postgres
+    - redis
+
 services:
     postgres:
         image: postgres:14.2
         restart: always
-        env_file: docker-compose.env
+        environment: *env
         ports:
             - "5532:5432"
         networks:
@@ -12,7 +35,7 @@ services:
     mongo:
         image: mongo:5
         restart: always
-        env_file: docker-compose.env
+        environment: *env
         ports:
             - "57017:27017"
         networks:
@@ -40,6 +63,37 @@ services:
         networks:
             - redis
 
+    glitchtip:
+        image: glitchtip/glitchtip
+        restart: always
+        depends_on: *glitchtip-deps
+        environment: *env
+        networks:
+            - glitchtip
+            - postgres
+            - redis
+        ports:
+            - "5800:8000"
+
+    glitchtip-worker:
+        image: glitchtip/glitchtip
+        command: ./bin/run-celery-with-beat.sh
+        restart: always
+        depends_on: *glitchtip-deps
+        environment: *env
+        networks:
+            - postgres
+            - redis
+
+    glitchtip-migrate:
+        image: glitchtip/glitchtip
+        command: "./manage.py migrate"
+        depends_on: *glitchtip-deps
+        environment: *env
+        networks:
+            - postgres
+            - redis
+
     #
     # Other services used in dev/staging
     #
@@ -47,6 +101,8 @@ services:
     mailhog:
         image: mailhog/mailhog
         restart: always
+        networks:
+            - mailhog
         ports:
             - "5025:1025"
             - "5085:8025"
@@ -56,4 +112,5 @@ networks:
     redis:
     mongo:
     loki:
+    glitchtip:
     mailhog:
