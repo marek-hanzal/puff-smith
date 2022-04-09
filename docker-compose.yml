@@ -8,7 +8,6 @@ services:
             - "5532:5432"
         networks:
             - postgres
-            - sentry
 
     mongo:
         image: mongo:5
