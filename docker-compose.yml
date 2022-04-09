@@ -3,24 +3,18 @@ services:
     postgres:
         image: postgres:14.2
         restart: always
+        env_file: docker-compose.env
         ports:
             - "5532:5432"
         networks:
             - postgres
             - mongo
             - mailhog
-        environment:
-            POSTGRES_USER: puff-smith
-            POSTGRES_DB: puff-smith
-            POSTGRES_PASSWORD: 1234
 
     mongo:
         image: mongo:5
         restart: always
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: 1234
-            MONGO_INITDB_DATABASE: agenda
+        env_file: docker-compose.env
         ports:
             - "57017:27017"
         networks:
@@ -29,6 +23,7 @@ services:
     agendash:
         image: agenda/agendash
         restart: always
+        env_file: docker-compose.env
         depends_on:
             mongo:
                 condition: "service_started"
@@ -36,9 +31,6 @@ services:
             - mongo
         ports:
             - "43000:3000"
-        environment:
-            MONGODB_URI: mongodb://root:1234@mongo:27017
-            COLLECTION: agenda
 
     loki:
         image: grafana/loki
@@ -50,10 +42,50 @@ services:
 
     grafana:
         image: grafana/grafana-oss
+        restart: always
         ports:
             - "5300:3000"
         networks:
             - loki
+
+    redis:
+        image: redis:6-alpine
+        restart: always
+        networks:
+            - redis
+
+    sentry:
+        image: sentry
+        env_file: docker-compose.env
+        depends_on:
+            postgres:
+                condition: "service_started"
+        ports:
+            - 5900:9000
+
+    sentry-cron:
+        image: sentry
+        command: "sentry run cron"
+        env_file: docker-compose.env
+        depends_on:
+            redis:
+                condition: 'service_started'
+            postgres:
+                condition: 'service_started'
+
+    sentry-worker:
+        image: sentry
+        command: "sentry run worker"
+        env_file: docker-compose.env
+        depends_on:
+            redis:
+                condition: 'service_started'
+            postgres:
+                condition: 'service_started'
+
+    #
+    # Other services used in dev/staging
+    #
 
     mailhog:
         image: mailhog/mailhog
@@ -64,6 +96,7 @@ services:
 
 networks:
     postgres:
+    redis:
     mongo:
     loki:
     mailhog:
