@@ -36,19 +36,6 @@ services:
         networks:
             - mongo
 
-    agendash:
-        image: agenda/agendash
-        depends_on:
-            mongo:
-                condition: "service_started"
-        networks:
-            - mongo
-        ports:
-            - "43000:3000"
-        environment:
-            MONGODB_URI: mongodb://root:1234@mongo:27017
-            COLLECTION: agenda
-
     postgres:
         image: postgres:14.2
         ports:

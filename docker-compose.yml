@@ -8,8 +8,7 @@ services:
             - "5532:5432"
         networks:
             - postgres
-            - mongo
-            - mailhog
+            - sentry
 
     mongo:
         image: mongo:5
@@ -19,18 +18,6 @@ services:
             - "57017:27017"
         networks:
             - mongo
-
-    agendash:
-        image: agenda/agendash
-        restart: always
-        env_file: docker-compose.env
-        depends_on:
-            mongo:
-                condition: "service_started"
-        networks:
-            - mongo
-        ports:
-            - "43000:3000"
 
     loki:
         image: grafana/loki
@@ -57,9 +44,14 @@ services:
     sentry:
         image: sentry
         env_file: docker-compose.env
+        networks:
+            - sentry
+            - redis
         depends_on:
             postgres:
                 condition: "service_started"
+            redis:
+                condition: 'service_started'
         ports:
             - 5900:9000
 
@@ -67,6 +59,9 @@ services:
         image: sentry
         command: "sentry run cron"
         env_file: docker-compose.env
+        networks:
+            - sentry
+            - redis
         depends_on:
             redis:
                 condition: 'service_started'
@@ -77,6 +72,9 @@ services:
         image: sentry
         command: "sentry run worker"
         env_file: docker-compose.env
+        networks:
+            - sentry
+            - redis
         depends_on:
             redis:
                 condition: 'service_started'
