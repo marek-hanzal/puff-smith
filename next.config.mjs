@@ -1,3 +1,4 @@
+import { withSentryConfig } from '@sentry/nextjs';
 import withPlugins from 'next-compose-plugins';
 import { patchWebpackConfig } from 'next-global-css';
 import images from 'next-images';
@@ -17,7 +18,7 @@ const config = withPlugins([
 	// experimental:                {
 	// 	outputStandalone: true,
 	// },
-	webpack: (config, {
+	webpack:                     (config, {
 		webpack,
 		buildId,
 		isServer,
@@ -43,4 +44,4 @@ const config = withPlugins([
 	staticPageGenerationTimeout: 15,
 });
 
-export default config;
+export default withSentryConfig(config);

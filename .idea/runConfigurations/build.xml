@@ -13,6 +13,7 @@
       <env name="NEXTAUTH_GITHUB_CLIENT_SECRET" value="d1d4c98417588b8280c60ee0b3b4233761d529f7" />
       <env name="NEXTAUTH_SECRET" value="1234" />
       <env name="NEXTAUTH_URL" value="http://localhost:3000" />
+      <env name="SENTRY_DSN" value="http://91fb73400b0c4e5bb953693b2188b701@localhost:8000/1" />
     </envs>
     <method v="2" />
   </configuration>
