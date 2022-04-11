@@ -1,12 +1,10 @@
-import { withSentryConfig } from '@sentry/nextjs';
 import withPlugins from 'next-compose-plugins';
 import { patchWebpackConfig } from 'next-global-css';
 import images from 'next-images';
 import withTM from 'next-transpile-modules';
-import path from 'path';
 import { merge } from 'webpack-merge';
 
-const config = withPlugins([
+export default withPlugins([
 	images,
 	withTM([]),
 ], {
@@ -32,9 +30,15 @@ const config = withPlugins([
 		if (isServer) {
 			return merge(config, {
 				entry() {
-					return config.entry().then(entry => Object.assign({}, entry, {
-						'agenda': path.resolve(process.cwd(), 'src/agenda/worker.ts'),
-					}));
+					return config.entry().then(entry => {
+						entry = Object.assign({}, entry, {
+							'agenda': ['./src/agenda/worker.ts'],
+						});
+						Object.keys(entry).map(key => {
+							entry[key] = {import: ['./src/service/bootstrap.ts', ...entry[key]]};
+						});
+						return entry;
+					});
 				}
 			});
 		}
@@ -43,5 +47,3 @@ const config = withPlugins([
 	reactStrictMode:             true,
 	staticPageGenerationTimeout: 15,
 });
-
-export default withSentryConfig(config);

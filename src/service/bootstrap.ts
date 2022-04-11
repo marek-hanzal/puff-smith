@@ -1,5 +1,7 @@
 import {BootstrapLogger} from "@/puff-smith/service/logger";
 
-export const ServerBootstrap = () => {
+export const Bootstrap = () => {
 	BootstrapLogger();
 };
+
+Bootstrap();

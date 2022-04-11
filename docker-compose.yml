@@ -17,11 +17,6 @@ x-environment:
     SECRET_KEY: secret-key
     PORT: 8000
 
-x-depends_on:
-  &glitchtip-deps
-    - postgres
-    - redis
-
 services:
     postgres:
         image: postgres:14.2
@@ -56,43 +51,6 @@ services:
             - "5300:3000"
         networks:
             - loki
-
-    redis:
-        image: redis:6-alpine
-        restart: always
-        networks:
-            - redis
-
-    glitchtip:
-        image: glitchtip/glitchtip
-        restart: always
-        depends_on: *glitchtip-deps
-        environment: *env
-        networks:
-            - glitchtip
-            - postgres
-            - redis
-        ports:
-            - "5800:8000"
-
-    glitchtip-worker:
-        image: glitchtip/glitchtip
-        command: ./bin/run-celery-with-beat.sh
-        restart: always
-        depends_on: *glitchtip-deps
-        environment: *env
-        networks:
-            - postgres
-            - redis
-
-    glitchtip-migrate:
-        image: glitchtip/glitchtip
-        command: "./manage.py migrate"
-        depends_on: *glitchtip-deps
-        environment: *env
-        networks:
-            - postgres
-            - redis
 
     #
     # Other services used in dev/staging

@@ -38,4 +38,16 @@ export const BootstrapLogger = () => {
 			}),
 		],
 	});
+	winston.loggers.add("auth", {
+		level: "silly",
+		format: winston.format.json(),
+		transports: [
+			createConsole(),
+			createLoki({
+				labels: {
+					service: "auth",
+				},
+			}),
+		],
+	});
 };

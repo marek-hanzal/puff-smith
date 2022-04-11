@@ -1,8 +1,5 @@
-import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import {IVoucherInventory, IVoucherInventoryCreate, VoucherInventoryService} from "@/puff-smith/service/voucher";
 import {MutationEndpoint} from "@leight-core/server";
-
-ServerBootstrap();
 
 export default MutationEndpoint<"Create", Omit<IVoucherInventoryCreate, "userId">, IVoucherInventory>(async ({res, request, toUserId}) => {
 	try {

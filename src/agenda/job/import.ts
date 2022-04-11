@@ -2,7 +2,6 @@ import {AromaService} from "@/puff-smith/service/aroma";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {BaseService} from "@/puff-smith/service/base";
 import {BoosterService} from "@/puff-smith/service/booster";
-import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {fileService} from "@/puff-smith/service/file";
@@ -20,8 +19,6 @@ import {Agenda, Job, Processor} from "agenda";
 import xlsx from "xlsx";
 
 export const ImportJobName = "import";
-
-ServerBootstrap();
 
 const importHandlers = {
 	...AromaService().importers(),

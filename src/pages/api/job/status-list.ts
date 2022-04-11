@@ -1,8 +1,5 @@
-import {ServerBootstrap} from "@/puff-smith/service/bootstrap";
 import {IBaseSelectOption, IJobStatus, IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
-
-ServerBootstrap();
 
 const items: IJobStatus[] = [
 	"NEW",
