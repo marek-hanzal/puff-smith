@@ -7,7 +7,7 @@ RUN npm install
 
 FROM node:16-alpine as builder
 ARG BUILD=edge
-ARG DATABASE_URL=nope
+ARG DATABASE_URL=postgres://nope
 ARG LOKI_URL="http://loki:3100"
 
 ENV \
