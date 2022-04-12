@@ -1,21 +1,24 @@
 import agenda from "@/puff-smith/agenda/agenda";
 import ImportJob from "@/puff-smith/agenda/job/import";
+import {Logger} from "@leight-core/server";
 
 (async function () {
 	const jobs = [
 		ImportJob,
 	];
 
-	console.log("Registering jobs...");
+	const logger = Logger("job");
+
+	logger.debug("Registering jobs...");
 	jobs.map(job => job(agenda));
-	console.log("Starting Agenda...");
+	logger.debug("Starting Agenda...");
 	await agenda.start();
-	console.log("Started!");
+	logger.debug("Started!");
 
 	async function graceful() {
-		console.log("Graceful shutdown of Agenda");
+		logger.debug("Graceful shutdown of Agenda");
 		await agenda.stop();
-		console.log("Done!");
+		logger.debug("Done!");
 		process.exit(0);
 	}
 

@@ -1,6 +1,7 @@
 import {jobCreate, jobMapper} from "@/puff-smith/service/job";
 import prismaClient from "@/puff-smith/service/prisma";
 import {IJob} from "@leight-core/api";
+import {Logger} from "@leight-core/server";
 import {Agenda as CoolAgenda} from "agenda";
 
 const agenda = new CoolAgenda({
@@ -18,14 +19,17 @@ export async function Agenda(): Promise<CoolAgenda> {
 }
 
 export const asyncJob = async <TParams>(name: string, params: TParams, userId?: string): Promise<IJob<TParams> | void> => {
-	console.log(`Async job [${name}].`);
+	const logger = Logger("job");
+	logger.info("New job", {labels: {job: name}, params, userId});
 	return prismaClient.$transaction(async prisma => {
 		const job = jobMapper<TParams>(await jobCreate({
 			userId,
 			name,
 			params,
 		}, prisma));
+		logger.debug("Executing agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, params, userId});
 		await (await Agenda()).now(name, job);
+		logger.debug("Done", {labels: {job: name, jobId: job.id}, jobId: job.id, params, userId});
 		return job;
 	});
 };
