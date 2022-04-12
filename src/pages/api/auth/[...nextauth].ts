@@ -6,11 +6,21 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GitHub from "next-auth/providers/github";
 
+const logger = Logger("auth");
+
 export default NextAuth({
 	theme: {
 		logo: "/logo.png",
 		brandColor: "#1890ff",
 		colorScheme: "light",
+	},
+	events: {
+		signIn: ({user}) => {
+			logger.debug("User sign-in", {label: {userId: user.id}});
+		},
+		signOut: ({token: {sub}}) => {
+			logger.debug("User sign-out", {label: {userId: sub}});
+		},
 	},
 	adapter: PrismaAdapter(prismaClient),
 	session: {
@@ -34,7 +44,6 @@ export default NextAuth({
 	],
 	callbacks: {
 		jwt: async ({token, isNewUser}) => {
-			const logger = Logger("auth");
 			logger.debug("Resolving JWT token", {isNewUser});
 			const userService = UserService();
 			if (token?.sub) {
