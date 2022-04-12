@@ -3,7 +3,6 @@ import {PrismaClient} from "@prisma/client";
 
 const createPrismaClient = () => {
 	const prisma = new PrismaClient({
-		rejectOnNotFound: true,
 		errorFormat: "pretty",
 		log: [
 			{
