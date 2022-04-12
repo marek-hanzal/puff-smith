@@ -131,6 +131,6 @@ jobs:
                         echo EMAIL_FROM=noreply@puff-smith.rocks >> .env
                         echo LOKI_URL=http://loki:3100 >> .env
 
-                        docker system prune -f --all
                         docker compose pull
                         docker compose up -d
+                        docker system prune -f --all
