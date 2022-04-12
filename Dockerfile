@@ -1,4 +1,4 @@
-FROM node:16-alpine as dev-deps
+FROM node:16-alpine as deps
 
 WORKDIR /opt/app
 
@@ -30,7 +30,7 @@ COPY next-env.d.ts next-env.d.ts
 COPY package.json package.json
 COPY package-lock.json package-lock.json
 COPY tsconfig.json tsconfig.json
-COPY --from=dev-deps /opt/app/node_modules ./node_modules
+COPY --from=deps /opt/app/node_modules ./node_modules
 RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
 
 RUN npx prisma generate

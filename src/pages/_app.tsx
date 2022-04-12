@@ -4,7 +4,7 @@ import {BootstrapLoader} from "@leight-core/client";
 import type {AppProps, NextWebVitalsMetric} from "next/app";
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-	console.log(metric);
+	// console.log(metric);
 	//
 	// return (
 	// 	(
