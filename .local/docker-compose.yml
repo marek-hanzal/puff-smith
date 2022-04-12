@@ -57,6 +57,7 @@ services:
         ports:
             - "42300:3000"
         networks:
+            - postgres
             - loki
 
     mailhog:

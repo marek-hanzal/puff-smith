@@ -51,6 +51,7 @@ services:
         networks:
             - web
             - loki
+            - postgres
         labels:
             - 'traefik.enable=true'
             # http stuff

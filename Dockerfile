@@ -8,13 +8,15 @@ RUN npm install
 FROM node:16-alpine as builder
 ARG BUILD=edge
 ARG DATABASE_URL=nope
+ARG LOKI_URL="http://loki:3100"
 
 ENV \
 	NODE_ENV=production \
 	NEXT_TELEMETRY_DISABLED=1 \
 	DISABLE_TELEMETRY=1 \
 	BUILD=${BUILD} \
-	DATABASE_URL=${DATABASE_URL}
+	DATABASE_URL=${DATABASE_URL} \
+	LOKI_URL=${LOKI_URL}
 
 WORKDIR /opt/app
 

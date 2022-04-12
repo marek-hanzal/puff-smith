@@ -50,6 +50,7 @@ services:
         ports:
             - "5300:3000"
         networks:
+            - postgres
             - loki
 
     #
