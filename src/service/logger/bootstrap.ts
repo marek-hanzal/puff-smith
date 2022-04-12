@@ -50,4 +50,15 @@ export const BootstrapLogger = () => {
 			}),
 		],
 	});
+	winston.loggers.add("query", {
+		level: "silly",
+		format: winston.format.json(),
+		transports: [
+			createLoki({
+				labels: {
+					service: "query",
+				},
+			}),
+		],
+	});
 };
