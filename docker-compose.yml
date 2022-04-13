@@ -23,7 +23,7 @@ services:
         restart: always
         environment: *env
         ports:
-            - "5532:5432"
+            - "127.0.0.1:5532:5432"
         networks:
             - postgres
 
@@ -32,7 +32,7 @@ services:
         restart: always
         environment: *env
         ports:
-            - "57017:27017"
+            - "127.0.0.1:57017:27017"
         networks:
             - mongo
 
@@ -42,15 +42,15 @@ services:
         networks:
             - loki
         ports:
-            - "3100:3100"
+            - "127.0.0.1:3100:3100"
 
     grafana:
         image: grafana/grafana-oss
         restart: always
         ports:
-            - "5300:3000"
+            - "127.0.0.1:5300:3000"
         volumes:
-            - ./.local/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+            - ./.local/grafana/provisioning:/etc/grafana/provisioning
         networks:
             - loki
 
@@ -64,13 +64,12 @@ services:
         networks:
             - mailhog
         ports:
-            - "5025:1025"
-            - "5085:8025"
+            - "127.0.0.1:5025:1025"
+            - "127.0.0.1:5085:8025"
 
 networks:
     postgres:
     redis:
     mongo:
     loki:
-    glitchtip:
     mailhog:

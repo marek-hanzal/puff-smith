@@ -22,8 +22,9 @@ services:
             - postgres
             - mongo
             - loki
+            - prometheus
         ports:
-            - "42000:3000"
+            - "127.0.0.1:42000:3000"
 
     mongo:
         image: mongo:5
@@ -32,14 +33,14 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: 1234
             MONGO_INITDB_DATABASE: agenda
         ports:
-            - "47017:27017"
+            - "127.0.0.1:47017:27017"
         networks:
             - mongo
 
     postgres:
         image: postgres:14.2
         ports:
-            - "42532:5432"
+            - "127.0.0.1:42532:5432"
         networks:
             - postgres
         environment:
@@ -55,19 +56,35 @@ services:
     grafana:
         image: grafana/grafana-oss
         ports:
-            - "42300:3000"
+            - "127.0.0.1:42300:3000"
         volumes:
-            - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+            - ./grafana/provisioning:/etc/grafana/provisioning
         networks:
             - loki
+            - prometheus
+
+    prometheus:
+        image: prom/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
+        networks:
+            - prometheus
+        ports:
+            - "127.0.0.1:45090:9090"
+        volumes:
+            - ./prometheus:/etc/prometheus
 
     mailhog:
         image: mailhog/mailhog
         ports:
-            - "42080:8025"
+            - "127.0.0.1:42080:8025"
 
 networks:
     postgres:
     mongo:
     loki:
+    prometheus:
     mailhog:
