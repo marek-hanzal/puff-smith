@@ -5,6 +5,7 @@
 import {IAtomizerInventory, IAtomizerInventoryQuery} from "@/puff-smith/service/atomizer";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const AtomizersInventorySource: FC<IAtomizersInventorySourceProps> = prop
 		useQuery={useAtomizersInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useAtomizersInventoryLink = (): ((queryParams?: IAtomizersInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(AtomizersInventoryApiLink, queryParams);
-}
+export const toAtomizersInventoryLink = (queryParams?: IAtomizersInventoryQueryParams) => toLink(AtomizersInventoryApiLink, queryParams);
+export const useAtomizersInventoryLink = () => toAtomizersInventoryLink;
 
 export const useAtomizersInventoryPromise = createPromiseHook<IAtomizerInventoryQuery, IAtomizerInventory, IAtomizersInventoryQueryParams>(AtomizersInventoryApiLink, "post");
+export const AtomizersInventoryPromise = createPromise<IAtomizerInventoryQuery, IAtomizerInventory, IAtomizersInventoryQueryParams>(AtomizersInventoryApiLink, "post");
 
 export interface IAtomizersInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerInventoryQuery>>> {
 }

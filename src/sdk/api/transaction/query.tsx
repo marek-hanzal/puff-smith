@@ -5,6 +5,7 @@
 import {ITransaction, ITransactionQuery} from "@/puff-smith/service/transaction";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const TransactionsSource: FC<ITransactionsSourceProps> = props => {
 		useQuery={useTransactionsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useTransactionsLink = (): ((queryParams?: ITransactionsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(TransactionsApiLink, queryParams);
-}
+export const toTransactionsLink = (queryParams?: ITransactionsQueryParams) => toLink(TransactionsApiLink, queryParams);
+export const useTransactionsLink = () => toTransactionsLink;
 
 export const useTransactionsPromise = createPromiseHook<ITransactionQuery, ITransaction, ITransactionsQueryParams>(TransactionsApiLink, "post");
+export const TransactionsPromise = createPromise<ITransactionQuery, ITransaction, ITransactionsQueryParams>(TransactionsApiLink, "post");
 
 export interface ITransactionsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ITransactionQuery>>> {
 }

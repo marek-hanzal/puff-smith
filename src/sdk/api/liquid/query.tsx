@@ -5,6 +5,7 @@
 import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useLiquidsLink = (): ((queryParams?: ILiquidsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(LiquidsApiLink, queryParams);
-}
+export const toLiquidsLink = (queryParams?: ILiquidsQueryParams) => toLink(LiquidsApiLink, queryParams);
+export const useLiquidsLink = () => toLiquidsLink;
 
 export const useLiquidsPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
+export const LiquidsPromise = createPromise<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
 
 export interface ILiquidsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
 }

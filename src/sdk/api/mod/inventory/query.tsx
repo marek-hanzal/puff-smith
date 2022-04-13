@@ -5,6 +5,7 @@
 import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
 		useQuery={useModsInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useModsInventoryLink = (): ((queryParams?: IModsInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(ModsInventoryApiLink, queryParams);
-}
+export const toModsInventoryLink = (queryParams?: IModsInventoryQueryParams) => toLink(ModsInventoryApiLink, queryParams);
+export const useModsInventoryLink = () => toModsInventoryLink;
 
 export const useModsInventoryPromise = createPromiseHook<IModInventoryQuery, IModInventory, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
+export const ModsInventoryPromise = createPromise<IModInventoryQuery, IModInventory, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
 
 export interface IModsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModInventoryQuery>>> {
 }

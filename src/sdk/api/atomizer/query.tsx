@@ -5,6 +5,7 @@
 import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useAtomizersLink = (): ((queryParams?: IAtomizersQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(AtomizersApiLink, queryParams);
-}
+export const toAtomizersLink = (queryParams?: IAtomizersQueryParams) => toLink(AtomizersApiLink, queryParams);
+export const useAtomizersLink = () => toAtomizersLink;
 
 export const useAtomizersPromise = createPromiseHook<IAtomizerQuery, IAtomizer, IAtomizersQueryParams>(AtomizersApiLink, "post");
+export const AtomizersPromise = createPromise<IAtomizerQuery, IAtomizer, IAtomizersQueryParams>(AtomizersApiLink, "post");
 
 export interface IAtomizersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
 }

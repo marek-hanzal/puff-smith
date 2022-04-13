@@ -3,7 +3,7 @@
  */
 
 import {ILiquid, ILiquidQuickMix} from "@/puff-smith/service/liquid";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -24,11 +24,11 @@ export interface ICreateQuickMixDefaultFormProps extends Partial<IFormProps<Omit
 export const CreateQuickMixDefaultForm: FC<ICreateQuickMixDefaultFormProps> = props => <Form<Omit<ILiquidQuickMix, "userId">, ILiquid>
 	useMutation={useCreateQuickMixMutation}
 	{...props}
-/>
+/>;
 
-export const useCreateQuickMixLink = (): ((query: ICreateQuickMixQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(CreateQuickMixApiLink, query);
-}
+export const toCreateQuickMixLink = (queryParams?: ICreateQuickMixQueryParams) => toLink(CreateQuickMixApiLink, queryParams);
+export const useCreateQuickMixLink = () => toCreateQuickMixLink;
 
 export const useCreateQuickMixPromise = createPromiseHook<Omit<ILiquidQuickMix, "userId">, ILiquid>(CreateQuickMixApiLink, "post");
+
+export const CreateQuickMixPromise = createPromise<Omit<ILiquidQuickMix, "userId">, ILiquid>(CreateQuickMixApiLink, "post");

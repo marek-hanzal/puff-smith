@@ -3,7 +3,7 @@
  */
 
 import {IEntityContext} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -32,14 +32,13 @@ export const usePuffiesQuery = createQueryHook<void, number, IPuffiesQueryParams
 export const usePuffiesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([PuffiesApiLink]);
-}
+};
 
-export const usePuffiesLink = (): ((query: IPuffiesQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(PuffiesApiLink, query);
-}
+export const toPuffiesLink = (queryParams?: IPuffiesQueryParams) => toLink(PuffiesApiLink, queryParams);
+export const usePuffiesLink = () => toPuffiesLink;
 
 export const usePuffiesPromise = createPromiseHook<void, number, IPuffiesQueryParams>(PuffiesApiLink, "get");
+export const PuffiesPromise = createPromise<void, number, IPuffiesQueryParams>(PuffiesApiLink, "get");
 
 export interface IFetchPuffiesProps extends Partial<IQueryProps<void, number, IPuffiesQueryParams>> {
 }

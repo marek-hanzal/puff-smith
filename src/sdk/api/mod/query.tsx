@@ -5,6 +5,7 @@
 import {IMod, IModQuery} from "@/puff-smith/service/mod";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const ModsSource: FC<IModsSourceProps> = props => {
 		useQuery={useModsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useModsLink = (): ((queryParams?: IModsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(ModsApiLink, queryParams);
-}
+export const toModsLink = (queryParams?: IModsQueryParams) => toLink(ModsApiLink, queryParams);
+export const useModsLink = () => toModsLink;
 
 export const useModsPromise = createPromiseHook<IModQuery, IMod, IModsQueryParams>(ModsApiLink, "post");
+export const ModsPromise = createPromise<IModQuery, IMod, IModsQueryParams>(ModsApiLink, "post");
 
 export interface IModsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModQuery>>> {
 }

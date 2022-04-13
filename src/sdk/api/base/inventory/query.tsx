@@ -5,6 +5,7 @@
 import {IBaseInventory, IBaseInventoryQuery} from "@/puff-smith/service/base";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const BasesInventorySource: FC<IBasesInventorySourceProps> = props => {
 		useQuery={useBasesInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useBasesInventoryLink = (): ((queryParams?: IBasesInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(BasesInventoryApiLink, queryParams);
-}
+export const toBasesInventoryLink = (queryParams?: IBasesInventoryQueryParams) => toLink(BasesInventoryApiLink, queryParams);
+export const useBasesInventoryLink = () => toBasesInventoryLink;
 
 export const useBasesInventoryPromise = createPromiseHook<IBaseInventoryQuery, IBaseInventory, IBasesInventoryQueryParams>(BasesInventoryApiLink, "post");
+export const BasesInventoryPromise = createPromise<IBaseInventoryQuery, IBaseInventory, IBasesInventoryQueryParams>(BasesInventoryApiLink, "post");
 
 export interface IBasesInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseInventoryQuery>>> {
 }

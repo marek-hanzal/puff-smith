@@ -3,7 +3,7 @@
  */
 
 import {IAromaInventory, IAromaInventoryCreate} from "@/puff-smith/service/aroma";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -24,11 +24,11 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IAromaI
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>
+/>;
 
-export const useCreateLink = (): ((query: ICreateQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(CreateApiLink, query);
-}
+export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
+export const useCreateLink = () => toCreateLink;
 
 export const useCreatePromise = createPromiseHook<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>(CreateApiLink, "post");
+
+export const CreatePromise = createPromise<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>(CreateApiLink, "post");

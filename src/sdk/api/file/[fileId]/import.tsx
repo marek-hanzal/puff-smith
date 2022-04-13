@@ -4,7 +4,7 @@
 
 import {IImportParams} from "@/puff-smith/agenda/job/import";
 import {IJob} from "@leight-core/api";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -25,11 +25,11 @@ export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<I
 export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<void, IJob<IImportParams>, IImportParams>
 	useMutation={useImportMutation}
 	{...props}
-/>
+/>;
 
-export const useImportLink = (): ((query: IImportQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(ImportApiLink, query);
-}
+export const toImportLink = (queryParams?: IImportQueryParams) => toLink(ImportApiLink, queryParams);
+export const useImportLink = () => toImportLink;
 
 export const useImportPromise = createPromiseHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");
+
+export const ImportPromise = createPromise<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");

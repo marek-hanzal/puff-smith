@@ -5,6 +5,7 @@
 import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const InventoryBoostersSource: FC<IInventoryBoostersSourceProps> = props 
 		useQuery={useInventoryBoostersQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useInventoryBoostersLink = (): ((queryParams?: IInventoryBoostersQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(InventoryBoostersApiLink, queryParams);
-}
+export const toInventoryBoostersLink = (queryParams?: IInventoryBoostersQueryParams) => toLink(InventoryBoostersApiLink, queryParams);
+export const useInventoryBoostersLink = () => toInventoryBoostersLink;
 
 export const useInventoryBoostersPromise = createPromiseHook<IBoosterQuery, IBooster, IInventoryBoostersQueryParams>(InventoryBoostersApiLink, "post");
+export const InventoryBoostersPromise = createPromise<IBoosterQuery, IBooster, IInventoryBoostersQueryParams>(InventoryBoostersApiLink, "post");
 
 export interface IInventoryBoostersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterQuery>>> {
 }

@@ -3,7 +3,7 @@
  */
 
 import {IJobFilter} from "@/puff-smith/service/job";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -24,11 +24,11 @@ export interface ICleanupDefaultFormProps extends Partial<IFormProps<IJobFilter 
 export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<IJobFilter | undefined, boolean>
 	useMutation={useCleanupMutation}
 	{...props}
-/>
+/>;
 
-export const useCleanupLink = (): ((query: ICleanupQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(CleanupApiLink, query);
-}
+export const toCleanupLink = (queryParams?: ICleanupQueryParams) => toLink(CleanupApiLink, queryParams);
+export const useCleanupLink = () => toCleanupLink;
 
 export const useCleanupPromise = createPromiseHook<IJobFilter | undefined, boolean>(CleanupApiLink, "post");
+
+export const CleanupPromise = createPromise<IJobFilter | undefined, boolean>(CleanupApiLink, "post");

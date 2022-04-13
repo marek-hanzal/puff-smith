@@ -3,7 +3,7 @@
  */
 
 import {IEntityContext} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -32,14 +32,13 @@ export const useDownloadQuery = createQueryHook<void, string, IDownloadQueryPara
 export const useDownloadQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DownloadApiLink]);
-}
+};
 
-export const useDownloadLink = (): ((query: IDownloadQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(DownloadApiLink, query);
-}
+export const toDownloadLink = (queryParams?: IDownloadQueryParams) => toLink(DownloadApiLink, queryParams);
+export const useDownloadLink = () => toDownloadLink;
 
 export const useDownloadPromise = createPromiseHook<void, string, IDownloadQueryParams>(DownloadApiLink, "get");
+export const DownloadPromise = createPromise<void, string, IDownloadQueryParams>(DownloadApiLink, "get");
 
 export interface IFetchDownloadProps extends Partial<IQueryProps<void, string, IDownloadQueryParams>> {
 }

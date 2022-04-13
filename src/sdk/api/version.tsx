@@ -3,7 +3,7 @@
  */
 
 import {IEntityContext} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -32,14 +32,13 @@ export const useVersionQuery = createQueryHook<void, string, IVersionQueryParams
 export const useVersionQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VersionApiLink]);
-}
+};
 
-export const useVersionLink = (): ((query: IVersionQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(VersionApiLink, query);
-}
+export const toVersionLink = (queryParams?: IVersionQueryParams) => toLink(VersionApiLink, queryParams);
+export const useVersionLink = () => toVersionLink;
 
 export const useVersionPromise = createPromiseHook<void, string, IVersionQueryParams>(VersionApiLink, "get");
+export const VersionPromise = createPromise<void, string, IVersionQueryParams>(VersionApiLink, "get");
 
 export interface IFetchVersionProps extends Partial<IQueryProps<void, string, IVersionQueryParams>> {
 }

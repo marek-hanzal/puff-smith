@@ -3,7 +3,7 @@
  */
 
 import {ICottonInventory, ICottonInventoryCreate} from "@/puff-smith/service/cotton";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -24,11 +24,11 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ICotton
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>
+/>;
 
-export const useCreateLink = (): ((query: ICreateQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(CreateApiLink, query);
-}
+export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
+export const useCreateLink = () => toCreateLink;
 
 export const useCreatePromise = createPromiseHook<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>(CreateApiLink, "post");
+
+export const CreatePromise = createPromise<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>(CreateApiLink, "post");

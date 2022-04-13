@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
@@ -24,11 +24,11 @@ export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void
 export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<string, void, IChunkEndpointQuery>
 	useMutation={useUploadMutation}
 	{...props}
-/>
+/>;
 
-export const useUploadLink = (): ((query: IUploadQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(UploadApiLink, query);
-}
+export const toUploadLink = (queryParams?: IUploadQueryParams) => toLink(UploadApiLink, queryParams);
+export const useUploadLink = () => toUploadLink;
 
 export const useUploadPromise = createPromiseHook<string, void, IChunkEndpointQuery>(UploadApiLink, "post");
+
+export const UploadPromise = createPromise<string, void, IChunkEndpointQuery>(UploadApiLink, "post");

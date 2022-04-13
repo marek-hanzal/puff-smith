@@ -55,6 +55,7 @@ model User {
   AromaInventory    AromaInventory[]
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
+  Metric            Metric[]
 }
 
 model VerificationToken {
@@ -148,6 +149,17 @@ enum JobStatus {
   REVIEW
   //  When everything is OK, it's done: goes from review->done and failure->done
   DONE
+}
+
+model Metric {
+  id        String  @id @default(cuid())
+  reference String
+  name      String
+  start     Decimal @db.Decimal(10, 2)
+  value     Decimal @db.Decimal(10, 2)
+  label     String?
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Puff Smith Stuff

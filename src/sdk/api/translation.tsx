@@ -3,7 +3,7 @@
  */
 
 import {IEntityContext, ITranslationBundle} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -32,14 +32,13 @@ export const useTranslationsQuery = createQueryHook<void, ITranslationBundle, IT
 export const useTranslationsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationsApiLink]);
-}
+};
 
-export const useTranslationsLink = (): ((query: ITranslationsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(TranslationsApiLink, query);
-}
+export const toTranslationsLink = (queryParams?: ITranslationsQueryParams) => toLink(TranslationsApiLink, queryParams);
+export const useTranslationsLink = () => toTranslationsLink;
 
 export const useTranslationsPromise = createPromiseHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
+export const TranslationsPromise = createPromise<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
 
 export interface IFetchTranslationsProps extends Partial<IQueryProps<void, ITranslationBundle, ITranslationsQueryParams>> {
 }

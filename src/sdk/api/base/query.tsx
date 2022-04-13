@@ -5,6 +5,7 @@
 import {IBase, IBaseQuery} from "@/puff-smith/service/base";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const BasesSource: FC<IBasesSourceProps> = props => {
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useBasesLink = (): ((queryParams?: IBasesQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(BasesApiLink, queryParams);
-}
+export const toBasesLink = (queryParams?: IBasesQueryParams) => toLink(BasesApiLink, queryParams);
+export const useBasesLink = () => toBasesLink;
 
 export const useBasesPromise = createPromiseHook<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
+export const BasesPromise = createPromise<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
 
 export interface IBasesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }

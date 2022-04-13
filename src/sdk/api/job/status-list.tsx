@@ -4,6 +4,7 @@
 
 import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -21,8 +22,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -56,14 +57,13 @@ export const StatusListSource: FC<IStatusListSourceProps> = props => {
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useStatusListLink = (): ((queryParams?: IStatusListQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(StatusListApiLink, queryParams);
-}
+export const toStatusListLink = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
+export const useStatusListLink = () => toStatusListLink;
 
 export const useStatusListPromise = createPromiseHook<IQuery, IBaseSelectOption, IStatusListQueryParams>(StatusListApiLink, "post");
+export const StatusListPromise = createPromise<IQuery, IBaseSelectOption, IStatusListQueryParams>(StatusListApiLink, "post");
 
 export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
 }

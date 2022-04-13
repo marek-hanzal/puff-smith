@@ -5,6 +5,7 @@
 import {IBase, IBaseQuery} from "@/puff-smith/service/base";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
 		useQuery={useInventoryBasesQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useInventoryBasesLink = (): ((queryParams?: IInventoryBasesQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(InventoryBasesApiLink, queryParams);
-}
+export const toInventoryBasesLink = (queryParams?: IInventoryBasesQueryParams) => toLink(InventoryBasesApiLink, queryParams);
+export const useInventoryBasesLink = () => toInventoryBasesLink;
 
 export const useInventoryBasesPromise = createPromiseHook<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
+export const InventoryBasesPromise = createPromise<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
 
 export interface IInventoryBasesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }

@@ -5,6 +5,7 @@
 import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const BoostersSource: FC<IBoostersSourceProps> = props => {
 		useQuery={useBoostersQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useBoostersLink = (): ((queryParams?: IBoostersQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(BoostersApiLink, queryParams);
-}
+export const toBoostersLink = (queryParams?: IBoostersQueryParams) => toLink(BoostersApiLink, queryParams);
+export const useBoostersLink = () => toBoostersLink;
 
 export const useBoostersPromise = createPromiseHook<IBoosterQuery, IBooster, IBoostersQueryParams>(BoostersApiLink, "post");
+export const BoostersPromise = createPromise<IBoosterQuery, IBooster, IBoostersQueryParams>(BoostersApiLink, "post");
 
 export interface IBoostersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterQuery>>> {
 }

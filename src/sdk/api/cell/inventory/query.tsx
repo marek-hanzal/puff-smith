@@ -5,6 +5,7 @@
 import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const CellsInventorySource: FC<ICellsInventorySourceProps> = props => {
 		useQuery={useCellsInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useCellsInventoryLink = (): ((queryParams?: ICellsInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(CellsInventoryApiLink, queryParams);
-}
+export const toCellsInventoryLink = (queryParams?: ICellsInventoryQueryParams) => toLink(CellsInventoryApiLink, queryParams);
+export const useCellsInventoryLink = () => toCellsInventoryLink;
 
 export const useCellsInventoryPromise = createPromiseHook<ICellInventoryQuery, ICellInventory, ICellsInventoryQueryParams>(CellsInventoryApiLink, "post");
+export const CellsInventoryPromise = createPromise<ICellInventoryQuery, ICellInventory, ICellsInventoryQueryParams>(CellsInventoryApiLink, "post");
 
 export interface ICellsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellInventoryQuery>>> {
 }

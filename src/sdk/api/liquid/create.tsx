@@ -3,7 +3,7 @@
  */
 
 import {ILiquid, ILiquidCreate} from "@/puff-smith/service/liquid";
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -24,11 +24,11 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ILiquid
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<ILiquidCreate, "userId">, ILiquid>
 	useMutation={useCreateMutation}
 	{...props}
-/>
+/>;
 
-export const useCreateLink = (): ((query: ICreateQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(CreateApiLink, query);
-}
+export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
+export const useCreateLink = () => toCreateLink;
 
 export const useCreatePromise = createPromiseHook<Omit<ILiquidCreate, "userId">, ILiquid>(CreateApiLink, "post");
+
+export const CreatePromise = createPromise<Omit<ILiquidCreate, "userId">, ILiquid>(CreateApiLink, "post");

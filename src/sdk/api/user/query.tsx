@@ -5,6 +5,7 @@
 import {IUser, IUserQuery} from "@/puff-smith/service/user";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const UsersSource: FC<IUsersSourceProps> = props => {
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useUsersLink = (): ((queryParams?: IUsersQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(UsersApiLink, queryParams);
-}
+export const toUsersLink = (queryParams?: IUsersQueryParams) => toLink(UsersApiLink, queryParams);
+export const useUsersLink = () => toUsersLink;
 
 export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
+export const UsersPromise = createPromise<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
 
 export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IUserQuery>>> {
 }

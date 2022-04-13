@@ -5,6 +5,7 @@
 import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const CottonsSource: FC<ICottonsSourceProps> = props => {
 		useQuery={useCottonsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useCottonsLink = (): ((queryParams?: ICottonsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(CottonsApiLink, queryParams);
-}
+export const toCottonsLink = (queryParams?: ICottonsQueryParams) => toLink(CottonsApiLink, queryParams);
+export const useCottonsLink = () => toCottonsLink;
 
 export const useCottonsPromise = createPromiseHook<ICottonQuery, ICotton, ICottonsQueryParams>(CottonsApiLink, "post");
+export const CottonsPromise = createPromise<ICottonQuery, ICotton, ICottonsQueryParams>(CottonsApiLink, "post");
 
 export interface ICottonsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICottonQuery>>> {
 }

@@ -5,6 +5,7 @@
 import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const VouchersSource: FC<IVouchersSourceProps> = props => {
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useVouchersLink = (): ((queryParams?: IVouchersQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(VouchersApiLink, queryParams);
-}
+export const toVouchersLink = (queryParams?: IVouchersQueryParams) => toLink(VouchersApiLink, queryParams);
+export const useVouchersLink = () => toVouchersLink;
 
 export const useVouchersPromise = createPromiseHook<IVoucherQuery, IVoucher, IVouchersQueryParams>(VouchersApiLink, "post");
+export const VouchersPromise = createPromise<IVoucherQuery, IVoucher, IVouchersQueryParams>(VouchersApiLink, "post");
 
 export interface IVouchersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherQuery>>> {
 }

@@ -5,6 +5,7 @@
 import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const CottonsInventorySource: FC<ICottonsInventorySourceProps> = props =>
 		useQuery={useCottonsInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useCottonsInventoryLink = (): ((queryParams?: ICottonsInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(CottonsInventoryApiLink, queryParams);
-}
+export const toCottonsInventoryLink = (queryParams?: ICottonsInventoryQueryParams) => toLink(CottonsInventoryApiLink, queryParams);
+export const useCottonsInventoryLink = () => toCottonsInventoryLink;
 
 export const useCottonsInventoryPromise = createPromiseHook<ICottonInventoryQuery, ICottonInventory, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
+export const CottonsInventoryPromise = createPromise<ICottonInventoryQuery, ICottonInventory, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
 
 export interface ICottonsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICottonInventoryQuery>>> {
 }

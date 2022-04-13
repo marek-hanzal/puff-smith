@@ -5,6 +5,7 @@
 import {IVoucherInventory, IVoucherInventoryQuery} from "@/puff-smith/service/voucher";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props 
 		useQuery={useVouchersInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useVouchersInventoryLink = (): ((queryParams?: IVouchersInventoryQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(VouchersInventoryApiLink, queryParams);
-}
+export const toVouchersInventoryLink = (queryParams?: IVouchersInventoryQueryParams) => toLink(VouchersInventoryApiLink, queryParams);
+export const useVouchersInventoryLink = () => toVouchersInventoryLink;
 
 export const useVouchersInventoryPromise = createPromiseHook<IVoucherInventoryQuery, IVoucherInventory, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
+export const VouchersInventoryPromise = createPromise<IVoucherInventoryQuery, IVoucherInventory, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
 
 export interface IVouchersInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherInventoryQuery>>> {
 }

@@ -5,6 +5,7 @@
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const InventoryAromasSource: FC<IInventoryAromasSourceProps> = props => {
 		useQuery={useInventoryAromasQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useInventoryAromasLink = (): ((queryParams?: IInventoryAromasQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(InventoryAromasApiLink, queryParams);
-}
+export const toInventoryAromasLink = (queryParams?: IInventoryAromasQueryParams) => toLink(InventoryAromasApiLink, queryParams);
+export const useInventoryAromasLink = () => toInventoryAromasLink;
 
 export const useInventoryAromasPromise = createPromiseHook<IAromaQuery, IAroma, IInventoryAromasQueryParams>(InventoryAromasApiLink, "post");
+export const InventoryAromasPromise = createPromise<IAromaQuery, IAroma, IInventoryAromasQueryParams>(InventoryAromasApiLink, "post");
 
 export interface IInventoryAromasFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaQuery>>> {
 }

@@ -5,6 +5,7 @@
 import {ICell, ICellQuery} from "@/puff-smith/service/cell";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const CellsSource: FC<ICellsSourceProps> = props => {
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useCellsLink = (): ((queryParams?: ICellsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(CellsApiLink, queryParams);
-}
+export const toCellsLink = (queryParams?: ICellsQueryParams) => toLink(CellsApiLink, queryParams);
+export const useCellsLink = () => toCellsLink;
 
 export const useCellsPromise = createPromiseHook<ICellQuery, ICell, ICellsQueryParams>(CellsApiLink, "post");
+export const CellsPromise = createPromise<ICellQuery, ICell, ICellsQueryParams>(CellsApiLink, "post");
 
 export interface ICellsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
 }

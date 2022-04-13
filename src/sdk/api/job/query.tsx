@@ -5,6 +5,7 @@
 import {IJobQuery} from "@/puff-smith/service/job";
 import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const JobsSource: FC<IJobsSourceProps> = props => {
 		useQuery={useJobsQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useJobsLink = (): ((queryParams?: IJobsQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(JobsApiLink, queryParams);
-}
+export const toJobsLink = (queryParams?: IJobsQueryParams) => toLink(JobsApiLink, queryParams);
+export const useJobsLink = () => toJobsLink;
 
 export const useJobsPromise = createPromiseHook<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
+export const JobsPromise = createPromise<IJobQuery, IJob, IJobsQueryParams>(JobsApiLink, "post");
 
 export interface IJobsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IJobQuery>>> {
 }

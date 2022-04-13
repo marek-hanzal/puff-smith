@@ -5,6 +5,7 @@
 import {ITransactionQuery} from "@/puff-smith/service/transaction";
 import {IQueryFilter, IQueryOrderBy} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	FilterProvider,
@@ -13,8 +14,8 @@ import {
 	ISourceControlProviderProps,
 	OrderByProvider,
 	SourceControlProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext
@@ -28,12 +29,12 @@ export type ISumQueryParams = undefined;
 
 export const useSumQuery = createQueryHook<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
 
-export const useSumLink = (): ((queryParams?: ISumQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(SumApiLink, queryParams);
-}
+export const toSumLink = (queryParams?: ISumQueryParams) => toLink(SumApiLink, queryParams);
+export const useSumLink = () => toSumLink;
 
 export const useSumPromise = createPromiseHook<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
+
+export const SumPromise = createPromise<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
 
 export interface ISumFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ITransactionQuery>>> {
 }

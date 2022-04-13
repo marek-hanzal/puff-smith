@@ -5,6 +5,7 @@
 import {IFileQuery} from "@/puff-smith/service/file";
 import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
+	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	Filter,
@@ -22,8 +23,8 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	toLink,
 	useFilterContext,
-	useLinkContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
 	useOrderByContext,
@@ -57,14 +58,13 @@ export const FilesSource: FC<IFilesSourceProps> = props => {
 		useQuery={useFilesQuery}
 		{...props}
 	/>;
-}
+};
 
-export const useFilesLink = (): ((queryParams?: IFilesQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return queryParams => linkContext.link(FilesApiLink, queryParams);
-}
+export const toFilesLink = (queryParams?: IFilesQueryParams) => toLink(FilesApiLink, queryParams);
+export const useFilesLink = () => toFilesLink;
 
 export const useFilesPromise = createPromiseHook<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
+export const FilesPromise = createPromise<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
 
 export interface IFilesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IFileQuery>>> {
 }

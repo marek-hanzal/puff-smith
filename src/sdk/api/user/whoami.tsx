@@ -4,7 +4,7 @@
 
 import {IUser} from "@/puff-smith/service/user";
 import {IEntityContext} from "@leight-core/api";
-import {createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, useContext, useLinkContext, useOptionalContext} from "@leight-core/client";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -33,14 +33,13 @@ export const useWhoamiQuery = createQueryHook<void, IUser, IWhoamiQueryParams>(W
 export const useWhoamiQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WhoamiApiLink]);
-}
+};
 
-export const useWhoamiLink = (): ((query: IWhoamiQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(WhoamiApiLink, query);
-}
+export const toWhoamiLink = (queryParams?: IWhoamiQueryParams) => toLink(WhoamiApiLink, queryParams);
+export const useWhoamiLink = () => toWhoamiLink;
 
 export const useWhoamiPromise = createPromiseHook<void, IUser, IWhoamiQueryParams>(WhoamiApiLink, "get");
+export const WhoamiPromise = createPromise<void, IUser, IWhoamiQueryParams>(WhoamiApiLink, "get");
 
 export interface IFetchWhoamiProps extends Partial<IQueryProps<void, IUser, IWhoamiQueryParams>> {
 }

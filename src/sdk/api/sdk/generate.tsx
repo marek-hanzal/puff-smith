@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createMutationHook, createPromiseHook, Form, IFormProps, useLinkContext} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
@@ -23,11 +23,11 @@ export interface IGenerateDefaultFormProps extends Partial<IFormProps<void, stri
 export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form<void, string[]>
 	useMutation={useGenerateMutation}
 	{...props}
-/>
+/>;
 
-export const useGenerateLink = (): ((query: IGenerateQueryParams) => string) => {
-	const linkContext = useLinkContext();
-	return query => linkContext.link(GenerateApiLink, query);
-}
+export const toGenerateLink = (queryParams?: IGenerateQueryParams) => toLink(GenerateApiLink, queryParams);
+export const useGenerateLink = () => toGenerateLink;
 
 export const useGeneratePromise = createPromiseHook<void, string[]>(GenerateApiLink, "post");
+
+export const GeneratePromise = createPromise<void, string[]>(GenerateApiLink, "post");
