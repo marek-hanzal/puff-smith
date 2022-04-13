@@ -10,7 +10,7 @@ export const MetricService = (prismaClient: IPrismaClientTransaction = prisma): 
 		source: prismaClient.metric,
 		mapper: async entity => ({
 			...entity,
-			start: entity.start.toNumber(),
+			start: entity?.start?.toNumber() || 0,
 			value: entity.value.toNumber(),
 			user: entity.userId ? await UserService(prismaClient).toMap(entity.userId) : null,
 		}),
