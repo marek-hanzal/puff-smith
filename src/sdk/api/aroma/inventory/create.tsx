@@ -24,7 +24,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IAromaI
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

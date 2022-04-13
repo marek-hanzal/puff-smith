@@ -58,7 +58,7 @@ export const BoostersInventorySource: FC<IBoostersInventorySourceProps> = props 
 		useQuery={useBoostersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toBoostersInventoryLink = (queryParams?: IBoostersInventoryQueryParams) => toLink(BoostersInventoryApiLink, queryParams);
 export const useBoostersInventoryLink = () => toBoostersInventoryLink;

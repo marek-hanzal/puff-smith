@@ -58,7 +58,7 @@ export const JobsSource: FC<IJobsSourceProps> = props => {
 		useQuery={useJobsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toJobsLink = (queryParams?: IJobsQueryParams) => toLink(JobsApiLink, queryParams);
 export const useJobsLink = () => toJobsLink;

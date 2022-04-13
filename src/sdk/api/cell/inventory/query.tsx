@@ -58,7 +58,7 @@ export const CellsInventorySource: FC<ICellsInventorySourceProps> = props => {
 		useQuery={useCellsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toCellsInventoryLink = (queryParams?: ICellsInventoryQueryParams) => toLink(CellsInventoryApiLink, queryParams);
 export const useCellsInventoryLink = () => toCellsInventoryLink;

@@ -58,7 +58,7 @@ export const TransactionsSource: FC<ITransactionsSourceProps> = props => {
 		useQuery={useTransactionsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toTransactionsLink = (queryParams?: ITransactionsQueryParams) => toLink(TransactionsApiLink, queryParams);
 export const useTransactionsLink = () => toTransactionsLink;

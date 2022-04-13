@@ -58,7 +58,7 @@ export const FilesSource: FC<IFilesSourceProps> = props => {
 		useQuery={useFilesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toFilesLink = (queryParams?: IFilesQueryParams) => toLink(FilesApiLink, queryParams);
 export const useFilesLink = () => toFilesLink;

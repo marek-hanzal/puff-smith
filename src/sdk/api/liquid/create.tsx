@@ -24,7 +24,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ILiquid
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<ILiquidCreate, "userId">, ILiquid>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

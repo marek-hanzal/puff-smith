@@ -32,7 +32,7 @@ export const usePuffiesQuery = createQueryHook<void, number, IPuffiesQueryParams
 export const usePuffiesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([PuffiesApiLink]);
-};
+}
 
 export const toPuffiesLink = (queryParams?: IPuffiesQueryParams) => toLink(PuffiesApiLink, queryParams);
 export const usePuffiesLink = () => toPuffiesLink;

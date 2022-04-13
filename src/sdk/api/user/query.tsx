@@ -58,7 +58,7 @@ export const UsersSource: FC<IUsersSourceProps> = props => {
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toUsersLink = (queryParams?: IUsersQueryParams) => toLink(UsersApiLink, queryParams);
 export const useUsersLink = () => toUsersLink;

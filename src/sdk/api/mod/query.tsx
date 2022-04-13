@@ -58,7 +58,7 @@ export const ModsSource: FC<IModsSourceProps> = props => {
 		useQuery={useModsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toModsLink = (queryParams?: IModsQueryParams) => toLink(ModsApiLink, queryParams);
 export const useModsLink = () => toModsLink;

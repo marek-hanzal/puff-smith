@@ -58,7 +58,7 @@ export const VouchersSource: FC<IVouchersSourceProps> = props => {
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toVouchersLink = (queryParams?: IVouchersQueryParams) => toLink(VouchersApiLink, queryParams);
 export const useVouchersLink = () => toVouchersLink;

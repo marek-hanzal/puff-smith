@@ -58,7 +58,7 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toAtomizersLink = (queryParams?: IAtomizersQueryParams) => toLink(AtomizersApiLink, queryParams);
 export const useAtomizersLink = () => toAtomizersLink;

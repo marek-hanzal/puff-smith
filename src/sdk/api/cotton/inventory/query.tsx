@@ -58,7 +58,7 @@ export const CottonsInventorySource: FC<ICottonsInventorySourceProps> = props =>
 		useQuery={useCottonsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toCottonsInventoryLink = (queryParams?: ICottonsInventoryQueryParams) => toLink(CottonsInventoryApiLink, queryParams);
 export const useCottonsInventoryLink = () => toCottonsInventoryLink;

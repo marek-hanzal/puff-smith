@@ -58,7 +58,7 @@ export const AromasInventorySource: FC<IAromasInventorySourceProps> = props => {
 		useQuery={useAromasInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toAromasInventoryLink = (queryParams?: IAromasInventoryQueryParams) => toLink(AromasInventoryApiLink, queryParams);
 export const useAromasInventoryLink = () => toAromasInventoryLink;

@@ -58,7 +58,7 @@ export const CottonsSource: FC<ICottonsSourceProps> = props => {
 		useQuery={useCottonsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toCottonsLink = (queryParams?: ICottonsQueryParams) => toLink(CottonsApiLink, queryParams);
 export const useCottonsLink = () => toCottonsLink;

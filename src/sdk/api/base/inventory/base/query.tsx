@@ -58,7 +58,7 @@ export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
 		useQuery={useInventoryBasesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toInventoryBasesLink = (queryParams?: IInventoryBasesQueryParams) => toLink(InventoryBasesApiLink, queryParams);
 export const useInventoryBasesLink = () => toInventoryBasesLink;

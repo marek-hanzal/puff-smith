@@ -58,7 +58,7 @@ export const BasesSource: FC<IBasesSourceProps> = props => {
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toBasesLink = (queryParams?: IBasesQueryParams) => toLink(BasesApiLink, queryParams);
 export const useBasesLink = () => toBasesLink;

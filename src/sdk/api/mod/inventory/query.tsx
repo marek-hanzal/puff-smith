@@ -58,7 +58,7 @@ export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
 		useQuery={useModsInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toModsInventoryLink = (queryParams?: IModsInventoryQueryParams) => toLink(ModsInventoryApiLink, queryParams);
 export const useModsInventoryLink = () => toModsInventoryLink;

@@ -58,7 +58,7 @@ export const BoostersSource: FC<IBoostersSourceProps> = props => {
 		useQuery={useBoostersQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toBoostersLink = (queryParams?: IBoostersQueryParams) => toLink(BoostersApiLink, queryParams);
 export const useBoostersLink = () => toBoostersLink;

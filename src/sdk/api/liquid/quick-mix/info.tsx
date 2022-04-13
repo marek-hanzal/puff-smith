@@ -21,4 +21,4 @@ export const QuickMixInfoPromise = createPromise<ILiquidQuickMixInfoRequest, ILi
 export const useQuickMixInfoQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([QuickMixInfoApiLink]);
-};
+}

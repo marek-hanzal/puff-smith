@@ -24,7 +24,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IModInv
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IModInventoryCreate, "userId">, IModInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

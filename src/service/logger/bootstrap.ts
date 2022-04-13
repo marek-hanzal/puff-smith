@@ -1,4 +1,4 @@
-import {createLoki} from "@leight-core/server";
+import {createConsole, createLoki} from "@leight-core/server";
 import winston from "winston";
 
 export const BootstrapLogger = () => {
@@ -6,7 +6,7 @@ export const BootstrapLogger = () => {
 		level: "silly",
 		format: winston.format.json(),
 		transports: [
-			// createConsole(),
+			createConsole(),
 			createLoki({
 				labels: {
 					service: "job",
@@ -18,7 +18,7 @@ export const BootstrapLogger = () => {
 		level: "silly",
 		format: winston.format.json(),
 		transports: [
-			// createConsole(),
+			createConsole(),
 			createLoki({
 				labels: {
 					service: "import",
@@ -30,7 +30,7 @@ export const BootstrapLogger = () => {
 		level: "silly",
 		format: winston.format.json(),
 		transports: [
-			// createConsole(),
+			createConsole(),
 			createLoki({
 				labels: {
 					service: "service",
@@ -42,7 +42,7 @@ export const BootstrapLogger = () => {
 		level: "silly",
 		format: winston.format.json(),
 		transports: [
-			// createConsole(),
+			createConsole(),
 			createLoki({
 				labels: {
 					service: "endpoint",
@@ -54,7 +54,7 @@ export const BootstrapLogger = () => {
 		level: "silly",
 		format: winston.format.json(),
 		transports: [
-			// createConsole(),
+			createConsole(),
 			createLoki({
 				labels: {
 					service: "auth",

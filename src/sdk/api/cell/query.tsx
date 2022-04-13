@@ -58,7 +58,7 @@ export const CellsSource: FC<ICellsSourceProps> = props => {
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toCellsLink = (queryParams?: ICellsQueryParams) => toLink(CellsApiLink, queryParams);
 export const useCellsLink = () => toCellsLink;

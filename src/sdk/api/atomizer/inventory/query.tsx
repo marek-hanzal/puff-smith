@@ -58,7 +58,7 @@ export const AtomizersInventorySource: FC<IAtomizersInventorySourceProps> = prop
 		useQuery={useAtomizersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toAtomizersInventoryLink = (queryParams?: IAtomizersInventoryQueryParams) => toLink(AtomizersInventoryApiLink, queryParams);
 export const useAtomizersInventoryLink = () => toAtomizersInventoryLink;

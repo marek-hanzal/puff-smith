@@ -57,7 +57,7 @@ export const StatusListSource: FC<IStatusListSourceProps> = props => {
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toStatusListLink = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
 export const useStatusListLink = () => toStatusListLink;

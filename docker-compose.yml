@@ -49,6 +49,8 @@ services:
         restart: always
         ports:
             - "5300:3000"
+        volumes:
+            - ./.local/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
         networks:
             - loki
 

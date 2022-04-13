@@ -1,24 +1,17 @@
 import "@/puff-smith/assets/styles/app.css";
+import {MetricPushPromise} from "@/sdk/api/metric/push";
 import {IPageWithLayout} from "@leight-core/api";
 import {BootstrapLoader} from "@leight-core/client";
 import type {AppProps, NextWebVitalsMetric} from "next/app";
 
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-	console.log(metric);
-	//
-	// return (
-	// 	(
-	// 		navigator.sendBeacon
-	// 		&& navigator.sendBeacon(VITALS_URL, body)
-	// 	) || fetch(VITALS_URL, {
-	// 		body,
-	// 		method: 'POST',
-	// 		keepalive: true,
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 	})
-	// );
+export async function reportWebVitals(metric: NextWebVitalsMetric) {
+	return MetricPushPromise({
+		value: metric.value,
+		name: metric.name,
+		label: metric.label,
+		reference: metric.id,
+		start: metric.startTime
+	});
 }
 
 export default function PuffSmith({Component, pageProps: {session, ...pageProps}}: AppProps) {

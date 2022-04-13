@@ -58,7 +58,7 @@ export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props 
 		useQuery={useVouchersInventoryQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toVouchersInventoryLink = (queryParams?: IVouchersInventoryQueryParams) => toLink(VouchersInventoryApiLink, queryParams);
 export const useVouchersInventoryLink = () => toVouchersInventoryLink;

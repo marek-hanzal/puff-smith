@@ -58,7 +58,7 @@ export const AromasSource: FC<IAromasSourceProps> = props => {
 		useQuery={useAromasQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toAromasLink = (queryParams?: IAromasQueryParams) => toLink(AromasApiLink, queryParams);
 export const useAromasLink = () => toAromasLink;

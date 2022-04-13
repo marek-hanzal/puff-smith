@@ -58,7 +58,7 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
-};
+}
 
 export const toLiquidsLink = (queryParams?: ILiquidsQueryParams) => toLink(LiquidsApiLink, queryParams);
 export const useLiquidsLink = () => toLiquidsLink;

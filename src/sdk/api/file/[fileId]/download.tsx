@@ -32,7 +32,7 @@ export const useDownloadQuery = createQueryHook<void, string, IDownloadQueryPara
 export const useDownloadQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DownloadApiLink]);
-};
+}
 
 export const toDownloadLink = (queryParams?: IDownloadQueryParams) => toLink(DownloadApiLink, queryParams);
 export const useDownloadLink = () => toDownloadLink;
