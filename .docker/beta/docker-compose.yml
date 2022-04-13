@@ -8,6 +8,7 @@ services:
             - postgres
             - mongo
             - loki
+            - prometheus
             - mailhog
         labels:
             - 'traefik.enable=true'
@@ -54,9 +55,9 @@ services:
         image: grafana/grafana-oss
         networks:
             - web
-            - loki
+            - prometheus
         volumes:
-            - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+            - ./grafana/provisioning:/etc/grafana/provisioning
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -70,6 +71,20 @@ services:
             - 'traefik.http.routers.puff-smith-alfa-grafana-tls.tls=true'
             - 'traefik.http.routers.puff-smith-alfa-grafana-tls.tls.certresolver=default'
             - 'traefik.http.services.puff-smith-alfa-grafana-tls.loadbalancer.server.port=3000'
+
+    prometheus:
+        image: prom/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'
+        networks:
+            - prometheus
+        ports:
+            - "127.0.0.1:45090:9090"
+        volumes:
+            - ./prometheus:/etc/prometheus
 
     mailhog:
         image: mailhog/mailhog
@@ -96,6 +111,7 @@ networks:
     postgres:
     mongo:
     loki:
+    prometheus:
     mailhog:
 
 volumes:
