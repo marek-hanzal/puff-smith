@@ -48,7 +48,8 @@
 		"uuid": "^8.3.2",
 		"xlsx": "^0.18.3",
 		"winston": "^3.7.2",
-		"winston-loki": "^6.0.5"
+		"winston-loki": "^6.0.5",
+		"prom-client": "^14.0.1"
 	},
 	"devDependencies": {
 		"@types/node": "^17.0.21",
