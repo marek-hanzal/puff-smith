@@ -1,9 +1,16 @@
-import {BootstrapLogger} from "@/puff-smith/service/logger";
+import {BootstrapLogger} from "@leight-core/server";
 import {collectDefaultMetrics, register} from "prom-client";
 
 const Bootstrap = () => {
 	console.log("Bootstrap started.");
-	BootstrapLogger();
+	BootstrapLogger([
+		"job",
+		"import",
+		"service",
+		"endpoint",
+		"auth",
+		"query",
+	]);
 	try {
 		register.setDefaultLabels({
 			app: "puff-smith",
