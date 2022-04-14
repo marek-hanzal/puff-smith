@@ -1,6 +1,6 @@
 {
 	"name": "puff-smith",
-	"version": "0.5.112",
+	"version": "0.5.113",
 	"private": true,
 	"scripts": {
 		"next:dev": "next dev",
@@ -21,8 +21,8 @@
 	],
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
-		"@leight-core/api": "^0.5.123",
-		"@leight-core/client": "^0.5.72",
+		"@leight-core/api": "^0.5.125",
+		"@leight-core/client": "^0.5.74",
 		"@leight-core/server": "^0.5.112",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.10.0",

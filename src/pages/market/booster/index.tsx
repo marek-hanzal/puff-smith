@@ -1,6 +1,7 @@
 import {BoosterIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
 import {BoosterList} from "@/puff-smith/site/market/booster";
+import {QuickFilter} from "@/puff-smith/site/shared/booster";
 import {BoostersSourceControlProvider} from "@/sdk/api/booster/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +17,9 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<BoosterList/>
+			<BoosterList
+				header={() => <QuickFilter/>}
+			/>
 		</BoostersSourceControlProvider>
 	</MarketPage>;
 });

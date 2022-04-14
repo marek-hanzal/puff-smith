@@ -1,7 +1,8 @@
 import {BoosterIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory";
-import {BoostersSourceControlProvider} from "@/sdk/api/booster/query";
+import {QuickFilter} from "@/puff-smith/site/shared/booster";
+import {BoostersInventorySourceControlProvider} from "@/sdk/api/booster/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -9,8 +10,10 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/booster/inventory"]}
 		icon={<BoosterIcon/>}
 	>
-		<BoostersSourceControlProvider>
-			<BoosterInventoryList/>
-		</BoostersSourceControlProvider>
+		<BoostersInventorySourceControlProvider>
+			<BoosterInventoryList
+				header={() => <QuickFilter/>}
+			/>
+		</BoostersInventorySourceControlProvider>
 	</LabPage>;
 });
