@@ -10,7 +10,6 @@ export interface IAromaListProps extends Partial<IAromasListSourceProps> {
 
 export const AromaList: FC<IAromaListProps> = props => {
 	return <AromasListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{aroma => <ListItem key={aroma.id}>

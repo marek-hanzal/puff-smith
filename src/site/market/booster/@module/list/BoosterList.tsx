@@ -11,7 +11,6 @@ export interface IBoosterListProps extends Partial<IBoostersListSourceProps> {
 
 export const BoosterList: FC<IBoosterListProps> = props => {
 	return <BoostersListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{booster => <ListItem key={booster.id}>

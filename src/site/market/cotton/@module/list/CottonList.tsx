@@ -9,7 +9,6 @@ export interface ICottonListProps extends Partial<ICottonsListSourceProps> {
 
 export const CottonList: FC<ICottonListProps> = props => {
 	return <CottonsListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{cotton => <ListItem key={cotton.id}>

@@ -11,7 +11,6 @@ export interface IVoucherListProps extends Partial<IVouchersListSourceProps> {
 export const VoucherList: FC<IVoucherListProps> = props => {
 	const {t} = useTranslation();
 	return <VouchersListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{voucher => <ListItem key={voucher.id}>

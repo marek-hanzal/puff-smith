@@ -9,7 +9,6 @@ export interface IAtomizerListProps extends Partial<IAtomizersListSourceProps> {
 
 export const AtomizerList: FC<IAtomizerListProps> = props => {
 	return <AtomizersListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{atomizer => <ListItem key={atomizer.id}>

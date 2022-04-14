@@ -11,7 +11,6 @@ export interface IBaseListProps extends Partial<IBasesListSourceProps> {
 
 export const BaseList: FC<IBaseListProps> = props => {
 	return <BasesListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{base => <ListItem key={base.id}>

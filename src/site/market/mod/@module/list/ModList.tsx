@@ -9,7 +9,6 @@ export interface IModListProps extends Partial<IModsListSourceProps> {
 
 export const ModList: FC<IModListProps> = props => {
 	return <ModsListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{mod => <ListItem key={mod.id}>

@@ -9,7 +9,6 @@ export interface ICellListProps extends Partial<ICellsListSourceProps> {
 
 export const CellList: FC<ICellListProps> = props => {
 	return <CellsListSource
-		itemLayout={"vertical"}
 		{...props}
 	>
 		{cell => <ListItem key={cell.id}>
