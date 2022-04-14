@@ -1,76 +1,34 @@
 import {createConsole, createLoki} from "@leight-core/server";
 import winston from "winston";
 
+const createDefaultMeta = () => ({
+	labels: {
+		version: process.env.NEXT_PUBLIC_VERSION,
+	},
+});
+
+const createDefaultLogger = (service: string) => ({
+	level: "silly",
+	format: winston.format.json(),
+	defaultMeta: createDefaultMeta(),
+	transports: [
+		createConsole(),
+		createLoki({
+			labels: {
+				version: process.env.NEXT_PUBLIC_VERSION,
+				service,
+			},
+		}),
+	],
+});
+
 export const BootstrapLogger = () => {
-	winston.loggers.add("job", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createConsole(),
-			createLoki({
-				labels: {
-					service: "job",
-				},
-			}),
-		],
-	});
-	winston.loggers.add("import", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createConsole(),
-			createLoki({
-				labels: {
-					service: "import",
-				},
-			}),
-		],
-	});
-	winston.loggers.add("service", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createConsole(),
-			createLoki({
-				labels: {
-					service: "service",
-				},
-			}),
-		],
-	});
-	winston.loggers.add("endpoint", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createConsole(),
-			createLoki({
-				labels: {
-					service: "endpoint",
-				},
-			}),
-		],
-	});
-	winston.loggers.add("auth", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createConsole(),
-			createLoki({
-				labels: {
-					service: "auth",
-				},
-			}),
-		],
-	});
-	winston.loggers.add("query", {
-		level: "silly",
-		format: winston.format.json(),
-		transports: [
-			createLoki({
-				labels: {
-					service: "query",
-				},
-			}),
-		],
-	});
+	[
+		"job",
+		"import",
+		"service",
+		"endpoint",
+		"auth",
+		"query",
+	].map(name => winston.loggers.add(name, createDefaultLogger(name)));
 };
