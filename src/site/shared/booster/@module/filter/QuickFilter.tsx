@@ -28,6 +28,12 @@ export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter,
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
 			<Radio.Group size={"large"} value={`pgvg-${filter?.vg}/${filter?.pg}`}>
+				<Radio.Button
+					value={"pgvg-undefined/undefined"}
+					onClick={() => filterContext.mergeFilter(toFilter({pg: undefined, vg: undefined}))}
+				>
+					{t("market.filter.pgvg.off.label")}
+				</Radio.Button>
 				{ratioList.map(pgvg => <Radio.Button
 					type={"text"}
 					onClick={() => filterContext.mergeFilter(toFilter(pgvg))}
@@ -41,6 +47,12 @@ export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter,
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.nicotine.label")}</Typography.Text>
 			<Radio.Group size={"large"} value={`nicotine-${filter?.nicotine}`}>
+				<Radio.Button
+					value={"nicotine-undefined"}
+					onClick={() => filterContext.mergeFilter(toFilter({nicotine: undefined}))}
+				>
+					{t("market.filter.nicotine.off.label")}
+				</Radio.Button>
 				{nicList.map(nicotine => <Radio.Button
 					type={"link"}
 					onClick={() => filterContext.mergeFilter(toFilter({nicotine}))}

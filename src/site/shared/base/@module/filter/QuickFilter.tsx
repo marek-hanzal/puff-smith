@@ -26,6 +26,12 @@ export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter,
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
 			<Radio.Group size={"large"} value={`pgvg-${filter?.vg}/${filter?.pg}`}>
+				<Radio.Button
+					value={"pgvg-undefined/undefined"}
+					onClick={() => filterContext.mergeFilter(toFilter({pg: undefined, vg: undefined}))}
+				>
+					{t("market.filter.pgvg.off.label")}
+				</Radio.Button>
 				{ratioList.map(pgvg => <Radio.Button
 					type={"text"}
 					onClick={() => filterContext.mergeFilter(toFilter(pgvg))}
