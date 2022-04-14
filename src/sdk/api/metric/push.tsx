@@ -21,4 +21,4 @@ export const MetricPushPromise = createPromise<Omit<IMetricCreate, "userId">, IM
 export const useMetricPushQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MetricPushApiLink]);
-};
+}
