@@ -5,7 +5,8 @@
 	"scripts": {
 		"next:dev": "next dev",
 		"agenda": "npx dotenv -c development node ./.next/server/agenda.js",
-		"dev": "concurrently 'npm:next:dev' 'npm:agenda'",
+		"migration": "npx dotenv -c development node ./.next/server/migration.js",
+		"dev": "concurrently 'npm:next:dev' 'npm:agenda' 'npm:migration'",
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
@@ -13,7 +14,7 @@
 		"prisma db push": "npx dotenv -c development npx prisma db push",
 		"prisma format": "npx dotenv -c development npx prisma format",
 		"start": "next start",
-		"start:local": "concurrently 'npm:start' 'npm:agenda'",
+		"start:local": "concurrently 'npm:start' 'npm:agenda' 'npm:migration'",
 		"lint": "next lint"
 	},
 	"sideEffects": [

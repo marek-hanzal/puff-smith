@@ -10,6 +10,7 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 		"endpoint",
 		"auth",
 		"query",
+		"migration",
 	], version);
 	try {
 		register.setDefaultLabels({

@@ -13,9 +13,6 @@ export default withPlugins([
 		formats: ['image/avif', 'image/webp']
 	},
 	productionBrowserSourceMaps: false,
-	// experimental:                {
-	// 	outputStandalone: true,
-	// },
 	webpack:                     (config, {
 		webpack,
 		buildId,
@@ -32,7 +29,8 @@ export default withPlugins([
 				entry() {
 					return config.entry().then(entry => {
 						entry = Object.assign({}, entry, {
-							'agenda': ['./src/agenda/worker.ts'],
+							'agenda':    ['./src/agenda/worker.ts'],
+							'migration': ['./src/service/migration/worker.ts'],
 						});
 						Object.keys(entry).map(key => {
 							entry[key] = {import: ['./src/service/bootstrap.ts', ...entry[key]]};

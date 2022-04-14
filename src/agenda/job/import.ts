@@ -65,16 +65,16 @@ export default function ImportJob(agenda: Agenda) {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 			const result = await toImport(theJob, workbook, importHandlers, {
-				async onTotal(total: number): Promise<void> {
+				async onTotal(total): Promise<void> {
 					await jobUpdateTotal(theJob.id, total);
 				},
-				async onSuccess(success: number, total: number, processed: number): Promise<void> {
+				async onSuccess(success, total, processed): Promise<void> {
 					await jobUpdateSuccess(theJob.id, success, total, processed);
 				},
-				async onSkip(skip: number, total: number, processed: number): Promise<void> {
+				async onSkip(skip, total, processed): Promise<void> {
 					await jobUpdateSkip(theJob.id, skip, total, processed);
 				},
-				async onFailure(error: Error, failure: number, total: number, processed: number): Promise<void> {
+				async onFailure(error, failure, total, processed): Promise<void> {
 					await jobUpdateFailure(theJob.id, failure, total, processed);
 				}
 			});

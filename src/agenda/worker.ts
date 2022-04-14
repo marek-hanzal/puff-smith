@@ -1,10 +1,12 @@
 import agenda from "@/puff-smith/agenda/agenda";
 import ImportJob from "@/puff-smith/agenda/job/import";
+import MigrationJob from "@/puff-smith/agenda/job/migrate";
 import {Logger} from "@leight-core/server";
 
 (async function () {
 	const jobs = [
 		ImportJob,
+		MigrationJob,
 	];
 
 	const logger = Logger("job");
