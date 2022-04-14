@@ -9,4 +9,7 @@ const worker = async () => {
 	logger.info("Done");
 };
 
-worker().then(() => console.log("Worker Done"));
+worker().then(() => {
+	console.log("Worker Done");
+	process.exit();
+});
