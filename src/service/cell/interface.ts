@@ -38,4 +38,6 @@ export interface ICellFetchQuery extends ParsedUrlQuery {
 	cellId: string;
 }
 
-export type ICellService = IRepositoryService<ICellCreate, Cell, ICell, ICellQuery, ICellFetchProps, ICellFetchQuery>;
+export interface ICellService extends IRepositoryService<ICellCreate, Cell, ICell, ICellQuery, ICellFetchProps, ICellFetchQuery> {
+	fetchCells(cells: string): Promise<Cell[]>;
+}

@@ -1,5 +1,6 @@
 import {IModService} from "@/puff-smith/service/mod/interface";
 import prisma from "@/puff-smith/service/prisma";
+import {TagService} from "@/puff-smith/service/tag";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
@@ -13,6 +14,15 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 		power: mod.power.toNumber(),
 		voltage: mod.voltage.toNumber(),
 		vendor: await VendorService(prismaClient).toMap(mod.vendorId),
+		cells: await TagService(prismaClient).list(prismaClient.tag.findMany({
+			where: {
+				ModCell: {
+					some: {
+						modId: mod.id,
+					}
+				}
+			}
+		})),
 	}),
 	create: async ({vendor, cells, ...create}) => prismaClient.mod.create({
 		data: {
@@ -24,7 +34,7 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 			}
 		},
 	}),
-	onUnique: async ({vendor, ...create}) => {
+	onUnique: async ({vendor, cells, ...create}) => {
 		const _mod = (await prismaClient.mod.findFirst({
 			where: {
 				name: create.name,
@@ -47,7 +57,9 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 				...create,
 				ModCell: {
 					createMany: {
-						data: [],
+						data: cells ? (await TagService(prismaClient).fetchCodes(`${cells}`, "cell-type")).map(tag => ({
+							cellId: tag.id,
+						})) : [],
 					}
 				}
 			},

@@ -189,6 +189,7 @@ model Tag {
   Atomizer     Atomizer[]
   AtomizerDraw AtomizerDraw[]
   Cell         Cell[]
+  ModCell      ModCell[]
 
   @@unique([code, group])
 }
@@ -310,7 +311,6 @@ model Cell {
   vendorId String
   vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  ModCell       ModCell[]
   CellInventory CellInventory[]
   CellComment   CellComment[]
 
@@ -356,7 +356,7 @@ model ModCell {
   modId  String
   mod    Mod    @relation(fields: [modId], references: [id], onDelete: Cascade)
   cellId String
-  cell   Cell   @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  cell   Tag    @relation(fields: [cellId], references: [id], onDelete: Cascade)
 }
 
 model ModInventory {

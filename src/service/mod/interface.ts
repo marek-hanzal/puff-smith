@@ -1,3 +1,4 @@
+import {ITag} from "@/puff-smith/service/tag";
 import {IVendor} from "@/puff-smith/service/vendor";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mod, Prisma} from "@prisma/client";
@@ -17,6 +18,7 @@ export interface IMod {
 	name: string;
 	vendor: IVendor;
 	vendorId: string;
+	cells: ITag[];
 	cost: number;
 	voltage: number;
 	power: number;

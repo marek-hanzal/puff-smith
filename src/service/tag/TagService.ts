@@ -2,7 +2,6 @@ import prisma from "@/puff-smith/service/prisma";
 import {ITagService} from "@/puff-smith/service/tag/interface";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
-import {Tag} from "@prisma/client";
 
 export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITagService => ({
 	...RepositoryService<ITagService>({
@@ -31,12 +30,12 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 			},
 		}),
 	}),
-	async fetchCodes(codes, group) {
-		return (await Promise.all(codes.split(/,\s+/ig).map(async code => await prismaClient.tag.findFirst({
-			where: {
-				code: `${code}`.toLowerCase(),
-				group,
-			}
-		})))).filter(tag => tag !== null) as Tag[];
-	}
+	fetchCodes: async (codes, group) => prismaClient.tag.findMany({
+		where: {
+			code: {
+				in: codes.split(/,\s+/ig).map(code => `${code}`.toLowerCase()),
+			},
+			group,
+		}
+	}),
 });
