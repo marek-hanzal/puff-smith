@@ -12,7 +12,7 @@ export default withLabLayout(function Index() {
 	>
 		<BoostersInventorySourceControlProvider>
 			<BoosterInventoryList
-				header={() => <QuickFilter/>}
+				header={() => <QuickFilter toFilter={filter => ({booster: filter})}/>}
 			/>
 		</BoostersInventorySourceControlProvider>
 	</LabPage>;
