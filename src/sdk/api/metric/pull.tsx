@@ -11,12 +11,12 @@ export const MetricPullApiLink = "/api/metric/pull";
 
 export type IMetricPullQueryParams = undefined;
 
-export const MetricPullContext = createContext(null as unknown as IEntityContext<any>);
+export const MetricPullContext = createContext(null as unknown as IEntityContext<string>);
 
-export const useMetricPullContext = (): IEntityContext<any> => useContext(MetricPullContext, "MetricPullContext");
-export const useOptionalMetricPullContext = () => useOptionalContext<IEntityContext<any>>(MetricPullContext as any);
+export const useMetricPullContext = (): IEntityContext<string> => useContext(MetricPullContext, "MetricPullContext");
+export const useOptionalMetricPullContext = () => useOptionalContext<IEntityContext<string>>(MetricPullContext as any);
 
-export interface IMetricPullProvider extends IEntityProviderProps<any> {
+export interface IMetricPullProvider extends IEntityProviderProps<string> {
 }
 
 export const MetricPullProvider: FC<IMetricPullProvider> = ({defaultEntity, ...props}) => {
@@ -27,7 +27,7 @@ export const MetricPullProvider: FC<IMetricPullProvider> = ({defaultEntity, ...p
 	</EntityProvider>;
 };
 
-export const useMetricPullQuery = createQueryHook<void, any, IMetricPullQueryParams>(MetricPullApiLink, "get");
+export const useMetricPullQuery = createQueryHook<void, string, IMetricPullQueryParams>(MetricPullApiLink, "get");
 
 export const useMetricPullQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -37,13 +37,13 @@ export const useMetricPullQueryInvalidate = () => {
 export const toMetricPullLink = (queryParams?: IMetricPullQueryParams) => toLink(MetricPullApiLink, queryParams);
 export const useMetricPullLink = () => toMetricPullLink;
 
-export const useMetricPullPromise = createPromiseHook<void, any, IMetricPullQueryParams>(MetricPullApiLink, "get");
-export const MetricPullPromise = createPromise<void, any, IMetricPullQueryParams>(MetricPullApiLink, "get");
+export const useMetricPullPromise = createPromiseHook<void, string, IMetricPullQueryParams>(MetricPullApiLink, "get");
+export const MetricPullPromise = createPromise<void, string, IMetricPullQueryParams>(MetricPullApiLink, "get");
 
-export interface IFetchMetricPullProps extends Partial<IQueryProps<void, any, IMetricPullQueryParams>> {
+export interface IFetchMetricPullProps extends Partial<IQueryProps<void, string, IMetricPullQueryParams>> {
 }
 
-export const FetchMetricPull: FC<IFetchMetricPullProps> = props => <Query<void, any, IMetricPullQueryParams>
+export const FetchMetricPull: FC<IFetchMetricPullProps> = props => <Query<void, string, IMetricPullQueryParams>
 	useQuery={useMetricPullQuery}
 	request={undefined}
 	context={useOptionalMetricPullContext()}
