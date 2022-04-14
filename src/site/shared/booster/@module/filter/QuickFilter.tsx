@@ -8,11 +8,14 @@ import {useTranslation} from "react-i18next";
 
 export interface IQuickFilterProps {
 	toFilter?(filter: IQueryFilter<IBoosterQuery>): any;
+
+	fromFilter?(filter: any): IQueryFilter<IBoosterQuery>;
 }
 
-export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter}) => {
+export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter, fromFilter = filter => filter}) => {
 	const {t} = useTranslation();
 	const filterContext = useBoostersFilterContext();
+	const filter: IQueryFilter<IBoosterQuery> = fromFilter(filterContext.filter);
 	const ratioList: { pg: number | undefined, vg: number | undefined }[] = [
 		{pg: 70, vg: 30},
 		{pg: 50, vg: 50},
@@ -24,7 +27,7 @@ export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter}
 	return <Space size={0} split={<Divider type={"vertical"}/>}>
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`pgvg-${toFilter(filterContext.filter)?.vg}/${toFilter(filterContext.filter)?.pg}`}>
+			<Radio.Group size={"large"} value={`pgvg-${filter?.vg}/${filter?.pg}`}>
 				{ratioList.map(pgvg => <Radio.Button
 					type={"text"}
 					onClick={() => filterContext.mergeFilter(toFilter(pgvg))}
@@ -37,7 +40,7 @@ export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter}
 		</Space>
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.nicotine.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`nicotine-${filterContext.filter?.nicotine}`}>
+			<Radio.Group size={"large"} value={`nicotine-${filter?.nicotine}`}>
 				{nicList.map(nicotine => <Radio.Button
 					type={"link"}
 					onClick={() => filterContext.mergeFilter(toFilter({nicotine}))}

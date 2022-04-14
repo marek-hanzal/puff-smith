@@ -1,5 +1,4 @@
 import {NicotineInline, PgVgInline} from "@/puff-smith";
-import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
 import {BoostersInventoryListSource, IBoostersInventoryListSourceProps} from "@/sdk/api/booster/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -19,7 +18,6 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 					<BoosterNameInline booster={booster}/>
 					<PgVgInline pgvg={booster}/>
 					<NicotineInline nicotine={booster.nicotine}/>
-					<BoosterInventoryCreateButton type={"link"} booster={booster}/>
 				</Space>}
 			/>
 		</ListItem>}
