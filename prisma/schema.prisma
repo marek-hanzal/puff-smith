@@ -188,6 +188,7 @@ model Tag {
 
   Atomizer     Atomizer[]
   AtomizerDraw AtomizerDraw[]
+  CottonDraw   CottonDraw[]
   Cell         Cell[]
   ModCell      ModCell[]
 
@@ -385,8 +386,17 @@ model Cotton {
   cost            Decimal           @db.Decimal(10, 2)
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
+  CottonDraw      CottonDraw[]
 
   @@unique([name, vendorId])
+}
+
+model CottonDraw {
+  id       String @id @default(cuid())
+  cottonId String
+  cotton   Cotton @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  drawId   String
+  draw     Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model CottonInventory {

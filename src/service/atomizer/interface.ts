@@ -1,3 +1,4 @@
+import {ITag} from "@/puff-smith/service/tag";
 import {IVendor} from "@/puff-smith/service/vendor";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
@@ -8,7 +9,7 @@ export interface IAtomizerCreate {
 	name: string;
 	dualCoil?: string;
 	type: string;
-	draw?: string;
+	draws?: string;
 	squonk?: string;
 	cost?: string;
 }
@@ -22,6 +23,7 @@ export interface IAtomizer {
 	cost?: number | null;
 	vendor: IVendor;
 	vendorId: string;
+	draws: ITag[];
 }
 
 export interface IAtomizerFetchProps {

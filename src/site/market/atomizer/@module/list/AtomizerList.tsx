@@ -1,3 +1,4 @@
+import {Tags} from "@/puff-smith";
 import {AtomizerInventoryCreateButton} from "@/puff-smith/site/market/atomizer";
 import {AtomizersListSource, IAtomizersListSourceProps} from "@/sdk/api/atomizer/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -16,6 +17,7 @@ export const AtomizerList: FC<IAtomizerListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{atomizer.name}
 					<Typography.Text type={"secondary"}>{atomizer.vendor.name}</Typography.Text>
+					<Tags tags={atomizer.draws}/>
 					<AtomizerInventoryCreateButton type={"link"} atomizer={atomizer}/>
 				</Space>}
 			/>

@@ -1,3 +1,4 @@
+import {Tags} from "@/puff-smith";
 import {CottonInventoryCreateButton} from "@/puff-smith/site/market/cotton";
 import {CottonsListSource, ICottonsListSourceProps} from "@/sdk/api/cotton/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -16,6 +17,7 @@ export const CottonList: FC<ICottonListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{cotton.name}
 					<Typography.Text type={"secondary"}>{cotton.vendor.name}</Typography.Text>
+					<Tags tags={cotton.draws}/>
 					<CottonInventoryCreateButton type={"link"} cotton={cotton}/>
 				</Space>}
 			/>
