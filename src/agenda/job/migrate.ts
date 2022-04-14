@@ -14,7 +14,7 @@ export default function MigrationJob(agenda: Agenda) {
 		logger.info("Running migrations");
 		await Promise.all(migrations.map(async migration => {
 			const labels = {migration: migration.name()};
-			const others = migration;
+			const others = labels;
 			logger.info("Checking migration", {labels, ...others});
 			if (!migration.isEnabled()) {
 				logger.info("Migration not enabled", {labels, ...others});

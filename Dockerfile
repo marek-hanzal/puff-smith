@@ -60,6 +60,7 @@ RUN addgroup app
 RUN adduser --disabled-password --system --shell /bin/false --no-create-home --gecos "" --home /opt/app --ingroup app app
 
 COPY --chown=app:app next.config.mjs next.config.mjs
+COPY --chown=app:app fixtures fixtures
 COPY --chown=app:app prisma prisma
 COPY --chown=app:app public public
 COPY --chown=app:app package.json package-lock.json ./
