@@ -11,24 +11,8 @@ export const FixturesMigration: IMigration = {
 
 		const files: Parameters<typeof scheduleFileImport>[0][] = [
 			{
-				name: "Tariffs.xlsx",
-				file: "/fixtures/00 - tariffs.xlsx",
-			},
-			{
-				name: "Translations.xlsx",
-				file: "/fixtures/00 - translations.xlsx",
-			},
-			{
-				name: "tags.xlsx",
-				file: "/fixtures/01 - tags.xlsx",
-			},
-			{
-				name: "vendors.xlsx",
-				file: "/fixtures/02 - vendors.xlsx",
-			},
-			{
-				name: "prices.xlsx",
-				file: "/fixtures/01 - prices.xlsx",
+				name: "fixtures.xlsx",
+				file: "/fixtures/fixtures.xlsx",
 			},
 		];
 		try {
