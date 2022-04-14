@@ -1,6 +1,7 @@
 import {BaseIcon} from "@/puff-smith";
 import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
 import {BaseList} from "@/puff-smith/site/market/base";
+import {QuickFilter} from "@/puff-smith/site/shared/base";
 import {BasesSourceControlProvider} from "@/sdk/api/base/query";
 
 export default withMarketLayout(function Index() {
@@ -16,7 +17,9 @@ export default withMarketLayout(function Index() {
 			defaultPage={0}
 			defaultSize={5}
 		>
-			<BaseList/>
+			<BaseList
+				header={() => <QuickFilter/>}
+			/>
 		</BasesSourceControlProvider>
 	</MarketPage>;
 });
