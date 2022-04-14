@@ -1,4 +1,5 @@
-import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {PgVgInline} from "@/puff-smith";
+import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -15,6 +16,8 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={aromaInventory.aroma}/>
+					<PgVgInline pgvg={aromaInventory.aroma}/>
+					<AromaContentInline aroma={aromaInventory.aroma}/>
 				</Space>}
 			/>
 		</ListItem>}
