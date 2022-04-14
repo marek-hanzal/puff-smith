@@ -1,7 +1,7 @@
 import {CellIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CellInventoryList} from "@/puff-smith/site/lab/cell/inventory";
-import {CellsSourceControlProvider} from "@/sdk/api/cell/query";
+import {CellsInventorySourceControlProvider} from "@/sdk/api/cell/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -9,8 +9,8 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cell/inventory"]}
 		icon={<CellIcon/>}
 	>
-		<CellsSourceControlProvider>
+		<CellsInventorySourceControlProvider>
 			<CellInventoryList/>
-		</CellsSourceControlProvider>
+		</CellsInventorySourceControlProvider>
 	</LabPage>;
 });

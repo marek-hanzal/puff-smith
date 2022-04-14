@@ -1,7 +1,7 @@
 import {CottonIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {CottonInventoryList} from "@/puff-smith/site/lab/cotton/inventory";
-import {CottonsSourceControlProvider} from "@/sdk/api/cotton/query";
+import {CottonsInventorySourceControlProvider} from "@/sdk/api/cotton/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -9,8 +9,8 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cotton/inventory"]}
 		icon={<CottonIcon/>}
 	>
-		<CottonsSourceControlProvider>
+		<CottonsInventorySourceControlProvider>
 			<CottonInventoryList/>
-		</CottonsSourceControlProvider>
+		</CottonsInventorySourceControlProvider>
 	</LabPage>;
 });

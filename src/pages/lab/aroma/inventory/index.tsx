@@ -1,7 +1,7 @@
 import {LiquidIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory";
-import {AromasSourceControlProvider} from "@/sdk/api/aroma/query";
+import {AromasInventorySourceControlProvider} from "@/sdk/api/aroma/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -9,8 +9,8 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/aroma/inventory"]}
 		icon={<LiquidIcon/>}
 	>
-		<AromasSourceControlProvider>
+		<AromasInventorySourceControlProvider>
 			<AromaInventoryList/>
-		</AromasSourceControlProvider>
+		</AromasInventorySourceControlProvider>
 	</LabPage>;
 });
