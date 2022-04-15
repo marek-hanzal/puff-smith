@@ -1,6 +1,7 @@
 import {LiquidIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
 import {LiquidCreateButton, LiquidList} from "@/puff-smith/site/lab/liquid";
+import {QuickFilter} from "@/puff-smith/site/shared/liquid";
 import {useAromasInventoryQuery} from "@/sdk/api/aroma/inventory/query";
 import {LiquidsSourceControlProvider, useLiquidsQuery} from "@/sdk/api/liquid/query";
 import {ButtonBar} from "@leight-core/client";
@@ -27,7 +28,9 @@ export default withLabLayout(function Index() {
 				mixed: "asc",
 			}}
 		>
-			<LiquidList/>
+			<LiquidList
+				header={() => <QuickFilter/>}
+			/>
 		</LiquidsSourceControlProvider>
 	</LabPage>;
 });

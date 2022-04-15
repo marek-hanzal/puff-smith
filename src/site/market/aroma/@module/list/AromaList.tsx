@@ -1,3 +1,4 @@
+import {PgVgInline} from "@/puff-smith";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
 import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {AromasListSource, IAromasListSourceProps} from "@/sdk/api/aroma/query";
@@ -16,6 +17,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={aroma}/>
+					<PgVgInline pgvg={aroma}/>
 					<AromaContentInline aroma={aroma}/>
 					<AromaInventoryCreateButton type={"link"} aroma={aroma}/>
 				</Space>}
