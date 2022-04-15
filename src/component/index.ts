@@ -1,4 +1,5 @@
 export * from "./button";
+export * from "./filter";
 export * from "./icon";
 export * from "./inline";
 export * from "./input";
