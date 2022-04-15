@@ -56,10 +56,9 @@ export const QuickFilter: FC<IQuickFilterProps> = () => {
 	return <Space size={0} split={<Divider type={"vertical"}/>}>
 		<Space>
 			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`filter-${JSON.stringify(filter)}`}>
+			<Radio.Group size={"large"} value={`filter-${JSON.stringify(filter || {})}`}>
 				<Radio.Button
 					value={`filter-${JSON.stringify({})}`}
-					defaultChecked
 					onClick={() => filterContext.mergeFilter({pg: undefined, vg: undefined})}
 				>
 					{t("market.filter.pgvg.off.label")}
