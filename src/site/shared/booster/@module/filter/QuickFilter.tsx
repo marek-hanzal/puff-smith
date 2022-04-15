@@ -1,74 +1,71 @@
-import {NicotineInline} from "@/puff-smith";
+import {IInlineFilterProps, InlineFilter, NicotineInline} from "@/puff-smith";
 import {IBoosterQuery} from "@/puff-smith/service/booster";
-import {useBoostersFilterContext} from "@/sdk/api/booster/query";
-import {IQueryFilter} from "@leight-core/api";
-import {Button, Divider, Radio, Space, Typography} from "antd";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
-export interface IQuickFilterProps {
-	toFilter?(filter: IQueryFilter<IBoosterQuery>): any;
-
-	fromFilter?(filter: any): IQueryFilter<IBoosterQuery>;
+export interface IQuickFilterProps extends Partial<IInlineFilterProps<IBoosterQuery>> {
 }
 
-export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter, fromFilter = filter => filter}) => {
-	const {t} = useTranslation();
-	const filterContext = useBoostersFilterContext();
-	const filter: IQueryFilter<IBoosterQuery> = fromFilter(filterContext.filter);
-	const ratioList: { pg: number | undefined, vg: number | undefined }[] = [
-		{pg: 70, vg: 30},
-		{pg: 50, vg: 50},
-		{pg: 30, vg: 70},
-		{pg: 20, vg: 80},
-		{pg: 0, vg: 100},
-	];
-	const nicList = [3, 10, 12, 20];
-	return <Space size={0} split={<Divider type={"vertical"}/>}>
-		<Space>
-			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`pgvg-${filter?.vg}/${filter?.pg}`}>
-				<Radio.Button
-					value={"pgvg-undefined/undefined"}
-					onClick={() => filterContext.mergeFilter(toFilter({pg: undefined, vg: undefined}))}
-				>
-					{t("market.filter.pgvg.off.label")}
-				</Radio.Button>
-				{ratioList.map(pgvg => <Radio.Button
-					type={"text"}
-					onClick={() => filterContext.mergeFilter(toFilter(pgvg))}
-					value={`pgvg-${pgvg.vg}/${pgvg.pg}`}
-					key={`pgvg-${pgvg.vg}/${pgvg.pg}`}
-				>
-					{`${pgvg.vg}/${pgvg.pg}`}
-				</Radio.Button>)}
-			</Radio.Group>
-		</Space>
-		<Space>
-			<Typography.Text type={"secondary"}>{t("market.filter.nicotine.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`nicotine-${filter?.nicotine}`}>
-				<Radio.Button
-					value={"nicotine-undefined"}
-					onClick={() => filterContext.mergeFilter(toFilter({nicotine: undefined}))}
-				>
-					{t("market.filter.nicotine.off.label")}
-				</Radio.Button>
-				{nicList.map(nicotine => <Radio.Button
-					type={"link"}
-					onClick={() => filterContext.mergeFilter(toFilter({nicotine}))}
-					value={`nicotine-${nicotine}`}
-					key={`nicotine-${nicotine}`}
-				>
-					<NicotineInline nicotine={nicotine}/>
-				</Radio.Button>)}
-			</Radio.Group>
-		</Space>
-		<Button
-			type={"link"}
-			size={"large"}
-			onClick={() => filterContext.setFilter()}
-		>
-			{t("common.filter.clear")}
-		</Button>
-	</Space>;
+export const QuickFilter: FC<IQuickFilterProps> = props => {
+	return <InlineFilter<IBoosterQuery>
+		translation={"market.filter.pgvg"}
+		filters={[
+			{
+				name: "pgvg",
+				reset: {
+					pg: undefined,
+					vg: undefined,
+				},
+				options: [
+					{
+						name: "30/70",
+						filter: {pg: 70, vg: 30},
+					},
+					{
+						name: "50/50",
+						filter: {pg: 50, vg: 50},
+					},
+					{
+						name: "70/30",
+						filter: {pg: 30, vg: 70},
+					},
+					{
+						name: "80/20",
+						filter: {pg: 20, vg: 80},
+					},
+					{
+						name: "100/0",
+						filter: {pg: 0, vg: 100},
+					},
+				],
+			},
+			{
+				name: "nicotine",
+				reset: {nicotine: undefined},
+				render: item => <NicotineInline nicotine={item}/>,
+				options: [
+					{
+						name: "0",
+						filter: {nicotine: 0},
+					},
+					{
+						name: "6",
+						filter: {nicotine: 6},
+					},
+					{
+						name: "10",
+						filter: {nicotine: 10},
+					},
+					{
+						name: "12",
+						filter: {nicotine: 12},
+					},
+					{
+						name: "18",
+						filter: {nicotine: 18},
+					},
+				]
+			}
+		]}
+		{...props}
+	/>;
 };

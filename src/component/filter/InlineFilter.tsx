@@ -40,7 +40,7 @@ export const InlineFilter = <TQuery extends IQuery<any, any>>(
 					value={`filter-${group.name}-${JSON.stringify(filter.filter)}`}
 					key={`filter-${group.name}-${JSON.stringify(filter.filter)}`}
 				>
-					{t(`${translation}.filter.${group.name}.${filter.name}.label`, filter.name)}
+					{group.render?.(t(`${translation}.filter.${group.name}.${filter.name}.label`, filter.name)) || t(`${translation}.filter.${group.name}.${filter.name}.label`, filter.name)}
 				</Radio.Button>)}
 			</Radio.Group>
 		</Space>)}
