@@ -1,8 +1,8 @@
-import {NicotineInline, PgVgInline} from "@/puff-smith";
+import {AgeOfInline, NicotineInline, PgVgInline} from "@/puff-smith";
 import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid";
-import {LiquidNameInline} from "@/puff-smith/site/shared/liquid";
+import {LiquidNameInline, LiquidSteeping} from "@/puff-smith/site/shared/liquid";
 import {ILiquidsListSourceProps, LiquidsListSource} from "@/sdk/api/liquid/query";
-import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
+import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -21,9 +21,10 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<LiquidNameInline liquid={liquid}/>
 					<PgVgInline pgvg={liquid}/>
-					<NicotineInline nicotine={liquid.nicotine}/>
+					<NicotineInline nicotine={liquid.nicotine} tooltip={"lab.liquid.nicotine.tooltip"}/>
+					<AgeOfInline date={liquid.mixed} tooltip={"lab.liquid.age.tooltip"}/>
+					<LiquidSteeping liquid={liquid}/>
 				</Space>}
-				description={toLocalDateTime(liquid.mixed)}
 			/>
 		</ListItem>}
 	</LiquidsListSource>;

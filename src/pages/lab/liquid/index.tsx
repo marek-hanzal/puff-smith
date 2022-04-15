@@ -24,7 +24,7 @@ export default withLabLayout(function Index() {
 	>
 		<LiquidsSourceControlProvider
 			defaultOrderBy={{
-				mixed: "desc",
+				mixed: "asc",
 			}}
 		>
 			<LiquidList/>
