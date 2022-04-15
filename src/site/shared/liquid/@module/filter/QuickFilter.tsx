@@ -1,11 +1,11 @@
-import {InlineFilter} from "@/puff-smith";
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith";
 import {ILiquidQuery} from "@/puff-smith/service/liquid";
 import {FC} from "react";
 
-export interface IQuickFilterProps {
+export interface IQuickFilterProps extends Partial<IInlineFilterProps<ILiquidQuery>> {
 }
 
-export const QuickFilter: FC<IQuickFilterProps> = () => {
+export const QuickFilter: FC<IQuickFilterProps> = props => {
 	return <InlineFilter<ILiquidQuery>
 		translation={"lab.liquid"}
 		filters={[
@@ -58,5 +58,6 @@ export const QuickFilter: FC<IQuickFilterProps> = () => {
 				],
 			}
 		]}
+		{...props}
 	/>;
 };
