@@ -1,53 +1,44 @@
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith";
 import {IBaseQuery} from "@/puff-smith/service/base";
-import {useBasesFilterContext} from "@/sdk/api/base/query";
-import {IQueryFilter} from "@leight-core/api";
-import {Button, Divider, Radio, Space, Typography} from "antd";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
-export interface IQuickFilterProps {
-	toFilter?(filter: IQueryFilter<IBaseQuery>): any;
-
-	fromFilter?(filter: any): IQueryFilter<IBaseQuery>;
+export interface IQuickFilterProps extends Partial<IInlineFilterProps<IBaseQuery>> {
 }
 
-export const QuickFilter: FC<IQuickFilterProps> = ({toFilter = filter => filter, fromFilter = filter => filter}) => {
-	const {t} = useTranslation();
-	const filterContext = useBasesFilterContext();
-	const filter: IQueryFilter<IBaseQuery> = fromFilter(filterContext.filter);
-	const ratioList: { pg: number | undefined, vg: number | undefined }[] = [
-		{pg: 70, vg: 30},
-		{pg: 50, vg: 50},
-		{pg: 30, vg: 70},
-		{pg: 20, vg: 80},
-		{pg: 0, vg: 100},
-	];
-	return <Space size={0} split={<Divider type={"vertical"}/>}>
-		<Space>
-			<Typography.Text type={"secondary"}>{t("market.filter.pgvg.label")}</Typography.Text>
-			<Radio.Group size={"large"} value={`pgvg-${filter?.vg}/${filter?.pg}`}>
-				<Radio.Button
-					value={"pgvg-undefined/undefined"}
-					onClick={() => filterContext.mergeFilter(toFilter({pg: undefined, vg: undefined}))}
-				>
-					{t("market.filter.pgvg.off.label")}
-				</Radio.Button>
-				{ratioList.map(pgvg => <Radio.Button
-					type={"text"}
-					onClick={() => filterContext.mergeFilter(toFilter(pgvg))}
-					value={`pgvg-${pgvg.vg}/${pgvg.pg}`}
-					key={`pgvg-${pgvg.vg}/${pgvg.pg}`}
-				>
-					{`${pgvg.vg}/${pgvg.pg}`}
-				</Radio.Button>)}
-			</Radio.Group>
-		</Space>
-		<Button
-			type={"link"}
-			size={"large"}
-			onClick={() => filterContext.setFilter()}
-		>
-			{t("common.filter.clear")}
-		</Button>
-	</Space>;
+export const QuickFilter: FC<IQuickFilterProps> = props => {
+	return <InlineFilter<IBaseQuery>
+		translation={"market.filter.pgvg"}
+		filters={[
+			{
+				name: "pgvg",
+				reset: {
+					pg: undefined,
+					vg: undefined,
+				},
+				options: [
+					{
+						name: "30/70",
+						filter: {pg: 70, vg: 30},
+					},
+					{
+						name: "50/50",
+						filter: {pg: 50, vg: 50},
+					},
+					{
+						name: "70/30",
+						filter: {pg: 30, vg: 70},
+					},
+					{
+						name: "80/20",
+						filter: {pg: 20, vg: 80},
+					},
+					{
+						name: "100/0",
+						filter: {pg: 0, vg: 100},
+					},
+				],
+			}
+		]}
+		{...props}
+	/>;
 };
