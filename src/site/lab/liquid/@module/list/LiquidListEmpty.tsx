@@ -10,7 +10,7 @@ export interface ILiquidListEmptyProps {
 
 export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 	const filterContext = useLiquidsFilterContext();
-	if (filterContext.filter) {
+	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<LiquidIcon/>}
 			label={"lab.liquid.list.filter.empty"}
