@@ -1,4 +1,5 @@
 import {Tags} from "@/puff-smith";
+import {AtomizerListEmpty} from "@/puff-smith/site/lab/atomizer/inventory";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer";
 import {AtomizersInventoryListSource, IAtomizersInventoryListSourceProps} from "@/sdk/api/atomizer/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -10,6 +11,9 @@ export interface IAtomizerInventoryListProps extends Partial<IAtomizersInventory
 
 export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 	return <AtomizersInventoryListSource
+		locale={{
+			emptyText: <AtomizerListEmpty/>
+		}}
 		{...props}
 	>
 		{atomizerInventory => <ListItem key={atomizerInventory.id}>

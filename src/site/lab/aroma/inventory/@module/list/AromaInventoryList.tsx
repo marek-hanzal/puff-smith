@@ -1,4 +1,5 @@
 import {PgVgInline} from "@/puff-smith";
+import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory";
 import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -10,6 +11,9 @@ export interface IAromaInventoryListProps extends Partial<IAromasInventoryListSo
 
 export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 	return <AromasInventoryListSource
+		locale={{
+			emptyText: <AromaListEmpty/>,
+		}}
 		{...props}
 	>
 		{aromaInventory => <ListItem key={aromaInventory.id}>

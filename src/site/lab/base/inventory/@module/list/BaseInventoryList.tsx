@@ -1,4 +1,5 @@
 import {PgVgInline} from "@/puff-smith";
+import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory";
 import {BaseNameInline} from "@/puff-smith/site/shared/base";
 import {BasesInventoryListSource, IBasesInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -10,6 +11,9 @@ export interface IBaseInventoryListProps extends Partial<IBasesInventoryListSour
 
 export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 	return <BasesInventoryListSource
+		locale={{
+			emptyText: <BaseListEmpty/>,
+		}}
 		{...props}
 	>
 		{({base, id}) => <ListItem key={id}>

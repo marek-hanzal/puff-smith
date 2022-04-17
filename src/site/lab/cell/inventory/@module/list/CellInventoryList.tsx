@@ -1,4 +1,5 @@
 import {Tags} from "@/puff-smith";
+import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory";
 import {CellNameInline} from "@/puff-smith/site/shared/cell";
 import {CellsInventoryListSource, ICellsInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -10,6 +11,9 @@ export interface ICellInventoryListProps extends Partial<ICellsInventoryListSour
 
 export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 	return <CellsInventoryListSource
+		locale={{
+			emptyText: <CellListEmpty/>
+		}}
 		{...props}
 	>
 		{cellInventory => <ListItem key={cellInventory.id}>
