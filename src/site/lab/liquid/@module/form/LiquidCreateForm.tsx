@@ -75,10 +75,13 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 					{...props}
 				>
 					<FormItem hasTooltip field={"aromaId"} required>
-						<InventoryAromaSelect onClear={() => {
-							setAromaId(undefined);
-							toRequest({});
-						}} onSelect={({entity: {id}}) => setAromaId(id)}/>
+						<InventoryAromaSelect
+							onClear={() => {
+								setAromaId(undefined);
+								toRequest({});
+							}}
+							onSelect={({entity: {id}}) => setAromaId(id)}
+						/>
 					</FormItem>
 					<Divider/>
 					<FormItem hasTooltip field={"nicotine"}>

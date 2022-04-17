@@ -30,6 +30,7 @@ export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 						<DrawerButton
 							type={"link"}
 							icon={<LiquidIcon/>}
+							title={"lab.aroma.select.title"}
 							width={800}
 						>
 							<InventoryAromasSourceControlProvider>

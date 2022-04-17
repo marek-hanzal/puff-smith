@@ -13,6 +13,7 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
 		ghost
 		icon={<LiquidIcon/>}
 		title={"lab.liquid.create.title"}
+		label={"lab.liquid.create.title"}
 		width={875}
 		{...props}
 	>

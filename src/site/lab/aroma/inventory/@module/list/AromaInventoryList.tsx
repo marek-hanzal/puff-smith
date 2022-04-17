@@ -6,11 +6,13 @@ import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/
 import {BoolInline, ListItem, ListItemMeta, useOptionalDrawerContext, useOptionalFormItemContext, useOptionalSelectionContext} from "@leight-core/client";
 import {Button, Divider, Space} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface IAromaInventoryListProps extends Partial<IAromasInventoryListSourceProps> {
 }
 
 export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
+	const {t} = useTranslation();
 	const selectionContext = useOptionalSelectionContext<IAromaInventory>();
 	const formItemContext = useOptionalFormItemContext();
 	const drawerContext = useOptionalDrawerContext();
@@ -19,13 +21,14 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 			emptyText: <AromaListEmpty/>,
 		}}
 		footer={selectionContext ? () => <Button
+			type={"primary"}
 			disabled={selectionContext.isEmpty()}
 			onClick={() => {
 				formItemContext?.setValue(selectionContext?.toSingle().aromaId);
 				drawerContext?.setVisible(false);
 			}}
 		>
-			click me
+			{t("common.selection.ok.label")}
 		</Button> : () => null}
 		{...props}
 	>
