@@ -14,7 +14,7 @@ export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 		<InventoryAromasOrderByProvider>
 			<Input.Group>
 				<Row gutter={8}>
-					<Col span={22}>
+					<Col flex={"auto"}>
 						<InventoryAromasSourceSelect
 							showSearch
 							allowClear
