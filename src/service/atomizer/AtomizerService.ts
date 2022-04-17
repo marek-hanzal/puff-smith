@@ -89,7 +89,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 							drawId: tag.id,
 						})) : [],
 					}
-				}
+				},
 			},
 		});
 	}

@@ -191,6 +191,7 @@ model Tag {
   CottonDraw   CottonDraw[]
   Cell         Cell[]
   ModCell      ModCell[]
+  AromaTaste   AromaTaste[]
 
   @@unique([code, group])
 }
@@ -452,7 +453,16 @@ model Aroma {
   LiquidAroma    LiquidAroma[]
   AromaComment   AromaComment[]
 
+  AromaTaste AromaTaste[]
   @@unique([name, vendorId])
+}
+
+model AromaTaste {
+  id      String @id @default(cuid())
+  aromaId String
+  aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  tasteId String
+  taste   Tag    @relation(fields: [tasteId], references: [id], onDelete: Cascade)
 }
 
 model AromaComment {

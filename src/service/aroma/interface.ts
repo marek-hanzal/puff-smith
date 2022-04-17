@@ -1,3 +1,4 @@
+import {ITag} from "@/puff-smith/service/tag";
 import {IVendor} from "@/puff-smith/service/vendor";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
@@ -12,6 +13,7 @@ export interface IAromaCreate {
 	volume?: number;
 	content: number;
 	steep?: number;
+	tastes?: string;
 }
 
 export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationInput> {
@@ -28,6 +30,7 @@ export interface IAroma {
 	content: number;
 	volume?: number;
 	steep?: number | null;
+	tastes: ITag[];
 }
 
 export interface IAromaFetchProps {
