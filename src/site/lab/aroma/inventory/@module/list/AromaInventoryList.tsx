@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith";
+import {PgVgInline, Tags} from "@/puff-smith";
 import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory";
 import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
@@ -22,6 +22,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 					<PgVgInline pgvg={aromaInventory.aroma}/>
 					<AromaContentInline aroma={aromaInventory.aroma}/>
+					<Tags color={"magenta"} tags={aromaInventory.aroma.tastes} translation={"common.taste"}/>
 				</Space>}
 			/>
 		</ListItem>}

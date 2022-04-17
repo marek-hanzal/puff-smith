@@ -71,6 +71,9 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 						aromaId: aroma.id,
 					}
 				}
+			},
+			orderBy: {
+				sort: "asc",
 			}
 		})),
 	}),
