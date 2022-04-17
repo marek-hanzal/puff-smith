@@ -21,6 +21,9 @@ export const ModService = (prismaClient: IPrismaClientTransaction = prisma): IMo
 						modId: mod.id,
 					}
 				}
+			},
+			orderBy: {
+				sort: "asc",
 			}
 		})),
 	}),

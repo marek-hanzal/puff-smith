@@ -20,6 +20,9 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 						atomizerId: atomizer.id,
 					}
 				}
+			},
+			orderBy: {
+				sort: "asc",
 			}
 		})),
 	}),
