@@ -14,7 +14,7 @@ export default withMarketLayout(function Index() {
 				cost: "asc",
 			}}
 			defaultPage={0}
-			defaultSize={5}
+			defaultSize={10}
 		>
 			<VoucherList/>
 		</VouchersSourceControlProvider>
