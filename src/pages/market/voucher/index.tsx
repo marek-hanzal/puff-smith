@@ -13,8 +13,6 @@ export default withMarketLayout(function Index() {
 			defaultOrderBy={{
 				cost: "asc",
 			}}
-			defaultPage={0}
-			defaultSize={10}
 		>
 			<VoucherList/>
 		</VouchersSourceControlProvider>

@@ -13,8 +13,6 @@ export default withMarketLayout(function Index() {
 			defaultOrderBy={{
 				name: "asc",
 			}}
-			defaultPage={0}
-			defaultSize={10}
 		>
 			<CottonList/>
 		</CottonsSourceControlProvider>
