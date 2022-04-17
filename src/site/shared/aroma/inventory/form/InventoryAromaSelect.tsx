@@ -1,8 +1,7 @@
-import {LiquidIcon} from "@/puff-smith";
 import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {IInventoryAromasSourceSelectProps, InventoryAromasFilterProvider, InventoryAromasOrderByProvider, InventoryAromasSourceControlProvider, InventoryAromasSourceSelect} from "@/sdk/api/aroma/inventory/aroma/query";
-import {DrawerButton, SelectionProvider} from "@leight-core/client";
+import {DrawerButton, MenuIcon, SelectionProvider} from "@leight-core/client";
 import {Col, Input, Row} from "antd";
 import {FC} from "react";
 
@@ -29,8 +28,9 @@ export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 					<Col span={2}>
 						<DrawerButton
 							type={"link"}
-							icon={<LiquidIcon/>}
+							icon={<MenuIcon/>}
 							title={"lab.aroma.select.title"}
+							tooltip={"lab.aroma.select.title.tooltip"}
 							width={800}
 						>
 							<InventoryAromasSourceControlProvider>
