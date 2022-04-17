@@ -63,6 +63,10 @@ export const QuickFilter: FC<IQuickFilterProps> = props => {
 						name: "18",
 						filter: {nicotine: 18},
 					},
+					{
+						name: "20",
+						filter: {nicotine: 20},
+					},
 				]
 			}
 		]}
