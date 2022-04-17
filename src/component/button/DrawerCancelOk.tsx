@@ -12,7 +12,7 @@ export const DrawerCancelOk = <TSelection, >({toValue}: PropsWithChildren<IDrawe
 	const drawerContext = useOptionalDrawerContext();
 	const selectionContext = useOptionalSelectionContext<TSelection>();
 	const formItemContext = useOptionalFormItemContext();
-	return <ButtonBar split={<Divider type={"vertical"}/>} size={4}>
+	return selectionContext && <ButtonBar split={<Divider type={"vertical"}/>} size={4}>
 		<Button
 			type={"link"}
 			onClick={() => drawerContext?.setVisible(false)}
@@ -21,9 +21,9 @@ export const DrawerCancelOk = <TSelection, >({toValue}: PropsWithChildren<IDrawe
 		</Button>
 		<Button
 			type={"primary"}
-			disabled={selectionContext?.isEmpty()}
+			disabled={selectionContext.isEmpty()}
 			onClick={() => {
-				formItemContext?.setValue(toValue(selectionContext?.toSingle()));
+				formItemContext?.setValue(toValue(selectionContext.toSingle()));
 				drawerContext?.setVisible(false);
 			}}
 		>
