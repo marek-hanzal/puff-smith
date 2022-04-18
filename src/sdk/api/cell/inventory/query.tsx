@@ -119,18 +119,17 @@ export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProp
 	toOption: IToOptionMapper<ICellInventory>;
 	sourceProps?: ICellsInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.CellsInventory.title"}
+					tooltip={"common.selection.CellsInventory.title.tooltip"}
 					width={800}
 				>
 					<CellsInventorySourceControlProvider>
@@ -152,7 +151,7 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 export const useCellsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsInventoryApiLink]);
-};
+}
 
 export const useCellsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICellInventory>();
 export const useCellsInventorySelectionContext = () => useSelectionContext<ICellInventory>();

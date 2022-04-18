@@ -120,18 +120,17 @@ export interface IAtomizersInventorySourceSelectProps extends IQuerySourceSelect
 	toOption: IToOptionMapper<IAtomizerInventory>;
 	sourceProps?: IAtomizersInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.AtomizersInventory.title"}
+					tooltip={"common.selection.AtomizersInventory.title.tooltip"}
 					width={800}
 				>
 					<AtomizersInventorySourceControlProvider>
@@ -153,7 +152,7 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 export const useAtomizersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersInventoryApiLink]);
-};
+}
 
 export const useAtomizersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizerInventory>();
 export const useAtomizersInventorySelectionContext = () => useSelectionContext<IAtomizerInventory>();

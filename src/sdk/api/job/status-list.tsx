@@ -118,18 +118,17 @@ export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IB
 	toOption: IToOptionMapper<IBaseSelectOption>;
 	sourceProps?: IStatusListSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.StatusList.title"}
+					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
 				>
 					<StatusListSourceControlProvider>
@@ -151,7 +150,7 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
-};
+}
 
 export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<IBaseSelectOption>();
 export const useStatusListSelectionContext = () => useSelectionContext<IBaseSelectOption>();

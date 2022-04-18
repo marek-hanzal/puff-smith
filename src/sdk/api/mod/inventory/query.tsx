@@ -119,18 +119,17 @@ export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps
 	toOption: IToOptionMapper<IModInventory>;
 	sourceProps?: IModsInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.ModsInventory.title"}
+					tooltip={"common.selection.ModsInventory.title.tooltip"}
 					width={800}
 				>
 					<ModsInventorySourceControlProvider>
@@ -152,7 +151,7 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 export const useModsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsInventoryApiLink]);
-};
+}
 
 export const useModsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IModInventory>();
 export const useModsInventorySelectionContext = () => useSelectionContext<IModInventory>();

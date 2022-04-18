@@ -119,18 +119,17 @@ export interface IBasesInventorySourceSelectProps extends IQuerySourceSelectProp
 	toOption: IToOptionMapper<IBaseInventory>;
 	sourceProps?: IBasesInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.BasesInventory.title"}
+					tooltip={"common.selection.BasesInventory.title.tooltip"}
 					width={800}
 				>
 					<BasesInventorySourceControlProvider>
@@ -152,7 +151,7 @@ export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = 
 export const useBasesInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesInventoryApiLink]);
-};
+}
 
 export const useBasesInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IBaseInventory>();
 export const useBasesInventorySelectionContext = () => useSelectionContext<IBaseInventory>();

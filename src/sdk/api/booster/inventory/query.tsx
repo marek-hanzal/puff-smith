@@ -120,18 +120,17 @@ export interface IBoostersInventorySourceSelectProps extends IQuerySourceSelectP
 	toOption: IToOptionMapper<IBoosterInventory>;
 	sourceProps?: IBoostersInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.BoostersInventory.title"}
+					tooltip={"common.selection.BoostersInventory.title.tooltip"}
 					width={800}
 				>
 					<BoostersInventorySourceControlProvider>
@@ -153,7 +152,7 @@ export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectPro
 export const useBoostersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoostersInventoryApiLink]);
-};
+}
 
 export const useBoostersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IBoosterInventory>();
 export const useBoostersInventorySelectionContext = () => useSelectionContext<IBoosterInventory>();

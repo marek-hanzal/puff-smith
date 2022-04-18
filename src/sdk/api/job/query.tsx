@@ -119,18 +119,17 @@ export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 	toOption: IToOptionMapper<IJob>;
 	sourceProps?: IJobsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Jobs.title"}
+					tooltip={"common.selection.Jobs.title.tooltip"}
 					width={800}
 				>
 					<JobsSourceControlProvider>
@@ -152,7 +151,7 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 export const useJobsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobsApiLink]);
-};
+}
 
 export const useJobsOptionalSelectionContext = () => useOptionalSelectionContext<IJob>();
 export const useJobsSelectionContext = () => useSelectionContext<IJob>();

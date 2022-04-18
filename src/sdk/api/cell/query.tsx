@@ -119,18 +119,17 @@ export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> 
 	toOption: IToOptionMapper<ICell>;
 	sourceProps?: ICellsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Cells.title"}
+					tooltip={"common.selection.Cells.title.tooltip"}
 					width={800}
 				>
 					<CellsSourceControlProvider>
@@ -152,7 +151,7 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, sel
 export const useCellsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsApiLink]);
-};
+}
 
 export const useCellsOptionalSelectionContext = () => useOptionalSelectionContext<ICell>();
 export const useCellsSelectionContext = () => useSelectionContext<ICell>();

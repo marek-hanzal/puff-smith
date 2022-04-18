@@ -119,18 +119,17 @@ export interface IAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma
 	toOption: IToOptionMapper<IAroma>;
 	sourceProps?: IAromasSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Aromas.title"}
+					tooltip={"common.selection.Aromas.title.tooltip"}
 					width={800}
 				>
 					<AromasSourceControlProvider>
@@ -152,7 +151,7 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, s
 export const useAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasApiLink]);
-};
+}
 
 export const useAromasOptionalSelectionContext = () => useOptionalSelectionContext<IAroma>();
 export const useAromasSelectionContext = () => useSelectionContext<IAroma>();

@@ -119,18 +119,17 @@ export interface ITransactionsSourceSelectProps extends IQuerySourceSelectProps<
 	toOption: IToOptionMapper<ITransaction>;
 	sourceProps?: ITransactionsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Transactions.title"}
+					tooltip={"common.selection.Transactions.title.tooltip"}
 					width={800}
 				>
 					<TransactionsSourceControlProvider>
@@ -152,7 +151,7 @@ export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({so
 export const useTransactionsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionsApiLink]);
-};
+}
 
 export const useTransactionsOptionalSelectionContext = () => useOptionalSelectionContext<ITransaction>();
 export const useTransactionsSelectionContext = () => useSelectionContext<ITransaction>();

@@ -119,18 +119,17 @@ export interface IAtomizersSourceSelectProps extends IQuerySourceSelectProps<IAt
 	toOption: IToOptionMapper<IAtomizer>;
 	sourceProps?: IAtomizersSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Atomizers.title"}
+					tooltip={"common.selection.Atomizers.title.tooltip"}
 					width={800}
 				>
 					<AtomizersSourceControlProvider>
@@ -152,7 +151,7 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 export const useAtomizersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersApiLink]);
-};
+}
 
 export const useAtomizersOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizer>();
 export const useAtomizersSelectionContext = () => useSelectionContext<IAtomizer>();

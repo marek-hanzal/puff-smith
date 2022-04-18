@@ -119,18 +119,17 @@ export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> 
 	toOption: IToOptionMapper<IFile>;
 	sourceProps?: IFilesSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Files.title"}
+					tooltip={"common.selection.Files.title.tooltip"}
 					width={800}
 				>
 					<FilesSourceControlProvider>
@@ -152,7 +151,7 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 export const useFilesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FilesApiLink]);
-};
+}
 
 export const useFilesOptionalSelectionContext = () => useOptionalSelectionContext<IFile>();
 export const useFilesSelectionContext = () => useSelectionContext<IFile>();

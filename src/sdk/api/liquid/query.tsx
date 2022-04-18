@@ -119,18 +119,17 @@ export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiqu
 	toOption: IToOptionMapper<ILiquid>;
 	sourceProps?: ILiquidsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Liquids.title"}
+					tooltip={"common.selection.Liquids.title.tooltip"}
 					width={800}
 				>
 					<LiquidsSourceControlProvider>
@@ -152,7 +151,7 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidsApiLink]);
-};
+}
 
 export const useLiquidsOptionalSelectionContext = () => useOptionalSelectionContext<ILiquid>();
 export const useLiquidsSelectionContext = () => useSelectionContext<ILiquid>();

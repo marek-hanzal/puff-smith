@@ -119,18 +119,17 @@ export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVou
 	toOption: IToOptionMapper<IVoucher>;
 	sourceProps?: IVouchersSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Vouchers.title"}
+					tooltip={"common.selection.Vouchers.title.tooltip"}
 					width={800}
 				>
 					<VouchersSourceControlProvider>
@@ -152,7 +151,7 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersApiLink]);
-};
+}
 
 export const useVouchersOptionalSelectionContext = () => useOptionalSelectionContext<IVoucher>();
 export const useVouchersSelectionContext = () => useSelectionContext<IVoucher>();

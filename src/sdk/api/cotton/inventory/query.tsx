@@ -120,18 +120,17 @@ export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectPr
 	toOption: IToOptionMapper<ICottonInventory>;
 	sourceProps?: ICottonsInventorySourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.CottonsInventory.title"}
+					tooltip={"common.selection.CottonsInventory.title.tooltip"}
 					width={800}
 				>
 					<CottonsInventorySourceControlProvider>
@@ -153,7 +152,7 @@ export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps
 export const useCottonsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsInventoryApiLink]);
-};
+}
 
 export const useCottonsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICottonInventory>();
 export const useCottonsInventorySelectionContext = () => useSelectionContext<ICottonInventory>();

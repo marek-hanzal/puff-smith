@@ -119,18 +119,17 @@ export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICott
 	toOption: IToOptionMapper<ICotton>;
 	sourceProps?: ICottonsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Cottons.title"}
+					tooltip={"common.selection.Cottons.title.tooltip"}
 					width={800}
 				>
 					<CottonsSourceControlProvider>
@@ -152,7 +151,7 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsApiLink]);
-};
+}
 
 export const useCottonsOptionalSelectionContext = () => useOptionalSelectionContext<ICotton>();
 export const useCottonsSelectionContext = () => useSelectionContext<ICotton>();

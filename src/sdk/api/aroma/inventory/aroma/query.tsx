@@ -119,18 +119,17 @@ export interface IInventoryAromasSourceSelectProps extends IQuerySourceSelectPro
 	toOption: IToOptionMapper<IAroma>;
 	sourceProps?: IInventoryAromasSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.InventoryAromas.title"}
+					tooltip={"common.selection.InventoryAromas.title.tooltip"}
 					width={800}
 				>
 					<InventoryAromasSourceControlProvider>
@@ -152,7 +151,7 @@ export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> 
 export const useInventoryAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryAromasApiLink]);
-};
+}
 
 export const useInventoryAromasOptionalSelectionContext = () => useOptionalSelectionContext<IAroma>();
 export const useInventoryAromasSelectionContext = () => useSelectionContext<IAroma>();

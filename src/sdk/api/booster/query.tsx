@@ -119,18 +119,17 @@ export interface IBoostersSourceSelectProps extends IQuerySourceSelectProps<IBoo
 	toOption: IToOptionMapper<IBooster>;
 	sourceProps?: IBoostersSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Boosters.title"}
+					tooltip={"common.selection.Boosters.title.tooltip"}
 					width={800}
 				>
 					<BoostersSourceControlProvider>
@@ -152,7 +151,7 @@ export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProp
 export const useBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoostersApiLink]);
-};
+}
 
 export const useBoostersOptionalSelectionContext = () => useOptionalSelectionContext<IBooster>();
 export const useBoostersSelectionContext = () => useSelectionContext<IBooster>();

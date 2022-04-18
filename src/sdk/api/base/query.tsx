@@ -119,18 +119,17 @@ export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> 
 	toOption: IToOptionMapper<IBase>;
 	sourceProps?: IBasesSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Bases.title"}
+					tooltip={"common.selection.Bases.title.tooltip"}
 					width={800}
 				>
 					<BasesSourceControlProvider>
@@ -152,7 +151,7 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, sel
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesApiLink]);
-};
+}
 
 export const useBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
 export const useBasesSelectionContext = () => useSelectionContext<IBase>();

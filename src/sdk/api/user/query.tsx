@@ -119,18 +119,17 @@ export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> 
 	toOption: IToOptionMapper<IUser>;
 	sourceProps?: IUsersSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Users.title"}
+					tooltip={"common.selection.Users.title.tooltip"}
 					width={800}
 				>
 					<UsersSourceControlProvider>
@@ -152,7 +151,7 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, sel
 export const useUsersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UsersApiLink]);
-};
+}
 
 export const useUsersOptionalSelectionContext = () => useOptionalSelectionContext<IUser>();
 export const useUsersSelectionContext = () => useSelectionContext<IUser>();

@@ -119,18 +119,17 @@ export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 	toOption: IToOptionMapper<IMod>;
 	sourceProps?: IModsSourceProps;
 	selectionList?: () => ReactNode;
-	withTranslation?: string;
 }
 
-export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
 	return <Input.Group>
 		<Row gutter={8}>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
 					type={"text"}
 					icon={<ReadOutlined/>}
-					title={`${withTranslation}.select.title`}
-					tooltip={`${withTranslation}.select.title.tooltip`}
+					title={"common.selection.Mods.title"}
+					tooltip={"common.selection.Mods.title.tooltip"}
 					width={800}
 				>
 					<ModsSourceControlProvider>
@@ -152,7 +151,7 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 export const useModsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsApiLink]);
-};
+}
 
 export const useModsOptionalSelectionContext = () => useOptionalSelectionContext<IMod>();
 export const useModsSelectionContext = () => useSelectionContext<IMod>();
