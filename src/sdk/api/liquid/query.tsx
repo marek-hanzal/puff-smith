@@ -3,11 +3,13 @@
  */
 
 import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const LiquidsApiLink = "/api/liquid/query";
@@ -112,15 +118,41 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
 	sourceProps?: ILiquidsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <LiquidsSource {...sourceProps}>
-		<QuerySourceSelect<ILiquid> {...props}/>
-	</LiquidsSource>;
+export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<LiquidsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</LiquidsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<LiquidsSource {...sourceProps}>
+					<QuerySourceSelect<ILiquid> {...props}/>
+				</LiquidsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidsApiLink]);
-}
+};
+
+export const useLiquidsOptionalSelectionContext = () => useOptionalSelectionContext<ILiquid>();
+export const useLiquidsSelectionContext = () => useSelectionContext<ILiquid>();

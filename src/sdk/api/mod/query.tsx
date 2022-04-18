@@ -3,11 +3,13 @@
  */
 
 import {IMod, IModQuery} from "@/puff-smith/service/mod";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModsApiLink = "/api/mod/query";
@@ -112,15 +118,41 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 	toOption: IToOptionMapper<IMod>;
 	sourceProps?: IModsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <ModsSource {...sourceProps}>
-		<QuerySourceSelect<IMod> {...props}/>
-	</ModsSource>;
+export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<ModsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</ModsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<ModsSource {...sourceProps}>
+					<QuerySourceSelect<IMod> {...props}/>
+				</ModsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useModsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsApiLink]);
-}
+};
+
+export const useModsOptionalSelectionContext = () => useOptionalSelectionContext<IMod>();
+export const useModsSelectionContext = () => useSelectionContext<IMod>();

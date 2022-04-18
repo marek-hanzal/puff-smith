@@ -3,11 +3,13 @@
  */
 
 import {IBaseInventory, IBaseInventoryQuery} from "@/puff-smith/service/base";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BasesInventoryApiLink = "/api/base/inventory/query";
@@ -112,15 +118,41 @@ export const BasesInventoryListSource: FC<IBasesInventoryListSourceProps> = ({so
 export interface IBasesInventorySourceSelectProps extends IQuerySourceSelectProps<IBaseInventory> {
 	toOption: IToOptionMapper<IBaseInventory>;
 	sourceProps?: IBasesInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <BasesInventorySource {...sourceProps}>
-		<QuerySourceSelect<IBaseInventory> {...props}/>
-	</BasesInventorySource>;
+export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<BasesInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</BasesInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<BasesInventorySource {...sourceProps}>
+					<QuerySourceSelect<IBaseInventory> {...props}/>
+				</BasesInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useBasesInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesInventoryApiLink]);
-}
+};
+
+export const useBasesInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IBaseInventory>();
+export const useBasesInventorySelectionContext = () => useSelectionContext<IBaseInventory>();

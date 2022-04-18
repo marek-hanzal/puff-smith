@@ -3,11 +3,13 @@
  */
 
 import {IVoucherInventory, IVoucherInventoryQuery} from "@/puff-smith/service/voucher";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const VouchersInventoryApiLink = "/api/voucher/inventory/query";
@@ -113,15 +119,41 @@ export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> 
 export interface IVouchersInventorySourceSelectProps extends IQuerySourceSelectProps<IVoucherInventory> {
 	toOption: IToOptionMapper<IVoucherInventory>;
 	sourceProps?: IVouchersInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <VouchersInventorySource {...sourceProps}>
-		<QuerySourceSelect<IVoucherInventory> {...props}/>
-	</VouchersInventorySource>;
+export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<VouchersInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</VouchersInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<VouchersInventorySource {...sourceProps}>
+					<QuerySourceSelect<IVoucherInventory> {...props}/>
+				</VouchersInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useVouchersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersInventoryApiLink]);
-}
+};
+
+export const useVouchersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IVoucherInventory>();
+export const useVouchersInventorySelectionContext = () => useSelectionContext<IVoucherInventory>();

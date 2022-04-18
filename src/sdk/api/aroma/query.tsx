@@ -3,11 +3,13 @@
  */
 
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AromasApiLink = "/api/aroma/query";
@@ -112,15 +118,41 @@ export const AromasListSource: FC<IAromasListSourceProps> = ({sourceProps, ...pr
 export interface IAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
 	sourceProps?: IAromasSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <AromasSource {...sourceProps}>
-		<QuerySourceSelect<IAroma> {...props}/>
-	</AromasSource>;
+export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<AromasSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</AromasSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<AromasSource {...sourceProps}>
+					<QuerySourceSelect<IAroma> {...props}/>
+				</AromasSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasApiLink]);
-}
+};
+
+export const useAromasOptionalSelectionContext = () => useOptionalSelectionContext<IAroma>();
+export const useAromasSelectionContext = () => useSelectionContext<IAroma>();

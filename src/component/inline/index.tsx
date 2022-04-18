@@ -7,5 +7,6 @@ export * from "./NicotineInline";
 export * from "./Ohm";
 export * from "./PgVgInline";
 export * from "./RangeInline";
+export * from "./SelectionBool";
 export * from "./Volt";
 export * from "./Watt";

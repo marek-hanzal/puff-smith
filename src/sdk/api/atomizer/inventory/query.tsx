@@ -3,11 +3,13 @@
  */
 
 import {IAtomizerInventory, IAtomizerInventoryQuery} from "@/puff-smith/service/atomizer";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AtomizersInventoryApiLink = "/api/atomizer/inventory/query";
@@ -113,15 +119,41 @@ export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps
 export interface IAtomizersInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
 	toOption: IToOptionMapper<IAtomizerInventory>;
 	sourceProps?: IAtomizersInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <AtomizersInventorySource {...sourceProps}>
-		<QuerySourceSelect<IAtomizerInventory> {...props}/>
-	</AtomizersInventorySource>;
+export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<AtomizersInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</AtomizersInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<AtomizersInventorySource {...sourceProps}>
+					<QuerySourceSelect<IAtomizerInventory> {...props}/>
+				</AtomizersInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useAtomizersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersInventoryApiLink]);
-}
+};
+
+export const useAtomizersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizerInventory>();
+export const useAtomizersInventorySelectionContext = () => useSelectionContext<IAtomizerInventory>();

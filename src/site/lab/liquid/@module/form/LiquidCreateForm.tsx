@@ -88,16 +88,22 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 						<NicotineSelect onChange={setNicotine}/>
 					</FormItem>
 					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
-						<InventoryBoosterSelect onClear={() => {
-							setBoosterId(undefined);
-							toRequest({});
-						}} onSelect={({entity: {id}}) => setBoosterId(id)}/>
+						<InventoryBoosterSelect
+							onClear={() => {
+								setBoosterId(undefined);
+								toRequest({});
+							}}
+							onSelect={({entity: {id}}) => setBoosterId(id)}
+						/>
 					</FormItem>}
 					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
-						<InventoryBaseSelect onClear={() => {
-							setBaseId(undefined);
-							toRequest({});
-						}} onSelect={({entity: {id}}) => setBaseId(id)}/>
+						<InventoryBaseSelect
+							onClear={() => {
+								setBaseId(undefined);
+								toRequest({});
+							}}
+							onSelect={({entity: {id}}) => setBaseId(id)}
+						/>
 					</FormItem>
 					<Divider/>
 					<FormItem field={"mixed"}>

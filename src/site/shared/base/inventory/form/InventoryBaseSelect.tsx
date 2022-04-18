@@ -1,7 +1,6 @@
-import {PgVgInline} from "@/puff-smith";
+import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory";
 import {BaseNameInline} from "@/puff-smith/site/shared/base";
 import {IInventoryBasesSourceSelectProps, InventoryBasesFilterProvider, InventoryBasesOrderByProvider, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
-import {Space} from "antd";
 import {FC} from "react";
 
 export interface IInventoryBaseSelectProps extends Partial<IInventoryBasesSourceSelectProps> {
@@ -17,13 +16,13 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 			<InventoryBasesSourceSelect
 				showSearch
 				allowClear
+				style={{width: "100%"}}
 				toOption={base => ({
-					label: <Space>
-						<BaseNameInline base={base}/>
-						<PgVgInline pgvg={base}/>
-					</Space>,
+					label: <BaseNameInline base={base}/>,
 					value: base.id,
 				})}
+				selectionList={() => <BaseInventoryList/>}
+				withTranslation={"lab.base"}
 				{...props}
 			/>
 		</InventoryBasesOrderByProvider>

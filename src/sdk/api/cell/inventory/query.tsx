@@ -3,11 +3,13 @@
  */
 
 import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CellsInventoryApiLink = "/api/cell/inventory/query";
@@ -112,15 +118,41 @@ export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({so
 export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {
 	toOption: IToOptionMapper<ICellInventory>;
 	sourceProps?: ICellsInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <CellsInventorySource {...sourceProps}>
-		<QuerySourceSelect<ICellInventory> {...props}/>
-	</CellsInventorySource>;
+export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<CellsInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</CellsInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<CellsInventorySource {...sourceProps}>
+					<QuerySourceSelect<ICellInventory> {...props}/>
+				</CellsInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useCellsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsInventoryApiLink]);
-}
+};
+
+export const useCellsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICellInventory>();
+export const useCellsInventorySelectionContext = () => useSelectionContext<ICellInventory>();

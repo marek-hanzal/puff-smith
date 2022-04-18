@@ -1,10 +1,9 @@
-import {DrawerCancelOk, PgVgInline, Tags} from "@/puff-smith";
+import {DrawerCancelOk, PgVgInline, SelectionBool, Tags} from "@/puff-smith";
 import {IAromaInventory} from "@/puff-smith/service/aroma";
 import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory";
 import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
-import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
-import {MinusCircleTwoTone} from "@ant-design/icons";
-import {BoolInline, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {AromasInventoryListSource, IAromasInventoryListSourceProps, useAromasInventoryOptionalSelectionContext} from "@/sdk/api/aroma/inventory/query";
+import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -12,7 +11,7 @@ export interface IAromaInventoryListProps extends Partial<IAromasInventoryListSo
 }
 
 export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
-	const selectionContext = useOptionalSelectionContext<IAromaInventory>();
+	const selectionContext = useAromasInventoryOptionalSelectionContext();
 	return <AromasInventoryListSource
 		locale={{
 			emptyText: <AromaListEmpty/>,
@@ -26,7 +25,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					{selectionContext && <BoolInline bool={selectionContext.isSelectedItem(aromaInventory)} uncheckIcon={<MinusCircleTwoTone/>}/>}
+					<SelectionBool selection={aromaInventory}/>
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 					<PgVgInline pgvg={aromaInventory.aroma}/>
 					<AromaContentInline aroma={aromaInventory.aroma}/>

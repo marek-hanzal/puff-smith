@@ -1,6 +1,8 @@
-import {PgVgInline} from "@/puff-smith";
+import {DrawerCancelOk, PgVgInline, SelectionBool} from "@/puff-smith";
+import {IBase} from "@/puff-smith/service/base";
 import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory";
 import {BaseNameInline} from "@/puff-smith/site/shared/base";
+import {useInventoryBasesOptionalSelectionContext} from "@/sdk/api/base/inventory/base/query";
 import {BasesInventoryListSource, IBasesInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -10,17 +12,23 @@ export interface IBaseInventoryListProps extends Partial<IBasesInventoryListSour
 }
 
 export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
+	const selectionContext = useInventoryBasesOptionalSelectionContext();
 	return <BasesInventoryListSource
 		locale={{
 			emptyText: <BaseListEmpty/>,
 		}}
+		footer={() => <DrawerCancelOk<IBase> toValue={selection => selection.id}/>}
 		{...props}
 	>
-		{({base, id}) => <ListItem key={id}>
+		{baseInventory => <ListItem
+			key={baseInventory.id}
+			onClick={() => selectionContext?.onSelectItem(baseInventory.base)}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<BaseNameInline base={base}/>
-					<PgVgInline pgvg={base}/>
+					<SelectionBool selection={baseInventory.base}/>
+					<BaseNameInline base={baseInventory.base}/>
+					<PgVgInline pgvg={baseInventory.base}/>
 				</Space>}
 			/>
 		</ListItem>}

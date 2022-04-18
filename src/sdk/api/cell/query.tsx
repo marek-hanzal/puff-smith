@@ -3,11 +3,13 @@
  */
 
 import {ICell, ICellQuery} from "@/puff-smith/service/cell";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CellsApiLink = "/api/cell/query";
@@ -112,15 +118,41 @@ export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...prop
 export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> {
 	toOption: IToOptionMapper<ICell>;
 	sourceProps?: ICellsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <CellsSource {...sourceProps}>
-		<QuerySourceSelect<ICell> {...props}/>
-	</CellsSource>;
+export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<CellsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</CellsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<CellsSource {...sourceProps}>
+					<QuerySourceSelect<ICell> {...props}/>
+				</CellsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useCellsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsApiLink]);
-}
+};
+
+export const useCellsOptionalSelectionContext = () => useOptionalSelectionContext<ICell>();
+export const useCellsSelectionContext = () => useSelectionContext<ICell>();

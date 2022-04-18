@@ -3,11 +3,13 @@
  */
 
 import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CottonsInventoryApiLink = "/api/cotton/inventory/query";
@@ -113,15 +119,41 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;
 	sourceProps?: ICottonsInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <CottonsInventorySource {...sourceProps}>
-		<QuerySourceSelect<ICottonInventory> {...props}/>
-	</CottonsInventorySource>;
+export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<CottonsInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</CottonsInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<CottonsInventorySource {...sourceProps}>
+					<QuerySourceSelect<ICottonInventory> {...props}/>
+				</CottonsInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useCottonsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsInventoryApiLink]);
-}
+};
+
+export const useCottonsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICottonInventory>();
+export const useCottonsInventorySelectionContext = () => useSelectionContext<ICottonInventory>();

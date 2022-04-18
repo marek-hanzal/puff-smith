@@ -3,11 +3,13 @@
  */
 
 import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const InventoryBoostersApiLink = "/api/booster/inventory/booster/query";
@@ -112,15 +118,41 @@ export const InventoryBoostersListSource: FC<IInventoryBoostersListSourceProps> 
 export interface IInventoryBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
 	sourceProps?: IInventoryBoostersSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <InventoryBoostersSource {...sourceProps}>
-		<QuerySourceSelect<IBooster> {...props}/>
-	</InventoryBoostersSource>;
+export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<InventoryBoostersSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</InventoryBoostersSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<InventoryBoostersSource {...sourceProps}>
+					<QuerySourceSelect<IBooster> {...props}/>
+				</InventoryBoostersSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useInventoryBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBoostersApiLink]);
-}
+};
+
+export const useInventoryBoostersOptionalSelectionContext = () => useOptionalSelectionContext<IBooster>();
+export const useInventoryBoostersSelectionContext = () => useSelectionContext<IBooster>();

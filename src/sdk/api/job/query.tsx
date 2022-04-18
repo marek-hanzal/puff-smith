@@ -3,11 +3,13 @@
  */
 
 import {IJobQuery} from "@/puff-smith/service/job";
+import {ReadOutlined} from "@ant-design/icons";
 import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const JobsApiLink = "/api/job/query";
@@ -112,15 +118,41 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 	toOption: IToOptionMapper<IJob>;
 	sourceProps?: IJobsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <JobsSource {...sourceProps}>
-		<QuerySourceSelect<IJob> {...props}/>
-	</JobsSource>;
+export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<JobsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</JobsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<JobsSource {...sourceProps}>
+					<QuerySourceSelect<IJob> {...props}/>
+				</JobsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useJobsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobsApiLink]);
-}
+};
+
+export const useJobsOptionalSelectionContext = () => useOptionalSelectionContext<IJob>();
+export const useJobsSelectionContext = () => useSelectionContext<IJob>();

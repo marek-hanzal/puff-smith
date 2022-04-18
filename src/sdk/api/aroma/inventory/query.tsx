@@ -3,11 +3,13 @@
  */
 
 import {IAromaInventory, IAromaInventoryQuery} from "@/puff-smith/service/aroma";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AromasInventoryApiLink = "/api/aroma/inventory/query";
@@ -113,15 +119,41 @@ export const AromasInventoryListSource: FC<IAromasInventoryListSourceProps> = ({
 export interface IAromasInventorySourceSelectProps extends IQuerySourceSelectProps<IAromaInventory> {
 	toOption: IToOptionMapper<IAromaInventory>;
 	sourceProps?: IAromasInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <AromasInventorySource {...sourceProps}>
-		<QuerySourceSelect<IAromaInventory> {...props}/>
-	</AromasInventorySource>;
+export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<AromasInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</AromasInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<AromasInventorySource {...sourceProps}>
+					<QuerySourceSelect<IAromaInventory> {...props}/>
+				</AromasInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useAromasInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasInventoryApiLink]);
-}
+};
+
+export const useAromasInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAromaInventory>();
+export const useAromasInventorySelectionContext = () => useSelectionContext<IAromaInventory>();

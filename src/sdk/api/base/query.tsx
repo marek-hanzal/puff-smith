@@ -3,11 +3,13 @@
  */
 
 import {IBase, IBaseQuery} from "@/puff-smith/service/base";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BasesApiLink = "/api/base/query";
@@ -112,15 +118,41 @@ export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...prop
 export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
 	sourceProps?: IBasesSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <BasesSource {...sourceProps}>
-		<QuerySourceSelect<IBase> {...props}/>
-	</BasesSource>;
+export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<BasesSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</BasesSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<BasesSource {...sourceProps}>
+					<QuerySourceSelect<IBase> {...props}/>
+				</BasesSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesApiLink]);
-}
+};
+
+export const useBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
+export const useBasesSelectionContext = () => useSelectionContext<IBase>();

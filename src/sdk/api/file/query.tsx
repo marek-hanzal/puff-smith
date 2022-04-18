@@ -3,11 +3,13 @@
  */
 
 import {IFileQuery} from "@/puff-smith/service/file";
+import {ReadOutlined} from "@ant-design/icons";
 import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const FilesApiLink = "/api/file/query";
@@ -112,15 +118,41 @@ export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...prop
 export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> {
 	toOption: IToOptionMapper<IFile>;
 	sourceProps?: IFilesSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <FilesSource {...sourceProps}>
-		<QuerySourceSelect<IFile> {...props}/>
-	</FilesSource>;
+export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<FilesSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</FilesSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<FilesSource {...sourceProps}>
+					<QuerySourceSelect<IFile> {...props}/>
+				</FilesSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useFilesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FilesApiLink]);
-}
+};
+
+export const useFilesOptionalSelectionContext = () => useOptionalSelectionContext<IFile>();
+export const useFilesSelectionContext = () => useSelectionContext<IFile>();

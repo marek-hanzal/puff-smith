@@ -3,11 +3,13 @@
  */
 
 import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModsInventoryApiLink = "/api/mod/inventory/query";
@@ -112,15 +118,41 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
 	toOption: IToOptionMapper<IModInventory>;
 	sourceProps?: IModsInventorySourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, ...props}) => {
-	return <ModsInventorySource {...sourceProps}>
-		<QuerySourceSelect<IModInventory> {...props}/>
-	</ModsInventorySource>;
+export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<ModsInventorySourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</ModsInventorySourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<ModsInventorySource {...sourceProps}>
+					<QuerySourceSelect<IModInventory> {...props}/>
+				</ModsInventorySource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useModsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsInventoryApiLink]);
-}
+};
+
+export const useModsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IModInventory>();
+export const useModsInventorySelectionContext = () => useSelectionContext<IModInventory>();

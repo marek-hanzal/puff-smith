@@ -2,11 +2,13 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {ReadOutlined} from "@ant-design/icons";
 import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -19,6 +21,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -26,10 +29,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const StatusListApiLink = "/api/job/status-list";
@@ -111,15 +117,41 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {
 	toOption: IToOptionMapper<IBaseSelectOption>;
 	sourceProps?: IStatusListSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <StatusListSource {...sourceProps}>
-		<QuerySourceSelect<IBaseSelectOption> {...props}/>
-	</StatusListSource>;
+export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<StatusListSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</StatusListSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<StatusListSource {...sourceProps}>
+					<QuerySourceSelect<IBaseSelectOption> {...props}/>
+				</StatusListSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
-}
+};
+
+export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<IBaseSelectOption>();
+export const useStatusListSelectionContext = () => useSelectionContext<IBaseSelectOption>();

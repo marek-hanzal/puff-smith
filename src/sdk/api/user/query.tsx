@@ -3,11 +3,13 @@
  */
 
 import {IUser, IUserQuery} from "@/puff-smith/service/user";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const UsersApiLink = "/api/user/query";
@@ -112,15 +118,41 @@ export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...prop
 export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
 	sourceProps?: IUsersSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <UsersSource {...sourceProps}>
-		<QuerySourceSelect<IUser> {...props}/>
-	</UsersSource>;
+export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<UsersSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</UsersSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<UsersSource {...sourceProps}>
+					<QuerySourceSelect<IUser> {...props}/>
+				</UsersSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useUsersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UsersApiLink]);
-}
+};
+
+export const useUsersOptionalSelectionContext = () => useOptionalSelectionContext<IUser>();
+export const useUsersSelectionContext = () => useSelectionContext<IUser>();

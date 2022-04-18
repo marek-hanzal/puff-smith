@@ -3,11 +3,13 @@
  */
 
 import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const VouchersApiLink = "/api/voucher/query";
@@ -112,15 +118,41 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVoucher> {
 	toOption: IToOptionMapper<IVoucher>;
 	sourceProps?: IVouchersSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <VouchersSource {...sourceProps}>
-		<QuerySourceSelect<IVoucher> {...props}/>
-	</VouchersSource>;
+export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<VouchersSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</VouchersSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<VouchersSource {...sourceProps}>
+					<QuerySourceSelect<IVoucher> {...props}/>
+				</VouchersSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersApiLink]);
-}
+};
+
+export const useVouchersOptionalSelectionContext = () => useOptionalSelectionContext<IVoucher>();
+export const useVouchersSelectionContext = () => useSelectionContext<IVoucher>();

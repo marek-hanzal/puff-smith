@@ -3,11 +3,13 @@
  */
 
 import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CottonsApiLink = "/api/cotton/query";
@@ -112,15 +118,41 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICotton> {
 	toOption: IToOptionMapper<ICotton>;
 	sourceProps?: ICottonsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <CottonsSource {...sourceProps}>
-		<QuerySourceSelect<ICotton> {...props}/>
-	</CottonsSource>;
+export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<CottonsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</CottonsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<CottonsSource {...sourceProps}>
+					<QuerySourceSelect<ICotton> {...props}/>
+				</CottonsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsApiLink]);
-}
+};
+
+export const useCottonsOptionalSelectionContext = () => useOptionalSelectionContext<ICotton>();
+export const useCottonsSelectionContext = () => useSelectionContext<ICotton>();

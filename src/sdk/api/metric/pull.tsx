@@ -32,7 +32,7 @@ export const useMetricPullQuery = createQueryHook<void, string, IMetricPullQuery
 export const useMetricPullQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MetricPullApiLink]);
-};
+}
 
 export const toMetricPullLink = (queryParams?: IMetricPullQueryParams) => toLink(MetricPullApiLink, queryParams);
 export const useMetricPullLink = () => toMetricPullLink;

@@ -3,11 +3,13 @@
  */
 
 import {ITransaction, ITransactionQuery} from "@/puff-smith/service/transaction";
+import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerButton,
 	Filter,
 	FilterProvider,
 	IFilterProviderProps,
@@ -20,6 +22,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
@@ -27,10 +30,13 @@ import {
 	useFilterContext,
 	useOptionalFilterContext,
 	useOptionalOrderByContext,
+	useOptionalSelectionContext,
 	useOrderByContext,
+	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
-import {ConsumerProps, FC} from "react";
+import {Col, Input, Row} from "antd";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const TransactionsApiLink = "/api/transaction/query";
@@ -112,15 +118,41 @@ export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({source
 export interface ITransactionsSourceSelectProps extends IQuerySourceSelectProps<ITransaction> {
 	toOption: IToOptionMapper<ITransaction>;
 	sourceProps?: ITransactionsSourceProps;
+	selectionList?: () => ReactNode;
+	withTranslation?: string;
 }
 
-export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, ...props}) => {
-	return <TransactionsSource {...sourceProps}>
-		<QuerySourceSelect<ITransaction> {...props}/>
-	</TransactionsSource>;
+export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, selectionList, withTranslation, ...props}) => {
+	return <Input.Group>
+		<Row gutter={8}>
+			<Col span={selectionList ? 2 : 0}>
+				{selectionList && <DrawerButton
+					type={"text"}
+					icon={<ReadOutlined/>}
+					title={`${withTranslation}.select.title`}
+					tooltip={`${withTranslation}.select.title.tooltip`}
+					width={800}
+				>
+					<TransactionsSourceControlProvider>
+						<SelectionProvider type={"single"}>
+							{selectionList()}
+						</SelectionProvider>
+					</TransactionsSourceControlProvider>
+				</DrawerButton>}
+			</Col>
+			<Col flex={"auto"}>
+				<TransactionsSource {...sourceProps}>
+					<QuerySourceSelect<ITransaction> {...props}/>
+				</TransactionsSource>
+			</Col>
+		</Row>
+	</Input.Group>;
 };
 
 export const useTransactionsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionsApiLink]);
-}
+};
+
+export const useTransactionsOptionalSelectionContext = () => useOptionalSelectionContext<ITransaction>();
+export const useTransactionsSelectionContext = () => useSelectionContext<ITransaction>();
