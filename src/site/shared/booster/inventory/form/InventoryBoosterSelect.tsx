@@ -22,7 +22,6 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 					value: booster.id,
 				})}
 				selectionList={() => <BoosterInventoryList/>}
-				withTranslation={"lab.booster"}
 				{...props}
 			/>
 		</InventoryBoostersOrderByProvider>

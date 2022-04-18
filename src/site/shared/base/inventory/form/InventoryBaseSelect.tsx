@@ -22,7 +22,6 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 					value: base.id,
 				})}
 				selectionList={() => <BaseInventoryList/>}
-				withTranslation={"lab.base"}
 				{...props}
 			/>
 		</InventoryBasesOrderByProvider>

@@ -18,7 +18,6 @@ export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 					value: aroma.id,
 				})}
 				selectionList={() => <AromaInventoryList/>}
-				withTranslation={"lab.aroma"}
 				{...props}
 			/>
 		</InventoryAromasOrderByProvider>
