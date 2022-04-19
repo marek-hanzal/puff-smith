@@ -9,8 +9,8 @@ import {CreateQuickMixDefaultForm, ICreateQuickMixDefaultFormProps} from "@/sdk/
 import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {IssuesCloseOutlined} from "@ant-design/icons";
-import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit, useFormContext} from "@leight-core/client";
-import {Button, ButtonProps, Col, Divider, message, Row, Space, Typography} from "antd";
+import {ButtonBar, Centered, DatePicker, FormItem, Preview, Submit} from "@leight-core/client";
+import {Col, Divider, message, Row, Space, Typography} from "antd";
 import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -37,19 +37,6 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 	});
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
-	const CheckButton: FC<Partial<ButtonProps>> = props => {
-		const [enabled, setEnabled] = useState(false);
-		useFormContext().useCanSubmit(setEnabled);
-		return <Button
-			type={"primary"}
-			ghost
-			icon={<IssuesCloseOutlined/>}
-			disabled={!enabled}
-			onClick={() => toRequest()}
-			{...props}
-		>{t("lab.liquid.mixture.refresh")}</Button>;
-	};
-
 	return <>
 		<MixtureHint result={quickMixInfo?.result}/>
 		<Row gutter={32}>
@@ -71,45 +58,27 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 						mixed: moment(),
 						nicotine,
 					})}
-					onChange={event => {
-						console.log("onChange", event);
-					}}
-					onValuesChange={values => {
-						console.log("values", values);
+					onChange={({values: {aromaId, baseId, boosterId}}) => {
 						setCheck(true);
+						setAromaId(aromaId);
+						setBoosterId(boosterId);
+						setBaseId(baseId);
+						console.log("Check true");
 					}}
 					{...props}
 				>
 					<FormItem hasTooltip field={"aromaId"} required>
-						<InventoryAromaSelect
-							onClear={() => {
-								setAromaId(undefined);
-								toRequest({});
-							}}
-							onSelect={({entity: {id}}) => setAromaId(id)}
-						/>
+						<InventoryAromaSelect/>
 					</FormItem>
 					<Divider/>
 					<FormItem hasTooltip field={"nicotine"}>
 						<NicotineSelect onChange={setNicotine}/>
 					</FormItem>
 					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
-						<InventoryBoosterSelect
-							onClear={() => {
-								setBoosterId(undefined);
-								toRequest({});
-							}}
-							onSelect={({entity: {id}}) => setBoosterId(id)}
-						/>
+						<InventoryBoosterSelect/>
 					</FormItem>}
 					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
-						<InventoryBaseSelect
-							onClear={() => {
-								setBaseId(undefined);
-								toRequest({});
-							}}
-							onSelect={({entity: {id}}) => setBaseId(id)}
-						/>
+						<InventoryBaseSelect/>
 					</FormItem>
 					<Divider/>
 					<FormItem field={"mixed"}>
@@ -118,10 +87,20 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 					<Divider/>
 					<Centered>
 						<ButtonBar align={"baseline"}>
-							{check && <CheckButton/>}
+							{check && <Submit
+								type={"primary"}
+								ghost
+								icon={<IssuesCloseOutlined/>}
+								label={"mixture.refresh"}
+								onClick={e => {
+									e.preventDefault();
+									toRequest();
+									console.log("Refresh");
+								}}
+							/>}
 							{!check && <Submit
 								icon={<LiquidIcon/>}
-								// disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
+								disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
 								label={"create"}
 							/>}
 						</ButtonBar>

@@ -16,7 +16,7 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 		locale={{
 			emptyText: <BoosterListEmpty/>,
 		}}
-		footer={() => <DrawerCancelOk<IBoosterInventory> toForm={({single}) => ({boosterId: single?.boosterId})}/>}
+		footer={() => <DrawerCancelOk<IBoosterInventory> toForm={({single}) => single?.boosterId}/>}
 		{...props}
 	>
 		{boosterInventory => <ListItem

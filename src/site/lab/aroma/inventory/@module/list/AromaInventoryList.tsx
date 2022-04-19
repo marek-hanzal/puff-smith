@@ -16,7 +16,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 		locale={{
 			emptyText: <AromaListEmpty/>,
 		}}
-		footer={() => <DrawerCancelOk<IAromaInventory> toForm={({single}) => ({aromaId: single?.aromaId})}/>}
+		footer={() => <DrawerCancelOk<IAromaInventory> toForm={({single}) => single?.aromaId}/>}
 		{...props}
 	>
 		{aromaInventory => <ListItem

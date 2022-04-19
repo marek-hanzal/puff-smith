@@ -1,5 +1,5 @@
 import {ISelection} from "@leight-core/api";
-import {ButtonBar, useOptionalDrawerContext, useOptionalFormContext, useOptionalSelectionContext} from "@leight-core/client";
+import {ButtonBar, useOptionalDrawerContext, useOptionalFormItemContext, useOptionalSelectionContext} from "@leight-core/client";
 import {Button, Divider} from "antd";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,7 @@ export const DrawerCancelOk = <TSelection, >({toForm}: PropsWithChildren<IDrawer
 	const {t} = useTranslation();
 	const drawerContext = useOptionalDrawerContext();
 	const selectionContext = useOptionalSelectionContext<TSelection>();
-	const formContext = useOptionalFormContext();
+	const formItemContext = useOptionalFormItemContext();
 	return selectionContext && <ButtonBar split={<Divider type={"vertical"}/>} size={4}>
 		<Button
 			type={"link"}
@@ -24,7 +24,7 @@ export const DrawerCancelOk = <TSelection, >({toForm}: PropsWithChildren<IDrawer
 			type={"primary"}
 			disabled={selectionContext.isEmpty()}
 			onClick={() => {
-				formContext?.setValues(toForm(selectionContext?.selection()));
+				formItemContext?.setValue(toForm(selectionContext?.selection()));
 				drawerContext?.setVisible(false);
 				selectionContext?.handleSelection();
 			}}

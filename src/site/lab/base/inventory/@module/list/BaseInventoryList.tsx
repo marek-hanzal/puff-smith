@@ -17,7 +17,7 @@ export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 		locale={{
 			emptyText: <BaseListEmpty/>,
 		}}
-		footer={() => <DrawerCancelOk<IBase> toForm={({single}) => ({baseId: single?.id})}/>}
+		footer={() => <DrawerCancelOk<IBase> toForm={({single}) => single?.id}/>}
 		{...props}
 	>
 		{baseInventory => <ListItem
