@@ -1,11 +1,11 @@
 import {IFilterGroup} from "@/puff-smith/component";
 import {IQuery, IQueryFilter} from "@leight-core/api";
 import {useFilterContext} from "@leight-core/client";
-import {Button, Divider, Radio, Space, Typography} from "antd";
+import {Button, Divider, Radio, Space, SpaceProps, Typography} from "antd";
 import {PropsWithChildren, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IInlineFilterProps<TQuery extends IQuery<any, any>> {
+export interface IInlineFilterProps<TQuery extends IQuery<any, any>> extends Partial<SpaceProps> {
 	filters: IFilterGroup<TQuery>[];
 	translation: string;
 
@@ -20,12 +20,12 @@ export const InlineFilter = <TQuery extends IQuery<any, any>>(
 		translation,
 		toFilter = filter => filter,
 		fromFilter = filter => filter,
+		...props
 	}: PropsWithChildren<IInlineFilterProps<TQuery>>) => {
 	const {t} = useTranslation();
 	const filterContext = useFilterContext();
-	const [state, setState] = useState<{ [index in string]: string | undefined }>();
-	const filter = fromFilter(filterContext.filter);
-	return <Space size={0} split={<Divider type={"vertical"}/>}>
+	const [state, setState] = useState<{ [index in string]: string | undefined } | undefined>(fromFilter(filterContext.filter));
+	return <Space size={0} split={<Divider type={"vertical"}/>} {...props}>
 		{filters.map(group => <Space key={`filter-group-${group.name}`}>
 			<Typography.Text type={"secondary"}>{t(`${translation}.filter.${group.name}.label`)}</Typography.Text>
 			<Radio.Group size={"large"} value={state?.[group.name]}>

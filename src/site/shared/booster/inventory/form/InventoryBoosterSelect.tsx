@@ -1,5 +1,5 @@
 import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory";
-import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
+import {BoosterNameInline, QuickFilter} from "@/puff-smith/site/shared/booster";
 import {IInventoryBoostersSourceSelectProps, InventoryBoostersFilterProvider, InventoryBoostersOrderByProvider, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
 import {FC} from "react";
 
@@ -21,7 +21,13 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 					label: <BoosterNameInline booster={booster}/>,
 					value: booster.id,
 				})}
-				selectionList={() => <BoosterInventoryList/>}
+				selectionList={() => <BoosterInventoryList
+					header={() => <QuickFilter
+						toFilter={filter => ({booster: filter})}
+						fromFilter={filter => filter?.booster}
+						direction={"vertical"}
+					/>}
+				/>}
 				{...props}
 			/>
 		</InventoryBoostersOrderByProvider>

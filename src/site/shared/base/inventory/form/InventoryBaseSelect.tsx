@@ -1,5 +1,5 @@
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory";
-import {BaseNameInline} from "@/puff-smith/site/shared/base";
+import {BaseNameInline, QuickFilter} from "@/puff-smith/site/shared/base";
 import {IInventoryBasesSourceSelectProps, InventoryBasesFilterProvider, InventoryBasesOrderByProvider, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
 import {FC} from "react";
 
@@ -21,7 +21,13 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 					label: <BaseNameInline base={base}/>,
 					value: base.id,
 				})}
-				selectionList={() => <BaseInventoryList/>}
+				selectionList={() => <BaseInventoryList
+					header={() => <QuickFilter
+						toFilter={filter => ({base: filter})}
+						fromFilter={filter => filter?.base}
+						direction={"vertical"}
+					/>}
+				/>}
 				{...props}
 			/>
 		</InventoryBasesOrderByProvider>
