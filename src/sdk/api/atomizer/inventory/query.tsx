@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const AtomizersInventorySource: FC<IAtomizersInventorySourceProps> = prop
 		useQuery={useAtomizersInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toAtomizersInventoryLink = (queryParams?: IAtomizersInventoryQueryParams) => toLink(AtomizersInventoryApiLink, queryParams);
 export const useAtomizersInventoryLink = () => toAtomizersInventoryLink;
@@ -113,37 +114,37 @@ export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps
 		<List<IAtomizerInventory>
 			{...props}
 		/>
-	</AtomizersInventorySource>
+	</AtomizersInventorySource>;
 }
 
 export interface IAtomizersInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
 	toOption: IToOptionMapper<IAtomizerInventory>;
 	sourceProps?: IAtomizersInventorySourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<AtomizersInventorySource {...sourceProps}>
+					<QuerySourceSelect<IAtomizerInventory> {...props}/>
+				</AtomizersInventorySource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.AtomizersInventory.title"}
 					tooltip={"common.selection.AtomizersInventory.title.tooltip"}
 					width={800}
 				>
 					<AtomizersInventorySourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</AtomizersInventorySourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<AtomizersInventorySource {...sourceProps}>
-					<QuerySourceSelect<IAtomizerInventory> {...props}/>
-				</AtomizersInventorySource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -152,7 +153,7 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 export const useAtomizersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersInventoryApiLink]);
-}
+};
 
 export const useAtomizersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizerInventory>();
 export const useAtomizersInventorySelectionContext = () => useSelectionContext<IAtomizerInventory>();

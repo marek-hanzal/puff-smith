@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const FilesSource: FC<IFilesSourceProps> = props => {
 		useQuery={useFilesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toFilesLink = (queryParams?: IFilesQueryParams) => toLink(FilesApiLink, queryParams);
 export const useFilesLink = () => toFilesLink;
@@ -112,37 +113,37 @@ export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...prop
 		<List<IFile>
 			{...props}
 		/>
-	</FilesSource>
+	</FilesSource>;
 }
 
 export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> {
 	toOption: IToOptionMapper<IFile>;
 	sourceProps?: IFilesSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<FilesSource {...sourceProps}>
+					<QuerySourceSelect<IFile> {...props}/>
+				</FilesSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Files.title"}
 					tooltip={"common.selection.Files.title.tooltip"}
 					width={800}
 				>
 					<FilesSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</FilesSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<FilesSource {...sourceProps}>
-					<QuerySourceSelect<IFile> {...props}/>
-				</FilesSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 export const useFilesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FilesApiLink]);
-}
+};
 
 export const useFilesOptionalSelectionContext = () => useOptionalSelectionContext<IFile>();
 export const useFilesSelectionContext = () => useSelectionContext<IFile>();

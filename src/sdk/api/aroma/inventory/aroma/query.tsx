@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const InventoryAromasSource: FC<IInventoryAromasSourceProps> = props => {
 		useQuery={useInventoryAromasQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toInventoryAromasLink = (queryParams?: IInventoryAromasQueryParams) => toLink(InventoryAromasApiLink, queryParams);
 export const useInventoryAromasLink = () => toInventoryAromasLink;
@@ -112,37 +113,37 @@ export const InventoryAromasListSource: FC<IInventoryAromasListSourceProps> = ({
 		<List<IAroma>
 			{...props}
 		/>
-	</InventoryAromasSource>
+	</InventoryAromasSource>;
 }
 
 export interface IInventoryAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
 	sourceProps?: IInventoryAromasSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<InventoryAromasSource {...sourceProps}>
+					<QuerySourceSelect<IAroma> {...props}/>
+				</InventoryAromasSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryAromas.title"}
 					tooltip={"common.selection.InventoryAromas.title.tooltip"}
 					width={800}
 				>
 					<InventoryAromasSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</InventoryAromasSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<InventoryAromasSource {...sourceProps}>
-					<QuerySourceSelect<IAroma> {...props}/>
-				</InventoryAromasSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> 
 export const useInventoryAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryAromasApiLink]);
-}
+};
 
 export const useInventoryAromasOptionalSelectionContext = () => useOptionalSelectionContext<IAroma>();
 export const useInventoryAromasSelectionContext = () => useSelectionContext<IAroma>();

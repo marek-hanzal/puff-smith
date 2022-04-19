@@ -16,12 +16,12 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 		locale={{
 			emptyText: <BoosterListEmpty/>,
 		}}
-		footer={() => <DrawerCancelOk<IBoosterInventory> toValue={selection => selection.boosterId}/>}
+		footer={() => <DrawerCancelOk<IBoosterInventory> toForm={({single}) => ({boosterId: single?.boosterId})}/>}
 		{...props}
 	>
 		{boosterInventory => <ListItem
 			key={boosterInventory.id}
-			onClick={() => selectionContext?.onSelectItem(boosterInventory)}
+			onClick={() => selectionContext?.item(boosterInventory)}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>

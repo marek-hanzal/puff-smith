@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props 
 		useQuery={useVouchersInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toVouchersInventoryLink = (queryParams?: IVouchersInventoryQueryParams) => toLink(VouchersInventoryApiLink, queryParams);
 export const useVouchersInventoryLink = () => toVouchersInventoryLink;
@@ -113,37 +114,37 @@ export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> 
 		<List<IVoucherInventory>
 			{...props}
 		/>
-	</VouchersInventorySource>
+	</VouchersInventorySource>;
 }
 
 export interface IVouchersInventorySourceSelectProps extends IQuerySourceSelectProps<IVoucherInventory> {
 	toOption: IToOptionMapper<IVoucherInventory>;
 	sourceProps?: IVouchersInventorySourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<VouchersInventorySource {...sourceProps}>
+					<QuerySourceSelect<IVoucherInventory> {...props}/>
+				</VouchersInventorySource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.VouchersInventory.title"}
 					tooltip={"common.selection.VouchersInventory.title.tooltip"}
 					width={800}
 				>
 					<VouchersInventorySourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</VouchersInventorySourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<VouchersInventorySource {...sourceProps}>
-					<QuerySourceSelect<IVoucherInventory> {...props}/>
-				</VouchersInventorySource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -152,7 +153,7 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 export const useVouchersInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersInventoryApiLink]);
-}
+};
 
 export const useVouchersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IVoucherInventory>();
 export const useVouchersInventorySelectionContext = () => useSelectionContext<IVoucherInventory>();

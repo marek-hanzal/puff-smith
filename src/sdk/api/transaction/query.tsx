@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const TransactionsSource: FC<ITransactionsSourceProps> = props => {
 		useQuery={useTransactionsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toTransactionsLink = (queryParams?: ITransactionsQueryParams) => toLink(TransactionsApiLink, queryParams);
 export const useTransactionsLink = () => toTransactionsLink;
@@ -112,37 +113,37 @@ export const TransactionsListSource: FC<ITransactionsListSourceProps> = ({source
 		<List<ITransaction>
 			{...props}
 		/>
-	</TransactionsSource>
+	</TransactionsSource>;
 }
 
 export interface ITransactionsSourceSelectProps extends IQuerySourceSelectProps<ITransaction> {
 	toOption: IToOptionMapper<ITransaction>;
 	sourceProps?: ITransactionsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<TransactionsSource {...sourceProps}>
+					<QuerySourceSelect<ITransaction> {...props}/>
+				</TransactionsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Transactions.title"}
 					tooltip={"common.selection.Transactions.title.tooltip"}
 					width={800}
 				>
 					<TransactionsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</TransactionsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<TransactionsSource {...sourceProps}>
-					<QuerySourceSelect<ITransaction> {...props}/>
-				</TransactionsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({so
 export const useTransactionsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionsApiLink]);
-}
+};
 
 export const useTransactionsOptionalSelectionContext = () => useOptionalSelectionContext<ITransaction>();
 export const useTransactionsSelectionContext = () => useSelectionContext<ITransaction>();

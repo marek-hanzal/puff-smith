@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
 		useQuery={useModsInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toModsInventoryLink = (queryParams?: IModsInventoryQueryParams) => toLink(ModsInventoryApiLink, queryParams);
 export const useModsInventoryLink = () => toModsInventoryLink;
@@ -112,37 +113,37 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 		<List<IModInventory>
 			{...props}
 		/>
-	</ModsInventorySource>
+	</ModsInventorySource>;
 }
 
 export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
 	toOption: IToOptionMapper<IModInventory>;
 	sourceProps?: IModsInventorySourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<ModsInventorySource {...sourceProps}>
+					<QuerySourceSelect<IModInventory> {...props}/>
+				</ModsInventorySource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.ModsInventory.title"}
 					tooltip={"common.selection.ModsInventory.title.tooltip"}
 					width={800}
 				>
 					<ModsInventorySourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</ModsInventorySourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<ModsInventorySource {...sourceProps}>
-					<QuerySourceSelect<IModInventory> {...props}/>
-				</ModsInventorySource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 export const useModsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsInventoryApiLink]);
-}
+};
 
 export const useModsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IModInventory>();
 export const useModsInventorySelectionContext = () => useSelectionContext<IModInventory>();

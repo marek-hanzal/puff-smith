@@ -71,7 +71,13 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 						mixed: moment(),
 						nicotine,
 					})}
-					onValuesChange={() => setCheck(true)}
+					onChange={event => {
+						console.log("onChange", event);
+					}}
+					onValuesChange={values => {
+						console.log("values", values);
+						setCheck(true);
+					}}
 					{...props}
 				>
 					<FormItem hasTooltip field={"aromaId"} required>
@@ -115,7 +121,7 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 							{check && <CheckButton/>}
 							{!check && <Submit
 								icon={<LiquidIcon/>}
-								disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
+								// disabled={!(quickMixInfo?.result && !quickMixInfo?.result?.error)}
 								label={"create"}
 							/>}
 						</ButtonBar>

@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const CottonsInventorySource: FC<ICottonsInventorySourceProps> = props =>
 		useQuery={useCottonsInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toCottonsInventoryLink = (queryParams?: ICottonsInventoryQueryParams) => toLink(CottonsInventoryApiLink, queryParams);
 export const useCottonsInventoryLink = () => toCottonsInventoryLink;
@@ -113,37 +114,37 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 		<List<ICottonInventory>
 			{...props}
 		/>
-	</CottonsInventorySource>
+	</CottonsInventorySource>;
 }
 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;
 	sourceProps?: ICottonsInventorySourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<CottonsInventorySource {...sourceProps}>
+					<QuerySourceSelect<ICottonInventory> {...props}/>
+				</CottonsInventorySource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.CottonsInventory.title"}
 					tooltip={"common.selection.CottonsInventory.title.tooltip"}
 					width={800}
 				>
 					<CottonsInventorySourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</CottonsInventorySourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<CottonsInventorySource {...sourceProps}>
-					<QuerySourceSelect<ICottonInventory> {...props}/>
-				</CottonsInventorySource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -152,7 +153,7 @@ export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps
 export const useCottonsInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsInventoryApiLink]);
-}
+};
 
 export const useCottonsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICottonInventory>();
 export const useCottonsInventorySelectionContext = () => useSelectionContext<ICottonInventory>();

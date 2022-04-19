@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const AtomizersSource: FC<IAtomizersSourceProps> = props => {
 		useQuery={useAtomizersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toAtomizersLink = (queryParams?: IAtomizersQueryParams) => toLink(AtomizersApiLink, queryParams);
 export const useAtomizersLink = () => toAtomizersLink;
@@ -112,37 +113,37 @@ export const AtomizersListSource: FC<IAtomizersListSourceProps> = ({sourceProps,
 		<List<IAtomizer>
 			{...props}
 		/>
-	</AtomizersSource>
+	</AtomizersSource>;
 }
 
 export interface IAtomizersSourceSelectProps extends IQuerySourceSelectProps<IAtomizer> {
 	toOption: IToOptionMapper<IAtomizer>;
 	sourceProps?: IAtomizersSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<AtomizersSource {...sourceProps}>
+					<QuerySourceSelect<IAtomizer> {...props}/>
+				</AtomizersSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Atomizers.title"}
 					tooltip={"common.selection.Atomizers.title.tooltip"}
 					width={800}
 				>
 					<AtomizersSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</AtomizersSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<AtomizersSource {...sourceProps}>
-					<QuerySourceSelect<IAtomizer> {...props}/>
-				</AtomizersSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 export const useAtomizersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizersApiLink]);
-}
+};
 
 export const useAtomizersOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizer>();
 export const useAtomizersSelectionContext = () => useSelectionContext<IAtomizer>();

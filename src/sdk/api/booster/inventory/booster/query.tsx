@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const InventoryBoostersSource: FC<IInventoryBoostersSourceProps> = props 
 		useQuery={useInventoryBoostersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toInventoryBoostersLink = (queryParams?: IInventoryBoostersQueryParams) => toLink(InventoryBoostersApiLink, queryParams);
 export const useInventoryBoostersLink = () => toInventoryBoostersLink;
@@ -112,37 +113,37 @@ export const InventoryBoostersListSource: FC<IInventoryBoostersListSourceProps> 
 		<List<IBooster>
 			{...props}
 		/>
-	</InventoryBoostersSource>
+	</InventoryBoostersSource>;
 }
 
 export interface IInventoryBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
 	sourceProps?: IInventoryBoostersSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<InventoryBoostersSource {...sourceProps}>
+					<QuerySourceSelect<IBooster> {...props}/>
+				</InventoryBoostersSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryBoosters.title"}
 					tooltip={"common.selection.InventoryBoosters.title.tooltip"}
 					width={800}
 				>
 					<InventoryBoostersSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</InventoryBoostersSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<InventoryBoostersSource {...sourceProps}>
-					<QuerySourceSelect<IBooster> {...props}/>
-				</InventoryBoostersSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectPro
 export const useInventoryBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBoostersApiLink]);
-}
+};
 
 export const useInventoryBoostersOptionalSelectionContext = () => useOptionalSelectionContext<IBooster>();
 export const useInventoryBoostersSelectionContext = () => useSelectionContext<IBooster>();

@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const AromasInventorySource: FC<IAromasInventorySourceProps> = props => {
 		useQuery={useAromasInventoryQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toAromasInventoryLink = (queryParams?: IAromasInventoryQueryParams) => toLink(AromasInventoryApiLink, queryParams);
 export const useAromasInventoryLink = () => toAromasInventoryLink;
@@ -113,37 +114,37 @@ export const AromasInventoryListSource: FC<IAromasInventoryListSourceProps> = ({
 		<List<IAromaInventory>
 			{...props}
 		/>
-	</AromasInventorySource>
+	</AromasInventorySource>;
 }
 
 export interface IAromasInventorySourceSelectProps extends IQuerySourceSelectProps<IAromaInventory> {
 	toOption: IToOptionMapper<IAromaInventory>;
 	sourceProps?: IAromasInventorySourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<AromasInventorySource {...sourceProps}>
+					<QuerySourceSelect<IAromaInventory> {...props}/>
+				</AromasInventorySource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.AromasInventory.title"}
 					tooltip={"common.selection.AromasInventory.title.tooltip"}
 					width={800}
 				>
 					<AromasInventorySourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</AromasInventorySourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<AromasInventorySource {...sourceProps}>
-					<QuerySourceSelect<IAromaInventory> {...props}/>
-				</AromasInventorySource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -152,7 +153,7 @@ export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> 
 export const useAromasInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasInventoryApiLink]);
-}
+};
 
 export const useAromasInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAromaInventory>();
 export const useAromasInventorySelectionContext = () => useSelectionContext<IAromaInventory>();

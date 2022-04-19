@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const JobsSource: FC<IJobsSourceProps> = props => {
 		useQuery={useJobsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toJobsLink = (queryParams?: IJobsQueryParams) => toLink(JobsApiLink, queryParams);
 export const useJobsLink = () => toJobsLink;
@@ -112,37 +113,37 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 		<List<IJob>
 			{...props}
 		/>
-	</JobsSource>
+	</JobsSource>;
 }
 
 export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 	toOption: IToOptionMapper<IJob>;
 	sourceProps?: IJobsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<JobsSource {...sourceProps}>
+					<QuerySourceSelect<IJob> {...props}/>
+				</JobsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Jobs.title"}
 					tooltip={"common.selection.Jobs.title.tooltip"}
 					width={800}
 				>
 					<JobsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</JobsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<JobsSource {...sourceProps}>
-					<QuerySourceSelect<IJob> {...props}/>
-				</JobsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 export const useJobsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobsApiLink]);
-}
+};
 
 export const useJobsOptionalSelectionContext = () => useOptionalSelectionContext<IJob>();
 export const useJobsSelectionContext = () => useSelectionContext<IJob>();

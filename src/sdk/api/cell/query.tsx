@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const CellsSource: FC<ICellsSourceProps> = props => {
 		useQuery={useCellsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toCellsLink = (queryParams?: ICellsQueryParams) => toLink(CellsApiLink, queryParams);
 export const useCellsLink = () => toCellsLink;
@@ -112,37 +113,37 @@ export const CellsListSource: FC<ICellsListSourceProps> = ({sourceProps, ...prop
 		<List<ICell>
 			{...props}
 		/>
-	</CellsSource>
+	</CellsSource>;
 }
 
 export interface ICellsSourceSelectProps extends IQuerySourceSelectProps<ICell> {
 	toOption: IToOptionMapper<ICell>;
 	sourceProps?: ICellsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<CellsSource {...sourceProps}>
+					<QuerySourceSelect<ICell> {...props}/>
+				</CellsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Cells.title"}
 					tooltip={"common.selection.Cells.title.tooltip"}
 					width={800}
 				>
 					<CellsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</CellsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<CellsSource {...sourceProps}>
-					<QuerySourceSelect<ICell> {...props}/>
-				</CellsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, sel
 export const useCellsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellsApiLink]);
-}
+};
 
 export const useCellsOptionalSelectionContext = () => useOptionalSelectionContext<ICell>();
 export const useCellsSelectionContext = () => useSelectionContext<ICell>();

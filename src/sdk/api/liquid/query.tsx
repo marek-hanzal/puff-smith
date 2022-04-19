@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
 		useQuery={useLiquidsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toLiquidsLink = (queryParams?: ILiquidsQueryParams) => toLink(LiquidsApiLink, queryParams);
 export const useLiquidsLink = () => toLiquidsLink;
@@ -112,37 +113,37 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 		<List<ILiquid>
 			{...props}
 		/>
-	</LiquidsSource>
+	</LiquidsSource>;
 }
 
 export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
 	sourceProps?: ILiquidsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<LiquidsSource {...sourceProps}>
+					<QuerySourceSelect<ILiquid> {...props}/>
+				</LiquidsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Liquids.title"}
 					tooltip={"common.selection.Liquids.title.tooltip"}
 					width={800}
 				>
 					<LiquidsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</LiquidsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<LiquidsSource {...sourceProps}>
-					<QuerySourceSelect<ILiquid> {...props}/>
-				</LiquidsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidsApiLink]);
-}
+};
 
 export const useLiquidsOptionalSelectionContext = () => useOptionalSelectionContext<ILiquid>();
 export const useLiquidsSelectionContext = () => useSelectionContext<ILiquid>();

@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const BoostersSource: FC<IBoostersSourceProps> = props => {
 		useQuery={useBoostersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toBoostersLink = (queryParams?: IBoostersQueryParams) => toLink(BoostersApiLink, queryParams);
 export const useBoostersLink = () => toBoostersLink;
@@ -112,37 +113,37 @@ export const BoostersListSource: FC<IBoostersListSourceProps> = ({sourceProps, .
 		<List<IBooster>
 			{...props}
 		/>
-	</BoostersSource>
+	</BoostersSource>;
 }
 
 export interface IBoostersSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
 	sourceProps?: IBoostersSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<BoostersSource {...sourceProps}>
+					<QuerySourceSelect<IBooster> {...props}/>
+				</BoostersSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Boosters.title"}
 					tooltip={"common.selection.Boosters.title.tooltip"}
 					width={800}
 				>
 					<BoostersSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</BoostersSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<BoostersSource {...sourceProps}>
-					<QuerySourceSelect<IBooster> {...props}/>
-				</BoostersSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const BoostersSourceSelect: FC<IBoostersSourceSelectProps> = ({sourceProp
 export const useBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoostersApiLink]);
-}
+};
 
 export const useBoostersOptionalSelectionContext = () => useOptionalSelectionContext<IBooster>();
 export const useBoostersSelectionContext = () => useSelectionContext<IBooster>();

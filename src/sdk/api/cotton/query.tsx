@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const CottonsSource: FC<ICottonsSourceProps> = props => {
 		useQuery={useCottonsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toCottonsLink = (queryParams?: ICottonsQueryParams) => toLink(CottonsApiLink, queryParams);
 export const useCottonsLink = () => toCottonsLink;
@@ -112,37 +113,37 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 		<List<ICotton>
 			{...props}
 		/>
-	</CottonsSource>
+	</CottonsSource>;
 }
 
 export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICotton> {
 	toOption: IToOptionMapper<ICotton>;
 	sourceProps?: ICottonsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<CottonsSource {...sourceProps}>
+					<QuerySourceSelect<ICotton> {...props}/>
+				</CottonsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Cottons.title"}
 					tooltip={"common.selection.Cottons.title.tooltip"}
 					width={800}
 				>
 					<CottonsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</CottonsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<CottonsSource {...sourceProps}>
-					<QuerySourceSelect<ICotton> {...props}/>
-				</CottonsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 export const useCottonsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonsApiLink]);
-}
+};
 
 export const useCottonsOptionalSelectionContext = () => useOptionalSelectionContext<ICotton>();
 export const useCottonsSelectionContext = () => useSelectionContext<ICotton>();

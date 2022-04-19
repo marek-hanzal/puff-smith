@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
 		useQuery={useInventoryBasesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toInventoryBasesLink = (queryParams?: IInventoryBasesQueryParams) => toLink(InventoryBasesApiLink, queryParams);
 export const useInventoryBasesLink = () => toInventoryBasesLink;
@@ -112,37 +113,37 @@ export const InventoryBasesListSource: FC<IInventoryBasesListSourceProps> = ({so
 		<List<IBase>
 			{...props}
 		/>
-	</InventoryBasesSource>
+	</InventoryBasesSource>;
 }
 
 export interface IInventoryBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
 	sourceProps?: IInventoryBasesSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<InventoryBasesSource {...sourceProps}>
+					<QuerySourceSelect<IBase> {...props}/>
+				</InventoryBasesSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryBases.title"}
 					tooltip={"common.selection.InventoryBases.title.tooltip"}
 					width={800}
 				>
 					<InventoryBasesSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</InventoryBasesSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<InventoryBasesSource {...sourceProps}>
-					<QuerySourceSelect<IBase> {...props}/>
-				</InventoryBasesSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = 
 export const useInventoryBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([InventoryBasesApiLink]);
-}
+};
 
 export const useInventoryBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
 export const useInventoryBasesSelectionContext = () => useSelectionContext<IBase>();

@@ -16,12 +16,12 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 		locale={{
 			emptyText: <AromaListEmpty/>,
 		}}
-		footer={() => <DrawerCancelOk<IAromaInventory> toValue={selection => selection.aromaId}/>}
+		footer={() => <DrawerCancelOk<IAromaInventory> toForm={({single}) => ({aromaId: single?.aromaId})}/>}
 		{...props}
 	>
 		{aromaInventory => <ListItem
 			key={aromaInventory.id}
-			onClick={() => selectionContext?.onSelectItem(aromaInventory)}
+			onClick={() => selectionContext?.item(aromaInventory)}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>

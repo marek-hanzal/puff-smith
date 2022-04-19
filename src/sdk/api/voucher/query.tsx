@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const VouchersSource: FC<IVouchersSourceProps> = props => {
 		useQuery={useVouchersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toVouchersLink = (queryParams?: IVouchersQueryParams) => toLink(VouchersApiLink, queryParams);
 export const useVouchersLink = () => toVouchersLink;
@@ -112,37 +113,37 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 		<List<IVoucher>
 			{...props}
 		/>
-	</VouchersSource>
+	</VouchersSource>;
 }
 
 export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVoucher> {
 	toOption: IToOptionMapper<IVoucher>;
 	sourceProps?: IVouchersSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<VouchersSource {...sourceProps}>
+					<QuerySourceSelect<IVoucher> {...props}/>
+				</VouchersSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Vouchers.title"}
 					tooltip={"common.selection.Vouchers.title.tooltip"}
 					width={800}
 				>
 					<VouchersSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</VouchersSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<VouchersSource {...sourceProps}>
-					<QuerySourceSelect<IVoucher> {...props}/>
-				</VouchersSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VouchersApiLink]);
-}
+};
 
 export const useVouchersOptionalSelectionContext = () => useOptionalSelectionContext<IVoucher>();
 export const useVouchersSelectionContext = () => useSelectionContext<IVoucher>();

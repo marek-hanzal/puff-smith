@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const UsersSource: FC<IUsersSourceProps> = props => {
 		useQuery={useUsersQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toUsersLink = (queryParams?: IUsersQueryParams) => toLink(UsersApiLink, queryParams);
 export const useUsersLink = () => toUsersLink;
@@ -112,37 +113,37 @@ export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...prop
 		<List<IUser>
 			{...props}
 		/>
-	</UsersSource>
+	</UsersSource>;
 }
 
 export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
 	sourceProps?: IUsersSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<UsersSource {...sourceProps}>
+					<QuerySourceSelect<IUser> {...props}/>
+				</UsersSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Users.title"}
 					tooltip={"common.selection.Users.title.tooltip"}
 					width={800}
 				>
 					<UsersSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</UsersSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<UsersSource {...sourceProps}>
-					<QuerySourceSelect<IUser> {...props}/>
-				</UsersSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, sel
 export const useUsersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UsersApiLink]);
-}
+};
 
 export const useUsersOptionalSelectionContext = () => useOptionalSelectionContext<IUser>();
 export const useUsersSelectionContext = () => useSelectionContext<IUser>();

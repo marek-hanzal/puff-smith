@@ -16,6 +16,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -63,7 +64,7 @@ export const StatusListSource: FC<IStatusListSourceProps> = props => {
 		useQuery={useStatusListQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toStatusListLink = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
 export const useStatusListLink = () => toStatusListLink;
@@ -111,37 +112,37 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 		<List<IBaseSelectOption>
 			{...props}
 		/>
-	</StatusListSource>
+	</StatusListSource>;
 }
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IBaseSelectOption> {
 	toOption: IToOptionMapper<IBaseSelectOption>;
 	sourceProps?: IStatusListSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<StatusListSource {...sourceProps}>
+					<QuerySourceSelect<IBaseSelectOption> {...props}/>
+				</StatusListSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.StatusList.title"}
 					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
 				>
 					<StatusListSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</StatusListSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<StatusListSource {...sourceProps}>
-					<QuerySourceSelect<IBaseSelectOption> {...props}/>
-				</StatusListSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -150,7 +151,7 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
-}
+};
 
 export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<IBaseSelectOption>();
 export const useStatusListSelectionContext = () => useSelectionContext<IBaseSelectOption>();

@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const ModsSource: FC<IModsSourceProps> = props => {
 		useQuery={useModsQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toModsLink = (queryParams?: IModsQueryParams) => toLink(ModsApiLink, queryParams);
 export const useModsLink = () => toModsLink;
@@ -112,37 +113,37 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 		<List<IMod>
 			{...props}
 		/>
-	</ModsSource>
+	</ModsSource>;
 }
 
 export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 	toOption: IToOptionMapper<IMod>;
 	sourceProps?: IModsSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<ModsSource {...sourceProps}>
+					<QuerySourceSelect<IMod> {...props}/>
+				</ModsSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Mods.title"}
 					tooltip={"common.selection.Mods.title.tooltip"}
 					width={800}
 				>
 					<ModsSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</ModsSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<ModsSource {...sourceProps}>
-					<QuerySourceSelect<IMod> {...props}/>
-				</ModsSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 export const useModsQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModsApiLink]);
-}
+};
 
 export const useModsOptionalSelectionContext = () => useOptionalSelectionContext<IMod>();
 export const useModsSelectionContext = () => useSelectionContext<IMod>();

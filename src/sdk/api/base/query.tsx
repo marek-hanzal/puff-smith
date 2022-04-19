@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const BasesSource: FC<IBasesSourceProps> = props => {
 		useQuery={useBasesQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toBasesLink = (queryParams?: IBasesQueryParams) => toLink(BasesApiLink, queryParams);
 export const useBasesLink = () => toBasesLink;
@@ -112,37 +113,37 @@ export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...prop
 		<List<IBase>
 			{...props}
 		/>
-	</BasesSource>
+	</BasesSource>;
 }
 
 export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
 	sourceProps?: IBasesSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<BasesSource {...sourceProps}>
+					<QuerySourceSelect<IBase> {...props}/>
+				</BasesSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Bases.title"}
 					tooltip={"common.selection.Bases.title.tooltip"}
 					width={800}
 				>
 					<BasesSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</BasesSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<BasesSource {...sourceProps}>
-					<QuerySourceSelect<IBase> {...props}/>
-				</BasesSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, sel
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BasesApiLink]);
-}
+};
 
 export const useBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
 export const useBasesSelectionContext = () => useSelectionContext<IBase>();

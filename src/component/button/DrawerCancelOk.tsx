@@ -1,17 +1,18 @@
-import {ButtonBar, useOptionalDrawerContext, useOptionalFormItemContext, useOptionalSelectionContext} from "@leight-core/client";
+import {ISelection} from "@leight-core/api";
+import {ButtonBar, useOptionalDrawerContext, useOptionalFormContext, useOptionalSelectionContext} from "@leight-core/client";
 import {Button, Divider} from "antd";
 import {PropsWithChildren} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IDrawerCancelOkProps<TSelection> {
-	toValue(selection: TSelection): any;
+	toForm(selection: ISelection<TSelection>): any;
 }
 
-export const DrawerCancelOk = <TSelection, >({toValue}: PropsWithChildren<IDrawerCancelOkProps<TSelection>>) => {
+export const DrawerCancelOk = <TSelection, >({toForm}: PropsWithChildren<IDrawerCancelOkProps<TSelection>>) => {
 	const {t} = useTranslation();
 	const drawerContext = useOptionalDrawerContext();
 	const selectionContext = useOptionalSelectionContext<TSelection>();
-	const formItemContext = useOptionalFormItemContext();
+	const formContext = useOptionalFormContext();
 	return selectionContext && <ButtonBar split={<Divider type={"vertical"}/>} size={4}>
 		<Button
 			type={"link"}
@@ -23,8 +24,9 @@ export const DrawerCancelOk = <TSelection, >({toValue}: PropsWithChildren<IDrawe
 			type={"primary"}
 			disabled={selectionContext.isEmpty()}
 			onClick={() => {
-				formItemContext?.setValue(toValue(selectionContext.toSingle()));
+				formContext?.setValues(toForm(selectionContext?.selection()));
 				drawerContext?.setVisible(false);
+				selectionContext?.handleSelection();
 			}}
 		>
 			{t("common.selection.ok.label")}

@@ -17,6 +17,7 @@ import {
 	IListProps,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
+	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	List,
@@ -64,7 +65,7 @@ export const AromasSource: FC<IAromasSourceProps> = props => {
 		useQuery={useAromasQuery}
 		{...props}
 	/>;
-}
+};
 
 export const toAromasLink = (queryParams?: IAromasQueryParams) => toLink(AromasApiLink, queryParams);
 export const useAromasLink = () => toAromasLink;
@@ -112,37 +113,37 @@ export const AromasListSource: FC<IAromasListSourceProps> = ({sourceProps, ...pr
 		<List<IAroma>
 			{...props}
 		/>
-	</AromasSource>
+	</AromasSource>;
 }
 
 export interface IAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
 	sourceProps?: IAromasSourceProps;
 	selectionList?: () => ReactNode;
+	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, selectionList, ...props}) => {
+export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
-		<Row gutter={8}>
+		<Row>
+			<Col flex={"auto"}>
+				<AromasSource {...sourceProps}>
+					<QuerySourceSelect<IAroma> {...props}/>
+				</AromasSource>
+			</Col>
 			<Col span={selectionList ? 2 : 0}>
 				{selectionList && <DrawerButton
-					type={"text"}
 					icon={<ReadOutlined/>}
 					title={"common.selection.Aromas.title"}
 					tooltip={"common.selection.Aromas.title.tooltip"}
 					width={800}
 				>
 					<AromasSourceControlProvider>
-						<SelectionProvider type={"single"}>
+						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
 					</AromasSourceControlProvider>
 				</DrawerButton>}
-			</Col>
-			<Col flex={"auto"}>
-				<AromasSource {...sourceProps}>
-					<QuerySourceSelect<IAroma> {...props}/>
-				</AromasSource>
 			</Col>
 		</Row>
 	</Input.Group>;
@@ -151,7 +152,7 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, s
 export const useAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromasApiLink]);
-}
+};
 
 export const useAromasOptionalSelectionContext = () => useOptionalSelectionContext<IAroma>();
 export const useAromasSelectionContext = () => useSelectionContext<IAroma>();
