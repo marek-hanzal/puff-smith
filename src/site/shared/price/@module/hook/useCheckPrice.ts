@@ -13,12 +13,14 @@ export interface ICheckPriceResult {
 export const useCheckPrice = (price: string): ICheckPriceResult => {
 	const checkPriceQuery = useCheckPriceQuery({
 		price,
+	}, undefined, {
+		keepPreviousData: true,
 	});
 
 	const pass = checkPriceQuery.isSuccess && checkPriceQuery.data.pass;
 
 	return {
-		loading: checkPriceQuery.isFetching,
+		loading: checkPriceQuery.isLoading,
 		pass,
 		notPass: !pass,
 		price: checkPriceQuery.data?.price,

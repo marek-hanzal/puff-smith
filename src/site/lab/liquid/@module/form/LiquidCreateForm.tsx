@@ -36,14 +36,16 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 			<Col span={15}>
 				<CreateQuickMixDefaultForm
 					onSuccess={async response => {
-						await liquidsQueryInvalidate();
 						message.success(t("lab.liquid.quick-mix.success", {
 							data: {
 								name: response.response.name,
 								amount: -1 * response.response.transaction.amount,
 							}
 						}));
-						await puffiesQueryInvalidate();
+						await Promise.all([
+							liquidsQueryInvalidate(),
+							puffiesQueryInvalidate(),
+						]);
 						onSuccess?.(response);
 					}}
 					translation={"lab.liquid"}

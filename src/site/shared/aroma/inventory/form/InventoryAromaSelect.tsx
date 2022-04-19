@@ -12,7 +12,6 @@ export const InventoryAromaSelect: FC<IInventoryAromaSelectProps> = props => {
 			<InventoryAromasSourceSelect
 				showSearch
 				allowClear
-				style={{width: "100%"}}
 				toOption={aroma => ({
 					label: <AromaNameInline aroma={aroma}/>,
 					value: aroma.id,

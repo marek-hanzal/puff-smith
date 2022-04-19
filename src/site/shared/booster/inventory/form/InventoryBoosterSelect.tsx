@@ -16,7 +16,6 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 			<InventoryBoostersSourceSelect
 				showSearch
 				allowClear
-				style={{width: "100%"}}
 				toOption={booster => ({
 					label: <BoosterNameInline booster={booster}/>,
 					value: booster.id,

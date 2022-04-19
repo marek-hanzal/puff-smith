@@ -16,7 +16,6 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 			<InventoryBasesSourceSelect
 				showSearch
 				allowClear
-				style={{width: "100%"}}
 				toOption={base => ({
 					label: <BaseNameInline base={base}/>,
 					value: base.id,

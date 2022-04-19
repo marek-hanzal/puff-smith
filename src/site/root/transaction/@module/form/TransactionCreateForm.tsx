@@ -19,8 +19,10 @@ export const TransactionCreateForm: FC<ITransactionCreateFormProps> = ({onSucces
 		translation={"root.transaction"}
 		onSuccess={async response => {
 			message.success(t("root.transaction.create.success", {data: response.response}));
-			await transactionsQueryInvalidate();
-			await sumQueryInvalidate();
+			await Promise.all([
+				transactionsQueryInvalidate(),
+				sumQueryInvalidate(),
+			]);
 			onSuccess?.(response);
 		}}
 		{...props}

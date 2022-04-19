@@ -15,6 +15,7 @@ export const TransactionCreateButton: FC<ITransactionCreateButtonProps> = ({user
 		ghost
 		icon={<PurchaseIcon/>}
 		title={"root.transaction.create.title"}
+		label={"root.transaction.create.title"}
 		{...props}
 	>
 		<TransactionCreateForm
