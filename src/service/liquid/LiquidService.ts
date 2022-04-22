@@ -44,16 +44,16 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 					},
 					LiquidBooster: {
 						createMany: {
-								data: boosters,
-							}
-						},
-						LiquidBase: {
-							createMany: {
-								data: bases,
-							}
-						},
+							data: boosters,
+						}
 					},
-				})
+					LiquidBase: {
+						createMany: {
+							data: bases,
+						}
+					},
+				},
+			})
 			})
 		),
 	});
@@ -101,5 +101,11 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
 			nicotine,
 		}),
+		handleCleverMix: async () => {
+			throw new Error("not yet");
+		},
+		handleCleverMixInfo: async () => {
+			throw new Error("not yet");
+		},
 	};
 };

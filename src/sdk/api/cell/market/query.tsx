@@ -114,7 +114,7 @@ export const CellsMarketListSource: FC<ICellsMarketListSourceProps> = ({sourcePr
 			{...props}
 		/>
 	</CellsMarketSource>;
-};
+}
 
 export interface ICellsMarketSourceSelectProps extends IQuerySourceSelectProps<ICellMarket> {
 	toOption: IToOptionMapper<ICellMarket>;

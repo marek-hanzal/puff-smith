@@ -1,5 +1,5 @@
 import {LiquidIcon} from "@/puff-smith";
-import {LiquidQuickMixForm} from "@/puff-smith/site/lab/liquid";
+import {LiquidCleverMixForm, LiquidQuickMixForm} from "@/puff-smith/site/lab/liquid";
 import {useCheckPrice} from "@/puff-smith/site/shared/price";
 import {DollarCircleOutlined} from "@ant-design/icons";
 import {Loader, Template} from "@leight-core/client";
@@ -35,6 +35,7 @@ export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
 						extra={<Divider/>}
 						span={22}
 					>
+						<LiquidCleverMixForm/>
 					</Template>
 				</Tabs.TabPane>
 			</Tabs> :

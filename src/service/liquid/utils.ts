@@ -1,4 +1,4 @@
-import {ILiquidQuickMixInfo, IMixtureResult, IPgVgMl} from "@/puff-smith/service/liquid/interface";
+import {ILiquidQuickMixInfo, IMixtureResult, IPgVgMl} from "@/puff-smith/service/liquid";
 import {Aroma, Base, Booster} from "@prisma/client";
 
 export interface IToMlRequest {

@@ -1,3 +1,4 @@
+import {ILiquidCleverMix, ILiquidCleverMixInfo, ILiquidCleverMixInfoRequest, ILiquidQuickMix, ILiquidQuickMixInfo, ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
 import {ITransaction} from "@/puff-smith/service/transaction";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
@@ -33,16 +34,6 @@ export interface ILiquidCreate {
 	bases?: IILiquidCreateBase[];
 }
 
-export interface ILiquidQuickMix {
-	name?: string;
-	userId: string;
-	aromaId: string;
-	boosterId?: string;
-	baseId?: string;
-	nicotine?: number;
-	mixed?: Date;
-}
-
 export interface ILiquid {
 	id: string;
 	name: string;
@@ -67,13 +58,6 @@ export interface ILiquidFetchProps {
 
 export interface ILiquidFetchQuery extends ParsedUrlQuery {
 	liquidId: string;
-}
-
-export interface ILiquidQuickMixInfoRequest {
-	aromaId?: string;
-	baseId?: string;
-	boosterId?: string;
-	nicotine?: number;
 }
 
 export interface IPgVgMl {
@@ -120,15 +104,12 @@ export interface IBoosterInfo {
 	ml?: IPgVgMl;
 }
 
-export interface ILiquidQuickMixInfo {
-	aroma?: IAromaInfo;
-	base?: IBaseInfo;
-	booster?: IBoosterInfo;
-	result?: IMixtureResult;
-}
-
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
 	handleQuickMix(request: { request: ILiquidQuickMix }): Promise<ILiquid>;
 
 	handleQuickMixInfo(request: { request: ILiquidQuickMixInfoRequest }): Promise<ILiquidQuickMixInfo>;
+
+	handleCleverMix(request: { request: ILiquidCleverMix }): Promise<ILiquid>;
+
+	handleCleverMixInfo(request: { request: ILiquidCleverMixInfoRequest }): Promise<ILiquidCleverMixInfo>;
 }

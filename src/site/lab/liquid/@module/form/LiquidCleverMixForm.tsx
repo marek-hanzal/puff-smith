@@ -1,13 +1,10 @@
 import {LiquidIcon, NicotineSelect} from "@/puff-smith";
-import {ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
+import {ILiquidCleverMixInfoRequest} from "@/puff-smith/service/liquid";
 import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
-import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
-import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
-import {QuickMixInfo} from "@/puff-smith/site/shared/liquid";
+import {CreateCleverMixDefaultForm, ICreateCleverMixDefaultFormProps} from "@/sdk/api/liquid/clever-mix/create";
+import {useCleverMixInfoQuery} from "@/sdk/api/liquid/clever-mix/info";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
-import {CreateQuickMixDefaultForm, ICreateQuickMixDefaultFormProps} from "@/sdk/api/liquid/quick-mix/create";
-import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {ButtonBar, Centered, DatePicker, FormItem, Submit, toHumanNumber} from "@leight-core/client";
 import {Col, Divider, message, Row} from "antd";
@@ -15,28 +12,28 @@ import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidQuickMixFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
+export interface ILiquidCleverMixFormProps extends Partial<ICreateCleverMixDefaultFormProps> {
 }
 
-export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...props}) => {
+export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const [nicotine, setNicotine] = useState<number>(0);
-	const [request, setRequest] = useState<ILiquidQuickMixInfoRequest>({});
+	const [request, setRequest] = useState<ILiquidCleverMixInfoRequest>({});
 
-	const quickMixInfoQuery = useQuickMixInfoQuery(request, undefined, {
+	const cleverMixInfoQuery = useCleverMixInfoQuery(request, undefined, {
 		keepPreviousData: true,
 	});
-	const {data: quickMixInfo} = quickMixInfoQuery;
+	const {data: cleverMixInfo} = cleverMixInfoQuery;
 
 	return <>
-		<MixtureHint result={quickMixInfo?.result}/>
+		<MixtureHint result={cleverMixInfo?.result}/>
 		<Row gutter={32}>
 			<Col span={15}>
-				<CreateQuickMixDefaultForm
+				<CreateCleverMixDefaultForm
 					onSuccess={async response => {
-						message.success(t("lab.liquid.quick-mix.success", {
+						message.success(t("lab.liquid.clever-mix.success", {
 							data: {
 								name: response.response.name,
 								amount: toHumanNumber(-1 * response.response.transaction.amount),
@@ -55,7 +52,7 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 					})}
 					onChange={({values}) => {
 						setNicotine(values.nicotine);
-						setRequest(values.aromaId && (values.baseId || (values.nicotine > 0 && values.boosterId)) ? values : {});
+						setRequest(values.aromaId ? values : {});
 					}}
 					{...props}
 				>
@@ -66,12 +63,6 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 					<FormItem hasTooltip field={"nicotine"}>
 						<NicotineSelect/>
 					</FormItem>
-					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
-						<InventoryBoosterSelect/>
-					</FormItem>}
-					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
-						<InventoryBaseSelect/>
-					</FormItem>
 					<Divider/>
 					<FormItem field={"mixed"}>
 						<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
@@ -81,15 +72,15 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 						<ButtonBar align={"baseline"}>
 							<Submit
 								icon={<LiquidIcon/>}
-								canSubmit={!quickMixInfo?.result?.error}
+								canSubmit={!cleverMixInfo?.result?.error}
 								label={"create"}
 							/>
 						</ButtonBar>
 					</Centered>
-				</CreateQuickMixDefaultForm>
+				</CreateCleverMixDefaultForm>
 			</Col>
 			<Col span={9}>
-				<QuickMixInfo quickMixInfo={quickMixInfo}/>
+				{/*<CleverMixInfo cleverMixInfo={cleverMixInfo}/>*/}
 			</Col>
 		</Row>
 	</>;
