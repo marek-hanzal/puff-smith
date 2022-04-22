@@ -25,7 +25,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={aromaInventory}/>
+					{selectionContext ? <SelectionBool selection={aromaInventory}/> : undefined}
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 					<PgVgInline pgvg={aromaInventory.aroma}/>
 					<AromaContentInline aroma={aromaInventory.aroma}/>
