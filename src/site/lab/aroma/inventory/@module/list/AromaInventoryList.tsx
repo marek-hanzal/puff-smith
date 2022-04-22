@@ -29,7 +29,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 					<PgVgInline pgvg={aromaInventory.aroma}/>
 					<AromaContentInline aroma={aromaInventory.aroma}/>
-					<Tags color={"magenta"} tags={aromaInventory.aroma.tastes} translation={"common.taste"}/>
+					{aromaInventory.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aromaInventory.aroma.tastes} translation={"common.taste"}/>}
 				</Space>}
 			/>
 		</ListItem>}
