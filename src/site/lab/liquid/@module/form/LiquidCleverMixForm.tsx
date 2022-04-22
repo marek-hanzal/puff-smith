@@ -2,6 +2,7 @@ import {LiquidIcon, NicotineSelect} from "@/puff-smith";
 import {ILiquidCleverMixInfoRequest} from "@/puff-smith/service/liquid";
 import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
+import {CleverMixInfo} from "@/puff-smith/site/shared/liquid";
 import {CreateCleverMixDefaultForm, ICreateCleverMixDefaultFormProps} from "@/sdk/api/liquid/clever-mix/create";
 import {useCleverMixInfoQuery} from "@/sdk/api/liquid/clever-mix/info";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
@@ -80,7 +81,7 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 				</CreateCleverMixDefaultForm>
 			</Col>
 			<Col span={9}>
-				{/*<CleverMixInfo cleverMixInfo={cleverMixInfo}/>*/}
+				<CleverMixInfo cleverMixInfo={cleverMixInfo}/>
 			</Col>
 		</Row>
 	</>;
