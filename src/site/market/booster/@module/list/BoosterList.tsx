@@ -1,27 +1,27 @@
 import {NicotineInline, PgVgInline} from "@/puff-smith";
 import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
-import {BoostersListSource, IBoostersListSourceProps} from "@/sdk/api/booster/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {BoostersMarketListSource, IBoostersMarketListSourceProps} from "@/sdk/api/booster/market/query";
+import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IBoosterListProps extends Partial<IBoostersListSourceProps> {
+export interface IBoosterListProps extends Partial<IBoostersMarketListSourceProps> {
 }
 
 export const BoosterList: FC<IBoosterListProps> = props => {
-	return <BoostersListSource
+	return <BoostersMarketListSource
 		{...props}
 	>
-		{booster => <ListItem key={booster.id}>
+		{({booster, isOwned}) => <ListItem key={booster.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<BoosterNameInline booster={booster}/>
 					<PgVgInline pgvg={booster}/>
 					<NicotineInline nicotine={booster.nicotine}/>
-					<BoosterInventoryCreateButton type={"link"} booster={booster}/>
+					{isOwned ? <BoolInline bool={isOwned}/> : <BoosterInventoryCreateButton type={"link"} booster={booster}/>}
 				</Space>}
 			/>
 		</ListItem>}
-	</BoostersListSource>;
+	</BoostersMarketListSource>;
 };
