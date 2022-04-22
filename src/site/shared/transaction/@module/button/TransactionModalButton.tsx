@@ -18,6 +18,8 @@ export interface ITransactionModalButtonProps<THook extends IMutationHook<any, a
 	cost?: number | null;
 	translation: string;
 
+	onOk?(): void;
+
 	onSuccess?(): void;
 }
 
@@ -28,6 +30,7 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 		useCreateMutation,
 		toMutate,
 		isDisabled = (cost, puffiesQuery) => puffiesQuery.isLoading || (puffiesQuery.isSuccess && (cost || 0) > puffiesQuery.data),
+		onOk,
 		onSuccess,
 		...props
 	}: PropsWithChildren<ITransactionModalButtonProps<THook>>) {
@@ -49,6 +52,7 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 			okText={t(translation + ".buy.confirm.button")}
 			title={t(translation + ".buy.confirm.title")}
 			onOk={setShow => {
+				onOk?.();
 				createMutation.mutate(toMutate(), {
 					onSuccess: async data => {
 						message.success(t(translation + ".buy.success", {data}));
