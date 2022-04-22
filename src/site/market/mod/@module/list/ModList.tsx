@@ -1,26 +1,26 @@
 import {Tags} from "@/puff-smith";
 import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod";
 import {ModNameInline} from "@/puff-smith/site/shared/mod";
-import {IModsListSourceProps, ModsListSource} from "@/sdk/api/mod/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {IModsMarketListSourceProps, ModsMarketListSource} from "@/sdk/api/mod/market/query";
+import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IModListProps extends Partial<IModsListSourceProps> {
+export interface IModListProps extends Partial<IModsMarketListSourceProps> {
 }
 
 export const ModList: FC<IModListProps> = props => {
-	return <ModsListSource
+	return <ModsMarketListSource
 		{...props}
 	>
-		{mod => <ListItem key={mod.id}>
+		{({mod, isOwned}) => <ListItem key={mod.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<ModNameInline mod={mod}/>
-					<Tags tags={mod.cells}/>
-					<ModInventoryCreateButton type={"link"} mod={mod}/>
+					{mod.cells.length > 0 && <Tags tags={mod.cells}/>}
+					{isOwned ? <BoolInline bool={isOwned}/> : <ModInventoryCreateButton type={"link"} mod={mod}/>}
 				</Space>}
 			/>
 		</ListItem>}
-	</ModsListSource>;
+	</ModsMarketListSource>;
 };

@@ -1,13 +1,16 @@
 import {IMod} from "@/puff-smith/service/mod";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
 import {useCreateMutation} from "@/sdk/api/mod/inventory/create";
-import {FC} from "react";
+import {useModsMarketQueryInvalidate} from "@/sdk/api/mod/market/query";
+import {FC, useState} from "react";
 
 export interface IModInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
 	mod: IMod;
 }
 
-export const ModInventoryCreateButton: FC<IModInventoryCreateButtonProps> = ({mod, ...props}) => {
+export const ModInventoryCreateButton: FC<IModInventoryCreateButtonProps> = ({mod, disabled, ...props}) => {
+	const [enabled, setEnabled] = useState<boolean>(disabled !== undefined ? !disabled : true);
+	const modsMarketQueryInvalidate = useModsMarketQueryInvalidate();
 	return <TransactionModalButton<typeof useCreateMutation>
 		translation={"market.mod"}
 		useCreateMutation={useCreateMutation}
@@ -15,6 +18,11 @@ export const ModInventoryCreateButton: FC<IModInventoryCreateButtonProps> = ({mo
 			modId: mod.id,
 		})}
 		cost={mod.cost}
+		onOk={() => setEnabled(false)}
+		onSuccess={async () => {
+			await modsMarketQueryInvalidate();
+		}}
+		disabled={!enabled}
 		{...props}
 	/>;
 };

@@ -2,7 +2,7 @@ import {PgVgInline, Tags} from "@/puff-smith";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
 import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
 import {AromasMarketListSource, IAromasMarketListSourceProps} from "@/sdk/api/aroma/market/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -20,7 +20,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 					<PgVgInline pgvg={aroma}/>
 					<AromaContentInline aroma={aroma}/>
 					{aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aroma.tastes} translation={"common.taste"}/>}
-					<AromaInventoryCreateButton disabled={isOwned} type={"link"} aroma={aroma}/>
+					{isOwned ? <BoolInline bool={isOwned}/> : <AromaInventoryCreateButton type={"link"} aroma={aroma}/>}
 				</Space>}
 			/>
 		</ListItem>}
