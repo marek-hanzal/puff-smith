@@ -1,6 +1,7 @@
 import {AromaService} from "@/puff-smith/service/aroma";
 import {BaseService} from "@/puff-smith/service/base";
 import {BoosterService} from "@/puff-smith/service/booster";
+import {CodeService} from "@/puff-smith/service/code";
 import {ILiquidService} from "@/puff-smith/service/liquid";
 import {toLiquidQuickMixInfo} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
@@ -24,24 +25,25 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			volume: liquid.volume.toNumber(),
 			transaction: await TransactionService(prismaClient).toMap(liquid.transactionId),
 		}),
-		create: async ({aromas = [], bases = [], boosters = [], mixed, ...create}) => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
-				tariff: "default",
-				userId: create.userId,
-				price: "lab.liquid.create",
-				note: "New liquid",
-				callback: (_, transaction) => prismaClient.liquid.create({
-					data: {
-						...create,
-						transactionId: transaction.id,
-						created: new Date(),
-						mixed: mixed || new Date(),
-						LiquidAroma: {
-							createMany: {
-								data: aromas,
-							}
-						},
-						LiquidBooster: {
-							createMany: {
+		create: async ({code, aromas = [], bases = [], boosters = [], mixed, ...create}) => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
+			tariff: "default",
+			userId: create.userId,
+			price: "lab.liquid.create",
+			note: "New liquid",
+			callback: (_, transaction) => prismaClient.liquid.create({
+				data: {
+					...create,
+					code: code || CodeService().code(),
+					transactionId: transaction.id,
+					created: new Date(),
+					mixed: mixed || new Date(),
+					LiquidAroma: {
+						createMany: {
+							data: aromas,
+						}
+					},
+					LiquidBooster: {
+						createMany: {
 								data: boosters,
 							}
 						},

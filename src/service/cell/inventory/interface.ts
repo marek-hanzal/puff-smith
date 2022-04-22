@@ -5,12 +5,14 @@ import {CellInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface ICellInventoryCreate {
+	code?: string;
 	userId: string;
 	cellId: string;
 }
 
 export interface ICellInventory {
 	id: string;
+	code: string;
 	cell: ICell;
 	cellId: string;
 	transaction: ITransaction;

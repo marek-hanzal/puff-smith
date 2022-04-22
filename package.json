@@ -10,6 +10,7 @@
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
+		"prisma migrate reset": "npx dotenv -c development npx prisma migrate reset --force",
 		"prisma generate": "npx dotenv -c development npx prisma generate",
 		"prisma db push": "npx dotenv -c development npx prisma db push",
 		"prisma format": "npx dotenv -c development npx prisma format",

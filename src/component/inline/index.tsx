@@ -1,4 +1,5 @@
 export * from "./AgeOfInline";
+export * from "./CodeInline";
 export * from "./CoilSize";
 export * from "./CoilWraps";
 export * from "./Content2Inline";

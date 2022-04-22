@@ -1,3 +1,4 @@
+import {CodeService} from "@/puff-smith/service/code";
 import prisma from "@/puff-smith/service/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IVoucherInventoryService, VoucherService} from "@/puff-smith/service/voucher";
@@ -12,7 +13,7 @@ export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction =
 		voucher: await VoucherService(prismaClient).toMap(voucherTransaction.voucherId),
 		transaction: await TransactionService(prismaClient).toMap(voucherTransaction.transactionId),
 	}),
-	create: async create => prisma.$transaction(async prismaClient => {
+	create: async ({code, ...create}) => prisma.$transaction(async prismaClient => {
 		const transactionService = TransactionService(prismaClient);
 		const voucher = await VoucherService(prismaClient).toMap(create.voucherId);
 		voucher.maxFortune && (await transactionService.sumOf(create.userId)) >= voucher.maxFortune && (() => {
@@ -25,6 +26,7 @@ export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction =
 		});
 		return prismaClient.voucherInventory.create({
 			data: {
+				code: code || CodeService().code(),
 				voucherId: voucher.id,
 				transactionId: transaction.id,
 				userId: create.userId,

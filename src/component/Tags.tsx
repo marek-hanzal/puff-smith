@@ -11,12 +11,12 @@ export interface ITagsProps extends Partial<SpaceProps> {
 
 export const Tags: FC<ITagsProps> = ({tags, translation, color = "cyan", ...props}) => {
 	const {t} = useTranslation();
-	return <Space size={0} {...props}>
+	return tags.length ? <Space size={0} {...props}>
 		{tags.map(tag => <Tag
 			key={`tag-${tag.id}`}
 			color={color}
 		>
 			{translation ? t(`${translation}.${tag.code}`) : tag.code}
 		</Tag>)}
-	</Space>;
+	</Space> : null;
 };

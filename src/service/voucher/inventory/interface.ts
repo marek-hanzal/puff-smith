@@ -5,6 +5,7 @@ import {Prisma, VoucherInventory} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IVoucherInventoryCreate {
+	code?: string;
 	userId: string;
 	voucherId: string;
 }

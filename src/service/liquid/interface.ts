@@ -20,6 +20,7 @@ export interface IILiquidCreateBase {
 
 export interface ILiquidCreate {
 	name: string;
+	code?: string;
 	volume: number;
 	mixed?: Date;
 	userId: string;

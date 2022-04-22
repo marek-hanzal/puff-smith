@@ -20,7 +20,7 @@ export const ModInventoryList: FC<IModInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<ModNameInline mod={modInventory.mod}/>
-					<Tags tags={modInventory.mod.cells}/>
+					{modInventory.mod.cells.length > 0 && <Tags tags={modInventory.mod.cells}/>}
 				</Space>}
 			/>
 		</ListItem>}

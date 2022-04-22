@@ -321,6 +321,7 @@ model Cell {
 
 model CellInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   cellId        String
@@ -429,6 +430,7 @@ model Voucher {
 
 model VoucherInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   voucherId     String
@@ -538,6 +540,7 @@ model BaseInventory {
 model Liquid {
   id            String      @id @default(cuid())
   name          String
+  code          String      @unique
   nicotine      Decimal     @default(0) @db.Decimal(10, 2)
   pg            Decimal     @db.Decimal(10, 2)
   vg            Decimal     @db.Decimal(10, 2)

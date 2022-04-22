@@ -20,7 +20,7 @@ export const CottonInventoryList: FC<ICottonInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<CottonNameInline cotton={cottonInventory.cotton}/>
-					<Tags tags={cottonInventory.cotton.draws}/>
+					{cottonInventory.cotton.draws.length > 0 && <Tags tags={cottonInventory.cotton.draws}/>}
 				</Space>}
 			/>
 		</ListItem>}

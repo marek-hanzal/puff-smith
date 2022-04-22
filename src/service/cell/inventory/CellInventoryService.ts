@@ -1,4 +1,5 @@
 import {CellService, ICellInventoryService} from "@/puff-smith/service/cell";
+import {CodeService} from "@/puff-smith/service/code";
 import prisma from "@/puff-smith/service/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
@@ -12,7 +13,7 @@ export const CellInventoryService = (prismaClient: IPrismaClientTransaction = pr
 		cell: await CellService(prismaClient).toMap(cellTransaction.cellId),
 		transaction: await TransactionService(prismaClient).toMap(cellTransaction.transactionId),
 	}),
-	create: async create => prisma.$transaction(async prismaClient => {
+	create: async ({code, ...create}) => prisma.$transaction(async prismaClient => {
 		const cell = await CellService(prismaClient).toMap(create.cellId);
 		return TransactionService(prismaClient).handleTransaction({
 			userId: create.userId,
@@ -20,6 +21,7 @@ export const CellInventoryService = (prismaClient: IPrismaClientTransaction = pr
 			note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
 			callback: async transaction => prismaClient.cellInventory.create({
 				data: {
+					code: code || CodeService().code(),
 					cellId: cell.id,
 					transactionId: transaction.id,
 					userId: create.userId,

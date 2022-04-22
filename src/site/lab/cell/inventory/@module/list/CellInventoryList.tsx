@@ -1,4 +1,4 @@
-import {Tags} from "@/puff-smith";
+import {CodeInline, Tags} from "@/puff-smith";
 import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory";
 import {CellNameInline} from "@/puff-smith/site/shared/cell";
 import {CellsInventoryListSource, ICellsInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
@@ -20,6 +20,7 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<CellNameInline cell={cellInventory.cell}/>
+					<CodeInline code={cellInventory}/>
 					<Tags tags={[cellInventory.cell.type]}/>
 				</Space>}
 			/>

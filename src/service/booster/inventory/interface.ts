@@ -5,6 +5,7 @@ import {BoosterInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IBoosterInventoryCreate {
+	code?: string;
 	userId: string;
 	boosterId: string;
 }
