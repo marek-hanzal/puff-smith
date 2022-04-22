@@ -1,4 +1,4 @@
-import {IAromaService} from "@/puff-smith/service/aroma";
+import {IAromaService, IAromaWhere} from "@/puff-smith/service/aroma";
 import prisma from "@/puff-smith/service/prisma";
 import {TagService} from "@/puff-smith/service/tag";
 import {VendorService} from "@/puff-smith/service/vendor";
@@ -77,23 +77,46 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 			}
 		})),
 	}),
-	toFilter: ({fulltext, ...filter} = {}) => fulltext ? {
-		...filter,
-		OR: [
-			{
-				name: {
-					contains: fulltext,
-					mode: "insensitive",
-				}
-			},
-			{
-				vendor: {
+	toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {
+		let _filter: IAromaWhere = fulltext ? {
+			...filter,
+			OR: [
+				{
 					name: {
 						contains: fulltext,
 						mode: "insensitive",
-					},
+					}
+				},
+				{
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						},
+					}
+				},
+			],
+		} : filter;
+		if (ownedByUserId) {
+			_filter = {
+				...filter,
+				AromaInventory: {
+					some: {
+						userId: ownedByUserId,
+					}
 				}
-			},
-		],
-	} : filter,
+			};
+		}
+		if (notOwnedByUserId) {
+			_filter = {
+				...filter,
+				AromaInventory: {
+					none: {
+						userId: notOwnedByUserId,
+					}
+				}
+			};
+		}
+		return _filter;
+	},
 });

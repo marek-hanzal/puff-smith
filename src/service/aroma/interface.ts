@@ -16,7 +16,14 @@ export interface IAromaCreate {
 	tastes?: string;
 }
 
-export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationInput> {
+export type IAromaWhere = Prisma.AromaWhereInput & {
+	ownedByUserId?: string;
+	notOwnedByUserId?: string;
+	ownedByCurrentUser?: boolean;
+	notOwnedByCurrentUser?: boolean;
+};
+
+export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }
 
 export interface IAroma {
