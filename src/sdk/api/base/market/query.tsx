@@ -114,7 +114,7 @@ export const BasesMarketListSource: FC<IBasesMarketListSourceProps> = ({sourcePr
 			{...props}
 		/>
 	</BasesMarketSource>;
-};
+}
 
 export interface IBasesMarketSourceSelectProps extends IQuerySourceSelectProps<IBaseMarket> {
 	toOption: IToOptionMapper<IBaseMarket>;
