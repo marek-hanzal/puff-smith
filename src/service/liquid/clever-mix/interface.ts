@@ -1,4 +1,4 @@
-import {IMixtureResult} from "@/puff-smith/service/liquid";
+import {ILiquidQuickMixInfo} from "@/puff-smith/service/liquid";
 
 export interface ILiquidCleverMix {
 	name?: string;
@@ -16,5 +16,7 @@ export interface ILiquidCleverMixInfoRequest {
 }
 
 export interface ILiquidCleverMixInfo {
-	result?: IMixtureResult;
+	best?: ILiquidQuickMixInfo;
+	acceptable?: ILiquidQuickMixInfo;
+	poor?: ILiquidQuickMixInfo;
 }
