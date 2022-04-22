@@ -17,11 +17,11 @@ export const AromaInventoryCreateButton: FC<IAromaInventoryCreateButtonProps> = 
 		toMutate={() => ({
 			aromaId: aroma.id,
 		})}
+		cost={aroma.cost}
 		onOk={() => setEnabled(false)}
 		onSuccess={async () => {
 			await aromasMarketQueryInvalidate();
 		}}
-		cost={aroma.cost}
 		disabled={!enabled}
 		{...props}
 	/>;

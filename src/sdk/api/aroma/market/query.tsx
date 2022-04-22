@@ -114,7 +114,7 @@ export const AromasMarketListSource: FC<IAromasMarketListSourceProps> = ({source
 			{...props}
 		/>
 	</AromasMarketSource>;
-};
+}
 
 export interface IAromasMarketSourceSelectProps extends IQuerySourceSelectProps<IAromaMarket> {
 	toOption: IToOptionMapper<IAromaMarket>;

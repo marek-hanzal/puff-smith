@@ -13,14 +13,14 @@ export const AromaList: FC<IAromaListProps> = props => {
 	return <AromasMarketListSource
 		{...props}
 	>
-		{aromaMarket => <ListItem key={aromaMarket.aroma.id}>
+		{({aroma, isOwned}) => <ListItem key={aroma.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<AromaNameInline aroma={aromaMarket.aroma}/>
-					<PgVgInline pgvg={aromaMarket.aroma}/>
-					<AromaContentInline aroma={aromaMarket.aroma}/>
-					{aromaMarket.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aromaMarket.aroma.tastes} translation={"common.taste"}/>}
-					<AromaInventoryCreateButton disabled={aromaMarket.isOwned} type={"link"} aroma={aromaMarket.aroma}/>
+					<AromaNameInline aroma={aroma}/>
+					<PgVgInline pgvg={aroma}/>
+					<AromaContentInline aroma={aroma}/>
+					{aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aroma.tastes} translation={"common.taste"}/>}
+					<AromaInventoryCreateButton disabled={isOwned} type={"link"} aroma={aroma}/>
 				</Space>}
 			/>
 		</ListItem>}
