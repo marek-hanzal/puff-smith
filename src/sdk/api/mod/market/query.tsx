@@ -114,7 +114,7 @@ export const ModsMarketListSource: FC<IModsMarketListSourceProps> = ({sourceProp
 			{...props}
 		/>
 	</ModsMarketSource>;
-};
+}
 
 export interface IModsMarketSourceSelectProps extends IQuerySourceSelectProps<IModMarket> {
 	toOption: IToOptionMapper<IModMarket>;

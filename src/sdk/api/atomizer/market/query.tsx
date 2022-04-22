@@ -115,7 +115,7 @@ export const AtomizersMarketListSource: FC<IAtomizersMarketListSourceProps> = ({
 			{...props}
 		/>
 	</AtomizersMarketSource>;
-};
+}
 
 export interface IAtomizersMarketSourceSelectProps extends IQuerySourceSelectProps<IAtomizerMarket> {
 	toOption: IToOptionMapper<IAtomizerMarket>;
