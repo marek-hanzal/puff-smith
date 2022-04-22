@@ -15,10 +15,10 @@ import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidCreateFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
+export interface ILiquidQuickMixFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
 }
 
-export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...props}) => {
+export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();

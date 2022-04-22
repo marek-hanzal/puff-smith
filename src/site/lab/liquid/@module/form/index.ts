@@ -1,1 +1,1 @@
-export * from "./LiquidCreateForm";
+export * from "./LiquidQuickMixForm";
