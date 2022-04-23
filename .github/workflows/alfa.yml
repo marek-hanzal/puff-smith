@@ -133,6 +133,6 @@ jobs:
 
                         docker compose pull
                         docker compose down
-                        docker system prune -f --all
                         docker compose rm -f
+                        docker system prune -f --all
                         docker compose up -d

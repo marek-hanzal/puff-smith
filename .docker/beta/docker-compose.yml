@@ -55,6 +55,7 @@ services:
         image: grafana/grafana-oss
         networks:
             - web
+            - loki
             - prometheus
         volumes:
             - ./grafana/provisioning:/etc/grafana/provisioning
