@@ -82,8 +82,6 @@ services:
             - '--web.console.templates=/usr/share/prometheus/consoles'
         networks:
             - prometheus
-        ports:
-            - "127.0.0.1:45090:9090"
         volumes:
             - ./prometheus:/etc/prometheus
 
