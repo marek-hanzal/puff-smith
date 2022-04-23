@@ -1,16 +1,18 @@
 import {LiquidIcon} from "@/puff-smith";
+import {ILiquid} from "@/puff-smith/service/liquid";
 import {LiquidCleverMixForm, LiquidQuickMixForm} from "@/puff-smith/site/lab/liquid";
 import {useCheckPrice} from "@/puff-smith/site/shared/price";
 import {DollarCircleOutlined} from "@ant-design/icons";
-import {Loader, Template} from "@leight-core/client";
-import {Divider, Tabs} from "antd";
+import {IFormProps, Loader, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ILiquidCreateViewProps {
+	onSuccess?: IFormProps<any, ILiquid>["onSuccess"];
 }
 
-export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
+export const LiquidCreateView: FC<ILiquidCreateViewProps> = ({onSuccess}) => {
 	const {t} = useTranslation();
 	const checkPrice = useCheckPrice("lab.liquid.create");
 	return <Loader
@@ -22,20 +24,16 @@ export const LiquidCreateView: FC<ILiquidCreateViewProps> = () => {
 			<Tabs>
 				<Tabs.TabPane key={"quick-mix"} tab={t("lab.liquid.create.quick-mix.tab")}>
 					<Template
-						label={"lab.liquid.create.quick-mix"}
-						extra={<Divider/>}
 						span={22}
 					>
-						<LiquidQuickMixForm/>
+						<LiquidQuickMixForm onSuccess={onSuccess}/>
 					</Template>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={"clever-mix"} tab={t("lab.liquid.create.clever-mix.tab")}>
 					<Template
-						label={"lab.liquid.create.clever-mix"}
-						extra={<Divider/>}
 						span={22}
 					>
-						<LiquidCleverMixForm/>
+						<LiquidCleverMixForm onSuccess={onSuccess}/>
 					</Template>
 				</Tabs.TabPane>
 			</Tabs> :

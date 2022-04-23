@@ -10,7 +10,10 @@ const migrations = [
 
 export default function MigrationJob(agenda: Agenda) {
 	let logger = Logger("migration");
-	agenda.define(MigrateJobName, (async () => {
+	agenda.define(MigrateJobName, {
+		concurrency: 1,
+		priority: 100,
+	}, (async () => {
 		logger.info("Running migrations");
 		await Promise.all(migrations.map(async migration => {
 			const labels = {migration: migration.name()};

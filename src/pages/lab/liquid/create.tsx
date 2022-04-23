@@ -19,6 +19,10 @@ export default withLabLayout(function Create() {
 			/>
 		</ButtonBar>}
 	>
-		<LiquidCreateView/>
+		<LiquidCreateView
+			onSuccess={({navigate}) => {
+				navigate("/lab/liquid");
+			}}
+		/>
 	</LabPage>;
 });
