@@ -1,15 +1,19 @@
+import {ImportJobName} from "@/puff-smith/agenda/job/import";
+import {MigrateJobName} from "@/puff-smith/agenda/job/migrate";
+import {MixtureJobName} from "@/puff-smith/agenda/job/mixture";
 import {BootstrapLogger} from "@leight-core/server";
 import {collectDefaultMetrics, register} from "prom-client";
 
 const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") => {
 	BootstrapLogger([
 		"job",
-		"import",
 		"service",
 		"endpoint",
 		"auth",
 		"query",
-		"migration",
+		ImportJobName,
+		MigrateJobName,
+		MixtureJobName,
 	], version);
 	try {
 		register.setDefaultLabels({

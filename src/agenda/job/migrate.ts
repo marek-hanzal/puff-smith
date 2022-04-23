@@ -9,7 +9,7 @@ const migrations = [
 ];
 
 export default function MigrationJob(agenda: Agenda) {
-	let logger = Logger("migration");
+	let logger = Logger(MigrateJobName);
 	agenda.define(MigrateJobName, {
 		concurrency: 1,
 		priority: 100,

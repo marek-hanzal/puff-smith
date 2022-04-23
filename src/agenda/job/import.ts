@@ -1,3 +1,5 @@
+import {asyncJob} from "@/puff-smith/agenda/agenda";
+import {MixtureJobName} from "@/puff-smith/agenda/job/mixture";
 import {AromaService} from "@/puff-smith/service/aroma";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {BaseService} from "@/puff-smith/service/base";
@@ -41,7 +43,7 @@ export interface IImportParams extends IQueryParams {
 }
 
 export default function ImportJob(agenda: Agenda) {
-	let logger = Logger("import");
+	let logger = Logger(ImportJobName);
 	agenda.define(ImportJobName, {
 		concurrency: 1,
 		priority: 50,
@@ -87,5 +89,6 @@ export default function ImportJob(agenda: Agenda) {
 			logger.error(`Import failed.`, {error: e});
 			await jobUpdateStatus(theJob.id, "FAILURE");
 		}
+		await asyncJob(MixtureJobName, undefined, theJob.userId);
 	}) as Processor);
 };

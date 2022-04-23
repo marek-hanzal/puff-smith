@@ -18,7 +18,7 @@ export async function Agenda(): Promise<CoolAgenda> {
 	return agenda;
 }
 
-export const asyncJob = async <TParams>(name: string, params: TParams, userId?: string): Promise<IJob<TParams> | void> => {
+export const asyncJob = async <TParams>(name: string, params: TParams, userId?: string | null): Promise<IJob<TParams> | void> => {
 	const logger = Logger("job");
 	logger.info("New job", {labels: {job: name}, params, userId});
 	return prismaClient.$transaction(async prisma => {
@@ -27,9 +27,9 @@ export const asyncJob = async <TParams>(name: string, params: TParams, userId?: 
 			name,
 			params,
 		}, prisma));
-		logger.debug("Executing agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, params, userId});
+		logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		await (await Agenda()).now(name, job);
-		logger.debug("Done", {labels: {job: name, jobId: job.id}, jobId: job.id, params, userId});
+		logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		return job;
 	});
 };
