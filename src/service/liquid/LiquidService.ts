@@ -12,6 +12,10 @@ import {RepositoryService} from "@leight-core/server";
 
 export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
 	const service = RepositoryService<ILiquidService>({
+		toFilter: filter => {
+			throw new Error("BOOM-BAC");
+			return ({...filter, archived: null});
+		},
 		name: "liquid",
 		source: prismaClient.liquid,
 		mapper: async liquid => ({
@@ -26,34 +30,34 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			transaction: await TransactionService(prismaClient).toMap(liquid.transactionId),
 		}),
 		create: async ({code, aromas = [], bases = [], boosters = [], mixed, ...create}) => prisma.$transaction(prismaClient => TariffService(prismaClient).transactionOf({
-			tariff: "default",
-			userId: create.userId,
-			price: "lab.liquid.create",
-			note: "New liquid",
-			callback: (_, transaction) => prismaClient.liquid.create({
-				data: {
-					...create,
-					code: code || CodeService().code(),
-					transactionId: transaction.id,
-					created: new Date(),
-					mixed: mixed || new Date(),
-					LiquidAroma: {
-						createMany: {
-							data: aromas,
-						}
+				tariff: "default",
+				userId: create.userId,
+				price: "lab.liquid.create",
+				note: "New liquid",
+				callback: (_, transaction) => prismaClient.liquid.create({
+					data: {
+						...create,
+						code: code || CodeService().code(),
+						transactionId: transaction.id,
+						created: new Date(),
+						mixed: mixed || new Date(),
+						LiquidAroma: {
+							createMany: {
+								data: aromas,
+							}
+						},
+						LiquidBooster: {
+							createMany: {
+								data: boosters,
+							}
+						},
+						LiquidBase: {
+							createMany: {
+								data: bases,
+							}
+						},
 					},
-					LiquidBooster: {
-						createMany: {
-							data: boosters,
-						}
-					},
-					LiquidBase: {
-						createMany: {
-							data: bases,
-						}
-					},
-				},
-			})
+				})
 			})
 		),
 	});
@@ -106,6 +110,24 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 		},
 		handleCleverMixInfo: async () => {
 			throw new Error("not yet");
+		},
+		handleDelete: async ({request: {ids, userId}}) => {
+			if (!userId) {
+				throw new Error("Invalid operation: User is not specified.");
+			}
+			const where = {
+				id: {
+					in: ids,
+				},
+				userId,
+			};
+			await prismaClient.liquid.updateMany({
+				where,
+				data: {
+					archived: new Date(),
+				},
+			});
+			return service.list(prismaClient.liquid.findMany({where}));
 		},
 	};
 };

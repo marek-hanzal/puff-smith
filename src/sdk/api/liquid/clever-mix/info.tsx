@@ -21,4 +21,4 @@ export const CleverMixInfoPromise = createPromise<ILiquidCleverMixInfoRequest, I
 export const useCleverMixInfoQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CleverMixInfoApiLink]);
-};
+}

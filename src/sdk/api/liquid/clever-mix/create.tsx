@@ -16,7 +16,7 @@ export const useCreateCleverMixMutation = createMutationHook<Omit<ILiquidCleverM
 export const useCreateCleverMixQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateCleverMixApiLink]);
-};
+}
 
 export interface ICreateCleverMixDefaultFormProps extends Partial<IFormProps<Omit<ILiquidCleverMix, "userId">, ILiquid>> {
 }
@@ -24,7 +24,7 @@ export interface ICreateCleverMixDefaultFormProps extends Partial<IFormProps<Omi
 export const CreateCleverMixDefaultForm: FC<ICreateCleverMixDefaultFormProps> = props => <Form<Omit<ILiquidCleverMix, "userId">, ILiquid>
 	useMutation={useCreateCleverMixMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateCleverMixLink = (queryParams?: ICreateCleverMixQueryParams) => toLink(CreateCleverMixApiLink, queryParams);
 export const useCreateCleverMixLink = () => toCreateCleverMixLink;

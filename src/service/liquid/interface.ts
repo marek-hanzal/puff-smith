@@ -34,9 +34,15 @@ export interface ILiquidCreate {
 	bases?: IILiquidCreateBase[];
 }
 
+export interface ILiquidDelete {
+	ids: string[];
+	userId: string;
+}
+
 export interface ILiquid {
 	id: string;
 	name: string;
+	code: string;
 	nicotine: number;
 	pg: number;
 	vg: number;
@@ -112,4 +118,6 @@ export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid
 	handleCleverMix(request: { request: ILiquidCleverMix }): Promise<ILiquid>;
 
 	handleCleverMixInfo(request: { request: ILiquidCleverMixInfoRequest }): Promise<ILiquidCleverMixInfo>;
+
+	handleDelete(request: { request: ILiquidDelete }): Promise<ILiquid[]>;
 }
