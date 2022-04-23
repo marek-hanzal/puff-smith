@@ -11,7 +11,7 @@ export interface IJobQuery extends IQuery<IJobFilter, IJobOrderBy> {
 }
 
 export interface IJobCreate {
-	userId?: string;
+	userId?: string | null;
 	name: string;
 	params?: any;
 }
