@@ -42,7 +42,10 @@ export interface IImportParams extends IQueryParams {
 
 export default function ImportJob(agenda: Agenda) {
 	let logger = Logger("import");
-	agenda.define(ImportJobName, (async (job: Job<IJob<IImportParams>>) => {
+	agenda.define(ImportJobName, {
+		concurrency: 1,
+		priority: 50,
+	}, (async (job: Job<IJob<IImportParams>>) => {
 		const labels = {jobId: job.attrs.data?.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		logger.info("Preparing import");

@@ -9,23 +9,23 @@ export interface IJobStatsInlineProps {
 
 export const JobStatsInline: FC<IJobStatsInlineProps> = ({job}) => {
 	return <Space size={0} split={<Divider type={"vertical"}/>}>
-		<Typography.Text type={"success"}>
+		{job.success && <Typography.Text type={"success"}>
 			<Space>
 				<CheckCircleOutlined/>
-				<span>{job.success}</span>
+				<span>{job.success || 0}</span>
 			</Space>
-		</Typography.Text>
-		<Typography.Text type={"warning"}>
+		</Typography.Text>}
+		{job.skip && <Typography.Text type={"warning"}>
 			<Space>
 				<MinusCircleOutlined/>
-				<span>{job.skip || 0}</span>
+				<span>{job.skip}</span>
 			</Space>
-		</Typography.Text>
-		<Typography.Text type={"danger"}>
+		</Typography.Text>}
+		{job.failure && <Typography.Text type={"danger"}>
 			<Space>
 				<CloseCircleOutlined/>
-				<span>{job.failure || 0}</span>
+				<span>{job.failure}</span>
 			</Space>
-		</Typography.Text>
+		</Typography.Text>}
 	</Space>;
 };

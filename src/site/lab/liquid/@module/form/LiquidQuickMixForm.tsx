@@ -1,6 +1,5 @@
 import {LiquidIcon, NicotineSelect} from "@/puff-smith";
 import {ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
-import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
@@ -30,67 +29,64 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 	});
 	const {data: quickMixInfo} = quickMixInfoQuery;
 
-	return <>
-		<MixtureHint result={quickMixInfo?.result}/>
-		<Row gutter={32}>
-			<Col span={15}>
-				<CreateQuickMixDefaultForm
-					onSuccess={async response => {
-						message.success(t("lab.liquid.quick-mix.success", {
-							data: {
-								name: response.response.name,
-								amount: toHumanNumber(-1 * response.response.transaction.amount),
-							}
-						}));
-						await Promise.all([
-							liquidsQueryInvalidate(),
-							puffiesQueryInvalidate(),
-						]);
-						onSuccess?.(response);
-					}}
-					translation={"lab.liquid"}
-					toForm={() => ({
-						mixed: moment(),
-						nicotine,
-					})}
-					onChange={({values}) => {
-						setNicotine(values.nicotine);
-						setRequest(values.aromaId && (values.baseId || (values.nicotine > 0 && values.boosterId)) ? values : {});
-					}}
-					{...props}
-				>
-					<FormItem hasTooltip field={"aromaId"} required>
-						<InventoryAromaSelect/>
-					</FormItem>
-					<Divider/>
-					<FormItem hasTooltip field={"nicotine"}>
-						<NicotineSelect/>
-					</FormItem>
-					{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
-						<InventoryBoosterSelect/>
-					</FormItem>}
-					<FormItem hasTooltip field={"baseId"} required={!nicotine}>
-						<InventoryBaseSelect/>
-					</FormItem>
-					<Divider/>
-					<FormItem field={"mixed"}>
-						<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
-					</FormItem>
-					<Divider/>
-					<Centered>
-						<ButtonBar align={"baseline"}>
-							<Submit
-								icon={<LiquidIcon/>}
-								canSubmit={!quickMixInfo?.result?.error}
-								label={"create"}
-							/>
-						</ButtonBar>
-					</Centered>
-				</CreateQuickMixDefaultForm>
-			</Col>
-			<Col span={9}>
-				<QuickMixInfo quickMixInfo={quickMixInfo}/>
-			</Col>
-		</Row>
-	</>;
+	return <Row gutter={64}>
+		<Col span={10}>
+			<CreateQuickMixDefaultForm
+				onSuccess={async response => {
+					message.success(t("lab.liquid.quick-mix.success", {
+						data: {
+							name: response.response.name,
+							amount: toHumanNumber(-1 * response.response.transaction.amount),
+						}
+					}));
+					await Promise.all([
+						liquidsQueryInvalidate(),
+						puffiesQueryInvalidate(),
+					]);
+					onSuccess?.(response);
+				}}
+				translation={"lab.liquid"}
+				toForm={() => ({
+					mixed: moment(),
+					nicotine,
+				})}
+				onChange={({values}) => {
+					setNicotine(values.nicotine);
+					setRequest(values.aromaId && (values.baseId || (values.nicotine > 0 && values.boosterId)) ? values : {});
+				}}
+				{...props}
+			>
+				<FormItem hasTooltip field={"aromaId"} required>
+					<InventoryAromaSelect/>
+				</FormItem>
+				<Divider/>
+				<FormItem hasTooltip field={"nicotine"}>
+					<NicotineSelect/>
+				</FormItem>
+				{nicotine > 0 && <FormItem hasTooltip field={"boosterId"} required>
+					<InventoryBoosterSelect/>
+				</FormItem>}
+				<FormItem hasTooltip field={"baseId"} required={!nicotine}>
+					<InventoryBaseSelect/>
+				</FormItem>
+				<Divider/>
+				<FormItem field={"mixed"}>
+					<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
+				</FormItem>
+				<Divider/>
+				<Centered>
+					<ButtonBar align={"baseline"}>
+						<Submit
+							icon={<LiquidIcon/>}
+							canSubmit={!quickMixInfo?.result?.error}
+							label={"create"}
+						/>
+					</ButtonBar>
+				</Centered>
+			</CreateQuickMixDefaultForm>
+		</Col>
+		<Col span={14}>
+			<QuickMixInfo quickMixInfo={quickMixInfo}/>
+		</Col>
+	</Row>;
 };

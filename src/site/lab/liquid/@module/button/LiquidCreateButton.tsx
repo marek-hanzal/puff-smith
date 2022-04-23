@@ -1,24 +1,17 @@
 import {LiquidIcon} from "@/puff-smith";
-import {LiquidCreateView} from "@/puff-smith/site/lab/liquid";
-import {DrawerButton, FilterProvider, IDrawerButtonProps} from "@leight-core/client";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {FC} from "react";
 
-export interface ILiquidCreateButtonProps extends Partial<IDrawerButtonProps> {
+export interface ILiquidCreateButtonProps extends Partial<IButtonLinkProps> {
 }
 
 export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = props => {
-	return <DrawerButton
-		size={"large"}
+	return <ButtonLink
 		type={"primary"}
-		ghost
 		icon={<LiquidIcon/>}
-		title={"lab.liquid.create.title"}
-		label={"lab.liquid.create.title"}
-		width={875}
+		size={"large"}
+		href={"/lab/liquid/create"}
+		title={"lab.liquid.create.button"}
 		{...props}
-	>
-		<FilterProvider name={"LiquidCreateButton"}>
-			<LiquidCreateView/>
-		</FilterProvider>
-	</DrawerButton>;
+	/>;
 };

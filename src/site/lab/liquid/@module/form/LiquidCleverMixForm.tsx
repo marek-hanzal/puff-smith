@@ -27,61 +27,58 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 	});
 	const {data: cleverMixInfo} = cleverMixInfoQuery;
 
-	return <>
-		{/*<MixtureHint result={cleverMixInfo?.result}/>*/}
-		<Row gutter={32}>
-			<Col span={15}>
-				<CreateCleverMixDefaultForm
-					onSuccess={async response => {
-						message.success(t("lab.liquid.clever-mix.success", {
-							data: {
-								name: response.response.name,
-								amount: toHumanNumber(-1 * response.response.transaction.amount),
-							}
-						}));
-						await Promise.all([
-							liquidsQueryInvalidate(),
-							puffiesQueryInvalidate(),
-						]);
-						onSuccess?.(response);
-					}}
-					translation={"lab.liquid"}
-					toForm={() => ({
-						mixed: moment(),
-						nicotine,
-					})}
-					onChange={({values}) => {
-						setNicotine(values.nicotine);
-						setRequest(values.aromaId ? values : {});
-					}}
-					{...props}
-				>
-					<FormItem hasTooltip field={"aromaId"} required>
-						<InventoryAromaSelect/>
-					</FormItem>
-					<Divider/>
-					<FormItem hasTooltip field={"nicotine"}>
-						<NicotineSelect/>
-					</FormItem>
-					<Divider/>
-					<FormItem field={"mixed"}>
-						<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
-					</FormItem>
-					<Divider/>
-					<Centered>
-						<ButtonBar align={"baseline"}>
-							<Submit
-								icon={<LiquidIcon/>}
-								// canSubmit={!cleverMixInfo?.result?.error}
-								label={"create"}
-							/>
-						</ButtonBar>
-					</Centered>
-				</CreateCleverMixDefaultForm>
-			</Col>
-			<Col span={9}>
-				<CleverMixInfo cleverMixInfo={cleverMixInfo}/>
-			</Col>
-		</Row>
-	</>;
+	return <Row gutter={64}>
+		<Col span={10}>
+			<CreateCleverMixDefaultForm
+				onSuccess={async response => {
+					message.success(t("lab.liquid.clever-mix.success", {
+						data: {
+							name: response.response.name,
+							amount: toHumanNumber(-1 * response.response.transaction.amount),
+						}
+					}));
+					await Promise.all([
+						liquidsQueryInvalidate(),
+						puffiesQueryInvalidate(),
+					]);
+					onSuccess?.(response);
+				}}
+				translation={"lab.liquid"}
+				toForm={() => ({
+					mixed: moment(),
+					nicotine,
+				})}
+				onChange={({values}) => {
+					setNicotine(values.nicotine);
+					setRequest(values.aromaId ? values : {});
+				}}
+				{...props}
+			>
+				<FormItem hasTooltip field={"aromaId"} required>
+					<InventoryAromaSelect/>
+				</FormItem>
+				<Divider/>
+				<FormItem hasTooltip field={"nicotine"}>
+					<NicotineSelect/>
+				</FormItem>
+				<Divider/>
+				<FormItem field={"mixed"}>
+					<DatePicker disabledDate={date => date && date > moment().endOf("day")} style={{width: "100%"}}/>
+				</FormItem>
+				<Divider/>
+				<Centered>
+					<ButtonBar align={"baseline"}>
+						<Submit
+							icon={<LiquidIcon/>}
+							// canSubmit={!cleverMixInfo?.result?.error}
+							label={"create"}
+						/>
+					</ButtonBar>
+				</Centered>
+			</CreateCleverMixDefaultForm>
+		</Col>
+		<Col span={14}>
+			<CleverMixInfo cleverMixInfo={cleverMixInfo}/>
+		</Col>
+	</Row>;
 };
