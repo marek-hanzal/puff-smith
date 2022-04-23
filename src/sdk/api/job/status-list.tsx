@@ -130,7 +130,7 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 					<QuerySourceSelect<IBaseSelectOption> {...props}/>
 				</StatusListSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.StatusList.title"}

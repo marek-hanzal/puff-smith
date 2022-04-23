@@ -132,7 +132,7 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 					<QuerySourceSelect<IVoucherInventory> {...props}/>
 				</VouchersInventorySource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.VouchersInventory.title"}

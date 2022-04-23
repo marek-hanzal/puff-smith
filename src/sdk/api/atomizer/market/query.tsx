@@ -132,7 +132,7 @@ export const AtomizersMarketSourceSelect: FC<IAtomizersMarketSourceSelectProps> 
 					<QuerySourceSelect<IAtomizerMarket> {...props}/>
 				</AtomizersMarketSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.AtomizersMarket.title"}

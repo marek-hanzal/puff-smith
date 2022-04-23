@@ -131,7 +131,7 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 					<QuerySourceSelect<IMod> {...props}/>
 				</ModsSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Mods.title"}
