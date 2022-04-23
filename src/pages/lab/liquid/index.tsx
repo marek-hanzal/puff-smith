@@ -1,9 +1,10 @@
 import {LiquidIcon} from "@/puff-smith";
 import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {LiquidCreateButton, LiquidList} from "@/puff-smith/site/lab/liquid";
+import {LiquidCreateButton, LiquidList, LiquidListToolbar} from "@/puff-smith/site/lab/liquid";
 import {QuickFilter} from "@/puff-smith/site/shared/liquid";
 import {LiquidsSourceControlProvider} from "@/sdk/api/liquid/query";
-import {ButtonBar} from "@leight-core/client";
+import {ButtonBar, SelectionProvider} from "@leight-core/client";
+import {Space} from "antd";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -19,9 +20,14 @@ export default withLabLayout(function Index() {
 				mixed: "asc",
 			}}
 		>
-			<LiquidList
-				header={() => <QuickFilter/>}
-			/>
+			<SelectionProvider type={"multi"}>
+				<LiquidList
+					header={() => <Space direction={"vertical"} size={"large"}>
+						<QuickFilter/>
+						<LiquidListToolbar/>
+					</Space>}
+				/>
+			</SelectionProvider>
 		</LiquidsSourceControlProvider>
 	</LabPage>;
 });
