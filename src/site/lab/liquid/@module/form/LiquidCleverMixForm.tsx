@@ -1,6 +1,5 @@
 import {LiquidIcon, NicotineSelect} from "@/puff-smith";
 import {ILiquidCleverMixInfoRequest} from "@/puff-smith/service/liquid";
-import {MixtureHint} from "@/puff-smith/site/lab/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {CleverMixInfo} from "@/puff-smith/site/shared/liquid";
 import {CreateCleverMixDefaultForm, ICreateCleverMixDefaultFormProps} from "@/sdk/api/liquid/clever-mix/create";
@@ -29,7 +28,7 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 	const {data: cleverMixInfo} = cleverMixInfoQuery;
 
 	return <>
-		<MixtureHint result={cleverMixInfo?.result}/>
+		{/*<MixtureHint result={cleverMixInfo?.result}/>*/}
 		<Row gutter={32}>
 			<Col span={15}>
 				<CreateCleverMixDefaultForm
@@ -73,7 +72,7 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 						<ButtonBar align={"baseline"}>
 							<Submit
 								icon={<LiquidIcon/>}
-								canSubmit={!cleverMixInfo?.result?.error}
+								// canSubmit={!cleverMixInfo?.result?.error}
 								label={"create"}
 							/>
 						</ButtonBar>

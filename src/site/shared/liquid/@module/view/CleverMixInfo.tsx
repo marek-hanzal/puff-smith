@@ -1,6 +1,4 @@
-import {LiquidIcon} from "@/puff-smith";
 import {ILiquidCleverMixInfo} from "@/puff-smith/service/liquid";
-import {Template} from "@leight-core/client";
 import {FC} from "react";
 
 export interface ICleverMixInfoProps {
@@ -8,9 +6,5 @@ export interface ICleverMixInfoProps {
 }
 
 export const CleverMixInfo: FC<ICleverMixInfoProps> = ({cleverMixInfo}) => {
-	return cleverMixInfo?.result ? <>
-	</> : <Template
-		icon={<LiquidIcon/>}
-		label={"lab.liquid.clever-info"}
-	/>;
+	return null;
 };
