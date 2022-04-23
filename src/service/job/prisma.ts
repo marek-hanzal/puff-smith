@@ -47,6 +47,7 @@ export async function jobUpdateStatus(jobId: string, status: IJobStatus) {
 	return await prismaClient.job.update({
 		data: {
 			status,
+			finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : undefined,
 		},
 		where: {
 			id: jobId,
