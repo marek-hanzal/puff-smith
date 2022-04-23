@@ -1,6 +1,7 @@
+import {JobStatsInline} from "@/puff-smith/site/root/job";
 import {JobProgress, JobsListHeader} from "@/puff-smith/site/shared/job";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
-import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
+import {durationOf, ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {Space, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -39,7 +40,13 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 					})}
 					<Typography.Text type={"secondary"}>{t("common.job.name." + job.name)}</Typography.Text>
 				</Space>}
-				description={toLocalDateTime(job.created)}
+				description={<Space size={"large"}>
+					<Space size={"small"}>
+						{toLocalDateTime(job.created)}
+						{job.finished && `(${durationOf(job.finished, job.created).humanize()})`}
+					</Space>
+					<JobStatsInline job={job}/>
+				</Space>}
 			/>
 			<JobProgress job={job}/>
 		</ListItem>}
