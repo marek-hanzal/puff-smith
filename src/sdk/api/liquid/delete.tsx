@@ -16,7 +16,7 @@ export const useDeleteMutation = createMutationHook<Omit<ILiquidDelete, "userId"
 export const useDeleteQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DeleteApiLink]);
-};
+}
 
 export interface IDeleteDefaultFormProps extends Partial<IFormProps<Omit<ILiquidDelete, "userId">, ILiquid[]>> {
 }
@@ -24,7 +24,7 @@ export interface IDeleteDefaultFormProps extends Partial<IFormProps<Omit<ILiquid
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => <Form<Omit<ILiquidDelete, "userId">, ILiquid[]>
 	useMutation={useDeleteMutation}
 	{...props}
-/>;
+/>
 
 export const toDeleteLink = (queryParams?: IDeleteQueryParams) => toLink(DeleteApiLink, queryParams);
 export const useDeleteLink = () => toDeleteLink;

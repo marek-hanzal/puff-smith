@@ -131,7 +131,7 @@ export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectPro
 					<QuerySourceSelect<IBooster> {...props}/>
 				</InventoryBoostersSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryBoosters.title"}

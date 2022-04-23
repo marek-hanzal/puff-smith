@@ -131,7 +131,7 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, s
 					<QuerySourceSelect<IAroma> {...props}/>
 				</AromasSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Aromas.title"}

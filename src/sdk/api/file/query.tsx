@@ -131,7 +131,7 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 					<QuerySourceSelect<IFile> {...props}/>
 				</FilesSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Files.title"}

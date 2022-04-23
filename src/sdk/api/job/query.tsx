@@ -131,7 +131,7 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 					<QuerySourceSelect<IJob> {...props}/>
 				</JobsSource>
 			</Col>
-			<Col span={selectionList ? 2 : 0}>
+			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Jobs.title"}
