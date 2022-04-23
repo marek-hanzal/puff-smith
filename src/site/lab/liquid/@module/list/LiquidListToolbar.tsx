@@ -28,9 +28,16 @@ export const LiquidListToolbar: FC<ILiquidListToolbarProps> = props => {
 				icon: <DeleteItemIcon/>,
 			}}
 			title={"lab.liquid.delete.modal.title"}
+			confirmLoading={deleteMutation.isLoading}
+			cancelButtonProps={{
+				disabled: deleteMutation.isLoading,
+			}}
+			closable={!deleteMutation.isLoading}
+			maskClosable={!deleteMutation.isLoading}
 			onOk={setShow => {
 				deleteMutation.mutate({ids: selectionContext.toSelection()}, {
 					onSuccess: async () => {
+						selectionContext.clear();
 						message.success(t("lab.liquid.delete.success"));
 						await liquidsQueryInvalidate();
 					},

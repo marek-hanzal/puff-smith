@@ -12,10 +12,6 @@ import {RepositoryService} from "@leight-core/server";
 
 export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
 	const service = RepositoryService<ILiquidService>({
-		toFilter: filter => {
-			throw new Error("BOOM-BAC");
-			return ({...filter, archived: null});
-		},
 		name: "liquid",
 		source: prismaClient.liquid,
 		mapper: async liquid => ({
@@ -60,6 +56,7 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 				})
 			})
 		),
+		toFilter: filter => ({...filter, archived: null}),
 	});
 
 	return {

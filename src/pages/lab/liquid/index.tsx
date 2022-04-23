@@ -22,9 +22,9 @@ export default withLabLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<LiquidList
-					header={() => <Space direction={"vertical"} size={"large"}>
-						<QuickFilter/>
+					header={() => <Space size={"large"}>
 						<LiquidListToolbar/>
+						<QuickFilter/>
 					</Space>}
 				/>
 			</SelectionProvider>
