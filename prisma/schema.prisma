@@ -455,8 +455,9 @@ model Aroma {
   AromaInventory AromaInventory[]
   LiquidAroma    LiquidAroma[]
   AromaComment   AromaComment[]
+  AromaTaste     AromaTaste[]
+  Mixture        Mixture[]
 
-  AromaTaste AromaTaste[]
   @@unique([name, vendorId])
 }
 
@@ -499,6 +500,7 @@ model Booster {
 
   BoosterInventory BoosterInventory[]
   LiquidBooster    LiquidBooster[]
+  Mixture          Mixture[]
 
   @@unique([name, vendorId])
 }
@@ -524,6 +526,7 @@ model Base {
 
   BaseInventory BaseInventory[]
   LiquidBase    LiquidBase[]
+  Mixture       Mixture[]
 
   @@unique([name, vendorId])
 }
@@ -585,4 +588,32 @@ model LiquidBooster {
   liquid    Liquid  @relation(fields: [liquidId], references: [id], onDelete: Cascade)
   boosterId String
   booster   Booster @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+}
+
+model Mixture {
+  id        String        @id @default(cuid())
+  // amount of liquid in a bottle
+  content   Decimal       @db.Decimal(10, 2)
+  // volume - content => amount of extra or missing liquid
+  diff      Decimal       @db.Decimal(10, 2)
+  // amount of nicotine (mg/ml)
+  nicotine  Decimal       @db.Decimal(10, 2)
+  // vg/pg ratio
+  vg        Decimal       @db.Decimal(10, 2)
+  pg        Decimal       @db.Decimal(10, 2)
+  // vg/pg in ml
+  vgToMl    Decimal       @db.Decimal(10, 2)
+  pgToMl    Decimal       @db.Decimal(10, 2)
+  aromaId   String
+  aroma     Aroma         @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  boosterId String?
+  booster   Booster?      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  baseId    String?
+  base      Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  error     MixtureError?
+}
+
+enum MixtureError {
+  LESS
+  MORE
 }
