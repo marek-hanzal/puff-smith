@@ -23,7 +23,7 @@ export interface ICommitDefaultFormProps extends Partial<IFormProps<void, void>>
 export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, void>
 	useMutation={useCommitMutation}
 	{...props}
-/>;
+/>
 
 export const toCommitLink = (queryParams?: ICommitQueryParams) => toLink(CommitApiLink, queryParams);
 export const useCommitLink = () => toCommitLink;

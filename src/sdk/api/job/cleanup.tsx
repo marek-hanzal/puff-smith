@@ -17,7 +17,7 @@ export const useCleanupMutation = createMutationHook<IQueryFilter<IJobQuery> | u
 export const useCleanupQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CleanupApiLink]);
-};
+}
 
 export interface ICleanupDefaultFormProps extends Partial<IFormProps<IQueryFilter<IJobQuery> | undefined, void>> {
 }
@@ -25,7 +25,7 @@ export interface ICleanupDefaultFormProps extends Partial<IFormProps<IQueryFilte
 export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<IQueryFilter<IJobQuery> | undefined, void>
 	useMutation={useCleanupMutation}
 	{...props}
-/>;
+/>
 
 export const toCleanupLink = (queryParams?: ICleanupQueryParams) => toLink(CleanupApiLink, queryParams);
 export const useCleanupLink = () => toCleanupLink;
