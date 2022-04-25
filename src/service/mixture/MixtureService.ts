@@ -25,8 +25,6 @@ export const MixtureService = (prismaClient: IPrismaClientTransaction = prisma) 
 		};
 	},
 	create: async mixture => prismaClient.mixture.create({
-		data: {
-			...mixture,
-		},
+		data: mixture,
 	}),
 });
