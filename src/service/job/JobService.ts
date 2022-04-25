@@ -137,6 +137,18 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					jobService,
 					name,
 					logger,
+					progress: async callback => {
+						try {
+							const result = await callback();
+							await jobProgress.onSuccess();
+							return result;
+						} catch (e) {
+							await jobProgress.onFailure();
+							if (e instanceof Error) {
+								logger.error(e.message);
+							}
+						}
+					},
 				}) === undefined) {
 					await jobProgress.status(((jobProgress.failure || 0 > 0) || (jobProgress.skip || 0 > 0) ? "REVIEW" : "SUCCESS"));
 				}

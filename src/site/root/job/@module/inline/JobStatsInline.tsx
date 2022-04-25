@@ -27,11 +27,11 @@ export const JobStatsInline: FC<IJobStatsInlineProps> = ({job}) => {
 				<span>{job.failure}</span>
 			</Space>
 		</Typography.Text>}
-		<Typography.Text type={"secondary"}>
+		{job.total > 0 && <Typography.Text type={"secondary"}>
 			<Space>
 				<RiseOutlined/>
 				<span>{job.total}</span>
 			</Space>
-		</Typography.Text>
+		</Typography.Text>}
 	</Space>;
 };
