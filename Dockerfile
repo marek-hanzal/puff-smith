@@ -7,7 +7,8 @@ RUN npm install
 
 FROM node:16-alpine as builder
 ARG BUILD=edge
-ARG DATABASE_URL=postgres://nope
+ARG DATABASE_URL="postgres://nope"
+ARG AGENDA_URL="nope:1234@localhost:21700"
 ARG LOKI_URL="http://loki:3100"
 
 ENV \
@@ -16,6 +17,7 @@ ENV \
 	DISABLE_TELEMETRY=1 \
 	BUILD=${BUILD} \
 	DATABASE_URL=${DATABASE_URL} \
+	AGENDA_URL=${AGENDA_URL} \
 	LOKI_URL=${LOKI_URL}
 
 WORKDIR /opt/app
