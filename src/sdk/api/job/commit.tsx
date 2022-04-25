@@ -10,24 +10,24 @@ export const CommitApiLink = "/api/job/commit";
 
 export type ICommitQueryParams = undefined;
 
-export const useCommitMutation = createMutationHook<void, boolean>(CommitApiLink, "post");
+export const useCommitMutation = createMutationHook<void, void>(CommitApiLink, "post");
 
 export const useCommitQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CommitApiLink]);
 }
 
-export interface ICommitDefaultFormProps extends Partial<IFormProps<void, boolean>> {
+export interface ICommitDefaultFormProps extends Partial<IFormProps<void, void>> {
 }
 
-export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, boolean>
+export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, void>
 	useMutation={useCommitMutation}
 	{...props}
-/>
+/>;
 
 export const toCommitLink = (queryParams?: ICommitQueryParams) => toLink(CommitApiLink, queryParams);
 export const useCommitLink = () => toCommitLink;
 
-export const useCommitPromise = createPromiseHook<void, boolean>(CommitApiLink, "post");
+export const useCommitPromise = createPromiseHook<void, void>(CommitApiLink, "post");
 
-export const CommitPromise = createPromise<void, boolean>(CommitApiLink, "post");
+export const CommitPromise = createPromise<void, void>(CommitApiLink, "post");
