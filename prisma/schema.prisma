@@ -592,6 +592,8 @@ model LiquidBooster {
 
 model Mixture {
   id        String        @id @default(cuid())
+  // total size of a bottle
+  volume    Decimal       @db.Decimal(10, 2)
   // amount of liquid in a bottle
   content   Decimal       @db.Decimal(10, 2)
   // volume - content => amount of extra or missing liquid

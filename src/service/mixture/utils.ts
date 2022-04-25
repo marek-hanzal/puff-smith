@@ -205,7 +205,7 @@ const toMixtureResult = ({volume, nicotine, fluids}: IToMixtureResultRequest): I
 		volume: total,
 		content: volume - total,
 		error: total > volume ? "MORE" : total < volume ? "LESS" : undefined,
-		nicotine: nicotine ? nicotine / volume : 0,
+		nicotine: nicotine && nicotine > 0 ? nicotine / volume : 0,
 		ml: {
 			pg,
 			vg,
