@@ -591,31 +591,41 @@ model LiquidBooster {
 }
 
 model Mixture {
-  id        String        @id @default(cuid())
+  id              String        @id @default(cuid())
   // total size of a bottle
-  volume    Decimal       @db.Decimal(10, 2)
+  volume          Decimal       @db.Decimal(10, 2)
   // amount of liquid in a bottle
-  content   Decimal       @db.Decimal(10, 2)
+  content         Decimal       @db.Decimal(10, 2)
+  // amount of available space to be filled
+  available       Decimal       @db.Decimal(10, 2)
   // volume - content => amount of extra or missing liquid
-  diff      Decimal       @db.Decimal(10, 2)
+  diff            Decimal       @db.Decimal(10, 2)
   // amount of nicotine (mg/ml)
-  nicotine  Decimal       @db.Decimal(10, 2)
+  nicotine        Decimal       @db.Decimal(10, 2)
+  nicotineToRound Int
   // vg/pg ratio
-  vg        Decimal       @db.Decimal(10, 2)
-  pg        Decimal       @db.Decimal(10, 2)
+  vg              Decimal       @db.Decimal(10, 2)
+  pg              Decimal       @db.Decimal(10, 2)
   // vg/pg in ml
-  vgToMl    Decimal       @db.Decimal(10, 2)
-  pgToMl    Decimal       @db.Decimal(10, 2)
-  aromaId   String
-  aroma     Aroma         @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  boosterId String?
-  booster   Booster?      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  baseId    String?
-  base      Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  error     MixtureError?
+  vgToMl          Decimal       @db.Decimal(10, 2)
+  // rounded VG ratio (for example 70 instead of 76)
+  vgToRound       Int
+  pgToMl          Decimal       @db.Decimal(10, 2)
+  // rounded PG ratio (for example 70 instead of 76)
+  pgToRound       Int
+  aromaId         String
+  aroma           Aroma         @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  boosterId       String?
+  booster         Booster?      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  boosterCount    Int
+  baseId          String?
+  base            Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  baseMl          Decimal       @db.Decimal(10, 2)
+  error           MixtureError?
 }
 
 enum MixtureError {
   LESS
   MORE
+  FULL
 }

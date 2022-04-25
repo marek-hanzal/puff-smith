@@ -10,9 +10,8 @@ export default function MixtureJob(agenda: Agenda) {
 		concurrency: 1,
 		priority: 5,
 	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
-		const maxNicotine = 0;
-		// await jobProgress.total(maxNicotine * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
-		await jobProgress.total(await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
+		const maxNicotine = 18;
+		await jobProgress.total(maxNicotine * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
 		await prisma.mixture.deleteMany();
 		/**
@@ -36,8 +35,11 @@ export default function MixtureJob(agenda: Agenda) {
 							return mixtureService.create({
 								aromaId: aroma.id,
 								baseId: info.base?.baseId,
+								baseMl: info.base?.volume || 0,
 								boosterId: info.booster?.boosterId,
+								boosterCount: info.booster?.count || 0,
 								volume,
+								available: info.available,
 								content: info.result.volume,
 								diff: info.result.volume - volume,
 								vg: info.result.ratio.vg,

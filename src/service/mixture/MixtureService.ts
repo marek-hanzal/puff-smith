@@ -16,15 +16,23 @@ export const MixtureService = (prismaClient: IPrismaClientTransaction = prisma) 
 			nicotine: mixture.nicotine.toNumber(),
 			vg: mixture.vg.toNumber(),
 			pg: mixture.pg.toNumber(),
-			vgToRound: Math.round(mixture.vg.toNumber() * 0.1) / 0.1,
-			pgToRound: Math.round(mixture.pg.toNumber() * 0.1) / 0.1,
+			vgToRound: mixture.vgToRound,
+			pgToRound: mixture.pgToRound,
 			vgToMl: mixture.vgToMl.toNumber(),
 			pgToMl: mixture.pgToMl.toNumber(),
 			aroma,
 			volume: aroma.volume || 0,
 		};
 	},
-	create: async mixture => prismaClient.mixture.create({
-		data: mixture,
-	}),
+	create: async mixture => {
+		const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;
+		return prismaClient.mixture.create({
+			data: {
+				...mixture,
+				vgToRound,
+				pgToRound: 100 - vgToRound,
+				nicotineToRound: Math.round(mixture.nicotine || 0),
+			},
+		});
+	},
 });

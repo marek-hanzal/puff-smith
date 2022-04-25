@@ -5,14 +5,17 @@ import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export type IMixtureError = "LESS" | "MORE";
+export type IMixtureError = "LESS" | "MORE" | "FULL";
 
 export interface IMixtureCreate {
 	aromaId: string;
 	boosterId?: string;
+	boosterCount: number;
 	baseId?: string;
+	baseMl: number;
 	content: number;
 	volume: number;
+	available: number;
 	diff: number;
 	nicotine: number;
 	vg: number;
