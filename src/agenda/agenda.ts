@@ -1,12 +1,10 @@
 import {Agenda as CoolAgenda} from "agenda";
 
 const agenda = new CoolAgenda({
-	db: {
-		address: process.env.AGENDA_DB || (() => {
-			throw new Error("Missing env variable \"AGENDA_DB\"!");
-		})(),
+	db: process.env.AGENDA_DB ? {
+		address: process.env.AGENDA_DB,
 		collection: "agenda",
-	}
+	} : undefined,
 });
 
 export async function Agenda(): Promise<CoolAgenda> {
