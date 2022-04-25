@@ -10,7 +10,7 @@ export default function MixtureJob(agenda: Agenda) {
 		concurrency: 1,
 		priority: 5,
 	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
-		const maxNicotine = 6;
+		const maxNicotine = 0;
 		// await jobProgress.total(maxNicotine * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
 		await jobProgress.total(await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
@@ -18,7 +18,7 @@ export default function MixtureJob(agenda: Agenda) {
 		/**
 		 * For loop through nicotine strengths (0-20mg/ml).
 		 */
-		for (let nicotine = 6; nicotine <= maxNicotine; nicotine++) {
+		for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
 			/**
 			 * run through all aromas...
 			 */
@@ -32,13 +32,14 @@ export default function MixtureJob(agenda: Agenda) {
 								booster,
 								base,
 							});
+							const volume = aroma.volume?.toNumber() || aroma.content.toNumber();
 							return mixtureService.create({
 								aromaId: aroma.id,
 								baseId: info.base?.baseId,
 								boosterId: info.booster?.boosterId,
-								volume: aroma.volume?.toNumber() || aroma.content.toNumber(),
-								content: info.result.content,
-								diff: info.result.volume - info.result.content,
+								volume,
+								content: info.result.volume,
+								diff: info.result.volume - volume,
 								vg: info.result.ratio.vg,
 								pg: info.result.ratio.pg,
 								vgToMl: info.result.ml.vg,

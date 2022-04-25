@@ -99,8 +99,8 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 
 		return {
 			aroma: aromaInfo,
-			base: baseInfo?.volume > 0 ? baseInfo : undefined,
-			booster: boosterInfo,
+			base: baseInfo.volume > 0 ? baseInfo : undefined,
+			booster: boosterInfo.volume > 0 ? boosterInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
 				nicotine: boosterVolume * booster.nicotine.toNumber(),
@@ -130,7 +130,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 		return {
 			aroma: aromaInfo,
-			booster: boosterInfo,
+			booster: boosterInfo.volume > 0 ? boosterInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
 				fluids: [
@@ -154,7 +154,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 		return {
 			aroma: aromaInfo,
-			base: baseInfo,
+			base: baseInfo.volume > 0 ? baseInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
 				fluids: [
