@@ -141,8 +141,9 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					await jobProgress.status(((jobProgress.failure || 0 > 0) || (jobProgress.skip || 0 > 0) ? "REVIEW" : "SUCCESS"));
 				}
 			} catch (e) {
+				logger.error(`Job [${name}] failed.`);
 				if (e instanceof Error) {
-					logger.error(`Job [${name}] failed.`, {error: e.message});
+					logger.error(e.message);
 				}
 				await jobProgress.status("FAILURE");
 			}
