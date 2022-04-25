@@ -15,7 +15,7 @@ export const useMixtureUpdateMutation = createMutationHook<void, any>(MixtureUpd
 export const useMixtureUpdateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureUpdateApiLink]);
-};
+}
 
 export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<void, any>> {
 }
@@ -23,7 +23,7 @@ export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<void,
 export const MixtureUpdateDefaultForm: FC<IMixtureUpdateDefaultFormProps> = props => <Form<void, any>
 	useMutation={useMixtureUpdateMutation}
 	{...props}
-/>;
+/>
 
 export const toMixtureUpdateLink = (queryParams?: IMixtureUpdateQueryParams) => toLink(MixtureUpdateApiLink, queryParams);
 export const useMixtureUpdateLink = () => toMixtureUpdateLink;

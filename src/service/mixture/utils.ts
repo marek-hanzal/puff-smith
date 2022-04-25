@@ -13,6 +13,7 @@ export interface IMixtureInfo {
 	base?: IBaseInfo;
 	booster?: IBoosterInfo;
 	result: IMixtureResult;
+	available: number;
 }
 
 export interface IVgPgMl {
@@ -48,11 +49,12 @@ export interface IBoosterInfo {
 }
 
 export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): Promise<IMixtureInfo> => {
+	const available = (aroma.volume ? aroma.volume.toNumber() : aroma.content.toNumber()) - aroma.content.toNumber();
 	const aromaInfo: IAromaInfo = {
 		aromaId: aroma.id,
 		content: aroma.content.toNumber(),
 		volume: aroma.volume?.toNumber() || aroma.content.toNumber(),
-		available: aroma.volume && (aroma.volume.toNumber() - aroma.content.toNumber()) || aroma.content.toNumber(),
+		available,
 		pg: aroma.pg.toNumber(),
 		vg: aroma.vg.toNumber(),
 		ml: toMl({
@@ -99,10 +101,12 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 
 		return {
 			aroma: aromaInfo,
-			base: baseInfo.volume > 0 ? baseInfo : undefined,
-			booster: boosterInfo.volume > 0 ? boosterInfo : undefined,
+			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
+			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
+			available,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
+				available,
 				nicotine: boosterVolume * booster.nicotine.toNumber(),
 				fluids: [
 					aromaInfo.ml,
@@ -130,9 +134,11 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 		return {
 			aroma: aromaInfo,
-			booster: boosterInfo.volume > 0 ? boosterInfo : undefined,
+			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
+			available,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
+				available,
 				fluids: [
 					aromaInfo.ml,
 					boosterInfo.ml,
@@ -154,9 +160,11 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 		return {
 			aroma: aromaInfo,
-			base: baseInfo.volume > 0 ? baseInfo : undefined,
+			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
+			available,
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
+				available,
 				fluids: [
 					aromaInfo.ml,
 					baseInfo.ml,
@@ -166,8 +174,10 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 	}
 	return {
 		aroma: aromaInfo,
+		available,
 		result: toMixtureResult({
 			volume: aromaInfo.volume || 0,
+			available,
 			fluids: [
 				aromaInfo.ml,
 			],
@@ -177,6 +187,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 
 interface IToMixtureResultRequest {
 	volume: number;
+	available: number;
 	nicotine?: number;
 	fluids: (IVgPgMl | undefined)[];
 }
@@ -196,7 +207,7 @@ interface IMixtureResult {
 	};
 }
 
-const toMixtureResult = ({volume, nicotine, fluids}: IToMixtureResultRequest): IMixtureResult => {
+const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResultRequest): IMixtureResult => {
 	const _fluids = fluids.filter((ml): ml is IVgPgMl => !!ml);
 	const pg = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vg = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
@@ -204,7 +215,7 @@ const toMixtureResult = ({volume, nicotine, fluids}: IToMixtureResultRequest): I
 	return {
 		volume: total,
 		content: volume - total,
-		error: total > volume ? "MORE" : total < volume ? "LESS" : undefined,
+		error: available <= 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
 		nicotine: nicotine && nicotine > 0 ? nicotine / volume : 0,
 		ml: {
 			pg,
