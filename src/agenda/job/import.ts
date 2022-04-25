@@ -14,7 +14,7 @@ import {TranslationService} from "@/puff-smith/service/translation";
 import {VendorService} from "@/puff-smith/service/vendor";
 import {VoucherService} from "@/puff-smith/service/voucher";
 import {IJob, IQueryParams} from "@leight-core/api";
-import {Logger, toImport} from "@leight-core/server";
+import {toImport} from "@leight-core/server";
 import {Agenda, Job, Processor} from "agenda";
 import xlsx from "xlsx";
 
@@ -41,30 +41,26 @@ export interface IImportParams extends IQueryParams {
 }
 
 export default function ImportJob(agenda: Agenda) {
-	let logger = Logger(ImportJobName);
 	agenda.define(ImportJobName, {
 		concurrency: 1,
 		priority: 50,
-	}, (async (job: Job<IJob<IImportParams>>) => {
-		const jobService = JobService();
-		const labels = {jobId: job.attrs.data?.id};
+	}, JobService().handle<IImportParams>(ImportJobName, async ({logger, job, jobProgress}) => {
+		const labels = {jobId: job.id};
 		logger = logger.child({labels, jobId: labels.jobId});
-		logger.info("Preparing import");
-		const theJob = job.attrs.data;
-		if (!theJob) {
-			logger.error(`Missing data (job) for ImportJob`);
-			return;
-		}
-		const jobProgress = jobService.createProgress(theJob.id);
 		logger.info("Checking fileId");
-		const fileId = theJob.params?.fileId;
+		const fileId = job.params?.fileId;
 		if (!fileId) {
 			await jobProgress.status("REVIEW");
-			logger.error(`Missing fileId for ImportJob`, {labels});
+			logger.error(`Missing fileId for [${ImportJobName}].`, {labels});
 			return;
 		}
 		logger = logger.child({labels: {...labels, fileId}, fileId});
-		logger.info(`Marking job as running`);
+	}));
+
+
+	(async (job: Job<IJob<IImportParams>>) => {
+
+
 		await jobProgress.status("RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
@@ -82,5 +78,5 @@ export default function ImportJob(agenda: Agenda) {
 			await jobProgress.status("FAILURE");
 		}
 		await jobService.schedule(ImportJobName, undefined, theJob.userId);
-	}) as Processor);
+	}) as Processor;
 };
