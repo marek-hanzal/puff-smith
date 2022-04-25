@@ -1,10 +1,10 @@
-import {IMixtureResult} from "@/puff-smith/service/liquid";
+import {IMixture} from "@/puff-smith/service/mixture";
 import {Alert} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IMixtureHintProps {
-	result?: IMixtureResult;
+	result?: IMixture;
 }
 
 export const MixtureHint: FC<IMixtureHintProps> = ({result}) => {
@@ -20,7 +20,7 @@ export const MixtureHint: FC<IMixtureHintProps> = ({result}) => {
 		/>;
 	}
 
-	const message = t("lab.liquid.hint.vg." + (Math.round(result.ratio.vg * 0.1) / 0.1), "");
+	const message = t("lab.liquid.hint.vg." + result.vgToRound, "");
 	return message ? <Alert
 		type={"success"}
 		message={message}

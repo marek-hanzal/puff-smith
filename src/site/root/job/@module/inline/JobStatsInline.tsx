@@ -1,4 +1,4 @@
-import {CheckCircleOutlined, CloseCircleOutlined, MinusCircleOutlined} from "@ant-design/icons";
+import {CheckCircleOutlined, CloseCircleOutlined, MinusCircleOutlined, RiseOutlined} from "@ant-design/icons";
 import {IJob} from "@leight-core/api";
 import {Divider, Space, Typography} from "antd";
 import {FC} from "react";
@@ -27,5 +27,11 @@ export const JobStatsInline: FC<IJobStatsInlineProps> = ({job}) => {
 				<span>{job.failure}</span>
 			</Space>
 		</Typography.Text>}
+		<Typography.Text type={"secondary"}>
+			<Space>
+				<RiseOutlined/>
+				<span>{job.total}</span>
+			</Space>
+		</Typography.Text>
 	</Space>;
 };

@@ -1,12 +1,9 @@
 import {LiquidIcon, NicotineSelect} from "@/puff-smith";
-import {ILiquidQuickMixInfoRequest} from "@/puff-smith/service/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
 import {InventoryBaseSelect} from "@/puff-smith/site/shared/base/inventory";
 import {InventoryBoosterSelect} from "@/puff-smith/site/shared/booster/inventory";
-import {QuickMixInfo} from "@/puff-smith/site/shared/liquid";
+import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
-import {CreateQuickMixDefaultForm, ICreateQuickMixDefaultFormProps} from "@/sdk/api/liquid/quick-mix/create";
-import {useQuickMixInfoQuery} from "@/sdk/api/liquid/quick-mix/info";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {ButtonBar, Centered, DatePicker, FormItem, Submit, toHumanNumber} from "@leight-core/client";
 import {Col, Divider, message, Row} from "antd";
@@ -14,7 +11,7 @@ import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidQuickMixFormProps extends Partial<ICreateQuickMixDefaultFormProps> {
+export interface ILiquidQuickMixFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...props}) => {
@@ -22,16 +19,10 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const [nicotine, setNicotine] = useState<number>(0);
-	const [request, setRequest] = useState<ILiquidQuickMixInfoRequest>({});
-
-	const quickMixInfoQuery = useQuickMixInfoQuery(request, undefined, {
-		keepPreviousData: true,
-	});
-	const {data: quickMixInfo} = quickMixInfoQuery;
 
 	return <Row gutter={64}>
 		<Col span={10}>
-			<CreateQuickMixDefaultForm
+			<CreateDefaultForm
 				onSuccess={async response => {
 					message.success(t("lab.liquid.quick-mix.success", {
 						data: {
@@ -52,7 +43,7 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 				})}
 				onChange={({values}) => {
 					setNicotine(values.nicotine);
-					setRequest(values.aromaId && (values.baseId || (values.nicotine > 0 && values.boosterId)) ? values : {});
+					// setRequest(values.aromaId && (values.baseId || (values.nicotine > 0 && values.boosterId)) ? values : {});
 				}}
 				{...props}
 			>
@@ -78,15 +69,15 @@ export const LiquidQuickMixForm: FC<ILiquidQuickMixFormProps> = ({onSuccess, ...
 					<ButtonBar align={"baseline"}>
 						<Submit
 							icon={<LiquidIcon/>}
-							canSubmit={!quickMixInfo?.result?.error}
+							// canSubmit={!quickMixInfo?.result?.error}
 							label={"create"}
 						/>
 					</ButtonBar>
 				</Centered>
-			</CreateQuickMixDefaultForm>
+			</CreateDefaultForm>
 		</Col>
 		<Col span={14}>
-			<QuickMixInfo quickMixInfo={quickMixInfo}/>
+			<h1>show IMixtureView</h1>
 		</Col>
 	</Row>;
 };

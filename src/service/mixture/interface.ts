@@ -33,6 +33,8 @@ export interface IMixture {
 	nicotine: number;
 	vg: number;
 	pg: number;
+	vgToRound: number;
+	pgToRound: number;
 	vgToMl: number;
 	pgToMl: number;
 	aromaId: string;

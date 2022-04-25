@@ -1,9 +1,6 @@
 import {LiquidIcon, NicotineSelect} from "@/puff-smith";
-import {ILiquidCleverMixInfoRequest} from "@/puff-smith/service/liquid";
 import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
-import {CleverMixInfo} from "@/puff-smith/site/shared/liquid";
-import {CreateCleverMixDefaultForm, ICreateCleverMixDefaultFormProps} from "@/sdk/api/liquid/clever-mix/create";
-import {useCleverMixInfoQuery} from "@/sdk/api/liquid/clever-mix/info";
+import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {ButtonBar, Centered, DatePicker, FormItem, Submit, toHumanNumber} from "@leight-core/client";
@@ -12,7 +9,7 @@ import moment from "moment";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidCleverMixFormProps extends Partial<ICreateCleverMixDefaultFormProps> {
+export interface ILiquidCleverMixFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, ...props}) => {
@@ -20,16 +17,11 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const [nicotine, setNicotine] = useState<number>(0);
-	const [request, setRequest] = useState<ILiquidCleverMixInfoRequest>({});
-
-	const cleverMixInfoQuery = useCleverMixInfoQuery(request, undefined, {
-		keepPreviousData: true,
-	});
-	const {data: cleverMixInfo} = cleverMixInfoQuery;
+	const [request, setRequest] = useState<any>({});
 
 	return <Row gutter={64}>
 		<Col span={10}>
-			<CreateCleverMixDefaultForm
+			<CreateDefaultForm
 				onSuccess={async response => {
 					message.success(t("lab.liquid.clever-mix.success", {
 						data: {
@@ -75,10 +67,10 @@ export const LiquidCleverMixForm: FC<ILiquidCleverMixFormProps> = ({onSuccess, .
 						/>
 					</ButtonBar>
 				</Centered>
-			</CreateCleverMixDefaultForm>
+			</CreateDefaultForm>
 		</Col>
 		<Col span={14}>
-			<CleverMixInfo cleverMixInfo={cleverMixInfo}/>
+			<h1>show IMixtureView</h1>
 		</Col>
 	</Row>;
 };

@@ -1,17 +1,13 @@
-import {AromaService} from "@/puff-smith/service/aroma";
-import {BaseService} from "@/puff-smith/service/base";
-import {BoosterService} from "@/puff-smith/service/booster";
 import {CodeService} from "@/puff-smith/service/code";
 import {ILiquidService} from "@/puff-smith/service/liquid";
-import {toLiquidQuickMixInfo} from "@/puff-smith/service/liquid/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {TariffService} from "@/puff-smith/service/tariff";
 import {TransactionService} from "@/puff-smith/service/transaction";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => {
-	const service = RepositoryService<ILiquidService>({
+export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): ILiquidService => ({
+	...RepositoryService<ILiquidService>({
 		name: "liquid",
 		source: prismaClient.liquid,
 		mapper: async liquid => ({
@@ -57,74 +53,23 @@ export const LiquidService = (prismaClient: IPrismaClientTransaction = prisma): 
 			})
 		),
 		toFilter: filter => ({...filter, archived: null}),
-	});
-
-	return {
-		...service,
-		handleQuickMix: async ({request: {name, userId, nicotine, aromaId, boosterId, baseId, mixed}}) => {
-			const aroma = await AromaService(prismaClient).fetch(aromaId);
-			const quickMixInfo = toLiquidQuickMixInfo({
-				aroma,
-				base: baseId ? await BaseService(prismaClient).fetch(baseId) : undefined,
-				booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
-				nicotine,
-			});
-			if (quickMixInfo.result?.error) {
-				throw new Error(`Cannot create mix: "${quickMixInfo.result.error}".`);
-			}
-
-			const pgvg = quickMixInfo.result?.ratio || {pg: aroma.pg.toNumber(), vg: aroma.vg.toNumber()};
-
-			return service.handleCreate({
-				request: {
-					...pgvg,
-					name: name || aroma.name,
-					userId,
-					mixed,
-					steep: aroma.steep,
-					nicotine: quickMixInfo.result?.nicotine,
-					volume: aroma.volume?.toNumber() || aroma.content.toNumber(),
-					aromas: [
-						{aromaId, content: quickMixInfo.aroma?.content || 0},
-					],
-					boosters: boosterId ? [
-						{boosterId, content: quickMixInfo.booster?.volume || 0},
-					] : [],
-					bases: baseId ? [
-						{baseId, content: quickMixInfo.base?.volume || 0},
-					] : [],
-				}
-			});
-		},
-		handleQuickMixInfo: async ({request: {aromaId, baseId, boosterId, nicotine}}) => toLiquidQuickMixInfo({
-			aroma: aromaId ? await AromaService(prismaClient).fetch(aromaId) : undefined,
-			base: baseId ? await BaseService(prismaClient).fetch(baseId) : undefined,
-			booster: boosterId ? await BoosterService(prismaClient).fetch(boosterId) : undefined,
-			nicotine,
-		}),
-		handleCleverMix: async () => {
-			throw new Error("not yet");
-		},
-		handleCleverMixInfo: async () => {
-			throw new Error("not yet");
-		},
-		handleDelete: async ({request: {ids, userId}}) => {
-			if (!userId) {
-				throw new Error("Invalid operation: User is not specified.");
-			}
-			const where = {
-				id: {
-					in: ids,
-				},
-				userId,
-			};
-			await prismaClient.liquid.updateMany({
-				where,
-				data: {
-					archived: new Date(),
-				},
-			});
-			return service.list(prismaClient.liquid.findMany({where}));
-		},
-	};
-};
+	}),
+	handleDelete: async ({request: {ids, userId}}) => {
+		if (!userId) {
+			throw new Error("Invalid operation: User is not specified.");
+		}
+		const where = {
+			id: {
+				in: ids,
+			},
+			userId,
+		};
+		await prismaClient.liquid.updateMany({
+			where,
+			data: {
+				archived: new Date(),
+			},
+		});
+		return LiquidService(prismaClient).list(prismaClient.liquid.findMany({where}));
+	}
+});
