@@ -1,6 +1,6 @@
+import {JobService} from "@/puff-smith/service/job";
 import {FixturesMigration} from "@/puff-smith/service/migration";
-import {Logger} from "@leight-core/server";
-import {Agenda, Processor} from "agenda";
+import {Agenda} from "agenda";
 
 export const MigrateJobName = "migrate";
 
@@ -9,13 +9,12 @@ const migrations = [
 ];
 
 export default function MigrationJob(agenda: Agenda) {
-	let logger = Logger(MigrateJobName);
 	agenda.define(MigrateJobName, {
 		concurrency: 1,
 		priority: 100,
-	}, (async () => {
+	}, JobService().handle(MigrateJobName, async ({logger}) => {
 		logger.info("Running migrations");
-		await Promise.all(migrations.map(async migration => {
+		for (const migration of migrations) {
 			const labels = {migration: migration.name()};
 			const others = labels;
 			logger.info("Checking migration", {labels, ...others});
@@ -26,7 +25,7 @@ export default function MigrationJob(agenda: Agenda) {
 			logger.info("Running migration", {labels, ...others});
 			await migration.run();
 			logger.info("Migration done", {labels, ...others});
-		}));
+		}
 		logger.info("Migrations done");
-	}) as Processor);
+	}));
 }
