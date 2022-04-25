@@ -1,4 +1,3 @@
-import {jobUpdateStatus} from "@/puff-smith/service/job";
 import {IJob} from "@leight-core/api";
 import {Logger} from "@leight-core/server";
 import {Agenda, Job, Processor} from "agenda";
@@ -18,6 +17,5 @@ export default function MixtureJob(agenda: Agenda) {
 			return;
 		}
 		logger.info("Mixtures updated");
-		await jobUpdateStatus(theJob.id, "SUCCESS");
 	}) as Processor);
 }

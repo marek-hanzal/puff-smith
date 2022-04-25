@@ -1,4 +1,5 @@
-import {IJobFilter, jobCleanup} from "@/puff-smith/service/job";
+import {IJobQuery, JobService} from "@/puff-smith/service/job";
+import {IQueryFilter} from "@leight-core/api";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"Cleanup", IJobFilter | undefined, boolean>(({req: {body}}) => jobCleanup(body));
+export default MutationEndpoint<"Cleanup", IQueryFilter<IJobQuery> | undefined, void>(({request}) => JobService().cleanup(request));

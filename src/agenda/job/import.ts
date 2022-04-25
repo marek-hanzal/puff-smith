@@ -1,5 +1,3 @@
-import {asyncJob} from "@/puff-smith/agenda/agenda";
-import {MixtureJobName} from "@/puff-smith/agenda/job/mixture";
 import {AromaService} from "@/puff-smith/service/aroma";
 import {AtomizerService} from "@/puff-smith/service/atomizer";
 import {BaseService} from "@/puff-smith/service/base";
@@ -7,7 +5,7 @@ import {BoosterService} from "@/puff-smith/service/booster";
 import {CellService} from "@/puff-smith/service/cell";
 import {CottonService} from "@/puff-smith/service/cotton";
 import {fileService} from "@/puff-smith/service/file";
-import {jobUpdateFailure, jobUpdateSkip, jobUpdateStatus, jobUpdateSuccess, jobUpdateTotal} from "@/puff-smith/service/job";
+import {JobService} from "@/puff-smith/service/job";
 import {ModService} from "@/puff-smith/service/mod";
 import {PriceService} from "@/puff-smith/service/price";
 import {TagService} from "@/puff-smith/service/tag";
@@ -48,6 +46,7 @@ export default function ImportJob(agenda: Agenda) {
 		concurrency: 1,
 		priority: 50,
 	}, (async (job: Job<IJob<IImportParams>>) => {
+		const jobService = JobService();
 		const labels = {jobId: job.attrs.data?.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		logger.info("Preparing import");
@@ -56,39 +55,32 @@ export default function ImportJob(agenda: Agenda) {
 			logger.error(`Missing data (job) for ImportJob`);
 			return;
 		}
+		const jobProgress = jobService.createProgress(theJob.id);
 		logger.info("Checking fileId");
 		const fileId = theJob.params?.fileId;
 		if (!fileId) {
-			await jobUpdateStatus(theJob.id, "REVIEW");
+			await jobProgress.status("REVIEW");
 			logger.error(`Missing fileId for ImportJob`, {labels});
 			return;
 		}
 		logger = logger.child({labels: {...labels, fileId}, fileId});
 		logger.info(`Marking job as running`);
-		await jobUpdateStatus(theJob.id, "RUNNING");
+		await jobProgress.status("RUNNING");
 		try {
 			const workbook = xlsx.readFile(fileService.toLocation(fileId));
 			logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 			const result = await toImport(theJob, workbook, importHandlers, {
-				async onTotal(total): Promise<void> {
-					await jobUpdateTotal(theJob.id, total);
-				},
-				async onSuccess(success, total, processed): Promise<void> {
-					await jobUpdateSuccess(theJob.id, success, total, processed);
-				},
-				async onSkip(skip, total, processed): Promise<void> {
-					await jobUpdateSkip(theJob.id, skip, total, processed);
-				},
-				async onFailure(error, failure, total, processed): Promise<void> {
-					await jobUpdateFailure(theJob.id, failure, total, processed);
-				}
+				onTotal: jobProgress.total,
+				onSuccess: jobProgress.onSuccess,
+				onFailure: jobProgress.onFailure,
+				onSkip: jobProgress.onSkip,
 			});
 			logger.info("Import done");
-			await ((result.failure || 0 > 0) || (result.skip || 0 > 0) ? jobUpdateStatus(theJob.id, "REVIEW") : jobUpdateStatus(theJob.id, "SUCCESS"));
+			await jobProgress.status(((result.failure || 0 > 0) || (result.skip || 0 > 0) ? "REVIEW" : "SUCCESS"));
 		} catch (e) {
 			logger.error(`Import failed.`, {error: e});
-			await jobUpdateStatus(theJob.id, "FAILURE");
+			await jobProgress.status("FAILURE");
 		}
-		await asyncJob(MixtureJobName, undefined, theJob.userId);
+		await jobService.schedule(ImportJobName, undefined, theJob.userId);
 	}) as Processor);
 };

@@ -1,5 +1,5 @@
-import {asyncJob} from "@/puff-smith/agenda/agenda";
 import {ImportJobName} from "@/puff-smith/agenda/job/import";
+import {JobService} from "@/puff-smith/service/job";
 import {IFileStoreRequest} from "@leight-core/api";
 import {FileService} from "@leight-core/server";
 
@@ -9,7 +9,7 @@ export const fileService = FileService({
 	}
 });
 
-export const scheduleFileImport = async (request: Pick<IFileStoreRequest, "name" | "file">) => asyncJob(ImportJobName, {
+export const scheduleFileImport = async (request: Pick<IFileStoreRequest, "name" | "file">) => JobService().schedule(ImportJobName, {
 	fileId: fileService.store({
 		...request,
 		file: process.cwd() + request.file,
