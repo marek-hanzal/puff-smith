@@ -1,9 +1,10 @@
 import {Agenda} from "@/puff-smith/agenda/agenda";
 import {IJobService} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IJob, IPrismaClientTransaction} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
+import {Job} from "agenda";
 
 export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJobService => ({
 	...RepositoryService<IJobService>({
@@ -33,6 +34,9 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 		let _skip = 0;
 		return {
 			jobId,
+			success: _success,
+			failure: _failure,
+			skip: _skip,
 			total: total => prismaClient.job.update({
 				data: {
 					total: (_total = total),
@@ -105,24 +109,43 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 				name,
 				params,
 			});
+			const theJob = await jobService.map(job);
 			logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
-			await (await Agenda()).now(name, job);
+			await (await Agenda()).now(name, theJob);
 			logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
-			return await jobService.map(job);
+			return theJob;
 		});
 	},
-	handle: async (name, handler) => {
+	handle: (name, handler) => {
 		let logger = Logger(name);
 		const jobService = JobService(prismaClient);
-		const labels = {jobId: job.attrs.data?.id};
-		logger = logger.child({labels, jobId: labels.jobId});
-		const theJob = job.attrs.data;
-		if (!theJob) {
-			logger.error(`Missing data (job) for [${name}] job.`);
-			return;
-		}
-		const jobProgress = jobService.createProgress(theJob.id);
-		logger.info(`Marking job as running`);
-
+		return async (job: Job<any>) => {
+			const theJob = job.attrs.data as IJob;
+			if (!theJob) {
+				logger.error(`Missing data (job) for [${name}] job.`);
+				return;
+			}
+			const labels = {name, jobId: theJob.id};
+			logger = logger.child({labels, jobId: labels.jobId, name});
+			const jobProgress = jobService.createProgress(theJob.id);
+			logger.info(`Marking job [${name}] as running`);
+			await jobProgress.status("RUNNING");
+			try {
+				if (await handler({
+					job: theJob,
+					jobProgress,
+					jobService,
+					name,
+					logger,
+				}) === undefined) {
+					await jobProgress.status(((jobProgress.failure || 0 > 0) || (jobProgress.skip || 0 > 0) ? "REVIEW" : "SUCCESS"));
+				}
+			} catch (e) {
+				if (e instanceof Error) {
+					logger.error(`Job [${name}] failed.`, {error: e.message});
+				}
+				await jobProgress.status("FAILURE");
+			}
+		};
 	}
 });

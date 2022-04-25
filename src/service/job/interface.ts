@@ -23,6 +23,9 @@ export interface IJobFetchQuery extends ParsedUrlQuery {
 
 export interface IJobProgress {
 	readonly jobId: string;
+	readonly success: number;
+	readonly failure: number;
+	readonly skip: number;
 
 	total(total: number): Promise<any>;
 
@@ -52,5 +55,5 @@ export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, I
 
 	schedule<TParams = void>(name: string, params: TParams, userId?: string | null): Promise<IJob<TParams>>;
 
-	handle<TParams = void>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>): Processor;
+	handle<TParams = void>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<boolean | void>): Processor;
 }
