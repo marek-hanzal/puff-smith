@@ -111,9 +111,9 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			return await jobService.map(job);
 		});
 	},
-	execute: async (name, job) => {
-		const jobService = JobService(prismaClient);
+	handle: async (name, handler) => {
 		let logger = Logger(name);
+		const jobService = JobService(prismaClient);
 		const labels = {jobId: job.attrs.data?.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		const theJob = job.attrs.data;
@@ -122,5 +122,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			return;
 		}
 		const jobProgress = jobService.createProgress(theJob.id);
+		logger.info(`Marking job as running`);
+
 	}
 });
