@@ -1,13 +1,13 @@
 import {DurationOf} from "@/puff-smith/component/inline/DurationOf";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {TimeOf} from "@/puff-smith/component/inline/TimeOf";
+import {JobPerformanceInline} from "@/puff-smith/site/root/job/@module/inline/JobPerformanceInline";
 import {JobStatsInline} from "@/puff-smith/site/root/job/@module/inline/JobStatsInline";
 import {JobProgress} from "@/puff-smith/site/shared/job/@module/component/JobProgress";
 import {JobsListHeader} from "@/puff-smith/site/shared/job/@module/list/JobsListHeader";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
-import {ListItem, ListItemMeta, toHumanNumber} from "@leight-core/client";
-import {Divider, Space, Tooltip, Typography} from "antd";
-import dayjs from "dayjs";
+import {ListItem, ListItemMeta} from "@leight-core/client";
+import {Divider, Space, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -49,7 +49,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 					<Space size={"small"} split={<Divider type={"vertical"}/>}>
 						<LocalDate date={job.created}/>
 						{job.started && <LocalDate date={job.started} tooltip={"root.job.started.tooltip"}/>}
-						{job.started && <Tooltip title={t("root.job.performance.tooltip")}>{toHumanNumber(((job.success || 0) + (job.failure || 0) + (job.skip || 0)) / dayjs.duration(dayjs().diff(job.started)).asSeconds())}/s</Tooltip>}
+						{job.started && <JobPerformanceInline job={job}/>}
 						{job.finished && <Space>(<DurationOf start={job.created} end={job.finished}/>)</Space>}
 						{!job.finished && job.started && <Space>(<TimeOf date={job.started}/>)</Space>}
 					</Space>
