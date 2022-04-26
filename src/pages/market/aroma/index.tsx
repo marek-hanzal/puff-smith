@@ -1,6 +1,7 @@
-import {LiquidIcon} from "@/puff-smith";
-import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {AromaList} from "@/puff-smith/site/market/aroma";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
+import {AromaList} from "@/puff-smith/site/market/aroma/@module/list/AromaList";
 import {AromasSourceControlProvider} from "@/sdk/api/aroma/query";
 
 export default withMarketLayout(function Index() {

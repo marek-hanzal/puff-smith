@@ -1,5 +1,5 @@
-import {IBooster} from "@/puff-smith/service/booster";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IBooster} from "@/puff-smith/service/booster/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/booster/inventory/create";
 import {useBoostersMarketQueryInvalidate} from "@/sdk/api/booster/market/query";
 import {FC, useState} from "react";

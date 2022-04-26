@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IMetric, IMetricCreate} from "@/puff-smith/service/metric";
+import {IMetric, IMetricCreate} from "@/puff-smith/service/metric/interface";
 import {createPromise, createPromiseHook, createQueryHook, toLink} from "@leight-core/client";
 import {useQueryClient} from "react-query";
 

@@ -1,7 +1,8 @@
-import {LiquidIcon} from "@/puff-smith";
-import {ILiquid} from "@/puff-smith/service/liquid";
-import {LiquidCleverMixForm, LiquidQuickMixForm} from "@/puff-smith/site/lab/liquid";
-import {useCheckPrice} from "@/puff-smith/site/shared/price";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {ILiquid} from "@/puff-smith/service/liquid/interface";
+import {LiquidCleverMixForm} from "@/puff-smith/site/lab/liquid/@module/form/LiquidCleverMixForm";
+import {LiquidQuickMixForm} from "@/puff-smith/site/lab/liquid/@module/form/LiquidQuickMixForm";
+import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
 import {DollarCircleOutlined} from "@ant-design/icons";
 import {IFormProps, Loader, Template} from "@leight-core/client";
 import {Tabs} from "antd";

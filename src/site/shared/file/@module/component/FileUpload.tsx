@@ -1,4 +1,4 @@
-import {IUploaderProps, Uploader} from "@/puff-smith/site/shared/file";
+import {IUploaderProps, Uploader} from "@/puff-smith/site/shared/file/@module/component/Uploader";
 import {CopyOutlined, EditOutlined, SaveOutlined} from "@ant-design/icons";
 import {BoolInline, Centered, Form, FormItem, Preview, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, Input, Row} from "antd";

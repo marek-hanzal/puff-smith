@@ -1,5 +1,5 @@
-import {IInlineFilterProps, InlineFilter} from "@/puff-smith";
-import {ICellQuery} from "@/puff-smith/service/cell";
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith/component/filter/InlineFilter";
+import {ICellQuery} from "@/puff-smith/service/cell/interface";
 import {FC} from "react";
 
 export interface IQuickFilterProps extends Partial<IInlineFilterProps<ICellQuery>> {

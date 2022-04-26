@@ -1,5 +1,5 @@
-import {AtomizerService} from "@/puff-smith/service/atomizer";
-import {IAtomizerMarketService} from "@/puff-smith/service/atomizer/market";
+import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
+import {IAtomizerMarketService} from "@/puff-smith/service/atomizer/market/interface";
 import prisma from "@/puff-smith/service/prisma";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";

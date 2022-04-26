@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IUser} from "@/puff-smith/service/user";
+import {IUser} from "@/puff-smith/service/user/interface";
 import {IEntityContext} from "@leight-core/api";
 import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
@@ -33,7 +33,7 @@ export const useWhoamiQuery = createQueryHook<void, IUser, IWhoamiQueryParams>(W
 export const useWhoamiQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WhoamiApiLink]);
-}
+};
 
 export const toWhoamiLink = (queryParams?: IWhoamiQueryParams) => toLink(WhoamiApiLink, queryParams);
 export const useWhoamiLink = () => toWhoamiLink;

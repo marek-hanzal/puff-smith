@@ -1,4 +1,4 @@
-import {IFiles} from "@/puff-smith/service/file";
+import {IFiles} from "@/puff-smith/service/file/interface";
 import {IFile} from "@leight-core/api";
 import {File} from "@prisma/client";
 

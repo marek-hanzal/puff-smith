@@ -1,4 +1,4 @@
-import {IFilterGroup} from "@/puff-smith/component";
+import {IFilterGroup} from "@/puff-smith/component/filter/inteface";
 import {IQuery, IQueryFilter} from "@leight-core/api";
 import {useFilterContext} from "@leight-core/client";
 import {Button, Divider, Radio, Space, SpaceProps, Typography} from "antd";

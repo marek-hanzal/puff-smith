@@ -1,7 +1,8 @@
-import {BoosterIcon} from "@/puff-smith";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory";
-import {QuickFilter} from "@/puff-smith/site/shared/booster";
+import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
+import {QuickFilter} from "@/puff-smith/site/shared/booster/@module/filter/QuickFilter";
 import {BoostersInventorySourceControlProvider} from "@/sdk/api/booster/inventory/query";
 
 export default withLabLayout(function Index() {

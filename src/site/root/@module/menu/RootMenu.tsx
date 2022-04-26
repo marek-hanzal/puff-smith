@@ -1,4 +1,10 @@
-import {ImportIcon, JobIcon, LabIcon, MarketIcon, PublicIcon, SitesIcon, UserIcon} from "@/puff-smith";
+import {ImportIcon} from "@/puff-smith/component/icon/ImportIcon";
+import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
+import {PublicIcon} from "@/puff-smith/component/icon/PublicIcon";
+import {SitesIcon} from "@/puff-smith/component/icon/SitesIcon";
+import {UserIcon} from "@/puff-smith/component/icon/UserIcon";
 import {CodeOutlined} from "@ant-design/icons";
 import {CreateMenuItem, FileIcon, HomeIcon, IMenuProps, Menu, MenuDivider, MenuItem, SubMenu} from "@leight-core/client";
 import {FC} from "react";

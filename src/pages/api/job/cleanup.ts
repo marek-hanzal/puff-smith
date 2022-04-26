@@ -1,4 +1,5 @@
-import {IJobQuery, JobService} from "@/puff-smith/service/job";
+import {IJobQuery} from "@/puff-smith/service/job/interface";
+import {JobService} from "@/puff-smith/service/job/JobService";
 import {IQueryFilter} from "@leight-core/api";
 import {MutationEndpoint} from "@leight-core/server";
 

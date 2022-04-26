@@ -1,4 +1,4 @@
-import {useNotificationContext} from "@/puff-smith";
+import {useNotificationContext} from "@/puff-smith/component/notification/NotificationContext";
 import {NotificationIcon} from "@leight-core/client";
 import {Badge, Button, ButtonProps, Tooltip} from "antd";
 import {FC} from "react";

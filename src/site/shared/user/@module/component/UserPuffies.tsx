@@ -1,4 +1,5 @@
-import {Price, PurchaseIcon} from "@/puff-smith";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
+import {Price} from "@/puff-smith/component/Price";
 import {usePuffiesQuery} from "@/sdk/api/user/puffies";
 import {Space} from "antd";
 import {FC} from "react";

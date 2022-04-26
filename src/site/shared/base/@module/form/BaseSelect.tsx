@@ -1,5 +1,5 @@
-import {PgVgInline} from "@/puff-smith";
-import {BaseNameInline} from "@/puff-smith/site/shared/base";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BasesFilterProvider, BasesSourceSelect, IBasesSourceSelectProps} from "@/sdk/api/base/query";
 import {Space} from "antd";
 import {FC} from "react";

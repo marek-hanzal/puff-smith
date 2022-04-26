@@ -1,5 +1,6 @@
-import {FullLogoIcon} from "@/puff-smith";
-import {RootPage, withRootLayout} from "@/puff-smith/site/root";
+import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {HomeIcon, Template} from "@leight-core/client";
 
 export default withRootLayout(function Index() {

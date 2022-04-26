@@ -1,4 +1,4 @@
-import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromasFilterProvider, AromasSourceSelect, IAromasSourceSelectProps} from "@/sdk/api/aroma/query";
 import {FC} from "react";
 

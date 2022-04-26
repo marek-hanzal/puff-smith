@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBoosterMarket, IBoosterMarketQuery} from "@/puff-smith/service/booster/market";
+import {IBoosterMarket, IBoosterMarketQuery} from "@/puff-smith/service/booster/market/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

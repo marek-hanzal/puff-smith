@@ -1,5 +1,6 @@
-import {JobStatsInline} from "@/puff-smith/site/root/job";
-import {JobProgress, JobsListHeader} from "@/puff-smith/site/shared/job";
+import {JobStatsInline} from "@/puff-smith/site/root/job/@module/inline/JobStatsInline";
+import {JobProgress} from "@/puff-smith/site/shared/job/@module/component/JobProgress";
+import {JobsListHeader} from "@/puff-smith/site/shared/job/@module/list/JobsListHeader";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
 import {durationOf, ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {Space, Typography} from "antd";

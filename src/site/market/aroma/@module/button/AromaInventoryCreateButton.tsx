@@ -1,5 +1,5 @@
-import {IAroma} from "@/puff-smith/service/aroma";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/aroma/inventory/create";
 import {useAromasMarketQueryInvalidate} from "@/sdk/api/aroma/market/query";
 import {FC, useState} from "react";

@@ -1,5 +1,5 @@
 import prisma from "@/puff-smith/service/prisma";
-import {IVoucherService} from "@/puff-smith/service/voucher";
+import {IVoucherService} from "@/puff-smith/service/voucher/interface";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

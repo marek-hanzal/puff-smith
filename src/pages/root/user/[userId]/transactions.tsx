@@ -1,7 +1,9 @@
-import {IUserFetchProps, UserService} from "@/puff-smith/service/user";
-import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {TransactionList} from "@/puff-smith/site/root/transaction";
-import {UserContextMenu} from "@/puff-smith/site/root/user";
+import {IUserFetchProps} from "@/puff-smith/service/user/interface";
+import {UserService} from "@/puff-smith/service/user/UserService";
+import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
+import {TransactionList} from "@/puff-smith/site/root/transaction/@module/list/TransactionList";
+import {UserContextMenu} from "@/puff-smith/site/root/user/@module/menu/UserContextMenu";
 import {TransactionsSourceControlProvider} from "@/sdk/api/transaction/query";
 import {Avatar} from "antd";
 

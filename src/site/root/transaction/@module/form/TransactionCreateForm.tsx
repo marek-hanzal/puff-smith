@@ -1,5 +1,5 @@
-import {PurchaseIcon} from "@/puff-smith";
-import {UserSelect} from "@/puff-smith/site/shared/user";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
+import {UserSelect} from "@/puff-smith/site/shared/user/@module/component/UserSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/transaction/create";
 import {useTransactionsQueryInvalidate} from "@/sdk/api/transaction/query";
 import {useSumQueryInvalidate} from "@/sdk/api/transaction/sum";

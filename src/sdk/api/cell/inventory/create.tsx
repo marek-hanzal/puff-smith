@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellInventory, ICellInventoryCreate} from "@/puff-smith/service/cell";
+import {ICellInventory, ICellInventoryCreate} from "@/puff-smith/service/cell/inventory/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

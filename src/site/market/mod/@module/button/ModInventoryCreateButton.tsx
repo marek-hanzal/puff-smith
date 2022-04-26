@@ -1,5 +1,5 @@
-import {IMod} from "@/puff-smith/service/mod";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IMod} from "@/puff-smith/service/mod/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/mod/inventory/create";
 import {useModsMarketQueryInvalidate} from "@/sdk/api/mod/market/query";
 import {FC, useState} from "react";

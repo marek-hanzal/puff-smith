@@ -1,4 +1,4 @@
-import {IBooster} from "@/puff-smith/service/booster";
+import {IBooster} from "@/puff-smith/service/booster/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Booster, Prisma} from "@prisma/client";
 

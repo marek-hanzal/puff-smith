@@ -1,5 +1,6 @@
-import {IInlineFilterProps, InlineFilter, NicotineInline} from "@/puff-smith";
-import {IBoosterQuery} from "@/puff-smith/service/booster";
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith/component/filter/InlineFilter";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {IBoosterQuery} from "@/puff-smith/service/booster/interface";
 import {FC} from "react";
 
 export interface IQuickFilterProps extends Partial<IInlineFilterProps<IBoosterQuery>> {

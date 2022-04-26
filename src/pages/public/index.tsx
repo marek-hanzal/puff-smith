@@ -1,5 +1,8 @@
-import {FullLogoIcon} from "@/puff-smith";
-import {EmailButton, GithubButton, PublicPage, withPublicLayout} from "@/puff-smith/site/public";
+import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {EmailButton} from "@/puff-smith/site/public/component/button/EmailButton";
+import {GithubButton} from "@/puff-smith/site/public/component/button/GithubButton";
+import {PublicPage} from "@/puff-smith/site/public/component/PublicPage";
+import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
 import {Card, NumberRange, Template} from "@leight-core/client";
 import {Col, Divider, Row, Space, Typography} from "antd";
 import {Trans, useTranslation} from "react-i18next";

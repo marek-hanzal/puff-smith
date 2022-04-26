@@ -1,6 +1,7 @@
-import {ModIcon} from "@/puff-smith";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {ModInventoryList} from "@/puff-smith/site/lab/mod/inventory";
+import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
+import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {ModInventoryList} from "@/puff-smith/site/lab/mod/inventory/@module/list/ModInventoryList";
 import {ModsInventorySourceControlProvider} from "@/sdk/api/mod/inventory/query";
 
 export default withLabLayout(function Index() {

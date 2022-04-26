@@ -1,4 +1,4 @@
-import {IBooster} from "@/puff-smith/service/booster";
+import {IBooster} from "@/puff-smith/service/booster/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

@@ -1,4 +1,4 @@
-import {IMixture} from "@/puff-smith/service/mixture";
+import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {Alert} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

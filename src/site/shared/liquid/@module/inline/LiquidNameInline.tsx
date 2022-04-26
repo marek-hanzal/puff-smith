@@ -1,4 +1,4 @@
-import {ILiquid} from "@/puff-smith/service/liquid";
+import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {Space, SpaceProps} from "antd";
 import {FC} from "react";
 

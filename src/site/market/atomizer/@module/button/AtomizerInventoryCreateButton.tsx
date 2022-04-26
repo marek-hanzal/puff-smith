@@ -1,5 +1,5 @@
-import {IAtomizer} from "@/puff-smith/service/atomizer";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/atomizer/inventory/create";
 import {useAtomizersMarketQueryInvalidate} from "@/sdk/api/atomizer/market/query";
 import {FC, useState} from "react";

@@ -1,4 +1,4 @@
-import {NicotineInline} from "@/puff-smith/component";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {NumberRange} from "@leight-core/client";
 import {Select} from "antd";
 import {FC} from "react";

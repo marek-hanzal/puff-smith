@@ -1,4 +1,4 @@
-import {PurchaseIcon} from "@/puff-smith/component/icon";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
 import {toHumanNumber} from "@leight-core/client";
 import {Space, Typography} from "antd";
 import {FC} from "react";

@@ -1,4 +1,4 @@
-import {IAtomizer} from "@/puff-smith/service/atomizer";
+import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

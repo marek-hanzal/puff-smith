@@ -1,5 +1,5 @@
-import {IBooster} from "@/puff-smith/service/booster";
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {IBooster} from "@/puff-smith/service/booster/interface";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {BoosterInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

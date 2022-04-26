@@ -1,9 +1,9 @@
-import {PriceService} from "@/puff-smith/service/price";
+import {PriceService} from "@/puff-smith/service/price/PriceService";
 import prisma from "@/puff-smith/service/prisma";
-import {TokenService} from "@/puff-smith/service/token";
-import {TransactionService} from "@/puff-smith/service/transaction";
+import {TokenService} from "@/puff-smith/service/token/TokenService";
+import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IUserService} from "@/puff-smith/service/user/interface";
-import {UserTokenService} from "@/puff-smith/service/user/token";
+import {UserTokenService} from "@/puff-smith/service/user/token/UserTokenService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {handleUniqueException, RepositoryService, toFulltext} from "@leight-core/server";
 

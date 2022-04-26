@@ -1,5 +1,5 @@
-import {IInlineFilterProps, InlineFilter} from "@/puff-smith";
-import {IBaseQuery} from "@/puff-smith/service/base";
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith/component/filter/InlineFilter";
+import {IBaseQuery} from "@/puff-smith/service/base/interface";
 import {FC} from "react";
 
 export interface IQuickFilterProps extends Partial<IInlineFilterProps<IBaseQuery>> {

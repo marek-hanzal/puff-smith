@@ -1,5 +1,5 @@
-import {IAtomizer} from "@/puff-smith/service/atomizer";
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {AtomizerInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {FC} from "react";
 

@@ -1,6 +1,7 @@
-import {CellIcon} from "@/puff-smith";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {CellInventoryList} from "@/puff-smith/site/lab/cell/inventory";
+import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {CellInventoryList} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellInventoryList";
 import {CellsInventorySourceControlProvider} from "@/sdk/api/cell/inventory/query";
 
 export default withLabLayout(function Index() {

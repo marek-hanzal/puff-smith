@@ -1,4 +1,8 @@
-import {JobDoneIcon, JobFailureIcon, JobReviewIcon, JobRunningIcon, JobSuccessIcon} from "@/puff-smith";
+import {JobDoneIcon} from "@/puff-smith/component/icon/job/JobDoneIcon";
+import {JobFailureIcon} from "@/puff-smith/component/icon/job/JobFailureIcon";
+import {JobReviewIcon} from "@/puff-smith/component/icon/job/JobReviewIcon";
+import {JobRunningIcon} from "@/puff-smith/component/icon/job/JobRunningIcon";
+import {JobSuccessIcon} from "@/puff-smith/component/icon/job/JobSuccessIcon";
 import {CreateMenuItem, IMenuProps, ListIcon, Menu} from "@leight-core/client";
 import {FC} from "react";
 

@@ -1,4 +1,4 @@
-import {IBase} from "@/puff-smith/service/base";
+import {IBase} from "@/puff-smith/service/base/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

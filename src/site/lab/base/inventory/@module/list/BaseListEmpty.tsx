@@ -1,4 +1,4 @@
-import {BaseIcon} from "@/puff-smith";
+import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {useBasesFilterContext} from "@/sdk/api/base/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

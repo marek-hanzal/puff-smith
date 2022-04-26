@@ -1,4 +1,5 @@
-import {Price, PurchaseIcon} from "@/puff-smith";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
+import {Price} from "@/puff-smith/component/Price";
 import {usePuffiesQuery, usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {IMutationHook} from "@leight-core/api";
 import {ModalButton, toHumanNumber} from "@leight-core/client";
@@ -46,7 +47,7 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 				ghost: true,
 				size: "large",
 				disabled: isDisabled(cost, puffiesQuery),
-				children: <span><Price price={cost} defaultText={translation + ".buy.free"}/></span>,
+				children: <Price price={cost} defaultText={translation + ".buy.free"}/>,
 				...props,
 			}}
 			okText={t(translation + ".buy.confirm.button")}

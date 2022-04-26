@@ -1,4 +1,4 @@
-import {BoosterIcon} from "@/puff-smith";
+import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {useBoostersFilterContext} from "@/sdk/api/booster/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

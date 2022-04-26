@@ -1,4 +1,4 @@
-import {IPrice} from "@/puff-smith/service/price";
+import {IPrice} from "@/puff-smith/service/price/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, Transaction} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

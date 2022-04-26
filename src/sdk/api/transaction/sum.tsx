@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ITransactionQuery} from "@/puff-smith/service/transaction";
+import {ITransactionQuery} from "@/puff-smith/service/transaction/interface";
 import {IQueryFilter, IQueryOrderBy} from "@leight-core/api";
 import {
 	createPromise,

@@ -1,6 +1,6 @@
-import {Price} from "@/puff-smith";
-import {IUser} from "@/puff-smith/service/user";
-import {TransactionListHeader} from "@/puff-smith/site/root/transaction";
+import {Price} from "@/puff-smith/component/Price";
+import {IUser} from "@/puff-smith/service/user/interface";
+import {TransactionListHeader} from "@/puff-smith/site/root/transaction/@module/list/TransactionListHeader";
 import {ITransactionsListSourceProps, TransactionsListSource} from "@/sdk/api/transaction/query";
 import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {Divider, Space} from "antd";

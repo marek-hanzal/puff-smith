@@ -1,5 +1,6 @@
-import {PurchaseIcon, UserIcon} from "@/puff-smith";
-import {IUser} from "@/puff-smith/service/user";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
+import {UserIcon} from "@/puff-smith/component/icon/UserIcon";
+import {IUser} from "@/puff-smith/service/user/interface";
 import {CreateMenuItem, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 

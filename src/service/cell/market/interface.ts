@@ -1,4 +1,4 @@
-import {ICell} from "@/puff-smith/service/cell";
+import {ICell} from "@/puff-smith/service/cell/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Cell, Prisma} from "@prisma/client";
 

@@ -1,4 +1,12 @@
-import {AtomizerIcon, BaseIcon, BoosterIcon, CellIcon, CottonIcon, LabIcon, LiquidIcon, ModIcon, VoucherIcon} from "@/puff-smith";
+import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
+import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 

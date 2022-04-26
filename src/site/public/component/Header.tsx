@@ -1,5 +1,5 @@
-import {LogoIcon} from "@/puff-smith";
-import {PublicMenu} from "@/puff-smith/site/public";
+import {LogoIcon} from "@/puff-smith/component/icon/LogoIcon";
+import {PublicMenu} from "@/puff-smith/site/public/menu/PublicMenu";
 import {LinkTo} from "@leight-core/client";
 import {PageHeader, PageHeaderProps} from "antd";
 import {FC} from "react";

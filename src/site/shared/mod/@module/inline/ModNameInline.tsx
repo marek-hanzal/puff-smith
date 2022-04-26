@@ -1,4 +1,4 @@
-import {IMod} from "@/puff-smith/service/mod";
+import {IMod} from "@/puff-smith/service/mod/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

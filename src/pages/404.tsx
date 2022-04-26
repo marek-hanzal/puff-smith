@@ -1,4 +1,5 @@
-import {PublicPage, withPublicLayout} from "@/puff-smith/site/public";
+import {PublicPage} from "@/puff-smith/site/public/component/PublicPage";
+import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
 import {BackIcon, ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/client";
 import {Button, Divider} from "antd";
 import {useRouter} from "next/router";

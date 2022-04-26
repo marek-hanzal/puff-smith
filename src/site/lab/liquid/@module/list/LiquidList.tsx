@@ -1,6 +1,11 @@
-import {AgeOfInline, CodeInline, NicotineInline, PgVgInline, SelectionBool} from "@/puff-smith";
-import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid";
-import {LiquidNameInline, LiquidSteeping} from "@/puff-smith/site/shared/liquid";
+import {AgeOfInline} from "@/puff-smith/component/inline/AgeOfInline";
+import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid/@module/list/LiquidListEmpty";
+import {LiquidNameInline} from "@/puff-smith/site/shared/liquid/@module/inline/LiquidNameInline";
+import {LiquidSteeping} from "@/puff-smith/site/shared/liquid/@module/inline/LiquidSteeping";
 import {ILiquidsListSourceProps, LiquidsListSource, useLiquidsOptionalSelectionContext} from "@/sdk/api/liquid/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell";
+import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell/inventory/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -114,7 +114,7 @@ export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({so
 			{...props}
 		/>
 	</CellsInventorySource>;
-}
+};
 
 export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {
 	toOption: IToOptionMapper<ICellInventory>;

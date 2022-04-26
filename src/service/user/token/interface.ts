@@ -1,5 +1,5 @@
-import {IToken} from "@/puff-smith/service/token";
-import {IUser} from "@/puff-smith/service/user";
+import {IToken} from "@/puff-smith/service/token/interface";
+import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, UserToken} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

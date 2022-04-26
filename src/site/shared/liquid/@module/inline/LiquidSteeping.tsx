@@ -1,4 +1,4 @@
-import {ILiquid} from "@/puff-smith/service/liquid";
+import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {LineChartOutlined} from "@ant-design/icons";
 import {durationOf, toLocalDateTime} from "@leight-core/client";
 import {Space, Tooltip, Typography} from "antd";

@@ -1,5 +1,5 @@
-import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory";
-import {AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaInventoryList";
+import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {IInventoryAromasSourceSelectProps, InventoryAromasFilterProvider, InventoryAromasOrderByProvider, InventoryAromasSourceSelect} from "@/sdk/api/aroma/inventory/aroma/query";
 import {FC} from "react";
 

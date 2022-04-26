@@ -1,4 +1,4 @@
-import {UserIcon} from "@/puff-smith";
+import {UserIcon} from "@/puff-smith/component/icon/UserIcon";
 import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {Tooltip} from "antd";
 import {FC} from "react";

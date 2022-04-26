@@ -1,6 +1,6 @@
-import {PurchaseIcon} from "@/puff-smith";
-import {IUser} from "@/puff-smith/service/user";
-import {TransactionCreateForm} from "@/puff-smith/site/root/transaction";
+import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
+import {IUser} from "@/puff-smith/service/user/interface";
+import {TransactionCreateForm} from "@/puff-smith/site/root/transaction/@module/form/TransactionCreateForm";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
 import {FC} from "react";
 

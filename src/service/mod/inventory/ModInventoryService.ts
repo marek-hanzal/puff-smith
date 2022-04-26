@@ -1,6 +1,7 @@
-import {IModTransactionService, ModService} from "@/puff-smith/service/mod";
+import {IModTransactionService} from "@/puff-smith/service/mod/inventory/interface";
+import {ModService} from "@/puff-smith/service/mod/ModService";
 import prisma from "@/puff-smith/service/prisma";
-import {TransactionService} from "@/puff-smith/service/transaction";
+import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

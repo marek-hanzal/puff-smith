@@ -1,5 +1,5 @@
 import {IImportParams, ImportJobName} from "@/puff-smith/agenda/job/import";
-import {JobService} from "@/puff-smith/service/job";
+import {JobService} from "@/puff-smith/service/job/JobService";
 import {IJob} from "@leight-core/api";
 import {MutationEndpoint} from "@leight-core/server";
 

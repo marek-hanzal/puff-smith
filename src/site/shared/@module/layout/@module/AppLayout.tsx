@@ -1,4 +1,4 @@
-import {FullLogoIcon} from "@/puff-smith";
+import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {useTranslationsQuery} from "@/sdk/api/translation";
 import {useVersionQuery} from "@/sdk/api/version";
 import {IPageWithLayout} from "@leight-core/api";

@@ -1,4 +1,4 @@
-import {DownloadFile} from "@/puff-smith/site/shared/file";
+import {DownloadFile} from "@/puff-smith/site/shared/file/@module/component/DownloadFile";
 import {FilesListSource, IFilesListSourceProps} from "@/sdk/api/file/query";
 import {ListItem, ListItemMeta, toHumanBytes} from "@leight-core/client";
 import {Space, Typography} from "antd";

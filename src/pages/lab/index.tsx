@@ -1,5 +1,6 @@
-import {FullLogoIcon} from "@/puff-smith";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
+import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {HomeIcon, Template} from "@leight-core/client";
 
 export default withLabLayout(function Index() {

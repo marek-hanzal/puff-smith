@@ -1,4 +1,4 @@
-import {CellIcon} from "@/puff-smith";
+import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {useCellsFilterContext} from "@/sdk/api/cell/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

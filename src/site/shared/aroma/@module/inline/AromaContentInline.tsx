@@ -1,5 +1,5 @@
-import {ContentInline} from "@/puff-smith";
-import {IAroma} from "@/puff-smith/service/aroma";
+import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {Space, Typography} from "antd";
 import {FC} from "react";
 

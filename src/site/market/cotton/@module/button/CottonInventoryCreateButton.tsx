@@ -1,5 +1,5 @@
-import {ICotton} from "@/puff-smith/service/cotton";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {ICotton} from "@/puff-smith/service/cotton/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/cotton/inventory/create";
 import {useCottonsMarketQueryInvalidate} from "@/sdk/api/cotton/market/query";
 import {FC, useState} from "react";

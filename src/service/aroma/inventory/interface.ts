@@ -1,5 +1,5 @@
-import {IAroma} from "@/puff-smith/service/aroma";
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {AromaInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

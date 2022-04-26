@@ -1,4 +1,4 @@
-import {ModIcon} from "@/puff-smith";
+import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {useModsFilterContext} from "@/sdk/api/mod/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {CottonListEmpty} from "@/puff-smith/site/lab/cotton/inventory";
-import {CottonNameInline} from "@/puff-smith/site/shared/cotton";
+import {Tags} from "@/puff-smith/component/Tags";
+import {CottonListEmpty} from "@/puff-smith/site/lab/cotton/inventory/@module/list/CottonListEmpty";
+import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
 import {CottonsInventoryListSource, ICottonsInventoryListSourceProps} from "@/sdk/api/cotton/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

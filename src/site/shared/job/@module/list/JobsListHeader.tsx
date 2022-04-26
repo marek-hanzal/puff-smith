@@ -1,4 +1,4 @@
-import {JobsFilter} from "@/puff-smith/site/shared/job";
+import {JobsFilter} from "@/puff-smith/site/shared/job/@module/form/JobsFilter";
 import {useCleanupMutation} from "@/sdk/api/job/cleanup";
 import {useCommitMutation} from "@/sdk/api/job/commit";
 import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/job/query";

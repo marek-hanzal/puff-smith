@@ -1,5 +1,5 @@
-import {IInlineFilterProps, InlineFilter} from "@/puff-smith";
-import {ILiquidQuery} from "@/puff-smith/service/liquid";
+import {IInlineFilterProps, InlineFilter} from "@/puff-smith/component/filter/InlineFilter";
+import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import {FC} from "react";
 
 export interface IQuickFilterProps extends Partial<IInlineFilterProps<ILiquidQuery>> {

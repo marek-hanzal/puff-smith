@@ -1,4 +1,4 @@
-import {IToken} from "@/puff-smith/service/token";
+import {IToken} from "@/puff-smith/service/token/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

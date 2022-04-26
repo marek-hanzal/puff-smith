@@ -1,5 +1,5 @@
-import {IBase} from "@/puff-smith/service/base";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IBase} from "@/puff-smith/service/base/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/base/inventory/create";
 import {useBasesMarketQueryInvalidate} from "@/sdk/api/base/market/query";
 import {FC, useState} from "react";

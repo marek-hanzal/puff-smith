@@ -1,5 +1,5 @@
-import {CellService} from "@/puff-smith/service/cell";
-import {ICellMarketService} from "@/puff-smith/service/cell/market";
+import {CellService} from "@/puff-smith/service/cell/CellService";
+import {ICellMarketService} from "@/puff-smith/service/cell/market/interface";
 import prisma from "@/puff-smith/service/prisma";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";

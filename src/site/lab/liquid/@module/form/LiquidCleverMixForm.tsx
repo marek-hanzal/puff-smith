@@ -1,5 +1,6 @@
-import {LiquidIcon, NicotineSelect} from "@/puff-smith";
-import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {NicotineSelect} from "@/puff-smith/component/input/NicotineSelect";
+import {InventoryAromaSelect} from "@/puff-smith/site/shared/aroma/inventory/form/InventoryAromaSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
 import {useLiquidsQueryInvalidate} from "@/sdk/api/liquid/query";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";

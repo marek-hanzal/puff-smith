@@ -1,4 +1,4 @@
-import {IBase} from "@/puff-smith/service/base";
+import {IBase} from "@/puff-smith/service/base/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Base, Prisma} from "@prisma/client";
 

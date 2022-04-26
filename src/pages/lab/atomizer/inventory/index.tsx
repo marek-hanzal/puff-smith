@@ -1,6 +1,7 @@
-import {AtomizerIcon} from "@/puff-smith";
-import {LabPage, withLabLayout} from "@/puff-smith/site/lab";
-import {AtomizerInventoryList} from "@/puff-smith/site/lab/atomizer/inventory";
+import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {AtomizerInventoryList} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerInventoryList";
 import {AtomizersInventorySourceControlProvider} from "@/sdk/api/atomizer/inventory/query";
 
 export default withLabLayout(function Index() {

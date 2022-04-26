@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer";
+import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

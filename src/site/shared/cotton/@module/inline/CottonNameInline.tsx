@@ -1,4 +1,4 @@
-import {ICotton} from "@/puff-smith/service/cotton";
+import {ICotton} from "@/puff-smith/service/cotton/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

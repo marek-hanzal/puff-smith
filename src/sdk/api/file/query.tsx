@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IFileQuery} from "@/puff-smith/service/file";
+import {IFileQuery} from "@/puff-smith/service/file/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

@@ -1,4 +1,4 @@
-import {AtomizerIcon} from "@/puff-smith";
+import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {useAtomizersFilterContext} from "@/sdk/api/atomizer/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

@@ -1,4 +1,4 @@
-import {ContentInline} from "@/puff-smith";
+import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
 import {Space, Typography} from "antd";
 import {FC} from "react";
 

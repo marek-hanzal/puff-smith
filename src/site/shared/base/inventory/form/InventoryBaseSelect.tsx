@@ -1,5 +1,6 @@
-import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory";
-import {BaseNameInline, QuickFilter} from "@/puff-smith/site/shared/base";
+import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
+import {QuickFilter} from "@/puff-smith/site/shared/base/@module/filter/QuickFilter";
+import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {IInventoryBasesSourceSelectProps, InventoryBasesFilterProvider, InventoryBasesOrderByProvider, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
 import {FC} from "react";
 

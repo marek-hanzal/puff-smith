@@ -1,4 +1,4 @@
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

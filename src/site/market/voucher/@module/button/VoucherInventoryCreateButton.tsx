@@ -1,5 +1,5 @@
-import {IVoucher} from "@/puff-smith/service/voucher";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {IVoucher} from "@/puff-smith/service/voucher/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/voucher/inventory/create";
 import {FC} from "react";
 

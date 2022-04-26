@@ -1,4 +1,4 @@
-import {IAroma} from "@/puff-smith/service/aroma";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

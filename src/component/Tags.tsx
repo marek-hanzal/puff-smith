@@ -1,4 +1,4 @@
-import {ITag} from "@/puff-smith/service/tag";
+import {ITag} from "@/puff-smith/service/tag/interface";
 import {Space, SpaceProps, Tag, TagProps} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

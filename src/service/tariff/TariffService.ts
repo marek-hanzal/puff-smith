@@ -1,8 +1,8 @@
-import {CodeService} from "@/puff-smith/service/code";
-import {PriceService} from "@/puff-smith/service/price";
+import {CodeService} from "@/puff-smith/service/code/CodeService";
+import {PriceService} from "@/puff-smith/service/price/PriceService";
 import prisma from "@/puff-smith/service/prisma";
 import {ITariffService} from "@/puff-smith/service/tariff/interface";
-import {TransactionService} from "@/puff-smith/service/transaction";
+import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {handleUniqueException, RepositoryService} from "@leight-core/server";
 import {Price} from "@prisma/client";

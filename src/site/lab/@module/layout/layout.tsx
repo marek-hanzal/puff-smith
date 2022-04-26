@@ -1,6 +1,7 @@
-import {NotificationProvider} from "@/puff-smith";
-import {Footer, Header} from "@/puff-smith/site/lab";
-import {AppLayout} from "@/puff-smith/site/shared";
+import {NotificationProvider} from "@/puff-smith/component/notification/NotificationProvider";
+import {Footer} from "@/puff-smith/site/lab/@module/component/Footer";
+import {Header} from "@/puff-smith/site/lab/@module/component/Header";
+import {AppLayout} from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
 import {IPageWithLayout} from "@leight-core/api";
 import {ApplicationLayout} from "@leight-core/client";
 import {FC} from "react";

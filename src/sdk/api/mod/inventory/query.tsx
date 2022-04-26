@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod";
+import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod/inventory/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -114,7 +114,7 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 			{...props}
 		/>
 	</ModsInventorySource>;
-}
+};
 
 export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
 	toOption: IToOptionMapper<IModInventory>;

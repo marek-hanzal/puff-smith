@@ -1,5 +1,6 @@
-import {NicotineInline, PgVgInline} from "@/puff-smith";
-import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
 import {Space} from "antd";
 import {FC} from "react";

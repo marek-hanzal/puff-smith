@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IVoucherInventory, IVoucherInventoryCreate} from "@/puff-smith/service/voucher";
+import {IVoucherInventory, IVoucherInventoryCreate} from "@/puff-smith/service/voucher/inventory/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICottonMarket, ICottonMarketQuery} from "@/puff-smith/service/cotton/market";
+import {ICottonMarket, ICottonMarketQuery} from "@/puff-smith/service/cotton/market/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

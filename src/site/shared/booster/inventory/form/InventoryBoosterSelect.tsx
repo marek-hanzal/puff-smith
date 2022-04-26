@@ -1,5 +1,6 @@
-import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory";
-import {BoosterNameInline, QuickFilter} from "@/puff-smith/site/shared/booster";
+import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
+import {QuickFilter} from "@/puff-smith/site/shared/booster/@module/filter/QuickFilter";
+import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {IInventoryBoostersSourceSelectProps, InventoryBoostersFilterProvider, InventoryBoostersOrderByProvider, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
 import {FC} from "react";
 

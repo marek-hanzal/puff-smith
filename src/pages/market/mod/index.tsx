@@ -1,6 +1,7 @@
-import {ModIcon} from "@/puff-smith";
-import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {ModList} from "@/puff-smith/site/market/mod";
+import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
+import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
+import {ModList} from "@/puff-smith/site/market/mod/@module/list/ModList";
 import {ModsSourceControlProvider} from "@/sdk/api/mod/query";
 
 export default withMarketLayout(function Index() {

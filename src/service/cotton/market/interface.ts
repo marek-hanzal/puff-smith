@@ -1,4 +1,4 @@
-import {ICotton} from "@/puff-smith/service/cotton";
+import {ICotton} from "@/puff-smith/service/cotton/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Cotton, Prisma} from "@prisma/client";
 

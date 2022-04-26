@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IJobQuery} from "@/puff-smith/service/job";
+import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

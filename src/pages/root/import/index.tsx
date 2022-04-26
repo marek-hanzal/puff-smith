@@ -1,6 +1,7 @@
-import {ImportIcon} from "@/puff-smith";
-import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {Uploader} from "@/puff-smith/site/shared/file";
+import {ImportIcon} from "@/puff-smith/component/icon/ImportIcon";
+import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
+import {Uploader} from "@/puff-smith/site/shared/file/@module/component/Uploader";
 import {useImportPromise} from "@/sdk/api/file/[fileId]/import";
 import {Template, useNavigate} from "@leight-core/client";
 import {message} from "antd";

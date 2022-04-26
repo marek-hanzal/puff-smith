@@ -1,7 +1,11 @@
-import {DrawerCancelOk, PgVgInline, SelectionBool, Tags} from "@/puff-smith";
-import {IAromaInventory} from "@/puff-smith/service/aroma";
-import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory";
-import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {DrawerCancelOk} from "@/puff-smith/component/button/DrawerCancelOk";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {Tags} from "@/puff-smith/component/Tags";
+import {IAromaInventory} from "@/puff-smith/service/aroma/inventory/interface";
+import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListEmpty";
+import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
+import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromasInventoryListSource, IAromasInventoryListSourceProps, useAromasInventoryOptionalSelectionContext} from "@/sdk/api/aroma/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

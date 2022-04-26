@@ -1,5 +1,6 @@
-import {JobService} from "@/puff-smith/service/job";
-import {MixtureService, toMixtureInfo} from "@/puff-smith/service/mixture";
+import {JobService} from "@/puff-smith/service/job/JobService";
+import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
+import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/prisma";
 import {Agenda} from "agenda";
 

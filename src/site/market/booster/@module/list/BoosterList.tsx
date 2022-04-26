@@ -1,6 +1,7 @@
-import {NicotineInline, PgVgInline} from "@/puff-smith";
-import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster";
-import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster/@module/button/BoosterInventoryCreateButton";
+import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {BoostersMarketListSource, IBoostersMarketListSourceProps} from "@/sdk/api/booster/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

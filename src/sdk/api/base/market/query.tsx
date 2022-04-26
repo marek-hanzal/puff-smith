@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBaseMarket, IBaseMarketQuery} from "@/puff-smith/service/base/market";
+import {IBaseMarket, IBaseMarketQuery} from "@/puff-smith/service/base/market/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -114,7 +114,7 @@ export const BasesMarketListSource: FC<IBasesMarketListSourceProps> = ({sourcePr
 			{...props}
 		/>
 	</BasesMarketSource>;
-}
+};
 
 export interface IBasesMarketSourceSelectProps extends IQuerySourceSelectProps<IBaseMarket> {
 	toOption: IToOptionMapper<IBaseMarket>;

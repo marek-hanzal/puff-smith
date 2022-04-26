@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {useLiquidsFilterContext} from "@/sdk/api/liquid/query";
 import {Template} from "@leight-core/client";
 import {FC} from "react";

@@ -1,7 +1,10 @@
-import {DrawerCancelOk, NicotineInline, PgVgInline, SelectionBool} from "@/puff-smith";
-import {IBoosterInventory} from "@/puff-smith/service/booster";
-import {BoosterListEmpty} from "@/puff-smith/site/lab/booster/inventory";
-import {BoosterNameInline} from "@/puff-smith/site/shared/booster";
+import {DrawerCancelOk} from "@/puff-smith/component/button/DrawerCancelOk";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {IBoosterInventory} from "@/puff-smith/service/booster/inventory/interface";
+import {BoosterListEmpty} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterListEmpty";
+import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {BoostersInventoryListSource, IBoostersInventoryListSourceProps, useBoostersInventoryOptionalSelectionContext} from "@/sdk/api/booster/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

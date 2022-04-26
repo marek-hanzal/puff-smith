@@ -1,6 +1,8 @@
-import {PgVgInline, Tags} from "@/puff-smith";
-import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma";
-import {AromaContentInline, AromaNameInline} from "@/puff-smith/site/shared/aroma";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {Tags} from "@/puff-smith/component/Tags";
+import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
+import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
+import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromasMarketListSource, IAromasMarketListSourceProps} from "@/sdk/api/aroma/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

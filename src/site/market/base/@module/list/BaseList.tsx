@@ -1,6 +1,6 @@
-import {PgVgInline} from "@/puff-smith";
-import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base";
-import {BaseNameInline} from "@/puff-smith/site/shared/base";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base/@module/button/BaseInventoryCreateButton";
+import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BasesMarketListSource, IBasesMarketListSourceProps} from "@/sdk/api/base/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

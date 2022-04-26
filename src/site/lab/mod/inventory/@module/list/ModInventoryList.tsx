@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {ModListEmpty} from "@/puff-smith/site/lab/mod/inventory";
-import {ModNameInline} from "@/puff-smith/site/shared/mod";
+import {Tags} from "@/puff-smith/component/Tags";
+import {ModListEmpty} from "@/puff-smith/site/lab/mod/inventory/@module/list/ModListEmpty";
+import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
 import {IModsInventoryListSourceProps, ModsInventoryListSource} from "@/sdk/api/mod/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -12,7 +12,7 @@ export interface IModInventoryListProps extends Partial<IModsInventoryListSource
 export const ModInventoryList: FC<IModInventoryListProps> = props => {
 	return <ModsInventoryListSource
 		locale={{
-			emptyText: <ModListEmpty/>
+			emptyText: <ModListEmpty/>,
 		}}
 		{...props}
 	>

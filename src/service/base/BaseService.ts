@@ -1,6 +1,6 @@
-import {IBaseService} from "@/puff-smith/service/base";
+import {IBaseService} from "@/puff-smith/service/base/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {VendorService} from "@/puff-smith/service/vendor";
+import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

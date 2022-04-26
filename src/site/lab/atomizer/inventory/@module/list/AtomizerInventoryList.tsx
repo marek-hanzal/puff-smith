@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {AtomizerListEmpty} from "@/puff-smith/site/lab/atomizer/inventory";
-import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer";
+import {Tags} from "@/puff-smith/component/Tags";
+import {AtomizerListEmpty} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerListEmpty";
+import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizersInventoryListSource, IAtomizersInventoryListSourceProps} from "@/sdk/api/atomizer/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

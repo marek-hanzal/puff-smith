@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {CellInventoryCreateButton} from "@/puff-smith/site/market/cell";
-import {CellNameInline} from "@/puff-smith/site/shared/cell";
+import {Tags} from "@/puff-smith/component/Tags";
+import {CellInventoryCreateButton} from "@/puff-smith/site/market/cell/@module/button/CellInventoryCreateButton";
+import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
 import {CellsMarketListSource, ICellsMarketListSourceProps} from "@/sdk/api/cell/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

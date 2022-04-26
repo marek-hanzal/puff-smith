@@ -1,4 +1,4 @@
-import {IUser} from "@/puff-smith/service/user";
+import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Metric, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

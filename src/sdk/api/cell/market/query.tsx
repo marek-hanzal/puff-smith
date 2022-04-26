@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellMarket, ICellMarketQuery} from "@/puff-smith/service/cell/market";
+import {ICellMarket, ICellMarketQuery} from "@/puff-smith/service/cell/market/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

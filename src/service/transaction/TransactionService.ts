@@ -1,4 +1,4 @@
-import {PriceService} from "@/puff-smith/service/price";
+import {PriceService} from "@/puff-smith/service/price/PriceService";
 import prisma from "@/puff-smith/service/prisma";
 import {ITransactionService} from "@/puff-smith/service/transaction/interface";
 import {IPrismaClientTransaction} from "@leight-core/api";

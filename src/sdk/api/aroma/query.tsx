@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma";
+import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

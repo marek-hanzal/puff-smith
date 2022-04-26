@@ -1,6 +1,7 @@
-import {AtomizerIcon} from "@/puff-smith";
-import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {AtomizerList} from "@/puff-smith/site/market/atomizer";
+import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
+import {AtomizerList} from "@/puff-smith/site/market/atomizer/@module/list/AtomizerList";
 import {AtomizersSourceControlProvider} from "@/sdk/api/atomizer/query";
 
 export default withMarketLayout(function Index() {

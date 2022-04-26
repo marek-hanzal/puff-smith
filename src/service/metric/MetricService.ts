@@ -1,6 +1,6 @@
-import {IMetricService} from "@/puff-smith/service/metric";
+import {IMetricService} from "@/puff-smith/service/metric/interface";
 import prisma from "@/puff-smith/service/prisma";
-import {UserService} from "@/puff-smith/service/user";
+import {UserService} from "@/puff-smith/service/user/UserService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

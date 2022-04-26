@@ -1,5 +1,5 @@
-import {ICell} from "@/puff-smith/service/cell";
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {ICell} from "@/puff-smith/service/cell/interface";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {CellInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

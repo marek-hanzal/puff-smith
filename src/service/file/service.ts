@@ -1,5 +1,5 @@
 import {ImportJobName} from "@/puff-smith/agenda/job/import";
-import {JobService} from "@/puff-smith/service/job";
+import {JobService} from "@/puff-smith/service/job/JobService";
 import {IFileStoreRequest} from "@leight-core/api";
 import {FileService} from "@leight-core/server";
 

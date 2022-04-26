@@ -1,5 +1,5 @@
-import {IMod} from "@/puff-smith/service/mod";
-import {ITransaction} from "@/puff-smith/service/transaction";
+import {IMod} from "@/puff-smith/service/mod/interface";
+import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {ModInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

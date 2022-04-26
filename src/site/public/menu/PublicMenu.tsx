@@ -1,4 +1,5 @@
-import {AboutIcon, TosIcon} from "@/puff-smith";
+import {AboutIcon} from "@/puff-smith/component/icon/AboutIcon";
+import {TosIcon} from "@/puff-smith/component/icon/TosIcon";
 import {CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 

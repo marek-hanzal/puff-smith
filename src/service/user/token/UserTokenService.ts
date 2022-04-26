@@ -1,7 +1,7 @@
 import prisma from "@/puff-smith/service/prisma";
-import {TokenService} from "@/puff-smith/service/token";
-import {UserService} from "@/puff-smith/service/user";
+import {TokenService} from "@/puff-smith/service/token/TokenService";
 import {IUserTokenService} from "@/puff-smith/service/user/token/interface";
+import {UserService} from "@/puff-smith/service/user/UserService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

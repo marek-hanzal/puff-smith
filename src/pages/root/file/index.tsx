@@ -1,5 +1,6 @@
-import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {FileList} from "@/puff-smith/site/shared/file";
+import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
+import {FileList} from "@/puff-smith/site/shared/file/@module/list/FileList";
 import {FilesSourceControlProvider} from "@/sdk/api/file/query";
 import {FileIcon} from "@leight-core/client";
 

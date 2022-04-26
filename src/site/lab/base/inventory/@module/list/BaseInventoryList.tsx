@@ -1,7 +1,9 @@
-import {DrawerCancelOk, PgVgInline, SelectionBool} from "@/puff-smith";
-import {IBase} from "@/puff-smith/service/base";
-import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory";
-import {BaseNameInline} from "@/puff-smith/site/shared/base";
+import {DrawerCancelOk} from "@/puff-smith/component/button/DrawerCancelOk";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {IBase} from "@/puff-smith/service/base/interface";
+import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseListEmpty";
+import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {useInventoryBasesOptionalSelectionContext} from "@/sdk/api/base/inventory/base/query";
 import {BasesInventoryListSource, IBasesInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";

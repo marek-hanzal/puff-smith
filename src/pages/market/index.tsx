@@ -1,5 +1,7 @@
-import {FullLogoIcon, LiquidIcon} from "@/puff-smith";
-import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
+import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {useMixtureUpdateMutation} from "@/sdk/api/mixture/update";
 import {HomeIcon, Template} from "@leight-core/client";
 import {Button} from "antd";

@@ -1,4 +1,4 @@
-import {ICell} from "@/puff-smith/service/cell";
+import {ICell} from "@/puff-smith/service/cell/interface";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 

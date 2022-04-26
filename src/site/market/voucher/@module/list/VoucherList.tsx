@@ -1,4 +1,4 @@
-import {VoucherInventoryCreateButton} from "@/puff-smith/site/market/voucher";
+import {VoucherInventoryCreateButton} from "@/puff-smith/site/market/voucher/@module/button/VoucherInventoryCreateButton";
 import {IVouchersListSourceProps, VouchersListSource} from "@/sdk/api/voucher/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

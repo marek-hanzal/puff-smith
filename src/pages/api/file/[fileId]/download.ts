@@ -1,4 +1,4 @@
-import {fileFetch} from "@/puff-smith/service/file";
+import {fileFetch} from "@/puff-smith/service/file/prisma";
 import {FetchEndpoint} from "@leight-core/server";
 import fs from "node:fs";
 

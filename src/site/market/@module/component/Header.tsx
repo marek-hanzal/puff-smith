@@ -1,6 +1,7 @@
-import {LogoIcon, SignOutButton} from "@/puff-smith";
-import {MarketMenu} from "@/puff-smith/site/market";
-import {UserPuffies} from "@/puff-smith/site/shared/user";
+import {SignOutButton} from "@/puff-smith/component/button/SignOutButton";
+import {LogoIcon} from "@/puff-smith/component/icon/LogoIcon";
+import {MarketMenu} from "@/puff-smith/site/market/@module/menu/MarketMenu";
+import {UserPuffies} from "@/puff-smith/site/shared/user/@module/component/UserPuffies";
 import {ButtonBar, LinkTo} from "@leight-core/client";
 import {Divider, PageHeader, PageHeaderProps} from "antd";
 import {FC} from "react";

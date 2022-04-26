@@ -1,4 +1,5 @@
-import {BuildIcon, VapeIcon} from "@/puff-smith";
+import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {VapeIcon} from "@/puff-smith/component/icon/VapeIcon";
 import {ButtonLink, Card} from "@leight-core/client";
 import {Col, Divider, Row, Typography} from "antd";
 import {FC} from "react";

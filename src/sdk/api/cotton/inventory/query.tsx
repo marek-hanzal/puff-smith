@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton";
+import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton/inventory/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -115,7 +115,7 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 			{...props}
 		/>
 	</CottonsInventorySource>;
-}
+};
 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;

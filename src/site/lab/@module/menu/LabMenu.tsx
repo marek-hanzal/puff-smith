@@ -1,4 +1,13 @@
-import {AtomizerIcon, BaseIcon, BoosterIcon, BuildIcon, CellIcon, CottonIcon, LiquidIcon, MarketIcon, ModIcon, VapeIcon} from "@/puff-smith";
+import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
+import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
+import {VapeIcon} from "@/puff-smith/component/icon/VapeIcon";
 import {hasToken} from "@/puff-smith/service/user/utils";
 import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {ContainerOutlined, SlidersOutlined} from "@ant-design/icons";

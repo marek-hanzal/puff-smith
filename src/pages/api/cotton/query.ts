@@ -1,4 +1,5 @@
-import {CottonService, ICotton, ICottonQuery} from "@/puff-smith/service/cotton";
+import {CottonService} from "@/puff-smith/service/cotton/CottonService";
+import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Cottons", ICottonQuery, ICotton>(CottonService().handleQuery);

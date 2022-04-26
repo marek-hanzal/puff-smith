@@ -1,4 +1,4 @@
-import {IMod} from "@/puff-smith/service/mod";
+import {IMod} from "@/puff-smith/service/mod/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mod, Prisma} from "@prisma/client";
 

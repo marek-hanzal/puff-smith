@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher";
+import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher/interface";
 import {ReadOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {

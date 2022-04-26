@@ -1,6 +1,6 @@
-import {IAroma} from "@/puff-smith/service/aroma";
-import {IBase} from "@/puff-smith/service/base";
-import {IBooster} from "@/puff-smith/service/booster";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {IBase} from "@/puff-smith/service/base/interface";
+import {IBooster} from "@/puff-smith/service/booster/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

@@ -1,6 +1,8 @@
-import {IUserFetchProps, UserService} from "@/puff-smith/service/user";
-import {RootPage, withRootLayout} from "@/puff-smith/site/root";
-import {UserContextMenu} from "@/puff-smith/site/root/user";
+import {IUserFetchProps} from "@/puff-smith/service/user/interface";
+import {UserService} from "@/puff-smith/service/user/UserService";
+import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
+import {UserContextMenu} from "@/puff-smith/site/root/user/@module/menu/UserContextMenu";
 import {Preview} from "@leight-core/client";
 import {Avatar, Col, Row} from "antd";
 

@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod";
-import {ModNameInline} from "@/puff-smith/site/shared/mod";
+import {Tags} from "@/puff-smith/component/Tags";
+import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod/@module/button/ModInventoryCreateButton";
+import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
 import {IModsMarketListSourceProps, ModsMarketListSource} from "@/sdk/api/mod/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

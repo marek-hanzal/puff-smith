@@ -1,4 +1,4 @@
-import {IAroma} from "@/puff-smith/service/aroma";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 

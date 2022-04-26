@@ -1,5 +1,5 @@
-import {ITag} from "@/puff-smith/service/tag";
-import {IVendor} from "@/puff-smith/service/vendor";
+import {ITag} from "@/puff-smith/service/tag/interface";
+import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Cotton, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";

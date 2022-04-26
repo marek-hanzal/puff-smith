@@ -1,4 +1,4 @@
-import {ITariff} from "@/puff-smith/service/tariff";
+import {ITariff} from "@/puff-smith/service/tariff/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Price, Prisma} from "@prisma/client";
 import {DateTime} from "next-auth/providers/kakao";

@@ -1,7 +1,8 @@
-import {BaseIcon} from "@/puff-smith";
-import {MarketPage, withMarketLayout} from "@/puff-smith/site/market";
-import {BaseList} from "@/puff-smith/site/market/base";
-import {QuickFilter} from "@/puff-smith/site/shared/base";
+import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
+import {BaseList} from "@/puff-smith/site/market/base/@module/list/BaseList";
+import {QuickFilter} from "@/puff-smith/site/shared/base/@module/filter/QuickFilter";
 import {BasesSourceControlProvider} from "@/sdk/api/base/query";
 
 export default withMarketLayout(function Index() {

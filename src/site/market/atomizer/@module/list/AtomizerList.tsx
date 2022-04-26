@@ -1,6 +1,6 @@
-import {Tags} from "@/puff-smith";
-import {AtomizerInventoryCreateButton} from "@/puff-smith/site/market/atomizer";
-import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer";
+import {Tags} from "@/puff-smith/component/Tags";
+import {AtomizerInventoryCreateButton} from "@/puff-smith/site/market/atomizer/@module/button/AtomizerInventoryCreateButton";
+import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizersMarketListSource, IAtomizersMarketListSourceProps} from "@/sdk/api/atomizer/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -17,7 +17,7 @@ export const AtomizerList: FC<IAtomizerListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AtomizerNameInline atomizer={atomizer}/>
-					<Tags tags={atomizer.draws}/>
+					{atomizer.draws.length > 0 && <Tags tags={atomizer.draws}/>}
 					{isOwned ? <BoolInline bool={isOwned}/> : <AtomizerInventoryCreateButton type={"link"} atomizer={atomizer}/>}
 				</Space>}
 			/>

@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ILiquid, ILiquidDelete} from "@/puff-smith/service/liquid";
+import {ILiquid, ILiquidDelete} from "@/puff-smith/service/liquid/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";

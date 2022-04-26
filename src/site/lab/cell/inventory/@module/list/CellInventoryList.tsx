@@ -1,6 +1,7 @@
-import {CodeInline, Tags} from "@/puff-smith";
-import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory";
-import {CellNameInline} from "@/puff-smith/site/shared/cell";
+import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {Tags} from "@/puff-smith/component/Tags";
+import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellListEmpty";
+import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
 import {CellsInventoryListSource, ICellsInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";

@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {useAromasFilterContext} from "@/sdk/api/aroma/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

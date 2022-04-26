@@ -1,4 +1,4 @@
-import {TranslationService} from "@/puff-smith/service/translation";
+import {TranslationService} from "@/puff-smith/service/translation/TranslationService";
 import {ITranslationBundle} from "@leight-core/api";
 import {ListEndpoint} from "@leight-core/server";
 

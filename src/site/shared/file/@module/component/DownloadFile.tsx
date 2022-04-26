@@ -1,4 +1,4 @@
-import {DownloadIcon} from "@/puff-smith";
+import {DownloadIcon} from "@/puff-smith/component/icon/DownloadIcon";
 import {useDownloadPromise} from "@/sdk/api/file/[fileId]/download";
 import {IFile} from "@leight-core/api";
 import {Button, ButtonProps, message, Progress, Tooltip} from "antd";

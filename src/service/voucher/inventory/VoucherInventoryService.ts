@@ -1,7 +1,8 @@
-import {CodeService} from "@/puff-smith/service/code";
+import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/prisma";
-import {TransactionService} from "@/puff-smith/service/transaction";
-import {IVoucherInventoryService, VoucherService} from "@/puff-smith/service/voucher";
+import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
+import {IVoucherInventoryService} from "@/puff-smith/service/voucher/inventory/interface";
+import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

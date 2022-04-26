@@ -1,4 +1,4 @@
-import {CottonIcon} from "@/puff-smith";
+import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {useCottonsFilterContext} from "@/sdk/api/cotton/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";

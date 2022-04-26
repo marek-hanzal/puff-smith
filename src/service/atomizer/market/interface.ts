@@ -1,4 +1,4 @@
-import {IAtomizer} from "@/puff-smith/service/atomizer";
+import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
 

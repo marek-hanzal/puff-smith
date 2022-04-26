@@ -1,4 +1,4 @@
-import {scheduleFileImport} from "@/puff-smith/service/file";
+import {scheduleFileImport} from "@/puff-smith/service/file/service";
 import {IMigration} from "@/puff-smith/service/migration/interface";
 import {Logger} from "@leight-core/server";
 

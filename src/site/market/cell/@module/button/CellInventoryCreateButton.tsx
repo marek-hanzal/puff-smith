@@ -1,5 +1,5 @@
-import {ICell} from "@/puff-smith/service/cell";
-import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction";
+import {ICell} from "@/puff-smith/service/cell/interface";
+import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/cell/inventory/create";
 import {useCellsMarketQueryInvalidate} from "@/sdk/api/cell/market/query";
 import {FC} from "react";
