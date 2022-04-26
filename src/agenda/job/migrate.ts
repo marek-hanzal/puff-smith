@@ -13,6 +13,7 @@ export default function MigrationJob(agenda: Agenda) {
 		concurrency: 1,
 		priority: 100,
 	}, JobService().handle(MigrateJobName, async ({logger}) => {
+		console.log("!!! EXECUTING MIGRAION JOB!");
 		logger.info("Running migrations");
 		for (const migration of migrations) {
 			const labels = {migration: migration.name()};

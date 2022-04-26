@@ -125,12 +125,13 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 				logger.error(`Missing data (job) for [${name}] job.`);
 				return;
 			}
+			logger.debug("Preparing job", {job: theJob});
 			const labels = {name, jobId: theJob.id};
 			logger = logger.child({labels, jobId: labels.jobId, name});
 			const jobProgress = jobService.createProgress(theJob.id);
 			logger.info(`Marking job [${name}] as running`);
-			await jobProgress.status("RUNNING");
 			try {
+				await jobProgress.status("RUNNING");
 				if (await handler({
 					job: theJob,
 					jobProgress,
