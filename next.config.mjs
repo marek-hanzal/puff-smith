@@ -33,7 +33,7 @@ export default withPlugins([
 							'migration': ['./src/service/migration/worker.ts'],
 						});
 						Object.keys(entry).map(key => {
-							entry[key] = {import: ['./src/service/bootstrap.ts', ...entry[key]]};
+							entry[key] = {import: ['./src/service/side-effect/bootstrap.ts', ...entry[key]]};
 						});
 						return entry;
 					});
