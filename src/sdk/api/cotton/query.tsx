@@ -114,7 +114,7 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 			{...props}
 		/>
 	</CottonsSource>;
-};
+}
 
 export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICotton> {
 	toOption: IToOptionMapper<ICotton>;

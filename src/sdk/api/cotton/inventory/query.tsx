@@ -115,7 +115,7 @@ export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = 
 			{...props}
 		/>
 	</CottonsInventorySource>;
-};
+}
 
 export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;

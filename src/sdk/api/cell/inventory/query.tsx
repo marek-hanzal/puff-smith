@@ -114,7 +114,7 @@ export const CellsInventoryListSource: FC<ICellsInventoryListSourceProps> = ({so
 			{...props}
 		/>
 	</CellsInventorySource>;
-};
+}
 
 export interface ICellsInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {
 	toOption: IToOptionMapper<ICellInventory>;

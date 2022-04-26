@@ -33,7 +33,7 @@ export const useWhoamiQuery = createQueryHook<void, IUser, IWhoamiQueryParams>(W
 export const useWhoamiQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WhoamiApiLink]);
-};
+}
 
 export const toWhoamiLink = (queryParams?: IWhoamiQueryParams) => toLink(WhoamiApiLink, queryParams);
 export const useWhoamiLink = () => toWhoamiLink;
