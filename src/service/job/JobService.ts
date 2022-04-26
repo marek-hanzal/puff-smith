@@ -1,6 +1,6 @@
-import {Agenda} from "@/puff-smith/agenda/agenda";
 import {IJobService} from "@/puff-smith/service/job/interface";
-import prisma from "@/puff-smith/service/prisma";
+import {Agenda} from "@/puff-smith/service/side-effect/agenda";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJob, IPrismaClientTransaction} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";

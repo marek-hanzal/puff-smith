@@ -1,7 +1,7 @@
-import agenda from "@/puff-smith/agenda/agenda";
 import ImportJob from "@/puff-smith/agenda/job/import";
 import MigrationJob from "@/puff-smith/agenda/job/migrate";
 import MixtureJob from "@/puff-smith/agenda/job/mixture";
+import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 
 (async function () {

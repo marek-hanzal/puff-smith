@@ -23,7 +23,7 @@
 		"seed": "node ./.next/server/migration.js"
 	},
 	"sideEffects": [
-		"src/service/*"
+		"src/service/side-effect/*"
 	],
 	"next-unused": {
 		"alias": {

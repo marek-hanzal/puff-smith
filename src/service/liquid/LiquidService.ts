@@ -1,6 +1,6 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILiquidService} from "@/puff-smith/service/liquid/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TariffService} from "@/puff-smith/service/tariff/TariffService";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IPrismaClientTransaction} from "@leight-core/api";

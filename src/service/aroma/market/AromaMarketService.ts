@@ -1,6 +1,6 @@
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaMarketService} from "@/puff-smith/service/aroma/market/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

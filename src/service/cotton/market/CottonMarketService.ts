@@ -1,6 +1,6 @@
 import {CottonService} from "@/puff-smith/service/cotton/CottonService";
 import {ICottonMarketService} from "@/puff-smith/service/cotton/market/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

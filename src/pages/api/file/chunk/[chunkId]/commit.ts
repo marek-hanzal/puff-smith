@@ -1,5 +1,5 @@
 import {chunkService} from "@/puff-smith/service/chunk/service";
-import prismaClient from "@/puff-smith/service/prisma";
+import prismaClient from "@/puff-smith/service/side-effect/prisma";
 import {IChunkCommit, IFile} from "@leight-core/api";
 import {CommitChunkEndpoint, Endpoint, IChunkEndpointQuery} from "@leight-core/server";
 

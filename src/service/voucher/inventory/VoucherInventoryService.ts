@@ -1,5 +1,5 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IVoucherInventoryService} from "@/puff-smith/service/voucher/inventory/interface";
 import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";

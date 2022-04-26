@@ -1,7 +1,7 @@
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Agenda} from "agenda";
 
 export const MixtureJobName = "job.mixture";

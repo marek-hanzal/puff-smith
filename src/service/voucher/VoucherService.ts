@@ -1,4 +1,4 @@
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVoucherService} from "@/puff-smith/service/voucher/interface";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";

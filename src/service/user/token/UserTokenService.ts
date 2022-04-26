@@ -1,4 +1,4 @@
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenService} from "@/puff-smith/service/token/TokenService";
 import {IUserTokenService} from "@/puff-smith/service/user/token/interface";
 import {UserService} from "@/puff-smith/service/user/UserService";

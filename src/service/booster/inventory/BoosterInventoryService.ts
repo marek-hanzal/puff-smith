@@ -1,6 +1,6 @@
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBoosterInventoryService} from "@/puff-smith/service/booster/inventory/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";

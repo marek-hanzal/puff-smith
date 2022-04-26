@@ -1,6 +1,6 @@
 import {IModMarketService} from "@/puff-smith/service/mod/market/interface";
 import {ModService} from "@/puff-smith/service/mod/ModService";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 

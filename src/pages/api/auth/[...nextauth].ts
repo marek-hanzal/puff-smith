@@ -1,4 +1,4 @@
-import prismaClient from "@/puff-smith/service/prisma";
+import prismaClient from "@/puff-smith/service/side-effect/prisma";
 import {UserService} from "@/puff-smith/service/user/UserService";
 import {Logger} from "@leight-core/server";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";

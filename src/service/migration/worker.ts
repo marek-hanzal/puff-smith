@@ -1,5 +1,5 @@
-import {Agenda} from "@/puff-smith/agenda/agenda";
 import {MigrateJobName} from "@/puff-smith/agenda/job/migrate";
+import {Agenda} from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 
 const worker = async () => {

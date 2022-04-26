@@ -1,5 +1,5 @@
 import {IBoosterService} from "@/puff-smith/service/booster/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";

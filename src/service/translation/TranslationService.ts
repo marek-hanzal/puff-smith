@@ -1,6 +1,6 @@
-import prisma from "@/puff-smith/service/prisma";
-import {sha256} from "@/puff-smith/service/sha256";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITranslationService} from "@/puff-smith/service/translation/interface";
+import {sha256} from "@/puff-smith/service/utils/sha256";
 import {IPrismaClientTransaction} from "@leight-core/api";
 import {handleUniqueException, RepositoryService} from "@leight-core/server";
 

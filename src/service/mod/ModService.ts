@@ -1,5 +1,5 @@
 import {IModService} from "@/puff-smith/service/mod/interface";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {IPrismaClientTransaction} from "@leight-core/api";

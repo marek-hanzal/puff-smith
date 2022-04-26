@@ -1,5 +1,5 @@
 import {PriceService} from "@/puff-smith/service/price/PriceService";
-import prisma from "@/puff-smith/service/prisma";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenService} from "@/puff-smith/service/token/TokenService";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IUserService} from "@/puff-smith/service/user/interface";
