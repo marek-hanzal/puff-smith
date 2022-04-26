@@ -45,18 +45,20 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 					})}
 					<Typography.Text type={"secondary"}>{t("common.job.name." + job.name)}</Typography.Text>
 				</Space>}
-				description={<Space size={"large"}>
-					<Space size={"small"} split={<Divider type={"vertical"}/>}>
-						<LocalDate date={job.created}/>
-						{job.started && <LocalDate date={job.started} tooltip={"root.job.started.tooltip"}/>}
-						{job.started && <JobPerformanceInline job={job}/>}
-						{job.finished && <Space>(<DurationOf start={job.created} end={job.finished}/>)</Space>}
-						{!job.finished && job.started && <Space>(<TimeOf date={job.started}/>)</Space>}
+				description={<>
+					<Space size={"large"}>
+						<Space size={"small"} split={<Divider type={"vertical"}/>}>
+							<LocalDate date={job.created}/>
+							{job.started && <LocalDate date={job.started} tooltip={"root.job.started.tooltip"}/>}
+							{job.started && <JobPerformanceInline job={job}/>}
+							{job.finished && <Space>(<DurationOf start={job.created} end={job.finished}/>)</Space>}
+							{!job.finished && job.started && <Space>(<TimeOf date={job.started}/>)</Space>}
+						</Space>
+						<JobStatsInline job={job}/>
 					</Space>
-					<JobStatsInline job={job}/>
-				</Space>}
+					<JobProgress job={job}/>
+				</>}
 			/>
-			<JobProgress job={job}/>
 		</ListItem>}
 	</JobsListSource>;
 };
