@@ -12,7 +12,7 @@ export default function MixtureJob(agenda: Agenda) {
 		priority: 5,
 	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
 		const maxNicotine = 18;
-		await jobProgress.total(maxNicotine * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
+		await jobProgress.total((maxNicotine + 1) * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
 		await prisma.mixture.deleteMany();
 		/**

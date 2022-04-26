@@ -1,9 +1,12 @@
+import {DurationOf} from "@/puff-smith/component/inline/DurationOf";
+import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
+import {TimeOf} from "@/puff-smith/component/inline/TimeOf";
 import {JobStatsInline} from "@/puff-smith/site/root/job/@module/inline/JobStatsInline";
 import {JobProgress} from "@/puff-smith/site/shared/job/@module/component/JobProgress";
 import {JobsListHeader} from "@/puff-smith/site/shared/job/@module/list/JobsListHeader";
 import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
-import {durationOf, ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
-import {Space, Typography} from "antd";
+import {ListItem, ListItemMeta} from "@leight-core/client";
+import {Divider, Space, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -42,9 +45,11 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 					<Typography.Text type={"secondary"}>{t("common.job.name." + job.name)}</Typography.Text>
 				</Space>}
 				description={<Space size={"large"}>
-					<Space size={"small"}>
-						{toLocalDateTime(job.created)}
-						{job.finished && `(${durationOf(job.finished, job.created).humanize()})`}
+					<Space size={"small"} split={<Divider type={"vertical"}/>}>
+						<LocalDate date={job.created}/>
+						{job.started && <LocalDate date={job.started} tooltip={"root.job.started.tooltip"}/>}
+						{job.finished && <Space>(<DurationOf start={job.created} end={job.finished}/>)</Space>}
+						{!job.finished && job.started && <Space>(<TimeOf date={job.created}/>)</Space>}
 					</Space>
 					<JobStatsInline job={job}/>
 				</Space>}

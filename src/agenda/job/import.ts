@@ -1,4 +1,3 @@
-import {MixtureJobName} from "@/puff-smith/agenda/job/mixture";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
@@ -64,6 +63,5 @@ export default function ImportJob(agenda: Agenda) {
 			onFailure: jobProgress.onFailure,
 			onSkip: jobProgress.onSkip,
 		});
-		await jobService.schedule(MixtureJobName, undefined, job.userId);
 	}));
 };

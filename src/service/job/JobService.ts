@@ -48,6 +48,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			status: status => prismaClient.job.update({
 				data: {
 					status,
+					started: ["RUNNING"].includes(status) ? new Date() : undefined,
 					finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : undefined,
 				},
 				where: {
