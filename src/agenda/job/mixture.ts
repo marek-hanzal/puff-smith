@@ -65,7 +65,7 @@ export default function MixtureJob(agenda: Agenda) {
 							}));
 						});
 					}
-					prisma.mixture.createMany({data: batch});
+					await prisma.mixture.createMany({data: batch});
 				}
 			}
 		}
