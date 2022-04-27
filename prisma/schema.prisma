@@ -623,6 +623,8 @@ model Mixture {
   base            Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
   baseMl          Decimal       @db.Decimal(10, 2)
   error           MixtureError?
+
+  @@unique([aromaId, boosterId, baseId, nicotine])
 }
 
 enum MixtureError {

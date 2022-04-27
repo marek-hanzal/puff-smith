@@ -7,7 +7,10 @@ export interface IAromaNameInlineProps extends Partial<SpaceProps> {
 }
 
 export const AromaNameInline: FC<IAromaNameInlineProps> = ({aroma, ...props}) => {
-	return <Space {...props}>
+	return <Space
+		split={"-"}
+		{...props}
+	>
 		{aroma.name}
 		<Typography.Text type={"secondary"}>{aroma.vendor.name}</Typography.Text>
 	</Space>;

@@ -3,6 +3,13 @@ import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
+export interface IUserOwnershipFilter {
+	ownedByUserId?: string;
+	notOwnedByUserId?: string;
+	ownedByCurrentUser?: boolean;
+	notOwnedByCurrentUser?: boolean;
+}
+
 export interface IUserCreate {
 }
 

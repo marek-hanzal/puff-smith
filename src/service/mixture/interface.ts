@@ -1,6 +1,7 @@
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IBooster} from "@/puff-smith/service/booster/interface";
+import {IUserOwnershipFilter} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -25,7 +26,9 @@ export interface IMixtureCreate {
 	error?: IMixtureError;
 }
 
-export interface IMixtureQuery extends IQuery<Prisma.MixtureWhereInput, Prisma.MixtureOrderByWithRelationInput> {
+export type IMixtureWhere = Prisma.MixtureWhereInput & IUserOwnershipFilter;
+
+export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrderByWithRelationInput> {
 }
 
 export interface IMixture {
@@ -44,8 +47,10 @@ export interface IMixture {
 	aroma: IAroma;
 	boosterId?: string | null;
 	booster?: IBooster | null;
+	boosterCount: number;
 	baseId?: string | null;
 	base?: IBase | null;
+	baseMl: number;
 	error?: IMixtureError | null;
 }
 
@@ -58,4 +63,5 @@ export interface IMixtureFetchQuery extends ParsedUrlQuery {
 }
 
 export interface IMixtureService extends IRepositoryService<IMixtureCreate, Mixture, IMixture, IMixtureQuery, IMixtureFetchProps, IMixtureFetchQuery> {
+	toCreate(create: IMixtureCreate): any;
 }

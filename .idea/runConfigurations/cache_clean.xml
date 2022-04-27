@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="cache clean" type="js.build_tools.npm" folderName="npm">
+  <configuration default="false" name="cache clean" type="js.build_tools.npm" folderName="misc">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="cache" />
     <arguments value="clean --force" />

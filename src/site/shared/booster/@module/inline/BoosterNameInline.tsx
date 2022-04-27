@@ -7,7 +7,10 @@ export interface IBoosterNameInlineProps extends Partial<SpaceProps> {
 }
 
 export const BoosterNameInline: FC<IBoosterNameInlineProps> = ({booster, ...props}) => {
-	return <Space {...props}>
+	return <Space
+		split={"-"}
+		{...props}
+	>
 		{booster.name}
 		<Typography.Text type={"secondary"}>{booster.vendor.name}</Typography.Text>
 	</Space>;

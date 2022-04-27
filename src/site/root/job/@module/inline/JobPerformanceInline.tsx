@@ -12,7 +12,7 @@ export interface IJobPerformanceInlineProps {
 export const JobPerformanceInline: FC<IJobPerformanceInlineProps> = ({job}) => {
 	const {t} = useTranslation();
 	const current = (job.success || 0) + (job.failure || 0) + (job.skip || 0);
-	const performance = current / dayjs.duration(dayjs(job.finished || undefined).diff(job.started)).asSeconds();
+	const performance = current / dayjs.duration(Math.abs(dayjs(job.finished || undefined).diff(job.started))).asSeconds();
 	return job.started ?
 		<Tooltip title={t("root.job.performance.tooltip")}>
 			<Space size={"small"}>

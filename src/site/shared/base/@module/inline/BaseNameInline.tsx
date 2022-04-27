@@ -7,7 +7,10 @@ export interface IBaseNameInlineProps extends Partial<SpaceProps> {
 }
 
 export const BaseNameInline: FC<IBaseNameInlineProps> = ({base, ...props}) => {
-	return <Space {...props}>
+	return <Space
+		split={"-"}
+		{...props}
+	>
 		{base.name}
 		<Typography.Text type={"secondary"}>{base.vendor.name}</Typography.Text>
 	</Space>;

@@ -6,6 +6,7 @@ import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
+import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VapeIcon} from "@/puff-smith/component/icon/VapeIcon";
 import {hasToken} from "@/puff-smith/service/user/utils";
@@ -23,6 +24,7 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
 		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
 		{CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>)}
+		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
 		{CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>)}
 		<SubMenu key={"lab.inventory"} icon={<ContainerOutlined/>} id={"lab.inventory"}>
 			{CreateMenuItem("lab.atomizer.inventory.menu", "/lab/atomizer/inventory", <AtomizerIcon/>)}

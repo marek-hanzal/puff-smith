@@ -1,4 +1,5 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
+import {IUserOwnershipFilter} from "@/puff-smith/service/user/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
@@ -16,12 +17,7 @@ export interface IAromaCreate {
 	tastes?: string;
 }
 
-export type IAromaWhere = Prisma.AromaWhereInput & {
-	ownedByUserId?: string;
-	notOwnedByUserId?: string;
-	ownedByCurrentUser?: boolean;
-	notOwnedByCurrentUser?: boolean;
-};
+export type IAromaWhere = Prisma.AromaWhereInput & IUserOwnershipFilter;
 
 export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }

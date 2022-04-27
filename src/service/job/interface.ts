@@ -44,6 +44,7 @@ export interface IJobHandlerRequest<TParams> {
 	job: IJob<TParams>;
 	jobProgress: IJobProgress;
 	logger: Logger;
+	done: () => void;
 
 	progress<TResult>(callback: () => Promise<TResult>): Promise<TResult | void>;
 }

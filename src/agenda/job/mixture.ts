@@ -1,5 +1,5 @@
 import {JobService} from "@/puff-smith/service/job/JobService";
-import {IMixtureCreate} from "@/puff-smith/service/mixture/interface";
+import {IMixtureService} from "@/puff-smith/service/mixture/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -11,29 +11,22 @@ export default function MixtureJob(agenda: Agenda) {
 	agenda.define(MixtureJobName, {
 		concurrency: 1,
 		priority: 5,
-	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
-		const maxNicotine = 18;
+	}, JobService().handle(MixtureJobName, async ({jobProgress, progress, done}) => {
+		const maxNicotine = (await prisma.booster.aggregate({
+			_max: {
+				nicotine: true,
+			}
+		}))._max.nicotine?.toNumber() || -1;
 		await jobProgress.total((maxNicotine + 1) * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
 		await prisma.mixture.deleteMany();
-
-		const toCreate = (mixture: IMixtureCreate) => {
-			const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;
-			return {
-				...mixture,
-				vgToRound,
-				pgToRound: 100 - vgToRound,
-				nicotineToRound: Math.round(mixture.nicotine || 0),
-			};
-		};
-
 		/**
 		 * run through all aromas...
 		 */
 		for (const aroma of await prisma.aroma.findMany()) {
 			for (const booster of await prisma.booster.findMany()) {
 				for (const base of await prisma.base.findMany()) {
-					const batch: ReturnType<typeof toCreate>[] = [];
+					const batch: ReturnType<IMixtureService["toCreate"]>[] = [];
 					/**
 					 * For loop through nicotine strengths
 					 */
@@ -46,7 +39,7 @@ export default function MixtureJob(agenda: Agenda) {
 								base,
 							});
 							const volume = aroma.volume?.toNumber() || aroma.content.toNumber();
-							batch.push(toCreate({
+							batch.push(mixtureService.toCreate({
 								aromaId: aroma.id,
 								baseId: info.base?.baseId,
 								baseMl: info.base?.volume || 0,
@@ -65,9 +58,13 @@ export default function MixtureJob(agenda: Agenda) {
 							}));
 						});
 					}
-					await prisma.mixture.createMany({data: batch});
+					await prisma.mixture.createMany({
+						data: batch,
+						skipDuplicates: true,
+					});
 				}
 			}
 		}
+		done();
 	}));
 }
