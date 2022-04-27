@@ -11,7 +11,8 @@ export default function MixtureJob(agenda: Agenda) {
 	agenda.define(MixtureJobName, {
 		concurrency: 1,
 		priority: 5,
-	}, JobService().handle(MixtureJobName, async ({jobProgress, progress, done}) => {
+		lockLifetime: undefined,
+	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
 		const maxNicotine = (await prisma.booster.aggregate({
 			_max: {
 				nicotine: true,
@@ -65,6 +66,5 @@ export default function MixtureJob(agenda: Agenda) {
 				}
 			}
 		}
-		done();
 	}));
 }

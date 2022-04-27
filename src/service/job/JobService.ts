@@ -120,7 +120,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 	handle: (name, handler) => {
 		let logger = Logger(name);
 		const jobService = JobService(prismaClient);
-		return async (job: Job<any>, done) => {
+		return async (job: Job<any>) => {
 			const theJob = job.attrs.data as IJob;
 			if (!theJob) {
 				logger.error(`Missing data (job) for [${name}] job.`);
@@ -139,7 +139,6 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					jobService,
 					name,
 					logger,
-					done,
 					progress: async callback => {
 						try {
 							const result = await callback();
