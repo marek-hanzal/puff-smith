@@ -1,22 +1,21 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
-import {IAromaMarketService} from "@/puff-smith/service/aroma/market/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IAromaMarketService, IAromaMarketServiceCreate} from "@/puff-smith/service/aroma/market/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const AromaMarketService = (userId?: string, prismaClient: IPrismaClientTransaction = prisma): IAromaMarketService => RepositoryService<IAromaMarketService>({
+export const AromaMarketService = (request: IAromaMarketServiceCreate = ServiceCreate()): IAromaMarketService => RepositoryService<IAromaMarketService>({
 	name: "aroma-market",
-	source: prismaClient.aroma,
+	source: request.prisma.aroma,
 	mapper: async entity => ({
-		aroma: await AromaService(prismaClient).map(entity),
-		isOwned: userId ? (await prismaClient.aromaInventory.count({
+		aroma: await AromaService(request).map(entity),
+		isOwned: request.userService.getOptionalUserId() ? (await request.prisma.aromaInventory.count({
 			where: {
 				aromaId: entity.id,
-				userId,
+				userId: request.userService.getOptionalUserId(),
 			}
 		})) > 0 : undefined,
 	}),
-	toFilter: AromaService(prismaClient).toFilter,
+	toFilter: AromaService(request).toFilter,
 	create: async () => {
 		throw new Error("Invalid operation: read-only repository.");
 	},

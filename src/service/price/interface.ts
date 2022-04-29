@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITariff} from "@/puff-smith/service/tariff/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Price, Prisma} from "@prisma/client";
@@ -32,6 +33,9 @@ export interface IPriceFetchProps {
 
 export interface IPriceFetchQuery extends ParsedUrlQuery {
 	priceId: string;
+}
+
+export interface IPriceServiceCreate extends IServiceCreate {
 }
 
 export interface IPriceService extends IRepositoryService<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {

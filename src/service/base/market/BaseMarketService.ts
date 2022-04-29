@@ -1,22 +1,21 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
-import {IBaseMarketService} from "@/puff-smith/service/base/market/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IBaseMarketService, IBaseMarketServiceCreate} from "@/puff-smith/service/base/market/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const BaseMarketService = (userId?: string, prismaClient: IPrismaClientTransaction = prisma): IBaseMarketService => RepositoryService<IBaseMarketService>({
+export const BaseMarketService = (request: IBaseMarketServiceCreate = ServiceCreate()): IBaseMarketService => RepositoryService<IBaseMarketService>({
 	name: "base-market",
-	source: prismaClient.base,
+	source: request.prisma.base,
 	mapper: async entity => ({
-		base: await BaseService(prismaClient).map(entity),
-		isOwned: userId ? (await prismaClient.baseInventory.count({
+		base: await BaseService(request).map(entity),
+		isOwned: request.userService.getOptionalUserId() ? (await request.prisma.baseInventory.count({
 			where: {
 				baseId: entity.id,
-				userId,
+				userId: request.userService.getOptionalUserId(),
 			}
 		})) > 0 : undefined,
 	}),
-	toFilter: BaseService(prismaClient).toFilter,
+	toFilter: BaseService(request).toFilter,
 	create: async () => {
 		throw new Error("Invalid operation: read-only repository.");
 	},

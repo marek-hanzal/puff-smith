@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Metric, Prisma} from "@prisma/client";
@@ -32,6 +33,9 @@ export interface IMetricFetchProps {
 
 export interface IMetricFetchQuery extends ParsedUrlQuery {
 	metricId: string;
+}
+
+export interface IMetricServiceCreate extends IServiceCreate {
 }
 
 export interface IMetricService extends IRepositoryService<IMetricCreate, Metric, IMetric, IMetricQuery, IMetricFetchProps, IMetricFetchQuery> {

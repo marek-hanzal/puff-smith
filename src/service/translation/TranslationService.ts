@@ -1,12 +1,11 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITranslationService} from "@/puff-smith/service/translation/interface";
+import {ServiceCreate} from "@/puff-smith/service";
+import {ITranslationService, ITranslationServiceCreate} from "@/puff-smith/service/translation/interface";
 import {sha256} from "@/puff-smith/service/utils/sha256";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {handleUniqueException, RepositoryService} from "@leight-core/server";
 
-export const TranslationService = (prismaClient: IPrismaClientTransaction = prisma): ITranslationService => RepositoryService<ITranslationService>({
+export const TranslationService = (request: ITranslationServiceCreate = ServiceCreate()): ITranslationService => RepositoryService<ITranslationService>({
 	name: "translation",
-	source: prismaClient.translation,
+	source: request.prisma.translation,
 	mapper: async translation => ({
 		key: translation.label,
 		value: translation.text,
@@ -14,14 +13,14 @@ export const TranslationService = (prismaClient: IPrismaClientTransaction = pris
 	create: async create => {
 		const hash = sha256(create.label);
 		try {
-			return await prismaClient.translation.create({
+			return await request.prisma.translation.create({
 				data: {
 					...create,
 					hash,
 				}
 			});
 		} catch (e) {
-			return handleUniqueException(e, async () => prismaClient.translation.update({
+			return handleUniqueException(e, async () => request.prisma.translation.update({
 				where: {
 					language_hash: {
 						hash,

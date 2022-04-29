@@ -1,12 +1,11 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {IMixtureCreate, IMixtureService, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IMixtureCreate, IMixtureService, IMixtureServiceCreate, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const MixtureService = (userId?: string, prismaClient: IPrismaClientTransaction = prisma): IMixtureService => {
+export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate()): IMixtureService => {
 	const toCreate = (create: IMixtureCreate) => {
 		const vgToRound = Math.round(create.vg * 0.1) / 0.1;
 		return {
@@ -19,9 +18,9 @@ export const MixtureService = (userId?: string, prismaClient: IPrismaClientTrans
 	return {
 		...RepositoryService<IMixtureService>({
 			name: "mixture",
-			source: prismaClient.mixture,
+			source: request.prisma.mixture,
 			mapper: async mixture => {
-				const aroma = await AromaService(prismaClient).toMap(mixture.aromaId);
+				const aroma = await AromaService(request).toMap(mixture.aromaId);
 				return {
 					...mixture,
 					content: mixture.content.toNumber(),
@@ -34,13 +33,13 @@ export const MixtureService = (userId?: string, prismaClient: IPrismaClientTrans
 					vgToMl: mixture.vgToMl.toNumber(),
 					pgToMl: mixture.pgToMl.toNumber(),
 					aroma,
-					booster: mixture.boosterId ? await BoosterService(prismaClient).toMap(mixture.boosterId) : undefined,
-					base: mixture.baseId ? await BaseService(prismaClient).toMap(mixture.baseId) : undefined,
+					booster: mixture.boosterId ? await BoosterService(request).toMap(mixture.boosterId) : undefined,
+					base: mixture.baseId ? await BaseService(request).toMap(mixture.baseId) : undefined,
 					baseMl: mixture.baseMl.toNumber(),
 					volume: aroma.volume || 0,
 				};
 			},
-			create: async mixture => prismaClient.mixture.create({
+			create: async mixture => request.prisma.mixture.create({
 				data: toCreate(mixture),
 			}),
 			toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {
@@ -57,8 +56,8 @@ export const MixtureService = (userId?: string, prismaClient: IPrismaClientTrans
 						},
 					],
 				} : filter;
-				ownedByUserId = ownedByCurrentUser ? userId : ownedByUserId;
-				notOwnedByUserId = notOwnedByCurrentUser ? userId : notOwnedByUserId;
+				ownedByUserId = ownedByCurrentUser ? request.userService.getUserId() : ownedByUserId;
+				notOwnedByUserId = notOwnedByCurrentUser ? request.userService.getUserId() : notOwnedByUserId;
 				if (ownedByUserId) {
 					_filter = {
 						...filter,

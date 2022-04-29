@@ -1,22 +1,21 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITagService} from "@/puff-smith/service/tag/interface";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {ServiceCreate} from "@/puff-smith/service";
+import {ITagService, ITagServiceCreate} from "@/puff-smith/service/tag/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITagService => ({
+export const TagService = (request: ITagServiceCreate = ServiceCreate()): ITagService => ({
 	...RepositoryService<ITagService>({
 		name: "tag",
-		source: prismaClient.tag,
+		source: request.prisma.tag,
 		mapper: async tag => tag,
-		create: async tag => prismaClient.tag.create({
+		create: async tag => request.prisma.tag.create({
 			data: {
 				...tag,
 				code: `${tag.code}`,
 			},
 		}),
-		onUnique: async data => prismaClient.tag.update({
+		onUnique: async data => request.prisma.tag.update({
 			where: {
-				id: (await prismaClient.tag.findFirst({
+				id: (await request.prisma.tag.findFirst({
 					where: {
 						code: `${data.code}`,
 						group: data.group,
@@ -30,7 +29,7 @@ export const TagService = (prismaClient: IPrismaClientTransaction = prisma): ITa
 			},
 		}),
 	}),
-	fetchCodes: async (codes, group) => prismaClient.tag.findMany({
+	fetchCodes: async (codes, group) => request.prisma.tag.findMany({
 		where: {
 			code: {
 				in: codes.split(/,\s+/ig).map(code => `${code}`.toLowerCase()),

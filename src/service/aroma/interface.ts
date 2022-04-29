@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IUserOwnershipFilter} from "@/puff-smith/service/user/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
@@ -42,6 +43,9 @@ export interface IAromaFetchProps {
 
 export interface IAromaFetchQuery extends ParsedUrlQuery {
 	aromaId: string;
+}
+
+export interface IAromaServiceCreate extends IServiceCreate {
 }
 
 export interface IAromaService extends IRepositoryService<IAromaCreate, Aroma, IAroma, IAromaQuery, IAromaFetchProps, IAromaFetchQuery> {

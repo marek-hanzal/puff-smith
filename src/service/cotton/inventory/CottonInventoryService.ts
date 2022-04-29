@@ -1,25 +1,25 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {CottonService} from "@/puff-smith/service/cotton/CottonService";
-import {ICottonInventoryService} from "@/puff-smith/service/cotton/inventory/interface";
+import {ICottonInventoryService, ICottonInventoryServiceCreate} from "@/puff-smith/service/cotton/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const CottonInventoryService = (prismaClient: IPrismaClientTransaction = prisma): ICottonInventoryService => RepositoryService<ICottonInventoryService>({
+export const CottonInventoryService = (request: ICottonInventoryServiceCreate = ServiceCreate()): ICottonInventoryService => RepositoryService<ICottonInventoryService>({
 	name: "cotton-inventory",
-	source: prismaClient.cottonInventory,
+	source: request.prisma.cottonInventory,
 	mapper: async cottonTransaction => ({
 		...cottonTransaction,
-		cotton: await CottonService(prismaClient).toMap(cottonTransaction.cottonId),
-		transaction: await TransactionService(prismaClient).toMap(cottonTransaction.transactionId),
+		cotton: await CottonService(request).toMap(cottonTransaction.cottonId),
+		transaction: await TransactionService(request).toMap(cottonTransaction.transactionId),
 	}),
-	create: async create => prisma.$transaction(async prismaClient => {
-		const cotton = await CottonService(prismaClient).toMap(create.cottonId);
-		return TransactionService(prismaClient).handleTransaction({
+	create: async create => prisma.$transaction(async prisma => {
+		const cotton = await CottonService({...request, prisma}).toMap(create.cottonId);
+		return TransactionService({...request, prisma}).handleTransaction({
 			userId: create.userId,
 			cost: cotton.cost,
 			note: `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`,
-			callback: async transaction => prismaClient.cottonInventory.create({
+			callback: async transaction => request.prisma.cottonInventory.create({
 				data: {
 					cottonId: cotton.id,
 					transactionId: transaction.id,

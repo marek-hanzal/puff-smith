@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -28,4 +29,8 @@ export interface IBaseInventoryFetchQuery extends ParsedUrlQuery {
 	baseTransactionId: string;
 }
 
-export type IBaseTransactionService = IRepositoryService<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery>;
+export interface IBaseTransactionServiceCreate extends IServiceCreate {
+}
+
+export interface IBaseTransactionService extends IRepositoryService<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery> {
+}

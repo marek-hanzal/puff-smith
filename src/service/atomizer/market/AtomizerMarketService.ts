@@ -1,22 +1,21 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
-import {IAtomizerMarketService} from "@/puff-smith/service/atomizer/market/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IAtomizerMarketService, IAtomizerMarketServiceCreate} from "@/puff-smith/service/atomizer/market/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const AtomizerMarketService = (userId?: string, prismaClient: IPrismaClientTransaction = prisma): IAtomizerMarketService => RepositoryService<IAtomizerMarketService>({
+export const AtomizerMarketService = (request: IAtomizerMarketServiceCreate = ServiceCreate()): IAtomizerMarketService => RepositoryService<IAtomizerMarketService>({
 	name: "atomizer-market",
-	source: prismaClient.atomizer,
+	source: request.prisma.atomizer,
 	mapper: async entity => ({
-		atomizer: await AtomizerService(prismaClient).map(entity),
-		isOwned: userId ? (await prismaClient.atomizerInventory.count({
+		atomizer: await AtomizerService(request).map(entity),
+		isOwned: request.userService.getOptionalUserId() ? (await request.prisma.atomizerInventory.count({
 			where: {
 				atomizerId: entity.id,
-				userId,
+				userId: request.userService.getOptionalUserId(),
 			}
 		})) > 0 : undefined,
 	}),
-	toFilter: AtomizerService(prismaClient).toFilter,
+	toFilter: AtomizerService(request).toFilter,
 	create: async () => {
 		throw new Error("Invalid operation: read-only repository.");
 	},

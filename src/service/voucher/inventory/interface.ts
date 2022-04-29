@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IVoucher} from "@/puff-smith/service/voucher/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -29,4 +30,8 @@ export interface IVoucherInventoryFetchQuery extends ParsedUrlQuery {
 	voucherTransactionId: string;
 }
 
-export type IVoucherInventoryService = IRepositoryService<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery>;
+export interface IVoucherInventoryServiceCreate extends IServiceCreate {
+}
+
+export interface IVoucherInventoryService extends IRepositoryService<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery> {
+}

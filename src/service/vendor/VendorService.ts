@@ -1,16 +1,15 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IVendorService} from "@/puff-smith/service/vendor/interface";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IVendorService, IVendorServiceCreate} from "@/puff-smith/service/vendor/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const VendorService = (prismaClient: IPrismaClientTransaction = prisma): IVendorService => RepositoryService<IVendorService>({
+export const VendorService = (request: IVendorServiceCreate = ServiceCreate()): IVendorService => RepositoryService<IVendorService>({
 	name: "vendor",
-	source: prismaClient.vendor,
+	source: request.prisma.vendor,
 	mapper: async vendor => vendor,
-	create: async create => prismaClient.vendor.create({
+	create: async create => request.prisma.vendor.create({
 		data: create,
 	}),
-	onUnique: create => prismaClient.vendor.findFirst({
+	onUnique: create => request.prisma.vendor.findFirst({
 		where: {
 			name: create.name,
 		},

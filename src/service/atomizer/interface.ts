@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -32,6 +33,9 @@ export interface IAtomizerFetchProps {
 
 export interface IAtomizerFetchQuery extends ParsedUrlQuery {
 	atomizerId: string;
+}
+
+export interface IAtomizerServiceCreate extends IServiceCreate {
 }
 
 export interface IAtomizerService extends IRepositoryService<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {

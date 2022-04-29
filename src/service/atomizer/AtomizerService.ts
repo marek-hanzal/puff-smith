@@ -1,19 +1,18 @@
-import {IAtomizerService} from "@/puff-smith/service/atomizer/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IAtomizerService, IAtomizerServiceCreate} from "@/puff-smith/service/atomizer/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 import {boolean} from "boolean";
 
-export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IAtomizerService>({
+export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate()) => RepositoryService<IAtomizerService>({
 	name: "atomizer",
-	source: prismaClient.atomizer,
+	source: request.prisma.atomizer,
 	mapper: async atomizer => ({
 		...atomizer,
-		vendor: await VendorService(prismaClient).toMap(atomizer.vendorId),
+		vendor: await VendorService(request).toMap(atomizer.vendorId),
 		cost: atomizer?.cost?.toNumber(),
-		draws: await TagService(prismaClient).list(prismaClient.tag.findMany({
+		draws: await TagService(request).list(request.prisma.tag.findMany({
 			where: {
 				AtomizerDraw: {
 					some: {
@@ -26,7 +25,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			}
 		})),
 	}),
-	create: async ({draws, type, vendor, ...atomizer}) => prismaClient.atomizer.create({
+	create: async ({draws, type, vendor, ...atomizer}) => request.prisma.atomizer.create({
 		data: {
 			...atomizer,
 			dualCoil: boolean(atomizer?.dualCoil),
@@ -47,7 +46,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			},
 			AtomizerDraw: {
 				createMany: {
-					data: draws ? (await TagService(prismaClient).fetchCodes(draws, "draw")).map(tag => ({
+					data: draws ? (await TagService(request).fetchCodes(draws, "draw")).map(tag => ({
 						drawId: tag.id,
 					})) : [],
 				}
@@ -55,7 +54,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 		},
 	}),
 	onUnique: async ({vendor, type, draws, ...create}) => {
-		const _atomizer = (await prismaClient.atomizer.findFirst({
+		const _atomizer = (await request.prisma.atomizer.findFirst({
 			where: {
 				name: create.name,
 				vendor: {
@@ -64,12 +63,12 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 			},
 			rejectOnNotFound: true,
 		}));
-		await prismaClient.atomizerDraw.deleteMany({
+		await request.prisma.atomizerDraw.deleteMany({
 			where: {
 				atomizerId: _atomizer.id,
 			}
 		});
-		return prismaClient.atomizer.update({
+		return request.prisma.atomizer.update({
 			where: {
 				id: _atomizer.id,
 			},
@@ -88,7 +87,7 @@ export const AtomizerService = (prismaClient: IPrismaClientTransaction = prisma)
 				},
 				AtomizerDraw: {
 					createMany: {
-						data: draws ? (await TagService(prismaClient).fetchCodes(draws, "draw")).map(tag => ({
+						data: draws ? (await TagService(request).fetchCodes(draws, "draw")).map(tag => ({
 							drawId: tag.id,
 						})) : [],
 					}

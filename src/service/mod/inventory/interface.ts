@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IMod} from "@/puff-smith/service/mod/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -28,4 +29,8 @@ export interface IModInventoryFetchQuery extends ParsedUrlQuery {
 	modTransactionId: string;
 }
 
-export type IModTransactionService = IRepositoryService<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery>;
+export interface IModTransactionServiceCreate extends IServiceCreate {
+}
+
+export interface IModTransactionService extends IRepositoryService<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery> {
+}

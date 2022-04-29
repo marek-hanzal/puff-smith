@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
@@ -63,6 +64,9 @@ export interface ILiquidFetchProps {
 
 export interface ILiquidFetchQuery extends ParsedUrlQuery {
 	liquidId: string;
+}
+
+export interface ILiquidServiceCreate extends IServiceCreate {
 }
 
 export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {

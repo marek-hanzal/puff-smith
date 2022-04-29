@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -26,6 +27,9 @@ export interface IAromaInventoryFetchProps {
 
 export interface IAromaInventoryFetchQuery extends ParsedUrlQuery {
 	aromaInventoryId: string;
+}
+
+export interface IAromaInventoryServiceCreate extends IServiceCreate {
 }
 
 export interface IAromaInventoryService extends IRepositoryService<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery> {

@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -29,4 +30,8 @@ export interface IBoosterInventoryFetchQuery extends ParsedUrlQuery {
 	boosterTransactionId: string;
 }
 
-export type IBoosterInventoryService = IRepositoryService<IBoosterInventoryCreate, BoosterInventory, IBoosterInventory, IBoosterInventoryQuery, IBoosterInventoryFetchProps, IBoosterInventoryFetchQuery>;
+export interface IBoosterInventoryServiceCreate extends IServiceCreate {
+}
+
+export interface IBoosterInventoryService extends IRepositoryService<IBoosterInventoryCreate, BoosterInventory, IBoosterInventory, IBoosterInventoryQuery, IBoosterInventoryFetchProps, IBoosterInventoryFetchQuery> {
+}

@@ -1,25 +1,25 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {IBoosterInventoryService} from "@/puff-smith/service/booster/inventory/interface";
+import {IBoosterInventoryService, IBoosterInventoryServiceCreate} from "@/puff-smith/service/booster/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const BoosterInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IBoosterInventoryService => RepositoryService<IBoosterInventoryService>({
+export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate = ServiceCreate()): IBoosterInventoryService => RepositoryService<IBoosterInventoryService>({
 	name: "booster-inventory",
-	source: prismaClient.boosterInventory,
+	source: request.prisma.boosterInventory,
 	mapper: async boosterTransaction => ({
 		...boosterTransaction,
-		booster: await BoosterService(prismaClient).toMap(boosterTransaction.boosterId),
-		transaction: await TransactionService(prismaClient).toMap(boosterTransaction.transactionId),
+		booster: await BoosterService(request).toMap(boosterTransaction.boosterId),
+		transaction: await TransactionService(request).toMap(boosterTransaction.transactionId),
 	}),
-	create: async create => prisma.$transaction(async prismaClient => {
-		const booster = await BoosterService(prismaClient).toMap(create.boosterId);
-		return TransactionService(prismaClient).handleTransaction({
+	create: async create => prisma.$transaction(async prisma => {
+		const booster = await BoosterService({...request, prisma}).toMap(create.boosterId);
+		return TransactionService({...request, prisma}).handleTransaction({
 			userId: create.userId,
 			cost: booster.cost,
 			note: `Purchase of booster [${booster.vendor.name} ${booster.name}]`,
-			callback: async transaction => prismaClient.boosterInventory.create({
+			callback: async transaction => request.prisma.boosterInventory.create({
 				data: {
 					boosterId: booster.id,
 					transactionId: transaction.id,

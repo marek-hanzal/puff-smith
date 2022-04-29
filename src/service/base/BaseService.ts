@@ -1,20 +1,19 @@
-import {IBaseService} from "@/puff-smith/service/base/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IBaseService, IBaseServiceCreate} from "@/puff-smith/service/base/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => RepositoryService<IBaseService>({
+export const BaseService = (request: IBaseServiceCreate = ServiceCreate()) => RepositoryService<IBaseService>({
 	name: "base",
-	source: prismaClient.base,
+	source: request.prisma.base,
 	mapper: async base => ({
 		...base,
-		vendor: await VendorService(prismaClient).toMap(base.vendorId),
+		vendor: await VendorService(request).toMap(base.vendorId),
 		cost: base.cost.toNumber(),
 		pg: base.pg.toNumber(),
 		vg: base.vg.toNumber(),
 	}),
-	create: async ({vendor, ...base}) => prismaClient.base.create({
+	create: async ({vendor, ...base}) => request.prisma.base.create({
 		data: {
 			...base,
 			vendor: {
@@ -24,9 +23,9 @@ export const BaseService = (prismaClient: IPrismaClientTransaction = prisma) => 
 			},
 		},
 	}),
-	onUnique: async ({vendor, ...create}) => prismaClient.base.update({
+	onUnique: async ({vendor, ...create}) => request.prisma.base.update({
 		where: {
-			id: (await prismaClient.base.findFirst({
+			id: (await request.prisma.base.findFirst({
 				where: {
 					name: create.name,
 					vendor: {

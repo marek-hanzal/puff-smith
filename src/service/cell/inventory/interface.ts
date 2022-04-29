@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ICell} from "@/puff-smith/service/cell/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -30,4 +31,8 @@ export interface ICellInventoryFetchQuery extends ParsedUrlQuery {
 	cellTransactionId: string;
 }
 
-export type ICellInventoryService = IRepositoryService<ICellInventoryCreate, CellInventory, ICellInventory, ICellInventoryQuery, ICellInventoryFetchProps, ICellInventoryFetchQuery>;
+export interface ICellInventoryServiceCreate extends IServiceCreate {
+}
+
+export interface ICellInventoryService extends IRepositoryService<ICellInventoryCreate, CellInventory, ICellInventory, ICellInventoryQuery, ICellInventoryFetchProps, ICellInventoryFetchQuery> {
+}

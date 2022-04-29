@@ -1,24 +1,23 @@
-import {ICellService} from "@/puff-smith/service/cell/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ServiceCreate} from "@/puff-smith/service";
+import {ICellService, ICellServiceCreate} from "@/puff-smith/service/cell/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const CellService = (prismaClient: IPrismaClientTransaction = prisma): ICellService => ({
+export const CellService = (request: ICellServiceCreate = ServiceCreate()): ICellService => ({
 	...RepositoryService<ICellService>({
 		name: "cell",
-		source: prismaClient.cell,
+		source: request.prisma.cell,
 		mapper: async cell => ({
 			...cell,
-			vendor: await VendorService(prismaClient).toMap(cell.vendorId),
-			type: await TagService(prismaClient).toMap(cell.typeId),
+			vendor: await VendorService(request).toMap(cell.vendorId),
+			type: await TagService(request).toMap(cell.typeId),
 			cost: cell.cost.toNumber(),
 			drain: cell.drain?.toNumber(),
 			ohm: cell.ohm?.toNumber(),
 			voltage: cell.voltage?.toNumber(),
 		}),
-		create: async ({type, vendor, ...cell}) => prismaClient.cell.create({
+		create: async ({type, vendor, ...cell}) => request.prisma.cell.create({
 			data: {
 				...cell,
 				vendor: {
@@ -36,9 +35,9 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 				},
 			},
 		}),
-		onUnique: async ({vendor, type, ...create}) => prismaClient.cell.update({
+		onUnique: async ({vendor, type, ...create}) => request.prisma.cell.update({
 			where: {
-				id: (await prismaClient.cell.findFirst({
+				id: (await request.prisma.cell.findFirst({
 					where: {
 						name: create.name,
 						vendor: {
@@ -61,7 +60,7 @@ export const CellService = (prismaClient: IPrismaClientTransaction = prisma): IC
 			},
 		}),
 	}),
-	fetchCells: async cells => prismaClient.cell.findMany({
+	fetchCells: async cells => request.prisma.cell.findMany({
 		where: {
 			type: {
 				code: {

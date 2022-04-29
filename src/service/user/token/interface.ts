@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IToken} from "@/puff-smith/service/token/interface";
 import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -24,6 +25,9 @@ export interface IUserTokenFetchProps {
 
 export interface IUserTokenFetchQuery extends ParsedUrlQuery {
 	userTokenId: string;
+}
+
+export interface IUserTokenServiceCreate extends IServiceCreate {
 }
 
 export interface IUserTokenService extends IRepositoryService<IUserTokenCreate, UserToken, IUserToken, IUserTokenQuery, IUserTokenFetchProps, IUserTokenFetchQuery> {

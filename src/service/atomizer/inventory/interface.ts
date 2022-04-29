@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -28,4 +29,8 @@ export interface IAtomizerInventoryFetchQuery extends ParsedUrlQuery {
 	atomizerInventoryId: string;
 }
 
-export type IAtomizerInventoryService = IRepositoryService<IAtomizerInventoryCreate, AtomizerInventory, IAtomizerInventory, IAtomizerInventoryQuery, IAtomizerInventoryFetchProps, IAtomizerInventoryFetchQuery>;
+export interface IAtomizerInventoryServiceCreate extends IServiceCreate {
+}
+
+export interface IAtomizerInventoryService extends IRepositoryService<IAtomizerInventoryCreate, AtomizerInventory, IAtomizerInventory, IAtomizerInventoryQuery, IAtomizerInventoryFetchProps, IAtomizerInventoryFetchQuery> {
+}

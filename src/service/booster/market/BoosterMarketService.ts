@@ -1,22 +1,21 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {IBoosterMarketService} from "@/puff-smith/service/booster/market/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {IBoosterMarketService, IBoosterMarketServiceCreate} from "@/puff-smith/service/booster/market/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const BoosterMarketService = (userId?: string, prismaClient: IPrismaClientTransaction = prisma): IBoosterMarketService => RepositoryService<IBoosterMarketService>({
+export const BoosterMarketService = (request: IBoosterMarketServiceCreate = ServiceCreate()): IBoosterMarketService => RepositoryService<IBoosterMarketService>({
 	name: "booster-market",
-	source: prismaClient.booster,
+	source: request.prisma.booster,
 	mapper: async entity => ({
-		booster: await BoosterService(prismaClient).map(entity),
-		isOwned: userId ? (await prismaClient.boosterInventory.count({
+		booster: await BoosterService(request).map(entity),
+		isOwned: request.userService.getOptionalUserId() ? (await request.prisma.boosterInventory.count({
 			where: {
 				boosterId: entity.id,
-				userId,
+				userId: request.userService.getOptionalUserId(),
 			}
 		})) > 0 : undefined,
 	}),
-	toFilter: BoosterService(prismaClient).toFilter,
+	toFilter: BoosterService(request).toFilter,
 	create: async () => {
 		throw new Error("Invalid operation: read-only repository.");
 	},

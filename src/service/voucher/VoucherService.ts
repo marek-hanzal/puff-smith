@@ -1,22 +1,21 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IVoucherService} from "@/puff-smith/service/voucher/interface";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IVoucherService, IVoucherServiceCreate} from "@/puff-smith/service/voucher/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const VoucherService = (prismaClient: IPrismaClientTransaction = prisma): IVoucherService => RepositoryService<IVoucherService>({
+export const VoucherService = (request: IVoucherServiceCreate = ServiceCreate()): IVoucherService => RepositoryService<IVoucherService>({
 	name: "voucher",
-	source: prismaClient.voucher,
+	source: request.prisma.voucher,
 	mapper: async voucher => ({
 		...voucher,
 		cost: voucher.cost.toNumber(),
 		maxFortune: voucher.maxFortune?.toNumber(),
 	}),
-	create: async create => prismaClient.voucher.create({
+	create: async create => request.prisma.voucher.create({
 		data: create,
 	}),
-	onUnique: async create => prismaClient.voucher.update({
+	onUnique: async create => request.prisma.voucher.update({
 		where: {
-			id: (await prismaClient.voucher.findFirst({
+			id: (await request.prisma.voucher.findFirst({
 				where: {
 					name: create.name,
 				},

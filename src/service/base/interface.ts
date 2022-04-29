@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Base, Prisma} from "@prisma/client";
@@ -32,4 +33,8 @@ export interface IBaseFetchQuery extends ParsedUrlQuery {
 	baseId: string;
 }
 
-export type IBaseService = IRepositoryService<IBaseCreate, Base, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchQuery>;
+export interface IBaseServiceCreate extends IServiceCreate {
+}
+
+export interface IBaseService extends IRepositoryService<IBaseCreate, Base, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchQuery> {
+}

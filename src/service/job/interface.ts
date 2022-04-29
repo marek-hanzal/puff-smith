@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IJob, IJobStatus, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
 import {Processor} from "agenda";
@@ -46,6 +47,9 @@ export interface IJobHandlerRequest<TParams> {
 	logger: Logger;
 
 	progress<TResult>(callback: () => Promise<TResult>): Promise<TResult | void>;
+}
+
+export interface IJobServiceCreate extends IServiceCreate {
 }
 
 export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, IJobQuery, IJobFetchProps, IJobFetchQuery> {

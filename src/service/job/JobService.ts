@@ -1,15 +1,16 @@
-import {IJobService} from "@/puff-smith/service/job/interface";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IJobService, IJobServiceCreate} from "@/puff-smith/service/job/interface";
 import {Agenda} from "@/puff-smith/service/side-effect/agenda";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJob, IPrismaClientTransaction} from "@leight-core/api";
+import {IJob} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
 import {Job} from "agenda";
 
-export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJobService => ({
+export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobService => ({
 	...RepositoryService<IJobService>({
 		name: "job",
-		source: prismaClient.job,
+		source: request.prisma.job,
 		mapper: async job => ({
 			...job,
 			progress: job.progress?.toNumber(),
@@ -18,7 +19,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			skipRatio: job.skipRatio?.toNumber(),
 			params: job.params && JSON.parse(job.params)
 		}),
-		create: job => prismaClient.job.create({
+		create: job => request.prisma.job.create({
 			data: {
 				...job,
 				params: job.params && JSON.stringify(job.params),
@@ -37,7 +38,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			success: _success,
 			failure: _failure,
 			skip: _skip,
-			total: total => prismaClient.job.update({
+			total: total => request.prisma.job.update({
 				data: {
 					total: (_total = total),
 				},
@@ -45,7 +46,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					id: jobId,
 				}
 			}),
-			status: status => prismaClient.job.update({
+			status: status => request.prisma.job.update({
 				data: {
 					status,
 					started: ["RUNNING"].includes(status) ? new Date() : undefined,
@@ -55,7 +56,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					id: jobId,
 				}
 			}),
-			onSuccess: () => prismaClient.job.update({
+			onSuccess: () => request.prisma.job.update({
 				data: {
 					success: ++_success,
 					successRatio: toPercent(_success, _total),
@@ -65,7 +66,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					id: jobId,
 				}
 			}),
-			onFailure: () => prismaClient.job.update({
+			onFailure: () => request.prisma.job.update({
 				data: {
 					failure: ++_failure,
 					failureRatio: toPercent(_failure, _total),
@@ -75,7 +76,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 					id: jobId,
 				}
 			}),
-			onSkip: () => prismaClient.job.update({
+			onSkip: () => request.prisma.job.update({
 				data: {
 					skip: ++_skip,
 					skipRatio: toPercent(_skip, _total),
@@ -87,7 +88,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			}),
 		};
 	},
-	commit: () => prismaClient.job.updateMany({
+	commit: () => request.prisma.job.updateMany({
 		where: {
 			status: {
 				in: ["REVIEW", "FAILURE", "SUCCESS"],
@@ -97,14 +98,14 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 			status: "DONE",
 		}
 	}),
-	cleanup: filter => prismaClient.job.deleteMany(filter && {
+	cleanup: filter => request.prisma.job.deleteMany(filter && {
 		where: filter,
 	}),
 	schedule: async (name, params, userId) => {
 		const logger = Logger("job");
 		logger.info("New job", {labels: {job: name}, params, userId});
-		return prisma.$transaction(async prismaClient => {
-			const jobService = JobService(prismaClient);
+		return prisma.$transaction(async prisma => {
+			const jobService = JobService({...request, prisma});
 			const job = await jobService.create({
 				userId,
 				name,
@@ -119,7 +120,7 @@ export const JobService = (prismaClient: IPrismaClientTransaction = prisma): IJo
 	},
 	handle: (name, handler) => {
 		let logger = Logger(name);
-		const jobService = JobService(prismaClient);
+		const jobService = JobService(request);
 		return async (job: Job<any>) => {
 			const theJob = job.attrs.data as IJob;
 			if (!theJob) {

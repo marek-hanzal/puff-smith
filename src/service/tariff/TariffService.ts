@@ -1,16 +1,15 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITariffService} from "@/puff-smith/service/tariff/interface";
+import {ITariffService, ITariffServiceCreate} from "@/puff-smith/service/tariff/interface";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {handleUniqueException, RepositoryService} from "@leight-core/server";
 import {Price} from "@prisma/client";
 
-export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): ITariffService => ({
+export const TariffService = (request: ITariffServiceCreate = ServiceCreate()): ITariffService => ({
 	...RepositoryService<ITariffService>({
 		name: "tariff",
-		source: prismaClient.tariff,
+		source: request.prisma.tariff,
 		mapper: async tariff => ({
 			...tariff,
 			from: tariff.from?.toUTCString(),
@@ -20,7 +19,7 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 		create: async create => {
 			const code: string = create.code || CodeService().code();
 			try {
-				return await prismaClient.tariff.create({
+				return await request.prisma.tariff.create({
 					data: {
 						...create,
 						code,
@@ -30,9 +29,9 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 					},
 				});
 			} catch (e) {
-				return handleUniqueException(e, async () => prismaClient.tariff.update({
+				return handleUniqueException(e, async () => request.prisma.tariff.update({
 					where: {
-						id: (await prismaClient.tariff.findFirst({
+						id: (await request.prisma.tariff.findFirst({
 							where: {
 								code,
 							},
@@ -49,8 +48,8 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 		},
 	}),
 	transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
-		const priceService = PriceService(prismaClient);
-		const transactionService = TransactionService(prismaClient);
+		const priceService = PriceService(request);
+		const transactionService = TransactionService(request);
 		let _price: Price;
 		try {
 			_price = await priceService.priceOf(tariff, price);
@@ -63,7 +62,7 @@ export const TariffService = (prismaClient: IPrismaClientTransaction = prisma): 
 		return transactionService.handleTransaction({
 			userId,
 			cost: _price.price.toNumber(),
-			callback: async transaction => callback(await prismaClient.tariff.findFirst({
+			callback: async transaction => callback(await request.prisma.tariff.findFirst({
 				where: {
 					id: _price.tariffId,
 				},

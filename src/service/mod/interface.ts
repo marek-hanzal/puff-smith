@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -33,6 +34,9 @@ export interface IModFetchProps {
 
 export interface IModFetchQuery extends ParsedUrlQuery {
 	modId: string;
+}
+
+export interface IModServiceCreate extends IServiceCreate {
 }
 
 export interface IModService extends IRepositoryService<IModCreate, Mod, IMod, IModQuery, IModFetchProps, IModFetchQuery> {

@@ -1,14 +1,13 @@
-import {IAromaService, IAromaWhere} from "@/puff-smith/service/aroma/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IAromaService, IAromaServiceCreate, IAromaWhere} from "@/puff-smith/service/aroma/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): IAromaService => RepositoryService<IAromaService>({
+export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IAromaService => RepositoryService<IAromaService>({
 	name: "aroma",
-	source: prismaClient.aroma,
-	create: async ({vendor, tastes, ...aroma}) => prismaClient.aroma.create({
+	source: request.prisma.aroma,
+	create: async ({vendor, tastes, ...aroma}) => request.prisma.aroma.create({
 		data: {
 			...aroma,
 			vendor: {
@@ -18,7 +17,7 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 			},
 			AromaTaste: {
 				createMany: {
-					data: tastes ? (await TagService(prismaClient).fetchCodes(tastes, "taste")).map(tag => ({
+					data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
 						tasteId: tag.id,
 					})) : [],
 				}
@@ -26,7 +25,7 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 		},
 	}),
 	onUnique: async ({vendor, tastes, ...create}) => {
-		const _aroma = await prismaClient.aroma.findFirst({
+		const _aroma = await request.prisma.aroma.findFirst({
 			where: {
 				name: create.name,
 				vendor: {
@@ -35,12 +34,12 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 			},
 			rejectOnNotFound: true,
 		});
-		await prismaClient.aromaTaste.deleteMany({
+		await request.prisma.aromaTaste.deleteMany({
 			where: {
 				aromaId: _aroma.id,
 			}
 		});
-		return prismaClient.aroma.update({
+		return request.prisma.aroma.update({
 			where: {
 				id: _aroma.id,
 			},
@@ -48,7 +47,7 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 				...create,
 				AromaTaste: {
 					createMany: {
-						data: tastes ? (await TagService(prismaClient).fetchCodes(tastes, "taste")).map(tag => ({
+						data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
 							tasteId: tag.id,
 						})) : [],
 					}
@@ -58,13 +57,13 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 	},
 	mapper: async aroma => ({
 		...aroma,
-		vendor: await VendorService(prismaClient).toMap(aroma.vendorId),
+		vendor: await VendorService(request).toMap(aroma.vendorId),
 		cost: aroma.cost.toNumber(),
 		content: aroma.content.toNumber(),
 		volume: aroma.volume?.toNumber(),
 		pg: aroma.pg.toNumber(),
 		vg: aroma.vg.toNumber(),
-		tastes: await TagService(prismaClient).list(prismaClient.tag.findMany({
+		tastes: await TagService(request).list(request.prisma.tag.findMany({
 			where: {
 				AromaTaste: {
 					some: {
@@ -97,8 +96,8 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 				},
 			],
 		} : filter;
-		ownedByUserId = ownedByCurrentUser ? userId : ownedByUserId;
-		notOwnedByUserId = notOwnedByCurrentUser ? userId : notOwnedByUserId;
+		ownedByUserId = ownedByCurrentUser ? request.userService.getUserId() : ownedByUserId;
+		notOwnedByUserId = notOwnedByCurrentUser ? request.userService.getUserId() : notOwnedByUserId;
 		if (ownedByUserId) {
 			_filter = {
 				...filter,

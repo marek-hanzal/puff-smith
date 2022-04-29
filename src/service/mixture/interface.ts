@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IBooster} from "@/puff-smith/service/booster/interface";
@@ -60,6 +61,9 @@ export interface IMixtureFetchProps {
 
 export interface IMixtureFetchQuery extends ParsedUrlQuery {
 	mixtureId: string;
+}
+
+export interface IMixtureServiceCreate extends IServiceCreate {
 }
 
 export interface IMixtureService extends IRepositoryService<IMixtureCreate, Mixture, IMixture, IMixtureQuery, IMixtureFetchProps, IMixtureFetchQuery> {

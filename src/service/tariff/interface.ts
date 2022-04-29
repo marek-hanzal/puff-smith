@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, Tariff, Transaction} from "@prisma/client";
 import {DateTime} from "next-auth/providers/kakao";
@@ -40,6 +41,9 @@ export interface ITransactionOfRequest<T> {
 	note?: string;
 
 	callback(tariff: Tariff, transaction: Transaction): Promise<T>;
+}
+
+export interface ITariffServiceCreate extends IServiceCreate {
 }
 
 export interface ITariffService extends IRepositoryService<ITariffCreate, Tariff, ITariff, ITariffQuery, ITariffFetchProps, ITariffFetchQuery> {

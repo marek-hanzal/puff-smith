@@ -1,22 +1,22 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {IVoucherInventoryService} from "@/puff-smith/service/voucher/inventory/interface";
+import {IVoucherInventoryService, IVoucherInventoryServiceCreate} from "@/puff-smith/service/voucher/inventory/interface";
 import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction = prisma): IVoucherInventoryService => RepositoryService<IVoucherInventoryService>({
+export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate = ServiceCreate()): IVoucherInventoryService => RepositoryService<IVoucherInventoryService>({
 	name: "voucher-inventory",
-	source: prismaClient.voucherInventory,
+	source: request.prisma.voucherInventory,
 	mapper: async voucherTransaction => ({
 		...voucherTransaction,
-		voucher: await VoucherService(prismaClient).toMap(voucherTransaction.voucherId),
-		transaction: await TransactionService(prismaClient).toMap(voucherTransaction.transactionId),
+		voucher: await VoucherService(request).toMap(voucherTransaction.voucherId),
+		transaction: await TransactionService(request).toMap(voucherTransaction.transactionId),
 	}),
-	create: async ({code, ...create}) => prisma.$transaction(async prismaClient => {
-		const transactionService = TransactionService(prismaClient);
-		const voucher = await VoucherService(prismaClient).toMap(create.voucherId);
+	create: async ({code, ...create}) => prisma.$transaction(async prisma => {
+		const transactionService = TransactionService({...request, prisma});
+		const voucher = await VoucherService(request).toMap(create.voucherId);
 		voucher.maxFortune && (await transactionService.sumOf(create.userId)) >= voucher.maxFortune && (() => {
 			throw new Error("Too much puffies");
 		})();
@@ -25,7 +25,7 @@ export const VoucherInventoryService = (prismaClient: IPrismaClientTransaction =
 			note: `Gift from voucher [${voucher.name}]`,
 			userId: create.userId,
 		});
-		return prismaClient.voucherInventory.create({
+		return request.prisma.voucherInventory.create({
 			data: {
 				code: code || CodeService().code(),
 				voucherId: voucher.id,

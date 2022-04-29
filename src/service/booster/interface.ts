@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Booster, Prisma} from "@prisma/client";
@@ -36,4 +37,8 @@ export interface IBoosterFetchQuery extends ParsedUrlQuery {
 	boosterId: string;
 }
 
-export type IBoosterService = IRepositoryService<IBoosterCreate, Booster, IBooster, IBoosterQuery, IBoosterFetchProps, IBoosterFetchQuery>;
+export interface IBoosterServiceCreate extends IServiceCreate {
+}
+
+export interface IBoosterService extends IRepositoryService<IBoosterCreate, Booster, IBooster, IBoosterQuery, IBoosterFetchProps, IBoosterFetchQuery> {
+}

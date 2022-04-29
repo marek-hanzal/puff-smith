@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
@@ -31,4 +32,8 @@ export interface ICottonFetchQuery extends ParsedUrlQuery {
 	cottonId: string;
 }
 
-export type ICottonService = IRepositoryService<ICottonCreate, Cotton, ICotton, ICottonQuery, ICottonFetchProps, ICottonFetchQuery>;
+export interface ICottonServiceCreate extends IServiceCreate {
+}
+
+export interface ICottonService extends IRepositoryService<ICottonCreate, Cotton, ICotton, ICottonQuery, ICottonFetchProps, ICottonFetchQuery> {
+}

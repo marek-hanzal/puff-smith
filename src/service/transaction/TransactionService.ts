@@ -1,11 +1,10 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITransactionService} from "@/puff-smith/service/transaction/interface";
-import {IPrismaClientTransaction} from "@leight-core/api";
+import {ITransactionService, ITransactionServiceCreate} from "@/puff-smith/service/transaction/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const TransactionService = (prismaClient: IPrismaClientTransaction = prisma): ITransactionService => {
-	const sum: ITransactionService["sum"] = async query => (await prismaClient.transaction.aggregate({
+export const TransactionService = (request: ITransactionServiceCreate = ServiceCreate()): ITransactionService => {
+	const sum: ITransactionService["sum"] = async query => (await request.prisma.transaction.aggregate({
 		where: query.filter,
 		orderBy: query.orderBy,
 		_sum: {
@@ -24,13 +23,13 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 	const service: ITransactionService = {
 		...RepositoryService<ITransactionService>({
 			name: "transaction",
-			source: prismaClient.transaction,
+			source: request.prisma.transaction,
 			mapper: async transaction => ({
 				...transaction,
 				created: transaction.created.toUTCString(),
 				amount: transaction.amount.toNumber(),
 			}),
-			create: async create => prismaClient.transaction.create({
+			create: async create => request.prisma.transaction.create({
 				data: {
 					...create,
 					created: new Date(),
@@ -52,7 +51,7 @@ export const TransactionService = (prismaClient: IPrismaClientTransaction = pris
 		},
 		check: async ({userId, price, tariff}) => {
 			const _sum = sumOf(userId);
-			const _price = await PriceService(prismaClient).priceOf(tariff || "default", price);
+			const _price = await PriceService(request).priceOf(tariff || "default", price);
 			return {
 				price: _price.price.toNumber(),
 				pass: (await _sum) >= _price.price.toNumber(),

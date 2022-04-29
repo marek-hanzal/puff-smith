@@ -1,11 +1,10 @@
-import {IPriceService} from "@/puff-smith/service/price/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ServiceCreate} from "@/puff-smith/service";
+import {IPriceService, IPriceServiceCreate} from "@/puff-smith/service/price/interface";
 import {TariffService} from "@/puff-smith/service/tariff/TariffService";
-import {IPrismaClientTransaction} from "@leight-core/api";
 import {RepositoryService} from "@leight-core/server";
 
-export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): IPriceService => {
-	const priceOf: IPriceService["priceOf"] = async (tariff, price) => prismaClient.price.findFirst({
+export const PriceService = (request: IPriceServiceCreate = ServiceCreate()): IPriceService => {
+	const priceOf: IPriceService["priceOf"] = async (tariff, price) => request.prisma.price.findFirst({
 		where: {
 			name: price,
 			tariff: {
@@ -28,16 +27,16 @@ export const PriceService = (prismaClient: IPrismaClientTransaction = prisma): I
 	return {
 		...RepositoryService<IPriceService>({
 			name: "price",
-			source: prismaClient.price,
+			source: request.prisma.price,
 			mapper: async price => ({
 				...price,
 				price: price.price.toNumber(),
-				tariff: await TariffService(prismaClient).toMap(price.tariffId),
+				tariff: await TariffService(request).toMap(price.tariffId),
 				from: price.from?.toUTCString(),
 				to: price.to?.toUTCString(),
 				created: price.created.toUTCString(),
 			}),
-			create: async ({tariff, ...create}) => prismaClient.price.create({
+			create: async ({tariff, ...create}) => request.prisma.price.create({
 				data: {
 					...create,
 					created: new Date(),

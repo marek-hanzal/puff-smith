@@ -1,3 +1,4 @@
+import {IServiceCreate} from "@/puff-smith/service";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, Vendor} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -22,4 +23,8 @@ export interface IVendorFetchQuery extends ParsedUrlQuery {
 	vendorId: string;
 }
 
-export type IVendorService = IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery>;
+export interface IVendorServiceCreate extends IServiceCreate {
+}
+
+export interface IVendorService extends IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery> {
+}
