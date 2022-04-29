@@ -24,8 +24,8 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		{CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>)}
 		{CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>)}
 		{CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>)}
-		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
 		{CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>)}
+		{CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>)}
 		<SubMenu key={"lab.inventory"} icon={<ContainerOutlined/>} id={"lab.inventory"}>
 			{CreateMenuItem("lab.atomizer.inventory.menu", "/lab/atomizer/inventory", <AtomizerIcon/>)}
 			{CreateMenuItem("lab.mod.inventory.menu", "/lab/mod/inventory", <ModIcon/>)}

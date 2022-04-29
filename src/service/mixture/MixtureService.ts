@@ -57,6 +57,8 @@ export const MixtureService = (userId?: string, prismaClient: IPrismaClientTrans
 						},
 					],
 				} : filter;
+				ownedByUserId = ownedByCurrentUser ? userId : ownedByUserId;
+				notOwnedByUserId = notOwnedByCurrentUser ? userId : notOwnedByUserId;
 				if (ownedByUserId) {
 					_filter = {
 						...filter,

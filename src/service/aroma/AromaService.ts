@@ -97,6 +97,8 @@ export const AromaService = (prismaClient: IPrismaClientTransaction = prisma): I
 				},
 			],
 		} : filter;
+		ownedByUserId = ownedByCurrentUser ? userId : ownedByUserId;
+		notOwnedByUserId = notOwnedByCurrentUser ? userId : notOwnedByUserId;
 		if (ownedByUserId) {
 			_filter = {
 				...filter,

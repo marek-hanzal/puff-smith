@@ -114,7 +114,7 @@ export const InventoryAromasListSource: FC<IInventoryAromasListSourceProps> = ({
 			{...props}
 		/>
 	</InventoryAromasSource>;
-}
+};
 
 export interface IInventoryAromasSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;
@@ -134,6 +134,7 @@ export const InventoryAromasSourceSelect: FC<IInventoryAromasSourceSelectProps> 
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
+					size={props.size}
 					title={"common.selection.InventoryAromas.title"}
 					tooltip={"common.selection.InventoryAromas.title.tooltip"}
 					width={800}
