@@ -19,7 +19,7 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 			userId: request.userService.getUserId(),
 			cost: cotton.cost,
 			note: `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`,
-			callback: async transaction => request.prisma.cottonInventory.create({
+			callback: async transaction => prisma.cottonInventory.create({
 				data: {
 					cottonId: cotton.id,
 					transactionId: transaction.id,

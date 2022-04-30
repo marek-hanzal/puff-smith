@@ -20,7 +20,7 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate = Serv
 			userId: request.userService.getUserId(),
 			cost: cell.cost,
 			note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
-			callback: async transaction => request.prisma.cellInventory.create({
+			callback: async transaction => prisma.cellInventory.create({
 				data: {
 					code: code || CodeService().code(),
 					cellId: cell.id,

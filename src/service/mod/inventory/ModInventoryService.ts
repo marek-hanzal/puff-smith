@@ -19,7 +19,7 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = Serv
 			userId: request.userService.getUserId(),
 			cost: mod.cost,
 			note: `Purchase of mod [${mod.vendor.name} ${mod.name}]`,
-			callback: async transaction => request.prisma.modInventory.create({
+			callback: async transaction => prisma.modInventory.create({
 				data: {
 					modId: mod.id,
 					transactionId: transaction.id,

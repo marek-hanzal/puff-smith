@@ -19,7 +19,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate = Se
 			userId: request.userService.getUserId(),
 			cost: aroma.cost,
 			note: `Purchase of aroma [${aroma.vendor.name} ${aroma.name}]`,
-			callback: async transaction => request.prisma.aromaInventory.create({
+			callback: async transaction => prisma.aromaInventory.create({
 				data: {
 					aromaId: aroma.id,
 					transactionId: transaction.id,

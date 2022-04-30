@@ -26,7 +26,7 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 				userId: request.userService.getUserId(),
 				price: "lab.liquid.create",
 				note: "New liquid",
-				callback: (_, transaction) => request.prisma.liquid.create({
+				callback: (_, transaction) => prisma.liquid.create({
 					data: {
 						...create,
 						userId: request.userService.getUserId(),

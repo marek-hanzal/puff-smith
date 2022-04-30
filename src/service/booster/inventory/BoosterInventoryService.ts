@@ -19,7 +19,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate 
 			userId: request.userService.getUserId(),
 			cost: booster.cost,
 			note: `Purchase of booster [${booster.vendor.name} ${booster.name}]`,
-			callback: async transaction => request.prisma.boosterInventory.create({
+			callback: async transaction => prisma.boosterInventory.create({
 				data: {
 					boosterId: booster.id,
 					transactionId: transaction.id,

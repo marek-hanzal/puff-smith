@@ -25,7 +25,7 @@ export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate 
 			note: `Gift from voucher [${voucher.name}]`,
 			userId: request.userService.getUserId(),
 		});
-		return request.prisma.voucherInventory.create({
+		return prisma.voucherInventory.create({
 			data: {
 				code: code || CodeService().code(),
 				voucherId: voucher.id,

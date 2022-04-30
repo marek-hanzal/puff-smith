@@ -19,7 +19,7 @@ export const BaseInventoryService = (request: IBaseTransactionServiceCreate = Se
 			userId: request.userService.getUserId(),
 			cost: base.cost,
 			note: `Purchase of base [${base.vendor.name} ${base.name}]`,
-			callback: async transaction => request.prisma.baseInventory.create({
+			callback: async transaction => prisma.baseInventory.create({
 				data: {
 					baseId: base.id,
 					transactionId: transaction.id,
