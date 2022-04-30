@@ -7,24 +7,46 @@ import {Agenda} from "agenda";
 
 export const MixtureJobName = "job.mixture";
 
+export interface IMixtureJobParams {
+	aromaId: string | null;
+}
+
 export default function MixtureJob(agenda: Agenda) {
 	agenda.define(MixtureJobName, {
 		concurrency: 1,
 		priority: 5,
-		lockLifetime: undefined,
-	}, JobService().handle(MixtureJobName, async ({jobProgress, progress}) => {
-		const maxNicotine = (await prisma.booster.aggregate({
-			_max: {
-				nicotine: true,
-			}
-		}))._max.nicotine?.toNumber() || -1;
-		await jobProgress.total((maxNicotine + 1) * await prisma.aroma.count() * await prisma.booster.count() * await prisma.base.count());
-		const mixtureService = MixtureService();
-		await prisma.mixture.deleteMany();
-		/**
-		 * run through all aromas...
-		 */
-		for (const aroma of await prisma.aroma.findMany()) {
+	}, JobService().handle<IMixtureJobParams>(MixtureJobName, async ({jobProgress, jobService, job, logger, progress}) => {
+		if (job.params?.aromaId === null) {
+			logger.debug("Scheduling updating all mixtures, no 'aromaId' specified.");
+			return await prisma.$transaction(async prisma => {
+				await jobProgress.total(await prisma.aroma.count());
+				for (const aroma of await prisma.aroma.findMany()) {
+					await progress(async () => jobService.schedule<IMixtureJobParams>(MixtureJobName, {
+						aromaId: aroma.id,
+					}, job.userId));
+				}
+			});
+		}
+		if (job.params?.aromaId) {
+			logger.debug(`Updating mixture of aroma [${job.params.aromaId}].`);
+			const aroma = await prisma.aroma.findUnique({
+				where: {
+					id: job.params.aromaId!,
+				},
+				rejectOnNotFound: true
+			});
+			const maxNicotine = (await prisma.booster.aggregate({
+				_max: {
+					nicotine: true,
+				}
+			}))._max.nicotine?.toNumber() || -1;
+			await jobProgress.total((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
+			const mixtureService = MixtureService();
+			await prisma.mixture.deleteMany({
+				where: {
+					aromaId: aroma.id,
+				}
+			});
 			for (const booster of await prisma.booster.findMany()) {
 				for (const base of await prisma.base.findMany()) {
 					const batch: ReturnType<IMixtureService["toCreate"]>[] = [];
@@ -65,6 +87,8 @@ export default function MixtureJob(agenda: Agenda) {
 					});
 				}
 			}
+			return;
 		}
+		throw new Error("Mixture update job without 'aromaId' specified (null for all aromas, value for specific aroma).");
 	}));
 }

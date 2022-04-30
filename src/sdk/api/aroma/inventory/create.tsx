@@ -11,17 +11,17 @@ export const CreateApiLink = "/api/aroma/inventory/create";
 
 export type ICreateQueryParams = undefined;
 
-export const useCreateMutation = createMutationHook<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>(CreateApiLink, "post");
+export const useCreateMutation = createMutationHook<IAromaInventoryCreate, IAromaInventory>(CreateApiLink, "post");
 
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<IAromaInventoryCreate, IAromaInventory>> {
 }
 
-export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<IAromaInventoryCreate, IAromaInventory>
 	useMutation={useCreateMutation}
 	{...props}
 />
@@ -29,6 +29,6 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omi
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
 
-export const useCreatePromise = createPromiseHook<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>(CreateApiLink, "post");
+export const useCreatePromise = createPromiseHook<IAromaInventoryCreate, IAromaInventory>(CreateApiLink, "post");
 
-export const CreatePromise = createPromise<Omit<IAromaInventoryCreate, "userId">, IAromaInventory>(CreateApiLink, "post");
+export const CreatePromise = createPromise<IAromaInventoryCreate, IAromaInventory>(CreateApiLink, "post");

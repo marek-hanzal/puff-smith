@@ -7,7 +7,6 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface ICellInventoryCreate {
 	code?: string;
-	userId: string;
 	cellId: string;
 }
 

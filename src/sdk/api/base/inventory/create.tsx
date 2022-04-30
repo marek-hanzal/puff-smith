@@ -11,17 +11,17 @@ export const CreateApiLink = "/api/base/inventory/create";
 
 export type ICreateQueryParams = undefined;
 
-export const useCreateMutation = createMutationHook<Omit<IBaseInventoryCreate, "userId">, IBaseInventory>(CreateApiLink, "post");
+export const useCreateMutation = createMutationHook<IBaseInventoryCreate, IBaseInventory>(CreateApiLink, "post");
 
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IBaseInventoryCreate, "userId">, IBaseInventory>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<IBaseInventoryCreate, IBaseInventory>> {
 }
 
-export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IBaseInventoryCreate, "userId">, IBaseInventory>
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<IBaseInventoryCreate, IBaseInventory>
 	useMutation={useCreateMutation}
 	{...props}
 />
@@ -29,6 +29,6 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omi
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
 
-export const useCreatePromise = createPromiseHook<Omit<IBaseInventoryCreate, "userId">, IBaseInventory>(CreateApiLink, "post");
+export const useCreatePromise = createPromiseHook<IBaseInventoryCreate, IBaseInventory>(CreateApiLink, "post");
 
-export const CreatePromise = createPromise<Omit<IBaseInventoryCreate, "userId">, IBaseInventory>(CreateApiLink, "post");
+export const CreatePromise = createPromise<IBaseInventoryCreate, IBaseInventory>(CreateApiLink, "post");

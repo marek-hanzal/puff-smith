@@ -2,43 +2,16 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {ServiceCreate} from "@/puff-smith/service";
 import {IModMarket, IModMarketQuery} from "@/puff-smith/service/mod/market/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {ModMarketService} from "@/puff-smith/service/mod/market/ModMarketService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const ModsMarketApiLink = "/api/mod/market/query";
 
@@ -46,7 +19,7 @@ export type IModsMarketQueryParams = undefined;
 
 export const useModsMarketQuery = createQueryHook<IModMarketQuery, IQueryResult<IModMarket>, IModsMarketQueryParams>(ModsMarketApiLink, "post");
 
-export const useModsMarketSource = () => useSourceContext<IModMarket>();
+export const useModsMarketSource = () => useSourceContext<IModMarket>()
 
 export interface IModsMarketSourceContext extends ISourceContext<IModMarket> {
 }
@@ -78,15 +51,15 @@ export interface IModsMarketFilterProviderProps extends Partial<IFilterProviderP
 
 export const ModsMarketFilterProvider: FC<IModsMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModMarketQuery>> name={"ModsMarket"} {...props}/>;
 
-export const useModsMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModMarketQuery>>();
-export const useModsMarketFilterContext = () => useFilterContext<IQueryFilter<IModMarketQuery>>();
+export const useModsMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModMarketQuery>>()
+export const useModsMarketFilterContext = () => useFilterContext<IQueryFilter<IModMarketQuery>>()
 
 export interface IModsMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModMarketQuery>> {
 }
 
 export const ModsMarketSourceFilter: FC<IModsMarketSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.ModsMarket"}
+	translation={'common.filter.ModsMarket'}
 />;
 
 export interface IModsMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModMarketQuery>>> {
@@ -94,8 +67,8 @@ export interface IModsMarketOrderByProviderProps extends Partial<IOrderByProvide
 
 export const ModsMarketOrderByProvider: FC<IModsMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModMarketQuery>> name={"ModsMarket"} {...props}/>;
 
-export const useModsMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModMarketQuery>>();
-export const useModsMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IModMarketQuery>>();
+export const useModsMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModMarketQuery>>()
+export const useModsMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IModMarketQuery>>()
 
 export interface IModsMarketListSourceProps extends Partial<IListProps<IModMarket>> {
 	sourceProps?: Partial<IModsMarketSourceProps>;
@@ -111,7 +84,7 @@ export const ModsMarketListSource: FC<IModsMarketListSourceProps> = ({sourceProp
 		{...sourceProps}
 	>
 		<List<IModMarket>
-			{...props}
+			{...props}		
 		/>
 	</ModsMarketSource>;
 }
@@ -126,7 +99,7 @@ export interface IModsMarketSourceSelectProps extends IQuerySourceSelectProps<IM
 export const ModsMarketSourceSelect: FC<IModsMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<ModsMarketSource {...sourceProps}>
 					<QuerySourceSelect<IModMarket> {...props}/>
 				</ModsMarketSource>
@@ -135,6 +108,7 @@ export const ModsMarketSourceSelect: FC<IModsMarketSourceSelectProps> = ({source
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.ModsMarket.title"}
+					size={props.size}
 					tooltip={"common.selection.ModsMarket.title.tooltip"}
 					width={800}
 				>

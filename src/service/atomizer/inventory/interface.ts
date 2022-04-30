@@ -6,7 +6,6 @@ import {AtomizerInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IAtomizerInventoryCreate {
-	userId: string;
 	atomizerId: string;
 }
 

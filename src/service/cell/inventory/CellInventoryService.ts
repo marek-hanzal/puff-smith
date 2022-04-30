@@ -17,7 +17,7 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate = Serv
 	create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 		const cell = await CellService({...request, prisma}).toMap(create.cellId);
 		return TransactionService({...request, prisma}).handleTransaction({
-			userId: create.userId,
+			userId: request.userService.getUserId(),
 			cost: cell.cost,
 			note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
 			callback: async transaction => request.prisma.cellInventory.create({
@@ -25,7 +25,7 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate = Serv
 					code: code || CodeService().code(),
 					cellId: cell.id,
 					transactionId: transaction.id,
-					userId: create.userId,
+					userId: request.userService.getUserId(),
 				}
 			}),
 		});

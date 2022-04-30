@@ -3,42 +3,14 @@
  */
 
 import {IFileQuery} from "@/puff-smith/service/file/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {fileQuery} from "@/puff-smith/service/file/prisma";
+import {IFile, IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const FilesApiLink = "/api/file/query";
 
@@ -46,7 +18,7 @@ export type IFilesQueryParams = undefined;
 
 export const useFilesQuery = createQueryHook<IFileQuery, IQueryResult<IFile>, IFilesQueryParams>(FilesApiLink, "post");
 
-export const useFilesSource = () => useSourceContext<IFile>();
+export const useFilesSource = () => useSourceContext<IFile>()
 
 export interface IFilesSourceContext extends ISourceContext<IFile> {
 }
@@ -78,15 +50,15 @@ export interface IFilesFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const FilesFilterProvider: FC<IFilesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IFileQuery>> name={"Files"} {...props}/>;
 
-export const useFilesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IFileQuery>>();
-export const useFilesFilterContext = () => useFilterContext<IQueryFilter<IFileQuery>>();
+export const useFilesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IFileQuery>>()
+export const useFilesFilterContext = () => useFilterContext<IQueryFilter<IFileQuery>>()
 
 export interface IFilesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IFileQuery>> {
 }
 
 export const FilesSourceFilter: FC<IFilesSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Files"}
+	translation={'common.filter.Files'}
 />;
 
 export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IFileQuery>>> {
@@ -94,8 +66,8 @@ export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IFileQuery>> name={"Files"} {...props}/>;
 
-export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IFileQuery>>();
-export const useFilesOrderByContext = () => useOrderByContext<IQueryOrderBy<IFileQuery>>();
+export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IFileQuery>>()
+export const useFilesOrderByContext = () => useOrderByContext<IQueryOrderBy<IFileQuery>>()
 
 export interface IFilesListSourceProps extends Partial<IListProps<IFile>> {
 	sourceProps?: Partial<IFilesSourceProps>;
@@ -111,7 +83,7 @@ export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...prop
 		{...sourceProps}
 	>
 		<List<IFile>
-			{...props}
+			{...props}		
 		/>
 	</FilesSource>;
 }
@@ -126,7 +98,7 @@ export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> 
 export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<FilesSource {...sourceProps}>
 					<QuerySourceSelect<IFile> {...props}/>
 				</FilesSource>
@@ -135,6 +107,7 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Files.title"}
+					size={props.size}
 					tooltip={"common.selection.Files.title.tooltip"}
 					width={800}
 				>

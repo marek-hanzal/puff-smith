@@ -2,11 +2,12 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IChunkCommit, IFile} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
-import {IChunkEndpointQuery} from "@leight-core/server";
+import {chunkService} from "@/puff-smith/service/chunk/service";
+import {IChunkCommit, IFile, IQueryParams} from "@leight-core/api";
+import {CommitChunkEndpoint, Endpoint, IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
+import {Form, IFormProps, ISourceProviderProps, createMutationHook, createPromise, createPromiseHook, createQueryHook, toLink, useSourceContext} from "@leight-core/client";
 
 export const CommitApiLink = "/api/file/chunk/[chunkId]/commit";
 

@@ -7,7 +7,6 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IVoucherInventoryCreate {
 	code?: string;
-	userId: string;
 	voucherId: string;
 }
 

@@ -13,10 +13,10 @@ export const MetricService = (request: IMetricServiceCreate = ServiceCreate()): 
 			value: entity.value.toNumber(),
 			user: entity.userId ? await UserService(request).toMap(entity.userId) : null,
 		}),
-		create: async ({userId, ...create}) => request.prisma.metric.create({
+		create: async create => request.prisma.metric.create({
 			data: {
 				...create,
-				userId,
+				userId: request.userService.getOptionalUserId(),
 			}
 		}),
 	});

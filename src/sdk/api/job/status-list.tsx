@@ -2,42 +2,13 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ReadOutlined} from "@ant-design/icons";
-import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {IBaseSelectOption, IJobStatus, IQuery, IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const StatusListApiLink = "/api/job/status-list";
 
@@ -45,7 +16,7 @@ export type IStatusListQueryParams = undefined;
 
 export const useStatusListQuery = createQueryHook<IQuery, IQueryResult<IBaseSelectOption>, IStatusListQueryParams>(StatusListApiLink, "post");
 
-export const useStatusListSource = () => useSourceContext<IBaseSelectOption>();
+export const useStatusListSource = () => useSourceContext<IBaseSelectOption>()
 
 export interface IStatusListSourceContext extends ISourceContext<IBaseSelectOption> {
 }
@@ -77,15 +48,15 @@ export interface IStatusListFilterProviderProps extends Partial<IFilterProviderP
 
 export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
-export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
+export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>()
+export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<IQuery>>()
 
 export interface IStatusListSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
 }
 
 export const StatusListSourceFilter: FC<IStatusListSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.StatusList"}
+	translation={'common.filter.StatusList'}
 />;
 
 export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
@@ -93,8 +64,8 @@ export interface IStatusListOrderByProviderProps extends Partial<IOrderByProvide
 
 export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>()
+export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>()
 
 export interface IStatusListListSourceProps extends Partial<IListProps<IBaseSelectOption>> {
 	sourceProps?: Partial<IStatusListSourceProps>;
@@ -110,7 +81,7 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({sourceProp
 		{...sourceProps}
 	>
 		<List<IBaseSelectOption>
-			{...props}
+			{...props}		
 		/>
 	</StatusListSource>;
 }
@@ -125,7 +96,7 @@ export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IB
 export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<StatusListSource {...sourceProps}>
 					<QuerySourceSelect<IBaseSelectOption> {...props}/>
 				</StatusListSource>
@@ -134,6 +105,7 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.StatusList.title"}
+					size={props.size}
 					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
 				>

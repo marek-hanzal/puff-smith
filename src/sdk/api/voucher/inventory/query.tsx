@@ -3,42 +3,14 @@
  */
 
 import {IVoucherInventory, IVoucherInventoryQuery} from "@/puff-smith/service/voucher/inventory/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {VoucherInventoryService} from "@/puff-smith/service/voucher/inventory/VoucherInventoryService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const VouchersInventoryApiLink = "/api/voucher/inventory/query";
 
@@ -46,7 +18,7 @@ export type IVouchersInventoryQueryParams = undefined;
 
 export const useVouchersInventoryQuery = createQueryHook<IVoucherInventoryQuery, IQueryResult<IVoucherInventory>, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
 
-export const useVouchersInventorySource = () => useSourceContext<IVoucherInventory>();
+export const useVouchersInventorySource = () => useSourceContext<IVoucherInventory>()
 
 export interface IVouchersInventorySourceContext extends ISourceContext<IVoucherInventory> {
 }
@@ -78,15 +50,15 @@ export interface IVouchersInventoryFilterProviderProps extends Partial<IFilterPr
 
 export const VouchersInventoryFilterProvider: FC<IVouchersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
-export const useVouchersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherInventoryQuery>>();
-export const useVouchersInventoryFilterContext = () => useFilterContext<IQueryFilter<IVoucherInventoryQuery>>();
+export const useVouchersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
+export const useVouchersInventoryFilterContext = () => useFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
 
 export interface IVouchersInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVoucherInventoryQuery>> {
 }
 
 export const VouchersInventorySourceFilter: FC<IVouchersInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.VouchersInventory"}
+	translation={'common.filter.VouchersInventory'}
 />;
 
 export interface IVouchersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVoucherInventoryQuery>>> {
@@ -94,8 +66,8 @@ export interface IVouchersInventoryOrderByProviderProps extends Partial<IOrderBy
 
 export const VouchersInventoryOrderByProvider: FC<IVouchersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
-export const useVouchersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>();
-export const useVouchersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>();
+export const useVouchersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>()
+export const useVouchersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>()
 
 export interface IVouchersInventoryListSourceProps extends Partial<IListProps<IVoucherInventory>> {
 	sourceProps?: Partial<IVouchersInventorySourceProps>;
@@ -104,15 +76,14 @@ export interface IVouchersInventoryListSourceProps extends Partial<IListProps<IV
 export interface IVouchersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>, IVouchersInventoryQueryParams>> {
 }
 
-export const VouchersInventorySourceControlProvider: FC<IVouchersInventorySourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
+export const VouchersInventorySourceControlProvider: FC<IVouchersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
 
 export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <VouchersInventorySource
 		{...sourceProps}
 	>
 		<List<IVoucherInventory>
-			{...props}
+			{...props}		
 		/>
 	</VouchersInventorySource>;
 }
@@ -127,7 +98,7 @@ export interface IVouchersInventorySourceSelectProps extends IQuerySourceSelectP
 export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<VouchersInventorySource {...sourceProps}>
 					<QuerySourceSelect<IVoucherInventory> {...props}/>
 				</VouchersInventorySource>
@@ -136,6 +107,7 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.VouchersInventory.title"}
+					size={props.size}
 					tooltip={"common.selection.VouchersInventory.title.tooltip"}
 					width={800}
 				>

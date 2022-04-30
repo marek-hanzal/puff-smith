@@ -11,17 +11,17 @@ export const CreateApiLink = "/api/booster/inventory/create";
 
 export type ICreateQueryParams = undefined;
 
-export const useCreateMutation = createMutationHook<Omit<IBoosterInventoryCreate, "userId">, IBoosterInventory>(CreateApiLink, "post");
+export const useCreateMutation = createMutationHook<IBoosterInventoryCreate, IBoosterInventory>(CreateApiLink, "post");
 
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<IBoosterInventoryCreate, "userId">, IBoosterInventory>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<IBoosterInventoryCreate, IBoosterInventory>> {
 }
 
-export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<IBoosterInventoryCreate, "userId">, IBoosterInventory>
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<IBoosterInventoryCreate, IBoosterInventory>
 	useMutation={useCreateMutation}
 	{...props}
 />
@@ -29,6 +29,6 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omi
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
 
-export const useCreatePromise = createPromiseHook<Omit<IBoosterInventoryCreate, "userId">, IBoosterInventory>(CreateApiLink, "post");
+export const useCreatePromise = createPromiseHook<IBoosterInventoryCreate, IBoosterInventory>(CreateApiLink, "post");
 
-export const CreatePromise = createPromise<Omit<IBoosterInventoryCreate, "userId">, IBoosterInventory>(CreateApiLink, "post");
+export const CreatePromise = createPromise<IBoosterInventoryCreate, IBoosterInventory>(CreateApiLink, "post");

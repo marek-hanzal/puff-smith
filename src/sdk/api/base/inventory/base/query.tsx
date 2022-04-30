@@ -46,7 +46,7 @@ export type IInventoryBasesQueryParams = undefined;
 
 export const useInventoryBasesQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
 
-export const useInventoryBasesSource = () => useSourceContext<IBase>();
+export const useInventoryBasesSource = () => useSourceContext<IBase>()
 
 export interface IInventoryBasesSourceContext extends ISourceContext<IBase> {
 }
@@ -78,15 +78,15 @@ export interface IInventoryBasesFilterProviderProps extends Partial<IFilterProvi
 
 export const InventoryBasesFilterProvider: FC<IInventoryBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"InventoryBases"} {...props}/>;
 
-export const useInventoryBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
-export const useInventoryBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
+export const useInventoryBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
+export const useInventoryBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
 
 export interface IInventoryBasesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
 export const InventoryBasesSourceFilter: FC<IInventoryBasesSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.InventoryBases"}
+	translation={'common.filter.InventoryBases'}
 />;
 
 export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
@@ -94,8 +94,8 @@ export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByPro
 
 export const InventoryBasesOrderByProvider: FC<IInventoryBasesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"InventoryBases"} {...props}/>;
 
-export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
-export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>()
+export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>()
 
 export interface IInventoryBasesListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IInventoryBasesSourceProps>;
@@ -135,6 +135,7 @@ export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = 
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryBases.title"}
+					size={props.size}
 					tooltip={"common.selection.InventoryBases.title.tooltip"}
 					width={800}
 				>

@@ -16,14 +16,14 @@ export const AtomizerInventoryService = (request: IAtomizerInventoryServiceCreat
 	create: async create => prisma.$transaction(async prisma => {
 		const atomizer = await AtomizerService({...request, prisma}).toMap(create.atomizerId);
 		return TransactionService({...request, prisma}).handleTransaction({
-			userId: create.userId,
+			userId: request.userService.getUserId(),
 			cost: atomizer.cost,
 			note: `Purchase of atomizer [${atomizer.vendor.name} ${atomizer.name}]`,
 			callback: async transaction => prisma.atomizerInventory.create({
 				data: {
 					atomizerId: atomizer.id,
 					transactionId: transaction.id,
-					userId: create.userId,
+					userId: request.userService.getUserId(),
 				}
 			}),
 		});

@@ -24,7 +24,6 @@ export interface ILiquidCreate {
 	code?: string;
 	volume: number;
 	mixed?: Date;
-	userId: string;
 	nicotine?: number;
 	pg: number,
 	vg: number,

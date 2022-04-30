@@ -3,42 +3,14 @@
  */
 
 import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {LiquidService} from "@/puff-smith/service/liquid/LiquidService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const LiquidsApiLink = "/api/liquid/query";
 
@@ -46,7 +18,7 @@ export type ILiquidsQueryParams = undefined;
 
 export const useLiquidsQuery = createQueryHook<ILiquidQuery, IQueryResult<ILiquid>, ILiquidsQueryParams>(LiquidsApiLink, "post");
 
-export const useLiquidsSource = () => useSourceContext<ILiquid>();
+export const useLiquidsSource = () => useSourceContext<ILiquid>()
 
 export interface ILiquidsSourceContext extends ISourceContext<ILiquid> {
 }
@@ -78,15 +50,15 @@ export interface ILiquidsFilterProviderProps extends Partial<IFilterProviderProp
 
 export const LiquidsFilterProvider: FC<ILiquidsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
-export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>();
-export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>();
+export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>()
+export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>()
 
 export interface ILiquidsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
 }
 
 export const LiquidsSourceFilter: FC<ILiquidsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Liquids"}
+	translation={'common.filter.Liquids'}
 />;
 
 export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
@@ -94,8 +66,8 @@ export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Liquids"} {...props}/>;
 
-export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>();
-export const useLiquidsOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>();
+export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>()
+export const useLiquidsOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>()
 
 export interface ILiquidsListSourceProps extends Partial<IListProps<ILiquid>> {
 	sourceProps?: Partial<ILiquidsSourceProps>;
@@ -111,7 +83,7 @@ export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...
 		{...sourceProps}
 	>
 		<List<ILiquid>
-			{...props}
+			{...props}		
 		/>
 	</LiquidsSource>;
 }
@@ -126,7 +98,7 @@ export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiqu
 export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<LiquidsSource {...sourceProps}>
 					<QuerySourceSelect<ILiquid> {...props}/>
 				</LiquidsSource>
@@ -135,6 +107,7 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Liquids.title"}
+					size={props.size}
 					tooltip={"common.selection.Liquids.title.tooltip"}
 					width={800}
 				>

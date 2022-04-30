@@ -3,42 +3,14 @@
  */
 
 import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const VouchersApiLink = "/api/voucher/query";
 
@@ -46,7 +18,7 @@ export type IVouchersQueryParams = undefined;
 
 export const useVouchersQuery = createQueryHook<IVoucherQuery, IQueryResult<IVoucher>, IVouchersQueryParams>(VouchersApiLink, "post");
 
-export const useVouchersSource = () => useSourceContext<IVoucher>();
+export const useVouchersSource = () => useSourceContext<IVoucher>()
 
 export interface IVouchersSourceContext extends ISourceContext<IVoucher> {
 }
@@ -78,15 +50,15 @@ export interface IVouchersFilterProviderProps extends Partial<IFilterProviderPro
 
 export const VouchersFilterProvider: FC<IVouchersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
-export const useVouchersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherQuery>>();
-export const useVouchersFilterContext = () => useFilterContext<IQueryFilter<IVoucherQuery>>();
+export const useVouchersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherQuery>>()
+export const useVouchersFilterContext = () => useFilterContext<IQueryFilter<IVoucherQuery>>()
 
 export interface IVouchersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVoucherQuery>> {
 }
 
 export const VouchersSourceFilter: FC<IVouchersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Vouchers"}
+	translation={'common.filter.Vouchers'}
 />;
 
 export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVoucherQuery>>> {
@@ -94,8 +66,8 @@ export interface IVouchersOrderByProviderProps extends Partial<IOrderByProviderP
 
 export const VouchersOrderByProvider: FC<IVouchersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVoucherQuery>> name={"Vouchers"} {...props}/>;
 
-export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherQuery>>();
-export const useVouchersOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherQuery>>();
+export const useVouchersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherQuery>>()
+export const useVouchersOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherQuery>>()
 
 export interface IVouchersListSourceProps extends Partial<IListProps<IVoucher>> {
 	sourceProps?: Partial<IVouchersSourceProps>;
@@ -111,7 +83,7 @@ export const VouchersListSource: FC<IVouchersListSourceProps> = ({sourceProps, .
 		{...sourceProps}
 	>
 		<List<IVoucher>
-			{...props}
+			{...props}		
 		/>
 	</VouchersSource>;
 }
@@ -126,7 +98,7 @@ export interface IVouchersSourceSelectProps extends IQuerySourceSelectProps<IVou
 export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<VouchersSource {...sourceProps}>
 					<QuerySourceSelect<IVoucher> {...props}/>
 				</VouchersSource>
@@ -135,6 +107,7 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Vouchers.title"}
+					size={props.size}
 					tooltip={"common.selection.Vouchers.title.tooltip"}
 					width={800}
 				>

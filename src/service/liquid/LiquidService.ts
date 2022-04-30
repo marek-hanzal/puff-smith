@@ -23,12 +23,13 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 		}),
 		create: async ({code, aromas = [], bases = [], boosters = [], mixed, ...create}) => prisma.$transaction(prisma => TariffService({...request, prisma}).transactionOf({
 				tariff: "default",
-				userId: create.userId,
+				userId: request.userService.getUserId(),
 				price: "lab.liquid.create",
 				note: "New liquid",
 				callback: (_, transaction) => request.prisma.liquid.create({
 					data: {
 						...create,
+						userId: request.userService.getUserId(),
 						code: code || CodeService().code(),
 						transactionId: transaction.id,
 						created: new Date(),

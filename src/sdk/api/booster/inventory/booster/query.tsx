@@ -46,7 +46,7 @@ export type IInventoryBoostersQueryParams = undefined;
 
 export const useInventoryBoostersQuery = createQueryHook<IBoosterQuery, IQueryResult<IBooster>, IInventoryBoostersQueryParams>(InventoryBoostersApiLink, "post");
 
-export const useInventoryBoostersSource = () => useSourceContext<IBooster>();
+export const useInventoryBoostersSource = () => useSourceContext<IBooster>()
 
 export interface IInventoryBoostersSourceContext extends ISourceContext<IBooster> {
 }
@@ -78,15 +78,15 @@ export interface IInventoryBoostersFilterProviderProps extends Partial<IFilterPr
 
 export const InventoryBoostersFilterProvider: FC<IInventoryBoostersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterQuery>> name={"InventoryBoosters"} {...props}/>;
 
-export const useInventoryBoostersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>();
-export const useInventoryBoostersFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>();
+export const useInventoryBoostersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>()
+export const useInventoryBoostersFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>()
 
 export interface IInventoryBoostersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterQuery>> {
 }
 
 export const InventoryBoostersSourceFilter: FC<IInventoryBoostersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.InventoryBoosters"}
+	translation={'common.filter.InventoryBoosters'}
 />;
 
 export interface IInventoryBoostersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBoosterQuery>>> {
@@ -94,8 +94,8 @@ export interface IInventoryBoostersOrderByProviderProps extends Partial<IOrderBy
 
 export const InventoryBoostersOrderByProvider: FC<IInventoryBoostersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBoosterQuery>> name={"InventoryBoosters"} {...props}/>;
 
-export const useInventoryBoostersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterQuery>>();
-export const useInventoryBoostersOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterQuery>>();
+export const useInventoryBoostersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterQuery>>()
+export const useInventoryBoostersOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterQuery>>()
 
 export interface IInventoryBoostersListSourceProps extends Partial<IListProps<IBooster>> {
 	sourceProps?: Partial<IInventoryBoostersSourceProps>;
@@ -135,6 +135,7 @@ export const InventoryBoostersSourceSelect: FC<IInventoryBoostersSourceSelectPro
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.InventoryBoosters.title"}
+					size={props.size}
 					tooltip={"common.selection.InventoryBoosters.title.tooltip"}
 					width={800}
 				>

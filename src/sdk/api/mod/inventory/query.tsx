@@ -3,42 +3,14 @@
  */
 
 import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod/inventory/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {ModInventoryService} from "@/puff-smith/service/mod/inventory/ModInventoryService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const ModsInventoryApiLink = "/api/mod/inventory/query";
 
@@ -46,7 +18,7 @@ export type IModsInventoryQueryParams = undefined;
 
 export const useModsInventoryQuery = createQueryHook<IModInventoryQuery, IQueryResult<IModInventory>, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
 
-export const useModsInventorySource = () => useSourceContext<IModInventory>();
+export const useModsInventorySource = () => useSourceContext<IModInventory>()
 
 export interface IModsInventorySourceContext extends ISourceContext<IModInventory> {
 }
@@ -78,15 +50,15 @@ export interface IModsInventoryFilterProviderProps extends Partial<IFilterProvid
 
 export const ModsInventoryFilterProvider: FC<IModsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
-export const useModsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModInventoryQuery>>();
-export const useModsInventoryFilterContext = () => useFilterContext<IQueryFilter<IModInventoryQuery>>();
+export const useModsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModInventoryQuery>>()
+export const useModsInventoryFilterContext = () => useFilterContext<IQueryFilter<IModInventoryQuery>>()
 
 export interface IModsInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModInventoryQuery>> {
 }
 
 export const ModsInventorySourceFilter: FC<IModsInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.ModsInventory"}
+	translation={'common.filter.ModsInventory'}
 />;
 
 export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModInventoryQuery>>> {
@@ -94,8 +66,8 @@ export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProv
 
 export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
 
-export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
-export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
+export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModInventoryQuery>>()
+export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IModInventoryQuery>>()
 
 export interface IModsInventoryListSourceProps extends Partial<IListProps<IModInventory>> {
 	sourceProps?: Partial<IModsInventorySourceProps>;
@@ -111,7 +83,7 @@ export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sour
 		{...sourceProps}
 	>
 		<List<IModInventory>
-			{...props}
+			{...props}		
 		/>
 	</ModsInventorySource>;
 }
@@ -126,7 +98,7 @@ export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps
 export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<ModsInventorySource {...sourceProps}>
 					<QuerySourceSelect<IModInventory> {...props}/>
 				</ModsInventorySource>
@@ -135,6 +107,7 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.ModsInventory.title"}
+					size={props.size}
 					tooltip={"common.selection.ModsInventory.title.tooltip"}
 					width={800}
 				>

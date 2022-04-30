@@ -6,7 +6,6 @@ import {ModInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IModInventoryCreate {
-	userId: string;
 	modId: string;
 }
 

@@ -46,7 +46,7 @@ export type IAtomizersMarketQueryParams = undefined;
 
 export const useAtomizersMarketQuery = createQueryHook<IAtomizerMarketQuery, IQueryResult<IAtomizerMarket>, IAtomizersMarketQueryParams>(AtomizersMarketApiLink, "post");
 
-export const useAtomizersMarketSource = () => useSourceContext<IAtomizerMarket>();
+export const useAtomizersMarketSource = () => useSourceContext<IAtomizerMarket>()
 
 export interface IAtomizersMarketSourceContext extends ISourceContext<IAtomizerMarket> {
 }
@@ -78,15 +78,15 @@ export interface IAtomizersMarketFilterProviderProps extends Partial<IFilterProv
 
 export const AtomizersMarketFilterProvider: FC<IAtomizersMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerMarketQuery>> name={"AtomizersMarket"} {...props}/>;
 
-export const useAtomizersMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerMarketQuery>>();
-export const useAtomizersMarketFilterContext = () => useFilterContext<IQueryFilter<IAtomizerMarketQuery>>();
+export const useAtomizersMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerMarketQuery>>()
+export const useAtomizersMarketFilterContext = () => useFilterContext<IQueryFilter<IAtomizerMarketQuery>>()
 
 export interface IAtomizersMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerMarketQuery>> {
 }
 
 export const AtomizersMarketSourceFilter: FC<IAtomizersMarketSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AtomizersMarket"}
+	translation={'common.filter.AtomizersMarket'}
 />;
 
 export interface IAtomizersMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerMarketQuery>>> {
@@ -94,8 +94,8 @@ export interface IAtomizersMarketOrderByProviderProps extends Partial<IOrderByPr
 
 export const AtomizersMarketOrderByProvider: FC<IAtomizersMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerMarketQuery>> name={"AtomizersMarket"} {...props}/>;
 
-export const useAtomizersMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>();
-export const useAtomizersMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>();
+export const useAtomizersMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>()
+export const useAtomizersMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>()
 
 export interface IAtomizersMarketListSourceProps extends Partial<IListProps<IAtomizerMarket>> {
 	sourceProps?: Partial<IAtomizersMarketSourceProps>;
@@ -104,8 +104,7 @@ export interface IAtomizersMarketListSourceProps extends Partial<IListProps<IAto
 export interface IAtomizersMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerMarketQuery>, IQueryOrderBy<IAtomizerMarketQuery>, IAtomizersMarketQueryParams>> {
 }
 
-export const AtomizersMarketSourceControlProvider: FC<IAtomizersMarketSourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IAtomizerMarketQuery>, IQueryOrderBy<IAtomizerMarketQuery>> name={"AtomizersMarket"} {...props}/>;
+export const AtomizersMarketSourceControlProvider: FC<IAtomizersMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerMarketQuery>, IQueryOrderBy<IAtomizerMarketQuery>> name={"AtomizersMarket"} {...props}/>;
 
 export const AtomizersMarketListSource: FC<IAtomizersMarketListSourceProps> = ({sourceProps, ...props}) => {
 	return <AtomizersMarketSource
@@ -136,6 +135,7 @@ export const AtomizersMarketSourceSelect: FC<IAtomizersMarketSourceSelectProps> 
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.AtomizersMarket.title"}
+					size={props.size}
 					tooltip={"common.selection.AtomizersMarket.title.tooltip"}
 					width={800}
 				>

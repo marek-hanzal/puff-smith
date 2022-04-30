@@ -16,14 +16,14 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = Serv
 	create: async create => prisma.$transaction(async prisma => {
 		const mod = await ModService({...request, prisma}).toMap(create.modId);
 		return TransactionService({...request, prisma}).handleTransaction({
-			userId: create.userId,
+			userId: request.userService.getUserId(),
 			cost: mod.cost,
 			note: `Purchase of mod [${mod.vendor.name} ${mod.name}]`,
 			callback: async transaction => request.prisma.modInventory.create({
 				data: {
 					modId: mod.id,
 					transactionId: transaction.id,
-					userId: create.userId,
+					userId: request.userService.getUserId(),
 				}
 			}),
 		});

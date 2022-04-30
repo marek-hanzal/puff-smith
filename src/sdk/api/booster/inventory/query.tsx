@@ -46,7 +46,7 @@ export type IBoostersInventoryQueryParams = undefined;
 
 export const useBoostersInventoryQuery = createQueryHook<IBoosterInventoryQuery, IQueryResult<IBoosterInventory>, IBoostersInventoryQueryParams>(BoostersInventoryApiLink, "post");
 
-export const useBoostersInventorySource = () => useSourceContext<IBoosterInventory>();
+export const useBoostersInventorySource = () => useSourceContext<IBoosterInventory>()
 
 export interface IBoostersInventorySourceContext extends ISourceContext<IBoosterInventory> {
 }
@@ -78,15 +78,15 @@ export interface IBoostersInventoryFilterProviderProps extends Partial<IFilterPr
 
 export const BoostersInventoryFilterProvider: FC<IBoostersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterInventoryQuery>> name={"BoostersInventory"} {...props}/>;
 
-export const useBoostersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterInventoryQuery>>();
-export const useBoostersInventoryFilterContext = () => useFilterContext<IQueryFilter<IBoosterInventoryQuery>>();
+export const useBoostersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterInventoryQuery>>()
+export const useBoostersInventoryFilterContext = () => useFilterContext<IQueryFilter<IBoosterInventoryQuery>>()
 
 export interface IBoostersInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterInventoryQuery>> {
 }
 
 export const BoostersInventorySourceFilter: FC<IBoostersInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.BoostersInventory"}
+	translation={'common.filter.BoostersInventory'}
 />;
 
 export interface IBoostersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBoosterInventoryQuery>>> {
@@ -94,8 +94,8 @@ export interface IBoostersInventoryOrderByProviderProps extends Partial<IOrderBy
 
 export const BoostersInventoryOrderByProvider: FC<IBoostersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBoosterInventoryQuery>> name={"BoostersInventory"} {...props}/>;
 
-export const useBoostersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>();
-export const useBoostersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>();
+export const useBoostersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>()
+export const useBoostersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>()
 
 export interface IBoostersInventoryListSourceProps extends Partial<IListProps<IBoosterInventory>> {
 	sourceProps?: Partial<IBoostersInventorySourceProps>;
@@ -104,8 +104,7 @@ export interface IBoostersInventoryListSourceProps extends Partial<IListProps<IB
 export interface IBoostersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBoosterInventoryQuery>, IQueryOrderBy<IBoosterInventoryQuery>, IBoostersInventoryQueryParams>> {
 }
 
-export const BoostersInventorySourceControlProvider: FC<IBoostersInventorySourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IBoosterInventoryQuery>, IQueryOrderBy<IBoosterInventoryQuery>> name={"BoostersInventory"} {...props}/>;
+export const BoostersInventorySourceControlProvider: FC<IBoostersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBoosterInventoryQuery>, IQueryOrderBy<IBoosterInventoryQuery>> name={"BoostersInventory"} {...props}/>;
 
 export const BoostersInventoryListSource: FC<IBoostersInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <BoostersInventorySource
@@ -136,6 +135,7 @@ export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectPro
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.BoostersInventory.title"}
+					size={props.size}
 					tooltip={"common.selection.BoostersInventory.title.tooltip"}
 					width={800}
 				>

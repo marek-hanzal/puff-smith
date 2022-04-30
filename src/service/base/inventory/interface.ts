@@ -6,7 +6,6 @@ import {BaseInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IBaseInventoryCreate {
-	userId: string;
 	baseId: string;
 }
 

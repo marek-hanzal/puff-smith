@@ -46,7 +46,7 @@ export type IAtomizersInventoryQueryParams = undefined;
 
 export const useAtomizersInventoryQuery = createQueryHook<IAtomizerInventoryQuery, IQueryResult<IAtomizerInventory>, IAtomizersInventoryQueryParams>(AtomizersInventoryApiLink, "post");
 
-export const useAtomizersInventorySource = () => useSourceContext<IAtomizerInventory>();
+export const useAtomizersInventorySource = () => useSourceContext<IAtomizerInventory>()
 
 export interface IAtomizersInventorySourceContext extends ISourceContext<IAtomizerInventory> {
 }
@@ -78,15 +78,15 @@ export interface IAtomizersInventoryFilterProviderProps extends Partial<IFilterP
 
 export const AtomizersInventoryFilterProvider: FC<IAtomizersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
-export const useAtomizersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerInventoryQuery>>();
-export const useAtomizersInventoryFilterContext = () => useFilterContext<IQueryFilter<IAtomizerInventoryQuery>>();
+export const useAtomizersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerInventoryQuery>>()
+export const useAtomizersInventoryFilterContext = () => useFilterContext<IQueryFilter<IAtomizerInventoryQuery>>()
 
 export interface IAtomizersInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerInventoryQuery>> {
 }
 
 export const AtomizersInventorySourceFilter: FC<IAtomizersInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AtomizersInventory"}
+	translation={'common.filter.AtomizersInventory'}
 />;
 
 export interface IAtomizersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerInventoryQuery>>> {
@@ -94,8 +94,8 @@ export interface IAtomizersInventoryOrderByProviderProps extends Partial<IOrderB
 
 export const AtomizersInventoryOrderByProvider: FC<IAtomizersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
-export const useAtomizersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>();
-export const useAtomizersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>();
+export const useAtomizersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>()
+export const useAtomizersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>()
 
 export interface IAtomizersInventoryListSourceProps extends Partial<IListProps<IAtomizerInventory>> {
 	sourceProps?: Partial<IAtomizersInventorySourceProps>;
@@ -104,8 +104,7 @@ export interface IAtomizersInventoryListSourceProps extends Partial<IListProps<I
 export interface IAtomizersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>, IAtomizersInventoryQueryParams>> {
 }
 
-export const AtomizersInventorySourceControlProvider: FC<IAtomizersInventorySourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
+export const AtomizersInventorySourceControlProvider: FC<IAtomizersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizersInventory"} {...props}/>;
 
 export const AtomizersInventoryListSource: FC<IAtomizersInventoryListSourceProps> = ({sourceProps, ...props}) => {
 	return <AtomizersInventorySource
@@ -136,6 +135,7 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.AtomizersInventory.title"}
+					size={props.size}
 					tooltip={"common.selection.AtomizersInventory.title.tooltip"}
 					width={800}
 				>

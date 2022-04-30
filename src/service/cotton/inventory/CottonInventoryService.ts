@@ -16,14 +16,14 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 	create: async create => prisma.$transaction(async prisma => {
 		const cotton = await CottonService({...request, prisma}).toMap(create.cottonId);
 		return TransactionService({...request, prisma}).handleTransaction({
-			userId: create.userId,
+			userId: request.userService.getUserId(),
 			cost: cotton.cost,
 			note: `Purchase of cotton [${cotton.vendor.name} ${cotton.name}]`,
 			callback: async transaction => request.prisma.cottonInventory.create({
 				data: {
 					cottonId: cotton.id,
 					transactionId: transaction.id,
-					userId: create.userId,
+					userId: request.userService.getUserId(),
 				}
 			}),
 		});

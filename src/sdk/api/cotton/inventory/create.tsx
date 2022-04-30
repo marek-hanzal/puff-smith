@@ -11,17 +11,17 @@ export const CreateApiLink = "/api/cotton/inventory/create";
 
 export type ICreateQueryParams = undefined;
 
-export const useCreateMutation = createMutationHook<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>(CreateApiLink, "post");
+export const useCreateMutation = createMutationHook<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");
 
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ICottonInventoryCreate, ICottonInventory>> {
 }
 
-export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ICottonInventoryCreate, ICottonInventory>
 	useMutation={useCreateMutation}
 	{...props}
 />
@@ -29,6 +29,6 @@ export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<Omi
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
 
-export const useCreatePromise = createPromiseHook<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>(CreateApiLink, "post");
+export const useCreatePromise = createPromiseHook<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");
 
-export const CreatePromise = createPromise<Omit<ICottonInventoryCreate, "userId">, ICottonInventory>(CreateApiLink, "post");
+export const CreatePromise = createPromise<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");

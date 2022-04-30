@@ -7,7 +7,6 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IBoosterInventoryCreate {
 	code?: string;
-	userId: string;
 	boosterId: string;
 }
 

@@ -46,7 +46,7 @@ export type ICellsInventoryQueryParams = undefined;
 
 export const useCellsInventoryQuery = createQueryHook<ICellInventoryQuery, IQueryResult<ICellInventory>, ICellsInventoryQueryParams>(CellsInventoryApiLink, "post");
 
-export const useCellsInventorySource = () => useSourceContext<ICellInventory>();
+export const useCellsInventorySource = () => useSourceContext<ICellInventory>()
 
 export interface ICellsInventorySourceContext extends ISourceContext<ICellInventory> {
 }
@@ -78,15 +78,15 @@ export interface ICellsInventoryFilterProviderProps extends Partial<IFilterProvi
 
 export const CellsInventoryFilterProvider: FC<ICellsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellInventoryQuery>> name={"CellsInventory"} {...props}/>;
 
-export const useCellsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellInventoryQuery>>();
-export const useCellsInventoryFilterContext = () => useFilterContext<IQueryFilter<ICellInventoryQuery>>();
+export const useCellsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellInventoryQuery>>()
+export const useCellsInventoryFilterContext = () => useFilterContext<IQueryFilter<ICellInventoryQuery>>()
 
 export interface ICellsInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellInventoryQuery>> {
 }
 
 export const CellsInventorySourceFilter: FC<ICellsInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.CellsInventory"}
+	translation={'common.filter.CellsInventory'}
 />;
 
 export interface ICellsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellInventoryQuery>>> {
@@ -94,8 +94,8 @@ export interface ICellsInventoryOrderByProviderProps extends Partial<IOrderByPro
 
 export const CellsInventoryOrderByProvider: FC<ICellsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellInventoryQuery>> name={"CellsInventory"} {...props}/>;
 
-export const useCellsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellInventoryQuery>>();
-export const useCellsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellInventoryQuery>>();
+export const useCellsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellInventoryQuery>>()
+export const useCellsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellInventoryQuery>>()
 
 export interface ICellsInventoryListSourceProps extends Partial<IListProps<ICellInventory>> {
 	sourceProps?: Partial<ICellsInventorySourceProps>;
@@ -135,6 +135,7 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.CellsInventory.title"}
+					size={props.size}
 					tooltip={"common.selection.CellsInventory.title.tooltip"}
 					width={800}
 				>

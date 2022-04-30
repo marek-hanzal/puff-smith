@@ -133,6 +133,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			const jobProgress = jobService.createProgress(theJob.id);
 			logger.info(`Marking job [${name}] as running`);
 			try {
+				await prisma.job.findUnique({where: {id: theJob.id}, rejectOnNotFound: true});
 				await jobProgress.status("RUNNING");
 				if (await handler({
 					job: theJob,

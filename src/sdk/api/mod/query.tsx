@@ -3,42 +3,14 @@
  */
 
 import {IMod, IModQuery} from "@/puff-smith/service/mod/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {ModService} from "@/puff-smith/service/mod/ModService";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const ModsApiLink = "/api/mod/query";
 
@@ -46,7 +18,7 @@ export type IModsQueryParams = undefined;
 
 export const useModsQuery = createQueryHook<IModQuery, IQueryResult<IMod>, IModsQueryParams>(ModsApiLink, "post");
 
-export const useModsSource = () => useSourceContext<IMod>();
+export const useModsSource = () => useSourceContext<IMod>()
 
 export interface IModsSourceContext extends ISourceContext<IMod> {
 }
@@ -78,15 +50,15 @@ export interface IModsFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const ModsFilterProvider: FC<IModsFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModQuery>> name={"Mods"} {...props}/>;
 
-export const useModsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModQuery>>();
-export const useModsFilterContext = () => useFilterContext<IQueryFilter<IModQuery>>();
+export const useModsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModQuery>>()
+export const useModsFilterContext = () => useFilterContext<IQueryFilter<IModQuery>>()
 
 export interface IModsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModQuery>> {
 }
 
 export const ModsSourceFilter: FC<IModsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Mods"}
+	translation={'common.filter.Mods'}
 />;
 
 export interface IModsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModQuery>>> {
@@ -94,8 +66,8 @@ export interface IModsOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const ModsOrderByProvider: FC<IModsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModQuery>> name={"Mods"} {...props}/>;
 
-export const useModsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModQuery>>();
-export const useModsOrderByContext = () => useOrderByContext<IQueryOrderBy<IModQuery>>();
+export const useModsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModQuery>>()
+export const useModsOrderByContext = () => useOrderByContext<IQueryOrderBy<IModQuery>>()
 
 export interface IModsListSourceProps extends Partial<IListProps<IMod>> {
 	sourceProps?: Partial<IModsSourceProps>;
@@ -111,7 +83,7 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 		{...sourceProps}
 	>
 		<List<IMod>
-			{...props}
+			{...props}		
 		/>
 	</ModsSource>;
 }
@@ -126,7 +98,7 @@ export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<ModsSource {...sourceProps}>
 					<QuerySourceSelect<IMod> {...props}/>
 				</ModsSource>
@@ -135,6 +107,7 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Mods.title"}
+					size={props.size}
 					tooltip={"common.selection.Mods.title.tooltip"}
 					width={800}
 				>

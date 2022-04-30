@@ -23,6 +23,7 @@ export const JobsListHeader: FC<IJobsListHeaderProps> = ({showCommit = true, sho
 		{showFilter && <JobsFilter spaceProps={{split: undefined}}/>}
 		{showCommit && <Button
 			type={"link"}
+			loading={commitMutation.isLoading}
 			onClick={() => {
 				commitMutation.mutate(undefined, {
 					onSuccess: async () => {
@@ -37,6 +38,7 @@ export const JobsListHeader: FC<IJobsListHeaderProps> = ({showCommit = true, sho
 		{showCleanup && <Button
 			type={"ghost"}
 			danger
+			loading={cleanupMutation.isLoading}
 			onClick={() => {
 				cleanupMutation.mutate(filterContext?.filter, {
 					onSuccess: async () => {

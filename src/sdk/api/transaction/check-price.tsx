@@ -1,10 +1,12 @@
 /**
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
-
+ 
 import {ICheckRequest, ICheckResponse} from "@/puff-smith/service/transaction/interface";
-import {createPromise, createPromiseHook, createQueryHook, toLink} from "@leight-core/client";
+import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
+import {RequestEndpoint} from "@leight-core/server/lib/cjs/endpoint/endpoints";
 import {useQueryClient} from "react-query";
+import {createPromise, createPromiseHook, createQueryHook, toLink} from "@leight-core/client";
 
 export const CheckPriceApiLink = "/api/transaction/check-price";
 

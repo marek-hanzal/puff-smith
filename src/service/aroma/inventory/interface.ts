@@ -6,7 +6,6 @@ import {AromaInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IAromaInventoryCreate {
-	userId: string;
 	aromaId: string;
 }
 

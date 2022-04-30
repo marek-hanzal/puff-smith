@@ -104,9 +104,14 @@ export default withRootLayout(function Index() {
 				},
 				name,
 			}}
-			defaultOrderBy={{
-				created: "desc",
-			}}
+			defaultOrderBy={[
+				{
+					started: "asc",
+				},
+				{
+					created: "desc",
+				},
+			] as any}
 		>
 			<JobsList {...config.listProps}/>
 		</JobsSourceControlProvider>

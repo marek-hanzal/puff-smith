@@ -10,7 +10,6 @@ export interface IMetricCreate {
 	start: number;
 	value: number;
 	label?: string;
-	userId?: string;
 }
 
 export interface IMetric {

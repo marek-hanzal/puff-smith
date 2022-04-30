@@ -6,7 +6,6 @@ import {CottonInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface ICottonInventoryCreate {
-	userId: string;
 	cottonId: string;
 }
 

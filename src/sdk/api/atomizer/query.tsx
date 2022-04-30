@@ -46,7 +46,7 @@ export type IAtomizersQueryParams = undefined;
 
 export const useAtomizersQuery = createQueryHook<IAtomizerQuery, IQueryResult<IAtomizer>, IAtomizersQueryParams>(AtomizersApiLink, "post");
 
-export const useAtomizersSource = () => useSourceContext<IAtomizer>();
+export const useAtomizersSource = () => useSourceContext<IAtomizer>()
 
 export interface IAtomizersSourceContext extends ISourceContext<IAtomizer> {
 }
@@ -78,15 +78,15 @@ export interface IAtomizersFilterProviderProps extends Partial<IFilterProviderPr
 
 export const AtomizersFilterProvider: FC<IAtomizersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
-export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
-export const useAtomizersFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useAtomizersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>()
+export const useAtomizersFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>()
 
 export interface IAtomizersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
 }
 
 export const AtomizersSourceFilter: FC<IAtomizersSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Atomizers"}
+	translation={'common.filter.Atomizers'}
 />;
 
 export interface IAtomizersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerQuery>>> {
@@ -94,8 +94,8 @@ export interface IAtomizersOrderByProviderProps extends Partial<IOrderByProvider
 
 export const AtomizersOrderByProvider: FC<IAtomizersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerQuery>> name={"Atomizers"} {...props}/>;
 
-export const useAtomizersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
-export const useAtomizersOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
+export const useAtomizersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>()
+export const useAtomizersOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>()
 
 export interface IAtomizersListSourceProps extends Partial<IListProps<IAtomizer>> {
 	sourceProps?: Partial<IAtomizersSourceProps>;
@@ -135,6 +135,7 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Atomizers.title"}
+					size={props.size}
 					tooltip={"common.selection.Atomizers.title.tooltip"}
 					width={800}
 				>

@@ -3,42 +3,14 @@
  */
 
 import {IJobQuery} from "@/puff-smith/service/job/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {JobService} from "@/puff-smith/service/job/JobService";
+import {IJob, IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const JobsApiLink = "/api/job/query";
 
@@ -46,7 +18,7 @@ export type IJobsQueryParams = undefined;
 
 export const useJobsQuery = createQueryHook<IJobQuery, IQueryResult<IJob>, IJobsQueryParams>(JobsApiLink, "post");
 
-export const useJobsSource = () => useSourceContext<IJob>();
+export const useJobsSource = () => useSourceContext<IJob>()
 
 export interface IJobsSourceContext extends ISourceContext<IJob> {
 }
@@ -78,15 +50,15 @@ export interface IJobsFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const JobsFilterProvider: FC<IJobsFilterProviderProps> = props => <FilterProvider<IQueryFilter<IJobQuery>> name={"Jobs"} {...props}/>;
 
-export const useJobsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IJobQuery>>();
-export const useJobsFilterContext = () => useFilterContext<IQueryFilter<IJobQuery>>();
+export const useJobsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IJobQuery>>()
+export const useJobsFilterContext = () => useFilterContext<IQueryFilter<IJobQuery>>()
 
 export interface IJobsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IJobQuery>> {
 }
 
 export const JobsSourceFilter: FC<IJobsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Jobs"}
+	translation={'common.filter.Jobs'}
 />;
 
 export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IJobQuery>>> {
@@ -94,8 +66,8 @@ export interface IJobsOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const JobsOrderByProvider: FC<IJobsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IJobQuery>> name={"Jobs"} {...props}/>;
 
-export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IJobQuery>>();
-export const useJobsOrderByContext = () => useOrderByContext<IQueryOrderBy<IJobQuery>>();
+export const useJobsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IJobQuery>>()
+export const useJobsOrderByContext = () => useOrderByContext<IQueryOrderBy<IJobQuery>>()
 
 export interface IJobsListSourceProps extends Partial<IListProps<IJob>> {
 	sourceProps?: Partial<IJobsSourceProps>;
@@ -111,7 +83,7 @@ export const JobsListSource: FC<IJobsListSourceProps> = ({sourceProps, ...props}
 		{...sourceProps}
 	>
 		<List<IJob>
-			{...props}
+			{...props}		
 		/>
 	</JobsSource>;
 }
@@ -126,7 +98,7 @@ export interface IJobsSourceSelectProps extends IQuerySourceSelectProps<IJob> {
 export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<JobsSource {...sourceProps}>
 					<QuerySourceSelect<IJob> {...props}/>
 				</JobsSource>
@@ -135,6 +107,7 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Jobs.title"}
+					size={props.size}
 					tooltip={"common.selection.Jobs.title.tooltip"}
 					width={800}
 				>

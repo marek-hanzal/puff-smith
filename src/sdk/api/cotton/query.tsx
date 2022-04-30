@@ -2,43 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {CottonService} from "@/puff-smith/service/cotton/CottonService";
 import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton/interface";
-import {ReadOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {
-	createPromise,
-	createPromiseHook,
-	createQueryHook,
-	DrawerButton,
-	Filter,
-	FilterProvider,
-	IFilterProviderProps,
-	IFilterWithoutTranslationProps,
-	IListProps,
-	IOrderByProviderProps,
-	IQuerySourceSelectProps,
-	ISelectionProviderProps,
-	ISourceControlProviderProps,
-	ISourceProviderProps,
-	List,
-	OrderByProvider,
-	QuerySourceSelect,
-	SelectionProvider,
-	SourceContext,
-	SourceControlProvider,
-	SourceProvider,
-	toLink,
-	useFilterContext,
-	useOptionalFilterContext,
-	useOptionalOrderByContext,
-	useOptionalSelectionContext,
-	useOrderByContext,
-	useSelectionContext,
-	useSourceContext
-} from "@leight-core/client";
-import {Col, Input, Row} from "antd";
+import {QueryEndpoint} from "@leight-core/server";
 import {ConsumerProps, FC, ReactNode} from "react";
+import {Col, Input, Row} from "antd";
+import {ReadOutlined} from "@ant-design/icons";
 import {useQueryClient} from "react-query";
+import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const CottonsApiLink = "/api/cotton/query";
 
@@ -46,7 +18,7 @@ export type ICottonsQueryParams = undefined;
 
 export const useCottonsQuery = createQueryHook<ICottonQuery, IQueryResult<ICotton>, ICottonsQueryParams>(CottonsApiLink, "post");
 
-export const useCottonsSource = () => useSourceContext<ICotton>();
+export const useCottonsSource = () => useSourceContext<ICotton>()
 
 export interface ICottonsSourceContext extends ISourceContext<ICotton> {
 }
@@ -78,15 +50,15 @@ export interface ICottonsFilterProviderProps extends Partial<IFilterProviderProp
 
 export const CottonsFilterProvider: FC<ICottonsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICottonQuery>> name={"Cottons"} {...props}/>;
 
-export const useCottonsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonQuery>>();
-export const useCottonsFilterContext = () => useFilterContext<IQueryFilter<ICottonQuery>>();
+export const useCottonsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonQuery>>()
+export const useCottonsFilterContext = () => useFilterContext<IQueryFilter<ICottonQuery>>()
 
 export interface ICottonsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICottonQuery>> {
 }
 
 export const CottonsSourceFilter: FC<ICottonsSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Cottons"}
+	translation={'common.filter.Cottons'}
 />;
 
 export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICottonQuery>>> {
@@ -94,8 +66,8 @@ export interface ICottonsOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const CottonsOrderByProvider: FC<ICottonsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICottonQuery>> name={"Cottons"} {...props}/>;
 
-export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonQuery>>();
-export const useCottonsOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonQuery>>();
+export const useCottonsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonQuery>>()
+export const useCottonsOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonQuery>>()
 
 export interface ICottonsListSourceProps extends Partial<IListProps<ICotton>> {
 	sourceProps?: Partial<ICottonsSourceProps>;
@@ -111,7 +83,7 @@ export const CottonsListSource: FC<ICottonsListSourceProps> = ({sourceProps, ...
 		{...sourceProps}
 	>
 		<List<ICotton>
-			{...props}
+			{...props}		
 		/>
 	</CottonsSource>;
 }
@@ -126,7 +98,7 @@ export interface ICottonsSourceSelectProps extends IQuerySourceSelectProps<ICott
 export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}>
+			<Col flex={"auto"}> 
 				<CottonsSource {...sourceProps}>
 					<QuerySourceSelect<ICotton> {...props}/>
 				</CottonsSource>
@@ -135,6 +107,7 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 				{selectionList && <DrawerButton
 					icon={<ReadOutlined/>}
 					title={"common.selection.Cottons.title"}
+					size={props.size}
 					tooltip={"common.selection.Cottons.title.tooltip"}
 					width={800}
 				>

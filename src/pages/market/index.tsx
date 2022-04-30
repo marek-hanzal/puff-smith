@@ -21,7 +21,7 @@ export default withMarketLayout(function Index() {
 				size={"large"}
 				type={"primary"}
 				icon={<LiquidIcon/>}
-				onClick={() => mixtureUpdateMutation.mutate()}
+				onClick={() => mixtureUpdateMutation.mutate({aromaId: null})}
 				loading={mixtureUpdateMutation.isLoading}
 			>Kaboom!</Button>}
 		/>
