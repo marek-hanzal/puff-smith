@@ -17,33 +17,33 @@ export const QuickFilter: FC<IQuickFilterProps> = props => {
 				{
 					name: "pgvg",
 					reset: {
-						pg: undefined,
-						vg: undefined,
+						pgToRound: undefined,
+						vgToRound: undefined,
 					},
 					options: [
 						{
 							name: "0/100",
-							filter: {pg: 100, vg: 0},
+							filter: {pgToRound: 100, vgToRound: 0},
 						},
 						{
 							name: "30/70",
-							filter: {pg: 70, vg: 30},
+							filter: {pgToRound: 70, vgToRound: 30},
 						},
 						{
 							name: "50/50",
-							filter: {pg: 50, vg: 50},
+							filter: {pgToRound: 50, vgToRound: 50},
 						},
 						{
 							name: "70/30",
-							filter: {pg: 30, vg: 70},
+							filter: {pgToRound: 30, vgToRound: 70},
 						},
 						{
 							name: "80/20",
-							filter: {pg: 20, vg: 80},
+							filter: {pgToRound: 20, vgToRound: 80},
 						},
 						{
 							name: "100/0",
-							filter: {pg: 0, vg: 100},
+							filter: {pgToRound: 0, vgToRound: 100},
 						},
 					],
 				},

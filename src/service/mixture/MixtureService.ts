@@ -67,6 +67,20 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 									userId: ownedByUserId,
 								}
 							}
+						},
+						base: {
+							BaseInventory: {
+								some: {
+									userId: ownedByUserId,
+								}
+							}
+						},
+						booster: {
+							BoosterInventory: {
+								some: {
+									userId: ownedByUserId,
+								}
+							}
 						}
 					};
 				}
