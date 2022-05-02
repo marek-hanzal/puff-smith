@@ -29,6 +29,11 @@ export default withPlugins([
 			return merge(config, {
 				entry() {
 					return config.entry().then(entry => {
+						entry = {
+							...entry,
+							// agenda:    ['./src/cli/agenda.ts'],
+							// migration: ['./src/cli/migration.ts'],
+						};
 						Object.keys(entry).map(key => {
 							entry[key] = {import: ['./src/service/side-effect/bootstrap.ts', ...entry[key]]};
 						});
