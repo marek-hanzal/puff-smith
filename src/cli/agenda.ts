@@ -1,6 +1,6 @@
-import ImportJob from "@/puff-smith/agenda/job/import";
-import MigrationJob from "@/puff-smith/agenda/job/migrate";
-import MixtureJob from "@/puff-smith/agenda/job/mixture";
+import ImportJob from "@/puff-smith/cli/jobs/import";
+import MigrationJob from "@/puff-smith/cli/jobs/migrate";
+import MixtureJob from "@/puff-smith/cli/jobs/mixture";
 import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 

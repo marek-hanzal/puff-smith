@@ -44,7 +44,7 @@ export default function ImportJob(agenda: Agenda) {
 	agenda.define(ImportJobName, {
 		concurrency: 1,
 		priority: 50,
-	}, JobService().handle<IImportParams>(ImportJobName, async ({logger, job, jobProgress, jobService}) => {
+	}, JobService().handle<IImportParams>(ImportJobName, async ({logger, job, jobProgress}) => {
 		const labels = {jobId: job.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		logger.info("Checking fileId");

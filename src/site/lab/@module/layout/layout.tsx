@@ -3,10 +3,10 @@ import {Footer} from "@/puff-smith/site/lab/@module/component/Footer";
 import {Header} from "@/puff-smith/site/lab/@module/component/Header";
 import {AppLayout} from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
 import {IPageWithLayout} from "@leight-core/api";
-import {ApplicationLayout} from "@leight-core/client";
+import {ApplicationLayout, IApplicationLayoutProps} from "@leight-core/client";
 import {FC} from "react";
 
-export interface ILabLayoutProps {
+export interface ILabLayoutProps extends Partial<IApplicationLayoutProps> {
 }
 
 export const LabLayout: FC<ILabLayoutProps> = props => {

@@ -9,7 +9,8 @@ export interface ICodeInlineProps {
 
 export const CodeInline: FC<ICodeInlineProps> = ({code}) => {
 	const {t} = useTranslation();
+	code = (isString(code) ? code : (code as { code: string }).code) as string;
 	return <Tooltip title={t("common.inventory.code.tooltip")}>
-		<Typography.Text type={"warning"}>{isString(code) ? code : (code as { code: string }).code}</Typography.Text>
+		<Typography.Text type={"warning"}>{code}</Typography.Text>
 	</Tooltip>;
 };

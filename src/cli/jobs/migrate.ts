@@ -1,5 +1,5 @@
+import {FixturesMigration} from "@/puff-smith/cli/migrations/FixtureMigration";
 import {JobService} from "@/puff-smith/service/job/JobService";
-import {FixturesMigration} from "@/puff-smith/service/migration/FixtureMigration";
 import {Agenda} from "agenda";
 
 export const MigrateJobName = "migrate";

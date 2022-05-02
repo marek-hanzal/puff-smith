@@ -1,6 +1,6 @@
-import {ImportJobName} from "@/puff-smith/agenda/job/import";
-import {MigrateJobName} from "@/puff-smith/agenda/job/migrate";
-import {MixtureJobName} from "@/puff-smith/agenda/job/mixture";
+import {ImportJobName} from "@/puff-smith/cli/jobs/import";
+import {MigrateJobName} from "@/puff-smith/cli/jobs/migrate";
+import {MixtureJobName} from "@/puff-smith/cli/jobs/mixture";
 import {BootstrapLogger} from "@leight-core/server";
 import {collectDefaultMetrics, register} from "prom-client";
 

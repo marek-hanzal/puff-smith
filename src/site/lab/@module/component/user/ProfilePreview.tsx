@@ -19,7 +19,7 @@ export const ProfilePreview: FC<IProfilePreviewProps> = ({user}) => {
 					"name": user.name,
 					"email": user.email,
 					"site": user.site,
-					"roles": () => user.roles.map((role: any) => <Tag key={role.id}>{role.name}</Tag>),
+					"roles": user.roles.map((role: any) => <Tag key={role.id}>{role.name}</Tag>),
 				}}
 			</Preview>
 		</Tabs.TabPane>

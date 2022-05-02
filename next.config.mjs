@@ -12,6 +12,7 @@ export default withPlugins([
 	images:                      {
 		formats: ['image/avif', 'image/webp']
 	},
+	poweredByHeader:             false,
 	productionBrowserSourceMaps: false,
 	webpack:                     (config, {
 		webpack,
@@ -28,10 +29,6 @@ export default withPlugins([
 			return merge(config, {
 				entry() {
 					return config.entry().then(entry => {
-						entry = Object.assign({}, entry, {
-							'agenda':    ['./src/agenda/worker.ts'],
-							'migration': ['./src/service/migration/worker.ts'],
-						});
 						Object.keys(entry).map(key => {
 							entry[key] = {import: ['./src/service/side-effect/bootstrap.ts', ...entry[key]]};
 						});

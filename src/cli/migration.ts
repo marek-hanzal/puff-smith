@@ -1,4 +1,4 @@
-import {MigrateJobName} from "@/puff-smith/agenda/job/migrate";
+import {MigrateJobName} from "@/puff-smith/cli/jobs/migrate";
 import {JobService} from "@/puff-smith/service/job/JobService";
 
 JobService().schedule(MigrateJobName, undefined)
