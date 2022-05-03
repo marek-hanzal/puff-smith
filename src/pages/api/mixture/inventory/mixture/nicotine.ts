@@ -5,7 +5,7 @@ import uniqueObjects from "unique-objects";
 
 export interface INicotineItem {
 	label: string;
-	value: string;
+	value: number;
 	nicotine: number;
 }
 
@@ -55,7 +55,7 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 	})), ["nicotine"]) as INicotineItem[];
 
 	return {
-		items,
+		items: ([{label: "0", value: 0, nicotine: 0}] as INicotineItem[]).concat(items),
 		count: items.length,
 		total: items.length,
 	};

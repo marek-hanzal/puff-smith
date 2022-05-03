@@ -4,6 +4,7 @@ import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IMixtureCreate, IMixtureService, IMixtureServiceCreate, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
 import {RepositoryService} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
 export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate()): IMixtureService => {
 	const toCreate = (create: IMixtureCreate) => {
@@ -59,42 +60,52 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 				ownedByUserId = ownedByCurrentUser ? request.userService.getUserId() : ownedByUserId;
 				notOwnedByUserId = notOwnedByCurrentUser ? request.userService.getUserId() : notOwnedByUserId;
 				if (ownedByUserId) {
-					_filter = {
-						...filter,
-						AND: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId: ownedByUserId,
-										}
-									}
-								}
-							},
-							{
-								base: {
-									BaseInventory: {
-										some: {
-											userId: ownedByUserId,
-										}
-									}
-								}
-							},
-							{
-								booster: {
-									BoosterInventory: {
-										some: {
-											userId: ownedByUserId,
-										}
-									}
+					_filter = deepmerge(filter, {
+						aroma: {
+							AromaInventory: {
+								some: {
+									userId: ownedByUserId,
 								}
 							}
+						},
+						AND: [
+							{
+								OR: [
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId: ownedByUserId,
+												},
+											}
+										}
+									},
+									{
+										base: null,
+									},
+								],
+							},
+							{
+								OR: [
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId: ownedByUserId,
+												},
+											}
+										},
+									},
+									{
+										booster: null,
+									}
+								],
+							},
 						],
-					};
+					});
 				}
 				if (notOwnedByUserId) {
-					_filter = {
-						...filter,
+					_filter = deepmerge(filter, {
 						aroma: {
 							AromaInventory: {
 								none: {
@@ -102,7 +113,7 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 								}
 							}
 						}
-					};
+					});
 				}
 				return _filter;
 			},

@@ -1,10 +1,39 @@
 import {MixtureAromaSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureAromaSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureRatioSelect";
-import {MixtureVendorSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureVendorSelect";
-import {MixturesSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
+import {MixturesSourceControlProvider, MixturesSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
-import {FC, useRef} from "react";
+import {FC, MutableRefObject, useRef} from "react";
+
+interface IInternalProps {
+	ratio: MutableRefObject<{ pgToRound: number, vgToRound: number } | undefined>;
+}
+
+const Internal: FC<IInternalProps> = ({ratio}) => {
+	return <MixturesSourceControlProvider>
+		<FormItem field={"aromaId"}>
+			<MixtureAromaSelect
+				allowClear
+			/>
+		</FormItem>
+		<FormItem field={"ratio"}>
+			<MixtureRatioSelect
+				allowClear
+				onClear={() => {
+					ratio.current = undefined;
+				}}
+				onSelect={({entity}) => {
+					ratio.current = {pgToRound: entity.pg, vgToRound: entity.vg};
+				}}
+			/>
+		</FormItem>
+		<FormItem field={"nicotine"}>
+			<MixtureNicotineSelect
+				allowClear
+			/>
+		</FormItem>
+	</MixturesSourceControlProvider>;
+};
 
 export interface IMixtureFilterProps extends Partial<IFilterProps> {
 }
@@ -42,31 +71,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		})}
 		{...props}
 	>
-		<FormItem field={"aromaId"}>
-			<MixtureAromaSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"ratio"}>
-			<MixtureRatioSelect
-				allowClear
-				onClear={() => {
-					ratio.current = undefined;
-				}}
-				onSelect={({entity}) => {
-					ratio.current = {pgToRound: entity.pg, vgToRound: entity.vg};
-				}}
-			/>
-		</FormItem>
-		<FormItem field={"nicotine"}>
-			<MixtureNicotineSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"vendorId"}>
-			<MixtureVendorSelect
-				allowClear
-			/>
-		</FormItem>
+		<Internal ratio={ratio}/>
 	</MixturesSourceFilter>;
 };

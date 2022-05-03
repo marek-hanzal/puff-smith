@@ -1,12 +1,12 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
-export default QueryEndpoint<"Aroma", IQuery<{ fulltext?: string }>, IAroma>(async ({request, toUserId}) => {
+export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request, toUserId}) => {
 	const aromaService = AromaService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
 		where: {
@@ -14,22 +14,22 @@ export default QueryEndpoint<"Aroma", IQuery<{ fulltext?: string }>, IAroma>(asy
 				{
 					OR: [
 						{
-							aroma: {
+							aroma: request?.filter?.fulltext ? {
 								name: {
 									contains: request?.filter?.fulltext,
 									mode: "insensitive",
 								},
-							},
+							} : undefined,
 						},
 						{
-							aroma: {
+							aroma: request?.filter?.fulltext ? {
 								vendor: {
 									name: {
 										contains: request?.filter?.fulltext,
 										mode: "insensitive",
 									}
 								},
-							},
+							} : undefined,
 						},
 					],
 					aroma: {

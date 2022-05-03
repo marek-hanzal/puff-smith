@@ -27,7 +27,7 @@ export interface IMixtureCreate {
 	error?: IMixtureError;
 }
 
-export type IMixtureWhere = Prisma.MixtureWhereInput & IUserOwnershipFilter;
+export type IMixtureWhere = Prisma.MixtureWhereInput & IUserOwnershipFilter & { fulltext?: string };
 
 export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrderByWithRelationInput> {
 }

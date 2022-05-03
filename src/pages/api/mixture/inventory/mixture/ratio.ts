@@ -1,5 +1,5 @@
+import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
@@ -10,7 +10,7 @@ export interface IRatioItem {
 	vg: number;
 }
 
-export default QueryEndpoint<"Ratio", IQuery, IRatioItem>(async ({toUserId}) => {
+export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async ({request, toUserId}) => {
 	const items = uniqueObjects((await prisma.mixture.findMany({
 		select: {
 			vgToRound: true,
