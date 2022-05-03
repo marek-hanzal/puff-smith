@@ -44,7 +44,6 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 			button={{
 				icon: <PurchaseIcon/>,
 				type: "primary",
-				ghost: true,
 				size: "large",
 				disabled: isDisabled(cost, puffiesQuery),
 				children: <Price price={cost} defaultText={translation + ".buy.free"}/>,

@@ -3,7 +3,7 @@
  */
 
 import {IAromaInventory, IAromaInventoryQuery} from "@/puff-smith/service/aroma/inventory/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> 
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.AromasInventory.title"}
 					size={props.size}
 					tooltip={"common.selection.AromasInventory.title.tooltip"}

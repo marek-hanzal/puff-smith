@@ -3,7 +3,7 @@
  */
 
 import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell/inventory/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.CellsInventory.title"}
 					size={props.size}
 					tooltip={"common.selection.CellsInventory.title.tooltip"}

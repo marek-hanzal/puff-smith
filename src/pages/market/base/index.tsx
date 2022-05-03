@@ -2,7 +2,7 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BaseList} from "@/puff-smith/site/market/base/@module/list/BaseList";
-import {QuickFilter} from "@/puff-smith/site/shared/base/@module/filter/QuickFilter";
+import {BaseListToolbar} from "@/puff-smith/site/market/base/@module/list/BaseListToolbar";
 import {BasesSourceControlProvider} from "@/sdk/api/base/query";
 
 export default withMarketLayout(function Index() {
@@ -17,7 +17,7 @@ export default withMarketLayout(function Index() {
 			}}
 		>
 			<BaseList
-				header={() => <QuickFilter/>}
+				header={() => <BaseListToolbar/>}
 			/>
 		</BasesSourceControlProvider>
 	</MarketPage>;

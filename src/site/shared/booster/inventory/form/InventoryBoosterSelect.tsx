@@ -1,5 +1,5 @@
 import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
-import {QuickFilter} from "@/puff-smith/site/shared/booster/@module/filter/QuickFilter";
+import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {IInventoryBoostersSourceSelectProps, InventoryBoostersFilterProvider, InventoryBoostersOrderByProvider, InventoryBoostersSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
 import {FC} from "react";
@@ -22,10 +22,9 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 					value: booster.id,
 				})}
 				selectionList={() => <BoosterInventoryList
-					header={() => <QuickFilter
+					header={() => <BoosterFilter
 						toFilter={filter => ({booster: filter})}
-						fromFilter={filter => filter?.booster}
-						direction={"vertical"}
+						toForm={filter => filter?.booster}
 					/>}
 				/>}
 				{...props}

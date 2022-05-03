@@ -3,7 +3,7 @@
  */
 
 import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton/inventory/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.CottonsInventory.title"}
 					size={props.size}
 					tooltip={"common.selection.CottonsInventory.title.tooltip"}

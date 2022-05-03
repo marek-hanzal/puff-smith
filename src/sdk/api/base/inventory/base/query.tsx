@@ -3,7 +3,7 @@
  */
 
 import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = 
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.InventoryBases.title"}
 					size={props.size}
 					tooltip={"common.selection.InventoryBases.title.tooltip"}

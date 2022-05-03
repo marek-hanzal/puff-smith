@@ -2,7 +2,7 @@ import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BoosterList} from "@/puff-smith/site/market/booster/@module/list/BoosterList";
-import {QuickFilter} from "@/puff-smith/site/shared/booster/@module/filter/QuickFilter";
+import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
 import {BoostersSourceControlProvider} from "@/sdk/api/booster/query";
 
 export default withMarketLayout(function Index() {
@@ -17,7 +17,7 @@ export default withMarketLayout(function Index() {
 			}}
 		>
 			<BoosterList
-				header={() => <QuickFilter/>}
+				header={() => <BoosterFilter/>}
 			/>
 		</BoostersSourceControlProvider>
 	</MarketPage>;

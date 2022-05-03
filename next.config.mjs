@@ -19,6 +19,7 @@ export default withPlugins([
 		webpack,
 		buildId,
 		isServer,
+		nextRuntime,
 		...options
 	}) => {
 		config.plugins.push(
@@ -26,7 +27,7 @@ export default withPlugins([
 				'process.env.BUILD_ID': JSON.stringify(buildId),
 			}),
 		);
-		if (isServer) {
+		if (isServer && nextRuntime === 'nodejs') {
 			return merge(config, {
 				entry() {
 					return config.entry().then(entry => {

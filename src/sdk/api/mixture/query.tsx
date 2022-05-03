@@ -2,16 +2,43 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ServiceCreate} from "@/puff-smith/service";
 import {IMixture, IMixtureQuery} from "@/puff-smith/service/mixture/interface";
-import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
-import {QueryEndpoint} from "@leight-core/server";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {SelectOutlined} from "@ant-design/icons";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {
+	createPromise,
+	createPromiseHook,
+	createQueryHook,
+	DrawerButton,
+	Filter,
+	FilterProvider,
+	IFilterProviderProps,
+	IFilterWithoutTranslationProps,
+	IListProps,
+	IOrderByProviderProps,
+	IQuerySourceSelectProps,
+	ISelectionProviderProps,
+	ISourceControlProviderProps,
+	ISourceProviderProps,
+	List,
+	OrderByProvider,
+	QuerySourceSelect,
+	SelectionProvider,
+	SourceContext,
+	SourceControlProvider,
+	SourceProvider,
+	toLink,
+	useFilterContext,
+	useOptionalFilterContext,
+	useOptionalOrderByContext,
+	useOptionalSelectionContext,
+	useOrderByContext,
+	useSelectionContext,
+	useSourceContext
+} from "@leight-core/client";
 import {Col, Input, Row} from "antd";
-import {ReadOutlined} from "@ant-design/icons";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
-import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const MixturesApiLink = "/api/mixture/query";
 
@@ -84,7 +111,7 @@ export const MixturesListSource: FC<IMixturesListSourceProps> = ({sourceProps, .
 		{...sourceProps}
 	>
 		<List<IMixture>
-			{...props}		
+			{...props}
 		/>
 	</MixturesSource>;
 }
@@ -99,14 +126,14 @@ export interface IMixturesSourceSelectProps extends IQuerySourceSelectProps<IMix
 export const MixturesSourceSelect: FC<IMixturesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}> 
+			<Col flex={"auto"}>
 				<MixturesSource {...sourceProps}>
 					<QuerySourceSelect<IMixture> {...props}/>
 				</MixturesSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.Mixtures.title"}
 					size={props.size}
 					tooltip={"common.selection.Mixtures.title.tooltip"}

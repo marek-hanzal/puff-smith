@@ -3,14 +3,42 @@
  */
 
 import {IMod, IModQuery} from "@/puff-smith/service/mod/interface";
-import {ModService} from "@/puff-smith/service/mod/ModService";
-import {QueryEndpoint} from "@leight-core/server";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {SelectOutlined} from "@ant-design/icons";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {
+	createPromise,
+	createPromiseHook,
+	createQueryHook,
+	DrawerButton,
+	Filter,
+	FilterProvider,
+	IFilterProviderProps,
+	IFilterWithoutTranslationProps,
+	IListProps,
+	IOrderByProviderProps,
+	IQuerySourceSelectProps,
+	ISelectionProviderProps,
+	ISourceControlProviderProps,
+	ISourceProviderProps,
+	List,
+	OrderByProvider,
+	QuerySourceSelect,
+	SelectionProvider,
+	SourceContext,
+	SourceControlProvider,
+	SourceProvider,
+	toLink,
+	useFilterContext,
+	useOptionalFilterContext,
+	useOptionalOrderByContext,
+	useOptionalSelectionContext,
+	useOrderByContext,
+	useSelectionContext,
+	useSourceContext
+} from "@leight-core/client";
 import {Col, Input, Row} from "antd";
-import {ReadOutlined} from "@ant-design/icons";
+import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
-import {IQueryFilter, IQueryOrderBy, IQueryParams, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
-import {DrawerButton, Filter, FilterProvider, Form, IFilterProviderProps, IFilterWithoutTranslationProps, IFormProps, IListProps, IOrderByProviderProps, IQuerySourceSelectProps, ISelectionProviderProps, ISourceControlProviderProps, ISourceProviderProps, List, MenuIcon, OrderByProvider, QuerySourceSelect, SelectionProvider, SourceContext, SourceControlProvider, SourceProvider, createPromise, createPromiseHook, createQueryHook, toLink, useFilterContext, useOptionalFilterContext, useOptionalOrderByContext, useOptionalSelectionContext, useOrderByContext, useSelectionContext, useSourceContext} from "@leight-core/client";
 
 export const ModsApiLink = "/api/mod/query";
 
@@ -83,7 +111,7 @@ export const ModsListSource: FC<IModsListSourceProps> = ({sourceProps, ...props}
 		{...sourceProps}
 	>
 		<List<IMod>
-			{...props}		
+			{...props}
 		/>
 	</ModsSource>;
 }
@@ -98,14 +126,14 @@ export interface IModsSourceSelectProps extends IQuerySourceSelectProps<IMod> {
 export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
-			<Col flex={"auto"}> 
+			<Col flex={"auto"}>
 				<ModsSource {...sourceProps}>
 					<QuerySourceSelect<IMod> {...props}/>
 				</ModsSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.Mods.title"}
 					size={props.size}
 					tooltip={"common.selection.Mods.title.tooltip"}

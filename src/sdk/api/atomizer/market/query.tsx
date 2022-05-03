@@ -3,7 +3,7 @@
  */
 
 import {IAtomizerMarket, IAtomizerMarketQuery} from "@/puff-smith/service/atomizer/market/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const AtomizersMarketSourceSelect: FC<IAtomizersMarketSourceSelectProps> 
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.AtomizersMarket.title"}
 					size={props.size}
 					tooltip={"common.selection.AtomizersMarket.title.tooltip"}

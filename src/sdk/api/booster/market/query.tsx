@@ -3,7 +3,7 @@
  */
 
 import {IBoosterMarket, IBoosterMarketQuery} from "@/puff-smith/service/booster/market/interface";
-import {ReadOutlined} from "@ant-design/icons";
+import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
@@ -133,7 +133,7 @@ export const BoostersMarketSourceSelect: FC<IBoostersMarketSourceSelectProps> = 
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
-					icon={<ReadOutlined/>}
+					icon={<SelectOutlined/>}
 					title={"common.selection.BoostersMarket.title"}
 					size={props.size}
 					tooltip={"common.selection.BoostersMarket.title.tooltip"}

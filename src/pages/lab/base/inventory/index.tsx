@@ -2,7 +2,7 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
-import {QuickFilter} from "@/puff-smith/site/shared/base/@module/filter/QuickFilter";
+import {BaseFilter} from "@/puff-smith/site/shared/base/@module/filter/BaseFilter";
 import {BasesInventorySourceControlProvider} from "@/sdk/api/base/inventory/query";
 
 export default withLabLayout(function Index() {
@@ -13,9 +13,9 @@ export default withLabLayout(function Index() {
 	>
 		<BasesInventorySourceControlProvider>
 			<BaseInventoryList
-				header={() => <QuickFilter
+				header={() => <BaseFilter
 					toFilter={filter => ({base: filter})}
-					fromFilter={filter => filter?.base}
+					toForm={filter => filter?.base}
 				/>}
 			/>
 		</BasesInventorySourceControlProvider>
