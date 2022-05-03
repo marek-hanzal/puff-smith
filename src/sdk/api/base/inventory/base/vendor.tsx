@@ -40,7 +40,7 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const VendorApiLink = "/api/base/vendor";
+export const VendorApiLink = "/api/base/inventory/base/vendor";
 
 export type IVendorQueryParams = undefined;
 
@@ -114,7 +114,7 @@ export const VendorListSource: FC<IVendorListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</VendorSource>;
-}
+};
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<IVendor> {
 	toOption: IToOptionMapper<IVendor>;

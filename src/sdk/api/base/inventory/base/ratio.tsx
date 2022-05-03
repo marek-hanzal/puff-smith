@@ -46,7 +46,7 @@ export interface IRatioItem {
 	vg: number;
 }
 
-export const RatioApiLink = "/api/booster/ratio";
+export const RatioApiLink = "/api/base/inventory/base/ratio";
 
 export type IRatioQueryParams = undefined;
 
@@ -120,7 +120,7 @@ export const RatioListSource: FC<IRatioListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</RatioSource>;
-}
+};
 
 export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<IRatioItem> {
 	toOption: IToOptionMapper<IRatioItem>;
