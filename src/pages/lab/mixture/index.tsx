@@ -1,9 +1,9 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
-import {QuickFilter} from "@/puff-smith/site/shared/mixture/@module/filter/QuickFilter";
-import {MixturesSourceControlProvider} from "@/sdk/api/mixture/query";
+import {MixturesSourceControlProvider} from "@/sdk/api/mixture/inventory/mixture/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -12,10 +12,6 @@ export default withLabLayout(function Index() {
 		icon={<MixtureIcon/>}
 	>
 		<MixturesSourceControlProvider
-			applyFilter={{
-				ownedByCurrentUser: true,
-				error: null,
-			}}
 			defaultOrderBy={[
 				{
 					aroma: {
@@ -31,7 +27,7 @@ export default withLabLayout(function Index() {
 			] as any}
 		>
 			<MixtureList
-				header={() => <QuickFilter/>}
+				header={() => <MixtureFilter/>}
 			/>
 		</MixturesSourceControlProvider>
 	</LabPage>;

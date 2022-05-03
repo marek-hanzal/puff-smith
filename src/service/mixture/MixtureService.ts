@@ -61,27 +61,35 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 				if (ownedByUserId) {
 					_filter = {
 						...filter,
-						aroma: {
-							AromaInventory: {
-								some: {
-									userId: ownedByUserId,
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId: ownedByUserId,
+										}
+									}
+								}
+							},
+							{
+								base: {
+									BaseInventory: {
+										some: {
+											userId: ownedByUserId,
+										}
+									}
+								}
+							},
+							{
+								booster: {
+									BoosterInventory: {
+										some: {
+											userId: ownedByUserId,
+										}
+									}
 								}
 							}
-						},
-						base: {
-							BaseInventory: {
-								some: {
-									userId: ownedByUserId,
-								}
-							}
-						},
-						booster: {
-							BoosterInventory: {
-								some: {
-									userId: ownedByUserId,
-								}
-							}
-						}
+						],
 					};
 				}
 				if (notOwnedByUserId) {

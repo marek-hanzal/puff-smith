@@ -45,7 +45,7 @@ export interface INicotineItem {
 	nicotine: number;
 }
 
-export const NicotineApiLink = "/api/booster/inventory/booster/nicotine";
+export const NicotineApiLink = "/api/mixture/inventory/mixture/nicotine";
 
 export type INicotineQueryParams = undefined;
 
@@ -119,7 +119,7 @@ export const NicotineListSource: FC<INicotineListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</NicotineSource>;
-}
+};
 
 export interface INicotineSourceSelectProps extends IQuerySourceSelectProps<INicotineItem> {
 	toOption: IToOptionMapper<INicotineItem>;

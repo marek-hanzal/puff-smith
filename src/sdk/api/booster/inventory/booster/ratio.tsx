@@ -120,7 +120,7 @@ export const RatioListSource: FC<IRatioListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</RatioSource>;
-};
+}
 
 export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<IRatioItem> {
 	toOption: IToOptionMapper<IRatioItem>;
