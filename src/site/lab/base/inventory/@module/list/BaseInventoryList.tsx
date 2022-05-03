@@ -28,7 +28,7 @@ export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={baseInventory.base}/>
+					{selectionContext && <SelectionBool selection={baseInventory.base}/>}
 					<BaseNameInline base={baseInventory.base}/>
 					<PgVgInline pgvg={baseInventory.base}/>
 				</Space>}

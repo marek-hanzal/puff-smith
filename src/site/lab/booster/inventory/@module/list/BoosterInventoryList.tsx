@@ -28,7 +28,7 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={boosterInventory}/>
+					{selectionContext && <SelectionBool selection={boosterInventory}/>}
 					<BoosterNameInline booster={boosterInventory.booster}/>
 					<PgVgInline pgvg={boosterInventory.booster}/>
 					<NicotineInline nicotine={boosterInventory.booster.nicotine}/>
