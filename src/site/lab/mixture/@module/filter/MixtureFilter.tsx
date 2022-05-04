@@ -1,4 +1,5 @@
 import {MixtureAromaSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureAromaSelect";
+import {MixtureBoosterSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureBoosterSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureRatioSelect";
 import {MixturesSourceControlProvider, MixturesSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
@@ -13,6 +14,11 @@ const Internal: FC<IInternalProps> = ({ratio}) => {
 	return <MixturesSourceControlProvider>
 		<FormItem field={"aromaId"}>
 			<MixtureAromaSelect
+				allowClear
+			/>
+		</FormItem>
+		<FormItem field={"boosterId"}>
+			<MixtureBoosterSelect
 				allowClear
 			/>
 		</FormItem>
@@ -57,14 +63,18 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 				...filter,
 				vendorId: filter?.aroma?.vendorId,
 				aromaId: filter?.aroma?.id,
+				boosterId: filter?.booster?.id,
 				nicotine: filter?.nicotineToRound,
 				ratio: filter?.vgToRound !== undefined ? `${filter.vgToRound}/${filter.pgToRound}` : undefined,
 			});
 		}}
-		toFilter={({vendorId, aromaId, nicotine}) => toFilter({
+		toFilter={({vendorId, aromaId, boosterId, nicotine}) => toFilter({
 			aroma: {
 				id: aromaId,
 				vendorId,
+			},
+			booster: {
+				id: boosterId,
 			},
 			nicotineToRound: nicotine,
 			...ratio.current,

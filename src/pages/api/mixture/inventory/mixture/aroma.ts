@@ -10,26 +10,6 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request, to
 	const aromaService = AromaService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
 		where: {
-			OR: [
-				{
-					aroma: request?.filter?.fulltext ? {
-						name: {
-							contains: request?.filter?.fulltext,
-							mode: "insensitive",
-						},
-					} : undefined,
-				},
-				{
-					aroma: request?.filter?.fulltext ? {
-						vendor: {
-							name: {
-								contains: request?.filter?.fulltext,
-								mode: "insensitive",
-							}
-						},
-					} : undefined,
-				},
-			],
 			AND: [
 				{
 					error: null,
@@ -40,6 +20,26 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request, to
 							}
 						}
 					},
+					OR: request?.filter?.fulltext ? [
+						{
+							aroma: {
+								name: {
+									contains: request.filter.fulltext,
+									mode: "insensitive",
+								},
+							},
+						},
+						{
+							aroma: {
+								vendor: {
+									name: {
+										contains: request.filter.fulltext,
+										mode: "insensitive",
+									}
+								},
+							},
+						},
+					] : undefined,
 				},
 				{
 					OR: [
