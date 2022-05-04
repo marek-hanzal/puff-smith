@@ -138,6 +138,8 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, s
 					size={props.size}
 					tooltip={"common.selection.Aromas.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<AromasSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const AromasSourceSelect: FC<IAromasSourceSelectProps> = ({sourceProps, s
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IAromasSelectionProviderProps extends Partial<ISelectionProviderProps<IAroma>> {
+}
+
+export const AromasSelectionProvider: FC<IAromasSelectionProviderProps> = props => {
+	return <SelectionProvider<IAroma> {...props}/>;
 };
 
 export const useAromasQueryInvalidate = () => {

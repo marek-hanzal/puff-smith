@@ -139,6 +139,8 @@ export const BoosterSourceSelect: FC<IBoosterSourceSelectProps> = ({sourceProps,
 					size={props.size}
 					tooltip={"common.selection.Booster.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BoosterSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -149,6 +151,13 @@ export const BoosterSourceSelect: FC<IBoosterSourceSelectProps> = ({sourceProps,
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBoosterSelectionProviderProps extends Partial<ISelectionProviderProps<IBooster>> {
+}
+
+export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
+	return <SelectionProvider<IBooster> {...props}/>;
 };
 
 export const useBoosterQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 					size={props.size}
 					tooltip={"common.selection.Atomizers.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<AtomizersSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const AtomizersSourceSelect: FC<IAtomizersSourceSelectProps> = ({sourcePr
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IAtomizersSelectionProviderProps extends Partial<ISelectionProviderProps<IAtomizer>> {
+}
+
+export const AtomizersSelectionProvider: FC<IAtomizersSelectionProviderProps> = props => {
+	return <SelectionProvider<IAtomizer> {...props}/>;
 };
 
 export const useAtomizersQueryInvalidate = () => {

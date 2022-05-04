@@ -138,6 +138,8 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 					size={props.size}
 					tooltip={"common.selection.Files.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<FilesSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, sel
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IFilesSelectionProviderProps extends Partial<ISelectionProviderProps<IFile>> {
+}
+
+export const FilesSelectionProvider: FC<IFilesSelectionProviderProps> = props => {
+	return <SelectionProvider<IFile> {...props}/>;
 };
 
 export const useFilesQueryInvalidate = () => {

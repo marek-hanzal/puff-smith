@@ -143,6 +143,8 @@ export const NicotineSourceSelect: FC<INicotineSourceSelectProps> = ({sourceProp
 					size={props.size}
 					tooltip={"common.selection.Nicotine.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<NicotineSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -153,6 +155,13 @@ export const NicotineSourceSelect: FC<INicotineSourceSelectProps> = ({sourceProp
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface INicotineSelectionProviderProps extends Partial<ISelectionProviderProps<INicotineItem>> {
+}
+
+export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
+	return <SelectionProvider<INicotineItem> {...props}/>;
 };
 
 export const useNicotineQueryInvalidate = () => {

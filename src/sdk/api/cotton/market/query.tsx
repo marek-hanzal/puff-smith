@@ -138,6 +138,8 @@ export const CottonsMarketSourceSelect: FC<ICottonsMarketSourceSelectProps> = ({
 					size={props.size}
 					tooltip={"common.selection.CottonsMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<CottonsMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const CottonsMarketSourceSelect: FC<ICottonsMarketSourceSelectProps> = ({
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ICottonsMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ICottonMarket>> {
+}
+
+export const CottonsMarketSelectionProvider: FC<ICottonsMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<ICottonMarket> {...props}/>;
 };
 
 export const useCottonsMarketQueryInvalidate = () => {

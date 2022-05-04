@@ -138,6 +138,8 @@ export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = 
 					size={props.size}
 					tooltip={"common.selection.BasesInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BasesInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const BasesInventorySourceSelect: FC<IBasesInventorySourceSelectProps> = 
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBasesInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IBaseInventory>> {
+}
+
+export const BasesInventorySelectionProvider: FC<IBasesInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IBaseInventory> {...props}/>;
 };
 
 export const useBasesInventoryQueryInvalidate = () => {

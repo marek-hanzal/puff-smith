@@ -138,6 +138,8 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 					size={props.size}
 					tooltip={"common.selection.VouchersInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<VouchersInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectPro
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IVouchersInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IVoucherInventory>> {
+}
+
+export const VouchersInventorySelectionProvider: FC<IVouchersInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IVoucherInventory> {...props}/>;
 };
 
 export const useVouchersInventoryQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 					size={props.size}
 					tooltip={"common.selection.Liquids.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<LiquidsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps,
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ILiquidsSelectionProviderProps extends Partial<ISelectionProviderProps<ILiquid>> {
+}
+
+export const LiquidsSelectionProvider: FC<ILiquidsSelectionProviderProps> = props => {
+	return <SelectionProvider<ILiquid> {...props}/>;
 };
 
 export const useLiquidsQueryInvalidate = () => {

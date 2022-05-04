@@ -138,6 +138,8 @@ export const ModsMarketSourceSelect: FC<IModsMarketSourceSelectProps> = ({source
 					size={props.size}
 					tooltip={"common.selection.ModsMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<ModsMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const ModsMarketSourceSelect: FC<IModsMarketSourceSelectProps> = ({source
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IModsMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IModMarket>> {
+}
+
+export const ModsMarketSelectionProvider: FC<IModsMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<IModMarket> {...props}/>;
 };
 
 export const useModsMarketQueryInvalidate = () => {

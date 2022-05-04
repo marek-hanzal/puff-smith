@@ -137,6 +137,8 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 					size={props.size}
 					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<StatusListSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -147,6 +149,13 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({source
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IStatusListSelectionProviderProps extends Partial<ISelectionProviderProps<IBaseSelectOption>> {
+}
+
+export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
+	return <SelectionProvider<IBaseSelectOption> {...props}/>;
 };
 
 export const useStatusListQueryInvalidate = () => {

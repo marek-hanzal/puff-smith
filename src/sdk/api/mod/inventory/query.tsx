@@ -138,6 +138,8 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 					size={props.size}
 					tooltip={"common.selection.ModsInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<ModsInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IModsInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IModInventory>> {
+}
+
+export const ModsInventorySelectionProvider: FC<IModsInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IModInventory> {...props}/>;
 };
 
 export const useModsInventoryQueryInvalidate = () => {

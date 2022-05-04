@@ -138,6 +138,8 @@ export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({so
 					size={props.size}
 					tooltip={"common.selection.Transactions.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<TransactionsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const TransactionsSourceSelect: FC<ITransactionsSourceSelectProps> = ({so
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ITransactionsSelectionProviderProps extends Partial<ISelectionProviderProps<ITransaction>> {
+}
+
+export const TransactionsSelectionProvider: FC<ITransactionsSelectionProviderProps> = props => {
+	return <SelectionProvider<ITransaction> {...props}/>;
 };
 
 export const useTransactionsQueryInvalidate = () => {

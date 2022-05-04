@@ -115,7 +115,7 @@ export const BaseListSource: FC<IBaseListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</BaseSource>;
-};
+}
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -139,6 +139,8 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({sourceProps, selec
 					size={props.size}
 					tooltip={"common.selection.Base.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BaseSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -149,6 +151,13 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({sourceProps, selec
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
+}
+
+export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
+	return <SelectionProvider<IBase> {...props}/>;
 };
 
 export const useBaseQueryInvalidate = () => {

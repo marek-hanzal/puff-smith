@@ -138,6 +138,8 @@ export const BoostersMarketSourceSelect: FC<IBoostersMarketSourceSelectProps> = 
 					size={props.size}
 					tooltip={"common.selection.BoostersMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BoostersMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const BoostersMarketSourceSelect: FC<IBoostersMarketSourceSelectProps> = 
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBoostersMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IBoosterMarket>> {
+}
+
+export const BoostersMarketSelectionProvider: FC<IBoostersMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<IBoosterMarket> {...props}/>;
 };
 
 export const useBoostersMarketQueryInvalidate = () => {

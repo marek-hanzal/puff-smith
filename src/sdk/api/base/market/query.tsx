@@ -138,6 +138,8 @@ export const BasesMarketSourceSelect: FC<IBasesMarketSourceSelectProps> = ({sour
 					size={props.size}
 					tooltip={"common.selection.BasesMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BasesMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const BasesMarketSourceSelect: FC<IBasesMarketSourceSelectProps> = ({sour
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBasesMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IBaseMarket>> {
+}
+
+export const BasesMarketSelectionProvider: FC<IBasesMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<IBaseMarket> {...props}/>;
 };
 
 export const useBasesMarketQueryInvalidate = () => {

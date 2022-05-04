@@ -138,6 +138,8 @@ export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectPro
 					size={props.size}
 					tooltip={"common.selection.BoostersInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BoostersInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const BoostersInventorySourceSelect: FC<IBoostersInventorySourceSelectPro
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBoostersInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IBoosterInventory>> {
+}
+
+export const BoostersInventorySelectionProvider: FC<IBoostersInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IBoosterInventory> {...props}/>;
 };
 
 export const useBoostersInventoryQueryInvalidate = () => {

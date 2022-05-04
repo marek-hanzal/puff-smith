@@ -138,6 +138,8 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 					size={props.size}
 					tooltip={"common.selection.Jobs.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<JobsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const JobsSourceSelect: FC<IJobsSourceSelectProps> = ({sourceProps, selec
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IJobsSelectionProviderProps extends Partial<ISelectionProviderProps<IJob>> {
+}
+
+export const JobsSelectionProvider: FC<IJobsSelectionProviderProps> = props => {
+	return <SelectionProvider<IJob> {...props}/>;
 };
 
 export const useJobsQueryInvalidate = () => {

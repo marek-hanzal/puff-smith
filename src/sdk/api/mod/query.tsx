@@ -138,6 +138,8 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 					size={props.size}
 					tooltip={"common.selection.Mods.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<ModsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const ModsSourceSelect: FC<IModsSourceSelectProps> = ({sourceProps, selec
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IModsSelectionProviderProps extends Partial<ISelectionProviderProps<IMod>> {
+}
+
+export const ModsSelectionProvider: FC<IModsSelectionProviderProps> = props => {
+	return <SelectionProvider<IMod> {...props}/>;
 };
 
 export const useModsQueryInvalidate = () => {

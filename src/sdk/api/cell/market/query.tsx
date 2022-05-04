@@ -138,6 +138,8 @@ export const CellsMarketSourceSelect: FC<ICellsMarketSourceSelectProps> = ({sour
 					size={props.size}
 					tooltip={"common.selection.CellsMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<CellsMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const CellsMarketSourceSelect: FC<ICellsMarketSourceSelectProps> = ({sour
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ICellsMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ICellMarket>> {
+}
+
+export const CellsMarketSelectionProvider: FC<ICellsMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<ICellMarket> {...props}/>;
 };
 
 export const useCellsMarketQueryInvalidate = () => {

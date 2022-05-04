@@ -138,6 +138,8 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, sel
 					size={props.size}
 					tooltip={"common.selection.Users.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<UsersSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, sel
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IUsersSelectionProviderProps extends Partial<ISelectionProviderProps<IUser>> {
+}
+
+export const UsersSelectionProvider: FC<IUsersSelectionProviderProps> = props => {
+	return <SelectionProvider<IUser> {...props}/>;
 };
 
 export const useUsersQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 					size={props.size}
 					tooltip={"common.selection.Cottons.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<CottonsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const CottonsSourceSelect: FC<ICottonsSourceSelectProps> = ({sourceProps,
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ICottonsSelectionProviderProps extends Partial<ISelectionProviderProps<ICotton>> {
+}
+
+export const CottonsSelectionProvider: FC<ICottonsSelectionProviderProps> = props => {
+	return <SelectionProvider<ICotton> {...props}/>;
 };
 
 export const useCottonsQueryInvalidate = () => {

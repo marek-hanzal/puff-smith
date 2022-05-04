@@ -13,7 +13,9 @@ export const AtomizerList: FC<IAtomizerListProps> = props => {
 	return <AtomizersMarketListSource
 		{...props}
 	>
-		{({atomizer, isOwned}) => <ListItem key={atomizer.id}>
+		{({atomizer, isOwned}) => <ListItem
+			key={atomizer.id}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AtomizerNameInline atomizer={atomizer}/>

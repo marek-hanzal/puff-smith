@@ -138,6 +138,8 @@ export const AtomizersMarketSourceSelect: FC<IAtomizersMarketSourceSelectProps> 
 					size={props.size}
 					tooltip={"common.selection.AtomizersMarket.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<AtomizersMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const AtomizersMarketSourceSelect: FC<IAtomizersMarketSourceSelectProps> 
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IAtomizersMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IAtomizerMarket>> {
+}
+
+export const AtomizersMarketSelectionProvider: FC<IAtomizersMarketSelectionProviderProps> = props => {
+	return <SelectionProvider<IAtomizerMarket> {...props}/>;
 };
 
 export const useAtomizersMarketQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> 
 					size={props.size}
 					tooltip={"common.selection.AromasInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<AromasInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const AromasInventorySourceSelect: FC<IAromasInventorySourceSelectProps> 
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IAromasInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IAromaInventory>> {
+}
+
+export const AromasInventorySelectionProvider: FC<IAromasInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IAromaInventory> {...props}/>;
 };
 
 export const useAromasInventoryQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 					size={props.size}
 					tooltip={"common.selection.CellsInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<CellsInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const CellsInventorySourceSelect: FC<ICellsInventorySourceSelectProps> = 
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ICellsInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ICellInventory>> {
+}
+
+export const CellsInventorySelectionProvider: FC<ICellsInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<ICellInventory> {...props}/>;
 };
 
 export const useCellsInventoryQueryInvalidate = () => {

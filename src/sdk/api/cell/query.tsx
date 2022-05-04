@@ -138,6 +138,8 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, sel
 					size={props.size}
 					tooltip={"common.selection.Cells.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<CellsSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const CellsSourceSelect: FC<ICellsSourceSelectProps> = ({sourceProps, sel
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface ICellsSelectionProviderProps extends Partial<ISelectionProviderProps<ICell>> {
+}
+
+export const CellsSelectionProvider: FC<ICellsSelectionProviderProps> = props => {
+	return <SelectionProvider<ICell> {...props}/>;
 };
 
 export const useCellsQueryInvalidate = () => {

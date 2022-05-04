@@ -138,6 +138,8 @@ export const MixturesSourceSelect: FC<IMixturesSourceSelectProps> = ({sourceProp
 					size={props.size}
 					tooltip={"common.selection.Mixtures.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<MixturesSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const MixturesSourceSelect: FC<IMixturesSourceSelectProps> = ({sourceProp
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IMixturesSelectionProviderProps extends Partial<ISelectionProviderProps<IMixture>> {
+}
+
+export const MixturesSelectionProvider: FC<IMixturesSelectionProviderProps> = props => {
+	return <SelectionProvider<IMixture> {...props}/>;
 };
 
 export const useMixturesQueryInvalidate = () => {

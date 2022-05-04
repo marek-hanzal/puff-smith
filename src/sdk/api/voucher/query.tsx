@@ -138,6 +138,8 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 					size={props.size}
 					tooltip={"common.selection.Vouchers.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<VouchersSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const VouchersSourceSelect: FC<IVouchersSourceSelectProps> = ({sourceProp
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IVouchersSelectionProviderProps extends Partial<ISelectionProviderProps<IVoucher>> {
+}
+
+export const VouchersSelectionProvider: FC<IVouchersSelectionProviderProps> = props => {
+	return <SelectionProvider<IVoucher> {...props}/>;
 };
 
 export const useVouchersQueryInvalidate = () => {

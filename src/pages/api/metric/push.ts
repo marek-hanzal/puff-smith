@@ -1,6 +1,7 @@
-import {ServiceCreate} from "@/puff-smith/service";
-import {IMetric, IMetricCreate} from "@/puff-smith/service/metric/interface";
-import {MetricService} from "@/puff-smith/service/metric/MetricService";
+import {IMetricCreate} from "@/puff-smith/service/metric/interface";
 import {RequestEndpoint} from "@leight-core/server";
 
-export default RequestEndpoint<"MetricPush", IMetricCreate, IMetric>(async ({request, toMaybeUserId}) => MetricService(ServiceCreate(toMaybeUserId())).handleCreate({request}));
+export default RequestEndpoint<"MetricPush", IMetricCreate, boolean>(async ({request, toMaybeUserId}) => {
+	return false;
+	// MetricService(ServiceCreate(toMaybeUserId())).handleCreate({request});
+});

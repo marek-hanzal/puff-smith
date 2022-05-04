@@ -138,6 +138,8 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 					size={props.size}
 					tooltip={"common.selection.AtomizersInventory.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<AtomizersInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const AtomizersInventorySourceSelect: FC<IAtomizersInventorySourceSelectP
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IAtomizersInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IAtomizerInventory>> {
+}
+
+export const AtomizersInventorySelectionProvider: FC<IAtomizersInventorySelectionProviderProps> = props => {
+	return <SelectionProvider<IAtomizerInventory> {...props}/>;
 };
 
 export const useAtomizersInventoryQueryInvalidate = () => {

@@ -138,6 +138,8 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({sourceProps, s
 					size={props.size}
 					tooltip={"common.selection.Vendor.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<VendorSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({sourceProps, s
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IVendorSelectionProviderProps extends Partial<ISelectionProviderProps<IVendor>> {
+}
+
+export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
+	return <SelectionProvider<IVendor> {...props}/>;
 };
 
 export const useVendorQueryInvalidate = () => {

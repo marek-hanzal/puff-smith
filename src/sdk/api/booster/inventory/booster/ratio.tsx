@@ -144,6 +144,8 @@ export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({sourceProps, sel
 					size={props.size}
 					tooltip={"common.selection.Ratio.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<RatioSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -154,6 +156,13 @@ export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({sourceProps, sel
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IRatioSelectionProviderProps extends Partial<ISelectionProviderProps<IRatioItem>> {
+}
+
+export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
+	return <SelectionProvider<IRatioItem> {...props}/>;
 };
 
 export const useRatioQueryInvalidate = () => {

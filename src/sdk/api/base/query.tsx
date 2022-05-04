@@ -138,6 +138,8 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, sel
 					size={props.size}
 					tooltip={"common.selection.Bases.title.tooltip"}
 					width={800}
+					type={"text"}
+					ghost
 				>
 					<BasesSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
@@ -148,6 +150,13 @@ export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, sel
 			</Col>
 		</Row>
 	</Input.Group>;
+};
+
+export interface IBasesSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
+}
+
+export const BasesSelectionProvider: FC<IBasesSelectionProviderProps> = props => {
+	return <SelectionProvider<IBase> {...props}/>;
 };
 
 export const useBasesQueryInvalidate = () => {
