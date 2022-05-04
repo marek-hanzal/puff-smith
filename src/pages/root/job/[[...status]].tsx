@@ -27,7 +27,7 @@ export default withRootLayout(function Index() {
 			filter: ["RUNNING", "NEW"],
 			listProps: {
 				sourceProps: {
-					live: 1000,
+					live: 2500,
 					options: {
 						onSuccess: async data => {
 							if (!data.count) {

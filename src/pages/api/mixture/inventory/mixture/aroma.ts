@@ -32,6 +32,7 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request, to
 			],
 			AND: [
 				{
+					error: null,
 					aroma: {
 						AromaInventory: {
 							some: {

@@ -17,6 +17,7 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 		where: {
 			AND: [
 				{
+					error: null,
 					aroma: {
 						AromaInventory: {
 							some: {
@@ -69,7 +70,7 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 	})), ["nicotine"]) as INicotineItem[];
 
 	return {
-		items: ([{label: "0", value: 0, nicotine: 0}] as INicotineItem[]).concat(items),
+		items,
 		count: items.length,
 		total: items.length,
 	};

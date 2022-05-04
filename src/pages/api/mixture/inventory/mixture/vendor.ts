@@ -12,6 +12,7 @@ export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
 		where: {
 			AND: [
 				{
+					error: null,
 					aroma: {
 						AromaInventory: {
 							some: {

@@ -22,7 +22,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 	const {t} = useTranslation();
 	return <JobsListSource
 		sourceProps={{
-			live: 500,
+			live: 2500,
 		}}
 		itemLayout={"vertical"}
 		header={disableToolbar ? undefined : (() => <JobsListHeader

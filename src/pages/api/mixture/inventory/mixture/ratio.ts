@@ -19,6 +19,7 @@ export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async ({request
 		where: {
 			AND: [
 				{
+					error: null,
 					aroma: {
 						AromaInventory: {
 							some: {
