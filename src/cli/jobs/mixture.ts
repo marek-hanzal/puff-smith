@@ -13,9 +13,7 @@ interface IMixtureJobParams {
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	name: () => JOB_NAME,
-	schedule: async (params, userId) => {
-		await JobService().schedule<IMixtureJobParams>(JOB_NAME, params, userId);
-	},
+	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(JOB_NAME, params, userId),
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 5,

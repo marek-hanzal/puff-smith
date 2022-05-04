@@ -12,9 +12,7 @@ const migrations = [
 
 export const MigrationJob: IJobProcessor<void> = {
 	name: () => JOB_NAME,
-	schedule: async (params, userId) => {
-		await JobService().schedule<void>(JOB_NAME, undefined, userId);
-	},
+	schedule: async (params, userId) => JobService().schedule<void>(JOB_NAME, undefined, userId),
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 100,

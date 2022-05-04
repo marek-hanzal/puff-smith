@@ -8,7 +8,7 @@ import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, 
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
-export const ImportApiLink = "/api/file/[fileId]/import";
+export const ImportApiLink = "/api/file/import";
 
 export type IImportQueryParams = undefined;
 
@@ -17,7 +17,7 @@ export const useImportMutation = createMutationHook<IJobParams<IImportJob>, IImp
 export const useImportQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ImportApiLink]);
-}
+};
 
 export interface IImportDefaultFormProps extends Partial<IFormProps<IJobParams<IImportJob>, IImportJob>> {
 }
