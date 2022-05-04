@@ -1,13 +1,13 @@
 import {ServiceCreate} from "@/puff-smith/service";
-import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {IBooster} from "@/puff-smith/service/booster/interface";
+import {BaseService} from "@/puff-smith/service/base/BaseService";
+import {IBase} from "@/puff-smith/service/base/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
-export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request, toUserId}) => {
-	const boosterService = BoosterService(ServiceCreate(toUserId()));
+export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request, toUserId}) => {
+	const baseService = BaseService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
 		where: {
 			AND: [
@@ -20,8 +20,8 @@ export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request
 							}
 						}
 					},
-					booster: {
-						BoosterInventory: {
+					base: {
+						BaseInventory: {
 							some: {
 								userId: toUserId(),
 							},
@@ -47,12 +47,12 @@ export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request
 			],
 		},
 		orderBy: [
-			{booster: {name: "asc"}},
+			{base: {name: "asc"}},
 		],
 		include: {
-			booster: true,
+			base: true,
 		}
-	})).filter(({booster}) => booster !== null).map(async ({booster: item}) => await boosterService.map(item!))), ["id"]) as IBooster[];
+	})).filter(({base}) => base !== null).map(async ({base: item}) => await baseService.map(item!))), ["id"]) as IBase[];
 
 	return {
 		items,

@@ -115,7 +115,7 @@ export const BoosterListSource: FC<IBoosterListSourceProps> = ({sourceProps, ...
 			{...props}
 		/>
 	</BoosterSource>;
-};
+}
 
 export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
