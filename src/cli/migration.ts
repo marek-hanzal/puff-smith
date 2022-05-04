@@ -1,7 +1,6 @@
-import {MigrateJobName} from "@/puff-smith/cli/jobs/migrate";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {MigrationJob} from "@/puff-smith/cli/jobs/migrate";
 
-JobService().schedule(MigrateJobName, undefined)
+MigrationJob.schedule()
 	.then(() => {
 		console.log("Worker Done");
 		process.exit();

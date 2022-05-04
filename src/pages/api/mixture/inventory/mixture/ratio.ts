@@ -28,24 +28,38 @@ export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async ({request
 					},
 				},
 				{
-					base: {
-						BaseInventory: {
-							some: {
-								userId: toUserId(),
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
 							}
-						}
-					},
+						},
+						{
+							base: null,
+						},
+					],
 				},
 				{
-					booster: {
-						BoosterInventory: {
-							some: {
-								userId: toUserId(),
-							}
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
+							},
+						},
+						{
+							booster: null,
 						}
-					}
-				}
-			]
+					],
+				},
+			],
 		},
 		orderBy: [
 			{vgToRound: "asc"},

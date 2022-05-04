@@ -41,7 +41,7 @@ import {useQueryClient} from "react-query";
 
 export interface INicotineItem {
 	label: string;
-	value: string;
+	value: number;
 	nicotine: number;
 }
 
@@ -119,7 +119,7 @@ export const NicotineListSource: FC<INicotineListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</NicotineSource>;
-};
+}
 
 export interface INicotineSourceSelectProps extends IQuerySourceSelectProps<INicotineItem> {
 	toOption: IToOptionMapper<INicotineItem>;

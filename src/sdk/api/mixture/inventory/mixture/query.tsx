@@ -114,7 +114,7 @@ export const MixturesListSource: FC<IMixturesListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</MixturesSource>;
-};
+}
 
 export interface IMixturesSourceSelectProps extends IQuerySourceSelectProps<IMixture> {
 	toOption: IToOptionMapper<IMixture>;

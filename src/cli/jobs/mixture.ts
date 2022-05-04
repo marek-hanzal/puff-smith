@@ -3,25 +3,29 @@ import {IMixtureService} from "@/puff-smith/service/mixture/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Agenda} from "agenda";
+import {IJobProcessor} from "@leight-core/api";
 
-export const MixtureJobName = "job.mixture";
+export const JOB_NAME = "job.mixture";
 
-export interface IMixtureJobParams {
+interface IMixtureJobParams {
 	aromaId: string | null;
 }
 
-export default function MixtureJob(agenda: Agenda) {
-	agenda.define(MixtureJobName, {
+export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
+	name: () => JOB_NAME,
+	schedule: async (params, userId) => {
+		await JobService().schedule<IMixtureJobParams>(JOB_NAME, params, userId);
+	},
+	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 5,
-	}, JobService().handle<IMixtureJobParams>(MixtureJobName, async ({jobProgress, jobService, job, logger, progress}) => {
+	}, JobService().handle<IMixtureJobParams>(JOB_NAME, async ({jobProgress, jobService, job, logger, progress}) => {
 		if (job.params?.aromaId === null) {
 			logger.debug("Scheduling updating all mixtures, no 'aromaId' specified.");
 			return await prisma.$transaction(async prisma => {
 				await jobProgress.total(await prisma.aroma.count());
 				for (const aroma of await prisma.aroma.findMany()) {
-					await progress(async () => jobService.schedule<IMixtureJobParams>(MixtureJobName, {
+					await progress(async () => jobService.schedule<IMixtureJobParams>(JOB_NAME, {
 						aromaId: aroma.id,
 					}, job.userId));
 				}
@@ -90,5 +94,5 @@ export default function MixtureJob(agenda: Agenda) {
 			return;
 		}
 		throw new Error("Mixture update job without 'aromaId' specified (null for all aromas, value for specific aroma).");
-	}));
-}
+	})),
+};

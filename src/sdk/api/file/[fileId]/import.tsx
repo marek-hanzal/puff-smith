@@ -2,34 +2,34 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IImportParams} from "@/puff-smith/cli/jobs/import";
-import {IJob} from "@leight-core/api";
+import {IImportJob} from "@/puff-smith/cli/jobs/import";
+import {IJobParams} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
 export const ImportApiLink = "/api/file/[fileId]/import";
 
-export type IImportQueryParams = IImportParams;
+export type IImportQueryParams = undefined;
 
-export const useImportMutation = createMutationHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");
+export const useImportMutation = createMutationHook<IJobParams<IImportJob>, IImportJob>(ImportApiLink, "post");
 
 export const useImportQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ImportApiLink]);
 }
 
-export interface IImportDefaultFormProps extends Partial<IFormProps<void, IJob<IImportParams>, IImportParams>> {
+export interface IImportDefaultFormProps extends Partial<IFormProps<IJobParams<IImportJob>, IImportJob>> {
 }
 
-export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<void, IJob<IImportParams>, IImportParams>
+export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<IJobParams<IImportJob>, IImportJob>
 	useMutation={useImportMutation}
 	{...props}
-/>
+/>;
 
 export const toImportLink = (queryParams?: IImportQueryParams) => toLink(ImportApiLink, queryParams);
 export const useImportLink = () => toImportLink;
 
-export const useImportPromise = createPromiseHook<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");
+export const useImportPromise = createPromiseHook<IJobParams<IImportJob>, IImportJob>(ImportApiLink, "post");
 
-export const ImportPromise = createPromise<void, IJob<IImportParams>, IImportParams>(ImportApiLink, "post");
+export const ImportPromise = createPromise<IJobParams<IImportJob>, IImportJob>(ImportApiLink, "post");

@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IJob, IJobStatus, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
+import {IJob, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
 import {Processor} from "agenda";
 import {ParsedUrlQuery} from "querystring";
@@ -20,23 +20,6 @@ export interface IJobFetchProps {
 
 export interface IJobFetchQuery extends ParsedUrlQuery {
 	jobId: string;
-}
-
-export interface IJobProgress {
-	readonly jobId: string;
-	readonly success: number;
-	readonly failure: number;
-	readonly skip: number;
-
-	total(total: number): Promise<any>;
-
-	status(status: IJobStatus): Promise<any>;
-
-	onSuccess(): Promise<any>;
-
-	onFailure(): Promise<any>;
-
-	onSkip(): Promise<any>;
 }
 
 export interface IJobHandlerRequest<TParams> {

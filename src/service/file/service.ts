@@ -1,10 +1,8 @@
-import {ImportJobName} from "@/puff-smith/cli/jobs/import";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {ImportJob} from "@/puff-smith/cli/jobs/import";
 import fileService from "@/puff-smith/service/side-effect/fileService";
 import {IFileStoreRequest} from "@leight-core/api";
 
-
-export const scheduleFileImport = async (request: Pick<IFileStoreRequest, "name" | "file">) => JobService().schedule(ImportJobName, {
+export const scheduleFileImport = async (request: Pick<IFileStoreRequest, "name" | "file">) => ImportJob.schedule({
 	fileId: fileService.store({
 		...request,
 		file: process.cwd() + request.file,

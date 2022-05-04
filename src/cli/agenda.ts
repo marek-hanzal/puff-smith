@@ -1,6 +1,6 @@
-import ImportJob from "@/puff-smith/cli/jobs/import";
-import MigrationJob from "@/puff-smith/cli/jobs/migrate";
-import MixtureJob from "@/puff-smith/cli/jobs/mixture";
+import {ImportJob} from "@/puff-smith/cli/jobs/import";
+import {MigrationJob} from "@/puff-smith/cli/jobs/migrate";
+import {MixtureJob} from "@/puff-smith/cli/jobs/mixture";
 import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 
@@ -14,7 +14,7 @@ import {Logger} from "@leight-core/server";
 	const logger = Logger("job");
 
 	logger.debug("Registering jobs...");
-	jobs.map(job => job(agenda));
+	jobs.map(job => job.register(agenda));
 	logger.debug("Starting Agenda...");
 	await agenda.start();
 	logger.debug("Started!");

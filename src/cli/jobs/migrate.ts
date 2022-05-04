@@ -1,18 +1,24 @@
 import {FixturesMigration} from "@/puff-smith/cli/migrations/FixtureMigration";
+import {MixtureMigration} from "@/puff-smith/cli/migrations/MixtureMigration";
 import {JobService} from "@/puff-smith/service/job/JobService";
-import {Agenda} from "agenda";
+import {IJobProcessor} from "@leight-core/api";
 
-export const MigrateJobName = "migrate";
+const JOB_NAME = "migrate";
 
 const migrations = [
 	FixturesMigration,
+	MixtureMigration,
 ];
 
-export default function MigrationJob(agenda: Agenda) {
-	agenda.define(MigrateJobName, {
+export const MigrationJob: IJobProcessor<void> = {
+	name: () => JOB_NAME,
+	schedule: async (params, userId) => {
+		await JobService().schedule<void>(JOB_NAME, undefined, userId);
+	},
+	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 100,
-	}, JobService().handle(MigrateJobName, async ({logger}) => {
+	}, JobService().handle(JOB_NAME, async ({logger}) => {
 		logger.info("Running migrations");
 		for (const migration of migrations) {
 			const labels = {migration: migration.name()};
@@ -23,9 +29,16 @@ export default function MigrationJob(agenda: Agenda) {
 				return;
 			}
 			logger.info("Running migration", {labels, ...others});
-			await migration.run();
-			logger.info("Migration done", {labels, ...others});
+			try {
+				await migration.run();
+				logger.info("Migration done", {labels, ...others});
+			} catch (e) {
+				logger.error("Migration failed", {labels, ...others});
+				if (e instanceof Error) {
+					logger.error(e.message, {labels, ...others});
+				}
+			}
 		}
 		logger.info("Migrations done");
-	}));
-}
+	})),
+};

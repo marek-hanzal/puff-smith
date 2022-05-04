@@ -21,24 +21,38 @@ export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
 					},
 				},
 				{
-					base: {
-						BaseInventory: {
-							some: {
-								userId: toUserId(),
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
 							}
-						}
-					},
+						},
+						{
+							base: null,
+						},
+					],
 				},
 				{
-					booster: {
-						BoosterInventory: {
-							some: {
-								userId: toUserId(),
-							}
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
+							},
+						},
+						{
+							booster: null,
 						}
-					}
-				}
-			]
+					],
+				},
+			],
 		},
 		include: {
 			aroma: {

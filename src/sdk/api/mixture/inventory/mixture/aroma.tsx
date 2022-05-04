@@ -3,8 +3,9 @@
  */
 
 import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +45,7 @@ export const AromaApiLink = "/api/mixture/inventory/mixture/aroma";
 
 export type IAromaQueryParams = undefined;
 
-export const useAromaQuery = createQueryHook<IQuery<{ fulltext?: string }>, IQueryResult<IAroma>, IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaQuery = createQueryHook<IMixtureQuery, IQueryResult<IAroma>, IAromaQueryParams>(AromaApiLink, "post");
 
 export const useAromaSource = () => useSourceContext<IAroma>();
 
@@ -70,18 +71,18 @@ export const AromaSource: FC<IAromaSourceProps> = props => {
 export const toAromaLink = (queryParams?: IAromaQueryParams) => toLink(AromaApiLink, queryParams);
 export const useAromaLink = () => toAromaLink;
 
-export const useAromaPromise = createPromiseHook<IQuery<{ fulltext?: string }>, IAroma, IAromaQueryParams>(AromaApiLink, "post");
-export const AromaPromise = createPromise<IQuery<{ fulltext?: string }>, IAroma, IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaPromise = createPromiseHook<IMixtureQuery, IAroma, IAromaQueryParams>(AromaApiLink, "post");
+export const AromaPromise = createPromise<IMixtureQuery, IAroma, IAromaQueryParams>(AromaApiLink, "post");
 
-export interface IAromaFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery<{ fulltext?: string }>>>> {
+export interface IAromaFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
 }
 
-export const AromaFilterProvider: FC<IAromaFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery<{ fulltext?: string }>>> name={"Aroma"} {...props}/>;
+export const AromaFilterProvider: FC<IAromaFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Aroma"} {...props}/>;
 
-export const useAromaOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery<{ fulltext?: string }>>>();
-export const useAromaFilterContext = () => useFilterContext<IQueryFilter<IQuery<{ fulltext?: string }>>>();
+export const useAromaOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useAromaFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
 
-export interface IAromaSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery<{ fulltext?: string }>>> {
+export interface IAromaSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
 }
 
 export const AromaSourceFilter: FC<IAromaSourceFilterProps> = props => <Filter
@@ -89,22 +90,22 @@ export const AromaSourceFilter: FC<IAromaSourceFilterProps> = props => <Filter
 	translation={"common.filter.Aroma"}
 />;
 
-export interface IAromaOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery<{ fulltext?: string }>>>> {
+export interface IAromaOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
 }
 
-export const AromaOrderByProvider: FC<IAromaOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery<{ fulltext?: string }>>> name={"Aroma"} {...props}/>;
+export const AromaOrderByProvider: FC<IAromaOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Aroma"} {...props}/>;
 
-export const useAromaOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery<{ fulltext?: string }>>>();
-export const useAromaOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery<{ fulltext?: string }>>>();
+export const useAromaOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useAromaOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
 
 export interface IAromaListSourceProps extends Partial<IListProps<IAroma>> {
 	sourceProps?: Partial<IAromaSourceProps>;
 }
 
-export interface IAromaSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery<{ fulltext?: string }>>, IQueryOrderBy<IQuery<{ fulltext?: string }>>, IAromaQueryParams>> {
+export interface IAromaSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IAromaQueryParams>> {
 }
 
-export const AromaSourceControlProvider: FC<IAromaSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery<{ fulltext?: string }>>, IQueryOrderBy<IQuery<{ fulltext?: string }>>> name={"Aroma"} {...props}/>;
+export const AromaSourceControlProvider: FC<IAromaSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Aroma"} {...props}/>;
 
 export const AromaListSource: FC<IAromaListSourceProps> = ({sourceProps, ...props}) => {
 	return <AromaSource
@@ -114,7 +115,7 @@ export const AromaListSource: FC<IAromaListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</AromaSource>;
-};
+}
 
 export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<IAroma> {
 	toOption: IToOptionMapper<IAroma>;

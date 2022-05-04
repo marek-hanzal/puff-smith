@@ -24,12 +24,12 @@ export default withRootLayout(function Index() {
 				replace
 				translation={"root.import"}
 				onSuccess={file => {
-					importPromise(undefined, {fileId: file.id})
-						.then(e => {
+					importPromise({fileId: file.id})
+						.then(async () => {
 							message.success(t("root.import.execute.success"));
 							navigate("/root/job", {name: "import"});
 						})
-						.catch(e => {
+						.catch(async e => {
 							console.error(e);
 							message.error(t("root.import.execute.error"));
 						});

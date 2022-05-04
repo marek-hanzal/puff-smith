@@ -10,55 +10,69 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request, to
 	const aromaService = AromaService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
 		where: {
+			OR: [
+				{
+					aroma: request?.filter?.fulltext ? {
+						name: {
+							contains: request?.filter?.fulltext,
+							mode: "insensitive",
+						},
+					} : undefined,
+				},
+				{
+					aroma: request?.filter?.fulltext ? {
+						vendor: {
+							name: {
+								contains: request?.filter?.fulltext,
+								mode: "insensitive",
+							}
+						},
+					} : undefined,
+				},
+			],
 			AND: [
 				{
-					OR: [
-						{
-							aroma: request?.filter?.fulltext ? {
-								name: {
-									contains: request?.filter?.fulltext,
-									mode: "insensitive",
-								},
-							} : undefined,
-						},
-						{
-							aroma: request?.filter?.fulltext ? {
-								vendor: {
-									name: {
-										contains: request?.filter?.fulltext,
-										mode: "insensitive",
-									}
-								},
-							} : undefined,
-						},
-					],
 					aroma: {
 						AromaInventory: {
 							some: {
 								userId: toUserId(),
 							}
+						}
+					},
+				},
+				{
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
+							}
 						},
-					},
+						{
+							base: null,
+						},
+					],
 				},
 				{
-					base: {
-						BaseInventory: {
-							some: {
-								userId: toUserId(),
-							}
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId: toUserId(),
+									},
+								}
+							},
+						},
+						{
+							booster: null,
 						}
-					},
+					],
 				},
-				{
-					booster: {
-						BoosterInventory: {
-							some: {
-								userId: toUserId(),
-							}
-						}
-					}
-				}
-			]
+			],
 		},
 		orderBy: [
 			{aroma: {name: "asc"}},
