@@ -1,3 +1,4 @@
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {MixtureAromaInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureAromaInline";
@@ -17,6 +18,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 			<Preview translation={"lab.mixture.preview"} size={"small"} hideEmpty>
 				{{
 					pgvg: <PgVgInline pgvg={mixture}/>,
+					nicotine: <NicotineInline nicotine={mixture.nicotine}/>,
 					aroma: <MixtureAromaInline mixture={mixture}/>,
 				}}
 			</Preview>

@@ -23,7 +23,7 @@ export const LiquidCreateButton: FC<ILiquidCreateButtonProps> = ({mixture, ...pr
 	const navigate = useNavigate();
 	return <ModalButton
 		title={"lab.mixture.liquid.create.title"}
-		width={780}
+		width={840}
 		button={{
 			type: "link",
 			ghost: true,

@@ -9,6 +9,7 @@ export default function Target() {
 		setTimeout(() => {
 			navigate(`/${target}`);
 		}, Math.random() * 100 + 350);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return <LoaderLayout
 		loading={true}
