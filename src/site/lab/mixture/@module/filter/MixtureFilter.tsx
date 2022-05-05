@@ -61,7 +61,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		spaceProps={{
 			size: 0,
 		}}
-		translation={"common.mixture"}
 		onClear={onClear}
 		toForm={filter => {
 			filter = toForm(filter);
