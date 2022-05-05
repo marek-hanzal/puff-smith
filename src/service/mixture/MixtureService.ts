@@ -65,8 +65,8 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 							AromaInventory: {
 								some: {
 									userId: ownedByUserId,
-								}
-							}
+								},
+							},
 						},
 						AND: [
 							{

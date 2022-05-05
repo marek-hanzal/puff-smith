@@ -1,3 +1,4 @@
+import {AromaTasteSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaTasteSelect";
 import {AromaVendorSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaVendorSelect";
 import {AromasSourceFilter} from "@/sdk/api/aroma/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
@@ -16,17 +17,31 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 		}}
 		translation={"common.aroma"}
 		onClear={onClear}
-		toForm={filter => {
+		toForm={(filter: any) => {
 			filter = toForm(filter);
 			return ({
 				...filter,
+				tasteIds: filter?.AromaTaste?.some?.tasteId?.in,
 			});
 		}}
-		toFilter={values => toFilter({
+		toFilter={({tasteIds, ...values}) => toFilter({
 			...values,
+			AromaTaste: {
+				some: {
+					tasteId: {
+						in: tasteIds,
+					}
+				}
+			}
 		})}
 		{...props}
 	>
+		<FormItem field={"tasteIds"}>
+			<AromaTasteSelect
+				allowClear
+				mode={"multiple"}
+			/>
+		</FormItem>
 		<FormItem field={"vendorId"}>
 			<AromaVendorSelect
 				allowClear

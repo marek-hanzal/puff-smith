@@ -1,3 +1,4 @@
+import {Tags} from "@/puff-smith/component/Tags";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/@module/button/LiquidCreateButton";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
@@ -17,6 +18,7 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={mixture.aroma}/>
+					{mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={mixture.aroma.tastes} translation={"common.taste"}/>}
 					<LiquidCreateButton mixture={mixture}/>
 				</Space>}
 				description={<MixtureInline mixture={mixture}/>}
