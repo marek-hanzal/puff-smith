@@ -7,7 +7,6 @@ export interface ILiquidBoosterSelectProps extends Partial<IBoosterSourceSelectP
 
 export const LiquidBoosterSelect: FC<ILiquidBoosterSelectProps> = props => {
 	return <BoosterSourceSelect
-		showSearch
 		toOption={item => ({
 			value: item.id,
 			label: <BoosterNameInline booster={item}/>

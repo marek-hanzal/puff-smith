@@ -21,6 +21,10 @@ export const LiquidFilter: FC<ILiquidFilterProps> = props => {
 				baseId,
 			},
 		})}
+		toForm={filter => ({
+			...filter,
+			...filter?.mixture,
+		})}
 		{...props}
 	>
 		<LiquidsSourceControlProvider>
