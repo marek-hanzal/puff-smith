@@ -157,7 +157,7 @@ export interface IBasesMarketSelectionProviderProps extends Partial<ISelectionPr
 
 export const BasesMarketSelectionProvider: FC<IBasesMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IBaseMarket> {...props}/>;
-};
+}
 
 export const useBasesMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

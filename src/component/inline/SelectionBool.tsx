@@ -8,5 +8,9 @@ export interface ISelectionBoolProps extends Partial<ComponentProps<typeof Check
 
 export const SelectionBool: FC<ISelectionBoolProps> = ({selection, ...props}) => {
 	const selectionContext = useOptionalSelectionContext();
-	return selectionContext && <Checkbox checked={selectionContext.isSelectedItem(selection)} {...props}/>;
+	return selectionContext && <Checkbox
+		checked={selectionContext.isSelectedItem(selection)}
+		onClick={() => selectionContext?.item(selection)}
+		{...props}
+	/>;
 };

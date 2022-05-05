@@ -157,7 +157,7 @@ export interface IAromasSelectionProviderProps extends Partial<ISelectionProvide
 
 export const AromasSelectionProvider: FC<IAromasSelectionProviderProps> = props => {
 	return <SelectionProvider<IAroma> {...props}/>;
-};
+}
 
 export const useAromasQueryInvalidate = () => {
 	const queryClient = useQueryClient();

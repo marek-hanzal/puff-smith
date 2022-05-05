@@ -157,7 +157,7 @@ export interface IInventoryBoostersSelectionProviderProps extends Partial<ISelec
 
 export const InventoryBoostersSelectionProvider: FC<IInventoryBoostersSelectionProviderProps> = props => {
 	return <SelectionProvider<IBooster> {...props}/>;
-};
+}
 
 export const useInventoryBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();

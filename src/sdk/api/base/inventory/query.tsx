@@ -157,7 +157,7 @@ export interface IBasesInventorySelectionProviderProps extends Partial<ISelectio
 
 export const BasesInventorySelectionProvider: FC<IBasesInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<IBaseInventory> {...props}/>;
-};
+}
 
 export const useBasesInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

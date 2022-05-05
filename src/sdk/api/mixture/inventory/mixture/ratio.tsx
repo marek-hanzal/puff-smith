@@ -164,7 +164,7 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
 	return <SelectionProvider<IRatioItem> {...props}/>;
-};
+}
 
 export const useRatioQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -1,36 +1,14 @@
 import {IServiceCreate} from "@/puff-smith/service";
+import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export interface IILiquidCreateAroma {
-	aromaId: string;
-	content: number;
-}
-
-export interface IILiquidCreateBooster {
-	boosterId: string;
-	content: number;
-}
-
-export interface IILiquidCreateBase {
-	baseId: string;
-	content: number;
-}
-
 export interface ILiquidCreate {
-	name: string;
 	code?: string;
-	volume: number;
 	mixed?: Date;
-	nicotine?: number;
-	pg: number,
-	vg: number,
-	steep: number,
-	aromas?: IILiquidCreateAroma[];
-	boosters?: IILiquidCreateBooster[];
-	bases?: IILiquidCreateBase[];
+	mixtureId: string;
 }
 
 export interface ILiquidDelete {
@@ -40,18 +18,14 @@ export interface ILiquidDelete {
 
 export interface ILiquid {
 	id: string;
-	name: string;
 	code: string;
-	nicotine: number;
-	pg: number;
-	vg: number;
-	steep: number;
-	volume: number;
 	created: string;
 	mixed: string;
 	archived?: string | null;
 	transaction: ITransaction;
 	transactionId: string;
+	mixture: IMixture;
+	mixtureId: string;
 }
 
 export interface ILiquidQuery extends IQuery<Prisma.LiquidWhereInput, Prisma.LiquidOrderByWithRelationInput> {

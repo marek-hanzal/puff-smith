@@ -157,7 +157,7 @@ export interface IBoostersMarketSelectionProviderProps extends Partial<ISelectio
 
 export const BoostersMarketSelectionProvider: FC<IBoostersMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IBoosterMarket> {...props}/>;
-};
+}
 
 export const useBoostersMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

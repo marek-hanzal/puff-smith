@@ -157,7 +157,7 @@ export interface ILiquidsSelectionProviderProps extends Partial<ISelectionProvid
 
 export const LiquidsSelectionProvider: FC<ILiquidsSelectionProviderProps> = props => {
 	return <SelectionProvider<ILiquid> {...props}/>;
-};
+}
 
 export const useLiquidsQueryInvalidate = () => {
 	const queryClient = useQueryClient();

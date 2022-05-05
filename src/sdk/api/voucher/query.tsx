@@ -157,7 +157,7 @@ export interface IVouchersSelectionProviderProps extends Partial<ISelectionProvi
 
 export const VouchersSelectionProvider: FC<IVouchersSelectionProviderProps> = props => {
 	return <SelectionProvider<IVoucher> {...props}/>;
-};
+}
 
 export const useVouchersQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -157,7 +157,7 @@ export interface ITransactionsSelectionProviderProps extends Partial<ISelectionP
 
 export const TransactionsSelectionProvider: FC<ITransactionsSelectionProviderProps> = props => {
 	return <SelectionProvider<ITransaction> {...props}/>;
-};
+}
 
 export const useTransactionsQueryInvalidate = () => {
 	const queryClient = useQueryClient();

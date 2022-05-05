@@ -157,7 +157,7 @@ export interface ICottonsMarketSelectionProviderProps extends Partial<ISelection
 
 export const CottonsMarketSelectionProvider: FC<ICottonsMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ICottonMarket> {...props}/>;
-};
+}
 
 export const useCottonsMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -13,7 +13,7 @@ export const LiquidListToolbar: FC<ILiquidListToolbarProps> = props => {
 	const selectionContext = useLiquidsSelectionContext();
 	const deleteMutation = useDeleteMutation();
 	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
-	return selectionContext.isEmpty() ? null : <ButtonBar size={4} {...props}>
+	return <ButtonBar size={4} {...props}>
 		<ModalButton
 			button={{
 				disabled: selectionContext.isEmpty(),
@@ -21,10 +21,12 @@ export const LiquidListToolbar: FC<ILiquidListToolbarProps> = props => {
 				danger: true,
 				children: "lab.liquid.delete.modal.button",
 				size: "large",
+				loading: deleteMutation.isLoading,
 			}}
 			okButtonProps={{
 				danger: true,
 				size: "large",
+				loading: deleteMutation.isLoading,
 				icon: <DeleteItemIcon/>,
 			}}
 			title={"lab.liquid.delete.modal.title"}

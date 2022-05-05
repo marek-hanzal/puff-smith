@@ -157,7 +157,7 @@ export interface IBasesSelectionProviderProps extends Partial<ISelectionProvider
 
 export const BasesSelectionProvider: FC<IBasesSelectionProviderProps> = props => {
 	return <SelectionProvider<IBase> {...props}/>;
-};
+}
 
 export const useBasesQueryInvalidate = () => {
 	const queryClient = useQueryClient();

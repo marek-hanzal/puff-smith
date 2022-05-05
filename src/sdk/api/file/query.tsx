@@ -157,7 +157,7 @@ export interface IFilesSelectionProviderProps extends Partial<ISelectionProvider
 
 export const FilesSelectionProvider: FC<IFilesSelectionProviderProps> = props => {
 	return <SelectionProvider<IFile> {...props}/>;
-};
+}
 
 export const useFilesQueryInvalidate = () => {
 	const queryClient = useQueryClient();

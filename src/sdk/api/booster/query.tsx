@@ -157,7 +157,7 @@ export interface IBoostersSelectionProviderProps extends Partial<ISelectionProvi
 
 export const BoostersSelectionProvider: FC<IBoostersSelectionProviderProps> = props => {
 	return <SelectionProvider<IBooster> {...props}/>;
-};
+}
 
 export const useBoostersQueryInvalidate = () => {
 	const queryClient = useQueryClient();
