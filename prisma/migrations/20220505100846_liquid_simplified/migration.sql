@@ -15,6 +15,7 @@
 */
 
 DELETE FROM "Mixture";
+DELETE FROM "Liquid";
 
 -- DropForeignKey
 ALTER TABLE "LiquidAroma" DROP CONSTRAINT "LiquidAroma_aromaId_fkey";
