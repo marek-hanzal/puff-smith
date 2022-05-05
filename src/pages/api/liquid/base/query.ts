@@ -2,6 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
+import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
@@ -30,6 +31,4 @@ export default QueryEndpoint<"Base", ILiquidQuery, IBase>(async ({request, toUse
 		count: items.length,
 		total: items.length,
 	};
-})
-;
-
+}, cache);

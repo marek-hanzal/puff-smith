@@ -1,6 +1,6 @@
 import LRUCache from "lru-cache";
 
-const cache = new LRUCache({
+const cache = new LRUCache<string, any>({
 	max: 1024,
 });
 

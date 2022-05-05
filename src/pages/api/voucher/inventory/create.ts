@@ -1,4 +1,5 @@
 import {ServiceCreate} from "@/puff-smith/service";
+import cache from "@/puff-smith/service/side-effect/cache";
 import {IVoucherInventory, IVoucherInventoryCreate} from "@/puff-smith/service/voucher/inventory/interface";
 import {VoucherInventoryService} from "@/puff-smith/service/voucher/inventory/VoucherInventoryService";
 import {MutationEndpoint} from "@leight-core/server";
@@ -7,9 +8,11 @@ export default MutationEndpoint<"Create", IVoucherInventoryCreate, IVoucherInven
 	try {
 		return await VoucherInventoryService(ServiceCreate(toUserId())).handleCreate({request});
 	} catch (e) {
-		if ((e as Error).message?.includes("Too much puffies")) {
-			res.status(409).end("Too much puffies");
+		if (e instanceof Error && e.message.includes("Too much puffies")) {
+			res.status(409).end(e.message);
 			return;
 		}
+	} finally {
+		cache.clear();
 	}
 });

@@ -20,16 +20,16 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 			mixture: await MixtureService(request).toMap(liquid.mixtureId),
 		}),
 		create: async ({code, mixed, ...create}) => prisma.$transaction(prisma => TariffService({...request, prisma}).transactionOf({
-			tariff: "default",
-			userId: request.userService.getUserId(),
-			price: "lab.liquid.create",
-			note: "New liquid",
-			callback: (_, transaction) => prisma.liquid.create({
-				data: {
-					...create,
-					userId: request.userService.getUserId(),
-					code: code || CodeService().code(),
-					transactionId: transaction.id,
+				tariff: "default",
+				userId: request.userService.getUserId(),
+				price: "lab.liquid.create",
+				note: "New liquid",
+				callback: (_, transaction) => prisma.liquid.create({
+					data: {
+						...create,
+						userId: request.userService.getUserId(),
+						code: code || CodeService().code(),
+						transactionId: transaction.id,
 						created: new Date(),
 						mixed: mixed || new Date(),
 					},
@@ -38,15 +38,12 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 		),
 		toFilter: filter => ({...filter, archived: null}),
 	}),
-	handleDelete: async ({request: {ids, userId}}) => {
-		if (!userId) {
-			throw new Error("Invalid operation: User is not specified.");
-		}
+	handleDelete: async ({request: {ids}}) => {
 		const where = {
 			id: {
 				in: ids,
 			},
-			userId,
+			userId: request.userService.getUserId(),
 		};
 		await request.prisma.liquid.updateMany({
 			where,

@@ -2,6 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
+import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
@@ -59,4 +60,4 @@ export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request
 		count: items.length,
 		total: items.length,
 	};
-});
+}, cache);

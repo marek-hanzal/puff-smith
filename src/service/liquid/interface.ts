@@ -13,7 +13,6 @@ export interface ILiquidCreate {
 
 export interface ILiquidDelete {
 	ids: string[];
-	userId: string;
 }
 
 export interface ILiquid {

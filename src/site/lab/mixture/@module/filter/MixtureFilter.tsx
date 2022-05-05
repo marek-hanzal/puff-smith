@@ -54,15 +54,15 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		{...props}
 	>
 		<MixturesSourceControlProvider>
+			<FormItem field={"aromaId"}>
+				<MixtureAromaSelect
+					allowClear
+				/>
+			</FormItem>
 			<FormItem field={"tasteIds"}>
 				<AromaTasteSelect
 					allowClear
 					mode={"multiple"}
-				/>
-			</FormItem>
-			<FormItem field={"aromaId"}>
-				<MixtureAromaSelect
-					allowClear
 				/>
 			</FormItem>
 			<FormItem field={"vendorId"}>
