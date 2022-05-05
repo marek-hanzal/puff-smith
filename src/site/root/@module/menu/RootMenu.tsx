@@ -24,9 +24,9 @@ export const RootMenu: FC<IRootMenuProps> = props => {
 			id={"root.sites"}
 			icon={<SitesIcon/>}
 		>
-			{CreateMenuItem("root.market.menu", "/market", <MarketIcon/>)}
-			{CreateMenuItem("root.lab.menu", "/lab", <LabIcon/>)}
-			{CreateMenuItem("root.public.menu", "/public", <PublicIcon/>)}
+			{CreateMenuItem("root.market.menu", "/to/market", <MarketIcon/>)}
+			{CreateMenuItem("root.lab.menu", "/to/lab", <LabIcon/>)}
+			{CreateMenuItem("root.public.menu", "/to/public", <PublicIcon/>)}
 			<MenuDivider/>
 			<MenuItem icon={<CodeOutlined/>} title={"root.sdk.generate.menu"} href={"/api/sdk/generate"}/>
 		</SubMenu>

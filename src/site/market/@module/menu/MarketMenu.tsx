@@ -27,6 +27,6 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 		{CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>)}
 		{CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>)}
 		{CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>)}
-		{CreateMenuItem("market.lab.menu", "/lab", <LabIcon/>)}
+		{CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>)}
 	</Menu>;
 };
