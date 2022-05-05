@@ -98,6 +98,7 @@ export default withRootLayout(function Index() {
 		headerPostfix={<JobMenu/>}
 	>
 		<JobsSourceControlProvider
+			defaultSize={5}
 			applyFilter={{
 				status: config.filter && {
 					in: config.filter,
