@@ -24,7 +24,7 @@ export interface IDeleteDefaultFormProps extends Partial<IFormProps<ILiquidDelet
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => <Form<ILiquidDelete, ILiquid[]>
 	useMutation={useDeleteMutation}
 	{...props}
-/>;
+/>
 
 export const toDeleteLink = (queryParams?: IDeleteQueryParams) => toLink(DeleteApiLink, queryParams);
 export const useDeleteLink = () => toDeleteLink;
