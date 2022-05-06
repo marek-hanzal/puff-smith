@@ -1,6 +1,7 @@
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
+import {ModFilter} from "@/puff-smith/site/market/mod/@module/filter/ModFilter";
 import {ModList} from "@/puff-smith/site/market/mod/@module/list/ModList";
 import {ModsSourceControlProvider} from "@/sdk/api/mod/query";
 
@@ -15,7 +16,9 @@ export default withMarketLayout(function Index() {
 				name: "asc",
 			}}
 		>
-			<ModList/>
+			<ModList
+				header={() => <ModFilter/>}
+			/>
 		</ModsSourceControlProvider>
 	</MarketPage>;
 });
