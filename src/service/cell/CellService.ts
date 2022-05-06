@@ -1,5 +1,6 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {ICellService, ICellServiceCreate} from "@/puff-smith/service/cell/interface";
+import {OhmService} from "@/puff-smith/service/ohm/OhmService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {RepositoryService} from "@leight-core/server";
@@ -20,6 +21,7 @@ export const CellService = (request: ICellServiceCreate = ServiceCreate()): ICel
 		create: async ({type, vendor, ...cell}) => request.prisma.cell.create({
 			data: {
 				...cell,
+				ohm: cell.drain ? OhmService().toOhm(cell.voltage, cell.drain * 0.75) : undefined,
 				vendor: {
 					connect: {
 						name: vendor,
@@ -49,6 +51,7 @@ export const CellService = (request: ICellServiceCreate = ServiceCreate()): ICel
 			},
 			data: {
 				...create,
+				ohm: create.drain ? OhmService().toOhm(create.voltage, create.drain * 0.75) : null,
 				type: {
 					connect: {
 						code_group: {
