@@ -23,7 +23,7 @@ const createPrismaClient = () => {
 			},
 		],
 	});
-	prisma.$on("query", ({query, params, duration}) => Logger("query").debug(query, {params, duration}));
+	// prisma.$on("query", ({query, params, duration}) => Logger("query").debug(query, {params, duration}));
 	prisma.$on("info", e => Logger("query").info(e.message));
 	prisma.$on("warn", e => Logger("query").warn(e.message));
 	prisma.$on("error", e => Logger("query").error(e.message));
