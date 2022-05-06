@@ -9,7 +9,6 @@ export const AromaTasteSelect: FC<IAromaTasteSelectProps> = props => {
 	const {t} = useTranslation();
 	return <TasteSourceControlProvider>
 		<TasteSourceSelect
-			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: t(`common.taste.${item.code}`, item.code),

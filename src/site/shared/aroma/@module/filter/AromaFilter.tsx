@@ -21,22 +21,36 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 			filter = toForm(filter);
 			return ({
 				...filter,
-				tasteIds: filter?.AromaTaste?.some?.tasteId?.in,
+				andTasteIds: filter?.AND?.map(({AromaTaste}: any = {}) => AromaTaste?.some?.tasteId),
+				orTasteIds: filter?.AromaTaste?.some?.tasteId?.in,
 			});
 		}}
-		toFilter={({tasteIds, ...values}) => toFilter({
+		toFilter={({orTasteIds, andTasteIds, ...values}) => toFilter({
 			...values,
+			AND: andTasteIds?.map((tasteId: string) => ({
+				AromaTaste: {
+					some: {
+						tasteId,
+					}
+				}
+			})),
 			AromaTaste: {
 				some: {
 					tasteId: {
-						in: tasteIds,
+						in: orTasteIds,
 					}
 				}
 			}
 		})}
 		{...props}
 	>
-		<FormItem field={"tasteIds"}>
+		<FormItem field={"andTasteIds"} hasTooltip>
+			<AromaTasteSelect
+				allowClear
+				mode={"multiple"}
+			/>
+		</FormItem>
+		<FormItem field={"orTasteIds"} hasTooltip>
 			<AromaTasteSelect
 				allowClear
 				mode={"multiple"}
