@@ -1,9 +1,13 @@
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
+import {useMixtureUpdateMutation} from "@/sdk/api/mixture/update";
 import {HomeIcon, Template} from "@leight-core/client";
+import {Button} from "antd";
 
 export default withRootLayout(function Index() {
+	const mixtureUpdateMutation = useMixtureUpdateMutation();
 	return <RootPage
 		title={"root.index"}
 		menuSelection={["/root"]}
@@ -13,6 +17,13 @@ export default withRootLayout(function Index() {
 			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 			status={"info"}
 			label={"root.home"}
+			extra={<Button
+				size={"large"}
+				type={"primary"}
+				icon={<LiquidIcon/>}
+				onClick={() => mixtureUpdateMutation.mutate({aromaId: null})}
+				loading={mixtureUpdateMutation.isLoading}
+			>Kaboom!</Button>}
 		/>
 	</RootPage>;
 });
