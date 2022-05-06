@@ -15,7 +15,6 @@ export default withLabLayout(function Index() {
 			<BaseInventoryList
 				header={() => <BaseFilter
 					toFilter={filter => ({base: filter})}
-					toForm={filter => filter?.base}
 				/>}
 			/>
 		</BasesInventorySourceControlProvider>

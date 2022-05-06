@@ -7,7 +7,7 @@ import {FC, useRef} from "react";
 export interface IBaseFilterProps extends Partial<IFilterProps> {
 }
 
-export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const ratio = useRef<{ pg: number, vg: number }>();
 
 	const onClear = () => {
@@ -20,13 +20,6 @@ export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, t
 		}}
 		translation={"common.base"}
 		onClear={onClear}
-		toForm={filter => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				ratio: filter?.vg !== undefined ? `${filter.vg}/${filter.pg}` : undefined,
-			});
-		}}
 		toFilter={values => toFilter({
 			...values,
 			/**

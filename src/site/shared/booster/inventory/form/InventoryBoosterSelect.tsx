@@ -23,7 +23,6 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 			selectionList={() => <BoosterInventoryList
 				header={() => <BoosterFilter
 					toFilter={filter => ({booster: filter})}
-					toForm={filter => filter?.booster}
 				/>}
 			/>}
 			{...props}

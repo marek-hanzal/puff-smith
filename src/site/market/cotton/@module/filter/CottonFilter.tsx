@@ -7,7 +7,7 @@ import {FC} from "react";
 export interface ICottonFilterProps extends Partial<IFilterProps> {
 }
 
-export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const onClear = () => {
 	};
 
@@ -17,14 +17,6 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 		}}
 		translation={"common.cotton"}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				andDrawIds: filter?.AND?.map(({CottonDraw}: any = {}) => CottonDraw?.some?.drawId),
-				orDrawIds: filter?.CottonDraw?.some?.drawId?.in as any,
-			});
-		}}
 		toFilter={({andDrawIds, orDrawIds, ...values}) => toFilter({
 			...values,
 			AND: andDrawIds?.map((drawId: string) => ({

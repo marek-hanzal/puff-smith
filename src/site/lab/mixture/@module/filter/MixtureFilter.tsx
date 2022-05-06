@@ -12,7 +12,7 @@ import {FC, useRef} from "react";
 export interface IMixtureFilterProps extends Partial<IFilterProps> {
 }
 
-export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 
 	const onClear = () => {
@@ -24,16 +24,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 			size: 0,
 		}}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				vendorId: filter?.aroma?.vendorId,
-				nicotine: filter?.nicotineToRound,
-				ratio: filter?.vgToRound !== undefined ? `${filter.vgToRound}/${filter.pgToRound}` : undefined,
-				tasteIds: filter?.aroma?.AromaTaste?.some?.tasteId?.in,
-			});
-		}}
 		toFilter={({tasteIds, vendorId, aromaId, boosterId, baseId, nicotine}) => toFilter({
 			aromaId,
 			aroma: {

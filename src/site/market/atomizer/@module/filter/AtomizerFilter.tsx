@@ -7,7 +7,7 @@ import {FC} from "react";
 export interface IAtomizerFilterProps extends Partial<IFilterProps> {
 }
 
-export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const onClear = () => {
 	};
 
@@ -17,14 +17,6 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 		}}
 		translation={"common.atomizer"}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				andDrawIds: filter?.AND?.map(({AtomizerDraw}: any = {}) => AtomizerDraw?.some?.drawId),
-				orDrawIds: filter?.AtomizerDraw?.some?.drawId?.in as any,
-			});
-		}}
 		toFilter={({andDrawIds, orDrawIds, ...values}) => toFilter({
 			...values,
 			AND: andDrawIds?.map((drawId: string) => ({

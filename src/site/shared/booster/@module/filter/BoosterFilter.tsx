@@ -8,7 +8,7 @@ import {FC, useRef} from "react";
 export interface IBoosterFilterProps extends Partial<IFilterProps> {
 }
 
-export const BoosterFilter: FC<IBoosterFilterProps> = ({toForm = value => value, toFilter = filter => filter, ...props}) => {
+export const BoosterFilter: FC<IBoosterFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const ratio = useRef<{ pg: number, vg: number }>();
 
 	const onClear = () => {
@@ -21,13 +21,6 @@ export const BoosterFilter: FC<IBoosterFilterProps> = ({toForm = value => value,
 		}}
 		translation={"common.booster"}
 		onClear={onClear}
-		toForm={filter => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				ratio: filter?.vg !== undefined ? `${filter.vg}/${filter.pg}` : undefined,
-			});
-		}}
 		toFilter={values => toFilter({
 			...values,
 			/**

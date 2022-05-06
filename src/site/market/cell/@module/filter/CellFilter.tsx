@@ -7,7 +7,7 @@ import {FC} from "react";
 export interface ICellFilterProps extends Partial<IFilterProps> {
 }
 
-export const CellFilter: FC<ICellFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const CellFilter: FC<ICellFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const onClear = () => {
 	};
 
@@ -17,13 +17,6 @@ export const CellFilter: FC<ICellFilterProps> = ({toFilter = filter => filter, t
 		}}
 		translation={"common.cell"}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				orTypeIds: filter?.typeId?.in as any,
-			});
-		}}
 		toFilter={({orTypeIds, ...values}) => toFilter({
 			...values,
 			typeId: {

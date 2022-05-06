@@ -23,7 +23,6 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 			selectionList={() => <BaseInventoryList
 				header={() => <BaseFilter
 					toFilter={filter => ({base: filter})}
-					toForm={filter => filter?.base}
 				/>}
 			/>}
 			{...props}

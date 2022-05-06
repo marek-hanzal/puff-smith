@@ -7,7 +7,7 @@ import {FC} from "react";
 export interface IAromaFilterProps extends Partial<IFilterProps> {
 }
 
-export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const onClear = () => {
 	};
 
@@ -17,14 +17,6 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 		}}
 		translation={"common.aroma"}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				andTasteIds: filter?.AND?.map(({AromaTaste}: any = {}) => AromaTaste?.some?.tasteId),
-				orTasteIds: filter?.AromaTaste?.some?.tasteId?.in,
-			});
-		}}
 		toFilter={({orTasteIds, andTasteIds, ...values}) => toFilter({
 			...values,
 			AND: andTasteIds?.map((tasteId: string) => ({

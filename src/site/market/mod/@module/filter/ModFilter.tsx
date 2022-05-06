@@ -7,7 +7,7 @@ import {FC} from "react";
 export interface IModFilterProps extends Partial<IFilterProps> {
 }
 
-export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, toForm = values => values, ...props}) => {
+export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...props}) => {
 	const onClear = () => {
 	};
 
@@ -17,14 +17,6 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, toF
 		}}
 		translation={"common.mod"}
 		onClear={onClear}
-		toForm={(filter: any) => {
-			filter = toForm(filter);
-			return ({
-				...filter,
-				andCellIds: filter?.AND?.map(({ModCell}: any = {}) => ModCell?.some?.cellId),
-				orCellIds: filter?.ModCell?.some?.cellId?.in as any,
-			});
-		}}
 		toFilter={({andCellIds, orCellIds, ...values}) => toFilter({
 			...values,
 			AND: andCellIds?.map((cellId: string) => ({

@@ -15,7 +15,6 @@ export default withLabLayout(function Index() {
 			<BoosterInventoryList
 				header={() => <BoosterFilter
 					toFilter={filter => ({booster: filter})}
-					toForm={filter => filter?.booster}
 				/>}
 			/>
 		</BoostersInventorySourceControlProvider>

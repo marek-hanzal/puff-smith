@@ -15,7 +15,6 @@ export default withLabLayout(function Index() {
 			<AromaInventoryList
 				header={() => <AromaFilter
 					toFilter={filter => ({aroma: filter})}
-					toForm={filter => filter?.aroma}
 				/>}
 			/>
 		</AromasInventorySourceControlProvider>
