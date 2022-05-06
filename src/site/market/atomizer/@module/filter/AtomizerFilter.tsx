@@ -21,18 +21,26 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 			filter = toForm(filter);
 			return ({
 				...filter,
-				drawIds: filter?.AtomizerDraw?.some?.drawId?.in as any,
+				andDrawIds: filter?.AND?.map(({AtomizerDraw}: any = {}) => AtomizerDraw?.some?.drawId),
+				orDrawIds: filter?.AtomizerDraw?.some?.drawId?.in as any,
 			});
 		}}
-		toFilter={({drawIds, ...values}) => toFilter({
+		toFilter={({andDrawIds, orDrawIds, ...values}) => toFilter({
 			...values,
+			AND: andDrawIds?.map((drawId: string) => ({
+				AtomizerDraw: {
+					some: {
+						drawId,
+					}
+				}
+			})),
 			AtomizerDraw: {
 				some: {
 					drawId: {
-						in: drawIds,
-					}
-				}
-			}
+						in: orDrawIds,
+					},
+				},
+			},
 		})}
 		{...props}
 	>
@@ -41,7 +49,13 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 				allowClear
 			/>
 		</FormItem>
-		<FormItem field={"drawIds"}>
+		<FormItem field={"andDrawIds"} hasTooltip>
+			<AtomizerDrawSelect
+				mode={"multiple"}
+				allowClear
+			/>
+		</FormItem>
+		<FormItem field={"orDrawIds"} hasTooltip>
 			<AtomizerDrawSelect
 				mode={"multiple"}
 				allowClear
