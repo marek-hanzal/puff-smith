@@ -17,21 +17,32 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 		}}
 		translation={"common.aroma"}
 		onClear={onClear}
-		toFilter={({tasteIds, ...values}) => toFilter({
+		toFilter={({andTasteIds, orTasteIds, ...values}) => toFilter({
 			...values,
-			aroma: {
+			AND: andTasteIds?.map((tasteId: string) => ({
 				AromaTaste: {
 					some: {
-						tasteId: {
-							in: tasteIds,
-						},
-					},
-				},
-			},
+						tasteId,
+					}
+				}
+			})),
+			AromaTaste: {
+				some: {
+					tasteId: {
+						in: orTasteIds,
+					}
+				}
+			}
 		})}
 		{...props}
 	>
-		<FormItem field={"tasteIds"}>
+		<FormItem field={"andTasteIds"} hasTooltip>
+			<AromaTasteSelect
+				allowClear
+				mode={"multiple"}
+			/>
+		</FormItem>
+		<FormItem field={"orTasteIds"} hasTooltip>
 			<AromaTasteSelect
 				allowClear
 				mode={"multiple"}
