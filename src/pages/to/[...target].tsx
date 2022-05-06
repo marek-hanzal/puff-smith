@@ -7,7 +7,7 @@ export default function Target() {
 	const navigate = useNavigate();
 	useEffect(() => {
 		setTimeout(() => {
-			navigate(`/${target}`);
+			navigate(`/${Array.isArray(target) ? target.join("/") : target}`);
 		}, Math.random() * 100 + 350);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

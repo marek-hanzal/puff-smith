@@ -115,7 +115,7 @@ export const TypeListSource: FC<ITypeListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</TypeSource>;
-};
+}
 
 export interface ITypeSourceSelectProps extends IQuerySourceSelectProps<ITag> {
 	toOption: IToOptionMapper<ITag>;
@@ -158,7 +158,7 @@ export interface ITypeSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const TypeSelectionProvider: FC<ITypeSelectionProviderProps> = props => {
 	return <SelectionProvider<ITag> {...props}/>;
-};
+}
 
 export const useTypeQueryInvalidate = () => {
 	const queryClient = useQueryClient();

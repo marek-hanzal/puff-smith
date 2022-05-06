@@ -23,9 +23,15 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 			return await prisma.$transaction(async prisma => {
 				await jobProgress.total(await prisma.aroma.count());
 				for (const aroma of await prisma.aroma.findMany()) {
-					await progress(async () => jobService.schedule<IMixtureJobParams>(JOB_NAME, {
-						aromaId: aroma.id,
-					}, job.userId));
+					if (aroma.volume && aroma.content.toNumber() < aroma.volume.toNumber()) {
+						await progress(async () => {
+							await jobService.schedule<IMixtureJobParams>(JOB_NAME, {
+								aromaId: aroma.id,
+							}, job.userId);
+						});
+						continue;
+					}
+					await jobProgress.onSkip();
 				}
 			});
 		}
