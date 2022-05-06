@@ -9,61 +9,19 @@ import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
 	const vendorService = VendorService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
+	const items = uniqueObjects(await Promise.all((await prisma.vendor.findMany({
 		where: {
-			AND: [
-				{
-					error: null,
-					aroma: {
-						AromaInventory: {
-							some: {
-								userId: toUserId(),
-							}
-						}
+			Aroma: {
+				some: {
+					AromaInventory: {
+						some: {
+							userId: toUserId(),
+						},
 					},
 				},
-				{
-					OR: [
-						{
-							base: {
-								BaseInventory: {
-									some: {
-										userId: toUserId(),
-									},
-								}
-							}
-						},
-						{
-							base: null,
-						},
-					],
-				},
-				{
-					OR: [
-						{
-							booster: {
-								BoosterInventory: {
-									some: {
-										userId: toUserId(),
-									},
-								}
-							},
-						},
-						{
-							booster: null,
-						}
-					],
-				},
-			],
+			},
 		},
-		include: {
-			aroma: {
-				include: {
-					vendor: true,
-				}
-			}
-		}
-	})).map(async ({aroma: item}) => await vendorService.map(item.vendor))), ["id"]) as IVendor[];
+	})).map(async item => await vendorService.map(item))), ["id"]) as IVendor[];
 
 	return {
 		items,

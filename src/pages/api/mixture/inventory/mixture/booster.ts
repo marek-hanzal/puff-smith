@@ -9,51 +9,18 @@ import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request, toUserId}) => {
 	const boosterService = BoosterService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
+	const items = uniqueObjects(await Promise.all((await prisma.booster.findMany({
 		where: {
-			AND: [
-				{
-					error: null,
-					aroma: {
-						AromaInventory: {
-							some: {
-								userId: toUserId(),
-							}
-						}
-					},
-					booster: {
-						BoosterInventory: {
-							some: {
-								userId: toUserId(),
-							},
-						}
-					},
+			BoosterInventory: {
+				some: {
+					userId: toUserId(),
 				},
-				{
-					OR: [
-						{
-							base: {
-								BaseInventory: {
-									some: {
-										userId: toUserId(),
-									},
-								}
-							}
-						},
-						{
-							base: null,
-						},
-					],
-				},
-			],
+			},
 		},
 		orderBy: [
-			{booster: {name: "asc"}},
+			{name: "asc"},
 		],
-		include: {
-			booster: true,
-		}
-	})).filter(({booster}) => booster !== null).map(async ({booster: item}) => await boosterService.map(item!))), ["id"]) as IBooster[];
+	})).map(async item => await boosterService.map(item!))), ["id"]) as IBooster[];
 
 	return {
 		items,

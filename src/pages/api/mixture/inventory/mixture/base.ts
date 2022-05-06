@@ -9,51 +9,18 @@ import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request, toUserId}) => {
 	const baseService = BaseService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.mixture.findMany({
+	const items = uniqueObjects(await Promise.all((await prisma.base.findMany({
 		where: {
-			AND: [
-				{
-					error: null,
-					aroma: {
-						AromaInventory: {
-							some: {
-								userId: toUserId(),
-							}
-						}
-					},
-					base: {
-						BaseInventory: {
-							some: {
-								userId: toUserId(),
-							},
-						}
-					},
+			BaseInventory: {
+				some: {
+					userId: toUserId(),
 				},
-				{
-					OR: [
-						{
-							base: {
-								BaseInventory: {
-									some: {
-										userId: toUserId(),
-									},
-								}
-							}
-						},
-						{
-							base: null,
-						},
-					],
-				},
-			],
+			},
 		},
 		orderBy: [
-			{base: {name: "asc"}},
+			{name: "asc"},
 		],
-		include: {
-			base: true,
-		}
-	})).filter(({base}) => base !== null).map(async ({base: item}) => await baseService.map(item!))), ["id"]) as IBase[];
+	})).map(async item => await baseService.map(item))), ["id"]) as IBase[];
 
 	return {
 		items,
