@@ -10,8 +10,13 @@ export interface IUserContextMenuProps extends Partial<IMenuProps> {
 
 export const UserContextMenu: FC<IUserContextMenuProps> = ({user, ...props}) => {
 	const query = {userId: user.id};
-	return <Menu style={{border: "none"}} mode={"horizontal"} {...props}>
-		{CreateMenuItem("root.user.index.menu", "/root/user/[userId]", <UserIcon/>, query)}
-		{CreateMenuItem("root.user.transactions.menu", "/root/user/[userId]/transactions", <PurchaseIcon/>, query)}
-	</Menu>;
+	return <Menu
+		style={{border: "none"}}
+		mode={"horizontal"}
+		items={[
+			CreateMenuItem("root.user.index.menu", "/root/user/[userId]", <UserIcon/>, query),
+			CreateMenuItem("root.user.transactions.menu", "/root/user/[userId]/transactions", <PurchaseIcon/>, query),
+		]}
+		{...props}
+	/>;
 };
