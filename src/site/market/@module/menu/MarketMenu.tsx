@@ -21,7 +21,7 @@ export const MarketMenu: FC<IMarketMenuProps> = props => <Menu
 		CreateMenuItem("market.mod.menu", "/market/mod", <ModIcon/>),
 		CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>),
 		CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>),
-		CreateMenuGroup("market.aroma.menu", <LiquidIcon/>, [
+		CreateMenuGroup("market.liquid.menu", <LiquidIcon/>, [
 			CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>),
 			CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
 			CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),

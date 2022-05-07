@@ -21,7 +21,7 @@ export const RootMenu: FC<IRootMenuProps> = props => <Menu
 		CreateMenuItem("root.job.menu", "/root/job", <JobIcon/>),
 		CreateMenuItem("root.file.menu", "/root/file", <FileIcon/>),
 		CreateMenuItem("root.user.menu", "/root/user", <UserIcon/>),
-		CreateMenuGroup("root.sites", <SitesIcon/>, [
+		CreateMenuGroup("root.sites.menu", <SitesIcon/>, [
 			CreateMenuItem("root.market.menu", "/to/market", <MarketIcon/>),
 			CreateMenuItem("root.lab.menu", "/to/lab", <LabIcon/>),
 			CreateMenuItem("root.public.menu", "/to/public", <PublicIcon/>),

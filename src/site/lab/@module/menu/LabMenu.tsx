@@ -29,7 +29,7 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 			CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>),
 			CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>),
 			CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>),
-			CreateMenuGroup("lab.inventory", <ContainerOutlined/>, [
+			CreateMenuGroup("lab.inventory.menu", <ContainerOutlined/>, [
 				CreateMenuItem("lab.atomizer.inventory.menu", "/lab/atomizer/inventory", <AtomizerIcon/>),
 				CreateMenuItem("lab.mod.inventory.menu", "/lab/mod/inventory", <ModIcon/>),
 				CreateMenuItem("lab.cell.inventory.menu", "/lab/cell/inventory", <CellIcon/>),
