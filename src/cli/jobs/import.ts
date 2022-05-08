@@ -14,6 +14,7 @@ import {TariffService} from "@/puff-smith/service/tariff/TariffService";
 import {TranslationService} from "@/puff-smith/service/translation/TranslationService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
+import {WireService} from "@/puff-smith/service/wire/WireService";
 import {IJob, IJobProcessor, IQueryParams} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
@@ -33,6 +34,7 @@ const importHandlers = {
 	...TranslationService().importers(),
 	...VendorService().importers(),
 	...VoucherService().importers(),
+	...WireService().importers(),
 };
 
 interface IImportParams extends IQueryParams {

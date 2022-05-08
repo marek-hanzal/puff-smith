@@ -3,6 +3,8 @@ import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Prisma, Vendor} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
+export type IVendorReference = { vendorId: string; vendor?: never; } | { vendor: string; vendorId?: never; };
+
 export interface IVendorCreate {
 	name: string;
 }
@@ -27,4 +29,5 @@ export interface IVendorServiceCreate extends IServiceCreate {
 }
 
 export interface IVendorService extends IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery> {
+	fetchByReference(request: IVendorReference): Promise<Vendor>;
 }
