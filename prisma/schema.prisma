@@ -620,7 +620,7 @@ model Coil {
   size     Decimal @db.Decimal(10, 2)
   wraps    Int
   // Expected resistance of this coil
-  ohm      Decimal @db.Decimal(10, 2)
+  ohm      Decimal? @db.Decimal(10, 2)
   wireId   String
   wire     Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
   vendorId String
@@ -647,7 +647,7 @@ model Wire {
   // Is this wire TCR compatible?
   isTCR    Boolean
   // Expected resistance of a wire - ohm per meter
-  ohm      Decimal @db.Decimal(10, 2)
+  ohm      Decimal? @db.Decimal(10, 2)
   // Expected thickness of a wire - sum of individual fibers; this could help to identify if a wire would fit in a post in atomizer
   mm       Decimal @db.Decimal(10, 2)
   vendorId String

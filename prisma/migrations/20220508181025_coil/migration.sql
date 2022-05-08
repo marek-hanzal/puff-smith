@@ -23,7 +23,7 @@ CREATE TABLE "Coil" (
     "code" TEXT NOT NULL,
     "size" DECIMAL(10,2) NOT NULL,
     "wraps" INTEGER NOT NULL,
-    "ohm" DECIMAL(10,2) NOT NULL,
+    "ohm" DECIMAL(10,2),
     "wireId" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
 
@@ -45,7 +45,7 @@ CREATE TABLE "Wire" (
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "isTCR" BOOLEAN NOT NULL,
-    "ohm" DECIMAL(10,2) NOT NULL,
+    "ohm" DECIMAL(10,2),
     "mm" DECIMAL(10,2) NOT NULL,
     "vendorId" TEXT NOT NULL,
 
