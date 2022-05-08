@@ -37,4 +37,20 @@ export const TagService = (request: ITagServiceCreate = ServiceCreate()): ITagSe
 			group,
 		}
 	}),
+	fetchTag: (group, code, tagId) => {
+		if (!code && !tagId) {
+			throw new Error(`Provide [code] or [tagId] in group [${group}].`);
+		}
+		return request.prisma.tag.findUnique({
+			where: tagId ? {
+				id: tagId,
+			} : {
+				code_group: {
+					group,
+					code: code!,
+				}
+			},
+			rejectOnNotFound: true,
+		});
+	},
 });

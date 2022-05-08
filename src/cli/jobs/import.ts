@@ -4,6 +4,7 @@ import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {CellService} from "@/puff-smith/service/cell/CellService";
 import {CottonService} from "@/puff-smith/service/cotton/CottonService";
+import {FiberService} from "@/puff-smith/service/fiber/FiberService";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {ModService} from "@/puff-smith/service/mod/ModService";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
@@ -24,6 +25,7 @@ const importHandlers = {
 	...BoosterService().importers(),
 	...CellService().importers(),
 	...CottonService().importers(),
+	...FiberService().importers(),
 	...ModService().importers(),
 	...PriceService().importers(),
 	...TagService().importers(),

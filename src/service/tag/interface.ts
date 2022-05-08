@@ -34,4 +34,6 @@ export interface ITagServiceCreate extends IServiceCreate {
 
 export interface ITagService extends IRepositoryService<ITagCreate, Tag, ITag, ITagQuery, ITagFetchProps, ITagFetchQuery> {
 	fetchCodes(codes: string, group: string): Promise<Tag[]>;
+
+	fetchTag(group: string, code?: string, tagId?: string): Promise<Tag>;
 }

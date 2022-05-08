@@ -56,15 +56,7 @@ export const CottonService = (request: ICottonServiceCreate = ServiceCreate()): 
 
 		return request.prisma.cotton.update({
 			where: {
-				id: (await request.prisma.cotton.findFirst({
-					where: {
-						name: create.name,
-						vendor: {
-							name: vendor,
-						}
-					},
-					rejectOnNotFound: true,
-				})).id,
+				id: _cotton.id,
 			},
 			data: {
 				...create,
