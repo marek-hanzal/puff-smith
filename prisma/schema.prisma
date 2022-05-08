@@ -56,6 +56,7 @@ model User {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   Metric            Metric[]
+  Build             Build[]
 }
 
 model VerificationToken {
@@ -194,6 +195,9 @@ model Tag {
   Cell         Cell[]
   ModCell      ModCell[]
   AromaTaste   AromaTaste[]
+  Fiber        Fiber[]
+  CoilDraw     CoilDraw[]
+  WireDraw     WireDraw[]
 
   @@unique([code, group])
 }
@@ -208,6 +212,8 @@ model Vendor {
   Aroma     Aroma[]
   Booster   Booster[]
   Base      Base[]
+  Wire      Wire[]
+  Coil      Coil[]
 }
 
 model Tariff {
@@ -595,4 +601,95 @@ enum MixtureError {
   LESS
   MORE
   FULL
+}
+
+model Build {
+  id      String   @id @default(cuid())
+  created DateTime
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// One of heating types for atomizer
+model Coil {
+  id       String  @id @default(cuid())
+  // Name could (and probably should be) based on size + wraps + wire.name or something similar
+  name     String
+  code     String  @unique
+  // Size of a coil wrap, usually something like 0.2, 0.25 and so on
+  size     Decimal @db.Decimal(10, 2)
+  wraps    Int
+  // Expected resistance of this coil
+  ohm      Decimal @db.Decimal(10, 2)
+  wireId   String
+  wire     Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  vendorId String
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  CoilDraw CoilDraw[]
+
+  @@unique([name, vendorId])
+}
+
+model CoilDraw {
+  id     String @id @default(cuid())
+  coilId String
+  coil   Coil   @relation(fields: [coilId], references: [id], onDelete: Cascade)
+  drawId String
+  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
+}
+
+// Wire is a source for a coil
+model Wire {
+  id       String  @id @default(cuid())
+  name     String
+  code     String  @unique
+  // Is this wire TCR compatible?
+  isTCR    Boolean
+  // Expected resistance of a wire - ohm per meter
+  ohm      Decimal @db.Decimal(10, 2)
+  // Expected thickness of a wire - sum of individual fibers; this could help to identify if a wire would fit in a post in atomizer
+  mm       Decimal @db.Decimal(10, 2)
+  vendorId String
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+
+  WireFiber WireFiber[]
+  Coil      Coil[]
+  WireDraw  WireDraw[]
+
+  @@unique([name, vendorId])
+}
+
+model WireDraw {
+  id     String @id @default(cuid())
+  wireId String
+  wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  drawId String
+  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
+}
+
+// Wire should be constructed of some fibers (logically at least one fiber should be in a wire)
+model WireFiber {
+  id      String @id @default(cuid())
+  count   Int
+  wireId  String
+  wire    Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  fiberId String
+  fiber   Fiber  @relation(fields: [fiberId], references: [id], onDelete: Cascade)
+}
+
+// Fiber is a base for a wire; the wire could be made of several fibers (like claptons or so)
+model Fiber {
+  id         String  @id @default(cuid())
+  code       String  @unique
+  // Thickness of a fiber in mm (for example 0.3 or something; should be rounded)
+  mm         Decimal @db.Decimal(10, 2)
+  // Thickness of a fiber
+  ga         Int
+  // Resistance - ohm per meter
+  ohm        Decimal @db.Decimal(10, 2)
+  materialId String
+  material   Tag     @relation(fields: [materialId], references: [id], onDelete: Cascade)
+
+  WireFiber WireFiber[]
 }
