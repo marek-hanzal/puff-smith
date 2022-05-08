@@ -77,7 +77,6 @@ CREATE TABLE "Fiber" (
     "code" TEXT NOT NULL,
     "mm" DECIMAL(10,2) NOT NULL,
     "ga" INTEGER NOT NULL,
-    "ohm" DECIMAL(10,2) NOT NULL,
     "materialId" TEXT NOT NULL,
 
     CONSTRAINT "Fiber_pkey" PRIMARY KEY ("id")

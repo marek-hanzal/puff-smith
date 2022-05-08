@@ -686,8 +686,6 @@ model Fiber {
   mm         Decimal @db.Decimal(10, 2)
   // Thickness of a fiber
   ga         Int
-  // Resistance - ohm per meter
-  ohm        Decimal @db.Decimal(10, 2)
   materialId String
   material   Tag     @relation(fields: [materialId], references: [id], onDelete: Cascade)
 
