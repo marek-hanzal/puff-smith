@@ -12,7 +12,7 @@ export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoi
 		source: request.prisma.coil,
 		mapper: async coil => ({
 			...coil,
-			vendor: await VendorService(request).toMap(coil.vendorId),
+			vendor: coil.vendorId ? await VendorService(request).toMap(coil.vendorId) : null,
 			wire: await WireService(request).toMap(coil.wireId),
 			draws: await TagService(request).list(request.prisma.tag.findMany({
 				where: {
@@ -27,14 +27,14 @@ export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoi
 				}
 			})),
 		}),
-		create: async ({vendor, vendorId, wire, wireId, ...create}) => {
-			const _vendor = await VendorService(request).fetchByReference({vendor, vendorId});
+		create: async ({vendor, vendorId, wire, wireId, draws, drawIds, ...create}) => {
+			const _vendor = await VendorService(request).fetchByReferenceOptional({vendor, vendorId});
 			const _wire = await WireService(request).fetchByReference({wire, wireId});
 			return request.prisma.coil.create({
 				data: {
-					name: "name",
+					name: create.name || `${_wire.name} ⌀${Math.ceil(create.size)} ↺${create.wraps}`,
 					code: create.code || CodeService().code(),
-					vendorId: _vendor.id,
+					vendorId: _vendor?.id,
 					wireId: _wire.id,
 					...create,
 				}

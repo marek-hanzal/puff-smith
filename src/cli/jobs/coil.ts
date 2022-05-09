@@ -6,7 +6,6 @@ import {IJobProcessor} from "@leight-core/api";
 const JOB_NAME = "job.coil";
 
 interface ICoilJobParams {
-	wireId: string | "all";
 }
 
 export const CoilJob: IJobProcessor<ICoilJobParams> = {
@@ -15,50 +14,32 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = {
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 5,
-	}, JobService().handle<ICoilJobParams>(JOB_NAME, async ({jobProgress, jobService, job, logger, progress}) => {
-		if (job.params?.wireId === "all") {
-			logger.debug("Scheduling updating all coils.");
-			return await prisma.$transaction(async prisma => {
-				await jobProgress.setTotal(await prisma.wire.count());
-				for (const wire of await prisma.wire.findMany()) {
-					await progress(async () => {
-						await jobService.schedule<ICoilJobParams>(JOB_NAME, {
-							wireId: wire.id,
-						}, job.userId);
-					});
-				}
-			});
-		}
-		if (job.params?.wireId) {
-			logger.debug(`Updating coils of wire [${job.params.wireId}].`);
-			const wire = await prisma.wire.findUnique({
-				where: {
-					id: job.params.wireId!,
-				},
+	}, JobService().handle<ICoilJobParams>(JOB_NAME, async ({jobProgress, logger, progress}) => {
+		logger.debug("Scheduling updating all coils.");
+		return await prisma.$transaction(async prisma => {
+			await jobProgress.setTotal(await prisma.wire.count() * Math.ceil(await prisma.wire.count() * ((0.5 - 0.15) / 0.05) * 12));
+			for (const wire of await prisma.wire.findMany({
 				include: {
 					WireDraw: {
 						include: {
 							draw: true,
 						}
-					}
+					},
 				},
-				rejectOnNotFound: true
-			});
-			await jobProgress.setTotal(await prisma.wire.count() * 12);
-			const coilService = CoilService();
-			for (let wraps = 3; wraps <= 14; wraps++) {
-				for (let size = 0.15; wraps <= 0.5; size += 0.5) {
-					coilService.create({
-						name: "name",
-						wraps,
-						size,
-						wireId: wire.id,
-						draws: [],
-					});
+			})) {
+				logger.debug(`Updating coils of wire [${wire.id}].`);
+				const coilService = CoilService();
+				for (let wraps = 3; wraps <= 14; wraps++) {
+					for (let size = 0.15; size <= 0.5; size += 0.05) {
+						await progress(async () => await coilService.create({
+							wraps,
+							size,
+							wireId: wire.id,
+							drawIds: wire.WireDraw.map(({draw}) => draw.id),
+						}));
+					}
 				}
-				return;
 			}
-			throw new Error("Coil update job without 'wireId' specified; specify 'wireId' or 'all' for... all wires.");
-		}
+		});
 	})),
 };

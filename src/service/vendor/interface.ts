@@ -33,4 +33,6 @@ export interface IVendorServiceCreate extends IServiceCreate {
 
 export interface IVendorService extends IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery> {
 	fetchByReference(request: IVendorReference): Promise<Vendor>;
+
+	fetchByReferenceOptional(request: IVendorReference): Promise<Vendor | undefined>;
 }

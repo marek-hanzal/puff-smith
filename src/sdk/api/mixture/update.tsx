@@ -23,7 +23,7 @@ export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<{ aro
 export const MixtureUpdateDefaultForm: FC<IMixtureUpdateDefaultFormProps> = props => <Form<{ aromaId: string | "all" }, any>
 	useMutation={useMixtureUpdateMutation}
 	{...props}
-/>;
+/>
 
 export const toMixtureUpdateLink = (queryParams?: IMixtureUpdateQueryParams) => toLink(MixtureUpdateApiLink, queryParams);
 export const useMixtureUpdateLink = () => toMixtureUpdateLink;

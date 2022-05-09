@@ -11,8 +11,12 @@ export type ICoilCreate = {
 	code?: string;
 	size: number;
 	wraps: number;
-	draws: string;
-} & IVendorReference & IWireReference;
+} & IVendorReference & IWireReference & ICoilDraws;
+
+export interface ICoilDraws {
+	draws?: string;
+	drawIds?: string[];
+}
 
 export interface ICoilQuery extends IQuery<Prisma.CoilWhereInput, Prisma.CoilOrderByWithRelationInput> {
 }
@@ -21,8 +25,8 @@ export interface ICoil {
 	id: string;
 	name: string;
 	code: string;
-	vendorId: string;
-	vendor: IVendor;
+	vendorId?: string | null;
+	vendor?: IVendor | null;
 	wireId: string;
 	wire: IWire;
 	draws: ITag[];
