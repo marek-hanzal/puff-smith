@@ -17,6 +17,28 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 		source: request.prisma.wire,
 		mapper: async wire => ({
 			...wire,
+			cost: wire.cost.toNumber(),
+			mm: wire.mm.toNumber(),
+			mmToRound: wire.mmToRound.toNumber(),
+			vendor: await VendorService(request).toMap(wire.vendorId),
+			draws: await TagService(request).list(request.prisma.tag.findMany({
+				where: {
+					WireDraw: {
+						some: {
+							wireId: wire.id,
+						},
+					},
+				},
+			})),
+			fibers: await FiberService(request).list(request.prisma.fiber.findMany({
+				where: {
+					WireFiber: {
+						some: {
+							wireId: wire.id,
+						},
+					},
+				},
+			})),
 		}),
 		create: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
 			const fiberService = FiberService(request);

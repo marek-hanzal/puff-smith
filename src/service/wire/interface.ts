@@ -1,5 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IVendorReference} from "@/puff-smith/service/vendor/interface";
+import {IFiber} from "@/puff-smith/service/fiber/interface";
+import {ITag} from "@/puff-smith/service/tag/interface";
+import {IVendor, IVendorReference} from "@/puff-smith/service/vendor/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Fiber, Prisma, Wire} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -25,6 +27,16 @@ export interface IWireQuery extends IQuery<Prisma.WireWhereInput, Prisma.WireOrd
 
 export interface IWire {
 	id: string;
+	name: string;
+	code: string;
+	cost: number;
+	isTCR: boolean;
+	mm: number;
+	mmToRound: number;
+	vendorId: string;
+	vendor: IVendor;
+	draws: ITag[];
+	fibers: IFiber[];
 }
 
 export interface IWireFetchProps {
