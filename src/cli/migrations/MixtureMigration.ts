@@ -9,7 +9,7 @@ export const MixtureMigration: IMigration = {
 		const logger = Logger("migration");
 		const labels = {migration: "mixture"};
 		logger.info("Scheduling MixtureMigration.", {labels});
-		await MixtureJob.schedule({aromaId: null});
+		await MixtureJob.schedule({aromaId: "all"});
 		logger.info("MixtureMigration done.", {labels});
 	},
 };

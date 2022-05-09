@@ -558,7 +558,6 @@ model Liquid {
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   created       DateTime
   mixed         DateTime
-  archived      DateTime?
 }
 
 model Mixture {
@@ -596,7 +595,9 @@ model Mixture {
 
   Liquid Liquid[]
 
-  @@unique([aromaId, boosterId, baseId, nicotine])
+  // do not remove as it serves as a reminder that there is manually added unique key
+  // this is a workaround for Prisma to prevent it creating this key
+  // @@unique([aromaId, boosterId, baseId, nicotine])
 }
 
 enum MixtureError {

@@ -7,12 +7,11 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
-export default QueryEndpoint<"Aroma", ILiquidQuery, IAroma>(async ({request, toUserId}) => {
+export default QueryEndpoint<"Aroma", ILiquidQuery, IAroma>(async ({toUserId}) => {
 	const aromaService = AromaService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.liquid.findMany({
 		where: {
 			userId: toUserId(),
-			archived: null,
 		},
 		orderBy: [
 			{mixture: {aroma: {name: "asc"}}},

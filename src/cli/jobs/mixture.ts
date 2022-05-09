@@ -8,7 +8,7 @@ import {IJobProcessor} from "@leight-core/api";
 export const JOB_NAME = "job.mixture";
 
 interface IMixtureJobParams {
-	aromaId: string | null;
+	aromaId: string | "all";
 }
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
@@ -18,7 +18,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		concurrency: 1,
 		priority: 5,
 	}, JobService().handle<IMixtureJobParams>(JOB_NAME, async ({jobProgress, jobService, job, logger, progress}) => {
-		if (job.params?.aromaId === null) {
+		if (job.params?.aromaId === "all") {
 			logger.debug("Scheduling updating all mixtures, no 'aromaId' specified.");
 			return await prisma.$transaction(async prisma => {
 				await jobProgress.setTotal(await prisma.aroma.count());

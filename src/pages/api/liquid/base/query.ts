@@ -7,12 +7,11 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
-export default QueryEndpoint<"Base", ILiquidQuery, IBase>(async ({request, toUserId}) => {
+export default QueryEndpoint<"Base", ILiquidQuery, IBase>(async ({toUserId}) => {
 	const baseService = BaseService(ServiceCreate(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.liquid.findMany({
 		where: {
 			userId: toUserId(),
-			archived: null,
 		},
 		orderBy: [
 			{mixture: {base: {name: "asc"}}},

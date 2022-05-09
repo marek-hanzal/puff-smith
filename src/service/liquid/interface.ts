@@ -20,7 +20,6 @@ export interface ILiquid {
 	code: string;
 	created: string;
 	mixed: string;
-	archived?: string | null;
 	transaction: ITransaction;
 	transactionId: string;
 	mixture: IMixture;

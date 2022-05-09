@@ -15,7 +15,6 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 			...liquid,
 			created: liquid.created.toUTCString(),
 			mixed: liquid.mixed.toUTCString(),
-			archived: liquid.archived?.toUTCString(),
 			transaction: await TransactionService(request).toMap(liquid.transactionId),
 			mixture: await MixtureService(request).toMap(liquid.mixtureId),
 		}),
@@ -45,12 +44,12 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 			},
 			userId: request.userService.getUserId(),
 		};
-		await request.prisma.liquid.updateMany({
-			where,
-			data: {
-				archived: new Date(),
-			},
+		return prisma.$transaction(async prisma => {
+			const liquids = await LiquidService({...request, prisma}).list(prisma.liquid.findMany({where}));
+			await prisma.liquid.deleteMany({
+				where,
+			});
+			return liquids;
 		});
-		return LiquidService(request).list(request.prisma.liquid.findMany({where}));
 	}
 });
