@@ -624,8 +624,8 @@ model Coil {
   wraps    Int
   wireId   String
   wire     Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
-  vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendorId String?
+  vendor   Vendor? @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
 
