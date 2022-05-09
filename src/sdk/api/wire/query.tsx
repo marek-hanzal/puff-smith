@@ -114,7 +114,7 @@ export const WiresListSource: FC<IWiresListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</WiresSource>;
-};
+}
 
 export interface IWiresSourceSelectProps extends IQuerySourceSelectProps<IWire> {
 	toOption: IToOptionMapper<IWire>;
@@ -157,7 +157,7 @@ export interface IWiresSelectionProviderProps extends Partial<ISelectionProvider
 
 export const WiresSelectionProvider: FC<IWiresSelectionProviderProps> = props => {
 	return <SelectionProvider<IWire> {...props}/>;
-};
+}
 
 export const useWiresQueryInvalidate = () => {
 	const queryClient = useQueryClient();

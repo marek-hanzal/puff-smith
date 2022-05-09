@@ -3,6 +3,7 @@ import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {CellService} from "@/puff-smith/service/cell/CellService";
+import {CoilService} from "@/puff-smith/service/coil/CoilService";
 import {CottonService} from "@/puff-smith/service/cotton/CottonService";
 import {FiberService} from "@/puff-smith/service/fiber/FiberService";
 import {JobService} from "@/puff-smith/service/job/JobService";
@@ -25,6 +26,7 @@ const importHandlers = {
 	...BaseService().importers(),
 	...BoosterService().importers(),
 	...CellService().importers(),
+	...CoilService().importers(),
 	...CottonService().importers(),
 	...FiberService().importers(),
 	...ModService().importers(),

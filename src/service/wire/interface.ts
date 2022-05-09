@@ -16,6 +16,11 @@ export type IWireCreate = {
 	fibers?: string;
 } & IVendorReference;
 
+export interface IWireReference {
+	wireId?: string;
+	wire?: string;
+}
+
 export interface IWireFiberCreate {
 	count: number;
 	fiber: string;
@@ -51,4 +56,5 @@ export interface IWireServiceCreate extends IServiceCreate {
 }
 
 export interface IWireService extends IRepositoryService<IWireCreate, Wire, IWire, IWireQuery, IWireFetchProps, IWireFetchQuery> {
+	fetchByReference(request: IWireReference): Promise<Wire>;
 }

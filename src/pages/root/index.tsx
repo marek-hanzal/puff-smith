@@ -22,7 +22,7 @@ export default withRootLayout(function Index() {
 				size={"large"}
 				type={"primary"}
 				icon={<LiquidIcon/>}
-				onClick={() => mixtureUpdateMutation.mutate({aromaId: null}, {
+				onClick={() => mixtureUpdateMutation.mutate({aromaId: "all"}, {
 					onSuccess: () => {
 						navigate("/to/root/job");
 					}

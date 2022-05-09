@@ -16,7 +16,7 @@ export const useCreateMutation = createMutationHook<IWireInventoryCreate, IWireI
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<IWireInventoryCreate, IWireInventory>> {
 }
@@ -24,7 +24,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<IWireInvento
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<IWireInventoryCreate, IWireInventory>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

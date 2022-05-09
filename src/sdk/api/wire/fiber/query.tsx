@@ -115,7 +115,7 @@ export const FiberListSource: FC<IFiberListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</FiberSource>;
-};
+}
 
 export interface IFiberSourceSelectProps extends IQuerySourceSelectProps<IFiber> {
 	toOption: IToOptionMapper<IFiber>;
@@ -158,7 +158,7 @@ export interface IFiberSelectionProviderProps extends Partial<ISelectionProvider
 
 export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<IFiber> {...props}/>;
-};
+}
 
 export const useFiberQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -1,5 +1,4 @@
-import {JOB_NAME} from "@/puff-smith/cli/jobs/mixture";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {MixtureJob} from "@/puff-smith/cli/jobs/mixture";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"MixtureUpdate", { aromaId: string | null }, any>(async ({request, toUserId}) => JobService().schedule(JOB_NAME, request, toUserId()));
+export default MutationEndpoint<"MixtureUpdate", { aromaId: string | "all" }, any>(async ({request, toUserId}) => MixtureJob.schedule(request, toUserId()));

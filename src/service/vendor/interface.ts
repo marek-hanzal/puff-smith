@@ -5,7 +5,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IVendorReference {
 	vendorId?: string;
-	vendor?: never;
+	vendor?: string;
 }
 
 export interface IVendorCreate {

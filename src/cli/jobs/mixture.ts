@@ -50,11 +50,6 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 			}))._max.nicotine?.toNumber() || -1;
 			await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
 			const mixtureService = MixtureService();
-			await prisma.mixture.deleteMany({
-				where: {
-					aromaId: aroma.id,
-				}
-			});
 			for (const booster of await prisma.booster.findMany()) {
 				for (const base of await prisma.base.findMany()) {
 					const batch: ReturnType<IMixtureService["toCreate"]>[] = [];
@@ -97,6 +92,6 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 			}
 			return;
 		}
-		throw new Error("Mixture update job without 'aromaId' specified (null for all aromas, value for specific aroma).");
+		throw new Error("Mixture update job without 'aromaId' specified; specify 'aromaId' or 'all' for... all aromas.");
 	})),
 };
