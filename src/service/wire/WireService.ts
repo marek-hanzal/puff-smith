@@ -11,6 +11,7 @@ import YAML from "yaml";
 export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWireService => {
 	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({_fiber, count}) => count * _fiber.mm.toNumber()).reduce((prev, current) => prev + current, 0);
 	const toMmRound = (mm: number) => Math.round(mm * 10) / 10;
+	const fiberService = FiberService(request);
 
 	return RepositoryService<IWireService>({
 		name: "wire",
@@ -30,15 +31,14 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 					},
 				},
 			})),
-			fibers: await FiberService(request).list(request.prisma.fiber.findMany({
+			fibers: await Promise.all((await request.prisma.wireFiber.findMany({
 				where: {
-					WireFiber: {
-						some: {
-							wireId: wire.id,
-						},
-					},
+					wireId: wire.id,
 				},
-			})),
+			})).map(async wireFiber => ({
+				...wireFiber,
+				fiber: await fiberService.toMap(wireFiber.fiberId),
+			}))),
 		}),
 		create: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
 			const fiberService = FiberService(request);

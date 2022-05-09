@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IFiber} from "@/puff-smith/service/fiber/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor, IVendorReference} from "@/puff-smith/service/vendor/interface";
+import {IWireFiber} from "@/puff-smith/service/wire/fiber/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Fiber, Prisma, Wire} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -36,7 +36,7 @@ export interface IWire {
 	vendorId: string;
 	vendor: IVendor;
 	draws: ITag[];
-	fibers: IFiber[];
+	fibers: IWireFiber[];
 }
 
 export interface IWireFetchProps {
