@@ -7,7 +7,6 @@ export interface IMixtureAromaSelectProps extends Partial<IAromaSourceSelectProp
 
 export const MixtureAromaSelect: FC<IMixtureAromaSelectProps> = props => {
 	return <AromaSourceSelect
-		showSearch
 		toOption={item => ({
 			value: item.id,
 			label: <AromaNameInline aroma={item}/>

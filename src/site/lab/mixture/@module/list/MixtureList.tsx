@@ -1,5 +1,6 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/@module/button/LiquidCreateButton";
+import {MixtureListEmpty} from "@/puff-smith/site/lab/mixture/@module/list/MixtureListEmpty";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
 import {IMixturesListSourceProps, MixturesListSource} from "@/sdk/api/mixture/inventory/mixture/query";
@@ -12,6 +13,9 @@ export interface IMixtureListProps extends Partial<IMixturesListSourceProps> {
 
 export const MixtureList: FC<IMixtureListProps> = props => {
 	return <MixturesListSource
+		locale={{
+			emptyText: <MixtureListEmpty/>,
+		}}
 		{...props}
 	>
 		{mixture => <ListItem>

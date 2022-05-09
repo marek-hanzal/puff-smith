@@ -35,7 +35,6 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 				})
 			})
 		),
-		toFilter: filter => ({...filter, archived: null}),
 	}),
 	handleDelete: async ({request: {ids}}) => {
 		const where = {
