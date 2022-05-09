@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 export type IWireCreate = {
 	name?: string;
 	code?: string;
+	cost: number;
 	isTCR: boolean;
 	mm?: number;
 	draws?: string;

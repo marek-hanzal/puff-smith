@@ -23,7 +23,6 @@ CREATE TABLE "Coil" (
     "code" TEXT NOT NULL,
     "size" DECIMAL(10,2) NOT NULL,
     "wraps" INTEGER NOT NULL,
-    "ohm" DECIMAL(10,2),
     "wireId" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
 
@@ -44,6 +43,7 @@ CREATE TABLE "Wire" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
+	"cost" DECIMAL(10,2) NOT NULL,
     "isTCR" BOOLEAN NOT NULL,
     "mm" DECIMAL(10,2) NOT NULL,
     "mmToRound" DECIMAL(10,2) NOT NULL,
@@ -129,3 +129,6 @@ ALTER TABLE "WireFiber" ADD CONSTRAINT "WireFiber_fiberId_fkey" FOREIGN KEY ("fi
 
 -- AddForeignKey
 ALTER TABLE "Fiber" ADD CONSTRAINT "Fiber_materialId_fkey" FOREIGN KEY ("materialId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Fiber_ga_materialId_key" ON "Fiber"("ga", "materialId");

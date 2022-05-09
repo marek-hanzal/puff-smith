@@ -55,6 +55,7 @@ model User {
   AromaInventory    AromaInventory[]
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
+  WireInventory     WireInventory[]
   Metric            Metric[]
   Build             Build[]
 }
@@ -261,6 +262,7 @@ model Transaction {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   Liquid            Liquid[]
+  WireInventory     WireInventory[]
 }
 
 model Atomizer {
@@ -612,19 +614,17 @@ model Build {
 
 // One of heating types for atomizer
 model Coil {
-  id       String   @id @default(cuid())
+  id       String  @id @default(cuid())
   // Name could (and probably should be) based on size + wraps + wire.name or something similar
   name     String
-  code     String   @unique
+  code     String  @unique
   // Size of a coil wrap, usually something like 0.2, 0.25 and so on
-  size     Decimal  @db.Decimal(10, 2)
+  size     Decimal @db.Decimal(10, 2)
   wraps    Int
-  // Expected resistance of this coil
-  ohm      Decimal? @db.Decimal(10, 2)
   wireId   String
-  wire     Wire     @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  wire     Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
   vendorId String
-  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
 
@@ -641,22 +641,34 @@ model CoilDraw {
 
 // Wire is a source for a coil
 model Wire {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   name      String
-  code      String   @unique
+  code      String  @unique
+  cost      Decimal @db.Decimal(10, 2)
   // Is this wire TCR compatible?
   isTCR     Boolean
   // Expected thickness of a wire - sum of individual fibers; this could help to identify if a wire would fit in a post in atomizer
-  mm        Decimal  @db.Decimal(10, 2)
-  mmToRound Decimal  @db.Decimal(10, 2)
+  mm        Decimal @db.Decimal(10, 2)
+  mmToRound Decimal @db.Decimal(10, 2)
   vendorId  String
-  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor    Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  WireFiber WireFiber[]
-  Coil      Coil[]
-  WireDraw  WireDraw[]
+  WireFiber     WireFiber[]
+  Coil          Coil[]
+  WireDraw      WireDraw[]
+  WireInventory WireInventory[]
 
   @@unique([name, vendorId])
+}
+
+model WireInventory {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wireId        String
+  wire          Wire        @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }
 
 model WireDraw {
