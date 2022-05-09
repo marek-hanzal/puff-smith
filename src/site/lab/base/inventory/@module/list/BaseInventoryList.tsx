@@ -24,7 +24,6 @@ export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 	>
 		{baseInventory => <ListItem
 			key={baseInventory.id}
-			onClick={() => selectionContext?.item(baseInventory.base)}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>

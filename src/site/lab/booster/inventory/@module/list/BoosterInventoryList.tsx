@@ -24,7 +24,6 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 	>
 		{boosterInventory => <ListItem
 			key={boosterInventory.id}
-			onClick={() => selectionContext?.item(boosterInventory)}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>

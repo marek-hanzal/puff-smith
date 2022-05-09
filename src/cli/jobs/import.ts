@@ -58,7 +58,7 @@ export const ImportJob: IJobProcessor<IImportParams> = {
 		logger.info("Checking fileId");
 		const fileId = job.params?.fileId;
 		if (!fileId) {
-			await jobProgress.status("REVIEW");
+			await jobProgress.setResult("REVIEW");
 			logger.error(`Missing fileId for [${JOB_NAME}].`, {labels});
 			return;
 		}

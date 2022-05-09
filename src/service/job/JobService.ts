@@ -2,7 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {IJobService, IJobServiceCreate} from "@/puff-smith/service/job/interface";
 import {Agenda} from "@/puff-smith/service/side-effect/agenda";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJob} from "@leight-core/api";
+import {IJob, IJobStatus} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
 import {Job} from "agenda";
@@ -28,6 +28,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}),
 	}),
 	createProgress: jobId => {
+		let _result: IJobStatus | undefined;
 		let _total: number = 0;
 		let _processed: number = 0;
 		let _success = 0;
@@ -35,10 +36,11 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		let _skip = 0;
 		return {
 			jobId,
-			success: _success,
-			failure: _failure,
-			skip: _skip,
-			total: total => request.prisma.job.update({
+			result: () => _result,
+			success: () => _success,
+			failure: () => _failure,
+			skip: () => _skip,
+			setTotal: total => request.prisma.job.update({
 				data: {
 					total: (_total = total),
 				},
@@ -46,7 +48,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					id: jobId,
 				}
 			}),
-			status: status => request.prisma.job.update({
+			setStatus: status => request.prisma.job.update({
 				data: {
 					status,
 					started: ["RUNNING"].includes(status) ? new Date() : undefined,
@@ -54,7 +56,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 				},
 				where: {
 					id: jobId,
-				}
+				},
 			}),
 			onSuccess: () => request.prisma.job.update({
 				data: {
@@ -86,6 +88,10 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					id: jobId,
 				}
 			}),
+			setResult: result => {
+				_result = result;
+			},
+			isReview: () => _failure > 0 || _skip > 0,
 		};
 	},
 	commit: () => request.prisma.job.updateMany({
@@ -104,19 +110,22 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 	schedule: async (name, params, userId) => {
 		const logger = Logger("job");
 		logger.info("New job", {labels: {job: name}, params, userId});
-		return prisma.$transaction(async prisma => {
-			const jobService = JobService({...request, prisma});
-			const job = await jobService.create({
-				userId,
-				name,
-				params,
-			});
-			const theJob = await jobService.map(job);
-			logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		const jobService = JobService({...request, prisma});
+		const job = await jobService.create({
+			userId,
+			name,
+			params,
+		});
+		const theJob = await jobService.map(job);
+		logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		try {
 			await (await Agenda()).now(name, theJob);
 			logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
-			return theJob;
-		});
+		} catch (e) {
+			await jobService.createProgress(theJob.id).setStatus("FAILURE");
+			logger.error("Scheduling failed", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		}
+		return theJob;
 	},
 	handle: (name, handler) => {
 		let logger = Logger(name);
@@ -134,8 +143,8 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			logger.info(`Marking job [${name}] as running`);
 			try {
 				await prisma.job.findUnique({where: {id: theJob.id}, rejectOnNotFound: true});
-				await jobProgress.status("RUNNING");
-				if (await handler({
+				await jobProgress.setStatus("RUNNING");
+				await handler({
 					job: theJob,
 					jobProgress,
 					jobService,
@@ -153,15 +162,14 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 							}
 						}
 					},
-				}) === undefined) {
-					await jobProgress.status(((jobProgress.failure || 0 > 0) || (jobProgress.skip || 0 > 0) ? "REVIEW" : "SUCCESS"));
-				}
+				});
+				await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
 			} catch (e) {
 				logger.error(`Job [${name}] failed.`);
 				if (e instanceof Error) {
 					logger.error(e.message);
 				}
-				await jobProgress.status("FAILURE");
+				await jobProgress.setStatus("FAILURE");
 			}
 		};
 	}

@@ -40,13 +40,13 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
-		"@leight-core/api": "^0.5.163",
-		"@leight-core/client": "^0.5.131",
-		"@leight-core/server": "^0.5.155",
+		"@leight-core/api": "^0.5.166",
+		"@leight-core/client": "^0.5.132",
+		"@leight-core/server": "^0.5.156",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.13.0",
 		"agenda": "^4.2.1",
-		"antd": "^4.20.2",
+		"antd": "^4.20.3",
 		"unique-objects": "^1.0.5",
 		"boolean": "^3.2.0",
 		"concurrently": "^7.1.0",
@@ -71,7 +71,8 @@
 		"winston": "^3.7.2",
 		"winston-loki": "^6.0.5",
 		"xlsx": "^0.18.5",
-		"lru-cache": "^7.9.0"
+		"lru-cache": "^7.9.0",
+		"yaml": "^2.0.1"
 	},
 	"devDependencies": {
 		"@types/is-empty": "^1.2.1",

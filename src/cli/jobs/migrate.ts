@@ -26,12 +26,13 @@ export const MigrationJob: IJobProcessor<void> = {
 				logger.info("Migration not enabled", {labels, ...others});
 				return;
 			}
-			logger.info("Running migration", {labels, ...others});
+			logger.info(`Running [${migration.name()}] migration`, {labels, ...others});
 			try {
 				await migration.run();
-				logger.info("Migration done", {labels, ...others});
+				logger.info(`Migration [${migration.name()}] done`, {labels, ...others});
 			} catch (e) {
-				logger.error("Migration failed", {labels, ...others});
+				logger.error(`Migration [${migration.name()}] failed`, {labels, ...others});
+				console.error(e);
 				if (e instanceof Error) {
 					logger.error(e.message, {labels, ...others});
 				}

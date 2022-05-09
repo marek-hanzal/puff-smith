@@ -21,7 +21,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		if (job.params?.aromaId === null) {
 			logger.debug("Scheduling updating all mixtures, no 'aromaId' specified.");
 			return await prisma.$transaction(async prisma => {
-				await jobProgress.total(await prisma.aroma.count());
+				await jobProgress.setTotal(await prisma.aroma.count());
 				for (const aroma of await prisma.aroma.findMany()) {
 					if (aroma.volume && aroma.content.toNumber() < aroma.volume.toNumber()) {
 						await progress(async () => {
@@ -48,7 +48,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 					nicotine: true,
 				}
 			}))._max.nicotine?.toNumber() || -1;
-			await jobProgress.total((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
+			await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
 			const mixtureService = MixtureService();
 			await prisma.mixture.deleteMany({
 				where: {

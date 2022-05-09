@@ -45,8 +45,8 @@ CREATE TABLE "Wire" (
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "isTCR" BOOLEAN NOT NULL,
-    "ohm" DECIMAL(10,2),
     "mm" DECIMAL(10,2) NOT NULL,
+    "mmToRound" DECIMAL(10,2) NOT NULL,
     "vendorId" TEXT NOT NULL,
 
     CONSTRAINT "Wire_pkey" PRIMARY KEY ("id")

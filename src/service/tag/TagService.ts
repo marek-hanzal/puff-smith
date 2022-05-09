@@ -32,7 +32,7 @@ export const TagService = (request: ITagServiceCreate = ServiceCreate()): ITagSe
 	fetchCodes: async (codes, group) => request.prisma.tag.findMany({
 		where: {
 			code: {
-				in: codes.split(/,\s+/ig).map(code => `${code}`.toLowerCase()),
+				in: codes.split(/,\s*/ig).map(code => `${code}`.toLowerCase()),
 			},
 			group,
 		}
