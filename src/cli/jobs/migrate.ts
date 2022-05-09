@@ -1,5 +1,4 @@
 import {FixturesMigration} from "@/puff-smith/cli/migrations/FixtureMigration";
-import {MixtureMigration} from "@/puff-smith/cli/migrations/MixtureMigration";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {IJobProcessor} from "@leight-core/api";
 
@@ -7,7 +6,6 @@ const JOB_NAME = "migrate";
 
 const migrations = [
 	FixturesMigration,
-	MixtureMigration,
 ];
 
 export const MigrationJob: IJobProcessor<void> = {

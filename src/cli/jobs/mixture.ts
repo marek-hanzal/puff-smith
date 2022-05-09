@@ -5,7 +5,7 @@ import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 
-export const JOB_NAME = "job.mixture";
+const JOB_NAME = "job.mixture";
 
 interface IMixtureJobParams {
 	aromaId: string | "all";
