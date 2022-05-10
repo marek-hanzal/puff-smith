@@ -169,6 +169,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 				if (e instanceof Error) {
 					logger.error(e.message);
 				}
+				console.error(e);
 				await jobProgress.setStatus("FAILURE");
 			}
 		};

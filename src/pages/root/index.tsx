@@ -28,7 +28,7 @@ export default withRootLayout(function Index() {
 					icon={<LiquidIcon/>}
 					onClick={() => mixtureUpdateMutation.mutate({aromaId: "all"}, {
 						onSuccess: () => {
-							navigate("/to/root/job");
+							navigate("/root/job");
 						}
 					})}
 					loading={mixtureUpdateMutation.isLoading}
@@ -39,7 +39,7 @@ export default withRootLayout(function Index() {
 					icon={<CoilIcon/>}
 					onClick={() => coilUpdateMutation.mutate(undefined, {
 						onSuccess: () => {
-							navigate("/to/root/job");
+							navigate("/root/job");
 						}
 					})}
 					loading={coilUpdateMutation.isLoading}

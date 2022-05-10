@@ -1,6 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IVendorReference} from "@/puff-smith/service/vendor/interface";
 import {IWire, IWireReference} from "@/puff-smith/service/wire/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Coil, Prisma} from "@prisma/client";
@@ -11,7 +10,7 @@ export type ICoilCreate = {
 	code?: string;
 	size: number;
 	wraps: number;
-} & IVendorReference & IWireReference & ICoilDraws;
+} & IWireReference & ICoilDraws;
 
 export interface ICoilDraws {
 	draws?: string;
@@ -25,8 +24,6 @@ export interface ICoil {
 	id: string;
 	name: string;
 	code: string;
-	vendorId?: string | null;
-	vendor?: IVendor | null;
 	wireId: string;
 	wire: IWire;
 	draws: ITag[];
