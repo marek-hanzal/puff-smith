@@ -4,12 +4,12 @@ import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {useCoilUpdateMutation} from "@/sdk/api/coil/update";
-import {useMixtureUpdateMutation} from "@/sdk/api/mixture/update";
+import {useMixturesUpdateMutation} from "@/sdk/api/mixture/update";
 import {ButtonBar, HomeIcon, Template, useNavigate} from "@leight-core/client";
 import {Button} from "antd";
 
 export default withRootLayout(function Index() {
-	const mixtureUpdateMutation = useMixtureUpdateMutation();
+	const mixturesUpdateMutation = useMixturesUpdateMutation();
 	const coilUpdateMutation = useCoilUpdateMutation();
 	const navigate = useNavigate();
 	return <RootPage
@@ -26,12 +26,12 @@ export default withRootLayout(function Index() {
 					size={"large"}
 					type={"link"}
 					icon={<LiquidIcon/>}
-					onClick={() => mixtureUpdateMutation.mutate({aromaId: "all"}, {
+					onClick={() => mixturesUpdateMutation.mutate(undefined, {
 						onSuccess: () => {
 							navigate("/root/job");
 						}
 					})}
-					loading={mixtureUpdateMutation.isLoading}
+					loading={mixturesUpdateMutation.isLoading}
 				>Mixtures!</Button>
 				<Button
 					size={"large"}
