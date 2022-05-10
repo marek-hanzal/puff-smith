@@ -60,8 +60,8 @@ services:
             POSTGRESQL_DATABASE: puff-smith
             PGBOUNCER_POOL_MODE: transaction
             PGBOUNCER_PORT: 6432
-            PGBOUNCER_MIN_POOL_SIZE: 4
-            PGBOUNCER_MAX_DB_CONNECTIONS: 12
+            PGBOUNCER_MIN_POOL_SIZE: 8
+            PGBOUNCER_MAX_DB_CONNECTIONS: 16
             PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
             PGBOUNCER_EXTRA_ARGS: '--verbose'
             PGBOUNCER_DATABASE: puff-smith

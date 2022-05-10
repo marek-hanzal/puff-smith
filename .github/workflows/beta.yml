@@ -121,12 +121,14 @@ jobs:
 
                         echo AGENDA_DB=${{ secrets.AGENDA_DB }} >> .env
                         echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env
+                        echo BOUNCER_URL=${{ secrets.BOUNCER_URL }} >> .env
                         echo MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }} >> .env
                         echo MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }} >> .env
                         echo NEXTAUTH_GITHUB_CLIENT_ID=${{ secrets.NEXTAUTH_GITHUB_CLIENT_ID }} >> .env
                         echo NEXTAUTH_GITHUB_CLIENT_SECRET=${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }} >> .env
                         echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
                         echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+                        echo POSTGRESQL_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
                         echo EMAIL_SERVER=smtp://mailhog:1025 >> .env
                         echo EMAIL_FROM=noreply@puff-smith.rocks >> .env
                         echo LOKI_URL=http://loki:3100 >> .env

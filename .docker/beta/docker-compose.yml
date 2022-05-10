@@ -37,6 +37,26 @@ services:
         volumes:
             - "puff-smith-postgres:/var/lib/postgresql/data"
 
+    pgbouncer:
+        image: bitnami/pgbouncer
+        env_file: .env
+        depends_on:
+            - postgres
+        environment:
+            POSTGRESQL_HOST: postgres
+            POSTGRESQL_DATABASE: puff-smith
+            POSTGRESQL_USERNAME: puff-smith
+            PGBOUNCER_POOL_MODE: transaction
+            PGBOUNCER_PORT: 6432
+            PGBOUNCER_MIN_POOL_SIZE: 8
+            PGBOUNCER_MAX_DB_CONNECTIONS: 16
+            PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
+            PGBOUNCER_EXTRA_ARGS: '--verbose'
+            PGBOUNCER_DATABASE: puff-smith
+        networks:
+            - postgres
+            - pgbouncer
+
     mongo:
         image: mongo:5
         env_file: .env
@@ -108,6 +128,7 @@ networks:
     web:
         external: true
     postgres:
+    pgbouncer:
     mongo:
     loki:
     prometheus:
