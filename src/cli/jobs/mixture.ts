@@ -22,7 +22,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 		await jobProgress.setTotal(await prisma.aroma.count());
 		for (const aroma of await prisma.aroma.findMany()) {
 			if (aroma.volume && aroma.content.toNumber() < aroma.volume.toNumber()) {
-				await progress(async () => MixtureJob.scheduleAt("in 1 minute", {
+				await progress(async () => MixtureJob.scheduleAt("in 10 seconds", {
 					aromaId: aroma.id,
 				}, userId));
 				continue;
@@ -41,7 +41,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_NAME, params, userId),
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_NAME, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_NAME, {
-		concurrency: 2,
+		concurrency: 3,
 		priority: 5,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_NAME, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
