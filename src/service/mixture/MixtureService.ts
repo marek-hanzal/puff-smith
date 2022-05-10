@@ -3,6 +3,7 @@ import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IMixtureCreate, IMixtureService, IMixtureServiceCreate, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
+import {sha256} from "@/puff-smith/service/utils/sha256";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
@@ -11,6 +12,7 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 		const vgToRound = Math.round(create.vg * 0.1) / 0.1;
 		return {
 			...create,
+			hash: sha256(`${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`),
 			vgToRound,
 			pgToRound: 100 - vgToRound,
 			nicotineToRound: Math.round(create.nicotine || 0),
@@ -43,12 +45,11 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 			create: async mixture => request.prisma.mixture.create({
 				data: toCreate(mixture),
 			}),
-			onUnique: async create => {
-				const $mixture = await request.prisma.mixture.findFirst({
+			onUnique: async mixture => {
+				const $create = toCreate(mixture);
+				const $mixture = await request.prisma.mixture.findUnique({
 					where: {
-						aromaId: create.aromaId,
-						baseId: create.baseId,
-						boosterId: create.boosterId,
+						hash: $create.hash,
 					},
 					rejectOnNotFound: true,
 				});
@@ -56,7 +57,7 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 					where: {
 						id: $mixture.id,
 					},
-					data: toCreate(create),
+					data: $create,
 				});
 			},
 			toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {

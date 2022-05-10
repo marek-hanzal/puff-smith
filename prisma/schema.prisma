@@ -561,6 +561,8 @@ model Liquid {
 
 model Mixture {
   id              String        @id @default(cuid())
+  // application based unique hash; main goal is a simple ability to update mixtures based on this hash
+  hash            String        @unique
   // total size of a bottle
   volume          Decimal       @db.Decimal(10, 2)
   // amount of liquid in a bottle

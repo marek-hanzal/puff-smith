@@ -481,6 +481,7 @@ CREATE TABLE "Liquid" (
 -- CreateTable
 CREATE TABLE "Mixture" (
     "id" TEXT NOT NULL,
+    "hash" TEXT NOT NULL,
     "volume" DECIMAL(10,2) NOT NULL,
     "content" DECIMAL(10,2) NOT NULL,
     "available" DECIMAL(10,2) NOT NULL,
@@ -649,6 +650,9 @@ CREATE UNIQUE INDEX "Base_name_vendorId_key" ON "Base"("name", "vendorId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Coil_code_key" ON "Coil"("code");
