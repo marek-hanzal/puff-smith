@@ -3,16 +3,16 @@ import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/@module/button/L
 import {MixtureListEmpty} from "@/puff-smith/site/lab/mixture/@module/list/MixtureListEmpty";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
-import {IMixturesListSourceProps, MixturesListSource} from "@/sdk/api/mixture/inventory/mixture/query";
+import {IMixtureListSourceProps, MixtureListSource} from "@/sdk/api/mixture/inventory/mixture/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IMixtureListProps extends Partial<IMixturesListSourceProps> {
+export interface IMixtureListProps extends Partial<IMixtureListSourceProps> {
 }
 
 export const MixtureList: FC<IMixtureListProps> = props => {
-	return <MixturesListSource
+	return <MixtureListSource
 		locale={{
 			emptyText: <MixtureListEmpty/>,
 		}}
@@ -28,5 +28,5 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 				description={<MixtureInline mixture={mixture}/>}
 			/>
 		</ListItem>}
-	</MixturesListSource>;
+	</MixtureListSource>;
 };

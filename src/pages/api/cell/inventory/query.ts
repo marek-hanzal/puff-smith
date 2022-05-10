@@ -2,4 +2,4 @@ import {CellInventoryService} from "@/puff-smith/service/cell/inventory/CellInve
 import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"CellsInventory", ICellInventoryQuery, ICellInventory>(CellInventoryService().handleQuery);
+export default QueryEndpoint<"CellInventory", ICellInventoryQuery, ICellInventory>(CellInventoryService().handleQuery);

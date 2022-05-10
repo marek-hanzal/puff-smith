@@ -2,16 +2,16 @@ import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster/@module/button/BoosterInventoryCreateButton";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
-import {BoostersMarketListSource, IBoostersMarketListSourceProps} from "@/sdk/api/booster/market/query";
+import {BoosterMarketListSource, IBoosterMarketListSourceProps} from "@/sdk/api/booster/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IBoosterListProps extends Partial<IBoostersMarketListSourceProps> {
+export interface IBoosterListProps extends Partial<IBoosterMarketListSourceProps> {
 }
 
 export const BoosterList: FC<IBoosterListProps> = props => {
-	return <BoostersMarketListSource
+	return <BoosterMarketListSource
 		{...props}
 	>
 		{({booster, isOwned}) => <ListItem key={booster.id}>
@@ -24,5 +24,5 @@ export const BoosterList: FC<IBoosterListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</BoostersMarketListSource>;
+	</BoosterMarketListSource>;
 };

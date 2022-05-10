@@ -4,18 +4,18 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromasMarketListSource, IAromasMarketListSourceProps} from "@/sdk/api/aroma/market/query";
+import {AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/aroma/market/query";
 import {useMixtureUpdateMutation} from "@/sdk/api/mixture/aroma/update";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Button, Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IAromaListProps extends Partial<IAromasMarketListSourceProps> {
+export interface IAromaListProps extends Partial<IAromaMarketListSourceProps> {
 }
 
 export const AromaList: FC<IAromaListProps> = props => {
 	const mixtureUpdateMutation = useMixtureUpdateMutation();
-	return <AromasMarketListSource
+	return <AromaMarketListSource
 		{...props}
 	>
 		{({aroma, isOwned}) => <ListItem key={aroma.id}>
@@ -32,9 +32,9 @@ export const AromaList: FC<IAromaListProps> = props => {
 						icon={<LiquidIcon/>}
 						onClick={() => mixtureUpdateMutation.mutate({aromaId: aroma.id})}
 						loading={mixtureUpdateMutation.isLoading}
-					>Mixtures!</Button>
+					>Mixture!</Button>
 				</Space>}
 			/>
 		</ListItem>}
-	</AromasMarketListSource>;
+	</AromaMarketListSource>;
 };

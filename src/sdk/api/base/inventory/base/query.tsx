@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const InventoryBasesApiLink = "/api/base/inventory/base/query";
+export const InventoryBaseApiLink = "/api/base/inventory/base/query";
 
-export type IInventoryBasesQueryParams = undefined;
+export type IInventoryBaseQueryParams = undefined;
 
-export const useInventoryBasesQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
+export const useInventoryBaseQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IInventoryBaseQueryParams>(InventoryBaseApiLink, "post");
 
-export const useInventoryBasesSource = () => useSourceContext<IBase>()
+export const useInventoryBaseSource = () => useSourceContext<IBase>();
 
-export interface IInventoryBasesSourceContext extends ISourceContext<IBase> {
+export interface IInventoryBaseSourceContext extends ISourceContext<IBase> {
 }
 
-export interface IInventoryBasesSourceConsumerProps extends ConsumerProps<ISourceContext<IBase>> {
+export interface IInventoryBaseSourceConsumerProps extends ConsumerProps<ISourceContext<IBase>> {
 }
 
-export const InventoryBasesSourceConsumer: FC<IInventoryBasesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const InventoryBaseSourceConsumer: FC<IInventoryBaseSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IInventoryBasesSourceProps extends Partial<ISourceProviderProps<IBase>> {
+export interface IInventoryBaseSourceProps extends Partial<ISourceProviderProps<IBase>> {
 }
 
-export const InventoryBasesSource: FC<IInventoryBasesSourceProps> = props => {
+export const InventoryBaseSource: FC<IInventoryBaseSourceProps> = props => {
 	return <SourceProvider<IBase>
-		name={"InventoryBases"}
-		useQuery={useInventoryBasesQuery}
+		name={"InventoryBase"}
+		useQuery={useInventoryBaseQuery}
 		{...props}
 	/>;
 };
 
-export const toInventoryBasesLink = (queryParams?: IInventoryBasesQueryParams) => toLink(InventoryBasesApiLink, queryParams);
-export const useInventoryBasesLink = () => toInventoryBasesLink;
+export const toInventoryBaseLink = (queryParams?: IInventoryBaseQueryParams) => toLink(InventoryBaseApiLink, queryParams);
+export const useInventoryBaseLink = () => toInventoryBaseLink;
 
-export const useInventoryBasesPromise = createPromiseHook<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
-export const InventoryBasesPromise = createPromise<IBaseQuery, IBase, IInventoryBasesQueryParams>(InventoryBasesApiLink, "post");
+export const useInventoryBasePromise = createPromiseHook<IBaseQuery, IBase, IInventoryBaseQueryParams>(InventoryBaseApiLink, "post");
+export const InventoryBasePromise = createPromise<IBaseQuery, IBase, IInventoryBaseQueryParams>(InventoryBaseApiLink, "post");
 
-export interface IInventoryBasesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
+export interface IInventoryBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }
 
-export const InventoryBasesFilterProvider: FC<IInventoryBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"InventoryBases"} {...props}/>;
+export const InventoryBaseFilterProvider: FC<IInventoryBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"InventoryBase"} {...props}/>;
 
-export const useInventoryBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
-export const useInventoryBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
+export const useInventoryBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
+export const useInventoryBaseFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
 
-export interface IInventoryBasesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
+export interface IInventoryBaseSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
-export const InventoryBasesSourceFilter: FC<IInventoryBasesSourceFilterProps> = props => <Filter
+export const InventoryBaseSourceFilter: FC<IInventoryBaseSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.InventoryBases'}
+	translation={"common.filter.InventoryBase"}
 />;
 
-export interface IInventoryBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
+export interface IInventoryBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
 }
 
-export const InventoryBasesOrderByProvider: FC<IInventoryBasesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"InventoryBases"} {...props}/>;
+export const InventoryBaseOrderByProvider: FC<IInventoryBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"InventoryBase"} {...props}/>;
 
-export const useInventoryBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>()
-export const useInventoryBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>()
+export const useInventoryBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useInventoryBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
 
-export interface IInventoryBasesListSourceProps extends Partial<IListProps<IBase>> {
-	sourceProps?: Partial<IInventoryBasesSourceProps>;
+export interface IInventoryBaseListSourceProps extends Partial<IListProps<IBase>> {
+	sourceProps?: Partial<IInventoryBaseSourceProps>;
 }
 
-export interface IInventoryBasesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IInventoryBasesQueryParams>> {
+export interface IInventoryBaseSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IInventoryBaseQueryParams>> {
 }
 
-export const InventoryBasesSourceControlProvider: FC<IInventoryBasesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"InventoryBases"} {...props}/>;
+export const InventoryBaseSourceControlProvider: FC<IInventoryBaseSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"InventoryBase"} {...props}/>;
 
-export const InventoryBasesListSource: FC<IInventoryBasesListSourceProps> = ({sourceProps, ...props}) => {
-	return <InventoryBasesSource
+export const InventoryBaseListSource: FC<IInventoryBaseListSourceProps> = ({sourceProps, ...props}) => {
+	return <InventoryBaseSource
 		{...sourceProps}
 	>
 		<List<IBase>
 			{...props}
 		/>
-	</InventoryBasesSource>;
-}
+	</InventoryBaseSource>;
+};
 
-export interface IInventoryBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
+export interface IInventoryBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
-	sourceProps?: IInventoryBasesSourceProps;
+	sourceProps?: IInventoryBaseSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const InventoryBasesSourceSelect: FC<IInventoryBasesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const InventoryBaseSourceSelect: FC<IInventoryBaseSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<InventoryBasesSource {...sourceProps}>
+				<InventoryBaseSource {...sourceProps}>
 					<QuerySourceSelect<IBase> {...props}/>
-				</InventoryBasesSource>
+				</InventoryBaseSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.InventoryBases.title"}
+					title={"common.selection.InventoryBase.title"}
 					size={props.size}
-					tooltip={"common.selection.InventoryBases.title.tooltip"}
+					tooltip={"common.selection.InventoryBase.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<InventoryBasesSourceControlProvider>
+					<InventoryBaseSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</InventoryBasesSourceControlProvider>
+					</InventoryBaseSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IInventoryBasesSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
+export interface IInventoryBaseSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
 }
 
-export const InventoryBasesSelectionProvider: FC<IInventoryBasesSelectionProviderProps> = props => {
+export const InventoryBaseSelectionProvider: FC<IInventoryBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<IBase> {...props}/>;
-}
-
-export const useInventoryBasesQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([InventoryBasesApiLink]);
 };
 
-export const useInventoryBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
-export const useInventoryBasesSelectionContext = () => useSelectionContext<IBase>();
+export const useInventoryBaseQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([InventoryBaseApiLink]);
+};
+
+export const useInventoryBaseOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
+export const useInventoryBaseSelectionContext = () => useSelectionContext<IBase>();

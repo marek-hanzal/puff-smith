@@ -1,13 +1,13 @@
-import {IUsersListSourceProps, UsersListSource} from "@/sdk/api/user/query";
+import {IUserListSourceProps, UserListSource} from "@/sdk/api/user/query";
 import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
 import {Avatar} from "antd";
 import {FC} from "react";
 
-export interface IUsersListProps extends Partial<IUsersListSourceProps> {
+export interface IUserListProps extends Partial<IUserListSourceProps> {
 }
 
-export const UsersList: FC<IUsersListProps> = props => {
-	return <UsersListSource
+export const UserList: FC<IUserListProps> = props => {
+	return <UserListSource
 		{...props}
 	>
 		{user => <ListItem key={user.id}>
@@ -21,5 +21,5 @@ export const UsersList: FC<IUsersListProps> = props => {
 				avatar={<Avatar src={user.image}/>}
 			/>
 		</ListItem>}
-	</UsersListSource>;
+	</UserListSource>;
 };

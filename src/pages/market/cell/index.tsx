@@ -3,7 +3,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {CellFilter} from "@/puff-smith/site/market/cell/@module/filter/CellFilter";
 import {CellList} from "@/puff-smith/site/market/cell/@module/list/CellList";
-import {CellsSourceControlProvider} from "@/sdk/api/cell/query";
+import {CellSourceControlProvider} from "@/sdk/api/cell/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -11,7 +11,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/cell"]}
 		icon={<CellIcon/>}
 	>
-		<CellsSourceControlProvider
+		<CellSourceControlProvider
 			defaultOrderBy={{
 				name: "asc",
 			}}
@@ -19,6 +19,6 @@ export default withMarketLayout(function Index() {
 			<CellList
 				header={() => <CellFilter/>}
 			/>
-		</CellsSourceControlProvider>
+		</CellSourceControlProvider>
 	</MarketPage>;
 });

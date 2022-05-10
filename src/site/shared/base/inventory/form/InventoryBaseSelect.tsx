@@ -1,19 +1,19 @@
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
 import {BaseFilter} from "@/puff-smith/site/shared/base/@module/filter/BaseFilter";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {IInventoryBasesSourceSelectProps, InventoryBasesSourceControlProvider, InventoryBasesSourceSelect} from "@/sdk/api/base/inventory/base/query";
+import {IInventoryBaseSourceSelectProps, InventoryBaseSourceControlProvider, InventoryBaseSourceSelect} from "@/sdk/api/base/inventory/base/query";
 import {FC} from "react";
 
-export interface IInventoryBaseSelectProps extends Partial<IInventoryBasesSourceSelectProps> {
+export interface IInventoryBaseSelectProps extends Partial<IInventoryBaseSourceSelectProps> {
 }
 
 export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
-	return <InventoryBasesSourceControlProvider
+	return <InventoryBaseSourceControlProvider
 		defaultOrderBy={{
 			pg: "desc",
 		}}
 	>
-		<InventoryBasesSourceSelect
+		<InventoryBaseSourceSelect
 			showSearch
 			allowClear
 			toOption={base => ({
@@ -27,5 +27,5 @@ export const InventoryBaseSelect: FC<IInventoryBaseSelectProps> = props => {
 			/>}
 			{...props}
 		/>
-	</InventoryBasesSourceControlProvider>;
+	</InventoryBaseSourceControlProvider>;
 };

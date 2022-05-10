@@ -1,7 +1,7 @@
 import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
 import {UserSelect} from "@/puff-smith/site/shared/user/@module/component/UserSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/transaction/create";
-import {useTransactionsQueryInvalidate} from "@/sdk/api/transaction/query";
+import {useTransactionQueryInvalidate} from "@/sdk/api/transaction/query";
 import {useSumQueryInvalidate} from "@/sdk/api/transaction/sum";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
@@ -13,7 +13,7 @@ export interface ITransactionCreateFormProps extends Partial<ICreateDefaultFormP
 
 export const TransactionCreateForm: FC<ITransactionCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
-	const transactionsQueryInvalidate = useTransactionsQueryInvalidate();
+	const transactionsQueryInvalidate = useTransactionQueryInvalidate();
 	const sumQueryInvalidate = useSumQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"root.transaction"}

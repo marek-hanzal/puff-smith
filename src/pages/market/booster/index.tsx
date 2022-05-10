@@ -3,7 +3,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BoosterList} from "@/puff-smith/site/market/booster/@module/list/BoosterList";
 import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
-import {BoostersSourceControlProvider} from "@/sdk/api/booster/query";
+import {BoosterSourceControlProvider} from "@/sdk/api/booster/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -11,7 +11,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/booster"]}
 		icon={<BoosterIcon/>}
 	>
-		<BoostersSourceControlProvider
+		<BoosterSourceControlProvider
 			defaultOrderBy={{
 				name: "asc",
 			}}
@@ -19,6 +19,6 @@ export default withMarketLayout(function Index() {
 			<BoosterList
 				header={() => <BoosterFilter/>}
 			/>
-		</BoostersSourceControlProvider>
+		</BoosterSourceControlProvider>
 	</MarketPage>;
 });

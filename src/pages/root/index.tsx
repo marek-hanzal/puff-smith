@@ -32,7 +32,7 @@ export default withRootLayout(function Index() {
 						}
 					})}
 					loading={mixturesUpdateMutation.isLoading}
-				>Mixtures!</Button>
+				>Mixture!</Button>
 				<Button
 					size={"large"}
 					type={"link"}

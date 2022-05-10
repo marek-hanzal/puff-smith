@@ -1,7 +1,7 @@
 import {ICell} from "@/puff-smith/service/cell/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/cell/inventory/create";
-import {useCellsMarketQueryInvalidate} from "@/sdk/api/cell/market/query";
+import {useCellMarketQueryInvalidate} from "@/sdk/api/cell/market/query";
 import {FC} from "react";
 
 export interface ICellInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
@@ -9,7 +9,7 @@ export interface ICellInventoryCreateButtonProps extends Partial<ITransactionMod
 }
 
 export const CellInventoryCreateButton: FC<ICellInventoryCreateButtonProps> = ({cell, ...props}) => {
-	const cellsMarketQueryInvalidate = useCellsMarketQueryInvalidate();
+	const cellsMarketQueryInvalidate = useCellMarketQueryInvalidate();
 	return <TransactionModalButton<typeof useCreateMutation>
 		translation={"market.cell"}
 		useCreateMutation={useCreateMutation}

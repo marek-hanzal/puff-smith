@@ -3,4 +3,4 @@ import {CellMarketService} from "@/puff-smith/service/cell/market/CellMarketServ
 import {ICellMarket, ICellMarketQuery} from "@/puff-smith/service/cell/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"CellsMarket", ICellMarketQuery, ICellMarket>(async ({request, toUserId}) => CellMarketService(ServiceCreate(toUserId())).query(request));
+export default QueryEndpoint<"CellMarket", ICellMarketQuery, ICellMarket>(async ({request, toUserId}) => CellMarketService(ServiceCreate(toUserId())).query(request));

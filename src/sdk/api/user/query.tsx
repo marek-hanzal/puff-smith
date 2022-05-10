@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const UsersApiLink = "/api/user/query";
+export const UserApiLink = "/api/user/query";
 
-export type IUsersQueryParams = undefined;
+export type IUserQueryParams = undefined;
 
-export const useUsersQuery = createQueryHook<IUserQuery, IQueryResult<IUser>, IUsersQueryParams>(UsersApiLink, "post");
+export const useUserQuery = createQueryHook<IUserQuery, IQueryResult<IUser>, IUserQueryParams>(UserApiLink, "post");
 
-export const useUsersSource = () => useSourceContext<IUser>()
+export const useUserSource = () => useSourceContext<IUser>();
 
-export interface IUsersSourceContext extends ISourceContext<IUser> {
+export interface IUserSourceContext extends ISourceContext<IUser> {
 }
 
-export interface IUsersSourceConsumerProps extends ConsumerProps<ISourceContext<IUser>> {
+export interface IUserSourceConsumerProps extends ConsumerProps<ISourceContext<IUser>> {
 }
 
-export const UsersSourceConsumer: FC<IUsersSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const UserSourceConsumer: FC<IUserSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IUsersSourceProps extends Partial<ISourceProviderProps<IUser>> {
+export interface IUserSourceProps extends Partial<ISourceProviderProps<IUser>> {
 }
 
-export const UsersSource: FC<IUsersSourceProps> = props => {
+export const UserSource: FC<IUserSourceProps> = props => {
 	return <SourceProvider<IUser>
-		name={"Users"}
-		useQuery={useUsersQuery}
+		name={"User"}
+		useQuery={useUserQuery}
 		{...props}
 	/>;
 };
 
-export const toUsersLink = (queryParams?: IUsersQueryParams) => toLink(UsersApiLink, queryParams);
-export const useUsersLink = () => toUsersLink;
+export const toUserLink = (queryParams?: IUserQueryParams) => toLink(UserApiLink, queryParams);
+export const useUserLink = () => toUserLink;
 
-export const useUsersPromise = createPromiseHook<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
-export const UsersPromise = createPromise<IUserQuery, IUser, IUsersQueryParams>(UsersApiLink, "post");
+export const useUserPromise = createPromiseHook<IUserQuery, IUser, IUserQueryParams>(UserApiLink, "post");
+export const UserPromise = createPromise<IUserQuery, IUser, IUserQueryParams>(UserApiLink, "post");
 
-export interface IUsersFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IUserQuery>>> {
+export interface IUserFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IUserQuery>>> {
 }
 
-export const UsersFilterProvider: FC<IUsersFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> name={"Users"} {...props}/>;
+export const UserFilterProvider: FC<IUserFilterProviderProps> = props => <FilterProvider<IQueryFilter<IUserQuery>> name={"User"} {...props}/>;
 
-export const useUsersOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>()
-export const useUsersFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>()
+export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IUserQuery>>();
+export const useUserFilterContext = () => useFilterContext<IQueryFilter<IUserQuery>>();
 
-export interface IUsersSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IUserQuery>> {
+export interface IUserSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IUserQuery>> {
 }
 
-export const UsersSourceFilter: FC<IUsersSourceFilterProps> = props => <Filter
+export const UserSourceFilter: FC<IUserSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Users'}
+	translation={"common.filter.User"}
 />;
 
-export interface IUsersOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IUserQuery>>> {
+export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IUserQuery>>> {
 }
 
-export const UsersOrderByProvider: FC<IUsersOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IUserQuery>> name={"Users"} {...props}/>;
+export const UserOrderByProvider: FC<IUserOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IUserQuery>> name={"User"} {...props}/>;
 
-export const useUsersOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IUserQuery>>()
-export const useUsersOrderByContext = () => useOrderByContext<IQueryOrderBy<IUserQuery>>()
+export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IUserQuery>>();
+export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<IUserQuery>>();
 
-export interface IUsersListSourceProps extends Partial<IListProps<IUser>> {
-	sourceProps?: Partial<IUsersSourceProps>;
+export interface IUserListSourceProps extends Partial<IListProps<IUser>> {
+	sourceProps?: Partial<IUserSourceProps>;
 }
 
-export interface IUsersSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>, IUsersQueryParams>> {
+export interface IUserSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>, IUserQueryParams>> {
 }
 
-export const UsersSourceControlProvider: FC<IUsersSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>> name={"Users"} {...props}/>;
+export const UserSourceControlProvider: FC<IUserSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IUserQuery>, IQueryOrderBy<IUserQuery>> name={"User"} {...props}/>;
 
-export const UsersListSource: FC<IUsersListSourceProps> = ({sourceProps, ...props}) => {
-	return <UsersSource
+export const UserListSource: FC<IUserListSourceProps> = ({sourceProps, ...props}) => {
+	return <UserSource
 		{...sourceProps}
 	>
 		<List<IUser>
 			{...props}
 		/>
-	</UsersSource>;
-}
+	</UserSource>;
+};
 
-export interface IUsersSourceSelectProps extends IQuerySourceSelectProps<IUser> {
+export interface IUserSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
-	sourceProps?: IUsersSourceProps;
+	sourceProps?: IUserSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const UsersSourceSelect: FC<IUsersSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const UserSourceSelect: FC<IUserSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<UsersSource {...sourceProps}>
+				<UserSource {...sourceProps}>
 					<QuerySourceSelect<IUser> {...props}/>
-				</UsersSource>
+				</UserSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Users.title"}
+					title={"common.selection.User.title"}
 					size={props.size}
-					tooltip={"common.selection.Users.title.tooltip"}
+					tooltip={"common.selection.User.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<UsersSourceControlProvider>
+					<UserSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</UsersSourceControlProvider>
+					</UserSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IUsersSelectionProviderProps extends Partial<ISelectionProviderProps<IUser>> {
+export interface IUserSelectionProviderProps extends Partial<ISelectionProviderProps<IUser>> {
 }
 
-export const UsersSelectionProvider: FC<IUsersSelectionProviderProps> = props => {
+export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<IUser> {...props}/>;
-}
-
-export const useUsersQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([UsersApiLink]);
 };
 
-export const useUsersOptionalSelectionContext = () => useOptionalSelectionContext<IUser>();
-export const useUsersSelectionContext = () => useSelectionContext<IUser>();
+export const useUserQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([UserApiLink]);
+};
+
+export const useUserOptionalSelectionContext = () => useOptionalSelectionContext<IUser>();
+export const useUserSelectionContext = () => useSelectionContext<IUser>();

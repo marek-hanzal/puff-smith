@@ -1,5 +1,5 @@
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
-import {useModsFilterContext} from "@/sdk/api/mod/query";
+import {useModFilterContext} from "@/sdk/api/mod/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,7 +8,7 @@ export interface IModListEmptyProps {
 }
 
 export const ModListEmpty: FC<IModListEmptyProps> = () => {
-	const filterContext = useModsFilterContext();
+	const filterContext = useModFilterContext();
 	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<ModIcon/>}

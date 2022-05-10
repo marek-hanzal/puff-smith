@@ -1,16 +1,16 @@
 import {VoucherInventoryCreateButton} from "@/puff-smith/site/market/voucher/@module/button/VoucherInventoryCreateButton";
-import {IVouchersListSourceProps, VouchersListSource} from "@/sdk/api/voucher/query";
+import {IVoucherListSourceProps, VoucherListSource} from "@/sdk/api/voucher/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IVoucherListProps extends Partial<IVouchersListSourceProps> {
+export interface IVoucherListProps extends Partial<IVoucherListSourceProps> {
 }
 
 export const VoucherList: FC<IVoucherListProps> = props => {
 	const {t} = useTranslation();
-	return <VouchersListSource
+	return <VoucherListSource
 		{...props}
 	>
 		{voucher => <ListItem key={voucher.id}>
@@ -21,5 +21,5 @@ export const VoucherList: FC<IVoucherListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</VouchersListSource>;
+	</VoucherListSource>;
 };

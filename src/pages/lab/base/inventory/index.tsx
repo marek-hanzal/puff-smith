@@ -3,7 +3,7 @@ import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BaseFilter} from "@/puff-smith/site/lab/base/inventory/@module/filter/BaseFilter";
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
-import {BasesInventorySourceControlProvider} from "@/sdk/api/base/inventory/query";
+import {BaseInventorySourceControlProvider} from "@/sdk/api/base/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -11,12 +11,12 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/base/inventory"]}
 		icon={<BaseIcon/>}
 	>
-		<BasesInventorySourceControlProvider>
+		<BaseInventorySourceControlProvider>
 			<BaseInventoryList
 				header={() => <BaseFilter
 					toFilter={filter => ({base: filter})}
 				/>}
 			/>
-		</BasesInventorySourceControlProvider>
+		</BaseInventorySourceControlProvider>
 	</LabPage>;
 });

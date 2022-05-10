@@ -2,4 +2,4 @@ import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod/invent
 import {ModInventoryService} from "@/puff-smith/service/mod/inventory/ModInventoryService";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"ModsInventory", IModInventoryQuery, IModInventory>(ModInventoryService().handleQuery);
+export default QueryEndpoint<"ModInventory", IModInventoryQuery, IModInventory>(ModInventoryService().handleQuery);

@@ -1,5 +1,5 @@
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
-import {useBasesFilterContext} from "@/sdk/api/base/query";
+import {useBaseFilterContext} from "@/sdk/api/base/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,7 +8,7 @@ export interface IBaseListEmptyProps {
 }
 
 export const BaseListEmpty: FC<IBaseListEmptyProps> = () => {
-	const filterContext = useBasesFilterContext();
+	const filterContext = useBaseFilterContext();
 	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<BaseIcon/>}

@@ -1,5 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
-import {useAtomizersFilterContext} from "@/sdk/api/atomizer/query";
+import {useAtomizerFilterContext} from "@/sdk/api/atomizer/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,7 +8,7 @@ export interface IAtomizerListEmptyProps {
 }
 
 export const AtomizerListEmpty: FC<IAtomizerListEmptyProps> = () => {
-	const filterContext = useAtomizersFilterContext();
+	const filterContext = useAtomizerFilterContext();
 	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<AtomizerIcon/>}

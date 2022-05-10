@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromasMarketApiLink = "/api/aroma/market/query";
+export const AromaMarketApiLink = "/api/aroma/market/query";
 
-export type IAromasMarketQueryParams = undefined;
+export type IAromaMarketQueryParams = undefined;
 
-export const useAromasMarketQuery = createQueryHook<IAromaMarketQuery, IQueryResult<IAromaMarket>, IAromasMarketQueryParams>(AromasMarketApiLink, "post");
+export const useAromaMarketQuery = createQueryHook<IAromaMarketQuery, IQueryResult<IAromaMarket>, IAromaMarketQueryParams>(AromaMarketApiLink, "post");
 
-export const useAromasMarketSource = () => useSourceContext<IAromaMarket>()
+export const useAromaMarketSource = () => useSourceContext<IAromaMarket>();
 
-export interface IAromasMarketSourceContext extends ISourceContext<IAromaMarket> {
+export interface IAromaMarketSourceContext extends ISourceContext<IAromaMarket> {
 }
 
-export interface IAromasMarketSourceConsumerProps extends ConsumerProps<ISourceContext<IAromaMarket>> {
+export interface IAromaMarketSourceConsumerProps extends ConsumerProps<ISourceContext<IAromaMarket>> {
 }
 
-export const AromasMarketSourceConsumer: FC<IAromasMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const AromaMarketSourceConsumer: FC<IAromaMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IAromasMarketSourceProps extends Partial<ISourceProviderProps<IAromaMarket>> {
+export interface IAromaMarketSourceProps extends Partial<ISourceProviderProps<IAromaMarket>> {
 }
 
-export const AromasMarketSource: FC<IAromasMarketSourceProps> = props => {
+export const AromaMarketSource: FC<IAromaMarketSourceProps> = props => {
 	return <SourceProvider<IAromaMarket>
-		name={"AromasMarket"}
-		useQuery={useAromasMarketQuery}
+		name={"AromaMarket"}
+		useQuery={useAromaMarketQuery}
 		{...props}
 	/>;
 };
 
-export const toAromasMarketLink = (queryParams?: IAromasMarketQueryParams) => toLink(AromasMarketApiLink, queryParams);
-export const useAromasMarketLink = () => toAromasMarketLink;
+export const toAromaMarketLink = (queryParams?: IAromaMarketQueryParams) => toLink(AromaMarketApiLink, queryParams);
+export const useAromaMarketLink = () => toAromaMarketLink;
 
-export const useAromasMarketPromise = createPromiseHook<IAromaMarketQuery, IAromaMarket, IAromasMarketQueryParams>(AromasMarketApiLink, "post");
-export const AromasMarketPromise = createPromise<IAromaMarketQuery, IAromaMarket, IAromasMarketQueryParams>(AromasMarketApiLink, "post");
+export const useAromaMarketPromise = createPromiseHook<IAromaMarketQuery, IAromaMarket, IAromaMarketQueryParams>(AromaMarketApiLink, "post");
+export const AromaMarketPromise = createPromise<IAromaMarketQuery, IAromaMarket, IAromaMarketQueryParams>(AromaMarketApiLink, "post");
 
-export interface IAromasMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaMarketQuery>>> {
+export interface IAromaMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaMarketQuery>>> {
 }
 
-export const AromasMarketFilterProvider: FC<IAromasMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaMarketQuery>> name={"AromasMarket"} {...props}/>;
+export const AromaMarketFilterProvider: FC<IAromaMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaMarketQuery>> name={"AromaMarket"} {...props}/>;
 
-export const useAromasMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaMarketQuery>>()
-export const useAromasMarketFilterContext = () => useFilterContext<IQueryFilter<IAromaMarketQuery>>()
+export const useAromaMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaMarketQuery>>();
+export const useAromaMarketFilterContext = () => useFilterContext<IQueryFilter<IAromaMarketQuery>>();
 
-export interface IAromasMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAromaMarketQuery>> {
+export interface IAromaMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAromaMarketQuery>> {
 }
 
-export const AromasMarketSourceFilter: FC<IAromasMarketSourceFilterProps> = props => <Filter
+export const AromaMarketSourceFilter: FC<IAromaMarketSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.AromasMarket'}
+	translation={"common.filter.AromaMarket"}
 />;
 
-export interface IAromasMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAromaMarketQuery>>> {
+export interface IAromaMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAromaMarketQuery>>> {
 }
 
-export const AromasMarketOrderByProvider: FC<IAromasMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAromaMarketQuery>> name={"AromasMarket"} {...props}/>;
+export const AromaMarketOrderByProvider: FC<IAromaMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAromaMarketQuery>> name={"AromaMarket"} {...props}/>;
 
-export const useAromasMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAromaMarketQuery>>()
-export const useAromasMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IAromaMarketQuery>>()
+export const useAromaMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAromaMarketQuery>>();
+export const useAromaMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IAromaMarketQuery>>();
 
-export interface IAromasMarketListSourceProps extends Partial<IListProps<IAromaMarket>> {
-	sourceProps?: Partial<IAromasMarketSourceProps>;
+export interface IAromaMarketListSourceProps extends Partial<IListProps<IAromaMarket>> {
+	sourceProps?: Partial<IAromaMarketSourceProps>;
 }
 
-export interface IAromasMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAromaMarketQuery>, IQueryOrderBy<IAromaMarketQuery>, IAromasMarketQueryParams>> {
+export interface IAromaMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAromaMarketQuery>, IQueryOrderBy<IAromaMarketQuery>, IAromaMarketQueryParams>> {
 }
 
-export const AromasMarketSourceControlProvider: FC<IAromasMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaMarketQuery>, IQueryOrderBy<IAromaMarketQuery>> name={"AromasMarket"} {...props}/>;
+export const AromaMarketSourceControlProvider: FC<IAromaMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaMarketQuery>, IQueryOrderBy<IAromaMarketQuery>> name={"AromaMarket"} {...props}/>;
 
-export const AromasMarketListSource: FC<IAromasMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <AromasMarketSource
+export const AromaMarketListSource: FC<IAromaMarketListSourceProps> = ({sourceProps, ...props}) => {
+	return <AromaMarketSource
 		{...sourceProps}
 	>
 		<List<IAromaMarket>
 			{...props}
 		/>
-	</AromasMarketSource>;
-}
+	</AromaMarketSource>;
+};
 
-export interface IAromasMarketSourceSelectProps extends IQuerySourceSelectProps<IAromaMarket> {
+export interface IAromaMarketSourceSelectProps extends IQuerySourceSelectProps<IAromaMarket> {
 	toOption: IToOptionMapper<IAromaMarket>;
-	sourceProps?: IAromasMarketSourceProps;
+	sourceProps?: IAromaMarketSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AromasMarketSourceSelect: FC<IAromasMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const AromaMarketSourceSelect: FC<IAromaMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<AromasMarketSource {...sourceProps}>
+				<AromaMarketSource {...sourceProps}>
 					<QuerySourceSelect<IAromaMarket> {...props}/>
-				</AromasMarketSource>
+				</AromaMarketSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.AromasMarket.title"}
+					title={"common.selection.AromaMarket.title"}
 					size={props.size}
-					tooltip={"common.selection.AromasMarket.title.tooltip"}
+					tooltip={"common.selection.AromaMarket.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<AromasMarketSourceControlProvider>
+					<AromaMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</AromasMarketSourceControlProvider>
+					</AromaMarketSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IAromasMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IAromaMarket>> {
+export interface IAromaMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IAromaMarket>> {
 }
 
-export const AromasMarketSelectionProvider: FC<IAromasMarketSelectionProviderProps> = props => {
+export const AromaMarketSelectionProvider: FC<IAromaMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IAromaMarket> {...props}/>;
-}
-
-export const useAromasMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AromasMarketApiLink]);
 };
 
-export const useAromasMarketOptionalSelectionContext = () => useOptionalSelectionContext<IAromaMarket>();
-export const useAromasMarketSelectionContext = () => useSelectionContext<IAromaMarket>();
+export const useAromaMarketQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AromaMarketApiLink]);
+};
+
+export const useAromaMarketOptionalSelectionContext = () => useOptionalSelectionContext<IAromaMarket>();
+export const useAromaMarketSelectionContext = () => useSelectionContext<IAromaMarket>();

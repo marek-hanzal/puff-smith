@@ -3,4 +3,4 @@ import {AromaMarketService} from "@/puff-smith/service/aroma/market/AromaMarketS
 import {IAromaMarket, IAromaMarketQuery} from "@/puff-smith/service/aroma/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AromasMarket", IAromaMarketQuery, IAromaMarket>(async ({request, toUserId}) => AromaMarketService(ServiceCreate(toUserId())).query(request));
+export default QueryEndpoint<"AromaMarket", IAromaMarketQuery, IAromaMarket>(async ({request, toUserId}) => AromaMarketService(ServiceCreate(toUserId())).query(request));

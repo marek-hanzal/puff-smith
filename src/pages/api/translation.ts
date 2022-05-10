@@ -2,7 +2,7 @@ import {TranslationService} from "@/puff-smith/service/translation/TranslationSe
 import {ITranslationBundle} from "@leight-core/api";
 import {ListEndpoint} from "@leight-core/server";
 
-export default ListEndpoint<"Translations", ITranslationBundle>(async () => ({
+export default ListEndpoint<"Translation", ITranslationBundle>(async () => ({
 	bundles: [
 		{
 			language: "cs",

@@ -4,18 +4,18 @@ import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseListEmpty";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {useInventoryBasesOptionalSelectionContext} from "@/sdk/api/base/inventory/base/query";
-import {BasesInventoryListSource, IBasesInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
+import {useInventoryBaseOptionalSelectionContext} from "@/sdk/api/base/inventory/base/query";
+import {BaseInventoryListSource, IBaseInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IBaseInventoryListProps extends Partial<IBasesInventoryListSourceProps> {
+export interface IBaseInventoryListProps extends Partial<IBaseInventoryListSourceProps> {
 }
 
 export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
-	const selectionContext = useInventoryBasesOptionalSelectionContext();
-	return <BasesInventoryListSource
+	const selectionContext = useInventoryBaseOptionalSelectionContext();
+	return <BaseInventoryListSource
 		locale={{
 			emptyText: <BaseListEmpty/>,
 		}}
@@ -33,5 +33,5 @@ export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</BasesInventoryListSource>;
+	</BaseInventoryListSource>;
 };

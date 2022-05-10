@@ -1,16 +1,16 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {AtomizerListEmpty} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
-import {AtomizersInventoryListSource, IAtomizersInventoryListSourceProps} from "@/sdk/api/atomizer/inventory/query";
+import {AtomizerInventoryListSource, IAtomizerInventoryListSourceProps} from "@/sdk/api/atomizer/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IAtomizerInventoryListProps extends Partial<IAtomizersInventoryListSourceProps> {
+export interface IAtomizerInventoryListProps extends Partial<IAtomizerInventoryListSourceProps> {
 }
 
 export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
-	return <AtomizersInventoryListSource
+	return <AtomizerInventoryListSource
 		locale={{
 			emptyText: <AtomizerListEmpty/>
 		}}
@@ -24,5 +24,5 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</AtomizersInventoryListSource>;
+	</AtomizerInventoryListSource>;
 };

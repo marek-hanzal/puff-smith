@@ -1,16 +1,16 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod/@module/button/ModInventoryCreateButton";
 import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
-import {IModsMarketListSourceProps, ModsMarketListSource} from "@/sdk/api/mod/market/query";
+import {IModMarketListSourceProps, ModMarketListSource} from "@/sdk/api/mod/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IModListProps extends Partial<IModsMarketListSourceProps> {
+export interface IModListProps extends Partial<IModMarketListSourceProps> {
 }
 
 export const ModList: FC<IModListProps> = props => {
-	return <ModsMarketListSource
+	return <ModMarketListSource
 		{...props}
 	>
 		{({mod, isOwned}) => <ListItem key={mod.id}>
@@ -22,5 +22,5 @@ export const ModList: FC<IModListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</ModsMarketListSource>;
+	</ModMarketListSource>;
 };

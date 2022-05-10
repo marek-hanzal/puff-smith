@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const WiresInventoryApiLink = "/api/wire/inventory/query";
+export const WireInventoryApiLink = "/api/wire/inventory/query";
 
-export type IWiresInventoryQueryParams = undefined;
+export type IWireInventoryQueryParams = undefined;
 
-export const useWiresInventoryQuery = createQueryHook<IWireInventoryQuery, IQueryResult<IWireInventory>, IWiresInventoryQueryParams>(WiresInventoryApiLink, "post");
+export const useWireInventoryQuery = createQueryHook<IWireInventoryQuery, IQueryResult<IWireInventory>, IWireInventoryQueryParams>(WireInventoryApiLink, "post");
 
-export const useWiresInventorySource = () => useSourceContext<IWireInventory>();
+export const useWireInventorySource = () => useSourceContext<IWireInventory>();
 
-export interface IWiresInventorySourceContext extends ISourceContext<IWireInventory> {
+export interface IWireInventorySourceContext extends ISourceContext<IWireInventory> {
 }
 
-export interface IWiresInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IWireInventory>> {
+export interface IWireInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IWireInventory>> {
 }
 
-export const WiresInventorySourceConsumer: FC<IWiresInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const WireInventorySourceConsumer: FC<IWireInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IWiresInventorySourceProps extends Partial<ISourceProviderProps<IWireInventory>> {
+export interface IWireInventorySourceProps extends Partial<ISourceProviderProps<IWireInventory>> {
 }
 
-export const WiresInventorySource: FC<IWiresInventorySourceProps> = props => {
+export const WireInventorySource: FC<IWireInventorySourceProps> = props => {
 	return <SourceProvider<IWireInventory>
-		name={"WiresInventory"}
-		useQuery={useWiresInventoryQuery}
+		name={"WireInventory"}
+		useQuery={useWireInventoryQuery}
 		{...props}
 	/>;
 };
 
-export const toWiresInventoryLink = (queryParams?: IWiresInventoryQueryParams) => toLink(WiresInventoryApiLink, queryParams);
-export const useWiresInventoryLink = () => toWiresInventoryLink;
+export const toWireInventoryLink = (queryParams?: IWireInventoryQueryParams) => toLink(WireInventoryApiLink, queryParams);
+export const useWireInventoryLink = () => toWireInventoryLink;
 
-export const useWiresInventoryPromise = createPromiseHook<IWireInventoryQuery, IWireInventory, IWiresInventoryQueryParams>(WiresInventoryApiLink, "post");
-export const WiresInventoryPromise = createPromise<IWireInventoryQuery, IWireInventory, IWiresInventoryQueryParams>(WiresInventoryApiLink, "post");
+export const useWireInventoryPromise = createPromiseHook<IWireInventoryQuery, IWireInventory, IWireInventoryQueryParams>(WireInventoryApiLink, "post");
+export const WireInventoryPromise = createPromise<IWireInventoryQuery, IWireInventory, IWireInventoryQueryParams>(WireInventoryApiLink, "post");
 
-export interface IWiresInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IWireInventoryQuery>>> {
+export interface IWireInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IWireInventoryQuery>>> {
 }
 
-export const WiresInventoryFilterProvider: FC<IWiresInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IWireInventoryQuery>> name={"WiresInventory"} {...props}/>;
+export const WireInventoryFilterProvider: FC<IWireInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IWireInventoryQuery>> name={"WireInventory"} {...props}/>;
 
-export const useWiresInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IWireInventoryQuery>>();
-export const useWiresInventoryFilterContext = () => useFilterContext<IQueryFilter<IWireInventoryQuery>>();
+export const useWireInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IWireInventoryQuery>>();
+export const useWireInventoryFilterContext = () => useFilterContext<IQueryFilter<IWireInventoryQuery>>();
 
-export interface IWiresInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IWireInventoryQuery>> {
+export interface IWireInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IWireInventoryQuery>> {
 }
 
-export const WiresInventorySourceFilter: FC<IWiresInventorySourceFilterProps> = props => <Filter
+export const WireInventorySourceFilter: FC<IWireInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.WiresInventory"}
+	translation={"common.filter.WireInventory"}
 />;
 
-export interface IWiresInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IWireInventoryQuery>>> {
+export interface IWireInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IWireInventoryQuery>>> {
 }
 
-export const WiresInventoryOrderByProvider: FC<IWiresInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IWireInventoryQuery>> name={"WiresInventory"} {...props}/>;
+export const WireInventoryOrderByProvider: FC<IWireInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IWireInventoryQuery>> name={"WireInventory"} {...props}/>;
 
-export const useWiresInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IWireInventoryQuery>>();
-export const useWiresInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IWireInventoryQuery>>();
+export const useWireInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IWireInventoryQuery>>();
+export const useWireInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IWireInventoryQuery>>();
 
-export interface IWiresInventoryListSourceProps extends Partial<IListProps<IWireInventory>> {
-	sourceProps?: Partial<IWiresInventorySourceProps>;
+export interface IWireInventoryListSourceProps extends Partial<IListProps<IWireInventory>> {
+	sourceProps?: Partial<IWireInventorySourceProps>;
 }
 
-export interface IWiresInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IWireInventoryQuery>, IQueryOrderBy<IWireInventoryQuery>, IWiresInventoryQueryParams>> {
+export interface IWireInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IWireInventoryQuery>, IQueryOrderBy<IWireInventoryQuery>, IWireInventoryQueryParams>> {
 }
 
-export const WiresInventorySourceControlProvider: FC<IWiresInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IWireInventoryQuery>, IQueryOrderBy<IWireInventoryQuery>> name={"WiresInventory"} {...props}/>;
+export const WireInventorySourceControlProvider: FC<IWireInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IWireInventoryQuery>, IQueryOrderBy<IWireInventoryQuery>> name={"WireInventory"} {...props}/>;
 
-export const WiresInventoryListSource: FC<IWiresInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <WiresInventorySource
+export const WireInventoryListSource: FC<IWireInventoryListSourceProps> = ({sourceProps, ...props}) => {
+	return <WireInventorySource
 		{...sourceProps}
 	>
 		<List<IWireInventory>
 			{...props}
 		/>
-	</WiresInventorySource>;
-}
+	</WireInventorySource>;
+};
 
-export interface IWiresInventorySourceSelectProps extends IQuerySourceSelectProps<IWireInventory> {
+export interface IWireInventorySourceSelectProps extends IQuerySourceSelectProps<IWireInventory> {
 	toOption: IToOptionMapper<IWireInventory>;
-	sourceProps?: IWiresInventorySourceProps;
+	sourceProps?: IWireInventorySourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const WiresInventorySourceSelect: FC<IWiresInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const WireInventorySourceSelect: FC<IWireInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<WiresInventorySource {...sourceProps}>
+				<WireInventorySource {...sourceProps}>
 					<QuerySourceSelect<IWireInventory> {...props}/>
-				</WiresInventorySource>
+				</WireInventorySource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.WiresInventory.title"}
+					title={"common.selection.WireInventory.title"}
 					size={props.size}
-					tooltip={"common.selection.WiresInventory.title.tooltip"}
+					tooltip={"common.selection.WireInventory.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<WiresInventorySourceControlProvider>
+					<WireInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</WiresInventorySourceControlProvider>
+					</WireInventorySourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IWiresInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IWireInventory>> {
+export interface IWireInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IWireInventory>> {
 }
 
-export const WiresInventorySelectionProvider: FC<IWiresInventorySelectionProviderProps> = props => {
+export const WireInventorySelectionProvider: FC<IWireInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<IWireInventory> {...props}/>;
-}
-
-export const useWiresInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WiresInventoryApiLink]);
 };
 
-export const useWiresInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IWireInventory>();
-export const useWiresInventorySelectionContext = () => useSelectionContext<IWireInventory>();
+export const useWireInventoryQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireInventoryApiLink]);
+};
+
+export const useWireInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IWireInventory>();
+export const useWireInventorySelectionContext = () => useSelectionContext<IWireInventory>();

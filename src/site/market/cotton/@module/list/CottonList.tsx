@@ -1,16 +1,16 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {CottonInventoryCreateButton} from "@/puff-smith/site/market/cotton/@module/button/CottonInventoryCreateButton";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
-import {CottonsMarketListSource, ICottonsMarketListSourceProps} from "@/sdk/api/cotton/market/query";
+import {CottonMarketListSource, ICottonMarketListSourceProps} from "@/sdk/api/cotton/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface ICottonListProps extends Partial<ICottonsMarketListSourceProps> {
+export interface ICottonListProps extends Partial<ICottonMarketListSourceProps> {
 }
 
 export const CottonList: FC<ICottonListProps> = props => {
-	return <CottonsMarketListSource
+	return <CottonMarketListSource
 		{...props}
 	>
 		{({cotton, isOwned}) => <ListItem key={cotton.id}>
@@ -22,5 +22,5 @@ export const CottonList: FC<ICottonListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</CottonsMarketListSource>;
+	</CottonMarketListSource>;
 };

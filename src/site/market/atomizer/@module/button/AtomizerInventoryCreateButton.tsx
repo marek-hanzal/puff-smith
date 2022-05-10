@@ -1,7 +1,7 @@
 import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/atomizer/inventory/create";
-import {useAtomizersMarketQueryInvalidate} from "@/sdk/api/atomizer/market/query";
+import {useAtomizerMarketQueryInvalidate} from "@/sdk/api/atomizer/market/query";
 import {FC, useState} from "react";
 
 export interface IAtomizerInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
@@ -10,7 +10,7 @@ export interface IAtomizerInventoryCreateButtonProps extends Partial<ITransactio
 
 export const AtomizerInventoryCreateButton: FC<IAtomizerInventoryCreateButtonProps> = ({atomizer, disabled, ...props}) => {
 	const [enabled, setEnabled] = useState<boolean>(disabled !== undefined ? !disabled : true);
-	const atomizersMarketQueryInvalidate = useAtomizersMarketQueryInvalidate();
+	const atomizersMarketQueryInvalidate = useAtomizerMarketQueryInvalidate();
 	return <TransactionModalButton<typeof useCreateMutation>
 		translation={"market.atomizer"}
 		useCreateMutation={useCreateMutation}

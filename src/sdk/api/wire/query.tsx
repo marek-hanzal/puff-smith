@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const WiresApiLink = "/api/wire/query";
+export const WireApiLink = "/api/wire/query";
 
-export type IWiresQueryParams = undefined;
+export type IWireQueryParams = undefined;
 
-export const useWiresQuery = createQueryHook<IWireQuery, IQueryResult<IWire>, IWiresQueryParams>(WiresApiLink, "post");
+export const useWireQuery = createQueryHook<IWireQuery, IQueryResult<IWire>, IWireQueryParams>(WireApiLink, "post");
 
-export const useWiresSource = () => useSourceContext<IWire>();
+export const useWireSource = () => useSourceContext<IWire>();
 
-export interface IWiresSourceContext extends ISourceContext<IWire> {
+export interface IWireSourceContext extends ISourceContext<IWire> {
 }
 
-export interface IWiresSourceConsumerProps extends ConsumerProps<ISourceContext<IWire>> {
+export interface IWireSourceConsumerProps extends ConsumerProps<ISourceContext<IWire>> {
 }
 
-export const WiresSourceConsumer: FC<IWiresSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const WireSourceConsumer: FC<IWireSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IWiresSourceProps extends Partial<ISourceProviderProps<IWire>> {
+export interface IWireSourceProps extends Partial<ISourceProviderProps<IWire>> {
 }
 
-export const WiresSource: FC<IWiresSourceProps> = props => {
+export const WireSource: FC<IWireSourceProps> = props => {
 	return <SourceProvider<IWire>
-		name={"Wires"}
-		useQuery={useWiresQuery}
+		name={"Wire"}
+		useQuery={useWireQuery}
 		{...props}
 	/>;
 };
 
-export const toWiresLink = (queryParams?: IWiresQueryParams) => toLink(WiresApiLink, queryParams);
-export const useWiresLink = () => toWiresLink;
+export const toWireLink = (queryParams?: IWireQueryParams) => toLink(WireApiLink, queryParams);
+export const useWireLink = () => toWireLink;
 
-export const useWiresPromise = createPromiseHook<IWireQuery, IWire, IWiresQueryParams>(WiresApiLink, "post");
-export const WiresPromise = createPromise<IWireQuery, IWire, IWiresQueryParams>(WiresApiLink, "post");
+export const useWirePromise = createPromiseHook<IWireQuery, IWire, IWireQueryParams>(WireApiLink, "post");
+export const WirePromise = createPromise<IWireQuery, IWire, IWireQueryParams>(WireApiLink, "post");
 
-export interface IWiresFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IWireQuery>>> {
+export interface IWireFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IWireQuery>>> {
 }
 
-export const WiresFilterProvider: FC<IWiresFilterProviderProps> = props => <FilterProvider<IQueryFilter<IWireQuery>> name={"Wires"} {...props}/>;
+export const WireFilterProvider: FC<IWireFilterProviderProps> = props => <FilterProvider<IQueryFilter<IWireQuery>> name={"Wire"} {...props}/>;
 
-export const useWiresOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IWireQuery>>();
-export const useWiresFilterContext = () => useFilterContext<IQueryFilter<IWireQuery>>();
+export const useWireOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IWireQuery>>();
+export const useWireFilterContext = () => useFilterContext<IQueryFilter<IWireQuery>>();
 
-export interface IWiresSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IWireQuery>> {
+export interface IWireSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IWireQuery>> {
 }
 
-export const WiresSourceFilter: FC<IWiresSourceFilterProps> = props => <Filter
+export const WireSourceFilter: FC<IWireSourceFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Wires"}
+	translation={"common.filter.Wire"}
 />;
 
-export interface IWiresOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IWireQuery>>> {
+export interface IWireOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IWireQuery>>> {
 }
 
-export const WiresOrderByProvider: FC<IWiresOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IWireQuery>> name={"Wires"} {...props}/>;
+export const WireOrderByProvider: FC<IWireOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IWireQuery>> name={"Wire"} {...props}/>;
 
-export const useWiresOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IWireQuery>>();
-export const useWiresOrderByContext = () => useOrderByContext<IQueryOrderBy<IWireQuery>>();
+export const useWireOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IWireQuery>>();
+export const useWireOrderByContext = () => useOrderByContext<IQueryOrderBy<IWireQuery>>();
 
-export interface IWiresListSourceProps extends Partial<IListProps<IWire>> {
-	sourceProps?: Partial<IWiresSourceProps>;
+export interface IWireListSourceProps extends Partial<IListProps<IWire>> {
+	sourceProps?: Partial<IWireSourceProps>;
 }
 
-export interface IWiresSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IWireQuery>, IQueryOrderBy<IWireQuery>, IWiresQueryParams>> {
+export interface IWireSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IWireQuery>, IQueryOrderBy<IWireQuery>, IWireQueryParams>> {
 }
 
-export const WiresSourceControlProvider: FC<IWiresSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IWireQuery>, IQueryOrderBy<IWireQuery>> name={"Wires"} {...props}/>;
+export const WireSourceControlProvider: FC<IWireSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IWireQuery>, IQueryOrderBy<IWireQuery>> name={"Wire"} {...props}/>;
 
-export const WiresListSource: FC<IWiresListSourceProps> = ({sourceProps, ...props}) => {
-	return <WiresSource
+export const WireListSource: FC<IWireListSourceProps> = ({sourceProps, ...props}) => {
+	return <WireSource
 		{...sourceProps}
 	>
 		<List<IWire>
 			{...props}
 		/>
-	</WiresSource>;
-}
+	</WireSource>;
+};
 
-export interface IWiresSourceSelectProps extends IQuerySourceSelectProps<IWire> {
+export interface IWireSourceSelectProps extends IQuerySourceSelectProps<IWire> {
 	toOption: IToOptionMapper<IWire>;
-	sourceProps?: IWiresSourceProps;
+	sourceProps?: IWireSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const WiresSourceSelect: FC<IWiresSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const WireSourceSelect: FC<IWireSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<WiresSource {...sourceProps}>
+				<WireSource {...sourceProps}>
 					<QuerySourceSelect<IWire> {...props}/>
-				</WiresSource>
+				</WireSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Wires.title"}
+					title={"common.selection.Wire.title"}
 					size={props.size}
-					tooltip={"common.selection.Wires.title.tooltip"}
+					tooltip={"common.selection.Wire.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<WiresSourceControlProvider>
+					<WireSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</WiresSourceControlProvider>
+					</WireSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IWiresSelectionProviderProps extends Partial<ISelectionProviderProps<IWire>> {
+export interface IWireSelectionProviderProps extends Partial<ISelectionProviderProps<IWire>> {
 }
 
-export const WiresSelectionProvider: FC<IWiresSelectionProviderProps> = props => {
+export const WireSelectionProvider: FC<IWireSelectionProviderProps> = props => {
 	return <SelectionProvider<IWire> {...props}/>;
-}
-
-export const useWiresQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WiresApiLink]);
 };
 
-export const useWiresOptionalSelectionContext = () => useOptionalSelectionContext<IWire>();
-export const useWiresSelectionContext = () => useSelectionContext<IWire>();
+export const useWireQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireApiLink]);
+};
+
+export const useWireOptionalSelectionContext = () => useOptionalSelectionContext<IWire>();
+export const useWireSelectionContext = () => useSelectionContext<IWire>();

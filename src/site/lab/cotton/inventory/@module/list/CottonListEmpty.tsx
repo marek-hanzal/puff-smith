@@ -1,5 +1,5 @@
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
-import {useCottonsFilterContext} from "@/sdk/api/cotton/query";
+import {useCottonFilterContext} from "@/sdk/api/cotton/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,7 +8,7 @@ export interface ICottonListEmptyProps {
 }
 
 export const CottonListEmpty: FC<ICottonListEmptyProps> = () => {
-	const filterContext = useCottonsFilterContext();
+	const filterContext = useCottonFilterContext();
 	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<CottonIcon/>}

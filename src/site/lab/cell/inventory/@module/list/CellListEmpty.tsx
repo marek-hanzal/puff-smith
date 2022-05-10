@@ -1,5 +1,5 @@
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
-import {useCellsFilterContext} from "@/sdk/api/cell/query";
+import {useCellFilterContext} from "@/sdk/api/cell/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,7 +8,7 @@ export interface ICellListEmptyProps {
 }
 
 export const CellListEmpty: FC<ICellListEmptyProps> = () => {
-	const filterContext = useCellsFilterContext();
+	const filterContext = useCellFilterContext();
 	if (!filterContext.isEmpty()) {
 		return <Template
 			icon={<CellIcon/>}

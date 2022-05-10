@@ -1,13 +1,13 @@
-import {IJobsSourceFilterProps, JobsSourceFilter} from "@/sdk/api/job/query";
+import {IJobSourceFilterProps, JobSourceFilter} from "@/sdk/api/job/query";
 import {StatusListSourceSelect} from "@/sdk/api/job/status-list";
 import {FormItem, toOption} from "@leight-core/client";
 import {FC} from "react";
 
-export interface IJobsFilterProps extends Partial<IJobsSourceFilterProps> {
+export interface IJobFilterProps extends Partial<IJobSourceFilterProps> {
 }
 
-export const JobsFilter: FC<IJobsFilterProps> = props => {
-	return <JobsSourceFilter
+export const JobFilter: FC<IJobFilterProps> = props => {
+	return <JobSourceFilter
 		toFilter={values => {
 			console.log("filter", values);
 			return {
@@ -25,5 +25,5 @@ export const JobsFilter: FC<IJobsFilterProps> = props => {
 				labelPrefix={"common.job.status."}
 			/>
 		</FormItem>
-	</JobsSourceFilter>;
+	</JobSourceFilter>;
 };

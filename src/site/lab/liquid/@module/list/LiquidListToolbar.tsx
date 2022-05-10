@@ -1,5 +1,5 @@
 import {useDeleteMutation} from "@/sdk/api/liquid/delete";
-import {useLiquidsQueryInvalidate, useLiquidsSelectionContext} from "@/sdk/api/liquid/query";
+import {useLiquidQueryInvalidate, useLiquidSelectionContext} from "@/sdk/api/liquid/query";
 import {ButtonBar, DeleteItemIcon, IButtonBarProps, ModalButton} from "@leight-core/client";
 import {message} from "antd";
 import {FC} from "react";
@@ -10,9 +10,9 @@ interface ILiquidListToolbarProps extends Partial<IButtonBarProps> {
 
 export const LiquidListToolbar: FC<ILiquidListToolbarProps> = props => {
 	const {t} = useTranslation();
-	const selectionContext = useLiquidsSelectionContext();
+	const selectionContext = useLiquidSelectionContext();
 	const deleteMutation = useDeleteMutation();
-	const liquidsQueryInvalidate = useLiquidsQueryInvalidate();
+	const liquidsQueryInvalidate = useLiquidQueryInvalidate();
 	return <ButtonBar size={4} {...props}>
 		<ModalButton
 			button={{

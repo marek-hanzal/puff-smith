@@ -3,7 +3,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerFilter} from "@/puff-smith/site/market/atomizer/@module/filter/AtomizerFilter";
 import {AtomizerList} from "@/puff-smith/site/market/atomizer/@module/list/AtomizerList";
-import {AtomizersSourceControlProvider} from "@/sdk/api/atomizer/query";
+import {AtomizerSourceControlProvider} from "@/sdk/api/atomizer/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -11,7 +11,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/atomizer"]}
 		icon={<AtomizerIcon/>}
 	>
-		<AtomizersSourceControlProvider
+		<AtomizerSourceControlProvider
 			defaultOrderBy={{
 				name: "asc",
 			}}
@@ -19,6 +19,6 @@ export default withMarketLayout(function Index() {
 			<AtomizerList
 				header={() => <AtomizerFilter/>}
 			/>
-		</AtomizersSourceControlProvider>
+		</AtomizerSourceControlProvider>
 	</MarketPage>;
 });

@@ -4,28 +4,28 @@ import {TimeOf} from "@/puff-smith/component/inline/TimeOf";
 import {JobPerformanceInline} from "@/puff-smith/site/root/job/@module/inline/JobPerformanceInline";
 import {JobStatsInline} from "@/puff-smith/site/root/job/@module/inline/JobStatsInline";
 import {JobProgress} from "@/puff-smith/site/shared/job/@module/component/JobProgress";
-import {JobsListHeader} from "@/puff-smith/site/shared/job/@module/list/JobsListHeader";
-import {IJobsListSourceProps, JobsListSource} from "@/sdk/api/job/query";
+import {JobListHeader} from "@/puff-smith/site/shared/job/@module/list/JobListHeader";
+import {IJobListSourceProps, JobListSource} from "@/sdk/api/job/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IJobListProps extends Partial<IJobsListSourceProps> {
+export interface IJobListProps extends Partial<IJobListSourceProps> {
 	showCommit?: boolean;
 	showCleanup?: boolean;
 	showFilter?: boolean;
 	disableToolbar?: boolean;
 }
 
-export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = true, showFilter = true, disableToolbar = false, ...props}) => {
+export const JobList: FC<IJobListProps> = ({showCommit = true, showCleanup = true, showFilter = true, disableToolbar = false, ...props}) => {
 	const {t} = useTranslation();
-	return <JobsListSource
+	return <JobListSource
 		sourceProps={{
 			live: 2500,
 		}}
 		itemLayout={"vertical"}
-		header={disableToolbar ? undefined : (() => <JobsListHeader
+		header={disableToolbar ? undefined : (() => <JobListHeader
 			showCommit={showCommit}
 			showCleanup={showCleanup}
 			showFilter={showFilter}
@@ -61,5 +61,5 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 				</>}
 			/>
 		</ListItem>}
-	</JobsListSource>;
+	</JobListSource>;
 };

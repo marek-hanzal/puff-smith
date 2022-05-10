@@ -1,7 +1,7 @@
 import {ICotton} from "@/puff-smith/service/cotton/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/cotton/inventory/create";
-import {useCottonsMarketQueryInvalidate} from "@/sdk/api/cotton/market/query";
+import {useCottonMarketQueryInvalidate} from "@/sdk/api/cotton/market/query";
 import {FC, useState} from "react";
 
 export interface ICottonInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
@@ -10,7 +10,7 @@ export interface ICottonInventoryCreateButtonProps extends Partial<ITransactionM
 
 export const CottonInventoryCreateButton: FC<ICottonInventoryCreateButtonProps> = ({cotton, disabled, ...props}) => {
 	const [enabled, setEnabled] = useState<boolean>(disabled !== undefined ? !disabled : true);
-	const cottonsMarketQueryInvalidate = useCottonsMarketQueryInvalidate();
+	const cottonsMarketQueryInvalidate = useCottonMarketQueryInvalidate();
 	return <TransactionModalButton<typeof useCreateMutation>
 		translation={"market.cotton"}
 		useCreateMutation={useCreateMutation}

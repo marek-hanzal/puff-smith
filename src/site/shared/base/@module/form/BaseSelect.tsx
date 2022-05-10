@@ -1,15 +1,15 @@
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {BasesFilterProvider, BasesSourceSelect, IBasesSourceSelectProps} from "@/sdk/api/base/query";
+import {BaseFilterProvider, BaseSourceSelect, IBaseSourceSelectProps} from "@/sdk/api/base/query";
 import {Space} from "antd";
 import {FC} from "react";
 
-export interface IBaseSelectProps extends Partial<IBasesSourceSelectProps> {
+export interface IBaseSelectProps extends Partial<IBaseSourceSelectProps> {
 }
 
 export const BaseSelect: FC<IBaseSelectProps> = props => {
-	return <BasesFilterProvider>
-		<BasesSourceSelect
+	return <BaseFilterProvider>
+		<BaseSourceSelect
 			showSearch
 			allowClear
 			toOption={base => ({
@@ -21,5 +21,5 @@ export const BaseSelect: FC<IBaseSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</BasesFilterProvider>;
+	</BaseFilterProvider>;
 };

@@ -40,129 +40,130 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const VouchersInventoryApiLink = "/api/voucher/inventory/query";
+export const VoucherInventoryApiLink = "/api/voucher/inventory/query";
 
-export type IVouchersInventoryQueryParams = undefined;
+export type IVoucherInventoryQueryParams = undefined;
 
-export const useVouchersInventoryQuery = createQueryHook<IVoucherInventoryQuery, IQueryResult<IVoucherInventory>, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
+export const useVoucherInventoryQuery = createQueryHook<IVoucherInventoryQuery, IQueryResult<IVoucherInventory>, IVoucherInventoryQueryParams>(VoucherInventoryApiLink, "post");
 
-export const useVouchersInventorySource = () => useSourceContext<IVoucherInventory>()
+export const useVoucherInventorySource = () => useSourceContext<IVoucherInventory>();
 
-export interface IVouchersInventorySourceContext extends ISourceContext<IVoucherInventory> {
+export interface IVoucherInventorySourceContext extends ISourceContext<IVoucherInventory> {
 }
 
-export interface IVouchersInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IVoucherInventory>> {
+export interface IVoucherInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IVoucherInventory>> {
 }
 
-export const VouchersInventorySourceConsumer: FC<IVouchersInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const VoucherInventorySourceConsumer: FC<IVoucherInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IVouchersInventorySourceProps extends Partial<ISourceProviderProps<IVoucherInventory>> {
+export interface IVoucherInventorySourceProps extends Partial<ISourceProviderProps<IVoucherInventory>> {
 }
 
-export const VouchersInventorySource: FC<IVouchersInventorySourceProps> = props => {
+export const VoucherInventorySource: FC<IVoucherInventorySourceProps> = props => {
 	return <SourceProvider<IVoucherInventory>
-		name={"VouchersInventory"}
-		useQuery={useVouchersInventoryQuery}
+		name={"VoucherInventory"}
+		useQuery={useVoucherInventoryQuery}
 		{...props}
 	/>;
 };
 
-export const toVouchersInventoryLink = (queryParams?: IVouchersInventoryQueryParams) => toLink(VouchersInventoryApiLink, queryParams);
-export const useVouchersInventoryLink = () => toVouchersInventoryLink;
+export const toVoucherInventoryLink = (queryParams?: IVoucherInventoryQueryParams) => toLink(VoucherInventoryApiLink, queryParams);
+export const useVoucherInventoryLink = () => toVoucherInventoryLink;
 
-export const useVouchersInventoryPromise = createPromiseHook<IVoucherInventoryQuery, IVoucherInventory, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
-export const VouchersInventoryPromise = createPromise<IVoucherInventoryQuery, IVoucherInventory, IVouchersInventoryQueryParams>(VouchersInventoryApiLink, "post");
+export const useVoucherInventoryPromise = createPromiseHook<IVoucherInventoryQuery, IVoucherInventory, IVoucherInventoryQueryParams>(VoucherInventoryApiLink, "post");
+export const VoucherInventoryPromise = createPromise<IVoucherInventoryQuery, IVoucherInventory, IVoucherInventoryQueryParams>(VoucherInventoryApiLink, "post");
 
-export interface IVouchersInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherInventoryQuery>>> {
+export interface IVoucherInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVoucherInventoryQuery>>> {
 }
 
-export const VouchersInventoryFilterProvider: FC<IVouchersInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
+export const VoucherInventoryFilterProvider: FC<IVoucherInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVoucherInventoryQuery>> name={"VoucherInventory"} {...props}/>;
 
-export const useVouchersInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
-export const useVouchersInventoryFilterContext = () => useFilterContext<IQueryFilter<IVoucherInventoryQuery>>()
+export const useVoucherInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVoucherInventoryQuery>>();
+export const useVoucherInventoryFilterContext = () => useFilterContext<IQueryFilter<IVoucherInventoryQuery>>();
 
-export interface IVouchersInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVoucherInventoryQuery>> {
+export interface IVoucherInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVoucherInventoryQuery>> {
 }
 
-export const VouchersInventorySourceFilter: FC<IVouchersInventorySourceFilterProps> = props => <Filter
+export const VoucherInventorySourceFilter: FC<IVoucherInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.VouchersInventory'}
+	translation={"common.filter.VoucherInventory"}
 />;
 
-export interface IVouchersInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVoucherInventoryQuery>>> {
+export interface IVoucherInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVoucherInventoryQuery>>> {
 }
 
-export const VouchersInventoryOrderByProvider: FC<IVouchersInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
+export const VoucherInventoryOrderByProvider: FC<IVoucherInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVoucherInventoryQuery>> name={"VoucherInventory"} {...props}/>;
 
-export const useVouchersInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>()
-export const useVouchersInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>()
+export const useVoucherInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>();
+export const useVoucherInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IVoucherInventoryQuery>>();
 
-export interface IVouchersInventoryListSourceProps extends Partial<IListProps<IVoucherInventory>> {
-	sourceProps?: Partial<IVouchersInventorySourceProps>;
+export interface IVoucherInventoryListSourceProps extends Partial<IListProps<IVoucherInventory>> {
+	sourceProps?: Partial<IVoucherInventorySourceProps>;
 }
 
-export interface IVouchersInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>, IVouchersInventoryQueryParams>> {
+export interface IVoucherInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>, IVoucherInventoryQueryParams>> {
 }
 
-export const VouchersInventorySourceControlProvider: FC<IVouchersInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> name={"VouchersInventory"} {...props}/>;
+export const VoucherInventorySourceControlProvider: FC<IVoucherInventorySourceControlProviderProps> = props =>
+	<SourceControlProvider<IQueryFilter<IVoucherInventoryQuery>, IQueryOrderBy<IVoucherInventoryQuery>> name={"VoucherInventory"} {...props}/>;
 
-export const VouchersInventoryListSource: FC<IVouchersInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <VouchersInventorySource
+export const VoucherInventoryListSource: FC<IVoucherInventoryListSourceProps> = ({sourceProps, ...props}) => {
+	return <VoucherInventorySource
 		{...sourceProps}
 	>
 		<List<IVoucherInventory>
 			{...props}
 		/>
-	</VouchersInventorySource>;
-}
+	</VoucherInventorySource>;
+};
 
-export interface IVouchersInventorySourceSelectProps extends IQuerySourceSelectProps<IVoucherInventory> {
+export interface IVoucherInventorySourceSelectProps extends IQuerySourceSelectProps<IVoucherInventory> {
 	toOption: IToOptionMapper<IVoucherInventory>;
-	sourceProps?: IVouchersInventorySourceProps;
+	sourceProps?: IVoucherInventorySourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const VouchersInventorySourceSelect: FC<IVouchersInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const VoucherInventorySourceSelect: FC<IVoucherInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<VouchersInventorySource {...sourceProps}>
+				<VoucherInventorySource {...sourceProps}>
 					<QuerySourceSelect<IVoucherInventory> {...props}/>
-				</VouchersInventorySource>
+				</VoucherInventorySource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.VouchersInventory.title"}
+					title={"common.selection.VoucherInventory.title"}
 					size={props.size}
-					tooltip={"common.selection.VouchersInventory.title.tooltip"}
+					tooltip={"common.selection.VoucherInventory.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<VouchersInventorySourceControlProvider>
+					<VoucherInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</VouchersInventorySourceControlProvider>
+					</VoucherInventorySourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IVouchersInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IVoucherInventory>> {
+export interface IVoucherInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IVoucherInventory>> {
 }
 
-export const VouchersInventorySelectionProvider: FC<IVouchersInventorySelectionProviderProps> = props => {
+export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<IVoucherInventory> {...props}/>;
-}
-
-export const useVouchersInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([VouchersInventoryApiLink]);
 };
 
-export const useVouchersInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IVoucherInventory>();
-export const useVouchersInventorySelectionContext = () => useSelectionContext<IVoucherInventory>();
+export const useVoucherInventoryQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([VoucherInventoryApiLink]);
+};
+
+export const useVoucherInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IVoucherInventory>();
+export const useVoucherInventorySelectionContext = () => useSelectionContext<IVoucherInventory>();

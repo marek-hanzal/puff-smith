@@ -5,17 +5,17 @@ import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {IBoosterInventory} from "@/puff-smith/service/booster/inventory/interface";
 import {BoosterListEmpty} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterListEmpty";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
-import {BoostersInventoryListSource, IBoostersInventoryListSourceProps, useBoostersInventoryOptionalSelectionContext} from "@/sdk/api/booster/inventory/query";
+import {BoosterInventoryListSource, IBoosterInventoryListSourceProps, useBoosterInventoryOptionalSelectionContext} from "@/sdk/api/booster/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IBoosterInventoryListProps extends Partial<IBoostersInventoryListSourceProps> {
+export interface IBoosterInventoryListProps extends Partial<IBoosterInventoryListSourceProps> {
 }
 
 export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
-	const selectionContext = useBoostersInventoryOptionalSelectionContext();
-	return <BoostersInventoryListSource
+	const selectionContext = useBoosterInventoryOptionalSelectionContext();
+	return <BoosterInventoryListSource
 		locale={{
 			emptyText: <BoosterListEmpty/>,
 		}}
@@ -34,5 +34,5 @@ export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</BoostersInventoryListSource>;
+	</BoosterInventoryListSource>;
 };

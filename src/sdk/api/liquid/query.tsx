@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const LiquidsApiLink = "/api/liquid/query";
+export const LiquidApiLink = "/api/liquid/query";
 
-export type ILiquidsQueryParams = undefined;
+export type ILiquidQueryParams = undefined;
 
-export const useLiquidsQuery = createQueryHook<ILiquidQuery, IQueryResult<ILiquid>, ILiquidsQueryParams>(LiquidsApiLink, "post");
+export const useLiquidQuery = createQueryHook<ILiquidQuery, IQueryResult<ILiquid>, ILiquidQueryParams>(LiquidApiLink, "post");
 
-export const useLiquidsSource = () => useSourceContext<ILiquid>()
+export const useLiquidSource = () => useSourceContext<ILiquid>();
 
-export interface ILiquidsSourceContext extends ISourceContext<ILiquid> {
+export interface ILiquidSourceContext extends ISourceContext<ILiquid> {
 }
 
-export interface ILiquidsSourceConsumerProps extends ConsumerProps<ISourceContext<ILiquid>> {
+export interface ILiquidSourceConsumerProps extends ConsumerProps<ISourceContext<ILiquid>> {
 }
 
-export const LiquidsSourceConsumer: FC<ILiquidsSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const LiquidSourceConsumer: FC<ILiquidSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ILiquidsSourceProps extends Partial<ISourceProviderProps<ILiquid>> {
+export interface ILiquidSourceProps extends Partial<ISourceProviderProps<ILiquid>> {
 }
 
-export const LiquidsSource: FC<ILiquidsSourceProps> = props => {
+export const LiquidSource: FC<ILiquidSourceProps> = props => {
 	return <SourceProvider<ILiquid>
-		name={"Liquids"}
-		useQuery={useLiquidsQuery}
+		name={"Liquid"}
+		useQuery={useLiquidQuery}
 		{...props}
 	/>;
 };
 
-export const toLiquidsLink = (queryParams?: ILiquidsQueryParams) => toLink(LiquidsApiLink, queryParams);
-export const useLiquidsLink = () => toLiquidsLink;
+export const toLiquidLink = (queryParams?: ILiquidQueryParams) => toLink(LiquidApiLink, queryParams);
+export const useLiquidLink = () => toLiquidLink;
 
-export const useLiquidsPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
-export const LiquidsPromise = createPromise<ILiquidQuery, ILiquid, ILiquidsQueryParams>(LiquidsApiLink, "post");
+export const useLiquidPromise = createPromiseHook<ILiquidQuery, ILiquid, ILiquidQueryParams>(LiquidApiLink, "post");
+export const LiquidPromise = createPromise<ILiquidQuery, ILiquid, ILiquidQueryParams>(LiquidApiLink, "post");
 
-export interface ILiquidsFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
+export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
 }
 
-export const LiquidsFilterProvider: FC<ILiquidsFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Liquids"} {...props}/>;
+export const LiquidFilterProvider: FC<ILiquidFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Liquid"} {...props}/>;
 
-export const useLiquidsOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>()
-export const useLiquidsFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>()
+export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>();
+export const useLiquidFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>();
 
-export interface ILiquidsSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
+export interface ILiquidSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
 }
 
-export const LiquidsSourceFilter: FC<ILiquidsSourceFilterProps> = props => <Filter
+export const LiquidSourceFilter: FC<ILiquidSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Liquids'}
+	translation={"common.filter.Liquid"}
 />;
 
-export interface ILiquidsOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
+export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
 }
 
-export const LiquidsOrderByProvider: FC<ILiquidsOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Liquids"} {...props}/>;
+export const LiquidOrderByProvider: FC<ILiquidOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Liquid"} {...props}/>;
 
-export const useLiquidsOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>()
-export const useLiquidsOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>()
+export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>();
+export const useLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>();
 
-export interface ILiquidsListSourceProps extends Partial<IListProps<ILiquid>> {
-	sourceProps?: Partial<ILiquidsSourceProps>;
+export interface ILiquidListSourceProps extends Partial<IListProps<ILiquid>> {
+	sourceProps?: Partial<ILiquidSourceProps>;
 }
 
-export interface ILiquidsSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>, ILiquidsQueryParams>> {
+export interface ILiquidSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>, ILiquidQueryParams>> {
 }
 
-export const LiquidsSourceControlProvider: FC<ILiquidsSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> name={"Liquids"} {...props}/>;
+export const LiquidSourceControlProvider: FC<ILiquidSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> name={"Liquid"} {...props}/>;
 
-export const LiquidsListSource: FC<ILiquidsListSourceProps> = ({sourceProps, ...props}) => {
-	return <LiquidsSource
+export const LiquidListSource: FC<ILiquidListSourceProps> = ({sourceProps, ...props}) => {
+	return <LiquidSource
 		{...sourceProps}
 	>
 		<List<ILiquid>
 			{...props}
 		/>
-	</LiquidsSource>;
-}
+	</LiquidSource>;
+};
 
-export interface ILiquidsSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
+export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
-	sourceProps?: ILiquidsSourceProps;
+	sourceProps?: ILiquidSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const LiquidsSourceSelect: FC<ILiquidsSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const LiquidSourceSelect: FC<ILiquidSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<LiquidsSource {...sourceProps}>
+				<LiquidSource {...sourceProps}>
 					<QuerySourceSelect<ILiquid> {...props}/>
-				</LiquidsSource>
+				</LiquidSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Liquids.title"}
+					title={"common.selection.Liquid.title"}
 					size={props.size}
-					tooltip={"common.selection.Liquids.title.tooltip"}
+					tooltip={"common.selection.Liquid.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<LiquidsSourceControlProvider>
+					<LiquidSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</LiquidsSourceControlProvider>
+					</LiquidSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ILiquidsSelectionProviderProps extends Partial<ISelectionProviderProps<ILiquid>> {
+export interface ILiquidSelectionProviderProps extends Partial<ISelectionProviderProps<ILiquid>> {
 }
 
-export const LiquidsSelectionProvider: FC<ILiquidsSelectionProviderProps> = props => {
+export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ILiquid> {...props}/>;
-}
-
-export const useLiquidsQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([LiquidsApiLink]);
 };
 
-export const useLiquidsOptionalSelectionContext = () => useOptionalSelectionContext<ILiquid>();
-export const useLiquidsSelectionContext = () => useSelectionContext<ILiquid>();
+export const useLiquidQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([LiquidApiLink]);
+};
+
+export const useLiquidOptionalSelectionContext = () => useOptionalSelectionContext<ILiquid>();
+export const useLiquidSelectionContext = () => useSelectionContext<ILiquid>();

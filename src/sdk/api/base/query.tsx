@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const BasesApiLink = "/api/base/query";
+export const BaseApiLink = "/api/base/query";
 
-export type IBasesQueryParams = undefined;
+export type IBaseQueryParams = undefined;
 
-export const useBasesQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IBasesQueryParams>(BasesApiLink, "post");
+export const useBaseQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IBaseQueryParams>(BaseApiLink, "post");
 
-export const useBasesSource = () => useSourceContext<IBase>()
+export const useBaseSource = () => useSourceContext<IBase>();
 
-export interface IBasesSourceContext extends ISourceContext<IBase> {
+export interface IBaseSourceContext extends ISourceContext<IBase> {
 }
 
-export interface IBasesSourceConsumerProps extends ConsumerProps<ISourceContext<IBase>> {
+export interface IBaseSourceConsumerProps extends ConsumerProps<ISourceContext<IBase>> {
 }
 
-export const BasesSourceConsumer: FC<IBasesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const BaseSourceConsumer: FC<IBaseSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IBasesSourceProps extends Partial<ISourceProviderProps<IBase>> {
+export interface IBaseSourceProps extends Partial<ISourceProviderProps<IBase>> {
 }
 
-export const BasesSource: FC<IBasesSourceProps> = props => {
+export const BaseSource: FC<IBaseSourceProps> = props => {
 	return <SourceProvider<IBase>
-		name={"Bases"}
-		useQuery={useBasesQuery}
+		name={"Base"}
+		useQuery={useBaseQuery}
 		{...props}
 	/>;
 };
 
-export const toBasesLink = (queryParams?: IBasesQueryParams) => toLink(BasesApiLink, queryParams);
-export const useBasesLink = () => toBasesLink;
+export const toBaseLink = (queryParams?: IBaseQueryParams) => toLink(BaseApiLink, queryParams);
+export const useBaseLink = () => toBaseLink;
 
-export const useBasesPromise = createPromiseHook<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
-export const BasesPromise = createPromise<IBaseQuery, IBase, IBasesQueryParams>(BasesApiLink, "post");
+export const useBasePromise = createPromiseHook<IBaseQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
+export const BasePromise = createPromise<IBaseQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
 
-export interface IBasesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
+export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }
 
-export const BasesFilterProvider: FC<IBasesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"Bases"} {...props}/>;
+export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"Base"} {...props}/>;
 
-export const useBasesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>()
-export const useBasesFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>()
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
 
-export interface IBasesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
+export interface IBaseSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
-export const BasesSourceFilter: FC<IBasesSourceFilterProps> = props => <Filter
+export const BaseSourceFilter: FC<IBaseSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Bases'}
+	translation={"common.filter.Base"}
 />;
 
-export interface IBasesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
+export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
 }
 
-export const BasesOrderByProvider: FC<IBasesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"Bases"} {...props}/>;
+export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"Base"} {...props}/>;
 
-export const useBasesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>()
-export const useBasesOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>()
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
 
-export interface IBasesListSourceProps extends Partial<IListProps<IBase>> {
-	sourceProps?: Partial<IBasesSourceProps>;
+export interface IBaseListSourceProps extends Partial<IListProps<IBase>> {
+	sourceProps?: Partial<IBaseSourceProps>;
 }
 
-export interface IBasesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IBasesQueryParams>> {
+export interface IBaseSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IBaseQueryParams>> {
 }
 
-export const BasesSourceControlProvider: FC<IBasesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"Bases"} {...props}/>;
+export const BaseSourceControlProvider: FC<IBaseSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"Base"} {...props}/>;
 
-export const BasesListSource: FC<IBasesListSourceProps> = ({sourceProps, ...props}) => {
-	return <BasesSource
+export const BaseListSource: FC<IBaseListSourceProps> = ({sourceProps, ...props}) => {
+	return <BaseSource
 		{...sourceProps}
 	>
 		<List<IBase>
 			{...props}
 		/>
-	</BasesSource>;
-}
+	</BaseSource>;
+};
 
-export interface IBasesSourceSelectProps extends IQuerySourceSelectProps<IBase> {
+export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
-	sourceProps?: IBasesSourceProps;
+	sourceProps?: IBaseSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BasesSourceSelect: FC<IBasesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<BasesSource {...sourceProps}>
+				<BaseSource {...sourceProps}>
 					<QuerySourceSelect<IBase> {...props}/>
-				</BasesSource>
+				</BaseSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Bases.title"}
+					title={"common.selection.Base.title"}
 					size={props.size}
-					tooltip={"common.selection.Bases.title.tooltip"}
+					tooltip={"common.selection.Base.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<BasesSourceControlProvider>
+					<BaseSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</BasesSourceControlProvider>
+					</BaseSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IBasesSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
+export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
 }
 
-export const BasesSelectionProvider: FC<IBasesSelectionProviderProps> = props => {
+export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<IBase> {...props}/>;
-}
-
-export const useBasesQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BasesApiLink]);
 };
 
-export const useBasesOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
-export const useBasesSelectionContext = () => useSelectionContext<IBase>();
+export const useBaseQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BaseApiLink]);
+};
+
+export const useBaseOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
+export const useBaseSelectionContext = () => useSelectionContext<IBase>();

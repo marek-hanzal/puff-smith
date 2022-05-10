@@ -1,16 +1,16 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {CottonListEmpty} from "@/puff-smith/site/lab/cotton/inventory/@module/list/CottonListEmpty";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
-import {CottonsInventoryListSource, ICottonsInventoryListSourceProps} from "@/sdk/api/cotton/inventory/query";
+import {CottonInventoryListSource, ICottonInventoryListSourceProps} from "@/sdk/api/cotton/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface ICottonInventoryListProps extends Partial<ICottonsInventoryListSourceProps> {
+export interface ICottonInventoryListProps extends Partial<ICottonInventoryListSourceProps> {
 }
 
 export const CottonInventoryList: FC<ICottonInventoryListProps> = props => {
-	return <CottonsInventoryListSource
+	return <CottonInventoryListSource
 		locale={{
 			emptyText: <CottonListEmpty/>,
 		}}
@@ -24,5 +24,5 @@ export const CottonInventoryList: FC<ICottonInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</CottonsInventoryListSource>;
+	</CottonInventoryListSource>;
 };

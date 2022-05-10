@@ -2,4 +2,4 @@ import {CottonInventoryService} from "@/puff-smith/service/cotton/inventory/Cott
 import {ICottonInventory, ICottonInventoryQuery} from "@/puff-smith/service/cotton/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"CottonsInventory", ICottonInventoryQuery, ICottonInventory>(CottonInventoryService().handleQuery);
+export default QueryEndpoint<"CottonInventory", ICottonInventoryQuery, ICottonInventory>(CottonInventoryService().handleQuery);

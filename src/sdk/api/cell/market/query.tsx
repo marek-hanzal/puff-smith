@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const CellsMarketApiLink = "/api/cell/market/query";
+export const CellMarketApiLink = "/api/cell/market/query";
 
-export type ICellsMarketQueryParams = undefined;
+export type ICellMarketQueryParams = undefined;
 
-export const useCellsMarketQuery = createQueryHook<ICellMarketQuery, IQueryResult<ICellMarket>, ICellsMarketQueryParams>(CellsMarketApiLink, "post");
+export const useCellMarketQuery = createQueryHook<ICellMarketQuery, IQueryResult<ICellMarket>, ICellMarketQueryParams>(CellMarketApiLink, "post");
 
-export const useCellsMarketSource = () => useSourceContext<ICellMarket>()
+export const useCellMarketSource = () => useSourceContext<ICellMarket>();
 
-export interface ICellsMarketSourceContext extends ISourceContext<ICellMarket> {
+export interface ICellMarketSourceContext extends ISourceContext<ICellMarket> {
 }
 
-export interface ICellsMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ICellMarket>> {
+export interface ICellMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ICellMarket>> {
 }
 
-export const CellsMarketSourceConsumer: FC<ICellsMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const CellMarketSourceConsumer: FC<ICellMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ICellsMarketSourceProps extends Partial<ISourceProviderProps<ICellMarket>> {
+export interface ICellMarketSourceProps extends Partial<ISourceProviderProps<ICellMarket>> {
 }
 
-export const CellsMarketSource: FC<ICellsMarketSourceProps> = props => {
+export const CellMarketSource: FC<ICellMarketSourceProps> = props => {
 	return <SourceProvider<ICellMarket>
-		name={"CellsMarket"}
-		useQuery={useCellsMarketQuery}
+		name={"CellMarket"}
+		useQuery={useCellMarketQuery}
 		{...props}
 	/>;
 };
 
-export const toCellsMarketLink = (queryParams?: ICellsMarketQueryParams) => toLink(CellsMarketApiLink, queryParams);
-export const useCellsMarketLink = () => toCellsMarketLink;
+export const toCellMarketLink = (queryParams?: ICellMarketQueryParams) => toLink(CellMarketApiLink, queryParams);
+export const useCellMarketLink = () => toCellMarketLink;
 
-export const useCellsMarketPromise = createPromiseHook<ICellMarketQuery, ICellMarket, ICellsMarketQueryParams>(CellsMarketApiLink, "post");
-export const CellsMarketPromise = createPromise<ICellMarketQuery, ICellMarket, ICellsMarketQueryParams>(CellsMarketApiLink, "post");
+export const useCellMarketPromise = createPromiseHook<ICellMarketQuery, ICellMarket, ICellMarketQueryParams>(CellMarketApiLink, "post");
+export const CellMarketPromise = createPromise<ICellMarketQuery, ICellMarket, ICellMarketQueryParams>(CellMarketApiLink, "post");
 
-export interface ICellsMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellMarketQuery>>> {
+export interface ICellMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellMarketQuery>>> {
 }
 
-export const CellsMarketFilterProvider: FC<ICellsMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellMarketQuery>> name={"CellsMarket"} {...props}/>;
+export const CellMarketFilterProvider: FC<ICellMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellMarketQuery>> name={"CellMarket"} {...props}/>;
 
-export const useCellsMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellMarketQuery>>()
-export const useCellsMarketFilterContext = () => useFilterContext<IQueryFilter<ICellMarketQuery>>()
+export const useCellMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellMarketQuery>>();
+export const useCellMarketFilterContext = () => useFilterContext<IQueryFilter<ICellMarketQuery>>();
 
-export interface ICellsMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellMarketQuery>> {
+export interface ICellMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellMarketQuery>> {
 }
 
-export const CellsMarketSourceFilter: FC<ICellsMarketSourceFilterProps> = props => <Filter
+export const CellMarketSourceFilter: FC<ICellMarketSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.CellsMarket'}
+	translation={"common.filter.CellMarket"}
 />;
 
-export interface ICellsMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellMarketQuery>>> {
+export interface ICellMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellMarketQuery>>> {
 }
 
-export const CellsMarketOrderByProvider: FC<ICellsMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellMarketQuery>> name={"CellsMarket"} {...props}/>;
+export const CellMarketOrderByProvider: FC<ICellMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellMarketQuery>> name={"CellMarket"} {...props}/>;
 
-export const useCellsMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellMarketQuery>>()
-export const useCellsMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellMarketQuery>>()
+export const useCellMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellMarketQuery>>();
+export const useCellMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellMarketQuery>>();
 
-export interface ICellsMarketListSourceProps extends Partial<IListProps<ICellMarket>> {
-	sourceProps?: Partial<ICellsMarketSourceProps>;
+export interface ICellMarketListSourceProps extends Partial<IListProps<ICellMarket>> {
+	sourceProps?: Partial<ICellMarketSourceProps>;
 }
 
-export interface ICellsMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellMarketQuery>, IQueryOrderBy<ICellMarketQuery>, ICellsMarketQueryParams>> {
+export interface ICellMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellMarketQuery>, IQueryOrderBy<ICellMarketQuery>, ICellMarketQueryParams>> {
 }
 
-export const CellsMarketSourceControlProvider: FC<ICellsMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellMarketQuery>, IQueryOrderBy<ICellMarketQuery>> name={"CellsMarket"} {...props}/>;
+export const CellMarketSourceControlProvider: FC<ICellMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellMarketQuery>, IQueryOrderBy<ICellMarketQuery>> name={"CellMarket"} {...props}/>;
 
-export const CellsMarketListSource: FC<ICellsMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <CellsMarketSource
+export const CellMarketListSource: FC<ICellMarketListSourceProps> = ({sourceProps, ...props}) => {
+	return <CellMarketSource
 		{...sourceProps}
 	>
 		<List<ICellMarket>
 			{...props}
 		/>
-	</CellsMarketSource>;
-}
+	</CellMarketSource>;
+};
 
-export interface ICellsMarketSourceSelectProps extends IQuerySourceSelectProps<ICellMarket> {
+export interface ICellMarketSourceSelectProps extends IQuerySourceSelectProps<ICellMarket> {
 	toOption: IToOptionMapper<ICellMarket>;
-	sourceProps?: ICellsMarketSourceProps;
+	sourceProps?: ICellMarketSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CellsMarketSourceSelect: FC<ICellsMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CellMarketSourceSelect: FC<ICellMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<CellsMarketSource {...sourceProps}>
+				<CellMarketSource {...sourceProps}>
 					<QuerySourceSelect<ICellMarket> {...props}/>
-				</CellsMarketSource>
+				</CellMarketSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.CellsMarket.title"}
+					title={"common.selection.CellMarket.title"}
 					size={props.size}
-					tooltip={"common.selection.CellsMarket.title.tooltip"}
+					tooltip={"common.selection.CellMarket.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<CellsMarketSourceControlProvider>
+					<CellMarketSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</CellsMarketSourceControlProvider>
+					</CellMarketSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ICellsMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ICellMarket>> {
+export interface ICellMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ICellMarket>> {
 }
 
-export const CellsMarketSelectionProvider: FC<ICellsMarketSelectionProviderProps> = props => {
+export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ICellMarket> {...props}/>;
-}
-
-export const useCellsMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CellsMarketApiLink]);
 };
 
-export const useCellsMarketOptionalSelectionContext = () => useOptionalSelectionContext<ICellMarket>();
-export const useCellsMarketSelectionContext = () => useSelectionContext<ICellMarket>();
+export const useCellMarketQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CellMarketApiLink]);
+};
+
+export const useCellMarketOptionalSelectionContext = () => useOptionalSelectionContext<ICellMarket>();
+export const useCellMarketSelectionContext = () => useSelectionContext<ICellMarket>();

@@ -2,16 +2,16 @@ import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellListEmpty";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
-import {CellsInventoryListSource, ICellsInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
+import {CellInventoryListSource, ICellInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface ICellInventoryListProps extends Partial<ICellsInventoryListSourceProps> {
+export interface ICellInventoryListProps extends Partial<ICellInventoryListSourceProps> {
 }
 
 export const CellInventoryList: FC<ICellInventoryListProps> = props => {
-	return <CellsInventoryListSource
+	return <CellInventoryListSource
 		locale={{
 			emptyText: <CellListEmpty/>
 		}}
@@ -26,5 +26,5 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</CellsInventoryListSource>;
+	</CellInventoryListSource>;
 };

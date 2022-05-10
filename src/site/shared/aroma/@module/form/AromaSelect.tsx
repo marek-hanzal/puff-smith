@@ -1,13 +1,13 @@
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromasFilterProvider, AromasSourceSelect, IAromasSourceSelectProps} from "@/sdk/api/aroma/query";
+import {AromaFilterProvider, AromaSourceSelect, IAromaSourceSelectProps} from "@/sdk/api/aroma/query";
 import {FC} from "react";
 
-export interface IAromaSelectProps extends Partial<IAromasSourceSelectProps> {
+export interface IAromaSelectProps extends Partial<IAromaSourceSelectProps> {
 }
 
 export const AromaSelect: FC<IAromaSelectProps> = props => {
-	return <AromasFilterProvider>
-		<AromasSourceSelect
+	return <AromaFilterProvider>
+		<AromaSourceSelect
 			showSearch
 			allowClear
 			toOption={aroma => ({
@@ -16,5 +16,5 @@ export const AromaSelect: FC<IAromaSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</AromasFilterProvider>;
+	</AromaFilterProvider>;
 };

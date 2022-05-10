@@ -1,6 +1,6 @@
 import {AtomizerDrawSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerDrawSelect";
 import {AtomizerVendorSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerVendorSelect";
-import {AtomizersSourceFilter} from "@/sdk/api/atomizer/query";
+import {AtomizerSourceFilter} from "@/sdk/api/atomizer/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 	const onClear = () => {
 	};
 
-	return <AtomizersSourceFilter
+	return <AtomizerSourceFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,5 +53,5 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 				allowClear
 			/>
 		</FormItem>
-	</AtomizersSourceFilter>;
+	</AtomizerSourceFilter>;
 };

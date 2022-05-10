@@ -40,129 +40,130 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const CottonsInventoryApiLink = "/api/cotton/inventory/query";
+export const CottonInventoryApiLink = "/api/cotton/inventory/query";
 
-export type ICottonsInventoryQueryParams = undefined;
+export type ICottonInventoryQueryParams = undefined;
 
-export const useCottonsInventoryQuery = createQueryHook<ICottonInventoryQuery, IQueryResult<ICottonInventory>, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
+export const useCottonInventoryQuery = createQueryHook<ICottonInventoryQuery, IQueryResult<ICottonInventory>, ICottonInventoryQueryParams>(CottonInventoryApiLink, "post");
 
-export const useCottonsInventorySource = () => useSourceContext<ICottonInventory>()
+export const useCottonInventorySource = () => useSourceContext<ICottonInventory>();
 
-export interface ICottonsInventorySourceContext extends ISourceContext<ICottonInventory> {
+export interface ICottonInventorySourceContext extends ISourceContext<ICottonInventory> {
 }
 
-export interface ICottonsInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ICottonInventory>> {
+export interface ICottonInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ICottonInventory>> {
 }
 
-export const CottonsInventorySourceConsumer: FC<ICottonsInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const CottonInventorySourceConsumer: FC<ICottonInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ICottonsInventorySourceProps extends Partial<ISourceProviderProps<ICottonInventory>> {
+export interface ICottonInventorySourceProps extends Partial<ISourceProviderProps<ICottonInventory>> {
 }
 
-export const CottonsInventorySource: FC<ICottonsInventorySourceProps> = props => {
+export const CottonInventorySource: FC<ICottonInventorySourceProps> = props => {
 	return <SourceProvider<ICottonInventory>
-		name={"CottonsInventory"}
-		useQuery={useCottonsInventoryQuery}
+		name={"CottonInventory"}
+		useQuery={useCottonInventoryQuery}
 		{...props}
 	/>;
 };
 
-export const toCottonsInventoryLink = (queryParams?: ICottonsInventoryQueryParams) => toLink(CottonsInventoryApiLink, queryParams);
-export const useCottonsInventoryLink = () => toCottonsInventoryLink;
+export const toCottonInventoryLink = (queryParams?: ICottonInventoryQueryParams) => toLink(CottonInventoryApiLink, queryParams);
+export const useCottonInventoryLink = () => toCottonInventoryLink;
 
-export const useCottonsInventoryPromise = createPromiseHook<ICottonInventoryQuery, ICottonInventory, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
-export const CottonsInventoryPromise = createPromise<ICottonInventoryQuery, ICottonInventory, ICottonsInventoryQueryParams>(CottonsInventoryApiLink, "post");
+export const useCottonInventoryPromise = createPromiseHook<ICottonInventoryQuery, ICottonInventory, ICottonInventoryQueryParams>(CottonInventoryApiLink, "post");
+export const CottonInventoryPromise = createPromise<ICottonInventoryQuery, ICottonInventory, ICottonInventoryQueryParams>(CottonInventoryApiLink, "post");
 
-export interface ICottonsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICottonInventoryQuery>>> {
+export interface ICottonInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICottonInventoryQuery>>> {
 }
 
-export const CottonsInventoryFilterProvider: FC<ICottonsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICottonInventoryQuery>> name={"CottonsInventory"} {...props}/>;
+export const CottonInventoryFilterProvider: FC<ICottonInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICottonInventoryQuery>> name={"CottonInventory"} {...props}/>;
 
-export const useCottonsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonInventoryQuery>>()
-export const useCottonsInventoryFilterContext = () => useFilterContext<IQueryFilter<ICottonInventoryQuery>>()
+export const useCottonInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonInventoryQuery>>();
+export const useCottonInventoryFilterContext = () => useFilterContext<IQueryFilter<ICottonInventoryQuery>>();
 
-export interface ICottonsInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICottonInventoryQuery>> {
+export interface ICottonInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICottonInventoryQuery>> {
 }
 
-export const CottonsInventorySourceFilter: FC<ICottonsInventorySourceFilterProps> = props => <Filter
+export const CottonInventorySourceFilter: FC<ICottonInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.CottonsInventory'}
+	translation={"common.filter.CottonInventory"}
 />;
 
-export interface ICottonsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICottonInventoryQuery>>> {
+export interface ICottonInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICottonInventoryQuery>>> {
 }
 
-export const CottonsInventoryOrderByProvider: FC<ICottonsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICottonInventoryQuery>> name={"CottonsInventory"} {...props}/>;
+export const CottonInventoryOrderByProvider: FC<ICottonInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICottonInventoryQuery>> name={"CottonInventory"} {...props}/>;
 
-export const useCottonsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonInventoryQuery>>()
-export const useCottonsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonInventoryQuery>>()
+export const useCottonInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonInventoryQuery>>();
+export const useCottonInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonInventoryQuery>>();
 
-export interface ICottonsInventoryListSourceProps extends Partial<IListProps<ICottonInventory>> {
-	sourceProps?: Partial<ICottonsInventorySourceProps>;
+export interface ICottonInventoryListSourceProps extends Partial<IListProps<ICottonInventory>> {
+	sourceProps?: Partial<ICottonInventorySourceProps>;
 }
 
-export interface ICottonsInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICottonInventoryQuery>, IQueryOrderBy<ICottonInventoryQuery>, ICottonsInventoryQueryParams>> {
+export interface ICottonInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICottonInventoryQuery>, IQueryOrderBy<ICottonInventoryQuery>, ICottonInventoryQueryParams>> {
 }
 
-export const CottonsInventorySourceControlProvider: FC<ICottonsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICottonInventoryQuery>, IQueryOrderBy<ICottonInventoryQuery>> name={"CottonsInventory"} {...props}/>;
+export const CottonInventorySourceControlProvider: FC<ICottonInventorySourceControlProviderProps> = props =>
+	<SourceControlProvider<IQueryFilter<ICottonInventoryQuery>, IQueryOrderBy<ICottonInventoryQuery>> name={"CottonInventory"} {...props}/>;
 
-export const CottonsInventoryListSource: FC<ICottonsInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <CottonsInventorySource
+export const CottonInventoryListSource: FC<ICottonInventoryListSourceProps> = ({sourceProps, ...props}) => {
+	return <CottonInventorySource
 		{...sourceProps}
 	>
 		<List<ICottonInventory>
 			{...props}
 		/>
-	</CottonsInventorySource>;
-}
+	</CottonInventorySource>;
+};
 
-export interface ICottonsInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
+export interface ICottonInventorySourceSelectProps extends IQuerySourceSelectProps<ICottonInventory> {
 	toOption: IToOptionMapper<ICottonInventory>;
-	sourceProps?: ICottonsInventorySourceProps;
+	sourceProps?: ICottonInventorySourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CottonsInventorySourceSelect: FC<ICottonsInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CottonInventorySourceSelect: FC<ICottonInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<CottonsInventorySource {...sourceProps}>
+				<CottonInventorySource {...sourceProps}>
 					<QuerySourceSelect<ICottonInventory> {...props}/>
-				</CottonsInventorySource>
+				</CottonInventorySource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.CottonsInventory.title"}
+					title={"common.selection.CottonInventory.title"}
 					size={props.size}
-					tooltip={"common.selection.CottonsInventory.title.tooltip"}
+					tooltip={"common.selection.CottonInventory.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<CottonsInventorySourceControlProvider>
+					<CottonInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</CottonsInventorySourceControlProvider>
+					</CottonInventorySourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ICottonsInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ICottonInventory>> {
+export interface ICottonInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ICottonInventory>> {
 }
 
-export const CottonsInventorySelectionProvider: FC<ICottonsInventorySelectionProviderProps> = props => {
+export const CottonInventorySelectionProvider: FC<ICottonInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ICottonInventory> {...props}/>;
-}
-
-export const useCottonsInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CottonsInventoryApiLink]);
 };
 
-export const useCottonsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICottonInventory>();
-export const useCottonsInventorySelectionContext = () => useSelectionContext<ICottonInventory>();
+export const useCottonInventoryQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CottonInventoryApiLink]);
+};
+
+export const useCottonInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICottonInventory>();
+export const useCottonInventorySelectionContext = () => useSelectionContext<ICottonInventory>();

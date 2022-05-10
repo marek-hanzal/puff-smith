@@ -1,17 +1,17 @@
 import {Price} from "@/puff-smith/component/Price";
 import {IUser} from "@/puff-smith/service/user/interface";
 import {TransactionListHeader} from "@/puff-smith/site/root/transaction/@module/list/TransactionListHeader";
-import {ITransactionsListSourceProps, TransactionsListSource} from "@/sdk/api/transaction/query";
+import {ITransactionListSourceProps, TransactionListSource} from "@/sdk/api/transaction/query";
 import {ListItem, ListItemMeta, toLocalDateTime} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface ITransactionListProps extends Partial<ITransactionsListSourceProps> {
+export interface ITransactionListProps extends Partial<ITransactionListSourceProps> {
 	user?: IUser;
 }
 
 export const TransactionList: FC<ITransactionListProps> = ({user, ...props}) => {
-	return <TransactionsListSource
+	return <TransactionListSource
 		header={() => <TransactionListHeader user={user}/>}
 		{...props}
 	>
@@ -24,5 +24,5 @@ export const TransactionList: FC<ITransactionListProps> = ({user, ...props}) => 
 				description={toLocalDateTime(transaction.created)}
 			/>
 		</ListItem>}
-	</TransactionsListSource>;
+	</TransactionListSource>;
 };

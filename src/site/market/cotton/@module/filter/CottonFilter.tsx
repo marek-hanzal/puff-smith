@@ -1,6 +1,6 @@
 import {CottonDrawSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonDrawSelect";
 import {CottonVendorSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonVendorSelect";
-import {CottonsSourceFilter} from "@/sdk/api/cotton/query";
+import {CottonSourceFilter} from "@/sdk/api/cotton/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 	const onClear = () => {
 	};
 
-	return <CottonsSourceFilter
+	return <CottonSourceFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,5 +53,5 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 				allowClear
 			/>
 		</FormItem>
-	</CottonsSourceFilter>;
+	</CottonSourceFilter>;
 };

@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const ModsInventoryApiLink = "/api/mod/inventory/query";
+export const ModInventoryApiLink = "/api/mod/inventory/query";
 
-export type IModsInventoryQueryParams = undefined;
+export type IModInventoryQueryParams = undefined;
 
-export const useModsInventoryQuery = createQueryHook<IModInventoryQuery, IQueryResult<IModInventory>, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
+export const useModInventoryQuery = createQueryHook<IModInventoryQuery, IQueryResult<IModInventory>, IModInventoryQueryParams>(ModInventoryApiLink, "post");
 
-export const useModsInventorySource = () => useSourceContext<IModInventory>()
+export const useModInventorySource = () => useSourceContext<IModInventory>();
 
-export interface IModsInventorySourceContext extends ISourceContext<IModInventory> {
+export interface IModInventorySourceContext extends ISourceContext<IModInventory> {
 }
 
-export interface IModsInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IModInventory>> {
+export interface IModInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IModInventory>> {
 }
 
-export const ModsInventorySourceConsumer: FC<IModsInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const ModInventorySourceConsumer: FC<IModInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IModsInventorySourceProps extends Partial<ISourceProviderProps<IModInventory>> {
+export interface IModInventorySourceProps extends Partial<ISourceProviderProps<IModInventory>> {
 }
 
-export const ModsInventorySource: FC<IModsInventorySourceProps> = props => {
+export const ModInventorySource: FC<IModInventorySourceProps> = props => {
 	return <SourceProvider<IModInventory>
-		name={"ModsInventory"}
-		useQuery={useModsInventoryQuery}
+		name={"ModInventory"}
+		useQuery={useModInventoryQuery}
 		{...props}
 	/>;
 };
 
-export const toModsInventoryLink = (queryParams?: IModsInventoryQueryParams) => toLink(ModsInventoryApiLink, queryParams);
-export const useModsInventoryLink = () => toModsInventoryLink;
+export const toModInventoryLink = (queryParams?: IModInventoryQueryParams) => toLink(ModInventoryApiLink, queryParams);
+export const useModInventoryLink = () => toModInventoryLink;
 
-export const useModsInventoryPromise = createPromiseHook<IModInventoryQuery, IModInventory, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
-export const ModsInventoryPromise = createPromise<IModInventoryQuery, IModInventory, IModsInventoryQueryParams>(ModsInventoryApiLink, "post");
+export const useModInventoryPromise = createPromiseHook<IModInventoryQuery, IModInventory, IModInventoryQueryParams>(ModInventoryApiLink, "post");
+export const ModInventoryPromise = createPromise<IModInventoryQuery, IModInventory, IModInventoryQueryParams>(ModInventoryApiLink, "post");
 
-export interface IModsInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModInventoryQuery>>> {
+export interface IModInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModInventoryQuery>>> {
 }
 
-export const ModsInventoryFilterProvider: FC<IModsInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
+export const ModInventoryFilterProvider: FC<IModInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModInventoryQuery>> name={"ModInventory"} {...props}/>;
 
-export const useModsInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModInventoryQuery>>()
-export const useModsInventoryFilterContext = () => useFilterContext<IQueryFilter<IModInventoryQuery>>()
+export const useModInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModInventoryQuery>>();
+export const useModInventoryFilterContext = () => useFilterContext<IQueryFilter<IModInventoryQuery>>();
 
-export interface IModsInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModInventoryQuery>> {
+export interface IModInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModInventoryQuery>> {
 }
 
-export const ModsInventorySourceFilter: FC<IModsInventorySourceFilterProps> = props => <Filter
+export const ModInventorySourceFilter: FC<IModInventorySourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.ModsInventory'}
+	translation={"common.filter.ModInventory"}
 />;
 
-export interface IModsInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModInventoryQuery>>> {
+export interface IModInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModInventoryQuery>>> {
 }
 
-export const ModsInventoryOrderByProvider: FC<IModsInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
+export const ModInventoryOrderByProvider: FC<IModInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModInventoryQuery>> name={"ModInventory"} {...props}/>;
 
-export const useModsInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModInventoryQuery>>()
-export const useModsInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IModInventoryQuery>>()
+export const useModInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
+export const useModInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IModInventoryQuery>>();
 
-export interface IModsInventoryListSourceProps extends Partial<IListProps<IModInventory>> {
-	sourceProps?: Partial<IModsInventorySourceProps>;
+export interface IModInventoryListSourceProps extends Partial<IListProps<IModInventory>> {
+	sourceProps?: Partial<IModInventorySourceProps>;
 }
 
-export interface IModsInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>, IModsInventoryQueryParams>> {
+export interface IModInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>, IModInventoryQueryParams>> {
 }
 
-export const ModsInventorySourceControlProvider: FC<IModsInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>> name={"ModsInventory"} {...props}/>;
+export const ModInventorySourceControlProvider: FC<IModInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModInventoryQuery>, IQueryOrderBy<IModInventoryQuery>> name={"ModInventory"} {...props}/>;
 
-export const ModsInventoryListSource: FC<IModsInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <ModsInventorySource
+export const ModInventoryListSource: FC<IModInventoryListSourceProps> = ({sourceProps, ...props}) => {
+	return <ModInventorySource
 		{...sourceProps}
 	>
 		<List<IModInventory>
 			{...props}
 		/>
-	</ModsInventorySource>;
-}
+	</ModInventorySource>;
+};
 
-export interface IModsInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
+export interface IModInventorySourceSelectProps extends IQuerySourceSelectProps<IModInventory> {
 	toOption: IToOptionMapper<IModInventory>;
-	sourceProps?: IModsInventorySourceProps;
+	sourceProps?: IModInventorySourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const ModsInventorySourceSelect: FC<IModsInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const ModInventorySourceSelect: FC<IModInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<ModsInventorySource {...sourceProps}>
+				<ModInventorySource {...sourceProps}>
 					<QuerySourceSelect<IModInventory> {...props}/>
-				</ModsInventorySource>
+				</ModInventorySource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.ModsInventory.title"}
+					title={"common.selection.ModInventory.title"}
 					size={props.size}
-					tooltip={"common.selection.ModsInventory.title.tooltip"}
+					tooltip={"common.selection.ModInventory.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<ModsInventorySourceControlProvider>
+					<ModInventorySourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</ModsInventorySourceControlProvider>
+					</ModInventorySourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IModsInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IModInventory>> {
+export interface IModInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IModInventory>> {
 }
 
-export const ModsInventorySelectionProvider: FC<IModsInventorySelectionProviderProps> = props => {
+export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<IModInventory> {...props}/>;
-}
-
-export const useModsInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([ModsInventoryApiLink]);
 };
 
-export const useModsInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IModInventory>();
-export const useModsInventorySelectionContext = () => useSelectionContext<IModInventory>();
+export const useModInventoryQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ModInventoryApiLink]);
+};
+
+export const useModInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IModInventory>();
+export const useModInventorySelectionContext = () => useSelectionContext<IModInventory>();

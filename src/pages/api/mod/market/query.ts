@@ -3,4 +3,4 @@ import {IModMarket, IModMarketQuery} from "@/puff-smith/service/mod/market/inter
 import {ModMarketService} from "@/puff-smith/service/mod/market/ModMarketService";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"ModsMarket", IModMarketQuery, IModMarket>(async ({request, toUserId}) => ModMarketService(ServiceCreate(toUserId())).query(request));
+export default QueryEndpoint<"ModMarket", IModMarketQuery, IModMarket>(async ({request, toUserId}) => ModMarketService(ServiceCreate(toUserId())).query(request));

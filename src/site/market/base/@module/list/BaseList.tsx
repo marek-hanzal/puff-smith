@@ -1,16 +1,16 @@
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base/@module/button/BaseInventoryCreateButton";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {BasesMarketListSource, IBasesMarketListSourceProps} from "@/sdk/api/base/market/query";
+import {BaseMarketListSource, IBaseMarketListSourceProps} from "@/sdk/api/base/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IBaseListProps extends Partial<IBasesMarketListSourceProps> {
+export interface IBaseListProps extends Partial<IBaseMarketListSourceProps> {
 }
 
 export const BaseList: FC<IBaseListProps> = props => {
-	return <BasesMarketListSource
+	return <BaseMarketListSource
 		{...props}
 	>
 		{({base, isOwned}) => <ListItem key={base.id}>
@@ -22,5 +22,5 @@ export const BaseList: FC<IBaseListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</BasesMarketListSource>;
+	</BaseMarketListSource>;
 };

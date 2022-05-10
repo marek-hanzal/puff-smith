@@ -1,6 +1,6 @@
 import {WireDrawSelect} from "@/puff-smith/site/market/wire/@module/form/WireDrawSelect";
 import {WireVendorSelect} from "@/puff-smith/site/market/wire/@module/form/WireVendorSelect";
-import {WiresSourceFilter} from "@/sdk/api/wire/query";
+import {WireSourceFilter} from "@/sdk/api/wire/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 	const onClear = () => {
 	};
 
-	return <WiresSourceFilter
+	return <WireSourceFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,5 +53,5 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 				allowClear
 			/>
 		</FormItem>
-	</WiresSourceFilter>;
+	</WireSourceFilter>;
 };

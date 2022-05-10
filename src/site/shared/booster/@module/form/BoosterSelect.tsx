@@ -1,16 +1,16 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
-import {BoostersFilterProvider, BoostersSourceSelect, IBoostersSourceSelectProps} from "@/sdk/api/booster/query";
+import {BoosterFilterProvider, BoosterSourceSelect, IBoosterSourceSelectProps} from "@/sdk/api/booster/query";
 import {Space} from "antd";
 import {FC} from "react";
 
-export interface IBoosterSelectProps extends Partial<IBoostersSourceSelectProps> {
+export interface IBoosterSelectProps extends Partial<IBoosterSourceSelectProps> {
 }
 
 export const BoosterSelect: FC<IBoosterSelectProps> = props => {
-	return <BoostersFilterProvider>
-		<BoostersSourceSelect
+	return <BoosterFilterProvider>
+		<BoosterSourceSelect
 			showSearch
 			allowClear
 			toOption={booster => ({
@@ -23,5 +23,5 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</BoostersFilterProvider>;
+	</BoosterFilterProvider>;
 };

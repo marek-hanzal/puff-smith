@@ -3,16 +3,16 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromasInventoryListSource, IAromasInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
+import {AromaInventoryListSource, IAromaInventoryListSourceProps} from "@/sdk/api/aroma/inventory/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IAromaInventoryListProps extends Partial<IAromasInventoryListSourceProps> {
+export interface IAromaInventoryListProps extends Partial<IAromaInventoryListSourceProps> {
 }
 
 export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
-	return <AromasInventoryListSource
+	return <AromaInventoryListSource
 		locale={{
 			emptyText: <AromaListEmpty/>,
 		}}
@@ -32,5 +32,5 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</AromasInventoryListSource>;
+	</AromaInventoryListSource>;
 };

@@ -2,52 +2,50 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {TranslationService} from "@/puff-smith/service/translation/TranslationService";
-import {IEntityContext, IQueryParams, ITranslationBundle} from "@leight-core/api";
-import {ListEndpoint} from "@leight-core/server";
-import {FC, createContext} from "react";
+import {IEntityContext, ITranslationBundle} from "@leight-core/api";
+import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
+import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
-import {EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, createPromise, createPromiseHook, createQueryHook, toLink, useContext, useOptionalContext} from "@leight-core/client";
 
-export const TranslationsApiLink = "/api/translation";
+export const TranslationApiLink = "/api/translation";
 
-export type ITranslationsQueryParams = undefined;
+export type ITranslationQueryParams = undefined;
 
-export const TranslationsContext = createContext(null as unknown as IEntityContext<ITranslationBundle>);
+export const TranslationContext = createContext(null as unknown as IEntityContext<ITranslationBundle>);
 
-export const useTranslationsContext = (): IEntityContext<ITranslationBundle> => useContext(TranslationsContext, "TranslationsContext");
-export const useOptionalTranslationsContext = () => useOptionalContext<IEntityContext<ITranslationBundle>>(TranslationsContext as any);
+export const useTranslationContext = (): IEntityContext<ITranslationBundle> => useContext(TranslationContext, "TranslationContext");
+export const useOptionalTranslationContext = () => useOptionalContext<IEntityContext<ITranslationBundle>>(TranslationContext as any);
 
-export interface ITranslationsProvider extends IEntityProviderProps<ITranslationBundle> {
+export interface ITranslationProvider extends IEntityProviderProps<ITranslationBundle> {
 }
 
-export const TranslationsProvider: FC<ITranslationsProvider> = ({defaultEntity, ...props}) => {
+export const TranslationProvider: FC<ITranslationProvider> = ({defaultEntity, ...props}) => {
 	return <EntityProvider defaultEntity={defaultEntity}>
 		<EntityContext.Consumer>
-			{entityContext => <TranslationsContext.Provider value={entityContext} {...props}/>}
+			{entityContext => <TranslationContext.Provider value={entityContext} {...props}/>}
 		</EntityContext.Consumer>
 	</EntityProvider>;
 };
 
-export const useTranslationsQuery = createQueryHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
+export const useTranslationQuery = createQueryHook<void, ITranslationBundle, ITranslationQueryParams>(TranslationApiLink, "get");
 
-export const useTranslationsQueryInvalidate = () => {
+export const useTranslationQueryInvalidate = () => {
 	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([TranslationsApiLink]);
+	return () => queryClient.invalidateQueries([TranslationApiLink]);
+};
+
+export const toTranslationLink = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
+export const useTranslationLink = () => toTranslationLink;
+
+export const useTranslationPromise = createPromiseHook<void, ITranslationBundle, ITranslationQueryParams>(TranslationApiLink, "get");
+export const TranslationPromise = createPromise<void, ITranslationBundle, ITranslationQueryParams>(TranslationApiLink, "get");
+
+export interface IFetchTranslationProps extends Partial<IQueryProps<void, ITranslationBundle, ITranslationQueryParams>> {
 }
 
-export const toTranslationsLink = (queryParams?: ITranslationsQueryParams) => toLink(TranslationsApiLink, queryParams);
-export const useTranslationsLink = () => toTranslationsLink;
-
-export const useTranslationsPromise = createPromiseHook<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
-export const TranslationsPromise = createPromise<void, ITranslationBundle, ITranslationsQueryParams>(TranslationsApiLink, "get");
-
-export interface IFetchTranslationsProps extends Partial<IQueryProps<void, ITranslationBundle, ITranslationsQueryParams>> {
-}
-
-export const FetchTranslations: FC<IFetchTranslationsProps> = props => <Query<void, ITranslationBundle, ITranslationsQueryParams>
-	useQuery={useTranslationsQuery}
+export const FetchTranslation: FC<IFetchTranslationProps> = props => <Query<void, ITranslationBundle, ITranslationQueryParams>
+	useQuery={useTranslationQuery}
 	request={undefined}
-	context={useOptionalTranslationsContext()}
+	context={useOptionalTranslationContext()}
 	{...props}
 />;

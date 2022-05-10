@@ -5,16 +5,16 @@ import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid/@module/list/LiquidL
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {LiquidSteeping} from "@/puff-smith/site/shared/liquid/@module/inline/LiquidSteeping";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
-import {ILiquidsListSourceProps, LiquidsListSource} from "@/sdk/api/liquid/query";
+import {ILiquidListSourceProps, LiquidListSource} from "@/sdk/api/liquid/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface ILiquidListProps extends Partial<ILiquidsListSourceProps> {
+export interface ILiquidListProps extends Partial<ILiquidListSourceProps> {
 }
 
 export const LiquidList: FC<ILiquidListProps> = props => {
-	return <LiquidsListSource
+	return <LiquidListSource
 		locale={{
 			emptyText: <LiquidListEmpty/>,
 		}}
@@ -36,5 +36,5 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</LiquidsListSource>;
+	</LiquidListSource>;
 };

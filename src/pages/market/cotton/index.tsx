@@ -3,7 +3,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {CottonFilter} from "@/puff-smith/site/market/cotton/@module/filter/CottonFilter";
 import {CottonList} from "@/puff-smith/site/market/cotton/@module/list/CottonList";
-import {CottonsSourceControlProvider} from "@/sdk/api/cotton/query";
+import {CottonSourceControlProvider} from "@/sdk/api/cotton/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -11,7 +11,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/cotton"]}
 		icon={<CottonIcon/>}
 	>
-		<CottonsSourceControlProvider
+		<CottonSourceControlProvider
 			defaultOrderBy={{
 				name: "asc",
 			}}
@@ -19,6 +19,6 @@ export default withMarketLayout(function Index() {
 			<CottonList
 				header={() => <CottonFilter/>}
 			/>
-		</CottonsSourceControlProvider>
+		</CottonSourceControlProvider>
 	</MarketPage>;
 });

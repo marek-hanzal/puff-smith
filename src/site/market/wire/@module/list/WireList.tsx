@@ -2,16 +2,16 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {WireInventoryCreateButton} from "@/puff-smith/site/market/wire/@module/button/WireInventoryCreateButton";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
-import {IWiresMarketListSourceProps, WiresMarketListSource} from "@/sdk/api/wire/market/query";
+import {IWireMarketListSourceProps, WireMarketListSource} from "@/sdk/api/wire/market/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
-export interface IWireListProps extends Partial<IWiresMarketListSourceProps> {
+export interface IWireListProps extends Partial<IWireMarketListSourceProps> {
 }
 
 export const WireList: FC<IWireListProps> = props => {
-	return <WiresMarketListSource
+	return <WireMarketListSource
 		{...props}
 	>
 		{({wire, isOwned}) => <ListItem key={wire.id}>
@@ -24,5 +24,5 @@ export const WireList: FC<IWireListProps> = props => {
 				</Space>}
 			/>
 		</ListItem>}
-	</WiresMarketListSource>;
+	</WireMarketListSource>;
 };

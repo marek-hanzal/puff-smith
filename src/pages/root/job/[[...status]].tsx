@@ -2,8 +2,8 @@ import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu} from "@/puff-smith/site/root/job/@module/menu/JobMenu";
-import {IJobListProps, JobsList} from "@/puff-smith/site/shared/job/@module/list/JobsList";
-import {JobsSourceControlProvider} from "@/sdk/api/job/query";
+import {IJobListProps, JobList} from "@/puff-smith/site/shared/job/@module/list/JobList";
+import {JobSourceControlProvider} from "@/sdk/api/job/query";
 import {IJobStatus} from "@leight-core/api";
 import {useNavigate, useParams} from "@leight-core/client";
 import {message} from "antd";
@@ -97,7 +97,7 @@ export default withRootLayout(function Index() {
 		icon={<JobIcon/>}
 		headerPostfix={<JobMenu/>}
 	>
-		<JobsSourceControlProvider
+		<JobSourceControlProvider
 			defaultSize={5}
 			applyFilter={{
 				status: config.filter && {
@@ -114,8 +114,8 @@ export default withRootLayout(function Index() {
 				},
 			] as any}
 		>
-			<JobsList {...config.listProps}/>
-		</JobsSourceControlProvider>
+			<JobList {...config.listProps}/>
+		</JobSourceControlProvider>
 	</RootPage>;
 });
 

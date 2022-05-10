@@ -5,7 +5,7 @@ import {MixtureBoosterSelect} from "@/puff-smith/site/lab/mixture/@module/form/M
 import {MixtureNicotineSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureRatioSelect";
 import {MixtureVendorSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureVendorSelect";
-import {MixturesSourceControlProvider, MixturesSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
+import {MixtureSourceControlProvider, MixtureSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC, useRef} from "react";
 
@@ -19,7 +19,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		ratio.current = undefined;
 	};
 
-	return <MixturesSourceFilter
+	return <MixtureSourceFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -43,7 +43,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		})}
 		{...props}
 	>
-		<MixturesSourceControlProvider>
+		<MixtureSourceControlProvider>
 			<FormItem field={"aromaId"}>
 				<MixtureAromaSelect
 					allowClear
@@ -86,6 +86,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 					allowClear
 				/>
 			</FormItem>
-		</MixturesSourceControlProvider>
-	</MixturesSourceFilter>;
+		</MixtureSourceControlProvider>
+	</MixtureSourceFilter>;
 };

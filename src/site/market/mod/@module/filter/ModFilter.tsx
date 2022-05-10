@@ -1,6 +1,6 @@
 import {ModCellSelect} from "@/puff-smith/site/market/mod/@module/form/ModCellSelect";
 import {ModVendorSelect} from "@/puff-smith/site/market/mod/@module/form/ModVendorSelect";
-import {ModsSourceFilter} from "@/sdk/api/mod/query";
+import {ModSourceFilter} from "@/sdk/api/mod/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 	const onClear = () => {
 	};
 
-	return <ModsSourceFilter
+	return <ModSourceFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,5 +53,5 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 				allowClear
 			/>
 		</FormItem>
-	</ModsSourceFilter>;
+	</ModSourceFilter>;
 };

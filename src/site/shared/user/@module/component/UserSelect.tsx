@@ -1,12 +1,12 @@
-import {IUsersSourceSelectProps, UsersSourceControlProvider, UsersSourceSelect} from "@/sdk/api/user/query";
+import {IUserSourceSelectProps, UserSourceControlProvider, UserSourceSelect} from "@/sdk/api/user/query";
 import {FC} from "react";
 
-export interface IUserSelectProps extends Partial<IUsersSourceSelectProps> {
+export interface IUserSelectProps extends Partial<IUserSourceSelectProps> {
 }
 
 export const UserSelect: FC<IUserSelectProps> = props => {
-	return <UsersSourceControlProvider>
-		<UsersSourceSelect
+	return <UserSourceControlProvider>
+		<UserSourceSelect
 			showSearch
 			toOption={user => ({
 				label: user.name,
@@ -14,5 +14,5 @@ export const UserSelect: FC<IUserSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</UsersSourceControlProvider>;
+	</UserSourceControlProvider>;
 };

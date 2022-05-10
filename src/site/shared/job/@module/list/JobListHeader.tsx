@@ -1,26 +1,26 @@
-import {JobsFilter} from "@/puff-smith/site/shared/job/@module/form/JobsFilter";
+import {JobFilter} from "@/puff-smith/site/shared/job/@module/form/JobFilter";
 import {useCleanupMutation} from "@/sdk/api/job/cleanup";
 import {useCommitMutation} from "@/sdk/api/job/commit";
-import {useJobsOptionalFilterContext, useJobsQueryInvalidate} from "@/sdk/api/job/query";
+import {useJobOptionalFilterContext, useJobQueryInvalidate} from "@/sdk/api/job/query";
 import {ButtonBar} from "@leight-core/client";
 import {Button, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IJobsListHeaderProps {
+export interface IJobListHeaderProps {
 	showCommit?: boolean;
 	showCleanup?: boolean;
 	showFilter?: boolean;
 }
 
-export const JobsListHeader: FC<IJobsListHeaderProps> = ({showCommit = true, showCleanup = true, showFilter = true}) => {
+export const JobListHeader: FC<IJobListHeaderProps> = ({showCommit = true, showCleanup = true, showFilter = true}) => {
 	const {t} = useTranslation();
 	const cleanupMutation = useCleanupMutation();
 	const commitMutation = useCommitMutation();
-	const jobsQueryInvalidate = useJobsQueryInvalidate();
-	const filterContext = useJobsOptionalFilterContext();
+	const jobsQueryInvalidate = useJobQueryInvalidate();
+	const filterContext = useJobOptionalFilterContext();
 	return <ButtonBar>
-		{showFilter && <JobsFilter spaceProps={{split: undefined}}/>}
+		{showFilter && <JobFilter spaceProps={{split: undefined}}/>}
 		{showCommit && <Button
 			type={"link"}
 			loading={commitMutation.isLoading}
