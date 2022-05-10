@@ -27,27 +27,6 @@ services:
         networks:
             - postgres
 
-    pgbouncer:
-        image: bitnami/pgbouncer
-        depends_on:
-            - postgres
-        environment:
-            POSTGRESQL_HOST: postgres
-            POSTGRESQL_USERNAME: puff-smith
-            POSTGRESQL_PASSWORD: 1234
-            POSTGRESQL_DATABASE: puff-smith
-            PGBOUNCER_POOL_MODE: transaction
-            PGBOUNCER_PORT: 6432
-            PGBOUNCER_MIN_POOL_SIZE: 4
-            #            PGBOUNCER_MAX_DB_CONNECTIONS: 8
-            PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
-            PGBOUNCER_EXTRA_ARGS: '--verbose'
-            PGBOUNCER_DATABASE: puff-smith
-        ports:
-            - "127.0.0.1:6532:6432"
-        networks:
-            - postgres
-
     mongo:
         image: mongo:5
         restart: always

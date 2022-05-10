@@ -593,8 +593,6 @@ model Mixture {
   error           MixtureError?
 
   Liquid Liquid[]
-
-  @@unique([aromaId, boosterId, baseId])
 }
 
 enum MixtureError {

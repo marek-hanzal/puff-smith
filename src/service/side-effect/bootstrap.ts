@@ -12,6 +12,7 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 		"endpoint",
 		"auth",
 		"query",
+		"fixtures",
 		CoilJob.name(),
 		CoilsJob.name(),
 		ImportJob.name(),

@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Cell" ALTER COLUMN "drain" DROP NOT NULL,
-ALTER COLUMN "ohm" DROP NOT NULL;

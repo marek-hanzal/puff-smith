@@ -1,6 +1,12 @@
 import {Logger} from "@leight-core/server";
 import {PrismaClient} from "@prisma/client";
 
+interface ExtendedGlobal extends Global {
+	prisma: PrismaClient;
+}
+
+declare const global: ExtendedGlobal;
+
 const createPrismaClient = () => {
 	const prisma = new PrismaClient({
 		errorFormat: "pretty",
@@ -30,15 +36,8 @@ const createPrismaClient = () => {
 	return prisma;
 };
 
-let prisma: PrismaClient;
+const prisma = global.prisma || createPrismaClient();
 
-if (process.env.NODE_ENV === "production") {
-	prisma = createPrismaClient();
-} else {
-	if (!(global as any).prisma) {
-		(global as any).prisma = createPrismaClient();
-	}
-	prisma = (global as any).prisma;
-}
+process.env.NODE_ENV === "development" && (global.prisma = prisma);
 
 export default prisma;
