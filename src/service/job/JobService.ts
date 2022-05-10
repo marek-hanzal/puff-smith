@@ -127,6 +127,26 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}
 		return theJob;
 	},
+	scheduleAt: async (name, schedule, params, userId) => {
+		const logger = Logger("job");
+		logger.info(`Scheduling new job at [${schedule}].`, {labels: {job: name}, params, userId});
+		const jobService = JobService({...request, prisma});
+		const job = await jobService.create({
+			userId,
+			name,
+			params,
+		});
+		const theJob = await jobService.map(job);
+		logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		try {
+			await (await Agenda()).schedule(schedule, name, theJob);
+			logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		} catch (e) {
+			await jobService.createProgress(theJob.id).setStatus("FAILURE");
+			logger.error("Scheduling failed", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
+		}
+		return theJob;
+	},
 	handle: (name, handler) => {
 		let logger = Logger(name);
 		const jobService = JobService(request);

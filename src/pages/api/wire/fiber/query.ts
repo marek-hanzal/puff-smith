@@ -1,6 +1,5 @@
 import {FiberService} from "@/puff-smith/service/fiber/FiberService";
 import {IFiber} from "@/puff-smith/service/fiber/interface";
-import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IWireQuery} from "@/puff-smith/service/wire/interface";
 import {QueryEndpoint} from "@leight-core/server";
@@ -21,4 +20,4 @@ export default QueryEndpoint<"Fiber", IWireQuery, IFiber>(async ({}) => {
 		count: items.length,
 		total: items.length,
 	};
-}, cache);
+});

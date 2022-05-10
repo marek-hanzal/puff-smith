@@ -51,6 +51,7 @@ const JOB_NAME = "import";
 export const ImportJob: IJobProcessor<IImportParams> = {
 	name: () => JOB_NAME,
 	schedule: async (params, userId) => JobService().schedule<IImportParams>(JOB_NAME, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IImportParams>(JOB_NAME, schedule, params, userId),
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
 		priority: 50,

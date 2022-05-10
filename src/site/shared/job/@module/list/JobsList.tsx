@@ -50,6 +50,7 @@ export const JobsList: FC<IJobListProps> = ({showCommit = true, showCleanup = tr
 						<Space size={"small"} split={<Divider type={"vertical"}/>}>
 							<LocalDate date={job.created}/>
 							{job.started && <LocalDate date={job.started} tooltip={"root.job.started.tooltip"}/>}
+							{job.finished && <LocalDate date={job.finished} tooltip={"root.job.finished.tooltip"}/>}
 							{job.started && <JobPerformanceInline job={job}/>}
 							{job.finished && <DurationOf start={job.created} end={job.finished}/>}
 							{!job.finished && job.started && <TimeOf date={job.started}/>}

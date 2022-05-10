@@ -594,9 +594,7 @@ model Mixture {
 
   Liquid Liquid[]
 
-  // do not remove as it serves as a reminder that there is manually added unique key
-  // this is a workaround for Prisma to prevent it creating this key
-  // @@unique([aromaId, boosterId, baseId, nicotine])
+  @@unique([aromaId, boosterId, baseId])
 }
 
 enum MixtureError {

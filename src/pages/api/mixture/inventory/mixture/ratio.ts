@@ -1,5 +1,4 @@
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
-import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
@@ -78,4 +77,4 @@ export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async ({request
 		count: items.length,
 		total: items.length,
 	};
-}, cache);
+});

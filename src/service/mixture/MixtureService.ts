@@ -43,6 +43,22 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 			create: async mixture => request.prisma.mixture.create({
 				data: toCreate(mixture),
 			}),
+			onUnique: async create => {
+				const $mixture = await request.prisma.mixture.findFirst({
+					where: {
+						aromaId: create.aromaId,
+						baseId: create.baseId,
+						boosterId: create.boosterId,
+					},
+					rejectOnNotFound: true,
+				});
+				return request.prisma.mixture.update({
+					where: {
+						id: $mixture.id,
+					},
+					data: toCreate(create),
+				});
+			},
 			toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {
 				let _filter: IMixtureWhere = fulltext ? {
 					...filter,

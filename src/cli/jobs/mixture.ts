@@ -1,5 +1,4 @@
 import {JobService} from "@/puff-smith/service/job/JobService";
-import {IMixtureService} from "@/puff-smith/service/mixture/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -14,6 +13,7 @@ export interface IMixturesJobParams {
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 	name: () => MIXTURES_NAME,
 	schedule: async (params, userId) => JobService().schedule<IMixturesJobParams>(MIXTURES_NAME, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixturesJobParams>(MIXTURES_NAME, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURES_NAME, {
 		concurrency: 1,
 		priority: 4,
@@ -22,7 +22,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 		await jobProgress.setTotal(await prisma.aroma.count());
 		for (const aroma of await prisma.aroma.findMany()) {
 			if (aroma.volume && aroma.content.toNumber() < aroma.volume.toNumber()) {
-				await progress(async () => MixtureJob.schedule({
+				await progress(async () => MixtureJob.scheduleAt("in 1 minute", {
 					aromaId: aroma.id,
 				}, userId));
 				continue;
@@ -39,8 +39,9 @@ export interface IMixtureJobParams {
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	name: () => MIXTURE_NAME,
 	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_NAME, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_NAME, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_NAME, {
-		concurrency: 10,
+		concurrency: 2,
 		priority: 5,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_NAME, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
@@ -59,10 +60,6 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		const mixtureService = MixtureService();
 		for (const booster of await prisma.booster.findMany()) {
 			for (const base of await prisma.base.findMany()) {
-				const batch: ReturnType<IMixtureService["toCreate"]>[] = [];
-				/**
-				 * For loop through nicotine strengths
-				 */
 				for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
 					await progress(async () => {
 						const info = await toMixtureInfo({
@@ -72,7 +69,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 							base,
 						});
 						const volume = aroma.volume?.toNumber() || aroma.content.toNumber();
-						batch.push(mixtureService.toCreate({
+						await mixtureService.create({
 							aromaId: aroma.id,
 							baseId: info.base?.baseId,
 							baseMl: info.base?.volume || 0,
@@ -88,13 +85,9 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 							pgToMl: info.result.ml.pg,
 							nicotine: info.result.nicotine,
 							error: info.result.error,
-						}));
+						});
 					});
 				}
-				await prisma.mixture.createMany({
-					data: batch,
-					skipDuplicates: true,
-				});
 			}
 		}
 	})),

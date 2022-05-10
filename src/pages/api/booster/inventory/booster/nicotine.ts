@@ -1,4 +1,3 @@
-import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
@@ -32,4 +31,4 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 		count: items.length,
 		total: items.length,
 	};
-}, cache);
+});

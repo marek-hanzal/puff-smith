@@ -1,4 +1,3 @@
-import cache from "@/puff-smith/service/side-effect/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor, IVendorQuery} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
@@ -20,4 +19,4 @@ export default QueryEndpoint<"Vendor", IVendorQuery, IVendor>(async ({}) => {
 		count: items.length,
 		total: items.length,
 	};
-}, cache);
+});

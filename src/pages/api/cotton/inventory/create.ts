@@ -1,7 +1,6 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {CottonInventoryService} from "@/puff-smith/service/cotton/inventory/CottonInventoryService";
 import {ICottonInventory, ICottonInventoryCreate} from "@/puff-smith/service/cotton/inventory/interface";
-import cache from "@/puff-smith/service/side-effect/cache";
 import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
 import {MutationEndpoint} from "@leight-core/server";
 
@@ -11,11 +10,5 @@ export default MutationEndpoint<"Create", ICottonInventoryCreate, ICottonInvento
 			request,
 			toUserId,
 		}
-	) => handlePuffiesException(res, async () => {
-		try {
-			return await CottonInventoryService(ServiceCreate(toUserId())).handleCreate({request});
-		} finally {
-			cache.clear();
-		}
-	}),
+	) => handlePuffiesException(res, async () => CottonInventoryService(ServiceCreate(toUserId())).handleCreate({request})),
 );

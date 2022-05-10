@@ -1,5 +1,4 @@
 import {ServiceCreate} from "@/puff-smith/service";
-import cache from "@/puff-smith/service/side-effect/cache";
 import {IVoucherInventory, IVoucherInventoryCreate} from "@/puff-smith/service/voucher/inventory/interface";
 import {VoucherInventoryService} from "@/puff-smith/service/voucher/inventory/VoucherInventoryService";
 import {MutationEndpoint} from "@leight-core/server";
@@ -12,7 +11,5 @@ export default MutationEndpoint<"Create", IVoucherInventoryCreate, IVoucherInven
 			res.status(409).end(e.message);
 			return;
 		}
-	} finally {
-		cache.clear();
 	}
 });

@@ -1,6 +1,5 @@
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
-import cache from "@/puff-smith/service/side-effect/cache";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Bases", IBaseQuery, IBase>(BaseService().handleQuery, cache);
+export default QueryEndpoint<"Bases", IBaseQuery, IBase>(BaseService().handleQuery);
