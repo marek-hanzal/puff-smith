@@ -1,16 +1,18 @@
-import {CoilJob} from "@/puff-smith/cli/jobs/coil";
+import {CoilJob, CoilsJob} from "@/puff-smith/cli/jobs/coil";
 import {ImportJob} from "@/puff-smith/cli/jobs/import";
 import {MigrationJob} from "@/puff-smith/cli/jobs/migrate";
-import {MixtureJob} from "@/puff-smith/cli/jobs/mixture";
+import {MixtureJob, MixturesJob} from "@/puff-smith/cli/jobs/mixture";
 import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 
 (async function () {
 	const jobs = [
 		CoilJob,
+		CoilsJob,
 		ImportJob,
 		MigrationJob,
 		MixtureJob,
+		MixturesJob,
 	];
 
 	const logger = Logger("job");

@@ -15,7 +15,7 @@ export const useCoilUpdateMutation = createMutationHook<any, any>(CoilUpdateApiL
 export const useCoilUpdateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CoilUpdateApiLink]);
-};
+}
 
 export interface ICoilUpdateDefaultFormProps extends Partial<IFormProps<any, any>> {
 }
@@ -23,7 +23,7 @@ export interface ICoilUpdateDefaultFormProps extends Partial<IFormProps<any, any
 export const CoilUpdateDefaultForm: FC<ICoilUpdateDefaultFormProps> = props => <Form<any, any>
 	useMutation={useCoilUpdateMutation}
 	{...props}
-/>;
+/>
 
 export const toCoilUpdateLink = (queryParams?: ICoilUpdateQueryParams) => toLink(CoilUpdateApiLink, queryParams);
 export const useCoilUpdateLink = () => toCoilUpdateLink;

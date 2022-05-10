@@ -616,7 +616,7 @@ model Build {
 model Coil {
   id     String  @id @default(cuid())
   // Name could (and probably should be) based on size + wraps + wire.name or something similar
-  name   String  @unique
+  name   String
   code   String  @unique
   // Size of a coil wrap, usually something like 0.2, 0.25 and so on
   size   Decimal @db.Decimal(10, 2)
@@ -625,6 +625,8 @@ model Coil {
   wire   Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
+
+  @@unique([name, wireId])
 }
 
 model CoilDraw {
