@@ -69,7 +69,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 							base,
 						});
 						const volume = aroma.volume?.toNumber() || aroma.content.toNumber();
-						await mixtureService.create({
+						!info.result.error && await mixtureService.create({
 							aromaId: aroma.id,
 							baseId: info.base?.baseId,
 							baseMl: info.base?.volume || 0,

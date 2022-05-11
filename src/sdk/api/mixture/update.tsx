@@ -6,28 +6,28 @@ import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, 
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
-export const MixturesUpdateApiLink = "/api/mixture/update";
+export const MixtureUpdateApiLink = "/api/mixture/update";
 
-export type IMixturesUpdateQueryParams = undefined;
+export type IMixtureUpdateQueryParams = undefined;
 
-export const useMixturesUpdateMutation = createMutationHook<void, any>(MixturesUpdateApiLink, "post");
+export const useMixtureUpdateMutation = createMutationHook<void, any>(MixtureUpdateApiLink, "post");
 
-export const useMixturesUpdateQueryInvalidate = () => {
+export const useMixtureUpdateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixturesUpdateApiLink]);
+	return () => queryClient.invalidateQueries([MixtureUpdateApiLink]);
+};
+
+export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<void, any>> {
 }
 
-export interface IMixturesUpdateDefaultFormProps extends Partial<IFormProps<void, any>> {
-}
-
-export const MixturesUpdateDefaultForm: FC<IMixturesUpdateDefaultFormProps> = props => <Form<void, any>
-	useMutation={useMixturesUpdateMutation}
+export const MixtureUpdateDefaultForm: FC<IMixtureUpdateDefaultFormProps> = props => <Form<void, any>
+	useMutation={useMixtureUpdateMutation}
 	{...props}
-/>
+/>;
 
-export const toMixturesUpdateLink = (queryParams?: IMixturesUpdateQueryParams) => toLink(MixturesUpdateApiLink, queryParams);
-export const useMixturesUpdateLink = () => toMixturesUpdateLink;
+export const toMixtureUpdateLink = (queryParams?: IMixtureUpdateQueryParams) => toLink(MixtureUpdateApiLink, queryParams);
+export const useMixtureUpdateLink = () => toMixtureUpdateLink;
 
-export const useMixturesUpdatePromise = createPromiseHook<void, any>(MixturesUpdateApiLink, "post");
+export const useMixtureUpdatePromise = createPromiseHook<void, any>(MixtureUpdateApiLink, "post");
 
-export const MixturesUpdatePromise = createPromise<void, any>(MixturesUpdateApiLink, "post");
+export const MixtureUpdatePromise = createPromise<void, any>(MixtureUpdateApiLink, "post");

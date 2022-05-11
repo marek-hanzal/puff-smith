@@ -10,10 +10,13 @@ export default withMarketLayout(function Index() {
 		title={"market.booster.index"}
 		menuSelection={["/market/booster"]}
 		icon={<BoosterIcon/>}
+		withHelp={{
+			translation: "market.booster.index",
+		}}
 	>
 		<BoosterSourceControlProvider
 			defaultOrderBy={{
-				name: "asc",
+				vg: "asc",
 			}}
 		>
 			<BoosterList

@@ -21,11 +21,9 @@ export const CellListEmpty: FC<ICellListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<CellIcon/>}
 				href={"/market/cell"}
-				title={"lab.market.cell.label"}
+				label={"lab.market.cell.label"}
 			/>
 		</>}
 	/>;

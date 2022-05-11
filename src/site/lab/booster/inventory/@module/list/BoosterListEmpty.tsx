@@ -21,11 +21,9 @@ export const BoosterListEmpty: FC<IBoosterListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<BoosterIcon/>}
 				href={"/market/booster"}
-				title={"lab.market.booster.label"}
+				label={"lab.market.booster.label"}
 			/>
 		</>}
 	/>;

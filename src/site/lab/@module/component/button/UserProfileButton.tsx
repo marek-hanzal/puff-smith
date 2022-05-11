@@ -11,7 +11,6 @@ export const UserProfileButton: FC<IUserProfileButtonProps> = (props) => {
 	const {t} = useTranslation();
 	return <Tooltip title={t("lab.user.profile.tooltip")}>
 		<ButtonLink
-			type={"link"}
 			href={"/lab/user/profile"}
 			icon={<UserIcon/>}
 			{...props}

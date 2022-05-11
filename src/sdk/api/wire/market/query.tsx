@@ -114,7 +114,7 @@ export const WireMarketListSource: FC<IWireMarketListSourceProps> = ({sourceProp
 			{...props}
 		/>
 	</WireMarketSource>;
-};
+}
 
 export interface IWireMarketSourceSelectProps extends IQuerySourceSelectProps<IWireMarket> {
 	toOption: IToOptionMapper<IWireMarket>;
@@ -157,7 +157,7 @@ export interface IWireMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const WireMarketSelectionProvider: FC<IWireMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IWireMarket> {...props}/>;
-};
+}
 
 export const useWireMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

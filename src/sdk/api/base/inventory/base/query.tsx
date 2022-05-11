@@ -114,7 +114,7 @@ export const InventoryBaseListSource: FC<IInventoryBaseListSourceProps> = ({sour
 			{...props}
 		/>
 	</InventoryBaseSource>;
-};
+}
 
 export interface IInventoryBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -157,7 +157,7 @@ export interface IInventoryBaseSelectionProviderProps extends Partial<ISelection
 
 export const InventoryBaseSelectionProvider: FC<IInventoryBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<IBase> {...props}/>;
-};
+}
 
 export const useInventoryBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

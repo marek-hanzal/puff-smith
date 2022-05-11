@@ -114,7 +114,7 @@ export const AtomizerListSource: FC<IAtomizerListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</AtomizerSource>;
-};
+}
 
 export interface IAtomizerSourceSelectProps extends IQuerySourceSelectProps<IAtomizer> {
 	toOption: IToOptionMapper<IAtomizer>;
@@ -157,7 +157,7 @@ export interface IAtomizerSelectionProviderProps extends Partial<ISelectionProvi
 
 export const AtomizerSelectionProvider: FC<IAtomizerSelectionProviderProps> = props => {
 	return <SelectionProvider<IAtomizer> {...props}/>;
-};
+}
 
 export const useAtomizerQueryInvalidate = () => {
 	const queryClient = useQueryClient();

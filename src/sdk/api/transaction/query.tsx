@@ -114,7 +114,7 @@ export const TransactionListSource: FC<ITransactionListSourceProps> = ({sourcePr
 			{...props}
 		/>
 	</TransactionSource>;
-};
+}
 
 export interface ITransactionSourceSelectProps extends IQuerySourceSelectProps<ITransaction> {
 	toOption: IToOptionMapper<ITransaction>;
@@ -157,7 +157,7 @@ export interface ITransactionSelectionProviderProps extends Partial<ISelectionPr
 
 export const TransactionSelectionProvider: FC<ITransactionSelectionProviderProps> = props => {
 	return <SelectionProvider<ITransaction> {...props}/>;
-};
+}
 
 export const useTransactionQueryInvalidate = () => {
 	const queryClient = useQueryClient();

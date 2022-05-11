@@ -13,17 +13,9 @@ export default withLabLayout(function Index() {
 	>
 		<MixtureSourceControlProvider
 			defaultOrderBy={[
-				{
-					aroma: {
-						name: "asc",
-					}
-				},
-				{
-					vg: "desc",
-				},
-				{
-					nicotine: "asc",
-				}
+				{aroma: {name: "asc"}},
+				{vg: "desc"},
+				{nicotine: "asc"},
 			] as any}
 		>
 			<MixtureList

@@ -16,10 +16,10 @@ export const MixtureListEmpty: FC<IMixtureListEmptyProps> = props => {
 		extra={<>
 			<Divider/>
 			<ButtonBar split={<Divider type={"vertical"}/>}>
-				<ButtonLink size={"large"} type={"link"} href={"/to/market/aroma"} title={"market.aroma.menu"} icon={<LiquidIcon/>}/>
-				<ButtonLink size={"large"} type={"link"} href={"/to/market/base"} title={"market.base.menu"} icon={<BaseIcon/>}/>
-				<ButtonLink size={"large"} type={"link"} href={"/to/market/booster"} title={"market.booster.menu"} icon={<BoosterIcon/>}/>
-				<ButtonLink size={"large"} type={"link"} href={"/to/market/mixture"} title={"market.mixture.menu"} icon={<MixtureIcon/>}/>
+				<ButtonLink href={"/to/market/aroma"} label={"market.aroma.menu"} icon={<LiquidIcon/>}/>
+				<ButtonLink href={"/to/market/base"} label={"market.base.menu"} icon={<BaseIcon/>}/>
+				<ButtonLink href={"/to/market/booster"} label={"market.booster.menu"} icon={<BoosterIcon/>}/>
+				<ButtonLink href={"/to/market/mixture"} label={"market.mixture.menu"} icon={<MixtureIcon/>}/>
 			</ButtonBar>
 		</>}
 		{...props}

@@ -17,7 +17,6 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 		where: {
 			AND: [
 				{
-					error: null,
 					aroma: {
 						AromaInventory: {
 							some: {

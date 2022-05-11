@@ -21,11 +21,9 @@ export const AromaListEmpty: FC<IAromaListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<LiquidIcon/>}
 				href={"/market/aroma"}
-				title={"lab.market.aroma.label"}
+				label={"lab.market.aroma.label"}
 			/>
 		</>}
 	/>;

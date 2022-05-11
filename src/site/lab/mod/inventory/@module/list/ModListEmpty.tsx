@@ -21,11 +21,9 @@ export const ModListEmpty: FC<IModListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<ModIcon/>}
 				href={"/market/mod"}
-				title={"lab.market.mod.label"}
+				label={"lab.market.mod.label"}
 			/>
 		</>}
 	/>;

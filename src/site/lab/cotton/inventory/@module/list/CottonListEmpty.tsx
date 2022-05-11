@@ -21,11 +21,9 @@ export const CottonListEmpty: FC<ICottonListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<CottonIcon/>}
 				href={"/market/cotton"}
-				title={"lab.market.cotton.label"}
+				label={"lab.market.cotton.label"}
 			/>
 		</>}
 	/>;

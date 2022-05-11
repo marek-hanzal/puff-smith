@@ -21,11 +21,9 @@ export const BaseListEmpty: FC<IBaseListEmptyProps> = () => {
 		extra={<>
 			<Divider/>
 			<ButtonLink
-				ghost
-				size={"large"}
 				icon={<BaseIcon/>}
 				href={"/market/base"}
-				title={"lab.market.base.label"}
+				label={"lab.market.base.label"}
 			/>
 		</>}
 	/>;

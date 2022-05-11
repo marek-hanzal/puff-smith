@@ -114,7 +114,7 @@ export const UserListSource: FC<IUserListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</UserSource>;
-};
+}
 
 export interface IUserSourceSelectProps extends IQuerySourceSelectProps<IUser> {
 	toOption: IToOptionMapper<IUser>;
@@ -157,7 +157,7 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<IUser> {...props}/>;
-};
+}
 
 export const useUserQueryInvalidate = () => {
 	const queryClient = useQueryClient();

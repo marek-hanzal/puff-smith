@@ -1,6 +1,6 @@
 import {AtomizerDrawSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerDrawSelect";
 import {AtomizerVendorSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerVendorSelect";
-import {AtomizerSourceFilter} from "@/sdk/api/atomizer/query";
+import {AtomizerSourceControlProvider, AtomizerSourceFilter} from "@/sdk/api/atomizer/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -36,22 +36,24 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 		})}
 		{...props}
 	>
-		<FormItem field={"vendorId"}>
-			<AtomizerVendorSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"andDrawIds"} hasTooltip>
-			<AtomizerDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"orDrawIds"} hasTooltip>
-			<AtomizerDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
+		<AtomizerSourceControlProvider>
+			<FormItem field={"vendorId"}>
+				<AtomizerVendorSelect
+					allowClear
+				/>
+			</FormItem>
+			<FormItem field={"andDrawIds"} hasTooltip>
+				<AtomizerDrawSelect
+					mode={"multiple"}
+					allowClear
+				/>
+			</FormItem>
+			<FormItem field={"orDrawIds"} hasTooltip>
+				<AtomizerDrawSelect
+					mode={"multiple"}
+					allowClear
+				/>
+			</FormItem>
+		</AtomizerSourceControlProvider>
 	</AtomizerSourceFilter>;
 };

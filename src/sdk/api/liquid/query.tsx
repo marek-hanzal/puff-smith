@@ -114,7 +114,7 @@ export const LiquidListSource: FC<ILiquidListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</LiquidSource>;
-};
+}
 
 export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ILiquid> {
 	toOption: IToOptionMapper<ILiquid>;
@@ -157,7 +157,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ILiquid> {...props}/>;
-};
+}
 
 export const useLiquidQueryInvalidate = () => {
 	const queryClient = useQueryClient();

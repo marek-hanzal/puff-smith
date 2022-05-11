@@ -47,6 +47,8 @@ model User {
   Comment           Comment[]
   UserToken         UserToken[]
   Liquid            Liquid[]
+  Metric            Metric[]
+  Build             Build[]
   AtomizerInventory AtomizerInventory[]
   CellInventory     CellInventory[]
   ModInventory      ModInventory[]
@@ -56,8 +58,7 @@ model User {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   WireInventory     WireInventory[]
-  Metric            Metric[]
-  Build             Build[]
+  MixtureInventory  MixtureInventory[]
 }
 
 model VerificationToken {
@@ -199,21 +200,24 @@ model Tag {
   Fiber        Fiber[]
   CoilDraw     CoilDraw[]
   WireDraw     WireDraw[]
+  AromaDraw    AromaDraw[]
 
   @@unique([code, group])
 }
 
 model Vendor {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  atomizers Atomizer[]
-  Cell      Cell[]
-  Mod       Mod[]
-  Cotton    Cotton[]
-  Aroma     Aroma[]
-  Booster   Booster[]
-  Base      Base[]
-  Wire      Wire[]
+  id               String             @id @default(cuid())
+  name             String             @unique
+  atomizers        Atomizer[]
+  Cell             Cell[]
+  Mod              Mod[]
+  Cotton           Cotton[]
+  Aroma            Aroma[]
+  Booster          Booster[]
+  Base             Base[]
+  Wire             Wire[]
+  Mixture          Mixture[]
+  MixtureInventory MixtureInventory[]
 }
 
 model Tariff {
@@ -262,6 +266,7 @@ model Transaction {
   BaseInventory     BaseInventory[]
   Liquid            Liquid[]
   WireInventory     WireInventory[]
+  MixtureInventory  MixtureInventory[]
 }
 
 model Atomizer {
@@ -464,8 +469,18 @@ model Aroma {
   AromaComment   AromaComment[]
   AromaTaste     AromaTaste[]
   Mixture        Mixture[]
+  AromaDraw      AromaDraw[]
+  MixtureInventory MixtureInventory[]
 
   @@unique([name, vendorId])
+}
+
+model AromaDraw {
+  id      String @id @default(cuid())
+  aromaId String
+  aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  drawId  String
+  draw    Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model AromaTaste {
@@ -507,6 +522,7 @@ model Booster {
 
   BoosterInventory BoosterInventory[]
   Mixture          Mixture[]
+  MixtureInventory MixtureInventory[]
 
   @@unique([name, vendorId])
 }
@@ -532,6 +548,7 @@ model Base {
 
   BaseInventory BaseInventory[]
   Mixture       Mixture[]
+  MixtureInventory MixtureInventory[]
 
   @@unique([name, vendorId])
 }
@@ -586,6 +603,9 @@ model Mixture {
   pgToRound       Int
   aromaId         String
   aroma           Aroma         @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  // vendor of an aroma
+  vendorId        String
+  vendor          Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   boosterId       String?
   booster         Booster?      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
   boosterCount    Int
@@ -594,7 +614,26 @@ model Mixture {
   baseMl          Decimal       @db.Decimal(10, 2)
   error           MixtureError?
 
-  Liquid Liquid[]
+  MixtureInventory MixtureInventory[]
+  Liquid           Liquid[]
+}
+
+model MixtureInventory {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mixtureId     String
+  mixture       Mixture     @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  aromaId       String
+  aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  vendorId      String
+  vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  boosterId     String?
+  booster       Booster?    @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  baseId        String?
+  base          Base?       @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }
 
 enum MixtureError {

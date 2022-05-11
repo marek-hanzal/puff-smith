@@ -392,6 +392,15 @@ CREATE TABLE "Aroma" (
 );
 
 -- CreateTable
+CREATE TABLE "AromaDraw" (
+    "id" TEXT NOT NULL,
+    "aromaId" TEXT NOT NULL,
+    "drawId" TEXT NOT NULL,
+
+    CONSTRAINT "AromaDraw_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "AromaTaste" (
     "id" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
@@ -495,6 +504,7 @@ CREATE TABLE "Mixture" (
     "pgToMl" DECIMAL(10,2) NOT NULL,
     "pgToRound" INTEGER NOT NULL,
     "aromaId" TEXT NOT NULL,
+    "vendorId" TEXT NOT NULL,
     "boosterId" TEXT,
     "boosterCount" INTEGER NOT NULL,
     "baseId" TEXT,
@@ -502,6 +512,20 @@ CREATE TABLE "Mixture" (
     "error" "MixtureError",
 
     CONSTRAINT "Mixture_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MixtureInventory" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "mixtureId" TEXT NOT NULL,
+    "aromaId" TEXT NOT NULL,
+    "vendorId" TEXT NOT NULL,
+    "boosterId" TEXT,
+    "baseId" TEXT,
+    "transactionId" TEXT NOT NULL,
+
+    CONSTRAINT "MixtureInventory_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -817,6 +841,12 @@ ALTER TABLE "VoucherInventory" ADD CONSTRAINT "VoucherInventory_voucherId_fkey" 
 ALTER TABLE "Aroma" ADD CONSTRAINT "Aroma_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "AromaDraw" ADD CONSTRAINT "AromaDraw_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AromaDraw" ADD CONSTRAINT "AromaDraw_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "AromaTaste" ADD CONSTRAINT "AromaTaste_tasteId_fkey" FOREIGN KEY ("tasteId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -871,6 +901,9 @@ ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_transactionId_fkey" FOREIGN KEY ("tr
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_mixtureId_fkey" FOREIGN KEY ("mixtureId") REFERENCES "Mixture"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -878,6 +911,27 @@ ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_boosterId_fkey" FOREIGN KEY ("boos
 
 -- AddForeignKey
 ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_boosterId_fkey" FOREIGN KEY ("boosterId") REFERENCES "Booster"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_mixtureId_fkey" FOREIGN KEY ("mixtureId") REFERENCES "Mixture"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Build" ADD CONSTRAINT "Build_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

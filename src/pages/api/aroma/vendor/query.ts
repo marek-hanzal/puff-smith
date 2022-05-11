@@ -4,11 +4,11 @@ import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Vendor", IQuery<{ fulltext?: string }>, IVendor>(async ({request, toUserId}) => {
 	const vendorService = VendorService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.aroma.findMany({
+	const items = await Promise.all((await prisma.aroma.findMany({
+		distinct: ["vendorId"],
 		orderBy: [
 			{
 				vendor: {
@@ -27,7 +27,7 @@ export default QueryEndpoint<"Vendor", IQuery<{ fulltext?: string }>, IVendor>(a
 		include: {
 			vendor: true,
 		}
-	})).map(async item => await vendorService.map(item.vendor))), ["id"]) as IVendor[];
+	})).map(async item => await vendorService.map(item.vendor)));
 
 	return {
 		items,

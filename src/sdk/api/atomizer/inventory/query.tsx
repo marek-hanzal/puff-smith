@@ -115,7 +115,7 @@ export const AtomizerInventoryListSource: FC<IAtomizerInventoryListSourceProps> 
 			{...props}
 		/>
 	</AtomizerInventorySource>;
-};
+}
 
 export interface IAtomizerInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
 	toOption: IToOptionMapper<IAtomizerInventory>;
@@ -158,7 +158,7 @@ export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelec
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<IAtomizerInventory> {...props}/>;
-};
+}
 
 export const useAtomizerInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

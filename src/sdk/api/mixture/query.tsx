@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const MixturesApiLink = "/api/mixture/query";
+export const MixtureApiLink = "/api/mixture/query";
 
-export type IMixturesQueryParams = undefined;
+export type IMixtureQueryParams = undefined;
 
-export const useMixturesQuery = createQueryHook<IMixtureQuery, IQueryResult<IMixture>, IMixturesQueryParams>(MixturesApiLink, "post");
+export const useMixtureQuery = createQueryHook<IMixtureQuery, IQueryResult<IMixture>, IMixtureQueryParams>(MixtureApiLink, "post");
 
-export const useMixturesSource = () => useSourceContext<IMixture>()
+export const useMixtureSource = () => useSourceContext<IMixture>();
 
-export interface IMixturesSourceContext extends ISourceContext<IMixture> {
+export interface IMixtureSourceContext extends ISourceContext<IMixture> {
 }
 
-export interface IMixturesSourceConsumerProps extends ConsumerProps<ISourceContext<IMixture>> {
+export interface IMixtureSourceConsumerProps extends ConsumerProps<ISourceContext<IMixture>> {
 }
 
-export const MixturesSourceConsumer: FC<IMixturesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const MixtureSourceConsumer: FC<IMixtureSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IMixturesSourceProps extends Partial<ISourceProviderProps<IMixture>> {
+export interface IMixtureSourceProps extends Partial<ISourceProviderProps<IMixture>> {
 }
 
-export const MixturesSource: FC<IMixturesSourceProps> = props => {
+export const MixtureSource: FC<IMixtureSourceProps> = props => {
 	return <SourceProvider<IMixture>
-		name={"Mixtures"}
-		useQuery={useMixturesQuery}
+		name={"Mixture"}
+		useQuery={useMixtureQuery}
 		{...props}
 	/>;
 };
 
-export const toMixturesLink = (queryParams?: IMixturesQueryParams) => toLink(MixturesApiLink, queryParams);
-export const useMixturesLink = () => toMixturesLink;
+export const toMixtureLink = (queryParams?: IMixtureQueryParams) => toLink(MixtureApiLink, queryParams);
+export const useMixtureLink = () => toMixtureLink;
 
-export const useMixturesPromise = createPromiseHook<IMixtureQuery, IMixture, IMixturesQueryParams>(MixturesApiLink, "post");
-export const MixturesPromise = createPromise<IMixtureQuery, IMixture, IMixturesQueryParams>(MixturesApiLink, "post");
+export const useMixturePromise = createPromiseHook<IMixtureQuery, IMixture, IMixtureQueryParams>(MixtureApiLink, "post");
+export const MixturePromise = createPromise<IMixtureQuery, IMixture, IMixtureQueryParams>(MixtureApiLink, "post");
 
-export interface IMixturesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
+export interface IMixtureFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
 }
 
-export const MixturesFilterProvider: FC<IMixturesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Mixtures"} {...props}/>;
+export const MixtureFilterProvider: FC<IMixtureFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Mixture"} {...props}/>;
 
-export const useMixturesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>()
-export const useMixturesFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>()
+export const useMixtureOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useMixtureFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
 
-export interface IMixturesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
+export interface IMixtureSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
 }
 
-export const MixturesSourceFilter: FC<IMixturesSourceFilterProps> = props => <Filter
+export const MixtureSourceFilter: FC<IMixtureSourceFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Mixtures'}
+	translation={"common.filter.Mixture"}
 />;
 
-export interface IMixturesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
+export interface IMixtureOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
 }
 
-export const MixturesOrderByProvider: FC<IMixturesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Mixtures"} {...props}/>;
+export const MixtureOrderByProvider: FC<IMixtureOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Mixture"} {...props}/>;
 
-export const useMixturesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>()
-export const useMixturesOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>()
+export const useMixtureOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useMixtureOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
 
-export interface IMixturesListSourceProps extends Partial<IListProps<IMixture>> {
-	sourceProps?: Partial<IMixturesSourceProps>;
+export interface IMixtureListSourceProps extends Partial<IListProps<IMixture>> {
+	sourceProps?: Partial<IMixtureSourceProps>;
 }
 
-export interface IMixturesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IMixturesQueryParams>> {
+export interface IMixtureSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IMixtureQueryParams>> {
 }
 
-export const MixturesSourceControlProvider: FC<IMixturesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Mixtures"} {...props}/>;
+export const MixtureSourceControlProvider: FC<IMixtureSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Mixture"} {...props}/>;
 
-export const MixturesListSource: FC<IMixturesListSourceProps> = ({sourceProps, ...props}) => {
-	return <MixturesSource
+export const MixtureListSource: FC<IMixtureListSourceProps> = ({sourceProps, ...props}) => {
+	return <MixtureSource
 		{...sourceProps}
 	>
 		<List<IMixture>
 			{...props}
 		/>
-	</MixturesSource>;
-}
+	</MixtureSource>;
+};
 
-export interface IMixturesSourceSelectProps extends IQuerySourceSelectProps<IMixture> {
+export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<IMixture> {
 	toOption: IToOptionMapper<IMixture>;
-	sourceProps?: IMixturesSourceProps;
+	sourceProps?: IMixtureSourceProps;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const MixturesSourceSelect: FC<IMixturesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const MixtureSourceSelect: FC<IMixtureSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<MixturesSource {...sourceProps}>
+				<MixtureSource {...sourceProps}>
 					<QuerySourceSelect<IMixture> {...props}/>
-				</MixturesSource>
+				</MixtureSource>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Mixtures.title"}
+					title={"common.selection.Mixture.title"}
 					size={props.size}
-					tooltip={"common.selection.Mixtures.title.tooltip"}
+					tooltip={"common.selection.Mixture.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<MixturesSourceControlProvider>
+					<MixtureSourceControlProvider>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</MixturesSourceControlProvider>
+					</MixtureSourceControlProvider>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IMixturesSelectionProviderProps extends Partial<ISelectionProviderProps<IMixture>> {
+export interface IMixtureSelectionProviderProps extends Partial<ISelectionProviderProps<IMixture>> {
 }
 
-export const MixturesSelectionProvider: FC<IMixturesSelectionProviderProps> = props => {
+export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<IMixture> {...props}/>;
-}
-
-export const useMixturesQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixturesApiLink]);
 };
 
-export const useMixturesOptionalSelectionContext = () => useOptionalSelectionContext<IMixture>();
-export const useMixturesSelectionContext = () => useSelectionContext<IMixture>();
+export const useMixtureQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([MixtureApiLink]);
+};
+
+export const useMixtureOptionalSelectionContext = () => useOptionalSelectionContext<IMixture>();
+export const useMixtureSelectionContext = () => useSelectionContext<IMixture>();

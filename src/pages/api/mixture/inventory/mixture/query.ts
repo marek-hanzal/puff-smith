@@ -7,7 +7,6 @@ export default QueryEndpoint<"Mixture", IMixtureQuery, IMixture>(async ({request
 	request: {
 		filter: {
 			...filter,
-			error: null,
 			ownedByCurrentUser: true,
 		},
 		...request,

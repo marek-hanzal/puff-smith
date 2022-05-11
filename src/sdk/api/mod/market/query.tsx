@@ -114,7 +114,7 @@ export const ModMarketListSource: FC<IModMarketListSourceProps> = ({sourceProps,
 			{...props}
 		/>
 	</ModMarketSource>;
-};
+}
 
 export interface IModMarketSourceSelectProps extends IQuerySourceSelectProps<IModMarket> {
 	toOption: IToOptionMapper<IModMarket>;
@@ -157,7 +157,7 @@ export interface IModMarketSelectionProviderProps extends Partial<ISelectionProv
 
 export const ModMarketSelectionProvider: FC<IModMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IModMarket> {...props}/>;
-};
+}
 
 export const useModMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

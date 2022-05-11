@@ -8,10 +8,12 @@ import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
 export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate()): IMixtureService => {
-	const toCreate = (create: IMixtureCreate) => {
+	const toCreate = async (create: IMixtureCreate) => {
 		const vgToRound = Math.round(create.vg * 0.1) / 0.1;
+		const $aroma = await AromaService(request).fetch(create.aromaId);
 		return {
 			...create,
+			vendorId: $aroma.vendorId,
 			hash: sha256(`${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`),
 			vgToRound,
 			pgToRound: 100 - vgToRound,
@@ -43,10 +45,10 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 				};
 			},
 			create: async mixture => request.prisma.mixture.create({
-				data: toCreate(mixture),
+				data: await toCreate(mixture),
 			}),
 			onUnique: async mixture => {
-				const $create = toCreate(mixture);
+				const $create = await toCreate(mixture);
 				const $mixture = await request.prisma.mixture.findUnique({
 					where: {
 						hash: $create.hash,

@@ -114,7 +114,7 @@ export const BaseMarketListSource: FC<IBaseMarketListSourceProps> = ({sourceProp
 			{...props}
 		/>
 	</BaseMarketSource>;
-};
+}
 
 export interface IBaseMarketSourceSelectProps extends IQuerySourceSelectProps<IBaseMarket> {
 	toOption: IToOptionMapper<IBaseMarket>;
@@ -157,7 +157,7 @@ export interface IBaseMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const BaseMarketSelectionProvider: FC<IBaseMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<IBaseMarket> {...props}/>;
-};
+}
 
 export const useBaseMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

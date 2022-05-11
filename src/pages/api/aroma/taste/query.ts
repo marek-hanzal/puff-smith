@@ -3,18 +3,18 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Taste", IAromaQuery, ITag>(async ({}) => {
 	const tagService = TagService();
-	const items = uniqueObjects(await Promise.all((await prisma.aromaTaste.findMany({
+	const items = await Promise.all((await prisma.aromaTaste.findMany({
+		distinct: ["tasteId"],
 		select: {
 			taste: true,
 		},
 		orderBy: [
 			{taste: {sort: "asc"}},
 		],
-	})).map(async item => await tagService.map(item.taste))), ["id"]) as ITag[];
+	})).map(async item => await tagService.map(item.taste)));
 	return {
 		items,
 		count: items.length,

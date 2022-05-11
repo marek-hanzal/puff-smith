@@ -114,7 +114,7 @@ export const InventoryBoosterListSource: FC<IInventoryBoosterListSourceProps> = 
 			{...props}
 		/>
 	</InventoryBoosterSource>;
-};
+}
 
 export interface IInventoryBoosterSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
@@ -157,7 +157,7 @@ export interface IInventoryBoosterSelectionProviderProps extends Partial<ISelect
 
 export const InventoryBoosterSelectionProvider: FC<IInventoryBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<IBooster> {...props}/>;
-};
+}
 
 export const useInventoryBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();
