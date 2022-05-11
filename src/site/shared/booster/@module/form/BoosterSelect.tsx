@@ -11,7 +11,6 @@ export interface IBoosterSelectProps extends Partial<IBoosterSourceSelectProps> 
 export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 	return <BoosterFilterProvider>
 		<BoosterSourceSelect
-			showSearch
 			allowClear
 			toOption={booster => ({
 				label: <Space>
