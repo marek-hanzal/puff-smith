@@ -114,7 +114,7 @@ export const VendorListSource: FC<IVendorListSourceProps> = ({sourceProps, ...pr
 			{...props}
 		/>
 	</VendorSource>;
-};
+}
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<IVendor> {
 	toOption: IToOptionMapper<IVendor>;
@@ -157,7 +157,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<IVendor> {...props}/>;
-};
+}
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
