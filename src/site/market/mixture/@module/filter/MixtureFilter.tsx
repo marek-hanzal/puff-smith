@@ -8,12 +8,15 @@ import {MixtureNicotineSelect} from "@/puff-smith/site/shared/mixture/@module/fo
 import {MixtureRatioSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureRatioSelect";
 import {MixtureMarketSourceControlProvider, MixtureMarketSourceFilter} from "@/sdk/api/mixture/market/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
+import {Tabs} from "antd";
 import {FC, useRef} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface IMixtureFilterProps extends Partial<IFilterProps> {
 }
 
 export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const {t} = useTranslation();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 
 	const onClear = () => {
@@ -26,7 +29,10 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		}}
 		translation={"common.mixture"}
 		onClear={onClear}
-		toFilter={({andDrawIds, orDrawIds, andTasteIds, orTasteIds, vendorId, ...values}) => toFilter({
+		drawerButtonProps={{
+			width: 820,
+		}}
+		toFilter={({andDrawIds, orDrawIds, andTasteIds, orTasteIds, vendorId, ratio: unused, ...values}) => toFilter({
 			...values,
 			aroma: {
 				vendorId,
@@ -41,7 +47,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 						}))
 					},
 					{
-						AND: orDrawIds?.map((drawId: string) => ({
+						AND: andDrawIds?.map((drawId: string) => ({
 							AromaDraw: {
 								some: {
 									drawId,
@@ -70,66 +76,74 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		{...props}
 	>
 		<MixtureMarketSourceControlProvider>
-			<FormItem field={"nicotineToRound"}>
-				<MixtureNicotineSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"ratio"}>
-				<MixtureRatioSelect
-					allowClear
-					onClear={() => {
-						ratio.current = undefined;
-					}}
-					onSelect={({entity}) => {
-						ratio.current = {pgToRound: entity.pg, vgToRound: entity.vg};
-					}}
-				/>
-			</FormItem>
-			<FormItem field={"aromaId"}>
-				<AromaSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"boosterId"}>
-				<BoosterSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"baseId"}>
-				<BaseSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"vendorId"}>
-				<AromaVendorSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"andTasteIds"} hasTooltip>
-				<AromaTasteSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"orTasteIds"} hasTooltip>
-				<AromaTasteSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"andDrawIds"} hasTooltip>
-				<AromaDrawSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"orDrawIds"} hasTooltip>
-				<AromaDrawSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
+			<Tabs>
+				<Tabs.TabPane key={"liquid"} tab={t("market.mixture.filter.liquid.tab")}>
+					<FormItem field={"aromaId"}>
+						<AromaSelect
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"nicotineToRound"}>
+						<MixtureNicotineSelect
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"ratio"}>
+						<MixtureRatioSelect
+							allowClear
+							onClear={() => {
+								ratio.current = undefined;
+							}}
+							onSelect={({entity}) => {
+								ratio.current = {pgToRound: entity.pg, vgToRound: entity.vg};
+							}}
+						/>
+					</FormItem>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={"source"} tab={t("market.mixture.filter.source.tab")}>
+					<FormItem field={"boosterId"}>
+						<BoosterSelect
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"baseId"}>
+						<BaseSelect
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"vendorId"}>
+						<AromaVendorSelect
+							allowClear
+						/>
+					</FormItem>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={"misc"} tab={t("market.mixture.filter.misc.tab")}>
+					<FormItem field={"andTasteIds"} hasTooltip>
+						<AromaTasteSelect
+							mode={"multiple"}
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"orTasteIds"} hasTooltip>
+						<AromaTasteSelect
+							mode={"multiple"}
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"andDrawIds"} hasTooltip>
+						<AromaDrawSelect
+							mode={"multiple"}
+							allowClear
+						/>
+					</FormItem>
+					<FormItem field={"orDrawIds"} hasTooltip>
+						<AromaDrawSelect
+							mode={"multiple"}
+							allowClear
+						/>
+					</FormItem>
+				</Tabs.TabPane>
+			</Tabs>
 		</MixtureMarketSourceControlProvider>
 	</MixtureMarketSourceFilter>;
 };
