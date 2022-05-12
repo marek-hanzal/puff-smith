@@ -13,12 +13,12 @@ export const PgVgInline: FC<IPgVgInlineProps> = ({pgvg, disableTooltip = false})
 	return pgvg ? <Space size={4} split={<Typography.Text type={"secondary"}>/</Typography.Text>}>
 		<Typography.Text type={"success"}>
 			<Tooltip title={!disableTooltip && t("common.pgvg.vg.tooltip")}>
-				{toHumanNumber(pgvg.vg)}%
+				{toHumanNumber(pgvg.vg, 3)}%
 			</Tooltip>
 		</Typography.Text>
 		<Typography.Text type={"warning"}>
 			<Tooltip title={!disableTooltip && t("common.pgvg.pg.tooltip")}>
-				{toHumanNumber(pgvg.pg)}%
+				{toHumanNumber(pgvg.pg, 3)}%
 			</Tooltip>
 		</Typography.Text>
 	</Space> : <>-</>;
