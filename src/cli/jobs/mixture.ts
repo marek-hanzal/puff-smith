@@ -85,6 +85,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 							pgToMl: info.result.ml.pg,
 							nicotine: info.result.nicotine,
 							error: info.result.error,
+							draws: info.result.draws,
 						});
 					});
 				}

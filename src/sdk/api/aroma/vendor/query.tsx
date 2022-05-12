@@ -2,9 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +45,7 @@ export const VendorApiLink = "/api/aroma/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<IQuery<{ fulltext?: string }>, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<IAromaQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 
@@ -70,18 +71,18 @@ export const VendorSource: FC<IVendorSourceProps> = props => {
 export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
-export const useVendorPromise = createPromiseHook<IQuery<{ fulltext?: string }>, IVendor, IVendorQueryParams>(VendorApiLink, "post");
-export const VendorPromise = createPromise<IQuery<{ fulltext?: string }>, IVendor, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorPromise = createPromiseHook<IAromaQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
+export const VendorPromise = createPromise<IAromaQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
 
-export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery<{ fulltext?: string }>>>> {
+export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaQuery>>> {
 }
 
-export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery<{ fulltext?: string }>>> name={"Vendor"} {...props}/>;
+export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaQuery>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery<{ fulltext?: string }>>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<IQuery<{ fulltext?: string }>>>();
+export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaQuery>>();
+export const useVendorFilterContext = () => useFilterContext<IQueryFilter<IAromaQuery>>();
 
-export interface IVendorSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery<{ fulltext?: string }>>> {
+export interface IVendorSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAromaQuery>> {
 }
 
 export const VendorSourceFilter: FC<IVendorSourceFilterProps> = props => <Filter
@@ -89,22 +90,22 @@ export const VendorSourceFilter: FC<IVendorSourceFilterProps> = props => <Filter
 	translation={"common.filter.Vendor"}
 />;
 
-export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery<{ fulltext?: string }>>>> {
+export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAromaQuery>>> {
 }
 
-export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery<{ fulltext?: string }>>> name={"Vendor"} {...props}/>;
+export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAromaQuery>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery<{ fulltext?: string }>>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery<{ fulltext?: string }>>>();
+export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAromaQuery>>();
+export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<IAromaQuery>>();
 
 export interface IVendorListSourceProps extends Partial<IListProps<IVendor>> {
 	sourceProps?: Partial<IVendorSourceProps>;
 }
 
-export interface IVendorSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery<{ fulltext?: string }>>, IQueryOrderBy<IQuery<{ fulltext?: string }>>, IVendorQueryParams>> {
+export interface IVendorSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>, IVendorQueryParams>> {
 }
 
-export const VendorSourceControlProvider: FC<IVendorSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery<{ fulltext?: string }>>, IQueryOrderBy<IQuery<{ fulltext?: string }>>> name={"Vendor"} {...props}/>;
+export const VendorSourceControlProvider: FC<IVendorSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>> name={"Vendor"} {...props}/>;
 
 export const VendorListSource: FC<IVendorListSourceProps> = ({sourceProps, ...props}) => {
 	return <VendorSource

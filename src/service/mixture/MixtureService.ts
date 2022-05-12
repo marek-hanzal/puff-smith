@@ -3,14 +3,20 @@ import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IMixtureCreate, IMixtureService, IMixtureServiceCreate, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
+import {TagService} from "@/puff-smith/service/tag/TagService";
 import {sha256} from "@/puff-smith/service/utils/sha256";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
 export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate()): IMixtureService => {
-	const toCreate = async (create: IMixtureCreate) => {
+	const tagService = TagService(request);
+	const aromaService = AromaService(request);
+	const boosterService = BoosterService(request);
+	const baseService = BaseService(request);
+
+	const toCreate = async ({draws, ...create}: IMixtureCreate) => {
 		const vgToRound = Math.round(create.vg * 0.1) / 0.1;
-		const $aroma = await AromaService(request).fetch(create.aromaId);
+		const $aroma = await aromaService.fetch(create.aromaId);
 		return {
 			...create,
 			vendorId: $aroma.vendorId,
@@ -18,6 +24,13 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 			vgToRound,
 			pgToRound: 100 - vgToRound,
 			nicotineToRound: Math.round(create.nicotine || 0),
+			MixtureDraw: {
+				createMany: {
+					data: draws ? (await tagService.fetchByCodes(draws, "draw")).map(tag => ({
+						drawId: tag.id,
+					})) : [],
+				}
+			},
 		};
 	};
 	return {
@@ -25,7 +38,7 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 			name: "mixture",
 			source: request.prisma.mixture,
 			mapper: async mixture => {
-				const aroma = await AromaService(request).toMap(mixture.aromaId);
+				const aroma = await aromaService.toMap(mixture.aromaId);
 				return {
 					...mixture,
 					content: mixture.content.toNumber(),
@@ -38,10 +51,21 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 					vgToMl: mixture.vgToMl.toNumber(),
 					pgToMl: mixture.pgToMl.toNumber(),
 					aroma,
-					booster: mixture.boosterId ? await BoosterService(request).toMap(mixture.boosterId) : undefined,
-					base: mixture.baseId ? await BaseService(request).toMap(mixture.baseId) : undefined,
+					booster: mixture.boosterId ? await boosterService.toMap(mixture.boosterId) : undefined,
+					base: mixture.baseId ? await baseService.toMap(mixture.baseId) : undefined,
 					baseMl: mixture.baseMl.toNumber(),
 					volume: aroma.volume || 0,
+					draws: await Promise.all((await request.prisma.mixtureDraw.findMany({
+						where: {
+							mixtureId: mixture.id,
+						},
+						orderBy: {
+							draw: {sort: "asc"},
+						},
+						include: {
+							draw: true,
+						}
+					})).map(({draw}) => tagService.map(draw))),
 				};
 			},
 			create: async mixture => request.prisma.mixture.create({
@@ -54,6 +78,11 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 						hash: $create.hash,
 					},
 					rejectOnNotFound: true,
+				});
+				await request.prisma.mixtureDraw.deleteMany({
+					where: {
+						mixtureId: $mixture.id,
+					}
 				});
 				return request.prisma.mixture.update({
 					where: {

@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
 import {Cell, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -15,7 +15,9 @@ export interface ICellCreate {
 	type: string;
 }
 
-export interface ICellQuery extends IQuery<Prisma.CellWhereInput, Prisma.CellOrderByWithRelationInput> {
+export type ICellWhere = Prisma.CellWhereInput & IWhereFulltext;
+
+export interface ICellQuery extends IQuery<ICellWhere, Prisma.CellOrderByWithRelationInput> {
 }
 
 export interface ICell {

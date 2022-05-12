@@ -200,31 +200,81 @@ interface IMixtureResult {
 	ml: {
 		pg: number;
 		vg: number;
-	},
+	};
 	ratio: {
 		pg: number;
 		vg: number;
 	};
+	draws: string[];
 }
+
+/** VG is an input */
+const drawMap: { [index in string | number]: string[] } = {
+	0: [
+		"x-pg",
+	],
+	10: [
+		"x-pg",
+	],
+	20: [
+		"x-pg",
+	],
+	30: [
+		"x-pg",
+	],
+	40: [
+		"rmtl",
+	],
+	50: [
+		"rmtl",
+		"mtl",
+	],
+	60: [
+		"mtl",
+		"rdl",
+	],
+	70: [
+		"omtl",
+		"rdl",
+		"dl",
+	],
+	80: [
+		"dl",
+		"cch",
+	],
+	90: [
+		"cch",
+		"x-vg",
+	],
+	100: [
+		"cch",
+		"x-vg",
+	],
+};
 
 const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResultRequest): IMixtureResult => {
 	const _fluids = fluids.filter((ml): ml is IVgPgMl => !!ml);
-	const pg = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
-	const vg = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
-	const total = pg + vg;
+	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
+	const vgToMl = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const total = pgToMl + vgToMl;
+	const pgToRatio = 100 * pgToMl / volume;
+	const vgToRatio = 100 * vgToMl / volume;
+	const vgToRound = Math.round(vgToRatio * 0.1) / 0.1;
+
 	return {
 		volume: total,
 		content: volume - total,
 		error: available <= 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
 		nicotine: nicotine && nicotine > 0 ? nicotine / volume : 0,
 		ml: {
-			pg,
-			vg,
+			pg: pgToMl,
+			vg: vgToMl,
 		},
 		ratio: {
-			pg: 100 * pg / volume,
-			vg: 100 * vg / volume,
+			pg: pgToRatio,
+			vg: vgToRatio,
 		},
+		draws: drawMap?.[vgToRound] || [],
 	};
 };
 

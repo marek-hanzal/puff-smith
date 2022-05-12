@@ -1,5 +1,5 @@
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
-import {IRatioSourceSelectProps, RatioSourceControlProvider, RatioSourceSelect} from "@/sdk/api/booster/ratio";
+import {IRatioSourceSelectProps, RatioSourceControlProvider, RatioSourceSelect} from "@/sdk/api/booster/ratio/query";
 import {FC} from "react";
 
 export interface IBoosterRatioSelectProps extends Partial<IRatioSourceSelectProps> {

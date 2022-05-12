@@ -1,3 +1,4 @@
+import {MixtureJob} from "@/puff-smith/cli/jobs/mixture";
 import {ServiceCreate} from "@/puff-smith/service";
 import {IAromaService, IAromaServiceCreate, IAromaWhere} from "@/puff-smith/service/aroma/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -7,25 +8,31 @@ import {RepositoryService} from "@leight-core/server";
 export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IAromaService => RepositoryService<IAromaService>({
 	name: "aroma",
 	source: request.prisma.aroma,
-	create: async ({vendor, tastes, ...aroma}) => request.prisma.aroma.create({
-		data: {
-			...aroma,
-			vendor: {
-				connect: {
-					name: vendor,
-				}
+	create: async ({vendor, tastes, ...aroma}) => {
+		const $aroma = await request.prisma.aroma.create({
+			data: {
+				...aroma,
+				vendor: {
+					connect: {
+						name: vendor,
+					}
+				},
+				AromaTaste: {
+					createMany: {
+						data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
+							tasteId: tag.id,
+						})) : [],
+					}
+				},
 			},
-			AromaTaste: {
-				createMany: {
-					data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
-						tasteId: tag.id,
-					})) : [],
-				}
-			},
-		},
-	}),
+		});
+		await MixtureJob.schedule({
+			aromaId: $aroma.id,
+		}, request.userService.getOptionalUserId());
+		return $aroma;
+	},
 	onUnique: async ({vendor, tastes, ...create}) => {
-		const _aroma = await request.prisma.aroma.findFirst({
+		const $aroma = await request.prisma.aroma.findFirst({
 			where: {
 				name: create.name,
 				vendor: {
@@ -36,12 +43,15 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 		});
 		await request.prisma.aromaTaste.deleteMany({
 			where: {
-				aromaId: _aroma.id,
+				aromaId: $aroma.id,
 			}
 		});
+		await MixtureJob.scheduleAt("in 10 seconds", {
+			aromaId: $aroma.id,
+		}, request.userService.getOptionalUserId());
 		return request.prisma.aroma.update({
 			where: {
-				id: _aroma.id,
+				id: $aroma.id,
 			},
 			data: {
 				...create,

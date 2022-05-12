@@ -1,3 +1,4 @@
+import {AromaSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaSelect";
 import {AromaTasteSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaTasteSelect";
 import {AromaVendorSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaVendorSelect";
 import {AromaSourceFilter} from "@/sdk/api/aroma/query";
@@ -36,6 +37,11 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 		})}
 		{...props}
 	>
+		<FormItem field={"id"} hasTooltip>
+			<AromaSelect
+				allowClear
+			/>
+		</FormItem>
 		<FormItem field={"andTasteIds"} hasTooltip>
 			<AromaTasteSelect
 				allowClear

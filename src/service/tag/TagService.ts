@@ -37,6 +37,14 @@ export const TagService = (request: ITagServiceCreate = ServiceCreate()): ITagSe
 			group,
 		}
 	}),
+	fetchByCodes: async (codes, group) => request.prisma.tag.findMany({
+		where: {
+			code: {
+				in: codes.map(code => `${code}`.toLowerCase()),
+			},
+			group,
+		}
+	}),
 	fetchTag: (group, code, tagId) => {
 		if (!code && !tagId) {
 			throw new Error(`Provide [code] or [tagId] in group [${group}].`);

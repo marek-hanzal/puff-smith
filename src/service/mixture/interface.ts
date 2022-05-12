@@ -2,6 +2,7 @@ import {IServiceCreate} from "@/puff-smith/service";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IBooster} from "@/puff-smith/service/booster/interface";
+import {ITag} from "@/puff-smith/service/tag/interface";
 import {IUserOwnershipFilter} from "@/puff-smith/service/user/interface";
 import {IQuery, IRepositoryService} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
@@ -25,6 +26,7 @@ export interface IMixtureCreate {
 	vgToMl: number;
 	pgToMl: number;
 	error?: IMixtureError;
+	draws?: string[];
 }
 
 export type IMixtureWhere = Prisma.MixtureWhereInput & IUserOwnershipFilter & { fulltext?: string };
@@ -53,6 +55,7 @@ export interface IMixture {
 	base?: IBase | null;
 	baseMl: number;
 	error?: IMixtureError | null;
+	draws: ITag[];
 }
 
 export interface IMixtureFetchProps {

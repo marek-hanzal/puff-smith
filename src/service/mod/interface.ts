@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
 import {Mod, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -25,7 +25,9 @@ export interface IMod {
 	power: number;
 }
 
-export interface IModQuery extends IQuery<Prisma.ModWhereInput, Prisma.ModOrderByWithRelationInput> {
+export type IModWhere = Prisma.ModWhereInput & IWhereFulltext;
+
+export interface IModQuery extends IQuery<IModWhere, Prisma.ModOrderByWithRelationInput> {
 }
 
 export interface IModFetchProps {

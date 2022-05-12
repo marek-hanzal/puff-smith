@@ -20,7 +20,7 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={mixture.aroma}/>
 					{mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={mixture.aroma.tastes} translation={"common.taste"}/>}
-					{/*{mixture.aroma.draws.length > 0 && <Tags tags={mixture.aroma.draws}/>}*/}
+					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
 					{/*{isOwned ? <BoolInline bool={isOwned}/> : <MixtureInventoryCreateButton type={"link"} mixture={mixture}/>}*/}
 				</Space>}
 				description={<MixtureInline mixture={mixture}/>}

@@ -2,7 +2,7 @@ import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IUserOwnershipFilter} from "@/puff-smith/service/user/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -18,7 +18,7 @@ export interface IAromaCreate {
 	tastes?: string;
 }
 
-export type IAromaWhere = Prisma.AromaWhereInput & IUserOwnershipFilter;
+export type IAromaWhere = Prisma.AromaWhereInput & IUserOwnershipFilter & IWhereFulltext;
 
 export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }

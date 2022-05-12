@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
+import {ICellQuery} from "@/puff-smith/service/cell/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
@@ -45,7 +45,7 @@ export const TypeApiLink = "/api/cell/type/query";
 
 export type ITypeQueryParams = undefined;
 
-export const useTypeQuery = createQueryHook<IAtomizerQuery, IQueryResult<ITag>, ITypeQueryParams>(TypeApiLink, "post");
+export const useTypeQuery = createQueryHook<ICellQuery, IQueryResult<ITag>, ITypeQueryParams>(TypeApiLink, "post");
 
 export const useTypeSource = () => useSourceContext<ITag>();
 
@@ -71,18 +71,18 @@ export const TypeSource: FC<ITypeSourceProps> = props => {
 export const toTypeLink = (queryParams?: ITypeQueryParams) => toLink(TypeApiLink, queryParams);
 export const useTypeLink = () => toTypeLink;
 
-export const useTypePromise = createPromiseHook<IAtomizerQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
-export const TypePromise = createPromise<IAtomizerQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
+export const useTypePromise = createPromiseHook<ICellQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
+export const TypePromise = createPromise<ICellQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
 
-export interface ITypeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
+export interface ITypeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
 }
 
-export const TypeFilterProvider: FC<ITypeFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Type"} {...props}/>;
+export const TypeFilterProvider: FC<ITypeFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Type"} {...props}/>;
 
-export const useTypeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
-export const useTypeFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useTypeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>();
+export const useTypeFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>();
 
-export interface ITypeSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
+export interface ITypeSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellQuery>> {
 }
 
 export const TypeSourceFilter: FC<ITypeSourceFilterProps> = props => <Filter
@@ -90,22 +90,22 @@ export const TypeSourceFilter: FC<ITypeSourceFilterProps> = props => <Filter
 	translation={"common.filter.Type"}
 />;
 
-export interface ITypeOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerQuery>>> {
+export interface ITypeOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellQuery>>> {
 }
 
-export const TypeOrderByProvider: FC<ITypeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerQuery>> name={"Type"} {...props}/>;
+export const TypeOrderByProvider: FC<ITypeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellQuery>> name={"Type"} {...props}/>;
 
-export const useTypeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
-export const useTypeOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
+export const useTypeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellQuery>>();
+export const useTypeOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellQuery>>();
 
 export interface ITypeListSourceProps extends Partial<IListProps<ITag>> {
 	sourceProps?: Partial<ITypeSourceProps>;
 }
 
-export interface ITypeSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>, ITypeQueryParams>> {
+export interface ITypeSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>, ITypeQueryParams>> {
 }
 
-export const TypeSourceControlProvider: FC<ITypeSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> name={"Type"} {...props}/>;
+export const TypeSourceControlProvider: FC<ITypeSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> name={"Type"} {...props}/>;
 
 export const TypeListSource: FC<ITypeListSourceProps> = ({sourceProps, ...props}) => {
 	return <TypeSource

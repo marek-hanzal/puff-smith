@@ -3,30 +3,29 @@ import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Aroma", ILiquidQuery, IAroma>(async ({toUserId}) => {
-	const aromaService = AromaService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.liquid.findMany({
-		where: {
-			userId: toUserId(),
-		},
-		orderBy: [
-			{mixture: {aroma: {name: "asc"}}},
-		],
-		include: {
-			mixture: {
-				include: {
-					aroma: true,
-				},
+export default QueryEndpoint<"Aroma", ILiquidQuery, IAroma>(async ({request: {filter}, toUserId}) => itemsOf(prisma.liquid.findMany({
+	distinct: ["aromaId"],
+	where: {
+		userId: toUserId(),
+		aroma: {
+			name: {
+				contains: filter?.fulltext,
+				mode: "insensitive",
 			},
+			vendor: {
+				name: {
+					contains: filter?.fulltext,
+					mode: "insensitive",
+				},
+			}
 		},
-	})).map(async item => await aromaService.map(item.mixture.aroma))), ["id"]) as IAroma[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+	},
+	orderBy: [
+		{aroma: {name: "asc"}},
+	],
+	select: {
+		aroma: true,
+	},
+}), ({aroma}) => aroma, AromaService(ServiceCreate(toUserId())).map));

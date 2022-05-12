@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
 import {Cotton, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -12,7 +12,9 @@ export interface ICottonCreate {
 	cost: number;
 }
 
-export interface ICottonQuery extends IQuery<Prisma.CottonWhereInput, Prisma.CottonOrderByWithRelationInput> {
+export type ICottonWhere = Prisma.CottonWhereInput & IWhereFulltext;
+
+export interface ICottonQuery extends IQuery<ICottonWhere, Prisma.CottonOrderByWithRelationInput> {
 }
 
 export interface ICotton {

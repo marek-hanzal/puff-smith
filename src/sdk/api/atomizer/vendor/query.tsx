@@ -2,7 +2,8 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IVendor, IVendorQuery} from "@/puff-smith/service/vendor/interface";
+import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
+import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -44,7 +45,7 @@ export const VendorApiLink = "/api/atomizer/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<IVendorQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<IAtomizerQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 
@@ -70,18 +71,18 @@ export const VendorSource: FC<IVendorSourceProps> = props => {
 export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
-export const useVendorPromise = createPromiseHook<IVendorQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
-export const VendorPromise = createPromise<IVendorQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorPromise = createPromiseHook<IAtomizerQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
+export const VendorPromise = createPromise<IAtomizerQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
 
-export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IVendorQuery>>> {
+export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
 }
 
-export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<IVendorQuery>> name={"Vendor"} {...props}/>;
+export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IVendorQuery>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<IVendorQuery>>();
+export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useVendorFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
 
-export interface IVendorSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IVendorQuery>> {
+export interface IVendorSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
 }
 
 export const VendorSourceFilter: FC<IVendorSourceFilterProps> = props => <Filter
@@ -89,22 +90,22 @@ export const VendorSourceFilter: FC<IVendorSourceFilterProps> = props => <Filter
 	translation={"common.filter.Vendor"}
 />;
 
-export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IVendorQuery>>> {
+export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerQuery>>> {
 }
 
-export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IVendorQuery>> name={"Vendor"} {...props}/>;
+export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerQuery>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IVendorQuery>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<IVendorQuery>>();
+export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
+export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
 
 export interface IVendorListSourceProps extends Partial<IListProps<IVendor>> {
 	sourceProps?: Partial<IVendorSourceProps>;
 }
 
-export interface IVendorSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IVendorQuery>, IQueryOrderBy<IVendorQuery>, IVendorQueryParams>> {
+export interface IVendorSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>, IVendorQueryParams>> {
 }
 
-export const VendorSourceControlProvider: FC<IVendorSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IVendorQuery>, IQueryOrderBy<IVendorQuery>> name={"Vendor"} {...props}/>;
+export const VendorSourceControlProvider: FC<IVendorSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> name={"Vendor"} {...props}/>;
 
 export const VendorListSource: FC<IVendorListSourceProps> = ({sourceProps, ...props}) => {
 	return <VendorSource

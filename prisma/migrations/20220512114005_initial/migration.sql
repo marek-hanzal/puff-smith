@@ -392,15 +392,6 @@ CREATE TABLE "Aroma" (
 );
 
 -- CreateTable
-CREATE TABLE "AromaDraw" (
-    "id" TEXT NOT NULL,
-    "aromaId" TEXT NOT NULL,
-    "drawId" TEXT NOT NULL,
-
-    CONSTRAINT "AromaDraw_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "AromaTaste" (
     "id" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
@@ -480,6 +471,10 @@ CREATE TABLE "Liquid" (
     "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "mixtureId" TEXT NOT NULL,
+    "aromaId" TEXT NOT NULL,
+    "vendorId" TEXT NOT NULL,
+    "boosterId" TEXT,
+    "baseId" TEXT,
     "transactionId" TEXT NOT NULL,
     "created" TIMESTAMP(3) NOT NULL,
     "mixed" TIMESTAMP(3) NOT NULL,
@@ -512,6 +507,15 @@ CREATE TABLE "Mixture" (
     "error" "MixtureError",
 
     CONSTRAINT "Mixture_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MixtureDraw" (
+    "id" TEXT NOT NULL,
+    "mixtureId" TEXT NOT NULL,
+    "drawId" TEXT NOT NULL,
+
+    CONSTRAINT "MixtureDraw_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -700,7 +704,7 @@ CREATE INDEX "BaseInventory_userId_idx" ON "BaseInventory" USING BRIN ("userId")
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
 
 -- CreateIndex
-CREATE INDEX "Liquid_userId_idx" ON "Liquid" USING BRIN ("userId");
+CREATE INDEX "Liquid_userId_aromaId_vendorId_boosterId_baseId_idx" ON "Liquid" USING BRIN ("userId", "aromaId", "vendorId", "boosterId", "baseId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
@@ -709,7 +713,7 @@ CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
 CREATE INDEX "Mixture_aromaId_boosterId_baseId_nicotineToRound_vgToRound__idx" ON "Mixture" USING BRIN ("aromaId", "boosterId", "baseId", "nicotineToRound", "vgToRound", "pgToRound");
 
 -- CreateIndex
-CREATE INDEX "MixtureInventory_userId_idx" ON "MixtureInventory" USING BRIN ("userId");
+CREATE INDEX "MixtureInventory_userId_aromaId_vendorId_boosterId_baseId_idx" ON "MixtureInventory" USING BRIN ("userId", "aromaId", "vendorId", "boosterId", "baseId");
 
 -- CreateIndex
 CREATE INDEX "Build_userId_idx" ON "Build" USING BRIN ("userId");
@@ -880,12 +884,6 @@ ALTER TABLE "VoucherInventory" ADD CONSTRAINT "VoucherInventory_voucherId_fkey" 
 ALTER TABLE "Aroma" ADD CONSTRAINT "Aroma_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AromaDraw" ADD CONSTRAINT "AromaDraw_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AromaDraw" ADD CONSTRAINT "AromaDraw_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "AromaTaste" ADD CONSTRAINT "AromaTaste_tasteId_fkey" FOREIGN KEY ("tasteId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -934,7 +932,19 @@ ALTER TABLE "BaseInventory" ADD CONSTRAINT "BaseInventory_baseId_fkey" FOREIGN K
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_boosterId_fkey" FOREIGN KEY ("boosterId") REFERENCES "Booster"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_mixtureId_fkey" FOREIGN KEY ("mixtureId") REFERENCES "Mixture"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -950,6 +960,12 @@ ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_boosterId_fkey" FOREIGN KEY ("boos
 
 -- AddForeignKey
 ALTER TABLE "Mixture" ADD CONSTRAINT "Mixture_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureDraw" ADD CONSTRAINT "MixtureDraw_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "MixtureDraw" ADD CONSTRAINT "MixtureDraw_mixtureId_fkey" FOREIGN KEY ("mixtureId") REFERENCES "Mixture"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

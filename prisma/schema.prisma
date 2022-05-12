@@ -200,7 +200,7 @@ model Tag {
   Fiber        Fiber[]
   CoilDraw     CoilDraw[]
   WireDraw     WireDraw[]
-  AromaDraw    AromaDraw[]
+  MixtureDraw  MixtureDraw[]
 
   @@unique([code, group])
 }
@@ -218,6 +218,7 @@ model Vendor {
   Wire             Wire[]
   Mixture          Mixture[]
   MixtureInventory MixtureInventory[]
+  Liquid           Liquid[]
 }
 
 model Tariff {
@@ -479,18 +480,10 @@ model Aroma {
   AromaComment     AromaComment[]
   AromaTaste       AromaTaste[]
   Mixture          Mixture[]
-  AromaDraw        AromaDraw[]
   MixtureInventory MixtureInventory[]
+  Liquid           Liquid[]
 
   @@unique([name, vendorId])
-}
-
-model AromaDraw {
-  id      String @id @default(cuid())
-  aromaId String
-  aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  drawId  String
-  draw    Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model AromaTaste {
@@ -535,6 +528,7 @@ model Booster {
   BoosterInventory BoosterInventory[]
   Mixture          Mixture[]
   MixtureInventory MixtureInventory[]
+  Liquid           Liquid[]
 
   @@unique([name, vendorId])
 }
@@ -563,6 +557,7 @@ model Base {
   BaseInventory    BaseInventory[]
   Mixture          Mixture[]
   MixtureInventory MixtureInventory[]
+  Liquid           Liquid[]
 
   @@unique([name, vendorId])
 }
@@ -586,12 +581,20 @@ model Liquid {
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   mixtureId     String
   mixture       Mixture     @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  aromaId       String
+  aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  vendorId      String
+  vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  boosterId     String?
+  booster       Booster?    @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  baseId        String?
+  base          Base?       @relation(fields: [baseId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   created       DateTime
   mixed         DateTime
 
-  @@index([userId], type: Brin)
+  @@index([userId, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
 
 model Mixture {
@@ -634,8 +637,17 @@ model Mixture {
 
   MixtureInventory MixtureInventory[]
   Liquid           Liquid[]
+  MixtureDraw      MixtureDraw[]
 
   @@index([aromaId, boosterId, baseId, nicotineToRound, vgToRound, pgToRound], type: Brin)
+}
+
+model MixtureDraw {
+  id        String  @id @default(cuid())
+  mixtureId String
+  mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  drawId    String
+  draw      Tag     @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model MixtureInventory {
@@ -655,7 +667,7 @@ model MixtureInventory {
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 
-  @@index([userId], type: Brin)
+  @@index([userId, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
 
 enum MixtureError {

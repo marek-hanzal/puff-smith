@@ -40,7 +40,7 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const DrawApiLink = "/api/aroma/draw/query";
+export const DrawApiLink = "/api/mixture/draw/query";
 
 export type IDrawQueryParams = undefined;
 
@@ -114,7 +114,7 @@ export const DrawListSource: FC<IDrawListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</DrawSource>;
-}
+};
 
 export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ITag> {
 	toOption: IToOptionMapper<ITag>;
@@ -157,7 +157,7 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ITag> {...props}/>;
-}
+};
 
 export const useDrawQueryInvalidate = () => {
 	const queryClient = useQueryClient();

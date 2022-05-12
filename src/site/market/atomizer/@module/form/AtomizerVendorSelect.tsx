@@ -7,6 +7,7 @@ export interface IAtomizerVendorSelectProps extends Partial<IVendorSourceSelectP
 export const AtomizerVendorSelect: FC<IAtomizerVendorSelectProps> = props => {
 	return <VendorSourceControlProvider>
 		<VendorSourceSelect
+			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: item.name,

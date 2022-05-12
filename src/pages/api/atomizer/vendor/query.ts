@@ -1,22 +1,23 @@
+import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IVendor, IVendorQuery} from "@/puff-smith/service/vendor/interface";
+import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IVendorQuery, IVendor>(async ({}) => {
-	const vendorService = VendorService();
-	const items = uniqueObjects(await Promise.all((await prisma.atomizer.findMany({
-		select: {
-			vendor: true,
-		},
-		orderBy: [
-			{vendor: {name: "asc"}},
-		],
-	})).map(async item => await vendorService.map(item.vendor))), ["id"]) as IVendor[];
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+export default QueryEndpoint<"Vendor", IAtomizerQuery, IVendor>(async ({request: {filter}}) => itemsOf(prisma.atomizer.findMany({
+	distinct: ["vendorId"],
+	select: {
+		vendor: true,
+	},
+	where: {
+		vendor: {
+			name: {
+				contains: filter?.fulltext,
+				mode: "insensitive",
+			},
+		}
+	},
+	orderBy: [
+		{vendor: {name: "asc"}},
+	],
+}), ({vendor}) => vendor, VendorService().map));

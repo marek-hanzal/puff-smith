@@ -1,23 +1,15 @@
-import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {IQuery} from "@leight-core/api";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Cell", IAtomizerQuery, ITag>(async ({}) => {
-	const tagService = TagService();
-	const items = uniqueObjects(await Promise.all((await prisma.modCell.findMany({
-		select: {
-			cell: true,
-		},
-		orderBy: [
-			{cell: {sort: "asc"}},
-		],
-	})).map(async item => await tagService.map(item.cell))), ["id"]) as ITag[];
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+export default QueryEndpoint<"Cell", IQuery, ITag>(async () => itemsOf(prisma.modCell.findMany({
+	distinct: ["cellId"],
+	select: {
+		cell: true,
+	},
+	orderBy: [
+		{cell: {sort: "asc"}},
+	],
+}), ({cell}) => cell, TagService().map));

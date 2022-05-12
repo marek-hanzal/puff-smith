@@ -3,30 +3,32 @@ import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Booster", ILiquidQuery, IBooster>(async ({toUserId}) => {
-	const boosterService = BoosterService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.liquid.findMany({
-		where: {
-			userId: toUserId(),
+export default QueryEndpoint<"Booster", ILiquidQuery, IBooster>(async ({request: {filter}, toUserId}) => itemsOf(prisma.liquid.findMany({
+	distinct: ["boosterId"],
+	where: {
+		userId: toUserId(),
+		NOT: {
+			boosterId: null,
 		},
-		orderBy: [
-			{mixture: {booster: {name: "asc"}}},
-		],
-		include: {
-			mixture: {
-				include: {
-					booster: true,
+		booster: {
+			name: {
+				contains: filter?.fulltext,
+				mode: "insensitive",
+			},
+			vendor: {
+				name: {
+					contains: filter?.fulltext,
+					mode: "insensitive",
 				},
 			},
 		},
-	})).filter(({mixture: {booster}}) => booster !== null).map(async item => await boosterService.map(item.mixture.booster!))), ["id"]) as IBooster[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+	},
+	orderBy: [
+		{booster: {name: "asc"}},
+	],
+	select: {
+		booster: true,
+	},
+}), ({booster}) => booster!, BoosterService(ServiceCreate(toUserId())).map));

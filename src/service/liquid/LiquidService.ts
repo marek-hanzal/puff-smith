@@ -23,16 +23,28 @@ export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): 
 				userId: request.userService.getUserId(),
 				price: "lab.liquid.create",
 				note: "New liquid",
-				callback: (_, transaction) => prisma.liquid.create({
-					data: {
-						...create,
-						userId: request.userService.getUserId(),
-						code: code || CodeService().code(),
-						transactionId: transaction.id,
-						created: new Date(),
-						mixed: mixed || new Date(),
-					},
-				})
+				callback: async (_, transaction) => {
+					const $mixture = await prisma.mixture.findUnique({
+						where: {
+							id: create.mixtureId,
+						},
+						rejectOnNotFound: true,
+					});
+					return prisma.liquid.create({
+						data: {
+							...create,
+							userId: request.userService.getUserId(),
+							aromaId: $mixture.aromaId,
+							vendorId: $mixture.vendorId,
+							boosterId: $mixture.boosterId,
+							baseId: $mixture.baseId,
+							code: code || CodeService().code(),
+							transactionId: transaction.id,
+							created: new Date(),
+							mixed: mixed || new Date(),
+						},
+					});
+				}
 			})
 		),
 	}),

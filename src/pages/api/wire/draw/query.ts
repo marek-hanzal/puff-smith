@@ -1,23 +1,15 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
-import {IWireQuery} from "@/puff-smith/service/wire/interface";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {IQuery} from "@leight-core/api";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Draw", IWireQuery, ITag>(async ({}) => {
-	const tagService = TagService();
-	const items = uniqueObjects(await Promise.all((await prisma.wireDraw.findMany({
-		select: {
-			draw: true,
-		},
-		orderBy: [
-			{draw: {sort: "asc"}},
-		],
-	})).map(async item => await tagService.map(item.draw))), ["id"]) as ITag[];
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+export default QueryEndpoint<"Draw", IQuery, ITag>(async () => itemsOf(prisma.wireDraw.findMany({
+	distinct: ["drawId"],
+	select: {
+		draw: true,
+	},
+	orderBy: [
+		{draw: {sort: "asc"}},
+	],
+}), ({draw}) => draw, TagService().map));
