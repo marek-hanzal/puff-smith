@@ -15,6 +15,7 @@ export default withMarketLayout(function Index() {
 		}}
 	>
 		<MixtureMarketSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={[
 				{aroma: {name: "asc"}},
 				{vg: "desc"},

@@ -38,5 +38,23 @@ export const BoosterService = (request: IBoosterServiceCreate = ServiceCreate())
 			})).id,
 		},
 		data: create,
-	})
+	}),
+	toFilter: filter => ({
+		OR: [
+			{
+				name: {
+					contains: filter?.fulltext,
+					mode: "insensitive",
+				}
+			},
+			{
+				vendor: {
+					name: {
+						contains: filter?.fulltext,
+						mode: "insensitive",
+					}
+				}
+			}
+		]
+	}),
 });

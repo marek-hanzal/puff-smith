@@ -10,7 +10,7 @@ export interface IBaseSelectProps extends Partial<IBaseSourceSelectProps> {
 export const BaseSelect: FC<IBaseSelectProps> = props => {
 	return <BaseFilterProvider>
 		<BaseSourceSelect
-			allowClear
+			showSearch
 			toOption={base => ({
 				label: <Space>
 					<BaseNameInline base={base}/>

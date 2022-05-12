@@ -7,6 +7,7 @@ export interface IBoosterVendorSelectProps extends Partial<IVendorSourceSelectPr
 export const BoosterVendorSelect: FC<IBoosterVendorSelectProps> = props => {
 	return <VendorSourceControlProvider>
 		<VendorSourceSelect
+			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: item.name,

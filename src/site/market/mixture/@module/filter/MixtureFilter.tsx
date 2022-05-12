@@ -36,6 +36,20 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		}}
 		toFilter={({andDrawIds, orDrawIds, andTasteIds, orTasteIds, vendorId, ratio: unused, ...values}) => toFilter({
 			...values,
+			AND: andDrawIds?.map((drawId: string) => ({
+				MixtureDraw: {
+					some: {
+						drawId,
+					},
+				},
+			})),
+			MixtureDraw: {
+				some: {
+					drawId: {
+						in: orDrawIds,
+					},
+				},
+			},
 			aroma: {
 				vendorId,
 				OR: [
@@ -48,27 +62,11 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 							},
 						}))
 					},
-					{
-						AND: andDrawIds?.map((drawId: string) => ({
-							MixtureDraw: {
-								some: {
-									drawId,
-								},
-							},
-						}))
-					}
 				],
 				AromaTaste: {
 					some: {
 						tasteId: {
 							in: orTasteIds,
-						},
-					},
-				},
-				MixtureDraw: {
-					some: {
-						drawId: {
-							in: orDrawIds,
 						},
 					},
 				},
@@ -79,7 +77,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 	>
 		<MixtureMarketSourceControlProvider>
 			<Tabs>
-				<Tabs.TabPane key={"liquid"} tab={<IconText icon={<PercentageOutlined/>} text={"market.mixture.filter.liquid.tab"}/>}>
+				<Tabs.TabPane forceRender key={"liquid"} tab={<IconText icon={<PercentageOutlined/>} text={"market.mixture.filter.liquid.tab"}/>}>
 					<FormItem field={"aromaId"}>
 						<AromaSelect
 							allowClear
@@ -102,7 +100,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 						/>
 					</FormItem>
 				</Tabs.TabPane>
-				<Tabs.TabPane key={"source"} tab={<IconText icon={<LiquidIcon/>} text={"market.mixture.filter.source.tab"}/>}>
+				<Tabs.TabPane forceRender key={"source"} tab={<IconText icon={<LiquidIcon/>} text={"market.mixture.filter.source.tab"}/>}>
 					<FormItem field={"boosterId"}>
 						<BoosterSelect
 							allowClear
@@ -119,7 +117,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 						/>
 					</FormItem>
 				</Tabs.TabPane>
-				<Tabs.TabPane key={"misc"} tab={<IconText icon={<QuestionOutlined/>} text={"market.mixture.filter.misc.tab"}/>}>
+				<Tabs.TabPane forceRender key={"misc"} tab={<IconText icon={<QuestionOutlined/>} text={"market.mixture.filter.misc.tab"}/>}>
 					<FormItem field={"andTasteIds"} hasTooltip>
 						<AromaTasteSelect
 							mode={"multiple"}
