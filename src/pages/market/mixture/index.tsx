@@ -1,8 +1,8 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
-import {MixtureFilter} from "@/puff-smith/site/market/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/market/mixture/@module/list/MixtureList";
+import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureMarketSourceControlProvider} from "@/sdk/api/mixture/market/query";
 
 export default withMarketLayout(function Index() {

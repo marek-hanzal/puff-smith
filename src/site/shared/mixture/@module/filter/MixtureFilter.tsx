@@ -1,24 +1,22 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {MixtureDrawSelect} from "@/puff-smith/site/market/mixture/@module/form/MixtureDrawSelect";
-import {AromaSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaSelect";
 import {AromaTasteSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaTasteSelect";
-import {AromaVendorSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaVendorSelect";
-import {BaseSelect} from "@/puff-smith/site/shared/base/@module/form/BaseSelect";
-import {BoosterSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterSelect";
+import {MixtureAromaSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureAromaSelect";
+import {MixtureBaseSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureBaseSelect";
+import {MixtureBoosterSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureBoosterSelect";
+import {MixtureDrawSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureDrawSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureRatioSelect";
+import {MixtureVendorSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureVendorSelect";
 import {MixtureMarketSourceControlProvider, MixtureMarketSourceFilter} from "@/sdk/api/mixture/market/query";
 import {PercentageOutlined, QuestionOutlined} from "@ant-design/icons";
 import {FormItem, IconText, IFilterProps} from "@leight-core/client";
 import {Tabs} from "antd";
 import {FC, useRef} from "react";
-import {useTranslation} from "react-i18next";
 
 export interface IMixtureFilterProps extends Partial<IFilterProps> {
 }
 
 export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => filter, ...props}) => {
-	const {t} = useTranslation();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 
 	const onClear = () => {
@@ -79,7 +77,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 			<Tabs>
 				<Tabs.TabPane forceRender key={"liquid"} tab={<IconText icon={<PercentageOutlined/>} text={"market.mixture.filter.liquid.tab"}/>}>
 					<FormItem field={"aromaId"}>
-						<AromaSelect
+						<MixtureAromaSelect
 							allowClear
 						/>
 					</FormItem>
@@ -102,17 +100,17 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 				</Tabs.TabPane>
 				<Tabs.TabPane forceRender key={"source"} tab={<IconText icon={<LiquidIcon/>} text={"market.mixture.filter.source.tab"}/>}>
 					<FormItem field={"boosterId"}>
-						<BoosterSelect
+						<MixtureBoosterSelect
 							allowClear
 						/>
 					</FormItem>
 					<FormItem field={"baseId"}>
-						<BaseSelect
+						<MixtureBaseSelect
 							allowClear
 						/>
 					</FormItem>
 					<FormItem field={"vendorId"}>
-						<AromaVendorSelect
+						<MixtureVendorSelect
 							allowClear
 						/>
 					</FormItem>
