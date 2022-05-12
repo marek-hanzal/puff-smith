@@ -41,7 +41,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_NAME, params, userId),
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_NAME, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_NAME, {
-		concurrency: 3,
+		concurrency: 5,
 		priority: 5,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_NAME, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);

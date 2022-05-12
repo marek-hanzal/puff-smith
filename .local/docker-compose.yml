@@ -44,6 +44,8 @@ services:
         networks:
             - postgres
             - pgbouncer
+        ports:
+            - "127.0.0.1:42532:5432"
         environment:
             POSTGRES_USER: puff-smith
             POSTGRES_DB: puff-smith

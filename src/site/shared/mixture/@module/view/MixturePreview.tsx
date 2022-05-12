@@ -14,8 +14,8 @@ export interface IMixturePreviewProps {
 }
 
 export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
-	return <Row>
-		<Col span={10}>
+	return <Row gutter={16}>
+		<Col span={16}>
 			<Preview translation={"lab.mixture.preview"} size={"small"}>
 				{{
 					aroma: <AromaNameInline aroma={mixture.aroma}/>,
@@ -24,7 +24,7 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 				}}
 			</Preview>
 		</Col>
-		<Col span={14}>
+		<Col span={8}>
 			<Preview translation={"lab.mixture.preview"} size={"small"}>
 				{{
 					aromaContent: <AromaContentInline aroma={mixture.aroma}/>,
