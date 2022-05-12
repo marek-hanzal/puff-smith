@@ -11,7 +11,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/booster/inventory"]}
 		icon={<BoosterIcon/>}
 	>
-		<BoosterInventorySourceControlProvider>
+		<BoosterInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<BoosterInventoryList
 				header={() => <BoosterFilter
 					toFilter={filter => ({booster: filter})}

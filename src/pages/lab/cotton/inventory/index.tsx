@@ -10,7 +10,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cotton/inventory"]}
 		icon={<CottonIcon/>}
 	>
-		<CottonInventorySourceControlProvider>
+		<CottonInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<CottonInventoryList/>
 		</CottonInventorySourceControlProvider>
 	</LabPage>;

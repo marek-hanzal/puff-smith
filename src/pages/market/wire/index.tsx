@@ -12,6 +12,7 @@ export default withMarketLayout(function Index() {
 		icon={<WireIcon/>}
 	>
 		<WireSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={{
 				name: "asc",
 			}}

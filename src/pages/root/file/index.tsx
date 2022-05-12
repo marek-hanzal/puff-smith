@@ -10,7 +10,9 @@ export default withRootLayout(function Index() {
 		menuSelection={["/root/file"]}
 		icon={<FileIcon/>}
 	>
-		<FilesSourceControlProvider>
+		<FilesSourceControlProvider
+			defaultSize={10}
+		>
 			<FileList/>
 		</FilesSourceControlProvider>
 	</RootPage>;

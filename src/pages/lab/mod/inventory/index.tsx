@@ -10,7 +10,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/mod/inventory"]}
 		icon={<ModIcon/>}
 	>
-		<ModInventorySourceControlProvider>
+		<ModInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<ModInventoryList/>
 		</ModInventorySourceControlProvider>
 	</LabPage>;

@@ -10,7 +10,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/atomizer/inventory"]}
 		icon={<AtomizerIcon/>}
 	>
-		<AtomizerInventorySourceControlProvider>
+		<AtomizerInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<AtomizerInventoryList/>
 		</AtomizerInventorySourceControlProvider>
 	</LabPage>;

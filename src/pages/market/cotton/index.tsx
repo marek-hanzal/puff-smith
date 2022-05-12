@@ -12,6 +12,7 @@ export default withMarketLayout(function Index() {
 		icon={<CottonIcon/>}
 	>
 		<CottonSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={{
 				name: "asc",
 			}}

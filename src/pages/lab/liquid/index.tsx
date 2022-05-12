@@ -15,6 +15,7 @@ export default withLabLayout(function Index() {
 		icon={<LiquidIcon/>}
 	>
 		<LiquidSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={{
 				mixed: "asc",
 			}}

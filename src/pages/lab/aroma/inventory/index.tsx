@@ -11,7 +11,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/aroma/inventory"]}
 		icon={<LiquidIcon/>}
 	>
-		<AromaInventorySourceControlProvider>
+		<AromaInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<AromaInventoryList
 				header={() => <AromaFilter
 					toFilter={filter => ({aroma: filter})}

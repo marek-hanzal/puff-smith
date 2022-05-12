@@ -11,6 +11,7 @@ export default withMarketLayout(function Index() {
 		icon={<VoucherIcon/>}
 	>
 		<VoucherSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={{
 				cost: "asc",
 			}}

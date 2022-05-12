@@ -10,7 +10,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cell/inventory"]}
 		icon={<CellIcon/>}
 	>
-		<CellInventorySourceControlProvider>
+		<CellInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<CellInventoryList/>
 		</CellInventorySourceControlProvider>
 	</LabPage>;

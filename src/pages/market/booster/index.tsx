@@ -15,6 +15,7 @@ export default withMarketLayout(function Index() {
 		}}
 	>
 		<BoosterSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={{
 				vg: "asc",
 			}}

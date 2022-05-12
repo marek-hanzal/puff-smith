@@ -12,7 +12,9 @@ export default withRootLayout(function Index() {
 		icon={<UserIcon/>}
 		headerPostfix={<UserMenu/>}
 	>
-		<UserSourceControlProvider>
+		<UserSourceControlProvider
+			defaultSize={10}
+		>
 			<UserList/>
 		</UserSourceControlProvider>
 	</RootPage>;

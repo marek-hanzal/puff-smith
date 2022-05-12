@@ -12,6 +12,7 @@ export default withLabLayout(function Index() {
 		icon={<MixtureIcon/>}
 	>
 		<MixtureSourceControlProvider
+			defaultSize={10}
 			defaultOrderBy={[
 				{aroma: {name: "asc"}},
 				{vg: "desc"},

@@ -11,7 +11,9 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/base/inventory"]}
 		icon={<BaseIcon/>}
 	>
-		<BaseInventorySourceControlProvider>
+		<BaseInventorySourceControlProvider
+			defaultSize={10}
+		>
 			<BaseInventoryList
 				header={() => <BaseFilter
 					toFilter={filter => ({base: filter})}
