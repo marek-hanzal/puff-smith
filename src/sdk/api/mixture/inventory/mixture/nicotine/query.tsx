@@ -45,7 +45,7 @@ export interface INicotineItem {
 	nicotine: number;
 }
 
-export const NicotineApiLink = "/api/mixture/inventory/mixture/nicotine";
+export const NicotineApiLink = "/api/mixture/inventory/mixture/nicotine/query";
 
 export type INicotineQueryParams = undefined;
 
@@ -119,7 +119,7 @@ export const NicotineListSource: FC<INicotineListSourceProps> = ({sourceProps, .
 			{...props}
 		/>
 	</NicotineSource>;
-}
+};
 
 export interface INicotineSourceSelectProps extends IQuerySourceSelectProps<INicotineItem> {
 	toOption: IToOptionMapper<INicotineItem>;
@@ -162,7 +162,7 @@ export interface INicotineSelectionProviderProps extends Partial<ISelectionProvi
 
 export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
 	return <SelectionProvider<INicotineItem> {...props}/>;
-}
+};
 
 export const useNicotineQueryInvalidate = () => {
 	const queryClient = useQueryClient();

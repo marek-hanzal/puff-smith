@@ -2,8 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBase} from "@/puff-smith/service/base/interface";
-import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
+import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
 import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -41,11 +40,11 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const BaseApiLink = "/api/mixture/inventory/mixture/base";
+export const BaseApiLink = "/api/mixture/inventory/mixture/base/query";
 
 export type IBaseQueryParams = undefined;
 
-export const useBaseQuery = createQueryHook<IMixtureQuery, IQueryResult<IBase>, IBaseQueryParams>(BaseApiLink, "post");
+export const useBaseQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IBaseQueryParams>(BaseApiLink, "post");
 
 export const useBaseSource = () => useSourceContext<IBase>();
 
@@ -71,18 +70,18 @@ export const BaseSource: FC<IBaseSourceProps> = props => {
 export const toBaseLink = (queryParams?: IBaseQueryParams) => toLink(BaseApiLink, queryParams);
 export const useBaseLink = () => toBaseLink;
 
-export const useBasePromise = createPromiseHook<IMixtureQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
-export const BasePromise = createPromise<IMixtureQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
+export const useBasePromise = createPromiseHook<IBaseQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
+export const BasePromise = createPromise<IBaseQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
 
-export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
+export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBaseQuery>>> {
 }
 
-export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Base"} {...props}/>;
+export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBaseQuery>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
-export const useBaseFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBaseQuery>>();
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<IBaseQuery>>();
 
-export interface IBaseSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
+export interface IBaseSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBaseQuery>> {
 }
 
 export const BaseSourceFilter: FC<IBaseSourceFilterProps> = props => <Filter
@@ -90,22 +89,22 @@ export const BaseSourceFilter: FC<IBaseSourceFilterProps> = props => <Filter
 	translation={"common.filter.Base"}
 />;
 
-export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
+export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBaseQuery>>> {
 }
 
-export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Base"} {...props}/>;
+export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBaseQuery>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
-export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBaseQuery>>();
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<IBaseQuery>>();
 
 export interface IBaseListSourceProps extends Partial<IListProps<IBase>> {
 	sourceProps?: Partial<IBaseSourceProps>;
 }
 
-export interface IBaseSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IBaseQueryParams>> {
+export interface IBaseSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>, IBaseQueryParams>> {
 }
 
-export const BaseSourceControlProvider: FC<IBaseSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Base"} {...props}/>;
+export const BaseSourceControlProvider: FC<IBaseSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBaseQuery>, IQueryOrderBy<IBaseQuery>> name={"Base"} {...props}/>;
 
 export const BaseListSource: FC<IBaseListSourceProps> = ({sourceProps, ...props}) => {
 	return <BaseSource
@@ -115,7 +114,7 @@ export const BaseListSource: FC<IBaseListSourceProps> = ({sourceProps, ...props}
 			{...props}
 		/>
 	</BaseSource>;
-}
+};
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
 	toOption: IToOptionMapper<IBase>;
@@ -158,7 +157,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<IBase> {...props}/>;
-}
+};
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

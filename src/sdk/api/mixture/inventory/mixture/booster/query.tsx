@@ -2,8 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBooster} from "@/puff-smith/service/booster/interface";
-import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
+import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster/interface";
 import {SelectOutlined} from "@ant-design/icons";
 import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
@@ -41,11 +40,11 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const BoosterApiLink = "/api/mixture/inventory/mixture/booster";
+export const BoosterApiLink = "/api/mixture/inventory/mixture/booster/query";
 
 export type IBoosterQueryParams = undefined;
 
-export const useBoosterQuery = createQueryHook<IMixtureQuery, IQueryResult<IBooster>, IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterQuery = createQueryHook<IBoosterQuery, IQueryResult<IBooster>, IBoosterQueryParams>(BoosterApiLink, "post");
 
 export const useBoosterSource = () => useSourceContext<IBooster>();
 
@@ -71,18 +70,18 @@ export const BoosterSource: FC<IBoosterSourceProps> = props => {
 export const toBoosterLink = (queryParams?: IBoosterQueryParams) => toLink(BoosterApiLink, queryParams);
 export const useBoosterLink = () => toBoosterLink;
 
-export const useBoosterPromise = createPromiseHook<IMixtureQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
-export const BoosterPromise = createPromise<IMixtureQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterPromise = createPromiseHook<IBoosterQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
+export const BoosterPromise = createPromise<IBoosterQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
 
-export interface IBoosterFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
+export interface IBoosterFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterQuery>>> {
 }
 
-export const BoosterFilterProvider: FC<IBoosterFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Booster"} {...props}/>;
+export const BoosterFilterProvider: FC<IBoosterFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterQuery>> name={"Booster"} {...props}/>;
 
-export const useBoosterOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
-export const useBoosterFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useBoosterOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterQuery>>();
+export const useBoosterFilterContext = () => useFilterContext<IQueryFilter<IBoosterQuery>>();
 
-export interface IBoosterSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
+export interface IBoosterSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterQuery>> {
 }
 
 export const BoosterSourceFilter: FC<IBoosterSourceFilterProps> = props => <Filter
@@ -90,22 +89,22 @@ export const BoosterSourceFilter: FC<IBoosterSourceFilterProps> = props => <Filt
 	translation={"common.filter.Booster"}
 />;
 
-export interface IBoosterOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
+export interface IBoosterOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBoosterQuery>>> {
 }
 
-export const BoosterOrderByProvider: FC<IBoosterOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Booster"} {...props}/>;
+export const BoosterOrderByProvider: FC<IBoosterOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBoosterQuery>> name={"Booster"} {...props}/>;
 
-export const useBoosterOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
-export const useBoosterOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useBoosterOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterQuery>>();
+export const useBoosterOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterQuery>>();
 
 export interface IBoosterListSourceProps extends Partial<IListProps<IBooster>> {
 	sourceProps?: Partial<IBoosterSourceProps>;
 }
 
-export interface IBoosterSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IBoosterQueryParams>> {
+export interface IBoosterSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBoosterQuery>, IQueryOrderBy<IBoosterQuery>, IBoosterQueryParams>> {
 }
 
-export const BoosterSourceControlProvider: FC<IBoosterSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Booster"} {...props}/>;
+export const BoosterSourceControlProvider: FC<IBoosterSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBoosterQuery>, IQueryOrderBy<IBoosterQuery>> name={"Booster"} {...props}/>;
 
 export const BoosterListSource: FC<IBoosterListSourceProps> = ({sourceProps, ...props}) => {
 	return <BoosterSource
@@ -115,7 +114,7 @@ export const BoosterListSource: FC<IBoosterListSourceProps> = ({sourceProps, ...
 			{...props}
 		/>
 	</BoosterSource>;
-}
+};
 
 export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
 	toOption: IToOptionMapper<IBooster>;
@@ -158,7 +157,7 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<IBooster> {...props}/>;
-}
+};
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();

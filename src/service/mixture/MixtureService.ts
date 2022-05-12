@@ -2,7 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {IMixtureCreate, IMixtureService, IMixtureServiceCreate, IMixtureWhere} from "@/puff-smith/service/mixture/interface";
+import {IMixtureCreate, IMixtureService, IMixtureServiceCreate} from "@/puff-smith/service/mixture/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {sha256} from "@/puff-smith/service/utils/sha256";
 import {RepositoryService} from "@leight-core/server";
@@ -83,80 +83,34 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 					data: $create,
 				});
 			},
-			toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {
-				let _filter: IMixtureWhere = fulltext ? {
-					...filter,
-					OR: [
-						{
-							aroma: {
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							}
-						},
-					],
-				} : filter;
-				ownedByUserId = ownedByCurrentUser ? request.userService.getUserId() : ownedByUserId;
-				notOwnedByUserId = notOwnedByCurrentUser ? request.userService.getUserId() : notOwnedByUserId;
-				if (ownedByUserId) {
-					_filter = deepmerge(filter, {
+			toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
+				OR: [
+					{
 						aroma: {
-							AromaInventory: {
-								some: {
-									userId: ownedByUserId,
-								},
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
 							},
 						},
-						AND: [
-							{
-								OR: [
-									{
-										base: {
-											BaseInventory: {
-												some: {
-													userId: ownedByUserId,
-												},
-											}
-										}
-									},
-									{
-										base: null,
-									},
-								],
+					},
+					{
+						booster: {
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
 							},
-							{
-								OR: [
-									{
-										booster: {
-											BoosterInventory: {
-												some: {
-													userId: ownedByUserId,
-												},
-											}
-										},
-									},
-									{
-										booster: null,
-									}
-								],
+						},
+					},
+					{
+						base: {
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
 							},
-						],
-					});
-				}
-				if (notOwnedByUserId) {
-					_filter = deepmerge(filter, {
-						aroma: {
-							AromaInventory: {
-								none: {
-									userId: notOwnedByUserId,
-								}
-							}
-						}
-					});
-				}
-				return _filter;
-			},
+						},
+					},
+				],
+			}),
 		}),
 		toCreate,
 	};

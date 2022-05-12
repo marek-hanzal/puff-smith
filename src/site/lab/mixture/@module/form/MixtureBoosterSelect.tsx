@@ -1,5 +1,5 @@
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
-import {BoosterSourceSelect, IBoosterSourceSelectProps} from "@/sdk/api/mixture/inventory/mixture/booster";
+import {BoosterSourceSelect, IBoosterSourceSelectProps} from "@/sdk/api/mixture/inventory/mixture/booster/query";
 import {FC} from "react";
 
 export interface IMixtureBoosterSelectProps extends Partial<IBoosterSourceSelectProps> {
@@ -7,6 +7,7 @@ export interface IMixtureBoosterSelectProps extends Partial<IBoosterSourceSelect
 
 export const MixtureBoosterSelect: FC<IMixtureBoosterSelectProps> = props => {
 	return <BoosterSourceSelect
+		showSearch
 		toOption={item => ({
 			value: item.id,
 			label: <BoosterNameInline booster={item}/>
