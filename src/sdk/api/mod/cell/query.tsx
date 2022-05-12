@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +44,7 @@ export const CellApiLink = "/api/mod/cell/query";
 
 export type ICellQueryParams = undefined;
 
-export const useCellQuery = createQueryHook<IAtomizerQuery, IQueryResult<ITag>, ICellQueryParams>(CellApiLink, "post");
+export const useCellQuery = createQueryHook<IQuery, IQueryResult<ITag>, ICellQueryParams>(CellApiLink, "post");
 
 export const useCellSource = () => useSourceContext<ITag>();
 
@@ -71,18 +70,18 @@ export const CellSource: FC<ICellSourceProps> = props => {
 export const toCellLink = (queryParams?: ICellQueryParams) => toLink(CellApiLink, queryParams);
 export const useCellLink = () => toCellLink;
 
-export const useCellPromise = createPromiseHook<IAtomizerQuery, ITag, ICellQueryParams>(CellApiLink, "post");
-export const CellPromise = createPromise<IAtomizerQuery, ITag, ICellQueryParams>(CellApiLink, "post");
+export const useCellPromise = createPromiseHook<IQuery, ITag, ICellQueryParams>(CellApiLink, "post");
+export const CellPromise = createPromise<IQuery, ITag, ICellQueryParams>(CellApiLink, "post");
 
-export interface ICellFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
+export interface ICellFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
 }
 
-export const CellFilterProvider: FC<ICellFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Cell"} {...props}/>;
+export const CellFilterProvider: FC<ICellFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
-export const useCellFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
+export const useCellFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
 
-export interface ICellSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
+export interface ICellSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
 }
 
 export const CellSourceFilter: FC<ICellSourceFilterProps> = props => <Filter
@@ -90,22 +89,22 @@ export const CellSourceFilter: FC<ICellSourceFilterProps> = props => <Filter
 	translation={"common.filter.Cell"}
 />;
 
-export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerQuery>>> {
+export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
 }
 
-export const CellOrderByProvider: FC<ICellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerQuery>> name={"Cell"} {...props}/>;
+export const CellOrderByProvider: FC<ICellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
-export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
+export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
+export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
 
 export interface ICellListSourceProps extends Partial<IListProps<ITag>> {
 	sourceProps?: Partial<ICellSourceProps>;
 }
 
-export interface ICellSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>, ICellQueryParams>> {
+export interface ICellSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, ICellQueryParams>> {
 }
 
-export const CellSourceControlProvider: FC<ICellSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> name={"Cell"} {...props}/>;
+export const CellSourceControlProvider: FC<ICellSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> name={"Cell"} {...props}/>;
 
 export const CellListSource: FC<ICellListSourceProps> = ({sourceProps, ...props}) => {
 	return <CellSource

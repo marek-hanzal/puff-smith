@@ -9,7 +9,7 @@ import {boolean} from "boolean";
 import YAML from "yaml";
 
 export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWireService => {
-	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({_fiber, count}) => count * _fiber.mm.toNumber()).reduce((prev, current) => prev + current, 0);
+	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({_fiber, count}) => count * _fiber.mm).reduce((prev, current) => prev + current, 0);
 	const toMmRound = (mm: number) => Math.round(mm * 10) / 10;
 	const fiberService = FiberService(request);
 
@@ -19,9 +19,6 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 			source: request.prisma.wire,
 			mapper: async wire => ({
 				...wire,
-				cost: wire.cost.toNumber(),
-				mm: wire.mm.toNumber(),
-				mmToRound: wire.mmToRound.toNumber(),
 				vendor: await VendorService(request).toMap(wire.vendorId),
 				draws: await TagService(request).list(request.prisma.tag.findMany({
 					where: {

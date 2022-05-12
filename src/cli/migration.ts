@@ -5,6 +5,7 @@ MigrationJob.schedule()
 		console.log("Worker Done");
 		process.exit();
 	})
-	.catch(() => {
+	.catch(e => {
+		console.error(e);
 		process.exit(1);
 	});

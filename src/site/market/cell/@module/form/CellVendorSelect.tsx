@@ -7,6 +7,7 @@ export interface ICellVendorSelectProps extends Partial<IVendorSourceSelectProps
 export const CellVendorSelect: FC<ICellVendorSelectProps> = props => {
 	return <VendorSourceControlProvider>
 		<VendorSourceSelect
+			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: item.name,

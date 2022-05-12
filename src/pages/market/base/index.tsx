@@ -14,7 +14,7 @@ export default withMarketLayout(function Index() {
 		<BaseSourceControlProvider
 			defaultSize={10}
 			defaultOrderBy={{
-				name: "asc",
+				vg: "desc",
 			}}
 		>
 			<BaseList

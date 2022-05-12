@@ -1,7 +1,6 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IQuery} from "@leight-core/api";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export interface IRatioItem {
 	label: string;
@@ -10,27 +9,25 @@ export interface IRatioItem {
 	vg: number;
 }
 
-export default QueryEndpoint<"Ratio", IQuery, IRatioItem>(async ({toUserId}) => {
-	const items = uniqueObjects((await prisma.baseInventory.findMany({
-		select: {
-			base: true,
+export default QueryEndpoint<"Ratio", IQuery, IRatioItem>(async ({toUserId}) => itemsOf(prisma.base.findMany({
+	distinct: ["pg", "vg"],
+	select: {
+		pg: true,
+		vg: true,
+	},
+	where: {
+		BaseInventory: {
+			some: {
+				userId: toUserId(),
+			}
 		},
-		where: {
-			userId: toUserId(),
-		},
-		orderBy: [
-			{base: {vg: "asc"}},
-		]
-	})).map(({base: item}) => ({
-		label: `${item.vg}/${item.pg}`,
-		value: `${item.vg}/${item.pg}`,
-		vg: item.vg.toNumber(),
-		pg: item.pg.toNumber(),
-	})), ["pg", "vg"]) as IRatioItem[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+	},
+	orderBy: [
+		{vg: "asc"},
+	]
+}), item => item, async ({pg, vg}) => ({
+	label: `${vg}/${pg}`,
+	value: `${vg}/${pg}`,
+	vg,
+	pg,
+})));

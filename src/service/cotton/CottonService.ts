@@ -10,7 +10,6 @@ export const CottonService = (request: ICottonServiceCreate = ServiceCreate()): 
 	mapper: async cotton => ({
 		...cotton,
 		vendor: await VendorService(request).toMap(cotton.vendorId),
-		cost: cotton.cost.toNumber(),
 		draws: await TagService(request).list(request.prisma.tag.findMany({
 			where: {
 				CottonDraw: {

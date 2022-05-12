@@ -5,11 +5,7 @@ import {RepositoryService} from "@leight-core/server";
 export const VoucherService = (request: IVoucherServiceCreate = ServiceCreate()): IVoucherService => RepositoryService<IVoucherService>({
 	name: "voucher",
 	source: request.prisma.voucher,
-	mapper: async voucher => ({
-		...voucher,
-		cost: voucher.cost.toNumber(),
-		maxFortune: voucher.maxFortune?.toNumber(),
-	}),
+	mapper: async voucher => voucher,
 	create: async create => request.prisma.voucher.create({
 		data: create,
 	}),

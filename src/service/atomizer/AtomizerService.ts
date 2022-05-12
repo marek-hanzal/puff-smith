@@ -11,7 +11,6 @@ export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate(
 	mapper: async atomizer => ({
 		...atomizer,
 		vendor: await VendorService(request).toMap(atomizer.vendorId),
-		cost: atomizer?.cost?.toNumber(),
 		draws: await TagService(request).list(request.prisma.tag.findMany({
 			where: {
 				AtomizerDraw: {
@@ -30,7 +29,7 @@ export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate(
 			...atomizer,
 			dualCoil: boolean(atomizer?.dualCoil),
 			squonk: boolean(atomizer?.squonk),
-			cost: atomizer.cost && parseFloat(atomizer.cost),
+			cost: atomizer.cost ? parseFloat(atomizer.cost) : undefined,
 			vendor: {
 				connect: {
 					name: vendor,
@@ -76,7 +75,7 @@ export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate(
 				...create,
 				dualCoil: boolean(create?.dualCoil),
 				squonk: boolean(create?.squonk),
-				cost: create.cost && parseFloat(create.cost),
+				cost: create.cost ? parseFloat(create.cost) : null,
 				type: {
 					connect: {
 						code_group: {

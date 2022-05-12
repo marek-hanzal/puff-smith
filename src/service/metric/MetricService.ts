@@ -9,8 +9,7 @@ export const MetricService = (request: IMetricServiceCreate = ServiceCreate()): 
 		source: request.prisma.metric,
 		mapper: async entity => ({
 			...entity,
-			start: entity?.start?.toNumber() || 0,
-			value: entity.value.toNumber(),
+			start: entity?.start || 0,
 			user: entity.userId ? await UserService(request).toMap(entity.userId) : null,
 		}),
 		create: async create => request.prisma.metric.create({

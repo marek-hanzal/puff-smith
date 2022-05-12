@@ -7,6 +7,9 @@ import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Vendor", IBaseQuery, IVendor>(async ({request: {filter}, toUserId}) => itemsOf(prisma.base.findMany({
 	distinct: ["vendorId"],
+	select: {
+		vendor: true,
+	},
 	orderBy: [
 		{
 			vendor: {
@@ -22,7 +25,4 @@ export default QueryEndpoint<"Vendor", IBaseQuery, IVendor>(async ({request: {fi
 			}
 		}
 	},
-	select: {
-		vendor: true,
-	}
 }), ({vendor}) => vendor, VendorService(ServiceCreate(toUserId())).map));

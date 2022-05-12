@@ -9,9 +9,6 @@ export const ModService = (request: IModServiceCreate = ServiceCreate()): IModSe
 	source: request.prisma.mod,
 	mapper: async mod => ({
 		...mod,
-		cost: mod.cost.toNumber(),
-		power: mod.power.toNumber(),
-		voltage: mod.voltage.toNumber(),
 		vendor: await VendorService(request).toMap(mod.vendorId),
 		cells: await TagService(request).list(request.prisma.tag.findMany({
 			where: {

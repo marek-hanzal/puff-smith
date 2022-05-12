@@ -49,22 +49,22 @@ export interface IBoosterInfo {
 }
 
 export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): Promise<IMixtureInfo> => {
-	const available = (aroma.volume ? aroma.volume.toNumber() : aroma.content.toNumber()) - aroma.content.toNumber();
+	const available = (aroma.volume ? aroma.volume : aroma.content) - aroma.content;
 	const aromaInfo: IAromaInfo = {
 		aromaId: aroma.id,
-		content: aroma.content.toNumber(),
-		volume: aroma.volume?.toNumber() || aroma.content.toNumber(),
+		content: aroma.content,
+		volume: aroma.volume || aroma.content,
 		available,
-		pg: aroma.pg.toNumber(),
-		vg: aroma.vg.toNumber(),
+		pg: aroma.pg,
+		vg: aroma.vg,
 		ml: toMl({
 			/**
 			 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
 			 * "content" of a liquid (not the size of a bottle).
 			 */
-			volume: aroma.content.toNumber(),
-			pg: aroma.pg.toNumber(),
-			vg: aroma.vg.toNumber(),
+			volume: aroma.content,
+			pg: aroma.pg,
+			vg: aroma.vg,
 		})
 	};
 	/**
@@ -72,30 +72,30 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
 	if (base && booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
-		const boosterCount = Math.round(boosterBaseVolume / booster.volume.toNumber());
-		const boosterVolume = booster.volume.toNumber() * boosterCount;
+		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
+		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
 			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
-			pg: booster.pg.toNumber(),
-			vg: booster.vg.toNumber(),
+			pg: booster.pg,
+			vg: booster.vg,
 			ml: toMl({
 				volume: boosterVolume,
-				pg: booster.pg.toNumber(),
-				vg: booster.vg.toNumber(),
+				pg: booster.pg,
+				vg: booster.vg,
 			}),
 		};
 		const baseInfo: IBaseInfo = {
 			baseId: base.id,
 			volume: aromaInfo.available - boosterInfo.volume,
-			pg: base.pg.toNumber(),
-			vg: base.vg.toNumber(),
+			pg: base.pg,
+			vg: base.vg,
 			ml: toMl({
 				volume: aromaInfo.available - boosterInfo.volume,
-				pg: base.pg.toNumber(),
-				vg: base.vg.toNumber(),
+				pg: base.pg,
+				vg: base.vg,
 			}),
 		};
 
@@ -107,7 +107,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			result: toMixtureResult({
 				volume: aromaInfo.volume || 0,
 				available,
-				nicotine: boosterVolume * booster.nicotine.toNumber(),
+				nicotine: boosterVolume * booster.nicotine,
 				fluids: [
 					aromaInfo.ml,
 					baseInfo.volume > 0 ? baseInfo.ml : undefined,
@@ -117,19 +117,19 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 	}
 	if (booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine.toNumber() || 0;
-		const boosterCount = Math.round(boosterBaseVolume / booster.volume.toNumber());
-		const boosterVolume = booster.volume.toNumber() * boosterCount;
+		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
+		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
 			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
-			pg: booster.pg.toNumber(),
-			vg: booster.vg.toNumber(),
+			pg: booster.pg,
+			vg: booster.vg,
 			ml: toMl({
 				volume: boosterVolume,
-				pg: booster.pg.toNumber(),
-				vg: booster.vg.toNumber(),
+				pg: booster.pg,
+				vg: booster.vg,
 			}),
 		};
 		return {
@@ -150,12 +150,12 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		const baseInfo: IBaseInfo = {
 			baseId: base.id,
 			volume: aromaInfo.available,
-			pg: base.pg.toNumber(),
-			vg: base.vg.toNumber(),
+			pg: base.pg,
+			vg: base.vg,
 			ml: toMl({
 				volume: aromaInfo.available,
-				pg: base.pg.toNumber(),
-				vg: base.vg.toNumber(),
+				pg: base.pg,
+				vg: base.vg,
 			}),
 		};
 		return {

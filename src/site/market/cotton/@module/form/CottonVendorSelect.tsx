@@ -7,6 +7,7 @@ export interface ICottonVendorSelectProps extends Partial<IVendorSourceSelectPro
 export const CottonVendorSelect: FC<ICottonVendorSelectProps> = props => {
 	return <VendorSourceControlProvider>
 		<VendorSourceSelect
+			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: item.name,

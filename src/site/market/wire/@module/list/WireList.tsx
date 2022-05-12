@@ -18,7 +18,7 @@ export const WireList: FC<IWireListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<WireNameInline wire={wire}/>
-					{wire.draws.length > 0 && <Tags tags={wire.draws}/>}
+					{wire.draws.length > 0 && <Tags tags={wire.draws} translation={"common.draw"}/>}
 					{wire.fibers.length > 0 && <WireFiberInline wire={wire}/>}
 					{isOwned ? <BoolInline bool={isOwned}/> : <WireInventoryCreateButton type={"link"} wire={wire}/>}
 				</Space>}

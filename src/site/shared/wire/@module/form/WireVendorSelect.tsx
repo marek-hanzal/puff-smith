@@ -7,6 +7,7 @@ export interface IWireVendorSelectProps extends Partial<IVendorSourceSelectProps
 export const WireVendorSelect: FC<IWireVendorSelectProps> = props => {
 	return <VendorSourceControlProvider>
 		<VendorSourceSelect
+			showSearch
 			toOption={item => ({
 				value: item.id,
 				label: item.name,

@@ -118,13 +118,13 @@ model Job {
   name         String
   status       JobStatus @default(NEW)
   total        Int       @default(0)
-  progress     Decimal   @default(0) @db.Decimal(5, 2)
+  progress     Float     @default(0)
   success      Int?
-  successRatio Decimal?  @db.Decimal(5, 2)
+  successRatio Float?
   failure      Int?
-  failureRatio Decimal?  @db.Decimal(5, 2)
+  failureRatio Float?
   skip         Int?
-  skipRatio    Decimal?  @db.Decimal(5, 2)
+  skipRatio    Float?
   created      DateTime
   started      DateTime?
   finished     DateTime?
@@ -157,14 +157,14 @@ enum JobStatus {
 }
 
 model Metric {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   reference String
   name      String
-  start     Decimal? @db.Decimal(10, 2)
-  value     Decimal  @db.Decimal(10, 2)
+  start     Float?
+  value     Float
   label     String?
   userId    String?
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Puff Smith Stuff
@@ -277,12 +277,12 @@ model Atomizer {
   vendor       Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   typeId       String
   type         Tag            @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  coilMin      Decimal?       @db.Decimal(3, 2)
-  coilMax      Decimal?       @db.Decimal(3, 2)
+  coilMin      Float?
+  coilMax      Float?
   dualCoil     Boolean        @default(false)
   squonk       Boolean        @default(false)
   AtomizerDraw AtomizerDraw[]
-  cost         Decimal?       @db.Decimal(5, 2)
+  cost         Float?
 
   AtomizerInventory AtomizerInventory[]
   AtomizerComment   AtomizerComment[]
@@ -319,16 +319,16 @@ model AtomizerInventory {
 }
 
 model Cell {
-  id       String   @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  voltage  Decimal  @db.Decimal(10, 2)
-  drain    Decimal? @db.Decimal(10, 2)
-  ohm      Decimal? @db.Decimal(10, 2)
-  cost     Decimal  @db.Decimal(10, 2)
+  voltage  Float
+  drain    Float?
+  ohm      Float?
+  cost     Float
   typeId   String
-  type     Tag      @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  type     Tag    @relation(fields: [typeId], references: [id], onDelete: Cascade)
   vendorId String
-  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   CellInventory CellInventory[]
   CellComment   CellComment[]
@@ -358,13 +358,13 @@ model CellComment {
 }
 
 model Mod {
-  id       String  @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
   vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost     Decimal @db.Decimal(10, 2)
-  voltage  Decimal @db.Decimal(10, 2)
-  power    Decimal @db.Decimal(10, 2)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cost     Float
+  voltage  Float
+  power    Float
 
   ModCell      ModCell[]
   ModInventory ModInventory[]
@@ -406,7 +406,7 @@ model Cotton {
   name            String
   vendorId        String
   vendor          Vendor            @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost            Decimal           @db.Decimal(10, 2)
+  cost            Float
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
   CottonDraw      CottonDraw[]
@@ -443,10 +443,10 @@ model CottonComment {
 }
 
 model Voucher {
-  id         String   @id @default(cuid())
-  name       String   @unique
-  cost       Decimal  @db.Decimal(10, 2)
-  maxFortune Decimal? @db.Decimal(10, 2)
+  id         String @id @default(cuid())
+  name       String @unique
+  cost       Float
+  maxFortune Float?
 
   VoucherInventory VoucherInventory[]
 }
@@ -465,16 +465,16 @@ model VoucherInventory {
 }
 
 model Aroma {
-  id       String   @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  cost     Decimal  @db.Decimal(10, 2)
-  content  Decimal  @db.Decimal(10, 2)
-  volume   Decimal? @db.Decimal(10, 2)
-  pg       Decimal  @db.Decimal(10, 2)
-  vg       Decimal  @db.Decimal(10, 2)
+  cost     Float
+  content  Float
+  volume   Float?
+  pg       Float
+  vg       Float
   vendorId String
-  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  steep    Int      @default(14)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  steep    Int    @default(14)
 
   AromaInventory   AromaInventory[]
   AromaComment     AromaComment[]
@@ -515,15 +515,15 @@ model AromaInventory {
 }
 
 model Booster {
-  id       String  @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  cost     Decimal @db.Decimal(10, 2)
-  volume   Decimal @db.Decimal(10, 2)
-  nicotine Decimal @db.Decimal(10, 2)
-  pg       Decimal @db.Decimal(10, 2)
-  vg       Decimal @db.Decimal(10, 2)
+  cost     Float
+  volume   Float
+  nicotine Int
+  pg       Int
+  vg       Int
   vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   BoosterInventory BoosterInventory[]
   Mixture          Mixture[]
@@ -546,13 +546,13 @@ model BoosterInventory {
 }
 
 model Base {
-  id       String  @id @default(cuid())
+  id       String @id @default(cuid())
   name     String
-  cost     Decimal @db.Decimal(10, 2)
-  pg       Decimal @db.Decimal(10, 2)
-  vg       Decimal @db.Decimal(10, 2)
+  cost     Float
+  pg       Int
+  vg       Int
   vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   BaseInventory    BaseInventory[]
   Mixture          Mixture[]
@@ -602,24 +602,24 @@ model Mixture {
   // application based unique hash; main goal is a simple ability to update mixtures based on this hash
   hash            String        @unique
   // total size of a bottle
-  volume          Decimal       @db.Decimal(10, 2)
+  volume          Float
   // amount of liquid in a bottle
-  content         Decimal       @db.Decimal(10, 2)
+  content         Float
   // amount of available space to be filled
-  available       Decimal       @db.Decimal(10, 2)
+  available       Float
   // volume - content => amount of extra or missing liquid
-  diff            Decimal       @db.Decimal(10, 2)
+  diff            Float
   // amount of nicotine (mg/ml)
-  nicotine        Decimal       @db.Decimal(10, 2)
+  nicotine        Float
   nicotineToRound Int
   // vg/pg ratio
-  vg              Decimal       @db.Decimal(10, 2)
-  pg              Decimal       @db.Decimal(10, 2)
+  vg              Float
+  pg              Float
   // vg/pg in ml
-  vgToMl          Decimal       @db.Decimal(10, 2)
+  vgToMl          Float
   // rounded VG ratio (for example 70 instead of 76)
   vgToRound       Int
-  pgToMl          Decimal       @db.Decimal(10, 2)
+  pgToMl          Float
   // rounded PG ratio (for example 70 instead of 76)
   pgToRound       Int
   aromaId         String
@@ -632,7 +632,7 @@ model Mixture {
   boosterCount    Int
   baseId          String?
   base            Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  baseMl          Decimal       @db.Decimal(10, 2)
+  baseMl          Float
   error           MixtureError?
 
   MixtureInventory MixtureInventory[]
@@ -687,15 +687,15 @@ model Build {
 
 // One of heating types for atomizer
 model Coil {
-  id     String  @id @default(cuid())
+  id     String @id @default(cuid())
   // Name could (and probably should be) based on size + wraps + wire.name or something similar
   name   String
-  code   String  @unique
+  code   String @unique
   // Size of a coil wrap, usually something like 0.2, 0.25 and so on
-  size   Decimal @db.Decimal(10, 2)
+  size   Float
   wraps  Int
   wireId String
-  wire   Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
 
@@ -715,12 +715,12 @@ model Wire {
   id        String  @id @default(cuid())
   name      String
   code      String  @unique
-  cost      Decimal @db.Decimal(10, 2)
+  cost      Float
   // Is this wire TCR compatible?
   isTCR     Boolean
   // Expected thickness of a wire - sum of individual fibers; this could help to identify if a wire would fit in a post in atomizer
-  mm        Decimal @db.Decimal(10, 2)
-  mmToRound Decimal @db.Decimal(10, 2)
+  mm        Float
+  mmToRound Float
   vendorId  String
   vendor    Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
@@ -764,14 +764,14 @@ model WireFiber {
 
 // Fiber is a base for a wire; the wire could be made of several fibers (like claptons or so)
 model Fiber {
-  id         String  @id @default(cuid())
-  code       String  @unique
+  id         String @id @default(cuid())
+  code       String @unique
   // Thickness of a fiber in mm (for example 0.3 or something; should be rounded)
-  mm         Decimal @db.Decimal(10, 2)
+  mm         Float
   // Thickness of a fiber
   ga         Int
   materialId String
-  material   Tag     @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  material   Tag    @relation(fields: [materialId], references: [id], onDelete: Cascade)
 
   WireFiber WireFiber[]
 

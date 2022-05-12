@@ -68,11 +68,6 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 	mapper: async aroma => ({
 		...aroma,
 		vendor: await VendorService(request).toMap(aroma.vendorId),
-		cost: aroma.cost.toNumber(),
-		content: aroma.content.toNumber(),
-		volume: aroma.volume?.toNumber(),
-		pg: aroma.pg.toNumber(),
-		vg: aroma.vg.toNumber(),
 		tastes: await TagService(request).list(request.prisma.tag.findMany({
 			where: {
 				AromaTaste: {

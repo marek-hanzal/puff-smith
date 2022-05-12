@@ -2,6 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {IBoosterService, IBoosterServiceCreate} from "@/puff-smith/service/booster/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {RepositoryService} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
 export const BoosterService = (request: IBoosterServiceCreate = ServiceCreate()) => RepositoryService<IBoosterService>({
 	name: "booster",
@@ -9,11 +10,6 @@ export const BoosterService = (request: IBoosterServiceCreate = ServiceCreate())
 	mapper: async booster => ({
 		...booster,
 		vendor: await VendorService(request).toMap(booster.vendorId),
-		cost: booster.cost.toNumber(),
-		volume: booster.volume.toNumber(),
-		nicotine: booster.nicotine.toNumber(),
-		pg: booster.pg.toNumber(),
-		vg: booster.vg.toNumber(),
 	}),
 	create: async ({vendor, ...booster}) => request.prisma.booster.create({
 		data: {
@@ -39,18 +35,18 @@ export const BoosterService = (request: IBoosterServiceCreate = ServiceCreate())
 		},
 		data: create,
 	}),
-	toFilter: filter => ({
+	toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
 		OR: [
 			{
 				name: {
-					contains: filter?.fulltext,
+					contains: fulltext,
 					mode: "insensitive",
 				}
 			},
 			{
 				vendor: {
 					name: {
-						contains: filter?.fulltext,
+						contains: fulltext,
 						mode: "insensitive",
 					}
 				}

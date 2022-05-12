@@ -5,6 +5,7 @@ import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Vendor", ICottonQuery, IVendor>(async ({request: {filter}}) => itemsOf(prisma.cotton.findMany({
+	distinct: ["vendorId"],
 	select: {
 		vendor: true,
 	},

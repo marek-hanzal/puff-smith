@@ -11,12 +11,16 @@ export interface IRatioItem {
 
 export default QueryEndpoint<"Ratio", IBaseQuery, IRatioItem>(async () => itemsOf(prisma.base.findMany({
 	distinct: ["pg", "vg"],
+	select: {
+		pg: true,
+		vg: true,
+	},
 	orderBy: [
 		{vg: "asc"},
 	]
-}), item => item, async item => ({
-	label: `${item.vg}/${item.pg}`,
-	value: `${item.vg}/${item.pg}`,
-	vg: item.vg.toNumber(),
-	pg: item.pg.toNumber(),
+}), item => item, async ({pg, vg}) => ({
+	label: `${vg}/${pg}`,
+	value: `${vg}/${pg}`,
+	vg,
+	pg,
 })));

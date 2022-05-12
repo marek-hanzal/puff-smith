@@ -9,23 +9,23 @@ export const FiberService = (request: IFiberServiceCreate = ServiceCreate()): IF
 		source: request.prisma.fiber,
 		mapper: async fiber => ({
 			...fiber,
-			mm: fiber.mm.toNumber(),
 			material: await TagService(request).toMap(fiber.materialId),
 		}),
-		create: async ({material, materialId, ...create}) => {
-			const _material = await TagService(request).fetchTag("material", material, materialId);
+		create: async ({material, materialId, ...fiber}) => {
+			const $material = await TagService(request).fetchTag("material", material, materialId);
 			return request.prisma.fiber.create({
 				data: {
-					code: create.code || `${_material.code} ${create.ga}GA`,
-					materialId: _material.id,
-					...create,
+					...fiber,
+					code: fiber.code || `${$material.code} ${fiber.ga}GA`,
+					materialId: $material.id,
+					mm: parseFloat(`${fiber.mm}`),
 				}
 			});
 		},
-		onUnique: async ({material, materialId, ...create}) => {
-			const _fiber = (await request.prisma.fiber.findFirst({
+		onUnique: async ({material, materialId, ...fiber}) => {
+			const $fiber = (await request.prisma.fiber.findFirst({
 				where: {
-					ga: create.ga,
+					ga: fiber.ga,
 					materialId: (await TagService(request).fetchTag("material", material, materialId)).id,
 				},
 				rejectOnNotFound: true,
@@ -33,9 +33,12 @@ export const FiberService = (request: IFiberServiceCreate = ServiceCreate()): IF
 
 			return request.prisma.fiber.update({
 				where: {
-					id: _fiber.id,
+					id: $fiber.id,
 				},
-				data: create,
+				data: {
+					...fiber,
+					mm: parseFloat(`${fiber.mm}`),
+				},
 			});
 		},
 	}),

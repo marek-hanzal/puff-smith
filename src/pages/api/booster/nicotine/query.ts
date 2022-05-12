@@ -4,7 +4,7 @@ import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export interface INicotineItem {
 	label: string;
-	value: string;
+	value: number;
 	nicotine: number;
 }
 
@@ -15,6 +15,6 @@ export default QueryEndpoint<"Nicotine", IBoosterQuery, INicotineItem>(async () 
 	]
 }), item => item, async item => ({
 	label: `${item.nicotine}`,
-	value: `${item.nicotine}`,
-	nicotine: item.nicotine.toNumber(),
+	value: item.nicotine,
+	nicotine: item.nicotine,
 })));

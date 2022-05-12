@@ -13,10 +13,6 @@ export const CellService = (request: ICellServiceCreate = ServiceCreate()): ICel
 			...cell,
 			vendor: await VendorService(request).toMap(cell.vendorId),
 			type: await TagService(request).toMap(cell.typeId),
-			cost: cell.cost.toNumber(),
-			drain: cell.drain?.toNumber(),
-			ohm: cell.ohm?.toNumber(),
-			voltage: cell.voltage?.toNumber(),
 		}),
 		create: async ({type, vendor, ...cell}) => request.prisma.cell.create({
 			data: {

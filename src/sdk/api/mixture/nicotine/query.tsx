@@ -2,8 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -49,7 +50,7 @@ export const NicotineApiLink = "/api/mixture/nicotine/query";
 
 export type INicotineQueryParams = undefined;
 
-export const useNicotineQuery = createQueryHook<IQuery, IQueryResult<INicotineItem>, INicotineQueryParams>(NicotineApiLink, "post");
+export const useNicotineQuery = createQueryHook<IMixtureQuery, IQueryResult<INicotineItem>, INicotineQueryParams>(NicotineApiLink, "post");
 
 export const useNicotineSource = () => useSourceContext<INicotineItem>();
 
@@ -75,18 +76,18 @@ export const NicotineSource: FC<INicotineSourceProps> = props => {
 export const toNicotineLink = (queryParams?: INicotineQueryParams) => toLink(NicotineApiLink, queryParams);
 export const useNicotineLink = () => toNicotineLink;
 
-export const useNicotinePromise = createPromiseHook<IQuery, INicotineItem, INicotineQueryParams>(NicotineApiLink, "post");
-export const NicotinePromise = createPromise<IQuery, INicotineItem, INicotineQueryParams>(NicotineApiLink, "post");
+export const useNicotinePromise = createPromiseHook<IMixtureQuery, INicotineItem, INicotineQueryParams>(NicotineApiLink, "post");
+export const NicotinePromise = createPromise<IMixtureQuery, INicotineItem, INicotineQueryParams>(NicotineApiLink, "post");
 
-export interface INicotineFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
+export interface INicotineFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
 }
 
-export const NicotineFilterProvider: FC<INicotineFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"Nicotine"} {...props}/>;
+export const NicotineFilterProvider: FC<INicotineFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Nicotine"} {...props}/>;
 
-export const useNicotineOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
-export const useNicotineFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
+export const useNicotineOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useNicotineFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
 
-export interface INicotineSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
+export interface INicotineSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
 }
 
 export const NicotineSourceFilter: FC<INicotineSourceFilterProps> = props => <Filter
@@ -94,22 +95,22 @@ export const NicotineSourceFilter: FC<INicotineSourceFilterProps> = props => <Fi
 	translation={"common.filter.Nicotine"}
 />;
 
-export interface INicotineOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
+export interface INicotineOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
 }
 
-export const NicotineOrderByProvider: FC<INicotineOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"Nicotine"} {...props}/>;
+export const NicotineOrderByProvider: FC<INicotineOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Nicotine"} {...props}/>;
 
-export const useNicotineOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
-export const useNicotineOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
+export const useNicotineOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useNicotineOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
 
 export interface INicotineListSourceProps extends Partial<IListProps<INicotineItem>> {
 	sourceProps?: Partial<INicotineSourceProps>;
 }
 
-export interface INicotineSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, INicotineQueryParams>> {
+export interface INicotineSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, INicotineQueryParams>> {
 }
 
-export const NicotineSourceControlProvider: FC<INicotineSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> name={"Nicotine"} {...props}/>;
+export const NicotineSourceControlProvider: FC<INicotineSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Nicotine"} {...props}/>;
 
 export const NicotineListSource: FC<INicotineListSourceProps> = ({sourceProps, ...props}) => {
 	return <NicotineSource

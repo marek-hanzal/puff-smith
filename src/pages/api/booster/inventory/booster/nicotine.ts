@@ -23,7 +23,7 @@ export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId
 	})).map(({booster: item}) => ({
 		label: `${item.nicotine}`,
 		value: `${item.nicotine}`,
-		nicotine: item.nicotine.toNumber(),
+		nicotine: item.nicotine,
 	})), ["nicotine"]) as INicotineItem[];
 
 	return {

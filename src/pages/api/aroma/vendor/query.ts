@@ -5,7 +5,7 @@ import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IAromaQuery, IVendor>(async ({request, toUserId}) => itemsOf(prisma.aroma.findMany({
+export default QueryEndpoint<"Vendor", IAromaQuery, IVendor>(async ({request: {filter}, toUserId}) => itemsOf(prisma.aroma.findMany({
 	distinct: ["vendorId"],
 	select: {
 		vendor: true,
@@ -20,7 +20,7 @@ export default QueryEndpoint<"Vendor", IAromaQuery, IVendor>(async ({request, to
 	where: {
 		vendor: {
 			name: {
-				contains: request?.filter?.fulltext,
+				contains: filter?.fulltext,
 				mode: "insensitive",
 			}
 		}

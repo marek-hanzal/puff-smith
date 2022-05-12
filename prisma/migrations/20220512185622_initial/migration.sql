@@ -94,13 +94,13 @@ CREATE TABLE "Job" (
     "name" TEXT NOT NULL,
     "status" "JobStatus" NOT NULL DEFAULT E'NEW',
     "total" INTEGER NOT NULL DEFAULT 0,
-    "progress" DECIMAL(5,2) NOT NULL DEFAULT 0,
+    "progress" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "success" INTEGER,
-    "successRatio" DECIMAL(5,2),
+    "successRatio" DOUBLE PRECISION,
     "failure" INTEGER,
-    "failureRatio" DECIMAL(5,2),
+    "failureRatio" DOUBLE PRECISION,
     "skip" INTEGER,
-    "skipRatio" DECIMAL(5,2),
+    "skipRatio" DOUBLE PRECISION,
     "created" TIMESTAMP(3) NOT NULL,
     "started" TIMESTAMP(3),
     "finished" TIMESTAMP(3),
@@ -124,8 +124,8 @@ CREATE TABLE "Metric" (
     "id" TEXT NOT NULL,
     "reference" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "start" DECIMAL(10,2),
-    "value" DECIMAL(10,2) NOT NULL,
+    "start" DOUBLE PRECISION,
+    "value" DOUBLE PRECISION NOT NULL,
     "label" TEXT,
     "userId" TEXT,
 
@@ -206,11 +206,11 @@ CREATE TABLE "Atomizer" (
     "name" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "typeId" TEXT NOT NULL,
-    "coilMin" DECIMAL(3,2),
-    "coilMax" DECIMAL(3,2),
+    "coilMin" DOUBLE PRECISION,
+    "coilMax" DOUBLE PRECISION,
     "dualCoil" BOOLEAN NOT NULL DEFAULT false,
     "squonk" BOOLEAN NOT NULL DEFAULT false,
-    "cost" DECIMAL(5,2),
+    "cost" DOUBLE PRECISION,
 
     CONSTRAINT "Atomizer_pkey" PRIMARY KEY ("id")
 );
@@ -247,10 +247,10 @@ CREATE TABLE "AtomizerInventory" (
 CREATE TABLE "Cell" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "voltage" DECIMAL(10,2) NOT NULL,
-    "drain" DECIMAL(10,2),
-    "ohm" DECIMAL(10,2),
-    "cost" DECIMAL(10,2) NOT NULL,
+    "voltage" DOUBLE PRECISION NOT NULL,
+    "drain" DOUBLE PRECISION,
+    "ohm" DOUBLE PRECISION,
+    "cost" DOUBLE PRECISION NOT NULL,
     "typeId" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
 
@@ -282,9 +282,9 @@ CREATE TABLE "Mod" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
-    "voltage" DECIMAL(10,2) NOT NULL,
-    "power" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
+    "voltage" DOUBLE PRECISION NOT NULL,
+    "power" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Mod_pkey" PRIMARY KEY ("id")
 );
@@ -322,7 +322,7 @@ CREATE TABLE "Cotton" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Cotton_pkey" PRIMARY KEY ("id")
 );
@@ -359,8 +359,8 @@ CREATE TABLE "CottonComment" (
 CREATE TABLE "Voucher" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
-    "maxFortune" DECIMAL(10,2),
+    "cost" DOUBLE PRECISION NOT NULL,
+    "maxFortune" DOUBLE PRECISION,
 
     CONSTRAINT "Voucher_pkey" PRIMARY KEY ("id")
 );
@@ -380,11 +380,11 @@ CREATE TABLE "VoucherInventory" (
 CREATE TABLE "Aroma" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
-    "content" DECIMAL(10,2) NOT NULL,
-    "volume" DECIMAL(10,2),
-    "pg" DECIMAL(10,2) NOT NULL,
-    "vg" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
+    "content" DOUBLE PRECISION NOT NULL,
+    "volume" DOUBLE PRECISION,
+    "pg" DOUBLE PRECISION NOT NULL,
+    "vg" DOUBLE PRECISION NOT NULL,
     "vendorId" TEXT NOT NULL,
     "steep" INTEGER NOT NULL DEFAULT 14,
 
@@ -423,11 +423,11 @@ CREATE TABLE "AromaInventory" (
 CREATE TABLE "Booster" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
-    "volume" DECIMAL(10,2) NOT NULL,
-    "nicotine" DECIMAL(10,2) NOT NULL,
-    "pg" DECIMAL(10,2) NOT NULL,
-    "vg" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
+    "volume" DOUBLE PRECISION NOT NULL,
+    "nicotine" INTEGER NOT NULL,
+    "pg" INTEGER NOT NULL,
+    "vg" INTEGER NOT NULL,
     "vendorId" TEXT NOT NULL,
 
     CONSTRAINT "Booster_pkey" PRIMARY KEY ("id")
@@ -447,9 +447,9 @@ CREATE TABLE "BoosterInventory" (
 CREATE TABLE "Base" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
-    "pg" DECIMAL(10,2) NOT NULL,
-    "vg" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
+    "pg" INTEGER NOT NULL,
+    "vg" INTEGER NOT NULL,
     "vendorId" TEXT NOT NULL,
 
     CONSTRAINT "Base_pkey" PRIMARY KEY ("id")
@@ -486,24 +486,24 @@ CREATE TABLE "Liquid" (
 CREATE TABLE "Mixture" (
     "id" TEXT NOT NULL,
     "hash" TEXT NOT NULL,
-    "volume" DECIMAL(10,2) NOT NULL,
-    "content" DECIMAL(10,2) NOT NULL,
-    "available" DECIMAL(10,2) NOT NULL,
-    "diff" DECIMAL(10,2) NOT NULL,
-    "nicotine" DECIMAL(10,2) NOT NULL,
+    "volume" DOUBLE PRECISION NOT NULL,
+    "content" DOUBLE PRECISION NOT NULL,
+    "available" DOUBLE PRECISION NOT NULL,
+    "diff" DOUBLE PRECISION NOT NULL,
+    "nicotine" DOUBLE PRECISION NOT NULL,
     "nicotineToRound" INTEGER NOT NULL,
-    "vg" DECIMAL(10,2) NOT NULL,
-    "pg" DECIMAL(10,2) NOT NULL,
-    "vgToMl" DECIMAL(10,2) NOT NULL,
+    "vg" DOUBLE PRECISION NOT NULL,
+    "pg" DOUBLE PRECISION NOT NULL,
+    "vgToMl" DOUBLE PRECISION NOT NULL,
     "vgToRound" INTEGER NOT NULL,
-    "pgToMl" DECIMAL(10,2) NOT NULL,
+    "pgToMl" DOUBLE PRECISION NOT NULL,
     "pgToRound" INTEGER NOT NULL,
     "aromaId" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "boosterId" TEXT,
     "boosterCount" INTEGER NOT NULL,
     "baseId" TEXT,
-    "baseMl" DECIMAL(10,2) NOT NULL,
+    "baseMl" DOUBLE PRECISION NOT NULL,
     "error" "MixtureError",
 
     CONSTRAINT "Mixture_pkey" PRIMARY KEY ("id")
@@ -546,7 +546,7 @@ CREATE TABLE "Coil" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
-    "size" DECIMAL(10,2) NOT NULL,
+    "size" DOUBLE PRECISION NOT NULL,
     "wraps" INTEGER NOT NULL,
     "wireId" TEXT NOT NULL,
 
@@ -567,10 +567,10 @@ CREATE TABLE "Wire" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "code" TEXT NOT NULL,
-    "cost" DECIMAL(10,2) NOT NULL,
+    "cost" DOUBLE PRECISION NOT NULL,
     "isTCR" BOOLEAN NOT NULL,
-    "mm" DECIMAL(10,2) NOT NULL,
-    "mmToRound" DECIMAL(10,2) NOT NULL,
+    "mm" DOUBLE PRECISION NOT NULL,
+    "mmToRound" DOUBLE PRECISION NOT NULL,
     "vendorId" TEXT NOT NULL,
 
     CONSTRAINT "Wire_pkey" PRIMARY KEY ("id")
@@ -609,7 +609,7 @@ CREATE TABLE "WireFiber" (
 CREATE TABLE "Fiber" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
-    "mm" DECIMAL(10,2) NOT NULL,
+    "mm" DOUBLE PRECISION NOT NULL,
     "ga" INTEGER NOT NULL,
     "materialId" TEXT NOT NULL,
 

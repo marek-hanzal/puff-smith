@@ -41,19 +41,11 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 				const aroma = await aromaService.toMap(mixture.aromaId);
 				return {
 					...mixture,
-					content: mixture.content.toNumber(),
-					diff: mixture.diff.toNumber(),
-					nicotine: mixture.nicotine.toNumber(),
-					vg: mixture.vg.toNumber(),
-					pg: mixture.pg.toNumber(),
 					vgToRound: mixture.vgToRound,
 					pgToRound: mixture.pgToRound,
-					vgToMl: mixture.vgToMl.toNumber(),
-					pgToMl: mixture.pgToMl.toNumber(),
 					aroma,
 					booster: mixture.boosterId ? await boosterService.toMap(mixture.boosterId) : undefined,
 					base: mixture.baseId ? await baseService.toMap(mixture.baseId) : undefined,
-					baseMl: mixture.baseMl.toNumber(),
 					volume: aroma.volume || 0,
 					draws: await Promise.all((await request.prisma.mixtureDraw.findMany({
 						where: {

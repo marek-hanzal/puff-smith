@@ -121,7 +121,7 @@ export const RatioListSource: FC<IRatioListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</RatioSource>;
-};
+}
 
 export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<IRatioItem> {
 	toOption: IToOptionMapper<IRatioItem>;
@@ -164,7 +164,7 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
 	return <SelectionProvider<IRatioItem> {...props}/>;
-};
+}
 
 export const useRatioQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -9,9 +9,6 @@ export const BaseService = (request: IBaseServiceCreate = ServiceCreate()) => Re
 	mapper: async base => ({
 		...base,
 		vendor: await VendorService(request).toMap(base.vendorId),
-		cost: base.cost.toNumber(),
-		pg: base.pg.toNumber(),
-		vg: base.vg.toNumber(),
 	}),
 	create: async ({vendor, ...base}) => request.prisma.base.create({
 		data: {

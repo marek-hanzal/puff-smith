@@ -13,10 +13,6 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		source: request.prisma.job,
 		mapper: async job => ({
 			...job,
-			progress: job.progress?.toNumber(),
-			successRatio: job.successRatio?.toNumber(),
-			failureRatio: job.failureRatio?.toNumber(),
-			skipRatio: job.skipRatio?.toNumber(),
 			params: job.params && JSON.parse(job.params)
 		}),
 		create: job => request.prisma.job.create({
