@@ -30,7 +30,14 @@ export const ModService = (request: IModServiceCreate = ServiceCreate()): IModSe
 				connect: {
 					name: vendor,
 				}
-			}
+			},
+			ModCell: {
+				createMany: {
+					data: cells ? (await TagService(request).fetchCodes(`${cells}`, "cell-type")).map(tag => ({
+						cellId: tag.id,
+					})) : [],
+				},
+			},
 		},
 	}),
 	onUnique: async ({vendor, cells, ...create}) => {
@@ -60,7 +67,7 @@ export const ModService = (request: IModServiceCreate = ServiceCreate()): IModSe
 							cellId: tag.id,
 						})) : [],
 					}
-				}
+				},
 			},
 		});
 	}

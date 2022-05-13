@@ -49,7 +49,7 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 					</FormItem>
 					<TabAndOr
 						name={"cellIds"}
-						orCondition={() => filterContext.source?.orDrawIds}
+						orCondition={() => filterContext.source?.orCellIds}
 						and={<FormItem field={"andCellIds"} hasTooltip>
 							<ModCellSelect
 								mode={"multiple"}
