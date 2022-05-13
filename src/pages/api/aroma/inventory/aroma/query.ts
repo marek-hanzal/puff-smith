@@ -1,18 +1,6 @@
 import {ServiceCreate} from "@/puff-smith/service";
-import {AromaService} from "@/puff-smith/service/aroma/AromaService";
-import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma/interface";
+import {AromaInventoryService} from "@/puff-smith/service/aroma/inventory/AromaInventoryService";
+import {IAromaInventory, IAromaInventoryQuery} from "@/puff-smith/service/aroma/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"InventoryAroma", IAromaQuery, IAroma>(async ({request: {filter, ...request}, toUserId}) => AromaService(ServiceCreate(toUserId())).handleQuery({
-	request: {
-		...request,
-		filter: {
-			...filter,
-			AromaInventory: {
-				some: {
-					userId: toUserId(),
-				}
-			}
-		}
-	}
-}));
+export default QueryEndpoint<"InventoryAroma", IAromaInventoryQuery, IAromaInventory>(async ({request, toUserId}) => AromaInventoryService(ServiceCreate(toUserId())).handleQuery({request}));

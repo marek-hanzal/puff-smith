@@ -1,37 +1,31 @@
-import {MixtureJob} from "@/puff-smith/cli/jobs/mixture";
 import {ServiceCreate} from "@/puff-smith/service";
-import {IAromaService, IAromaServiceCreate, IAromaWhere} from "@/puff-smith/service/aroma/interface";
+import {IAromaService, IAromaServiceCreate} from "@/puff-smith/service/aroma/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {RepositoryService} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
 export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IAromaService => RepositoryService<IAromaService>({
 	name: "aroma",
 	source: request.prisma.aroma,
-	create: async ({vendor, tastes, ...aroma}) => {
-		const $aroma = await request.prisma.aroma.create({
-			data: {
-				...aroma,
-				name: `${aroma.name}`,
-				vendor: {
-					connect: {
-						name: vendor,
-					}
-				},
-				AromaTaste: {
-					createMany: {
-						data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
-							tasteId: tag.id,
-						})) : [],
-					}
-				},
+	create: async ({vendor, tastes, ...aroma}) => request.prisma.aroma.create({
+		data: {
+			...aroma,
+			name: `${aroma.name}`,
+			vendor: {
+				connect: {
+					name: vendor,
+				}
 			},
-		});
-		await MixtureJob.schedule({
-			aromaId: $aroma.id,
-		}, request.userService.getOptionalUserId());
-		return $aroma;
-	},
+			AromaTaste: {
+				createMany: {
+					data: tastes ? (await TagService(request).fetchCodes(tastes, "taste")).map(tag => ({
+						tasteId: tag.id,
+					})) : [],
+				}
+			},
+		},
+	}),
 	onUnique: async ({vendor, tastes, name, ...create}) => {
 		const $aroma = await request.prisma.aroma.findFirst({
 			where: {
@@ -47,9 +41,6 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 				aromaId: $aroma.id,
 			}
 		});
-		await MixtureJob.scheduleAt("in 30 seconds", {
-			aromaId: $aroma.id,
-		}, request.userService.getOptionalUserId());
 		return request.prisma.aroma.update({
 			where: {
 				id: $aroma.id,
@@ -82,48 +73,22 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 			}
 		})),
 	}),
-	toFilter: ({fulltext, ownedByUserId, notOwnedByUserId, ownedByCurrentUser, notOwnedByCurrentUser, ...filter} = {}) => {
-		let _filter: IAromaWhere = fulltext ? {
-			...filter,
-			OR: [
-				{
+	toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
+		OR: [
+			{
+				name: {
+					contains: fulltext,
+					mode: "insensitive",
+				}
+			},
+			{
+				vendor: {
 					name: {
 						contains: fulltext,
 						mode: "insensitive",
-					}
-				},
-				{
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
-						},
-					}
-				},
-			],
-		} : filter;
-		ownedByUserId = ownedByCurrentUser ? request.userService.getUserId() : ownedByUserId;
-		notOwnedByUserId = notOwnedByCurrentUser ? request.userService.getUserId() : notOwnedByUserId;
-		if (ownedByUserId) {
-			_filter = {
-				...filter,
-				AromaInventory: {
-					some: {
-						userId: ownedByUserId,
-					}
+					},
 				}
-			};
-		}
-		if (notOwnedByUserId) {
-			_filter = {
-				...filter,
-				AromaInventory: {
-					none: {
-						userId: notOwnedByUserId,
-					}
-				}
-			};
-		}
-		return _filter;
-	},
+			},
+		],
+	}),
 });

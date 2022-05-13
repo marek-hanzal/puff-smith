@@ -53,7 +53,7 @@ export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate(
 		},
 	}),
 	onUnique: async ({vendor, type, draws, ...create}) => {
-		const _atomizer = (await request.prisma.atomizer.findFirst({
+		const $atomizer = (await request.prisma.atomizer.findFirst({
 			where: {
 				name: create.name,
 				vendor: {
@@ -64,12 +64,12 @@ export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate(
 		}));
 		await request.prisma.atomizerDraw.deleteMany({
 			where: {
-				atomizerId: _atomizer.id,
+				atomizerId: $atomizer.id,
 			}
 		});
 		return request.prisma.atomizer.update({
 			where: {
-				id: _atomizer.id,
+				id: $atomizer.id,
 			},
 			data: {
 				...create,
