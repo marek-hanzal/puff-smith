@@ -1,3 +1,4 @@
+import {MixtureUserJob} from "@/puff-smith/cli/jobs/mixture";
 import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBaseTransactionService, IBaseTransactionServiceCreate} from "@/puff-smith/service/base/inventory/interface";
@@ -19,13 +20,17 @@ export const BaseInventoryService = (request: IBaseTransactionServiceCreate = Se
 			userId: request.userService.getUserId(),
 			cost: base.cost,
 			note: `Purchase of base [${base.vendor.name} ${base.name}]`,
-			callback: async transaction => prisma.baseInventory.create({
-				data: {
-					baseId: base.id,
-					transactionId: transaction.id,
-					userId: request.userService.getUserId(),
-				}
-			}),
+			callback: async transaction => {
+				const $baseInventory = prisma.baseInventory.create({
+					data: {
+						baseId: base.id,
+						transactionId: transaction.id,
+						userId: request.userService.getUserId(),
+					}
+				});
+				await MixtureUserJob.schedule({userId: request.userService.getUserId()});
+				return $baseInventory;
+			},
 		});
 	}),
 });

@@ -9,6 +9,10 @@ export interface IAromaInventoryCreate {
 	aromaId: string;
 }
 
+export interface IAromaInventoryDelete {
+	ids: string[];
+}
+
 export interface IAromaInventory {
 	id: string;
 	aroma: IAroma;
@@ -32,4 +36,5 @@ export interface IAromaInventoryServiceCreate extends IServiceCreate {
 }
 
 export interface IAromaInventoryService extends IRepositoryService<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery> {
+	handleDelete(request: { request: IAromaInventoryDelete }): Promise<IAromaInventory[]>;
 }

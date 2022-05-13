@@ -6,8 +6,8 @@ import {MixtureBoosterSelect} from "@/puff-smith/site/lab/mixture/@module/form/M
 import {MixtureDrawSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureDrawSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureRatioSelect";
+import {MixtureTasteSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureTasteSelect";
 import {MixtureVendorSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureVendorSelect";
-import {AromaTasteSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaTasteSelect";
 import {MixtureSourceControlProvider, MixtureSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
 import {CloudOutlined, PercentageOutlined, QuestionOutlined} from "@ant-design/icons";
 import {FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
@@ -34,24 +34,24 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		drawerButtonProps={{
 			width: 860,
 		}}
-		toFilter={({andDrawIds, orDrawIds, andTasteIds, orTasteIds, vendorId, ratio: unused, ...values}) => toFilter({
-			...values,
-			AND: andDrawIds?.map((drawId: string) => ({
-				MixtureDraw: {
-					some: {
-						drawId,
-					},
-				},
-			})),
-			MixtureDraw: {
-				some: {
-					drawId: {
-						in: orDrawIds,
-					},
-				},
-			},
-			aroma: {
+		toFilter={(
+			{
+				andDrawIds,
+				orDrawIds,
+				andTasteIds,
+				orTasteIds,
 				vendorId,
+				ratio: unused,
+				aromaId,
+				boosterId,
+				baseId,
+				nicotineToRound,
+			}) => toFilter({
+			aromaId,
+			boosterId,
+			baseId,
+			vendorId,
+			aroma: {
 				OR: [
 					{
 						AND: andTasteIds?.map((tasteId: string) => ({
@@ -71,7 +71,24 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 					},
 				},
 			},
-			...ratio.current,
+			mixture: {
+				nicotineToRound,
+				AND: andDrawIds?.map((drawId: string) => ({
+					MixtureDraw: {
+						some: {
+							drawId,
+						},
+					},
+				})),
+				MixtureDraw: {
+					some: {
+						drawId: {
+							in: orDrawIds,
+						},
+					},
+				},
+				...ratio.current,
+			}
 		})}
 		{...props}
 	>
@@ -155,7 +172,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 						<TabAndOr
 							name={"tasteIds"}
 							and={<FormItem field={"andTasteIds"} hasTooltip>
-								<AromaTasteSelect
+								<MixtureTasteSelect
 									mode={"multiple"}
 									allowClear
 									onChange={() => formContext.setValues({
@@ -164,7 +181,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 								/>
 							</FormItem>}
 							or={<FormItem field={"orTasteIds"} hasTooltip>
-								<AromaTasteSelect
+								<MixtureTasteSelect
 									mode={"multiple"}
 									allowClear
 									onChange={() => formContext.setValues({

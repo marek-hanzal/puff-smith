@@ -15,8 +15,8 @@ export default withLabLayout(function Index() {
 			defaultSize={10}
 			defaultOrderBy={[
 				{aroma: {name: "asc"}},
-				{vg: "desc"},
-				{nicotine: "asc"},
+				{mixture: {vg: "desc"}},
+				{mixture: {nicotine: "asc"}},
 			] as any}
 		>
 			<MixtureList

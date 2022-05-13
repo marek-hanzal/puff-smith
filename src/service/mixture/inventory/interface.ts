@@ -5,6 +5,11 @@ import {MixtureInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IMixtureInventoryCreate {
+	mixtureId: string;
+	aromaId: string;
+	vendorId: string;
+	boosterId?: string | null;
+	baseId?: string | null;
 }
 
 export type IMixtureInventoryWhere = Prisma.MixtureInventoryWhereInput & IWhereFulltext;

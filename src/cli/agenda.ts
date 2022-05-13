@@ -1,7 +1,7 @@
 import {CoilJob, CoilsJob} from "@/puff-smith/cli/jobs/coil";
 import {ImportJob} from "@/puff-smith/cli/jobs/import";
 import {MigrationJob} from "@/puff-smith/cli/jobs/migrate";
-import {MixtureJob, MixturesJob} from "@/puff-smith/cli/jobs/mixture";
+import {MixtureJob, MixturesJob, MixtureUserJob} from "@/puff-smith/cli/jobs/mixture";
 import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 
@@ -13,12 +13,16 @@ import {Logger} from "@leight-core/server";
 		MigrationJob,
 		MixtureJob,
 		MixturesJob,
+		MixtureUserJob,
 	];
 
 	const logger = Logger("job");
 
 	logger.debug("Registering jobs...");
-	jobs.map(job => job.register(agenda));
+	jobs.map(job => {
+		logger.debug(`\t - Job [${job.name()}]`);
+		job.register(agenda);
+	});
 	logger.debug("Starting Agenda...");
 	await agenda.start();
 	logger.debug("Started!");

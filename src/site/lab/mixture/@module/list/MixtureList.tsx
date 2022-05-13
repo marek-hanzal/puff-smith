@@ -18,11 +18,12 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 		}}
 		{...props}
 	>
-		{mixture => <ListItem>
+		{({mixture}) => <ListItem>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={mixture.aroma}/>
 					{mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={mixture.aroma.tastes} translation={"common.taste"}/>}
+					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
 					<LiquidCreateButton mixture={mixture}/>
 				</Space>}
 				description={<MixtureInline mixture={mixture}/>}

@@ -1,4 +1,5 @@
 import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
@@ -23,6 +24,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={aromaInventory}/>
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 				</Space>}
 				description={<Space size={0} split={<Divider type={"vertical"}/>}>

@@ -16,11 +16,22 @@ export const MixtureInventoryService = (request: IMixtureInventoryServiceCreate 
 				};
 			},
 			create: async mixture => request.prisma.mixtureInventory.create({
-				data: {},
+				data: {
+					...mixture,
+					userId: request.userService.getUserId(),
+				},
 			}),
-			onUnique: async mixture => {
-				throw new Error("not yet");
-			},
+			onUnique: async mixture => request.prisma.mixtureInventory.findFirst({
+				where: {
+					...mixture,
+					userId: request.userService.getUserId(),
+				},
+				rejectOnNotFound: true,
+			}),
+		}),
+		toFilter: filter => ({
+			...filter,
+			userId: request.userService.getUserId(),
 		}),
 	};
 };

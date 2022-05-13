@@ -8,14 +8,14 @@ export interface ILiquidListEmptyProps {
 
 export const LiquidListEmpty: FC<ILiquidListEmptyProps> = () => {
 	const filterContext = useLiquidFilterContext();
-	if (!filterContext.isEmpty()) {
+	if (filterContext.isEmpty()) {
 		return <Template
 			icon={<LiquidIcon/>}
-			label={"lab.liquid.list.filter.empty"}
+			label={"lab.liquid.list.empty"}
 		/>;
 	}
 	return <Template
 		icon={<LiquidIcon/>}
-		label={"lab.liquid.list.empty"}
+		label={"lab.liquid.list.filter.empty"}
 	/>;
 };

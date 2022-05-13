@@ -2,7 +2,7 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
-import {ButtonBar, ButtonLink, ITemplateProps, Template} from "@leight-core/client";
+import {ButtonBar, ButtonLink, ITemplateProps, Template, useFilterContext} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
 
@@ -10,7 +10,8 @@ export interface IMixtureListEmptyProps extends Partial<ITemplateProps> {
 }
 
 export const MixtureListEmpty: FC<IMixtureListEmptyProps> = props => {
-	return <Template
+	const filterContext = useFilterContext();
+	return filterContext.isEmpty() ? <Template
 		icon={<MixtureIcon/>}
 		label={"lab.mixture.empty"}
 		extra={<>
@@ -23,5 +24,8 @@ export const MixtureListEmpty: FC<IMixtureListEmptyProps> = props => {
 			</ButtonBar>
 		</>}
 		{...props}
+	/> : <Template
+		icon={<MixtureIcon/>}
+		label={"lab.mixture.list.filter.empty"}
 	/>;
 };

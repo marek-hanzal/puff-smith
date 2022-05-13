@@ -1,23 +1,26 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {JobService} from "@/puff-smith/service/job/JobService";
+import {MixtureInventoryService} from "@/puff-smith/service/mixture/inventory/MixtureInventoryService";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 
-const MIXTURES_NAME = "job.mixtures";
-const MIXTURE_NAME = "job.mixture";
+const MIXTURES_JOB = "job.mixtures";
+const MIXTURE_JOB = "job.mixture";
+const MIXTURE_USER_JOB = "job.mixture-user";
 
 export interface IMixturesJobParams {
 }
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
-	name: () => MIXTURES_NAME,
-	schedule: async (params, userId) => JobService().schedule<IMixturesJobParams>(MIXTURES_NAME, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixturesJobParams>(MIXTURES_NAME, schedule, params, userId),
-	register: agenda => agenda.define(MIXTURES_NAME, {
+	name: () => MIXTURES_JOB,
+	schedule: async (params, userId) => JobService().schedule<IMixturesJobParams>(MIXTURES_JOB, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixturesJobParams>(MIXTURES_JOB, schedule, params, userId),
+	register: agenda => agenda.define(MIXTURES_JOB, {
 		concurrency: 1,
 		priority: 4,
-	}, JobService().handle<IMixturesJobParams>(MIXTURES_NAME, async ({jobProgress, job: {userId}, logger, progress}) => {
+	}, JobService().handle<IMixturesJobParams>(MIXTURES_JOB, async ({jobProgress, job: {userId}, logger, progress}) => {
 		logger.debug("Scheduling updating all mixtures.");
 		await jobProgress.setTotal(await prisma.aroma.count());
 		for (const aroma of await prisma.aroma.findMany()) {
@@ -37,13 +40,13 @@ export interface IMixtureJobParams {
 }
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
-	name: () => MIXTURE_NAME,
-	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_NAME, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_NAME, schedule, params, userId),
-	register: agenda => agenda.define(MIXTURE_NAME, {
+	name: () => MIXTURE_JOB,
+	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_JOB, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_JOB, schedule, params, userId),
+	register: agenda => agenda.define(MIXTURE_JOB, {
 		concurrency: 5,
 		priority: 5,
-	}, JobService().handle<IMixtureJobParams>(MIXTURE_NAME, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
+	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
 		const aroma = await prisma.aroma.findUnique({
 			where: {
@@ -90,6 +93,97 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 					});
 				}
 			}
+		}
+	})),
+};
+
+export interface IMixtureUserJobParams {
+	userId: string;
+}
+
+export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
+	name: () => MIXTURE_USER_JOB,
+	schedule: async (params, userId) => JobService().schedule<IMixtureUserJobParams>(MIXTURE_USER_JOB, params, userId),
+	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureUserJobParams>(MIXTURE_USER_JOB, schedule, params, userId),
+	register: agenda => agenda.define(MIXTURE_USER_JOB, {
+		concurrency: 10,
+		priority: 150,
+	}, JobService().handle<IMixtureUserJobParams>(MIXTURE_USER_JOB, async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
+		logger.debug("User mixture update.", {userId});
+
+		if (!userId) {
+			throw new Error("User not provided!");
+		}
+
+		const where = {
+			aroma: {
+				AromaInventory: {
+					some: {
+						userId,
+					},
+				},
+			},
+			AND: [
+				{
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId,
+									},
+								},
+							},
+						},
+						{
+							boosterId: null,
+						}
+					]
+				},
+				{
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId,
+									},
+								},
+							},
+						},
+						{
+							baseId: null,
+						}
+					]
+				}
+			],
+		};
+
+		await jobProgress.setTotal(await prisma.mixture.count({
+			where,
+		}));
+
+		const mixtureInventoryService = MixtureInventoryService(ServiceCreate(userId));
+
+		const $mixtures = (await prisma.mixture.findMany({
+			include: {
+				aroma: true,
+				booster: true,
+				base: true,
+			},
+			where,
+		}));
+		for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
+			logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
+			await progress(async () => {
+				await mixtureInventoryService.create({
+					aromaId,
+					vendorId: aroma.vendorId,
+					boosterId,
+					baseId,
+					mixtureId: id,
+				});
+			});
 		}
 	})),
 };
