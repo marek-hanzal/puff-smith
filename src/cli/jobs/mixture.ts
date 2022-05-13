@@ -5,7 +5,6 @@ import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
-import {JobPriority} from "agenda";
 
 const MIXTURES_JOB = "job.mixtures";
 const MIXTURE_JOB = "job.mixture";
@@ -20,7 +19,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixturesJobParams>(MIXTURES_JOB, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURES_JOB, {
 		concurrency: 1,
-		priority: JobPriority.low,
+		priority: -10,
 	}, JobService().handle<IMixturesJobParams>(MIXTURES_JOB, async ({jobProgress, job: {userId}, logger, progress}) => {
 		logger.debug("Scheduling updating all mixtures.");
 		await jobProgress.setTotal(await prisma.aroma.count());
@@ -46,7 +45,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_JOB, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_JOB, {
 		concurrency: 5,
-		priority: JobPriority.normal,
+		priority: 0,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
 		const aroma = await prisma.aroma.findUnique({
@@ -140,7 +139,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureUserJobParams>(MIXTURE_USER_JOB, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_USER_JOB, {
 		concurrency: 10,
-		priority: JobPriority.highest,
+		priority: 20,
 	}, JobService().handle<IMixtureUserJobParams>(MIXTURE_USER_JOB, async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
 		logger.debug("User mixture update.", {userId});
 

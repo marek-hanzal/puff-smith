@@ -18,7 +18,6 @@ import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
 import {WireService} from "@/puff-smith/service/wire/WireService";
 import {IJob, IJobProcessor, IQueryParams} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
-import {JobPriority} from "agenda";
 import xlsx from "xlsx";
 
 const importHandlers = {
@@ -55,7 +54,7 @@ export const ImportJob: IJobProcessor<IImportParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IImportParams>(JOB_NAME, schedule, params, userId),
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
-		priority: JobPriority.normal,
+		priority: 0,
 	}, JobService().handle<IImportParams>(JOB_NAME, async ({logger, job, jobProgress}) => {
 		const labels = {jobId: job.id};
 		logger = logger.child({labels, jobId: labels.jobId});

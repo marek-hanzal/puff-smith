@@ -3,7 +3,6 @@ import {CoilService} from "@/puff-smith/service/coil/CoilService";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
-import {JobPriority} from "agenda";
 
 const COILS_NAME = "job.coils";
 const COIL_NAME = "job.coil";
@@ -17,7 +16,7 @@ export const CoilsJob: IJobProcessor<ICoilsJobParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<ICoilsJobParams>(COILS_NAME, schedule, params, userId),
 	register: agenda => agenda.define(COILS_NAME, {
 		concurrency: 1,
-		priority: JobPriority.low,
+		priority: -10,
 	}, JobService().handle<ICoilsJobParams>(COILS_NAME, async ({jobProgress, job: {userId}, logger, progress}) => {
 		logger.debug("Scheduling updating all coils.");
 		await jobProgress.setTotal(await prisma.wire.count());
@@ -42,7 +41,7 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<ICoilJobParams>(COIL_NAME, schedule, params, userId),
 	register: agenda => agenda.define(COIL_NAME, {
 		concurrency: 10,
-		priority: JobPriority.low,
+		priority: -10,
 	}, JobService().handle<ICoilJobParams>(COIL_NAME, async ({jobProgress, job: {params: {wireId}, userId}, logger, progress}) => {
 		const wire = await prisma.wire.findUnique({
 			where: {
