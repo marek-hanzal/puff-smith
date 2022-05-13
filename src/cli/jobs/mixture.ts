@@ -44,7 +44,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_JOB, params, userId),
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_JOB, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_JOB, {
-		concurrency: 10,
+		concurrency: 5,
 		priority: 0,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
@@ -54,11 +54,15 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 			},
 			rejectOnNotFound: true
 		});
-		const maxNicotine = (await prisma.booster.aggregate({
+		const maxNicotine = ((await prisma.booster.aggregate({
 			_max: {
 				nicotine: true,
 			}
-		}))._max.nicotine || -1;
+			/**
+			 * It's not possible to make liquid with same nicotine strength as is
+			 * in the booster, to safe some compute time by lowering max. by some epsilon
+			 * */
+		}))._max.nicotine || 0) - 2;
 		await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
 
