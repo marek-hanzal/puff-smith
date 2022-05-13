@@ -1,13 +1,16 @@
+import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {CottonDrawSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonDrawSelect";
 import {CottonVendorSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonVendorSelect";
-import {CottonSourceFilter} from "@/sdk/api/cotton/query";
-import {FormItem, IFilterProps} from "@leight-core/client";
+import {CottonSourceControlProvider, CottonSourceFilter} from "@/sdk/api/cotton/query";
+import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface ICottonFilterProps extends Partial<IFilterProps> {
 }
 
 export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const filterContext = useFilterContext();
+
 	const onClear = () => {
 	};
 
@@ -36,22 +39,38 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 		})}
 		{...props}
 	>
-		<FormItem field={"vendorId"}>
-			<CottonVendorSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"andDrawIds"} hasTooltip>
-			<CottonDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"orDrawIds"} hasTooltip>
-			<CottonDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
+		<CottonSourceControlProvider>
+			<FormContext.Consumer>
+				{formContext => <>
+					<FormItem field={"vendorId"}>
+						<CottonVendorSelect
+							allowClear
+						/>
+					</FormItem>
+					<TabAndOr
+						name={"drawIds"}
+						orCondition={() => filterContext.source?.orDrawIds}
+						and={<FormItem field={"andDrawIds"} hasTooltip>
+							<CottonDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									orDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+						or={<FormItem field={"orDrawIds"} hasTooltip>
+							<CottonDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									andDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+					/>
+				</>}
+			</FormContext.Consumer>
+		</CottonSourceControlProvider>
 	</CottonSourceFilter>;
 };

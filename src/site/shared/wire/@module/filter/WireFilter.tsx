@@ -1,14 +1,18 @@
+import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {WireDrawSelect} from "@/puff-smith/site/shared/wire/@module/form/WireDrawSelect";
 import {WireFiberSelect} from "@/puff-smith/site/shared/wire/@module/form/WireFiberSelect";
 import {WireVendorSelect} from "@/puff-smith/site/shared/wire/@module/form/WireVendorSelect";
-import {WireSourceFilter} from "@/sdk/api/wire/query";
-import {FormItem, IFilterProps} from "@leight-core/client";
+import {WireSourceControlProvider, WireSourceFilter} from "@/sdk/api/wire/query";
+import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
+import {Divider} from "antd";
 import {FC} from "react";
 
 export interface IWireFilterProps extends Partial<IFilterProps> {
 }
 
 export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const filterContext = useFilterContext();
+
 	const onClear = () => {
 	};
 
@@ -53,34 +57,61 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 		})}
 		{...props}
 	>
-		<FormItem field={"vendorId"}>
-			<WireVendorSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"andFiberIds"} hasTooltip>
-			<WireFiberSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"orFiberIds"} hasTooltip>
-			<WireFiberSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"andDrawIds"} hasTooltip>
-			<WireDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"orDrawIds"} hasTooltip>
-			<WireDrawSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
+		<WireSourceControlProvider>
+			<FormContext.Consumer>
+				{formContext => <>
+					<FormItem field={"vendorId"}>
+						<WireVendorSelect
+							allowClear
+						/>
+					</FormItem>
+					<TabAndOr
+						name={"fiberIds"}
+						orCondition={() => filterContext.source?.orFiberIds}
+						and={<FormItem field={"andFiberIds"} hasTooltip>
+							<WireFiberSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									orFiberIds: undefined,
+								})}
+							/>
+						</FormItem>}
+						or={<FormItem field={"orFiberIds"} hasTooltip>
+							<WireFiberSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									andFiberIds: undefined,
+								})}
+							/>
+						</FormItem>}
+					/>
+					<Divider/>
+					<TabAndOr
+						name={"drawIds"}
+						orCondition={() => filterContext.source?.orDrawIds}
+						and={<FormItem field={"andDrawIds"} hasTooltip>
+							<WireDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									orDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+						or={<FormItem field={"orDrawIds"} hasTooltip>
+							<WireDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									andDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+					/>
+				</>}
+			</FormContext.Consumer>
+		</WireSourceControlProvider>
 	</WireSourceFilter>;
 };
