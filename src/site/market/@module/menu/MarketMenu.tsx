@@ -6,7 +6,6 @@ import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
@@ -29,7 +28,6 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 				CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>),
 				CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
 				CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),
-				CreateMenuItem("market.mixture.menu", "/market/mixture", <MixtureIcon/>),
 			]),
 			CreateMenuGroup("market.build.menu", <BuildIcon/>, [
 				CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>),
