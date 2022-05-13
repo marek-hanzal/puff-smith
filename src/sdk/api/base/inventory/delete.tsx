@@ -16,7 +16,7 @@ export const useDeleteMutation = createMutationHook<IBaseInventoryDelete, IBaseI
 export const useDeleteQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DeleteApiLink]);
-};
+}
 
 export interface IDeleteDefaultFormProps extends Partial<IFormProps<IBaseInventoryDelete, IBaseInventory[]>> {
 }
@@ -24,7 +24,7 @@ export interface IDeleteDefaultFormProps extends Partial<IFormProps<IBaseInvento
 export const DeleteDefaultForm: FC<IDeleteDefaultFormProps> = props => <Form<IBaseInventoryDelete, IBaseInventory[]>
 	useMutation={useDeleteMutation}
 	{...props}
-/>;
+/>
 
 export const toDeleteLink = (queryParams?: IDeleteQueryParams) => toLink(DeleteApiLink, queryParams);
 export const useDeleteLink = () => toDeleteLink;

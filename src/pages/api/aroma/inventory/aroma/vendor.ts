@@ -2,31 +2,26 @@ import {ServiceCreate} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {IQuery} from "@leight-core/api";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {IQuery, IWhereFulltext} from "@leight-core/api";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
-	const vendorService = VendorService(ServiceCreate(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.aromaInventory.findMany({
-		where: {
-			userId: toUserId(),
+export default QueryEndpoint<"Vendor", IQuery<IWhereFulltext>, IVendor>(async ({request: {filter}, toUserId}) => itemsOf(prisma.vendor.findMany({
+	where: {
+		name: {
+			contains: filter?.fulltext,
+			mode: "insensitive",
 		},
-		orderBy: [
-			{aroma: {vendor: {name: "asc"}}},
-		],
-		include: {
-			aroma: {
-				include: {
-					vendor: true,
-				}
+		Aroma: {
+			some: {
+				AromaInventory: {
+					some: {
+						userId: toUserId(),
+					},
+				},
 			}
-		}
-	})).map(async ({aroma: item}) => await vendorService.map(item.vendor))), ["id"]) as IVendor[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+		},
+	},
+	orderBy: [
+		{name: "asc"},
+	],
+}), item => item, VendorService(ServiceCreate(toUserId())).map));
