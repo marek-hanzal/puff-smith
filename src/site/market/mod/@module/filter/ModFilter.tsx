@@ -1,13 +1,16 @@
+import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {ModCellSelect} from "@/puff-smith/site/market/mod/@module/form/ModCellSelect";
 import {ModVendorSelect} from "@/puff-smith/site/market/mod/@module/form/ModVendorSelect";
-import {ModSourceFilter} from "@/sdk/api/mod/query";
-import {FormItem, IFilterProps} from "@leight-core/client";
+import {ModSourceControlProvider, ModSourceFilter} from "@/sdk/api/mod/query";
+import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IModFilterProps extends Partial<IFilterProps> {
 }
 
 export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const filterContext = useFilterContext();
+
 	const onClear = () => {
 	};
 
@@ -36,22 +39,38 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 		})}
 		{...props}
 	>
-		<FormItem field={"vendorId"}>
-			<ModVendorSelect
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"andCellIds"} hasTooltip>
-			<ModCellSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
-		<FormItem field={"orCellIds"} hasTooltip>
-			<ModCellSelect
-				mode={"multiple"}
-				allowClear
-			/>
-		</FormItem>
+		<ModSourceControlProvider>
+			<FormContext.Consumer>
+				{formContext => <>
+					<FormItem field={"vendorId"}>
+						<ModVendorSelect
+							allowClear
+						/>
+					</FormItem>
+					<TabAndOr
+						name={"cellIds"}
+						orCondition={() => filterContext.source?.orDrawIds}
+						and={<FormItem field={"andCellIds"} hasTooltip>
+							<ModCellSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									orCellIds: undefined,
+								})}
+							/>
+						</FormItem>}
+						or={<FormItem field={"orCellIds"} hasTooltip>
+							<ModCellSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									andCellIds: undefined,
+								})}
+							/>
+						</FormItem>}
+					/>
+				</>}
+			</FormContext.Consumer>
+		</ModSourceControlProvider>
 	</ModSourceFilter>;
 };
