@@ -157,7 +157,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<IMixtureInventory> {...props}/>;
-};
+}
 
 export const useMixtureQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -18,6 +18,10 @@ export interface IBoosterInventory {
 	transactionId: string;
 }
 
+export interface IBoosterInventoryDelete {
+	ids: string[];
+}
+
 export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationInput> {
 }
 
@@ -33,4 +37,5 @@ export interface IBoosterInventoryServiceCreate extends IServiceCreate {
 }
 
 export interface IBoosterInventoryService extends IRepositoryService<IBoosterInventoryCreate, BoosterInventory, IBoosterInventory, IBoosterInventoryQuery, IBoosterInventoryFetchProps, IBoosterInventoryFetchQuery> {
+	handleDelete(request: { request: IBoosterInventoryDelete }): Promise<IBoosterInventory[]>;
 }

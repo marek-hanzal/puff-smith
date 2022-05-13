@@ -6,7 +6,9 @@
       <script value="prisma generate" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

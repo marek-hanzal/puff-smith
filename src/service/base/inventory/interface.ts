@@ -17,19 +17,24 @@ export interface IBaseInventory {
 	transactionId: string;
 }
 
+export interface IBaseInventoryDelete {
+	ids: string[];
+}
+
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationInput> {
 }
 
 export interface IBaseInventoryFetchProps {
-	baseTransaction: IBaseInventory;
+	baseInventory: IBaseInventory;
 }
 
 export interface IBaseInventoryFetchQuery extends ParsedUrlQuery {
-	baseTransactionId: string;
+	baseInventoryId: string;
 }
 
-export interface IBaseTransactionServiceCreate extends IServiceCreate {
+export interface IBaseInventoryServiceCreate extends IServiceCreate {
 }
 
-export interface IBaseTransactionService extends IRepositoryService<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery> {
+export interface IBaseInventoryService extends IRepositoryService<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery> {
+	handleDelete(request: { request: IBaseInventoryDelete }): Promise<IBaseInventory[]>;
 }

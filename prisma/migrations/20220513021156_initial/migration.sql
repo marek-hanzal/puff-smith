@@ -527,7 +527,6 @@ CREATE TABLE "MixtureInventory" (
     "vendorId" TEXT NOT NULL,
     "boosterId" TEXT,
     "baseId" TEXT,
-    "transactionId" TEXT NOT NULL,
 
     CONSTRAINT "MixtureInventory_pkey" PRIMARY KEY ("id")
 );
@@ -714,6 +713,9 @@ CREATE INDEX "Mixture_aromaId_boosterId_baseId_nicotineToRound_vgToRound__idx" O
 
 -- CreateIndex
 CREATE INDEX "MixtureInventory_userId_aromaId_vendorId_boosterId_baseId_idx" ON "MixtureInventory" USING BRIN ("userId", "aromaId", "vendorId", "boosterId", "baseId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "MixtureInventory_userId_mixtureId_key" ON "MixtureInventory"("userId", "mixtureId");
 
 -- CreateIndex
 CREATE INDEX "Build_userId_idx" ON "Build" USING BRIN ("userId");
@@ -972,9 +974,6 @@ ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_userId_fkey" FOR
 
 -- AddForeignKey
 ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MixtureInventory" ADD CONSTRAINT "MixtureInventory_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;

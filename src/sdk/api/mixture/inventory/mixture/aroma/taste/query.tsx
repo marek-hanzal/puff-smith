@@ -115,7 +115,7 @@ export const TasteListSource: FC<ITasteListSourceProps> = ({sourceProps, ...prop
 			{...props}
 		/>
 	</TasteSource>;
-};
+}
 
 export interface ITasteSourceSelectProps extends IQuerySourceSelectProps<ITag> {
 	toOption: IToOptionMapper<ITag>;
@@ -158,7 +158,7 @@ export interface ITasteSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TasteSelectionProvider: FC<ITasteSelectionProviderProps> = props => {
 	return <SelectionProvider<ITag> {...props}/>;
-};
+}
 
 export const useTasteQueryInvalidate = () => {
 	const queryClient = useQueryClient();
