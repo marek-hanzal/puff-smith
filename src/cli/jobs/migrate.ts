@@ -29,7 +29,7 @@ export const MigrationJob: IJobProcessor<void> = {
 			}
 			logger.info(`Running [${migration.name()}] migration`, {labels, ...others});
 			try {
-				await migration.run();
+				// await migration.run();
 				logger.info(`Migration [${migration.name()}] done`, {labels, ...others});
 			} catch (e) {
 				logger.error(`Migration [${migration.name()}] failed`, {labels, ...others});
