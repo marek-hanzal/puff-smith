@@ -32,10 +32,10 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 		}, request.userService.getOptionalUserId());
 		return $aroma;
 	},
-	onUnique: async ({vendor, tastes, ...create}) => {
+	onUnique: async ({vendor, tastes, name, ...create}) => {
 		const $aroma = await request.prisma.aroma.findFirst({
 			where: {
-				name: `${create.name}`,
+				name: `${name}`,
 				vendor: {
 					name: vendor,
 				}
