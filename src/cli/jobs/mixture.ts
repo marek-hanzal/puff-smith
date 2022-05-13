@@ -86,6 +86,9 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 
 		/**
 		 * One loop without boosters (so, nicotine is zero).
+		 *
+		 * Also, this loop looks redundant, but it covers a case where there are no boosters in the app. That is quite
+		 * unlikely to happen, but one never knows.
 		 */
 		for (const base of await prisma.base.findMany()) {
 			await progress(async () => createMixture(await toMixtureInfo({
@@ -110,13 +113,24 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		 */
 		for (const booster of await prisma.booster.findMany()) {
 			for (const base of await prisma.base.findMany()) {
+				const $nicotine: { [index: string]: boolean } = {};
 				for (let nicotine = 1; nicotine <= maxNicotine; nicotine++) {
-					await progress(async () => createMixture(await toMixtureInfo({
+					/**
+					 * This should resolve problem with initial unique constrain failures for the same
+					 * nicotine amount done by booster roundings.
+					 */
+					const $info = await toMixtureInfo({
 						nicotine,
 						aroma,
 						booster,
 						base,
-					})));
+					});
+					if ($nicotine[`${$info.result.nicotine}`]) {
+						await jobProgress.onSkip();
+						continue;
+					}
+					$nicotine[`${$info.result.nicotine}`] = true;
+					await progress(async () => createMixture($info));
 				}
 			}
 		}

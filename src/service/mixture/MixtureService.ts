@@ -4,7 +4,6 @@ import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IMixtureCreate, IMixtureService, IMixtureServiceCreate} from "@/puff-smith/service/mixture/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
-import {sha256} from "@/puff-smith/service/utils/sha256";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
@@ -20,7 +19,8 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 		return {
 			...create,
 			vendorId: $aroma.vendorId,
-			hash: sha256(`${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`),
+			// hash: sha256(`${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`),
+			hash: `${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`,
 			vgToRound,
 			pgToRound: 100 - vgToRound,
 			nicotineToRound: Math.round(create.nicotine || 0),
