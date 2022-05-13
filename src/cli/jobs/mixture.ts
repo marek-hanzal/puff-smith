@@ -111,6 +111,12 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 						booster,
 						base,
 					});
+					/**
+					 * If there is the same amount of nicotine during this loop, skip it.
+					 *
+					 * String is used to simplify a bit same nicotine amount lookup and eventually to squash near
+					 * same numbers.
+					 */
 					if ($nicotine[`${$info.result.nicotine}`]) {
 						await jobProgress.onSkip();
 						continue;
