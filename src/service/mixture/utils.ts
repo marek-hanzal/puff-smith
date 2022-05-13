@@ -4,7 +4,7 @@ import {Aroma, Base, Booster} from "@prisma/client";
 export interface IToMixtureInfoRequest {
 	aroma: Aroma;
 	base?: Base;
-	booster: Booster;
+	booster?: Booster;
 	nicotine?: number;
 }
 

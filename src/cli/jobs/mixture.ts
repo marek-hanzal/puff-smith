@@ -2,7 +2,7 @@ import {ServiceCreate} from "@/puff-smith/service";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {MixtureInventoryService} from "@/puff-smith/service/mixture/inventory/MixtureInventoryService";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
-import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
+import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 
@@ -61,36 +61,51 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		}))._max.nicotine || -1;
 		await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
 		const mixtureService = MixtureService();
+
+		const createMixture = async (info: IMixtureInfo) => {
+			const volume = aroma.volume || aroma.content;
+			!info.result.error && await mixtureService.create({
+				aromaId: aroma.id,
+				baseId: info.base?.baseId,
+				baseMl: info.base?.volume || 0,
+				boosterCount: 0,
+				volume,
+				available: info.available,
+				content: info.result.volume,
+				diff: info.result.volume - volume,
+				vg: info.result.ratio.vg,
+				pg: info.result.ratio.pg,
+				vgToMl: info.result.ml.vg,
+				pgToMl: info.result.ml.pg,
+				nicotine: info.result.nicotine,
+				error: info.result.error,
+				draws: info.result.draws,
+			});
+		};
+
+		/**
+		 * One loop without boosters (so, nicotine is zero).
+		 */
+		for (const base of await prisma.base.findMany()) {
+			await progress(async () => createMixture(await toMixtureInfo({
+				nicotine: 0,
+				aroma,
+				base,
+			})));
+		}
+
+		/**
+		 * Run rest through boosters with nicotine requirement.
+		 */
 		for (const booster of await prisma.booster.findMany()) {
 			for (const base of await prisma.base.findMany()) {
-				for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-					await progress(async () => {
-						const info = await toMixtureInfo({
-							nicotine,
-							aroma,
-							booster,
-							base,
-						});
-						const volume = aroma.volume || aroma.content;
-						!info.result.error && await mixtureService.create({
-							aromaId: aroma.id,
-							baseId: info.base?.baseId,
-							baseMl: info.base?.volume || 0,
-							boosterId: info.booster?.boosterId,
-							boosterCount: info.booster?.count || 0,
-							volume,
-							available: info.available,
-							content: info.result.volume,
-							diff: info.result.volume - volume,
-							vg: info.result.ratio.vg,
-							pg: info.result.ratio.pg,
-							vgToMl: info.result.ml.vg,
-							pgToMl: info.result.ml.pg,
-							nicotine: info.result.nicotine,
-							error: info.result.error,
-							draws: info.result.draws,
-						});
-					});
+				for (let nicotine = 1; nicotine <= maxNicotine; nicotine++) {
+					await progress(async () => createMixture(await toMixtureInfo({
+						nicotine,
+						aroma,
+						booster,
+						base,
+					})));
 				}
 			}
 		}
