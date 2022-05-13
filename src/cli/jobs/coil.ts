@@ -40,7 +40,7 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = {
 	schedule: async (params, userId) => JobService().schedule<ICoilJobParams>(COIL_NAME, params, userId),
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<ICoilJobParams>(COIL_NAME, schedule, params, userId),
 	register: agenda => agenda.define(COIL_NAME, {
-		concurrency: 5,
+		concurrency: 10,
 		priority: 5,
 	}, JobService().handle<ICoilJobParams>(COIL_NAME, async ({jobProgress, job: {params: {wireId}, userId}, logger, progress}) => {
 		const wire = await prisma.wire.findUnique({
