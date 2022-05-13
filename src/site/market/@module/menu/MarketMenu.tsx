@@ -10,36 +10,42 @@ import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
-import {GroupOutlined, MedicineBoxOutlined} from "@ant-design/icons";
+import {hasToken} from "@/puff-smith/service/user/utils";
+import {useWhoamiQuery} from "@/sdk/api/user/whoami";
+import {GroupOutlined, MedicineBoxOutlined, SlidersOutlined} from "@ant-design/icons";
 import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IMarketMenuProps extends Partial<IMenuProps> {
 }
 
-export const MarketMenu: FC<IMarketMenuProps> = props => <Menu
-	style={{backgroundColor: "transparent", minWidth: "50vw"}} mode={"horizontal"}
-	items={[
-		CreateMenuItem("market.home.menu", "/market", <HomeIcon/>),
-		CreateMenuGroup("market.liquid.menu", <LiquidIcon/>, [
-			CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>),
-			CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
-			CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),
-			CreateMenuItem("market.mixture.menu", "/market/mixture", <MixtureIcon/>),
-		]),
-		CreateMenuGroup("market.build.menu", <BuildIcon/>, [
-			CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>),
-			CreateMenuItem("market.wire.menu", "/market/wire", <WireIcon/>),
-		]),
-		CreateMenuGroup("market.hardware.menu", <MedicineBoxOutlined/>, [
-			CreateMenuItem("market.atomizer.menu", "/market/atomizer", <AtomizerIcon/>),
-			CreateMenuItem("market.mod.menu", "/market/mod", <ModIcon/>),
-			CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>),
-		]),
-		CreateMenuGroup("market.other.menu", <GroupOutlined/>, [
-			CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
-		]),
-		CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
-	]}
-	{...props}
-/>;
+export const MarketMenu: FC<IMarketMenuProps> = props => {
+	const whoamiQuery = useWhoamiQuery();
+	return <Menu
+		style={{backgroundColor: "transparent", minWidth: "50vw"}} mode={"horizontal"}
+		items={[
+			CreateMenuItem("market.home.menu", "/market", <HomeIcon/>),
+			CreateMenuGroup("market.liquid.menu", <LiquidIcon/>, [
+				CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>),
+				CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
+				CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),
+				CreateMenuItem("market.mixture.menu", "/market/mixture", <MixtureIcon/>),
+			]),
+			CreateMenuGroup("market.build.menu", <BuildIcon/>, [
+				CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>),
+				CreateMenuItem("market.wire.menu", "/market/wire", <WireIcon/>),
+			]),
+			CreateMenuGroup("market.hardware.menu", <MedicineBoxOutlined/>, [
+				CreateMenuItem("market.atomizer.menu", "/market/atomizer", <AtomizerIcon/>),
+				CreateMenuItem("market.mod.menu", "/market/mod", <ModIcon/>),
+				CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>),
+			]),
+			CreateMenuGroup("market.other.menu", <GroupOutlined/>, [
+				CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
+			]),
+			CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
+			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("lab.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
+		]}
+		{...props}
+	/>;
+};

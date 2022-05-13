@@ -21,7 +21,7 @@ ENV \
 WORKDIR /opt/app
 
 COPY src src
-COPY prisma prisma
+COPY prisma/schema.prisma prisma/schema.prisma
 COPY public public
 COPY .env .env
 COPY .eslintrc .eslintrc

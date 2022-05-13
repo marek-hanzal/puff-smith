@@ -231,10 +231,10 @@ const drawMap: { [index in string | number]: string[] } = {
 	],
 	60: [
 		"mtl",
+		"omtl",
 		"rdl",
 	],
 	70: [
-		"omtl",
 		"rdl",
 		"dl",
 	],
