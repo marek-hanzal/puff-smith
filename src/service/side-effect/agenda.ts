@@ -1,6 +1,11 @@
 import {Agenda as CoolAgenda} from "agenda";
 
 const agenda = new CoolAgenda({
+	defaultConcurrency: 5,
+	defaultLockLimit: 5,
+	defaultLockLifetime: 60 * 1000 /** a minute */ * 60 /** an hour */,
+	name: "Puff Smith",
+	maxConcurrency: 10,
 	db: process.env.AGENDA_DB ? {
 		address: process.env.AGENDA_DB,
 		collection: "agenda",
