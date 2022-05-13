@@ -97,6 +97,16 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 
 		/**
 		 * Run rest through boosters with nicotine requirement.
+		 *
+		 * This loops will generate a LOT unique index violations seemingly like an error, but
+		 * the "problem" is:
+		 *
+		 * Unique hash is "aromaId"-"boosterId"-"baseId"-"nicotine".
+		 *
+		 * Everything is OK until there is a request for nicotine in neighbour strengths like 5 and 6 which could
+		 * resolve in the same amount of booster (because there is rounding to use whole booster instead of parts of it) thus
+		 * generating same amount of nicotine (last piece of hash) thus for the same combination unique key violation. That's OK, because
+		 * this mixture is already generated and valid.
 		 */
 		for (const booster of await prisma.booster.findMany()) {
 			for (const base of await prisma.base.findMany()) {
