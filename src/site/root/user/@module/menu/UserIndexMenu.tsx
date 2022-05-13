@@ -4,11 +4,11 @@ import {IUser} from "@/puff-smith/service/user/interface";
 import {CreateMenuItem, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 
-export interface IUserContextMenuProps extends Partial<IMenuProps> {
+export interface IUserIndexMenuProps extends Partial<IMenuProps> {
 	user: IUser;
 }
 
-export const UserContextMenu: FC<IUserContextMenuProps> = ({user, ...props}) => {
+export const UserIndexMenu: FC<IUserIndexMenuProps> = ({user, ...props}) => {
 	const query = {userId: user.id};
 	return <Menu
 		style={{border: "none"}}

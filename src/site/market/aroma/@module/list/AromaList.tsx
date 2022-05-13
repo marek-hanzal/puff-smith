@@ -4,7 +4,7 @@ import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/aroma/market/query";
-import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
+import {BoolInline, LinkTo, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -18,7 +18,9 @@ export const AromaList: FC<IAromaListProps> = props => {
 		{({aroma, isOwned}) => <ListItem key={aroma.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<AromaNameInline aroma={aroma}/>
+					<LinkTo href={"/market/aroma/[aromaId]"} query={{aromaId: aroma.id}}>
+						<AromaNameInline aroma={aroma}/>
+					</LinkTo>
 					<PgVgInline pgvg={aroma}/>
 					<AromaContentInline aroma={aroma}/>
 					{aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aroma.tastes} translation={"common.taste"}/>}
