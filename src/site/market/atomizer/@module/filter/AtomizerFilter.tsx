@@ -1,13 +1,16 @@
+import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {AtomizerDrawSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerDrawSelect";
 import {AtomizerVendorSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerVendorSelect";
 import {AtomizerSourceControlProvider, AtomizerSourceFilter} from "@/sdk/api/atomizer/query";
-import {FormItem, IFilterProps} from "@leight-core/client";
+import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IAtomizerFilterProps extends Partial<IFilterProps> {
 }
 
 export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const filterContext = useFilterContext();
+
 	const onClear = () => {
 	};
 
@@ -37,23 +40,37 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 		{...props}
 	>
 		<AtomizerSourceControlProvider>
-			<FormItem field={"vendorId"}>
-				<AtomizerVendorSelect
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"andDrawIds"} hasTooltip>
-				<AtomizerDrawSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
-			<FormItem field={"orDrawIds"} hasTooltip>
-				<AtomizerDrawSelect
-					mode={"multiple"}
-					allowClear
-				/>
-			</FormItem>
+			<FormContext.Consumer>
+				{formContext => <>
+					<FormItem field={"vendorId"}>
+						<AtomizerVendorSelect
+							allowClear
+						/>
+					</FormItem>
+					<TabAndOr
+						name={"drawIds"}
+						orCondition={() => filterContext.source?.orDrawIds}
+						and={<FormItem field={"andDrawIds"} hasTooltip>
+							<AtomizerDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									orDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+						or={<FormItem field={"orDrawIds"} hasTooltip>
+							<AtomizerDrawSelect
+								mode={"multiple"}
+								allowClear
+								onChange={() => formContext.setValues({
+									andDrawIds: undefined,
+								})}
+							/>
+						</FormItem>}
+					/>
+				</>}
+			</FormContext.Consumer>
 		</AtomizerSourceControlProvider>
 	</AtomizerSourceFilter>;
 };
