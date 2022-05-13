@@ -47,7 +47,7 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 				aromaId: $aroma.id,
 			}
 		});
-		await MixtureJob.scheduleAt("in 10 seconds", {
+		await MixtureJob.scheduleAt("in 30 seconds", {
 			aromaId: $aroma.id,
 		}, request.userService.getOptionalUserId());
 		return request.prisma.aroma.update({

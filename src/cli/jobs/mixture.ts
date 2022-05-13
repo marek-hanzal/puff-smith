@@ -44,7 +44,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_JOB, params, userId),
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_JOB, schedule, params, userId),
 	register: agenda => agenda.define(MIXTURE_JOB, {
-		concurrency: 3,
+		concurrency: 10,
 		priority: 0,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
@@ -99,30 +99,13 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		 */
 		for (const booster of await prisma.booster.findMany()) {
 			for (const base of await prisma.base.findMany()) {
-				const $nicotine: { [index: string]: boolean } = {};
 				for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-					/**
-					 * This should resolve problem with initial unique constrain failures for the same
-					 * nicotine amount done by booster roundings.
-					 */
-					const $info = await toMixtureInfo({
+					await progress(async () => createMixture(await toMixtureInfo({
 						nicotine,
 						aroma,
 						booster,
 						base,
-					});
-					/**
-					 * If there is the same amount of nicotine during this loop, skip it.
-					 *
-					 * String is used to simplify a bit same nicotine amount lookup and eventually to squash near
-					 * same numbers.
-					 */
-					if ($nicotine[`${$info.result.nicotine}`]) {
-						await jobProgress.onSkip();
-						continue;
-					}
-					$nicotine[`${$info.result.nicotine}`] = true;
-					await progress(async () => createMixture($info));
+					})));
 				}
 			}
 		}

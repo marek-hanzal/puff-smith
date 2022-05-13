@@ -45,5 +45,5 @@ export default withPlugins([
 		return patchWebpackConfig(config, options);
 	},
 	reactStrictMode:             true,
-	staticPageGenerationTimeout: 15,
+	staticPageGenerationTimeout: 20,
 });
