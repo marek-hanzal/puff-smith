@@ -19,7 +19,6 @@ export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate())
 		return {
 			...create,
 			vendorId: $aroma.vendorId,
-			// hash: sha256(`${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`),
 			hash: `${create.aromaId}-${create.baseId || null}-${create.boosterId || null}-${create.nicotine}`,
 			vgToRound,
 			pgToRound: 100 - vgToRound,
