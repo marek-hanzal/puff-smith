@@ -2,6 +2,7 @@ import {CoilMigration} from "@/puff-smith/cli/migrations/CoilMigration";
 import {FixturesMigration} from "@/puff-smith/cli/migrations/FixtureMigration";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {IJobProcessor} from "@leight-core/api";
+import {JobPriority} from "agenda";
 
 const JOB_NAME = "migrate";
 
@@ -16,7 +17,7 @@ export const MigrationJob: IJobProcessor<void> = {
 	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<void>(JOB_NAME, schedule, undefined, userId),
 	register: agenda => agenda.define(JOB_NAME, {
 		concurrency: 1,
-		priority: 100,
+		priority: JobPriority.highest,
 	}, JobService().handle(JOB_NAME, async ({logger}) => {
 		logger.info("Running migrations");
 		for (const migration of migrations) {
