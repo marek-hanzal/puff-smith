@@ -12,6 +12,7 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 		const $aroma = await request.prisma.aroma.create({
 			data: {
 				...aroma,
+				name: `${aroma.name}`,
 				vendor: {
 					connect: {
 						name: vendor,
@@ -34,7 +35,7 @@ export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IA
 	onUnique: async ({vendor, tastes, ...create}) => {
 		const $aroma = await request.prisma.aroma.findFirst({
 			where: {
-				name: create.name,
+				name: `${create.name}`,
 				vendor: {
 					name: vendor,
 				}
