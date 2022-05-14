@@ -2,6 +2,7 @@ import {IBase} from "@/puff-smith/service/base/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/base/inventory/create";
 import {useBaseMarketQueryInvalidate} from "@/sdk/api/base/market/query";
+import {useMixtureMarketQueryInvalidate} from "@/sdk/api/mixture/market/query";
 import {FC, useState} from "react";
 
 export interface IBaseInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
@@ -10,7 +11,8 @@ export interface IBaseInventoryCreateButtonProps extends Partial<ITransactionMod
 
 export const BaseInventoryCreateButton: FC<IBaseInventoryCreateButtonProps> = ({base, disabled, ...props}) => {
 	const [enabled, setEnabled] = useState<boolean>(disabled !== undefined ? !disabled : true);
-	const basesMarketQueryInvalidate = useBaseMarketQueryInvalidate();
+	const baseMarketQueryInvalidate = useBaseMarketQueryInvalidate();
+	const mixtureMarketQueryInvalidate = useMixtureMarketQueryInvalidate();
 	return <TransactionModalButton<typeof useCreateMutation>
 		translation={"market.base"}
 		useCreateMutation={useCreateMutation}
@@ -20,7 +22,8 @@ export const BaseInventoryCreateButton: FC<IBaseInventoryCreateButtonProps> = ({
 		cost={base.cost}
 		onOk={() => setEnabled(false)}
 		onSuccess={async () => {
-			await basesMarketQueryInvalidate();
+			await baseMarketQueryInvalidate();
+			await mixtureMarketQueryInvalidate();
 		}}
 		disabled={!enabled}
 		{...props}

@@ -5,7 +5,6 @@ import {Mixture, Prisma} from "@prisma/client";
 
 export interface IMixtureMarket {
 	mixture: IMixture;
-	aroma: { isOwned: boolean | undefined };
 	booster: { isOwned: boolean | undefined };
 	base: { isOwned: boolean | undefined };
 }

@@ -10,26 +10,18 @@ export const MixtureMarketService = (request: IMixtureMarketServiceCreate = Serv
 		source: request.prisma.mixture,
 		mapper: async entity => ({
 			mixture: await MixtureService(request).map(entity),
-			aroma: {
-				isOwned: userId ? (await request.prisma.aromaInventory.count({
-					where: {
-						aromaId: entity.id,
-						userId,
-					}
-				})) > 0 : undefined,
-			},
 			booster: {
-				isOwned: userId ? (await request.prisma.boosterInventory.count({
+				isOwned: userId && entity.boosterId ? (await request.prisma.boosterInventory.count({
 					where: {
-						boosterId: entity.id,
+						boosterId: entity.boosterId,
 						userId,
 					}
 				})) > 0 : undefined,
 			},
 			base: {
-				isOwned: userId ? (await request.prisma.baseInventory.count({
+				isOwned: userId && entity.baseId ? (await request.prisma.baseInventory.count({
 					where: {
-						baseId: entity.id,
+						baseId: entity.baseId,
 						userId,
 					}
 				})) > 0 : undefined,
