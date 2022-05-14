@@ -1,6 +1,8 @@
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {Tags} from "@/puff-smith/component/Tags";
-import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
+import {MixtureBaseInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBaseInline";
+import {MixtureBoosterInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBoosterInline";
 import {IMixtureMarketListSourceProps, MixtureMarketListSource} from "@/sdk/api/mixture/market/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -13,17 +15,19 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 	return <MixtureMarketListSource
 		{...props}
 	>
-		{({mixture, aroma, booster, base}) => <ListItem
+		{({mixture, booster, base}) => <ListItem
 			key={mixture.id}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<AromaNameInline aroma={mixture.aroma}/>
-					{mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={mixture.aroma.tastes} translation={"common.taste"}/>}
+					<PgVgInline pgvg={mixture}/>
+					<NicotineInline nicotine={mixture.nicotine}/>
 					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
-					{/*{isOwned ? <BoolInline bool={isOwned}/> : <MixtureInventoryCreateButton type={"link"} mixture={mixture}/>}*/}
 				</Space>}
-				description={<MixtureInline mixture={mixture}/>}
+				description={<Space split={<Divider type={"vertical"}/>}>
+					{mixture.booster && <MixtureBoosterInline mixture={mixture} isOwned={booster.isOwned}/>}
+					{mixture.base && <MixtureBaseInline mixture={mixture} isOwned={base.isOwned}/>}
+				</Space>}
 			/>
 		</ListItem>}
 	</MixtureMarketListSource>;

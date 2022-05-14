@@ -11,7 +11,7 @@ export const BoosterNameInline: FC<IBoosterNameInlineProps> = ({booster, ...prop
 		split={"-"}
 		{...props}
 	>
-		{booster.name}
+		<Typography.Text>{booster.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{booster.vendor.name}</Typography.Text>
 	</Space>;
 };

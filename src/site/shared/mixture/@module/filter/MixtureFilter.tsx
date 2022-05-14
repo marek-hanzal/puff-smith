@@ -16,7 +16,7 @@ export interface IMixtureFilterProps extends Partial<IFilterProps> {
 	aroma?: IAroma;
 }
 
-export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter => filter, hide, ...props}) => {
+export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter => filter, ...props}) => {
 	const filterContext = useFilterContext();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 

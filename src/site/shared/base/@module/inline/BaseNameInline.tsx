@@ -11,7 +11,7 @@ export const BaseNameInline: FC<IBaseNameInlineProps> = ({base, ...props}) => {
 		split={"-"}
 		{...props}
 	>
-		{base.name}
+		<Typography.Text>{base.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{base.vendor.name}</Typography.Text>
 	</Space>;
 };

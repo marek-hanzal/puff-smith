@@ -6,11 +6,13 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {MixtureList} from "@/puff-smith/site/market/mixture/@module/list/MixtureList";
+import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
+import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureSourceControlProvider} from "@/sdk/api/mixture/query";
 import {PushRight, Template} from "@leight-core/client";
-import {Col, Row} from "antd";
+import {Col, Divider, Row, Space} from "antd";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	return <MarketPage
@@ -34,18 +36,26 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 			] as any}
 		>
 			<MixtureList
-				header={() => <Row align={"middle"}>
-					<Col span={12}>
-						<MixtureFilter
-							aroma={aroma}
-						/>
-					</Col>
-					<Col span={12}>
-						<PushRight>
-							<MixtureJobButton aroma={aroma}/>
-						</PushRight>
-					</Col>
-				</Row>}
+				header={() => <>
+					<Row align={"middle"}>
+						<Col span={12}>
+							<Space split={<Divider type={"vertical"}/>}>
+								<MixtureFilter
+									aroma={aroma}
+								/>
+								<Space>
+									<AromaNameInline aroma={aroma}/>
+									<AromaContentInline aroma={aroma}/>
+								</Space>
+							</Space>
+						</Col>
+						<Col span={12}>
+							<PushRight>
+								<MixtureJobButton aroma={aroma}/>
+							</PushRight>
+						</Col>
+					</Row>
+				</>}
 				locale={{
 					emptyText: <Template
 						icon={<MixtureIcon/>}
