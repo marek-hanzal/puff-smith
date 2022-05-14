@@ -1,7 +1,7 @@
 import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
 import {IJobQuery, IJobSchedule} from "@/puff-smith/service/job/interface";
 import {JobPerformanceInline} from "@/puff-smith/site/root/job/@module/inline/JobPerformanceInline";
-import {useJobQuery} from "@/sdk/api/job/query";
+import {useJobQuery, useJobQueryInvalidate} from "@/sdk/api/job/query";
 import {useScheduleMutation} from "@/sdk/api/job/schedule";
 import {IQueryFilter} from "@leight-core/api";
 import {isString, toHumanNumber} from "@leight-core/client";
@@ -19,6 +19,7 @@ export interface IJobButtonProps<TJobParams> extends Partial<ComponentProps<type
 export const JobButton = <TJobParams, >({translation, schedule, filter, label, ...props}: IJobButtonProps<TJobParams>) => {
 	const {t} = useTranslation();
 	const scheduleMutation = useScheduleMutation();
+	const jobQueryInvalidate = useJobQueryInvalidate();
 	const jobQuery = useJobQuery({
 		size: 1,
 		page: 0,
@@ -29,6 +30,7 @@ export const JobButton = <TJobParams, >({translation, schedule, filter, label, .
 			}
 		},
 	}, undefined, {
+		keepPreviousData: true,
 		refetchInterval: 1000,
 	});
 	const isRunning = jobQuery.isSuccess && jobQuery.data.count > 0;
@@ -42,6 +44,7 @@ export const JobButton = <TJobParams, >({translation, schedule, filter, label, .
 			loading={scheduleMutation.isLoading || jobQuery.isLoading || isRunning}
 			onClick={() => scheduleMutation.mutate(schedule, {
 				onSuccess: async () => {
+					await jobQueryInvalidate();
 					await message.success(t(`${translation}.schedule.success`));
 				},
 				onError: async () => {

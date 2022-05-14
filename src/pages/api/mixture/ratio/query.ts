@@ -9,11 +9,12 @@ export interface IRatioItem {
 	vg: number;
 }
 
-export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async () => itemsOf(prisma.mixture.findMany({
+export default QueryEndpoint<"Ratio", IMixtureQuery, IRatioItem>(async ({request: {filter: {fulltext, ...filter} = {}}}) => itemsOf(prisma.mixture.findMany({
 	distinct: ["vgToRound", "pgToRound"],
+	where: filter,
 	orderBy: [
 		{vgToRound: "asc"},
-	]
+	],
 }), item => item, async item => ({
 	label: `${item.vgToRound}/${item.pgToRound}`,
 	value: `${item.vgToRound}/${item.pgToRound}`,

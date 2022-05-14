@@ -8,8 +8,9 @@ export interface INicotineItem {
 	nicotine: number;
 }
 
-export default QueryEndpoint<"Nicotine", IMixtureQuery, INicotineItem>(async () => itemsOf(prisma.mixture.findMany({
+export default QueryEndpoint<"Nicotine", IMixtureQuery, INicotineItem>(async ({request: {filter: {fulltext, ...filter} = {}}}) => itemsOf(prisma.mixture.findMany({
 	distinct: ["nicotineToRound"],
+	where: filter,
 	orderBy: [
 		{nicotineToRound: "asc"},
 	]

@@ -4,10 +4,11 @@ import {IBase} from "@/puff-smith/service/base/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
-export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request: {filter}, toUserId}) => itemsOf(prisma.mixture.findMany({
+export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request: {filter: {fulltext, ...filter} = {}}, toUserId}) => itemsOf(prisma.mixture.findMany({
 	distinct: ["baseId"],
-	where: {
+	where: deepmerge(filter, {
 		NOT: {
 			baseId: null,
 		},
@@ -15,21 +16,21 @@ export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request: {fil
 			OR: [
 				{
 					name: {
-						contains: filter?.fulltext,
+						contains: fulltext,
 						mode: "insensitive",
 					},
 				},
 				{
 					vendor: {
 						name: {
-							contains: filter?.fulltext,
+							contains: fulltext,
 							mode: "insensitive",
 						},
 					}
 				}
 			]
 		},
-	},
+	}),
 	orderBy: [
 		{base: {name: "asc"}},
 	],

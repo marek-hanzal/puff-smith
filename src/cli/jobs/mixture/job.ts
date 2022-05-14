@@ -113,7 +113,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 						aroma,
 						booster,
 						base,
-					})), 500);
+					})), 200);
 				}
 			}
 		}
