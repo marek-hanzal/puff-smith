@@ -26,7 +26,7 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
 					<LiquidCreateButton mixture={mixture}/>
 				</Space>}
-				description={<MixtureInline mixture={mixture}/>}
+				description={<MixtureInline hasBooster hasBase mixture={mixture}/>}
 			/>
 		</ListItem>}
 	</MixtureListSource>;
