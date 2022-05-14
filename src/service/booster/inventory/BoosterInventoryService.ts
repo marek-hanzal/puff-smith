@@ -30,7 +30,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate 
 								userId: request.userService.getUserId(),
 							}
 						});
-						await MixtureUserJob.schedule({userId: request.userService.getUserId()});
+						await MixtureUserJob.schedule({userId: request.userService.getUserId()}, request.userService.getUserId());
 						return $boosterInventory;
 					},
 				});

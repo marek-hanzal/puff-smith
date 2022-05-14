@@ -30,7 +30,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate = Se
 								userId: request.userService.getUserId(),
 							}
 						});
-						await MixtureUserJob.schedule({userId: request.userService.getUserId()});
+						await MixtureUserJob.schedule({userId: request.userService.getUserId()}, request.userService.getUserId());
 						return $aromaInventory;
 					},
 				});

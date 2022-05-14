@@ -201,15 +201,13 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 		}));
 		for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
 			logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
-			await progress(async () => {
-				await mixtureInventoryService.create({
-					aromaId,
-					vendorId: aroma.vendorId,
-					boosterId,
-					baseId,
-					mixtureId: id,
-				});
-			});
+			await progress(async () => mixtureInventoryService.create({
+				aromaId,
+				vendorId: aroma.vendorId,
+				boosterId,
+				baseId,
+				mixtureId: id,
+			}), 250);
 		}
 	})),
 };

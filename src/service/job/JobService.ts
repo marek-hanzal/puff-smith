@@ -24,21 +24,21 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}),
 	}),
 	createProgress: jobId => {
-		let _result: IJobStatus | undefined;
-		let _total: number = 0;
-		let _processed: number = 0;
-		let _success = 0;
-		let _failure = 0;
-		let _skip = 0;
+		let $result: IJobStatus | undefined;
+		let $total: number = 0;
+		let $processed: number = 0;
+		let $success = 0;
+		let $failure = 0;
+		let $skip = 0;
 		return {
 			jobId,
-			result: () => _result,
-			success: () => _success,
-			failure: () => _failure,
-			skip: () => _skip,
+			result: () => $result,
+			success: () => $success,
+			failure: () => $failure,
+			skip: () => $skip,
 			setTotal: total => request.prisma.job.update({
 				data: {
-					total: (_total = total),
+					total: ($total = total),
 				},
 				where: {
 					id: jobId,
@@ -56,9 +56,9 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			}),
 			onSuccess: () => request.prisma.job.update({
 				data: {
-					success: ++_success,
-					successRatio: toPercent(_success, _total),
-					progress: toPercent(++_processed, _total),
+					success: ++$success,
+					successRatio: toPercent($success, $total),
+					progress: toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
@@ -66,9 +66,9 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			}),
 			onFailure: () => request.prisma.job.update({
 				data: {
-					failure: ++_failure,
-					failureRatio: toPercent(_failure, _total),
-					progress: toPercent(++_processed, _total),
+					failure: ++$failure,
+					failureRatio: toPercent($failure, $total),
+					progress: toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
@@ -76,18 +76,18 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			}),
 			onSkip: () => request.prisma.job.update({
 				data: {
-					skip: ++_skip,
-					skipRatio: toPercent(_skip, _total),
-					progress: toPercent(++_processed, _total),
+					skip: ++$skip,
+					skipRatio: toPercent($skip, $total),
+					progress: toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
 				}
 			}),
 			setResult: result => {
-				_result = result;
+				$result = result;
 			},
-			isReview: () => _failure > 0 || _skip > 0,
+			isReview: () => $failure > 0 || $skip > 0,
 		};
 	},
 	commit: () => request.prisma.job.updateMany({
@@ -170,7 +170,9 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					logger,
 					progress: async (callback, sleep) => {
 						try {
-							sleep && (await new Promise(resolve => setTimeout(() => resolve(true), sleep)));
+							sleep && (await new Promise(resolve => {
+								setTimeout(() => resolve(true), sleep);
+							}));
 							const result = await callback();
 							await jobProgress.onSuccess();
 							return result;
