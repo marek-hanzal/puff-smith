@@ -6,12 +6,13 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {MixtureList} from "@/puff-smith/site/market/mixture/@module/list/MixtureList";
+import {MixtureListEmpty} from "@/puff-smith/site/market/mixture/@module/list/MixtureListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureSourceControlProvider} from "@/sdk/api/mixture/query";
-import {PushRight, Template} from "@leight-core/client";
+import {PushRight} from "@leight-core/client";
 import {Col, Divider, Row, Space} from "antd";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
@@ -57,10 +58,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 					</Row>
 				</>}
 				locale={{
-					emptyText: <Template
-						icon={<MixtureIcon/>}
-						label={"lab.mixture.job"}
-					/>,
+					emptyText: <MixtureListEmpty/>,
 				}}
 			/>
 		</MixtureSourceControlProvider>
