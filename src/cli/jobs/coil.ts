@@ -12,8 +12,15 @@ export interface ICoilsJobParams {
 
 export const CoilsJob: IJobProcessor<ICoilsJobParams> = {
 	name: () => COILS_NAME,
-	schedule: async (params, userId) => JobService().schedule<ICoilsJobParams>(COILS_NAME, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<ICoilsJobParams>(COILS_NAME, schedule, params, userId),
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<ICoilsJobParams>({
+		name: COILS_NAME,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<ICoilsJobParams>({
+		name: COILS_NAME,
+		params,
+		at: schedule,
+	}),
 	register: agenda => agenda.define(COILS_NAME, {
 		concurrency: 1,
 		priority: -10,
@@ -37,8 +44,15 @@ export interface ICoilJobParams {
 
 export const CoilJob: IJobProcessor<ICoilJobParams> = {
 	name: () => COIL_NAME,
-	schedule: async (params, userId) => JobService().schedule<ICoilJobParams>(COIL_NAME, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<ICoilJobParams>(COIL_NAME, schedule, params, userId),
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<ICoilJobParams>({
+		name: COIL_NAME,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<ICoilJobParams>({
+		name: COIL_NAME,
+		params,
+		at: schedule,
+	}),
 	register: agenda => agenda.define(COIL_NAME, {
 		concurrency: 10,
 		priority: -10,

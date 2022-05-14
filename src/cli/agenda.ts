@@ -1,6 +1,6 @@
 import {CoilJob, CoilsJob} from "@/puff-smith/cli/jobs/coil";
 import {ImportJob} from "@/puff-smith/cli/jobs/import";
-import {MixtureJob, MixturesJob, MixtureUserJob} from "@/puff-smith/cli/jobs/mixture";
+import {MixtureJob, MixturesJob, MixtureUserJob} from "@/puff-smith/cli/jobs/mixture/job";
 import agenda from "@/puff-smith/service/side-effect/agenda";
 import {Logger} from "@leight-core/server";
 

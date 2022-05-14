@@ -1,3 +1,4 @@
+import {IMixtureJobParams, IMixturesJobParams, IMixtureUserJobParams, MIXTURE_JOB, MIXTURE_USER_JOB, MIXTURES_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {ServiceCreate} from "@/puff-smith/service";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {MixtureInventoryService} from "@/puff-smith/service/mixture/inventory/MixtureInventoryService";
@@ -6,17 +7,17 @@ import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 
-const MIXTURES_JOB = "job.mixtures";
-const MIXTURE_JOB = "job.mixture";
-const MIXTURE_USER_JOB = "job.mixture-user";
-
-export interface IMixturesJobParams {
-}
-
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 	name: () => MIXTURES_JOB,
-	schedule: async (params, userId) => JobService().schedule<IMixturesJobParams>(MIXTURES_JOB, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixturesJobParams>(MIXTURES_JOB, schedule, params, userId),
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixturesJobParams>({
+		name: MIXTURES_JOB,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IMixturesJobParams>({
+		name: MIXTURES_JOB,
+		params,
+		at: schedule,
+	}),
 	register: agenda => agenda.define(MIXTURES_JOB, {
 		concurrency: 1,
 		priority: -10,
@@ -35,14 +36,17 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 	})),
 };
 
-export interface IMixtureJobParams {
-	aromaId: string;
-}
-
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 	name: () => MIXTURE_JOB,
-	schedule: async (params, userId) => JobService().schedule<IMixtureJobParams>(MIXTURE_JOB, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureJobParams>(MIXTURE_JOB, schedule, params, userId),
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixtureJobParams>({
+		name: MIXTURE_JOB,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IMixtureJobParams>({
+		name: MIXTURE_JOB,
+		params,
+		at: schedule,
+	}),
 	register: agenda => agenda.define(MIXTURE_JOB, {
 		concurrency: 5,
 		priority: 0,
@@ -109,21 +113,24 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 						aroma,
 						booster,
 						base,
-					})));
+					})), 500);
 				}
 			}
 		}
 	})),
 };
 
-export interface IMixtureUserJobParams {
-	userId: string;
-}
-
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 	name: () => MIXTURE_USER_JOB,
-	schedule: async (params, userId) => JobService().schedule<IMixtureUserJobParams>(MIXTURE_USER_JOB, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IMixtureUserJobParams>(MIXTURE_USER_JOB, schedule, params, userId),
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixtureUserJobParams>({
+		name: MIXTURE_USER_JOB,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IMixtureUserJobParams>({
+		name: MIXTURE_USER_JOB,
+		params,
+		at: schedule,
+	}),
 	register: agenda => agenda.define(MIXTURE_USER_JOB, {
 		concurrency: 10,
 		priority: 20,

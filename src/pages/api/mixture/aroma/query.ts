@@ -4,10 +4,11 @@ import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
 export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request: {filter}, toUserId}) => itemsOf(prisma.mixture.findMany({
 	distinct: ["aromaId"],
-	where: {
+	where: deepmerge(filter || {}, {
 		aroma: {
 			OR: [
 				{
@@ -26,7 +27,7 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request: {f
 				},
 			],
 		},
-	},
+	}),
 	orderBy: [
 		{aroma: {name: "asc"}},
 	],

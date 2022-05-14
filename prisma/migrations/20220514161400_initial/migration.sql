@@ -649,28 +649,16 @@ CREATE UNIQUE INDEX "Tariff_code_key" ON "Tariff"("code");
 CREATE UNIQUE INDEX "Atomizer_name_vendorId_key" ON "Atomizer"("name", "vendorId");
 
 -- CreateIndex
-CREATE INDEX "AtomizerInventory_userId_idx" ON "AtomizerInventory" USING BRIN ("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Cell_name_vendorId_key" ON "Cell"("name", "vendorId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CellInventory_code_key" ON "CellInventory"("code");
 
 -- CreateIndex
-CREATE INDEX "CellInventory_userId_idx" ON "CellInventory" USING BRIN ("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Mod_name_vendorId_key" ON "Mod"("name", "vendorId");
 
 -- CreateIndex
-CREATE INDEX "ModInventory_userId_idx" ON "ModInventory" USING BRIN ("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Cotton_name_vendorId_key" ON "Cotton"("name", "vendorId");
-
--- CreateIndex
-CREATE INDEX "CottonInventory_userId_idx" ON "CottonInventory" USING BRIN ("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Voucher_name_key" ON "Voucher"("name");
@@ -679,46 +667,22 @@ CREATE UNIQUE INDEX "Voucher_name_key" ON "Voucher"("name");
 CREATE UNIQUE INDEX "VoucherInventory_code_key" ON "VoucherInventory"("code");
 
 -- CreateIndex
-CREATE INDEX "VoucherInventory_userId_idx" ON "VoucherInventory" USING BRIN ("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Aroma_name_vendorId_key" ON "Aroma"("name", "vendorId");
-
--- CreateIndex
-CREATE INDEX "AromaInventory_userId_idx" ON "AromaInventory" USING BRIN ("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Booster_name_vendorId_key" ON "Booster"("name", "vendorId");
 
 -- CreateIndex
-CREATE INDEX "BoosterInventory_userId_idx" ON "BoosterInventory" USING BRIN ("userId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Base_name_vendorId_key" ON "Base"("name", "vendorId");
-
--- CreateIndex
-CREATE INDEX "BaseInventory_userId_idx" ON "BaseInventory" USING BRIN ("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
 
 -- CreateIndex
-CREATE INDEX "Liquid_userId_aromaId_vendorId_boosterId_baseId_idx" ON "Liquid" USING BRIN ("userId", "aromaId", "vendorId", "boosterId", "baseId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
 
 -- CreateIndex
-CREATE INDEX "Mixture_aromaId_boosterId_baseId_nicotineToRound_vgToRound__idx" ON "Mixture" USING BRIN ("aromaId", "boosterId", "baseId", "nicotineToRound", "vgToRound", "pgToRound");
-
--- CreateIndex
-CREATE INDEX "MixtureInventory_userId_aromaId_vendorId_boosterId_baseId_idx" ON "MixtureInventory" USING BRIN ("userId", "aromaId", "vendorId", "boosterId", "baseId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "MixtureInventory_userId_mixtureId_key" ON "MixtureInventory"("userId", "mixtureId");
-
--- CreateIndex
-CREATE INDEX "Build_userId_idx" ON "Build" USING BRIN ("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Coil_code_key" ON "Coil"("code");
@@ -731,9 +695,6 @@ CREATE UNIQUE INDEX "Wire_code_key" ON "Wire"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Wire_name_vendorId_key" ON "Wire"("name", "vendorId");
-
--- CreateIndex
-CREATE INDEX "WireInventory_userId_idx" ON "WireInventory" USING BRIN ("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Fiber_code_key" ON "Fiber"("code");

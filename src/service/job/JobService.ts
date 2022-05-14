@@ -103,12 +103,13 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 	cleanup: filter => request.prisma.job.deleteMany(filter && {
 		where: filter,
 	}),
-	schedule: async (name, params, userId) => {
+	schedule: async ({name, params}) => {
+		const userId = request.userService.getOptionalUserId();
 		const logger = Logger("job");
 		logger.info("New job", {labels: {job: name}, params, userId});
 		const jobService = JobService({...request, prisma});
 		const job = await jobService.create({
-			userId,
+			userId: request.userService.getOptionalUserId(),
 			name,
 			params,
 		});
@@ -123,7 +124,8 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}
 		return theJob;
 	},
-	scheduleAt: async (name, schedule, params, userId) => {
+	scheduleAt: async ({params, name, at: schedule}) => {
+		const userId = request.userService.getOptionalUserId();
 		const logger = Logger("job");
 		logger.info(`Scheduling new job at [${schedule}].`, {labels: {job: name}, params, userId});
 		const jobService = JobService({...request, prisma});
@@ -166,8 +168,9 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					jobService,
 					name,
 					logger,
-					progress: async callback => {
+					progress: async (callback, sleep) => {
 						try {
+							sleep && (await new Promise(resolve => setTimeout(() => resolve(true), sleep)));
 							const result = await callback();
 							await jobProgress.onSuccess();
 							return result;

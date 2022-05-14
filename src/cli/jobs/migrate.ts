@@ -1,9 +1,10 @@
 import {CoilMigration} from "@/puff-smith/cli/migrations/CoilMigration";
 import {FixturesMigration} from "@/puff-smith/cli/migrations/FixtureMigration";
+import {ServiceCreate} from "@/puff-smith/service";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {IJobProcessor} from "@leight-core/api";
 
-const JOB_NAME = "migrate";
+const MIGRATION_JOB = "migrate";
 
 const migrations = [
 	FixturesMigration,
@@ -11,13 +12,20 @@ const migrations = [
 ];
 
 export const MigrationJob: IJobProcessor<void> = {
-	name: () => JOB_NAME,
-	schedule: async (params, userId) => JobService().schedule<void>(JOB_NAME, undefined, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<void>(JOB_NAME, schedule, undefined, userId),
-	register: agenda => agenda.define(JOB_NAME, {
+	name: () => MIGRATION_JOB,
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<void>({
+		name: MIGRATION_JOB,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<void>({
+		name: MIGRATION_JOB,
+		params,
+		at: schedule,
+	}),
+	register: agenda => agenda.define(MIGRATION_JOB, {
 		concurrency: 1,
 		priority: 20,
-	}, JobService().handle(JOB_NAME, async ({logger}) => {
+	}, JobService().handle(MIGRATION_JOB, async ({logger}) => {
 		logger.info("Running migrations");
 		for (const migration of migrations) {
 			const labels = {migration: migration.name()};

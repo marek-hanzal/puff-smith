@@ -1,3 +1,4 @@
+import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
@@ -46,23 +47,30 @@ interface IImportParams extends IQueryParams {
 export interface IImportJob extends IJob<IImportParams> {
 }
 
-const JOB_NAME = "import";
+const IMPORT_JOB = "import";
 
 export const ImportJob: IJobProcessor<IImportParams> = {
-	name: () => JOB_NAME,
-	schedule: async (params, userId) => JobService().schedule<IImportParams>(JOB_NAME, params, userId),
-	scheduleAt: async (schedule, params, userId) => JobService().scheduleAt<IImportParams>(JOB_NAME, schedule, params, userId),
-	register: agenda => agenda.define(JOB_NAME, {
+	name: () => IMPORT_JOB,
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IImportParams>({
+		name: IMPORT_JOB,
+		params,
+	}),
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IImportParams>({
+		name: IMPORT_JOB,
+		params,
+		at: schedule,
+	}),
+	register: agenda => agenda.define(IMPORT_JOB, {
 		concurrency: 1,
 		priority: 0,
-	}, JobService().handle<IImportParams>(JOB_NAME, async ({logger, job, jobProgress}) => {
+	}, JobService().handle<IImportParams>(IMPORT_JOB, async ({logger, job, jobProgress}) => {
 		const labels = {jobId: job.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		logger.info("Checking fileId");
 		const fileId = job.params?.fileId;
 		if (!fileId) {
 			await jobProgress.setResult("REVIEW");
-			logger.error(`Missing fileId for [${JOB_NAME}].`, {labels});
+			logger.error(`Missing fileId for [${IMPORT_JOB}].`, {labels});
 			return;
 		}
 		logger = logger.child({labels: {...labels, fileId}, fileId});

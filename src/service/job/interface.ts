@@ -11,6 +11,17 @@ export interface IJobCreate {
 	params?: any;
 }
 
+export interface IJobSchedule<TJobParams> {
+	name: string;
+	params: TJobParams;
+}
+
+export interface IJobScheduleAt<TJobParams> {
+	name: string;
+	at: string | Date;
+	params: TJobParams;
+}
+
 export interface IJobQuery extends IQuery<Prisma.JobWhereInput, Prisma.JobOrderByWithRelationInput> {
 }
 
@@ -29,7 +40,7 @@ export interface IJobHandlerRequest<TParams> {
 	jobProgress: IJobProgress;
 	logger: Logger;
 
-	progress<TResult>(callback: () => Promise<TResult>): Promise<TResult | void>;
+	progress<TResult>(callback: () => Promise<TResult>, sleep?: number): Promise<TResult | void>;
 }
 
 export interface IJobServiceCreate extends IServiceCreate {
@@ -42,9 +53,9 @@ export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, I
 
 	cleanup(filter?: IQueryFilter<IJobQuery>): Promise<any>;
 
-	schedule<TParams = void>(name: string, params: TParams, userId?: string | null): Promise<IJob<TParams>>;
+	schedule<TParams = void>(schedule: IJobSchedule<TParams>): Promise<IJob<TParams>>;
 
-	scheduleAt<TParams = void>(name: string, schedule: string | Date, params: TParams, userId?: string | null): Promise<IJob<TParams>>;
+	scheduleAt<TParams = void>(scheduleAt: IJobScheduleAt<TParams>): Promise<IJob<TParams>>;
 
 	handle<TParams = void>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<boolean | void>): Processor;
 }
