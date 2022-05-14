@@ -16,7 +16,7 @@ export const MixtureBoosterInline: FC<IMixtureBoosterInlinePros> = ({mixture, is
 		<Space size={4} split={"-"}>
 			<Space size={2}>
 				<Typography.Text>{mixture.boosterCount}x</Typography.Text>
-				<ContentInline content={mixture.boosterCount * mixture.booster.volume}/>
+				(=<ContentInline content={mixture.boosterCount * mixture.booster.volume}/>)
 			</Space>
 			<BoosterNameInline booster={mixture.booster}/>
 			<PgVgInline pgvg={mixture.booster}/>

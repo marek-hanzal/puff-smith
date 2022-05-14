@@ -105,15 +105,32 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		 * generating same amount of nicotine (last piece of hash) thus for the same combination unique key violation. That's OK, because
 		 * this mixture is already generated and valid.
 		 */
+		const $errors: { [index: string]: boolean } = {};
+
+		const aromaHash = `${aroma.vg}-${aroma.pg}-${aroma.volume}-${aroma.content}`;
 		for (const booster of await prisma.booster.findMany()) {
+			const boosterHash = `${booster.vg}-${booster.pg}-${booster.volume}-${booster.nicotine}`;
 			for (const base of await prisma.base.findMany()) {
+				const baseHash = `${base.vg}-${base.pg}`;
 				for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-					await progress(async () => createMixture(await toMixtureInfo({
+					const nicotineHash = `${nicotine}`;
+					const hash = `${aromaHash}-${boosterHash}-${baseHash}-${nicotineHash}`;
+					if ($errors[hash]) {
+						await jobProgress.onSkip();
+						continue;
+					}
+					const info = await toMixtureInfo({
 						nicotine,
 						aroma,
 						booster,
 						base,
-					})), 250);
+					});
+					if (info.result.error) {
+						$errors[hash] = true;
+						await jobProgress.onSkip();
+						continue;
+					}
+					await progress(async () => createMixture(info), 250);
 				}
 			}
 		}
