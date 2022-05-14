@@ -6,12 +6,11 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {AromaView} from "@/puff-smith/site/market/aroma/@module/view/AromaView";
-import {Col, Row} from "antd";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	return <MarketPage
 		title={"market.aroma.aroma"}
-		tabTitle={"market.aroma.aroma.tab"}
+		tabTitle={"market.aroma.aroma.title.tab"}
 		values={{aroma}}
 		components={TransComponents}
 		onBack={navigate => navigate("/market/aroma")}
@@ -20,11 +19,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 		extra={<AromaIndexMenu aroma={aroma}/>}
 		extraSize={AromaIndexMenuWidth}
 	>
-		<Row gutter={16}>
-			<Col span={12}>
-				<AromaView aroma={aroma}/>
-			</Col>
-		</Row>
+		<AromaView aroma={aroma}/>
 	</MarketPage>;
 });
 

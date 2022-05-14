@@ -4,13 +4,13 @@ import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
-import {CommentOutlined} from "@ant-design/icons";
-import {Col, Row} from "antd";
+import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
+import {Template} from "@leight-core/client";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	return <MarketPage
 		title={"market.aroma.comment"}
-		tabTitle={"market.aroma.comment.tab"}
+		tabTitle={"market.aroma.comment.title.tab"}
 		values={{aroma}}
 		components={TransComponents}
 		onBack={navigate => navigate("/market/aroma")}
@@ -19,11 +19,11 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 		extra={<AromaIndexMenu aroma={aroma}/>}
 		extraSize={AromaIndexMenuWidth}
 	>
-		<Row gutter={16}>
-			<Col span={12}>
-				comments, muheheh
-			</Col>
-		</Row>
+		<Template
+			icon={<SmileOutlined/>}
+			title={"Not Yet!"}
+			subTitle={"To be continue..."}
+		/>
 	</MarketPage>;
 });
 
