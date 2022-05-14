@@ -17,7 +17,7 @@ export const useScheduleMutation = createMutationHook<IJobSchedule<any>, IJob>(S
 export const useScheduleQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ScheduleApiLink]);
-};
+}
 
 export interface IScheduleDefaultFormProps extends Partial<IFormProps<IJobSchedule<any>, IJob>> {
 }
@@ -25,7 +25,7 @@ export interface IScheduleDefaultFormProps extends Partial<IFormProps<IJobSchedu
 export const ScheduleDefaultForm: FC<IScheduleDefaultFormProps> = props => <Form<IJobSchedule<any>, IJob>
 	useMutation={useScheduleMutation}
 	{...props}
-/>;
+/>
 
 export const toScheduleLink = (queryParams?: IScheduleQueryParams) => toLink(ScheduleApiLink, queryParams);
 export const useScheduleLink = () => toScheduleLink;
