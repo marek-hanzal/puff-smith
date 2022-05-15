@@ -48,7 +48,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		at: schedule,
 	}),
 	register: agenda => agenda.define(MIXTURE_JOB, {
-		concurrency: 3,
+		concurrency: 1,
 		priority: 0,
 	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
@@ -130,7 +130,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 						await jobProgress.onSkip();
 						continue;
 					}
-					await progress(async () => createMixture(info), 250);
+					await progress(async () => createMixture(info), 200);
 				}
 			}
 		}
@@ -150,6 +150,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 	}),
 	register: agenda => agenda.define(MIXTURE_USER_JOB, {
 		concurrency: 10,
+		lockLimit: 10,
 		priority: 20,
 	}, JobService().handle<IMixtureUserJobParams>(MIXTURE_USER_JOB, async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
 		logger.debug("User mixture update.", {userId});
