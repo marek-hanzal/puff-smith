@@ -1,11 +1,9 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {IJobService, IJobServiceCreate} from "@/puff-smith/service/job/interface";
-import {Agenda} from "@/puff-smith/service/side-effect/agenda";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJob, IJobStatus} from "@leight-core/api";
+import {IJobStatus} from "@leight-core/api";
 import {toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
-import {Job} from "agenda";
 
 export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobService => ({
 	...RepositoryService<IJobService>({
@@ -116,7 +114,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		const theJob = await jobService.map(job);
 		logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		try {
-			await (await Agenda()).now(name, theJob);
+			// await (await Agenda()).now(name, theJob);
 			logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		} catch (e) {
 			await jobService.createProgress(theJob.id).setStatus("FAILURE");
@@ -137,7 +135,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		const theJob = await jobService.map(job);
 		logger.debug("Scheduling agenda job", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		try {
-			await (await Agenda()).schedule(schedule, name, theJob);
+			// await (await Agenda()).schedule(schedule, name, theJob);
 			logger.debug("Scheduling done", {labels: {job: name, jobId: job.id}, jobId: job.id, name, params, userId});
 		} catch (e) {
 			await jobService.createProgress(theJob.id).setStatus("FAILURE");
@@ -145,54 +143,54 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}
 		return theJob;
 	},
-	handle: (name, handler) => {
+	handle: async ({name}) => {
 		let logger = Logger(name);
 		const jobService = JobService(request);
-		return async (job: Job<any>) => {
-			const theJob = job.attrs.data as IJob;
-			if (!theJob) {
-				logger.error(`Missing data (job) for [${name}] job.`);
-				return;
-			}
-			logger.debug("Preparing job", {job: theJob});
-			const labels = {name, jobId: theJob.id};
-			logger = logger.child({labels, jobId: labels.jobId, name});
-			const jobProgress = jobService.createProgress(theJob.id);
-			logger.info(`Marking job [${name}] as running`);
-			try {
-				await prisma.job.findUnique({where: {id: theJob.id}, rejectOnNotFound: true});
-				await jobProgress.setStatus("RUNNING");
-				await handler({
-					job: theJob,
-					jobProgress,
-					jobService,
-					name,
-					logger,
-					progress: async (callback, sleep) => {
-						try {
-							sleep && (await new Promise(resolve => {
-								setTimeout(() => resolve(true), sleep);
-							}));
-							const result = await callback();
-							await jobProgress.onSuccess();
-							return result;
-						} catch (e) {
-							await jobProgress.onFailure();
-							if (e instanceof Error) {
-								logger.error(e.message);
-							}
-						}
-					},
-				});
-				await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
-			} catch (e) {
-				logger.error(`Job [${name}] failed.`);
-				if (e instanceof Error) {
-					logger.error(e.message);
-				}
-				console.error(e);
-				await jobProgress.setStatus("FAILURE");
-			}
-		};
+		// return async (job: any) => {
+		// 	const theJob = job.attrs.data as IJob;
+		// 	if (!theJob) {
+		// 		logger.error(`Missing data (job) for [${name}] job.`);
+		// 		return;
+		// 	}
+		// 	logger.debug("Preparing job", {job: theJob});
+		// 	const labels = {name, jobId: theJob.id};
+		// 	logger = logger.child({labels, jobId: labels.jobId, name});
+		// 	const jobProgress = jobService.createProgress(theJob.id);
+		// 	logger.info(`Marking job [${name}] as running`);
+		// 	try {
+		// 		await prisma.job.findUnique({where: {id: theJob.id}, rejectOnNotFound: true});
+		// 		await jobProgress.setStatus("RUNNING");
+		// 		await handler({
+		// 			job: theJob,
+		// 			jobProgress,
+		// 			jobService,
+		// 			name,
+		// 			logger,
+		// 			progress: async (callback, sleep) => {
+		// 				try {
+		// 					sleep && (await new Promise(resolve => {
+		// 						setTimeout(() => resolve(true), sleep);
+		// 					}));
+		// 					const result = await callback();
+		// 					await jobProgress.onSuccess();
+		// 					return result;
+		// 				} catch (e) {
+		// 					await jobProgress.onFailure();
+		// 					if (e instanceof Error) {
+		// 						logger.error(e.message);
+		// 					}
+		// 				}
+		// 			},
+		// 		});
+		// 		await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
+		// 	} catch (e) {
+		// 		logger.error(`Job [${name}] failed.`);
+		// 		if (e instanceof Error) {
+		// 			logger.error(e.message);
+		// 		}
+		// 		console.error(e);
+		// 		await jobProgress.setStatus("FAILURE");
+		// 	}
+		// };
 	}
 });

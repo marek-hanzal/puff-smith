@@ -8,7 +8,6 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
-	name: () => MIXTURES_JOB,
 	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixturesJobParams>({
 		name: MIXTURES_JOB,
 		params,
@@ -18,10 +17,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 		params,
 		at: schedule,
 	}),
-	register: agenda => agenda.define(MIXTURES_JOB, {
-		concurrency: 1,
-		priority: -10,
-	}, JobService().handle<IMixturesJobParams>(MIXTURES_JOB, async ({jobProgress, job: {userId}, logger, progress}) => {
+	handle: () => JobService().handle<IMixturesJobParams>(async ({jobProgress, job: {userId}, logger, progress}) => {
 		logger.debug("Scheduling updating all mixtures.");
 		await jobProgress.setTotal(await prisma.aroma.count());
 		for (const aroma of await prisma.aroma.findMany()) {
@@ -33,11 +29,10 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = {
 			}
 			await jobProgress.onSkip();
 		}
-	})),
+	}),
 };
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
-	name: () => MIXTURE_JOB,
 	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixtureJobParams>({
 		name: MIXTURE_JOB,
 		params,
@@ -47,10 +42,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 		params,
 		at: schedule,
 	}),
-	register: agenda => agenda.define(MIXTURE_JOB, {
-		concurrency: 1,
-		priority: 0,
-	}, JobService().handle<IMixtureJobParams>(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
+	handle: () => JobService().handle<IMixtureJobParams>(async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
 		logger.debug(`Updating mixture of aroma [${aromaId}].`);
 		const aroma = await prisma.aroma.findUnique({
 			where: {
@@ -134,11 +126,10 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = {
 				}
 			}
 		}
-	})),
+	}),
 };
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
-	name: () => MIXTURE_USER_JOB,
 	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IMixtureUserJobParams>({
 		name: MIXTURE_USER_JOB,
 		params,
@@ -148,11 +139,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 		params,
 		at: schedule,
 	}),
-	register: agenda => agenda.define(MIXTURE_USER_JOB, {
-		concurrency: 10,
-		lockLimit: 10,
-		priority: 20,
-	}, JobService().handle<IMixtureUserJobParams>(MIXTURE_USER_JOB, async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
+	handle: () => JobService().handle<IMixtureUserJobParams>(async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
 		logger.debug("User mixture update.", {userId});
 
 		if (!userId) {
@@ -227,5 +214,5 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = {
 				mixtureId: id,
 			}), 250);
 		}
-	})),
+	}),
 };

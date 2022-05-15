@@ -7,7 +7,6 @@ services:
             - web
             - postgres
             - pgbouncer
-            - mongo
             - loki
             - prometheus
             - mailhog
@@ -53,14 +52,6 @@ services:
         networks:
             - postgres
             - pgbouncer
-
-    mongo:
-        image: mongo:5
-        env_file: .env
-        environment:
-            MONGO_INITDB_DATABASE: agenda
-        networks:
-            - mongo
 
     loki:
         image: grafana/loki
@@ -126,7 +117,6 @@ networks:
         external: true
     postgres:
     pgbouncer:
-    mongo:
     loki:
     prometheus:
     mailhog:

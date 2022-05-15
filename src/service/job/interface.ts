@@ -1,9 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IJob, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
+import {IJob, IJobHandlerRequest, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
-import {Processor} from "agenda";
 import {ParsedUrlQuery} from "querystring";
-import {Logger} from "winston";
 
 export interface IJobCreate {
 	userId?: string | null;
@@ -33,16 +31,6 @@ export interface IJobFetchQuery extends ParsedUrlQuery {
 	jobId: string;
 }
 
-export interface IJobHandlerRequest<TParams> {
-	name: string;
-	jobService: IJobService;
-	job: IJob<TParams>;
-	jobProgress: IJobProgress;
-	logger: Logger;
-
-	progress<TResult>(callback: () => Promise<TResult>, sleep?: number): Promise<TResult | void>;
-}
-
 export interface IJobServiceCreate extends IServiceCreate {
 }
 
@@ -57,5 +45,5 @@ export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, I
 
 	scheduleAt<TParams = void>(scheduleAt: IJobScheduleAt<TParams>): Promise<IJob<TParams>>;
 
-	handle<TParams = void>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<boolean | void>): Processor;
+	handle<TParams = void>(handler: (request: IJobHandlerRequest<TParams>) => Promise<boolean | void>): Promise<any>;
 }

@@ -6,13 +6,6 @@ x-environment:
     POSTGRES_DB: puff-smith
     POSTGRES_PASSWORD: 1234
 
-    MONGO_INITDB_ROOT_USERNAME: root
-    MONGO_INITDB_ROOT_PASSWORD: 1234
-    MONGO_INITDB_DATABASE: agenda
-
-    MONGODB_URI: mongodb://root:1234@mongo:27017
-    COLLECTION: agenda
-
     DATABASE_URL: postgres://puff-smith:1234@postgres:5432/postgres
     SECRET_KEY: secret-key
     PORT: 8000
@@ -49,15 +42,6 @@ services:
         networks:
             - pgbouncer
 
-    mongo:
-        image: mongo:5
-        restart: always
-        environment: *env
-        ports:
-            - "127.0.0.1:57017:27017"
-        networks:
-            - mongo
-
     loki:
         image: grafana/loki
         restart: always
@@ -92,7 +76,5 @@ services:
 networks:
     postgres:
     pgbouncer:
-    redis:
-    mongo:
     loki:
     mailhog:

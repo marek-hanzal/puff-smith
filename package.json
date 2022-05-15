@@ -4,9 +4,7 @@
 	"private": true,
 	"scripts": {
 		"next:dev": "next dev",
-		"agenda": "npx dotenv -c development node ./.next/server/agenda.js",
-		"migration": "npx dotenv -c development node ./.next/server/migration.js",
-		"dev": "concurrently 'npm:next:dev' 'npm:agenda'",
+		"dev": "concurrently 'npm:next:dev'",
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
@@ -15,12 +13,9 @@
 		"prisma db push": "npx dotenv -c development npx prisma db push",
 		"prisma format": "npx dotenv -c development npx prisma format",
 		"start": "next start",
-		"start:local": "concurrently 'npm:start' 'npm:agenda'",
+		"start:local": "concurrently 'npm:start'",
 		"lint": "next lint",
 		"next-unused": "next-unused"
-	},
-	"prisma": {
-		"seed": "node ./.next/server/migration.js"
 	},
 	"sideEffects": [
 		"src/service/side-effect/*"
@@ -40,16 +35,14 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
-		"@leight-core/api": "^0.5.174",
+		"@leight-core/api": "^0.5.175",
 		"@leight-core/client": "^0.5.155",
 		"@leight-core/server": "^0.5.162",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.13.0",
-		"agenda": "^4.2.1",
 		"antd": "^4.20.3",
 		"unique-objects": "^1.0.5",
 		"boolean": "^3.2.0",
-		"concurrently": "^7.1.0",
 		"js-file-download": "^0.4.12",
 		"matcher": "^5.0.0",
 		"measure-time": "^5.0.8",
@@ -75,6 +68,7 @@
 		"yaml": "^2.0.1"
 	},
 	"devDependencies": {
+		"concurrently": "^7.1.0",
 		"@types/is-empty": "^1.2.1",
 		"@types/node": "^17.0.31",
 		"@types/nprogress": "^0.2.0",

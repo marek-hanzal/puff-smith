@@ -25,7 +25,7 @@ export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<IMixt
 export const MixtureUpdateDefaultForm: FC<IMixtureUpdateDefaultFormProps> = props => <Form<IMixtureJobParams, IJob<IMixtureJobParams>>
 	useMutation={useMixtureUpdateMutation}
 	{...props}
-/>;
+/>
 
 export const toMixtureUpdateLink = (queryParams?: IMixtureUpdateQueryParams) => toLink(MixtureUpdateApiLink, queryParams);
 export const useMixtureUpdateLink = () => toMixtureUpdateLink;

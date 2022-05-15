@@ -1,3 +1,4 @@
+import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/cli/jobs/import/interface";
 import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
@@ -17,7 +18,7 @@ import {TranslationService} from "@/puff-smith/service/translation/TranslationSe
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
 import {WireService} from "@/puff-smith/service/wire/WireService";
-import {IJob, IJobProcessor, IQueryParams} from "@leight-core/api";
+import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
@@ -40,30 +41,18 @@ const importHandlers = {
 	...WireService().importers(),
 };
 
-interface IImportParams extends IQueryParams {
-	fileId: string;
-}
 
-export interface IImportJob extends IJob<IImportParams> {
-}
-
-const IMPORT_JOB = "import";
-
-export const ImportJob: IJobProcessor<IImportParams> = {
-	name: () => IMPORT_JOB,
-	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IImportParams>({
+export const ImportJob: IJobProcessor<IImportJobParams> = {
+	schedule: async (params, userId) => JobService(ServiceCreate(userId)).schedule<IImportJobParams>({
 		name: IMPORT_JOB,
 		params,
 	}),
-	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IImportParams>({
+	scheduleAt: async (schedule, params, userId) => JobService(ServiceCreate(userId)).scheduleAt<IImportJobParams>({
 		name: IMPORT_JOB,
 		params,
 		at: schedule,
 	}),
-	register: agenda => agenda.define(IMPORT_JOB, {
-		concurrency: 1,
-		priority: 0,
-	}, JobService().handle<IImportParams>(IMPORT_JOB, async ({logger, job, jobProgress}) => {
+	handle: () => JobService().handle<IImportJobParams>(async ({logger, job, jobProgress}) => {
 		const labels = {jobId: job.id};
 		logger = logger.child({labels, jobId: labels.jobId});
 		logger.info("Checking fileId");
@@ -77,5 +66,5 @@ export const ImportJob: IJobProcessor<IImportParams> = {
 		const workbook = xlsx.readFile(fileService.toLocation(fileId));
 		logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 		await toImport({job, jobProgress, workbook, handlers: importHandlers});
-	})),
+	}),
 };

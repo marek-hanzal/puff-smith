@@ -1,7 +1,6 @@
-import {CoilJob, CoilsJob} from "@/puff-smith/cli/jobs/coil";
-import {ImportJob} from "@/puff-smith/cli/jobs/import";
-import {MigrationJob} from "@/puff-smith/cli/jobs/migrate";
-import {MixtureJob, MixturesJob, MixtureUserJob} from "@/puff-smith/cli/jobs/mixture/job";
+import {COIL_JOB, COILS_JOB} from "@/puff-smith/cli/jobs/coil/interface";
+import {IMPORT_JOB} from "@/puff-smith/cli/jobs/import/interface";
+import {MIXTURE_JOB, MIXTURE_USER_JOB, MIXTURES_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {BootstrapLogger} from "@leight-core/server";
 import {collectDefaultMetrics, register} from "prom-client";
 
@@ -13,13 +12,12 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 		"auth",
 		"query",
 		"fixtures",
-		CoilJob.name(),
-		CoilsJob.name(),
-		ImportJob.name(),
-		MigrationJob.name(),
-		MixtureJob.name(),
-		MixturesJob.name(),
-		MixtureUserJob.name(),
+		COIL_JOB,
+		COILS_JOB,
+		IMPORT_JOB,
+		MIXTURE_JOB,
+		MIXTURES_JOB,
+		MIXTURE_USER_JOB,
 	], version);
 	try {
 		register.setDefaultLabels({

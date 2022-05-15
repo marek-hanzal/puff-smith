@@ -2,9 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
+import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +45,7 @@ export const DrawApiLink = "/api/mixture/draw/query";
 
 export type IDrawQueryParams = undefined;
 
-export const useDrawQuery = createQueryHook<IQuery, IQueryResult<ITag>, IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawQuery = createQueryHook<IMixtureQuery, IQueryResult<ITag>, IDrawQueryParams>(DrawApiLink, "post");
 
 export const useDrawSource = () => useSourceContext<ITag>();
 
@@ -70,18 +71,18 @@ export const DrawSource: FC<IDrawSourceProps> = props => {
 export const toDrawLink = (queryParams?: IDrawQueryParams) => toLink(DrawApiLink, queryParams);
 export const useDrawLink = () => toDrawLink;
 
-export const useDrawPromise = createPromiseHook<IQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
-export const DrawPromise = createPromise<IQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawPromise = createPromiseHook<IMixtureQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
+export const DrawPromise = createPromise<IMixtureQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
 
-export interface IDrawFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery>>> {
+export interface IDrawFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
 }
 
-export const DrawFilterProvider: FC<IDrawFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery>> name={"Draw"} {...props}/>;
+export const DrawFilterProvider: FC<IDrawFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery>>();
-export const useDrawFilterContext = () => useFilterContext<IQueryFilter<IQuery>>();
+export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useDrawFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
 
-export interface IDrawSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery>> {
+export interface IDrawSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
 }
 
 export const DrawSourceFilter: FC<IDrawSourceFilterProps> = props => <Filter
@@ -89,22 +90,22 @@ export const DrawSourceFilter: FC<IDrawSourceFilterProps> = props => <Filter
 	translation={"common.filter.Draw"}
 />;
 
-export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery>>> {
+export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
 }
 
-export const DrawOrderByProvider: FC<IDrawOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery>> name={"Draw"} {...props}/>;
+export const DrawOrderByProvider: FC<IDrawOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery>>();
-export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery>>();
+export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
 
 export interface IDrawListSourceProps extends Partial<IListProps<ITag>> {
 	sourceProps?: Partial<IDrawSourceProps>;
 }
 
-export interface IDrawSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>, IDrawQueryParams>> {
+export interface IDrawSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IDrawQueryParams>> {
 }
 
-export const DrawSourceControlProvider: FC<IDrawSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery>, IQueryOrderBy<IQuery>> name={"Draw"} {...props}/>;
+export const DrawSourceControlProvider: FC<IDrawSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Draw"} {...props}/>;
 
 export const DrawListSource: FC<IDrawListSourceProps> = ({sourceProps, ...props}) => {
 	return <DrawSource
