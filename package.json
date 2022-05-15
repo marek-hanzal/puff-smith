@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"next:dev": "next dev",
-		"dev": "concurrently 'npm:next:dev'",
+		"dev": "npm run next:dev",
 		"build": "next build",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",

@@ -143,54 +143,52 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		}
 		return theJob;
 	},
-	handle: async ({name}) => {
+	async: async (name, {res, request: params, toUserId}, handler) => {
 		let logger = Logger(name);
-		const jobService = JobService(request);
-		// return async (job: any) => {
-		// 	const theJob = job.attrs.data as IJob;
-		// 	if (!theJob) {
-		// 		logger.error(`Missing data (job) for [${name}] job.`);
-		// 		return;
-		// 	}
-		// 	logger.debug("Preparing job", {job: theJob});
-		// 	const labels = {name, jobId: theJob.id};
-		// 	logger = logger.child({labels, jobId: labels.jobId, name});
-		// 	const jobProgress = jobService.createProgress(theJob.id);
-		// 	logger.info(`Marking job [${name}] as running`);
-		// 	try {
-		// 		await prisma.job.findUnique({where: {id: theJob.id}, rejectOnNotFound: true});
-		// 		await jobProgress.setStatus("RUNNING");
-		// 		await handler({
-		// 			job: theJob,
-		// 			jobProgress,
-		// 			jobService,
-		// 			name,
-		// 			logger,
-		// 			progress: async (callback, sleep) => {
-		// 				try {
-		// 					sleep && (await new Promise(resolve => {
-		// 						setTimeout(() => resolve(true), sleep);
-		// 					}));
-		// 					const result = await callback();
-		// 					await jobProgress.onSuccess();
-		// 					return result;
-		// 				} catch (e) {
-		// 					await jobProgress.onFailure();
-		// 					if (e instanceof Error) {
-		// 						logger.error(e.message);
-		// 					}
-		// 				}
-		// 			},
-		// 		});
-		// 		await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
-		// 	} catch (e) {
-		// 		logger.error(`Job [${name}] failed.`);
-		// 		if (e instanceof Error) {
-		// 			logger.error(e.message);
-		// 		}
-		// 		console.error(e);
-		// 		await jobProgress.setStatus("FAILURE");
-		// 	}
-		// };
-	}
+		const jobService = JobService(ServiceCreate(toUserId()));
+		const job = await jobService.map(await jobService.create({
+			userId: toUserId(),
+			name,
+			params,
+		}));
+		const labels = {name, jobId: job.id};
+		logger = logger.child({labels, jobId: labels.jobId, name});
+		res.send(job);
+		const jobProgress = jobService.createProgress(job.id);
+		return new Promise(async (resolve, reject) => {
+			try {
+				await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
+				await jobProgress.setStatus("RUNNING");
+				resolve(await handler({
+					name,
+					job,
+					jobProgress,
+					logger,
+					progress: async (callback, sleep) => {
+						try {
+							sleep && (await new Promise(resolve => {
+								setTimeout(() => resolve(true), sleep);
+							}));
+							const result = await callback();
+							await jobProgress.onSuccess();
+							return result;
+						} catch (e) {
+							await jobProgress.onFailure();
+							if (e instanceof Error) {
+								logger.error(e.message);
+							}
+						}
+					},
+				}));
+				await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
+			} catch (e) {
+				logger.error(`Job [${name}] failed.`);
+				if (e instanceof Error) {
+					logger.error(e.message);
+				}
+				await jobProgress.setStatus("FAILURE");
+				reject(e);
+			}
+		});
+	},
 });

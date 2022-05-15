@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IJob, IJobHandlerRequest, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
+import {IEndpointParams, IJob, IJobHandlerRequest, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -45,5 +45,5 @@ export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, I
 
 	scheduleAt<TParams = void>(scheduleAt: IJobScheduleAt<TParams>): Promise<IJob<TParams>>;
 
-	handle<TParams = void>(handler: (request: IJobHandlerRequest<TParams>) => Promise<boolean | void>): Promise<any>;
+	async<TParams>(name: string, params: IEndpointParams<TParams, IJob<TParams>>, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>): Promise<any>;
 }

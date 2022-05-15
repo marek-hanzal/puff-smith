@@ -32,7 +32,7 @@ export const useTestQuery = createQueryHook<void, any, ITestQueryParams>(TestApi
 export const useTestQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TestApiLink]);
-};
+}
 
 export const toTestLink = (queryParams?: ITestQueryParams) => toLink(TestApiLink, queryParams);
 export const useTestLink = () => toTestLink;
