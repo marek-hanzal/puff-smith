@@ -48,7 +48,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 				data: {
 					status,
 					started: ["RUNNING"].includes(status) ? new Date() : undefined,
-					finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : undefined,
+					finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : (["RUNNING"].includes(status) ? null : undefined),
 				},
 				where: {
 					id: jobId,
