@@ -1,4 +1,4 @@
-import {MixtureUserJob} from "@/puff-smith/cli/jobs/mixture/job";
+import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaInventoryService, IAromaInventoryServiceCreate} from "@/puff-smith/service/aroma/inventory/interface";

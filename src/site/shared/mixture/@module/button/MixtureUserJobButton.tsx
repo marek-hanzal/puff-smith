@@ -1,6 +1,6 @@
-import {IMixtureUserJobParams, MIXTURE_USER_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {IJobButtonProps, JobButton} from "@/puff-smith/component/button/JobButton";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
+import {IMixtureUserJobParams, MIXTURE_USER_JOB} from "@/puff-smith/jobs/mixture/interface";
 import {useMixtureUserJobMutation} from "@/sdk/api/mixture/job/mixture-user";
 import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {FC} from "react";

@@ -1,4 +1,4 @@
-import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/cli/jobs/import/interface";
+import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";

@@ -1,4 +1,4 @@
-import {ImportJob} from "@/puff-smith/cli/jobs/import/job";
+import {ImportJob} from "@/puff-smith/jobs/import/job";
 import fileService from "@/puff-smith/service/side-effect/fileService";
 import {IFileStoreRequest} from "@leight-core/api";
 

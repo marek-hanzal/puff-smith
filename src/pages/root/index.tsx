@@ -1,9 +1,9 @@
-import {COIL_JOB, COILS_JOB} from "@/puff-smith/cli/jobs/coil/interface";
-import {MIXTURE_JOB, MIXTURES_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {JobButton} from "@/puff-smith/component/button/JobButton";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
+import {COIL_JOB, COILS_JOB} from "@/puff-smith/jobs/coil/interface";
+import {MIXTURE_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {useCoilsJobMutation} from "@/sdk/api/coil/job/coils";

@@ -1,4 +1,4 @@
-import {MixtureUserJob} from "@/puff-smith/cli/jobs/mixture/job";
+import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {ServiceCreate} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBoosterInventoryService, IBoosterInventoryServiceCreate} from "@/puff-smith/service/booster/inventory/interface";

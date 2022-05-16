@@ -1,6 +1,6 @@
-import {IMixtureJobParams, MIXTURE_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {IJobButtonProps, JobButton} from "@/puff-smith/component/button/JobButton";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
+import {IMixtureJobParams, MIXTURE_JOB} from "@/puff-smith/jobs/mixture/interface";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {useMixtureJobMutation} from "@/sdk/api/mixture/job/mixture";
 import {FC} from "react";

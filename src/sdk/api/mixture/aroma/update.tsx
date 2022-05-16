@@ -2,7 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IMixtureJobParams} from "@/puff-smith/cli/jobs/mixture/interface";
+import {IMixtureJobParams} from "@/puff-smith/jobs/mixture/interface";
 import {IJob} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";

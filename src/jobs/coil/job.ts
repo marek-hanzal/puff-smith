@@ -1,4 +1,4 @@
-import {COIL_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams} from "@/puff-smith/cli/jobs/coil/interface";
+import {COIL_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams} from "@/puff-smith/jobs/coil/interface";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {IJobProcessor} from "@leight-core/api";
 
