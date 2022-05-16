@@ -30,7 +30,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate = Serv
 								userId: request.userService.getUserId(),
 							}
 						});
-						await MixtureUserJob.schedule({userId: request.userService.getUserId()}, request.userService.getUserId());
+						await MixtureUserJob.async({userId: request.userService.getUserId()}, request.userService.getUserId());
 						return $baseInventory;
 					},
 				});

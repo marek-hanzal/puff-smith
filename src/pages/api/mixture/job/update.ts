@@ -1,15 +1,6 @@
-import {MIXTURES_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
-import {ServiceCreate} from "@/puff-smith/service";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {IMixturesJobParams} from "@/puff-smith/cli/jobs/mixture/interface";
+import {MixturesJob} from "@/puff-smith/cli/jobs/mixture/job";
+import {IJob} from "@leight-core/api";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"UpdateJob", void, any>(async ({res, toUserId}) => {
-	const $job = JobService(ServiceCreate(toUserId())).create({
-		userId: toUserId(),
-		name: MIXTURES_JOB,
-	});
-	res.end($job);
-	return new Promise(resolve => {
-		resolve("yep!");
-	});
-});
+export default MutationEndpoint<"UpdateJob", IMixturesJobParams, IJob<IMixturesJobParams>>(MixturesJob.request);
