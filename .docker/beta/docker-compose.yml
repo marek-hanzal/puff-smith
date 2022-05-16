@@ -6,7 +6,7 @@ services:
         networks:
             - web
             - postgres
-            - mongo
+            - pgbouncer
             - loki
             - prometheus
             - mailhog
@@ -48,22 +48,14 @@ services:
             POSTGRESQL_USERNAME: puff-smith
             PGBOUNCER_POOL_MODE: transaction
             PGBOUNCER_PORT: 6432
-            PGBOUNCER_MIN_POOL_SIZE: 8
-            PGBOUNCER_MAX_DB_CONNECTIONS: 16
+            PGBOUNCER_MIN_POOL_SIZE: 16
+            PGBOUNCER_MAX_DB_CONNECTIONS: 42
             PGBOUNCER_IGNORE_STARTUP_PARAMETERS: 'extra_float_digits'
             PGBOUNCER_EXTRA_ARGS: '--verbose'
             PGBOUNCER_DATABASE: puff-smith
         networks:
             - postgres
             - pgbouncer
-
-    mongo:
-        image: mongo:5
-        env_file: .env
-        environment:
-            MONGO_INITDB_DATABASE: agenda
-        networks:
-            - mongo
 
     loki:
         image: grafana/loki
@@ -129,7 +121,6 @@ networks:
         external: true
     postgres:
     pgbouncer:
-    mongo:
     loki:
     prometheus:
     mailhog:
