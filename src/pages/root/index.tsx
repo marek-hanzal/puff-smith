@@ -1,14 +1,14 @@
+import {JobButton} from "@/puff-smith/component/button/JobButton";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
-import {useCoilUpdateMutation} from "@/sdk/api/coil/update";
-import {ButtonBar, HomeIcon, Template, useNavigate} from "@leight-core/client";
-import {Button} from "antd";
+import {useCoilsJobMutation} from "@/sdk/api/coil/job/coils";
+import {useMixturesJobMutation} from "@/sdk/api/mixture/job/mixtures";
+import {ButtonBar, HomeIcon, Template} from "@leight-core/client";
 
 export default withRootLayout(function Index() {
-	const coilUpdateMutation = useCoilUpdateMutation();
-	const navigate = useNavigate();
 	return <RootPage
 		title={"root.index"}
 		menuSelection={["/root"]}
@@ -19,17 +19,18 @@ export default withRootLayout(function Index() {
 			status={"info"}
 			label={"root.home"}
 			extra={<ButtonBar>
-				<Button
-					size={"large"}
-					type={"link"}
+				<JobButton
+					icon={<MixtureIcon/>}
+					translation={"root.mixture.mixtures"}
+					scheduler={useMixturesJobMutation()}
+					schedule={{}}
+				/>
+				<JobButton
 					icon={<CoilIcon/>}
-					onClick={() => coilUpdateMutation.mutate(undefined, {
-						onSuccess: () => {
-							navigate("/root/job");
-						}
-					})}
-					loading={coilUpdateMutation.isLoading}
-				>Coils!</Button>
+					translation={"root.coils.coils-job"}
+					scheduler={useCoilsJobMutation()}
+					schedule={{}}
+				/>
 			</ButtonBar>}
 		/>
 	</RootPage>;

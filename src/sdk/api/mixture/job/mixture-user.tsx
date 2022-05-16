@@ -17,7 +17,7 @@ export const useMixtureUserJobMutation = createMutationHook<IMixtureUserJobParam
 export const useMixtureUserJobQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureUserJobApiLink]);
-};
+}
 
 export interface IMixtureUserJobDefaultFormProps extends Partial<IFormProps<IMixtureUserJobParams, IJob<IMixtureUserJobParams>>> {
 }
@@ -25,7 +25,7 @@ export interface IMixtureUserJobDefaultFormProps extends Partial<IFormProps<IMix
 export const MixtureUserJobDefaultForm: FC<IMixtureUserJobDefaultFormProps> = props => <Form<IMixtureUserJobParams, IJob<IMixtureUserJobParams>>
 	useMutation={useMixtureUserJobMutation}
 	{...props}
-/>;
+/>
 
 export const toMixtureUserJobLink = (queryParams?: IMixtureUserJobQueryParams) => toLink(MixtureUserJobApiLink, queryParams);
 export const useMixtureUserJobLink = () => toMixtureUserJobLink;
