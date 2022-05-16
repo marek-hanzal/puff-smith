@@ -7,7 +7,6 @@
     </scripts>
     <node-interpreter value="project" />
     <envs>
-      <env name="AGENDA_DB" value="root:1234@localhost:47017/?authSource=admin" />
       <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
       <env name="LOKI_URL" value="http://loki:3100" />
       <env name="NEXTAUTH_GITHUB_CLIENT_ID" value="abbc01fc85709ab26921" />
