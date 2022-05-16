@@ -1,3 +1,5 @@
+import {COIL_JOB, COILS_JOB} from "@/puff-smith/cli/jobs/coil/interface";
+import {MIXTURE_JOB, MIXTURES_JOB} from "@/puff-smith/cli/jobs/mixture/interface";
 import {JobButton} from "@/puff-smith/component/button/JobButton";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
@@ -24,12 +26,22 @@ export default withRootLayout(function Index() {
 					translation={"root.mixture.mixtures"}
 					scheduler={useMixturesJobMutation()}
 					schedule={{}}
+					filter={{
+						name: {
+							in: [MIXTURES_JOB, MIXTURE_JOB]
+						},
+					}}
 				/>
 				<JobButton
 					icon={<CoilIcon/>}
 					translation={"root.coils.coils-job"}
 					scheduler={useCoilsJobMutation()}
 					schedule={{}}
+					filter={{
+						name: {
+							in: [COILS_JOB, COIL_JOB]
+						},
+					}}
 				/>
 			</ButtonBar>}
 		/>
