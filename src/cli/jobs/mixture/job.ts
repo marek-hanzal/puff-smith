@@ -103,7 +103,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 					await jobProgress.onSkip();
 					continue;
 				}
-				await progress(async () => createMixture(info), 200);
+				await progress(async () => createMixture(info));
 			}
 		}
 	}

@@ -152,11 +152,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 		};
 
 		return {
-			request: async ({res, request: params, toUserId}) => {
-				const job = await async(params, toUserId());
-				res.send(job);
-				return job;
-			},
+			request: async ({request: params, toUserId}) => async(params, toUserId()),
 			async,
 			handler,
 		};
