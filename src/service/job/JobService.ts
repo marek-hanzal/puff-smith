@@ -4,6 +4,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor, IJobStatus} from "@leight-core/api";
 import {sleep, toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
+import AsyncLock from "async-lock";
 
 export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobService => ({
 	...RepositoryService<IJobService>({
@@ -101,8 +102,11 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 	cleanup: filter => request.prisma.job.deleteMany(filter && {
 		where: filter,
 	}),
-	processor: (name, handler) => {
-		const async: IJobProcessor["async"] = async (params, userId) => {
+	processor: (name, handler, lock) => {
+		const $lock = (lock || (() => new AsyncLock({
+			maxPending: 20000,
+		})))();
+		const async: IJobProcessor["async"] = async (params, userId, lock) => {
 			let logger = Logger(name);
 			const jobService = JobService(ServiceCreate(userId));
 			const job = await jobService.map(await jobService.create({
@@ -113,7 +117,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			const labels = {name, jobId: job.id};
 			logger = logger.child({labels, jobId: labels.jobId, name});
 			const jobProgress = jobService.createProgress(job.id);
-			setTimeout(() => new Promise(async (resolve, reject) => {
+			setTimeout(() => $lock.acquire(name, () => new Promise(async (resolve, reject) => {
 				try {
 					await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
 					await jobProgress.setStatus("RUNNING");
@@ -147,7 +151,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					await jobProgress.setStatus("FAILURE");
 					reject(e);
 				}
-			}), 0);
+			}), lock), 0);
 			return job;
 		};
 
