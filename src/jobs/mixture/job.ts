@@ -6,6 +6,7 @@ import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
+import PQueue from "p-queue";
 
 const jobService = JobService();
 
@@ -21,7 +22,11 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 		}
 		await jobProgress.onSkip();
 	}
-});
+}, options => new PQueue({
+	...options,
+	concurrency: 1,
+	intervalCap: 1,
+}));
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, params: {aromaId}, logger, progress}) => {
 	logger.debug(`Updating mixture of aroma [${aromaId}].`);
@@ -107,7 +112,11 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 			}
 		}
 	}
-});
+}, options => new PQueue({
+	...options,
+	concurrency: 3,
+	intervalCap: 3,
+}));
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService().processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("User mixture update.", {userId});
