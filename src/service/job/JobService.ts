@@ -4,7 +4,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor, IJobStatus} from "@leight-core/api";
 import {sleep, toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
-import AsyncLock from "async-lock";
+import PQueue from "p-queue";
 
 export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobService => ({
 	...RepositoryService<IJobService>({
@@ -102,11 +102,16 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 	cleanup: filter => request.prisma.job.deleteMany(filter && {
 		where: filter,
 	}),
-	processor: (name, handler, lock) => {
-		const $lock = (lock || (() => new AsyncLock({
-			maxPending: 20000,
-		})))();
-		const async: IJobProcessor["async"] = async (params, userId, lock) => {
+	processor: (name, handler, queue) => {
+		const $queue = (queue || (options => new PQueue(options)))({
+			autoStart: true,
+			concurrency: 5,
+			throwOnTimeout: true,
+			interval: 5 * 1000,
+			intervalCap: 5,
+			carryoverConcurrencyCount: true,
+		});
+		const async: IJobProcessor["async"] = async (params, userId, queue) => {
 			let logger = Logger(name);
 			const jobService = JobService(ServiceCreate(userId));
 			const job = await jobService.map(await jobService.create({
@@ -117,7 +122,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 			const labels = {name, jobId: job.id};
 			logger = logger.child({labels, jobId: labels.jobId, name});
 			const jobProgress = jobService.createProgress(job.id);
-			setTimeout(() => $lock.acquire(name, () => new Promise(async (resolve, reject) => {
+			setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
 				try {
 					await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
 					await jobProgress.setStatus("RUNNING");
@@ -151,7 +156,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 					await jobProgress.setStatus("FAILURE");
 					reject(e);
 				}
-			}), lock), 0);
+			}), queue), 0);
 			return job;
 		};
 

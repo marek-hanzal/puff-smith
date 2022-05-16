@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
-import AsyncLock from "async-lock";
+import PQueue from "p-queue";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IJobCreate {
@@ -42,5 +42,5 @@ export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, I
 
 	cleanup(filter?: IQueryFilter<IJobQuery>): Promise<any>;
 
-	processor<TParams>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>, lock?: () => AsyncLock): IJobProcessor<TParams>;
+	processor<TParams>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>, queue?: (options?: ConstructorParameters<typeof PQueue>[0]) => PQueue): IJobProcessor<TParams>;
 }
