@@ -2,6 +2,7 @@ import {IMixtureJobParams, MIXTURE_JOB} from "@/puff-smith/cli/jobs/mixture/inte
 import {IJobButtonProps, JobButton} from "@/puff-smith/component/button/JobButton";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {useMixtureJobMutation} from "@/sdk/api/mixture/job/mixture";
 import {FC} from "react";
 
 export interface IMixtureJobButtonProps extends Partial<IJobButtonProps<IMixtureJobParams>> {
@@ -11,11 +12,9 @@ export interface IMixtureJobButtonProps extends Partial<IJobButtonProps<IMixture
 export const MixtureJobButton: FC<IMixtureJobButtonProps> = ({aroma, ...props}) => {
 	return <JobButton<IMixtureJobParams>
 		icon={<MixtureIcon/>}
+		scheduler={useMixtureJobMutation()}
 		schedule={{
-			params: {
-				aromaId: aroma.id,
-			},
-			name: MIXTURE_JOB,
+			aromaId: aroma.id,
 		}}
 		filter={{
 			name: MIXTURE_JOB,

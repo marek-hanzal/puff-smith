@@ -9,7 +9,7 @@ import {IJobProcessor} from "@leight-core/api";
 
 const jobService = JobService();
 
-export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, job: {userId}, logger, progress}) => {
+export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
 	await jobProgress.setTotal(await prisma.aroma.count());
 	for (const aroma of await prisma.aroma.findMany()) {
@@ -23,7 +23,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 	}
 });
 
-export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, job: {params: {aromaId}}, logger, progress}) => {
+export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, params: {aromaId}, logger, progress}) => {
 	logger.debug(`Updating mixture of aroma [${aromaId}].`);
 	const aroma = await prisma.aroma.findUnique({
 		where: {
@@ -109,7 +109,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	}
 });
 
-export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService().processor(MIXTURE_USER_JOB, async ({jobProgress, job: {params: {userId}}, logger, progress}) => {
+export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService().processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("User mixture update.", {userId});
 
 	if (!userId) {

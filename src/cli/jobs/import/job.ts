@@ -40,11 +40,10 @@ const importHandlers = {
 	...WireService().importers(),
 };
 
-export const ImportJob: IJobProcessor<IImportJobParams> = JobService().processor(IMPORT_JOB, async ({logger, job, jobProgress}) => {
+export const ImportJob: IJobProcessor<IImportJobParams> = JobService().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
 	const labels = {jobId: job.id};
 	logger = logger.child({labels, jobId: labels.jobId});
 	logger.info("Checking fileId");
-	const fileId = job.params?.fileId;
 	if (!fileId) {
 		await jobProgress.setResult("REVIEW");
 		logger.error(`Missing fileId for [${IMPORT_JOB}].`, {labels});
