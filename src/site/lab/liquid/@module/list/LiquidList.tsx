@@ -1,5 +1,6 @@
 import {AgeOfInline} from "@/puff-smith/component/inline/AgeOfInline";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid/@module/list/LiquidListEmpty";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
@@ -27,6 +28,7 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={liquid}/>
 					<AromaNameInline aroma={liquid.mixture.aroma}/>
+					<NicotineInline nicotine={liquid.mixture.nicotine}/>
 					<CodeInline code={liquid}/>
 					<LiquidSteeping liquid={liquid}/>
 					<AgeOfInline date={liquid.mixed} tooltip={"lab.liquid.age.tooltip"}/>
