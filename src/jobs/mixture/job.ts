@@ -50,7 +50,10 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 
 	const createMixture = async (info: IMixtureInfo) => {
 		const volume = aroma.volume || aroma.content;
-		!info.result.error && await mixtureService.create({
+		if (info.result.error) {
+			return;
+		}
+		await mixtureService.create({
 			aromaId: aroma.id,
 			baseId: info.base?.baseId,
 			baseMl: info.base?.volume || 0,
@@ -71,7 +74,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	};
 
 	/**
-	 * Run rest through boosters with nicotine requirement.
+	 * Run through boosters with nicotine requirement.
 	 *
 	 * This loops will generate a LOT unique index violations seemingly like an error, but
 	 * the "problem" is:
@@ -83,39 +86,30 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	 * generating same amount of nicotine (last piece of hash) thus for the same combination unique key violation. That's OK, because
 	 * this mixture is already generated and valid.
 	 */
-	const $errors: { [index: string]: boolean } = {};
-
-	const aromaHash = `${aroma.vg}-${aroma.pg}-${aroma.volume}-${aroma.content}`;
+	const $queue = new PQueue({
+		concurrency: 5,
+		intervalCap: 5,
+		interval: 250,
+	});
 	for (const booster of await prisma.booster.findMany()) {
-		const boosterHash = `${booster.vg}-${booster.pg}-${booster.volume}-${booster.nicotine}`;
 		for (const base of await prisma.base.findMany()) {
-			const baseHash = `${base.vg}-${base.pg}`;
 			for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-				const nicotineHash = `${nicotine}`;
-				const hash = `${aromaHash}-${boosterHash}-${baseHash}-${nicotineHash}`;
-				if ($errors[hash]) {
-					await jobProgress.onSkip();
-					continue;
-				}
-				const info = await toMixtureInfo({
-					nicotine,
-					aroma,
-					booster,
-					base,
+				await $queue.add(async () => {
+					await progress(async () => createMixture(await toMixtureInfo({
+						nicotine,
+						aroma,
+						booster,
+						base,
+					})));
 				});
-				if (info.result.error) {
-					$errors[hash] = true;
-					await jobProgress.onSkip();
-					continue;
-				}
-				await progress(async () => createMixture(info));
 			}
 		}
 	}
+	await $queue.onIdle();
 }, options => new PQueue({
 	...options,
-	concurrency: 3,
-	intervalCap: 3,
+	concurrency: 5,
+	intervalCap: 5,
 }));
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService().processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
