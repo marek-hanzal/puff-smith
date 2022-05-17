@@ -1,4 +1,5 @@
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {CellInventoryList} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellInventoryList";
@@ -11,7 +12,7 @@ export default withLabLayout(function Index() {
 		icon={<CellIcon/>}
 	>
 		<CellInventorySourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<CellInventoryList/>
 		</CellInventorySourceControlProvider>

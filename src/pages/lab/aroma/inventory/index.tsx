@@ -1,4 +1,5 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AromaFilter} from "@/puff-smith/site/lab/aroma/inventory/@module/filter/AromaFilter";
@@ -15,7 +16,7 @@ export default withLabLayout(function Index() {
 		icon={<LiquidIcon/>}
 	>
 		<AromaInventorySourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
 				<AromaInventoryList

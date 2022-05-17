@@ -1,4 +1,5 @@
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BaseFilter} from "@/puff-smith/site/lab/base/inventory/@module/filter/BaseFilter";
@@ -15,7 +16,7 @@ export default withLabLayout(function Index() {
 		icon={<BaseIcon/>}
 	>
 		<BaseInventorySourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
 				<BaseInventoryList

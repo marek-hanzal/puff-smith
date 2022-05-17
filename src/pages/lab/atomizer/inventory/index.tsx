@@ -1,4 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AtomizerInventoryList} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerInventoryList";
@@ -11,7 +12,7 @@ export default withLabLayout(function Index() {
 		icon={<AtomizerIcon/>}
 	>
 		<AtomizerInventorySourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<AtomizerInventoryList/>
 		</AtomizerInventorySourceControlProvider>

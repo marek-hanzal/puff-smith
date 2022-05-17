@@ -1,3 +1,4 @@
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {FileList} from "@/puff-smith/site/shared/file/@module/list/FileList";
@@ -11,7 +12,7 @@ export default withRootLayout(function Index() {
 		icon={<FileIcon/>}
 	>
 		<FilesSourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<FileList/>
 		</FilesSourceControlProvider>

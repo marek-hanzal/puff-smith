@@ -1,4 +1,5 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
@@ -28,6 +29,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 		extraSize={AromaIndexMenuWidth}
 	>
 		<MixtureSourceControlProvider
+			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{
 				aromaId: aroma.id,
 			}}

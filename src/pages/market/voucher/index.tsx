@@ -1,4 +1,5 @@
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {VoucherList} from "@/puff-smith/site/market/voucher/@module/list/VoucherList";
@@ -11,7 +12,7 @@ export default withMarketLayout(function Index() {
 		icon={<VoucherIcon/>}
 	>
 		<VoucherSourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				cost: "asc",
 			}}

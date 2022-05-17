@@ -1,4 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerFilter} from "@/puff-smith/site/market/atomizer/@module/filter/AtomizerFilter";
@@ -12,7 +13,7 @@ export default withMarketLayout(function Index() {
 		icon={<AtomizerIcon/>}
 	>
 		<AtomizerSourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				name: "asc",
 			}}

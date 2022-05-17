@@ -1,4 +1,5 @@
 import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu} from "@/puff-smith/site/root/job/@module/menu/JobMenu";
@@ -98,7 +99,7 @@ export default withRootLayout(function Index() {
 		headerPostfix={<JobMenu/>}
 	>
 		<JobSourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{
 				status: config.filter && {
 					in: config.filter,

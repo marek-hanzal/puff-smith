@@ -1,4 +1,5 @@
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BoosterFilter} from "@/puff-smith/site/lab/booster/inventory/@module/filter/BoosterFilter";
@@ -15,7 +16,7 @@ export default withLabLayout(function Index() {
 		icon={<BoosterIcon/>}
 	>
 		<BoosterInventorySourceControlProvider
-			defaultSize={10}
+			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
 				<BoosterInventoryList
