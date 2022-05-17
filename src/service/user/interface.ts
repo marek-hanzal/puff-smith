@@ -38,9 +38,11 @@ export interface IUserServiceCreate extends IServiceCreate {
 }
 
 export interface IUserService extends IRepositoryService<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery> {
-	handleRootUser(userId: string): Promise<void>;
+	handleRootUser(): Promise<void>;
 
-	handleCommonUser(userId: string): Promise<void>;
+	handleCommonUser(): Promise<void>;
 
-	createToken(userId: string, token: string): Promise<void>;
+	createToken(token: string): Promise<void>;
+
+	whoami(): Promise<IUser>;
 }

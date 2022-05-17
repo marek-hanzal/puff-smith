@@ -1,3 +1,4 @@
+import {defaults} from "@/puff-smith/service";
 import {IUserFetchProps} from "@/puff-smith/service/user/interface";
 import {UserService} from "@/puff-smith/service/user/UserService";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
@@ -23,4 +24,4 @@ export default withRootLayout(function Transaction({user}: IUserFetchProps) {
 	</RootPage>;
 });
 
-export const getServerSideProps = UserService().pageFetch("user", "userId");
+export const getServerSideProps = UserService(defaults()).pageFetch("user", "userId");

@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
@@ -37,4 +37,4 @@ export default QueryEndpoint<"Booster", IMixtureQuery, IBooster>(async ({request
 	select: {
 		booster: true,
 	},
-}), ({booster}) => booster!, BoosterService(ServiceCreate(toUserId())).map));
+}), ({booster}) => booster!, BoosterService(defaults(toUserId())).map));

@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
@@ -16,4 +16,4 @@ export default QueryEndpoint<"Draw", IMixtureQuery, ITag>(async ({request: {filt
 	select: {
 		draw: true,
 	}
-}), ({draw}) => draw, TagService(ServiceCreate(toUserId())).map));
+}), ({draw}) => draw, TagService(defaults(toUserId())).map));

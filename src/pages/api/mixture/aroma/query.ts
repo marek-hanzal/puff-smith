@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
@@ -34,4 +34,4 @@ export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request: {f
 	select: {
 		aroma: true,
 	},
-}), ({aroma}) => aroma, AromaService(ServiceCreate(toUserId())).map));
+}), ({aroma}) => aroma, AromaService(defaults(toUserId())).map));

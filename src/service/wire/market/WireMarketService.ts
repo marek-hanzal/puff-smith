@@ -1,10 +1,10 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IWireMarketService, IWireMarketServiceCreate} from "@/puff-smith/service/wire/market/interface";
 import {WireService} from "@/puff-smith/service/wire/WireService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const WireMarketService = (request: IWireMarketServiceCreate = ServiceCreate()): IWireMarketService => {
+export const WireMarketService = (request: IWireMarketServiceCreate = defaults()): IWireMarketService => {
 	const wireService = singletonOf(() => WireService(request));
 	const userId = request.userService.getOptionalUserId();
 

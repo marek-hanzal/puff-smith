@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {ICellService, ICellServiceCreate} from "@/puff-smith/service/cell/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {OhmService} from "@/puff-smith/service/ohm/OhmService";
@@ -7,7 +7,7 @@ import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const CellService = (request: ICellServiceCreate = ServiceCreate()): ICellService => {
+export const CellService = (request: ICellServiceCreate = defaults()): ICellService => {
 	const vendorService = singletonOf(() => VendorService(request));
 	const tagService = singletonOf(() => TagService(request));
 	const codeService = singletonOf(() => CodeService());

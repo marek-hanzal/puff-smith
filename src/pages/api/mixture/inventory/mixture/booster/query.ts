@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBooster, IBoosterQuery} from "@/puff-smith/service/booster/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -25,4 +25,4 @@ export default QueryEndpoint<"Booster", IBoosterQuery, IBooster>(async ({request
 	orderBy: [
 		{name: "asc"},
 	],
-}), item => item, BoosterService(ServiceCreate(toUserId())).map));
+}), item => item, BoosterService(defaults(toUserId())).map));

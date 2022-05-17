@@ -1,5 +1,5 @@
 import {IMixtureJobParams, IMixturesJobParams, IMixtureUserJobParams, MIXTURE_JOB, MIXTURE_USER_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {JobService} from "@/puff-smith/service/job/JobService";
 import {MixtureInventoryService} from "@/puff-smith/service/mixture/inventory/MixtureInventoryService";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
@@ -177,7 +177,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService()
 		where,
 	}));
 
-	const mixtureInventoryService = MixtureInventoryService(ServiceCreate(userId));
+	const mixtureInventoryService = MixtureInventoryService(defaults(userId));
 
 	const $mixtures = (await prisma.mixture.findMany({
 		include: {

@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -33,4 +33,4 @@ export default QueryEndpoint<"Aroma", IAromaQuery, IAroma>(async ({request: {fil
 	orderBy: [
 		{aroma: {name: "asc"}},
 	],
-}), ({aroma}) => aroma, AromaService(ServiceCreate(toUserId())).map));
+}), ({aroma}) => aroma, AromaService(defaults(toUserId())).map));

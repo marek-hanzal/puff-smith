@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
@@ -9,7 +9,7 @@ import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
-export const MixtureService = (request: IMixtureServiceCreate = ServiceCreate()): IMixtureService => {
+export const MixtureService = (request: IMixtureServiceCreate = defaults()): IMixtureService => {
 	const tagService = singletonOf(() => TagService(request));
 	const aromaService = singletonOf(() => AromaService(request));
 	const boosterService = singletonOf(() => BoosterService(request));

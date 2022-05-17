@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {AromaInventoryService} from "@/puff-smith/service/aroma/inventory/AromaInventoryService";
 import {IAromaInventory, IAromaInventoryCreate} from "@/puff-smith/service/aroma/inventory/interface";
 import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
@@ -10,5 +10,5 @@ export default MutationEndpoint<"Create", IAromaInventoryCreate, IAromaInventory
 			request,
 			toUserId,
 		}
-	) => handlePuffiesException(res, async () => AromaInventoryService(ServiceCreate(toUserId())).handleCreate({request}))
+	) => handlePuffiesException(res, async () => AromaInventoryService(defaults(toUserId())).handleCreate({request}))
 );

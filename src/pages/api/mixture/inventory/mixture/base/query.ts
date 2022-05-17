@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -25,4 +25,4 @@ export default QueryEndpoint<"Base", IBaseQuery, IBase>(async ({request: {filter
 	orderBy: [
 		{name: "asc"},
 	],
-}), item => item, BaseService(ServiceCreate(toUserId())).map));
+}), item => item, BaseService(defaults(toUserId())).map));

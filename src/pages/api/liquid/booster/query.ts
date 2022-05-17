@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
@@ -31,4 +31,4 @@ export default QueryEndpoint<"Booster", ILiquidQuery, IBooster>(async ({request:
 	select: {
 		booster: true,
 	},
-}), ({booster}) => booster!, BoosterService(ServiceCreate(toUserId())).map));
+}), ({booster}) => booster!, BoosterService(defaults(toUserId())).map));

@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BoosterInventoryService} from "@/puff-smith/service/booster/inventory/BoosterInventoryService";
 import {IBoosterInventory, IBoosterInventoryCreate} from "@/puff-smith/service/booster/inventory/interface";
 import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
@@ -10,5 +10,5 @@ export default MutationEndpoint<"Create", IBoosterInventoryCreate, IBoosterInven
 			request,
 			toUserId,
 		}
-	) => handlePuffiesException(res, async () => BoosterInventoryService(ServiceCreate(toUserId())).handleCreate({request}))
+	) => handlePuffiesException(res, async () => BoosterInventoryService(defaults(toUserId())).handleCreate({request}))
 );

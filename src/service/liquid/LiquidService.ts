@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILiquidService, ILiquidServiceCreate} from "@/puff-smith/service/liquid/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
@@ -8,7 +8,7 @@ import {TransactionService} from "@/puff-smith/service/transaction/TransactionSe
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const LiquidService = (request: ILiquidServiceCreate = ServiceCreate()): ILiquidService => {
+export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiquidService => {
 	const transactionService = singletonOf(() => TransactionService(request));
 	const mixtureService = singletonOf(() => MixtureService(request));
 	const userId = request.userService.getUserId();

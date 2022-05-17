@@ -1,10 +1,10 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IPriceService, IPriceServiceCreate} from "@/puff-smith/service/price/interface";
 import {TariffService} from "@/puff-smith/service/tariff/TariffService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const PriceService = (request: IPriceServiceCreate = ServiceCreate()): IPriceService => {
+export const PriceService = (request: IPriceServiceCreate = defaults()): IPriceService => {
 	const tariffService = singletonOf(() => TariffService(request));
 
 	const priceOf: IPriceService["priceOf"] = async (tariff, price) => request.prisma.price.findFirst({

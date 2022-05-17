@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ICoilCreate, ICoilService, ICoilServiceCreate} from "@/puff-smith/service/coil/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -6,7 +6,7 @@ import {WireService} from "@/puff-smith/service/wire/WireService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoilService => {
+export const CoilService = (request: ICoilServiceCreate = defaults()): ICoilService => {
 	const wireService = singletonOf(() => WireService(request));
 	const tagService = singletonOf(() => TagService(request));
 	const codeService = singletonOf(() => CodeService());

@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
@@ -7,7 +7,7 @@ import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate = ServiceCreate()): IVoucherInventoryService => {
+export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate = defaults()): IVoucherInventoryService => {
 	const voucherService = singletonOf(() => VoucherService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());

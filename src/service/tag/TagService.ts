@@ -1,8 +1,8 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {ITagService, ITagServiceCreate} from "@/puff-smith/service/tag/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const TagService = (request: ITagServiceCreate = ServiceCreate()): ITagService => {
+export const TagService = (request: ITagServiceCreate = defaults()): ITagService => {
 	return {
 		...RepositoryService<ITagService>({
 			name: "tag",

@@ -1,9 +1,9 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {ITokenService, ITokenServiceCreate} from "@/puff-smith/service/token/interface";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const TokenService = (request: ITokenServiceCreate = ServiceCreate()): ITokenService => {
+export const TokenService = (request: ITokenServiceCreate = defaults()): ITokenService => {
 	const tokenService = singletonOf(() => TokenService(request));
 
 	return {

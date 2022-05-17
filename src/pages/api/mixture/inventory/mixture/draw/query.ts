@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -22,4 +22,4 @@ export default QueryEndpoint<"Draw", IQuery, ITag>(async ({toUserId}) => itemsOf
 	select: {
 		draw: true,
 	}
-}), ({draw}) => draw, TagService(ServiceCreate(toUserId())).map));
+}), ({draw}) => draw, TagService(defaults(toUserId())).map));

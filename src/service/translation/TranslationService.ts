@@ -1,9 +1,9 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {ITranslationService, ITranslationServiceCreate} from "@/puff-smith/service/translation/interface";
 import {sha256} from "@/puff-smith/service/utils/sha256";
 import {handleUniqueException, RepositoryService} from "@leight-core/server";
 
-export const TranslationService = (request: ITranslationServiceCreate = ServiceCreate()): ITranslationService => {
+export const TranslationService = (request: ITranslationServiceCreate = defaults()): ITranslationService => {
 	return RepositoryService<ITranslationService>({
 		name: "translation",
 		source: request.prisma.translation,

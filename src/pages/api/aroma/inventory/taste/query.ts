@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
@@ -23,5 +23,5 @@ export default QueryEndpoint<"Taste", IAromaQuery, ITag>(async ({toUserId}) => {
 		orderBy: [
 			{taste: {sort: "asc"}},
 		],
-	}), ({taste}) => taste, TagService(ServiceCreate(toUserId())).map);
+	}), ({taste}) => taste, TagService(defaults(toUserId())).map);
 });

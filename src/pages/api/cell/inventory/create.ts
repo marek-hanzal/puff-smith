@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CellInventoryService} from "@/puff-smith/service/cell/inventory/CellInventoryService";
 import {ICellInventory, ICellInventoryCreate} from "@/puff-smith/service/cell/inventory/interface";
 import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
@@ -10,5 +10,5 @@ export default MutationEndpoint<"Create", ICellInventoryCreate, ICellInventory>(
 			request,
 			toUserId,
 		}
-	) => handlePuffiesException(res, async () => CellInventoryService(ServiceCreate(toUserId())).handleCreate({request}))
+	) => handlePuffiesException(res, async () => CellInventoryService(defaults(toUserId())).handleCreate({request}))
 );

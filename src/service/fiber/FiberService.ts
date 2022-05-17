@@ -1,10 +1,10 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IFiberService, IFiberServiceCreate} from "@/puff-smith/service/fiber/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const FiberService = (request: IFiberServiceCreate = ServiceCreate()): IFiberService => {
+export const FiberService = (request: IFiberServiceCreate = defaults()): IFiberService => {
 	const tagService = singletonOf(() => TagService(request));
 
 	return {

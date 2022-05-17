@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
@@ -37,4 +37,4 @@ export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request: {fil
 	select: {
 		base: true,
 	},
-}), ({base}) => base!, BaseService(ServiceCreate(toUserId())).map));
+}), ({base}) => base!, BaseService(defaults(toUserId())).map));

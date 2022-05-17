@@ -1,10 +1,10 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IModMarketService, IModMarketServiceCreate} from "@/puff-smith/service/mod/market/interface";
 import {ModService} from "@/puff-smith/service/mod/ModService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const ModMarketService = (request: IModMarketServiceCreate = ServiceCreate()): IModMarketService => {
+export const ModMarketService = (request: IModMarketServiceCreate = defaults()): IModMarketService => {
 	const modService = singletonOf(() => ModService(request));
 	const userId = request.userService.getOptionalUserId();
 

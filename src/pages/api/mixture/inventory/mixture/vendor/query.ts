@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor, IVendorQuery} from "@/puff-smith/service/vendor/interface";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
@@ -19,4 +19,4 @@ export default QueryEndpoint<"Vendor", IVendorQuery, IVendor>(async ({request: {
 	orderBy: [
 		{name: "asc"},
 	],
-}), item => item, VendorService(ServiceCreate(toUserId())).map));
+}), item => item, VendorService(defaults(toUserId())).map));

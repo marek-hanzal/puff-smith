@@ -1,6 +1,6 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {BoosterInventoryService} from "@/puff-smith/service/booster/inventory/BoosterInventoryService";
 import {IBoosterInventory, IBoosterInventoryQuery} from "@/puff-smith/service/booster/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"BoosterInventory", IBoosterInventoryQuery, IBoosterInventory>(async ({request, toUserId}) => BoosterInventoryService(ServiceCreate(toUserId())).handleQuery({request}));
+export default QueryEndpoint<"BoosterInventory", IBoosterInventoryQuery, IBoosterInventory>(async ({request, toUserId}) => BoosterInventoryService(defaults(toUserId())).handleQuery({request}));

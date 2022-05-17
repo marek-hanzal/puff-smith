@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {CottonService} from "@/puff-smith/service/cotton/CottonService";
 import {ICottonInventoryService, ICottonInventoryServiceCreate} from "@/puff-smith/service/cotton/inventory/interface";
@@ -7,7 +7,7 @@ import {TransactionService} from "@/puff-smith/service/transaction/TransactionSe
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const CottonInventoryService = (request: ICottonInventoryServiceCreate = ServiceCreate()): ICottonInventoryService => {
+export const CottonInventoryService = (request: ICottonInventoryServiceCreate = defaults()): ICottonInventoryService => {
 	const cottonService = singletonOf(() => CottonService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());

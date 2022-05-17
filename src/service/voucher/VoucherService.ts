@@ -1,8 +1,8 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {IVoucherService, IVoucherServiceCreate} from "@/puff-smith/service/voucher/interface";
 import {RepositoryService} from "@leight-core/server";
 
-export const VoucherService = (request: IVoucherServiceCreate = ServiceCreate()): IVoucherService => {
+export const VoucherService = (request: IVoucherServiceCreate = defaults()): IVoucherService => {
 	return RepositoryService<IVoucherService>({
 		name: "voucher",
 		source: request.prisma.voucher,

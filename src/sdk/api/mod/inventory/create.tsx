@@ -2,15 +2,10 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ServiceCreate} from "@/puff-smith/service";
 import {IModInventory, IModInventoryCreate} from "@/puff-smith/service/mod/inventory/interface";
-import {ModInventoryService} from "@/puff-smith/service/mod/inventory/ModInventoryService";
-import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
-import {MutationEndpoint} from "@leight-core/server";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {IQueryParams} from "@leight-core/api";
 import {useQueryClient} from "react-query";
-import {Form, IFormProps, ISourceProviderProps, createMutationHook, createPromise, createPromiseHook, createQueryHook, toLink, useSourceContext} from "@leight-core/client";
 
 export const CreateApiLink = "/api/mod/inventory/create";
 

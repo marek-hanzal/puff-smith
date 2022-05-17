@@ -1,11 +1,10 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
 import {ITransactionService, ITransactionServiceCreate} from "@/puff-smith/service/transaction/interface";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const TransactionService = (request: ITransactionServiceCreate = ServiceCreate()): ITransactionService => {
-	const transactionService = singletonOf(() => TransactionService(request));
+export const TransactionService = (request: ITransactionServiceCreate = defaults()): ITransactionService => {
 	const priceService = singletonOf(() => PriceService(request));
 	const userId = request.userService.getUserId();
 
@@ -44,12 +43,13 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 		sum,
 		sumOf,
 		handleTransaction: async ({userId, cost, callback, note}) => {
-			const transaction = await transactionService().create({
+			const transactionService = TransactionService(defaults(userId));
+			const transaction = await transactionService.create({
 				amount: -1 * (cost || 0),
 				note,
 				userId,
 			});
-			(await sumOf()) < 0 && (() => {
+			(await transactionService.sumOf()) < 0 && (() => {
 				throw new Error("Not enough puffies");
 			})();
 			return callback(transaction);

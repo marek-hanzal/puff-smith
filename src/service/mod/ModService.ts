@@ -1,4 +1,4 @@
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {IModService, IModServiceCreate} from "@/puff-smith/service/mod/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -6,7 +6,7 @@ import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const ModService = (request: IModServiceCreate = ServiceCreate()): IModService => {
+export const ModService = (request: IModServiceCreate = defaults()): IModService => {
 	const vendorService = singletonOf(() => VendorService(request));
 	const tagService = singletonOf(() => TagService(request));
 	const codeService = singletonOf(() => CodeService());

@@ -1,5 +1,5 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
-import {ServiceCreate} from "@/puff-smith/service";
+import {defaults} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
@@ -22,7 +22,7 @@ import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
-const serviceCreate = ServiceCreate();
+const serviceCreate = defaults();
 const importHandlers = {
 	...AromaService(serviceCreate).importers(),
 	...AtomizerService(serviceCreate).importers(),
