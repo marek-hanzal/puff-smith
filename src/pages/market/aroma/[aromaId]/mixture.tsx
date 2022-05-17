@@ -1,6 +1,7 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {TransComponents} from "@/puff-smith/component/Trans";
+import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -67,4 +68,4 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	</MarketPage>;
 });
 
-export const getServerSideProps = AromaService().pageFetch("aroma", "aromaId");
+export const getServerSideProps = AromaService(ServiceCreate()).pageFetch("aroma", "aromaId");

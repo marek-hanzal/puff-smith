@@ -1,4 +1,3 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {FiberService} from "@/puff-smith/service/fiber/FiberService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -9,7 +8,7 @@ import {RepositoryService} from "@leight-core/server";
 import {boolean} from "boolean";
 import YAML from "yaml";
 
-export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWireService => {
+export const WireService = (request: IWireServiceCreate): IWireService => {
 	const fiberService = singletonOf(() => FiberService(request));
 	const vendorService = singletonOf(() => VendorService(request));
 	const tagService = singletonOf(() => TagService(request));

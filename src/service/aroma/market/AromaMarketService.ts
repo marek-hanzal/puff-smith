@@ -1,10 +1,9 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaMarketService, IAromaMarketServiceCreate} from "@/puff-smith/service/aroma/market/interface";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const AromaMarketService = (request: IAromaMarketServiceCreate = ServiceCreate()): IAromaMarketService => {
+export const AromaMarketService = (request: IAromaMarketServiceCreate): IAromaMarketService => {
 	const aromaService = singletonOf(() => AromaService(request));
 	const userId = request.userService.getOptionalUserId();
 

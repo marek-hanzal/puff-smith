@@ -1,10 +1,9 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBaseMarketService, IBaseMarketServiceCreate} from "@/puff-smith/service/base/market/interface";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const BaseMarketService = (request: IBaseMarketServiceCreate = ServiceCreate()): IBaseMarketService => {
+export const BaseMarketService = (request: IBaseMarketServiceCreate): IBaseMarketService => {
 	const baseService = singletonOf(() => BaseService(request));
 	const userId = request.userService.getOptionalUserId();
 

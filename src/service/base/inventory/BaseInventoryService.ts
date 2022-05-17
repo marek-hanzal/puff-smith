@@ -1,5 +1,4 @@
 import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
-import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBaseInventoryService, IBaseInventoryServiceCreate} from "@/puff-smith/service/base/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -8,7 +7,7 @@ import {TransactionService} from "@/puff-smith/service/transaction/TransactionSe
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const BaseInventoryService = (request: IBaseInventoryServiceCreate = ServiceCreate()): IBaseInventoryService => {
+export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBaseInventoryService => {
 	const baseService = singletonOf(() => BaseService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());

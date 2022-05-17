@@ -1,4 +1,3 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {IBoosterService, IBoosterServiceCreate} from "@/puff-smith/service/booster/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
@@ -6,7 +5,7 @@ import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
-export const BoosterService = (request: IBoosterServiceCreate = ServiceCreate()) => {
+export const BoosterService = (request: IBoosterServiceCreate) => {
 	const codeService = singletonOf(() => CodeService());
 	const vendorService = singletonOf(() => VendorService(request));
 

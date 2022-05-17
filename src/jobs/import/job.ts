@@ -1,4 +1,5 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
+import {ServiceCreate} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
@@ -21,23 +22,24 @@ import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
+const serviceCreate = ServiceCreate();
 const importHandlers = {
-	...AromaService().importers(),
-	...AtomizerService().importers(),
-	...BaseService().importers(),
-	...BoosterService().importers(),
-	...CellService().importers(),
-	...CoilService().importers(),
-	...CottonService().importers(),
-	...FiberService().importers(),
-	...ModService().importers(),
-	...PriceService().importers(),
-	...TagService().importers(),
-	...TariffService().importers(),
-	...TranslationService().importers(),
-	...VendorService().importers(),
-	...VoucherService().importers(),
-	...WireService().importers(),
+	...AromaService(serviceCreate).importers(),
+	...AtomizerService(serviceCreate).importers(),
+	...BaseService(serviceCreate).importers(),
+	...BoosterService(serviceCreate).importers(),
+	...CellService(serviceCreate).importers(),
+	...CoilService(serviceCreate).importers(),
+	...CottonService(serviceCreate).importers(),
+	...FiberService(serviceCreate).importers(),
+	...ModService(serviceCreate).importers(),
+	...PriceService(serviceCreate).importers(),
+	...TagService(serviceCreate).importers(),
+	...TariffService(serviceCreate).importers(),
+	...TranslationService(serviceCreate).importers(),
+	...VendorService(serviceCreate).importers(),
+	...VoucherService(serviceCreate).importers(),
+	...WireService(serviceCreate).importers(),
 };
 
 export const ImportJob: IJobProcessor<IImportJobParams> = JobService().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {

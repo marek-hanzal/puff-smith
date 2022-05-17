@@ -1,4 +1,3 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {IAromaService, IAromaServiceCreate} from "@/puff-smith/service/aroma/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -7,7 +6,7 @@ import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 import deepmerge from "deepmerge";
 
-export const AromaService = (request: IAromaServiceCreate = ServiceCreate()): IAromaService => {
+export const AromaService = (request: IAromaServiceCreate): IAromaService => {
 	const codeService = singletonOf(() => CodeService());
 	const tagService = singletonOf(() => TagService(request));
 	const vendorService = singletonOf(() => VendorService(request));

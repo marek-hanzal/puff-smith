@@ -1,4 +1,3 @@
-import {ServiceCreate} from "@/puff-smith/service";
 import {IAtomizerService, IAtomizerServiceCreate} from "@/puff-smith/service/atomizer/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
@@ -7,7 +6,7 @@ import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 import {boolean} from "boolean";
 
-export const AtomizerService = (request: IAtomizerServiceCreate = ServiceCreate()) => {
+export const AtomizerService = (request: IAtomizerServiceCreate) => {
 	const vendorService = singletonOf(() => VendorService(request));
 	const tagService = singletonOf(() => TagService(request));
 	const codeService = singletonOf(() => CodeService());
