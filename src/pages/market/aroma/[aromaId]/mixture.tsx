@@ -26,7 +26,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 	const filterContext = useFilterContext();
 	return filterContext.isEmpty() ?
 		<Template
-			style={{marginTop: "1em"}}
+			style={{marginTop: "0em"}}
 			icon={<MixtureIcon/>}
 			label={"market.aroma.mixture.filter"}
 			span={12}
