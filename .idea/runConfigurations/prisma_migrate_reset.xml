@@ -6,9 +6,7 @@
       <script value="prisma migrate reset" />
     </scripts>
     <node-interpreter value="project" />
-    <envs>
-      <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
-    </envs>
+    <envs />
     <method v="2" />
   </configuration>
 </component>

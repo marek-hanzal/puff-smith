@@ -13,7 +13,11 @@ const jobService = JobService();
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
 	await jobProgress.setTotal(await prisma.aroma.count());
-	for (const aroma of await prisma.aroma.findMany()) {
+	for (const aroma of await prisma.aroma.findMany({
+		orderBy: {
+			name: "asc",
+		}
+	})) {
 		if (aroma.volume && aroma.content < aroma.volume) {
 			await progress(async () => MixtureJob.async({
 				aromaId: aroma.id,
@@ -87,21 +91,27 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	 * this mixture is already generated and valid.
 	 */
 	const $queue = new PQueue({
-		concurrency: 5,
-		intervalCap: 5,
-		interval: 250,
+		concurrency: 15,
+		intervalCap: 15,
+		interval: 75,
 	});
-	for (const booster of await prisma.booster.findMany()) {
-		for (const base of await prisma.base.findMany()) {
+	for (const booster of await prisma.booster.findMany({
+		orderBy: {
+			nicotine: "asc",
+		},
+	})) {
+		for (const base of await prisma.base.findMany({
+			orderBy: {
+				vg: "desc",
+			}
+		})) {
 			for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-				await $queue.add(async () => {
-					await progress(async () => createMixture(await toMixtureInfo({
-						nicotine,
-						aroma,
-						booster,
-						base,
-					})));
-				});
+				await $queue.add(async () => progress(async () => createMixture(await toMixtureInfo({
+					nicotine,
+					aroma,
+					booster,
+					base,
+				}))));
 			}
 		}
 	}
@@ -185,6 +195,6 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService()
 			boosterId,
 			baseId,
 			mixtureId: id,
-		}), 250);
+		}), 125);
 	}
 });

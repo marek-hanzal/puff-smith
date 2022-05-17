@@ -5,20 +5,25 @@ import {BootstrapLogger} from "@leight-core/server";
 import {collectDefaultMetrics, register} from "prom-client";
 
 const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") => {
-	BootstrapLogger([
-		"job",
-		"service",
-		"endpoint",
-		"auth",
-		"query",
-		"fixtures",
-		COIL_JOB,
-		COILS_JOB,
-		IMPORT_JOB,
-		MIXTURE_JOB,
-		MIXTURES_JOB,
-		MIXTURE_USER_JOB,
-	], version);
+	BootstrapLogger({
+		loggers: [
+			"job",
+			"service",
+			"endpoint",
+			"auth",
+			"query",
+			"fixtures",
+			COIL_JOB,
+			COILS_JOB,
+			IMPORT_JOB,
+			MIXTURE_JOB,
+			MIXTURES_JOB,
+			MIXTURE_USER_JOB,
+		],
+		version,
+		withLoki: false,
+		level: "info",
+	});
 	try {
 		register.setDefaultLabels({
 			app: "puff-smith",

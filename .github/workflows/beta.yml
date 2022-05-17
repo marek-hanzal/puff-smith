@@ -119,7 +119,6 @@ jobs:
                     script: |
                         cd /opt/app/.docker/beta
 
-                        echo BOUNCER_URL="${{ secrets.BOUNCER_URL }}" >> .env
                         echo DATABASE_URL="${{ secrets.DATABASE_URL }}" >> .env
                         echo NEXTAUTH_GITHUB_CLIENT_ID="${{ secrets.NEXTAUTH_GITHUB_CLIENT_ID }}" >> .env
                         echo NEXTAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }}" >> .env
