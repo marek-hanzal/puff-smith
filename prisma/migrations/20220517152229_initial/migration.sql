@@ -237,6 +237,7 @@ CREATE TABLE "AtomizerComment" (
 -- CreateTable
 CREATE TABLE "AtomizerInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "atomizerId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -304,6 +305,7 @@ CREATE TABLE "ModCell" (
 -- CreateTable
 CREATE TABLE "ModInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "modId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -343,6 +345,7 @@ CREATE TABLE "CottonDraw" (
 -- CreateTable
 CREATE TABLE "CottonInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "cottonId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -418,6 +421,7 @@ CREATE TABLE "AromaComment" (
 CREATE TABLE "AromaInventory" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
 
@@ -442,6 +446,7 @@ CREATE TABLE "Booster" (
 -- CreateTable
 CREATE TABLE "BoosterInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "boosterId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -465,6 +470,7 @@ CREATE TABLE "Base" (
 -- CreateTable
 CREATE TABLE "BaseInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "baseId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -587,6 +593,7 @@ CREATE TABLE "Wire" (
 -- CreateTable
 CREATE TABLE "WireInventory" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "wireId" TEXT NOT NULL,
     "transactionId" TEXT NOT NULL,
@@ -661,6 +668,9 @@ CREATE UNIQUE INDEX "Atomizer_code_key" ON "Atomizer"("code");
 CREATE UNIQUE INDEX "Atomizer_name_vendorId_key" ON "Atomizer"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "AtomizerInventory_code_key" ON "AtomizerInventory"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Cell_code_key" ON "Cell"("code");
 
 -- CreateIndex
@@ -676,10 +686,16 @@ CREATE UNIQUE INDEX "Mod_code_key" ON "Mod"("code");
 CREATE UNIQUE INDEX "Mod_name_vendorId_key" ON "Mod"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "ModInventory_code_key" ON "ModInventory"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Cotton_code_key" ON "Cotton"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cotton_name_vendorId_key" ON "Cotton"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "CottonInventory_code_key" ON "CottonInventory"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Voucher_name_key" ON "Voucher"("name");
@@ -694,16 +710,25 @@ CREATE UNIQUE INDEX "Aroma_code_key" ON "Aroma"("code");
 CREATE UNIQUE INDEX "Aroma_name_vendorId_key" ON "Aroma"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "AromaInventory_code_key" ON "AromaInventory"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Booster_code_key" ON "Booster"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Booster_name_vendorId_key" ON "Booster"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "BoosterInventory_code_key" ON "BoosterInventory"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Base_code_key" ON "Base"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Base_name_vendorId_key" ON "Base"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BaseInventory_code_key" ON "BaseInventory"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
@@ -731,6 +756,9 @@ CREATE UNIQUE INDEX "Wire_code_key" ON "Wire"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Wire_name_vendorId_key" ON "Wire"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "WireInventory_code_key" ON "WireInventory"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Fiber_code_key" ON "Fiber"("code");

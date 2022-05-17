@@ -7,10 +7,12 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IWireInventoryCreate {
 	wireId: string;
+	code?: string;
 }
 
 export interface IWireInventory {
 	id: string;
+	code: string;
 	wire: IWire;
 	wireId: string;
 	transaction: ITransaction;
