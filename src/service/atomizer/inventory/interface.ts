@@ -7,10 +7,12 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IAtomizerInventoryCreate {
 	atomizerId: string;
+	code?: string;
 }
 
 export interface IAtomizerInventory {
 	id: string;
+	code: string;
 	atomizer: IAtomizer;
 	atomizerId: string;
 	transaction: ITransaction;

@@ -204,6 +204,7 @@ CREATE TABLE "Transaction" (
 CREATE TABLE "Atomizer" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "typeId" TEXT NOT NULL,
     "coilMin" DOUBLE PRECISION,
@@ -247,6 +248,7 @@ CREATE TABLE "AtomizerInventory" (
 CREATE TABLE "Cell" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "voltage" DOUBLE PRECISION NOT NULL,
     "drain" DOUBLE PRECISION,
     "ohm" DOUBLE PRECISION,
@@ -281,6 +283,7 @@ CREATE TABLE "CellComment" (
 CREATE TABLE "Mod" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
     "voltage" DOUBLE PRECISION NOT NULL,
@@ -321,6 +324,7 @@ CREATE TABLE "ModComment" (
 CREATE TABLE "Cotton" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
 
@@ -380,6 +384,7 @@ CREATE TABLE "VoucherInventory" (
 CREATE TABLE "Aroma" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
     "content" DOUBLE PRECISION NOT NULL,
     "volume" DOUBLE PRECISION,
@@ -423,6 +428,7 @@ CREATE TABLE "AromaInventory" (
 CREATE TABLE "Booster" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
     "volume" DOUBLE PRECISION NOT NULL,
     "nicotine" INTEGER NOT NULL,
@@ -447,6 +453,7 @@ CREATE TABLE "BoosterInventory" (
 CREATE TABLE "Base" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "cost" DOUBLE PRECISION NOT NULL,
     "pg" INTEGER NOT NULL,
     "vg" INTEGER NOT NULL,
@@ -486,6 +493,7 @@ CREATE TABLE "Liquid" (
 CREATE TABLE "Mixture" (
     "id" TEXT NOT NULL,
     "hash" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "volume" DOUBLE PRECISION NOT NULL,
     "content" DOUBLE PRECISION NOT NULL,
     "available" DOUBLE PRECISION NOT NULL,
@@ -534,6 +542,7 @@ CREATE TABLE "MixtureInventory" (
 -- CreateTable
 CREATE TABLE "Build" (
     "id" TEXT NOT NULL,
+    "code" TEXT NOT NULL,
     "created" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
 
@@ -646,7 +655,13 @@ CREATE UNIQUE INDEX "Vendor_name_key" ON "Vendor"("name");
 CREATE UNIQUE INDEX "Tariff_code_key" ON "Tariff"("code");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Atomizer_code_key" ON "Atomizer"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Atomizer_name_vendorId_key" ON "Atomizer"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Cell_code_key" ON "Cell"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cell_name_vendorId_key" ON "Cell"("name", "vendorId");
@@ -655,7 +670,13 @@ CREATE UNIQUE INDEX "Cell_name_vendorId_key" ON "Cell"("name", "vendorId");
 CREATE UNIQUE INDEX "CellInventory_code_key" ON "CellInventory"("code");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Mod_code_key" ON "Mod"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Mod_name_vendorId_key" ON "Mod"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Cotton_code_key" ON "Cotton"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cotton_name_vendorId_key" ON "Cotton"("name", "vendorId");
@@ -667,10 +688,19 @@ CREATE UNIQUE INDEX "Voucher_name_key" ON "Voucher"("name");
 CREATE UNIQUE INDEX "VoucherInventory_code_key" ON "VoucherInventory"("code");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Aroma_code_key" ON "Aroma"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Aroma_name_vendorId_key" ON "Aroma"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Booster_code_key" ON "Booster"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Booster_name_vendorId_key" ON "Booster"("name", "vendorId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Base_code_key" ON "Base"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Base_name_vendorId_key" ON "Base"("name", "vendorId");
@@ -682,7 +712,13 @@ CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
 CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Mixture_code_key" ON "Mixture"("code");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "MixtureInventory_userId_mixtureId_key" ON "MixtureInventory"("userId", "mixtureId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Build_code_key" ON "Build"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Coil_code_key" ON "Coil"("code");

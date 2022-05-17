@@ -1,18 +1,22 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {IVendorService, IVendorServiceCreate} from "@/puff-smith/service/vendor/interface";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const VendorService = (request: IVendorServiceCreate = ServiceCreate()): IVendorService => ({
+export const VendorService = (request: IVendorServiceCreate = ServiceCreate()): IVendorService => {
+	const vendorService = singletonOf(() => VendorService(request));
+
+	return {
 		...RepositoryService<IVendorService>({
 			name: "vendor",
 			source: request.prisma.vendor,
 			mapper: async vendor => vendor,
-			create: async create => request.prisma.vendor.create({
-				data: create,
+			create: async vendor => request.prisma.vendor.create({
+				data: vendor,
 			}),
-			onUnique: create => request.prisma.vendor.findFirst({
+			onUnique: vendor => request.prisma.vendor.findFirst({
 				where: {
-					name: create.name,
+					name: vendor.name,
 				},
 				rejectOnNotFound: true,
 			}),
@@ -32,10 +36,10 @@ export const VendorService = (request: IVendorServiceCreate = ServiceCreate()): 
 		},
 		fetchByReferenceOptional: async fetch => {
 			try {
-				return await VendorService(request).fetchByReference(fetch);
+				return await vendorService().fetchByReference(fetch);
 			} catch (e) {
 				return undefined;
 			}
 		}
-	}
-);
+	};
+};

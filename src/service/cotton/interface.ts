@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface ICottonCreate {
 	name: string;
+	code?: string;
 	vendor: string;
 	draws?: string;
 	cost: number;
@@ -20,6 +21,7 @@ export interface ICottonQuery extends IQuery<ICottonWhere, Prisma.CottonOrderByW
 export interface ICotton {
 	id: string;
 	name: string;
+	code: string;
 	vendor: IVendor;
 	vendorId: string;
 	draws: ITag[];

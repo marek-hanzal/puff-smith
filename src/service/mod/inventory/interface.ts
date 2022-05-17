@@ -7,10 +7,12 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IModInventoryCreate {
 	modId: string;
+	code?: string;
 }
 
 export interface IModInventory {
 	id: string;
+	code: string;
 	mod: IMod;
 	modId: string;
 	transaction: ITransaction;

@@ -1,15 +1,18 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {IMixtureMarketService, IMixtureMarketServiceCreate} from "@/puff-smith/service/mixture/market/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const MixtureMarketService = (request: IMixtureMarketServiceCreate = ServiceCreate()): IMixtureMarketService => {
+	const mixtureService = singletonOf(() => MixtureService(request));
 	const userId = request.userService.getOptionalUserId();
+
 	return RepositoryService<IMixtureMarketService>({
 		name: "mixture-market",
 		source: request.prisma.mixture,
 		mapper: async entity => ({
-			mixture: await MixtureService(request).map(entity),
+			mixture: await mixtureService().map(entity),
 			booster: {
 				isOwned: userId && entity.boosterId ? (await request.prisma.boosterInventory.count({
 					where: {
@@ -27,7 +30,7 @@ export const MixtureMarketService = (request: IMixtureMarketServiceCreate = Serv
 				})) > 0 : undefined,
 			},
 		}),
-		toFilter: MixtureService(request).toFilter,
+		toFilter: filter => mixtureService().toFilter(filter),
 		create: async () => {
 			throw new Error("Invalid operation: read-only repository.");
 		},

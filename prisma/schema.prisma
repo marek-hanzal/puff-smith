@@ -272,6 +272,7 @@ model Transaction {
 model Atomizer {
   id           String         @id @default(cuid())
   name         String
+  code         String         @unique
   vendorId     String
   vendor       Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   typeId       String
@@ -307,6 +308,7 @@ model AtomizerComment {
 
 model AtomizerInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   atomizerId    String
@@ -318,6 +320,7 @@ model AtomizerInventory {
 model Cell {
   id       String @id @default(cuid())
   name     String
+  code     String @unique
   voltage  Float
   drain    Float?
   ohm      Float?
@@ -355,6 +358,7 @@ model CellComment {
 model Mod {
   id       String @id @default(cuid())
   name     String
+  code     String @unique
   vendorId String
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   cost     Float
@@ -378,6 +382,7 @@ model ModCell {
 
 model ModInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   modId         String
@@ -397,6 +402,7 @@ model ModComment {
 model Cotton {
   id              String            @id @default(cuid())
   name            String
+  code            String            @unique
   vendorId        String
   vendor          Vendor            @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   cost            Float
@@ -417,6 +423,7 @@ model CottonDraw {
 
 model CottonInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   cottonId      String
@@ -456,6 +463,7 @@ model VoucherInventory {
 model Aroma {
   id       String @id @default(cuid())
   name     String
+  code     String @unique
   cost     Float
   content  Float
   volume   Float?
@@ -495,6 +503,7 @@ model AromaInventory {
   id            String      @id @default(cuid())
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code          String      @unique
   aromaId       String
   aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   transactionId String
@@ -504,6 +513,7 @@ model AromaInventory {
 model Booster {
   id       String @id @default(cuid())
   name     String
+  code     String @unique
   cost     Float
   volume   Float
   nicotine Int
@@ -522,6 +532,7 @@ model Booster {
 
 model BoosterInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   boosterId     String
@@ -533,6 +544,7 @@ model BoosterInventory {
 model Base {
   id       String @id @default(cuid())
   name     String
+  code     String @unique
   cost     Float
   pg       Int
   vg       Int
@@ -549,6 +561,7 @@ model Base {
 
 model BaseInventory {
   id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   baseId        String
@@ -582,6 +595,7 @@ model Mixture {
   id              String        @id @default(cuid())
   // application based unique hash; main goal is a simple ability to update mixtures based on this hash
   hash            String        @unique
+  code            String        @unique
   // total size of a bottle
   volume          Float
   // amount of liquid in a bottle
@@ -655,6 +669,7 @@ enum MixtureError {
 
 model Build {
   id      String   @id @default(cuid())
+  code    String   @unique
   created DateTime
   userId  String
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)

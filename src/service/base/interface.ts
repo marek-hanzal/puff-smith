@@ -6,6 +6,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IBaseCreate {
 	name: string;
+	code?: string;
 	cost: number;
 	pg: number;
 	vg: number;
@@ -20,6 +21,7 @@ export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRel
 export interface IBase {
 	id: string;
 	name: string;
+	code: string;
 	cost: number;
 	pg: number;
 	vg: number;

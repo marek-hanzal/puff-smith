@@ -6,6 +6,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IBoosterCreate {
 	name: string;
+	code?: string;
 	vendor: string;
 	cost: number;
 	pg: number;
@@ -22,6 +23,7 @@ export interface IBoosterQuery extends IQuery<IBoosterWhere, Prisma.BoosterOrder
 export interface IBooster {
 	id: string;
 	name: string;
+	code: string;
 	vendor: IVendor;
 	vendorId: string;
 	cost: number;

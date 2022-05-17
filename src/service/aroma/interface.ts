@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IAromaCreate {
 	name: string;
+	code?: string;
 	vendor: string;
 	cost: number;
 	pg: number;
@@ -25,6 +26,7 @@ export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWith
 export interface IAroma {
 	id: string;
 	name: string;
+	code: string;
 	vendor: IVendor;
 	vendorId: string;
 	cost: number;

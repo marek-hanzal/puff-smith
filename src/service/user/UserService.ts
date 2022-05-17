@@ -4,23 +4,30 @@ import {TokenService} from "@/puff-smith/service/token/TokenService";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
 import {IUserService, IUserServiceCreate} from "@/puff-smith/service/user/interface";
 import {UserTokenService} from "@/puff-smith/service/user/token/UserTokenService";
+import {singletonOf} from "@leight-core/client";
 import {handleUniqueException, RepositoryService, toFulltext} from "@leight-core/server";
+import deepmerge from "deepmerge";
 
 export const UserService = (request: IUserServiceCreate = ServiceCreate()): IUserService => {
-	const service: IUserService = {
+	const userService = singletonOf(() => UserService(request));
+	const tokenService = singletonOf(() => TokenService(request));
+	const userTokenService = singletonOf(() => UserTokenService(request));
+	const transactionService = singletonOf(() => TransactionService(request));
+	const priceService = singletonOf(() => PriceService(request));
+
+	return {
 		...RepositoryService<IUserService>({
 			name: "user",
 			source: request.prisma.user,
 			mapper: async ({emailVerified, ...user}) => {
-				const tokens = await TokenService().tokensOf(user.id);
+				const tokens = await tokenService().tokensOf(user.id);
 				return {
 					...user,
 					tokens,
 					tokenIds: tokens.map(token => token.id),
 				};
 			},
-			toFilter: ({fulltext, ...filter} = {}) => ({
-				...filter,
+			toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
 				...toFulltext(fulltext, ["name", "email"]),
 			}),
 			create: async create => request.prisma.user.create({
@@ -28,65 +35,63 @@ export const UserService = (request: IUserServiceCreate = ServiceCreate()): IUse
 			})
 		}),
 		async handleRootUser(userId: string) {
-			await TransactionService(request).create({
+			await transactionService().create({
 				userId,
-				amount: await PriceService(request).amountOf("default", "welcome-gift.root", 1000000),
+				amount: await priceService().amountOf("default", "welcome-gift.root", 1000000),
 				note: "Welcome gift for the Root User!",
 			});
 			await Promise.all([
-				service.createToken(
+				userService().createToken(
 					userId,
 					"site.root"
 				),
-				service.createToken(
+				userService().createToken(
 					userId,
 					"*"
 				)
 			]);
 		},
 		async handleCommonUser(userId: string) {
-			await TransactionService(request).create({
+			await transactionService().create({
 				userId,
-				amount: await PriceService(request).amountOf("default", "welcome-gift.user", 250),
+				amount: await priceService().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
 			await Promise.all([
-				service.createToken(
+				userService().createToken(
 					userId,
 					"user"
 				),
-				service.createToken(
+				userService().createToken(
 					userId,
 					"site.lab"
 				),
-				service.createToken(
+				userService().createToken(
 					userId,
 					"site.market"
 				),
-				service.createToken(
+				userService().createToken(
 					userId,
 					"/lab*"
 				),
-				service.createToken(
+				userService().createToken(
 					userId,
 					"/market*"
 				)
 			]);
 		},
 		createToken: async (userId, token) => {
-			const _token = await TokenService(request).create({
+			const $token = await tokenService().create({
 				name: token,
 			});
 			try {
-				await UserTokenService(request).create({
+				await userTokenService().create({
 					userId,
-					tokenId: _token.id,
+					tokenId: $token.id,
 				});
 			} catch (e) {
 				return handleUniqueException(e, async () => undefined);
 			}
 		}
 	};
-
-	return service;
 };

@@ -7,10 +7,12 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface ICottonInventoryCreate {
 	cottonId: string;
+	code?: string;
 }
 
 export interface ICottonInventory {
 	id: string;
+	code: string;
 	cotton: ICotton;
 	cottonId: string;
 	transaction: ITransaction;

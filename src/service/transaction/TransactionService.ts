@@ -1,9 +1,12 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
 import {ITransactionService, ITransactionServiceCreate} from "@/puff-smith/service/transaction/interface";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const TransactionService = (request: ITransactionServiceCreate = ServiceCreate()): ITransactionService => {
+	const transactionService = singletonOf(() => TransactionService(request));
+
 	const sum: ITransactionService["sum"] = async query => (await request.prisma.transaction.aggregate({
 		where: query.filter,
 		orderBy: query.orderBy,
@@ -20,7 +23,7 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 		}
 	});
 
-	const service: ITransactionService = {
+	return {
 		...RepositoryService<ITransactionService>({
 			name: "transaction",
 			source: request.prisma.transaction,
@@ -39,7 +42,7 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 		sum,
 		sumOf,
 		handleTransaction: async ({userId, cost, callback, note}) => {
-			const transaction = await service.create({
+			const transaction = await transactionService().create({
 				amount: -1 * (cost || 0),
 				note,
 				userId,
@@ -50,14 +53,12 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 			return callback(transaction);
 		},
 		check: async ({userId, price, tariff}) => {
-			const _sum = sumOf(userId);
-			const _price = await PriceService(request).priceOf(tariff || "default", price);
+			const $sum = sumOf(userId);
+			const $price = await PriceService(request).priceOf(tariff || "default", price);
 			return {
-				price: _price.price.toNumber(),
-				pass: (await _sum) >= _price.price.toNumber(),
+				price: $price.price.toNumber(),
+				pass: (await $sum) >= $price.price.toNumber(),
 			};
 		}
 	};
-
-	return service;
 };

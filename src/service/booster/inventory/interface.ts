@@ -6,12 +6,13 @@ import {BoosterInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IBoosterInventoryCreate {
-	code?: string;
 	boosterId: string;
+	code?: string;
 }
 
 export interface IBoosterInventory {
 	id: string;
+	code: string;
 	booster: IBooster;
 	boosterId: string;
 	transaction: ITransaction;

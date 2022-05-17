@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IModCreate {
 	name: string;
+	code?: string;
 	vendor: string;
 	cells: string;
 	cost: number;
@@ -17,6 +18,7 @@ export interface IModCreate {
 export interface IMod {
 	id: string;
 	name: string;
+	code: string;
 	vendor: IVendor;
 	vendorId: string;
 	cells: ITag[];

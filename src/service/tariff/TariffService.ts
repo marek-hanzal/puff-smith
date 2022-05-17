@@ -3,72 +3,74 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {PriceService} from "@/puff-smith/service/price/PriceService";
 import {ITariffService, ITariffServiceCreate} from "@/puff-smith/service/tariff/interface";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {handleUniqueException, RepositoryService} from "@leight-core/server";
+import {singletonOf} from "@leight-core/client";
+import {RepositoryService} from "@leight-core/server";
 import {Price} from "@prisma/client";
 
-export const TariffService = (request: ITariffServiceCreate = ServiceCreate()): ITariffService => ({
-	...RepositoryService<ITariffService>({
-		name: "tariff",
-		source: request.prisma.tariff,
-		mapper: async tariff => ({
-			...tariff,
-			from: tariff.from?.toUTCString(),
-			to: tariff.to?.toUTCString(),
-			created: tariff.created.toUTCString(),
-		}),
-		create: async create => {
-			const code: string = create.code || CodeService().code();
-			try {
+export const TariffService = (request: ITariffServiceCreate = ServiceCreate()): ITariffService => {
+	const priceService = singletonOf(() => PriceService(request));
+	const transactionService = singletonOf(() => TransactionService(request));
+	const codeService = singletonOf(() => CodeService());
+
+	return {
+		...RepositoryService<ITariffService>({
+			name: "tariff",
+			source: request.prisma.tariff,
+			mapper: async tariff => ({
+				...tariff,
+				from: tariff.from?.toUTCString(),
+				to: tariff.to?.toUTCString(),
+				created: tariff.created.toUTCString(),
+			}),
+			create: async tariff => {
+				tariff.code = tariff.code || codeService().code();
 				return await request.prisma.tariff.create({
 					data: {
-						...create,
-						code,
-						from: create.from ? new Date(create.from) : undefined,
-						to: create.to ? new Date(create.to) : undefined,
+						...tariff,
+						code: tariff.code,
+						from: tariff.from ? new Date(tariff.from) : undefined,
+						to: tariff.to ? new Date(tariff.to) : undefined,
 						created: new Date(),
 					},
 				});
-			} catch (e) {
-				return handleUniqueException(e, async () => request.prisma.tariff.update({
-					where: {
-						id: (await request.prisma.tariff.findFirst({
-							where: {
-								code,
-							},
-							rejectOnNotFound: true,
-						})).id,
-					},
-					data: {
-						...create,
-						from: create.from ? new Date(create.from) : null,
-						to: create.to ? new Date(create.to) : null,
-					},
-				}));
-			}
-		},
-	}),
-	transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
-		const priceService = PriceService(request);
-		const transactionService = TransactionService(request);
-		let _price: Price;
-		try {
-			_price = await priceService.priceOf(tariff, price);
-		} catch (e) {
-			if (!fallback) {
-				throw e;
-			}
-			_price = await priceService.priceOf(fallback, price);
-		}
-		return transactionService.handleTransaction({
-			userId,
-			cost: _price.price.toNumber(),
-			callback: async transaction => callback(await request.prisma.tariff.findFirst({
+			},
+			onUnique: async tariff => request.prisma.tariff.update({
 				where: {
-					id: _price.tariffId,
+					id: (await request.prisma.tariff.findUnique({
+						where: {
+							code: tariff.code,
+						},
+						rejectOnNotFound: true,
+					})).id,
 				},
-				rejectOnNotFound: true,
-			}), transaction),
-			note
-		});
-	}
-});
+				data: {
+					...tariff,
+					from: tariff.from ? new Date(tariff.from) : null,
+					to: tariff.to ? new Date(tariff.to) : null,
+				},
+			}),
+		}),
+		transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
+			let $price: Price;
+			try {
+				$price = await priceService().priceOf(tariff, price);
+			} catch (e) {
+				if (!fallback) {
+					throw e;
+				}
+				$price = await priceService().priceOf(fallback, price);
+			}
+			return transactionService().handleTransaction({
+				userId,
+				cost: $price.price.toNumber(),
+				callback: async transaction => callback(await request.prisma.tariff.findFirst({
+					where: {
+						id: $price.tariffId,
+					},
+					rejectOnNotFound: true,
+				}), transaction),
+				note
+			});
+		}
+	};
+};

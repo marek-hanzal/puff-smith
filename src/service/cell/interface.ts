@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface ICellCreate {
 	name: string;
+	code?: string;
 	vendor: string;
 	voltage: number;
 	cost: number;
@@ -23,6 +24,7 @@ export interface ICellQuery extends IQuery<ICellWhere, Prisma.CellOrderByWithRel
 export interface ICell {
 	id: string;
 	name: string;
+	code: string;
 	vendor: IVendor;
 	vendorId: string;
 	voltage: number;

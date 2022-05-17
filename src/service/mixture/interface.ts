@@ -10,6 +10,7 @@ import {ParsedUrlQuery} from "querystring";
 export type IMixtureError = "LESS" | "MORE" | "FULL";
 
 export interface IMixtureCreate {
+	code?: string;
 	aromaId: string;
 	boosterId?: string;
 	boosterCount: number;
@@ -35,6 +36,7 @@ export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrder
 
 export interface IMixture {
 	id: string;
+	code: string;
 	content: number;
 	volume: number;
 	diff: number;

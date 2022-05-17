@@ -3,17 +3,21 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ICoilCreate, ICoilService, ICoilServiceCreate} from "@/puff-smith/service/coil/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {WireService} from "@/puff-smith/service/wire/WireService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoilService => {
-	const toCreate = async ({wire, wireId, draws, drawIds, ...create}: ICoilCreate) => {
-		const _wire = await WireService(request).fetchByReference({wire, wireId});
-		drawIds = drawIds || (draws ? (await TagService(request).fetchCodes(draws, "draw")).map(tag => tag.id) : undefined);
+	const wireService = singletonOf(() => WireService(request));
+	const tagService = singletonOf(() => TagService(request));
+	const codeService = singletonOf(() => CodeService());
+
+	const toCreate = async ({wire, wireId, draws, drawIds, name, code, ...coil}: ICoilCreate) => {
+		const $wire = await wireService().fetchByReference({wire, wireId});
+		drawIds = drawIds || (draws ? (await tagService().fetchCodes(draws, "draw")).map(tag => tag.id) : undefined);
 		return {
-			...create,
-			name: create.name || `${_wire.name} ⌀${Math.round(create.size * 1000) / 1000} ↺${create.wraps}`,
-			code: create.code || CodeService().code(),
-			wireId: _wire.id,
+			...coil,
+			name: name || `${$wire.name} ⌀${Math.round(coil.size * 1000) / 1000} ↺${coil.wraps}`,
+			wireId: $wire.id,
 			CoilDraw: {
 				createMany: {
 					data: drawIds ? drawIds.map(drawId => ({drawId})) : (await request.prisma.wireDraw.findMany({
@@ -37,8 +41,8 @@ export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoi
 			source: request.prisma.coil,
 			mapper: async coil => ({
 				...coil,
-				wire: await WireService(request).toMap(coil.wireId),
-				draws: await TagService(request).list(request.prisma.tag.findMany({
+				wire: await wireService().toMap(coil.wireId),
+				draws: await tagService().list(request.prisma.tag.findMany({
 					where: {
 						CoilDraw: {
 							some: {
@@ -51,19 +55,27 @@ export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoi
 					}
 				})),
 			}),
-			create: async create => {
+			create: async ({code, ...coil}) => {
 				return request.prisma.coil.create({
-					data: await toCreate(create),
+					data: {
+						...await toCreate(coil),
+						code: code || codeService().code(),
+					},
 				});
 			},
-			onUnique: async create => {
-				const $create = await toCreate(create);
-				const $coil = await request.prisma.coil.findUnique({
+			onUnique: async coil => {
+				const $create = await toCreate(coil);
+				const $coil = await request.prisma.coil.findFirst({
 					where: {
-						name_wireId: {
-							name: $create.name,
-							wireId: $create.wireId,
-						}
+						OR: [
+							{
+								name: $create.name,
+								wireId: $create.wireId,
+							},
+							{
+								code: coil.code,
+							}
+						],
 					},
 					rejectOnNotFound: true,
 				});
@@ -76,7 +88,10 @@ export const CoilService = (request: ICoilServiceCreate = ServiceCreate()): ICoi
 					where: {
 						id: $coil.id,
 					},
-					data: $create,
+					data: {
+						...$create,
+						code: coil.code,
+					},
 				});
 			},
 		}),

@@ -7,10 +7,12 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IBaseInventoryCreate {
 	baseId: string;
+	code?: string;
 }
 
 export interface IBaseInventory {
 	id: string;
+	code: string;
 	base: IBase;
 	baseId: string;
 	transaction: ITransaction;

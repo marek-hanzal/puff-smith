@@ -4,14 +4,19 @@ import {FiberService} from "@/puff-smith/service/fiber/FiberService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {IWireFiberCreate, IWireService, IWireServiceCreate} from "@/puff-smith/service/wire/interface";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 import {boolean} from "boolean";
 import YAML from "yaml";
 
 export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWireService => {
-	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({_fiber, count}) => count * _fiber.mm).reduce((prev, current) => prev + current, 0);
+	const fiberService = singletonOf(() => FiberService(request));
+	const vendorService = singletonOf(() => VendorService(request));
+	const tagService = singletonOf(() => TagService(request));
+	const codeService = singletonOf(() => CodeService());
+
+	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({$fiber, count}) => count * $fiber.mm).reduce((prev, current) => prev + current, 0);
 	const toMmRound = (mm: number) => Math.round(mm * 10) / 10;
-	const fiberService = FiberService(request);
 
 	return {
 		...RepositoryService<IWireService>({
@@ -19,8 +24,8 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 			source: request.prisma.wire,
 			mapper: async wire => ({
 				...wire,
-				vendor: await VendorService(request).toMap(wire.vendorId),
-				draws: await TagService(request).list(request.prisma.tag.findMany({
+				vendor: await vendorService().toMap(wire.vendorId),
+				draws: await tagService().list(request.prisma.tag.findMany({
 					where: {
 						WireDraw: {
 							some: {
@@ -35,38 +40,37 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 					},
 				})).map(async wireFiber => ({
 					...wireFiber,
-					fiber: await fiberService.toMap(wireFiber.fiberId),
+					fiber: await fiberService().toMap(wireFiber.fiberId),
 				}))),
 			}),
 			create: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
-				const fiberService = FiberService(request);
 				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
 					return ({
 						...item,
-						_fiber: await fiberService.fetchByCode(item.fiber),
+						_fiber: await fiberService().fetchByCode(item.fiber),
 					});
 				}));
 				const mm = toMm(wireFiberCreate);
 				return request.prisma.wire.create({
 					data: {
 						...create,
-						code: create.code || CodeService().code(),
+						code: create.code || codeService().code(),
 						name: create.name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
 						mm,
 						mmToRound: toMmRound(mm),
-						vendorId: (await VendorService(request).fetchByReference({vendor, vendorId})).id,
+						vendorId: (await vendorService().fetchByReference({vendor, vendorId})).id,
 						isTCR: boolean(isTCR),
 						WireFiber: {
 							createMany: {
 								data: wireFiberCreate.map(item => ({
-									fiberId: item._fiber.id,
+									fiberId: item.$fiber.id,
 									count: item.count,
 								})),
 							}
 						},
 						WireDraw: {
 							createMany: {
-								data: draws ? (await TagService(request).fetchCodes(draws, "draw")).map(tag => ({
+								data: draws ? (await tagService().fetchCodes(draws, "draw")).map(tag => ({
 									drawId: tag.id,
 								})) : [],
 							}
@@ -75,37 +79,42 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 				});
 			},
 			onUnique: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
-				const _wire = (await request.prisma.wire.findFirst({
+				const $wire = (await request.prisma.wire.findFirst({
 					where: {
-						name: create.name,
-						code: create.code,
-						vendorId: (await VendorService(request).fetchByReference({vendor, vendorId})).id,
+						OR: [
+							{
+								name: create.name,
+								vendorId: (await vendorService().fetchByReference({vendor, vendorId})).id,
+							},
+							{
+								code: create.code,
+							}
+						],
 					},
 					rejectOnNotFound: true,
 				}));
 
 				await request.prisma.wireFiber.deleteMany({
 					where: {
-						wireId: _wire.id,
+						wireId: $wire.id,
 					}
 				});
 				await request.prisma.wireDraw.deleteMany({
 					where: {
-						wireId: _wire.id,
+						wireId: $wire.id,
 					}
 				});
 
-				const fiberService = FiberService(request);
 				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
 					return ({
 						...item,
-						_fiber: await fiberService.fetchByCode(item.fiber),
+						_fiber: await fiberService().fetchByCode(item.fiber),
 					});
 				}));
 				const mm = toMm(wireFiberCreate);
 				return request.prisma.wire.update({
 					where: {
-						id: _wire.id,
+						id: $wire.id,
 					},
 					data: {
 						...create,
@@ -115,7 +124,7 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 						WireFiber: {
 							createMany: {
 								data: wireFiberCreate.map(item => ({
-									fiberId: item._fiber.id,
+									fiberId: item.$fiber.id,
 									count: item.count,
 								})),
 							}

@@ -24,7 +24,7 @@ export interface IWireReference {
 export interface IWireFiberCreate {
 	count: number;
 	fiber: string;
-	_fiber: Fiber;
+	$fiber: Fiber;
 }
 
 export type IWireWhere = Prisma.WireWhereInput & IWhereFulltext;

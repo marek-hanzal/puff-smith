@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IAromaInventoryCreate {
 	aromaId: string;
+	code?: string;
 }
 
 export interface IAromaInventoryDelete {
@@ -15,6 +16,7 @@ export interface IAromaInventoryDelete {
 
 export interface IAromaInventory {
 	id: string;
+	code: string;
 	aroma: IAroma;
 	aromaId: string;
 	transaction: ITransaction;

@@ -2,35 +2,43 @@ import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {ServiceCreate} from "@/puff-smith/service";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
 import {IBaseInventoryService, IBaseInventoryServiceCreate} from "@/puff-smith/service/base/inventory/interface";
+import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const BaseInventoryService = (request: IBaseInventoryServiceCreate = ServiceCreate()): IBaseInventoryService => {
+	const baseService = singletonOf(() => BaseService(request));
+	const transactionService = singletonOf(() => TransactionService(request));
+	const codeService = singletonOf(() => CodeService());
+	const userId = request.userService.getUserId();
+
 	return {
 		...RepositoryService<IBaseInventoryService>({
 			name: "base-inventory",
 			source: request.prisma.baseInventory,
 			mapper: async baseTransaction => ({
 				...baseTransaction,
-				base: await BaseService(request).toMap(baseTransaction.baseId),
-				transaction: await TransactionService(request).toMap(baseTransaction.transactionId),
+				base: await baseService().toMap(baseTransaction.baseId),
+				transaction: await transactionService().toMap(baseTransaction.transactionId),
 			}),
-			create: async create => prisma.$transaction(async prisma => {
-				const base = await BaseService({...request, prisma}).toMap(create.baseId);
+			create: async ({code, ...base}) => prisma.$transaction(async prisma => {
+				const $base = await BaseService({...request, prisma}).toMap(base.baseId);
 				return TransactionService({...request, prisma}).handleTransaction({
-					userId: request.userService.getUserId(),
-					cost: base.cost,
-					note: `Purchase of base [${base.vendor.name} ${base.name}]`,
+					userId,
+					cost: $base.cost,
+					note: `Purchase of base [${$base.vendor.name} ${$base.name}]`,
 					callback: async transaction => {
 						const $baseInventory = prisma.baseInventory.create({
 							data: {
-								baseId: base.id,
+								code: code || codeService().code(),
+								baseId: $base.id,
 								transactionId: transaction.id,
-								userId: request.userService.getUserId(),
+								userId,
 							}
 						});
-						await MixtureUserJob.async({userId: request.userService.getUserId()}, request.userService.getUserId());
+						await MixtureUserJob.async({userId}, userId);
 						return $baseInventory;
 					},
 				});
@@ -41,7 +49,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate = Serv
 				id: {
 					in: ids,
 				},
-				userId: request.userService.getUserId(),
+				userId,
 			};
 			return prisma.$transaction(async prisma => {
 				const baseInventory = await BaseInventoryService({...request, prisma}).list(prisma.baseInventory.findMany({where}));
@@ -53,7 +61,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate = Serv
 						baseId: {
 							in: baseInventory.map(item => item.baseId),
 						},
-						userId: request.userService.getUserId(),
+						userId,
 					}
 				});
 				return baseInventory;

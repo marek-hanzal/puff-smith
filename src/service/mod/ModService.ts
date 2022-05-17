@@ -1,74 +1,90 @@
 import {ServiceCreate} from "@/puff-smith/service";
+import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {IModService, IModServiceCreate} from "@/puff-smith/service/mod/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const ModService = (request: IModServiceCreate = ServiceCreate()): IModService => RepositoryService<IModService>({
-	name: "mod",
-	source: request.prisma.mod,
-	mapper: async mod => ({
-		...mod,
-		vendor: await VendorService(request).toMap(mod.vendorId),
-		cells: await TagService(request).list(request.prisma.tag.findMany({
-			where: {
-				ModCell: {
-					some: {
-						modId: mod.id,
+export const ModService = (request: IModServiceCreate = ServiceCreate()): IModService => {
+	const vendorService = singletonOf(() => VendorService(request));
+	const tagService = singletonOf(() => TagService(request));
+	const codeService = singletonOf(() => CodeService());
+
+	return RepositoryService<IModService>({
+		name: "mod",
+		source: request.prisma.mod,
+		mapper: async mod => ({
+			...mod,
+			vendor: await vendorService().toMap(mod.vendorId),
+			cells: await tagService().list(request.prisma.tag.findMany({
+				where: {
+					ModCell: {
+						some: {
+							modId: mod.id,
+						}
 					}
-				}
-			},
-			orderBy: {
-				sort: "asc",
-			}
-		})),
-	}),
-	create: async ({vendor, cells, ...create}) => request.prisma.mod.create({
-		data: {
-			...create,
-			vendor: {
-				connect: {
-					name: vendor,
-				}
-			},
-			ModCell: {
-				createMany: {
-					data: cells ? (await TagService(request).fetchCodes(`${cells}`, "cell-type")).map(tag => ({
-						cellId: tag.id,
-					})) : [],
 				},
-			},
-		},
-	}),
-	onUnique: async ({vendor, cells, ...create}) => {
-		const _mod = (await request.prisma.mod.findFirst({
-			where: {
-				name: create.name,
-				vendor: {
-					name: vendor,
+				orderBy: {
+					sort: "asc",
 				}
-			},
-			rejectOnNotFound: true,
-		}));
-		await request.prisma.modCell.deleteMany({
-			where: {
-				modId: _mod.id,
-			}
-		});
-		return request.prisma.mod.update({
-			where: {
-				id: _mod.id,
-			},
+			})),
+		}),
+		create: async ({vendor, cells, code, ...mod}) => request.prisma.mod.create({
 			data: {
-				...create,
+				...mod,
+				code: code || codeService().code(),
+				vendor: {
+					connect: {
+						name: vendor,
+					}
+				},
 				ModCell: {
 					createMany: {
-						data: cells ? (await TagService(request).fetchCodes(`${cells}`, "cell-type")).map(tag => ({
+						data: cells ? (await tagService().fetchCodes(`${cells}`, "cell-type")).map(tag => ({
 							cellId: tag.id,
 						})) : [],
-					}
+					},
 				},
 			},
-		});
-	}
-});
+		}),
+		onUnique: async ({vendor, cells, ...mod}) => {
+			const $mod = (await request.prisma.mod.findFirst({
+				where: {
+					OR: [
+						{
+							name: mod.name,
+							vendor: {
+								name: vendor,
+							},
+						},
+						{
+							code: mod.code,
+						}
+					]
+				},
+				rejectOnNotFound: true,
+			}));
+			await request.prisma.modCell.deleteMany({
+				where: {
+					modId: $mod.id,
+				}
+			});
+			return request.prisma.mod.update({
+				where: {
+					id: $mod.id,
+				},
+				data: {
+					...mod,
+					ModCell: {
+						createMany: {
+							data: cells ? (await tagService().fetchCodes(`${cells}`, "cell-type")).map(tag => ({
+								cellId: tag.id,
+							})) : [],
+						}
+					},
+				},
+			});
+		}
+	});
+};

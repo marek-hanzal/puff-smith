@@ -2,35 +2,43 @@ import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {ServiceCreate} from "@/puff-smith/service";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
 import {IBoosterInventoryService, IBoosterInventoryServiceCreate} from "@/puff-smith/service/booster/inventory/interface";
+import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate = ServiceCreate()): IBoosterInventoryService => {
+	const boosterService = singletonOf(() => BoosterService(request));
+	const transactionService = singletonOf(() => TransactionService(request));
+	const codeService = singletonOf(() => CodeService());
+	const userId = request.userService.getUserId();
+
 	return {
 		...RepositoryService<IBoosterInventoryService>({
 			name: "booster-inventory",
 			source: request.prisma.boosterInventory,
 			mapper: async boosterTransaction => ({
 				...boosterTransaction,
-				booster: await BoosterService(request).toMap(boosterTransaction.boosterId),
-				transaction: await TransactionService(request).toMap(boosterTransaction.transactionId),
+				booster: await boosterService().toMap(boosterTransaction.boosterId),
+				transaction: await transactionService().toMap(boosterTransaction.transactionId),
 			}),
-			create: async create => prisma.$transaction(async prisma => {
-				const booster = await BoosterService({...request, prisma}).toMap(create.boosterId);
+			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
+				const $booster = await BoosterService({...request, prisma}).toMap(booster.boosterId);
 				return TransactionService({...request, prisma}).handleTransaction({
-					userId: request.userService.getUserId(),
-					cost: booster.cost,
-					note: `Purchase of booster [${booster.vendor.name} ${booster.name}]`,
+					userId,
+					cost: $booster.cost,
+					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
 					callback: async transaction => {
 						const $boosterInventory = prisma.boosterInventory.create({
 							data: {
-								boosterId: booster.id,
+								code: code || codeService().code(),
+								boosterId: $booster.id,
 								transactionId: transaction.id,
-								userId: request.userService.getUserId(),
+								userId,
 							}
 						});
-						await MixtureUserJob.async({userId: request.userService.getUserId()}, request.userService.getUserId());
+						await MixtureUserJob.async({userId}, userId);
 						return $boosterInventory;
 					},
 				});
@@ -41,7 +49,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate 
 				id: {
 					in: ids,
 				},
-				userId: request.userService.getUserId(),
+				userId,
 			};
 			return prisma.$transaction(async prisma => {
 				const boosterInventory = await BoosterInventoryService({...request, prisma}).list(prisma.boosterInventory.findMany({where}));
@@ -53,7 +61,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate 
 						boosterId: {
 							in: boosterInventory.map(item => item.boosterId),
 						},
-						userId: request.userService.getUserId(),
+						userId,
 					}
 				});
 				return boosterInventory;

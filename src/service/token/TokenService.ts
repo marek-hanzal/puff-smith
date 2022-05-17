@@ -1,9 +1,12 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {ITokenService, ITokenServiceCreate} from "@/puff-smith/service/token/interface";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const TokenService = (request: ITokenServiceCreate = ServiceCreate()): ITokenService => {
-	const service: ITokenService = ({
+	const tokenService = singletonOf(() => TokenService(request));
+
+	return {
 		...RepositoryService<ITokenService>({
 			name: "token",
 			source: request.prisma.token,
@@ -18,7 +21,7 @@ export const TokenService = (request: ITokenServiceCreate = ServiceCreate()): IT
 				rejectOnNotFound: true,
 			}),
 		}),
-		tokensOf: userId => service.list(request.prisma.token.findMany({
+		tokensOf: userId => tokenService().list(request.prisma.token.findMany({
 			where: {
 				UserToken: {
 					every: {
@@ -27,7 +30,5 @@ export const TokenService = (request: ITokenServiceCreate = ServiceCreate()): IT
 				}
 			}
 		})),
-	});
-
-	return service;
+	};
 };

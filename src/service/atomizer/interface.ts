@@ -7,6 +7,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export interface IAtomizerCreate {
 	vendor: string;
+	code?: string;
 	name: string;
 	dualCoil?: string;
 	type: string;
@@ -23,6 +24,7 @@ export interface IAtomizerQuery extends IQuery<IAtomizerWhere, Prisma.AtomizerOr
 export interface IAtomizer {
 	id: string;
 	name: string;
+	code: string;
 	cost?: number | null;
 	vendor: IVendor;
 	vendorId: string;

@@ -1,9 +1,12 @@
 import {ServiceCreate} from "@/puff-smith/service";
 import {IPriceService, IPriceServiceCreate} from "@/puff-smith/service/price/interface";
 import {TariffService} from "@/puff-smith/service/tariff/TariffService";
+import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
 export const PriceService = (request: IPriceServiceCreate = ServiceCreate()): IPriceService => {
+	const tariffService = singletonOf(() => TariffService(request));
+
 	const priceOf: IPriceService["priceOf"] = async (tariff, price) => request.prisma.price.findFirst({
 		where: {
 			name: price,
@@ -31,14 +34,14 @@ export const PriceService = (request: IPriceServiceCreate = ServiceCreate()): IP
 			mapper: async price => ({
 				...price,
 				price: price.price.toNumber(),
-				tariff: await TariffService(request).toMap(price.tariffId),
+				tariff: await tariffService().toMap(price.tariffId),
 				from: price.from?.toUTCString(),
 				to: price.to?.toUTCString(),
 				created: price.created.toUTCString(),
 			}),
-			create: async ({tariff, ...create}) => request.prisma.price.create({
+			create: async ({tariff, ...price}) => request.prisma.price.create({
 				data: {
-					...create,
+					...price,
 					created: new Date(),
 					tariff: {
 						connect: {
