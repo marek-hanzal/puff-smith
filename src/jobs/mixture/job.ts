@@ -118,8 +118,8 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	await $queue.onIdle();
 }, options => new PQueue({
 	...options,
-	concurrency: 5,
-	intervalCap: 5,
+	concurrency: 10,
+	intervalCap: 10,
 }));
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
