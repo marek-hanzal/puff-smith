@@ -36,8 +36,6 @@ const createPrismaClient = () => {
 	return prisma;
 };
 
-const prisma = global.prisma || createPrismaClient();
-
-process.env.NODE_ENV === "development" && (global.prisma = prisma);
+const prisma = global.prisma || (global.prisma = createPrismaClient());
 
 export default prisma;
