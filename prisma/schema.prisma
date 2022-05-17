@@ -633,6 +633,8 @@ model Mixture {
   MixtureInventory MixtureInventory[]
   Liquid           Liquid[]
   MixtureDraw      MixtureDraw[]
+
+  @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
 
 model MixtureDraw {
@@ -659,6 +661,7 @@ model MixtureInventory {
   base      Base?    @relation(fields: [baseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, mixtureId])
+  @@index([userId, mixtureId, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
 
 enum MixtureError {

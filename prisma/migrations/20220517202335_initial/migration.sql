@@ -740,6 +740,12 @@ CREATE UNIQUE INDEX "Mixture_hash_key" ON "Mixture"("hash");
 CREATE UNIQUE INDEX "Mixture_code_key" ON "Mixture"("code");
 
 -- CreateIndex
+CREATE INDEX "Mixture_nicotineToRound_vgToRound_pgToRound_aromaId_vendorI_idx" ON "Mixture" USING BRIN ("nicotineToRound", "vgToRound", "pgToRound", "aromaId", "vendorId", "boosterId", "baseId");
+
+-- CreateIndex
+CREATE INDEX "MixtureInventory_userId_mixtureId_aromaId_vendorId_boosterI_idx" ON "MixtureInventory" USING BRIN ("userId", "mixtureId", "aromaId", "vendorId", "boosterId", "baseId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "MixtureInventory_userId_mixtureId_key" ON "MixtureInventory"("userId", "mixtureId");
 
 -- CreateIndex
