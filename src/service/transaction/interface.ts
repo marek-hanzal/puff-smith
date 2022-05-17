@@ -39,7 +39,6 @@ export interface IHandleTransactionRequest<T> {
 }
 
 export interface ICheckRequest {
-	userId: string;
 	price: string;
 	tariff?: string;
 }
@@ -55,7 +54,7 @@ export interface ITransactionServiceCreate extends IServiceCreate {
 export interface ITransactionService extends IRepositoryService<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
 	sum(query: ITransactionQuery): Promise<number>;
 
-	sumOf(userId: string): Promise<number>;
+	sumOf(): Promise<number>;
 
 	handleTransaction<T>(request: IHandleTransactionRequest<T>): Promise<T>;
 

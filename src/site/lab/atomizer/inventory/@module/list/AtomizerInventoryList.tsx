@@ -20,7 +20,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AtomizerNameInline atomizer={atomizerInventory.atomizer}/>
-					<Tags tags={atomizerInventory.atomizer.draws}/>
+					<Tags tags={atomizerInventory.atomizer.draws} color={"geekblue"} translation={"common.draw"}/>
 				</Space>}
 			/>
 		</ListItem>}

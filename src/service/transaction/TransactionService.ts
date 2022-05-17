@@ -6,6 +6,8 @@ import {RepositoryService} from "@leight-core/server";
 
 export const TransactionService = (request: ITransactionServiceCreate = ServiceCreate()): ITransactionService => {
 	const transactionService = singletonOf(() => TransactionService(request));
+	const priceService = singletonOf(() => PriceService(request));
+	const userId = request.userService.getUserId();
 
 	const sum: ITransactionService["sum"] = async query => (await request.prisma.transaction.aggregate({
 		where: query.filter,
@@ -14,7 +16,7 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 			amount: true,
 		}
 	}))._sum.amount?.toNumber() || 0;
-	const sumOf: ITransactionService["sumOf"] = userId => sum({
+	const sumOf: ITransactionService["sumOf"] = () => sum({
 		filter: {
 			userId,
 		},
@@ -47,14 +49,14 @@ export const TransactionService = (request: ITransactionServiceCreate = ServiceC
 				note,
 				userId,
 			});
-			(await sumOf(userId)) < 0 && (() => {
+			(await sumOf()) < 0 && (() => {
 				throw new Error("Not enough puffies");
 			})();
 			return callback(transaction);
 		},
-		check: async ({userId, price, tariff}) => {
-			const $sum = sumOf(userId);
-			const $price = await PriceService(request).priceOf(tariff || "default", price);
+		check: async ({price, tariff}) => {
+			const $sum = sumOf();
+			const $price = await priceService().priceOf(tariff || "default", price);
 			return {
 				price: $price.price.toNumber(),
 				pass: (await $sum) >= $price.price.toNumber(),
