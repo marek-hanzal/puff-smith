@@ -91,9 +91,9 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	 * this mixture is already generated and valid.
 	 */
 	const $queue = new PQueue({
-		concurrency: 10,
-		intervalCap: 10,
-		interval: 125,
+		concurrency: 5,
+		intervalCap: 5,
+		interval: 250,
 	});
 	for (const booster of await prisma.booster.findMany({
 		orderBy: {
@@ -118,8 +118,8 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	await $queue.onIdle();
 }, options => new PQueue({
 	...options,
-	concurrency: 5,
-	intervalCap: 5,
+	concurrency: 3,
+	intervalCap: 3,
 }));
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
