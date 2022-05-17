@@ -144,6 +144,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 									await jobProgress.onFailure();
 									if (e instanceof Error) {
 										logger.error(e.message);
+										logger.error(e.stack);
 									}
 								}
 							},
@@ -153,6 +154,7 @@ export const JobService = (request: IJobServiceCreate = ServiceCreate()): IJobSe
 						logger.error(`Job [${name}] failed.`);
 						if (e instanceof Error) {
 							logger.error(e.message);
+							logger.error(e.stack);
 						}
 						await jobProgress.setStatus("FAILURE");
 						reject(e);

@@ -43,19 +43,19 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 					fiber: await fiberService().toMap(wireFiber.fiberId),
 				}))),
 			}),
-			create: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
+			create: async ({vendor, vendorId, draws, fibers, isTCR, ...wire}) => {
 				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
 					return ({
 						...item,
-						_fiber: await fiberService().fetchByCode(item.fiber),
+						$fiber: await fiberService().fetchByCode(item.fiber),
 					});
 				}));
 				const mm = toMm(wireFiberCreate);
 				return request.prisma.wire.create({
 					data: {
-						...create,
-						code: create.code || codeService().code(),
-						name: create.name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
+						...wire,
+						code: wire.code || codeService().code(),
+						name: wire.name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
 						mm,
 						mmToRound: toMmRound(mm),
 						vendorId: (await vendorService().fetchByReference({vendor, vendorId})).id,
@@ -78,16 +78,16 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 					}
 				});
 			},
-			onUnique: async ({vendor, vendorId, draws, fibers, isTCR, ...create}) => {
+			onUnique: async ({vendor, vendorId, draws, fibers, isTCR, ...wire}) => {
 				const $wire = (await request.prisma.wire.findFirst({
 					where: {
 						OR: [
 							{
-								name: create.name,
+								name: wire.name,
 								vendorId: (await vendorService().fetchByReference({vendor, vendorId})).id,
 							},
 							{
-								code: create.code,
+								code: wire.code,
 							}
 						],
 					},
@@ -108,7 +108,7 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
 					return ({
 						...item,
-						_fiber: await fiberService().fetchByCode(item.fiber),
+						$fiber: await fiberService().fetchByCode(item.fiber),
 					});
 				}));
 				const mm = toMm(wireFiberCreate);
@@ -117,7 +117,7 @@ export const WireService = (request: IWireServiceCreate = ServiceCreate()): IWir
 						id: $wire.id,
 					},
 					data: {
-						...create,
+						...wire,
 						mm,
 						mmToRound: toMmRound(mm),
 						isTCR: boolean(isTCR),
