@@ -22,27 +22,27 @@ import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
-const serviceCreate = defaults();
+const $defaults = defaults();
 const importHandlers = {
-	...AromaService(serviceCreate).importers(),
-	...AtomizerService(serviceCreate).importers(),
-	...BaseService(serviceCreate).importers(),
-	...BoosterService(serviceCreate).importers(),
-	...CellService(serviceCreate).importers(),
-	...CoilService(serviceCreate).importers(),
-	...CottonService(serviceCreate).importers(),
-	...FiberService(serviceCreate).importers(),
-	...ModService(serviceCreate).importers(),
-	...PriceService(serviceCreate).importers(),
-	...TagService(serviceCreate).importers(),
-	...TariffService(serviceCreate).importers(),
-	...TranslationService(serviceCreate).importers(),
-	...VendorService(serviceCreate).importers(),
-	...VoucherService(serviceCreate).importers(),
-	...WireService(serviceCreate).importers(),
+	...AromaService($defaults).importers(),
+	...AtomizerService($defaults).importers(),
+	...BaseService($defaults).importers(),
+	...BoosterService($defaults).importers(),
+	...CellService($defaults).importers(),
+	...CoilService($defaults).importers(),
+	...CottonService($defaults).importers(),
+	...FiberService($defaults).importers(),
+	...ModService($defaults).importers(),
+	...PriceService($defaults).importers(),
+	...TagService($defaults).importers(),
+	...TariffService($defaults).importers(),
+	...TranslationService($defaults).importers(),
+	...VendorService($defaults).importers(),
+	...VoucherService($defaults).importers(),
+	...WireService($defaults).importers(),
 };
 
-export const ImportJob: IJobProcessor<IImportJobParams> = JobService().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
+export const ImportJob: IJobProcessor<IImportJobParams> = JobService($defaults).processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
 	const labels = {jobId: job.id};
 	logger = logger.child({labels, jobId: labels.jobId});
 	logger.info("Checking fileId");

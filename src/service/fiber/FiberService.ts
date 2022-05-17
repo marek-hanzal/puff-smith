@@ -1,10 +1,10 @@
-import {defaults} from "@/puff-smith/service";
 import {IFiberService, IFiberServiceCreate} from "@/puff-smith/service/fiber/interface";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const FiberService = (request: IFiberServiceCreate = defaults()): IFiberService => {
+export const FiberService = (request: IFiberServiceCreate): IFiberService => {
+	const fiberService = singletonOf(() => FiberService(request));
 	const tagService = singletonOf(() => TagService(request));
 
 	return {
@@ -58,6 +58,6 @@ export const FiberService = (request: IFiberServiceCreate = defaults()): IFiberS
 			},
 			rejectOnNotFound: true,
 		}),
-		fetchByCodes: codes => Promise.all(codes.map(async code => await FiberService(request).fetchByCode(code))),
+		fetchByCodes: codes => Promise.all(codes.map(async code => await fiberService().fetchByCode(code))),
 	};
 };

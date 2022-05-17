@@ -8,7 +8,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 import PQueue from "p-queue";
 
-const jobService = JobService();
+const jobService = JobService(defaults());
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
@@ -32,7 +32,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 	intervalCap: 1,
 }));
 
-export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, params: {aromaId}, logger, progress}) => {
+export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, params: {aromaId}, userId, logger, progress}) => {
 	logger.debug(`Updating mixture of aroma [${aromaId}].`);
 	const aroma = await prisma.aroma.findUnique({
 		where: {
@@ -50,7 +50,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		 * */
 	}))._max.nicotine || 0) - 2;
 	await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
-	const mixtureService = MixtureService();
+	const mixtureService = MixtureService(defaults(userId));
 
 	const createMixture = async (info: IMixtureInfo) => {
 		const volume = aroma.volume || aroma.content;
@@ -122,7 +122,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	intervalCap: 5,
 }));
 
-export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = JobService().processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
+export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("User mixture update.", {userId});
 
 	if (!userId) {

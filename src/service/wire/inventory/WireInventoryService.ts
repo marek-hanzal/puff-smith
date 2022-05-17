@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
@@ -7,7 +6,7 @@ import {WireService} from "@/puff-smith/service/wire/WireService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const WireInventoryService = (request: IWireInventoryServiceCreate = defaults()): IWireInventoryService => {
+export const WireInventoryService = (request: IWireInventoryServiceCreate): IWireInventoryService => {
 	const wireService = singletonOf(() => WireService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());

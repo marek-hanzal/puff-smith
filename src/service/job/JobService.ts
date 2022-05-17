@@ -6,7 +6,7 @@ import {sleep, toPercent} from "@leight-core/client";
 import {Logger, RepositoryService} from "@leight-core/server";
 import PQueue from "p-queue";
 
-export const JobService = (request: IJobServiceCreate = defaults()): IJobService => {
+export const JobService = (request: IJobServiceCreate): IJobService => {
 	return {
 		...RepositoryService<IJobService>({
 			name: "job",

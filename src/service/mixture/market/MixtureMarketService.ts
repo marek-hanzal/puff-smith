@@ -1,12 +1,11 @@
-import {defaults} from "@/puff-smith/service";
 import {IMixtureMarketService, IMixtureMarketServiceCreate} from "@/puff-smith/service/mixture/market/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const MixtureMarketService = (request: IMixtureMarketServiceCreate = defaults()): IMixtureMarketService => {
+export const MixtureMarketService = (request: IMixtureMarketServiceCreate): IMixtureMarketService => {
 	const mixtureService = singletonOf(() => MixtureService(request));
-	const userId = request.userService.getOptionalUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<IMixtureMarketService>({
 		name: "mixture-market",
@@ -14,18 +13,18 @@ export const MixtureMarketService = (request: IMixtureMarketServiceCreate = defa
 		mapper: async entity => ({
 			mixture: await mixtureService().map(entity),
 			booster: {
-				isOwned: userId && entity.boosterId ? (await request.prisma.boosterInventory.count({
+				isOwned: entity.boosterId ? (await request.prisma.boosterInventory.count({
 					where: {
 						boosterId: entity.boosterId,
-						userId,
+						userId: userId(),
 					}
 				})) > 0 : undefined,
 			},
 			base: {
-				isOwned: userId && entity.baseId ? (await request.prisma.baseInventory.count({
+				isOwned: entity.baseId ? (await request.prisma.baseInventory.count({
 					where: {
 						baseId: entity.baseId,
-						userId,
+						userId: userId(),
 					}
 				})) > 0 : undefined,
 			},

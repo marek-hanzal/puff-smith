@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {CellService} from "@/puff-smith/service/cell/CellService";
 import {ICellInventoryService, ICellInventoryServiceCreate} from "@/puff-smith/service/cell/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -7,7 +6,7 @@ import {TransactionService} from "@/puff-smith/service/transaction/TransactionSe
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const CellInventoryService = (request: ICellInventoryServiceCreate = defaults()): ICellInventoryService => {
+export const CellInventoryService = (request: ICellInventoryServiceCreate): ICellInventoryService => {
 	const cellService = singletonOf(() => CellService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const userId = singletonOf(() => request.userService.getUserId());

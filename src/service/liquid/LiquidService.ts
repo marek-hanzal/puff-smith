@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILiquidService, ILiquidServiceCreate} from "@/puff-smith/service/liquid/interface";
 import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
@@ -8,7 +7,7 @@ import {TransactionService} from "@/puff-smith/service/transaction/TransactionSe
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
-export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiquidService => {
+export const LiquidService = (request: ILiquidServiceCreate): ILiquidService => {
 	const transactionService = singletonOf(() => TransactionService(request));
 	const mixtureService = singletonOf(() => MixtureService(request));
 	const userId = singletonOf(() => request.userService.getUserId());
@@ -37,16 +36,16 @@ export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiqu
 						rejectOnNotFound: true,
 					});
 					return prisma.liquid.create({
-							data: {
-								...liquid,
-								userId: userId(),
-								aromaId: $mixture.aromaId,
-								vendorId: $mixture.vendorId,
-								boosterId: $mixture.boosterId,
-								baseId: $mixture.baseId,
-								code: code || CodeService().code(),
-								transactionId: transaction.id,
-								created: new Date(),
+						data: {
+							...liquid,
+							userId: userId(),
+							aromaId: $mixture.aromaId,
+							vendorId: $mixture.vendorId,
+							boosterId: $mixture.boosterId,
+							baseId: $mixture.baseId,
+							code: code || CodeService().code(),
+							transactionId: transaction.id,
+							created: new Date(),
 								mixed: mixed || new Date(),
 							},
 						});
