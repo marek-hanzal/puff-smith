@@ -11,7 +11,7 @@ export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate 
 	const voucherService = singletonOf(() => VoucherService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<IVoucherInventoryService>({
 		name: "voucher-inventory",
@@ -30,14 +30,14 @@ export const VoucherInventoryService = (request: IVoucherInventoryServiceCreate 
 			const transaction = await transactionService.create({
 				amount: voucher.cost,
 				note: `Gift from voucher [${voucher.name}]`,
-				userId,
+				userId: userId(),
 			});
 			return prisma.voucherInventory.create({
 				data: {
 					code: code || codeService().code(),
 					voucherId: voucher.id,
 					transactionId: transaction.id,
-					userId,
+					userId: userId(),
 				}
 			});
 		}),

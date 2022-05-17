@@ -10,7 +10,7 @@ import {RepositoryService} from "@leight-core/server";
 export const CellInventoryService = (request: ICellInventoryServiceCreate = defaults()): ICellInventoryService => {
 	const cellService = singletonOf(() => CellService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<ICellInventoryService>({
 		name: "cell-inventory",
@@ -23,7 +23,7 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate = defa
 		create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 			const cell = await CellService({...request, prisma}).toMap(create.cellId);
 			return TransactionService({...request, prisma}).handleTransaction({
-				userId,
+				userId: userId(),
 				cost: cell.cost,
 				note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
 				callback: async transaction => prisma.cellInventory.create({
@@ -31,7 +31,7 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate = defa
 						code: code || CodeService().code(),
 						cellId: cell.id,
 						transactionId: transaction.id,
-						userId,
+						userId: userId(),
 					}
 				}),
 			});

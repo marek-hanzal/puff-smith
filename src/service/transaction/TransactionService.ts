@@ -6,7 +6,7 @@ import {RepositoryService} from "@leight-core/server";
 
 export const TransactionService = (request: ITransactionServiceCreate = defaults()): ITransactionService => {
 	const priceService = singletonOf(() => PriceService(request));
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	const sum: ITransactionService["sum"] = async query => (await request.prisma.transaction.aggregate({
 		where: query.filter,
@@ -17,7 +17,7 @@ export const TransactionService = (request: ITransactionServiceCreate = defaults
 	}))._sum.amount?.toNumber() || 0;
 	const sumOf: ITransactionService["sumOf"] = () => sum({
 		filter: {
-			userId,
+			userId: userId(),
 		},
 		orderBy: {
 			created: "asc",

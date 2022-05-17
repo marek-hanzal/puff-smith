@@ -11,7 +11,7 @@ import {RepositoryService} from "@leight-core/server";
 export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiquidService => {
 	const transactionService = singletonOf(() => TransactionService(request));
 	const mixtureService = singletonOf(() => MixtureService(request));
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<ILiquidService>({
@@ -25,21 +25,21 @@ export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiqu
 				mixture: await mixtureService().toMap(liquid.mixtureId),
 			}),
 			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => TariffService({...request, prisma}).transactionOf({
-					tariff: "default",
-					userId,
-					price: "lab.liquid.create",
-					note: "New liquid",
-					callback: async (_, transaction) => {
-						const $mixture = await prisma.mixture.findUnique({
-							where: {
-								id: liquid.mixtureId,
-							},
-							rejectOnNotFound: true,
-						});
-						return prisma.liquid.create({
+				tariff: "default",
+				userId: userId(),
+				price: "lab.liquid.create",
+				note: "New liquid",
+				callback: async (_, transaction) => {
+					const $mixture = await prisma.mixture.findUnique({
+						where: {
+							id: liquid.mixtureId,
+						},
+						rejectOnNotFound: true,
+					});
+					return prisma.liquid.create({
 							data: {
 								...liquid,
-								userId,
+								userId: userId(),
 								aromaId: $mixture.aromaId,
 								vendorId: $mixture.vendorId,
 								boosterId: $mixture.boosterId,
@@ -59,7 +59,7 @@ export const LiquidService = (request: ILiquidServiceCreate = defaults()): ILiqu
 				id: {
 					in: ids,
 				},
-				userId,
+				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
 				const liquids = await LiquidService({...request, prisma}).list(prisma.liquid.findMany({where}));

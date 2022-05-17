@@ -13,7 +13,7 @@ export const UserService = (request: IUserServiceCreate): IUserService => {
 	const userTokenService = singletonOf(() => UserTokenService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const priceService = singletonOf(() => PriceService(request));
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<IUserService>({
@@ -36,7 +36,7 @@ export const UserService = (request: IUserServiceCreate): IUserService => {
 		}),
 		async handleRootUser() {
 			await transactionService().create({
-				userId,
+				userId: userId(),
 				amount: await priceService().amountOf("default", "welcome-gift.root", 1000000),
 				note: "Welcome gift for the Root User!",
 			});
@@ -51,7 +51,7 @@ export const UserService = (request: IUserServiceCreate): IUserService => {
 		},
 		async handleCommonUser() {
 			await transactionService().create({
-				userId,
+				userId: userId(),
 				amount: await priceService().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
@@ -79,13 +79,13 @@ export const UserService = (request: IUserServiceCreate): IUserService => {
 			});
 			try {
 				await userTokenService().create({
-					userId,
+					userId: userId(),
 					tokenId: $token.id,
 				});
 			} catch (e) {
 				return handleUniqueException(e, async () => undefined);
 			}
 		},
-		whoami: () => userService().toMap(userId),
+		whoami: () => userService().toMap(userId()),
 	};
 };

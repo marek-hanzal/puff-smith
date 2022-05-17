@@ -10,7 +10,7 @@ export const AtomizerInventoryService = (request: IAtomizerInventoryServiceCreat
 	const atomizerService = singletonOf(() => AtomizerService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<IAtomizerInventoryService>({
 		name: "atomizer-inventory",
@@ -23,7 +23,7 @@ export const AtomizerInventoryService = (request: IAtomizerInventoryServiceCreat
 		create: async ({code, ...atomizer}) => prisma.$transaction(async prisma => {
 			const $atomizer = await AtomizerService({...request, prisma}).toMap(atomizer.atomizerId);
 			return TransactionService({...request, prisma}).handleTransaction({
-				userId,
+				userId: userId(),
 				cost: $atomizer.cost,
 				note: `Purchase of atomizer [${$atomizer.vendor.name} ${$atomizer.name}]`,
 				callback: async transaction => prisma.atomizerInventory.create({
@@ -31,7 +31,7 @@ export const AtomizerInventoryService = (request: IAtomizerInventoryServiceCreat
 						code: code || codeService().code(),
 						atomizerId: $atomizer.id,
 						transactionId: transaction.id,
-						userId,
+						userId: userId(),
 					}
 				}),
 			});

@@ -11,7 +11,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate)
 	const boosterService = singletonOf(() => BoosterService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<IBoosterInventoryService>({
@@ -25,7 +25,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate)
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const $booster = await BoosterService({...request, prisma}).toMap(booster.boosterId);
 				return TransactionService({...request, prisma}).handleTransaction({
-					userId,
+					userId: userId(),
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
 					callback: async transaction => {
@@ -34,10 +34,10 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate)
 								code: code || codeService().code(),
 								boosterId: $booster.id,
 								transactionId: transaction.id,
-								userId,
+								userId: userId(),
 							}
 						});
-						await MixtureUserJob.async({userId}, userId);
+						await MixtureUserJob.async({userId: userId()}, userId());
 						return $boosterInventory;
 					},
 				});
@@ -48,7 +48,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate)
 				id: {
 					in: ids,
 				},
-				userId,
+				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
 				const boosterInventory = await BoosterInventoryService({...request, prisma}).list(prisma.boosterInventory.findMany({where}));
@@ -60,7 +60,7 @@ export const BoosterInventoryService = (request: IBoosterInventoryServiceCreate)
 						boosterId: {
 							in: boosterInventory.map(item => item.boosterId),
 						},
-						userId,
+						userId: userId(),
 					}
 				});
 				return boosterInventory;

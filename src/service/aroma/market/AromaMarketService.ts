@@ -15,7 +15,7 @@ export const AromaMarketService = (request: IAromaMarketServiceCreate): IAromaMa
 			isOwned: userId ? (await request.prisma.aromaInventory.count({
 				where: {
 					aromaId: entity.id,
-					userId: userId,
+					userId,
 				}
 			})) > 0 : undefined,
 		}),

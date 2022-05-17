@@ -11,7 +11,7 @@ export const WireInventoryService = (request: IWireInventoryServiceCreate = defa
 	const wireService = singletonOf(() => WireService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<IWireInventoryService>({
 		name: "wire-inventory",
@@ -24,7 +24,7 @@ export const WireInventoryService = (request: IWireInventoryServiceCreate = defa
 		create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
 			const wire = await WireService({...request, prisma}).toMap(wireInventory.wireId);
 			return TransactionService({...request, prisma}).handleTransaction({
-				userId,
+				userId: userId(),
 				cost: wire.cost,
 				note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
 				callback: async transaction => prisma.wireInventory.create({
@@ -32,7 +32,7 @@ export const WireInventoryService = (request: IWireInventoryServiceCreate = defa
 						code: code || codeService().code(),
 						wireId: wire.id,
 						transactionId: transaction.id,
-						userId,
+						userId: userId(),
 					}
 				}),
 			});

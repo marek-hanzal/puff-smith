@@ -11,7 +11,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBas
 	const baseService = singletonOf(() => BaseService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<IBaseInventoryService>({
@@ -25,7 +25,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBas
 			create: async ({code, ...base}) => prisma.$transaction(async prisma => {
 				const $base = await BaseService({...request, prisma}).toMap(base.baseId);
 				return TransactionService({...request, prisma}).handleTransaction({
-					userId,
+					userId: userId(),
 					cost: $base.cost,
 					note: `Purchase of base [${$base.vendor.name} ${$base.name}]`,
 					callback: async transaction => {
@@ -34,10 +34,10 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBas
 								code: code || codeService().code(),
 								baseId: $base.id,
 								transactionId: transaction.id,
-								userId,
+								userId: userId(),
 							}
 						});
-						await MixtureUserJob.async({userId}, userId);
+						await MixtureUserJob.async({userId: userId(),}, userId());
 						return $baseInventory;
 					},
 				});
@@ -48,7 +48,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBas
 				id: {
 					in: ids,
 				},
-				userId,
+				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
 				const baseInventory = await BaseInventoryService({...request, prisma}).list(prisma.baseInventory.findMany({where}));
@@ -60,7 +60,7 @@ export const BaseInventoryService = (request: IBaseInventoryServiceCreate): IBas
 						baseId: {
 							in: baseInventory.map(item => item.baseId),
 						},
-						userId,
+						userId: userId(),
 					}
 				});
 				return baseInventory;

@@ -6,7 +6,7 @@ import {RepositoryService} from "@leight-core/server";
 
 export const MixtureInventoryService = (request: IMixtureInventoryServiceCreate = defaults()): IMixtureInventoryService => {
 	const mixtureService = singletonOf(() => MixtureService(request));
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<IMixtureInventoryService>({
@@ -21,20 +21,20 @@ export const MixtureInventoryService = (request: IMixtureInventoryServiceCreate 
 			create: async mixture => request.prisma.mixtureInventory.create({
 				data: {
 					...mixture,
-					userId,
+					userId: userId(),
 				},
 			}),
 			onUnique: async mixture => request.prisma.mixtureInventory.findFirst({
 				where: {
 					...mixture,
-					userId,
+					userId: userId(),
 				},
 				rejectOnNotFound: true,
 			}),
 		}),
 		toFilter: filter => ({
 			...filter,
-			userId,
+			userId: userId(),
 		}),
 	};
 };

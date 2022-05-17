@@ -11,7 +11,7 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 	const modService = singletonOf(() => ModService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<IModTransactionService>({
 		name: "mod-inventory",
@@ -24,7 +24,7 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 		create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
 			const $mod = await ModService({...request, prisma}).toMap(mod.modId);
 			return TransactionService({...request, prisma}).handleTransaction({
-				userId,
+				userId: userId(),
 				cost: $mod.cost,
 				note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,
 				callback: async transaction => prisma.modInventory.create({
@@ -32,7 +32,7 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 						code: code || codeService().code(),
 						modId: $mod.id,
 						transactionId: transaction.id,
-						userId,
+						userId: userId(),
 					}
 				}),
 			});

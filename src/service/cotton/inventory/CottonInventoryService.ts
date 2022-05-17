@@ -11,7 +11,7 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 	const cottonService = singletonOf(() => CottonService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return RepositoryService<ICottonInventoryService>({
 		name: "cotton-inventory",
@@ -24,7 +24,7 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 		create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
 			const $cotton = await CottonService({...request, prisma}).toMap(cotton.cottonId);
 			return TransactionService({...request, prisma}).handleTransaction({
-				userId,
+				userId: userId(),
 				cost: $cotton.cost,
 				note: `Purchase of cotton [${$cotton.vendor.name} ${$cotton.name}]`,
 				callback: async transaction => prisma.cottonInventory.create({
@@ -32,7 +32,7 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 						code: code || codeService().code(),
 						cottonId: $cotton.id,
 						transactionId: transaction.id,
-						userId,
+						userId: userId(),
 					}
 				}),
 			});

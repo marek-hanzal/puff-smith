@@ -11,7 +11,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate): IA
 	const aromaService = singletonOf(() => AromaService(request));
 	const transactionService = singletonOf(() => TransactionService(request));
 	const codeService = singletonOf(() => CodeService());
-	const userId = request.userService.getUserId();
+	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
 		...RepositoryService<IAromaInventoryService>({
@@ -25,7 +25,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate): IA
 			create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
 				const $aroma = await AromaService({...request, prisma}).toMap(aroma.aromaId);
 				return TransactionService({...request, prisma}).handleTransaction({
-					userId,
+					userId: userId(),
 					cost: $aroma.cost,
 					note: `Purchase of aroma [${$aroma.vendor.name} ${$aroma.name}]`,
 					callback: async transaction => {
@@ -34,10 +34,10 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate): IA
 								code: code || codeService().code(),
 								aromaId: $aroma.id,
 								transactionId: transaction.id,
-								userId,
+								userId: userId(),
 							}
 						});
-						await MixtureUserJob.async({userId}, userId);
+						await MixtureUserJob.async({userId: userId()}, userId());
 						return $aromaInventory;
 					},
 				});
@@ -48,7 +48,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate): IA
 				id: {
 					in: ids,
 				},
-				userId,
+				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
 				const aromaInventory = await AromaInventoryService({...request, prisma}).list(prisma.aromaInventory.findMany({where}));
@@ -60,7 +60,7 @@ export const AromaInventoryService = (request: IAromaInventoryServiceCreate): IA
 						aromaId: {
 							in: aromaInventory.map(item => item.aromaId),
 						},
-						userId,
+						userId: userId(),
 					}
 				});
 				return aromaInventory;
