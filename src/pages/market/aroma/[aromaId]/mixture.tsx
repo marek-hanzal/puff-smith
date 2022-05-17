@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {defaults} from "@/puff-smith/service";
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
-import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
+import {IAroma, IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
@@ -14,8 +14,55 @@ import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/Aro
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureSourceControlProvider} from "@/sdk/api/mixture/query";
-import {PushRight} from "@leight-core/client";
+import {PushRight, Template, useFilterContext} from "@leight-core/client";
 import {Col, Divider, Row, Space} from "antd";
+import {FC} from "react";
+
+interface IInternalListProps {
+	aroma: IAroma;
+}
+
+const InternalList: FC<IInternalListProps> = ({aroma}) => {
+	const filterContext = useFilterContext();
+	return filterContext.isEmpty() ?
+		<Template
+			style={{marginTop: "1em"}}
+			icon={<MixtureIcon/>}
+			label={"market.aroma.mixture.filter"}
+			span={12}
+			extra={<MixtureJobButton aroma={aroma}/>}
+		>
+			<MixtureFilter
+				inline
+				aroma={aroma}
+			/>
+		</Template> :
+		<MixtureList
+			header={() => <>
+				<Row align={"middle"}>
+					<Col span={12}>
+						<Space split={<Divider type={"vertical"}/>}>
+							<MixtureFilter
+								aroma={aroma}
+							/>
+							<Space>
+								<AromaNameInline aroma={aroma}/>
+								<AromaContentInline aroma={aroma}/>
+							</Space>
+						</Space>
+					</Col>
+					<Col span={12}>
+						<PushRight>
+							<MixtureJobButton aroma={aroma}/>
+						</PushRight>
+					</Col>
+				</Row>
+			</>}
+			locale={{
+				emptyText: <MixtureListEmpty/>,
+			}}
+		/>;
+};
 
 export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	return <MarketPage
@@ -39,31 +86,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 				{nicotine: "desc"},
 			] as any}
 		>
-			<MixtureList
-				header={() => <>
-					<Row align={"middle"}>
-						<Col span={12}>
-							<Space split={<Divider type={"vertical"}/>}>
-								<MixtureFilter
-									aroma={aroma}
-								/>
-								<Space>
-									<AromaNameInline aroma={aroma}/>
-									<AromaContentInline aroma={aroma}/>
-								</Space>
-							</Space>
-						</Col>
-						<Col span={12}>
-							<PushRight>
-								<MixtureJobButton aroma={aroma}/>
-							</PushRight>
-						</Col>
-					</Row>
-				</>}
-				locale={{
-					emptyText: <MixtureListEmpty/>,
-				}}
-			/>
+			<InternalList aroma={aroma}/>
 		</MixtureSourceControlProvider>
 	</MarketPage>;
 });
