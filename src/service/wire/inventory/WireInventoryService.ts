@@ -12,29 +12,46 @@ export const WireInventoryService = (request: IWireInventoryServiceCreate): IWir
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return RepositoryService<IWireInventoryService>({
-		name: "wire-inventory",
-		source: request.prisma.wireInventory,
-		mapper: async wireTransaction => ({
-			...wireTransaction,
-			wire: await wireService().toMap(wireTransaction.wireId),
-			transaction: await transactionService().toMap(wireTransaction.transactionId),
+	return {
+		...RepositoryService<IWireInventoryService>({
+			name: "wire-inventory",
+			source: request.prisma.wireInventory,
+			mapper: async wireTransaction => ({
+				...wireTransaction,
+				wire: await wireService().toMap(wireTransaction.wireId),
+				transaction: await transactionService().toMap(wireTransaction.transactionId),
+			}),
+			create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
+				const wire = await WireService({...request, prisma}).toMap(wireInventory.wireId);
+				return TransactionService({...request, prisma}).handleTransaction({
+					userId: userId(),
+					cost: wire.cost,
+					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
+					callback: async transaction => prisma.wireInventory.create({
+						data: {
+							code: code || codeService().code(),
+							wireId: wire.id,
+							transactionId: transaction.id,
+							userId: userId(),
+						}
+					}),
+				});
+			}),
 		}),
-		create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
-			const wire = await WireService({...request, prisma}).toMap(wireInventory.wireId);
-			return TransactionService({...request, prisma}).handleTransaction({
+		handleDelete: async ({request: {ids}}) => {
+			const where = {
+				id: {
+					in: ids,
+				},
 				userId: userId(),
-				cost: wire.cost,
-				note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
-				callback: async transaction => prisma.wireInventory.create({
-					data: {
-						code: code || codeService().code(),
-						wireId: wire.id,
-						transactionId: transaction.id,
-						userId: userId(),
-					}
-				}),
+			};
+			return prisma.$transaction(async prisma => {
+				const wireInventory = await WireInventoryService({...request, prisma}).list(prisma.wireInventory.findMany({where}));
+				await prisma.wireInventory.deleteMany({
+					where,
+				});
+				return wireInventory;
 			});
-		}),
-	});
+		},
+	};
 };

@@ -1,17 +1,13 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IDeleteRequest, IQuery, IRepositoryService} from "@leight-core/api";
 import {AromaInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IAromaInventoryCreate {
 	aromaId: string;
 	code?: string;
-}
-
-export interface IAromaInventoryDelete {
-	ids: string[];
 }
 
 export interface IAromaInventory {
@@ -21,6 +17,9 @@ export interface IAromaInventory {
 	aromaId: string;
 	transaction: ITransaction;
 	transactionId: string;
+}
+
+export interface IAromaInventoryDelete extends IDeleteRequest {
 }
 
 export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {

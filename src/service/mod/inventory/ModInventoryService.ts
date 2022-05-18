@@ -13,29 +13,46 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return RepositoryService<IModTransactionService>({
-		name: "mod-inventory",
-		source: request.prisma.modInventory,
-		mapper: async modTransaction => ({
-			...modTransaction,
-			mod: await modService().toMap(modTransaction.modId),
-			transaction: await transactionService().toMap(modTransaction.transactionId),
+	return {
+		...RepositoryService<IModTransactionService>({
+			name: "mod-inventory",
+			source: request.prisma.modInventory,
+			mapper: async modTransaction => ({
+				...modTransaction,
+				mod: await modService().toMap(modTransaction.modId),
+				transaction: await transactionService().toMap(modTransaction.transactionId),
+			}),
+			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
+				const $mod = await ModService({...request, prisma}).toMap(mod.modId);
+				return TransactionService({...request, prisma}).handleTransaction({
+					userId: userId(),
+					cost: $mod.cost,
+					note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,
+					callback: async transaction => prisma.modInventory.create({
+						data: {
+							code: code || codeService().code(),
+							modId: $mod.id,
+							transactionId: transaction.id,
+							userId: userId(),
+						}
+					}),
+				});
+			}),
 		}),
-		create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
-			const $mod = await ModService({...request, prisma}).toMap(mod.modId);
-			return TransactionService({...request, prisma}).handleTransaction({
+		handleDelete: async ({request: {ids}}) => {
+			const where = {
+				id: {
+					in: ids,
+				},
 				userId: userId(),
-				cost: $mod.cost,
-				note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,
-				callback: async transaction => prisma.modInventory.create({
-					data: {
-						code: code || codeService().code(),
-						modId: $mod.id,
-						transactionId: transaction.id,
-						userId: userId(),
-					}
-				}),
+			};
+			return prisma.$transaction(async prisma => {
+				const modInventory = await ModInventoryService({...request, prisma}).list(prisma.modInventory.findMany({where}));
+				await prisma.modInventory.deleteMany({
+					where,
+				});
+				return modInventory;
 			});
-		}),
-	});
+		},
+	};
 };

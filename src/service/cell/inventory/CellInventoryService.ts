@@ -11,29 +11,46 @@ export const CellInventoryService = (request: ICellInventoryServiceCreate): ICel
 	const transactionService = singletonOf(() => TransactionService(request));
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return RepositoryService<ICellInventoryService>({
-		name: "cell-inventory",
-		source: request.prisma.cellInventory,
-		mapper: async cellTransaction => ({
-			...cellTransaction,
-			cell: await cellService().toMap(cellTransaction.cellId),
-			transaction: await transactionService().toMap(cellTransaction.transactionId),
+	return {
+		...RepositoryService<ICellInventoryService>({
+			name: "cell-inventory",
+			source: request.prisma.cellInventory,
+			mapper: async cellTransaction => ({
+				...cellTransaction,
+				cell: await cellService().toMap(cellTransaction.cellId),
+				transaction: await transactionService().toMap(cellTransaction.transactionId),
+			}),
+			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
+				const cell = await CellService({...request, prisma}).toMap(create.cellId);
+				return TransactionService({...request, prisma}).handleTransaction({
+					userId: userId(),
+					cost: cell.cost,
+					note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
+					callback: async transaction => prisma.cellInventory.create({
+						data: {
+							code: code || CodeService().code(),
+							cellId: cell.id,
+							transactionId: transaction.id,
+							userId: userId(),
+						}
+					}),
+				});
+			}),
 		}),
-		create: async ({code, ...create}) => prisma.$transaction(async prisma => {
-			const cell = await CellService({...request, prisma}).toMap(create.cellId);
-			return TransactionService({...request, prisma}).handleTransaction({
+		handleDelete: async ({request: {ids}}) => {
+			const where = {
+				id: {
+					in: ids,
+				},
 				userId: userId(),
-				cost: cell.cost,
-				note: `Purchase of cell [${cell.vendor.name} ${cell.name}]`,
-				callback: async transaction => prisma.cellInventory.create({
-					data: {
-						code: code || CodeService().code(),
-						cellId: cell.id,
-						transactionId: transaction.id,
-						userId: userId(),
-					}
-				}),
+			};
+			return prisma.$transaction(async prisma => {
+				const cellInventory = await CellInventoryService({...request, prisma}).list(prisma.cellInventory.findMany({where}));
+				await prisma.cellInventory.deleteMany({
+					where,
+				});
+				return cellInventory;
 			});
-		}),
-	});
+		},
+	};
 };

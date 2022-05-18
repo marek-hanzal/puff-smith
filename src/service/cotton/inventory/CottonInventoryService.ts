@@ -13,29 +13,46 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return RepositoryService<ICottonInventoryService>({
-		name: "cotton-inventory",
-		source: request.prisma.cottonInventory,
-		mapper: async cottonTransaction => ({
-			...cottonTransaction,
-			cotton: await cottonService().toMap(cottonTransaction.cottonId),
-			transaction: await transactionService().toMap(cottonTransaction.transactionId),
+	return {
+		...RepositoryService<ICottonInventoryService>({
+			name: "cotton-inventory",
+			source: request.prisma.cottonInventory,
+			mapper: async cottonTransaction => ({
+				...cottonTransaction,
+				cotton: await cottonService().toMap(cottonTransaction.cottonId),
+				transaction: await transactionService().toMap(cottonTransaction.transactionId),
+			}),
+			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
+				const $cotton = await CottonService({...request, prisma}).toMap(cotton.cottonId);
+				return TransactionService({...request, prisma}).handleTransaction({
+					userId: userId(),
+					cost: $cotton.cost,
+					note: `Purchase of cotton [${$cotton.vendor.name} ${$cotton.name}]`,
+					callback: async transaction => prisma.cottonInventory.create({
+						data: {
+							code: code || codeService().code(),
+							cottonId: $cotton.id,
+							transactionId: transaction.id,
+							userId: userId(),
+						}
+					}),
+				});
+			}),
 		}),
-		create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
-			const $cotton = await CottonService({...request, prisma}).toMap(cotton.cottonId);
-			return TransactionService({...request, prisma}).handleTransaction({
+		handleDelete: async ({request: {ids}}) => {
+			const where = {
+				id: {
+					in: ids,
+				},
 				userId: userId(),
-				cost: $cotton.cost,
-				note: `Purchase of cotton [${$cotton.vendor.name} ${$cotton.name}]`,
-				callback: async transaction => prisma.cottonInventory.create({
-					data: {
-						code: code || codeService().code(),
-						cottonId: $cotton.id,
-						transactionId: transaction.id,
-						userId: userId(),
-					}
-				}),
+			};
+			return prisma.$transaction(async prisma => {
+				const cottonInventory = await CottonInventoryService({...request, prisma}).list(prisma.cottonInventory.findMany({where}));
+				await prisma.cottonInventory.deleteMany({
+					where,
+				});
+				return cottonInventory;
 			});
-		}),
-	});
+		},
+	};
 };

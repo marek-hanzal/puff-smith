@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IDeleteRequest, IQuery, IRepositoryService} from "@leight-core/api";
 import {BaseInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -19,8 +19,7 @@ export interface IBaseInventory {
 	transactionId: string;
 }
 
-export interface IBaseInventoryDelete {
-	ids: string[];
+export interface IBaseInventoryDelete extends IDeleteRequest {
 }
 
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationInput> {

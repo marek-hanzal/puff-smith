@@ -17,7 +17,7 @@ export const useCoilsJobMutation = createMutationHook<ICoilsJobParams, IJob<ICoi
 export const useCoilsJobQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CoilsJobApiLink]);
-};
+}
 
 export interface ICoilsJobDefaultFormProps extends Partial<IFormProps<ICoilsJobParams, IJob<ICoilsJobParams>>> {
 }
@@ -25,7 +25,7 @@ export interface ICoilsJobDefaultFormProps extends Partial<IFormProps<ICoilsJobP
 export const CoilsJobDefaultForm: FC<ICoilsJobDefaultFormProps> = props => <Form<ICoilsJobParams, IJob<ICoilsJobParams>>
 	useMutation={useCoilsJobMutation}
 	{...props}
-/>;
+/>
 
 export const toCoilsJobLink = (queryParams?: ICoilsJobQueryParams) => toLink(CoilsJobApiLink, queryParams);
 export const useCoilsJobLink = () => toCoilsJobLink;
