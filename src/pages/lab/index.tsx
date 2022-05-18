@@ -10,6 +10,7 @@ export default withLabLayout(function Index() {
 		icon={<HomeIcon/>}
 	>
 		<Template
+			style={{}}
 			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 			status={"info"}
 			label={"lab.home"}
