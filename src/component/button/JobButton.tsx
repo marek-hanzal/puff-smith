@@ -31,7 +31,7 @@ export const JobButton = <TJobParams, >({translation, scheduler, schedule, filte
 		},
 	}, undefined, {
 		keepPreviousData: true,
-		refetchInterval: 1000,
+		refetchInterval: 2500,
 	});
 	const isRunning = jobQuery.isSuccess && jobQuery.data.count > 0;
 	const job = isRunning ? jobQuery.data.items[0] : null;
