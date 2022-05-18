@@ -1,8 +1,12 @@
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
+import {memoAromaToMap} from "@/puff-smith/service/aroma/memoize";
 import {BaseService} from "@/puff-smith/service/base/BaseService";
+import {memoBaseToMap} from "@/puff-smith/service/base/memoize";
 import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
+import {memoBoosterToMap} from "@/puff-smith/service/booster/memoize";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {IMixtureCreate, IMixtureService, IMixtureServiceCreate} from "@/puff-smith/service/mixture/interface";
+import {memoMixtureDraws} from "@/puff-smith/service/mixture/memoize";
 import {TagService} from "@/puff-smith/service/tag/TagService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
@@ -39,26 +43,16 @@ export const MixtureService = (request: IMixtureServiceCreate): IMixtureService 
 			name: "mixture",
 			source: request.prisma.mixture,
 			mapper: async mixture => {
-				const aroma = await aromaService().toMap(mixture.aromaId);
+				const aroma = await memoAromaToMap(mixture.aromaId, aromaService);
 				return {
 					...mixture,
 					vgToRound: mixture.vgToRound,
 					pgToRound: mixture.pgToRound,
 					aroma,
-					booster: mixture.boosterId ? await boosterService().toMap(mixture.boosterId) : undefined,
-					base: mixture.baseId ? await baseService().toMap(mixture.baseId) : undefined,
+					booster: await memoBoosterToMap(mixture.boosterId, boosterService),
+					base: await memoBaseToMap(mixture.baseId, baseService()),
 					volume: aroma.volume || 0,
-					draws: await Promise.all((await request.prisma.mixtureDraw.findMany({
-						where: {
-							mixtureId: mixture.id,
-						},
-						orderBy: {
-							draw: {sort: "asc"},
-						},
-						include: {
-							draw: true,
-						}
-					})).map(({draw}) => tagService().map(draw))),
+					draws: await memoMixtureDraws(mixture.id, tagService),
 				};
 			},
 			create: async ({code, ...mixture}) => request.prisma.mixture.create({
@@ -80,6 +74,7 @@ export const MixtureService = (request: IMixtureServiceCreate): IMixtureService 
 						mixtureId: $mixture.id,
 					}
 				});
+				await memoMixtureDraws.delete($mixture.id, tagService);
 				return request.prisma.mixture.update({
 					where: {
 						id: $mixture.id,
