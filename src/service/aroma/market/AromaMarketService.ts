@@ -1,5 +1,6 @@
 import {AromaService} from "@/puff-smith/service/aroma/AromaService";
 import {IAromaMarketService, IAromaMarketServiceCreate} from "@/puff-smith/service/aroma/market/interface";
+import {memoIsOwned} from "@/puff-smith/service/aroma/memoize";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
 
@@ -12,12 +13,7 @@ export const AromaMarketService = (request: IAromaMarketServiceCreate): IAromaMa
 		source: request.prisma.aroma,
 		mapper: async entity => ({
 			aroma: await aromaService().map(entity),
-			isOwned: await request.prisma.aromaInventory.count({
-				where: {
-					aromaId: entity.id,
-					userId: userId(),
-				}
-			}) > 0,
+			isOwned: await memoIsOwned(entity.id, userId()),
 		}),
 		toFilter: filter => aromaService().toFilter(filter),
 		create: async () => {

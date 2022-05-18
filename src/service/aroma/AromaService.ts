@@ -1,6 +1,8 @@
 import {IAromaService, IAromaServiceCreate} from "@/puff-smith/service/aroma/interface";
+import {memoTastes} from "@/puff-smith/service/aroma/memoize";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {TagService} from "@/puff-smith/service/tag/TagService";
+import {memoVendorToMap} from "@/puff-smith/service/vendor/memoize";
 import {VendorService} from "@/puff-smith/service/vendor/VendorService";
 import {singletonOf} from "@leight-core/client";
 import {RepositoryService} from "@leight-core/server";
@@ -48,6 +50,7 @@ export const AromaService = (request: IAromaServiceCreate): IAromaService => {
 					aromaId: $aroma.id,
 				}
 			});
+			await memoTastes.delete($aroma.id, undefined);
 			return request.prisma.aroma.update({
 				where: {
 					id: $aroma.id,
@@ -66,19 +69,8 @@ export const AromaService = (request: IAromaServiceCreate): IAromaService => {
 		},
 		mapper: async aroma => ({
 			...aroma,
-			vendor: await vendorService().toMap(aroma.vendorId),
-			tastes: await tagService().list(request.prisma.tag.findMany({
-				where: {
-					AromaTaste: {
-						some: {
-							aromaId: aroma.id,
-						}
-					}
-				},
-				orderBy: {
-					sort: "asc",
-				}
-			})),
+			vendor: await memoVendorToMap(aroma.vendorId, vendorService),
+			tastes: await memoTastes(aroma.id, tagService),
 		}),
 		toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
 			OR: [
