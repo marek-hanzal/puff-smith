@@ -12,7 +12,6 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 			"endpoint",
 			"auth",
 			"query",
-			"fixtures",
 			COIL_JOB,
 			COILS_JOB,
 			IMPORT_JOB,
@@ -21,8 +20,7 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 			MIXTURE_USER_JOB,
 		],
 		version,
-		withLoki: false,
-		level: "info",
+		level: "debug",
 	});
 	try {
 		register.setDefaultLabels({

@@ -37,7 +37,7 @@
 		"@ant-design/icons": "^4.7.0",
 		"@leight-core/api": "^0.5.182",
 		"@leight-core/client": "^0.5.159",
-		"@leight-core/server": "^0.5.166",
+		"@leight-core/server": "^0.5.168",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.13.0",
 		"antd": "^4.20.3",
