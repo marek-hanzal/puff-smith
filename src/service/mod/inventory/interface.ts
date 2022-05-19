@@ -33,9 +33,9 @@ export interface IModInventoryFetchQuery extends ParsedUrlQuery {
 	modTransactionId: string;
 }
 
-export interface IModTransactionServiceCreate extends IServiceCreate {
+export interface IModTransactionRepositoryCreate extends IServiceCreate {
 }
 
-export interface IModTransactionService extends IRepository<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery> {
+export interface IModTransactionRepository extends IRepository<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery> {
 	handleDelete(request: { request: IModInventoryDelete }): Promise<IModInventory[]>;
 }

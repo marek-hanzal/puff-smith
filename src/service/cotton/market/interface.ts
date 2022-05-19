@@ -11,8 +11,8 @@ export interface ICottonMarket {
 export interface ICottonMarketQuery extends IQuery<Prisma.CottonWhereInput, Prisma.CottonOrderByWithRelationInput> {
 }
 
-export interface ICottonMarketServiceCreate extends IServiceCreate {
+export interface ICottonMarketRepositoryCreate extends IServiceCreate {
 }
 
-export interface ICottonMarketService extends IRepository<void, Cotton, ICottonMarket, ICottonMarketQuery, void, {}> {
+export interface ICottonMarketRepository extends IRepository<void, Cotton, ICottonMarket, ICottonMarketQuery, void, {}> {
 }

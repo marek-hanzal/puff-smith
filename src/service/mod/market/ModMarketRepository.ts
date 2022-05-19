@@ -1,18 +1,17 @@
-import {defaults} from "@/puff-smith/service";
-import {IModMarketService, IModMarketServiceCreate} from "@/puff-smith/service/mod/market/interface";
+import {IModMarketRepository, IModMarketRepositoryCreate} from "@/puff-smith/service/mod/market/interface";
 import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const ModMarketService = (request: IModMarketServiceCreate = defaults()): IModMarketService => {
-	const modService = singletonOf(() => ModRepository(request));
+export const ModMarketRepository = (request: IModMarketRepositoryCreate): IModMarketRepository => {
+	const modRepository = singletonOf(() => ModRepository(request));
 	const userId = request.userService.getOptionalUserId();
 
-	return Repository<IModMarketService>({
+	return Repository<IModMarketRepository>({
 		name: "mod-market",
 		source: request.prisma.mod,
 		mapper: async entity => ({
-			mod: await modService().map(entity),
+			mod: await modRepository().map(entity),
 			isOwned: userId ? (await request.prisma.modInventory.count({
 				where: {
 					modId: entity.id,
@@ -20,7 +19,7 @@ export const ModMarketService = (request: IModMarketServiceCreate = defaults()):
 				}
 			})) > 0 : undefined,
 		}),
-		toFilter: filter => modService().toFilter(filter),
+		toFilter: filter => modRepository().toFilter(filter),
 		create: async () => {
 			throw new Error("Invalid operation: read-only repository.");
 		},

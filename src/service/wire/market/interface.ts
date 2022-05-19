@@ -11,8 +11,8 @@ export interface IWireMarket {
 export interface IWireMarketQuery extends IQuery<Prisma.WireWhereInput, Prisma.WireOrderByWithRelationInput> {
 }
 
-export interface IWireMarketServiceCreate extends IServiceCreate {
+export interface IWireMarketRepositoryCreate extends IServiceCreate {
 }
 
-export interface IWireMarketService extends IRepository<void, Wire, IWireMarket, IWireMarketQuery, void, {}> {
+export interface IWireMarketRepository extends IRepository<void, Wire, IWireMarket, IWireMarketQuery, void, {}> {
 }

@@ -1,18 +1,18 @@
 import {AtomizerRepository} from "@/puff-smith/service/atomizer/AtomizerRepository";
-import {IAtomizerInventoryRepositoryCreate, IAtomizerInventoryService} from "@/puff-smith/service/atomizer/inventory/interface";
+import {IAtomizerInventoryRepository, IAtomizerInventoryRepositoryCreate} from "@/puff-smith/service/atomizer/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const AtomizerInventoryRepository = (request: IAtomizerInventoryRepositoryCreate): IAtomizerInventoryService => {
+export const AtomizerInventoryRepository = (request: IAtomizerInventoryRepositoryCreate): IAtomizerInventoryRepository => {
 	const atomizerRepository = singletonOf(() => AtomizerRepository(request));
 	const transactionRepository = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return Repository<IAtomizerInventoryService>({
+	return Repository<IAtomizerInventoryRepository>({
 		name: "atomizer-inventory",
 		source: request.prisma.atomizerInventory,
 		mapper: async atomizerInventory => ({

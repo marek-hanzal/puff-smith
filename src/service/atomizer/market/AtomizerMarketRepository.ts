@@ -1,9 +1,9 @@
 import {AtomizerRepository} from "@/puff-smith/service/atomizer/AtomizerRepository";
-import {IAtomizerMarketRepository, IAtomizerMarketServiceCreate} from "@/puff-smith/service/atomizer/market/interface";
+import {IAtomizerMarketRepository, IAtomizerMarketRepositoryCreate} from "@/puff-smith/service/atomizer/market/interface";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const AtomizerMarketRepository = (request: IAtomizerMarketServiceCreate): IAtomizerMarketRepository => {
+export const AtomizerMarketRepository = (request: IAtomizerMarketRepositoryCreate): IAtomizerMarketRepository => {
 	const atomizerRepository = singletonOf(() => AtomizerRepository(request));
 	const userId = request.userService.getOptionalUserId();
 

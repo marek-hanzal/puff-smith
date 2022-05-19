@@ -1,7 +1,7 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import memoizee from "memoizee";
 
-export const memoMixtureDraws = memoizee(async (mixtureId, tagService) => Promise.all((await prisma.mixtureDraw.findMany({
+export const memoMixtureDraws = memoizee(async (mixtureId, tagRepository) => Promise.all((await prisma.mixtureDraw.findMany({
 	where: {
 		mixtureId,
 	},
@@ -11,7 +11,7 @@ export const memoMixtureDraws = memoizee(async (mixtureId, tagService) => Promis
 	include: {
 		draw: true,
 	}
-})).map(({draw}) => tagService().map(draw))), {
+})).map(({draw}) => tagRepository().map(draw))), {
 	primitive: true,
 	preFetch: true,
 	maxAge: 24 * 60 * 60 * 1000,

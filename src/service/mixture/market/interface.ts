@@ -12,8 +12,8 @@ export interface IMixtureMarket {
 export interface IMixtureMarketQuery extends IQuery<Prisma.MixtureWhereInput, Prisma.MixtureOrderByWithRelationInput> {
 }
 
-export interface IMixtureMarketServiceCreate extends IServiceCreate {
+export interface IMixtureMarketRepositoryCreate extends IServiceCreate {
 }
 
-export interface IMixtureMarketService extends IRepository<void, Mixture, IMixtureMarket, IMixtureMarketQuery, void, {}> {
+export interface IMixtureMarketRepository extends IRepository<void, Mixture, IMixtureMarket, IMixtureMarketQuery, void, {}> {
 }

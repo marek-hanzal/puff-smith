@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {ICellRepository, ICellRepositoryCreate} from "@/puff-smith/service/cell/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {OhmService} from "@/puff-smith/service/ohm/OhmService";
@@ -7,7 +6,7 @@ import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CellRepository = (request: ICellRepositoryCreate = defaults()): ICellRepository => {
+export const CellRepository = (request: ICellRepositoryCreate): ICellRepository => {
 	const vendorRepository = singletonOf(() => VendorRepository(request));
 	const tagRepository = singletonOf(() => TagRepository(request));
 	const codeService = singletonOf(() => CodeService());

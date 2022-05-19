@@ -1,26 +1,25 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {IModTransactionService, IModTransactionServiceCreate} from "@/puff-smith/service/mod/inventory/interface";
+import {IModTransactionRepository, IModTransactionRepositoryCreate} from "@/puff-smith/service/mod/inventory/interface";
 import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const ModInventoryService = (request: IModTransactionServiceCreate = defaults()): IModTransactionService => {
-	const modService = singletonOf(() => ModRepository(request));
-	const transactionService = singletonOf(() => TransactionRepository(request));
+export const ModInventoryRepository = (request: IModTransactionRepositoryCreate): IModTransactionRepository => {
+	const modRepository = singletonOf(() => ModRepository(request));
+	const transactionRepository = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
-		...Repository<IModTransactionService>({
+		...Repository<IModTransactionRepository>({
 			name: "mod-inventory",
 			source: request.prisma.modInventory,
 			mapper: async modTransaction => ({
 				...modTransaction,
-				mod: await modService().toMap(modTransaction.modId),
-				transaction: await transactionService().toMap(modTransaction.transactionId),
+				mod: await modRepository().toMap(modTransaction.modId),
+				transaction: await transactionRepository().toMap(modTransaction.transactionId),
 			}),
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
 				const $mod = await ModRepository({...request, prisma}).toMap(mod.modId);
@@ -47,7 +46,7 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
-				const modInventory = await ModInventoryService({...request, prisma}).list(prisma.modInventory.findMany({where}));
+				const modInventory = await ModInventoryRepository({...request, prisma}).list(prisma.modInventory.findMany({where}));
 				await prisma.modInventory.deleteMany({
 					where,
 				});

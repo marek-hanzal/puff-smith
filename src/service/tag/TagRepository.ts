@@ -1,8 +1,7 @@
-import {defaults} from "@/puff-smith/service";
 import {ITagRepository, ITagRepositoryCreate} from "@/puff-smith/service/tag/interface";
 import {onUnique, Repository} from "@leight-core/server";
 
-export const TagRepository = (request: ITagRepositoryCreate = defaults()): ITagRepository => {
+export const TagRepository = (request: ITagRepositoryCreate): ITagRepository => {
 	return {
 		...Repository<ITagRepository>({
 			name: "tag",

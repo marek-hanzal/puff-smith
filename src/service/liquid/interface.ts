@@ -38,9 +38,9 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-export interface ILiquidServiceCreate extends IServiceCreate {
+export interface ILiquidRepositoryCreate extends IServiceCreate {
 }
 
-export interface ILiquidService extends IRepository<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
+export interface ILiquidRepository extends IRepository<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
 	handleDelete(request: { request: ILiquidDelete }): Promise<ILiquid[]>;
 }

@@ -37,8 +37,8 @@ export interface IBaseFetchQuery extends ParsedUrlQuery {
 	baseId: string;
 }
 
-export interface IBaseServiceCreate extends IServiceCreate {
+export interface IBaseRepositoryCreate extends IServiceCreate {
 }
 
-export interface IBaseService extends IRepository<IBaseCreate, Base, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchQuery> {
+export interface IBaseRepository extends IRepository<IBaseCreate, Base, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchQuery> {
 }

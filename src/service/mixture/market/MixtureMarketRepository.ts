@@ -1,17 +1,17 @@
-import {IMixtureMarketService, IMixtureMarketServiceCreate} from "@/puff-smith/service/mixture/market/interface";
+import {IMixtureMarketRepository, IMixtureMarketRepositoryCreate} from "@/puff-smith/service/mixture/market/interface";
 import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const MixtureMarketService = (request: IMixtureMarketServiceCreate): IMixtureMarketService => {
-	const mixtureService = singletonOf(() => MixtureRepository(request));
+export const MixtureMarketRepository = (request: IMixtureMarketRepositoryCreate): IMixtureMarketRepository => {
+	const mixtureRepository = singletonOf(() => MixtureRepository(request));
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return Repository<IMixtureMarketService>({
+	return Repository<IMixtureMarketRepository>({
 		name: "mixture-market",
 		source: request.prisma.mixture,
 		mapper: async entity => ({
-			mixture: await mixtureService().map(entity),
+			mixture: await mixtureRepository().map(entity),
 			booster: {
 				isOwned: entity.boosterId ? (await request.prisma.boosterInventory.count({
 					where: {
@@ -29,7 +29,7 @@ export const MixtureMarketService = (request: IMixtureMarketServiceCreate): IMix
 				})) > 0 : undefined,
 			},
 		}),
-		toFilter: filter => mixtureService().toFilter(filter),
+		toFilter: filter => mixtureRepository().toFilter(filter),
 		create: async () => {
 			throw new Error("Invalid operation: read-only repository.");
 		},

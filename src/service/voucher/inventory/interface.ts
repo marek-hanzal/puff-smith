@@ -29,8 +29,8 @@ export interface IVoucherInventoryFetchQuery extends ParsedUrlQuery {
 	voucherTransactionId: string;
 }
 
-export interface IVoucherInventoryServiceCreate extends IServiceCreate {
+export interface IVoucherInventoryRepositoryCreate extends IServiceCreate {
 }
 
-export interface IVoucherInventoryService extends IRepository<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery> {
+export interface IVoucherInventoryRepository extends IRepository<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery> {
 }

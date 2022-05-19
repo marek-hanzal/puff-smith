@@ -1,4 +1,4 @@
-import {IAtomizerService, IAtomizerServiceCreate} from "@/puff-smith/service/atomizer/interface";
+import {IAtomizerRepository, IAtomizerRepositoryCreate} from "@/puff-smith/service/atomizer/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
 import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
@@ -6,18 +6,18 @@ import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import {boolean} from "boolean";
 
-export const AtomizerRepository = (request: IAtomizerServiceCreate) => {
-	const vendorService = singletonOf(() => VendorRepository(request));
-	const tagService = singletonOf(() => TagRepository(request));
+export const AtomizerRepository = (request: IAtomizerRepositoryCreate): IAtomizerRepository => {
+	const vendorRepository = singletonOf(() => VendorRepository(request));
+	const tagRepository = singletonOf(() => TagRepository(request));
 	const codeService = singletonOf(() => CodeService());
 
-	return Repository<IAtomizerService>({
+	return Repository<IAtomizerRepository>({
 		name: "atomizer",
 		source: request.prisma.atomizer,
 		mapper: async atomizer => ({
 			...atomizer,
-			vendor: await vendorService().toMap(atomizer.vendorId),
-			draws: await tagService().list(request.prisma.tag.findMany({
+			vendor: await vendorRepository().toMap(atomizer.vendorId),
+			draws: await tagRepository().list(request.prisma.tag.findMany({
 				where: {
 					AtomizerDraw: {
 						some: {
@@ -52,7 +52,7 @@ export const AtomizerRepository = (request: IAtomizerServiceCreate) => {
 				},
 				AtomizerDraw: {
 					createMany: {
-						data: draws ? (await tagService().fetchCodes(draws, "draw")).map(tag => ({
+						data: draws ? (await tagRepository().fetchCodes(draws, "draw")).map(tag => ({
 							drawId: tag.id,
 						})) : [],
 					}

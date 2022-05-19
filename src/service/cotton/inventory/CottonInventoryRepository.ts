@@ -1,26 +1,25 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {CottonRepository} from "@/puff-smith/service/cotton/CottonRepository";
-import {ICottonInventoryService, ICottonInventoryServiceCreate} from "@/puff-smith/service/cotton/inventory/interface";
+import {ICottonInventoryRepository, ICottonInventoryRepositoryCreate} from "@/puff-smith/service/cotton/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CottonInventoryService = (request: ICottonInventoryServiceCreate = defaults()): ICottonInventoryService => {
-	const cottonService = singletonOf(() => CottonRepository(request));
-	const transactionService = singletonOf(() => TransactionRepository(request));
+export const CottonInventoryRepository = (request: ICottonInventoryRepositoryCreate): ICottonInventoryRepository => {
+	const cottonRepository = singletonOf(() => CottonRepository(request));
+	const transactionRepository = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
-		...Repository<ICottonInventoryService>({
+		...Repository<ICottonInventoryRepository>({
 			name: "cotton-inventory",
 			source: request.prisma.cottonInventory,
 			mapper: async cottonTransaction => ({
 				...cottonTransaction,
-				cotton: await cottonService().toMap(cottonTransaction.cottonId),
-				transaction: await transactionService().toMap(cottonTransaction.transactionId),
+				cotton: await cottonRepository().toMap(cottonTransaction.cottonId),
+				transaction: await transactionRepository().toMap(cottonTransaction.transactionId),
 			}),
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
 				const $cotton = await CottonRepository({...request, prisma}).toMap(cotton.cottonId);
@@ -47,7 +46,7 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 				userId: userId(),
 			};
 			return prisma.$transaction(async prisma => {
-				const cottonInventory = await CottonInventoryService({...request, prisma}).list(prisma.cottonInventory.findMany({where}));
+				const cottonInventory = await CottonInventoryRepository({...request, prisma}).list(prisma.cottonInventory.findMany({where}));
 				await prisma.cottonInventory.deleteMany({
 					where,
 				});

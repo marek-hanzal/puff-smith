@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ICottonRepository, ICottonRepositoryCreate} from "@/puff-smith/service/cotton/interface";
 import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
@@ -6,7 +5,7 @@ import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CottonRepository = (request: ICottonRepositoryCreate = defaults()): ICottonRepository => {
+export const CottonRepository = (request: ICottonRepositoryCreate): ICottonRepository => {
 	const vendorRepository = singletonOf(() => VendorRepository(request));
 	const tagRepository = singletonOf(() => TagRepository(request));
 	const codeService = singletonOf(() => CodeService());

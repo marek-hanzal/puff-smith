@@ -1,21 +1,21 @@
 import {defaults} from "@/puff-smith/service";
 import {PriceRepository} from "@/puff-smith/service/price/PriceRepository";
-import {ITransactionService, ITransactionServiceCreate} from "@/puff-smith/service/transaction/interface";
+import {ITransactionRepository, ITransactionRepositoryCreate} from "@/puff-smith/service/transaction/interface";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const TransactionRepository = (request: ITransactionServiceCreate = defaults()): ITransactionService => {
-	const priceService = singletonOf(() => PriceRepository(request));
+export const TransactionRepository = (request: ITransactionRepositoryCreate): ITransactionRepository => {
+	const priceRepository = singletonOf(() => PriceRepository(request));
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	const sum: ITransactionService["sum"] = async query => (await request.prisma.transaction.aggregate({
+	const sum: ITransactionRepository["sum"] = async query => (await request.prisma.transaction.aggregate({
 		where: query.filter,
 		orderBy: query.orderBy,
 		_sum: {
 			amount: true,
 		}
 	}))._sum.amount?.toNumber() || 0;
-	const sumOf: ITransactionService["sumOf"] = () => sum({
+	const sumOf: ITransactionRepository["sumOf"] = () => sum({
 		filter: {
 			userId: userId(),
 		},
@@ -25,7 +25,7 @@ export const TransactionRepository = (request: ITransactionServiceCreate = defau
 	});
 
 	return {
-		...Repository<ITransactionService>({
+		...Repository<ITransactionRepository>({
 			name: "transaction",
 			source: request.prisma.transaction,
 			mapper: async transaction => ({
@@ -56,7 +56,7 @@ export const TransactionRepository = (request: ITransactionServiceCreate = defau
 		},
 		check: async ({price, tariff}) => {
 			const $sum = sumOf();
-			const $price = await priceService().priceOf(tariff || "default", price);
+			const $price = await priceRepository().priceOf(tariff || "default", price);
 			return {
 				price: $price.price.toNumber(),
 				pass: (await $sum) >= $price.price.toNumber(),

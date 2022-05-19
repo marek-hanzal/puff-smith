@@ -33,5 +33,5 @@ export interface IAtomizerInventoryFetchQuery extends ParsedUrlQuery {
 export interface IAtomizerInventoryRepositoryCreate extends IServiceCreate {
 }
 
-export interface IAtomizerInventoryService extends IRepository<IAtomizerInventoryCreate, AtomizerInventory, IAtomizerInventory, IAtomizerInventoryQuery, IAtomizerInventoryFetchProps, IAtomizerInventoryFetchQuery> {
+export interface IAtomizerInventoryRepository extends IRepository<IAtomizerInventoryCreate, AtomizerInventory, IAtomizerInventory, IAtomizerInventoryQuery, IAtomizerInventoryFetchProps, IAtomizerInventoryFetchQuery> {
 }

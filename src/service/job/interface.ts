@@ -32,10 +32,10 @@ export interface IJobFetchQuery extends ParsedUrlQuery {
 	jobId: string;
 }
 
-export interface IJobServiceCreate extends IServiceCreate {
+export interface IJobRepositoryCreate extends IServiceCreate {
 }
 
-export interface IJobService extends IRepository<IJobCreate, Job, IJob, IJobQuery, IJobFetchProps, IJobFetchQuery> {
+export interface IJobRepository extends IRepository<IJobCreate, Job, IJob, IJobQuery, IJobFetchProps, IJobFetchQuery> {
 	createProgress(jobId: string): IJobProgress;
 
 	commit(): Promise<any>;

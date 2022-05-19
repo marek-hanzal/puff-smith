@@ -33,10 +33,10 @@ export interface IFiberFetchQuery extends ParsedUrlQuery {
 	fiberId: string;
 }
 
-export interface IFiberServiceCreate extends IServiceCreate {
+export interface IFiberRepositoryCreate extends IServiceCreate {
 }
 
-export interface IFiberService extends IRepository<IFiberCreate, Fiber, IFiber, IFiberQuery, IFiberFetchProps, IFiberFetchQuery> {
+export interface IFiberRepository extends IRepository<IFiberCreate, Fiber, IFiber, IFiberQuery, IFiberFetchProps, IFiberFetchQuery> {
 	fetchByCode(code: string): Promise<Fiber>;
 
 	fetchByCodes(codes: string[]): Promise<Fiber[]>;

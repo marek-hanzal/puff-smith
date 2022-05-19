@@ -34,8 +34,8 @@ export interface IMetricFetchQuery extends ParsedUrlQuery {
 	metricId: string;
 }
 
-export interface IMetricServiceCreate extends IServiceCreate {
+export interface IMetricRepositoryCreate extends IServiceCreate {
 }
 
-export interface IMetricService extends IRepository<IMetricCreate, Metric, IMetric, IMetricQuery, IMetricFetchProps, IMetricFetchQuery> {
+export interface IMetricRepository extends IRepository<IMetricCreate, Metric, IMetric, IMetricQuery, IMetricFetchProps, IMetricFetchQuery> {
 }

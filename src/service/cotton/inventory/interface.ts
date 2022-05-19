@@ -33,9 +33,9 @@ export interface ICottonInventoryFetchQuery extends ParsedUrlQuery {
 	cottonTransactionId: string;
 }
 
-export interface ICottonInventoryServiceCreate extends IServiceCreate {
+export interface ICottonInventoryRepositoryCreate extends IServiceCreate {
 }
 
-export interface ICottonInventoryService extends IRepository<ICottonInventoryCreate, CottonInventory, ICottonInventory, ICottonInventoryQuery, ICottonInventoryFetchProps, ICottonInventoryFetchQuery> {
+export interface ICottonInventoryRepository extends IRepository<ICottonInventoryCreate, CottonInventory, ICottonInventory, ICottonInventoryQuery, ICottonInventoryFetchProps, ICottonInventoryFetchQuery> {
 	handleDelete(request: { request: ICottonInventoryDelete }): Promise<ICottonInventory[]>;
 }

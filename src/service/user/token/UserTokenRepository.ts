@@ -1,21 +1,20 @@
-import {defaults} from "@/puff-smith/service";
 import {TokenRepository} from "@/puff-smith/service/token/TokenRepository";
-import {IUserTokenService, IUserTokenServiceCreate} from "@/puff-smith/service/user/token/interface";
+import {IUserTokenRepository, IUserTokenRepositoryCreate} from "@/puff-smith/service/user/token/interface";
 import {UserRepository} from "@/puff-smith/service/user/UserRepository";
 import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const UserTokenRepository = (request: IUserTokenServiceCreate = defaults()): IUserTokenService => {
-	const userService = singletonOf(() => UserRepository(request));
-	const tokenService = singletonOf(() => TokenRepository(request));
+export const UserTokenRepository = (request: IUserTokenRepositoryCreate): IUserTokenRepository => {
+	const userRepository = singletonOf(() => UserRepository(request));
+	const tokenRepository = singletonOf(() => TokenRepository(request));
 
-	return Repository<IUserTokenService>({
+	return Repository<IUserTokenRepository>({
 		name: "user-token",
 		source: request.prisma.userToken,
 		mapper: async userToken => ({
 			...userToken,
-			user: await userService().toMap(userToken.userId),
-			token: await tokenService().toMap(userToken.tokenId),
+			user: await userRepository().toMap(userToken.userId),
+			token: await tokenRepository().toMap(userToken.tokenId),
 		}),
 		create: async create => request.prisma.userToken.create({
 			data: create,

@@ -1,6 +1,6 @@
 import {IMixtureJobParams, IMixturesJobParams, IMixtureUserJobParams, MIXTURE_JOB, MIXTURE_USER_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
 import {defaults} from "@/puff-smith/service";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {JobRepository} from "@/puff-smith/service/job/JobRepository";
 import {MixtureInventoryRepository} from "@/puff-smith/service/mixture/inventory/MixtureInventoryRepository";
 import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
@@ -8,7 +8,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 import PQueue from "p-queue";
 
-const jobService = JobService(defaults());
+const jobService = JobRepository(defaults());
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");

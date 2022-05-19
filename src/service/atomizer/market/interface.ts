@@ -11,7 +11,7 @@ export interface IAtomizerMarket {
 export interface IAtomizerMarketQuery extends IQuery<Prisma.AtomizerWhereInput, Prisma.AtomizerOrderByWithRelationInput> {
 }
 
-export interface IAtomizerMarketServiceCreate extends IServiceCreate {
+export interface IAtomizerMarketRepositoryCreate extends IServiceCreate {
 }
 
 export interface IAtomizerMarketRepository extends IRepository<void, Atomizer, IAtomizerMarket, IAtomizerMarketQuery, void, {}> {

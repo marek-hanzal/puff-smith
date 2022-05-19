@@ -1,9 +1,8 @@
-import {defaults} from "@/puff-smith/service";
 import {ITokenRepository, ITokenRepositoryCreate} from "@/puff-smith/service/token/interface";
 import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const TokenRepository = (request: ITokenRepositoryCreate = defaults()): ITokenRepository => {
+export const TokenRepository = (request: ITokenRepositoryCreate): ITokenRepository => {
 	const tokenRepository = singletonOf(() => TokenRepository(request));
 
 	return {

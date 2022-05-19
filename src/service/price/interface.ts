@@ -35,10 +35,10 @@ export interface IPriceFetchQuery extends ParsedUrlQuery {
 	priceId: string;
 }
 
-export interface IPriceServiceCreate extends IServiceCreate {
+export interface IPriceRepositoryCreate extends IServiceCreate {
 }
 
-export interface IPriceService extends IRepository<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {
+export interface IPriceRepository extends IRepository<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {
 	priceOf(tariff: string, price: string): Promise<Price>;
 
 	amountOf(tariff: string, price: string, fallback: number): Promise<number>;

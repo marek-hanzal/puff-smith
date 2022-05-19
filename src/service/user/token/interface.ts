@@ -27,8 +27,8 @@ export interface IUserTokenFetchQuery extends ParsedUrlQuery {
 	userTokenId: string;
 }
 
-export interface IUserTokenServiceCreate extends IServiceCreate {
+export interface IUserTokenRepositoryCreate extends IServiceCreate {
 }
 
-export interface IUserTokenService extends IRepository<IUserTokenCreate, UserToken, IUserToken, IUserTokenQuery, IUserTokenFetchProps, IUserTokenFetchQuery> {
+export interface IUserTokenRepository extends IRepository<IUserTokenCreate, UserToken, IUserToken, IUserTokenQuery, IUserTokenFetchProps, IUserTokenFetchQuery> {
 }

@@ -1,4 +1,3 @@
-import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {PriceRepository} from "@/puff-smith/service/price/PriceRepository";
 import {ITariffRepository, ITariffRepositoryCreate} from "@/puff-smith/service/tariff/interface";
@@ -7,7 +6,7 @@ import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import {Price} from "@prisma/client";
 
-export const TariffRepository = (request: ITariffRepositoryCreate = defaults()): ITariffRepository => {
+export const TariffRepository = (request: ITariffRepositoryCreate): ITariffRepository => {
 	const priceRepository = singletonOf(() => PriceRepository(request));
 	const transactionRepository = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());

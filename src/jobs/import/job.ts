@@ -8,7 +8,7 @@ import {CellRepository} from "@/puff-smith/service/cell/CellRepository";
 import {CoilRepository} from "@/puff-smith/service/coil/CoilRepository";
 import {CottonRepository} from "@/puff-smith/service/cotton/CottonRepository";
 import {FiberRepository} from "@/puff-smith/service/fiber/FiberRepository";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {JobRepository} from "@/puff-smith/service/job/JobRepository";
 import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
 import {PriceRepository} from "@/puff-smith/service/price/PriceRepository";
 import fileService from "@/puff-smith/service/side-effect/fileService";
@@ -42,7 +42,7 @@ const importHandlers = {
 	...WireRepository($defaults).importers(),
 };
 
-export const ImportJob: IJobProcessor<IImportJobParams> = JobService($defaults).processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
+export const ImportJob: IJobProcessor<IImportJobParams> = JobRepository($defaults).processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
 	const labels = {jobId: job.id};
 	logger = logger.child({labels, jobId: labels.jobId});
 	logger.info("Checking fileId");

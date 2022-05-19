@@ -11,8 +11,8 @@ export interface IModMarket {
 export interface IModMarketQuery extends IQuery<Prisma.ModWhereInput, Prisma.ModOrderByWithRelationInput> {
 }
 
-export interface IModMarketServiceCreate extends IServiceCreate {
+export interface IModMarketRepositoryCreate extends IServiceCreate {
 }
 
-export interface IModMarketService extends IRepository<void, Mod, IModMarket, IModMarketQuery, void, {}> {
+export interface IModMarketRepository extends IRepository<void, Mod, IModMarket, IModMarketQuery, void, {}> {
 }

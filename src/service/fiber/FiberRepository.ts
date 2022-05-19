@@ -1,14 +1,14 @@
-import {IFiberService, IFiberServiceCreate} from "@/puff-smith/service/fiber/interface";
+import {IFiberRepository, IFiberRepositoryCreate} from "@/puff-smith/service/fiber/interface";
 import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
 import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const FiberRepository = (request: IFiberServiceCreate): IFiberService => {
+export const FiberRepository = (request: IFiberRepositoryCreate): IFiberRepository => {
 	const fiberRepository = singletonOf(() => FiberRepository(request));
 	const tagRepository = singletonOf(() => TagRepository(request));
 
 	return {
-		...Repository<IFiberService>({
+		...Repository<IFiberRepository>({
 			name: "fiber",
 			source: request.prisma.fiber,
 			mapper: async fiber => ({

@@ -1,15 +1,15 @@
-import {IBaseService, IBaseServiceCreate} from "@/puff-smith/service/base/interface";
+import {IBaseRepository, IBaseRepositoryCreate} from "@/puff-smith/service/base/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {onUnique, Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import deepmerge from "deepmerge";
 
-export const BaseRepository = (request: IBaseServiceCreate) => {
+export const BaseRepository = (request: IBaseRepositoryCreate): IBaseRepository => {
 	const codeService = singletonOf(() => CodeService());
 	const vendorRepository = singletonOf(() => VendorRepository(request));
 
-	return Repository<IBaseService>({
+	return Repository<IBaseRepository>({
 		name: "base",
 		source: request.prisma.base,
 		mapper: async base => ({

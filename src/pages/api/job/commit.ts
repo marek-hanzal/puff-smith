@@ -1,5 +1,5 @@
 import {ofRequest} from "@/puff-smith/service";
-import {JobService} from "@/puff-smith/service/job/JobService";
+import {JobRepository} from "@/puff-smith/service/job/JobRepository";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"Commit", void, void>(async params => JobService(ofRequest(params)).commit());
+export default MutationEndpoint<"Commit", void, void>(async params => JobRepository(ofRequest(params)).commit());

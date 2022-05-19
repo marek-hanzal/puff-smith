@@ -39,8 +39,8 @@ export interface IAtomizerFetchQuery extends ParsedUrlQuery {
 	atomizerId: string;
 }
 
-export interface IAtomizerServiceCreate extends IServiceCreate {
+export interface IAtomizerRepositoryCreate extends IServiceCreate {
 }
 
-export interface IAtomizerService extends IRepository<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {
+export interface IAtomizerRepository extends IRepository<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {
 }

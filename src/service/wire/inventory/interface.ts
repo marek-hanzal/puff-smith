@@ -33,9 +33,9 @@ export interface IWireInventoryFetchQuery extends ParsedUrlQuery {
 	wireTransactionId: string;
 }
 
-export interface IWireInventoryServiceCreate extends IServiceCreate {
+export interface IWireInventoryRepositoryCreate extends IServiceCreate {
 }
 
-export interface IWireInventoryService extends IRepository<IWireInventoryCreate, WireInventory, IWireInventory, IWireInventoryQuery, IWireInventoryFetchProps, IWireInventoryFetchQuery> {
+export interface IWireInventoryRepository extends IRepository<IWireInventoryCreate, WireInventory, IWireInventory, IWireInventoryQuery, IWireInventoryFetchProps, IWireInventoryFetchQuery> {
 	handleDelete(request: { request: IWireInventoryDelete }): Promise<IWireInventory[]>;
 }

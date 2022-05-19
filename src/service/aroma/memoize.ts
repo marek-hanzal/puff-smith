@@ -13,7 +13,7 @@ export const memoIsOwned = memoizee(async (aromaId, userId) => await prisma.arom
 	maxAge: 24 * 60 * 60 * 1000,
 });
 
-export const memoAromaToMap = memoizee(async (aromaId, aromaService) => aromaService().toMap(aromaId), {
+export const memoAromaToMap = memoizee(async (aromaId, aromaRepository) => aromaRepository().toMap(aromaId), {
 	primitive: true,
 	max: 256,
 	preFetch: true,
@@ -22,7 +22,7 @@ export const memoAromaToMap = memoizee(async (aromaId, aromaService) => aromaSer
 	resolvers: [String],
 });
 
-export const memoTastes = memoizee(async (id, tagService) => await tagService().list(prisma.tag.findMany({
+export const memoTastes = memoizee(async (id, tagRepository) => await tagRepository().list(prisma.tag.findMany({
 	where: {
 		AromaTaste: {
 			some: {

@@ -48,10 +48,10 @@ export interface ICheckResponse {
 	pass: boolean;
 }
 
-export interface ITransactionServiceCreate extends IServiceCreate {
+export interface ITransactionRepositoryCreate extends IServiceCreate {
 }
 
-export interface ITransactionService extends IRepository<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
+export interface ITransactionRepository extends IRepository<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
 	sum(query: ITransactionQuery): Promise<number>;
 
 	sumOf(): Promise<number>;

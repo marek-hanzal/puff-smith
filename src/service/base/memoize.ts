@@ -1,6 +1,6 @@
 import memoizee from "memoizee";
 
-export const memoBaseToMap = memoizee(async (baseId, baseService) => baseId ? baseService().toMap(baseId) : undefined, {
+export const memoBaseToMap = memoizee(async (baseId, baseRepository) => baseId ? baseRepository().toMap(baseId) : undefined, {
 	primitive: true,
 	max: 256,
 	preFetch: true,
