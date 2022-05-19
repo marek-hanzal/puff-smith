@@ -1,6 +1,6 @@
-import {defaults} from "@/puff-smith/service";
+import {ofRequest} from "@/puff-smith/service";
 import {IVoucherInventory, IVoucherInventoryQuery} from "@/puff-smith/service/voucher/inventory/interface";
-import {VoucherInventoryService} from "@/puff-smith/service/voucher/inventory/VoucherInventoryService";
+import {VoucherInventoryRepository} from "@/puff-smith/service/voucher/inventory/VoucherInventoryRepository";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"VoucherInventory", IVoucherInventoryQuery, IVoucherInventory>(async ({request, toUserId}) => VoucherInventoryService(defaults(toUserId())).handleQuery({request}));
+export default QueryEndpoint<"VoucherInventory", IVoucherInventoryQuery, IVoucherInventory>(async params => VoucherInventoryRepository(ofRequest(params)).handleQuery(params));

@@ -1,4 +1,4 @@
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {FC} from "react";
 
 export interface IVoltProps {
@@ -6,5 +6,5 @@ export interface IVoltProps {
 }
 
 export const Volt: FC<IVoltProps> = ({volt}) => {
-	return <>{volt ? toHumanNumber(volt, 2) + "V" : "-"}</>;
+	return <>{volt ? toHumanNumber(volt) + "V" : "-"}</>;
 };

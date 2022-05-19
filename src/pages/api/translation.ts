@@ -1,12 +1,13 @@
-import {TranslationService} from "@/puff-smith/service/translation/TranslationService";
+import {ofRequest} from "@/puff-smith/service";
+import {TranslationRepository} from "@/puff-smith/service/translation/TranslationRepository";
 import {ITranslationBundle} from "@leight-core/api";
 import {ListEndpoint} from "@leight-core/server";
 
-export default ListEndpoint<"Translation", ITranslationBundle>(async () => ({
+export default ListEndpoint<"Translation", ITranslationBundle>(async params => ({
 	bundles: [
 		{
 			language: "cs",
-			translations: (await TranslationService().query({
+			translations: (await TranslationRepository(ofRequest(params)).query({
 				filter: {
 					language: "cs",
 				}

@@ -2,13 +2,14 @@ import {defaults} from "@/puff-smith/service";
 import {IJobService, IJobServiceCreate} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor, IJobStatus} from "@leight-core/api";
-import {sleep, toPercent} from "@leight-core/client";
-import {Logger, RepositoryService} from "@leight-core/server";
+import {Logger, Repository} from "@leight-core/server";
+import {toPercent} from "@leight-core/utils";
+import delay from "delay";
 import PQueue from "p-queue";
 
 export const JobService = (request: IJobServiceCreate): IJobService => {
 	return {
-		...RepositoryService<IJobService>({
+		...Repository<IJobService>({
 			name: "job",
 			source: request.prisma.job,
 			mapper: async job => ({
@@ -134,9 +135,9 @@ export const JobService = (request: IJobServiceCreate): IJobService => {
 							userId: job.userId,
 							jobProgress,
 							logger,
-							progress: async (callback, $sleep) => {
+							progress: async (callback, $sleep = 0) => {
 								try {
-									await sleep($sleep);
+									await delay($sleep);
 									const result = await callback();
 									await jobProgress.onSuccess();
 									return result;

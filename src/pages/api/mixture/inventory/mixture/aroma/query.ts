@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {AromaService} from "@/puff-smith/service/aroma/AromaService";
+import {AromaRepository} from "@/puff-smith/service/aroma/AromaRepository";
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
@@ -33,4 +33,4 @@ export default QueryEndpoint<"Aroma", IAromaQuery, IAroma>(async ({request: {fil
 	orderBy: [
 		{aroma: {name: "asc"}},
 	],
-}), ({aroma}) => aroma, AromaService(defaults(toUserId())).map));
+}), ({aroma}) => aroma, AromaRepository(defaults(toUserId())).map));

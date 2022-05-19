@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {BaseService} from "@/puff-smith/service/base/BaseService";
+import {BaseRepository} from "@/puff-smith/service/base/BaseRepository";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -37,4 +37,4 @@ export default QueryEndpoint<"Base", IMixtureQuery, IBase>(async ({request: {fil
 	select: {
 		base: true,
 	},
-}), ({base}) => base!, BaseService(defaults(toUserId())).map));
+}), ({base}) => base!, BaseRepository(defaults(toUserId())).map));

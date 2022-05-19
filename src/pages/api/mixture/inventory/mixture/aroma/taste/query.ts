@@ -1,7 +1,7 @@
 import {IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {TagService} from "@/puff-smith/service/tag/TagService";
+import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Taste", IAromaQuery, ITag>(async ({toUserId}) => itemsOf(prisma.aromaTaste.findMany({
@@ -21,4 +21,4 @@ export default QueryEndpoint<"Taste", IAromaQuery, ITag>(async ({toUserId}) => i
 	orderBy: [
 		{taste: {sort: "asc"}},
 	],
-}), ({taste}) => taste, TagService().map));
+}), ({taste}) => taste, TagRepository().map));

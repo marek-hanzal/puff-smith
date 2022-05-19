@@ -1,45 +1,45 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
 import {defaults} from "@/puff-smith/service";
-import {AromaService} from "@/puff-smith/service/aroma/AromaService";
-import {AtomizerService} from "@/puff-smith/service/atomizer/AtomizerService";
-import {BaseService} from "@/puff-smith/service/base/BaseService";
-import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
-import {CellService} from "@/puff-smith/service/cell/CellService";
-import {CoilService} from "@/puff-smith/service/coil/CoilService";
-import {CottonService} from "@/puff-smith/service/cotton/CottonService";
-import {FiberService} from "@/puff-smith/service/fiber/FiberService";
+import {AromaRepository} from "@/puff-smith/service/aroma/AromaRepository";
+import {AtomizerRepository} from "@/puff-smith/service/atomizer/AtomizerRepository";
+import {BaseRepository} from "@/puff-smith/service/base/BaseRepository";
+import {BoosterRepository} from "@/puff-smith/service/booster/BoosterRepository";
+import {CellRepository} from "@/puff-smith/service/cell/CellRepository";
+import {CoilRepository} from "@/puff-smith/service/coil/CoilRepository";
+import {CottonRepository} from "@/puff-smith/service/cotton/CottonRepository";
+import {FiberRepository} from "@/puff-smith/service/fiber/FiberRepository";
 import {JobService} from "@/puff-smith/service/job/JobService";
-import {ModService} from "@/puff-smith/service/mod/ModService";
-import {PriceService} from "@/puff-smith/service/price/PriceService";
+import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
+import {PriceRepository} from "@/puff-smith/service/price/PriceRepository";
 import fileService from "@/puff-smith/service/side-effect/fileService";
-import {TagService} from "@/puff-smith/service/tag/TagService";
-import {TariffService} from "@/puff-smith/service/tariff/TariffService";
-import {TranslationService} from "@/puff-smith/service/translation/TranslationService";
-import {VendorService} from "@/puff-smith/service/vendor/VendorService";
-import {VoucherService} from "@/puff-smith/service/voucher/VoucherService";
-import {WireService} from "@/puff-smith/service/wire/WireService";
+import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
+import {TariffRepository} from "@/puff-smith/service/tariff/TariffRepository";
+import {TranslationRepository} from "@/puff-smith/service/translation/TranslationRepository";
+import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
+import {VoucherRepository} from "@/puff-smith/service/voucher/VoucherRepository";
+import {WireRepository} from "@/puff-smith/service/wire/WireRepository";
 import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
 const $defaults = defaults();
 const importHandlers = {
-	...AromaService($defaults).importers(),
-	...AtomizerService($defaults).importers(),
-	...BaseService($defaults).importers(),
-	...BoosterService($defaults).importers(),
-	...CellService($defaults).importers(),
-	...CoilService($defaults).importers(),
-	...CottonService($defaults).importers(),
-	...FiberService($defaults).importers(),
-	...ModService($defaults).importers(),
-	...PriceService($defaults).importers(),
-	...TagService($defaults).importers(),
-	...TariffService($defaults).importers(),
-	...TranslationService($defaults).importers(),
-	...VendorService($defaults).importers(),
-	...VoucherService($defaults).importers(),
-	...WireService($defaults).importers(),
+	...AromaRepository($defaults).importers(),
+	...AtomizerRepository($defaults).importers(),
+	...BaseRepository($defaults).importers(),
+	...BoosterRepository($defaults).importers(),
+	...CellRepository($defaults).importers(),
+	...CoilRepository($defaults).importers(),
+	...CottonRepository($defaults).importers(),
+	...FiberRepository($defaults).importers(),
+	...ModRepository($defaults).importers(),
+	...PriceRepository($defaults).importers(),
+	...TagRepository($defaults).importers(),
+	...TariffRepository($defaults).importers(),
+	...TranslationRepository($defaults).importers(),
+	...VendorRepository($defaults).importers(),
+	...VoucherRepository($defaults).importers(),
+	...WireRepository($defaults).importers(),
 };
 
 export const ImportJob: IJobProcessor<IImportJobParams> = JobService($defaults).processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {

@@ -1,13 +1,13 @@
 import {IMixtureMarketService, IMixtureMarketServiceCreate} from "@/puff-smith/service/mixture/market/interface";
-import {MixtureService} from "@/puff-smith/service/mixture/MixtureService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const MixtureMarketService = (request: IMixtureMarketServiceCreate): IMixtureMarketService => {
-	const mixtureService = singletonOf(() => MixtureService(request));
+	const mixtureService = singletonOf(() => MixtureRepository(request));
 	const userId = singletonOf(() => request.userService.getUserId());
 
-	return RepositoryService<IMixtureMarketService>({
+	return Repository<IMixtureMarketService>({
 		name: "mixture-market",
 		source: request.prisma.mixture,
 		mapper: async entity => ({

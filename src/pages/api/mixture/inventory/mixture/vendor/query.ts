@@ -1,7 +1,7 @@
 import {defaults} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor, IVendorQuery} from "@/puff-smith/service/vendor/interface";
-import {VendorService} from "@/puff-smith/service/vendor/VendorService";
+import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Vendor", IVendorQuery, IVendor>(async ({request: {filter}, toUserId}) => itemsOf(prisma.vendor.findMany({
@@ -19,4 +19,4 @@ export default QueryEndpoint<"Vendor", IVendorQuery, IVendor>(async ({request: {
 	orderBy: [
 		{name: "asc"},
 	],
-}), item => item, VendorService(defaults(toUserId())).map));
+}), item => item, VendorRepository(defaults(toUserId())).map));

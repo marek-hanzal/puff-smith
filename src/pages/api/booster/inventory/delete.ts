@@ -1,6 +1,6 @@
 import {defaults} from "@/puff-smith/service";
-import {BoosterInventoryService} from "@/puff-smith/service/booster/inventory/BoosterInventoryService";
+import {BoosterInventoryRepository} from "@/puff-smith/service/booster/inventory/BoosterInventoryRepository";
 import {IBoosterInventory, IBoosterInventoryDelete} from "@/puff-smith/service/booster/inventory/interface";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", IBoosterInventoryDelete, IBoosterInventory[]>(async ({request, toUserId}) => BoosterInventoryService(defaults(toUserId())).handleDelete({request}));
+export default DeleteEndpoint<"Delete", IBoosterInventoryDelete, IBoosterInventory[]>(async ({request, toUserId}) => BoosterInventoryRepository(defaults(toUserId())).handleDelete({request}));

@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {FiberService} from "@/puff-smith/service/fiber/FiberService";
+import {FiberRepository} from "@/puff-smith/service/fiber/FiberRepository";
 import {IFiber} from "@/puff-smith/service/fiber/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IQuery, IWhereFulltext} from "@leight-core/api";
@@ -21,4 +21,4 @@ export default QueryEndpoint<"Fiber", IQuery<IWhereFulltext>, IFiber>(async ({re
 	orderBy: [
 		{fiber: {code: "asc"}},
 	],
-}), ({fiber}) => fiber, FiberService(defaults(toUserId())).map));
+}), ({fiber}) => fiber, FiberRepository(defaults(toUserId())).map));

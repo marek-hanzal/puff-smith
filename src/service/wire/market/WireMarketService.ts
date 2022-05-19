@@ -1,14 +1,14 @@
 import {defaults} from "@/puff-smith/service";
 import {IWireMarketService, IWireMarketServiceCreate} from "@/puff-smith/service/wire/market/interface";
-import {WireService} from "@/puff-smith/service/wire/WireService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {WireRepository} from "@/puff-smith/service/wire/WireRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const WireMarketService = (request: IWireMarketServiceCreate = defaults()): IWireMarketService => {
-	const wireService = singletonOf(() => WireService(request));
+	const wireService = singletonOf(() => WireRepository(request));
 	const userId = request.userService.getOptionalUserId();
 
-	return RepositoryService<IWireMarketService>({
+	return Repository<IWireMarketService>({
 		name: "wire-market",
 		source: request.prisma.wire,
 		mapper: async entity => ({

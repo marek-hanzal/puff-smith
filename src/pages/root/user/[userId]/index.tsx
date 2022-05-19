@@ -1,6 +1,6 @@
 import {defaults} from "@/puff-smith/service";
 import {IUserFetchProps} from "@/puff-smith/service/user/interface";
-import {UserService} from "@/puff-smith/service/user/UserService";
+import {UserRepository} from "@/puff-smith/service/user/UserRepository";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserIndexMenu} from "@/puff-smith/site/root/user/@module/menu/UserIndexMenu";
@@ -27,4 +27,4 @@ export default withRootLayout(function Index({user}: IUserFetchProps) {
 	</RootPage>;
 });
 
-export const getServerSideProps = UserService(defaults()).pageFetch("user", "userId");
+export const getServerSideProps = UserRepository(defaults()).pageFetch("user", "userId");

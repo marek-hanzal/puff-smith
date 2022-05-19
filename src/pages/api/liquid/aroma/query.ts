@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {AromaService} from "@/puff-smith/service/aroma/AromaService";
+import {AromaRepository} from "@/puff-smith/service/aroma/AromaRepository";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -28,4 +28,4 @@ export default QueryEndpoint<"Aroma", ILiquidQuery, IAroma>(async ({request: {fi
 	select: {
 		aroma: true,
 	},
-}), ({aroma}) => aroma, AromaService(defaults(toUserId())).map));
+}), ({aroma}) => aroma, AromaRepository(defaults(toUserId())).map));

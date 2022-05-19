@@ -1,14 +1,7 @@
-import {defaults} from "@/puff-smith/service";
-import {AromaInventoryService} from "@/puff-smith/service/aroma/inventory/AromaInventoryService";
+import {ofRequest} from "@/puff-smith/service";
+import {AromaInventoryRepository} from "@/puff-smith/service/aroma/inventory/AromaInventoryRepository";
 import {IAromaInventory, IAromaInventoryCreate} from "@/puff-smith/service/aroma/inventory/interface";
 import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"Create", IAromaInventoryCreate, IAromaInventory>(async (
-		{
-			res,
-			request,
-			toUserId,
-		}
-	) => handlePuffiesException(res, async () => AromaInventoryService(defaults(toUserId())).handleCreate({request}))
-);
+export default MutationEndpoint<"Create", IAromaInventoryCreate, IAromaInventory>(async params => handlePuffiesException(params, async () => AromaInventoryRepository(ofRequest(params)).handleCreate(params)));

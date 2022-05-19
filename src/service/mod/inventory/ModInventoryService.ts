@@ -1,20 +1,20 @@
 import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {IModTransactionService, IModTransactionServiceCreate} from "@/puff-smith/service/mod/inventory/interface";
-import {ModService} from "@/puff-smith/service/mod/ModService";
+import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const ModInventoryService = (request: IModTransactionServiceCreate = defaults()): IModTransactionService => {
-	const modService = singletonOf(() => ModService(request));
-	const transactionService = singletonOf(() => TransactionService(request));
+	const modService = singletonOf(() => ModRepository(request));
+	const transactionService = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
-		...RepositoryService<IModTransactionService>({
+		...Repository<IModTransactionService>({
 			name: "mod-inventory",
 			source: request.prisma.modInventory,
 			mapper: async modTransaction => ({
@@ -23,8 +23,8 @@ export const ModInventoryService = (request: IModTransactionServiceCreate = defa
 				transaction: await transactionService().toMap(modTransaction.transactionId),
 			}),
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
-				const $mod = await ModService({...request, prisma}).toMap(mod.modId);
-				return TransactionService({...request, prisma}).handleTransaction({
+				const $mod = await ModRepository({...request, prisma}).toMap(mod.modId);
+				return TransactionRepository({...request, prisma}).handleTransaction({
 					userId: userId(),
 					cost: $mod.cost,
 					note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,

@@ -1,20 +1,20 @@
 import {defaults} from "@/puff-smith/service";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {CottonService} from "@/puff-smith/service/cotton/CottonService";
+import {CottonRepository} from "@/puff-smith/service/cotton/CottonRepository";
 import {ICottonInventoryService, ICottonInventoryServiceCreate} from "@/puff-smith/service/cotton/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const CottonInventoryService = (request: ICottonInventoryServiceCreate = defaults()): ICottonInventoryService => {
-	const cottonService = singletonOf(() => CottonService(request));
-	const transactionService = singletonOf(() => TransactionService(request));
+	const cottonService = singletonOf(() => CottonRepository(request));
+	const transactionService = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
-		...RepositoryService<ICottonInventoryService>({
+		...Repository<ICottonInventoryService>({
 			name: "cotton-inventory",
 			source: request.prisma.cottonInventory,
 			mapper: async cottonTransaction => ({
@@ -23,8 +23,8 @@ export const CottonInventoryService = (request: ICottonInventoryServiceCreate = 
 				transaction: await transactionService().toMap(cottonTransaction.transactionId),
 			}),
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
-				const $cotton = await CottonService({...request, prisma}).toMap(cotton.cottonId);
-				return TransactionService({...request, prisma}).handleTransaction({
+				const $cotton = await CottonRepository({...request, prisma}).toMap(cotton.cottonId);
+				return TransactionRepository({...request, prisma}).handleTransaction({
 					userId: userId(),
 					cost: $cotton.cost,
 					note: `Purchase of cotton [${$cotton.vendor.name} ${$cotton.name}]`,

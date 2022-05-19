@@ -1,4 +1,4 @@
-import {isString} from "@leight-core/client";
+import {isString} from "@leight-core/utils";
 import {Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";

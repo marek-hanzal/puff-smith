@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, IRepositoryService} from "@leight-core/api";
+import {IDeleteRequest, IQuery, IRepository} from "@leight-core/api";
 import {AromaInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,9 +33,9 @@ export interface IAromaInventoryFetchQuery extends ParsedUrlQuery {
 	aromaInventoryId: string;
 }
 
-export interface IAromaInventoryServiceCreate extends IServiceCreate {
+export interface IAromaInventoryRepositoryCreate extends IServiceCreate {
 }
 
-export interface IAromaInventoryService extends IRepositoryService<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery> {
+export interface IAromaInventoryRepository extends IRepository<IAromaInventoryCreate, AromaInventory, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetchProps, IAromaInventoryFetchQuery> {
 	handleDelete(request: { request: IAromaInventoryDelete }): Promise<IAromaInventory[]>;
 }

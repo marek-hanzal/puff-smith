@@ -1,14 +1,14 @@
 import {defaults} from "@/puff-smith/service";
 import {IMetricService, IMetricServiceCreate} from "@/puff-smith/service/metric/interface";
-import {UserService} from "@/puff-smith/service/user/UserService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {UserRepository} from "@/puff-smith/service/user/UserRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const MetricService = (request: IMetricServiceCreate = defaults()): IMetricService => {
-	const userService = singletonOf(() => UserService(request));
+	const userService = singletonOf(() => UserRepository(request));
 	const userId = request.userService.getOptionalUserId();
 
-	return RepositoryService<IMetricService>({
+	return Repository<IMetricService>({
 		name: "metric",
 		source: request.prisma.metric,
 		mapper: async entity => ({

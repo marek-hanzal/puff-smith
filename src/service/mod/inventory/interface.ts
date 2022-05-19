@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IMod} from "@/puff-smith/service/mod/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, IRepositoryService} from "@leight-core/api";
+import {IDeleteRequest, IQuery, IRepository} from "@leight-core/api";
 import {ModInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -36,6 +36,6 @@ export interface IModInventoryFetchQuery extends ParsedUrlQuery {
 export interface IModTransactionServiceCreate extends IServiceCreate {
 }
 
-export interface IModTransactionService extends IRepositoryService<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery> {
+export interface IModTransactionService extends IRepository<IModInventoryCreate, ModInventory, IModInventory, IModInventoryQuery, IModInventoryFetchProps, IModInventoryFetchQuery> {
 	handleDelete(request: { request: IModInventoryDelete }): Promise<IModInventory[]>;
 }

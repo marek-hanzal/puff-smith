@@ -1,7 +1,7 @@
 import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {useJobQuery} from "@/sdk/api/job/query";
 import {IQueryFilter} from "@leight-core/api";
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {Alert} from "antd";
 import {ComponentProps, FC} from "react";
 import {useTranslation} from "react-i18next";

@@ -2,7 +2,8 @@ import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
 import {Price} from "@/puff-smith/component/Price";
 import {usePuffiesQuery, usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {IMutationHook} from "@leight-core/api";
-import {ModalButton, toHumanNumber} from "@leight-core/client";
+import {ModalButton} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {ButtonProps, message, Tooltip} from "antd";
 import {PropsWithChildren} from "react";
 import {Trans, useTranslation} from "react-i18next";
@@ -67,7 +68,7 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 				setShow(false);
 			}}
 		>
-			<Trans i18nKey={translation + ".buy.confirm.content"} values={{cost: toHumanNumber(cost || 0, 4)}}/>
+			<Trans i18nKey={translation + ".buy.confirm.content"} values={{cost: toHumanNumber(cost, "0", 4)}}/>
 		</ModalButton>
 	</Tooltip>;
 }

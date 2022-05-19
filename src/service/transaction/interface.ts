@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IPrice} from "@/puff-smith/service/price/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepository} from "@leight-core/api";
 import {Prisma, Transaction} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -51,7 +51,7 @@ export interface ICheckResponse {
 export interface ITransactionServiceCreate extends IServiceCreate {
 }
 
-export interface ITransactionService extends IRepositoryService<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
+export interface ITransactionService extends IRepository<ITransactionCreate, Transaction, ITransaction, ITransactionQuery, ITransactionFetchProps, ITransactionFetchQuery> {
 	sum(query: ITransactionQuery): Promise<number>;
 
 	sumOf(): Promise<number>;

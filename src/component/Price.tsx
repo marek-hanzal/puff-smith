@@ -1,5 +1,5 @@
 import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {Space, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -11,10 +11,11 @@ export interface IPriceProps {
 	withColor?: boolean;
 }
 
+
 export const Price: FC<IPriceProps> = ({price, withIcon = false, withColor = false, defaultText = "-"}) => {
 	const {t} = useTranslation();
 	return <>{price !== undefined ? <Space align={"center"} size={4}>
 		{withIcon ? <Typography.Text type={"secondary"}><PurchaseIcon/></Typography.Text> : undefined}
-		{withColor ? <Typography.Text type={((price || 0) >= 0 ? "success" : "danger")}>{toHumanNumber(price, 5)}</Typography.Text> : toHumanNumber(price, 5)}
+		{withColor ? <Typography.Text type={((price || 0) >= 0 ? "success" : "danger")}>{toHumanNumber(price, "-", 5)}</Typography.Text> : toHumanNumber(price, "-", 5)}
 	</Space> : t(defaultText)}</>;
 };

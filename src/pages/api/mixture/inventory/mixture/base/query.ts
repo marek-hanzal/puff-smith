@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {BaseService} from "@/puff-smith/service/base/BaseService";
+import {BaseRepository} from "@/puff-smith/service/base/BaseRepository";
 import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
@@ -25,4 +25,4 @@ export default QueryEndpoint<"Base", IBaseQuery, IBase>(async ({request: {filter
 	orderBy: [
 		{name: "asc"},
 	],
-}), item => item, BaseService(defaults(toUserId())).map));
+}), item => item, BaseRepository(defaults(toUserId())).map));

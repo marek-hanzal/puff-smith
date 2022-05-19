@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepository} from "@leight-core/api";
 import {Prisma, Tag} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -29,10 +29,10 @@ export interface ITagFetchQuery extends ParsedUrlQuery {
 	tagId: string;
 }
 
-export interface ITagServiceCreate extends IServiceCreate {
+export interface ITagRepositoryCreate extends IServiceCreate {
 }
 
-export interface ITagService extends IRepositoryService<ITagCreate, Tag, ITag, ITagQuery, ITagFetchProps, ITagFetchQuery> {
+export interface ITagRepository extends IRepository<ITagCreate, Tag, ITag, ITagQuery, ITagFetchProps, ITagFetchQuery> {
 	fetchCodes(codes: string, group: string): Promise<Tag[]>;
 
 	fetchByCodes(codes: string[], group: string): Promise<Tag[]>;

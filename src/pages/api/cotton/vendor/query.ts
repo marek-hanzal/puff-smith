@@ -1,10 +1,11 @@
+import {defaults} from "@/puff-smith/service";
 import {ICottonQuery} from "@/puff-smith/service/cotton/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {VendorService} from "@/puff-smith/service/vendor/VendorService";
+import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", ICottonQuery, IVendor>(async ({request: {filter}}) => itemsOf(prisma.cotton.findMany({
+export default QueryEndpoint<"Vendor", ICottonQuery, IVendor>(async ({request: {filter}, toUserId}) => itemsOf(prisma.cotton.findMany({
 	distinct: ["vendorId"],
 	select: {
 		vendor: true,
@@ -20,4 +21,4 @@ export default QueryEndpoint<"Vendor", ICottonQuery, IVendor>(async ({request: {
 	orderBy: [
 		{vendor: {name: "asc"}},
 	],
-}), ({vendor}) => vendor, VendorService().map));
+}), ({vendor}) => vendor, VendorRepository(defaults(toUserId())).map));

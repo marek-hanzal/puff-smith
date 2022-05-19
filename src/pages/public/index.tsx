@@ -3,7 +3,8 @@ import {EmailButton} from "@/puff-smith/site/public/component/button/EmailButton
 import {GithubButton} from "@/puff-smith/site/public/component/button/GithubButton";
 import {PublicPage} from "@/puff-smith/site/public/component/PublicPage";
 import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
-import {Card, NumberRange, Template} from "@leight-core/client";
+import {Card, Template} from "@leight-core/client";
+import {numbersOf} from "@leight-core/utils";
 import {Col, Divider, Row, Space, Typography} from "antd";
 import {Trans, useTranslation} from "react-i18next";
 
@@ -18,7 +19,7 @@ export default withPublicLayout(function Index() {
 		>
 			<Row gutter={32}>
 				<Col span={11}>
-					{NumberRange(2).map(index => <Card key={"intro-item-" + index} title={t(`public.intro.item.${index}.title`)}>
+					{numbersOf(2).map(index => <Card key={"intro-item-" + index} title={t(`public.intro.item.${index}.title`)}>
 						<Typography.Paragraph>
 							<Trans i18nKey={`public.intro.item.${index}.content`}/>
 						</Typography.Paragraph>

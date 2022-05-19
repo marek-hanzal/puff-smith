@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepository} from "@leight-core/api";
 import {Prisma, Voucher} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -27,8 +27,8 @@ export interface IVoucherFetchQuery extends ParsedUrlQuery {
 	voucherId: string;
 }
 
-export interface IVoucherServiceCreate extends IServiceCreate {
+export interface IVoucherRepositoryCreate extends IServiceCreate {
 }
 
-export interface IVoucherService extends IRepositoryService<IVoucherCreate, Voucher, IVoucher, IVoucherQuery, IVoucherFetchProps, IVoucherFetchQuery> {
+export interface IVoucherRepository extends IRepository<IVoucherCreate, Voucher, IVoucher, IVoucherQuery, IVoucherFetchProps, IVoucherFetchQuery> {
 }

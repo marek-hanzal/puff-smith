@@ -1,13 +1,13 @@
 import {defaults} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {VendorService} from "@/puff-smith/service/vendor/VendorService";
+import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {IQuery} from "@leight-core/api";
 import {QueryEndpoint} from "@leight-core/server";
 import uniqueObjects from "unique-objects";
 
 export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
-	const vendorService = VendorService(defaults(toUserId()));
+	const vendorService = VendorRepository(defaults(toUserId()));
 	const items = uniqueObjects(await Promise.all((await prisma.baseInventory.findMany({
 		where: {
 			userId: toUserId(),

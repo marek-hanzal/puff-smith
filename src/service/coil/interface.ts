@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IWire, IWireReference} from "@/puff-smith/service/wire/interface";
-import {IQuery, IRepositoryService} from "@leight-core/api";
+import {IQuery, IRepository} from "@leight-core/api";
 import {Coil, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -37,8 +37,8 @@ export interface ICoilFetchQuery extends ParsedUrlQuery {
 	coilId: string;
 }
 
-export interface ICoilServiceCreate extends IServiceCreate {
+export interface ICoilRepositoryCreate extends IServiceCreate {
 }
 
-export interface ICoilService extends IRepositoryService<ICoilCreate, Coil, ICoil, ICoilQuery, ICoilFetchProps, ICoilFetchQuery> {
+export interface ICoilRepository extends IRepository<ICoilCreate, Coil, ICoil, ICoilQuery, ICoilFetchProps, ICoilFetchQuery> {
 }

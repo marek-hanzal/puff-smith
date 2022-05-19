@@ -1,5 +1,5 @@
 import {QuestionCircleOutlined} from "@ant-design/icons";
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {Space, Tooltip, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -12,7 +12,7 @@ export interface IContentInlineProps {
 export const ContentInline: FC<IContentInlineProps> = ({content, tooltip}) => {
 	const {t} = useTranslation();
 	return content ? <Tooltip title={tooltip && t(tooltip)}><Space size={4}>
-		<Typography.Text>{toHumanNumber(content, 2)}</Typography.Text>
+		<Typography.Text>{toHumanNumber(content)}</Typography.Text>
 		<Typography.Text type={"secondary"}>ml</Typography.Text>
 		{tooltip && <QuestionCircleOutlined/>}
 	</Space></Tooltip> : <>-</>;

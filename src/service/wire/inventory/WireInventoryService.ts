@@ -1,19 +1,19 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {TransactionService} from "@/puff-smith/service/transaction/TransactionService";
+import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
 import {IWireInventoryService, IWireInventoryServiceCreate} from "@/puff-smith/service/wire/inventory/interface";
-import {WireService} from "@/puff-smith/service/wire/WireService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {WireRepository} from "@/puff-smith/service/wire/WireRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const WireInventoryService = (request: IWireInventoryServiceCreate): IWireInventoryService => {
-	const wireService = singletonOf(() => WireService(request));
-	const transactionService = singletonOf(() => TransactionService(request));
+	const wireService = singletonOf(() => WireRepository(request));
+	const transactionService = singletonOf(() => TransactionRepository(request));
 	const codeService = singletonOf(() => CodeService());
 	const userId = singletonOf(() => request.userService.getUserId());
 
 	return {
-		...RepositoryService<IWireInventoryService>({
+		...Repository<IWireInventoryService>({
 			name: "wire-inventory",
 			source: request.prisma.wireInventory,
 			mapper: async wireTransaction => ({
@@ -22,8 +22,8 @@ export const WireInventoryService = (request: IWireInventoryServiceCreate): IWir
 				transaction: await transactionService().toMap(wireTransaction.transactionId),
 			}),
 			create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
-				const wire = await WireService({...request, prisma}).toMap(wireInventory.wireId);
-				return TransactionService({...request, prisma}).handleTransaction({
+				const wire = await WireRepository({...request, prisma}).toMap(wireInventory.wireId);
+				return TransactionRepository({...request, prisma}).handleTransaction({
 					userId: userId(),
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,

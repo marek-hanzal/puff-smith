@@ -1,5 +1,5 @@
 import {useCheckPriceQuery} from "@/sdk/api/transaction/check-price";
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 
 export interface ICheckPriceResult {
 	readonly loading: boolean;

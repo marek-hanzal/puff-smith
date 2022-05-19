@@ -1,5 +1,5 @@
-import {toHumanNumber} from "@leight-core/client";
 import {Logger} from "@leight-core/server";
+import {toHumanNumber} from "@leight-core/utils";
 import {PrismaClient} from "@prisma/client";
 
 interface ExtendedGlobal extends Global {

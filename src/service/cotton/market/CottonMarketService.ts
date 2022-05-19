@@ -1,14 +1,14 @@
 import {defaults} from "@/puff-smith/service";
-import {CottonService} from "@/puff-smith/service/cotton/CottonService";
+import {CottonRepository} from "@/puff-smith/service/cotton/CottonRepository";
 import {ICottonMarketService, ICottonMarketServiceCreate} from "@/puff-smith/service/cotton/market/interface";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const CottonMarketService = (request: ICottonMarketServiceCreate = defaults()): ICottonMarketService => {
-	const cottonService = singletonOf(() => CottonService(request));
+	const cottonService = singletonOf(() => CottonRepository(request));
 	const userId = request.userService.getOptionalUserId();
 
-	return RepositoryService<ICottonMarketService>({
+	return Repository<ICottonMarketService>({
 		name: "cotton-market",
 		source: request.prisma.cotton,
 		mapper: async entity => ({

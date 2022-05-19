@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
+import {IDeleteRequest, IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -41,6 +41,6 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 export interface ILiquidServiceCreate extends IServiceCreate {
 }
 
-export interface ILiquidService extends IRepositoryService<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
+export interface ILiquidService extends IRepository<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
 	handleDelete(request: { request: ILiquidDelete }): Promise<ILiquid[]>;
 }

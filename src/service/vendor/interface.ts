@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
+import {IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
 import {Prisma, Vendor} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -30,10 +30,10 @@ export interface IVendorFetchQuery extends ParsedUrlQuery {
 	vendorId: string;
 }
 
-export interface IVendorServiceCreate extends IServiceCreate {
+export interface IVendorRepositoryCreate extends IServiceCreate {
 }
 
-export interface IVendorService extends IRepositoryService<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery> {
+export interface IVendorRepository extends IRepository<IVendorCreate, Vendor, IVendor, IVendorQuery, IVendorFetchProps, IVendorFetchQuery> {
 	fetchByReference(request: IVendorReference): Promise<Vendor>;
 
 	fetchByReferenceOptional(request: IVendorReference): Promise<Vendor | undefined>;

@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepositoryService, IWhereFulltext} from "@leight-core/api";
+import {IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
 import {Mod, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -40,8 +40,8 @@ export interface IModFetchQuery extends ParsedUrlQuery {
 	modId: string;
 }
 
-export interface IModServiceCreate extends IServiceCreate {
+export interface IModRepositoryCreate extends IServiceCreate {
 }
 
-export interface IModService extends IRepositoryService<IModCreate, Mod, IMod, IModQuery, IModFetchProps, IModFetchQuery> {
+export interface IModRepository extends IRepository<IModCreate, Mod, IMod, IModQuery, IModFetchProps, IModFetchQuery> {
 }

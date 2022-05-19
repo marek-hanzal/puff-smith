@@ -1,5 +1,5 @@
 import {defaults} from "@/puff-smith/service";
-import {BoosterService} from "@/puff-smith/service/booster/BoosterService";
+import {BoosterRepository} from "@/puff-smith/service/booster/BoosterRepository";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -31,4 +31,4 @@ export default QueryEndpoint<"Booster", ILiquidQuery, IBooster>(async ({request:
 	select: {
 		booster: true,
 	},
-}), ({booster}) => booster!, BoosterService(defaults(toUserId())).map));
+}), ({booster}) => booster!, BoosterRepository(defaults(toUserId())).map));

@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, IRepositoryService} from "@leight-core/api";
+import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, IRepository} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
 import PQueue from "p-queue";
 import {ParsedUrlQuery} from "querystring";
@@ -35,7 +35,7 @@ export interface IJobFetchQuery extends ParsedUrlQuery {
 export interface IJobServiceCreate extends IServiceCreate {
 }
 
-export interface IJobService extends IRepositoryService<IJobCreate, Job, IJob, IJobQuery, IJobFetchProps, IJobFetchQuery> {
+export interface IJobService extends IRepository<IJobCreate, Job, IJob, IJobQuery, IJobFetchProps, IJobFetchQuery> {
 	createProgress(jobId: string): IJobProgress;
 
 	commit(): Promise<any>;

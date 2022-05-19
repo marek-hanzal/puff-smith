@@ -1,14 +1,14 @@
 import {defaults} from "@/puff-smith/service";
 import {IModMarketService, IModMarketServiceCreate} from "@/puff-smith/service/mod/market/interface";
-import {ModService} from "@/puff-smith/service/mod/ModService";
-import {singletonOf} from "@leight-core/client";
-import {RepositoryService} from "@leight-core/server";
+import {ModRepository} from "@/puff-smith/service/mod/ModRepository";
+import {Repository} from "@leight-core/server";
+import {singletonOf} from "@leight-core/utils";
 
 export const ModMarketService = (request: IModMarketServiceCreate = defaults()): IModMarketService => {
-	const modService = singletonOf(() => ModService(request));
+	const modService = singletonOf(() => ModRepository(request));
 	const userId = request.userService.getOptionalUserId();
 
-	return RepositoryService<IModMarketService>({
+	return Repository<IModMarketService>({
 		name: "mod-market",
 		source: request.prisma.mod,
 		mapper: async entity => ({

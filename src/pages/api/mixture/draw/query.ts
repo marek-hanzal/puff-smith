@@ -2,7 +2,7 @@ import {defaults} from "@/puff-smith/service";
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {TagService} from "@/puff-smith/service/tag/TagService";
+import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export default QueryEndpoint<"Draw", IMixtureQuery, ITag>(async ({request: {filter: {fulltext, ...filter} = {}}, toUserId}) => itemsOf(prisma.mixtureDraw.findMany({
@@ -16,4 +16,4 @@ export default QueryEndpoint<"Draw", IMixtureQuery, ITag>(async ({request: {filt
 	select: {
 		draw: true,
 	}
-}), ({draw}) => draw, TagService(defaults(toUserId())).map));
+}), ({draw}) => draw, TagRepository(defaults(toUserId())).map));

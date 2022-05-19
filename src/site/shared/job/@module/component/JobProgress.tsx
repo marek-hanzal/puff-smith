@@ -1,5 +1,5 @@
 import {IJob} from "@leight-core/api";
-import {toHumanNumber} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {Progress, ProgressProps} from "antd";
 import {FC} from "react";
 

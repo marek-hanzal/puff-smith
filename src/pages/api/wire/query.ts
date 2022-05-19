@@ -1,6 +1,6 @@
 import {ofRequest} from "@/puff-smith/service";
 import {IWire, IWireQuery} from "@/puff-smith/service/wire/interface";
-import {WireService} from "@/puff-smith/service/wire/WireService";
+import {WireRepository} from "@/puff-smith/service/wire/WireRepository";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Wire", IWireQuery, IWire>(async params => WireService(ofRequest(params)).handleQuery(params));
+export default QueryEndpoint<"Wire", IWireQuery, IWire>(async params => WireRepository(ofRequest(params)).handleQuery(params));

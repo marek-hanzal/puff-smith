@@ -1,7 +1,7 @@
+import {IEndpointParams} from "@leight-core/api";
 import {withConflict} from "@leight-core/server";
-import {NextApiResponse} from "next";
 
-export const handlePuffiesException = async <T>(res: NextApiResponse, callback: () => T) => {
+export const handlePuffiesException = async <T>({res}: IEndpointParams<any, any>, callback: () => T) => {
 	try {
 		return await callback();
 	} catch (e) {
