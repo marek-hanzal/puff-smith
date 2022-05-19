@@ -1,10 +1,11 @@
+import {ofParams} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {TagRepository} from "@/puff-smith/service/tag/TagRepository";
 import {IQuery} from "@leight-core/api";
 import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Cell", IQuery, ITag>(async () => itemsOf(prisma.modCell.findMany({
+export default QueryEndpoint<"Cell", IQuery, ITag>(async params => itemsOf(prisma.modCell.findMany({
 	distinct: ["cellId"],
 	select: {
 		cell: true,
@@ -12,4 +13,4 @@ export default QueryEndpoint<"Cell", IQuery, ITag>(async () => itemsOf(prisma.mo
 	orderBy: [
 		{cell: {sort: "asc"}},
 	],
-}), ({cell}) => cell, TagRepository().map));
+}), ({cell}) => cell, TagRepository(ofParams(params)).map));

@@ -21,4 +21,4 @@ export const CheckPricePromise = createPromise<ICheckRequest, ICheckResponse, IC
 export const useCheckPriceQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CheckPriceApiLink]);
-};
+}

@@ -1,22 +1,22 @@
 import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
 import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
-import {IInventoryBoosterSourceSelectProps, InventoryBoosterSourceControlProvider, InventoryBoosterSourceSelect} from "@/sdk/api/booster/inventory/booster/query";
+import {BoosterInventorySourceControlProvider, BoosterInventorySourceSelect, IBoosterInventorySourceSelectProps} from "@/sdk/api/booster/inventory/query";
 import {FC} from "react";
 
-export interface IInventoryBoosterSelectProps extends Partial<IInventoryBoosterSourceSelectProps> {
+export interface IBoosterInventorySelectProps extends Partial<IBoosterInventorySourceSelectProps> {
 }
 
-export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props => {
-	return <InventoryBoosterSourceControlProvider
+export const BoosterInventorySelect: FC<IBoosterInventorySelectProps> = props => {
+	return <BoosterInventorySourceControlProvider
 		defaultOrderBy={{
-			pg: "desc",
+			booster: {pg: "desc"},
 		}}
 	>
-		<InventoryBoosterSourceSelect
+		<BoosterInventorySourceSelect
 			showSearch
 			allowClear
-			toOption={booster => ({
+			toOption={({booster}) => ({
 				label: <BoosterNameInline booster={booster}/>,
 				value: booster.id,
 			})}
@@ -27,5 +27,5 @@ export const InventoryBoosterSelect: FC<IInventoryBoosterSelectProps> = props =>
 			/>}
 			{...props}
 		/>
-	</InventoryBoosterSourceControlProvider>;
+	</BoosterInventorySourceControlProvider>;
 };

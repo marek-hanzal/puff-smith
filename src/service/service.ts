@@ -8,4 +8,4 @@ export const defaults = (userId?: string | null): IServiceCreate => ({
 	userService: UserService(userId),
 });
 
-export const ofRequest = (params: IEndpointParams<any, any>) => defaults(params.toUserId());
+export const ofParams = (params: IEndpointParams<any, any>) => defaults(params.toUserId());
