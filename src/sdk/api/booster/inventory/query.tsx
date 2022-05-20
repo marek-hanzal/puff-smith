@@ -4,7 +4,7 @@
 
 import {IBoosterInventory, IBoosterInventoryQuery} from "@/puff-smith/service/booster/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const BoosterInventoryApiLink = "/api/booster/inventory/query";
 
 export type IBoosterInventoryQueryParams = undefined;
 
-export const useBoosterInventoryQuery = createQueryHook<IBoosterInventoryQuery, IQueryResult<IBoosterInventory>, IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
+export const useBoosterInventoryQuery = createQueryHook<IBoosterInventoryQuery, IBoosterInventory[], IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
 
 export const useBoosterInventorySource = () => useSourceContext<IBoosterInventory>();
 

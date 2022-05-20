@@ -5,7 +5,7 @@
 import {ICellQuery} from "@/puff-smith/service/cell/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const TypeApiLink = "/api/cell/type/query";
 
 export type ITypeQueryParams = undefined;
 
-export const useTypeQuery = createQueryHook<ICellQuery, IQueryResult<ITag>, ITypeQueryParams>(TypeApiLink, "post");
+export const useTypeQuery = createQueryHook<ICellQuery, ITag[], ITypeQueryParams>(TypeApiLink, "post");
 
 export const useTypeSource = () => useSourceContext<ITag>();
 

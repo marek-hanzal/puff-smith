@@ -5,7 +5,7 @@
 import {IBase} from "@/puff-smith/service/base/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const BaseApiLink = "/api/liquid/base/query";
 
 export type IBaseQueryParams = undefined;
 
-export const useBaseQuery = createQueryHook<ILiquidQuery, IQueryResult<IBase>, IBaseQueryParams>(BaseApiLink, "post");
+export const useBaseQuery = createQueryHook<ILiquidQuery, IBase[], IBaseQueryParams>(BaseApiLink, "post");
 
 export const useBaseSource = () => useSourceContext<IBase>();
 

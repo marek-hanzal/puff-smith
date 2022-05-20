@@ -10,11 +10,7 @@ const items: IJobStatus[] = [
 	"DONE",
 ];
 
-export default QueryEndpoint<"StatusList", IQuery, IBaseSelectOption>(async () => ({
-	total: items.length,
-	count: items.length,
-	items: items.map(item => ({
-		value: item,
-		label: item,
-	})),
-}));
+export default QueryEndpoint<"StatusList", IQuery, IBaseSelectOption>(async () => items.map(item => ({
+	value: item,
+	label: item,
+})));

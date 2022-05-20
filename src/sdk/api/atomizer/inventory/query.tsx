@@ -4,7 +4,7 @@
 
 import {IAtomizerInventory, IAtomizerInventoryQuery} from "@/puff-smith/service/atomizer/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const AtomizerInventoryApiLink = "/api/atomizer/inventory/query";
 
 export type IAtomizerInventoryQueryParams = undefined;
 
-export const useAtomizerInventoryQuery = createQueryHook<IAtomizerInventoryQuery, IQueryResult<IAtomizerInventory>, IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
+export const useAtomizerInventoryQuery = createQueryHook<IAtomizerInventoryQuery, IAtomizerInventory[], IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
 
 export const useAtomizerInventorySource = () => useSourceContext<IAtomizerInventory>();
 

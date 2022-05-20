@@ -3,7 +3,7 @@
  */
 
 import {SelectOutlined} from "@ant-design/icons";
-import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IBaseSelectOption, IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -43,7 +43,7 @@ export const StatusListApiLink = "/api/job/status-list";
 
 export type IStatusListQueryParams = undefined;
 
-export const useStatusListQuery = createQueryHook<IQuery, IQueryResult<IBaseSelectOption>, IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListQuery = createQueryHook<IQuery, IBaseSelectOption[], IStatusListQueryParams>(StatusListApiLink, "post");
 
 export const useStatusListSource = () => useSourceContext<IBaseSelectOption>()
 

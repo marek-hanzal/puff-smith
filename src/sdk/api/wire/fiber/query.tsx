@@ -4,7 +4,7 @@
 
 import {IFiber} from "@/puff-smith/service/fiber/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper, IWhereFulltext} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper, IWhereFulltext} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const FiberApiLink = "/api/wire/fiber/query";
 
 export type IFiberQueryParams = undefined;
 
-export const useFiberQuery = createQueryHook<IQuery<IWhereFulltext>, IQueryResult<IFiber>, IFiberQueryParams>(FiberApiLink, "post");
+export const useFiberQuery = createQueryHook<IQuery<IWhereFulltext>, IFiber[], IFiberQueryParams>(FiberApiLink, "post");
 
 export const useFiberSource = () => useSourceContext<IFiber>();
 

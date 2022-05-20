@@ -1,7 +1,6 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IQuery} from "@leight-core/api";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
 export interface INicotineItem {
 	label: string;
@@ -9,26 +8,22 @@ export interface INicotineItem {
 	nicotine: number;
 }
 
-export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async ({toUserId}) => {
-	const items = uniqueObjects((await prisma.boosterInventory.findMany({
-		select: {
-			booster: true,
+export default QueryEndpoint<"Nicotine", IQuery, INicotineItem>(async params => itemsOf(prisma.booster.findMany({
+	select: {
+		nicotine: true,
+	},
+	where: {
+		BoosterInventory: {
+			some: {
+				userId: params.toUserId(),
+			},
 		},
-		where: {
-			userId: toUserId(),
-		},
-		orderBy: [
-			{booster: {nicotine: "asc"}},
-		]
-	})).map(({booster: item}) => ({
-		label: `${item.nicotine}`,
-		value: `${item.nicotine}`,
-		nicotine: item.nicotine,
-	})), ["nicotine"]) as INicotineItem[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+	},
+	orderBy: [
+		{nicotine: "asc"},
+	]
+}), item => item, async ({nicotine}) => ({
+	label: `${nicotine}`,
+	value: `${nicotine}`,
+	nicotine: nicotine,
+})));

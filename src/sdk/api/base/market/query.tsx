@@ -4,7 +4,7 @@
 
 import {IBaseMarket, IBaseMarketQuery} from "@/puff-smith/service/base/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const BaseMarketApiLink = "/api/base/market/query";
 
 export type IBaseMarketQueryParams = undefined;
 
-export const useBaseMarketQuery = createQueryHook<IBaseMarketQuery, IQueryResult<IBaseMarket>, IBaseMarketQueryParams>(BaseMarketApiLink, "post");
+export const useBaseMarketQuery = createQueryHook<IBaseMarketQuery, IBaseMarket[], IBaseMarketQueryParams>(BaseMarketApiLink, "post");
 
 export const useBaseMarketSource = () => useSourceContext<IBaseMarket>();
 

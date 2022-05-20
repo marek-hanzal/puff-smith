@@ -4,7 +4,7 @@
 
 import {IWireMarket, IWireMarketQuery} from "@/puff-smith/service/wire/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const WireMarketApiLink = "/api/wire/market/query";
 
 export type IWireMarketQueryParams = undefined;
 
-export const useWireMarketQuery = createQueryHook<IWireMarketQuery, IQueryResult<IWireMarket>, IWireMarketQueryParams>(WireMarketApiLink, "post");
+export const useWireMarketQuery = createQueryHook<IWireMarketQuery, IWireMarket[], IWireMarketQueryParams>(WireMarketApiLink, "post");
 
 export const useWireMarketSource = () => useSourceContext<IWireMarket>();
 

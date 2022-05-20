@@ -5,7 +5,7 @@
 import {ICottonQuery} from "@/puff-smith/service/cotton/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const VendorApiLink = "/api/cotton/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<ICottonQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<ICottonQuery, IVendor[], IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 

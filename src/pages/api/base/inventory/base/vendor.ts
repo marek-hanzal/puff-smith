@@ -1,32 +1,23 @@
-import {defaults} from "@/puff-smith/service";
+import {ofParams} from "@/puff-smith/service";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
 import {IQuery} from "@leight-core/api";
-import {QueryEndpoint} from "@leight-core/server";
-import uniqueObjects from "unique-objects";
+import {itemsOf, QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IQuery, IVendor>(async ({toUserId}) => {
-	const vendorService = VendorRepository(defaults(toUserId()));
-	const items = uniqueObjects(await Promise.all((await prisma.baseInventory.findMany({
-		where: {
-			userId: toUserId(),
+export default QueryEndpoint<"Vendor", IQuery, IVendor>(async params => itemsOf(prisma.base.findMany({
+	distinct: ["vendorId"],
+	where: {
+		BaseInventory: {
+			some: {
+				userId: params.toUserId(),
+			},
 		},
-		orderBy: [
-			{base: {vendor: {name: "asc"}}},
-		],
-		include: {
-			base: {
-				include: {
-					vendor: true,
-				}
-			}
-		}
-	})).map(async ({base: item}) => await vendorService.map(item.vendor))), ["id"]) as IVendor[];
-
-	return {
-		items,
-		count: items.length,
-		total: items.length,
-	};
-});
+	},
+	orderBy: [
+		{vendor: {name: "asc"}},
+	],
+	include: {
+		vendor: true,
+	}
+}), ({vendor}) => vendor, VendorRepository(ofParams(params)).map));

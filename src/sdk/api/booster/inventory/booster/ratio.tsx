@@ -3,7 +3,7 @@
  */
 
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -50,7 +50,7 @@ export const RatioApiLink = "/api/booster/inventory/booster/ratio";
 
 export type IRatioQueryParams = undefined;
 
-export const useRatioQuery = createQueryHook<IQuery, IQueryResult<IRatioItem>, IRatioQueryParams>(RatioApiLink, "post");
+export const useRatioQuery = createQueryHook<IQuery, IRatioItem[], IRatioQueryParams>(RatioApiLink, "post");
 
 export const useRatioSource = () => useSourceContext<IRatioItem>();
 

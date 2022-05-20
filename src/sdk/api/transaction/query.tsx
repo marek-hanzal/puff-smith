@@ -4,7 +4,7 @@
 
 import {ITransaction, ITransactionQuery} from "@/puff-smith/service/transaction/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const TransactionApiLink = "/api/transaction/query";
 
 export type ITransactionQueryParams = undefined;
 
-export const useTransactionQuery = createQueryHook<ITransactionQuery, IQueryResult<ITransaction>, ITransactionQueryParams>(TransactionApiLink, "post");
+export const useTransactionQuery = createQueryHook<ITransactionQuery, ITransaction[], ITransactionQueryParams>(TransactionApiLink, "post");
 
 export const useTransactionSource = () => useSourceContext<ITransaction>();
 

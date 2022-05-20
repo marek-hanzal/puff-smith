@@ -4,7 +4,7 @@
 
 import {IBoosterMarket, IBoosterMarketQuery} from "@/puff-smith/service/booster/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const BoosterMarketApiLink = "/api/booster/market/query";
 
 export type IBoosterMarketQueryParams = undefined;
 
-export const useBoosterMarketQuery = createQueryHook<IBoosterMarketQuery, IQueryResult<IBoosterMarket>, IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
+export const useBoosterMarketQuery = createQueryHook<IBoosterMarketQuery, IBoosterMarket[], IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
 
 export const useBoosterMarketSource = () => useSourceContext<IBoosterMarket>();
 

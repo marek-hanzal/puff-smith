@@ -4,7 +4,7 @@
 
 import {IBase, IBaseQuery} from "@/puff-smith/service/base/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const BaseApiLink = "/api/mixture/inventory/mixture/base/query";
 
 export type IBaseQueryParams = undefined;
 
-export const useBaseQuery = createQueryHook<IBaseQuery, IQueryResult<IBase>, IBaseQueryParams>(BaseApiLink, "post");
+export const useBaseQuery = createQueryHook<IBaseQuery, IBase[], IBaseQueryParams>(BaseApiLink, "post");
 
 export const useBaseSource = () => useSourceContext<IBase>();
 

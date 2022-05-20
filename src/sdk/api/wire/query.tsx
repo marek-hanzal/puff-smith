@@ -4,7 +4,7 @@
 
 import {IWire, IWireQuery} from "@/puff-smith/service/wire/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const WireApiLink = "/api/wire/query";
 
 export type IWireQueryParams = undefined;
 
-export const useWireQuery = createQueryHook<IWireQuery, IQueryResult<IWire>, IWireQueryParams>(WireApiLink, "post");
+export const useWireQuery = createQueryHook<IWireQuery, IWire[], IWireQueryParams>(WireApiLink, "post");
 
 export const useWireSource = () => useSourceContext<IWire>();
 

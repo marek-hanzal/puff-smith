@@ -11,7 +11,7 @@ export default ListEndpoint<"Translation", ITranslationBundle>(async params => (
 				filter: {
 					language: "cs",
 				}
-			})).items,
+			})),
 		}
 	],
 }));

@@ -4,7 +4,7 @@
 
 import {IFileQuery} from "@/puff-smith/service/file/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IFile, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IFile, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const FilesApiLink = "/api/file/query";
 
 export type IFilesQueryParams = undefined;
 
-export const useFilesQuery = createQueryHook<IFileQuery, IQueryResult<IFile>, IFilesQueryParams>(FilesApiLink, "post");
+export const useFilesQuery = createQueryHook<IFileQuery, IFile[], IFilesQueryParams>(FilesApiLink, "post");
 
 export const useFilesSource = () => useSourceContext<IFile>()
 

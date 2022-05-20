@@ -5,7 +5,7 @@
 import {IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const TasteApiLink = "/api/aroma/taste/query";
 
 export type ITasteQueryParams = undefined;
 
-export const useTasteQuery = createQueryHook<IAromaQuery, IQueryResult<ITag>, ITasteQueryParams>(TasteApiLink, "post");
+export const useTasteQuery = createQueryHook<IAromaQuery, ITag[], ITasteQueryParams>(TasteApiLink, "post");
 
 export const useTasteSource = () => useSourceContext<ITag>();
 

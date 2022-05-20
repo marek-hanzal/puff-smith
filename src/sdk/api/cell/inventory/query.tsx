@@ -4,7 +4,7 @@
 
 import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const CellInventoryApiLink = "/api/cell/inventory/query";
 
 export type ICellInventoryQueryParams = undefined;
 
-export const useCellInventoryQuery = createQueryHook<ICellInventoryQuery, IQueryResult<ICellInventory>, ICellInventoryQueryParams>(CellInventoryApiLink, "post");
+export const useCellInventoryQuery = createQueryHook<ICellInventoryQuery, ICellInventory[], ICellInventoryQueryParams>(CellInventoryApiLink, "post");
 
 export const useCellInventorySource = () => useSourceContext<ICellInventory>();
 

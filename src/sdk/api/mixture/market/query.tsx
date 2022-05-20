@@ -4,7 +4,7 @@
 
 import {IMixtureMarket, IMixtureMarketQuery} from "@/puff-smith/service/mixture/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const MixtureMarketApiLink = "/api/mixture/market/query";
 
 export type IMixtureMarketQueryParams = undefined;
 
-export const useMixtureMarketQuery = createQueryHook<IMixtureMarketQuery, IQueryResult<IMixtureMarket>, IMixtureMarketQueryParams>(MixtureMarketApiLink, "post");
+export const useMixtureMarketQuery = createQueryHook<IMixtureMarketQuery, IMixtureMarket[], IMixtureMarketQueryParams>(MixtureMarketApiLink, "post");
 
 export const useMixtureMarketSource = () => useSourceContext<IMixtureMarket>();
 

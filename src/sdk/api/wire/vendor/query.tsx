@@ -5,7 +5,7 @@
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {IWireQuery} from "@/puff-smith/service/wire/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const VendorApiLink = "/api/wire/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<IWireQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<IWireQuery, IVendor[], IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 

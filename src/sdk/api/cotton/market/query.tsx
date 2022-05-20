@@ -4,7 +4,7 @@
 
 import {ICottonMarket, ICottonMarketQuery} from "@/puff-smith/service/cotton/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const CottonMarketApiLink = "/api/cotton/market/query";
 
 export type ICottonMarketQueryParams = undefined;
 
-export const useCottonMarketQuery = createQueryHook<ICottonMarketQuery, IQueryResult<ICottonMarket>, ICottonMarketQueryParams>(CottonMarketApiLink, "post");
+export const useCottonMarketQuery = createQueryHook<ICottonMarketQuery, ICottonMarket[], ICottonMarketQueryParams>(CottonMarketApiLink, "post");
 
 export const useCottonMarketSource = () => useSourceContext<ICottonMarket>();
 

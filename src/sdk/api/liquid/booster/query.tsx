@@ -5,7 +5,7 @@
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const BoosterApiLink = "/api/liquid/booster/query";
 
 export type IBoosterQueryParams = undefined;
 
-export const useBoosterQuery = createQueryHook<ILiquidQuery, IQueryResult<IBooster>, IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterQuery = createQueryHook<ILiquidQuery, IBooster[], IBoosterQueryParams>(BoosterApiLink, "post");
 
 export const useBoosterSource = () => useSourceContext<IBooster>();
 

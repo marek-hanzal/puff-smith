@@ -4,7 +4,7 @@
 
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper, IWhereFulltext} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper, IWhereFulltext} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const VendorApiLink = "/api/aroma/inventory/aroma/vendor";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<IQuery<IWhereFulltext>, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<IQuery<IWhereFulltext>, IVendor[], IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 

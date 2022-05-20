@@ -4,7 +4,7 @@
 
 import {IBoosterQuery} from "@/puff-smith/service/booster/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -51,7 +51,7 @@ export const RatioApiLink = "/api/booster/ratio/query";
 
 export type IRatioQueryParams = undefined;
 
-export const useRatioQuery = createQueryHook<IBoosterQuery, IQueryResult<IRatioItem>, IRatioQueryParams>(RatioApiLink, "post");
+export const useRatioQuery = createQueryHook<IBoosterQuery, IRatioItem[], IRatioQueryParams>(RatioApiLink, "post");
 
 export const useRatioSource = () => useSourceContext<IRatioItem>();
 

@@ -4,7 +4,7 @@
 
 import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const VoucherApiLink = "/api/voucher/query";
 
 export type IVoucherQueryParams = undefined;
 
-export const useVoucherQuery = createQueryHook<IVoucherQuery, IQueryResult<IVoucher>, IVoucherQueryParams>(VoucherApiLink, "post");
+export const useVoucherQuery = createQueryHook<IVoucherQuery, IVoucher[], IVoucherQueryParams>(VoucherApiLink, "post");
 
 export const useVoucherSource = () => useSourceContext<IVoucher>();
 

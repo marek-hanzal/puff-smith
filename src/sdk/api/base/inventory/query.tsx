@@ -4,7 +4,7 @@
 
 import {IBaseInventory, IBaseInventoryQuery} from "@/puff-smith/service/base/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const BaseInventoryApiLink = "/api/base/inventory/query";
 
 export type IBaseInventoryQueryParams = undefined;
 
-export const useBaseInventoryQuery = createQueryHook<IBaseInventoryQuery, IQueryResult<IBaseInventory>, IBaseInventoryQueryParams>(BaseInventoryApiLink, "post");
+export const useBaseInventoryQuery = createQueryHook<IBaseInventoryQuery, IBaseInventory[], IBaseInventoryQueryParams>(BaseInventoryApiLink, "post");
 
 export const useBaseInventorySource = () => useSourceContext<IBaseInventory>();
 

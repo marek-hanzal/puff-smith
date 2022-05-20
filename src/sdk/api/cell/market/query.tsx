@@ -4,7 +4,7 @@
 
 import {ICellMarket, ICellMarketQuery} from "@/puff-smith/service/cell/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const CellMarketApiLink = "/api/cell/market/query";
 
 export type ICellMarketQueryParams = undefined;
 
-export const useCellMarketQuery = createQueryHook<ICellMarketQuery, IQueryResult<ICellMarket>, ICellMarketQueryParams>(CellMarketApiLink, "post");
+export const useCellMarketQuery = createQueryHook<ICellMarketQuery, ICellMarket[], ICellMarketQueryParams>(CellMarketApiLink, "post");
 
 export const useCellMarketSource = () => useSourceContext<ICellMarket>();
 

@@ -4,7 +4,7 @@
 
 import {IAtomizerMarket, IAtomizerMarketQuery} from "@/puff-smith/service/atomizer/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const AtomizerMarketApiLink = "/api/atomizer/market/query";
 
 export type IAtomizerMarketQueryParams = undefined;
 
-export const useAtomizerMarketQuery = createQueryHook<IAtomizerMarketQuery, IQueryResult<IAtomizerMarket>, IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
+export const useAtomizerMarketQuery = createQueryHook<IAtomizerMarketQuery, IAtomizerMarket[], IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
 
 export const useAtomizerMarketSource = () => useSourceContext<IAtomizerMarket>();
 

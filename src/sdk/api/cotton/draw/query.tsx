@@ -5,7 +5,7 @@
 import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const DrawApiLink = "/api/cotton/draw/query";
 
 export type IDrawQueryParams = undefined;
 
-export const useDrawQuery = createQueryHook<IAtomizerQuery, IQueryResult<ITag>, IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawQuery = createQueryHook<IAtomizerQuery, ITag[], IDrawQueryParams>(DrawApiLink, "post");
 
 export const useDrawSource = () => useSourceContext<ITag>();
 

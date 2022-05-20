@@ -4,7 +4,7 @@
 
 import {ICotton, ICottonQuery} from "@/puff-smith/service/cotton/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const CottonApiLink = "/api/cotton/query";
 
 export type ICottonQueryParams = undefined;
 
-export const useCottonQuery = createQueryHook<ICottonQuery, IQueryResult<ICotton>, ICottonQueryParams>(CottonApiLink, "post");
+export const useCottonQuery = createQueryHook<ICottonQuery, ICotton[], ICottonQueryParams>(CottonApiLink, "post");
 
 export const useCottonSource = () => useSourceContext<ICotton>();
 

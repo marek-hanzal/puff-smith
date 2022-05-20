@@ -33,8 +33,8 @@ export const JobButton = <TJobParams, >({translation, scheduler, schedule, filte
 		keepPreviousData: true,
 		refetchInterval: 2500,
 	});
-	const isRunning = jobQuery.isSuccess && jobQuery.data.count > 0;
-	const job = isRunning ? jobQuery.data.items[0] : null;
+	const isRunning = jobQuery.isSuccess && jobQuery.data.length > 0;
+	const job = isRunning ? jobQuery.data[0] : null;
 
 	return <Tooltip title={job?.started && <JobPerformanceInline job={job}/>}>
 		<Button

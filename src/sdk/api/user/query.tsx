@@ -4,7 +4,7 @@
 
 import {IUser, IUserQuery} from "@/puff-smith/service/user/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const UserApiLink = "/api/user/query";
 
 export type IUserQueryParams = undefined;
 
-export const useUserQuery = createQueryHook<IUserQuery, IQueryResult<IUser>, IUserQueryParams>(UserApiLink, "post");
+export const useUserQuery = createQueryHook<IUserQuery, IUser[], IUserQueryParams>(UserApiLink, "post");
 
 export const useUserSource = () => useSourceContext<IUser>();
 

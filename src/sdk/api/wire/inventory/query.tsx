@@ -4,7 +4,7 @@
 
 import {IWireInventory, IWireInventoryQuery} from "@/puff-smith/service/wire/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const WireInventoryApiLink = "/api/wire/inventory/query";
 
 export type IWireInventoryQueryParams = undefined;
 
-export const useWireInventoryQuery = createQueryHook<IWireInventoryQuery, IQueryResult<IWireInventory>, IWireInventoryQueryParams>(WireInventoryApiLink, "post");
+export const useWireInventoryQuery = createQueryHook<IWireInventoryQuery, IWireInventory[], IWireInventoryQueryParams>(WireInventoryApiLink, "post");
 
 export const useWireInventorySource = () => useSourceContext<IWireInventory>();
 

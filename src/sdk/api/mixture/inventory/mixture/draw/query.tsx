@@ -4,7 +4,7 @@
 
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const DrawApiLink = "/api/mixture/inventory/mixture/draw/query";
 
 export type IDrawQueryParams = undefined;
 
-export const useDrawQuery = createQueryHook<IQuery, IQueryResult<ITag>, IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawQuery = createQueryHook<IQuery, ITag[], IDrawQueryParams>(DrawApiLink, "post");
 
 export const useDrawSource = () => useSourceContext<ITag>();
 

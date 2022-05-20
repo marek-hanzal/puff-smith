@@ -4,7 +4,7 @@
 
 import {IMod, IModQuery} from "@/puff-smith/service/mod/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const ModApiLink = "/api/mod/query";
 
 export type IModQueryParams = undefined;
 
-export const useModQuery = createQueryHook<IModQuery, IQueryResult<IMod>, IModQueryParams>(ModApiLink, "post");
+export const useModQuery = createQueryHook<IModQuery, IMod[], IModQueryParams>(ModApiLink, "post");
 
 export const useModSource = () => useSourceContext<IMod>();
 

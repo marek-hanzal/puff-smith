@@ -4,7 +4,7 @@
 
 import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IJob, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IJob, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const JobApiLink = "/api/job/query";
 
 export type IJobQueryParams = undefined;
 
-export const useJobQuery = createQueryHook<IJobQuery, IQueryResult<IJob>, IJobQueryParams>(JobApiLink, "post");
+export const useJobQuery = createQueryHook<IJobQuery, IJob[], IJobQueryParams>(JobApiLink, "post");
 
 export const useJobSource = () => useSourceContext<IJob>();
 

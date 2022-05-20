@@ -4,7 +4,7 @@
 
 import {IMixture, IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const MixtureApiLink = "/api/mixture/query";
 
 export type IMixtureQueryParams = undefined;
 
-export const useMixtureQuery = createQueryHook<IMixtureQuery, IQueryResult<IMixture>, IMixtureQueryParams>(MixtureApiLink, "post");
+export const useMixtureQuery = createQueryHook<IMixtureQuery, IMixture[], IMixtureQueryParams>(MixtureApiLink, "post");
 
 export const useMixtureSource = () => useSourceContext<IMixture>();
 

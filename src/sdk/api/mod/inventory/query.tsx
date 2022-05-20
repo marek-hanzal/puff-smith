@@ -4,7 +4,7 @@
 
 import {IModInventory, IModInventoryQuery} from "@/puff-smith/service/mod/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const ModInventoryApiLink = "/api/mod/inventory/query";
 
 export type IModInventoryQueryParams = undefined;
 
-export const useModInventoryQuery = createQueryHook<IModInventoryQuery, IQueryResult<IModInventory>, IModInventoryQueryParams>(ModInventoryApiLink, "post");
+export const useModInventoryQuery = createQueryHook<IModInventoryQuery, IModInventory[], IModInventoryQueryParams>(ModInventoryApiLink, "post");
 
 export const useModInventorySource = () => useSourceContext<IModInventory>();
 

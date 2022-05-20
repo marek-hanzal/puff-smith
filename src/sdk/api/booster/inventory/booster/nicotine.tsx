@@ -3,7 +3,7 @@
  */
 
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -49,7 +49,7 @@ export const NicotineApiLink = "/api/booster/inventory/booster/nicotine";
 
 export type INicotineQueryParams = undefined;
 
-export const useNicotineQuery = createQueryHook<IQuery, IQueryResult<INicotineItem>, INicotineQueryParams>(NicotineApiLink, "post");
+export const useNicotineQuery = createQueryHook<IQuery, INicotineItem[], INicotineQueryParams>(NicotineApiLink, "post");
 
 export const useNicotineSource = () => useSourceContext<INicotineItem>();
 

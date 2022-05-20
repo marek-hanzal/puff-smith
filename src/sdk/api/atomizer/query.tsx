@@ -4,7 +4,7 @@
 
 import {IAtomizer, IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const AtomizerApiLink = "/api/atomizer/query";
 
 export type IAtomizerQueryParams = undefined;
 
-export const useAtomizerQuery = createQueryHook<IAtomizerQuery, IQueryResult<IAtomizer>, IAtomizerQueryParams>(AtomizerApiLink, "post");
+export const useAtomizerQuery = createQueryHook<IAtomizerQuery, IAtomizer[], IAtomizerQueryParams>(AtomizerApiLink, "post");
 
 export const useAtomizerSource = () => useSourceContext<IAtomizer>();
 

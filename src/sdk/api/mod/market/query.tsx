@@ -4,7 +4,7 @@
 
 import {IModMarket, IModMarketQuery} from "@/puff-smith/service/mod/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const ModMarketApiLink = "/api/mod/market/query";
 
 export type IModMarketQueryParams = undefined;
 
-export const useModMarketQuery = createQueryHook<IModMarketQuery, IQueryResult<IModMarket>, IModMarketQueryParams>(ModMarketApiLink, "post");
+export const useModMarketQuery = createQueryHook<IModMarketQuery, IModMarket[], IModMarketQueryParams>(ModMarketApiLink, "post");
 
 export const useModMarketSource = () => useSourceContext<IModMarket>();
 

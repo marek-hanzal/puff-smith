@@ -29,8 +29,8 @@ export const JobAlert: FC<IJobAlertProps> = ({translation, filter, ...props}) =>
 		keepPreviousData: true,
 		refetchInterval: 2500,
 	});
-	const isRunning = jobQuery.isSuccess && jobQuery.data.count > 0;
-	const job = isRunning ? jobQuery.data.items[0] : null;
+	const isRunning = jobQuery.isSuccess && jobQuery.data.length > 0;
+	const job = isRunning ? jobQuery.data[0] : null;
 
 	return job ? <Alert
 		type={"success"}

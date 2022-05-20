@@ -5,7 +5,7 @@
 import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,7 +45,7 @@ export const VendorApiLink = "/api/mixture/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<IMixtureQuery, IQueryResult<IVendor>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<IMixtureQuery, IVendor[], IVendorQueryParams>(VendorApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<IVendor>();
 

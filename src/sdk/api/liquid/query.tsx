@@ -4,7 +4,7 @@
 
 import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const LiquidApiLink = "/api/liquid/query";
 
 export type ILiquidQueryParams = undefined;
 
-export const useLiquidQuery = createQueryHook<ILiquidQuery, IQueryResult<ILiquid>, ILiquidQueryParams>(LiquidApiLink, "post");
+export const useLiquidQuery = createQueryHook<ILiquidQuery, ILiquid[], ILiquidQueryParams>(LiquidApiLink, "post");
 
 export const useLiquidSource = () => useSourceContext<ILiquid>();
 

@@ -4,7 +4,7 @@
 
 import {IMixtureInventory, IMixtureInventoryQuery} from "@/puff-smith/service/mixture/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const MixtureApiLink = "/api/mixture/inventory/mixture/query";
 
 export type IMixtureQueryParams = undefined;
 
-export const useMixtureQuery = createQueryHook<IMixtureInventoryQuery, IQueryResult<IMixtureInventory>, IMixtureQueryParams>(MixtureApiLink, "post");
+export const useMixtureQuery = createQueryHook<IMixtureInventoryQuery, IMixtureInventory[], IMixtureQueryParams>(MixtureApiLink, "post");
 
 export const useMixtureSource = () => useSourceContext<IMixtureInventory>();
 

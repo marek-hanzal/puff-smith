@@ -4,7 +4,7 @@
 
 import {IAroma, IAromaQuery} from "@/puff-smith/service/aroma/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, IQueryResult, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,7 +44,7 @@ export const AromaApiLink = "/api/mixture/inventory/mixture/aroma/query";
 
 export type IAromaQueryParams = undefined;
 
-export const useAromaQuery = createQueryHook<IAromaQuery, IQueryResult<IAroma>, IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaQuery = createQueryHook<IAromaQuery, IAroma[], IAromaQueryParams>(AromaApiLink, "post");
 
 export const useAromaSource = () => useSourceContext<IAroma>();
 

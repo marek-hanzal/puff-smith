@@ -31,7 +31,7 @@ export default withRootLayout(function Index() {
 					live: 2500,
 					options: {
 						onSuccess: async data => {
-							if (!data.count) {
+							if (!data.length) {
 								navigate("/root/job/all");
 								await message.success({
 									content: t("common.job.all.done"),
