@@ -2,12 +2,13 @@ import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaInventorySource";
 import {IAromaInventoryRepository} from "@/puff-smith/service/aroma/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {Repository} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaInventoryRepository = (): IAromaInventoryRepository => {
 	const aromaSource = singletonOf(() => AromaSource());
 
-	return {
+	return Repository<IAromaInventoryRepository>({
 		source: AromaInventorySource(),
 		create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
 			const $aroma = await aromaSource.withPrisma(prisma).toMap(aroma.aromaId);
@@ -30,7 +31,7 @@ export const AromaInventoryRepository = (): IAromaInventoryRepository => {
 				},
 			});
 		}),
-	};
+	});
 };
 
 // export const AromaInventorySource = (): IAromaInventorySource => {

@@ -1,23 +1,41 @@
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
-import {IAromaMarketSource, IAromaMarketSourceCreate} from "@/puff-smith/service/aroma/market/interface";
+import {IAroma, IAromaEntity} from "@/puff-smith/service/aroma/interface";
 import {memoIsOwned} from "@/puff-smith/service/aroma/memoize";
+import {IQuery, ISource} from "@leight-core/api";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
+import {Prisma} from "@prisma/client";
 
-export const AromaMarketSource = (request: IAromaMarketSourceCreate): IAromaMarketSource => {
-	const aromaSource = singletonOf(() => AromaSource(request));
-	const userId = singletonOf(() => request.userService.getUserId());
+export interface IAromaMarket {
+	aroma: IAroma;
+	isOwned: boolean | undefined;
+}
 
-	return Source<IAromaMarketSource>({
+export interface IAromaMarketQuery extends IQuery<Prisma.AromaWhereInput, Prisma.AromaOrderByWithRelationInput> {
+}
+
+export interface IAromaMarketSource extends ISource<IAromaEntity, IAromaMarket, IAromaMarketQuery> {
+}
+
+export const AromaMarketSource = (): IAromaMarketSource => {
+	const aromaSource = singletonOf(() => AromaSource());
+
+	const source: IAromaMarketSource = Source<IAromaEntity, IAromaMarket, IAromaMarketQuery>({
 		name: "aroma-market",
-		source: async ({}) => request.prisma.aroma,
-		mapper: async entity => ({
-			aroma: await aromaSource().map(entity),
-			isOwned: await memoIsOwned(entity.id, userId()),
-		}),
-		toFilter: filter => aromaSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
+		get source() {
+			return source.prisma.aroma;
 		},
+		query: async query => source.prisma.aroma.findMany({
+			include: {
+				vendor: true,
+			}
+		}),
+		map: async entity => ({
+			aroma: await aromaSource().mapper.map(entity),
+			isOwned: await memoIsOwned(entity.id, source.user.required()),
+		}),
+		filter: filter => aromaSource().filter(filter),
 	});
+
+	return source;
 };

@@ -1,7 +1,7 @@
-import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
-import {Aroma, Prisma} from "@prisma/client";
+import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
+import {IVendor, IVendorEntity, IVendorQuery, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IQuery, IRepository, ISource, IWithFulltext} from "@leight-core/api";
+import {Aroma, AromaTaste, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IAromaCreate {
@@ -49,5 +49,21 @@ export interface IAromaFetchQuery extends ParsedUrlQuery {
 	aromaId: string;
 }
 
-export interface IAromaSource extends ISource<IAromaCreate, IAromaEntity, IAroma, IAromaQuery> {
+export interface IAromaSource extends ISource<IAromaEntity, IAroma, IAromaQuery> {
+}
+
+export interface IAromaRepository extends IRepository<IAromaCreate, IAromaSource> {
+}
+
+export type IAromaTasteEntity = AromaTaste & IWithAromaEntity & { taste: ITagEntity };
+
+export type IAromaTasteWhere = Prisma.AromaTasteWhereInput & IWithFulltext;
+
+export interface IAromaTasteQuery extends IQuery<IAromaTasteWhere, Prisma.AromaTasteOrderByWithRelationInput> {
+}
+
+export interface IAromaTasteSource extends ISource<IAromaTasteEntity, ITag, IAromaTasteQuery> {
+}
+
+export interface IAromaVendorSource extends ISource<IVendorEntity, IVendor, IVendorQuery> {
 }
