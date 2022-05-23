@@ -15,4 +15,3 @@ export default ListEndpoint<"Translation", ITranslationBundle>(async params => (
 		}
 	],
 }));
-

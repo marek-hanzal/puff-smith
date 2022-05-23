@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Fiber, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,10 +33,10 @@ export interface IFiberFetchQuery extends ParsedUrlQuery {
 	fiberId: string;
 }
 
-export interface IFiberRepositoryCreate extends IServiceCreate {
+export interface IFiberSourceCreate extends IServiceCreate {
 }
 
-export interface IFiberRepository extends IRepository<IFiberCreate, Fiber, IFiber, IFiberQuery, IFiberFetchProps, IFiberFetchQuery> {
+export interface IFiberSource extends ISource<IFiberCreate, Fiber, IFiber, IFiberQuery, IFiberFetchProps, IFiberFetchQuery> {
 	fetchByCode(code: string): Promise<Fiber>;
 
 	fetchByCodes(codes: string[]): Promise<Fiber[]>;

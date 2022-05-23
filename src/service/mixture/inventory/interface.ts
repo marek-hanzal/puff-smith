@@ -1,6 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IMixture} from "@/puff-smith/service/mixture/interface";
-import {IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
+import {IMixture, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
+import {IQuery, IRepository, ISource, IWithFulltext} from "@leight-core/api";
 import {MixtureInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -12,10 +11,12 @@ export interface IMixtureInventoryCreate {
 	baseId?: string | null;
 }
 
-export type IMixtureInventoryWhere = Prisma.MixtureInventoryWhereInput & IWhereFulltext;
+export type IMixtureInventoryWhere = Prisma.MixtureInventoryWhereInput & IWithFulltext;
 
 export interface IMixtureInventoryQuery extends IQuery<IMixtureInventoryWhere, Prisma.MixtureInventoryOrderByWithRelationInput> {
 }
+
+export type IMixtureInventoryEntity = MixtureInventory & IWithMixtureEntity;
 
 export interface IMixtureInventory {
 	id: string;
@@ -30,8 +31,8 @@ export interface IMixtureInventoryFetchQuery extends ParsedUrlQuery {
 	mixtureInventoryId: string;
 }
 
-export interface IMixtureInventoryRepositoryCreate extends IServiceCreate {
+export interface IMixtureInventorySource extends ISource<IMixtureInventoryEntity, IMixtureInventory, IMixtureInventoryQuery> {
 }
 
-export interface IMixtureInventoryRepository extends IRepository<IMixtureInventoryCreate, MixtureInventory, IMixtureInventory, IMixtureInventoryQuery, IMixtureInventoryFetchProps, IMixtureInventoryFetchQuery> {
+export interface IMixtureInventoryRepository extends IRepository<IMixtureInventoryCreate, IMixtureInventorySource> {
 }

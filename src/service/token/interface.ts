@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, Token} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -25,9 +25,9 @@ export interface ITokenFetchQuery extends ParsedUrlQuery {
 	tokenId: string;
 }
 
-export interface ITokenRepositoryCreate extends IServiceCreate {
+export interface ITokenSourceCreate extends IServiceCreate {
 }
 
-export interface ITokenRepository extends IRepository<ITokenCreate, Token, IToken, ITokenQuery, ITokenFetchProps, ITokenFetchQuery> {
+export interface ITokenSource extends ISource<ITokenCreate, Token, IToken, ITokenQuery, ITokenFetchProps, ITokenFetchQuery> {
 	tokensOf(userId: string): Promise<IToken[]>;
 }

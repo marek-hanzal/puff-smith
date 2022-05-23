@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
+import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
 import {Cotton, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -36,8 +36,8 @@ export interface ICottonFetchQuery extends ParsedUrlQuery {
 	cottonId: string;
 }
 
-export interface ICottonRepositoryCreate extends IServiceCreate {
+export interface ICottonSourceCreate extends IServiceCreate {
 }
 
-export interface ICottonRepository extends IRepository<ICottonCreate, Cotton, ICotton, ICottonQuery, ICottonFetchProps, ICottonFetchQuery> {
+export interface ICottonSource extends ISource<ICottonCreate, Cotton, ICotton, ICottonQuery, ICottonFetchProps, ICottonFetchQuery> {
 }

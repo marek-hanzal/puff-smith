@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IVoucher} from "@/puff-smith/service/voucher/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, VoucherInventory} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -29,8 +29,8 @@ export interface IVoucherInventoryFetchQuery extends ParsedUrlQuery {
 	voucherTransactionId: string;
 }
 
-export interface IVoucherInventoryRepositoryCreate extends IServiceCreate {
+export interface IVoucherInventorySourceCreate extends IServiceCreate {
 }
 
-export interface IVoucherInventoryRepository extends IRepository<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery> {
+export interface IVoucherInventorySource extends ISource<IVoucherInventoryCreate, VoucherInventory, IVoucherInventory, IVoucherInventoryQuery, IVoucherInventoryFetchProps, IVoucherInventoryFetchQuery> {
 }

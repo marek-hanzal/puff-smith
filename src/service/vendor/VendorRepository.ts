@@ -1,36 +1,33 @@
-import {IVendorRepository, IVendorRepositoryCreate} from "@/puff-smith/service/vendor/interface";
-import {onUnique, Repository} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {IVendorCreate, IVendorRepository, IVendorSource} from "@/puff-smith/service/vendor/interface";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {Repository, uniqueOf} from "@leight-core/server";
 
-export const VendorRepository = (request: IVendorRepositoryCreate): IVendorRepository => {
-	const vendorRepository = singletonOf(() => VendorRepository(request));
+export const VendorRepository = (): IVendorRepository => {
+	const source = VendorSource();
 
-	return {
-		...Repository<IVendorRepository>({
-			name: "vendor",
-			source: request.prisma.vendor,
-			mapper: async vendor => vendor,
-			create: async vendor => {
-				const create = vendor;
-				try {
-					return await request.prisma.vendor.create({
-						data: create,
-					});
-				} catch (e) {
-					return onUnique(e, async () => request.prisma.vendor.findFirst({
-						where: {
-							name: create.name,
-						},
-						rejectOnNotFound: true,
-					}));
-				}
-			},
-		}),
+	return Repository<IVendorCreate, IVendorSource>({
+		source,
+		create: async vendor => {
+			const create = vendor;
+			try {
+				return await source.prisma.vendor.create({
+					data: create,
+				});
+			} catch (e) {
+				return uniqueOf(e, async () => source.prisma.vendor.findFirst({
+					where: {
+						name: create.name,
+					},
+					rejectOnNotFound: true,
+				}));
+			}
+		}
+	}, {
 		fetchByReference: ({vendorId, vendor}) => {
 			if (!vendor && !vendorId) {
 				throw new Error(`Provide [vendor] or [vendorId].`);
 			}
-			return request.prisma.vendor.findUnique({
+			return source.prisma.vendor.findUnique({
 				where: vendorId ? {
 					id: vendorId,
 				} : {
@@ -41,10 +38,10 @@ export const VendorRepository = (request: IVendorRepositoryCreate): IVendorRepos
 		},
 		fetchByReferenceOptional: async fetch => {
 			try {
-				return await vendorRepository().fetchByReference(fetch);
+				return await vendorSource().fetchByReference(fetch);
 			} catch (e) {
 				return undefined;
 			}
 		}
-	};
+	});
 };

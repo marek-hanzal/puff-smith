@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, IRepository} from "@leight-core/api";
+import {IDeleteRequest, IQuery, ISource} from "@leight-core/api";
 import {BaseInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,9 +33,9 @@ export interface IBaseInventoryFetchQuery extends ParsedUrlQuery {
 	baseInventoryId: string;
 }
 
-export interface IBaseInventoryRepositoryCreate extends IServiceCreate {
+export interface IBaseInventorySourceCreate extends IServiceCreate {
 }
 
-export interface IBaseInventoryRepository extends IRepository<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery> {
+export interface IBaseInventorySource extends ISource<IBaseInventoryCreate, BaseInventory, IBaseInventory, IBaseInventoryQuery, IBaseInventoryFetchProps, IBaseInventoryFetchQuery> {
 	handleDelete(request: { request: IBaseInventoryDelete }): Promise<IBaseInventory[]>;
 }

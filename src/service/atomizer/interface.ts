@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, IRepository, IWhereFulltext} from "@leight-core/api";
+import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -39,8 +39,8 @@ export interface IAtomizerFetchQuery extends ParsedUrlQuery {
 	atomizerId: string;
 }
 
-export interface IAtomizerRepositoryCreate extends IServiceCreate {
+export interface IAtomizerSourceCreate extends IServiceCreate {
 }
 
-export interface IAtomizerRepository extends IRepository<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {
+export interface IAtomizerSource extends ISource<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {
 }

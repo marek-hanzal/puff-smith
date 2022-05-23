@@ -1,5 +1,5 @@
 import {IServiceCreate} from "@/puff-smith/service";
-import {IQuery, IRepository, ITranslation} from "@leight-core/api";
+import {IQuery, ISource, ITranslation} from "@leight-core/api";
 import {Prisma, Translation} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -20,8 +20,8 @@ export interface ITranslationFetchQuery extends ParsedUrlQuery {
 	translationId: string;
 }
 
-export interface ITranslationRepositoryCreate extends IServiceCreate {
+export interface ITranslationSourceCreate extends IServiceCreate {
 }
 
-export interface ITranslationRepository extends IRepository<ITranslationCreate, Translation, ITranslation, ITranslationQuery, ITranslationFetchProps, ITranslationFetchQuery> {
+export interface ITranslationSource extends ISource<ITranslationCreate, Translation, ITranslation, ITranslationQuery, ITranslationFetchProps, ITranslationFetchQuery> {
 }

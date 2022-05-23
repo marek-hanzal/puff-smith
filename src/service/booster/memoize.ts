@@ -1,6 +1,6 @@
 import memoizee from "memoizee";
 
-export const memoBoosterToMap = memoizee(async (boosterId, boosterRepository) => boosterId ? boosterRepository().toMap(boosterId) : undefined, {
+export const memoBoosterToMap = memoizee(async (boosterId, boosterSource) => boosterId ? boosterSource().toMap(boosterId) : undefined, {
 	primitive: true,
 	max: 256,
 	preFetch: true,

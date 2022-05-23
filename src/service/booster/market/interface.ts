@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IBooster} from "@/puff-smith/service/booster/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Booster, Prisma} from "@prisma/client";
 
 export interface IBoosterMarket {
@@ -11,8 +11,8 @@ export interface IBoosterMarket {
 export interface IBoosterMarketQuery extends IQuery<Prisma.BoosterWhereInput, Prisma.BoosterOrderByWithRelationInput> {
 }
 
-export interface IBoosterMarketRepositoryCreate extends IServiceCreate {
+export interface IBoosterMarketSourceCreate extends IServiceCreate {
 }
 
-export interface IBoosterMarketRepository extends IRepository<void, Booster, IBoosterMarket, IBoosterMarketQuery, void, {}> {
+export interface IBoosterMarketSource extends ISource<void, Booster, IBoosterMarket, IBoosterMarketQuery, void, {}> {
 }

@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IToken} from "@/puff-smith/service/token/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -34,10 +34,10 @@ export interface IUserFetchQuery extends ParsedUrlQuery {
 	userId: string;
 }
 
-export interface IUserRepositoryCreate extends IServiceCreate {
+export interface IUserSourceCreate extends IServiceCreate {
 }
 
-export interface IUserRepository extends IRepository<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery> {
+export interface IUserSource extends ISource<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery> {
 	handleRootUser(): Promise<void>;
 
 	handleCommonUser(): Promise<void>;

@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
 import {IWire} from "@/puff-smith/service/wire/interface";
-import {IDeleteRequest, IQuery, IRepository} from "@leight-core/api";
+import {IDeleteRequest, IQuery, ISource} from "@leight-core/api";
 import {Prisma, WireInventory} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,9 +33,9 @@ export interface IWireInventoryFetchQuery extends ParsedUrlQuery {
 	wireTransactionId: string;
 }
 
-export interface IWireInventoryRepositoryCreate extends IServiceCreate {
+export interface IWireInventorySourceCreate extends IServiceCreate {
 }
 
-export interface IWireInventoryRepository extends IRepository<IWireInventoryCreate, WireInventory, IWireInventory, IWireInventoryQuery, IWireInventoryFetchProps, IWireInventoryFetchQuery> {
+export interface IWireInventorySource extends ISource<IWireInventoryCreate, WireInventory, IWireInventory, IWireInventoryQuery, IWireInventoryFetchProps, IWireInventoryFetchQuery> {
 	handleDelete(request: { request: IWireInventoryDelete }): Promise<IWireInventory[]>;
 }

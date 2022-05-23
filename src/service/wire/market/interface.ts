@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IWire} from "@/puff-smith/service/wire/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, Wire} from "@prisma/client";
 
 export interface IWireMarket {
@@ -11,8 +11,8 @@ export interface IWireMarket {
 export interface IWireMarketQuery extends IQuery<Prisma.WireWhereInput, Prisma.WireOrderByWithRelationInput> {
 }
 
-export interface IWireMarketRepositoryCreate extends IServiceCreate {
+export interface IWireMarketSourceCreate extends IServiceCreate {
 }
 
-export interface IWireMarketRepository extends IRepository<void, Wire, IWireMarket, IWireMarketQuery, void, {}> {
+export interface IWireMarketSource extends ISource<void, Wire, IWireMarket, IWireMarketQuery, void, {}> {
 }

@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ITariff} from "@/puff-smith/service/tariff/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Price, Prisma} from "@prisma/client";
 import {DateTime} from "next-auth/providers/kakao";
 import {ParsedUrlQuery} from "querystring";
@@ -35,10 +35,10 @@ export interface IPriceFetchQuery extends ParsedUrlQuery {
 	priceId: string;
 }
 
-export interface IPriceRepositoryCreate extends IServiceCreate {
+export interface IPriceSourceCreate extends IServiceCreate {
 }
 
-export interface IPriceRepository extends IRepository<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {
+export interface IPriceSource extends ISource<IPriceCreate, Price, IPrice, IPriceQuery, IPriceFetchProps, IPriceFetchQuery> {
 	priceOf(tariff: string, price: string): Promise<Price>;
 
 	amountOf(tariff: string, price: string, fallback: number): Promise<number>;

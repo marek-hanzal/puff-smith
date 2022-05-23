@@ -1,6 +1,6 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
-import {IQuery, IRepository} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
 
 export interface IMixtureMarket {
@@ -12,8 +12,8 @@ export interface IMixtureMarket {
 export interface IMixtureMarketQuery extends IQuery<Prisma.MixtureWhereInput, Prisma.MixtureOrderByWithRelationInput> {
 }
 
-export interface IMixtureMarketRepositoryCreate extends IServiceCreate {
+export interface IMixtureMarketSourceCreate extends IServiceCreate {
 }
 
-export interface IMixtureMarketRepository extends IRepository<void, Mixture, IMixtureMarket, IMixtureMarketQuery, void, {}> {
+export interface IMixtureMarketSource extends ISource<void, Mixture, IMixtureMarket, IMixtureMarketQuery, void, {}> {
 }

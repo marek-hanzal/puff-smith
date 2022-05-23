@@ -1,29 +1,33 @@
-import {defaults} from "@/puff-smith/service";
-import {IJobRepository, IJobRepositoryCreate} from "@/puff-smith/service/job/interface";
+import {IJobCreate, IJobQuery, IJobRepository} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJobProcessor, IJobStatus} from "@leight-core/api";
-import {Logger, Repository} from "@leight-core/server";
+import {IJob, IJobProcessor, IJobStatus} from "@leight-core/api";
+import {Logger, Source} from "@leight-core/server";
 import {toPercent} from "@leight-core/utils";
+import {Job} from "@prisma/client";
 import delay from "delay";
 import PQueue from "p-queue";
 
-export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => {
-	return {
-		...Repository<IJobRepository>({
-			name: "job",
-			source: request.prisma.job,
-			mapper: async job => ({
-				...job,
-				params: job.params && JSON.parse(job.params)
-			}),
-			create: job => request.prisma.job.create({
-				data: {
-					...job,
-					params: job.params && JSON.stringify(job.params),
-					created: new Date(),
-				}
-			}),
+export const JobRepository = (): IJobRepository => {
+	const source = Source<IJobCreate, Job, IJob, IJobQuery>({
+		name: "job",
+		get source() {
+			return source.prisma.job;
+		},
+		map: async job => ({
+			...job,
+			params: job.params && JSON.parse(job.params)
 		}),
+		create: async job => source.prisma.job.create({
+			data: {
+				...job,
+				params: job.params && JSON.stringify(job.params),
+				created: new Date(),
+			}
+		}),
+	});
+
+	return {
+		source,
 		createProgress: jobId => {
 			let $result: IJobStatus | undefined;
 			let $total: number = 0;
@@ -37,7 +41,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 				success: () => $success,
 				failure: () => $failure,
 				skip: () => $skip,
-				setTotal: total => request.prisma.job.update({
+				setTotal: total => source.prisma.job.update({
 					data: {
 						total: ($total = total),
 					},
@@ -45,7 +49,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 						id: jobId,
 					}
 				}),
-				setStatus: status => request.prisma.job.update({
+				setStatus: status => source.prisma.job.update({
 					data: {
 						status,
 						started: ["RUNNING"].includes(status) ? new Date() : undefined,
@@ -55,7 +59,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 						id: jobId,
 					},
 				}),
-				onSuccess: () => request.prisma.job.update({
+				onSuccess: () => source.prisma.job.update({
 					data: {
 						success: ++$success,
 						successRatio: toPercent($success, $total),
@@ -65,7 +69,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 						id: jobId,
 					}
 				}),
-				onFailure: () => request.prisma.job.update({
+				onFailure: () => source.prisma.job.update({
 					data: {
 						failure: ++$failure,
 						failureRatio: toPercent($failure, $total),
@@ -75,7 +79,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 						id: jobId,
 					}
 				}),
-				onSkip: () => request.prisma.job.update({
+				onSkip: () => source.prisma.job.update({
 					data: {
 						skip: ++$skip,
 						skipRatio: toPercent($skip, $total),
@@ -91,7 +95,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 				isReview: () => $failure > 0 || $skip > 0,
 			};
 		},
-		commit: () => request.prisma.job.updateMany({
+		commit: () => source.prisma.job.updateMany({
 			where: {
 				status: {
 					in: ["REVIEW", "FAILURE", "SUCCESS"],
@@ -101,7 +105,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 				status: "DONE",
 			}
 		}),
-		cleanup: filter => request.prisma.job.deleteMany(filter && {
+		cleanup: filter => source.prisma.job.deleteMany(filter && {
 			where: filter,
 		}),
 		processor: (name, handler, queue) => {
@@ -115,15 +119,16 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 			});
 			const async: IJobProcessor["async"] = async (params, userId, queue) => {
 				let logger = Logger(name);
-				const jobService = JobRepository(defaults(userId));
-				const job = await jobService.map(await jobService.create({
+				const jobRepository = JobRepository();
+				jobRepository.source.withUserId(userId);
+				const job = await jobRepository.source.mapper.map(await jobRepository.source.create({
 					userId,
 					name,
 					params,
 				}));
 				const labels = {name, jobId: job.id};
 				logger = logger.child({labels, jobId: labels.jobId, name});
-				const jobProgress = jobService.createProgress(job.id);
+				const jobProgress = jobRepository.createProgress(job.id);
 				setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
 					try {
 						await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
@@ -165,7 +170,7 @@ export const JobRepository = (request: IJobRepositoryCreate): IJobRepository => 
 			};
 
 			return {
-				request: async ({request: params, toUserId}) => async(params, toUserId()),
+				request: async ({request: params, user}) => async(params, user.required()),
 				async,
 				handler,
 			};

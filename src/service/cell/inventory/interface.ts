@@ -1,7 +1,7 @@
 import {IServiceCreate} from "@/puff-smith/service";
 import {ICell} from "@/puff-smith/service/cell/interface";
 import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, IRepository} from "@leight-core/api";
+import {IDeleteRequest, IQuery, ISource} from "@leight-core/api";
 import {CellInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,9 +33,9 @@ export interface ICellInventoryFetchQuery extends ParsedUrlQuery {
 	cellTransactionId: string;
 }
 
-export interface ICellInventoryRepositoryCreate extends IServiceCreate {
+export interface ICellInventorySourceCreate extends IServiceCreate {
 }
 
-export interface ICellInventoryRepository extends IRepository<ICellInventoryCreate, CellInventory, ICellInventory, ICellInventoryQuery, ICellInventoryFetchProps, ICellInventoryFetchQuery> {
+export interface ICellInventorySource extends ISource<ICellInventoryCreate, CellInventory, ICellInventory, ICellInventoryQuery, ICellInventoryFetchProps, ICellInventoryFetchQuery> {
 	handleDelete(request: { request: ICellInventoryDelete }): Promise<ICellInventory[]>;
 }
