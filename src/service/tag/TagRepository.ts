@@ -1,16 +1,12 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITag, ITagCreate, ITagQuery, ITagRepository} from "@/puff-smith/service/tag/interface";
-import {Source, uniqueOf} from "@leight-core/server";
-import {Tag} from "@prisma/client";
+import {ITagCreate, ITagRepository, ITagSource} from "@/puff-smith/service/tag/interface";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
+import {Repository, uniqueOf} from "@leight-core/server";
 
 export const TagRepository = (): ITagRepository => {
-	const source = Source<ITagCreate, Tag, ITag, ITagQuery>({
-		name: "tag",
-		prisma,
-		get source() {
-			return source.prisma.tag;
-		},
-		map: async tag => tag,
+	const source = TagSource();
+
+	return Repository<ITagCreate, ITagSource, ITagRepository>({
+		source,
 		create: async tag => {
 			const create = {
 				...tag,
@@ -35,10 +31,6 @@ export const TagRepository = (): ITagRepository => {
 				}));
 			}
 		},
-	});
-
-	return {
-		source,
 		fetchCodes: async (codes, group) => source.prisma.tag.findMany({
 			where: {
 				code: {
@@ -71,5 +63,5 @@ export const TagRepository = (): ITagRepository => {
 				rejectOnNotFound: true,
 			});
 		},
-	};
+	});
 };
