@@ -1,6 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
+import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Booster, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -15,10 +14,13 @@ export interface IBoosterCreate {
 	volume: number;
 }
 
-export type IBoosterWhere = Prisma.BoosterWhereInput & IWhereFulltext;
+export type IBoosterWhere = Prisma.BoosterWhereInput & IWithFulltext;
 
 export interface IBoosterQuery extends IQuery<IBoosterWhere, Prisma.BoosterOrderByWithRelationInput> {
 }
+
+export type IBoosterEntity = Booster & IWithVendorEntity;
+export type IWithBoosterEntity = { booster: IBoosterEntity; };
 
 export interface IBooster {
 	id: string;
@@ -41,8 +43,5 @@ export interface IBoosterFetchQuery extends ParsedUrlQuery {
 	boosterId: string;
 }
 
-export interface IBoosterSourceCreate extends IServiceCreate {
-}
-
-export interface IBoosterSource extends ISource<IBoosterCreate, Booster, IBooster, IBoosterQuery, IBoosterFetchProps, IBoosterFetchQuery> {
+export interface IBoosterSource extends ISource<IBoosterCreate, IBoosterEntity, IBooster, IBoosterQuery> {
 }

@@ -1,13 +1,13 @@
-import {IBaseRatioSource} from "@/puff-smith/service/base/ratio/interface";
+import {IBoosterRatioSource} from "@/puff-smith/service/booster/ratio/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 
-export const BaseRatioSource = (): IBaseRatioSource => {
-	const source: IBaseRatioSource = Source<IBaseRatioSource>({
-		name: "base.ratio",
+export const BoosterRatioSource = (): IBoosterRatioSource => {
+	const source: IBoosterRatioSource = Source<IBoosterRatioSource>({
+		name: "booster.ratio",
 		prisma,
 		source: {
-			query: async () => source.prisma.base.findMany({
+			query: async () => source.prisma.booster.findMany({
 				distinct: ["pg", "vg"],
 				orderBy: [
 					{vg: "asc"},

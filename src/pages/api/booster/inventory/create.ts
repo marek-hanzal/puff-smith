@@ -1,7 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {BoosterInventoryRepository} from "@/puff-smith/service/booster/inventory/BoosterInventoryRepository";
-import {IBoosterInventory, IBoosterInventoryCreate} from "@/puff-smith/service/booster/inventory/interface";
-import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
-import {MutationEndpoint} from "@leight-core/server";
+import {BoosterInventorySource} from "@/puff-smith/service/booster/inventory/BoosterInventorySource";
+import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
+import {CreateEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"Create", IBoosterInventoryCreate, IBoosterInventory>(async params => handlePuffiesException(params, async () => BoosterInventoryRepository(ofParams(params)).handleCreate(params)));
+export default CreateEndpoint<"Create", IBoosterInventorySource>(BoosterInventorySource());

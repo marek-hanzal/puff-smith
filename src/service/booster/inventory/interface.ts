@@ -1,9 +1,7 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IBooster} from "@/puff-smith/service/booster/interface";
-import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, ISource} from "@leight-core/api";
+import {IBooster, IWithBoosterEntity} from "@/puff-smith/service/booster/interface";
+import {ITransaction, IWithTransactionEntity} from "@/puff-smith/service/transaction/interface";
+import {IQuery, ISource} from "@leight-core/api";
 import {BoosterInventory, Prisma} from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IBoosterInventoryCreate {
 	boosterId: string;
@@ -19,23 +17,10 @@ export interface IBoosterInventory {
 	transactionId: string;
 }
 
-export interface IBoosterInventoryDelete extends IDeleteRequest {
-}
-
 export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationInput> {
 }
 
-export interface IBoosterInventoryFetchProps {
-	boosterTransaction: IBoosterInventory;
-}
+export type IBoosterInventoryEntity = BoosterInventory & IWithBoosterEntity & IWithTransactionEntity;
 
-export interface IBoosterInventoryFetchQuery extends ParsedUrlQuery {
-	boosterTransactionId: string;
-}
-
-export interface IBoosterInventorySourceCreate extends IServiceCreate {
-}
-
-export interface IBoosterInventorySource extends ISource<IBoosterInventoryCreate, BoosterInventory, IBoosterInventory, IBoosterInventoryQuery, IBoosterInventoryFetchProps, IBoosterInventoryFetchQuery> {
-	handleDelete(request: { request: IBoosterInventoryDelete }): Promise<IBoosterInventory[]>;
+export interface IBoosterInventorySource extends ISource<IBoosterInventoryCreate, IBoosterInventoryEntity, IBoosterInventory, IBoosterInventoryQuery> {
 }

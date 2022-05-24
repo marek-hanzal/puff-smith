@@ -4,17 +4,24 @@ import {Source} from "@leight-core/server";
 
 export const BaseRatioSource = (): IBaseRatioSource => {
 	const source: IBaseRatioSource = Source<IBaseRatioSource>({
-		name: "base.ratio",
+		name: "base.inventory.ratio",
 		prisma,
 		source: {
 			query: async () => source.prisma.base.findMany({
 				distinct: ["pg", "vg"],
+				where: {
+					BaseInventory: {
+						some: {
+							userId: source.user.required(),
+						}
+					},
+				},
+				include: {
+					vendor: true,
+				},
 				orderBy: [
 					{vg: "asc"},
 				],
-				include: {
-					vendor: true,
-				}
 			}),
 		},
 		map: async ({pg, vg}) => ({

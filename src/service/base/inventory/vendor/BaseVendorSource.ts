@@ -8,13 +8,20 @@ export const BaseVendorSource = (): IBaseVendorSource => {
 	const vendorSource = singletonOf(() => VendorSource());
 
 	const source: IBaseVendorSource = Source<IBaseVendorSource>({
-		name: "base.vendor",
+		name: "base.inventory.vendor",
 		prisma,
 		source: {
 			query: async () => source.prisma.base.findMany({
 				distinct: ["vendorId"],
 				include: {
 					vendor: true,
+				},
+				where: {
+					BaseInventory: {
+						some: {
+							userId: source.user.required(),
+						}
+					},
 				},
 				orderBy: [
 					{vendor: {name: "asc"}},

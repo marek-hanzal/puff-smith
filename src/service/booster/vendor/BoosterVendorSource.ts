@@ -1,17 +1,17 @@
-import {IBaseVendorSource} from "@/puff-smith/service/base/vendor/interface";
+import {IBoosterVendorSource} from "@/puff-smith/service/booster/vendor/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const BaseVendorSource = (): IBaseVendorSource => {
+export const BoosterVendorSource = (): IBoosterVendorSource => {
 	const vendorSource = singletonOf(() => VendorSource());
 
-	const source: IBaseVendorSource = Source<IBaseVendorSource>({
-		name: "base.vendor",
+	const source: IBoosterVendorSource = Source<IBoosterVendorSource>({
+		name: "booster.vendor",
 		prisma,
 		source: {
-			query: async () => source.prisma.base.findMany({
+			query: async () => source.prisma.booster.findMany({
 				distinct: ["vendorId"],
 				include: {
 					vendor: true,

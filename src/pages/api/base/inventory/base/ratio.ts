@@ -1,4 +1,4 @@
-import {BaseRatioSource} from "@/puff-smith/service/base/ratio/BaseRatioSource";
+import {BaseRatioSource} from "@/puff-smith/service/base/inventory/ratio/BaseRatioSource";
 import {IBaseRatioSource} from "@/puff-smith/service/base/ratio/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
