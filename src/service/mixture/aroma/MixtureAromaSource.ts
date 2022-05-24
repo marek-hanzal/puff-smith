@@ -39,6 +39,11 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 					{aroma: {name: "asc"}},
 				],
 				include: {
+					base: {
+						include: {
+							vendor: true,
+						}
+					},
 					aroma: {
 						include: {
 							vendor: true,
