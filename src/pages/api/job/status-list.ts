@@ -1,16 +1,5 @@
-import {IBaseSelectOption, IJobStatus, IQuery} from "@leight-core/api";
+import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
+import {JobStatusSource} from "@/puff-smith/service/job/status/JobStatusSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-const items: IJobStatus[] = [
-	"NEW",
-	"RUNNING",
-	"FAILURE",
-	"SUCCESS",
-	"REVIEW",
-	"DONE",
-];
-
-export default QueryEndpoint<"StatusList", IQuery, IBaseSelectOption>(async () => items.map(item => ({
-	value: item,
-	label: item,
-})));
+export default QueryEndpoint<"StatusList", IJobStatusSource>(JobStatusSource());

@@ -1,10 +1,10 @@
-import {fileFetch} from "@/puff-smith/service/file/prisma";
+import {FileSource} from "@/puff-smith/service/file/FileSource";
 import {FetchEndpoint} from "@leight-core/server";
 import fs from "node:fs";
 
 export default FetchEndpoint<"Download", string, { fileId: string }>(async ({res, query: {fileId}}) => {
 	try {
-		const file = await fileFetch(fileId);
+		const file = await FileSource().get(fileId);
 		res.writeHead(200, {
 			"Content-Type": file.mime,
 			"Content-Length": file.size,

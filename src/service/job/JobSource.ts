@@ -1,7 +1,7 @@
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor, IJobStatus} from "@leight-core/api";
-import {Logger, Source} from "@leight-core/server";
+import {Logger, pageOf, Source} from "@leight-core/server";
 import {toPercent} from "@leight-core/utils";
 import delay from "delay";
 import PQueue from "p-queue";
@@ -21,7 +21,14 @@ export const JobSource = (): IJobSource => {
 					params: job.params && JSON.stringify(job.params),
 					created: new Date(),
 				}
-			})
+			}),
+			count: async ({filter}) => source.prisma.job.count({
+				where: filter,
+			}),
+			query: async ({filter, ...query}) => source.prisma.job.findMany({
+				where: filter,
+				...pageOf(query),
+			}),
 		},
 		createProgress: jobId => {
 			let $result: IJobStatus | undefined;
