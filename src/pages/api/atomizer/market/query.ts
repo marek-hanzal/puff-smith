@@ -1,6 +1,5 @@
-import {defaults} from "@/puff-smith/service";
-import {AtomizerMarketRepository} from "@/puff-smith/service/atomizer/market/AtomizerMarketRepository";
-import {IAtomizerMarket, IAtomizerMarketQuery} from "@/puff-smith/service/atomizer/market/interface";
+import {AromaMarketSource} from "@/puff-smith/service/aroma/market/AromaMarketSource";
+import {IAromaMarketSource} from "@/puff-smith/service/aroma/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AtomizerMarket", IAtomizerMarketQuery, IAtomizerMarket>(async ({request, toUserId}) => AtomizerMarketRepository(defaults(toUserId())).query(request));
+export default QueryEndpoint<"AtomizerMarket", IAromaMarketSource>(AromaMarketSource());

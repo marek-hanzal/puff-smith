@@ -1,4 +1,4 @@
-import {IQuery, IRepository, ISource, IWithFulltext} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Prisma, Vendor} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -33,11 +33,8 @@ export interface IVendorFetchQuery extends ParsedUrlQuery {
 	vendorId: string;
 }
 
-export interface IVendorSource extends ISource<IVendorEntity, IVendor, IVendorQuery> {
+export interface IVendorSource extends ISource<IVendorCreate, IVendorEntity, IVendor, IVendorQuery> {
 	fetchByReference(request: IVendorReference): Promise<IVendorEntity>;
 
 	fetchByReferenceOptional(request: IVendorReference): Promise<IVendorEntity | undefined>;
-}
-
-export interface IVendorRepository extends IRepository<IVendorCreate, IVendorSource> {
 }

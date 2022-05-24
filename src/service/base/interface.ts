@@ -1,6 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
+import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Base, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -13,10 +12,13 @@ export interface IBaseCreate {
 	vendor: string;
 }
 
-export type IBaseWhere = Prisma.BaseWhereInput & IWhereFulltext;
+export type IBaseWhere = Prisma.BaseWhereInput & IWithFulltext;
 
 export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRelationInput> {
 }
+
+export type IBaseEntity = Base & IWithVendorEntity;
+export type IWithBaseEntity = { base: IBaseEntity; };
 
 export interface IBase {
 	id: string;
@@ -37,8 +39,5 @@ export interface IBaseFetchQuery extends ParsedUrlQuery {
 	baseId: string;
 }
 
-export interface IBaseSourceCreate extends IServiceCreate {
-}
-
-export interface IBaseSource extends ISource<IBaseCreate, Base, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchQuery> {
+export interface IBaseSource extends ISource<IBaseCreate, IBaseEntity, IBase, IBaseQuery> {
 }

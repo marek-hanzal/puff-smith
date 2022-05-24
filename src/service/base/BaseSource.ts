@@ -1,76 +1,112 @@
-import {IBaseSource, IBaseSourceCreate} from "@/puff-smith/service/base/interface";
+import {IBaseSource} from "@/puff-smith/service/base/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
-import {onUnique, Source} from "@leight-core/server";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
-import deepmerge from "deepmerge";
 
-export const BaseSource = (request: IBaseSourceCreate): IBaseSource => {
+export const BaseSource = (): IBaseSource => {
 	const codeService = singletonOf(() => CodeService());
-	const vendorSource = singletonOf(() => VendorRepository(request));
+	const vendorSource = singletonOf(() => VendorSource());
 
-	return Source<IBaseSource>({
+	const source: IBaseSource = Source<IBaseSource>({
 		name: "base",
-		source: request.prisma.base,
-		mapper: async base => ({
+		prisma,
+		map: async base => ({
 			...base,
-			vendor: await vendorSource().toMap(base.vendorId),
+			vendor: await vendorSource().mapper.map(base.vendor),
 		}),
-		create: async ({vendor, code, ...base}) => {
-			const create = {
-				...base,
-				code: code || codeService().code(),
-				vendor: {
-					connect: {
-						name: vendor,
-					}
-				},
-			};
-			try {
-				return await request.prisma.base.create({
-					data: create,
-				});
-			} catch (e) {
-				return onUnique(e, async () => request.prisma.base.update({
-					where: {
-						id: (await request.prisma.base.findFirst({
-							where: {
-								OR: [
-									{
-										name: create.name,
-										vendor: {
-											name: vendor,
-										},
-									},
-									{
-										code: create.code,
-									}
-								]
-							},
-							rejectOnNotFound: true,
-						})).id,
-					},
-					data: base,
-				}));
-			}
-		},
-		toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
-			OR: [
-				{
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					}
-				},
-				{
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+		source: {
+			count: async ({filter}) => source.prisma.base.count({
+				where: {
+					OR: [
+						{
+							name: {
+								contains: filter?.fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: filter?.fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				},
-			],
-		}),
+			}),
+			query: async ({filter, ...query}) => source.prisma.base.findMany({
+				where: {
+					OR: [
+						{
+							name: {
+								contains: filter?.fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: filter?.fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				},
+				...pageOf(query),
+				include: {
+					vendor: true,
+				},
+			}),
+			create: async ({vendor, code, ...base}) => {
+				const create = {
+					...base,
+					code: code || codeService().code(),
+					vendor: {
+						connect: {
+							name: vendor,
+						}
+					},
+				};
+				try {
+					return await source.prisma.base.create({
+						data: create,
+						include: {
+							vendor: true,
+						},
+					});
+				} catch (e) {
+					return onUnique(e, async () => source.prisma.base.update({
+						where: {
+							id: (await source.prisma.base.findFirst({
+								where: {
+									OR: [
+										{
+											name: create.name,
+											vendor: {
+												name: vendor,
+											},
+										},
+										{
+											code: create.code,
+										}
+									]
+								},
+								rejectOnNotFound: true,
+							})).id,
+						},
+						data: base,
+						include: {
+							vendor: true,
+						},
+					}));
+				}
+			},
+		},
 	});
+
+	return source;
 };

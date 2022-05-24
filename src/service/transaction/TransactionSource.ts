@@ -1,10 +1,9 @@
-import {defaults} from "@/puff-smith/service";
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
-import {ITransactionSource, ITransactionSourceCreate} from "@/puff-smith/service/transaction/interface";
+import {ITransactionSource} from "@/puff-smith/service/transaction/interface";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const TransactionSource = (request: ITransactionSourceCreate): ITransactionSource => {
+export const TransactionSource = (): ITransactionSource => {
 	const priceSource = singletonOf(() => PriceSource(request));
 	const userId = singletonOf(() => request.userService.getUserId());
 

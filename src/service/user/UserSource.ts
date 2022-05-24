@@ -1,42 +1,46 @@
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {IUserSource, IUserSourceCreate} from "@/puff-smith/service/user/interface";
+import {IUserSource} from "@/puff-smith/service/user/interface";
 import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
-import {onUnique, Source, toFulltext} from "@leight-core/server";
+import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
-import deepmerge from "deepmerge";
 
-export const UserSource = (request: IUserSourceCreate): IUserSource => {
-	const userSource = singletonOf(() => UserSource(request));
-	const tokenSource = singletonOf(() => TokenSource(request));
-	const userTokenSource = singletonOf(() => UserTokenSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
-	const priceSource = singletonOf(() => PriceSource(request));
-	const userId = singletonOf(() => request.userService.getUserId());
+export const UserSource = (): IUserSource => {
+	const userSource = singletonOf(() => UserSource());
+	const tokenSource = singletonOf(() => TokenSource());
+	const userTokenSource = singletonOf(() => UserTokenSource());
+	const transactionSource = singletonOf(() => TransactionSource());
+	const priceSource = singletonOf(() => PriceSource());
 
-	return {
-		...Source<IUserSource>({
-			name: "user",
-			source: request.prisma.user,
-			mapper: async ({emailVerified, ...user}) => {
-				const tokens = await tokenSource().tokensOf(user.id);
-				return {
-					...user,
-					tokens,
-					tokenIds: tokens.map(token => token.id),
-				};
-			},
-			toFilter: ({fulltext, ...filter} = {}) => deepmerge(filter, {
-				...toFulltext(fulltext, ["name", "email"]),
+	const source: IUserSource = Source<IUserSource>({
+		name: "user",
+		prisma,
+		map: async ({emailVerified, ...user}) => {
+			const tokens = await tokenSource().tokensOf(user.id);
+			return {
+				...user,
+				tokens,
+				tokenIds: tokens.map(token => token.id),
+			};
+		},
+		source: {
+			get: async id => await source.prisma.user.findUnique({
+				where: {id},
+				include: {
+					UserToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
+				rejectOnNotFound: true,
 			}),
-			create: async create => request.prisma.user.create({
-				data: create,
-			})
-		}),
+		},
 		async handleRootUser() {
 			await transactionSource().create({
-				userId: userId(),
+				userId: source.user.required(),
 				amount: await priceSource().amountOf("default", "welcome-gift.root", 1000000),
 				note: "Welcome gift for the Root User!",
 			});
@@ -51,7 +55,7 @@ export const UserSource = (request: IUserSourceCreate): IUserSource => {
 		},
 		async handleCommonUser() {
 			await transactionSource().create({
-				userId: userId(),
+				userId: source.user.required(),
 				amount: await priceSource().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
@@ -79,7 +83,7 @@ export const UserSource = (request: IUserSourceCreate): IUserSource => {
 			});
 			try {
 				await userTokenSource().create({
-					userId: userId(),
+					userId: source.user.required(),
 					tokenId: $token.id,
 				});
 			} catch (e) {
@@ -89,6 +93,8 @@ export const UserSource = (request: IUserSourceCreate): IUserSource => {
 				await onUnique(e, async () => null);
 			}
 		},
-		whoami: () => userSource().toMap(userId()),
-	};
+		whoami: async () => source.mapper.map(await source.get(source.user.required())),
+	});
+
+	return source;
 };

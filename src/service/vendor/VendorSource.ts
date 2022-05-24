@@ -1,15 +1,29 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {Source} from "@leight-core/server";
+import {onUnique, Source} from "@leight-core/server";
 
 export const VendorSource = (): IVendorSource => {
 	const source: IVendorSource = Source<IVendorSource>({
 		name: "vendor",
 		prisma,
-		get native() {
-			return source.prisma.vendor;
-		},
 		map: async vendor => vendor,
+		source: {
+			create: async vendor => {
+				const create = vendor;
+				try {
+					return await source.prisma.vendor.create({
+						data: create,
+					});
+				} catch (e) {
+					return onUnique(e, async () => source.prisma.vendor.findFirst({
+						where: {
+							name: create.name,
+						},
+						rejectOnNotFound: true,
+					}));
+				}
+			}
+		},
 		fetchByReference: ({vendorId, vendor}) => {
 			if (!vendor && !vendorId) {
 				throw new Error(`Provide [vendor] or [vendorId].`);

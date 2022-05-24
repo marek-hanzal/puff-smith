@@ -1,18 +1,10 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
-import {IQuery, ISource} from "@leight-core/api";
-import {Atomizer, Prisma} from "@prisma/client";
+import {IAtomizer, IAtomizerEntity, IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
+import {ISource} from "@leight-core/api";
 
 export interface IAtomizerMarket {
 	atomizer: IAtomizer;
 	isOwned: boolean | undefined;
 }
 
-export interface IAtomizerMarketQuery extends IQuery<Prisma.AtomizerWhereInput, Prisma.AtomizerOrderByWithRelationInput> {
-}
-
-export interface IAtomizerMarketSourceCreate extends IServiceCreate {
-}
-
-export interface IAtomizerMarketSource extends ISource<void, Atomizer, IAtomizerMarket, IAtomizerMarketQuery, void, {}> {
+export interface IAtomizerMarketSource extends ISource<void, IAtomizerEntity, IAtomizerMarket, IAtomizerQuery> {
 }

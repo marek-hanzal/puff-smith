@@ -1,8 +1,8 @@
 import {COIL_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams} from "@/puff-smith/jobs/coil/interface";
-import {JobRepository} from "@/puff-smith/service/job/JobRepository";
+import {JobSource} from "@/puff-smith/service/job/JobSource";
 import {IJobProcessor} from "@leight-core/api";
 
-const jobService = JobRepository();
+const jobService = JobSource();
 
 export const CoilsJob: IJobProcessor<ICoilsJobParams> = jobService.processor(COILS_JOB, async () => {
 	// JobService().handle<ICoilsJobParams>(async ({jobProgress, job: {userId}, logger, progress}) => {

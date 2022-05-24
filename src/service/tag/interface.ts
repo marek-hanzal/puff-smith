@@ -1,4 +1,4 @@
-import {IQuery, IRepository, ISource} from "@leight-core/api";
+import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, Tag} from "@prisma/client";
 
 export interface ITagCreate {
@@ -21,13 +21,10 @@ export type ITagEntity = Tag;
 export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationInput> {
 }
 
-export interface ITagSource extends ISource<ITagEntity, ITag, ITagQuery> {
+export interface ITagSource extends ISource<ITagCreate, ITagEntity, ITag, ITagQuery> {
 	fetchCodes(codes: string, group: string): Promise<ITagEntity[]>;
 
 	fetchByCodes(codes: string[], group: string): Promise<ITagEntity[]>;
 
 	fetchTag(group: string, code?: string, tagId?: string): Promise<ITagEntity>;
-}
-
-export interface ITagRepository extends IRepository<ITagCreate, ITagSource> {
 }

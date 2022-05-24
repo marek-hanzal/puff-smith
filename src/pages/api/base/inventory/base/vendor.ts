@@ -1,23 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
-import {IQuery} from "@leight-core/api";
-import {itemsOf, QueryEndpoint} from "@leight-core/server";
+import {BaseVendorSource} from "@/puff-smith/service/base/vendor/BaseVendorSource";
+import {IBaseVendorSource} from "@/puff-smith/service/base/vendor/interface";
+import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IQuery, IVendor>(async params => itemsOf(prisma.base.findMany({
-	distinct: ["vendorId"],
-	where: {
-		BaseInventory: {
-			some: {
-				userId: params.toUserId(),
-			},
-		},
-	},
-	orderBy: [
-		{vendor: {name: "asc"}},
-	],
-	include: {
-		vendor: true,
-	}
-}), ({vendor}) => vendor, VendorRepository(ofParams(params)).map));
+export default QueryEndpoint<"Vendor", IBaseVendorSource>(BaseVendorSource());

@@ -1,5 +1,5 @@
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {QueryEndpoint} from "@leight-core/server";
 
 // export default QueryEndpoint<"Vendor", IVendorSource>(async ({request: {filter}, user}) => {
@@ -25,4 +25,4 @@ import {QueryEndpoint} from "@leight-core/server";
 // 	}), item => item, VendorRepository().source.mapper.map);
 // });
 
-export default QueryEndpoint<"Vendor", IVendorSource>(VendorRepository().source);
+export default QueryEndpoint<"Vendor", IVendorSource>(VendorSource());

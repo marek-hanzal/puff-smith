@@ -1,40 +1,53 @@
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
-import {IAtomizerInventorySource, IAtomizerInventorySourceCreate} from "@/puff-smith/service/atomizer/inventory/interface";
+import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const AtomizerInventorySource = (request: IAtomizerInventorySourceCreate): IAtomizerInventorySource => {
-	const atomizerSource = singletonOf(() => AtomizerSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
+export const AtomizerInventorySource = (): IAtomizerInventorySource => {
+	const atomizerSource = singletonOf(() => AtomizerSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
-	const userId = singletonOf(() => request.userService.getUserId());
 
-	return Source<IAtomizerInventorySource>({
+	const source: IAtomizerInventorySource = Source<IAtomizerInventorySource>({
 		name: "atomizer-inventory",
-		source: request.prisma.atomizerInventory,
-		mapper: async atomizerInventory => ({
+		prisma: prisma,
+		map: async atomizerInventory => ({
 			...atomizerInventory,
-			atomizer: await atomizerSource().toMap(atomizerInventory.atomizerId),
-			transaction: await transactionSource().toMap(atomizerInventory.transactionId),
+			atomizer: await atomizerSource().mapper.map(atomizerInventory.atomizer),
+			transaction: await transactionSource().mapper.map(atomizerInventory.transaction),
 		}),
-		create: async ({code, ...atomizer}) => prisma.$transaction(async prisma => {
-			const $atomizer = await AtomizerSource({...request, prisma}).toMap(atomizer.atomizerId);
-			return TransactionSource({...request, prisma}).handleTransaction({
-				userId: userId(),
-				cost: $atomizer.cost,
-				note: `Purchase of atomizer [${$atomizer.vendor.name} ${$atomizer.name}]`,
-				callback: async transaction => prisma.atomizerInventory.create({
-					data: {
-						code: code || codeService().code(),
-						atomizerId: $atomizer.id,
-						transactionId: transaction.id,
-						userId: userId(),
-					}
-				}),
-			});
-		}),
+		source: {
+			create: async ({code, atomizerId}) => prisma.$transaction(async prisma => {
+				const $atomizer = await AtomizerSource().withPrisma(prisma).get(atomizerId);
+				const transactionSource = TransactionSource();
+				transactionSource.withPrisma(prisma);
+				return transactionSource.handleTransaction({
+					userId: source.user.required(),
+					cost: $atomizer.cost,
+					note: `Purchase of atomizer [${$atomizer.vendor.name} ${$atomizer.name}]`,
+					callback: async transaction => prisma.atomizerInventory.create({
+						data: {
+							code: code || codeService().code(),
+							atomizerId: $atomizer.id,
+							transactionId: transaction.id,
+							userId: source.user.required(),
+						},
+						include: {
+							atomizer: {
+								include: {
+									vendor: true,
+								}
+							},
+							transaction: true,
+						}
+					}),
+				});
+			}),
+		}
 	});
+
+	return source;
 };

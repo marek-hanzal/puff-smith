@@ -1,13 +1,13 @@
 import {IMixtureJobParams, IMixturesJobParams, IMixtureUserJobParams, MIXTURE_JOB, MIXTURE_USER_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
-import {JobRepository} from "@/puff-smith/service/job/JobRepository";
-import {MixtureInventoryRepository} from "@/puff-smith/service/mixture/inventory/MixtureInventoryRepository";
-import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
+import {JobSource} from "@/puff-smith/service/job/JobSource";
+import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
+import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
 import PQueue from "p-queue";
 
-const jobService = JobRepository();
+const jobService = JobSource();
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
@@ -49,14 +49,14 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		 * */
 	}))._max.nicotine || 0) - 2;
 	await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
-	const mixtureRepository = MixtureRepository().withUserId(userId);
+	const mixtureSource = MixtureSource().withUserId(userId);
 
 	const createMixture = async (info: IMixtureInfo) => {
 		const volume = aroma.volume || aroma.content;
 		if (info.result.error) {
 			return;
 		}
-		await mixtureRepository.create({
+		await mixtureSource.create({
 			aromaId: aroma.id,
 			baseId: info.base?.baseId,
 			baseMl: info.base?.volume || 0,
@@ -176,8 +176,8 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 		where,
 	}));
 
-	const mixtureInventoryRepository = MixtureInventoryRepository();
-	mixtureInventoryRepository.source.withUserId(userId);
+	const mixtureInventorySource = MixtureInventorySource();
+	mixtureInventorySource.withUserId(userId);
 
 	const $mixtures = (await prisma.mixture.findMany({
 		include: {
@@ -189,7 +189,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 	}));
 	for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
 		logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
-		await progress(async () => mixtureInventoryRepository.create({
+		await progress(async () => mixtureInventorySource.create({
 			aromaId,
 			vendorId: aroma.vendorId,
 			boosterId,

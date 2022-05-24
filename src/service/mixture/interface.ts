@@ -2,7 +2,7 @@ import {IAroma, IWithAromaEntity} from "@/puff-smith/service/aroma/interface";
 import {IBase} from "@/puff-smith/service/base/interface";
 import {IBooster} from "@/puff-smith/service/booster/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IQuery, IRepository, ISource, IWhereFulltext} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -28,7 +28,7 @@ export interface IMixtureCreate {
 	draws?: string[];
 }
 
-export type IMixtureWhere = Prisma.MixtureWhereInput & IWhereFulltext;
+export type IMixtureWhere = Prisma.MixtureWhereInput & IWithFulltext;
 
 export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrderByWithRelationInput> {
 }
@@ -70,8 +70,5 @@ export interface IMixtureFetchQuery extends ParsedUrlQuery {
 	mixtureId: string;
 }
 
-export interface IMixtureSource extends ISource<IMixtureEntity, IMixture, IMixtureQuery> {
-}
-
-export interface IMixtureRepository extends IRepository<IMixtureCreate, IMixtureSource> {
+export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity, IMixture, IMixtureQuery> {
 }

@@ -1,33 +1,28 @@
-import {IJobCreate, IJobQuery, IJobRepository} from "@/puff-smith/service/job/interface";
+import {IJobSource} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJob, IJobProcessor, IJobStatus} from "@leight-core/api";
+import {IJobProcessor, IJobStatus} from "@leight-core/api";
 import {Logger, Source} from "@leight-core/server";
 import {toPercent} from "@leight-core/utils";
-import {Job} from "@prisma/client";
 import delay from "delay";
 import PQueue from "p-queue";
 
-export const JobRepository = (): IJobRepository => {
-	const source = Source<IJobCreate, Job, IJob, IJobQuery>({
+export const JobSource = (): IJobSource => {
+	const source: IJobSource = Source<IJobSource>({
 		name: "job",
-		get source() {
-			return source.prisma.job;
-		},
+		prisma,
 		map: async job => ({
 			...job,
 			params: job.params && JSON.parse(job.params)
 		}),
-		create: async job => source.prisma.job.create({
-			data: {
-				...job,
-				params: job.params && JSON.stringify(job.params),
-				created: new Date(),
-			}
-		}),
-	});
-
-	return {
-		source,
+		source: {
+			create: async job => source.prisma.job.create({
+				data: {
+					...job,
+					params: job.params && JSON.stringify(job.params),
+					created: new Date(),
+				}
+			})
+		},
 		createProgress: jobId => {
 			let $result: IJobStatus | undefined;
 			let $total: number = 0;
@@ -119,16 +114,16 @@ export const JobRepository = (): IJobRepository => {
 			});
 			const async: IJobProcessor["async"] = async (params, userId, queue) => {
 				let logger = Logger(name);
-				const jobRepository = JobRepository();
-				jobRepository.source.withUserId(userId);
-				const job = await jobRepository.source.mapper.map(await jobRepository.source.create({
+				const jobSource = JobSource();
+				jobSource.withUserId(userId);
+				const job = await jobSource.mapper.map(await jobSource.create({
 					userId,
 					name,
 					params,
 				}));
 				const labels = {name, jobId: job.id};
 				logger = logger.child({labels, jobId: labels.jobId, name});
-				const jobProgress = jobRepository.createProgress(job.id);
+				const jobProgress = jobSource.createProgress(job.id);
 				setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
 					try {
 						await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
@@ -175,5 +170,7 @@ export const JobRepository = (): IJobRepository => {
 				handler,
 			};
 		},
-	};
+	});
+
+	return source;
 };

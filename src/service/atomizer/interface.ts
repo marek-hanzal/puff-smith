@@ -1,7 +1,6 @@
-import {IServiceCreate} from "@/puff-smith/service";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
+import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -16,10 +15,14 @@ export interface IAtomizerCreate {
 	cost?: string;
 }
 
-export type IAtomizerWhere = Prisma.AtomizerWhereInput & IWhereFulltext;
+export type IAtomizerWhere = Prisma.AtomizerWhereInput & IWithFulltext;
 
 export interface IAtomizerQuery extends IQuery<IAtomizerWhere, Prisma.AtomizerOrderByWithRelationInput> {
 }
+
+export type IAtomizerEntity = Atomizer & IWithVendorEntity;
+
+export type IWithAtomizerEntity = { atomizer: IAtomizerEntity; };
 
 export interface IAtomizer {
 	id: string;
@@ -39,8 +42,5 @@ export interface IAtomizerFetchQuery extends ParsedUrlQuery {
 	atomizerId: string;
 }
 
-export interface IAtomizerSourceCreate extends IServiceCreate {
-}
-
-export interface IAtomizerSource extends ISource<IAtomizerCreate, Atomizer, IAtomizer, IAtomizerQuery, IAtomizerFetchProps, IAtomizerFetchQuery> {
+export interface IAtomizerSource extends ISource<IAtomizerCreate, IAtomizerEntity, IAtomizer, IAtomizerQuery> {
 }

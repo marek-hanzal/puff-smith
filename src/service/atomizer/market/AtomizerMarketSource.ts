@@ -1,27 +1,25 @@
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
-import {IAtomizerMarketSource, IAtomizerMarketSourceCreate} from "@/puff-smith/service/atomizer/market/interface";
+import {IAtomizerMarketSource} from "@/puff-smith/service/atomizer/market/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const AtomizerMarketSource = (request: IAtomizerMarketSourceCreate): IAtomizerMarketSource => {
-	const atomizerSource = singletonOf(() => AtomizerSource(request));
-	const userId = request.userService.getOptionalUserId();
+export const AtomizerMarketSource = (): IAtomizerMarketSource => {
+	const atomizerSource = singletonOf(() => AtomizerSource());
 
-	return Source<IAtomizerMarketSource>({
+	const source: IAtomizerMarketSource = Source<IAtomizerMarketSource>({
 		name: "atomizer-market",
-		source: request.prisma.atomizer,
-		mapper: async entity => ({
-			atomizer: await atomizerSource().map(entity),
-			isOwned: userId ? (await request.prisma.atomizerInventory.count({
+		prisma,
+		map: async entity => ({
+			atomizer: await atomizerSource().mapper.map(entity),
+			isOwned: source.user.optional() ? (await source.prisma.atomizerInventory.count({
 				where: {
 					atomizerId: entity.id,
-					userId,
+					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
 		}),
-		toFilter: filter => atomizerSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
 	});
+
+	return source;
 };

@@ -1,21 +1,14 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IToken} from "@/puff-smith/service/token/interface";
+import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
+import {IUserTokenEntity} from "@/puff-smith/service/user/token/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export interface IUserOwnershipFilter {
-	ownedByUserId?: string;
-	notOwnedByUserId?: string;
-	ownedByCurrentUser?: boolean;
-	notOwnedByCurrentUser?: boolean;
+interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
 
-export interface IUserCreate {
-}
-
-export interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
-}
+export type IUserEntity = User & { UserToken: (IUserTokenEntity & IWithTokenEntity)[]; };
+export type IWithUserEntity = { user: IUserEntity; };
 
 export interface IUser {
 	id: string;
@@ -34,10 +27,7 @@ export interface IUserFetchQuery extends ParsedUrlQuery {
 	userId: string;
 }
 
-export interface IUserSourceCreate extends IServiceCreate {
-}
-
-export interface IUserSource extends ISource<IUserCreate, User, IUser, IUserQuery, IUserFetchProps, IUserFetchQuery> {
+export interface IUserSource extends ISource<undefined, IUserEntity, IUser, IUserQuery> {
 	handleRootUser(): Promise<void>;
 
 	handleCommonUser(): Promise<void>;

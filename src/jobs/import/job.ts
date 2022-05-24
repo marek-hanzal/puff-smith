@@ -1,5 +1,5 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
-import {JobRepository} from "@/puff-smith/service/job/JobRepository";
+import {JobSource} from "@/puff-smith/service/job/JobSource";
 import fileService from "@/puff-smith/service/side-effect/fileService";
 import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
@@ -24,7 +24,7 @@ const importers = {
 	// ...WireRepository().importers(),
 };
 
-export const ImportJob: IJobProcessor<IImportJobParams> = JobRepository().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
+export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
 	const labels = {jobId: job.id};
 	logger = logger.child({labels, jobId: labels.jobId});
 	logger.info("Checking fileId");

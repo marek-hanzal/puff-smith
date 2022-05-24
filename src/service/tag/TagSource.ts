@@ -1,14 +1,11 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITag, ITagEntity, ITagQuery, ITagSource} from "@/puff-smith/service/tag/interface";
+import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {Source} from "@leight-core/server";
 
 export const TagSource = (): ITagSource => {
-	const source: ITagSource = Source<ITagEntity, ITag, ITagQuery, ITagSource>({
+	const source: ITagSource = Source<ITagSource>({
 		name: "tag",
 		prisma,
-		get native() {
-			return source.prisma.tag;
-		},
 		map: async tag => tag,
 		fetchCodes: async (codes, group) => source.prisma.tag.findMany({
 			where: {

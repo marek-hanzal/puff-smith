@@ -1,9 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IToken} from "@/puff-smith/service/token/interface";
-import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, UserToken} from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IUserTokenCreate {
 	userId: string;
@@ -13,22 +9,14 @@ export interface IUserTokenCreate {
 export interface IUserTokenQuery extends IQuery<Prisma.UserTokenWhereInput, Prisma.UserTokenOrderByWithRelationInput> {
 }
 
+export type IUserTokenEntity = UserToken;
+export type IWithUserTokenEntity = { UserToken: IUserTokenEntity[]; };
+
 export interface IUserToken {
 	id: string;
-	user: IUser;
-	token: IToken;
+	userId: string;
+	tokenId: string;
 }
 
-export interface IUserTokenFetchProps {
-	userToken: IUserToken;
-}
-
-export interface IUserTokenFetchQuery extends ParsedUrlQuery {
-	userTokenId: string;
-}
-
-export interface IUserTokenSourceCreate extends IServiceCreate {
-}
-
-export interface IUserTokenSource extends ISource<IUserTokenCreate, UserToken, IUserToken, IUserTokenQuery, IUserTokenFetchProps, IUserTokenFetchQuery> {
+export interface IUserTokenSource extends ISource<IUserTokenCreate, IUserTokenEntity, IUserToken, IUserTokenQuery> {
 }

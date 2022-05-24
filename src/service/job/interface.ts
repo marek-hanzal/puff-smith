@@ -1,5 +1,4 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, ISource, IWithSource} from "@leight-core/api";
+import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, ISource} from "@leight-core/api";
 import {Job, Prisma} from "@prisma/client";
 import PQueue from "p-queue";
 import {ParsedUrlQuery} from "querystring";
@@ -8,17 +7,6 @@ export interface IJobCreate {
 	userId?: string | null;
 	name: string;
 	params?: any;
-}
-
-export interface IJobSchedule<TJobParams> {
-	name: string;
-	params: TJobParams;
-}
-
-export interface IJobScheduleAt<TJobParams> {
-	name: string;
-	at: string | Date;
-	params: TJobParams;
 }
 
 export interface IJobQuery extends IQuery<Prisma.JobWhereInput, Prisma.JobOrderByWithRelationInput> {
@@ -32,13 +20,9 @@ export interface IJobFetchQuery extends ParsedUrlQuery {
 	jobId: string;
 }
 
-export interface IJobSourceCreate extends IServiceCreate {
-}
+export type IJobEntity = Job;
 
-export interface IJobSource extends ISource<IJobCreate, Job, IJob, IJobQuery> {
-}
-
-export interface IJobRepository extends IWithSource<IJobCreate, Job, IJob, IJobQuery> {
+export interface IJobSource extends ISource<IJobCreate, IJobEntity, IJob, IJobQuery> {
 	createProgress(jobId: string): IJobProgress;
 
 	commit(): Promise<any>;

@@ -1,26 +1,27 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
-import {ITariffSource, ITariffSourceCreate} from "@/puff-smith/service/tariff/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ITariffSource} from "@/puff-smith/service/tariff/interface";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import {Price} from "@prisma/client";
 
-export const TariffSource = (request: ITariffSourceCreate): ITariffSource => {
-	const priceSource = singletonOf(() => PriceSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
+export const TariffSource = (): ITariffSource => {
+	const priceSource = singletonOf(() => PriceSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
 
-	return {
-		...Source<ITariffSource>({
-			name: "tariff",
-			source: request.prisma.tariff,
-			mapper: async tariff => ({
-				...tariff,
-				from: tariff.from?.toUTCString(),
-				to: tariff.to?.toUTCString(),
-				created: tariff.created.toUTCString(),
-			}),
+	const source: ITariffSource = Source<ITariffSource>({
+		name: "tariff",
+		prisma,
+		map: async tariff => ({
+			...tariff,
+			from: tariff.from?.toUTCString(),
+			to: tariff.to?.toUTCString(),
+			created: tariff.created.toUTCString(),
+		}),
+		source: {
 			create: async ({code, ...tariff}) => {
 				const create = {
 					...tariff,
@@ -30,13 +31,13 @@ export const TariffSource = (request: ITariffSourceCreate): ITariffSource => {
 					created: new Date(),
 				};
 				try {
-					return await request.prisma.tariff.create({
+					return await source.prisma.tariff.create({
 						data: create,
 					});
 				} catch (e) {
-					return onUnique(e, async () => request.prisma.tariff.update({
+					return onUnique(e, async () => source.prisma.tariff.update({
 						where: {
-							id: (await request.prisma.tariff.findUnique({
+							id: (await source.prisma.tariff.findUnique({
 								where: {
 									code: create.code,
 								},
@@ -47,7 +48,7 @@ export const TariffSource = (request: ITariffSourceCreate): ITariffSource => {
 					}));
 				}
 			},
-		}),
+		},
 		transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
 			let $price: Price;
 			try {
@@ -61,7 +62,7 @@ export const TariffSource = (request: ITariffSourceCreate): ITariffSource => {
 			return transactionSource().handleTransaction({
 				userId,
 				cost: $price.price.toNumber(),
-				callback: async transaction => callback(await request.prisma.tariff.findFirst({
+				callback: async transaction => callback(await source.prisma.tariff.findFirst({
 					where: {
 						id: $price.tariffId,
 					},
@@ -69,6 +70,8 @@ export const TariffSource = (request: ITariffSourceCreate): ITariffSource => {
 				}), transaction),
 				note
 			});
-		}
-	};
+		},
+	});
+
+	return source;
 };

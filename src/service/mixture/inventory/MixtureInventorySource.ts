@@ -1,23 +1,20 @@
-import {IMixtureInventory, IMixtureInventoryEntity, IMixtureInventoryQuery, IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/interface";
-import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
+import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/interface";
+import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const MixtureInventorySource = (): IMixtureInventorySource => {
-	const mixtureSource = singletonOf(() => MixtureRepository());
+	const mixtureSource = singletonOf(() => MixtureSource());
 
-	const source: IMixtureInventorySource = Source<IMixtureInventoryEntity, IMixtureInventory, IMixtureInventoryQuery>({
+	return Source<IMixtureInventorySource>({
 		name: "mixture-inventory",
-		get source() {
-			return source.prisma.mixtureInventory;
-		},
+		prisma,
 		map: async mixtureInventory => {
 			return {
 				...mixtureInventory,
-				mixture: await mixtureSource().sou.mapper.map(mixtureInventory.mixture)
+				mixture: await mixtureSource().mapper.map(mixtureInventory.mixture)
 			};
 		},
 	});
-
-	return source;
 };
