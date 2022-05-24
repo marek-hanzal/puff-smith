@@ -18,10 +18,10 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 				}
 			})
 		},
-		map: async entity => ({
-			aroma: await aromaSource().mapper.map(entity),
-			isOwned: await memoIsOwned(entity.id, source.user.required()),
-		}),
+		map: async aroma => aroma ? ({
+			aroma: await aromaSource().mapper.map(aroma),
+			isOwned: await memoIsOwned(aroma.id, source.user.required()),
+		}) : undefined,
 	});
 
 	return source;

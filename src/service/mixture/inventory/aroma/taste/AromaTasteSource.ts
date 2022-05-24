@@ -2,13 +2,13 @@ import {IAromaTasteSource} from "@/puff-smith/service/aroma/taste/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaTasteSource = (): IAromaTasteSource => {
 	const tagSource = singletonOf(() => TagSource());
 
 	const source: IAromaTasteSource = Source<IAromaTasteSource>({
-		name: "aroma.taste",
+		name: "mixture.inventory.aroma.taste",
 		prisma,
 		map: aromaTaste => tagSource().map(aromaTaste?.taste),
 		source: {
@@ -17,15 +17,23 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 			}),
 			query: async ({filter}) => source.prisma.aromaTaste.findMany({
 				distinct: ["tasteId"],
-				where: filter,
 				include: {
 					aroma: {
 						include: {
 							vendor: true,
-						}
+						},
 					},
 					taste: true,
 				},
+				where: merge(filter || {}, {
+					aroma: {
+						MixtureInventory: {
+							some: {
+								userId: source.user.required(),
+							},
+						},
+					},
+				}),
 				orderBy: [
 					{taste: {sort: "asc"}},
 				],
