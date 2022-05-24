@@ -1,27 +1,25 @@
 import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
-import {ICottonMarketSource, ICottonMarketSourceCreate} from "@/puff-smith/service/cotton/market/interface";
+import {ICottonMarketSource} from "@/puff-smith/service/cotton/market/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CottonMarketSource = (request: ICottonMarketSourceCreate): ICottonMarketSource => {
-	const cottonSource = singletonOf(() => CottonSource(request));
-	const userId = request.userService.getOptionalUserId();
+export const CottonMarketSource = (): ICottonMarketSource => {
+	const cottonSource = singletonOf(() => CottonSource());
 
-	return Source<ICottonMarketSource>({
-		name: "cotton-market",
-		source: request.prisma.cotton,
-		mapper: async entity => ({
-			cotton: await cottonSource().map(entity),
-			isOwned: userId ? (await request.prisma.cottonInventory.count({
+	const source: ICottonMarketSource = Source<ICottonMarketSource>({
+		name: "cotton.market",
+		prisma,
+		map: async entity => ({
+			cotton: await cottonSource().mapper.map(entity),
+			isOwned: source.user.optional() ? (await source.prisma.cottonInventory.count({
 				where: {
 					cottonId: entity.id,
-					userId,
+					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
 		}),
-		toFilter: filter => cottonSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
 	});
+
+	return source;
 };

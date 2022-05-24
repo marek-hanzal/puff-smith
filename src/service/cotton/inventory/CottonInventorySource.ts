@@ -1,30 +1,35 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
-import {ICottonInventorySource, ICottonInventorySourceCreate} from "@/puff-smith/service/cotton/inventory/interface";
+import {ICottonInventorySource} from "@/puff-smith/service/cotton/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CottonInventorySource = (request: ICottonInventorySourceCreate): ICottonInventorySource => {
-	const cottonSource = singletonOf(() => CottonSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
+export const CottonInventorySource = (): ICottonInventorySource => {
+	const cottonSource = singletonOf(() => CottonSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
-	const userId = singletonOf(() => request.userService.getUserId());
 
-	return {
-		...Source<ICottonInventorySource>({
-			name: "cotton-inventory",
-			source: request.prisma.cottonInventory,
-			mapper: async cottonTransaction => ({
-				...cottonTransaction,
-				cotton: await cottonSource().toMap(cottonTransaction.cottonId),
-				transaction: await transactionSource().toMap(cottonTransaction.transactionId),
-			}),
+	const source: ICottonInventorySource = Source<ICottonInventorySource>({
+		name: "cotton.inventory",
+		prisma,
+		map: async cottonTransaction => ({
+			...cottonTransaction,
+			cotton: await cottonSource().mapper.map(cottonTransaction.cotton),
+			transaction: await transactionSource().mapper.map(cottonTransaction.transaction),
+		}),
+		source: {
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
-				const $cotton = await CottonSource({...request, prisma}).toMap(cotton.cottonId);
-				return TransactionSource({...request, prisma}).handleTransaction({
-					userId: userId(),
+				const userId = source.user.required();
+				const cottonSource = CottonSource();
+				const transactionSource = TransactionSource();
+				cottonSource.withPrisma(prisma);
+				transactionSource.withPrisma(prisma);
+
+				const $cotton = await cottonSource.get(cotton.cottonId);
+				return transactionSource.handleTransaction({
+					userId,
 					cost: $cotton.cost,
 					note: `Purchase of cotton [${$cotton.vendor.name} ${$cotton.name}]`,
 					callback: async transaction => prisma.cottonInventory.create({
@@ -32,26 +37,46 @@ export const CottonInventorySource = (request: ICottonInventorySourceCreate): IC
 							code: code || codeService().code(),
 							cottonId: $cotton.id,
 							transactionId: transaction.id,
-							userId: userId(),
-						}
+							userId,
+						},
+						include: {
+							cotton: {
+								include: {
+									vendor: true,
+								}
+							},
+							transaction: true,
+						},
 					}),
 				});
 			}),
-		}),
-		handleDelete: async ({request: {ids}}) => {
-			const where = {
-				id: {
-					in: ids,
-				},
-				userId: userId(),
-			};
-			return prisma.$transaction(async prisma => {
-				const cottonInventory = await CottonInventorySource({...request, prisma}).list(prisma.cottonInventory.findMany({where}));
-				await prisma.cottonInventory.deleteMany({
-					where,
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+					userId: source.user.required(),
+				};
+				return prisma.$transaction(async prisma => {
+					const cottonInventory = await prisma.cottonInventory.findMany({
+						where,
+						include: {
+							cotton: {
+								include: {
+									vendor: true,
+								}
+							},
+							transaction: true,
+						},
+					});
+					await prisma.cottonInventory.deleteMany({
+						where,
+					});
+					return cottonInventory;
 				});
-				return cottonInventory;
-			});
-		},
-	};
+			},
+		}
+	});
+
+	return source;
 };

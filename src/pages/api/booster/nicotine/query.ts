@@ -1,20 +1,5 @@
-import {IBoosterQuery} from "@/puff-smith/service/booster/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {itemsOf, QueryEndpoint} from "@leight-core/server";
+import {BoosterNicotineSource} from "@/puff-smith/service/booster/nicotine/BoosterNicotineSource";
+import {IBoosterNicotineSource} from "@/puff-smith/service/booster/nicotine/interface";
+import {QueryEndpoint} from "@leight-core/server";
 
-export interface INicotineItem {
-	label: string;
-	value: number;
-	nicotine: number;
-}
-
-export default QueryEndpoint<"Nicotine", IBoosterQuery, INicotineItem>(async () => itemsOf(prisma.booster.findMany({
-	distinct: ["nicotine"],
-	orderBy: [
-		{nicotine: "asc"},
-	]
-}), item => item, async item => ({
-	label: `${item.nicotine}`,
-	value: item.nicotine,
-	nicotine: item.nicotine,
-})));
+export default QueryEndpoint<"Nicotine", IBoosterNicotineSource>(BoosterNicotineSource());

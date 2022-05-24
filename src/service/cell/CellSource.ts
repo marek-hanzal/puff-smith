@@ -1,26 +1,27 @@
-import {ICellSource, ICellSourceCreate} from "@/puff-smith/service/cell/interface";
+import {ICellSource} from "@/puff-smith/service/cell/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {OhmService} from "@/puff-smith/service/ohm/OhmService";
-import {TagSource} from "@/puff-smith/service/tag/TagRepository";
-import {VendorRepository} from "@/puff-smith/service/vendor/VendorRepository";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CellSource = (request: ICellSourceCreate): ICellSource => {
-	const vendorSource = singletonOf(() => VendorRepository(request));
-	const tagSource = singletonOf(() => TagSource(request));
+export const CellSource = (): ICellSource => {
+	const vendorSource = singletonOf(() => VendorSource());
+	const tagSource = singletonOf(() => TagSource());
 	const codeService = singletonOf(() => CodeService());
 	const ohmService = singletonOf(() => OhmService());
 
-	return {
-		...Source<ICellSource>({
-			name: "cell",
-			source: request.prisma.cell,
-			mapper: async cell => ({
-				...cell,
-				vendor: await vendorSource().toMap(cell.vendorId),
-				type: await tagSource().toMap(cell.typeId),
-			}),
+	const source: ICellSource = Source<ICellSource>({
+		name: "cell",
+		prisma,
+		map: async cell => ({
+			...cell,
+			vendor: await vendorSource().mapper.map(cell.vendor),
+			type: await tagSource().mapper.map(cell.type),
+		}),
+		source: {
 			create: async ({type, vendor, code, ...cell}) => {
 				const create = {
 					...cell,
@@ -41,13 +42,17 @@ export const CellSource = (request: ICellSourceCreate): ICellSource => {
 					},
 				};
 				try {
-					return await request.prisma.cell.create({
+					return await source.prisma.cell.create({
 						data: create,
+						include: {
+							vendor: true,
+							type: true,
+						},
 					});
 				} catch (e) {
-					return onUnique(e, async () => request.prisma.cell.update({
+					return onUnique(e, async () => source.prisma.cell.update({
 						where: {
-							id: (await request.prisma.cell.findFirst({
+							id: (await source.prisma.cell.findFirst({
 								where: {
 									OR: [
 										{
@@ -65,18 +70,27 @@ export const CellSource = (request: ICellSourceCreate): ICellSource => {
 							})).id,
 						},
 						data: create,
+						include: {
+							vendor: true,
+							type: true,
+						},
 					}));
 				}
-			},
-		}),
-		fetchCells: async cells => request.prisma.cell.findMany({
+			}
+		},
+		fetchCells: async cells => source.prisma.cell.findMany({
 			where: {
 				type: {
 					code: {
 						in: cells.split(/,\s+/ig).map(cell => `${cell}`.toLowerCase()),
 					},
 				},
-			}
-		}),
-	};
+			},
+			include: {
+				vendor: true,
+				type: true,
+			},
+		})
+	});
+	return source;
 };

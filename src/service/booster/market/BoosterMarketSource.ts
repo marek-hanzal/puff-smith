@@ -1,27 +1,25 @@
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
-import {IBoosterMarketSource, IBoosterMarketSourceCreate} from "@/puff-smith/service/booster/market/interface";
+import {IBoosterMarketSource} from "@/puff-smith/service/booster/market/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const BoosterMarketSource = (request: IBoosterMarketSourceCreate): IBoosterMarketSource => {
-	const boosterSource = singletonOf(() => BoosterSource(request));
-	const userId = request.userService.getOptionalUserId();
+export const BoosterMarketSource = (): IBoosterMarketSource => {
+	const boosterSource = singletonOf(() => BoosterSource());
 
-	return Source<IBoosterMarketSource>({
-		name: "booster-market",
-		source: request.prisma.booster,
-		mapper: async entity => ({
-			booster: await boosterSource().map(entity),
-			isOwned: userId ? (await request.prisma.boosterInventory.count({
+	const source: IBoosterMarketSource = Source<IBoosterMarketSource>({
+		name: "booster.market",
+		prisma,
+		map: async entity => ({
+			booster: await boosterSource().mapper.map(entity),
+			isOwned: source.user.optional() ? (await source.prisma.boosterInventory.count({
 				where: {
 					boosterId: entity.id,
-					userId,
+					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
 		}),
-		toFilter: filter => boosterSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
 	});
+
+	return source;
 };

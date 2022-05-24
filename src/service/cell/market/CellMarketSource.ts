@@ -1,27 +1,25 @@
 import {CellSource} from "@/puff-smith/service/cell/CellSource";
-import {ICellMarketSource, ICellMarketSourceCreate} from "@/puff-smith/service/cell/market/interface";
+import {ICellMarketSource} from "@/puff-smith/service/cell/market/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CellMarketSource = (request: ICellMarketSourceCreate): ICellMarketSource => {
-	const cellSource = singletonOf(() => CellSource(request));
-	const userId = request.userService.getOptionalUserId();
+export const CellMarketSource = (): ICellMarketSource => {
+	const cellSource = singletonOf(() => CellSource());
 
-	return Source<ICellMarketSource>({
+	const source: ICellMarketSource = Source<ICellMarketSource>({
 		name: "cell-market",
-		source: request.prisma.cell,
-		mapper: async entity => ({
-			cell: await cellSource().map(entity),
-			isOwned: userId ? (await request.prisma.cellInventory.count({
+		prisma,
+		map: async entity => ({
+			cell: await cellSource().mapper.map(entity),
+			isOwned: source.user.optional() ? (await source.prisma.cellInventory.count({
 				where: {
 					cellId: entity.id,
-					userId,
+					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
 		}),
-		toFilter: filter => cellSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
 	});
+
+	return source;
 };
