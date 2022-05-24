@@ -1,22 +1,25 @@
-import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
-import {IMixtureAromaSource} from "@/puff-smith/service/mixture/aroma/interface";
+import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
+import {IMixtureBoosterSource} from "@/puff-smith/service/mixture/booster/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import deepmerge from "deepmerge";
 
-export const MixtureAromaSource = (): IMixtureAromaSource => {
-	const aromaSource = singletonOf(() => AromaSource());
+export const MixtureBoosterSource = (): IMixtureBoosterSource => {
+	const boosterSource = singletonOf(() => BoosterSource());
 
-	const source: IMixtureAromaSource = Source<IMixtureAromaSource>({
-		name: "mixture.aroma",
+	const source: IMixtureBoosterSource = Source<IMixtureBoosterSource>({
+		name: "mixture.booster",
 		prisma,
-		map: async mixture => aromaSource().map(mixture?.aroma),
+		map: async mixture => boosterSource().map(mixture?.booster),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
-				distinct: ["aromaId"],
+				distinct: ["boosterId"],
 				where: deepmerge(filter, {
-					aroma: {
+					NOT: {
+						boosterId: null,
+					},
+					booster: {
 						OR: [
 							{
 								name: {
@@ -36,7 +39,7 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 					},
 				}),
 				orderBy: [
-					{aroma: {name: "asc"}},
+					{booster: {name: "asc"}},
 				],
 				include: {
 					base: {

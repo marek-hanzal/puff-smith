@@ -1,6 +1,6 @@
 import {IAroma, IWithAromaEntity} from "@/puff-smith/service/aroma/interface";
-import {IBase, IWithBaseEntity} from "@/puff-smith/service/base/interface";
-import {IBooster} from "@/puff-smith/service/booster/interface";
+import {IBase, IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
+import {IBooster, IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Mixture, Prisma} from "@prisma/client";
@@ -33,7 +33,7 @@ export type IMixtureWhere = Prisma.MixtureWhereInput & IWithFulltext;
 export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrderByWithRelationInput> {
 }
 
-export type IMixtureEntity = Mixture & IWithAromaEntity & IWithBaseEntity;
+export type IMixtureEntity = Mixture & IWithAromaEntity & IWithNullBaseEntity & IWithNullBoosterEntity;
 export type IWithMixtureEntity = { mixture: IMixtureEntity; }
 
 export interface IMixture {

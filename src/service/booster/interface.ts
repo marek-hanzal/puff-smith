@@ -21,6 +21,7 @@ export interface IBoosterQuery extends IQuery<IBoosterWhere, Prisma.BoosterOrder
 
 export type IBoosterEntity = Booster & IWithVendorEntity;
 export type IWithBoosterEntity = { booster: IBoosterEntity; };
+export type IWithNullBoosterEntity = { booster: IBoosterEntity | null; };
 
 export interface IBooster {
 	id: string;

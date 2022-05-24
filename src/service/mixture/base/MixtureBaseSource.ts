@@ -11,7 +11,7 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 	const source: IMixtureBaseSource = Source<IMixtureBaseSource>({
 		name: "mixture.base",
 		prisma,
-		map: async ({base}) => baseSource().mapper.map(base),
+		map: async mixture => baseSource().map(mixture?.base),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["baseId"],
@@ -43,6 +43,11 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 				],
 				include: {
 					base: {
+						include: {
+							vendor: true,
+						}
+					},
+					booster: {
 						include: {
 							vendor: true,
 						}
