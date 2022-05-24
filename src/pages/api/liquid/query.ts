@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {ILiquid, ILiquidQuery} from "@/puff-smith/service/liquid/interface";
-import {LiquidRepository} from "@/puff-smith/service/liquid/LiquidRepository";
+import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
+import {LiquidSource} from "@/puff-smith/service/liquid/LiquidSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Liquid", ILiquidQuery, ILiquid>(async params => LiquidRepository(ofParams(params)).handleQuery(params));
+export default QueryEndpoint<"Liquid", ILiquidSource>(LiquidSource());

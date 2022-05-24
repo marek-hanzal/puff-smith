@@ -1,31 +1,35 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {ILiquidSource, ILiquidSourceCreate} from "@/puff-smith/service/liquid/interface";
-import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
+import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
+import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const LiquidSource = (request: ILiquidSourceCreate): ILiquidSource => {
-	const transactionSource = singletonOf(() => TransactionSource(request));
-	const mixtureSource = singletonOf(() => MixtureRepository(request));
-	const userId = singletonOf(() => request.userService.getUserId());
+export const LiquidSource = (): ILiquidSource => {
+	const transactionSource = singletonOf(() => TransactionSource());
+	const mixtureSource = singletonOf(() => MixtureSource());
 
-	return {
-		...Source<ILiquidSource>({
-			name: "liquid",
-			source: request.prisma.liquid,
-			mapper: async liquid => ({
-				...liquid,
-				created: liquid.created.toUTCString(),
-				mixed: liquid.mixed.toUTCString(),
-				transaction: await transactionSource().toMap(liquid.transactionId),
-				mixture: await mixtureSource().toMap(liquid.mixtureId),
-			}),
-			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => TariffSource({...request, prisma}).transactionOf({
+	const source: ILiquidSource = Source<ILiquidSource>({
+		name: "liquid",
+		prisma,
+		map: async liquid => ({
+			...liquid,
+			created: liquid.created.toUTCString(),
+			mixed: liquid.mixed.toUTCString(),
+			transaction: await transactionSource().mapper.map(liquid.transaction),
+			mixture: await mixtureSource().mapper.map(liquid.mixture),
+		}),
+		source: {
+			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => {
+				const userId = source.user.required();
+				const tariffSource = TariffSource();
+				tariffSource.withPrisma(prisma);
+
+				return tariffSource.transactionOf({
 					tariff: "default",
-					userId: userId(),
+					userId,
 					price: "lab.liquid.create",
 					note: "New liquid",
 					callback: async (_, transaction) => {
@@ -38,7 +42,7 @@ export const LiquidSource = (request: ILiquidSourceCreate): ILiquidSource => {
 						return prisma.liquid.create({
 							data: {
 								...liquid,
-								userId: userId(),
+								userId,
 								aromaId: $mixture.aromaId,
 								vendorId: $mixture.vendorId,
 								boosterId: $mixture.boosterId,
@@ -48,25 +52,63 @@ export const LiquidSource = (request: ILiquidSourceCreate): ILiquidSource => {
 								created: new Date(),
 								mixed: mixed || new Date(),
 							},
+							include: {
+								transaction: true,
+								aroma: {
+									include: {
+										vendor: true,
+									},
+								},
+								mixture: {
+									include: {
+										aroma: {
+											include: {
+												vendor: true,
+											}
+										}
+									}
+								},
+							},
 						});
 					}
-				})
-			),
-		}),
-		handleDelete: async ({request: {ids}}) => {
-			const where = {
-				id: {
-					in: ids,
-				},
-				userId: userId(),
-			};
-			return prisma.$transaction(async prisma => {
-				const liquids = await LiquidSource({...request, prisma}).list(prisma.liquid.findMany({where}));
-				await prisma.liquid.deleteMany({
-					where,
 				});
-				return liquids;
-			});
+			}),
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+					userId: source.user.required(),
+				};
+				return prisma.$transaction(async prisma => {
+					const liquids = await prisma.liquid.findMany({
+						where,
+						include: {
+							transaction: true,
+							aroma: {
+								include: {
+									vendor: true,
+								},
+							},
+							mixture: {
+								include: {
+									aroma: {
+										include: {
+											vendor: true,
+										}
+									}
+								}
+							},
+						},
+					});
+					await prisma.liquid.deleteMany({
+						where,
+					});
+					return liquids;
+				});
+			}
 		}
-	};
+	});
+
+	return source;
 };

@@ -1,8 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IUser} from "@/puff-smith/service/user/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Metric, Prisma} from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IMetricCreate {
 	name: string;
@@ -19,23 +16,13 @@ export interface IMetric {
 	start: number;
 	value: number;
 	label?: string | null;
-	user?: IUser | null;
 	userId?: string | null;
 }
 
 export interface IMetricQuery extends IQuery<Prisma.MetricWhereInput, Prisma.MetricOrderByWithRelationInput> {
 }
 
-export interface IMetricFetchProps {
-	metric: IMetric;
-}
+export type IMetricEntity = Metric;
 
-export interface IMetricFetchQuery extends ParsedUrlQuery {
-	metricId: string;
-}
-
-export interface IMetricSourceCreate extends IServiceCreate {
-}
-
-export interface IMetricSource extends ISource<IMetricCreate, Metric, IMetric, IMetricQuery, IMetricFetchProps, IMetricFetchQuery> {
+export interface IMetricSource extends ISource<IMetricCreate, IMetricEntity, IMetric, IMetricQuery> {
 }

@@ -1,7 +1,7 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IMixture} from "@/puff-smith/service/mixture/interface";
-import {ITransaction} from "@/puff-smith/service/transaction/interface";
-import {IDeleteRequest, IQuery, ISource, IWhereFulltext} from "@leight-core/api";
+import {IWithAromaEntity} from "@/puff-smith/service/aroma/interface";
+import {IMixture, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
+import {ITransaction, IWithTransactionEntity} from "@/puff-smith/service/transaction/interface";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -9,9 +9,6 @@ export interface ILiquidCreate {
 	code?: string;
 	mixed?: Date;
 	mixtureId: string;
-}
-
-export interface ILiquidDelete extends IDeleteRequest {
 }
 
 export interface ILiquid {
@@ -25,10 +22,12 @@ export interface ILiquid {
 	mixtureId: string;
 }
 
-export type ILiquidWhere = Prisma.LiquidWhereInput & IWhereFulltext;
+export type ILiquidWhere = Prisma.LiquidWhereInput & IWithFulltext;
 
 export interface ILiquidQuery extends IQuery<ILiquidWhere, Prisma.LiquidOrderByWithRelationInput> {
 }
+
+export type ILiquidEntity = Liquid & IWithAromaEntity & IWithMixtureEntity & IWithTransactionEntity;
 
 export interface ILiquidFetchProps {
 	liquid: ILiquid;
@@ -38,9 +37,5 @@ export interface ILiquidFetchQuery extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-export interface ILiquidSourceCreate extends IServiceCreate {
-}
-
-export interface ILiquidSource extends ISource<ILiquidCreate, Liquid, ILiquid, ILiquidQuery, ILiquidFetchProps, ILiquidFetchQuery> {
-	handleDelete(request: { request: ILiquidDelete }): Promise<ILiquid[]>;
+export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidEntity, ILiquid, ILiquidQuery> {
 }

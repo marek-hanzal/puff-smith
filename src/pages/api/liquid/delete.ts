@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {ILiquid, ILiquidDelete} from "@/puff-smith/service/liquid/interface";
-import {LiquidRepository} from "@/puff-smith/service/liquid/LiquidRepository";
+import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
+import {LiquidSource} from "@/puff-smith/service/liquid/LiquidSource";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", ILiquidDelete, ILiquid[]>(async params => LiquidRepository(ofParams(params)).handleDelete(params));
+export default DeleteEndpoint<"Delete", ILiquidSource>(LiquidSource());

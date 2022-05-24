@@ -1,37 +1,5 @@
-import {defaults} from "@/puff-smith/service";
-import {AromaRepository} from "@/puff-smith/service/aroma/AromaRepository";
-import {IAroma} from "@/puff-smith/service/aroma/interface";
-import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {itemsOf, QueryEndpoint} from "@leight-core/server";
-import deepmerge from "deepmerge";
+import {IMixtureAromaSource} from "@/puff-smith/service/mixture/aroma/interface";
+import {MixtureAromaSource} from "@/puff-smith/service/mixture/aroma/MixtureAromaSource";
+import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Aroma", IMixtureQuery, IAroma>(async ({request: {filter: {fulltext, ...filter} = {}}, toUserId}) => itemsOf(prisma.mixture.findMany({
-	distinct: ["aromaId"],
-	where: deepmerge(filter, {
-		aroma: {
-			OR: [
-				{
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					}
-				},
-				{
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
-						},
-					}
-				},
-			],
-		},
-	}),
-	orderBy: [
-		{aroma: {name: "asc"}},
-	],
-	select: {
-		aroma: true,
-	},
-}), ({aroma}) => aroma, AromaRepository(defaults(toUserId())).map));
+export default QueryEndpoint<"Aroma", IMixtureAromaSource>(MixtureAromaSource());
