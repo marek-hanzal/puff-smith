@@ -20,15 +20,15 @@ export interface IUser {
 	tokenIds: string[];
 }
 
-export interface IUserFetchProps {
+export interface IUserFetch {
 	user: IUser;
 }
 
-export interface IUserFetchQuery extends ParsedUrlQuery {
+export interface IUserFetchParams extends ParsedUrlQuery {
 	userId: string;
 }
 
-export interface IUserSource extends ISource<undefined, IUserEntity<IWithUserToken>, IUser, IUserQuery> {
+export interface IUserSource extends ISource<undefined, IUserEntity<IWithUserToken>, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
 	handleRootUser(): Promise<void>;
 
 	handleCommonUser(): Promise<void>;

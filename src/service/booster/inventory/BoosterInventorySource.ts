@@ -15,11 +15,11 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 	const source: IBoosterInventorySource = Source<IBoosterInventorySource>({
 		name: "booster.inventory",
 		prisma,
-		map: async boosterTransaction => ({
-			...boosterTransaction,
-			booster: await boosterSource().mapper.map(boosterTransaction.booster),
-			transaction: await transactionSource().mapper.map(boosterTransaction.transaction),
-		}),
+		map: async boosterInventory => boosterInventory ? ({
+			...boosterInventory,
+			booster: await boosterSource().mapper.map(boosterInventory.booster),
+			transaction: await transactionSource().mapper.map(boosterInventory.transaction),
+		}) : boosterInventory,
 		source: {
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();

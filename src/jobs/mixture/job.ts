@@ -176,9 +176,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 		where,
 	}));
 
-	const mixtureInventorySource = MixtureInventorySource();
-	mixtureInventorySource.withUserId(userId);
-
+	const mixtureInventorySource = MixtureInventorySource().withUserId(userId);
 	const $mixtures = (await prisma.mixture.findMany({
 		include: {
 			aroma: true,

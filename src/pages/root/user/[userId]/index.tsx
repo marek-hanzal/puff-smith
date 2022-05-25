@@ -1,13 +1,12 @@
-import {defaults} from "@/puff-smith/service";
-import {IUserFetchProps} from "@/puff-smith/service/user/interface";
-import {UserRepository} from "@/puff-smith/service/user/UserRepository";
+import {IUserFetch} from "@/puff-smith/service/user/interface";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserIndexMenu} from "@/puff-smith/site/root/user/@module/menu/UserIndexMenu";
 import {Preview} from "@leight-core/client";
 import {Avatar, Col, Row} from "antd";
 
-export default withRootLayout(function Index({user}: IUserFetchProps) {
+export default withRootLayout(function Index({user}: IUserFetch) {
 	return <RootPage
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]"]}
@@ -27,4 +26,4 @@ export default withRootLayout(function Index({user}: IUserFetchProps) {
 	</RootPage>;
 });
 
-export const getServerSideProps = UserRepository(defaults()).pageFetch("user", "userId");
+export const getServerSideProps = UserSource().withFetch("user", "userId");

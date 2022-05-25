@@ -12,10 +12,10 @@ export const BoosterSource = (): IBoosterSource => {
 	const source: IBoosterSource = Source<IBoosterSource>({
 		name: "booster",
 		prisma,
-		map: async booster => ({
+		map: async booster => booster ? ({
 			...booster,
 			vendor: await vendorSource().mapper.map(booster.vendor),
-		}),
+		}) : undefined,
 		source: {
 			count: async ({filter}) => source.prisma.booster.count({
 				where: {

@@ -1,35 +1,25 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {ICoilSource, ICoilSourceCreate} from "@/puff-smith/service/coil/interface";
-import {TagSource} from "@/puff-smith/service/tag/TagRepository";
+import {ICoilSource} from "@/puff-smith/service/coil/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const CoilSource = (request: ICoilSourceCreate): ICoilSource => {
-	const wireSource = singletonOf(() => WireSource(request));
-	const tagSource = singletonOf(() => TagSource(request));
+export const CoilSource = (): ICoilSource => {
+	const wireSource = singletonOf(() => WireSource());
+	const tagSource = singletonOf(() => TagSource());
 	const codeService = singletonOf(() => CodeService());
 
-	return {
-		...Source<ICoilSource>({
-			name: "coil",
-			source: request.prisma.coil,
-			mapper: async coil => ({
-				...coil,
-				wire: await wireSource().toMap(coil.wireId),
-				draws: await tagSource().list(request.prisma.tag.findMany({
-					where: {
-						CoilDraw: {
-							some: {
-								coilId: coil.id,
-							}
-						}
-					},
-					orderBy: {
-						sort: "asc",
-					}
-				})),
-			}),
+	const source: ICoilSource = Source<ICoilSource>({
+		name: "coil",
+		prisma,
+		map: async coil => coil ? ({
+			...coil,
+			wire: await wireSource().mapper.map(coil.wire),
+			draws: await tagSource().mapper.list(Promise.resolve(coil.CoilDraw.map(({draw}) => draw))),
+		}) : undefined,
+		source: {
 			create: async ({code, name, draws, drawIds, wire, wireId, ...coil}) => {
 				const $wire = await wireSource().fetchByReference({wire, wireId});
 				drawIds = drawIds || (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => tag.id) : undefined);
@@ -40,7 +30,7 @@ export const CoilSource = (request: ICoilSourceCreate): ICoilSource => {
 					wireId: $wire.id,
 					CoilDraw: {
 						createMany: {
-							data: drawIds ? drawIds.map(drawId => ({drawId})) : (await request.prisma.wireDraw.findMany({
+							data: drawIds ? drawIds.map(drawId => ({drawId})) : (await source.prisma.wireDraw.findMany({
 								where: {
 									wireId,
 								},
@@ -54,12 +44,20 @@ export const CoilSource = (request: ICoilSourceCreate): ICoilSource => {
 					},
 				};
 				try {
-					return await request.prisma.coil.create({
+					return await source.prisma.coil.create({
 						data: create,
+						include: {
+							wire: true,
+							CoilDraw: {
+								include: {
+									draw: true,
+								},
+							},
+						},
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $coil = await request.prisma.coil.findFirst({
+						const $coil = await source.prisma.coil.findFirst({
 							where: {
 								OR: [
 									{
@@ -73,20 +71,30 @@ export const CoilSource = (request: ICoilSourceCreate): ICoilSource => {
 							},
 							rejectOnNotFound: true,
 						});
-						await request.prisma.coilDraw.deleteMany({
+						await source.prisma.coilDraw.deleteMany({
 							where: {
 								coilId: $coil.id,
 							},
 						});
-						return request.prisma.coil.update({
+						return source.prisma.coil.update({
 							where: {
 								id: $coil.id,
 							},
 							data: create,
+							include: {
+								wire: true,
+								CoilDraw: {
+									include: {
+										draw: true,
+									},
+								},
+							},
 						});
 					});
 				}
 			},
-		}),
-	};
+		}
+	});
+
+	return source;
 };

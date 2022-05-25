@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellQuery} from "@/puff-smith/service/cell/interface";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
+import {ICellVendorSource} from "@/puff-smith/service/cell/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,23 +44,23 @@ export const VendorApiLink = "/api/cell/vendor/query";
 
 export type IVendorQueryParams = undefined;
 
-export const useVendorQuery = createQueryHook<ICellQuery, IVendor[], IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorQuery = createQueryHook<ISourceQuery<ICellVendorSource>, ISourceItem<ICellVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 
-export const useVendorSource = () => useSourceContext<IVendor>();
+export const useVendorSource = () => useSourceContext<ISourceItem<ICellVendorSource>>();
 
-export interface IVendorSourceContext extends ISourceContext<IVendor> {
+export interface IVendorSourceContext extends ISourceContext<ISourceItem<ICellVendorSource>> {
 }
 
-export interface IVendorSourceConsumerProps extends ConsumerProps<ISourceContext<IVendor>> {
+export interface IVendorSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ICellVendorSource>>> {
 }
 
 export const VendorSourceConsumer: FC<IVendorSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IVendorSourceProps extends Partial<ISourceProviderProps<IVendor>> {
+export interface IVendorProviderProps extends Partial<ISourceProviderProps<ISourceItem<ICellVendorSource>>> {
 }
 
-export const VendorSource: FC<IVendorSourceProps> = props => {
-	return <SourceProvider<IVendor>
+export const VendorProvider: FC<IVendorProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ICellVendorSource>>
 		name={"Vendor"}
 		useQuery={useVendorQuery}
 		{...props}
@@ -71,66 +70,66 @@ export const VendorSource: FC<IVendorSourceProps> = props => {
 export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
-export const useVendorPromise = createPromiseHook<ICellQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
-export const VendorPromise = createPromise<ICellQuery, IVendor, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorPromise = createPromiseHook<ISourceQuery<ICellVendorSource>, ISourceItem<ICellVendorSource>, IVendorQueryParams>(VendorApiLink, "post");
+export const VendorPromise = createPromise<ISourceQuery<ICellVendorSource>, ISourceItem<ICellVendorSource>, IVendorQueryParams>(VendorApiLink, "post");
 
-export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
+export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ICellVendorSource>>>> {
 }
 
-export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Vendor"} {...props}/>;
+export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>();
+export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellVendorSource>>>();
+export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellVendorSource>>>();
 
-export interface IVendorSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellQuery>> {
+export interface IVendorProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellVendorSource>>> {
 }
 
-export const VendorSourceFilter: FC<IVendorSourceFilterProps> = props => <Filter
+export const VendorProviderFilter: FC<IVendorProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Vendor"}
 />;
 
-export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellQuery>>> {
+export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellVendorSource>>>> {
 }
 
-export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellQuery>> name={"Vendor"} {...props}/>;
+export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellQuery>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellQuery>>();
+export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellVendorSource>>>();
+export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellVendorSource>>>();
 
-export interface IVendorListSourceProps extends Partial<IListProps<IVendor>> {
-	sourceProps?: Partial<IVendorSourceProps>;
+export interface IVendorProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellVendorSource>>, IQueryOrderBy<ISourceQuery<ICellVendorSource>>, IVendorQueryParams>> {
 }
 
-export interface IVendorSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>, IVendorQueryParams>> {
+export const VendorProviderControl: FC<IVendorProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ICellVendorSource>>, IQueryOrderBy<ISourceQuery<ICellVendorSource>>> name={"Vendor"} {...props}/>;
+
+export interface IVendorListSourceProps extends Partial<IListProps<ISourceItem<ICellVendorSource>>> {
+	providerProps?: Partial<IVendorProviderProps>;
 }
 
-export const VendorSourceControlProvider: FC<IVendorSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> name={"Vendor"} {...props}/>;
-
-export const VendorListSource: FC<IVendorListSourceProps> = ({sourceProps, ...props}) => {
-	return <VendorSource
-		{...sourceProps}
+export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...props}) => {
+	return <VendorProvider
+		{...providerProps}
 	>
-		<List<IVendor>
+		<List<ISourceItem<ICellVendorSource>>
 			{...props}
 		/>
-	</VendorSource>;
-}
+	</VendorProvider>;
+};
 
-export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<IVendor> {
-	toOption: IToOptionMapper<IVendor>;
-	sourceProps?: IVendorSourceProps;
+export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellVendorSource>> {
+	toOption: IToOptionMapper<ISourceItem<ICellVendorSource>>;
+	providerProps?: Partial<IVendorProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<VendorSource {...sourceProps}>
-					<QuerySourceSelect<IVendor> {...props}/>
-				</VendorSource>
+				<VendorProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ICellVendorSource>> {...props}/>
+				</VendorProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +141,28 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({sourceProps, s
 					type={"text"}
 					ghost
 				>
-					<VendorSourceControlProvider>
+					<VendorProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</VendorSourceControlProvider>
+					</VendorProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IVendorSelectionProviderProps extends Partial<ISelectionProviderProps<IVendor>> {
+export interface IVendorSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ICellVendorSource>>> {
 }
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
-	return <SelectionProvider<IVendor> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ICellVendorSource>> {...props}/>;
+};
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
 };
 
-export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<IVendor>();
-export const useVendorSelectionContext = () => useSelectionContext<IVendor>();
+export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellVendorSource>>();
+export const useVendorSelectionContext = () => useSelectionContext<ISourceItem<ICellVendorSource>>();

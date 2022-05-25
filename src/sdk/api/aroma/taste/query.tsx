@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAromaQuery} from "@/puff-smith/service/aroma/interface";
-import {ITag} from "@/puff-smith/service/tag/interface";
+import {IAromaTasteSource} from "@/puff-smith/service/aroma/taste/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,23 +44,23 @@ export const TasteApiLink = "/api/aroma/taste/query";
 
 export type ITasteQueryParams = undefined;
 
-export const useTasteQuery = createQueryHook<IAromaQuery, ITag[], ITasteQueryParams>(TasteApiLink, "post");
+export const useTasteQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>[], ITasteQueryParams>(TasteApiLink, "post");
 
-export const useTasteSource = () => useSourceContext<ITag>();
+export const useTasteSource = () => useSourceContext<ISourceItem<IAromaTasteSource>>();
 
-export interface ITasteSourceContext extends ISourceContext<ITag> {
+export interface ITasteSourceContext extends ISourceContext<ISourceItem<IAromaTasteSource>> {
 }
 
-export interface ITasteSourceConsumerProps extends ConsumerProps<ISourceContext<ITag>> {
+export interface ITasteSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IAromaTasteSource>>> {
 }
 
 export const TasteSourceConsumer: FC<ITasteSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ITasteSourceProps extends Partial<ISourceProviderProps<ITag>> {
+export interface ITasteProviderProps extends Partial<ISourceProviderProps<ISourceItem<IAromaTasteSource>>> {
 }
 
-export const TasteSource: FC<ITasteSourceProps> = props => {
-	return <SourceProvider<ITag>
+export const TasteProvider: FC<ITasteProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IAromaTasteSource>>
 		name={"Taste"}
 		useQuery={useTasteQuery}
 		{...props}
@@ -71,66 +70,66 @@ export const TasteSource: FC<ITasteSourceProps> = props => {
 export const toTasteLink = (queryParams?: ITasteQueryParams) => toLink(TasteApiLink, queryParams);
 export const useTasteLink = () => toTasteLink;
 
-export const useTastePromise = createPromiseHook<IAromaQuery, ITag, ITasteQueryParams>(TasteApiLink, "post");
-export const TastePromise = createPromise<IAromaQuery, ITag, ITasteQueryParams>(TasteApiLink, "post");
+export const useTastePromise = createPromiseHook<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>, ITasteQueryParams>(TasteApiLink, "post");
+export const TastePromise = createPromise<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>, ITasteQueryParams>(TasteApiLink, "post");
 
-export interface ITasteFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAromaQuery>>> {
+export interface ITasteFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAromaTasteSource>>>> {
 }
 
-export const TasteFilterProvider: FC<ITasteFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAromaQuery>> name={"Taste"} {...props}/>;
+export const TasteFilterProvider: FC<ITasteFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaTasteSource>>> name={"Taste"} {...props}/>;
 
-export const useTasteOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAromaQuery>>();
-export const useTasteFilterContext = () => useFilterContext<IQueryFilter<IAromaQuery>>();
+export const useTasteOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>();
+export const useTasteFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>();
 
-export interface ITasteSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAromaQuery>> {
+export interface ITasteProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaTasteSource>>> {
 }
 
-export const TasteSourceFilter: FC<ITasteSourceFilterProps> = props => <Filter
+export const TasteProviderFilter: FC<ITasteProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Taste"}
 />;
 
-export interface ITasteOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAromaQuery>>> {
+export interface ITasteOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>> {
 }
 
-export const TasteOrderByProvider: FC<ITasteOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAromaQuery>> name={"Taste"} {...props}/>;
+export const TasteOrderByProvider: FC<ITasteOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>> name={"Taste"} {...props}/>;
 
-export const useTasteOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAromaQuery>>();
-export const useTasteOrderByContext = () => useOrderByContext<IQueryOrderBy<IAromaQuery>>();
+export const useTasteOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>();
+export const useTasteOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>();
 
-export interface ITasteListSourceProps extends Partial<IListProps<ITag>> {
-	sourceProps?: Partial<ITasteSourceProps>;
+export interface ITasteProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaTasteSource>>, IQueryOrderBy<ISourceQuery<IAromaTasteSource>>, ITasteQueryParams>> {
 }
 
-export interface ITasteSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>, ITasteQueryParams>> {
+export const TasteProviderControl: FC<ITasteProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAromaTasteSource>>, IQueryOrderBy<ISourceQuery<IAromaTasteSource>>> name={"Taste"} {...props}/>;
+
+export interface ITasteListSourceProps extends Partial<IListProps<ISourceItem<IAromaTasteSource>>> {
+	providerProps?: Partial<ITasteProviderProps>;
 }
 
-export const TasteSourceControlProvider: FC<ITasteSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAromaQuery>, IQueryOrderBy<IAromaQuery>> name={"Taste"} {...props}/>;
-
-export const TasteListSource: FC<ITasteListSourceProps> = ({sourceProps, ...props}) => {
-	return <TasteSource
-		{...sourceProps}
+export const TasteListSource: FC<ITasteListSourceProps> = ({providerProps, ...props}) => {
+	return <TasteProvider
+		{...providerProps}
 	>
-		<List<ITag>
+		<List<ISourceItem<IAromaTasteSource>>
 			{...props}
 		/>
-	</TasteSource>;
-}
+	</TasteProvider>;
+};
 
-export interface ITasteSourceSelectProps extends IQuerySourceSelectProps<ITag> {
-	toOption: IToOptionMapper<ITag>;
-	sourceProps?: ITasteSourceProps;
+export interface ITasteSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaTasteSource>> {
+	toOption: IToOptionMapper<ISourceItem<IAromaTasteSource>>;
+	providerProps?: Partial<ITasteProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const TasteSourceSelect: FC<ITasteSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const TasteSourceSelect: FC<ITasteSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<TasteSource {...sourceProps}>
-					<QuerySourceSelect<ITag> {...props}/>
-				</TasteSource>
+				<TasteProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IAromaTasteSource>> {...props}/>
+				</TasteProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +141,28 @@ export const TasteSourceSelect: FC<ITasteSourceSelectProps> = ({sourceProps, sel
 					type={"text"}
 					ghost
 				>
-					<TasteSourceControlProvider>
+					<TasteProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</TasteSourceControlProvider>
+					</TasteProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ITasteSelectionProviderProps extends Partial<ISelectionProviderProps<ITag>> {
+export interface ITasteSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IAromaTasteSource>>> {
 }
 
 export const TasteSelectionProvider: FC<ITasteSelectionProviderProps> = props => {
-	return <SelectionProvider<ITag> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>;
+};
 
 export const useTasteQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TasteApiLink]);
 };
 
-export const useTasteOptionalSelectionContext = () => useOptionalSelectionContext<ITag>();
-export const useTasteSelectionContext = () => useSelectionContext<ITag>();
+export const useTasteOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaTasteSource>>();
+export const useTasteSelectionContext = () => useSelectionContext<ISourceItem<IAromaTasteSource>>();

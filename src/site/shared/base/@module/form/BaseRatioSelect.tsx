@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {IRatioSourceSelectProps, RatioSourceControlProvider, RatioSourceSelect} from "@/sdk/api/base/ratio/query";
 import {FC} from "react";
 
@@ -10,7 +10,7 @@ export const BaseRatioSelect: FC<IBaseRatioSelectProps> = props => {
 		<RatioSourceSelect
 			toOption={item => ({
 				...item,
-				label: <PgVgInline pgvg={item}/>
+				label: <VgPgInline vgpg={item}/>
 			})}
 			{...props}
 		/>

@@ -10,6 +10,7 @@ export const CellVendorSource = (): ICellVendorSource => {
 	const source: ICellVendorSource = Source<ICellVendorSource>({
 		name: "cell.vendor",
 		prisma,
+		map: vendorSource().map,
 		source: {
 			query: async () => source.prisma.cell.findMany({
 				distinct: ["vendorId"],
@@ -22,7 +23,6 @@ export const CellVendorSource = (): ICellVendorSource => {
 				],
 			}),
 		},
-		map: vendorSource().mapper.map,
 	});
 
 	return source;

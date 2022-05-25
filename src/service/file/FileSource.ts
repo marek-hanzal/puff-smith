@@ -6,12 +6,12 @@ export const FileSource = (): IFileSource => {
 	const source: IFileSource = Source<IFileSource>({
 		name: "file",
 		prisma,
-		map: async file => ({
+		map: async file => file ? ({
 			...file,
 			created: file.created.toUTCString(),
 			updated: file?.updated?.toUTCString() || undefined,
 			ttl: file.ttl || undefined,
-		}),
+		}) : file,
 		source: {
 			get: async id => source.prisma.file.findUnique({
 				where: {id},

@@ -1,4 +1,4 @@
-import {ITariff} from "@/puff-smith/service/tariff/interface";
+import {ITariff, IWithTariff} from "@/puff-smith/service/tariff/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Price, Prisma} from "@prisma/client";
 import {DateTime} from "next-auth/providers/kakao";
@@ -26,8 +26,8 @@ export interface IPrice {
 export interface IPriceQuery extends IQuery<Prisma.PriceWhereInput, Prisma.PriceOrderByWithRelationInput> {
 }
 
-export type IPriceEntity = Price;
-export type IWithPriceEntity = { price: IPriceEntity; };
+export type IPriceEntity<T = any> = Price & T;
+export type IWithPrice<T = any> = { price: IPriceEntity<T>; };
 
 export interface IPriceFetchProps {
 	price: IPrice;
@@ -37,7 +37,7 @@ export interface IPriceFetchQuery extends ParsedUrlQuery {
 	priceId: string;
 }
 
-export interface IPriceSource extends ISource<IPriceCreate, IPriceEntity, IPrice, IPriceQuery> {
+export interface IPriceSource extends ISource<IPriceCreate, IPriceEntity<IWithTariff>, IPrice, IPriceQuery> {
 	priceOf(tariff: string, price: string): Promise<IPriceEntity>;
 
 	amountOf(tariff: string, price: string, fallback: number): Promise<number>;

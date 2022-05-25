@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IMixtureQuery} from "@/puff-smith/service/mixture/interface";
+import {IMixtureRatioSource} from "@/puff-smith/service/mixture/ratio/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -40,34 +40,27 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export interface IRatioItem {
-	label: string;
-	value: string;
-	pg: number;
-	vg: number;
-}
-
 export const RatioApiLink = "/api/mixture/ratio/query";
 
 export type IRatioQueryParams = undefined;
 
-export const useRatioQuery = createQueryHook<IMixtureQuery, IRatioItem[], IRatioQueryParams>(RatioApiLink, "post");
+export const useRatioQuery = createQueryHook<ISourceQuery<IMixtureRatioSource>, ISourceItem<IMixtureRatioSource>[], IRatioQueryParams>(RatioApiLink, "post");
 
-export const useRatioSource = () => useSourceContext<IRatioItem>();
+export const useRatioSource = () => useSourceContext<ISourceItem<IMixtureRatioSource>>();
 
-export interface IRatioSourceContext extends ISourceContext<IRatioItem> {
+export interface IRatioSourceContext extends ISourceContext<ISourceItem<IMixtureRatioSource>> {
 }
 
-export interface IRatioSourceConsumerProps extends ConsumerProps<ISourceContext<IRatioItem>> {
+export interface IRatioSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IMixtureRatioSource>>> {
 }
 
 export const RatioSourceConsumer: FC<IRatioSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IRatioSourceProps extends Partial<ISourceProviderProps<IRatioItem>> {
+export interface IRatioProviderProps extends Partial<ISourceProviderProps<ISourceItem<IMixtureRatioSource>>> {
 }
 
-export const RatioSource: FC<IRatioSourceProps> = props => {
-	return <SourceProvider<IRatioItem>
+export const RatioProvider: FC<IRatioProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IMixtureRatioSource>>
 		name={"Ratio"}
 		useQuery={useRatioQuery}
 		{...props}
@@ -77,66 +70,66 @@ export const RatioSource: FC<IRatioSourceProps> = props => {
 export const toRatioLink = (queryParams?: IRatioQueryParams) => toLink(RatioApiLink, queryParams);
 export const useRatioLink = () => toRatioLink;
 
-export const useRatioPromise = createPromiseHook<IMixtureQuery, IRatioItem, IRatioQueryParams>(RatioApiLink, "post");
-export const RatioPromise = createPromise<IMixtureQuery, IRatioItem, IRatioQueryParams>(RatioApiLink, "post");
+export const useRatioPromise = createPromiseHook<ISourceQuery<IMixtureRatioSource>, ISourceItem<IMixtureRatioSource>, IRatioQueryParams>(RatioApiLink, "post");
+export const RatioPromise = createPromise<ISourceQuery<IMixtureRatioSource>, ISourceItem<IMixtureRatioSource>, IRatioQueryParams>(RatioApiLink, "post");
 
-export interface IRatioFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IMixtureQuery>>> {
+export interface IRatioFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IMixtureRatioSource>>>> {
 }
 
-export const RatioFilterProvider: FC<IRatioFilterProviderProps> = props => <FilterProvider<IQueryFilter<IMixtureQuery>> name={"Ratio"} {...props}/>;
+export const RatioFilterProvider: FC<IRatioFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureRatioSource>>> name={"Ratio"} {...props}/>;
 
-export const useRatioOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IMixtureQuery>>();
-export const useRatioFilterContext = () => useFilterContext<IQueryFilter<IMixtureQuery>>();
+export const useRatioOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureRatioSource>>>();
+export const useRatioFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureRatioSource>>>();
 
-export interface IRatioSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IMixtureQuery>> {
+export interface IRatioProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureRatioSource>>> {
 }
 
-export const RatioSourceFilter: FC<IRatioSourceFilterProps> = props => <Filter
+export const RatioProviderFilter: FC<IRatioProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Ratio"}
 />;
 
-export interface IRatioOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IMixtureQuery>>> {
+export interface IRatioOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>>> {
 }
 
-export const RatioOrderByProvider: FC<IRatioOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IMixtureQuery>> name={"Ratio"} {...props}/>;
+export const RatioOrderByProvider: FC<IRatioOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>> name={"Ratio"} {...props}/>;
 
-export const useRatioOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IMixtureQuery>>();
-export const useRatioOrderByContext = () => useOrderByContext<IQueryOrderBy<IMixtureQuery>>();
+export const useRatioOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>>();
+export const useRatioOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>>();
 
-export interface IRatioListSourceProps extends Partial<IListProps<IRatioItem>> {
-	sourceProps?: Partial<IRatioSourceProps>;
+export interface IRatioProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureRatioSource>>, IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>, IRatioQueryParams>> {
 }
 
-export interface IRatioSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>, IRatioQueryParams>> {
+export const RatioProviderControl: FC<IRatioProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IMixtureRatioSource>>, IQueryOrderBy<ISourceQuery<IMixtureRatioSource>>> name={"Ratio"} {...props}/>;
+
+export interface IRatioListSourceProps extends Partial<IListProps<ISourceItem<IMixtureRatioSource>>> {
+	providerProps?: Partial<IRatioProviderProps>;
 }
 
-export const RatioSourceControlProvider: FC<IRatioSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IMixtureQuery>, IQueryOrderBy<IMixtureQuery>> name={"Ratio"} {...props}/>;
-
-export const RatioListSource: FC<IRatioListSourceProps> = ({sourceProps, ...props}) => {
-	return <RatioSource
-		{...sourceProps}
+export const RatioListSource: FC<IRatioListSourceProps> = ({providerProps, ...props}) => {
+	return <RatioProvider
+		{...providerProps}
 	>
-		<List<IRatioItem>
+		<List<ISourceItem<IMixtureRatioSource>>
 			{...props}
 		/>
-	</RatioSource>;
-}
+	</RatioProvider>;
+};
 
-export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<IRatioItem> {
-	toOption: IToOptionMapper<IRatioItem>;
-	sourceProps?: IRatioSourceProps;
+export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureRatioSource>> {
+	toOption: IToOptionMapper<ISourceItem<IMixtureRatioSource>>;
+	providerProps?: Partial<IRatioProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<RatioSource {...sourceProps}>
-					<QuerySourceSelect<IRatioItem> {...props}/>
-				</RatioSource>
+				<RatioProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IMixtureRatioSource>> {...props}/>
+				</RatioProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -148,28 +141,28 @@ export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({sourceProps, sel
 					type={"text"}
 					ghost
 				>
-					<RatioSourceControlProvider>
+					<RatioProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</RatioSourceControlProvider>
+					</RatioProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IRatioSelectionProviderProps extends Partial<ISelectionProviderProps<IRatioItem>> {
+export interface IRatioSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IMixtureRatioSource>>> {
 }
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
-	return <SelectionProvider<IRatioItem> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IMixtureRatioSource>> {...props}/>;
+};
 
 export const useRatioQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([RatioApiLink]);
 };
 
-export const useRatioOptionalSelectionContext = () => useOptionalSelectionContext<IRatioItem>();
-export const useRatioSelectionContext = () => useSelectionContext<IRatioItem>();
+export const useRatioOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureRatioSource>>();
+export const useRatioSelectionContext = () => useSelectionContext<ISourceItem<IMixtureRatioSource>>();

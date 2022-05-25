@@ -1,12 +1,12 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
-import {INicotineSourceSelectProps, NicotineSourceControlProvider, NicotineSourceSelect} from "@/sdk/api/booster/inventory/booster/nicotine";
+import {INicotineSourceSelectProps, NicotineProviderControl, NicotineSourceSelect} from "@/sdk/api/booster/inventory/booster/nicotine/query";
 import {FC} from "react";
 
 export interface IBoosterNicotineSelectProps extends Partial<INicotineSourceSelectProps> {
 }
 
 export const BoosterNicotineSelect: FC<IBoosterNicotineSelectProps> = props => {
-	return <NicotineSourceControlProvider>
+	return <NicotineProviderControl>
 		<NicotineSourceSelect
 			toOption={item => ({
 				value: item.value,
@@ -14,5 +14,5 @@ export const BoosterNicotineSelect: FC<IBoosterNicotineSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</NicotineSourceControlProvider>;
+	</NicotineProviderControl>;
 };

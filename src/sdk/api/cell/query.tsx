@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICell, ICellQuery} from "@/puff-smith/service/cell/interface";
+import {ICellSource} from "@/puff-smith/service/cell/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const CellApiLink = "/api/cell/query";
 
 export type ICellQueryParams = undefined;
 
-export const useCellQuery = createQueryHook<ICellQuery, ICell[], ICellQueryParams>(CellApiLink, "post");
+export const useCellQuery = createQueryHook<ISourceQuery<ICellSource>, ISourceItem<ICellSource>[], ICellQueryParams>(CellApiLink, "post");
 
-export const useCellSource = () => useSourceContext<ICell>();
+export const useCellSource = () => useSourceContext<ISourceItem<ICellSource>>();
 
-export interface ICellSourceContext extends ISourceContext<ICell> {
+export interface ICellSourceContext extends ISourceContext<ISourceItem<ICellSource>> {
 }
 
-export interface ICellSourceConsumerProps extends ConsumerProps<ISourceContext<ICell>> {
+export interface ICellSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ICellSource>>> {
 }
 
 export const CellSourceConsumer: FC<ICellSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ICellSourceProps extends Partial<ISourceProviderProps<ICell>> {
+export interface ICellProviderProps extends Partial<ISourceProviderProps<ISourceItem<ICellSource>>> {
 }
 
-export const CellSource: FC<ICellSourceProps> = props => {
-	return <SourceProvider<ICell>
+export const CellProvider: FC<ICellProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ICellSource>>
 		name={"Cell"}
 		useQuery={useCellQuery}
 		{...props}
@@ -70,66 +70,66 @@ export const CellSource: FC<ICellSourceProps> = props => {
 export const toCellLink = (queryParams?: ICellQueryParams) => toLink(CellApiLink, queryParams);
 export const useCellLink = () => toCellLink;
 
-export const useCellPromise = createPromiseHook<ICellQuery, ICell, ICellQueryParams>(CellApiLink, "post");
-export const CellPromise = createPromise<ICellQuery, ICell, ICellQueryParams>(CellApiLink, "post");
+export const useCellPromise = createPromiseHook<ISourceQuery<ICellSource>, ISourceItem<ICellSource>, ICellQueryParams>(CellApiLink, "post");
+export const CellPromise = createPromise<ISourceQuery<ICellSource>, ISourceItem<ICellSource>, ICellQueryParams>(CellApiLink, "post");
 
-export interface ICellFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
+export interface ICellFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ICellSource>>>> {
 }
 
-export const CellFilterProvider: FC<ICellFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Cell"} {...props}/>;
+export const CellFilterProvider: FC<ICellFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellSource>>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>();
-export const useCellFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>();
+export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>();
+export const useCellFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>();
 
-export interface ICellSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellQuery>> {
+export interface ICellProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellSource>>> {
 }
 
-export const CellSourceFilter: FC<ICellSourceFilterProps> = props => <Filter
+export const CellProviderFilter: FC<ICellProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Cell"}
 />;
 
-export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellQuery>>> {
+export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellSource>>>> {
 }
 
-export const CellOrderByProvider: FC<ICellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellQuery>> name={"Cell"} {...props}/>;
+export const CellOrderByProvider: FC<ICellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellSource>>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellQuery>>();
-export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellQuery>>();
+export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>();
+export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>();
 
-export interface ICellListSourceProps extends Partial<IListProps<ICell>> {
-	sourceProps?: Partial<ICellSourceProps>;
+export interface ICellProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellSource>>, IQueryOrderBy<ISourceQuery<ICellSource>>, ICellQueryParams>> {
 }
 
-export interface ICellSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>, ICellQueryParams>> {
+export const CellProviderControl: FC<ICellProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ICellSource>>, IQueryOrderBy<ISourceQuery<ICellSource>>> name={"Cell"} {...props}/>;
+
+export interface ICellListSourceProps extends Partial<IListProps<ISourceItem<ICellSource>>> {
+	providerProps?: Partial<ICellProviderProps>;
 }
 
-export const CellSourceControlProvider: FC<ICellSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> name={"Cell"} {...props}/>;
-
-export const CellListSource: FC<ICellListSourceProps> = ({sourceProps, ...props}) => {
-	return <CellSource
-		{...sourceProps}
+export const CellListSource: FC<ICellListSourceProps> = ({providerProps, ...props}) => {
+	return <CellProvider
+		{...providerProps}
 	>
-		<List<ICell>
+		<List<ISourceItem<ICellSource>>
 			{...props}
 		/>
-	</CellSource>;
-}
+	</CellProvider>;
+};
 
-export interface ICellSourceSelectProps extends IQuerySourceSelectProps<ICell> {
-	toOption: IToOptionMapper<ICell>;
-	sourceProps?: ICellSourceProps;
+export interface ICellSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellSource>> {
+	toOption: IToOptionMapper<ISourceItem<ICellSource>>;
+	providerProps?: Partial<ICellProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CellSourceSelect: FC<ICellSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CellSourceSelect: FC<ICellSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<CellSource {...sourceProps}>
-					<QuerySourceSelect<ICell> {...props}/>
-				</CellSource>
+				<CellProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ICellSource>> {...props}/>
+				</CellProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +141,28 @@ export const CellSourceSelect: FC<ICellSourceSelectProps> = ({sourceProps, selec
 					type={"text"}
 					ghost
 				>
-					<CellSourceControlProvider>
+					<CellProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</CellSourceControlProvider>
+					</CellProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ICellSelectionProviderProps extends Partial<ISelectionProviderProps<ICell>> {
+export interface ICellSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ICellSource>>> {
 }
 
 export const CellSelectionProvider: FC<ICellSelectionProviderProps> = props => {
-	return <SelectionProvider<ICell> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ICellSource>> {...props}/>;
+};
 
 export const useCellQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellApiLink]);
 };
 
-export const useCellOptionalSelectionContext = () => useOptionalSelectionContext<ICell>();
-export const useCellSelectionContext = () => useSelectionContext<ICell>();
+export const useCellOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellSource>>();
+export const useCellSelectionContext = () => useSelectionContext<ISourceItem<ICellSource>>();

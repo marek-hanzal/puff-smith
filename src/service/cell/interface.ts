@@ -20,8 +20,9 @@ export type ICellWhere = Prisma.CellWhereInput & IWithFulltext;
 export interface ICellQuery extends IQuery<ICellWhere, Prisma.CellOrderByWithRelationInput> {
 }
 
-export type ICellEntity = Cell & IWithVendor & { type: ITagEntity };
-export type IWithCellEntity = { cell: ICellEntity; };
+export type ICellEntity<T = any> = Cell & T;
+export type IWithCell<T = any> = { cell: ICellEntity<T>; };
+export type IWithCellType = { type: ITagEntity };
 
 export interface ICell {
 	id: string;
@@ -45,6 +46,6 @@ export interface ICellFetchQuery extends ParsedUrlQuery {
 	cellId: string;
 }
 
-export interface ICellSource extends ISource<ICellCreate, ICellEntity, ICell, ICellQuery> {
+export interface ICellSource extends ISource<ICellCreate, ICellEntity<IWithVendor & IWithCellType>, ICell, ICellQuery> {
 	fetchCells(cells: string): Promise<ICellEntity[]>;
 }

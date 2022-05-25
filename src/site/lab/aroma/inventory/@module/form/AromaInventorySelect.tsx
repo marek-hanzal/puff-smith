@@ -1,13 +1,13 @@
 import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaInventoryList";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromaInventorySourceControlProvider, AromaInventorySourceSelect, IAromaInventorySourceSelectProps} from "@/sdk/api/aroma/inventory/query";
+import {AromaInventoryProviderControl, AromaInventorySourceSelect, IAromaInventorySourceSelectProps} from "@/sdk/api/aroma/inventory/query";
 import {FC} from "react";
 
 export interface IAromaInventorySelectProps extends Partial<IAromaInventorySourceSelectProps> {
 }
 
 export const AromaInventorySelect: FC<IAromaInventorySelectProps> = props => {
-	return <AromaInventorySourceControlProvider>
+	return <AromaInventoryProviderControl>
 		<AromaInventorySourceSelect
 			showSearch
 			allowClear
@@ -18,5 +18,5 @@ export const AromaInventorySelect: FC<IAromaInventorySelectProps> = props => {
 			selectionList={() => <AromaInventoryList/>}
 			{...props}
 		/>
-	</AromaInventorySourceControlProvider>;
+	</AromaInventoryProviderControl>;
 };

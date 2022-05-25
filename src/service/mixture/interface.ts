@@ -61,13 +61,13 @@ export interface IMixture {
 	draws: ITag[];
 }
 
-export interface IMixtureFetchProps {
+export interface IMixtureFetch {
 	mixture: IMixture;
 }
 
-export interface IMixtureFetchQuery extends ParsedUrlQuery {
+export interface IMixtureFetchParams extends ParsedUrlQuery {
 	mixtureId: string;
 }
 
-export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity, IMixture, IMixtureQuery> {
+export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
 }

@@ -22,9 +22,8 @@ export type IAromaWhere = Prisma.AromaWhereInput & IWithFulltext;
 export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }
 
-export type IAromaEntity = Aroma & IWithVendor;
-
-export type IWithAromaEntity = { aroma: IAromaEntity; }
+export type IAromaEntity<T = any> = Aroma & T;
+export type IWithAroma<T = any> = { aroma: IAromaEntity<T>; }
 
 export interface IAroma {
 	id: string;
@@ -41,13 +40,13 @@ export interface IAroma {
 	tastes: ITag[];
 }
 
-export interface IAromaFetchProps {
+export interface IAromaFetch {
 	aroma: IAroma;
 }
 
-export interface IAromaFetchQuery extends ParsedUrlQuery {
+export interface IAromaFetchParams extends ParsedUrlQuery {
 	aromaId: string;
 }
 
-export interface IAromaSource extends ISource<IAromaCreate, IAromaEntity, IAroma, IAromaQuery> {
+export interface IAromaSource extends ISource<IAromaCreate, IAromaEntity<IWithVendor>, IAroma, IAromaQuery, IAromaFetch, IAromaFetchParams> {
 }

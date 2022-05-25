@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBoosterInventory, IBoosterInventoryQuery} from "@/puff-smith/service/booster/inventory/interface";
+import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const BoosterInventoryApiLink = "/api/booster/inventory/query";
 
 export type IBoosterInventoryQueryParams = undefined;
 
-export const useBoosterInventoryQuery = createQueryHook<IBoosterInventoryQuery, IBoosterInventory[], IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
+export const useBoosterInventoryQuery = createQueryHook<ISourceQuery<IBoosterInventorySource>, ISourceItem<IBoosterInventorySource>[], IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
 
-export const useBoosterInventorySource = () => useSourceContext<IBoosterInventory>();
+export const useBoosterInventorySource = () => useSourceContext<ISourceItem<IBoosterInventorySource>>();
 
-export interface IBoosterInventorySourceContext extends ISourceContext<IBoosterInventory> {
+export interface IBoosterInventorySourceContext extends ISourceContext<ISourceItem<IBoosterInventorySource>> {
 }
 
-export interface IBoosterInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IBoosterInventory>> {
+export interface IBoosterInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IBoosterInventorySource>>> {
 }
 
 export const BoosterInventorySourceConsumer: FC<IBoosterInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IBoosterInventorySourceProps extends Partial<ISourceProviderProps<IBoosterInventory>> {
+export interface IBoosterInventoryProviderProps extends Partial<ISourceProviderProps<ISourceItem<IBoosterInventorySource>>> {
 }
 
-export const BoosterInventorySource: FC<IBoosterInventorySourceProps> = props => {
-	return <SourceProvider<IBoosterInventory>
+export const BoosterInventoryProvider: FC<IBoosterInventoryProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IBoosterInventorySource>>
 		name={"BoosterInventory"}
 		useQuery={useBoosterInventoryQuery}
 		{...props}
@@ -70,67 +70,67 @@ export const BoosterInventorySource: FC<IBoosterInventorySourceProps> = props =>
 export const toBoosterInventoryLink = (queryParams?: IBoosterInventoryQueryParams) => toLink(BoosterInventoryApiLink, queryParams);
 export const useBoosterInventoryLink = () => toBoosterInventoryLink;
 
-export const useBoosterInventoryPromise = createPromiseHook<IBoosterInventoryQuery, IBoosterInventory, IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
-export const BoosterInventoryPromise = createPromise<IBoosterInventoryQuery, IBoosterInventory, IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
+export const useBoosterInventoryPromise = createPromiseHook<ISourceQuery<IBoosterInventorySource>, ISourceItem<IBoosterInventorySource>, IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
+export const BoosterInventoryPromise = createPromise<ISourceQuery<IBoosterInventorySource>, ISourceItem<IBoosterInventorySource>, IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
 
-export interface IBoosterInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterInventoryQuery>>> {
+export interface IBoosterInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IBoosterInventorySource>>>> {
 }
 
-export const BoosterInventoryFilterProvider: FC<IBoosterInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterInventoryQuery>> name={"BoosterInventory"} {...props}/>;
+export const BoosterInventoryFilterProvider: FC<IBoosterInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBoosterInventorySource>>> name={"BoosterInventory"} {...props}/>;
 
-export const useBoosterInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterInventoryQuery>>();
-export const useBoosterInventoryFilterContext = () => useFilterContext<IQueryFilter<IBoosterInventoryQuery>>();
+export const useBoosterInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBoosterInventorySource>>>();
+export const useBoosterInventoryFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBoosterInventorySource>>>();
 
-export interface IBoosterInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterInventoryQuery>> {
+export interface IBoosterInventoryProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBoosterInventorySource>>> {
 }
 
-export const BoosterInventorySourceFilter: FC<IBoosterInventorySourceFilterProps> = props => <Filter
+export const BoosterInventoryProviderFilter: FC<IBoosterInventoryProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.BoosterInventory"}
 />;
 
-export interface IBoosterInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBoosterInventoryQuery>>> {
+export interface IBoosterInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>>> {
 }
 
-export const BoosterInventoryOrderByProvider: FC<IBoosterInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBoosterInventoryQuery>> name={"BoosterInventory"} {...props}/>;
+export const BoosterInventoryOrderByProvider: FC<IBoosterInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>> name={"BoosterInventory"} {...props}/>;
 
-export const useBoosterInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>();
-export const useBoosterInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterInventoryQuery>>();
+export const useBoosterInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>>();
+export const useBoosterInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>>();
 
-export interface IBoosterInventoryListSourceProps extends Partial<IListProps<IBoosterInventory>> {
-	sourceProps?: Partial<IBoosterInventorySourceProps>;
+export interface IBoosterInventoryProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBoosterInventorySource>>, IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>, IBoosterInventoryQueryParams>> {
 }
 
-export interface IBoosterInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBoosterInventoryQuery>, IQueryOrderBy<IBoosterInventoryQuery>, IBoosterInventoryQueryParams>> {
+export const BoosterInventoryProviderControl: FC<IBoosterInventoryProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<IBoosterInventorySource>>, IQueryOrderBy<ISourceQuery<IBoosterInventorySource>>> name={"BoosterInventory"} {...props}/>;
+
+export interface IBoosterInventoryListSourceProps extends Partial<IListProps<ISourceItem<IBoosterInventorySource>>> {
+	providerProps?: Partial<IBoosterInventoryProviderProps>;
 }
 
-export const BoosterInventorySourceControlProvider: FC<IBoosterInventorySourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IBoosterInventoryQuery>, IQueryOrderBy<IBoosterInventoryQuery>> name={"BoosterInventory"} {...props}/>;
-
-export const BoosterInventoryListSource: FC<IBoosterInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <BoosterInventorySource
-		{...sourceProps}
+export const BoosterInventoryListSource: FC<IBoosterInventoryListSourceProps> = ({providerProps, ...props}) => {
+	return <BoosterInventoryProvider
+		{...providerProps}
 	>
-		<List<IBoosterInventory>
+		<List<ISourceItem<IBoosterInventorySource>>
 			{...props}
 		/>
-	</BoosterInventorySource>;
-}
+	</BoosterInventoryProvider>;
+};
 
-export interface IBoosterInventorySourceSelectProps extends IQuerySourceSelectProps<IBoosterInventory> {
-	toOption: IToOptionMapper<IBoosterInventory>;
-	sourceProps?: IBoosterInventorySourceProps;
+export interface IBoosterInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBoosterInventorySource>> {
+	toOption: IToOptionMapper<ISourceItem<IBoosterInventorySource>>;
+	providerProps?: Partial<IBoosterInventoryProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BoosterInventorySourceSelect: FC<IBoosterInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const BoosterInventorySourceSelect: FC<IBoosterInventorySourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<BoosterInventorySource {...sourceProps}>
-					<QuerySourceSelect<IBoosterInventory> {...props}/>
-				</BoosterInventorySource>
+				<BoosterInventoryProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IBoosterInventorySource>> {...props}/>
+				</BoosterInventoryProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +142,28 @@ export const BoosterInventorySourceSelect: FC<IBoosterInventorySourceSelectProps
 					type={"text"}
 					ghost
 				>
-					<BoosterInventorySourceControlProvider>
+					<BoosterInventoryProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</BoosterInventorySourceControlProvider>
+					</BoosterInventoryProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IBoosterInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IBoosterInventory>> {
+export interface IBoosterInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IBoosterInventorySource>>> {
 }
 
 export const BoosterInventorySelectionProvider: FC<IBoosterInventorySelectionProviderProps> = props => {
-	return <SelectionProvider<IBoosterInventory> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IBoosterInventorySource>> {...props}/>;
+};
 
 export const useBoosterInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterInventoryApiLink]);
 };
 
-export const useBoosterInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IBoosterInventory>();
-export const useBoosterInventorySelectionContext = () => useSelectionContext<IBoosterInventory>();
+export const useBoosterInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterInventorySource>>();
+export const useBoosterInventorySelectionContext = () => useSelectionContext<ISourceItem<IBoosterInventorySource>>();

@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IMod, IModQuery} from "@/puff-smith/service/mod/interface";
+import {IModSource} from "@/puff-smith/service/mod/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const ModApiLink = "/api/mod/query";
 
 export type IModQueryParams = undefined;
 
-export const useModQuery = createQueryHook<IModQuery, IMod[], IModQueryParams>(ModApiLink, "post");
+export const useModQuery = createQueryHook<ISourceQuery<IModSource>, ISourceItem<IModSource>[], IModQueryParams>(ModApiLink, "post");
 
-export const useModSource = () => useSourceContext<IMod>();
+export const useModSource = () => useSourceContext<ISourceItem<IModSource>>();
 
-export interface IModSourceContext extends ISourceContext<IMod> {
+export interface IModSourceContext extends ISourceContext<ISourceItem<IModSource>> {
 }
 
-export interface IModSourceConsumerProps extends ConsumerProps<ISourceContext<IMod>> {
+export interface IModSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IModSource>>> {
 }
 
 export const ModSourceConsumer: FC<IModSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IModSourceProps extends Partial<ISourceProviderProps<IMod>> {
+export interface IModProviderProps extends Partial<ISourceProviderProps<ISourceItem<IModSource>>> {
 }
 
-export const ModSource: FC<IModSourceProps> = props => {
-	return <SourceProvider<IMod>
+export const ModProvider: FC<IModProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IModSource>>
 		name={"Mod"}
 		useQuery={useModQuery}
 		{...props}
@@ -70,66 +70,66 @@ export const ModSource: FC<IModSourceProps> = props => {
 export const toModLink = (queryParams?: IModQueryParams) => toLink(ModApiLink, queryParams);
 export const useModLink = () => toModLink;
 
-export const useModPromise = createPromiseHook<IModQuery, IMod, IModQueryParams>(ModApiLink, "post");
-export const ModPromise = createPromise<IModQuery, IMod, IModQueryParams>(ModApiLink, "post");
+export const useModPromise = createPromiseHook<ISourceQuery<IModSource>, ISourceItem<IModSource>, IModQueryParams>(ModApiLink, "post");
+export const ModPromise = createPromise<ISourceQuery<IModSource>, ISourceItem<IModSource>, IModQueryParams>(ModApiLink, "post");
 
-export interface IModFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModQuery>>> {
+export interface IModFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IModSource>>>> {
 }
 
-export const ModFilterProvider: FC<IModFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModQuery>> name={"Mod"} {...props}/>;
+export const ModFilterProvider: FC<IModFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IModSource>>> name={"Mod"} {...props}/>;
 
-export const useModOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModQuery>>();
-export const useModFilterContext = () => useFilterContext<IQueryFilter<IModQuery>>();
+export const useModOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModSource>>>();
+export const useModFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModSource>>>();
 
-export interface IModSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModQuery>> {
+export interface IModProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IModSource>>> {
 }
 
-export const ModSourceFilter: FC<IModSourceFilterProps> = props => <Filter
+export const ModProviderFilter: FC<IModProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Mod"}
 />;
 
-export interface IModOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModQuery>>> {
+export interface IModOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IModSource>>>> {
 }
 
-export const ModOrderByProvider: FC<IModOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModQuery>> name={"Mod"} {...props}/>;
+export const ModOrderByProvider: FC<IModOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IModSource>>> name={"Mod"} {...props}/>;
 
-export const useModOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModQuery>>();
-export const useModOrderByContext = () => useOrderByContext<IQueryOrderBy<IModQuery>>();
+export const useModOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>();
+export const useModOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>();
 
-export interface IModListSourceProps extends Partial<IListProps<IMod>> {
-	sourceProps?: Partial<IModSourceProps>;
+export interface IModProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IModSource>>, IQueryOrderBy<ISourceQuery<IModSource>>, IModQueryParams>> {
 }
 
-export interface IModSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModQuery>, IQueryOrderBy<IModQuery>, IModQueryParams>> {
+export const ModProviderControl: FC<IModProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IModSource>>, IQueryOrderBy<ISourceQuery<IModSource>>> name={"Mod"} {...props}/>;
+
+export interface IModListSourceProps extends Partial<IListProps<ISourceItem<IModSource>>> {
+	providerProps?: Partial<IModProviderProps>;
 }
 
-export const ModSourceControlProvider: FC<IModSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModQuery>, IQueryOrderBy<IModQuery>> name={"Mod"} {...props}/>;
-
-export const ModListSource: FC<IModListSourceProps> = ({sourceProps, ...props}) => {
-	return <ModSource
-		{...sourceProps}
+export const ModListSource: FC<IModListSourceProps> = ({providerProps, ...props}) => {
+	return <ModProvider
+		{...providerProps}
 	>
-		<List<IMod>
+		<List<ISourceItem<IModSource>>
 			{...props}
 		/>
-	</ModSource>;
-}
+	</ModProvider>;
+};
 
-export interface IModSourceSelectProps extends IQuerySourceSelectProps<IMod> {
-	toOption: IToOptionMapper<IMod>;
-	sourceProps?: IModSourceProps;
+export interface IModSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModSource>> {
+	toOption: IToOptionMapper<ISourceItem<IModSource>>;
+	providerProps?: Partial<IModProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const ModSourceSelect: FC<IModSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const ModSourceSelect: FC<IModSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<ModSource {...sourceProps}>
-					<QuerySourceSelect<IMod> {...props}/>
-				</ModSource>
+				<ModProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IModSource>> {...props}/>
+				</ModProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +141,28 @@ export const ModSourceSelect: FC<IModSourceSelectProps> = ({sourceProps, selecti
 					type={"text"}
 					ghost
 				>
-					<ModSourceControlProvider>
+					<ModProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</ModSourceControlProvider>
+					</ModProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IModSelectionProviderProps extends Partial<ISelectionProviderProps<IMod>> {
+export interface IModSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IModSource>>> {
 }
 
 export const ModSelectionProvider: FC<IModSelectionProviderProps> = props => {
-	return <SelectionProvider<IMod> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>;
+};
 
 export const useModQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModApiLink]);
 };
 
-export const useModOptionalSelectionContext = () => useOptionalSelectionContext<IMod>();
-export const useModSelectionContext = () => useSelectionContext<IMod>();
+export const useModOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModSource>>();
+export const useModSelectionContext = () => useSelectionContext<ISourceItem<IModSource>>();

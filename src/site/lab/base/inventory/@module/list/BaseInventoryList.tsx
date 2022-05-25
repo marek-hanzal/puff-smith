@@ -1,5 +1,5 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseListEmpty";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BaseInventoryListSource, IBaseInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
@@ -24,7 +24,7 @@ export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={baseInventory}/>
 					<BaseNameInline base={baseInventory.base}/>
-					<PgVgInline pgvg={baseInventory.base}/>
+					<VgPgInline vgpg={baseInventory.base}/>
 				</Space>}
 			/>
 		</ListItem>}

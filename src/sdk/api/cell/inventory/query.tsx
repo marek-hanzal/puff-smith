@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellInventory, ICellInventoryQuery} from "@/puff-smith/service/cell/inventory/interface";
+import {ICellInventorySource} from "@/puff-smith/service/cell/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const CellInventoryApiLink = "/api/cell/inventory/query";
 
 export type ICellInventoryQueryParams = undefined;
 
-export const useCellInventoryQuery = createQueryHook<ICellInventoryQuery, ICellInventory[], ICellInventoryQueryParams>(CellInventoryApiLink, "post");
+export const useCellInventoryQuery = createQueryHook<ISourceQuery<ICellInventorySource>, ISourceItem<ICellInventorySource>[], ICellInventoryQueryParams>(CellInventoryApiLink, "post");
 
-export const useCellInventorySource = () => useSourceContext<ICellInventory>();
+export const useCellInventorySource = () => useSourceContext<ISourceItem<ICellInventorySource>>();
 
-export interface ICellInventorySourceContext extends ISourceContext<ICellInventory> {
+export interface ICellInventorySourceContext extends ISourceContext<ISourceItem<ICellInventorySource>> {
 }
 
-export interface ICellInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ICellInventory>> {
+export interface ICellInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ICellInventorySource>>> {
 }
 
 export const CellInventorySourceConsumer: FC<ICellInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ICellInventorySourceProps extends Partial<ISourceProviderProps<ICellInventory>> {
+export interface ICellInventoryProviderProps extends Partial<ISourceProviderProps<ISourceItem<ICellInventorySource>>> {
 }
 
-export const CellInventorySource: FC<ICellInventorySourceProps> = props => {
-	return <SourceProvider<ICellInventory>
+export const CellInventoryProvider: FC<ICellInventoryProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ICellInventorySource>>
 		name={"CellInventory"}
 		useQuery={useCellInventoryQuery}
 		{...props}
@@ -70,66 +70,67 @@ export const CellInventorySource: FC<ICellInventorySourceProps> = props => {
 export const toCellInventoryLink = (queryParams?: ICellInventoryQueryParams) => toLink(CellInventoryApiLink, queryParams);
 export const useCellInventoryLink = () => toCellInventoryLink;
 
-export const useCellInventoryPromise = createPromiseHook<ICellInventoryQuery, ICellInventory, ICellInventoryQueryParams>(CellInventoryApiLink, "post");
-export const CellInventoryPromise = createPromise<ICellInventoryQuery, ICellInventory, ICellInventoryQueryParams>(CellInventoryApiLink, "post");
+export const useCellInventoryPromise = createPromiseHook<ISourceQuery<ICellInventorySource>, ISourceItem<ICellInventorySource>, ICellInventoryQueryParams>(CellInventoryApiLink, "post");
+export const CellInventoryPromise = createPromise<ISourceQuery<ICellInventorySource>, ISourceItem<ICellInventorySource>, ICellInventoryQueryParams>(CellInventoryApiLink, "post");
 
-export interface ICellInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellInventoryQuery>>> {
+export interface ICellInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ICellInventorySource>>>> {
 }
 
-export const CellInventoryFilterProvider: FC<ICellInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellInventoryQuery>> name={"CellInventory"} {...props}/>;
+export const CellInventoryFilterProvider: FC<ICellInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellInventorySource>>> name={"CellInventory"} {...props}/>;
 
-export const useCellInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellInventoryQuery>>();
-export const useCellInventoryFilterContext = () => useFilterContext<IQueryFilter<ICellInventoryQuery>>();
+export const useCellInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellInventorySource>>>();
+export const useCellInventoryFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellInventorySource>>>();
 
-export interface ICellInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellInventoryQuery>> {
+export interface ICellInventoryProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellInventorySource>>> {
 }
 
-export const CellInventorySourceFilter: FC<ICellInventorySourceFilterProps> = props => <Filter
+export const CellInventoryProviderFilter: FC<ICellInventoryProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.CellInventory"}
 />;
 
-export interface ICellInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellInventoryQuery>>> {
+export interface ICellInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellInventorySource>>>> {
 }
 
-export const CellInventoryOrderByProvider: FC<ICellInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellInventoryQuery>> name={"CellInventory"} {...props}/>;
+export const CellInventoryOrderByProvider: FC<ICellInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellInventorySource>>> name={"CellInventory"} {...props}/>;
 
-export const useCellInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellInventoryQuery>>();
-export const useCellInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellInventoryQuery>>();
+export const useCellInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellInventorySource>>>();
+export const useCellInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellInventorySource>>>();
 
-export interface ICellInventoryListSourceProps extends Partial<IListProps<ICellInventory>> {
-	sourceProps?: Partial<ICellInventorySourceProps>;
+export interface ICellInventoryProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellInventorySource>>, IQueryOrderBy<ISourceQuery<ICellInventorySource>>, ICellInventoryQueryParams>> {
 }
 
-export interface ICellInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellInventoryQuery>, IQueryOrderBy<ICellInventoryQuery>, ICellInventoryQueryParams>> {
+export const CellInventoryProviderControl: FC<ICellInventoryProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<ICellInventorySource>>, IQueryOrderBy<ISourceQuery<ICellInventorySource>>> name={"CellInventory"} {...props}/>;
+
+export interface ICellInventoryListSourceProps extends Partial<IListProps<ISourceItem<ICellInventorySource>>> {
+	providerProps?: Partial<ICellInventoryProviderProps>;
 }
 
-export const CellInventorySourceControlProvider: FC<ICellInventorySourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellInventoryQuery>, IQueryOrderBy<ICellInventoryQuery>> name={"CellInventory"} {...props}/>;
-
-export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <CellInventorySource
-		{...sourceProps}
+export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({providerProps, ...props}) => {
+	return <CellInventoryProvider
+		{...providerProps}
 	>
-		<List<ICellInventory>
+		<List<ISourceItem<ICellInventorySource>>
 			{...props}
 		/>
-	</CellInventorySource>;
-}
+	</CellInventoryProvider>;
+};
 
-export interface ICellInventorySourceSelectProps extends IQuerySourceSelectProps<ICellInventory> {
-	toOption: IToOptionMapper<ICellInventory>;
-	sourceProps?: ICellInventorySourceProps;
+export interface ICellInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellInventorySource>> {
+	toOption: IToOptionMapper<ISourceItem<ICellInventorySource>>;
+	providerProps?: Partial<ICellInventoryProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CellInventorySourceSelect: FC<ICellInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CellInventorySourceSelect: FC<ICellInventorySourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<CellInventorySource {...sourceProps}>
-					<QuerySourceSelect<ICellInventory> {...props}/>
-				</CellInventorySource>
+				<CellInventoryProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ICellInventorySource>> {...props}/>
+				</CellInventoryProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +142,28 @@ export const CellInventorySourceSelect: FC<ICellInventorySourceSelectProps> = ({
 					type={"text"}
 					ghost
 				>
-					<CellInventorySourceControlProvider>
+					<CellInventoryProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</CellInventorySourceControlProvider>
+					</CellInventoryProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ICellInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ICellInventory>> {
+export interface ICellInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ICellInventorySource>>> {
 }
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
-	return <SelectionProvider<ICellInventory> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
+};
 
 export const useCellInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellInventoryApiLink]);
 };
 
-export const useCellInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ICellInventory>();
-export const useCellInventorySelectionContext = () => useSelectionContext<ICellInventory>();
+export const useCellInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellInventorySource>>();
+export const useCellInventorySelectionContext = () => useSelectionContext<ISourceItem<ICellInventorySource>>();

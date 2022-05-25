@@ -1,11 +1,11 @@
-import {IVendorSourceSelectProps, VendorSourceControlProvider, VendorSourceSelect} from "@/sdk/api/booster/inventory/booster/vendor";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/booster/inventory/booster/vendor/query";
 import {FC} from "react";
 
 export interface IBoosterVendorSelectProps extends Partial<IVendorSourceSelectProps> {
 }
 
 export const BoosterVendorSelect: FC<IBoosterVendorSelectProps> = props => {
-	return <VendorSourceControlProvider>
+	return <VendorProviderControl>
 		<VendorSourceSelect
 			toOption={item => ({
 				value: item.id,
@@ -13,5 +13,5 @@ export const BoosterVendorSelect: FC<IBoosterVendorSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</VendorSourceControlProvider>;
+	</VendorProviderControl>;
 };

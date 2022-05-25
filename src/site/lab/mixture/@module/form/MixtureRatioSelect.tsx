@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {IRatioSourceSelectProps, RatioSourceSelect} from "@/sdk/api/mixture/inventory/mixture/ratio/query";
 import {FC} from "react";
 
@@ -9,7 +9,7 @@ export const MixtureRatioSelect: FC<IMixtureRatioSelectProps> = props => {
 	return <RatioSourceSelect
 		toOption={item => ({
 			...item,
-			label: <PgVgInline pgvg={item}/>
+			label: <VgPgInline vgpg={item}/>
 		})}
 		{...props}
 	/>;

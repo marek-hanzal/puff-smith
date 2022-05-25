@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
@@ -24,7 +24,7 @@ export const AromaView: FC<IAromaViewProps> = ({aroma}) => {
 				<Preview translation={"market.aroma.view"}>
 					{{
 						name: <AromaNameInline aroma={aroma}/>,
-						pgvg: <PgVgInline pgvg={aroma}/>,
+						pgvg: <VgPgInline vgpg={aroma}/>,
 						content: <AromaContentInline aroma={aroma}/>,
 					}}
 				</Preview>

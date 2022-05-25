@@ -1,5 +1,5 @@
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster/@module/button/BoosterInventoryCreateButton";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
@@ -19,7 +19,7 @@ export const MixtureBoosterInline: FC<IMixtureBoosterInlinePros> = ({mixture, is
 				(=<ContentInline content={mixture.boosterCount * mixture.booster.volume}/>)
 			</Space>
 			<BoosterNameInline booster={mixture.booster}/>
-			<PgVgInline pgvg={mixture.booster}/>
+			<VgPgInline vgpg={mixture.booster}/>
 		</Space>
 		{isOwned === false && <BoosterInventoryCreateButton type={"link"} booster={mixture.booster}/>}
 	</Space> : null;

@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizerQuery} from "@/puff-smith/service/atomizer/interface";
-import {ITag} from "@/puff-smith/service/tag/interface";
+import {IAtomizerDrawSource} from "@/puff-smith/service/atomizer/draw/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,23 +44,23 @@ export const DrawApiLink = "/api/atomizer/draw/query";
 
 export type IDrawQueryParams = undefined;
 
-export const useDrawQuery = createQueryHook<IAtomizerQuery, ITag[], IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawQuery = createQueryHook<ISourceQuery<IAtomizerDrawSource>, ISourceItem<IAtomizerDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 
-export const useDrawSource = () => useSourceContext<ITag>();
+export const useDrawSource = () => useSourceContext<ISourceItem<IAtomizerDrawSource>>();
 
-export interface IDrawSourceContext extends ISourceContext<ITag> {
+export interface IDrawSourceContext extends ISourceContext<ISourceItem<IAtomizerDrawSource>> {
 }
 
-export interface IDrawSourceConsumerProps extends ConsumerProps<ISourceContext<ITag>> {
+export interface IDrawSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IAtomizerDrawSource>>> {
 }
 
 export const DrawSourceConsumer: FC<IDrawSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IDrawSourceProps extends Partial<ISourceProviderProps<ITag>> {
+export interface IDrawProviderProps extends Partial<ISourceProviderProps<ISourceItem<IAtomizerDrawSource>>> {
 }
 
-export const DrawSource: FC<IDrawSourceProps> = props => {
-	return <SourceProvider<ITag>
+export const DrawProvider: FC<IDrawProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IAtomizerDrawSource>>
 		name={"Draw"}
 		useQuery={useDrawQuery}
 		{...props}
@@ -71,66 +70,66 @@ export const DrawSource: FC<IDrawSourceProps> = props => {
 export const toDrawLink = (queryParams?: IDrawQueryParams) => toLink(DrawApiLink, queryParams);
 export const useDrawLink = () => toDrawLink;
 
-export const useDrawPromise = createPromiseHook<IAtomizerQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
-export const DrawPromise = createPromise<IAtomizerQuery, ITag, IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawPromise = createPromiseHook<ISourceQuery<IAtomizerDrawSource>, ISourceItem<IAtomizerDrawSource>, IDrawQueryParams>(DrawApiLink, "post");
+export const DrawPromise = createPromise<ISourceQuery<IAtomizerDrawSource>, ISourceItem<IAtomizerDrawSource>, IDrawQueryParams>(DrawApiLink, "post");
 
-export interface IDrawFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerQuery>>> {
+export interface IDrawFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>>> {
 }
 
-export const DrawFilterProvider: FC<IDrawFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerQuery>> name={"Draw"} {...props}/>;
+export const DrawFilterProvider: FC<IDrawFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerQuery>>();
-export const useDrawFilterContext = () => useFilterContext<IQueryFilter<IAtomizerQuery>>();
+export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>>();
+export const useDrawFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>>();
 
-export interface IDrawSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerQuery>> {
+export interface IDrawProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>> {
 }
 
-export const DrawSourceFilter: FC<IDrawSourceFilterProps> = props => <Filter
+export const DrawProviderFilter: FC<IDrawProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Draw"}
 />;
 
-export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerQuery>>> {
+export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>>> {
 }
 
-export const DrawOrderByProvider: FC<IDrawOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerQuery>> name={"Draw"} {...props}/>;
+export const DrawOrderByProvider: FC<IDrawOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
-export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerQuery>>();
+export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>>();
+export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>>();
 
-export interface IDrawListSourceProps extends Partial<IListProps<ITag>> {
-	sourceProps?: Partial<IDrawSourceProps>;
+export interface IDrawProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>, IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>, IDrawQueryParams>> {
 }
 
-export interface IDrawSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>, IDrawQueryParams>> {
+export const DrawProviderControl: FC<IDrawProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAtomizerDrawSource>>, IQueryOrderBy<ISourceQuery<IAtomizerDrawSource>>> name={"Draw"} {...props}/>;
+
+export interface IDrawListSourceProps extends Partial<IListProps<ISourceItem<IAtomizerDrawSource>>> {
+	providerProps?: Partial<IDrawProviderProps>;
 }
 
-export const DrawSourceControlProvider: FC<IDrawSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerQuery>, IQueryOrderBy<IAtomizerQuery>> name={"Draw"} {...props}/>;
-
-export const DrawListSource: FC<IDrawListSourceProps> = ({sourceProps, ...props}) => {
-	return <DrawSource
-		{...sourceProps}
+export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...props}) => {
+	return <DrawProvider
+		{...providerProps}
 	>
-		<List<ITag>
+		<List<ISourceItem<IAtomizerDrawSource>>
 			{...props}
 		/>
-	</DrawSource>;
-}
+	</DrawProvider>;
+};
 
-export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ITag> {
-	toOption: IToOptionMapper<ITag>;
-	sourceProps?: IDrawSourceProps;
+export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerDrawSource>> {
+	toOption: IToOptionMapper<ISourceItem<IAtomizerDrawSource>>;
+	providerProps?: Partial<IDrawProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const DrawSourceSelect: FC<IDrawSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const DrawSourceSelect: FC<IDrawSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<DrawSource {...sourceProps}>
-					<QuerySourceSelect<ITag> {...props}/>
-				</DrawSource>
+				<DrawProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IAtomizerDrawSource>> {...props}/>
+				</DrawProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +141,28 @@ export const DrawSourceSelect: FC<IDrawSourceSelectProps> = ({sourceProps, selec
 					type={"text"}
 					ghost
 				>
-					<DrawSourceControlProvider>
+					<DrawProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</DrawSourceControlProvider>
+					</DrawProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderProps<ITag>> {
+export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IAtomizerDrawSource>>> {
 }
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
-	return <SelectionProvider<ITag> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IAtomizerDrawSource>> {...props}/>;
+};
 
 export const useDrawQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DrawApiLink]);
 };
 
-export const useDrawOptionalSelectionContext = () => useOptionalSelectionContext<ITag>();
-export const useDrawSelectionContext = () => useSelectionContext<ITag>();
+export const useDrawOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerDrawSource>>();
+export const useDrawSelectionContext = () => useSelectionContext<ISourceItem<IAtomizerDrawSource>>();

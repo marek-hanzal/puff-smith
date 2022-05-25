@@ -1,4 +1,4 @@
-import {IWithAromaEntity} from "@/puff-smith/service/aroma/interface";
+import {IWithAroma} from "@/puff-smith/service/aroma/interface";
 import {IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
 import {IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
 import {IMixture, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
@@ -14,17 +14,15 @@ export interface IMixtureInventoryCreate {
 	baseId?: string | null;
 }
 
-export type IMixtureInventoryWhere = Prisma.MixtureInventoryWhereInput & IWithFulltext;
-
-export interface IMixtureInventoryQuery extends IQuery<IMixtureInventoryWhere, Prisma.MixtureInventoryOrderByWithRelationInput> {
+export interface IMixtureInventoryQuery extends IQuery<Prisma.MixtureInventoryWhereInput & IWithFulltext, Prisma.MixtureInventoryOrderByWithRelationInput> {
 }
 
-export type IMixtureInventoryEntity = MixtureInventory & IWithVendor & IWithAromaEntity & IWithMixtureEntity & IWithNullBaseEntity & IWithNullBoosterEntity;
+export type IMixtureInventoryEntity<T = any> = MixtureInventory & T;
 
 export interface IMixtureInventory {
 	id: string;
 	mixture: IMixture;
 }
 
-export interface IMixtureInventorySource extends ISource<IMixtureInventoryCreate, IMixtureInventoryEntity, IMixtureInventory, IMixtureInventoryQuery> {
+export interface IMixtureInventorySource extends ISource<IMixtureInventoryCreate, IMixtureInventoryEntity<IWithVendor & IWithAroma & IWithMixtureEntity & IWithNullBaseEntity & IWithNullBoosterEntity>, IMixtureInventory, IMixtureInventoryQuery> {
 }

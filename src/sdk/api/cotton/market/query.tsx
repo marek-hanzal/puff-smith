@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICottonMarket, ICottonMarketQuery} from "@/puff-smith/service/cotton/market/interface";
+import {ICottonMarketSource} from "@/puff-smith/service/cotton/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const CottonMarketApiLink = "/api/cotton/market/query";
 
 export type ICottonMarketQueryParams = undefined;
 
-export const useCottonMarketQuery = createQueryHook<ICottonMarketQuery, ICottonMarket[], ICottonMarketQueryParams>(CottonMarketApiLink, "post");
+export const useCottonMarketQuery = createQueryHook<ISourceQuery<ICottonMarketSource>, ISourceItem<ICottonMarketSource>[], ICottonMarketQueryParams>(CottonMarketApiLink, "post");
 
-export const useCottonMarketSource = () => useSourceContext<ICottonMarket>();
+export const useCottonMarketSource = () => useSourceContext<ISourceItem<ICottonMarketSource>>();
 
-export interface ICottonMarketSourceContext extends ISourceContext<ICottonMarket> {
+export interface ICottonMarketSourceContext extends ISourceContext<ISourceItem<ICottonMarketSource>> {
 }
 
-export interface ICottonMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ICottonMarket>> {
+export interface ICottonMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ICottonMarketSource>>> {
 }
 
 export const CottonMarketSourceConsumer: FC<ICottonMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ICottonMarketSourceProps extends Partial<ISourceProviderProps<ICottonMarket>> {
+export interface ICottonMarketProviderProps extends Partial<ISourceProviderProps<ISourceItem<ICottonMarketSource>>> {
 }
 
-export const CottonMarketSource: FC<ICottonMarketSourceProps> = props => {
-	return <SourceProvider<ICottonMarket>
+export const CottonMarketProvider: FC<ICottonMarketProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ICottonMarketSource>>
 		name={"CottonMarket"}
 		useQuery={useCottonMarketQuery}
 		{...props}
@@ -70,66 +70,67 @@ export const CottonMarketSource: FC<ICottonMarketSourceProps> = props => {
 export const toCottonMarketLink = (queryParams?: ICottonMarketQueryParams) => toLink(CottonMarketApiLink, queryParams);
 export const useCottonMarketLink = () => toCottonMarketLink;
 
-export const useCottonMarketPromise = createPromiseHook<ICottonMarketQuery, ICottonMarket, ICottonMarketQueryParams>(CottonMarketApiLink, "post");
-export const CottonMarketPromise = createPromise<ICottonMarketQuery, ICottonMarket, ICottonMarketQueryParams>(CottonMarketApiLink, "post");
+export const useCottonMarketPromise = createPromiseHook<ISourceQuery<ICottonMarketSource>, ISourceItem<ICottonMarketSource>, ICottonMarketQueryParams>(CottonMarketApiLink, "post");
+export const CottonMarketPromise = createPromise<ISourceQuery<ICottonMarketSource>, ISourceItem<ICottonMarketSource>, ICottonMarketQueryParams>(CottonMarketApiLink, "post");
 
-export interface ICottonMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICottonMarketQuery>>> {
+export interface ICottonMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ICottonMarketSource>>>> {
 }
 
-export const CottonMarketFilterProvider: FC<ICottonMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICottonMarketQuery>> name={"CottonMarket"} {...props}/>;
+export const CottonMarketFilterProvider: FC<ICottonMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICottonMarketSource>>> name={"CottonMarket"} {...props}/>;
 
-export const useCottonMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICottonMarketQuery>>();
-export const useCottonMarketFilterContext = () => useFilterContext<IQueryFilter<ICottonMarketQuery>>();
+export const useCottonMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICottonMarketSource>>>();
+export const useCottonMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICottonMarketSource>>>();
 
-export interface ICottonMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICottonMarketQuery>> {
+export interface ICottonMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICottonMarketSource>>> {
 }
 
-export const CottonMarketSourceFilter: FC<ICottonMarketSourceFilterProps> = props => <Filter
+export const CottonMarketProviderFilter: FC<ICottonMarketProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.CottonMarket"}
 />;
 
-export interface ICottonMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICottonMarketQuery>>> {
+export interface ICottonMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICottonMarketSource>>>> {
 }
 
-export const CottonMarketOrderByProvider: FC<ICottonMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICottonMarketQuery>> name={"CottonMarket"} {...props}/>;
+export const CottonMarketOrderByProvider: FC<ICottonMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICottonMarketSource>>> name={"CottonMarket"} {...props}/>;
 
-export const useCottonMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICottonMarketQuery>>();
-export const useCottonMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ICottonMarketQuery>>();
+export const useCottonMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICottonMarketSource>>>();
+export const useCottonMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICottonMarketSource>>>();
 
-export interface ICottonMarketListSourceProps extends Partial<IListProps<ICottonMarket>> {
-	sourceProps?: Partial<ICottonMarketSourceProps>;
+export interface ICottonMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICottonMarketSource>>, IQueryOrderBy<ISourceQuery<ICottonMarketSource>>, ICottonMarketQueryParams>> {
 }
 
-export interface ICottonMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICottonMarketQuery>, IQueryOrderBy<ICottonMarketQuery>, ICottonMarketQueryParams>> {
+export const CottonMarketProviderControl: FC<ICottonMarketProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<ICottonMarketSource>>, IQueryOrderBy<ISourceQuery<ICottonMarketSource>>> name={"CottonMarket"} {...props}/>;
+
+export interface ICottonMarketListSourceProps extends Partial<IListProps<ISourceItem<ICottonMarketSource>>> {
+	providerProps?: Partial<ICottonMarketProviderProps>;
 }
 
-export const CottonMarketSourceControlProvider: FC<ICottonMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICottonMarketQuery>, IQueryOrderBy<ICottonMarketQuery>> name={"CottonMarket"} {...props}/>;
-
-export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <CottonMarketSource
-		{...sourceProps}
+export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({providerProps, ...props}) => {
+	return <CottonMarketProvider
+		{...providerProps}
 	>
-		<List<ICottonMarket>
+		<List<ISourceItem<ICottonMarketSource>>
 			{...props}
 		/>
-	</CottonMarketSource>;
-}
+	</CottonMarketProvider>;
+};
 
-export interface ICottonMarketSourceSelectProps extends IQuerySourceSelectProps<ICottonMarket> {
-	toOption: IToOptionMapper<ICottonMarket>;
-	sourceProps?: ICottonMarketSourceProps;
+export interface ICottonMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICottonMarketSource>> {
+	toOption: IToOptionMapper<ISourceItem<ICottonMarketSource>>;
+	providerProps?: Partial<ICottonMarketProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const CottonMarketSourceSelect: FC<ICottonMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CottonMarketSourceSelect: FC<ICottonMarketSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<CottonMarketSource {...sourceProps}>
-					<QuerySourceSelect<ICottonMarket> {...props}/>
-				</CottonMarketSource>
+				<CottonMarketProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ICottonMarketSource>> {...props}/>
+				</CottonMarketProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +142,28 @@ export const CottonMarketSourceSelect: FC<ICottonMarketSourceSelectProps> = ({so
 					type={"text"}
 					ghost
 				>
-					<CottonMarketSourceControlProvider>
+					<CottonMarketProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</CottonMarketSourceControlProvider>
+					</CottonMarketProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ICottonMarket>> {
+export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ICottonMarketSource>>> {
 }
 
 export const CottonMarketSelectionProvider: FC<ICottonMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<ICottonMarket> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ICottonMarketSource>> {...props}/>;
+};
 
 export const useCottonMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonMarketApiLink]);
 };
 
-export const useCottonMarketOptionalSelectionContext = () => useOptionalSelectionContext<ICottonMarket>();
-export const useCottonMarketSelectionContext = () => useSelectionContext<ICottonMarket>();
+export const useCottonMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonMarketSource>>();
+export const useCottonMarketSelectionContext = () => useSelectionContext<ISourceItem<ICottonMarketSource>>();

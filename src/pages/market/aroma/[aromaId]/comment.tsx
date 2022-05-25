@@ -1,13 +1,13 @@
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
-import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
+import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu, AromaIndexMenuWidth} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
 import {Template} from "@leight-core/client";
 
-export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
+export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 	return <MarketPage
 		title={"market.aroma.comment"}
 		tabTitle={"market.aroma.comment.title.tab"}
@@ -27,4 +27,4 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	</MarketPage>;
 });
 
-export const getServerSideProps = AromaSource().pageFetch("aroma", "aromaId");
+export const getServerSideProps = AromaSource().withFetch("aroma", "aromaId");

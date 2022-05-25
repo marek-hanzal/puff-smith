@@ -2,20 +2,28 @@ import {IAtomizerVendorSource} from "@/puff-smith/service/atomizer/vendor/interf
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AtomizerVendorSource = (): IAtomizerVendorSource => {
 	const vendorSource = singletonOf(() => VendorSource());
 
 	const source: IAtomizerVendorSource = Source<IAtomizerVendorSource>({
-		name: "atomizer-vendor",
+		name: "atomizer.vendor",
 		prisma,
-		map: async ({vendor}) => vendorSource().mapper.map(vendor),
+		map: async atomizer => vendorSource().map(atomizer?.vendor),
 		source: {
-			count: async () => source.prisma.atomizer.count({
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
 				distinct: ["vendorId"],
+				where: merge(filter, {
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						}
+					}
+				}),
 			}),
-			query: async ({filter} = {}) => source.prisma.atomizer.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.findMany({
 				distinct: ["vendorId"],
 				include: {
 					vendor: true,
@@ -27,14 +35,14 @@ export const AtomizerVendorSource = (): IAtomizerVendorSource => {
 						}
 					}
 				],
-				where: {
+				where: merge(filter, {
 					vendor: {
 						name: {
-							contains: filter?.fulltext,
+							contains: fulltext,
 							mode: "insensitive",
 						}
 					}
-				},
+				}),
 			})
 		},
 	});

@@ -8,17 +8,17 @@ export const BaseMarketSource = (): IBaseMarketSource => {
 	const baseSource = singletonOf(() => BaseSource());
 
 	const source: IBaseMarketSource = Source<IBaseMarketSource>({
-		name: "base-market",
+		name: "base.market",
 		prisma,
-		map: async entity => ({
-			base: await baseSource().mapper.map(entity),
+		map: async base => base ? ({
+			base: await baseSource().mapper.map(base),
 			isOwned: source.user.optional() ? (await source.prisma.baseInventory.count({
 				where: {
-					baseId: entity.id,
+					baseId: base.id,
 					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
-		}),
+		}) : undefined,
 	});
 
 	return source;

@@ -19,8 +19,8 @@ export type IBoosterWhere = Prisma.BoosterWhereInput & IWithFulltext;
 export interface IBoosterQuery extends IQuery<IBoosterWhere, Prisma.BoosterOrderByWithRelationInput> {
 }
 
-export type IBoosterEntity = Booster & IWithVendor;
-export type IWithBoosterEntity = { booster: IBoosterEntity; };
+export type IBoosterEntity<T = any> = Booster & T;
+export type IWithBoosterEntity<T = any> = { booster: IBoosterEntity<T>; };
 export type IWithNullBoosterEntity = { booster: IBoosterEntity | null; };
 
 export interface IBooster {
@@ -44,5 +44,5 @@ export interface IBoosterFetchQuery extends ParsedUrlQuery {
 	boosterId: string;
 }
 
-export interface IBoosterSource extends ISource<IBoosterCreate, IBoosterEntity, IBooster, IBoosterQuery> {
+export interface IBoosterSource extends ISource<IBoosterCreate, IBoosterEntity<IWithVendor>, IBooster, IBoosterQuery> {
 }

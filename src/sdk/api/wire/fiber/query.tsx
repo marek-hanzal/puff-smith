@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IFiber} from "@/puff-smith/service/fiber/interface";
+import {IWireFiberSource} from "@/puff-smith/service/wire/fiber/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQuery, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper, IWhereFulltext} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const FiberApiLink = "/api/wire/fiber/query";
+export const WireFiberApiLink = "/api/wire/fiber/query";
 
-export type IFiberQueryParams = undefined;
+export type IWireFiberQueryParams = undefined;
 
-export const useFiberQuery = createQueryHook<IQuery<IWhereFulltext>, IFiber[], IFiberQueryParams>(FiberApiLink, "post");
+export const useWireFiberQuery = createQueryHook<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>[], IWireFiberQueryParams>(WireFiberApiLink, "post");
 
-export const useFiberSource = () => useSourceContext<IFiber>();
+export const useWireFiberSource = () => useSourceContext<ISourceItem<IWireFiberSource>>();
 
-export interface IFiberSourceContext extends ISourceContext<IFiber> {
+export interface IWireFiberSourceContext extends ISourceContext<ISourceItem<IWireFiberSource>> {
 }
 
-export interface IFiberSourceConsumerProps extends ConsumerProps<ISourceContext<IFiber>> {
+export interface IWireFiberSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IWireFiberSource>>> {
 }
 
-export const FiberSourceConsumer: FC<IFiberSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const WireFiberSourceConsumer: FC<IWireFiberSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IFiberSourceProps extends Partial<ISourceProviderProps<IFiber>> {
+export interface IWireFiberProviderProps extends Partial<ISourceProviderProps<ISourceItem<IWireFiberSource>>> {
 }
 
-export const FiberSource: FC<IFiberSourceProps> = props => {
-	return <SourceProvider<IFiber>
-		name={"Fiber"}
-		useQuery={useFiberQuery}
+export const WireFiberProvider: FC<IWireFiberProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IWireFiberSource>>
+		name={"WireFiber"}
+		useQuery={useWireFiberQuery}
 		{...props}
 	/>;
 };
 
-export const toFiberLink = (queryParams?: IFiberQueryParams) => toLink(FiberApiLink, queryParams);
-export const useFiberLink = () => toFiberLink;
+export const toWireFiberLink = (queryParams?: IWireFiberQueryParams) => toLink(WireFiberApiLink, queryParams);
+export const useWireFiberLink = () => toWireFiberLink;
 
-export const useFiberPromise = createPromiseHook<IQuery<IWhereFulltext>, IFiber, IFiberQueryParams>(FiberApiLink, "post");
-export const FiberPromise = createPromise<IQuery<IWhereFulltext>, IFiber, IFiberQueryParams>(FiberApiLink, "post");
+export const useWireFiberPromise = createPromiseHook<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>, IWireFiberQueryParams>(WireFiberApiLink, "post");
+export const WireFiberPromise = createPromise<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>, IWireFiberQueryParams>(WireFiberApiLink, "post");
 
-export interface IFiberFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IQuery<IWhereFulltext>>>> {
+export interface IWireFiberFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IWireFiberSource>>>> {
 }
 
-export const FiberFilterProvider: FC<IFiberFilterProviderProps> = props => <FilterProvider<IQueryFilter<IQuery<IWhereFulltext>>> name={"Fiber"} {...props}/>;
+export const WireFiberFilterProvider: FC<IWireFiberFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IWireFiberSource>>> name={"WireFiber"} {...props}/>;
 
-export const useFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IQuery<IWhereFulltext>>>();
-export const useFiberFilterContext = () => useFilterContext<IQueryFilter<IQuery<IWhereFulltext>>>();
+export const useWireFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>();
+export const useWireFiberFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>();
 
-export interface IFiberSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IQuery<IWhereFulltext>>> {
+export interface IWireFiberProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IWireFiberSource>>> {
 }
 
-export const FiberSourceFilter: FC<IFiberSourceFilterProps> = props => <Filter
+export const WireFiberProviderFilter: FC<IWireFiberProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Fiber"}
+	translation={"common.filter.WireFiber"}
 />;
 
-export interface IFiberOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IQuery<IWhereFulltext>>>> {
+export interface IWireFiberOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>> {
 }
 
-export const FiberOrderByProvider: FC<IFiberOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IQuery<IWhereFulltext>>> name={"Fiber"} {...props}/>;
+export const WireFiberOrderByProvider: FC<IWireFiberOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IWireFiberSource>>> name={"WireFiber"} {...props}/>;
 
-export const useFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IQuery<IWhereFulltext>>>();
-export const useFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<IQuery<IWhereFulltext>>>();
+export const useWireFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>();
+export const useWireFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>();
 
-export interface IFiberListSourceProps extends Partial<IListProps<IFiber>> {
-	sourceProps?: Partial<IFiberSourceProps>;
+export interface IWireFiberProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IWireFiberSource>>, IQueryOrderBy<ISourceQuery<IWireFiberSource>>, IWireFiberQueryParams>> {
 }
 
-export interface IFiberSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IQuery<IWhereFulltext>>, IQueryOrderBy<IQuery<IWhereFulltext>>, IFiberQueryParams>> {
+export const WireFiberProviderControl: FC<IWireFiberProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IWireFiberSource>>, IQueryOrderBy<ISourceQuery<IWireFiberSource>>> name={"WireFiber"} {...props}/>;
+
+export interface IWireFiberListSourceProps extends Partial<IListProps<ISourceItem<IWireFiberSource>>> {
+	providerProps?: Partial<IWireFiberProviderProps>;
 }
 
-export const FiberSourceControlProvider: FC<IFiberSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IQuery<IWhereFulltext>>, IQueryOrderBy<IQuery<IWhereFulltext>>> name={"Fiber"} {...props}/>;
-
-export const FiberListSource: FC<IFiberListSourceProps> = ({sourceProps, ...props}) => {
-	return <FiberSource
-		{...sourceProps}
+export const WireFiberListSource: FC<IWireFiberListSourceProps> = ({providerProps, ...props}) => {
+	return <WireFiberProvider
+		{...providerProps}
 	>
-		<List<IFiber>
+		<List<ISourceItem<IWireFiberSource>>
 			{...props}
 		/>
-	</FiberSource>;
-}
+	</WireFiberProvider>;
+};
 
-export interface IFiberSourceSelectProps extends IQuerySourceSelectProps<IFiber> {
-	toOption: IToOptionMapper<IFiber>;
-	sourceProps?: IFiberSourceProps;
+export interface IWireFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireFiberSource>> {
+	toOption: IToOptionMapper<ISourceItem<IWireFiberSource>>;
+	providerProps?: Partial<IWireFiberProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const FiberSourceSelect: FC<IFiberSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const WireFiberSourceSelect: FC<IWireFiberSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<FiberSource {...sourceProps}>
-					<QuerySourceSelect<IFiber> {...props}/>
-				</FiberSource>
+				<WireFiberProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IWireFiberSource>> {...props}/>
+				</WireFiberProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Fiber.title"}
+					title={"common.selection.WireFiber.title"}
 					size={props.size}
-					tooltip={"common.selection.Fiber.title.tooltip"}
+					tooltip={"common.selection.WireFiber.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<FiberSourceControlProvider>
+					<WireFiberProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</FiberSourceControlProvider>
+					</WireFiberProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IFiberSelectionProviderProps extends Partial<ISelectionProviderProps<IFiber>> {
+export interface IWireFiberSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IWireFiberSource>>> {
 }
 
-export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
-	return <SelectionProvider<IFiber> {...props}/>;
-}
-
-export const useFiberQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([FiberApiLink]);
+export const WireFiberSelectionProvider: FC<IWireFiberSelectionProviderProps> = props => {
+	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>;
 };
 
-export const useFiberOptionalSelectionContext = () => useOptionalSelectionContext<IFiber>();
-export const useFiberSelectionContext = () => useSelectionContext<IFiber>();
+export const useWireFiberQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireFiberApiLink]);
+};
+
+export const useWireFiberOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireFiberSource>>();
+export const useWireFiberSelectionContext = () => useSelectionContext<ISourceItem<IWireFiberSource>>();

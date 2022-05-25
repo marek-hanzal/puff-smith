@@ -9,20 +9,21 @@ export const BoosterRatioSource = (): IBoosterRatioSource => {
 		source: {
 			query: async () => source.prisma.booster.findMany({
 				distinct: ["pg", "vg"],
+				select: {
+					vg: true,
+					pg: true,
+				},
 				orderBy: [
 					{vg: "asc"},
 				],
-				include: {
-					vendor: true,
-				}
 			}),
 		},
-		map: async ({pg, vg}) => ({
-			label: `${vg}/${pg}`,
-			value: `${vg}/${pg}`,
-			vg,
-			pg,
-		}),
+		map: async booster => booster ? ({
+			label: `${booster.vg}/${booster.pg}`,
+			value: `${booster.vg}/${booster.pg}`,
+			vg: booster.vg,
+			pg: booster.pg,
+		}) : undefined,
 	});
 
 	return source;

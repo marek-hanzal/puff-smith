@@ -8,7 +8,7 @@ import {MixtureNicotineSelect} from "@/puff-smith/site/lab/mixture/@module/form/
 import {MixtureRatioSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureRatioSelect";
 import {MixtureTasteSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureTasteSelect";
 import {MixtureVendorSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureVendorSelect";
-import {MixtureSourceControlProvider, MixtureSourceFilter} from "@/sdk/api/mixture/inventory/mixture/query";
+import {MixtureProviderControl, MixtureProviderFilter} from "@/sdk/api/mixture/inventory/mixture/query";
 import {CloudOutlined, PercentageOutlined, QuestionOutlined} from "@ant-design/icons";
 import {FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
 import {Tabs} from "antd";
@@ -25,7 +25,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		ratio.current = undefined;
 	};
 
-	return <MixtureSourceFilter
+	return <MixtureProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -92,7 +92,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 		})}
 		{...props}
 	>
-		<MixtureSourceControlProvider>
+		<MixtureProviderControl>
 			<FormContext.Consumer>
 				{formContext => <Tabs size={"large"}>
 					<Tabs.TabPane forceRender key={"liquid"} tab={<IconText icon={<PercentageOutlined/>} text={"market.mixture.filter.liquid.tab"}/>}>
@@ -198,6 +198,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 					</Tabs.TabPane>
 				</Tabs>}
 			</FormContext.Consumer>
-		</MixtureSourceControlProvider>
-	</MixtureSourceFilter>;
+		</MixtureProviderControl>
+	</MixtureProviderFilter>;
 };

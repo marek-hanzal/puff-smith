@@ -6,10 +6,10 @@ export const MetricSource = (): IMetricSource => {
 	const source: IMetricSource = Source<IMetricSource>({
 		name: "metric",
 		prisma,
-		map: async entity => ({
-			...entity,
-			start: entity?.start || 0,
-		}),
+		map: async metric => metric ? ({
+			...metric,
+			start: metric?.start || 0,
+		}) : undefined,
 		source: {
 			create: async create => source.prisma.metric.create({
 				data: {

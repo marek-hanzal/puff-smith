@@ -6,23 +6,24 @@ export const BaseRatioSource = (): IBaseRatioSource => {
 	const source: IBaseRatioSource = Source<IBaseRatioSource>({
 		name: "base.ratio",
 		prisma,
+		map: async base => base ? ({
+			label: `${base.vg}/${base.pg}`,
+			value: `${base.vg}/${base.pg}`,
+			vg: base.vg,
+			pg: base.pg,
+		}) : undefined,
 		source: {
 			query: async () => source.prisma.base.findMany({
 				distinct: ["pg", "vg"],
+				select: {
+					vg: true,
+					pg: true,
+				},
 				orderBy: [
 					{vg: "asc"},
 				],
-				include: {
-					vendor: true,
-				}
 			}),
 		},
-		map: async ({pg, vg}) => ({
-			label: `${vg}/${pg}`,
-			value: `${vg}/${pg}`,
-			vg,
-			pg,
-		}),
 	});
 
 	return source;

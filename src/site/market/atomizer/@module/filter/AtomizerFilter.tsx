@@ -1,7 +1,7 @@
 import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {AtomizerDrawSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerDrawSelect";
 import {AtomizerVendorSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerVendorSelect";
-import {AtomizerSourceControlProvider, AtomizerSourceFilter} from "@/sdk/api/atomizer/query";
+import {AtomizerProviderControl, AtomizerProviderFilter} from "@/sdk/api/atomizer/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
@@ -14,7 +14,7 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 	const onClear = () => {
 	};
 
-	return <AtomizerSourceFilter
+	return <AtomizerProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -39,7 +39,7 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 		})}
 		{...props}
 	>
-		<AtomizerSourceControlProvider>
+		<AtomizerProviderControl>
 			<FormContext.Consumer>
 				{formContext => <>
 					<FormItem field={"vendorId"}>
@@ -71,6 +71,6 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 					/>
 				</>}
 			</FormContext.Consumer>
-		</AtomizerSourceControlProvider>
-	</AtomizerSourceFilter>;
+		</AtomizerProviderControl>
+	</AtomizerProviderFilter>;
 };

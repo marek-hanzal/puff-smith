@@ -23,6 +23,7 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							userId: source.user.required(),
 						},
 						include: {
+							vendor: true,
 							base: {
 								include: {
 									vendor: true,
@@ -40,6 +41,7 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							},
 							mixture: {
 								include: {
+									vendor: true,
 									base: {
 										include: {
 											vendor: true,
@@ -66,6 +68,7 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							userId: source.user.required(),
 						},
 						include: {
+							vendor: true,
 							base: {
 								include: {
 									vendor: true,
@@ -83,6 +86,7 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							},
 							mixture: {
 								include: {
+									vendor: true,
 									base: {
 										include: {
 											vendor: true,

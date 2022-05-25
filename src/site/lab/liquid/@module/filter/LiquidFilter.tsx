@@ -1,15 +1,15 @@
 import {LiquidAromaSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidAromaSelect";
 import {LiquidBaseSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBaseSelect";
 import {LiquidBoosterSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBoosterSelect";
-import {ILiquidSourceFilterProps, LiquidSourceControlProvider, LiquidSourceFilter} from "@/sdk/api/liquid/query";
+import {ILiquidProviderFilterProps, LiquidProviderControl, LiquidProviderFilter} from "@/sdk/api/liquid/query";
 import {FormItem} from "@leight-core/client";
 import {FC} from "react";
 
-export interface ILiquidFilterProps extends Partial<ILiquidSourceFilterProps> {
+export interface ILiquidFilterProps extends Partial<ILiquidProviderFilterProps> {
 }
 
 export const LiquidFilter: FC<ILiquidFilterProps> = props => {
-	return <LiquidSourceFilter
+	return <LiquidProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -23,7 +23,7 @@ export const LiquidFilter: FC<ILiquidFilterProps> = props => {
 		})}
 		{...props}
 	>
-		<LiquidSourceControlProvider>
+		<LiquidProviderControl>
 			<FormItem field={"aromaId"}>
 				<LiquidAromaSelect
 					allowClear
@@ -39,6 +39,6 @@ export const LiquidFilter: FC<ILiquidFilterProps> = props => {
 					allowClear
 				/>
 			</FormItem>
-		</LiquidSourceControlProvider>
-	</LiquidSourceFilter>;
+		</LiquidProviderControl>
+	</LiquidProviderFilter>;
 };

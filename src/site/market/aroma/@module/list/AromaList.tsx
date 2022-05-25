@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
@@ -21,7 +21,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 					<LinkTo href={"/market/aroma/[aromaId]"} query={{aromaId: aroma.id}}>
 						<AromaNameInline aroma={aroma}/>
 					</LinkTo>
-					<PgVgInline pgvg={aroma}/>
+					<VgPgInline vgpg={aroma}/>
 					<AromaContentInline aroma={aroma}/>
 					{aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aroma.tastes} translation={"common.taste"}/>}
 					{isOwned ? <BoolInline bool={isOwned}/> : <AromaInventoryCreateButton type={"link"} aroma={aroma}/>}

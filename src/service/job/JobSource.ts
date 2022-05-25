@@ -10,10 +10,10 @@ export const JobSource = (): IJobSource => {
 	const source: IJobSource = Source<IJobSource>({
 		name: "job",
 		prisma,
-		map: async job => ({
+		map: async job => job ? ({
 			...job,
 			params: job.params && JSON.parse(job.params)
-		}),
+		}) : undefined,
 		source: {
 			create: async job => source.prisma.job.create({
 				data: {

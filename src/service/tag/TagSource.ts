@@ -1,12 +1,38 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITagSource} from "@/puff-smith/service/tag/interface";
-import {Source} from "@leight-core/server";
+import {onUnique, Source} from "@leight-core/server";
 
 export const TagSource = (): ITagSource => {
 	const source: ITagSource = Source<ITagSource>({
 		name: "tag",
 		prisma,
 		map: async tag => tag,
+		source: {
+			create: async tag => {
+				const create = {
+					...tag,
+					code: `${tag.code}`,
+				};
+				try {
+					return await source.prisma.tag.create({
+						data: create,
+					});
+				} catch (e) {
+					return onUnique(e, async () => source.prisma.tag.update({
+						where: {
+							id: (await source.prisma.tag.findFirst({
+								where: {
+									code: `${create.code}`,
+									group: create.group,
+								},
+								rejectOnNotFound: true,
+							})).id,
+						},
+						data: create,
+					}));
+				}
+			},
+		},
 		fetchCodes: async (codes, group) => source.prisma.tag.findMany({
 			where: {
 				code: {

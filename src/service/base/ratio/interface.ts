@@ -8,5 +8,5 @@ export interface IBaseRatio {
 	vg: number;
 }
 
-export interface IBaseRatioSource extends ISource<undefined, IBaseEntity, IBaseRatio, IBaseQuery> {
+export interface IBaseRatioSource extends ISource<undefined, Pick<IBaseEntity, "vg" | "pg">, IBaseRatio, IBaseQuery> {
 }

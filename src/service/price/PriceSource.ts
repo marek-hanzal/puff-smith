@@ -10,56 +10,57 @@ export const PriceSource = (): IPriceSource => {
 	const source: IPriceSource = Source<IPriceSource>({
 		name: "price",
 		prisma,
-		map: async price => ({
+		map: async price => price ? ({
 			...price,
 			price: price.price.toNumber(),
-			tariff: await tariffSource().toMap(price.tariffId),
+			tariff: await tariffSource().mapper.map(price.tariff),
 			from: price.from?.toUTCString(),
 			to: price.to?.toUTCString(),
 			created: price.created.toUTCString(),
-		}),
-		create: async ({tariff, ...price}) => request.prisma.price.create({
-			data: {
-				...price,
-				created: new Date(),
-				tariff: {
-					connect: {
-						code: tariff,
+		}) : undefined,
+		source: {
+			create: async ({tariff, ...price}) => source.prisma.price.create({
+				data: {
+					...price,
+					created: new Date(),
+					tariff: {
+						connect: {
+							code: tariff,
+						}
 					}
+				},
+				include: {
+					tariff: true,
 				}
-			},
-		}),
-	});
-
-	const priceOf: IPriceSource["priceOf"] = async (tariff, price) => request.prisma.price.findFirst({
-		where: {
-			name: price,
-			tariff: {
-				name: tariff,
-			}
+			}),
 		},
-		orderBy: [
-			{
+		priceOf: async (tariff, price) => source.prisma.price.findFirst({
+			where: {
+				name: price,
 				tariff: {
-					created: "desc",
+					name: tariff,
 				}
 			},
-			{
-				created: "desc",
-			},
-		],
-		rejectOnNotFound: true,
-	});
-
-	return {
-		...,
-		priceOf,
+			orderBy: [
+				{
+					tariff: {
+						created: "desc",
+					}
+				},
+				{
+					created: "desc",
+				},
+			],
+			rejectOnNotFound: true,
+		}),
 		amountOf: async (tariff, price, fallback) => {
 			try {
-				return (await priceOf(tariff, price))?.price.toNumber();
+				return (await source.priceOf(tariff, price))?.price.toNumber();
 			} catch (e) {
 				return fallback;
 			}
 		}
-	};
+	});
+
+	return source;
 };

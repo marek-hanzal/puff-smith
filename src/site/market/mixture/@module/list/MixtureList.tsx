@@ -1,5 +1,5 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {MixtureBaseInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBaseInline";
 import {MixtureBoosterInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBoosterInline";
@@ -20,7 +20,7 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<PgVgInline pgvg={mixture}/>
+					<VgPgInline vgpg={mixture}/>
 					<NicotineInline nicotine={mixture.nicotine}/>
 					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
 				</Space>}

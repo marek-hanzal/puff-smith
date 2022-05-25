@@ -14,11 +14,11 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 	const source: ICottonInventorySource = Source<ICottonInventorySource>({
 		name: "cotton.inventory",
 		prisma,
-		map: async cottonTransaction => ({
-			...cottonTransaction,
-			cotton: await cottonSource().mapper.map(cottonTransaction.cotton),
-			transaction: await transactionSource().mapper.map(cottonTransaction.transaction),
-		}),
+		map: async cottonInventory => cottonInventory ? ({
+			...cottonInventory,
+			cotton: await cottonSource().mapper.map(cottonInventory.cotton),
+			transaction: await transactionSource().mapper.map(cottonInventory.transaction),
+		}) : undefined,
 		source: {
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();

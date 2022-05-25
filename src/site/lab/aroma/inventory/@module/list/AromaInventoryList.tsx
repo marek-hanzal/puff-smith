@@ -1,5 +1,5 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {AromaListEmpty} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
@@ -28,7 +28,7 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 					<AromaNameInline aroma={aromaInventory.aroma}/>
 				</Space>}
 				description={<Space size={0} split={<Divider type={"vertical"}/>}>
-					<PgVgInline pgvg={aromaInventory.aroma}/>
+					<VgPgInline vgpg={aromaInventory.aroma}/>
 					<AromaContentInline aroma={aromaInventory.aroma}/>
 					{aromaInventory.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aromaInventory.aroma.tastes} translation={"common.taste"}/>}
 				</Space>}

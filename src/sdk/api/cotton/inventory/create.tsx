@@ -2,7 +2,8 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICottonInventory, ICottonInventoryCreate} from "@/puff-smith/service/cotton/inventory/interface";
+import {ICottonInventorySource} from "@/puff-smith/service/cotton/inventory/interface";
+import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
 import {useQueryClient} from "react-query";
@@ -11,24 +12,24 @@ export const CreateApiLink = "/api/cotton/inventory/create";
 
 export type ICreateQueryParams = undefined;
 
-export const useCreateMutation = createMutationHook<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");
+export const useCreateMutation = createMutationHook<ISourceCreate<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>(CreateApiLink, "post");
 
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
 }
 
-export interface ICreateDefaultFormProps extends Partial<IFormProps<ICottonInventoryCreate, ICottonInventory>> {
+export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>> {
 }
 
-export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ICottonInventoryCreate, ICottonInventory>
+export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>
+/>;
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
 
-export const useCreatePromise = createPromiseHook<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");
+export const useCreatePromise = createPromiseHook<ISourceCreate<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>(CreateApiLink, "post");
 
-export const CreatePromise = createPromise<ICottonInventoryCreate, ICottonInventory>(CreateApiLink, "post");
+export const CreatePromise = createPromise<ISourceCreate<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>(CreateApiLink, "post");

@@ -1,6 +1,5 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {ITag} from "@/puff-smith/service/tag/interface";
-import {IWire, IWireReference} from "@/puff-smith/service/wire/interface";
+import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
+import {IWire, IWireReference, IWithWire} from "@/puff-smith/service/wire/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Coil, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -20,6 +19,10 @@ export interface ICoilDraws {
 export interface ICoilQuery extends IQuery<Prisma.CoilWhereInput, Prisma.CoilOrderByWithRelationInput> {
 }
 
+export type ICoilEntity<T = any> = Coil & T;
+export type IWithCoil<T = any> = { coil: ICoilEntity<T>; };
+export type IWithCoilDraw = { CoilDraw: { draw: ITagEntity }[]; };
+
 export interface ICoil {
 	id: string;
 	name: string;
@@ -29,16 +32,13 @@ export interface ICoil {
 	draws: ITag[];
 }
 
-export interface ICoilFetchProps {
+export interface ICoilFetch {
 	coil: ICoil;
 }
 
-export interface ICoilFetchQuery extends ParsedUrlQuery {
+export interface ICoilFetchParams extends ParsedUrlQuery {
 	coilId: string;
 }
 
-export interface ICoilSourceCreate extends IServiceCreate {
-}
-
-export interface ICoilSource extends ISource<ICoilCreate, Coil, ICoil, ICoilQuery, ICoilFetchProps, ICoilFetchQuery> {
+export interface ICoilSource extends ISource<ICoilCreate, ICoilEntity<IWithWire & IWithCoilDraw>, ICoil, ICoilQuery, ICoilFetch, ICoilFetchParams> {
 }

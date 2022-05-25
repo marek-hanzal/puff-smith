@@ -13,11 +13,11 @@ export const CellInventorySource = (): ICellInventorySource => {
 	const source: ICellInventorySource = Source<ICellInventorySource>({
 		name: "cell-inventory",
 		prisma,
-		map: async cellTransaction => ({
-			...cellTransaction,
-			cell: await cellSource().mapper.map(cellTransaction.cell),
-			transaction: await transactionSource().mapper.map(cellTransaction.transaction),
-		}),
+		map: async cellInventory => cellInventory ? ({
+			...cellInventory,
+			cell: await cellSource().mapper.map(cellInventory.cell),
+			transaction: await transactionSource().mapper.map(cellInventory.transaction),
+		}) : undefined,
 		source: {
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();

@@ -10,15 +10,15 @@ export const BoosterMarketSource = (): IBoosterMarketSource => {
 	const source: IBoosterMarketSource = Source<IBoosterMarketSource>({
 		name: "booster.market",
 		prisma,
-		map: async entity => ({
-			booster: await boosterSource().mapper.map(entity),
+		map: async booster => booster ? ({
+			booster: await boosterSource().mapper.map(booster),
 			isOwned: source.user.optional() ? (await source.prisma.boosterInventory.count({
 				where: {
-					boosterId: entity.id,
+					boosterId: booster.id,
 					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
-		}),
+		}) : undefined,
 	});
 
 	return source;

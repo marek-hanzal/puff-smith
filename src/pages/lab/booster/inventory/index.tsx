@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BoosterFilter} from "@/puff-smith/site/lab/booster/inventory/@module/filter/BoosterFilter";
 import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
 import {BoosterListToolbar} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterListToolbar";
-import {BoosterInventorySourceControlProvider} from "@/sdk/api/booster/inventory/query";
+import {BoosterInventoryProviderControl} from "@/sdk/api/booster/inventory/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 
@@ -15,7 +15,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/booster/inventory"]}
 		icon={<BoosterIcon/>}
 	>
-		<BoosterInventorySourceControlProvider
+		<BoosterInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
@@ -28,6 +28,6 @@ export default withLabLayout(function Index() {
 					</Space>}
 				/>
 			</SelectionProvider>
-		</BoosterInventorySourceControlProvider>
+		</BoosterInventoryProviderControl>
 	</LabPage>;
 });

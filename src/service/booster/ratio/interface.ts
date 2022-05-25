@@ -8,5 +8,5 @@ export interface IBoosterRatio {
 	vg: number;
 }
 
-export interface IBoosterRatioSource extends ISource<undefined, IBoosterEntity, IBoosterRatio, IBoosterQuery> {
+export interface IBoosterRatioSource extends ISource<undefined, Pick<IBoosterEntity, "vg" | "pg">, IBoosterRatio, IBoosterQuery> {
 }

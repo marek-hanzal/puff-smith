@@ -1,5 +1,5 @@
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base/@module/button/BaseInventoryCreateButton";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
@@ -16,7 +16,7 @@ export const MixtureBaseInline: FC<IMixtureBaseInlinePros> = ({mixture, isOwned}
 		<Space size={4} split={"-"}>
 			<ContentInline content={mixture.baseMl}/>
 			<BaseNameInline base={mixture.base}/>
-			<PgVgInline pgvg={mixture.base}/>
+			<VgPgInline vgpg={mixture.base}/>
 		</Space>
 		{isOwned === false && <BaseInventoryCreateButton type={"link"} base={mixture.base}/>}
 	</Space> : null;

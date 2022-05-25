@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizerInventory, IAtomizerInventoryQuery} from "@/puff-smith/service/atomizer/inventory/interface";
+import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const AtomizerInventoryApiLink = "/api/atomizer/inventory/query";
 
 export type IAtomizerInventoryQueryParams = undefined;
 
-export const useAtomizerInventoryQuery = createQueryHook<IAtomizerInventoryQuery, IAtomizerInventory[], IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
+export const useAtomizerInventoryQuery = createQueryHook<ISourceQuery<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>[], IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
 
-export const useAtomizerInventorySource = () => useSourceContext<IAtomizerInventory>();
+export const useAtomizerInventorySource = () => useSourceContext<ISourceItem<IAtomizerInventorySource>>();
 
-export interface IAtomizerInventorySourceContext extends ISourceContext<IAtomizerInventory> {
+export interface IAtomizerInventorySourceContext extends ISourceContext<ISourceItem<IAtomizerInventorySource>> {
 }
 
-export interface IAtomizerInventorySourceConsumerProps extends ConsumerProps<ISourceContext<IAtomizerInventory>> {
+export interface IAtomizerInventorySourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IAtomizerInventorySource>>> {
 }
 
 export const AtomizerInventorySourceConsumer: FC<IAtomizerInventorySourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IAtomizerInventorySourceProps extends Partial<ISourceProviderProps<IAtomizerInventory>> {
+export interface IAtomizerInventoryProviderProps extends Partial<ISourceProviderProps<ISourceItem<IAtomizerInventorySource>>> {
 }
 
-export const AtomizerInventorySource: FC<IAtomizerInventorySourceProps> = props => {
-	return <SourceProvider<IAtomizerInventory>
+export const AtomizerInventoryProvider: FC<IAtomizerInventoryProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IAtomizerInventorySource>>
 		name={"AtomizerInventory"}
 		useQuery={useAtomizerInventoryQuery}
 		{...props}
@@ -70,67 +70,67 @@ export const AtomizerInventorySource: FC<IAtomizerInventorySourceProps> = props 
 export const toAtomizerInventoryLink = (queryParams?: IAtomizerInventoryQueryParams) => toLink(AtomizerInventoryApiLink, queryParams);
 export const useAtomizerInventoryLink = () => toAtomizerInventoryLink;
 
-export const useAtomizerInventoryPromise = createPromiseHook<IAtomizerInventoryQuery, IAtomizerInventory, IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
-export const AtomizerInventoryPromise = createPromise<IAtomizerInventoryQuery, IAtomizerInventory, IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
+export const useAtomizerInventoryPromise = createPromiseHook<ISourceQuery<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>, IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
+export const AtomizerInventoryPromise = createPromise<ISourceQuery<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>, IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
 
-export interface IAtomizerInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerInventoryQuery>>> {
+export interface IAtomizerInventoryFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>>> {
 }
 
-export const AtomizerInventoryFilterProvider: FC<IAtomizerInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerInventoryQuery>> name={"AtomizerInventory"} {...props}/>;
+export const AtomizerInventoryFilterProvider: FC<IAtomizerInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>> name={"AtomizerInventory"} {...props}/>;
 
-export const useAtomizerInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerInventoryQuery>>();
-export const useAtomizerInventoryFilterContext = () => useFilterContext<IQueryFilter<IAtomizerInventoryQuery>>();
+export const useAtomizerInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>>();
+export const useAtomizerInventoryFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>>();
 
-export interface IAtomizerInventorySourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerInventoryQuery>> {
+export interface IAtomizerInventoryProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>> {
 }
 
-export const AtomizerInventorySourceFilter: FC<IAtomizerInventorySourceFilterProps> = props => <Filter
+export const AtomizerInventoryProviderFilter: FC<IAtomizerInventoryProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.AtomizerInventory"}
 />;
 
-export interface IAtomizerInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerInventoryQuery>>> {
+export interface IAtomizerInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>>> {
 }
 
-export const AtomizerInventoryOrderByProvider: FC<IAtomizerInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizerInventory"} {...props}/>;
+export const AtomizerInventoryOrderByProvider: FC<IAtomizerInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>> name={"AtomizerInventory"} {...props}/>;
 
-export const useAtomizerInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>();
-export const useAtomizerInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerInventoryQuery>>();
+export const useAtomizerInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>>();
+export const useAtomizerInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>>();
 
-export interface IAtomizerInventoryListSourceProps extends Partial<IListProps<IAtomizerInventory>> {
-	sourceProps?: Partial<IAtomizerInventorySourceProps>;
+export interface IAtomizerInventoryProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>, IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>, IAtomizerInventoryQueryParams>> {
 }
 
-export interface IAtomizerInventorySourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>, IAtomizerInventoryQueryParams>> {
+export const AtomizerInventoryProviderControl: FC<IAtomizerInventoryProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<IAtomizerInventorySource>>, IQueryOrderBy<ISourceQuery<IAtomizerInventorySource>>> name={"AtomizerInventory"} {...props}/>;
+
+export interface IAtomizerInventoryListSourceProps extends Partial<IListProps<ISourceItem<IAtomizerInventorySource>>> {
+	providerProps?: Partial<IAtomizerInventoryProviderProps>;
 }
 
-export const AtomizerInventorySourceControlProvider: FC<IAtomizerInventorySourceControlProviderProps> = props =>
-	<SourceControlProvider<IQueryFilter<IAtomizerInventoryQuery>, IQueryOrderBy<IAtomizerInventoryQuery>> name={"AtomizerInventory"} {...props}/>;
-
-export const AtomizerInventoryListSource: FC<IAtomizerInventoryListSourceProps> = ({sourceProps, ...props}) => {
-	return <AtomizerInventorySource
-		{...sourceProps}
+export const AtomizerInventoryListSource: FC<IAtomizerInventoryListSourceProps> = ({providerProps, ...props}) => {
+	return <AtomizerInventoryProvider
+		{...providerProps}
 	>
-		<List<IAtomizerInventory>
+		<List<ISourceItem<IAtomizerInventorySource>>
 			{...props}
 		/>
-	</AtomizerInventorySource>;
-}
+	</AtomizerInventoryProvider>;
+};
 
-export interface IAtomizerInventorySourceSelectProps extends IQuerySourceSelectProps<IAtomizerInventory> {
-	toOption: IToOptionMapper<IAtomizerInventory>;
-	sourceProps?: IAtomizerInventorySourceProps;
+export interface IAtomizerInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerInventorySource>> {
+	toOption: IToOptionMapper<ISourceItem<IAtomizerInventorySource>>;
+	providerProps?: Partial<IAtomizerInventoryProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AtomizerInventorySourceSelect: FC<IAtomizerInventorySourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const AtomizerInventorySourceSelect: FC<IAtomizerInventorySourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<AtomizerInventorySource {...sourceProps}>
-					<QuerySourceSelect<IAtomizerInventory> {...props}/>
-				</AtomizerInventorySource>
+				<AtomizerInventoryProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IAtomizerInventorySource>> {...props}/>
+				</AtomizerInventoryProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +142,28 @@ export const AtomizerInventorySourceSelect: FC<IAtomizerInventorySourceSelectPro
 					type={"text"}
 					ghost
 				>
-					<AtomizerInventorySourceControlProvider>
+					<AtomizerInventoryProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</AtomizerInventorySourceControlProvider>
+					</AtomizerInventoryProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelectionProviderProps<IAtomizerInventory>> {
+export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IAtomizerInventorySource>>> {
 }
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
-	return <SelectionProvider<IAtomizerInventory> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IAtomizerInventorySource>> {...props}/>;
+};
 
 export const useAtomizerInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerInventoryApiLink]);
 };
 
-export const useAtomizerInventoryOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizerInventory>();
-export const useAtomizerInventorySelectionContext = () => useSelectionContext<IAtomizerInventory>();
+export const useAtomizerInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerInventorySource>>();
+export const useAtomizerInventorySelectionContext = () => useSelectionContext<ISourceItem<IAtomizerInventorySource>>();

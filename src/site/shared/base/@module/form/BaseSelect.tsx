@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BaseFilterProvider, BaseSourceSelect, IBaseSourceSelectProps} from "@/sdk/api/base/query";
 import {Space} from "antd";
@@ -14,7 +14,7 @@ export const BaseSelect: FC<IBaseSelectProps> = props => {
 			toOption={base => ({
 				label: <Space>
 					<BaseNameInline base={base}/>
-					<PgVgInline pgvg={base}/>
+					<VgPgInline vgpg={base}/>
 				</Space>,
 				value: base.id,
 			})}

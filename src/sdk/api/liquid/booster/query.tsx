@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBooster} from "@/puff-smith/service/booster/interface";
-import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
+import {ILiquidBoosterSource} from "@/puff-smith/service/liquid/booster/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,23 +44,23 @@ export const BoosterApiLink = "/api/liquid/booster/query";
 
 export type IBoosterQueryParams = undefined;
 
-export const useBoosterQuery = createQueryHook<ILiquidQuery, IBooster[], IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterQuery = createQueryHook<ISourceQuery<ILiquidBoosterSource>, ISourceItem<ILiquidBoosterSource>[], IBoosterQueryParams>(BoosterApiLink, "post");
 
-export const useBoosterSource = () => useSourceContext<IBooster>();
+export const useBoosterSource = () => useSourceContext<ISourceItem<ILiquidBoosterSource>>();
 
-export interface IBoosterSourceContext extends ISourceContext<IBooster> {
+export interface IBoosterSourceContext extends ISourceContext<ISourceItem<ILiquidBoosterSource>> {
 }
 
-export interface IBoosterSourceConsumerProps extends ConsumerProps<ISourceContext<IBooster>> {
+export interface IBoosterSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ILiquidBoosterSource>>> {
 }
 
 export const BoosterSourceConsumer: FC<IBoosterSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IBoosterSourceProps extends Partial<ISourceProviderProps<IBooster>> {
+export interface IBoosterProviderProps extends Partial<ISourceProviderProps<ISourceItem<ILiquidBoosterSource>>> {
 }
 
-export const BoosterSource: FC<IBoosterSourceProps> = props => {
-	return <SourceProvider<IBooster>
+export const BoosterProvider: FC<IBoosterProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ILiquidBoosterSource>>
 		name={"Booster"}
 		useQuery={useBoosterQuery}
 		{...props}
@@ -71,66 +70,66 @@ export const BoosterSource: FC<IBoosterSourceProps> = props => {
 export const toBoosterLink = (queryParams?: IBoosterQueryParams) => toLink(BoosterApiLink, queryParams);
 export const useBoosterLink = () => toBoosterLink;
 
-export const useBoosterPromise = createPromiseHook<ILiquidQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
-export const BoosterPromise = createPromise<ILiquidQuery, IBooster, IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterPromise = createPromiseHook<ISourceQuery<ILiquidBoosterSource>, ISourceItem<ILiquidBoosterSource>, IBoosterQueryParams>(BoosterApiLink, "post");
+export const BoosterPromise = createPromise<ISourceQuery<ILiquidBoosterSource>, ISourceItem<ILiquidBoosterSource>, IBoosterQueryParams>(BoosterApiLink, "post");
 
-export interface IBoosterFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
+export interface IBoosterFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>>> {
 }
 
-export const BoosterFilterProvider: FC<IBoosterFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Booster"} {...props}/>;
+export const BoosterFilterProvider: FC<IBoosterFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>> name={"Booster"} {...props}/>;
 
-export const useBoosterOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>();
-export const useBoosterFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>();
+export const useBoosterOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>>();
+export const useBoosterFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>>();
 
-export interface IBoosterSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
+export interface IBoosterProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>> {
 }
 
-export const BoosterSourceFilter: FC<IBoosterSourceFilterProps> = props => <Filter
+export const BoosterProviderFilter: FC<IBoosterProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Booster"}
 />;
 
-export interface IBoosterOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
+export interface IBoosterOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>>> {
 }
 
-export const BoosterOrderByProvider: FC<IBoosterOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Booster"} {...props}/>;
+export const BoosterOrderByProvider: FC<IBoosterOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>> name={"Booster"} {...props}/>;
 
-export const useBoosterOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>();
-export const useBoosterOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>();
+export const useBoosterOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>>();
+export const useBoosterOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>>();
 
-export interface IBoosterListSourceProps extends Partial<IListProps<IBooster>> {
-	sourceProps?: Partial<IBoosterSourceProps>;
+export interface IBoosterProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>, IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>, IBoosterQueryParams>> {
 }
 
-export interface IBoosterSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>, IBoosterQueryParams>> {
+export const BoosterProviderControl: FC<IBoosterProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ILiquidBoosterSource>>, IQueryOrderBy<ISourceQuery<ILiquidBoosterSource>>> name={"Booster"} {...props}/>;
+
+export interface IBoosterListSourceProps extends Partial<IListProps<ISourceItem<ILiquidBoosterSource>>> {
+	providerProps?: Partial<IBoosterProviderProps>;
 }
 
-export const BoosterSourceControlProvider: FC<IBoosterSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> name={"Booster"} {...props}/>;
-
-export const BoosterListSource: FC<IBoosterListSourceProps> = ({sourceProps, ...props}) => {
-	return <BoosterSource
-		{...sourceProps}
+export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, ...props}) => {
+	return <BoosterProvider
+		{...providerProps}
 	>
-		<List<IBooster>
+		<List<ISourceItem<ILiquidBoosterSource>>
 			{...props}
 		/>
-	</BoosterSource>;
-}
+	</BoosterProvider>;
+};
 
-export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<IBooster> {
-	toOption: IToOptionMapper<IBooster>;
-	sourceProps?: IBoosterSourceProps;
+export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBoosterSource>> {
+	toOption: IToOptionMapper<ISourceItem<ILiquidBoosterSource>>;
+	providerProps?: Partial<IBoosterProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BoosterSourceSelect: FC<IBoosterSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const BoosterSourceSelect: FC<IBoosterSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<BoosterSource {...sourceProps}>
-					<QuerySourceSelect<IBooster> {...props}/>
-				</BoosterSource>
+				<BoosterProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ILiquidBoosterSource>> {...props}/>
+				</BoosterProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +141,28 @@ export const BoosterSourceSelect: FC<IBoosterSourceSelectProps> = ({sourceProps,
 					type={"text"}
 					ghost
 				>
-					<BoosterSourceControlProvider>
+					<BoosterProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</BoosterSourceControlProvider>
+					</BoosterProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IBoosterSelectionProviderProps extends Partial<ISelectionProviderProps<IBooster>> {
+export interface IBoosterSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ILiquidBoosterSource>>> {
 }
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
-	return <SelectionProvider<IBooster> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ILiquidBoosterSource>> {...props}/>;
+};
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterApiLink]);
 };
 
-export const useBoosterOptionalSelectionContext = () => useOptionalSelectionContext<IBooster>();
-export const useBoosterSelectionContext = () => useSelectionContext<IBooster>();
+export const useBoosterOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidBoosterSource>>();
+export const useBoosterSelectionContext = () => useSelectionContext<ISourceItem<ILiquidBoosterSource>>();

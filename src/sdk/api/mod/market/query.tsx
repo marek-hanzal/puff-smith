@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IModMarket, IModMarketQuery} from "@/puff-smith/service/mod/market/interface";
+import {IModMarketSource} from "@/puff-smith/service/mod/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const ModMarketApiLink = "/api/mod/market/query";
 
 export type IModMarketQueryParams = undefined;
 
-export const useModMarketQuery = createQueryHook<IModMarketQuery, IModMarket[], IModMarketQueryParams>(ModMarketApiLink, "post");
+export const useModMarketQuery = createQueryHook<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>[], IModMarketQueryParams>(ModMarketApiLink, "post");
 
-export const useModMarketSource = () => useSourceContext<IModMarket>();
+export const useModMarketSource = () => useSourceContext<ISourceItem<IModMarketSource>>();
 
-export interface IModMarketSourceContext extends ISourceContext<IModMarket> {
+export interface IModMarketSourceContext extends ISourceContext<ISourceItem<IModMarketSource>> {
 }
 
-export interface IModMarketSourceConsumerProps extends ConsumerProps<ISourceContext<IModMarket>> {
+export interface IModMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IModMarketSource>>> {
 }
 
 export const ModMarketSourceConsumer: FC<IModMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IModMarketSourceProps extends Partial<ISourceProviderProps<IModMarket>> {
+export interface IModMarketProviderProps extends Partial<ISourceProviderProps<ISourceItem<IModMarketSource>>> {
 }
 
-export const ModMarketSource: FC<IModMarketSourceProps> = props => {
-	return <SourceProvider<IModMarket>
+export const ModMarketProvider: FC<IModMarketProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IModMarketSource>>
 		name={"ModMarket"}
 		useQuery={useModMarketQuery}
 		{...props}
@@ -70,66 +70,66 @@ export const ModMarketSource: FC<IModMarketSourceProps> = props => {
 export const toModMarketLink = (queryParams?: IModMarketQueryParams) => toLink(ModMarketApiLink, queryParams);
 export const useModMarketLink = () => toModMarketLink;
 
-export const useModMarketPromise = createPromiseHook<IModMarketQuery, IModMarket, IModMarketQueryParams>(ModMarketApiLink, "post");
-export const ModMarketPromise = createPromise<IModMarketQuery, IModMarket, IModMarketQueryParams>(ModMarketApiLink, "post");
+export const useModMarketPromise = createPromiseHook<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>, IModMarketQueryParams>(ModMarketApiLink, "post");
+export const ModMarketPromise = createPromise<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>, IModMarketQueryParams>(ModMarketApiLink, "post");
 
-export interface IModMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IModMarketQuery>>> {
+export interface IModMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IModMarketSource>>>> {
 }
 
-export const ModMarketFilterProvider: FC<IModMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IModMarketQuery>> name={"ModMarket"} {...props}/>;
+export const ModMarketFilterProvider: FC<IModMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IModMarketSource>>> name={"ModMarket"} {...props}/>;
 
-export const useModMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IModMarketQuery>>();
-export const useModMarketFilterContext = () => useFilterContext<IQueryFilter<IModMarketQuery>>();
+export const useModMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>();
+export const useModMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>();
 
-export interface IModMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IModMarketQuery>> {
+export interface IModMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IModMarketSource>>> {
 }
 
-export const ModMarketSourceFilter: FC<IModMarketSourceFilterProps> = props => <Filter
+export const ModMarketProviderFilter: FC<IModMarketProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.ModMarket"}
 />;
 
-export interface IModMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IModMarketQuery>>> {
+export interface IModMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IModMarketSource>>>> {
 }
 
-export const ModMarketOrderByProvider: FC<IModMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IModMarketQuery>> name={"ModMarket"} {...props}/>;
+export const ModMarketOrderByProvider: FC<IModMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IModMarketSource>>> name={"ModMarket"} {...props}/>;
 
-export const useModMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IModMarketQuery>>();
-export const useModMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IModMarketQuery>>();
+export const useModMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>();
+export const useModMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>();
 
-export interface IModMarketListSourceProps extends Partial<IListProps<IModMarket>> {
-	sourceProps?: Partial<IModMarketSourceProps>;
+export interface IModMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IModMarketSource>>, IQueryOrderBy<ISourceQuery<IModMarketSource>>, IModMarketQueryParams>> {
 }
 
-export interface IModMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IModMarketQuery>, IQueryOrderBy<IModMarketQuery>, IModMarketQueryParams>> {
+export const ModMarketProviderControl: FC<IModMarketProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IModMarketSource>>, IQueryOrderBy<ISourceQuery<IModMarketSource>>> name={"ModMarket"} {...props}/>;
+
+export interface IModMarketListSourceProps extends Partial<IListProps<ISourceItem<IModMarketSource>>> {
+	providerProps?: Partial<IModMarketProviderProps>;
 }
 
-export const ModMarketSourceControlProvider: FC<IModMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IModMarketQuery>, IQueryOrderBy<IModMarketQuery>> name={"ModMarket"} {...props}/>;
-
-export const ModMarketListSource: FC<IModMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <ModMarketSource
-		{...sourceProps}
+export const ModMarketListSource: FC<IModMarketListSourceProps> = ({providerProps, ...props}) => {
+	return <ModMarketProvider
+		{...providerProps}
 	>
-		<List<IModMarket>
+		<List<ISourceItem<IModMarketSource>>
 			{...props}
 		/>
-	</ModMarketSource>;
-}
+	</ModMarketProvider>;
+};
 
-export interface IModMarketSourceSelectProps extends IQuerySourceSelectProps<IModMarket> {
-	toOption: IToOptionMapper<IModMarket>;
-	sourceProps?: IModMarketSourceProps;
+export interface IModMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModMarketSource>> {
+	toOption: IToOptionMapper<ISourceItem<IModMarketSource>>;
+	providerProps?: Partial<IModMarketProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const ModMarketSourceSelect: FC<IModMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const ModMarketSourceSelect: FC<IModMarketSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<ModMarketSource {...sourceProps}>
-					<QuerySourceSelect<IModMarket> {...props}/>
-				</ModMarketSource>
+				<ModMarketProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IModMarketSource>> {...props}/>
+				</ModMarketProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +141,28 @@ export const ModMarketSourceSelect: FC<IModMarketSourceSelectProps> = ({sourcePr
 					type={"text"}
 					ghost
 				>
-					<ModMarketSourceControlProvider>
+					<ModMarketProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</ModMarketSourceControlProvider>
+					</ModMarketProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IModMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IModMarket>> {
+export interface IModMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IModMarketSource>>> {
 }
 
 export const ModMarketSelectionProvider: FC<IModMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<IModMarket> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IModMarketSource>> {...props}/>;
+};
 
 export const useModMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModMarketApiLink]);
 };
 
-export const useModMarketOptionalSelectionContext = () => useOptionalSelectionContext<IModMarket>();
-export const useModMarketSelectionContext = () => useSelectionContext<IModMarket>();
+export const useModMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModMarketSource>>();
+export const useModMarketSelectionContext = () => useSelectionContext<ISourceItem<IModMarketSource>>();

@@ -1,4 +1,4 @@
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BaseInventoryCreateButton} from "@/puff-smith/site/market/base/@module/button/BaseInventoryCreateButton";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BaseMarketListSource, IBaseMarketListSourceProps} from "@/sdk/api/base/market/query";
@@ -17,7 +17,7 @@ export const BaseList: FC<IBaseListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<BaseNameInline base={base}/>
-					<PgVgInline pgvg={base}/>
+					<VgPgInline vgpg={base}/>
 					{isOwned ? <BoolInline bool={isOwned}/> : <BaseInventoryCreateButton type={"link"} base={base}/>}
 				</Space>}
 			/>

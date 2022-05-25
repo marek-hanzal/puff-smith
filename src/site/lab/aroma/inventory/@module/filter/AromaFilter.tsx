@@ -1,6 +1,6 @@
 import {AromaTasteSelect} from "@/puff-smith/site/lab/aroma/inventory/@module/form/AromaTasteSelect";
 import {AromaVendorSelect} from "@/puff-smith/site/lab/aroma/inventory/@module/form/AromaVendorSelect";
-import {AromaSourceFilter} from "@/sdk/api/aroma/query";
+import {AromaProviderFilter} from "@/sdk/api/aroma/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 	const onClear = () => {
 	};
 
-	return <AromaSourceFilter
+	return <AromaProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,5 +53,5 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 				allowClear
 			/>
 		</FormItem>
-	</AromaSourceFilter>;
+	</AromaProviderFilter>;
 };

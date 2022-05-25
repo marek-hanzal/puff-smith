@@ -3,7 +3,7 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {onUnique, pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const BaseSource = (): IBaseSource => {
 	const codeService = singletonOf(() => CodeService());
@@ -12,30 +12,30 @@ export const BaseSource = (): IBaseSource => {
 	const source: IBaseSource = Source<IBaseSource>({
 		name: "base",
 		prisma,
-		map: async base => ({
+		map: async base => base ? ({
 			...base,
 			vendor: await vendorSource().mapper.map(base.vendor),
-		}),
+		}) : undefined,
 		source: {
-			count: async ({filter}) => source.prisma.base.count({
-				where: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
+				where: merge(filter, {
 					OR: [
 						{
 							name: {
-								contains: filter?.fulltext,
+								contains: fulltext,
 								mode: "insensitive",
 							}
 						},
 						{
 							vendor: {
 								name: {
-									contains: filter?.fulltext,
+									contains: fulltext,
 									mode: "insensitive",
 								},
 							}
 						},
 					],
-				},
+				}),
 			}),
 			query: async ({filter, ...query}) => source.prisma.base.findMany({
 				where: {

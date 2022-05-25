@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AtomizerInventoryList} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerInventoryList";
-import {AtomizerInventorySourceControlProvider} from "@/sdk/api/atomizer/inventory/query";
+import {AtomizerInventoryProviderControl} from "@/sdk/api/atomizer/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -11,10 +11,10 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/atomizer/inventory"]}
 		icon={<AtomizerIcon/>}
 	>
-		<AtomizerInventorySourceControlProvider
+		<AtomizerInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<AtomizerInventoryList/>
-		</AtomizerInventorySourceControlProvider>
+		</AtomizerInventoryProviderControl>
 	</LabPage>;
 });

@@ -10,11 +10,12 @@ export const AtomizerDrawSource = (): IAtomizerDrawSource => {
 	const source: IAtomizerDrawSource = Source<IAtomizerDrawSource>({
 		name: "atomizer.draw",
 		prisma,
+		map: async atomizerDraw => tagSource().map(atomizerDraw?.draw),
 		source: {
-			count: async () => prisma.atomizerDraw.count({
+			count: async () => source.prisma.atomizerDraw.count({
 				distinct: ["drawId"],
 			}),
-			query: async () => prisma.atomizerDraw.findMany({
+			query: async () => source.prisma.atomizerDraw.findMany({
 				distinct: ["drawId"],
 				include: {
 					draw: true,
@@ -24,7 +25,6 @@ export const AtomizerDrawSource = (): IAtomizerDrawSource => {
 				],
 			}),
 		},
-		map: async ({draw}) => tagSource().mapper.map(draw),
 	});
 
 	return source;

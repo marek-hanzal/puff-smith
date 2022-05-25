@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBase} from "@/puff-smith/service/base/interface";
-import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
+import {ILiquidBaseSource} from "@/puff-smith/service/liquid/base/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -45,23 +44,23 @@ export const BaseApiLink = "/api/liquid/base/query";
 
 export type IBaseQueryParams = undefined;
 
-export const useBaseQuery = createQueryHook<ILiquidQuery, IBase[], IBaseQueryParams>(BaseApiLink, "post");
+export const useBaseQuery = createQueryHook<ISourceQuery<ILiquidBaseSource>, ISourceItem<ILiquidBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
 
-export const useBaseSource = () => useSourceContext<IBase>();
+export const useBaseSource = () => useSourceContext<ISourceItem<ILiquidBaseSource>>();
 
-export interface IBaseSourceContext extends ISourceContext<IBase> {
+export interface IBaseSourceContext extends ISourceContext<ISourceItem<ILiquidBaseSource>> {
 }
 
-export interface IBaseSourceConsumerProps extends ConsumerProps<ISourceContext<IBase>> {
+export interface IBaseSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ILiquidBaseSource>>> {
 }
 
 export const BaseSourceConsumer: FC<IBaseSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IBaseSourceProps extends Partial<ISourceProviderProps<IBase>> {
+export interface IBaseProviderProps extends Partial<ISourceProviderProps<ISourceItem<ILiquidBaseSource>>> {
 }
 
-export const BaseSource: FC<IBaseSourceProps> = props => {
-	return <SourceProvider<IBase>
+export const BaseProvider: FC<IBaseProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ILiquidBaseSource>>
 		name={"Base"}
 		useQuery={useBaseQuery}
 		{...props}
@@ -71,66 +70,66 @@ export const BaseSource: FC<IBaseSourceProps> = props => {
 export const toBaseLink = (queryParams?: IBaseQueryParams) => toLink(BaseApiLink, queryParams);
 export const useBaseLink = () => toBaseLink;
 
-export const useBasePromise = createPromiseHook<ILiquidQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
-export const BasePromise = createPromise<ILiquidQuery, IBase, IBaseQueryParams>(BaseApiLink, "post");
+export const useBasePromise = createPromiseHook<ISourceQuery<ILiquidBaseSource>, ISourceItem<ILiquidBaseSource>, IBaseQueryParams>(BaseApiLink, "post");
+export const BasePromise = createPromise<ISourceQuery<ILiquidBaseSource>, ISourceItem<ILiquidBaseSource>, IBaseQueryParams>(BaseApiLink, "post");
 
-export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ILiquidQuery>>> {
+export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>> {
 }
 
-export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ILiquidQuery>> name={"Base"} {...props}/>;
+export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ILiquidQuery>>();
-export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ILiquidQuery>>();
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>();
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>();
 
-export interface IBaseSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ILiquidQuery>> {
+export interface IBaseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidBaseSource>>> {
 }
 
-export const BaseSourceFilter: FC<IBaseSourceFilterProps> = props => <Filter
+export const BaseProviderFilter: FC<IBaseProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.Base"}
 />;
 
-export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ILiquidQuery>>> {
+export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>> {
 }
 
-export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ILiquidQuery>> name={"Base"} {...props}/>;
+export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ILiquidQuery>>();
-export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ILiquidQuery>>();
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>();
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>();
 
-export interface IBaseListSourceProps extends Partial<IListProps<IBase>> {
-	sourceProps?: Partial<IBaseSourceProps>;
+export interface IBaseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidBaseSource>>, IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>, IBaseQueryParams>> {
 }
 
-export interface IBaseSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>, IBaseQueryParams>> {
+export const BaseProviderControl: FC<IBaseProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ILiquidBaseSource>>, IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>> name={"Base"} {...props}/>;
+
+export interface IBaseListSourceProps extends Partial<IListProps<ISourceItem<ILiquidBaseSource>>> {
+	providerProps?: Partial<IBaseProviderProps>;
 }
 
-export const BaseSourceControlProvider: FC<IBaseSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ILiquidQuery>, IQueryOrderBy<ILiquidQuery>> name={"Base"} {...props}/>;
-
-export const BaseListSource: FC<IBaseListSourceProps> = ({sourceProps, ...props}) => {
-	return <BaseSource
-		{...sourceProps}
+export const BaseListSource: FC<IBaseListSourceProps> = ({providerProps, ...props}) => {
+	return <BaseProvider
+		{...providerProps}
 	>
-		<List<IBase>
+		<List<ISourceItem<ILiquidBaseSource>>
 			{...props}
 		/>
-	</BaseSource>;
-}
+	</BaseProvider>;
+};
 
-export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<IBase> {
-	toOption: IToOptionMapper<IBase>;
-	sourceProps?: IBaseSourceProps;
+export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBaseSource>> {
+	toOption: IToOptionMapper<ISourceItem<ILiquidBaseSource>>;
+	providerProps?: Partial<IBaseProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<BaseSource {...sourceProps}>
-					<QuerySourceSelect<IBase> {...props}/>
-				</BaseSource>
+				<BaseProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ILiquidBaseSource>> {...props}/>
+				</BaseProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -142,28 +141,28 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({sourceProps, selec
 					type={"text"}
 					ghost
 				>
-					<BaseSourceControlProvider>
+					<BaseProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</BaseSourceControlProvider>
+					</BaseProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderProps<IBase>> {
+export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ILiquidBaseSource>>> {
 }
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
-	return <SelectionProvider<IBase> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<ILiquidBaseSource>> {...props}/>;
+};
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseApiLink]);
 };
 
-export const useBaseOptionalSelectionContext = () => useOptionalSelectionContext<IBase>();
-export const useBaseSelectionContext = () => useSelectionContext<IBase>();
+export const useBaseOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidBaseSource>>();
+export const useBaseSelectionContext = () => useSelectionContext<ISourceItem<ILiquidBaseSource>>();

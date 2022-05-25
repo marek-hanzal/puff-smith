@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {CellInventoryList} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellInventoryList";
-import {CellInventorySourceControlProvider} from "@/sdk/api/cell/inventory/query";
+import {CellInventoryProviderControl} from "@/sdk/api/cell/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -11,10 +11,10 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cell/inventory"]}
 		icon={<CellIcon/>}
 	>
-		<CellInventorySourceControlProvider
+		<CellInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<CellInventoryList/>
-		</CellInventorySourceControlProvider>
+		</CellInventoryProviderControl>
 	</LabPage>;
 });

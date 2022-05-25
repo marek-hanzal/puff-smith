@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/filter/LiquidFilter";
 import {LiquidList} from "@/puff-smith/site/lab/liquid/@module/list/LiquidList";
 import {LiquidListToolbar} from "@/puff-smith/site/lab/liquid/@module/list/LiquidListToolbar";
-import {LiquidSourceControlProvider} from "@/sdk/api/liquid/query";
+import {LiquidProviderControl} from "@/sdk/api/liquid/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 
@@ -15,7 +15,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/liquid"]}
 		icon={<LiquidIcon/>}
 	>
-		<LiquidSourceControlProvider
+		<LiquidProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				mixed: "asc",
@@ -29,6 +29,6 @@ export default withLabLayout(function Index() {
 					</Space>}
 				/>
 			</SelectionProvider>
-		</LiquidSourceControlProvider>
+		</LiquidProviderControl>
 	</LabPage>;
 });

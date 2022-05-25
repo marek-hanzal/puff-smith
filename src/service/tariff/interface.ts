@@ -25,7 +25,7 @@ export interface ITariffQuery extends IQuery<Prisma.TariffWhereInput, Prisma.Tar
 }
 
 export type ITariffEntity = Tariff;
-export type IWithTariffEntity = { tariff: ITariffEntity; };
+export type IWithTariff = { tariff: ITariffEntity; };
 
 export interface ITariffFetchProps {
 	tariff: ITariff;

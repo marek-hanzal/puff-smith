@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {CottonInventoryList} from "@/puff-smith/site/lab/cotton/inventory/@module/list/CottonInventoryList";
-import {CottonInventorySourceControlProvider} from "@/sdk/api/cotton/inventory/query";
+import {CottonInventoryProviderControl} from "@/sdk/api/cotton/inventory/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -11,10 +11,10 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/cotton/inventory"]}
 		icon={<CottonIcon/>}
 	>
-		<CottonInventorySourceControlProvider
+		<CottonInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<CottonInventoryList/>
-		</CottonInventorySourceControlProvider>
+		</CottonInventoryProviderControl>
 	</LabPage>;
 });

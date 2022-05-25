@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AromaFilter} from "@/puff-smith/site/lab/aroma/inventory/@module/filter/AromaFilter";
 import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaInventoryList";
 import {AromaListToolbar} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListToolbar";
-import {AromaInventorySourceControlProvider} from "@/sdk/api/aroma/inventory/query";
+import {AromaInventoryProviderControl} from "@/sdk/api/aroma/inventory/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 
@@ -15,7 +15,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/aroma/inventory"]}
 		icon={<LiquidIcon/>}
 	>
-		<AromaInventorySourceControlProvider
+		<AromaInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
@@ -28,6 +28,6 @@ export default withLabLayout(function Index() {
 					</Space>}
 				/>
 			</SelectionProvider>
-		</AromaInventorySourceControlProvider>
+		</AromaInventoryProviderControl>
 	</LabPage>;
 });

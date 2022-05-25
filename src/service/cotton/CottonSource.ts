@@ -14,7 +14,7 @@ export const CottonSource = (): ICottonSource => {
 	const source: ICottonSource = Source<ICottonSource>({
 		name: "cotton",
 		prisma,
-		map: async cotton => ({
+		map: async cotton => cotton ? ({
 			...cotton,
 			vendor: await vendorSource().mapper.map(cotton.vendor),
 			draws: await tagSource().mapper.list(source.prisma.tag.findMany({
@@ -26,7 +26,7 @@ export const CottonSource = (): ICottonSource => {
 					}
 				}
 			})),
-		}),
+		}) : undefined,
 		source: {
 			create: async ({vendor, draws, code, ...cotton}) => {
 				const create = {

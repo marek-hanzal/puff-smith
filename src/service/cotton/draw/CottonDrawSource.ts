@@ -10,11 +10,12 @@ export const CottonDrawSource = (): ICottonDrawSource => {
 	const source: ICottonDrawSource = Source<ICottonDrawSource>({
 		name: "cotton.draw",
 		prisma,
+		map: async cottonDraw => tagSource().map(cottonDraw?.draw),
 		source: {
-			count: async () => prisma.cottonDraw.count({
+			count: async () => source.prisma.cottonDraw.count({
 				distinct: ["drawId"],
 			}),
-			query: async () => prisma.cottonDraw.findMany({
+			query: async () => source.prisma.cottonDraw.findMany({
 				distinct: ["drawId"],
 				include: {
 					draw: true,
@@ -24,7 +25,6 @@ export const CottonDrawSource = (): ICottonDrawSource => {
 				],
 			}),
 		},
-		map: async ({draw}) => tagSource().mapper.map(draw),
 	});
 
 	return source;

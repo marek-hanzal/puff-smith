@@ -11,13 +11,10 @@ export interface IVendorCreate {
 	name: string;
 }
 
-export type IVendorWhere = Prisma.VendorWhereInput & IWithFulltext;
-
-export interface IVendorQuery extends IQuery<IVendorWhere, Prisma.VendorOrderByWithRelationInput> {
+export interface IVendorQuery extends IQuery<Prisma.VendorWhereInput & IWithFulltext, Prisma.VendorOrderByWithRelationInput> {
 }
 
 export type IVendorEntity = Vendor;
-
 export type IWithVendor = { vendor: IVendorEntity };
 
 export interface IVendor {

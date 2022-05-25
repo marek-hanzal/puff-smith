@@ -1,5 +1,5 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
-import {PgVgInline} from "@/puff-smith/component/inline/PgVgInline";
+import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {BoosterFilterProvider, BoosterSourceSelect, IBoosterSourceSelectProps} from "@/sdk/api/booster/query";
 import {Space} from "antd";
@@ -15,7 +15,7 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 			toOption={booster => ({
 				label: <Space>
 					<BoosterNameInline booster={booster}/>
-					<PgVgInline pgvg={booster}/>
+					<VgPgInline vgpg={booster}/>
 					<NicotineInline nicotine={booster.nicotine}/>
 				</Space>,
 				value: booster.id,

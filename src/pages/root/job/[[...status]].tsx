@@ -4,7 +4,7 @@ import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu} from "@/puff-smith/site/root/job/@module/menu/JobMenu";
 import {IJobListProps, JobList} from "@/puff-smith/site/shared/job/@module/list/JobList";
-import {JobSourceControlProvider} from "@/sdk/api/job/query";
+import {JobProviderControl} from "@/sdk/api/job/query";
 import {IJobStatus} from "@leight-core/api";
 import {useNavigate, useParams} from "@leight-core/client";
 import {message} from "antd";
@@ -27,7 +27,7 @@ export default withRootLayout(function Index() {
 		"running": {
 			filter: ["RUNNING", "NEW"],
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 2500,
 					options: {
 						onSuccess: async data => {
@@ -47,7 +47,7 @@ export default withRootLayout(function Index() {
 		"review": {
 			filter: ["REVIEW"],
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 0,
 				},
 				showFilter: false,
@@ -56,7 +56,7 @@ export default withRootLayout(function Index() {
 		"failure": {
 			filter: ["FAILURE"],
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 0,
 				},
 				showFilter: false,
@@ -65,7 +65,7 @@ export default withRootLayout(function Index() {
 		"success": {
 			filter: ["SUCCESS"],
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 0,
 				},
 				showFilter: false,
@@ -74,7 +74,7 @@ export default withRootLayout(function Index() {
 		"done": {
 			filter: ["DONE"],
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 0,
 				},
 				showFilter: false,
@@ -84,7 +84,7 @@ export default withRootLayout(function Index() {
 		"all": {
 			filter: undefined,
 			listProps: {
-				sourceProps: {
+				providerProps: {
 					live: 5000,
 				},
 				showCommit: false,
@@ -98,7 +98,7 @@ export default withRootLayout(function Index() {
 		icon={<JobIcon/>}
 		headerPostfix={<JobMenu/>}
 	>
-		<JobSourceControlProvider
+		<JobProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{
 				status: config.filter && {
@@ -116,7 +116,7 @@ export default withRootLayout(function Index() {
 			] as any}
 		>
 			<JobList {...config.listProps}/>
-		</JobSourceControlProvider>
+		</JobProviderControl>
 	</RootPage>;
 });
 

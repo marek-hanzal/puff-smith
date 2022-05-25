@@ -2,7 +2,7 @@ import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {AromaSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaSelect";
 import {AromaTasteSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaTasteSelect";
 import {AromaVendorSelect} from "@/puff-smith/site/shared/aroma/@module/form/AromaVendorSelect";
-import {AromaSourceFilter} from "@/sdk/api/aroma/query";
+import {AromaProviderFilter} from "@/sdk/api/aroma/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
@@ -15,7 +15,7 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 	const onClear = () => {
 	};
 
-	return <AromaSourceFilter
+	return <AromaProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -76,5 +76,5 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 				/>
 			</>}
 		</FormContext.Consumer>
-	</AromaSourceFilter>;
+	</AromaProviderFilter>;
 };

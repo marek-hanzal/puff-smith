@@ -1,4 +1,4 @@
-import {IWithAromaEntity} from "@/puff-smith/service/aroma/interface";
+import {IWithAroma} from "@/puff-smith/service/aroma/interface";
 import {IMixture, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
@@ -27,7 +27,7 @@ export type ILiquidWhere = Prisma.LiquidWhereInput & IWithFulltext;
 export interface ILiquidQuery extends IQuery<ILiquidWhere, Prisma.LiquidOrderByWithRelationInput> {
 }
 
-export type ILiquidEntity = Liquid & IWithAromaEntity & IWithMixtureEntity & IWithTransaction;
+export type ILiquidEntity = Liquid & IWithAroma & IWithMixtureEntity & IWithTransaction;
 
 export interface ILiquidFetchProps {
 	liquid: ILiquid;

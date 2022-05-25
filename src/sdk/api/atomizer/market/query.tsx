@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IAtomizerMarket, IAtomizerMarketQuery} from "@/puff-smith/service/atomizer/market/interface";
+import {IAromaMarketSource} from "@/puff-smith/service/aroma/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const AtomizerMarketApiLink = "/api/atomizer/market/query";
 
 export type IAtomizerMarketQueryParams = undefined;
 
-export const useAtomizerMarketQuery = createQueryHook<IAtomizerMarketQuery, IAtomizerMarket[], IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
+export const useAtomizerMarketQuery = createQueryHook<ISourceQuery<IAromaMarketSource>, ISourceItem<IAromaMarketSource>[], IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
 
-export const useAtomizerMarketSource = () => useSourceContext<IAtomizerMarket>();
+export const useAtomizerMarketSource = () => useSourceContext<ISourceItem<IAromaMarketSource>>();
 
-export interface IAtomizerMarketSourceContext extends ISourceContext<IAtomizerMarket> {
+export interface IAtomizerMarketSourceContext extends ISourceContext<ISourceItem<IAromaMarketSource>> {
 }
 
-export interface IAtomizerMarketSourceConsumerProps extends ConsumerProps<ISourceContext<IAtomizerMarket>> {
+export interface IAtomizerMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IAromaMarketSource>>> {
 }
 
 export const AtomizerMarketSourceConsumer: FC<IAtomizerMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IAtomizerMarketSourceProps extends Partial<ISourceProviderProps<IAtomizerMarket>> {
+export interface IAtomizerMarketProviderProps extends Partial<ISourceProviderProps<ISourceItem<IAromaMarketSource>>> {
 }
 
-export const AtomizerMarketSource: FC<IAtomizerMarketSourceProps> = props => {
-	return <SourceProvider<IAtomizerMarket>
+export const AtomizerMarketProvider: FC<IAtomizerMarketProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IAromaMarketSource>>
 		name={"AtomizerMarket"}
 		useQuery={useAtomizerMarketQuery}
 		{...props}
@@ -70,66 +70,67 @@ export const AtomizerMarketSource: FC<IAtomizerMarketSourceProps> = props => {
 export const toAtomizerMarketLink = (queryParams?: IAtomizerMarketQueryParams) => toLink(AtomizerMarketApiLink, queryParams);
 export const useAtomizerMarketLink = () => toAtomizerMarketLink;
 
-export const useAtomizerMarketPromise = createPromiseHook<IAtomizerMarketQuery, IAtomizerMarket, IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
-export const AtomizerMarketPromise = createPromise<IAtomizerMarketQuery, IAtomizerMarket, IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
+export const useAtomizerMarketPromise = createPromiseHook<ISourceQuery<IAromaMarketSource>, ISourceItem<IAromaMarketSource>, IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
+export const AtomizerMarketPromise = createPromise<ISourceQuery<IAromaMarketSource>, ISourceItem<IAromaMarketSource>, IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
 
-export interface IAtomizerMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IAtomizerMarketQuery>>> {
+export interface IAtomizerMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAromaMarketSource>>>> {
 }
 
-export const AtomizerMarketFilterProvider: FC<IAtomizerMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IAtomizerMarketQuery>> name={"AtomizerMarket"} {...props}/>;
+export const AtomizerMarketFilterProvider: FC<IAtomizerMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaMarketSource>>> name={"AtomizerMarket"} {...props}/>;
 
-export const useAtomizerMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IAtomizerMarketQuery>>();
-export const useAtomizerMarketFilterContext = () => useFilterContext<IQueryFilter<IAtomizerMarketQuery>>();
+export const useAtomizerMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaMarketSource>>>();
+export const useAtomizerMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaMarketSource>>>();
 
-export interface IAtomizerMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IAtomizerMarketQuery>> {
+export interface IAtomizerMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaMarketSource>>> {
 }
 
-export const AtomizerMarketSourceFilter: FC<IAtomizerMarketSourceFilterProps> = props => <Filter
+export const AtomizerMarketProviderFilter: FC<IAtomizerMarketProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.AtomizerMarket"}
 />;
 
-export interface IAtomizerMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IAtomizerMarketQuery>>> {
+export interface IAtomizerMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaMarketSource>>>> {
 }
 
-export const AtomizerMarketOrderByProvider: FC<IAtomizerMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IAtomizerMarketQuery>> name={"AtomizerMarket"} {...props}/>;
+export const AtomizerMarketOrderByProvider: FC<IAtomizerMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaMarketSource>>> name={"AtomizerMarket"} {...props}/>;
 
-export const useAtomizerMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>();
-export const useAtomizerMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IAtomizerMarketQuery>>();
+export const useAtomizerMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaMarketSource>>>();
+export const useAtomizerMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaMarketSource>>>();
 
-export interface IAtomizerMarketListSourceProps extends Partial<IListProps<IAtomizerMarket>> {
-	sourceProps?: Partial<IAtomizerMarketSourceProps>;
+export interface IAtomizerMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaMarketSource>>, IQueryOrderBy<ISourceQuery<IAromaMarketSource>>, IAtomizerMarketQueryParams>> {
 }
 
-export interface IAtomizerMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IAtomizerMarketQuery>, IQueryOrderBy<IAtomizerMarketQuery>, IAtomizerMarketQueryParams>> {
+export const AtomizerMarketProviderControl: FC<IAtomizerMarketProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<IAromaMarketSource>>, IQueryOrderBy<ISourceQuery<IAromaMarketSource>>> name={"AtomizerMarket"} {...props}/>;
+
+export interface IAtomizerMarketListSourceProps extends Partial<IListProps<ISourceItem<IAromaMarketSource>>> {
+	providerProps?: Partial<IAtomizerMarketProviderProps>;
 }
 
-export const AtomizerMarketSourceControlProvider: FC<IAtomizerMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IAtomizerMarketQuery>, IQueryOrderBy<IAtomizerMarketQuery>> name={"AtomizerMarket"} {...props}/>;
-
-export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <AtomizerMarketSource
-		{...sourceProps}
+export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({providerProps, ...props}) => {
+	return <AtomizerMarketProvider
+		{...providerProps}
 	>
-		<List<IAtomizerMarket>
+		<List<ISourceItem<IAromaMarketSource>>
 			{...props}
 		/>
-	</AtomizerMarketSource>;
-}
+	</AtomizerMarketProvider>;
+};
 
-export interface IAtomizerMarketSourceSelectProps extends IQuerySourceSelectProps<IAtomizerMarket> {
-	toOption: IToOptionMapper<IAtomizerMarket>;
-	sourceProps?: IAtomizerMarketSourceProps;
+export interface IAtomizerMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaMarketSource>> {
+	toOption: IToOptionMapper<ISourceItem<IAromaMarketSource>>;
+	providerProps?: Partial<IAtomizerMarketProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const AtomizerMarketSourceSelect: FC<IAtomizerMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const AtomizerMarketSourceSelect: FC<IAtomizerMarketSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<AtomizerMarketSource {...sourceProps}>
-					<QuerySourceSelect<IAtomizerMarket> {...props}/>
-				</AtomizerMarketSource>
+				<AtomizerMarketProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IAromaMarketSource>> {...props}/>
+				</AtomizerMarketProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +142,28 @@ export const AtomizerMarketSourceSelect: FC<IAtomizerMarketSourceSelectProps> = 
 					type={"text"}
 					ghost
 				>
-					<AtomizerMarketSourceControlProvider>
+					<AtomizerMarketProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</AtomizerMarketSourceControlProvider>
+					</AtomizerMarketProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IAtomizerMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IAtomizerMarket>> {
+export interface IAtomizerMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IAromaMarketSource>>> {
 }
 
 export const AtomizerMarketSelectionProvider: FC<IAtomizerMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<IAtomizerMarket> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IAromaMarketSource>> {...props}/>;
+};
 
 export const useAtomizerMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerMarketApiLink]);
 };
 
-export const useAtomizerMarketOptionalSelectionContext = () => useOptionalSelectionContext<IAtomizerMarket>();
-export const useAtomizerMarketSelectionContext = () => useSelectionContext<IAtomizerMarket>();
+export const useAtomizerMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaMarketSource>>();
+export const useAtomizerMarketSelectionContext = () => useSelectionContext<ISourceItem<IAromaMarketSource>>();

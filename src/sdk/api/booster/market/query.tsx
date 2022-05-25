@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IBoosterMarket, IBoosterMarketQuery} from "@/puff-smith/service/booster/market/interface";
+import {IBoosterMarketSource} from "@/puff-smith/service/booster/market/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -44,23 +44,23 @@ export const BoosterMarketApiLink = "/api/booster/market/query";
 
 export type IBoosterMarketQueryParams = undefined;
 
-export const useBoosterMarketQuery = createQueryHook<IBoosterMarketQuery, IBoosterMarket[], IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
+export const useBoosterMarketQuery = createQueryHook<ISourceQuery<IBoosterMarketSource>, ISourceItem<IBoosterMarketSource>[], IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
 
-export const useBoosterMarketSource = () => useSourceContext<IBoosterMarket>();
+export const useBoosterMarketSource = () => useSourceContext<ISourceItem<IBoosterMarketSource>>();
 
-export interface IBoosterMarketSourceContext extends ISourceContext<IBoosterMarket> {
+export interface IBoosterMarketSourceContext extends ISourceContext<ISourceItem<IBoosterMarketSource>> {
 }
 
-export interface IBoosterMarketSourceConsumerProps extends ConsumerProps<ISourceContext<IBoosterMarket>> {
+export interface IBoosterMarketSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IBoosterMarketSource>>> {
 }
 
 export const BoosterMarketSourceConsumer: FC<IBoosterMarketSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IBoosterMarketSourceProps extends Partial<ISourceProviderProps<IBoosterMarket>> {
+export interface IBoosterMarketProviderProps extends Partial<ISourceProviderProps<ISourceItem<IBoosterMarketSource>>> {
 }
 
-export const BoosterMarketSource: FC<IBoosterMarketSourceProps> = props => {
-	return <SourceProvider<IBoosterMarket>
+export const BoosterMarketProvider: FC<IBoosterMarketProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IBoosterMarketSource>>
 		name={"BoosterMarket"}
 		useQuery={useBoosterMarketQuery}
 		{...props}
@@ -70,66 +70,67 @@ export const BoosterMarketSource: FC<IBoosterMarketSourceProps> = props => {
 export const toBoosterMarketLink = (queryParams?: IBoosterMarketQueryParams) => toLink(BoosterMarketApiLink, queryParams);
 export const useBoosterMarketLink = () => toBoosterMarketLink;
 
-export const useBoosterMarketPromise = createPromiseHook<IBoosterMarketQuery, IBoosterMarket, IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
-export const BoosterMarketPromise = createPromise<IBoosterMarketQuery, IBoosterMarket, IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
+export const useBoosterMarketPromise = createPromiseHook<ISourceQuery<IBoosterMarketSource>, ISourceItem<IBoosterMarketSource>, IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
+export const BoosterMarketPromise = createPromise<ISourceQuery<IBoosterMarketSource>, ISourceItem<IBoosterMarketSource>, IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
 
-export interface IBoosterMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IBoosterMarketQuery>>> {
+export interface IBoosterMarketFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IBoosterMarketSource>>>> {
 }
 
-export const BoosterMarketFilterProvider: FC<IBoosterMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<IBoosterMarketQuery>> name={"BoosterMarket"} {...props}/>;
+export const BoosterMarketFilterProvider: FC<IBoosterMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBoosterMarketSource>>> name={"BoosterMarket"} {...props}/>;
 
-export const useBoosterMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IBoosterMarketQuery>>();
-export const useBoosterMarketFilterContext = () => useFilterContext<IQueryFilter<IBoosterMarketQuery>>();
+export const useBoosterMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBoosterMarketSource>>>();
+export const useBoosterMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBoosterMarketSource>>>();
 
-export interface IBoosterMarketSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IBoosterMarketQuery>> {
+export interface IBoosterMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBoosterMarketSource>>> {
 }
 
-export const BoosterMarketSourceFilter: FC<IBoosterMarketSourceFilterProps> = props => <Filter
+export const BoosterMarketProviderFilter: FC<IBoosterMarketProviderFilterProps> = props => <Filter
 	{...props}
 	translation={"common.filter.BoosterMarket"}
 />;
 
-export interface IBoosterMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IBoosterMarketQuery>>> {
+export interface IBoosterMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>>> {
 }
 
-export const BoosterMarketOrderByProvider: FC<IBoosterMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IBoosterMarketQuery>> name={"BoosterMarket"} {...props}/>;
+export const BoosterMarketOrderByProvider: FC<IBoosterMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>> name={"BoosterMarket"} {...props}/>;
 
-export const useBoosterMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IBoosterMarketQuery>>();
-export const useBoosterMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<IBoosterMarketQuery>>();
+export const useBoosterMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>>();
+export const useBoosterMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>>();
 
-export interface IBoosterMarketListSourceProps extends Partial<IListProps<IBoosterMarket>> {
-	sourceProps?: Partial<IBoosterMarketSourceProps>;
+export interface IBoosterMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBoosterMarketSource>>, IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>, IBoosterMarketQueryParams>> {
 }
 
-export interface IBoosterMarketSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IBoosterMarketQuery>, IQueryOrderBy<IBoosterMarketQuery>, IBoosterMarketQueryParams>> {
+export const BoosterMarketProviderControl: FC<IBoosterMarketProviderControlProps> = props =>
+	<SourceControlProvider<IQueryFilter<ISourceQuery<IBoosterMarketSource>>, IQueryOrderBy<ISourceQuery<IBoosterMarketSource>>> name={"BoosterMarket"} {...props}/>;
+
+export interface IBoosterMarketListSourceProps extends Partial<IListProps<ISourceItem<IBoosterMarketSource>>> {
+	providerProps?: Partial<IBoosterMarketProviderProps>;
 }
 
-export const BoosterMarketSourceControlProvider: FC<IBoosterMarketSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IBoosterMarketQuery>, IQueryOrderBy<IBoosterMarketQuery>> name={"BoosterMarket"} {...props}/>;
-
-export const BoosterMarketListSource: FC<IBoosterMarketListSourceProps> = ({sourceProps, ...props}) => {
-	return <BoosterMarketSource
-		{...sourceProps}
+export const BoosterMarketListSource: FC<IBoosterMarketListSourceProps> = ({providerProps, ...props}) => {
+	return <BoosterMarketProvider
+		{...providerProps}
 	>
-		<List<IBoosterMarket>
+		<List<ISourceItem<IBoosterMarketSource>>
 			{...props}
 		/>
-	</BoosterMarketSource>;
-}
+	</BoosterMarketProvider>;
+};
 
-export interface IBoosterMarketSourceSelectProps extends IQuerySourceSelectProps<IBoosterMarket> {
-	toOption: IToOptionMapper<IBoosterMarket>;
-	sourceProps?: IBoosterMarketSourceProps;
+export interface IBoosterMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBoosterMarketSource>> {
+	toOption: IToOptionMapper<ISourceItem<IBoosterMarketSource>>;
+	providerProps?: Partial<IBoosterMarketProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const BoosterMarketSourceSelect: FC<IBoosterMarketSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const BoosterMarketSourceSelect: FC<IBoosterMarketSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<BoosterMarketSource {...sourceProps}>
-					<QuerySourceSelect<IBoosterMarket> {...props}/>
-				</BoosterMarketSource>
+				<BoosterMarketProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IBoosterMarketSource>> {...props}/>
+				</BoosterMarketProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
@@ -141,28 +142,28 @@ export const BoosterMarketSourceSelect: FC<IBoosterMarketSourceSelectProps> = ({
 					type={"text"}
 					ghost
 				>
-					<BoosterMarketSourceControlProvider>
+					<BoosterMarketProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</BoosterMarketSourceControlProvider>
+					</BoosterMarketProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IBoosterMarketSelectionProviderProps extends Partial<ISelectionProviderProps<IBoosterMarket>> {
+export interface IBoosterMarketSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IBoosterMarketSource>>> {
 }
 
 export const BoosterMarketSelectionProvider: FC<IBoosterMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<IBoosterMarket> {...props}/>;
-}
+	return <SelectionProvider<ISourceItem<IBoosterMarketSource>> {...props}/>;
+};
 
 export const useBoosterMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterMarketApiLink]);
 };
 
-export const useBoosterMarketOptionalSelectionContext = () => useOptionalSelectionContext<IBoosterMarket>();
-export const useBoosterMarketSelectionContext = () => useSelectionContext<IBoosterMarket>();
+export const useBoosterMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterMarketSource>>();
+export const useBoosterMarketSelectionContext = () => useSelectionContext<ISourceItem<IBoosterMarketSource>>();

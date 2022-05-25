@@ -2,10 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ICellQuery} from "@/puff-smith/service/cell/interface";
-import {ITag} from "@/puff-smith/service/tag/interface";
+import {ICellTypeSource} from "@/puff-smith/service/cell/type/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -41,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const TypeApiLink = "/api/cell/type/query";
+export const CellTypeApiLink = "/api/cell/type/query";
 
-export type ITypeQueryParams = undefined;
+export type ICellTypeQueryParams = undefined;
 
-export const useTypeQuery = createQueryHook<ICellQuery, ITag[], ITypeQueryParams>(TypeApiLink, "post");
+export const useCellTypeQuery = createQueryHook<ISourceQuery<ICellTypeSource>, ISourceItem<ICellTypeSource>[], ICellTypeQueryParams>(CellTypeApiLink, "post");
 
-export const useTypeSource = () => useSourceContext<ITag>();
+export const useCellTypeSource = () => useSourceContext<ISourceItem<ICellTypeSource>>();
 
-export interface ITypeSourceContext extends ISourceContext<ITag> {
+export interface ICellTypeSourceContext extends ISourceContext<ISourceItem<ICellTypeSource>> {
 }
 
-export interface ITypeSourceConsumerProps extends ConsumerProps<ISourceContext<ITag>> {
+export interface ICellTypeSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ICellTypeSource>>> {
 }
 
-export const TypeSourceConsumer: FC<ITypeSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const CellTypeSourceConsumer: FC<ICellTypeSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ITypeSourceProps extends Partial<ISourceProviderProps<ITag>> {
+export interface ICellTypeProviderProps extends Partial<ISourceProviderProps<ISourceItem<ICellTypeSource>>> {
 }
 
-export const TypeSource: FC<ITypeSourceProps> = props => {
-	return <SourceProvider<ITag>
-		name={"Type"}
-		useQuery={useTypeQuery}
+export const CellTypeProvider: FC<ICellTypeProviderProps> = props => {
+	return <SourceProvider<ISourceItem<ICellTypeSource>>
+		name={"CellType"}
+		useQuery={useCellTypeQuery}
 		{...props}
 	/>;
 };
 
-export const toTypeLink = (queryParams?: ITypeQueryParams) => toLink(TypeApiLink, queryParams);
-export const useTypeLink = () => toTypeLink;
+export const toCellTypeLink = (queryParams?: ICellTypeQueryParams) => toLink(CellTypeApiLink, queryParams);
+export const useCellTypeLink = () => toCellTypeLink;
 
-export const useTypePromise = createPromiseHook<ICellQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
-export const TypePromise = createPromise<ICellQuery, ITag, ITypeQueryParams>(TypeApiLink, "post");
+export const useCellTypePromise = createPromiseHook<ISourceQuery<ICellTypeSource>, ISourceItem<ICellTypeSource>, ICellTypeQueryParams>(CellTypeApiLink, "post");
+export const CellTypePromise = createPromise<ISourceQuery<ICellTypeSource>, ISourceItem<ICellTypeSource>, ICellTypeQueryParams>(CellTypeApiLink, "post");
 
-export interface ITypeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ICellQuery>>> {
+export interface ICellTypeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ICellTypeSource>>>> {
 }
 
-export const TypeFilterProvider: FC<ITypeFilterProviderProps> = props => <FilterProvider<IQueryFilter<ICellQuery>> name={"Type"} {...props}/>;
+export const CellTypeFilterProvider: FC<ICellTypeFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellTypeSource>>> name={"CellType"} {...props}/>;
 
-export const useTypeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ICellQuery>>();
-export const useTypeFilterContext = () => useFilterContext<IQueryFilter<ICellQuery>>();
+export const useCellTypeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellTypeSource>>>();
+export const useCellTypeFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellTypeSource>>>();
 
-export interface ITypeSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ICellQuery>> {
+export interface ICellTypeProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellTypeSource>>> {
 }
 
-export const TypeSourceFilter: FC<ITypeSourceFilterProps> = props => <Filter
+export const CellTypeProviderFilter: FC<ICellTypeProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Type"}
+	translation={"common.filter.CellType"}
 />;
 
-export interface ITypeOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ICellQuery>>> {
+export interface ICellTypeOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellTypeSource>>>> {
 }
 
-export const TypeOrderByProvider: FC<ITypeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ICellQuery>> name={"Type"} {...props}/>;
+export const CellTypeOrderByProvider: FC<ICellTypeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellTypeSource>>> name={"CellType"} {...props}/>;
 
-export const useTypeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ICellQuery>>();
-export const useTypeOrderByContext = () => useOrderByContext<IQueryOrderBy<ICellQuery>>();
+export const useCellTypeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellTypeSource>>>();
+export const useCellTypeOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellTypeSource>>>();
 
-export interface ITypeListSourceProps extends Partial<IListProps<ITag>> {
-	sourceProps?: Partial<ITypeSourceProps>;
+export interface ICellTypeProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellTypeSource>>, IQueryOrderBy<ISourceQuery<ICellTypeSource>>, ICellTypeQueryParams>> {
 }
 
-export interface ITypeSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>, ITypeQueryParams>> {
+export const CellTypeProviderControl: FC<ICellTypeProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ICellTypeSource>>, IQueryOrderBy<ISourceQuery<ICellTypeSource>>> name={"CellType"} {...props}/>;
+
+export interface ICellTypeListSourceProps extends Partial<IListProps<ISourceItem<ICellTypeSource>>> {
+	providerProps?: Partial<ICellTypeProviderProps>;
 }
 
-export const TypeSourceControlProvider: FC<ITypeSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<ICellQuery>, IQueryOrderBy<ICellQuery>> name={"Type"} {...props}/>;
-
-export const TypeListSource: FC<ITypeListSourceProps> = ({sourceProps, ...props}) => {
-	return <TypeSource
-		{...sourceProps}
+export const CellTypeListSource: FC<ICellTypeListSourceProps> = ({providerProps, ...props}) => {
+	return <CellTypeProvider
+		{...providerProps}
 	>
-		<List<ITag>
+		<List<ISourceItem<ICellTypeSource>>
 			{...props}
 		/>
-	</TypeSource>;
-}
+	</CellTypeProvider>;
+};
 
-export interface ITypeSourceSelectProps extends IQuerySourceSelectProps<ITag> {
-	toOption: IToOptionMapper<ITag>;
-	sourceProps?: ITypeSourceProps;
+export interface ICellTypeSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellTypeSource>> {
+	toOption: IToOptionMapper<ISourceItem<ICellTypeSource>>;
+	providerProps?: Partial<ICellTypeProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const TypeSourceSelect: FC<ITypeSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const CellTypeSourceSelect: FC<ICellTypeSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<TypeSource {...sourceProps}>
-					<QuerySourceSelect<ITag> {...props}/>
-				</TypeSource>
+				<CellTypeProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<ICellTypeSource>> {...props}/>
+				</CellTypeProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Type.title"}
+					title={"common.selection.CellType.title"}
 					size={props.size}
-					tooltip={"common.selection.Type.title.tooltip"}
+					tooltip={"common.selection.CellType.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<TypeSourceControlProvider>
+					<CellTypeProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</TypeSourceControlProvider>
+					</CellTypeProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface ITypeSelectionProviderProps extends Partial<ISelectionProviderProps<ITag>> {
+export interface ICellTypeSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ICellTypeSource>>> {
 }
 
-export const TypeSelectionProvider: FC<ITypeSelectionProviderProps> = props => {
-	return <SelectionProvider<ITag> {...props}/>;
-}
-
-export const useTypeQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([TypeApiLink]);
+export const CellTypeSelectionProvider: FC<ICellTypeSelectionProviderProps> = props => {
+	return <SelectionProvider<ISourceItem<ICellTypeSource>> {...props}/>;
 };
 
-export const useTypeOptionalSelectionContext = () => useOptionalSelectionContext<ITag>();
-export const useTypeSelectionContext = () => useSelectionContext<ITag>();
+export const useCellTypeQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CellTypeApiLink]);
+};
+
+export const useCellTypeOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellTypeSource>>();
+export const useCellTypeSelectionContext = () => useSelectionContext<ISourceItem<ICellTypeSource>>();

@@ -15,7 +15,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 	const source: IAtomizerSource = Source<IAtomizerSource>({
 		name: "atomizer",
 		prisma,
-		map: async atomizer => ({
+		map: async atomizer => atomizer ? ({
 			...atomizer,
 			vendor: await vendorSource().mapper.map(atomizer.vendor),
 			draws: await tagSource().mapper.list(source.prisma.tag.findMany({
@@ -30,7 +30,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 					sort: "asc",
 				}
 			})),
-		}),
+		}) : undefined,
 		source: {
 			create: async ({draws, type, vendor, code, ...atomizer}) => {
 				const create = {

@@ -2,9 +2,9 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IFileQuery} from "@/puff-smith/service/file/interface";
+import {IFileSource} from "@/puff-smith/service/file/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IFile, IQueryFilter, IQueryOrderBy, ISourceContext, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	createPromise,
 	createPromiseHook,
@@ -40,129 +40,129 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const FilesApiLink = "/api/file/query";
+export const FileApiLink = "/api/file/query";
 
-export type IFilesQueryParams = undefined;
+export type IFileQueryParams = undefined;
 
-export const useFilesQuery = createQueryHook<IFileQuery, IFile[], IFilesQueryParams>(FilesApiLink, "post");
+export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 
-export const useFilesSource = () => useSourceContext<IFile>()
+export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>();
 
-export interface IFilesSourceContext extends ISourceContext<IFile> {
+export interface IFileSourceContext extends ISourceContext<ISourceItem<IFileSource>> {
 }
 
-export interface IFilesSourceConsumerProps extends ConsumerProps<ISourceContext<IFile>> {
+export interface IFileSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IFileSource>>> {
 }
 
-export const FilesSourceConsumer: FC<IFilesSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
+export const FileSourceConsumer: FC<IFileSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IFilesSourceProps extends Partial<ISourceProviderProps<IFile>> {
+export interface IFileProviderProps extends Partial<ISourceProviderProps<ISourceItem<IFileSource>>> {
 }
 
-export const FilesSource: FC<IFilesSourceProps> = props => {
-	return <SourceProvider<IFile>
-		name={"Files"}
-		useQuery={useFilesQuery}
+export const FileProvider: FC<IFileProviderProps> = props => {
+	return <SourceProvider<ISourceItem<IFileSource>>
+		name={"File"}
+		useQuery={useFileQuery}
 		{...props}
 	/>;
 };
 
-export const toFilesLink = (queryParams?: IFilesQueryParams) => toLink(FilesApiLink, queryParams);
-export const useFilesLink = () => toFilesLink;
+export const toFileLink = (queryParams?: IFileQueryParams) => toLink(FileApiLink, queryParams);
+export const useFileLink = () => toFileLink;
 
-export const useFilesPromise = createPromiseHook<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
-export const FilesPromise = createPromise<IFileQuery, IFile, IFilesQueryParams>(FilesApiLink, "post");
+export const useFilePromise = createPromiseHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>, IFileQueryParams>(FileApiLink, "post");
+export const FilePromise = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>, IFileQueryParams>(FileApiLink, "post");
 
-export interface IFilesFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<IFileQuery>>> {
+export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IFileSource>>>> {
 }
 
-export const FilesFilterProvider: FC<IFilesFilterProviderProps> = props => <FilterProvider<IQueryFilter<IFileQuery>> name={"Files"} {...props}/>;
+export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFilesOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<IFileQuery>>()
-export const useFilesFilterContext = () => useFilterContext<IQueryFilter<IFileQuery>>()
+export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
+export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
 
-export interface IFilesSourceFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<IFileQuery>> {
+export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFileSource>>> {
 }
 
-export const FilesSourceFilter: FC<IFilesSourceFilterProps> = props => <Filter
+export const FileProviderFilter: FC<IFileProviderFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Files'}
+	translation={"common.filter.File"}
 />;
 
-export interface IFilesOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<IFileQuery>>> {
+export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IFileSource>>>> {
 }
 
-export const FilesOrderByProvider: FC<IFilesOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<IFileQuery>> name={"Files"} {...props}/>;
+export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFilesOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<IFileQuery>>()
-export const useFilesOrderByContext = () => useOrderByContext<IQueryOrderBy<IFileQuery>>()
+export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
+export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
 
-export interface IFilesListSourceProps extends Partial<IListProps<IFile>> {
-	sourceProps?: Partial<IFilesSourceProps>;
+export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>, IFileQueryParams>> {
 }
 
-export interface IFilesSourceControlProviderProps extends Partial<ISourceControlProviderProps<IQueryFilter<IFileQuery>, IQueryOrderBy<IFileQuery>, IFilesQueryParams>> {
+export const FileProviderControl: FC<IFileProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
+
+export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFileSource>>> {
+	providerProps?: Partial<IFileProviderProps>;
 }
 
-export const FilesSourceControlProvider: FC<IFilesSourceControlProviderProps> = props => <SourceControlProvider<IQueryFilter<IFileQuery>, IQueryOrderBy<IFileQuery>> name={"Files"} {...props}/>;
-
-export const FilesListSource: FC<IFilesListSourceProps> = ({sourceProps, ...props}) => {
-	return <FilesSource
-		{...sourceProps}
+export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...props}) => {
+	return <FileProvider
+		{...providerProps}
 	>
-		<List<IFile>
+		<List<ISourceItem<IFileSource>>
 			{...props}
 		/>
-	</FilesSource>;
-}
+	</FileProvider>;
+};
 
-export interface IFilesSourceSelectProps extends IQuerySourceSelectProps<IFile> {
-	toOption: IToOptionMapper<IFile>;
-	sourceProps?: IFilesSourceProps;
+export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
+	toOption: IToOptionMapper<ISourceItem<IFileSource>>;
+	providerProps?: Partial<IFileProviderProps>;
 	selectionList?: () => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
 }
 
-export const FilesSourceSelect: FC<IFilesSourceSelectProps> = ({sourceProps, selectionList, selectionProps, ...props}) => {
+export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
-				<FilesSource {...sourceProps}>
-					<QuerySourceSelect<IFile> {...props}/>
-				</FilesSource>
+				<FileProvider {...providerProps}>
+					<QuerySourceSelect<ISourceItem<IFileSource>> {...props}/>
+				</FileProvider>
 			</Col>
 			<Col push={0}>
 				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
-					title={"common.selection.Files.title"}
+					title={"common.selection.File.title"}
 					size={props.size}
-					tooltip={"common.selection.Files.title.tooltip"}
+					tooltip={"common.selection.File.title.tooltip"}
 					width={800}
 					type={"text"}
 					ghost
 				>
-					<FilesSourceControlProvider>
+					<FileProviderControl>
 						<SelectionProvider type={"single"} {...selectionProps}>
 							{selectionList()}
 						</SelectionProvider>
-					</FilesSourceControlProvider>
+					</FileProviderControl>
 				</DrawerButton>}
 			</Col>
 		</Row>
 	</Input.Group>;
 };
 
-export interface IFilesSelectionProviderProps extends Partial<ISelectionProviderProps<IFile>> {
+export interface IFileSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IFileSource>>> {
 }
 
-export const FilesSelectionProvider: FC<IFilesSelectionProviderProps> = props => {
-	return <SelectionProvider<IFile> {...props}/>;
-}
-
-export const useFilesQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([FilesApiLink]);
+export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
+	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
 };
 
-export const useFilesOptionalSelectionContext = () => useOptionalSelectionContext<IFile>();
-export const useFilesSelectionContext = () => useSelectionContext<IFile>();
+export const useFileQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([FileApiLink]);
+};
+
+export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();
+export const useFileSelectionContext = () => useSelectionContext<ISourceItem<IFileSource>>();
