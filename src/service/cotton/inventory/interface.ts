@@ -1,5 +1,5 @@
 import {ICotton, IWithCottonEntity} from "@/puff-smith/service/cotton/interface";
-import {ITransaction, IWithTransactionEntity} from "@/puff-smith/service/transaction/interface";
+import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {CottonInventory, Prisma} from "@prisma/client";
 
@@ -20,7 +20,7 @@ export interface ICottonInventory {
 export interface ICottonInventoryQuery extends IQuery<Prisma.CottonInventoryWhereInput, Prisma.CottonInventoryOrderByWithRelationInput> {
 }
 
-export type ICottonInventoryEntity = CottonInventory & IWithCottonEntity & IWithTransactionEntity;
+export type ICottonInventoryEntity = CottonInventory & IWithCottonEntity & IWithTransaction;
 
 export interface ICottonInventorySource extends ISource<ICottonInventoryCreate, ICottonInventoryEntity, ICottonInventory, ICottonInventoryQuery> {
 }

@@ -1,37 +1,36 @@
-import {IMixtureMarketSource, IMixtureMarketSourceCreate} from "@/puff-smith/service/mixture/market/interface";
-import {MixtureRepository} from "@/puff-smith/service/mixture/MixtureRepository";
+import {IMixtureMarketSource} from "@/puff-smith/service/mixture/market/interface";
+import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const MixtureMarketSource = (request: IMixtureMarketSourceCreate): IMixtureMarketSource => {
-	const mixtureSource = singletonOf(() => MixtureRepository(request));
-	const userId = singletonOf(() => request.userService.getUserId());
+export const MixtureMarketSource = (): IMixtureMarketSource => {
+	const mixtureSource = singletonOf(() => MixtureSource());
 
-	return Source<IMixtureMarketSource>({
-		name: "mixture-market",
-		source: request.prisma.mixture,
-		mapper: async entity => ({
-			mixture: await mixtureSource().map(entity),
+	const source: IMixtureMarketSource = Source<IMixtureMarketSource>({
+		name: "mixture.market",
+		prisma,
+		map: async mixture => mixture ? ({
+			mixture: await mixtureSource().mapper.map(mixture),
 			booster: {
-				isOwned: entity.boosterId ? (await request.prisma.boosterInventory.count({
+				isOwned: mixture.boosterId ? (await source.prisma.boosterInventory.count({
 					where: {
-						boosterId: entity.boosterId,
-						userId: userId(),
+						boosterId: mixture.boosterId,
+						userId: source.user.required(),
 					}
 				})) > 0 : undefined,
 			},
 			base: {
-				isOwned: entity.baseId ? (await request.prisma.baseInventory.count({
+				isOwned: mixture.baseId ? (await source.prisma.baseInventory.count({
 					where: {
-						baseId: entity.baseId,
-						userId: userId(),
+						baseId: mixture.baseId,
+						userId: source.user.required(),
+
 					}
 				})) > 0 : undefined,
 			},
-		}),
-		toFilter: filter => mixtureSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
+		}) : undefined,
 	});
+
+	return source;
 };

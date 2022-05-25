@@ -1,5 +1,5 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -22,7 +22,7 @@ export type IAromaWhere = Prisma.AromaWhereInput & IWithFulltext;
 export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }
 
-export type IAromaEntity = Aroma & IWithVendorEntity;
+export type IAromaEntity = Aroma & IWithVendor;
 
 export type IWithAromaEntity = { aroma: IAromaEntity; }
 

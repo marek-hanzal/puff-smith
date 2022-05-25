@@ -1,18 +1,12 @@
-import {IServiceCreate} from "@/puff-smith/service";
-import {IMod} from "@/puff-smith/service/mod/interface";
-import {IQuery, ISource} from "@leight-core/api";
-import {Mod, Prisma} from "@prisma/client";
+import {IWithModCell} from "@/puff-smith/service/mod/cell/interface";
+import {IMod, IModEntity, IModQuery} from "@/puff-smith/service/mod/interface";
+import {IWithVendor} from "@/puff-smith/service/vendor/interface";
+import {ISource} from "@leight-core/api";
 
 export interface IModMarket {
 	mod: IMod;
 	isOwned: boolean | undefined;
 }
 
-export interface IModMarketQuery extends IQuery<Prisma.ModWhereInput, Prisma.ModOrderByWithRelationInput> {
-}
-
-export interface IModMarketSourceCreate extends IServiceCreate {
-}
-
-export interface IModMarketSource extends ISource<void, Mod, IModMarket, IModMarketQuery, void, {}> {
+export interface IModMarketSource extends ISource<undefined, IModEntity<IWithVendor & IWithModCell>, IModMarket, IModQuery> {
 }

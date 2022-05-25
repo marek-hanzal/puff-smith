@@ -1,5 +1,5 @@
 import {ICell, IWithCellEntity} from "@/puff-smith/service/cell/interface";
-import {ITransaction, IWithTransactionEntity} from "@/puff-smith/service/transaction/interface";
+import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {CellInventory, Prisma} from "@prisma/client";
 
@@ -20,7 +20,7 @@ export interface ICellInventory {
 export interface ICellInventoryQuery extends IQuery<Prisma.CellInventoryWhereInput, Prisma.CellInventoryOrderByWithRelationInput> {
 }
 
-export type ICellInventoryEntity = CellInventory & IWithCellEntity & IWithTransactionEntity;
+export type ICellInventoryEntity = CellInventory & IWithCellEntity & IWithTransaction;
 
 export interface ICellInventorySource extends ISource<ICellInventoryCreate, ICellInventoryEntity, ICellInventory, ICellInventoryQuery> {
 }

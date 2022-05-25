@@ -18,7 +18,7 @@ export interface IVendorQuery extends IQuery<IVendorWhere, Prisma.VendorOrderByW
 
 export type IVendorEntity = Vendor;
 
-export type IWithVendorEntity = { vendor: IVendorEntity };
+export type IWithVendor = { vendor: IVendorEntity };
 
 export interface IVendor {
 	id: string;

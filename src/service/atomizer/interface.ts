@@ -1,5 +1,5 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -20,7 +20,7 @@ export type IAtomizerWhere = Prisma.AtomizerWhereInput & IWithFulltext;
 export interface IAtomizerQuery extends IQuery<IAtomizerWhere, Prisma.AtomizerOrderByWithRelationInput> {
 }
 
-export type IAtomizerEntity = Atomizer & IWithVendorEntity;
+export type IAtomizerEntity = Atomizer & IWithVendor;
 
 export type IWithAtomizerEntity = { atomizer: IAtomizerEntity; };
 

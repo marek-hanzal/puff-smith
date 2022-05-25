@@ -1,30 +1,34 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {IModTransactionSource, IModTransactionSourceCreate} from "@/puff-smith/service/mod/inventory/interface";
+import {IModInventorySource} from "@/puff-smith/service/mod/inventory/interface";
 import {ModSource} from "@/puff-smith/service/mod/ModSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const ModInventorySource = (request: IModTransactionSourceCreate): IModTransactionSource => {
-	const modSource = singletonOf(() => ModSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
+export const ModInventorySource = (): IModInventorySource => {
+	const modSource = singletonOf(() => ModSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
-	const userId = singletonOf(() => request.userService.getUserId());
 
-	return {
-		...Source<IModTransactionSource>({
-			name: "mod-inventory",
-			source: request.prisma.modInventory,
-			mapper: async modTransaction => ({
-				...modTransaction,
-				mod: await modSource().toMap(modTransaction.modId),
-				transaction: await transactionSource().toMap(modTransaction.transactionId),
-			}),
+	const source: IModInventorySource = Source<IModInventorySource>({
+		name: "mod.inventory",
+		prisma,
+		map: async modInventory => modInventory ? ({
+			...modInventory,
+			mod: await modSource().mapper.map(modInventory.mod),
+			transaction: await transactionSource().mapper.map(modInventory.transaction),
+		}) : undefined,
+		source: {
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
-				const $mod = await ModSource({...request, prisma}).toMap(mod.modId);
-				return TransactionSource({...request, prisma}).handleTransaction({
-					userId: userId(),
+				const modSource = ModSource();
+				const transactionSource = TransactionSource();
+				modSource.withPrisma(prisma);
+				transactionSource.withPrisma(prisma);
+
+				const $mod = await modSource.get(mod.modId);
+				return transactionSource.handleTransaction({
+					userId: source.user.required(),
 					cost: $mod.cost,
 					note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,
 					callback: async transaction => prisma.modInventory.create({
@@ -32,26 +36,56 @@ export const ModInventorySource = (request: IModTransactionSourceCreate): IModTr
 							code: code || codeService().code(),
 							modId: $mod.id,
 							transactionId: transaction.id,
-							userId: userId(),
+							userId: source.user.required(),
+						},
+						include: {
+							mod: {
+								include: {
+									vendor: true,
+									ModCell: {
+										include: {
+											cell: true,
+										}
+									},
+								},
+							},
+							transaction: true,
 						}
 					}),
 				});
 			}),
-		}),
-		handleDelete: async ({request: {ids}}) => {
-			const where = {
-				id: {
-					in: ids,
-				},
-				userId: userId(),
-			};
-			return prisma.$transaction(async prisma => {
-				const modInventory = await ModInventorySource({...request, prisma}).list(prisma.modInventory.findMany({where}));
-				await prisma.modInventory.deleteMany({
-					where,
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+					userId: source.user.required(),
+				};
+				return prisma.$transaction(async prisma => {
+					const modInventory = prisma.modInventory.findMany({
+						where,
+						include: {
+							mod: {
+								include: {
+									vendor: true,
+									ModCell: {
+										include: {
+											cell: true,
+										}
+									},
+								},
+							},
+							transaction: true,
+						}
+					});
+					await prisma.modInventory.deleteMany({
+						where,
+					});
+					return modInventory;
 				});
-				return modInventory;
-			});
-		},
-	};
+			},
+		}
+	});
+
+	return source;
 };

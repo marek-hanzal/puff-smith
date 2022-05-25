@@ -1,4 +1,4 @@
-import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Base, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -17,7 +17,7 @@ export type IBaseWhere = Prisma.BaseWhereInput & IWithFulltext;
 export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRelationInput> {
 }
 
-export type IBaseEntity = Base & IWithVendorEntity;
+export type IBaseEntity = Base & IWithVendor;
 export type IWithBaseEntity = { base: IBaseEntity; };
 export type IWithNullBaseEntity = { base: IBaseEntity | null; };
 

@@ -1,5 +1,5 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IWithVendorEntity} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Cotton, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -17,7 +17,7 @@ export type ICottonWhere = Prisma.CottonWhereInput & IWithFulltext;
 export interface ICottonQuery extends IQuery<ICottonWhere, Prisma.CottonOrderByWithRelationInput> {
 }
 
-export type ICottonEntity = Cotton & IWithVendorEntity;
+export type ICottonEntity = Cotton & IWithVendor;
 export type IWithCottonEntity = { cotton: ICottonEntity; };
 
 export interface ICotton {

@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {IModInventory, IModInventoryDelete} from "@/puff-smith/service/mod/inventory/interface";
+import {IModInventorySource} from "@/puff-smith/service/mod/inventory/interface";
+import {ModInventorySource} from "@/puff-smith/service/mod/inventory/ModInventorySource";
 import {DeleteEndpoint} from "@leight-core/server";
-import {ModInventoryRepository} from "../../../../service/mod/inventory/ModInventoryRepository";
 
-export default DeleteEndpoint<"Delete", IModInventoryDelete, IModInventory[]>(async params => ModInventoryRepository(ofParams(params)).handleDelete(params));
+export default DeleteEndpoint<"Delete", IModInventorySource>(ModInventorySource());
