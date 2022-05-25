@@ -1,29 +1,34 @@
-import {IVoucherSource, IVoucherSourceCreate} from "@/puff-smith/service/voucher/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {IVoucherSource} from "@/puff-smith/service/voucher/interface";
 import {onUnique, Source} from "@leight-core/server";
 
-export const VoucherSource = (request: IVoucherSourceCreate): IVoucherSource => {
-	return Source<IVoucherSource>({
+export const VoucherSource = (): IVoucherSource => {
+	const source: IVoucherSource = Source<IVoucherSource>({
 		name: "voucher",
-		source: request.prisma.voucher,
-		mapper: async voucher => voucher,
-		create: async voucher => {
-			try {
-				return await request.prisma.voucher.create({
-					data: voucher,
-				});
-			} catch (e) {
-				return onUnique(e, async voucher => request.prisma.voucher.update({
-					where: {
-						id: (await request.prisma.voucher.findFirst({
-							where: {
-								name: voucher.name,
-							},
-							rejectOnNotFound: true,
-						})).id,
-					},
-					data: voucher,
-				}));
-			}
+		prisma,
+		map: async voucher => voucher,
+		source: {
+			create: async voucher => {
+				try {
+					return await source.prisma.voucher.create({
+						data: voucher,
+					});
+				} catch (e) {
+					return onUnique(e, async voucher => source.prisma.voucher.update({
+						where: {
+							id: (await source.prisma.voucher.findFirst({
+								where: {
+									name: voucher.name,
+								},
+								rejectOnNotFound: true,
+							})).id,
+						},
+						data: voucher,
+					}));
+				}
+			},
 		},
 	});
+
+	return source;
 };

@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {IVoucher, IVoucherQuery} from "@/puff-smith/service/voucher/interface";
-import {VoucherRepository} from "@/puff-smith/service/voucher/VoucherRepository";
+import {IVoucherSource} from "@/puff-smith/service/voucher/interface";
+import {VoucherSource} from "@/puff-smith/service/voucher/VoucherSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Voucher", IVoucherQuery, IVoucher>(async params => VoucherRepository(ofParams(params)).handleQuery(params));
+export default QueryEndpoint<"Voucher", IVoucherSource>(VoucherSource());

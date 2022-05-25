@@ -10,6 +10,7 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 	const source: IAromaVendorSource = Source<IAromaVendorSource>({
 		name: "aroma.inventory.vendor",
 		prisma,
+		map: aroma => vendorSource().map(aroma?.vendor),
 		source: {
 			count: async () => source.prisma.aroma.count({
 				distinct: ["vendorId"],
@@ -31,7 +32,6 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 				],
 			})
 		},
-		map: ({vendor}) => vendorSource().mapper.map(vendor),
 	});
 
 	return source;

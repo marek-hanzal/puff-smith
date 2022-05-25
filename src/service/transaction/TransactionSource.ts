@@ -1,48 +1,45 @@
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITransactionSource} from "@/puff-smith/service/transaction/interface";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const TransactionSource = (): ITransactionSource => {
-	const priceSource = singletonOf(() => PriceSource(request));
-	const userId = singletonOf(() => request.userService.getUserId());
+	const priceSource = singletonOf(() => PriceSource());
 
-	const sum: ITransactionSource["sum"] = async query => (await request.prisma.transaction.aggregate({
-		where: query.filter,
-		orderBy: query.orderBy,
-		_sum: {
-			amount: true,
-		}
-	}))._sum.amount?.toNumber() || 0;
-	const sumOf: ITransactionSource["sumOf"] = () => sum({
-		filter: {
-			userId: userId(),
-		},
-		orderBy: {
-			created: "asc",
-		}
-	});
-
-	return {
-		...Source<ITransactionSource>({
-			name: "transaction",
-			source: request.prisma.transaction,
-			mapper: async transaction => ({
-				...transaction,
-				created: transaction.created.toUTCString(),
-				amount: transaction.amount.toNumber(),
-			}),
-			create: async create => request.prisma.transaction.create({
+	const source: ITransactionSource = Source<ITransactionSource>({
+		name: "transaction",
+		prisma,
+		map: async transaction => transaction ? ({
+			...transaction,
+			created: transaction.created.toUTCString(),
+			amount: transaction.amount.toNumber(),
+		}) : undefined,
+		source: {
+			create: async create => source.prisma.transaction.create({
 				data: {
 					...create,
 					created: new Date(),
 				},
 			}),
+		},
+		sum: async query => (await source.prisma.transaction.aggregate({
+			where: query.filter,
+			orderBy: query.orderBy,
+			_sum: {
+				amount: true,
+			}
+		}))._sum.amount?.toNumber() || 0,
+		sumOf: () => source.sum({
+			filter: {
+				userId: source.user.required(),
+			},
+			orderBy: {
+				created: "asc",
+			}
 		}),
-		sum,
-		sumOf,
 		handleTransaction: async ({userId, cost, callback, note}) => {
-			const transactionService = TransactionSource(defaults(userId));
+			const transactionService = TransactionSource().withUserId(userId);
 			const transaction = await transactionService.create({
 				amount: -1 * (cost || 0),
 				note,
@@ -54,12 +51,14 @@ export const TransactionSource = (): ITransactionSource => {
 			return callback(transaction);
 		},
 		check: async ({price, tariff}) => {
-			const $sum = sumOf();
+			const $sum = source.sumOf();
 			const $price = await priceSource().priceOf(tariff || "default", price);
 			return {
 				price: $price.price.toNumber(),
 				pass: (await $sum) >= $price.price.toNumber(),
 			};
 		}
-	};
+	});
+
+	return source;
 };

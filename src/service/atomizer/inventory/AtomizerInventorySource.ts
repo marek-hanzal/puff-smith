@@ -14,11 +14,11 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 	const source: IAtomizerInventorySource = Source<IAtomizerInventorySource>({
 		name: "atomizer-inventory",
 		prisma: prisma,
-		map: async atomizerInventory => ({
+		map: async atomizerInventory => atomizerInventory ? ({
 			...atomizerInventory,
 			atomizer: await atomizerSource().mapper.map(atomizerInventory.atomizer),
 			transaction: await transactionSource().mapper.map(atomizerInventory.transaction),
-		}),
+		}) : undefined,
 		source: {
 			create: async ({code, atomizerId}) => prisma.$transaction(async prisma => {
 				const $atomizer = await AtomizerSource().withPrisma(prisma).get(atomizerId);

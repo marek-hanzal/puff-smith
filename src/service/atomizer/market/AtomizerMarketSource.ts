@@ -8,17 +8,17 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 	const atomizerSource = singletonOf(() => AtomizerSource());
 
 	const source: IAtomizerMarketSource = Source<IAtomizerMarketSource>({
-		name: "atomizer-market",
+		name: "atomizer.market",
 		prisma,
-		map: async entity => ({
-			atomizer: await atomizerSource().mapper.map(entity),
+		map: async atomizer => atomizer ? ({
+			atomizer: await atomizerSource().mapper.map(atomizer),
 			isOwned: source.user.optional() ? (await source.prisma.atomizerInventory.count({
 				where: {
-					atomizerId: entity.id,
+					atomizerId: atomizer.id,
 					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
-		}),
+		}) : undefined,
 	});
 
 	return source;

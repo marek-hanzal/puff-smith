@@ -1,18 +1,18 @@
-import {IMixtureVendorSource} from "@/puff-smith/service/mixture/vendor/interface";
+import {IModVendorSource} from "@/puff-smith/service/mod/vendor/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
-export const MixtureVendorSource = (): IMixtureVendorSource => {
+export const ModVendorSource = (): IModVendorSource => {
 	const vendorSource = singletonOf(() => VendorSource());
 
-	const source: IMixtureVendorSource = Source<IMixtureVendorSource>({
-		name: "mixture.vendor",
+	const source: IModVendorSource = Source<IModVendorSource>({
+		name: "mod.vendor",
 		prisma,
-		map: async mixture => vendorSource().map(mixture?.vendor),
+		map: async mod => vendorSource().map(mod?.vendor),
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.count({
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mod.count({
 				distinct: ["vendorId"],
 				where: merge(filter || {}, {
 					vendor: {
@@ -23,7 +23,7 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 					},
 				}),
 			}),
-			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mod.findMany({
 				distinct: ["vendorId"],
 				where: merge(filter || {}, {
 					vendor: {

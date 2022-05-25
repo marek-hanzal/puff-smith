@@ -10,6 +10,7 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 	const source: IAromaTasteSource = Source<IAromaTasteSource>({
 		name: "aroma.inventory.taste",
 		prisma,
+		map: aromaTaste => tagSource().map(aromaTaste?.taste),
 		source: {
 			count: async () => source.prisma.aromaTaste.count({
 				distinct: ["tasteId"],
@@ -38,7 +39,6 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 				],
 			})
 		},
-		map: ({taste}) => tagSource().mapper.map(taste),
 	});
 
 	return source;

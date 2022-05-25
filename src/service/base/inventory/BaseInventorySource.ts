@@ -15,18 +15,15 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 	const source: IBaseInventorySource = Source<IBaseInventorySource>({
 		name: "base.inventory",
 		prisma,
-		map: async baseTransaction => ({
-			...baseTransaction,
-			base: await baseSource().mapper.map(baseTransaction.base),
-			transaction: await transactionSource().mapper.map(baseTransaction.transaction),
-		}),
+		map: async baseInventory => baseInventory ? ({
+			...baseInventory,
+			base: await baseSource().mapper.map(baseInventory.base),
+			transaction: await transactionSource().mapper.map(baseInventory.transaction),
+		}) : undefined,
 		source: {
 			create: async ({code, ...baseInventory}) => prisma.$transaction(async prisma => {
-				const baseSource = BaseSource();
-				const transactionSource = TransactionSource();
-				baseSource.withPrisma(prisma);
-				transactionSource.withPrisma(prisma);
-				const $base = await baseSource.get(baseInventory.baseId);
+				const transactionSource = TransactionSource().withPrisma(prisma);
+				const $base = await BaseSource().withPrisma(prisma).get(baseInventory.baseId);
 				const userId = source.user.required();
 				return transactionSource.handleTransaction({
 					userId,

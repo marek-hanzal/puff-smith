@@ -13,7 +13,6 @@ export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, 
 }
 
 export type ITransactionEntity = Transaction;
-
 export type IWithTransaction = { transaction: ITransactionEntity; };
 
 export interface ITransaction {
@@ -38,7 +37,7 @@ export interface IHandleTransactionRequest<T> {
 	cost?: number | null;
 	note?: string;
 
-	callback(transaction: Transaction): Promise<T>;
+	callback(transaction: ITransactionEntity): Promise<T>;
 }
 
 export interface ICheckRequest {
@@ -51,7 +50,7 @@ export interface ICheckResponse {
 	pass: boolean;
 }
 
-export interface ITransactionSource extends ISource<ITransactionCreate, Transaction, ITransaction, ITransactionQuery> {
+export interface ITransactionSource extends ISource<ITransactionCreate, ITransactionEntity, ITransaction, ITransactionQuery> {
 	sum(query: ITransactionQuery): Promise<number>;
 
 	sumOf(): Promise<number>;

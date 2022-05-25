@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {ITransaction, ITransactionCreate} from "@/puff-smith/service/transaction/interface";
-import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
+import {ITransactionSource} from "@/puff-smith/service/transaction/interface";
+import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", ITransactionCreate, ITransaction>(async params => TransactionRepository(ofParams(params)).handleCreate(params));
+export default CreateEndpoint<"Create", ITransactionSource>(TransactionSource());

@@ -7,8 +7,9 @@ import {ParsedUrlQuery} from "querystring";
 interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
 
-export type IUserEntity = User & { UserToken: (IUserTokenEntity & IWithTokenEntity)[]; };
-export type IWithUserEntity = { user: IUserEntity; };
+export type IUserEntity<T = any> = User & T;
+export type IWithUserEntity<T = any> = { user: IUserEntity<T>; };
+export type IWithUserToken = { UserToken: (IUserTokenEntity & IWithTokenEntity)[]; };
 
 export interface IUser {
 	id: string;
@@ -27,7 +28,7 @@ export interface IUserFetchQuery extends ParsedUrlQuery {
 	userId: string;
 }
 
-export interface IUserSource extends ISource<undefined, IUserEntity, IUser, IUserQuery> {
+export interface IUserSource extends ISource<undefined, IUserEntity<IWithUserToken>, IUser, IUserQuery> {
 	handleRootUser(): Promise<void>;
 
 	handleCommonUser(): Promise<void>;

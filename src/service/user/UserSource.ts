@@ -17,12 +17,14 @@ export const UserSource = (): IUserSource => {
 	const source: IUserSource = Source<IUserSource>({
 		name: "user",
 		prisma,
-		map: async ({emailVerified, ...user}) => {
-			const tokens = await tokenSource().tokensOf(user.id);
+		map: async user => {
+			if (!user) {
+				return undefined;
+			}
 			return {
 				...user,
-				tokens,
-				tokenIds: tokens.map(token => token.id),
+				tokens: user.UserToken.map(({token}) => token),
+				tokenIds: user.UserToken.map(({token}) => token.id),
 			};
 		},
 		source: {

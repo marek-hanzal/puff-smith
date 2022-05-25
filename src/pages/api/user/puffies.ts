@@ -1,5 +1,4 @@
-import {ofParams} from "@/puff-smith/service";
-import {TransactionRepository} from "@/puff-smith/service/transaction/TransactionRepository";
+import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {FetchEndpoint} from "@leight-core/server";
 
-export default FetchEndpoint<"Puffies", number>(async params => TransactionRepository(ofParams(params)).sumOf());
+export default FetchEndpoint<"Puffies", number>(async ({user}) => TransactionSource().withUser(user).sumOf());

@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {IUser, IUserQuery} from "@/puff-smith/service/user/interface";
-import {UserRepository} from "@/puff-smith/service/user/UserRepository";
+import {IUserSource} from "@/puff-smith/service/user/interface";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"User", IUserQuery, IUser>(async params => UserRepository(ofParams(params)).handleQuery(params));
+export default QueryEndpoint<"User", IUserSource>(UserSource());
