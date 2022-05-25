@@ -1,27 +1,25 @@
-import {IWireMarketSource, IWireMarketSourceCreate} from "@/puff-smith/service/wire/market/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {IWireMarketSource} from "@/puff-smith/service/wire/market/interface";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const WireMarketSource = (request: IWireMarketSourceCreate): IWireMarketSource => {
-	const wireSource = singletonOf(() => WireSource(request));
-	const userId = request.userService.getOptionalUserId();
+export const WireMarketSource = (): IWireMarketSource => {
+	const wireSource = singletonOf(() => WireSource());
 
-	return Source<IWireMarketSource>({
-		name: "wire-market",
-		source: request.prisma.wire,
-		mapper: async entity => ({
-			wire: await wireSource().map(entity),
-			isOwned: userId ? (await request.prisma.wireInventory.count({
+	const source: IWireMarketSource = Source<IWireMarketSource>({
+		name: "wire.market",
+		prisma,
+		map: async wire => wire ? ({
+			wire: await wireSource().mapper.map(wire),
+			isOwned: source.user.optional() ? (await source.prisma.wireInventory.count({
 				where: {
-					wireId: entity.id,
-					userId,
+					wireId: wire.id,
+					userId: source.user.required(),
 				}
 			})) > 0 : undefined,
-		}),
-		toFilter: filter => wireSource().toFilter(filter),
-		create: async () => {
-			throw new Error("Invalid operation: read-only repository.");
-		},
+		}) : undefined,
 	});
+
+	return source;
 };

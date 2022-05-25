@@ -1,20 +1,21 @@
-import {IFiberSource, IFiberSourceCreate} from "@/puff-smith/service/fiber/interface";
-import {TagSource} from "@/puff-smith/service/tag/TagRepository";
+import {IFiberSource} from "@/puff-smith/service/fiber/interface";
+import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const FiberSource = (request: IFiberSourceCreate): IFiberSource => {
-	const fiberSource = singletonOf(() => FiberSource(request));
-	const tagSource = singletonOf(() => TagSource(request));
+export const FiberSource = (): IFiberSource => {
+	const fiberSource = singletonOf(() => FiberSource());
+	const tagSource = singletonOf(() => TagSource());
 
-	return {
-		...Source<IFiberSource>({
-			name: "fiber",
-			source: request.prisma.fiber,
-			mapper: async fiber => ({
-				...fiber,
-				material: await tagSource().toMap(fiber.materialId),
-			}),
+	const source: IFiberSource = Source<IFiberSource>({
+		name: "fiber",
+		prisma,
+		map: async fiber => fiber ? ({
+			...fiber,
+			material: await tagSource().mapper.map(fiber.material),
+		}) : undefined,
+		source: {
 			create: async ({material, materialId, ...fiber}) => {
 				const $material = await tagSource().fetchTag("material", material, materialId);
 				const create = {
@@ -24,12 +25,15 @@ export const FiberSource = (request: IFiberSourceCreate): IFiberSource => {
 					mm: parseFloat(`${fiber.mm}`),
 				};
 				try {
-					return await request.prisma.fiber.create({
+					return await source.prisma.fiber.create({
 						data: create,
+						include: {
+							material: true,
+						},
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $fiber = (await request.prisma.fiber.findFirst({
+						const $fiber = (await source.prisma.fiber.findFirst({
 							where: {
 								OR: [
 									{
@@ -43,22 +47,30 @@ export const FiberSource = (request: IFiberSourceCreate): IFiberSource => {
 							},
 							rejectOnNotFound: true,
 						}));
-						return request.prisma.fiber.update({
+						return source.prisma.fiber.update({
 							where: {
 								id: $fiber.id,
 							},
 							data: create,
+							include: {
+								material: true,
+							},
 						});
 					});
 				}
 			},
-		}),
-		fetchByCode: code => request.prisma.fiber.findUnique({
+		},
+		fetchByCode: code => source.prisma.fiber.findUnique({
 			where: {
 				code,
 			},
 			rejectOnNotFound: true,
+			include: {
+				material: true,
+			},
 		}),
-		fetchByCodes: codes => Promise.all(codes.map(async code => await fiberSource().fetchByCode(code))),
-	};
+		fetchByCodes: codes => Promise.all(codes.map(async code => await fiberSource().fetchByCode(code)))
+	});
+
+	return source;
 };

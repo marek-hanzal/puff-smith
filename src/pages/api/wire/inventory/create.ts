@@ -1,7 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {handlePuffiesException} from "@/puff-smith/service/transaction/utils";
-import {IWireInventory, IWireInventoryCreate} from "@/puff-smith/service/wire/inventory/interface";
-import {WireInventoryRepository} from "@/puff-smith/service/wire/inventory/WireInventoryRepository";
-import {MutationEndpoint} from "@leight-core/server";
+import {IWireInventorySource} from "@/puff-smith/service/wire/inventory/interface";
+import {WireInventorySource} from "@/puff-smith/service/wire/inventory/WireInventorySource";
+import {CreateEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"Create", IWireInventoryCreate, IWireInventory>(async params => handlePuffiesException(params, async () => WireInventoryRepository(ofParams(params)).handleCreate(params)));
+export default CreateEndpoint<"Create", IWireInventorySource>(WireInventorySource());

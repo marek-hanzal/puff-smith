@@ -1,30 +1,29 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {IWireInventorySource, IWireInventorySourceCreate} from "@/puff-smith/service/wire/inventory/interface";
+import {IWireInventorySource} from "@/puff-smith/service/wire/inventory/interface";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const WireInventorySource = (request: IWireInventorySourceCreate): IWireInventorySource => {
-	const wireSource = singletonOf(() => WireSource(request));
-	const transactionSource = singletonOf(() => TransactionSource(request));
+export const WireInventorySource = (): IWireInventorySource => {
+	const wireSource = singletonOf(() => WireSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
-	const userId = singletonOf(() => request.userService.getUserId());
 
-	return {
-		...Source<IWireInventorySource>({
-			name: "wire-inventory",
-			source: request.prisma.wireInventory,
-			mapper: async wireTransaction => ({
-				...wireTransaction,
-				wire: await wireSource().toMap(wireTransaction.wireId),
-				transaction: await transactionSource().toMap(wireTransaction.transactionId),
-			}),
+	const source: IWireInventorySource = Source<IWireInventorySource>({
+		name: "wire.inventory",
+		prisma,
+		map: async wireInventory => wireInventory ? ({
+			...wireInventory,
+			wire: await wireSource().mapper.map(wireInventory.wire),
+			transaction: await transactionSource().mapper.map(wireInventory.transaction),
+		}) : undefined,
+		source: {
 			create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
-				const wire = await WireSource({...request, prisma}).toMap(wireInventory.wireId);
-				return TransactionSource({...request, prisma}).handleTransaction({
-					userId: userId(),
+				const wire = await WireSource().withPrisma(prisma).get(wireInventory.wireId);
+				return TransactionSource().withPrisma(prisma).handleTransaction({
+					userId: source.user.required(),
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
 					callback: async transaction => prisma.wireInventory.create({
@@ -32,26 +31,38 @@ export const WireInventorySource = (request: IWireInventorySourceCreate): IWireI
 							code: code || codeService().code(),
 							wireId: wire.id,
 							transactionId: transaction.id,
-							userId: userId(),
-						}
+							userId: source.user.required(),
+						},
+						include: {
+							wire: true,
+							transaction: true,
+						},
 					}),
 				});
 			}),
-		}),
-		handleDelete: async ({request: {ids}}) => {
-			const where = {
-				id: {
-					in: ids,
-				},
-				userId: userId(),
-			};
-			return prisma.$transaction(async prisma => {
-				const wireInventorySource = await WireInventorySource({...request, prisma}).list(prisma.wireInventory.findMany({where}));
-				await prisma.wireInventory.deleteMany({
-					where,
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+					userId: source.user.required(),
+				};
+				return prisma.$transaction(async prisma => {
+					const wireInventorySource = await prisma.wireInventory.findMany({
+						where,
+						include: {
+							wire: true,
+							transaction: true,
+						}
+					});
+					await prisma.wireInventory.deleteMany({
+						where,
+					});
+					return wireInventorySource;
 				});
-				return wireInventorySource;
-			});
-		},
-	};
+			},
+		}
+	});
+
+	return source;
 };

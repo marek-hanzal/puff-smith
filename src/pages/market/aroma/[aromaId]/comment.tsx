@@ -1,6 +1,5 @@
 import {TransComponents} from "@/puff-smith/component/Trans";
-import {defaults} from "@/puff-smith/service";
-import {AromaRepository} from "@/puff-smith/service/aroma/AromaRepository";
+import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetchProps} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
@@ -28,4 +27,4 @@ export default withMarketLayout(function Index({aroma}: IAromaFetchProps) {
 	</MarketPage>;
 });
 
-export const getServerSideProps = AromaRepository(defaults()).pageFetch("aroma", "aromaId");
+export const getServerSideProps = AromaSource().pageFetch("aroma", "aromaId");

@@ -1,6 +1,5 @@
-import {ofParams} from "@/puff-smith/service";
-import {IWireInventory, IWireInventoryQuery} from "@/puff-smith/service/wire/inventory/interface";
-import {WireInventoryRepository} from "@/puff-smith/service/wire/inventory/WireInventoryRepository";
+import {IWireInventorySource} from "@/puff-smith/service/wire/inventory/interface";
+import {WireInventorySource} from "@/puff-smith/service/wire/inventory/WireInventorySource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"WireInventory", IWireInventoryQuery, IWireInventory>(async params => WireInventoryRepository(ofParams(params)).handleQuery(params));
+export default QueryEndpoint<"WireInventory", IWireInventorySource>(WireInventorySource());

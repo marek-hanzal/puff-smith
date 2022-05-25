@@ -1,6 +1,5 @@
-import {defaults} from "@/puff-smith/service";
-import {IWireMarket, IWireMarketQuery} from "@/puff-smith/service/wire/market/interface";
-import {WireMarketRepository} from "@/puff-smith/service/wire/market/WireMarketRepository";
+import {IWireMarketSource} from "@/puff-smith/service/wire/market/interface";
+import {WireMarketSource} from "@/puff-smith/service/wire/market/WireMarketSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"WireMarket", IWireMarketQuery, IWireMarket>(async ({request, toUserId}) => WireMarketRepository(defaults(toUserId())).query(request));
+export default QueryEndpoint<"WireMarket", IWireMarketSource>(WireMarketSource());

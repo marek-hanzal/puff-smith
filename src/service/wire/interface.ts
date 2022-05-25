@@ -1,8 +1,9 @@
-import {IServiceCreate} from "@/puff-smith/service";
+import {IFiberEntity} from "@/puff-smith/service/fiber/interface";
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {IVendor, IVendorReference} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IVendorReference, IWithVendor} from "@/puff-smith/service/vendor/interface";
+import {IWireDrawEntity} from "@/puff-smith/service/wire/draw/interface";
 import {IWireFiber} from "@/puff-smith/service/wire/fiber/interface";
-import {IQuery, ISource, IWhereFulltext} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Fiber, Prisma, Wire} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -27,10 +28,13 @@ export interface IWireFiberCreate {
 	$fiber: Fiber;
 }
 
-export type IWireWhere = Prisma.WireWhereInput & IWhereFulltext;
-
-export interface IWireQuery extends IQuery<IWireWhere, Prisma.WireOrderByWithRelationInput> {
+export interface IWireQuery extends IQuery<Prisma.WireWhereInput & IWithFulltext, Prisma.WireOrderByWithRelationInput> {
 }
+
+export type IWireEntity<T = any> = Wire & T;
+export type IWithWire<T = any> = { wire: IWireEntity<T>; };
+export type IWithWireDraw = { WireDraw: { draw: IWireDrawEntity }[] };
+export type IWithWireFiber = { WireFiber: { fiber: IFiberEntity; }[] };
 
 export interface IWire {
 	id: string;
@@ -54,9 +58,6 @@ export interface IWireFetchQuery extends ParsedUrlQuery {
 	wireId: string;
 }
 
-export interface IWireSourceCreate extends IServiceCreate {
-}
-
-export interface IWireSource extends ISource<IWireCreate, Wire, IWire, IWireQuery, IWireFetchProps, IWireFetchQuery> {
-	fetchByReference(request: IWireReference): Promise<Wire>;
+export interface IWireSource extends ISource<IWireCreate, IWireEntity<IWithVendor & IWithWireDraw & IWithWireFiber>, IWire, IWireQuery> {
+	fetchByReference(request: IWireReference): Promise<IWireEntity>;
 }
