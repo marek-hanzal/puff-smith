@@ -114,7 +114,7 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({providerPr
 			{...props}
 		/>
 	</StatusListProvider>;
-};
+}
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobStatusSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobStatusSource>>;
@@ -157,7 +157,7 @@ export interface IStatusListSelectionProviderProps extends Partial<ISelectionPro
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>;
-};
+}
 
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -6,7 +6,7 @@ import {MixtureBoosterSelect} from "@/puff-smith/site/shared/mixture/@module/for
 import {MixtureDrawSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureDrawSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureRatioSelect";
-import {MixtureMarketSourceControlProvider, MixtureMarketSourceFilter} from "@/sdk/api/mixture/market/query";
+import {MixtureMarketProviderControl, MixtureMarketProviderFilter} from "@/sdk/api/mixture/market/query";
 import {CloudOutlined, PercentageOutlined} from "@ant-design/icons";
 import {FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
 import {Tabs} from "antd";
@@ -24,7 +24,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 		ratio.current = undefined;
 	};
 
-	return <MixtureMarketSourceFilter
+	return <MixtureMarketProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -53,7 +53,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 		})}
 		{...props}
 	>
-		<MixtureMarketSourceControlProvider
+		<MixtureMarketProviderControl
 			applyFilter={{
 				aromaId: aroma?.id,
 			}}
@@ -130,6 +130,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 					</Tabs.TabPane>
 				</Tabs>}
 			</FormContext.Consumer>
-		</MixtureMarketSourceControlProvider>
-	</MixtureMarketSourceFilter>;
+		</MixtureMarketProviderControl>
+	</MixtureMarketProviderFilter>;
 };

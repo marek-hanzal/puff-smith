@@ -1,11 +1,11 @@
-import {IVendorSourceSelectProps, VendorSourceControlProvider, VendorSourceSelect} from "@/sdk/api/cotton/vendor/query";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/cotton/vendor/query";
 import {FC} from "react";
 
 export interface ICottonVendorSelectProps extends Partial<IVendorSourceSelectProps> {
 }
 
 export const CottonVendorSelect: FC<ICottonVendorSelectProps> = props => {
-	return <VendorSourceControlProvider>
+	return <VendorProviderControl>
 		<VendorSourceSelect
 			showSearch
 			toOption={item => ({
@@ -14,5 +14,5 @@ export const CottonVendorSelect: FC<ICottonVendorSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</VendorSourceControlProvider>;
+	</VendorProviderControl>;
 };

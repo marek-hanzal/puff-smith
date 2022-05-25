@@ -4,7 +4,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BaseList} from "@/puff-smith/site/market/base/@module/list/BaseList";
 import {BaseListToolbar} from "@/puff-smith/site/market/base/@module/list/BaseListToolbar";
-import {BaseSourceControlProvider} from "@/sdk/api/base/query";
+import {BaseProviderControl} from "@/sdk/api/base/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -12,7 +12,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/base"]}
 		icon={<BaseIcon/>}
 	>
-		<BaseSourceControlProvider
+		<BaseProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				vg: "desc",
@@ -21,6 +21,6 @@ export default withMarketLayout(function Index() {
 			<BaseList
 				header={() => <BaseListToolbar/>}
 			/>
-		</BaseSourceControlProvider>
+		</BaseProviderControl>
 	</MarketPage>;
 });

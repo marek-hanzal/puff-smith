@@ -4,7 +4,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaList} from "@/puff-smith/site/market/aroma/@module/list/AromaList";
 import {AromaFilter} from "@/puff-smith/site/shared/aroma/@module/filter/AromaFilter";
-import {AromaSourceControlProvider} from "@/sdk/api/aroma/query";
+import {AromaProviderControl} from "@/sdk/api/aroma/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -12,7 +12,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/aroma"]}
 		icon={<LiquidIcon/>}
 	>
-		<AromaSourceControlProvider
+		<AromaProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				name: "asc",
@@ -21,6 +21,6 @@ export default withMarketLayout(function Index() {
 			<AromaList
 				header={() => <AromaFilter/>}
 			/>
-		</AromaSourceControlProvider>
+		</AromaProviderControl>
 	</MarketPage>;
 });

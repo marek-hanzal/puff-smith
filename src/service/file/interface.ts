@@ -1,11 +1,7 @@
-import {IQuery, ISource} from "@leight-core/api";
+import {IFile as ICoolFile, IQuery, ISource} from "@leight-core/api";
 import {File, Prisma} from "@prisma/client";
 
-export interface IFile {
-	id: string;
-	created: string;
-	updated?: string | null;
-	ttl?: number | null;
+export interface IFile extends ICoolFile {
 }
 
 export type IFileWhere = Prisma.FileWhereInput;

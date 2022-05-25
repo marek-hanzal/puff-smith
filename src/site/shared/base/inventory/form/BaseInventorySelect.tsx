@@ -1,14 +1,14 @@
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
 import {BaseFilter} from "@/puff-smith/site/shared/base/@module/filter/BaseFilter";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {BaseInventorySourceControlProvider, BaseInventorySourceSelect, IBaseInventorySourceSelectProps} from "@/sdk/api/base/inventory/query";
+import {BaseInventoryProviderControl, BaseInventorySourceSelect, IBaseInventorySourceSelectProps} from "@/sdk/api/base/inventory/query";
 import {FC} from "react";
 
 export interface IBaseInventorySelectProps extends Partial<IBaseInventorySourceSelectProps> {
 }
 
 export const BaseInventorySelect: FC<IBaseInventorySelectProps> = props => {
-	return <BaseInventorySourceControlProvider
+	return <BaseInventoryProviderControl
 		defaultOrderBy={{
 			base: {pg: "desc"},
 		}}
@@ -27,5 +27,5 @@ export const BaseInventorySelect: FC<IBaseInventorySelectProps> = props => {
 			/>}
 			{...props}
 		/>
-	</BaseInventorySourceControlProvider>;
+	</BaseInventoryProviderControl>;
 };

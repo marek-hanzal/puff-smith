@@ -115,7 +115,7 @@ export const ModInventoryListSource: FC<IModInventoryListSourceProps> = ({provid
 			{...props}
 		/>
 	</ModInventoryProvider>;
-};
+}
 
 export interface IModInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IModInventorySource>>;
@@ -158,7 +158,7 @@ export interface IModInventorySelectionProviderProps extends Partial<ISelectionP
 
 export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModInventorySource>> {...props}/>;
-};
+}
 
 export const useModInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

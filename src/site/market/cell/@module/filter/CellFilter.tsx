@@ -1,6 +1,6 @@
 import {CellTypeSelect} from "@/puff-smith/site/market/cell/@module/form/CellTypeSelect";
 import {CellVendorSelect} from "@/puff-smith/site/market/cell/@module/form/CellVendorSelect";
-import {CellSourceFilter} from "@/sdk/api/cell/query";
+import {CellProviderFilter} from "@/sdk/api/cell/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC} from "react";
 
@@ -11,7 +11,7 @@ export const CellFilter: FC<ICellFilterProps> = ({toFilter = filter => filter, .
 	const onClear = () => {
 	};
 
-	return <CellSourceFilter
+	return <CellProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -36,5 +36,5 @@ export const CellFilter: FC<ICellFilterProps> = ({toFilter = filter => filter, .
 				allowClear
 			/>
 		</FormItem>
-	</CellSourceFilter>;
+	</CellProviderFilter>;
 };

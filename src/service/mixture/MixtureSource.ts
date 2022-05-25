@@ -19,31 +19,24 @@ export const MixtureSource = (): IMixtureSource => {
 		name: "mixture",
 		prisma,
 		map: async mixture => {
+			if (!mixture) {
+				return;
+			}
 			return {
 				...mixture,
 				vgToRound: mixture.vgToRound,
 				pgToRound: mixture.pgToRound,
-				aroma,
-				booster: mixture.boosterId ? await boosterSource().toMap(mixture.boosterId) : undefined,
-				base: mixture.baseId ? await baseSource().toMap(mixture.baseId) : undefined,
-				volume: aroma.volume || 0,
-				draws: await Promise.all((await source.prisma.mixtureDraw.findMany({
-					where: {
-						mixtureId: mixture.id,
-					},
-					orderBy: {
-						draw: {sort: "asc"},
-					},
-					include: {
-						draw: true,
-					}
-				})).map(({draw}) => tagSource().map(draw))),
+				aroma: await aromaSource().mapper.map(mixture.aroma),
+				booster: await boosterSource().map(mixture.booster),
+				base: await baseSource().map(mixture.base),
+				volume: mixture.aroma.volume || 0,
+				draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
 			};
 		},
 		source: {
 			create: async ({code, draws, ...mixture}) => {
 				const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;
-				const $aroma = await aromaSource().fetch(mixture.aromaId);
+				const $aroma = await aromaSource().get(mixture.aromaId);
 				const create = {
 					...mixture,
 					code: code || codeService().code(),
@@ -63,6 +56,28 @@ export const MixtureSource = (): IMixtureSource => {
 				try {
 					return await source.prisma.mixture.create({
 						data: create,
+						include: {
+							MixtureDraw: {
+								include: {
+									draw: true,
+								},
+							},
+							aroma: {
+								include: {
+									vendor: true,
+								},
+							},
+							base: {
+								include: {
+									vendor: true,
+								},
+							},
+							booster: {
+								include: {
+									vendor: true,
+								},
+							},
+						},
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
@@ -82,6 +97,28 @@ export const MixtureSource = (): IMixtureSource => {
 								id: $mixture.id,
 							},
 							data: create,
+							include: {
+								MixtureDraw: {
+									include: {
+										draw: true,
+									},
+								},
+								aroma: {
+									include: {
+										vendor: true,
+									},
+								},
+								base: {
+									include: {
+										vendor: true,
+									},
+								},
+								booster: {
+									include: {
+										vendor: true,
+									},
+								},
+							},
 						});
 					});
 				}

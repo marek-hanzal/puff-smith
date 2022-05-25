@@ -114,7 +114,7 @@ export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</JobProvider>;
-};
+}
 
 export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobSource>>;
@@ -157,7 +157,7 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
-};
+}
 
 export const useJobQueryInvalidate = () => {
 	const queryClient = useQueryClient();

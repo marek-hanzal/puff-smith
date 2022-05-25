@@ -114,7 +114,7 @@ export const CellTypeListSource: FC<ICellTypeListSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</CellTypeProvider>;
-};
+}
 
 export interface ICellTypeSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellTypeSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellTypeSource>>;
@@ -157,7 +157,7 @@ export interface ICellTypeSelectionProviderProps extends Partial<ISelectionProvi
 
 export const CellTypeSelectionProvider: FC<ICellTypeSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellTypeSource>> {...props}/>;
-};
+}
 
 export const useCellTypeQueryInvalidate = () => {
 	const queryClient = useQueryClient();

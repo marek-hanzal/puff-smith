@@ -1,11 +1,11 @@
-import {IVendorSourceSelectProps, VendorSourceControlProvider, VendorSourceSelect} from "@/sdk/api/mod/vendor/query";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/mod/vendor/query";
 import {FC} from "react";
 
 export interface IModVendorSelectProps extends Partial<IVendorSourceSelectProps> {
 }
 
 export const ModVendorSelect: FC<IModVendorSelectProps> = props => {
-	return <VendorSourceControlProvider>
+	return <VendorProviderControl>
 		<VendorSourceSelect
 			showSearch
 			toOption={item => ({
@@ -14,5 +14,5 @@ export const ModVendorSelect: FC<IModVendorSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</VendorSourceControlProvider>;
+	</VendorProviderControl>;
 };

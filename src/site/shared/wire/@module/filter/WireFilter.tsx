@@ -2,7 +2,7 @@ import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {WireDrawSelect} from "@/puff-smith/site/shared/wire/@module/form/WireDrawSelect";
 import {WireFiberSelect} from "@/puff-smith/site/shared/wire/@module/form/WireFiberSelect";
 import {WireVendorSelect} from "@/puff-smith/site/shared/wire/@module/form/WireVendorSelect";
-import {WireSourceControlProvider, WireSourceFilter} from "@/sdk/api/wire/query";
+import {WireProviderControl, WireProviderFilter} from "@/sdk/api/wire/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -16,7 +16,7 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 	const onClear = () => {
 	};
 
-	return <WireSourceFilter
+	return <WireProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -57,7 +57,7 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 		})}
 		{...props}
 	>
-		<WireSourceControlProvider>
+		<WireProviderControl>
 			<FormContext.Consumer>
 				{formContext => <>
 					<FormItem field={"vendorId"}>
@@ -112,6 +112,6 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 					/>
 				</>}
 			</FormContext.Consumer>
-		</WireSourceControlProvider>
-	</WireSourceFilter>;
+		</WireProviderControl>
+	</WireProviderFilter>;
 };

@@ -114,7 +114,7 @@ export const BaseListSource: FC<IBaseListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</BaseProvider>;
-};
+}
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseSource>>;
@@ -157,7 +157,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseSource>> {...props}/>;
-};
+}
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

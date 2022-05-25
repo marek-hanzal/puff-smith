@@ -114,7 +114,7 @@ export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</BoosterProvider>;
-};
+}
 
 export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBoosterSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidBoosterSource>>;
@@ -157,7 +157,7 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidBoosterSource>> {...props}/>;
-};
+}
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();

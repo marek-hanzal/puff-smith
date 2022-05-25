@@ -114,7 +114,7 @@ export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</FileProvider>;
-};
+}
 
 export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFileSource>>;
@@ -157,7 +157,7 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
-};
+}
 
 export const useFileQueryInvalidate = () => {
 	const queryClient = useQueryClient();

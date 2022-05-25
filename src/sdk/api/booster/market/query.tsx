@@ -115,7 +115,7 @@ export const BoosterMarketListSource: FC<IBoosterMarketListSourceProps> = ({prov
 			{...props}
 		/>
 	</BoosterMarketProvider>;
-};
+}
 
 export interface IBoosterMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBoosterMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBoosterMarketSource>>;
@@ -158,7 +158,7 @@ export interface IBoosterMarketSelectionProviderProps extends Partial<ISelection
 
 export const BoosterMarketSelectionProvider: FC<IBoosterMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterMarketSource>> {...props}/>;
-};
+}
 
 export const useBoosterMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

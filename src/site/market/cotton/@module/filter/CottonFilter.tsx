@@ -1,7 +1,7 @@
 import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {CottonDrawSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonDrawSelect";
 import {CottonVendorSelect} from "@/puff-smith/site/market/cotton/@module/form/CottonVendorSelect";
-import {CottonSourceControlProvider, CottonSourceFilter} from "@/sdk/api/cotton/query";
+import {CottonProviderControl, CottonProviderFilter} from "@/sdk/api/cotton/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
@@ -14,7 +14,7 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 	const onClear = () => {
 	};
 
-	return <CottonSourceFilter
+	return <CottonProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -39,7 +39,7 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 		})}
 		{...props}
 	>
-		<CottonSourceControlProvider>
+		<CottonProviderControl>
 			<FormContext.Consumer>
 				{formContext => <>
 					<FormItem field={"vendorId"}>
@@ -71,6 +71,6 @@ export const CottonFilter: FC<ICottonFilterProps> = ({toFilter = filter => filte
 					/>
 				</>}
 			</FormContext.Consumer>
-		</CottonSourceControlProvider>
-	</CottonSourceFilter>;
+		</CottonProviderControl>
+	</CottonProviderFilter>;
 };

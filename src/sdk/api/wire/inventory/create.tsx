@@ -25,7 +25,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreat
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<IWireInventorySource>, ISourceItem<IWireInventorySource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

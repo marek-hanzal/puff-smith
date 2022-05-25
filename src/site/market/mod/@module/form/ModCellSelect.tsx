@@ -1,17 +1,17 @@
-import {CellSourceControlProvider, CellSourceSelect, ICellSourceSelectProps} from "@/sdk/api/mod/cell/query";
+import {IModCellSourceSelectProps, ModCellProviderControl, ModCellSourceSelect} from "@/sdk/api/mod/cell/query";
 import {FC} from "react";
 
-export interface IModCellSelectProps extends Partial<ICellSourceSelectProps> {
+export interface IModCellSelectProps extends Partial<IModCellSourceSelectProps> {
 }
 
 export const ModCellSelect: FC<IModCellSelectProps> = props => {
-	return <CellSourceControlProvider>
-		<CellSourceSelect
+	return <ModCellProviderControl>
+		<ModCellSourceSelect
 			toOption={item => ({
 				value: item.id,
 				label: item.code,
 			})}
 			{...props}
 		/>
-	</CellSourceControlProvider>;
+	</ModCellProviderControl>;
 };

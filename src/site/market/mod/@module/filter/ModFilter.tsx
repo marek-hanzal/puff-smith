@@ -1,7 +1,7 @@
 import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {ModCellSelect} from "@/puff-smith/site/market/mod/@module/form/ModCellSelect";
 import {ModVendorSelect} from "@/puff-smith/site/market/mod/@module/form/ModVendorSelect";
-import {ModSourceControlProvider, ModSourceFilter} from "@/sdk/api/mod/query";
+import {ModProviderControl, ModProviderFilter} from "@/sdk/api/mod/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
@@ -14,7 +14,7 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 	const onClear = () => {
 	};
 
-	return <ModSourceFilter
+	return <ModProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -39,7 +39,7 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 		})}
 		{...props}
 	>
-		<ModSourceControlProvider>
+		<ModProviderControl>
 			<FormContext.Consumer>
 				{formContext => <>
 					<FormItem field={"vendorId"}>
@@ -71,6 +71,6 @@ export const ModFilter: FC<IModFilterProps> = ({toFilter = filter => filter, ...
 					/>
 				</>}
 			</FormContext.Consumer>
-		</ModSourceControlProvider>
-	</ModSourceFilter>;
+		</ModProviderControl>
+	</ModProviderFilter>;
 };

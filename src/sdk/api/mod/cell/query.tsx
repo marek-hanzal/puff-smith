@@ -114,7 +114,7 @@ export const ModCellListSource: FC<IModCellListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</ModCellProvider>;
-};
+}
 
 export interface IModCellSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModCellSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModCellSource>>;
@@ -157,7 +157,7 @@ export interface IModCellSelectionProviderProps extends Partial<ISelectionProvid
 
 export const ModCellSelectionProvider: FC<IModCellSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModCellSource>> {...props}/>;
-};
+}
 
 export const useModCellQueryInvalidate = () => {
 	const queryClient = useQueryClient();

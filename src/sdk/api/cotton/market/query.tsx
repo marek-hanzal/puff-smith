@@ -115,7 +115,7 @@ export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({provid
 			{...props}
 		/>
 	</CottonMarketProvider>;
-};
+}
 
 export interface ICottonMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICottonMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICottonMarketSource>>;
@@ -158,7 +158,7 @@ export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionP
 
 export const CottonMarketSelectionProvider: FC<ICottonMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonMarketSource>> {...props}/>;
-};
+}
 
 export const useCottonMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

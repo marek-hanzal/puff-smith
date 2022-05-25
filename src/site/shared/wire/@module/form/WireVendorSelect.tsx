@@ -1,11 +1,11 @@
-import {IVendorSourceSelectProps, VendorSourceControlProvider, VendorSourceSelect} from "@/sdk/api/wire/vendor/query";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/wire/vendor/query";
 import {FC} from "react";
 
 export interface IWireVendorSelectProps extends Partial<IVendorSourceSelectProps> {
 }
 
 export const WireVendorSelect: FC<IWireVendorSelectProps> = props => {
-	return <VendorSourceControlProvider>
+	return <VendorProviderControl>
 		<VendorSourceSelect
 			showSearch
 			toOption={item => ({
@@ -14,5 +14,5 @@ export const WireVendorSelect: FC<IWireVendorSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</VendorSourceControlProvider>;
+	</VendorProviderControl>;
 };

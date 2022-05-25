@@ -115,7 +115,7 @@ export const AromaInventoryListSource: FC<IAromaInventoryListSourceProps> = ({pr
 			{...props}
 		/>
 	</AromaInventoryProvider>;
-};
+}
 
 export interface IAromaInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaInventorySource>>;
@@ -158,7 +158,7 @@ export interface IAromaInventorySelectionProviderProps extends Partial<ISelectio
 
 export const AromaInventorySelectionProvider: FC<IAromaInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventorySource>> {...props}/>;
-};
+}
 
 export const useAromaInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

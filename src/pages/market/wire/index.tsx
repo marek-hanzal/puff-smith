@@ -4,7 +4,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {WireList} from "@/puff-smith/site/market/wire/@module/list/WireList";
 import {WireFilter} from "@/puff-smith/site/shared/wire/@module/filter/WireFilter";
-import {WireSourceControlProvider} from "@/sdk/api/wire/query";
+import {WireProviderControl} from "@/sdk/api/wire/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -12,7 +12,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/wire"]}
 		icon={<WireIcon/>}
 	>
-		<WireSourceControlProvider
+		<WireProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				name: "asc",
@@ -21,6 +21,6 @@ export default withMarketLayout(function Index() {
 			<WireList
 				header={() => <WireFilter/>}
 			/>
-		</WireSourceControlProvider>
+		</WireProviderControl>
 	</MarketPage>;
 });

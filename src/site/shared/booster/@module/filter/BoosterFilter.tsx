@@ -1,7 +1,7 @@
 import {BoosterNicotineSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterNicotineSelect";
 import {BoosterRatioSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterRatioSelect";
 import {BoosterVendorSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterVendorSelect";
-import {BoosterSourceFilter} from "@/sdk/api/booster/query";
+import {BoosterProviderFilter} from "@/sdk/api/booster/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC, useRef} from "react";
 
@@ -15,7 +15,7 @@ export const BoosterFilter: FC<IBoosterFilterProps> = ({toFilter = filter => fil
 		ratio.current = undefined;
 	};
 
-	return <BoosterSourceFilter
+	return <BoosterProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -52,5 +52,5 @@ export const BoosterFilter: FC<IBoosterFilterProps> = ({toFilter = filter => fil
 				allowClear
 			/>
 		</FormItem>
-	</BoosterSourceFilter>;
+	</BoosterProviderFilter>;
 };

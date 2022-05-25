@@ -114,7 +114,7 @@ export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</DrawProvider>;
-};
+}
 
 export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireDrawSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireDrawSource>>;
@@ -157,7 +157,7 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireDrawSource>> {...props}/>;
-};
+}
 
 export const useDrawQueryInvalidate = () => {
 	const queryClient = useQueryClient();

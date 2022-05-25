@@ -4,7 +4,7 @@ import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserList} from "@/puff-smith/site/root/user/@module/list/UserList";
 import {UserMenu} from "@/puff-smith/site/root/user/@module/menu/UserMenu";
-import {UserSourceControlProvider} from "@/sdk/api/user/query";
+import {UserProviderControl} from "@/sdk/api/user/query";
 
 export default withRootLayout(function Index() {
 	return <RootPage
@@ -13,10 +13,10 @@ export default withRootLayout(function Index() {
 		icon={<UserIcon/>}
 		headerPostfix={<UserMenu/>}
 	>
-		<UserSourceControlProvider
+		<UserProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<UserList/>
-		</UserSourceControlProvider>
+		</UserProviderControl>
 	</RootPage>;
 });

@@ -1,6 +1,6 @@
 import {BaseRatioSelect} from "@/puff-smith/site/shared/base/@module/form/BaseRatioSelect";
 import {BaseVendorSelect} from "@/puff-smith/site/shared/base/@module/form/BaseVendorSelect";
-import {BaseSourceFilter} from "@/sdk/api/base/query";
+import {BaseProviderFilter} from "@/sdk/api/base/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
 import {FC, useRef} from "react";
 
@@ -14,7 +14,7 @@ export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, .
 		ratio.current = undefined;
 	};
 
-	return <BaseSourceFilter
+	return <BaseProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -46,5 +46,5 @@ export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, .
 				allowClear
 			/>
 		</FormItem>
-	</BaseSourceFilter>;
+	</BaseProviderFilter>;
 };

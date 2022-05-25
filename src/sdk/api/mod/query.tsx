@@ -114,7 +114,7 @@ export const ModListSource: FC<IModListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</ModProvider>;
-};
+}
 
 export interface IModSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModSource>>;
@@ -157,7 +157,7 @@ export interface IModSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const ModSelectionProvider: FC<IModSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>;
-};
+}
 
 export const useModQueryInvalidate = () => {
 	const queryClient = useQueryClient();

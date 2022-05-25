@@ -1,12 +1,12 @@
-import {FiberSourceControlProvider, FiberSourceSelect, IFiberSourceSelectProps} from "@/sdk/api/wire/fiber/query";
+import {IWireFiberSourceSelectProps, WireFiberProviderControl, WireFiberSourceSelect} from "@/sdk/api/wire/fiber/query";
 import {FC} from "react";
 
-export interface IWireFiberSelectProps extends Partial<IFiberSourceSelectProps> {
+export interface IWireFiberSelectProps extends Partial<IWireFiberSourceSelectProps> {
 }
 
 export const WireFiberSelect: FC<IWireFiberSelectProps> = props => {
-	return <FiberSourceControlProvider>
-		<FiberSourceSelect
+	return <WireFiberProviderControl>
+		<WireFiberSourceSelect
 			showSearch
 			toOption={item => ({
 				value: item.id,
@@ -14,5 +14,5 @@ export const WireFiberSelect: FC<IWireFiberSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</FiberSourceControlProvider>;
+	</WireFiberProviderControl>;
 };

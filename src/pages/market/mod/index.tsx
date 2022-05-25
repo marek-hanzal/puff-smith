@@ -4,7 +4,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {ModFilter} from "@/puff-smith/site/market/mod/@module/filter/ModFilter";
 import {ModList} from "@/puff-smith/site/market/mod/@module/list/ModList";
-import {ModSourceControlProvider} from "@/sdk/api/mod/query";
+import {ModProviderControl} from "@/sdk/api/mod/query";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -12,7 +12,7 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/mod"]}
 		icon={<ModIcon/>}
 	>
-		<ModSourceControlProvider
+		<ModProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
 				name: "asc",
@@ -21,6 +21,6 @@ export default withMarketLayout(function Index() {
 			<ModList
 				header={() => <ModFilter/>}
 			/>
-		</ModSourceControlProvider>
+		</ModProviderControl>
 	</MarketPage>;
 });

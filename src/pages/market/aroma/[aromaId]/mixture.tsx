@@ -12,7 +12,7 @@ import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
-import {MixtureSourceControlProvider} from "@/sdk/api/mixture/query";
+import {MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {PushRight, Template, useFilterContext} from "@leight-core/client";
 import {Col, Divider, Row, Space} from "antd";
 import {FC} from "react";
@@ -75,7 +75,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 		extra={<AromaIndexMenu aroma={aroma}/>}
 		extraSize={AromaIndexMenuWidth}
 	>
-		<MixtureSourceControlProvider
+		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{
 				aromaId: aroma.id,
@@ -86,7 +86,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 			] as any}
 		>
 			<InternalList aroma={aroma}/>
-		</MixtureSourceControlProvider>
+		</MixtureProviderControl>
 	</MarketPage>;
 });
 

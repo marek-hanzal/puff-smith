@@ -115,7 +115,7 @@ export const MixtureListSource: FC<IMixtureListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</MixtureProvider>;
-};
+}
 
 export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureInventorySource>>;
@@ -158,7 +158,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureInventorySource>> {...props}/>;
-};
+}
 
 export const useMixtureQueryInvalidate = () => {
 	const queryClient = useQueryClient();

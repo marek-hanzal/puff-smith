@@ -21,7 +21,7 @@ export interface IJobListProps extends Partial<IJobListSourceProps> {
 export const JobList: FC<IJobListProps> = ({showCommit = true, showCleanup = true, showFilter = true, disableToolbar = false, ...props}) => {
 	const {t} = useTranslation();
 	return <JobListSource
-		sourceProps={{
+		providerProps={{
 			live: 2500,
 		}}
 		itemLayout={"vertical"}
