@@ -1,29 +1,5 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IQuery} from "@leight-core/api";
-import {itemsOf, QueryEndpoint} from "@leight-core/server";
+import {MixtureRatioSource} from "@/puff-smith/service/mixture/inventory/ratio/MixtureRatioSource";
+import {IMixtureRatioSource} from "@/puff-smith/service/mixture/ratio/interface";
+import {QueryEndpoint} from "@leight-core/server";
 
-export interface IRatioItem {
-	label: string;
-	value: string;
-	pg: number;
-	vg: number;
-}
-
-export default QueryEndpoint<"Ratio", IQuery, IRatioItem>(async ({toUserId}) => itemsOf(prisma.mixture.findMany({
-	distinct: ["vgToRound", "pgToRound"],
-	where: {
-		MixtureInventory: {
-			some: {
-				userId: toUserId(),
-			},
-		},
-	},
-	orderBy: [
-		{vgToRound: "asc"},
-	]
-}), item => item, async ({vgToRound, pgToRound}) => ({
-	label: `${vgToRound}/${pgToRound}`,
-	value: `${vgToRound}/${pgToRound}`,
-	vg: vgToRound,
-	pg: pgToRound,
-})));
+export default QueryEndpoint<"Ratio", IMixtureRatioSource>(MixtureRatioSource());
