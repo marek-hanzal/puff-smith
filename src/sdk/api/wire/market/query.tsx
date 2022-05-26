@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const WireMarketApiLink = "/api/wire/market/query";
+export const WireMarketCountApiLink = "/api/wire/market/query/count";
 
 export type IWireMarketQueryParams = undefined;
 
 export const useWireMarketQuery = createQueryHook<ISourceQuery<IWireMarketSource>, ISourceItem<IWireMarketSource>[], IWireMarketQueryParams>(WireMarketApiLink, "post");
+export const useWireMarketCountQuery = createQueryHook<ISourceQuery<IWireMarketSource>, number, IWireMarketQueryParams>(WireMarketCountApiLink, "post");
 
 export const useWireMarketSource = () => useSourceContext<ISourceItem<IWireMarketSource>>();
 
@@ -63,6 +65,7 @@ export const WireMarketProvider: FC<IWireMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IWireMarketSource>>
 		name={"WireMarket"}
 		useQuery={useWireMarketQuery}
+		useCountQuery={useWireMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IWireMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const WireMarketSelectionProvider: FC<IWireMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireMarketSource>> {...props}/>;
-}
+};
 
 export const useWireMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireMarketApiLink]);
+};
+
+export const useWireMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireMarketCountApiLink]);
 };
 
 export const useWireMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireMarketSource>>();

@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const StatusListApiLink = "/api/job/status-list";
+export const StatusListCountApiLink = "/api/job/status-list/count";
 
 export type IStatusListQueryParams = undefined;
 
 export const useStatusListQuery = createQueryHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListCountQuery = createQueryHook<ISourceQuery<IJobStatusSource>, number, IStatusListQueryParams>(StatusListCountApiLink, "post");
 
 export const useStatusListSource = () => useSourceContext<ISourceItem<IJobStatusSource>>();
 
@@ -63,6 +65,7 @@ export const StatusListProvider: FC<IStatusListProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IJobStatusSource>>
 		name={"StatusList"}
 		useQuery={useStatusListQuery}
+		useCountQuery={useStatusListCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IStatusListSelectionProviderProps extends Partial<ISelectionPro
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>;
-}
+};
 
 export const useStatusListQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StatusListApiLink]);
+};
+
+export const useStatusListCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([StatusListCountApiLink]);
 };
 
 export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobStatusSource>>();

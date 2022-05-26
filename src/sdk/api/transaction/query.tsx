@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const TransactionApiLink = "/api/transaction/query";
+export const TransactionCountApiLink = "/api/transaction/query/count";
 
 export type ITransactionQueryParams = undefined;
 
 export const useTransactionQuery = createQueryHook<ISourceQuery<ITransactionSource>, ISourceItem<ITransactionSource>[], ITransactionQueryParams>(TransactionApiLink, "post");
+export const useTransactionCountQuery = createQueryHook<ISourceQuery<ITransactionSource>, number, ITransactionQueryParams>(TransactionCountApiLink, "post");
 
 export const useTransactionSource = () => useSourceContext<ISourceItem<ITransactionSource>>();
 
@@ -63,6 +65,7 @@ export const TransactionProvider: FC<ITransactionProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ITransactionSource>>
 		name={"Transaction"}
 		useQuery={useTransactionQuery}
+		useCountQuery={useTransactionCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface ITransactionSelectionProviderProps extends Partial<ISelectionPr
 
 export const TransactionSelectionProvider: FC<ITransactionSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITransactionSource>> {...props}/>;
-}
+};
 
 export const useTransactionQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionApiLink]);
+};
+
+export const useTransactionCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([TransactionCountApiLink]);
 };
 
 export const useTransactionOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITransactionSource>>();

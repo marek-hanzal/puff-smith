@@ -18,7 +18,7 @@ export const AromaSource = (): IAromaSource => {
 		map: async aroma => aroma ? ({
 			...aroma,
 			vendor: await vendorSource().mapper.map(aroma.vendor),
-			tastes: await memoTastes(aroma.id, tagSource),
+			tastes: await tagSource().mapper.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 		}) : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
@@ -62,6 +62,11 @@ export const AromaSource = (): IAromaSource => {
 				}),
 				include: {
 					vendor: true,
+					AromaTaste: {
+						include: {
+							taste: true,
+						}
+					}
 				},
 				...pageOf(query),
 			}),
@@ -88,6 +93,11 @@ export const AromaSource = (): IAromaSource => {
 						data: create,
 						include: {
 							vendor: true,
+							AromaTaste: {
+								include: {
+									taste: true,
+								}
+							}
 						},
 					});
 				} catch (e) {
@@ -130,6 +140,11 @@ export const AromaSource = (): IAromaSource => {
 							},
 							include: {
 								vendor: true,
+								AromaTaste: {
+									include: {
+										taste: true,
+									}
+								}
 							},
 						});
 					});

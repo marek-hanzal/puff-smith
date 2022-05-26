@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const DrawApiLink = "/api/atomizer/draw/query";
+export const DrawCountApiLink = "/api/atomizer/draw/query/count";
 
 export type IDrawQueryParams = undefined;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<IAtomizerDrawSource>, ISourceItem<IAtomizerDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
+export const useDrawCountQuery = createQueryHook<ISourceQuery<IAtomizerDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");
 
 export const useDrawSource = () => useSourceContext<ISourceItem<IAtomizerDrawSource>>();
 
@@ -63,6 +65,7 @@ export const DrawProvider: FC<IDrawProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IAtomizerDrawSource>>
 		name={"Draw"}
 		useQuery={useDrawQuery}
+		useCountQuery={useDrawCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerDrawSource>> {...props}/>;
-}
+};
 
 export const useDrawQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DrawApiLink]);
+};
+
+export const useDrawCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([DrawCountApiLink]);
 };
 
 export const useDrawOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerDrawSource>>();

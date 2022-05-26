@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const UserApiLink = "/api/user/query";
+export const UserCountApiLink = "/api/user/query/count";
 
 export type IUserQueryParams = undefined;
 
 export const useUserQuery = createQueryHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
+export const useUserCountQuery = createQueryHook<ISourceQuery<IUserSource>, number, IUserQueryParams>(UserCountApiLink, "post");
 
 export const useUserSource = () => useSourceContext<ISourceItem<IUserSource>>();
 
@@ -63,6 +65,7 @@ export const UserProvider: FC<IUserProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IUserSource>>
 		name={"User"}
 		useQuery={useUserQuery}
+		useCountQuery={useUserCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>;
-}
+};
 
 export const useUserQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UserApiLink]);
+};
+
+export const useUserCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([UserCountApiLink]);
 };
 
 export const useUserOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserSource>>();

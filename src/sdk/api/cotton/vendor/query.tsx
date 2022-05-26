@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const VendorApiLink = "/api/cotton/vendor/query";
+export const VendorCountApiLink = "/api/cotton/vendor/query/count";
 
 export type IVendorQueryParams = undefined;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<ICottonVendorSource>, ISourceItem<ICottonVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorCountQuery = createQueryHook<ISourceQuery<ICottonVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<ISourceItem<ICottonVendorSource>>();
 
@@ -63,6 +65,7 @@ export const VendorProvider: FC<IVendorProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICottonVendorSource>>
 		name={"Vendor"}
 		useQuery={useVendorQuery}
+		useCountQuery={useVendorCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonVendorSource>> {...props}/>;
-}
+};
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
+};
+
+export const useVendorCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([VendorCountApiLink]);
 };
 
 export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonVendorSource>>();

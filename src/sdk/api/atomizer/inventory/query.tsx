@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AtomizerInventoryApiLink = "/api/atomizer/inventory/query";
+export const AtomizerInventoryCountApiLink = "/api/atomizer/inventory/query/count";
 
 export type IAtomizerInventoryQueryParams = undefined;
 
 export const useAtomizerInventoryQuery = createQueryHook<ISourceQuery<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>[], IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
+export const useAtomizerInventoryCountQuery = createQueryHook<ISourceQuery<IAtomizerInventorySource>, number, IAtomizerInventoryQueryParams>(AtomizerInventoryCountApiLink, "post");
 
 export const useAtomizerInventorySource = () => useSourceContext<ISourceItem<IAtomizerInventorySource>>();
 
@@ -63,6 +65,7 @@ export const AtomizerInventoryProvider: FC<IAtomizerInventoryProviderProps> = pr
 	return <SourceProvider<ISourceItem<IAtomizerInventorySource>>
 		name={"AtomizerInventory"}
 		useQuery={useAtomizerInventoryQuery}
+		useCountQuery={useAtomizerInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelec
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerInventorySource>> {...props}/>;
-}
+};
 
 export const useAtomizerInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerInventoryApiLink]);
+};
+
+export const useAtomizerInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AtomizerInventoryCountApiLink]);
 };
 
 export const useAtomizerInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerInventorySource>>();

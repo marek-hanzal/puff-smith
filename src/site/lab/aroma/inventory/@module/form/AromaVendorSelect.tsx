@@ -1,4 +1,4 @@
-import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/aroma/inventory/aroma/vendor";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/aroma/inventory/aroma/vendor/query";
 import {FC} from "react";
 
 export interface IAromaVendorSelectProps extends Partial<IVendorSourceSelectProps> {

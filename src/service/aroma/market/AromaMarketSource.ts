@@ -9,14 +9,20 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 	const aromaSource = singletonOf(() => AromaSource());
 
 	const source: IAromaMarketSource = Source<IAromaMarketSource>({
-		name: "aroma-market",
+		name: "aroma.market",
 		prisma,
 		source: {
+			count: async () => source.prisma.aroma.count({}),
 			query: async () => source.prisma.aroma.findMany({
 				include: {
 					vendor: true,
-				}
-			})
+					AromaTaste: {
+						include: {
+							taste: true,
+						},
+					},
+				},
+			}),
 		},
 		map: async aroma => aroma ? ({
 			aroma: await aromaSource().mapper.map(aroma),

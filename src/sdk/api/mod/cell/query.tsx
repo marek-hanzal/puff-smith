@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModCellApiLink = "/api/mod/cell/query";
+export const ModCellCountApiLink = "/api/mod/cell/query/count";
 
 export type IModCellQueryParams = undefined;
 
 export const useModCellQuery = createQueryHook<ISourceQuery<IModCellSource>, ISourceItem<IModCellSource>[], IModCellQueryParams>(ModCellApiLink, "post");
+export const useModCellCountQuery = createQueryHook<ISourceQuery<IModCellSource>, number, IModCellQueryParams>(ModCellCountApiLink, "post");
 
 export const useModCellSource = () => useSourceContext<ISourceItem<IModCellSource>>();
 
@@ -63,6 +65,7 @@ export const ModCellProvider: FC<IModCellProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IModCellSource>>
 		name={"ModCell"}
 		useQuery={useModCellQuery}
+		useCountQuery={useModCellCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IModCellSelectionProviderProps extends Partial<ISelectionProvid
 
 export const ModCellSelectionProvider: FC<IModCellSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModCellSource>> {...props}/>;
-}
+};
 
 export const useModCellQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModCellApiLink]);
+};
+
+export const useModCellCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ModCellCountApiLink]);
 };
 
 export const useModCellOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModCellSource>>();

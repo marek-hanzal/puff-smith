@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AromaMarketApiLink = "/api/aroma/market/query";
+export const AromaMarketCountApiLink = "/api/aroma/market/query/count";
 
 export type IAromaMarketQueryParams = undefined;
 
 export const useAromaMarketQuery = createQueryHook<ISourceQuery<IAromaMarketSource>, ISourceItem<IAromaMarketSource>[], IAromaMarketQueryParams>(AromaMarketApiLink, "post");
+export const useAromaMarketCountQuery = createQueryHook<ISourceQuery<IAromaMarketSource>, number, IAromaMarketQueryParams>(AromaMarketCountApiLink, "post");
 
 export const useAromaMarketSource = () => useSourceContext<ISourceItem<IAromaMarketSource>>();
 
@@ -63,6 +65,7 @@ export const AromaMarketProvider: FC<IAromaMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IAromaMarketSource>>
 		name={"AromaMarket"}
 		useQuery={useAromaMarketQuery}
+		useCountQuery={useAromaMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IAromaMarketSelectionProviderProps extends Partial<ISelectionPr
 
 export const AromaMarketSelectionProvider: FC<IAromaMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaMarketSource>> {...props}/>;
-}
+};
 
 export const useAromaMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaMarketApiLink]);
+};
+
+export const useAromaMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AromaMarketCountApiLink]);
 };
 
 export const useAromaMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaMarketSource>>();

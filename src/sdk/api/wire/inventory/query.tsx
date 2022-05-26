@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const WireInventoryApiLink = "/api/wire/inventory/query";
+export const WireInventoryCountApiLink = "/api/wire/inventory/query/count";
 
 export type IWireInventoryQueryParams = undefined;
 
 export const useWireInventoryQuery = createQueryHook<ISourceQuery<IWireInventorySource>, ISourceItem<IWireInventorySource>[], IWireInventoryQueryParams>(WireInventoryApiLink, "post");
+export const useWireInventoryCountQuery = createQueryHook<ISourceQuery<IWireInventorySource>, number, IWireInventoryQueryParams>(WireInventoryCountApiLink, "post");
 
 export const useWireInventorySource = () => useSourceContext<ISourceItem<IWireInventorySource>>();
 
@@ -63,6 +65,7 @@ export const WireInventoryProvider: FC<IWireInventoryProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IWireInventorySource>>
 		name={"WireInventory"}
 		useQuery={useWireInventoryQuery}
+		useCountQuery={useWireInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IWireInventorySelectionProviderProps extends Partial<ISelection
 
 export const WireInventorySelectionProvider: FC<IWireInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireInventorySource>> {...props}/>;
-}
+};
 
 export const useWireInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireInventoryApiLink]);
+};
+
+export const useWireInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireInventoryCountApiLink]);
 };
 
 export const useWireInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireInventorySource>>();

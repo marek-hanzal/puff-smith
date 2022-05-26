@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CottonInventoryApiLink = "/api/cotton/inventory/query";
+export const CottonInventoryCountApiLink = "/api/cotton/inventory/query/count";
 
 export type ICottonInventoryQueryParams = undefined;
 
 export const useCottonInventoryQuery = createQueryHook<ISourceQuery<ICottonInventorySource>, ISourceItem<ICottonInventorySource>[], ICottonInventoryQueryParams>(CottonInventoryApiLink, "post");
+export const useCottonInventoryCountQuery = createQueryHook<ISourceQuery<ICottonInventorySource>, number, ICottonInventoryQueryParams>(CottonInventoryCountApiLink, "post");
 
 export const useCottonInventorySource = () => useSourceContext<ISourceItem<ICottonInventorySource>>();
 
@@ -63,6 +65,7 @@ export const CottonInventoryProvider: FC<ICottonInventoryProviderProps> = props 
 	return <SourceProvider<ISourceItem<ICottonInventorySource>>
 		name={"CottonInventory"}
 		useQuery={useCottonInventoryQuery}
+		useCountQuery={useCottonInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface ICottonInventorySelectionProviderProps extends Partial<ISelecti
 
 export const CottonInventorySelectionProvider: FC<ICottonInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonInventorySource>> {...props}/>;
-}
+};
 
 export const useCottonInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonInventoryApiLink]);
+};
+
+export const useCottonInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CottonInventoryCountApiLink]);
 };
 
 export const useCottonInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonInventorySource>>();

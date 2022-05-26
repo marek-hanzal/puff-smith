@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const WireFiberApiLink = "/api/wire/fiber/query";
+export const WireFiberCountApiLink = "/api/wire/fiber/query/count";
 
 export type IWireFiberQueryParams = undefined;
 
 export const useWireFiberQuery = createQueryHook<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>[], IWireFiberQueryParams>(WireFiberApiLink, "post");
+export const useWireFiberCountQuery = createQueryHook<ISourceQuery<IWireFiberSource>, number, IWireFiberQueryParams>(WireFiberCountApiLink, "post");
 
 export const useWireFiberSource = () => useSourceContext<ISourceItem<IWireFiberSource>>();
 
@@ -63,6 +65,7 @@ export const WireFiberProvider: FC<IWireFiberProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IWireFiberSource>>
 		name={"WireFiber"}
 		useQuery={useWireFiberQuery}
+		useCountQuery={useWireFiberCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IWireFiberSelectionProviderProps extends Partial<ISelectionProv
 
 export const WireFiberSelectionProvider: FC<IWireFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>;
-}
+};
 
 export const useWireFiberQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireFiberApiLink]);
+};
+
+export const useWireFiberCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireFiberCountApiLink]);
 };
 
 export const useWireFiberOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireFiberSource>>();

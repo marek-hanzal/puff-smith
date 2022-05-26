@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const FileApiLink = "/api/file/query";
+export const FileCountApiLink = "/api/file/query/count";
 
 export type IFileQueryParams = undefined;
 
 export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const useFileCountQuery = createQueryHook<ISourceQuery<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");
 
 export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>();
 
@@ -63,6 +65,7 @@ export const FileProvider: FC<IFileProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IFileSource>>
 		name={"File"}
 		useQuery={useFileQuery}
+		useCountQuery={useFileCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
-}
+};
 
 export const useFileQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FileApiLink]);
+};
+
+export const useFileCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([FileCountApiLink]);
 };
 
 export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();

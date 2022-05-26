@@ -13,7 +13,7 @@ export const memoIsOwned = memoizee(async (aromaId, userId) => await prisma.arom
 	maxAge: 24 * 60 * 60 * 1000,
 });
 
-export const memoTastes = memoizee(async (id, tagSource) => await tagSource().list(prisma.tag.findMany({
+export const memoTastes = memoizee(async (id, tagSource) => await tagSource().mapper.list(prisma.tag.findMany({
 	where: {
 		AromaTaste: {
 			some: {

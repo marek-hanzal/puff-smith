@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const VendorApiLink = "/api/aroma/vendor/query";
-export const VendorCountApiLink = "/api/aroma/vendor/query/count";
+export const VendorApiLink = "/api/aroma/inventory/aroma/vendor/query";
+export const VendorCountApiLink = "/api/aroma/inventory/aroma/vendor/query/count";
 
 export type IVendorQueryParams = undefined;
 
@@ -117,7 +117,7 @@ export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</VendorProvider>;
-}
+};
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaVendorSource>>;

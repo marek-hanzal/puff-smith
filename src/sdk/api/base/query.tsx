@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BaseApiLink = "/api/base/query";
+export const BaseCountApiLink = "/api/base/query/count";
 
 export type IBaseQueryParams = undefined;
 
 export const useBaseQuery = createQueryHook<ISourceQuery<IBaseSource>, ISourceItem<IBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
+export const useBaseCountQuery = createQueryHook<ISourceQuery<IBaseSource>, number, IBaseQueryParams>(BaseCountApiLink, "post");
 
 export const useBaseSource = () => useSourceContext<ISourceItem<IBaseSource>>();
 
@@ -63,6 +65,7 @@ export const BaseProvider: FC<IBaseProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBaseSource>>
 		name={"Base"}
 		useQuery={useBaseQuery}
+		useCountQuery={useBaseCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseSource>> {...props}/>;
-}
+};
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseApiLink]);
+};
+
+export const useBaseCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BaseCountApiLink]);
 };
 
 export const useBaseOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseSource>>();

@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const WireApiLink = "/api/wire/query";
+export const WireCountApiLink = "/api/wire/query/count";
 
 export type IWireQueryParams = undefined;
 
 export const useWireQuery = createQueryHook<ISourceQuery<IWireSource>, ISourceItem<IWireSource>[], IWireQueryParams>(WireApiLink, "post");
+export const useWireCountQuery = createQueryHook<ISourceQuery<IWireSource>, number, IWireQueryParams>(WireCountApiLink, "post");
 
 export const useWireSource = () => useSourceContext<ISourceItem<IWireSource>>();
 
@@ -63,6 +65,7 @@ export const WireProvider: FC<IWireProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IWireSource>>
 		name={"Wire"}
 		useQuery={useWireQuery}
+		useCountQuery={useWireCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IWireSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const WireSelectionProvider: FC<IWireSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireSource>> {...props}/>;
-}
+};
 
 export const useWireQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireApiLink]);
+};
+
+export const useWireCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([WireCountApiLink]);
 };
 
 export const useWireOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireSource>>();

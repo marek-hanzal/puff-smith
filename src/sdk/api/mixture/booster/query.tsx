@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BoosterApiLink = "/api/mixture/booster/query";
+export const BoosterCountApiLink = "/api/mixture/booster/query/count";
 
 export type IBoosterQueryParams = undefined;
 
 export const useBoosterQuery = createQueryHook<ISourceQuery<IMixtureBoosterSource>, ISourceItem<IMixtureBoosterSource>[], IBoosterQueryParams>(BoosterApiLink, "post");
+export const useBoosterCountQuery = createQueryHook<ISourceQuery<IMixtureBoosterSource>, number, IBoosterQueryParams>(BoosterCountApiLink, "post");
 
 export const useBoosterSource = () => useSourceContext<ISourceItem<IMixtureBoosterSource>>();
 
@@ -63,6 +65,7 @@ export const BoosterProvider: FC<IBoosterProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IMixtureBoosterSource>>
 		name={"Booster"}
 		useQuery={useBoosterQuery}
+		useCountQuery={useBoosterCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureBoosterSource>> {...props}/>;
-}
+};
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterApiLink]);
+};
+
+export const useBoosterCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BoosterCountApiLink]);
 };
 
 export const useBoosterOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureBoosterSource>>();

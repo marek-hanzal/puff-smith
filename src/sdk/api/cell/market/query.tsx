@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CellMarketApiLink = "/api/cell/market/query";
+export const CellMarketCountApiLink = "/api/cell/market/query/count";
 
 export type ICellMarketQueryParams = undefined;
 
 export const useCellMarketQuery = createQueryHook<ISourceQuery<ICellMarketSource>, ISourceItem<ICellMarketSource>[], ICellMarketQueryParams>(CellMarketApiLink, "post");
+export const useCellMarketCountQuery = createQueryHook<ISourceQuery<ICellMarketSource>, number, ICellMarketQueryParams>(CellMarketCountApiLink, "post");
 
 export const useCellMarketSource = () => useSourceContext<ISourceItem<ICellMarketSource>>();
 
@@ -63,6 +65,7 @@ export const CellMarketProvider: FC<ICellMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICellMarketSource>>
 		name={"CellMarket"}
 		useQuery={useCellMarketQuery}
+		useCountQuery={useCellMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface ICellMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellMarketSource>> {...props}/>;
-}
+};
 
 export const useCellMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellMarketApiLink]);
+};
+
+export const useCellMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CellMarketCountApiLink]);
 };
 
 export const useCellMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellMarketSource>>();

@@ -15,12 +15,18 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 			count: async () => source.prisma.aroma.count({
 				distinct: ["vendorId"],
 			}),
-			query: async () => prisma.aroma.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => prisma.aroma.findMany({
 				distinct: ["vendorId"],
 				include: {
 					vendor: true,
 				},
 				where: {
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						},
+					},
 					AromaInventory: {
 						some: {
 							userId: source.user.required(),

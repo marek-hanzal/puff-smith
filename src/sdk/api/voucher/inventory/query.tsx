@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const VoucherInventoryApiLink = "/api/voucher/inventory/query";
+export const VoucherInventoryCountApiLink = "/api/voucher/inventory/query/count";
 
 export type IVoucherInventoryQueryParams = undefined;
 
 export const useVoucherInventoryQuery = createQueryHook<ISourceQuery<IVoucherInventorySource>, ISourceItem<IVoucherInventorySource>[], IVoucherInventoryQueryParams>(VoucherInventoryApiLink, "post");
+export const useVoucherInventoryCountQuery = createQueryHook<ISourceQuery<IVoucherInventorySource>, number, IVoucherInventoryQueryParams>(VoucherInventoryCountApiLink, "post");
 
 export const useVoucherInventorySource = () => useSourceContext<ISourceItem<IVoucherInventorySource>>();
 
@@ -63,6 +65,7 @@ export const VoucherInventoryProvider: FC<IVoucherInventoryProviderProps> = prop
 	return <SourceProvider<ISourceItem<IVoucherInventorySource>>
 		name={"VoucherInventory"}
 		useQuery={useVoucherInventoryQuery}
+		useCountQuery={useVoucherInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IVoucherInventorySelectionProviderProps extends Partial<ISelect
 
 export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVoucherInventorySource>> {...props}/>;
-}
+};
 
 export const useVoucherInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VoucherInventoryApiLink]);
+};
+
+export const useVoucherInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([VoucherInventoryCountApiLink]);
 };
 
 export const useVoucherInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IVoucherInventorySource>>();

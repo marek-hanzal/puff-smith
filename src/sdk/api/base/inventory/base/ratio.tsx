@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const RatioApiLink = "/api/base/inventory/base/ratio";
+export const RatioCountApiLink = "/api/base/inventory/base/ratio/count";
 
 export type IRatioQueryParams = undefined;
 
 export const useRatioQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, ISourceItem<IBaseRatioSource>[], IRatioQueryParams>(RatioApiLink, "post");
+export const useRatioCountQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, number, IRatioQueryParams>(RatioCountApiLink, "post");
 
 export const useRatioSource = () => useSourceContext<ISourceItem<IBaseRatioSource>>();
 
@@ -63,6 +65,7 @@ export const RatioProvider: FC<IRatioProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBaseRatioSource>>
 		name={"Ratio"}
 		useQuery={useRatioQuery}
+		useCountQuery={useRatioCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseRatioSource>> {...props}/>;
-}
+};
 
 export const useRatioQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([RatioApiLink]);
+};
+
+export const useRatioCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([RatioCountApiLink]);
 };
 
 export const useRatioOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseRatioSource>>();

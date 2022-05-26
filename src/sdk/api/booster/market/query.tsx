@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BoosterMarketApiLink = "/api/booster/market/query";
+export const BoosterMarketCountApiLink = "/api/booster/market/query/count";
 
 export type IBoosterMarketQueryParams = undefined;
 
 export const useBoosterMarketQuery = createQueryHook<ISourceQuery<IBoosterMarketSource>, ISourceItem<IBoosterMarketSource>[], IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
+export const useBoosterMarketCountQuery = createQueryHook<ISourceQuery<IBoosterMarketSource>, number, IBoosterMarketQueryParams>(BoosterMarketCountApiLink, "post");
 
 export const useBoosterMarketSource = () => useSourceContext<ISourceItem<IBoosterMarketSource>>();
 
@@ -63,6 +65,7 @@ export const BoosterMarketProvider: FC<IBoosterMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBoosterMarketSource>>
 		name={"BoosterMarket"}
 		useQuery={useBoosterMarketQuery}
+		useCountQuery={useBoosterMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IBoosterMarketSelectionProviderProps extends Partial<ISelection
 
 export const BoosterMarketSelectionProvider: FC<IBoosterMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterMarketSource>> {...props}/>;
-}
+};
 
 export const useBoosterMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterMarketApiLink]);
+};
+
+export const useBoosterMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BoosterMarketCountApiLink]);
 };
 
 export const useBoosterMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterMarketSource>>();

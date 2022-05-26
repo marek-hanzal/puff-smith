@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModMarketApiLink = "/api/mod/market/query";
+export const ModMarketCountApiLink = "/api/mod/market/query/count";
 
 export type IModMarketQueryParams = undefined;
 
 export const useModMarketQuery = createQueryHook<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>[], IModMarketQueryParams>(ModMarketApiLink, "post");
+export const useModMarketCountQuery = createQueryHook<ISourceQuery<IModMarketSource>, number, IModMarketQueryParams>(ModMarketCountApiLink, "post");
 
 export const useModMarketSource = () => useSourceContext<ISourceItem<IModMarketSource>>();
 
@@ -63,6 +65,7 @@ export const ModMarketProvider: FC<IModMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IModMarketSource>>
 		name={"ModMarket"}
 		useQuery={useModMarketQuery}
+		useCountQuery={useModMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IModMarketSelectionProviderProps extends Partial<ISelectionProv
 
 export const ModMarketSelectionProvider: FC<IModMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModMarketSource>> {...props}/>;
-}
+};
 
 export const useModMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModMarketApiLink]);
+};
+
+export const useModMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ModMarketCountApiLink]);
 };
 
 export const useModMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModMarketSource>>();

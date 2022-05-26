@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CellTypeApiLink = "/api/cell/type/query";
+export const CellTypeCountApiLink = "/api/cell/type/query/count";
 
 export type ICellTypeQueryParams = undefined;
 
 export const useCellTypeQuery = createQueryHook<ISourceQuery<ICellTypeSource>, ISourceItem<ICellTypeSource>[], ICellTypeQueryParams>(CellTypeApiLink, "post");
+export const useCellTypeCountQuery = createQueryHook<ISourceQuery<ICellTypeSource>, number, ICellTypeQueryParams>(CellTypeCountApiLink, "post");
 
 export const useCellTypeSource = () => useSourceContext<ISourceItem<ICellTypeSource>>();
 
@@ -63,6 +65,7 @@ export const CellTypeProvider: FC<ICellTypeProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICellTypeSource>>
 		name={"CellType"}
 		useQuery={useCellTypeQuery}
+		useCountQuery={useCellTypeCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface ICellTypeSelectionProviderProps extends Partial<ISelectionProvi
 
 export const CellTypeSelectionProvider: FC<ICellTypeSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellTypeSource>> {...props}/>;
-}
+};
 
 export const useCellTypeQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellTypeApiLink]);
+};
+
+export const useCellTypeCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CellTypeCountApiLink]);
 };
 
 export const useCellTypeOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellTypeSource>>();

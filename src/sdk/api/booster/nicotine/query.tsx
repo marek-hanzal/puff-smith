@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const NicotineApiLink = "/api/booster/nicotine/query";
+export const NicotineCountApiLink = "/api/booster/nicotine/query/count";
 
 export type INicotineQueryParams = undefined;
 
 export const useNicotineQuery = createQueryHook<ISourceQuery<IBoosterNicotineSource>, ISourceItem<IBoosterNicotineSource>[], INicotineQueryParams>(NicotineApiLink, "post");
+export const useNicotineCountQuery = createQueryHook<ISourceQuery<IBoosterNicotineSource>, number, INicotineQueryParams>(NicotineCountApiLink, "post");
 
 export const useNicotineSource = () => useSourceContext<ISourceItem<IBoosterNicotineSource>>();
 
@@ -63,6 +65,7 @@ export const NicotineProvider: FC<INicotineProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBoosterNicotineSource>>
 		name={"Nicotine"}
 		useQuery={useNicotineQuery}
+		useCountQuery={useNicotineCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface INicotineSelectionProviderProps extends Partial<ISelectionProvi
 
 export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterNicotineSource>> {...props}/>;
-}
+};
 
 export const useNicotineQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([NicotineApiLink]);
+};
+
+export const useNicotineCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([NicotineCountApiLink]);
 };
 
 export const useNicotineOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterNicotineSource>>();

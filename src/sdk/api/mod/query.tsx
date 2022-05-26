@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModApiLink = "/api/mod/query";
+export const ModCountApiLink = "/api/mod/query/count";
 
 export type IModQueryParams = undefined;
 
 export const useModQuery = createQueryHook<ISourceQuery<IModSource>, ISourceItem<IModSource>[], IModQueryParams>(ModApiLink, "post");
+export const useModCountQuery = createQueryHook<ISourceQuery<IModSource>, number, IModQueryParams>(ModCountApiLink, "post");
 
 export const useModSource = () => useSourceContext<ISourceItem<IModSource>>();
 
@@ -63,6 +65,7 @@ export const ModProvider: FC<IModProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IModSource>>
 		name={"Mod"}
 		useQuery={useModQuery}
+		useCountQuery={useModCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IModSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const ModSelectionProvider: FC<IModSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>;
-}
+};
 
 export const useModQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModApiLink]);
+};
+
+export const useModCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ModCountApiLink]);
 };
 
 export const useModOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModSource>>();

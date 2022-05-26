@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const ModInventoryApiLink = "/api/mod/inventory/query";
+export const ModInventoryCountApiLink = "/api/mod/inventory/query/count";
 
 export type IModInventoryQueryParams = undefined;
 
 export const useModInventoryQuery = createQueryHook<ISourceQuery<IModInventorySource>, ISourceItem<IModInventorySource>[], IModInventoryQueryParams>(ModInventoryApiLink, "post");
+export const useModInventoryCountQuery = createQueryHook<ISourceQuery<IModInventorySource>, number, IModInventoryQueryParams>(ModInventoryCountApiLink, "post");
 
 export const useModInventorySource = () => useSourceContext<ISourceItem<IModInventorySource>>();
 
@@ -63,6 +65,7 @@ export const ModInventoryProvider: FC<IModInventoryProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IModInventorySource>>
 		name={"ModInventory"}
 		useQuery={useModInventoryQuery}
+		useCountQuery={useModInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IModInventorySelectionProviderProps extends Partial<ISelectionP
 
 export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModInventorySource>> {...props}/>;
-}
+};
 
 export const useModInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModInventoryApiLink]);
+};
+
+export const useModInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([ModInventoryCountApiLink]);
 };
 
 export const useModInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModInventorySource>>();

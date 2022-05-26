@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const MixtureMarketApiLink = "/api/mixture/market/query";
+export const MixtureMarketCountApiLink = "/api/mixture/market/query/count";
 
 export type IMixtureMarketQueryParams = undefined;
 
 export const useMixtureMarketQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, ISourceItem<IMixtureMarketSource>[], IMixtureMarketQueryParams>(MixtureMarketApiLink, "post");
+export const useMixtureMarketCountQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, number, IMixtureMarketQueryParams>(MixtureMarketCountApiLink, "post");
 
 export const useMixtureMarketSource = () => useSourceContext<ISourceItem<IMixtureMarketSource>>();
 
@@ -63,6 +65,7 @@ export const MixtureMarketProvider: FC<IMixtureMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IMixtureMarketSource>>
 		name={"MixtureMarket"}
 		useQuery={useMixtureMarketQuery}
+		useCountQuery={useMixtureMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IMixtureMarketSelectionProviderProps extends Partial<ISelection
 
 export const MixtureMarketSelectionProvider: FC<IMixtureMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureMarketSource>> {...props}/>;
-}
+};
 
 export const useMixtureMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureMarketApiLink]);
+};
+
+export const useMixtureMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([MixtureMarketCountApiLink]);
 };
 
 export const useMixtureMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureMarketSource>>();

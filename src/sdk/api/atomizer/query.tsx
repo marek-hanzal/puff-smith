@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AtomizerApiLink = "/api/atomizer/query";
+export const AtomizerCountApiLink = "/api/atomizer/query/count";
 
 export type IAtomizerQueryParams = undefined;
 
 export const useAtomizerQuery = createQueryHook<ISourceQuery<IAtomizerSource>, ISourceItem<IAtomizerSource>[], IAtomizerQueryParams>(AtomizerApiLink, "post");
+export const useAtomizerCountQuery = createQueryHook<ISourceQuery<IAtomizerSource>, number, IAtomizerQueryParams>(AtomizerCountApiLink, "post");
 
 export const useAtomizerSource = () => useSourceContext<ISourceItem<IAtomizerSource>>();
 
@@ -63,6 +65,7 @@ export const AtomizerProvider: FC<IAtomizerProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IAtomizerSource>>
 		name={"Atomizer"}
 		useQuery={useAtomizerQuery}
+		useCountQuery={useAtomizerCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IAtomizerSelectionProviderProps extends Partial<ISelectionProvi
 
 export const AtomizerSelectionProvider: FC<IAtomizerSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerSource>> {...props}/>;
-}
+};
 
 export const useAtomizerQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerApiLink]);
+};
+
+export const useAtomizerCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AtomizerCountApiLink]);
 };
 
 export const useAtomizerOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerSource>>();

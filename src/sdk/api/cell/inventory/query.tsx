@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CellInventoryApiLink = "/api/cell/inventory/query";
+export const CellInventoryCountApiLink = "/api/cell/inventory/query/count";
 
 export type ICellInventoryQueryParams = undefined;
 
 export const useCellInventoryQuery = createQueryHook<ISourceQuery<ICellInventorySource>, ISourceItem<ICellInventorySource>[], ICellInventoryQueryParams>(CellInventoryApiLink, "post");
+export const useCellInventoryCountQuery = createQueryHook<ISourceQuery<ICellInventorySource>, number, ICellInventoryQueryParams>(CellInventoryCountApiLink, "post");
 
 export const useCellInventorySource = () => useSourceContext<ISourceItem<ICellInventorySource>>();
 
@@ -63,6 +65,7 @@ export const CellInventoryProvider: FC<ICellInventoryProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICellInventorySource>>
 		name={"CellInventory"}
 		useQuery={useCellInventoryQuery}
+		useCountQuery={useCellInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface ICellInventorySelectionProviderProps extends Partial<ISelection
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
-}
+};
 
 export const useCellInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellInventoryApiLink]);
+};
+
+export const useCellInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CellInventoryCountApiLink]);
 };
 
 export const useCellInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellInventorySource>>();

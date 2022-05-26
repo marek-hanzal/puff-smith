@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const VendorApiLink = "/api/atomizer/vendor/query";
+export const VendorCountApiLink = "/api/atomizer/vendor/query/count";
 
 export type IVendorQueryParams = undefined;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, ISourceItem<IAtomizerVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorCountQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");
 
 export const useVendorSource = () => useSourceContext<ISourceItem<IAtomizerVendorSource>>();
 
@@ -63,6 +65,7 @@ export const VendorProvider: FC<IVendorProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IAtomizerVendorSource>>
 		name={"Vendor"}
 		useQuery={useVendorQuery}
+		useCountQuery={useVendorCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerVendorSource>> {...props}/>;
-}
+};
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
+};
+
+export const useVendorCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([VendorCountApiLink]);
 };
 
 export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerVendorSource>>();

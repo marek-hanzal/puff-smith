@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BoosterInventoryApiLink = "/api/booster/inventory/query";
+export const BoosterInventoryCountApiLink = "/api/booster/inventory/query/count";
 
 export type IBoosterInventoryQueryParams = undefined;
 
 export const useBoosterInventoryQuery = createQueryHook<ISourceQuery<IBoosterInventorySource>, ISourceItem<IBoosterInventorySource>[], IBoosterInventoryQueryParams>(BoosterInventoryApiLink, "post");
+export const useBoosterInventoryCountQuery = createQueryHook<ISourceQuery<IBoosterInventorySource>, number, IBoosterInventoryQueryParams>(BoosterInventoryCountApiLink, "post");
 
 export const useBoosterInventorySource = () => useSourceContext<ISourceItem<IBoosterInventorySource>>();
 
@@ -63,6 +65,7 @@ export const BoosterInventoryProvider: FC<IBoosterInventoryProviderProps> = prop
 	return <SourceProvider<ISourceItem<IBoosterInventorySource>>
 		name={"BoosterInventory"}
 		useQuery={useBoosterInventoryQuery}
+		useCountQuery={useBoosterInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IBoosterInventorySelectionProviderProps extends Partial<ISelect
 
 export const BoosterInventorySelectionProvider: FC<IBoosterInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterInventorySource>> {...props}/>;
-}
+};
 
 export const useBoosterInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterInventoryApiLink]);
+};
+
+export const useBoosterInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BoosterInventoryCountApiLink]);
 };
 
 export const useBoosterInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterInventorySource>>();

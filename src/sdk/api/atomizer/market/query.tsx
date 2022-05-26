@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AtomizerMarketApiLink = "/api/atomizer/market/query";
+export const AtomizerMarketCountApiLink = "/api/atomizer/market/query/count";
 
 export type IAtomizerMarketQueryParams = undefined;
 
 export const useAtomizerMarketQuery = createQueryHook<ISourceQuery<IAtomizerMarketSource>, ISourceItem<IAtomizerMarketSource>[], IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
+export const useAtomizerMarketCountQuery = createQueryHook<ISourceQuery<IAtomizerMarketSource>, number, IAtomizerMarketQueryParams>(AtomizerMarketCountApiLink, "post");
 
 export const useAtomizerMarketSource = () => useSourceContext<ISourceItem<IAtomizerMarketSource>>();
 
@@ -63,6 +65,7 @@ export const AtomizerMarketProvider: FC<IAtomizerMarketProviderProps> = props =>
 	return <SourceProvider<ISourceItem<IAtomizerMarketSource>>
 		name={"AtomizerMarket"}
 		useQuery={useAtomizerMarketQuery}
+		useCountQuery={useAtomizerMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -163,6 +166,11 @@ export const AtomizerMarketSelectionProvider: FC<IAtomizerMarketSelectionProvide
 export const useAtomizerMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerMarketApiLink]);
+};
+
+export const useAtomizerMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AtomizerMarketCountApiLink]);
 };
 
 export const useAtomizerMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerMarketSource>>();

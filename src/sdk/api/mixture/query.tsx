@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const MixtureApiLink = "/api/mixture/query";
+export const MixtureCountApiLink = "/api/mixture/query/count";
 
 export type IMixtureQueryParams = undefined;
 
 export const useMixtureQuery = createQueryHook<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
+export const useMixtureCountQuery = createQueryHook<ISourceQuery<IMixtureSource>, number, IMixtureQueryParams>(MixtureCountApiLink, "post");
 
 export const useMixtureSource = () => useSourceContext<ISourceItem<IMixtureSource>>();
 
@@ -63,6 +65,7 @@ export const MixtureProvider: FC<IMixtureProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IMixtureSource>>
 		name={"Mixture"}
 		useQuery={useMixtureQuery}
+		useCountQuery={useMixtureCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>;
-}
+};
 
 export const useMixtureQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureApiLink]);
+};
+
+export const useMixtureCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([MixtureCountApiLink]);
 };
 
 export const useMixtureOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureSource>>();

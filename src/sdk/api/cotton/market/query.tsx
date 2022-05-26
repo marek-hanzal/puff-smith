@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CottonMarketApiLink = "/api/cotton/market/query";
+export const CottonMarketCountApiLink = "/api/cotton/market/query/count";
 
 export type ICottonMarketQueryParams = undefined;
 
 export const useCottonMarketQuery = createQueryHook<ISourceQuery<ICottonMarketSource>, ISourceItem<ICottonMarketSource>[], ICottonMarketQueryParams>(CottonMarketApiLink, "post");
+export const useCottonMarketCountQuery = createQueryHook<ISourceQuery<ICottonMarketSource>, number, ICottonMarketQueryParams>(CottonMarketCountApiLink, "post");
 
 export const useCottonMarketSource = () => useSourceContext<ISourceItem<ICottonMarketSource>>();
 
@@ -63,6 +65,7 @@ export const CottonMarketProvider: FC<ICottonMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICottonMarketSource>>
 		name={"CottonMarket"}
 		useQuery={useCottonMarketQuery}
+		useCountQuery={useCottonMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionP
 
 export const CottonMarketSelectionProvider: FC<ICottonMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonMarketSource>> {...props}/>;
-}
+};
 
 export const useCottonMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonMarketApiLink]);
+};
+
+export const useCottonMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CottonMarketCountApiLink]);
 };
 
 export const useCottonMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonMarketSource>>();

@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const CottonApiLink = "/api/cotton/query";
+export const CottonCountApiLink = "/api/cotton/query/count";
 
 export type ICottonQueryParams = undefined;
 
 export const useCottonQuery = createQueryHook<ISourceQuery<ICottonSource>, ISourceItem<ICottonSource>[], ICottonQueryParams>(CottonApiLink, "post");
+export const useCottonCountQuery = createQueryHook<ISourceQuery<ICottonSource>, number, ICottonQueryParams>(CottonCountApiLink, "post");
 
 export const useCottonSource = () => useSourceContext<ISourceItem<ICottonSource>>();
 
@@ -63,6 +65,7 @@ export const CottonProvider: FC<ICottonProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ICottonSource>>
 		name={"Cotton"}
 		useQuery={useCottonQuery}
+		useCountQuery={useCottonCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface ICottonSelectionProviderProps extends Partial<ISelectionProvide
 
 export const CottonSelectionProvider: FC<ICottonSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonSource>> {...props}/>;
-}
+};
 
 export const useCottonQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonApiLink]);
+};
+
+export const useCottonCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([CottonCountApiLink]);
 };
 
 export const useCottonOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonSource>>();

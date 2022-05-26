@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const LiquidApiLink = "/api/liquid/query";
+export const LiquidCountApiLink = "/api/liquid/query/count";
 
 export type ILiquidQueryParams = undefined;
 
 export const useLiquidQuery = createQueryHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
+export const useLiquidCountQuery = createQueryHook<ISourceQuery<ILiquidSource>, number, ILiquidQueryParams>(LiquidCountApiLink, "post");
 
 export const useLiquidSource = () => useSourceContext<ISourceItem<ILiquidSource>>();
 
@@ -63,6 +65,7 @@ export const LiquidProvider: FC<ILiquidProviderProps> = props => {
 	return <SourceProvider<ISourceItem<ILiquidSource>>
 		name={"Liquid"}
 		useQuery={useLiquidQuery}
+		useCountQuery={useLiquidCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
-}
+};
 
 export const useLiquidQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LiquidApiLink]);
+};
+
+export const useLiquidCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([LiquidCountApiLink]);
 };
 
 export const useLiquidOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidSource>>();

@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const JobApiLink = "/api/job/query";
+export const JobCountApiLink = "/api/job/query/count";
 
 export type IJobQueryParams = undefined;
 
 export const useJobQuery = createQueryHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
+export const useJobCountQuery = createQueryHook<ISourceQuery<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");
 
 export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>();
 
@@ -63,6 +65,7 @@ export const JobProvider: FC<IJobProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IJobSource>>
 		name={"Job"}
 		useQuery={useJobQuery}
+		useCountQuery={useJobCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
-}
+};
 
 export const useJobQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobApiLink]);
+};
+
+export const useJobCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([JobCountApiLink]);
 };
 
 export const useJobOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobSource>>();

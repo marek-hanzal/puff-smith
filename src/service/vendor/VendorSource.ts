@@ -1,6 +1,6 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 
 export const VendorSource = (): IVendorSource => {
 	const source: IVendorSource = Source<IVendorSource>({
@@ -22,7 +22,19 @@ export const VendorSource = (): IVendorSource => {
 						rejectOnNotFound: true,
 					}));
 				}
-			}
+			},
+			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.vendor.findMany({
+				where: {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+				},
+				orderBy: [
+					{name: "asc"},
+				],
+				...pageOf(query),
+			}),
 		},
 		fetchByReference: ({vendorId, vendor}) => {
 			if (!vendor && !vendorId) {

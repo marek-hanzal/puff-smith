@@ -1,4 +1,5 @@
-import {IAroma, IAromaEntity, IAromaQuery} from "@/puff-smith/service/aroma/interface";
+import {IAroma, IAromaEntity, IAromaQuery, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
+import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {ISource} from "@leight-core/api";
 
 export interface IAromaMarket {
@@ -6,5 +7,5 @@ export interface IAromaMarket {
 	isOwned: boolean | undefined;
 }
 
-export interface IAromaMarketSource extends ISource<undefined, IAromaEntity, IAromaMarket, IAromaQuery> {
+export interface IAromaMarketSource extends ISource<undefined, IAromaEntity<IWithVendor & IWithAromaTaste>, IAromaMarket, IAromaQuery> {
 }

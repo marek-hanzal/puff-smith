@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BaseMarketApiLink = "/api/base/market/query";
+export const BaseMarketCountApiLink = "/api/base/market/query/count";
 
 export type IBaseMarketQueryParams = undefined;
 
 export const useBaseMarketQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, ISourceItem<IBaseMarketSource>[], IBaseMarketQueryParams>(BaseMarketApiLink, "post");
+export const useBaseMarketCountQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, number, IBaseMarketQueryParams>(BaseMarketCountApiLink, "post");
 
 export const useBaseMarketSource = () => useSourceContext<ISourceItem<IBaseMarketSource>>();
 
@@ -63,6 +65,7 @@ export const BaseMarketProvider: FC<IBaseMarketProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBaseMarketSource>>
 		name={"BaseMarket"}
 		useQuery={useBaseMarketQuery}
+		useCountQuery={useBaseMarketCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface IBaseMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const BaseMarketSelectionProvider: FC<IBaseMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseMarketSource>> {...props}/>;
-}
+};
 
 export const useBaseMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseMarketApiLink]);
+};
+
+export const useBaseMarketCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BaseMarketCountApiLink]);
 };
 
 export const useBaseMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseMarketSource>>();

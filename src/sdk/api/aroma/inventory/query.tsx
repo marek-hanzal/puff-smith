@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const AromaInventoryApiLink = "/api/aroma/inventory/query";
+export const AromaInventoryCountApiLink = "/api/aroma/inventory/query/count";
 
 export type IAromaInventoryQueryParams = undefined;
 
 export const useAromaInventoryQuery = createQueryHook<ISourceQuery<IAromaInventorySource>, ISourceItem<IAromaInventorySource>[], IAromaInventoryQueryParams>(AromaInventoryApiLink, "post");
+export const useAromaInventoryCountQuery = createQueryHook<ISourceQuery<IAromaInventorySource>, number, IAromaInventoryQueryParams>(AromaInventoryCountApiLink, "post");
 
 export const useAromaInventorySource = () => useSourceContext<ISourceItem<IAromaInventorySource>>();
 
@@ -63,6 +65,7 @@ export const AromaInventoryProvider: FC<IAromaInventoryProviderProps> = props =>
 	return <SourceProvider<ISourceItem<IAromaInventorySource>>
 		name={"AromaInventory"}
 		useQuery={useAromaInventoryQuery}
+		useCountQuery={useAromaInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IAromaInventorySelectionProviderProps extends Partial<ISelectio
 
 export const AromaInventorySelectionProvider: FC<IAromaInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventorySource>> {...props}/>;
-}
+};
 
 export const useAromaInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaInventoryApiLink]);
+};
+
+export const useAromaInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([AromaInventoryCountApiLink]);
 };
 
 export const useAromaInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaInventorySource>>();

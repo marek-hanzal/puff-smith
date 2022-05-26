@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const TasteApiLink = "/api/aroma/taste/query";
+export const TasteCountApiLink = "/api/aroma/taste/query/count";
 
 export type ITasteQueryParams = undefined;
 
 export const useTasteQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>[], ITasteQueryParams>(TasteApiLink, "post");
+export const useTasteCountQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, number, ITasteQueryParams>(TasteCountApiLink, "post");
 
 export const useTasteSource = () => useSourceContext<ISourceItem<IAromaTasteSource>>();
 
@@ -63,6 +65,7 @@ export const TasteProvider: FC<ITasteProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IAromaTasteSource>>
 		name={"Taste"}
 		useQuery={useTasteQuery}
+		useCountQuery={useTasteCountQuery}
 		{...props}
 	/>;
 };
@@ -157,11 +160,16 @@ export interface ITasteSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TasteSelectionProvider: FC<ITasteSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>;
-}
+};
 
 export const useTasteQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TasteApiLink]);
+};
+
+export const useTasteCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([TasteCountApiLink]);
 };
 
 export const useTasteOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaTasteSource>>();

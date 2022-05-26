@@ -41,10 +41,12 @@ import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
 export const BaseInventoryApiLink = "/api/base/inventory/query";
+export const BaseInventoryCountApiLink = "/api/base/inventory/query/count";
 
 export type IBaseInventoryQueryParams = undefined;
 
 export const useBaseInventoryQuery = createQueryHook<ISourceQuery<IBaseInventorySource>, ISourceItem<IBaseInventorySource>[], IBaseInventoryQueryParams>(BaseInventoryApiLink, "post");
+export const useBaseInventoryCountQuery = createQueryHook<ISourceQuery<IBaseInventorySource>, number, IBaseInventoryQueryParams>(BaseInventoryCountApiLink, "post");
 
 export const useBaseInventorySource = () => useSourceContext<ISourceItem<IBaseInventorySource>>();
 
@@ -63,6 +65,7 @@ export const BaseInventoryProvider: FC<IBaseInventoryProviderProps> = props => {
 	return <SourceProvider<ISourceItem<IBaseInventorySource>>
 		name={"BaseInventory"}
 		useQuery={useBaseInventoryQuery}
+		useCountQuery={useBaseInventoryCountQuery}
 		{...props}
 	/>;
 };
@@ -158,11 +161,16 @@ export interface IBaseInventorySelectionProviderProps extends Partial<ISelection
 
 export const BaseInventorySelectionProvider: FC<IBaseInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseInventorySource>> {...props}/>;
-}
+};
 
 export const useBaseInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseInventoryApiLink]);
+};
+
+export const useBaseInventoryCountQueryInvalidate = () => {
+	const queryClient = useQueryClient();
+	return () => queryClient.invalidateQueries([BaseInventoryCountApiLink]);
 };
 
 export const useBaseInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseInventorySource>>();
