@@ -44,19 +44,27 @@ export default NextAuth({
 	],
 	callbacks: {
 		jwt: async ({token, isNewUser}) => {
-			logger.debug("Resolving JWT token", {isNewUser});
-			if (token?.sub) {
-				const userService = UserSource();
-				userService.withUserId(token?.sub);
-				logger.debug("Token found with sub");
-				const user = await userService.get(token.sub);
-				if (isNewUser) {
-					(await prismaClient.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();
+			try {
+				logger.debug("Resolving JWT token", {isNewUser});
+				if (token?.sub) {
+					const userService = UserSource();
+					userService.withUserId(token.sub);
+					logger.debug("Token found with sub");
+					const user = await userService.get(token.sub);
+					if (isNewUser) {
+						(await prismaClient.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();
+					}
+					token.tokens = user.UserToken.map(({token}) => token.name);
+					logger.debug("Resolved user with access tokens", {tokens: token.tokens});
 				}
-				token.tokens = user.UserToken.map(({token}) => token.name);
-				logger.debug("Resolved user with access tokens", {tokens: token.tokens});
+				return token;
+			} catch (e) {
+				if (e instanceof Error) {
+					logger.error(e.message);
+					logger.error(e.stack);
+				}
+				throw e;
 			}
-			return token;
 		},
 		session: async ({session, token}) => {
 			if (session && token?.sub) {

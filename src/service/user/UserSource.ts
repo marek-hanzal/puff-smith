@@ -8,7 +8,6 @@ import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const UserSource = (): IUserSource => {
-	const userSource = singletonOf(() => UserSource());
 	const tokenSource = singletonOf(() => TokenSource());
 	const userTokenSource = singletonOf(() => UserTokenSource());
 	const transactionSource = singletonOf(() => TransactionSource());
@@ -17,16 +16,11 @@ export const UserSource = (): IUserSource => {
 	const source: IUserSource = Source<IUserSource>({
 		name: "user",
 		prisma,
-		map: async user => {
-			if (!user) {
-				return undefined;
-			}
-			return {
-				...user,
-				tokens: user.UserToken.map(({token}) => token),
-				tokenIds: user.UserToken.map(({token}) => token.id),
-			};
-		},
+		map: async user => user ? {
+			...user,
+			tokens: user.UserToken.map(({token}) => token),
+			tokenIds: user.UserToken.map(({token}) => token.id),
+		} : undefined,
 		source: {
 			get: async id => await source.prisma.user.findUnique({
 				where: {id},
@@ -46,11 +40,11 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.root", 1000000),
 				note: "Welcome gift for the Root User!",
 			});
-			await Promise.all([
-				userSource().createToken(
+			return Promise.all([
+				source.createToken(
 					"site.root"
 				),
-				userSource().createToken(
+				source.createToken(
 					"*"
 				)
 			]);
@@ -61,20 +55,20 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
-			await Promise.all([
-				userSource().createToken(
+			return Promise.all([
+				source.createToken(
 					"user"
 				),
-				userSource().createToken(
+				source.createToken(
 					"site.lab"
 				),
-				userSource().createToken(
+				source.createToken(
 					"site.market"
 				),
-				userSource().createToken(
+				source.createToken(
 					"/lab*"
 				),
-				userSource().createToken(
+				source.createToken(
 					"/market*"
 				)
 			]);

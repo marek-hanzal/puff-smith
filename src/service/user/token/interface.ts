@@ -9,8 +9,8 @@ export interface IUserTokenCreate {
 export interface IUserTokenQuery extends IQuery<Prisma.UserTokenWhereInput, Prisma.UserTokenOrderByWithRelationInput> {
 }
 
-export type IUserTokenEntity = UserToken;
-export type IWithUserTokenEntity = { UserToken: IUserTokenEntity[]; };
+export type IUserTokenEntity<T = void> = T extends void ? UserToken : UserToken & T;
+export type IWithUserToken<T = void> = { UserToken: IUserTokenEntity<T>[]; };
 
 export interface IUserToken {
 	id: string;
