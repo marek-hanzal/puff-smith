@@ -1,27 +1,43 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
+import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
+import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
+import {BaseSource} from "@/puff-smith/service/base/BaseSource";
+import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
+import {CellSource} from "@/puff-smith/service/cell/CellSource";
+import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
+import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
+import {FiberSource} from "@/puff-smith/service/fiber/FiberSource";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
+import {ModSource} from "@/puff-smith/service/mod/ModSource";
+import {PriceSource} from "@/puff-smith/service/price/PriceSource";
 import fileService from "@/puff-smith/service/side-effect/fileService";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
+import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
+import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {VoucherSource} from "@/puff-smith/service/voucher/VoucherSource";
+import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import xlsx from "xlsx";
 
 const importers = {
-	// ...AromaRepository().importers(),
-	// ...AtomizerRepository().importers(),
-	// ...BaseRepository().importers(),
-	// ...BoosterRepository().importers(),
-	// ...CellRepository().importers(),
-	// ...CoilRepository().importers(),
-	// ...CottonRepository().importers(),
-	// ...FiberRepository().importers(),
-	// ...ModRepository().importers(),
-	// ...PriceRepository().importers(),
-	// ...TagRepository().importers(),
-	// ...TariffRepository().importers(),
-	// ...TranslationRepository().importers(),
-	// ...VendorRepository().importers(),
-	// ...VoucherRepository().importers(),
-	// ...WireRepository().importers(),
+	...AromaSource().importers(),
+	...AtomizerSource().importers(),
+	...BaseSource().importers(),
+	...BoosterSource().importers(),
+	...CellSource().importers(),
+	...CoilSource().importers(),
+	...CottonSource().importers(),
+	...FiberSource().importers(),
+	...ModSource().importers(),
+	...PriceSource().importers(),
+	...TagSource().importers(),
+	...TariffSource().importers(),
+	...TranslationSource().importers(),
+	...VendorSource().importers(),
+	...VoucherSource().importers(),
+	...WireSource().importers(),
 };
 
 export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
