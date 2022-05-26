@@ -1,8 +1,7 @@
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaMarketSource} from "@/puff-smith/service/aroma/market/interface";
-import {memoIsOwned} from "@/puff-smith/service/aroma/memoize";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Source} from "@leight-core/server";
+import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaMarketSource = (): IAromaMarketSource => {
@@ -12,21 +11,33 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 		name: "aroma.market",
 		prisma,
 		source: {
-			count: async () => source.prisma.aroma.count({}),
-			query: async () => source.prisma.aroma.findMany({
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
+				where: filter,
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.aroma.findMany({
+				where: filter,
 				include: {
 					vendor: true,
 					AromaTaste: {
+						orderBy: [
+							{taste: {sort: "asc"}},
+						],
 						include: {
 							taste: true,
 						},
 					},
+					AromaInventory: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
 				},
+				...pageOf(query),
 			}),
 		},
 		map: async aroma => aroma ? ({
 			aroma: await aromaSource().mapper.map(aroma),
-			isOwned: await memoIsOwned(aroma.id, source.user.required()),
+			isOwned: aroma.AromaInventory.length > 0,
 		}) : undefined,
 	});
 

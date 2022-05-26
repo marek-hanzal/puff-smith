@@ -20,7 +20,7 @@ export interface IAromaInventory {
 export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {
 }
 
-export type IAromaInventoryEntity = AromaInventory & IWithAroma;
+export type IAromaInventoryEntity<T = any> = AromaInventory & T;
 
-export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity, IAromaInventory, IAromaInventoryQuery> {
+export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity<IWithAroma>, IAromaInventory, IAromaInventoryQuery> {
 }
