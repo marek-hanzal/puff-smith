@@ -10,27 +10,23 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 	const source: IAromaVendorSource = Source<IAromaVendorSource>({
 		name: "aroma-vendor",
 		prisma,
-		map: async ({vendor}) => vendorSource().mapper.map(vendor),
+		map: async aroma => vendorSource().map(aroma?.vendor),
 		source: {
 			count: async () => source.prisma.aroma.count({
 				distinct: ["vendorId"],
 			}),
-			query: async ({filter} = {}) => source.prisma.aroma.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.findMany({
 				distinct: ["vendorId"],
 				include: {
 					vendor: true,
 				},
 				orderBy: [
-					{
-						vendor: {
-							name: "asc",
-						}
-					}
+					{vendor: {name: "asc"}},
 				],
 				where: {
 					vendor: {
 						name: {
-							contains: filter?.fulltext,
+							contains: fulltext,
 							mode: "insensitive",
 						}
 					}

@@ -10,13 +10,20 @@ export const BaseVendorSource = (): IBaseVendorSource => {
 	const source: IBaseVendorSource = Source<IBaseVendorSource>({
 		name: "base.inventory.vendor",
 		prisma,
+		map: async base => vendorSource().map(base?.vendor),
 		source: {
-			query: async () => source.prisma.base.findMany({
+			query: async ({filter: {fulltext} = {}}) => source.prisma.base.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				where: {
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						}
+					},
 					BaseInventory: {
 						some: {
 							userId: source.user.required(),
@@ -28,7 +35,6 @@ export const BaseVendorSource = (): IBaseVendorSource => {
 				],
 			}),
 		},
-		map: vendorSource().mapper.map,
 	});
 
 	return source;

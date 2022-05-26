@@ -57,15 +57,43 @@ export const LiquidSource = (): ILiquidSource => {
 								aroma: {
 									include: {
 										vendor: true,
+										AromaTaste: {
+											orderBy: {taste: {sort: "asc"}},
+											include: {
+												taste: true,
+											},
+										},
 									},
 								},
 								mixture: {
 									include: {
+										MixtureDraw: {
+											orderBy: {draw: {sort: "asc"}},
+											include: {
+												draw: true,
+											},
+										},
 										aroma: {
 											include: {
 												vendor: true,
+												AromaTaste: {
+													orderBy: {taste: {sort: "asc"}},
+													include: {
+														taste: true,
+													},
+												},
+											},
+										},
+										booster: {
+											include: {
+												vendor: true,
 											}
-										}
+										},
+										base: {
+											include: {
+												vendor: true,
+											}
+										},
 									}
 								},
 							},
@@ -88,15 +116,43 @@ export const LiquidSource = (): ILiquidSource => {
 							aroma: {
 								include: {
 									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										},
+									},
 								},
 							},
 							mixture: {
 								include: {
+									MixtureDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
 									aroma: {
 										include: {
 											vendor: true,
+											AromaTaste: {
+												orderBy: {taste: {sort: "asc"}},
+												include: {
+													taste: true,
+												},
+											},
+										},
+									},
+									booster: {
+										include: {
+											vendor: true,
 										}
-									}
+									},
+									base: {
+										include: {
+											vendor: true,
+										}
+									},
 								}
 							},
 						},

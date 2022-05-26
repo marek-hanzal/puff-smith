@@ -10,13 +10,20 @@ export const BoosterVendorSource = (): IBoosterVendorSource => {
 	const source: IBoosterVendorSource = Source<IBoosterVendorSource>({
 		name: "booster.inventory.vendor",
 		prisma,
+		map: async booster => vendorSource().map(booster?.vendor),
 		source: {
-			query: async () => source.prisma.booster.findMany({
+			query: async ({filter: {fulltext} = {}}) => source.prisma.booster.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				where: {
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						}
+					},
 					BoosterInventory: {
 						some: {
 							userId: source.user.required(),
@@ -28,7 +35,6 @@ export const BoosterVendorSource = (): IBoosterVendorSource => {
 				],
 			}),
 		},
-		map: vendorSource().mapper.map,
 	});
 
 	return source;

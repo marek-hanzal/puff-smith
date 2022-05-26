@@ -71,5 +71,5 @@ export interface IMixtureFetchParams extends ParsedUrlQuery {
 	mixtureId: string;
 }
 
-export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity & IWithNullBoosterEntity & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
+export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor> & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
 }

@@ -64,7 +64,8 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 								include: {
 									vendor: true,
 								}
-							}
+							},
+							transaction: true,
 						}
 					});
 					await prisma.aromaInventory.deleteMany({

@@ -38,21 +38,17 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 				orderBy: [
 					{aroma: {name: "asc"}},
 				],
-				include: {
-					base: {
-						include: {
-							vendor: true,
-						}
-					},
-					booster: {
-						include: {
-							vendor: true,
-						}
-					},
+				select: {
 					aroma: {
 						include: {
 							vendor: true,
-						}
+							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
+								include: {
+									taste: true,
+								},
+							},
+						},
 					},
 				},
 			}),

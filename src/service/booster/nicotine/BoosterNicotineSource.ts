@@ -6,22 +6,22 @@ export const BoosterNicotineSource = (): IBoosterNicotineSource => {
 	const source: IBoosterNicotineSource = Source<IBoosterNicotineSource>({
 		name: "booster.nicotine",
 		prisma,
+		map: async booster => booster ? ({
+			label: `${booster.nicotine}`,
+			value: booster.nicotine,
+			nicotine: booster.nicotine,
+		}) : undefined,
 		source: {
 			query: async () => source.prisma.booster.findMany({
-				distinct: ["pg", "vg"],
+				distinct: ["nicotine"],
+				select: {
+					nicotine: true,
+				},
 				orderBy: [
-					{vg: "asc"},
+					{nicotine: "asc"},
 				],
-				include: {
-					vendor: true,
-				}
 			}),
 		},
-		map: async ({nicotine}) => ({
-			label: `${nicotine}`,
-			value: `${nicotine}`,
-			nicotine: nicotine,
-		}),
 	});
 
 	return source;

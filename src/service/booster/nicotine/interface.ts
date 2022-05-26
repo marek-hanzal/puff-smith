@@ -3,9 +3,9 @@ import {ISource} from "@leight-core/api";
 
 export interface IBoosterNicotine {
 	label: string;
-	value: string;
+	value: number;
 	nicotine: number;
 }
 
-export interface IBoosterNicotineSource extends ISource<undefined, IBoosterEntity, IBoosterNicotine, IBoosterQuery> {
+export interface IBoosterNicotineSource extends ISource<undefined, Pick<IBoosterEntity, "nicotine">, IBoosterNicotine, IBoosterQuery> {
 }

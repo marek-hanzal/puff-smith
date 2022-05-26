@@ -10,17 +10,15 @@ export const MixtureMarketSource = (): IMixtureMarketSource => {
 	const source: IMixtureMarketSource = Source<IMixtureMarketSource>({
 		name: "mixture.market",
 		prisma,
-		map: async mixture => {
-			return mixture ? ({
-				mixture: await mixtureSource().mapper.map(mixture),
-				booster: {
-					isOwned: (mixture.booster?.BoosterInventory?.length || 0) > 0,
-				},
-				base: {
-					isOwned: (mixture.base?.BaseInventory?.length || 0) > 0,
-				},
-			}) : undefined;
-		},
+		map: async mixture => mixture ? ({
+			mixture: await mixtureSource().mapper.map(mixture),
+			booster: {
+				isOwned: (mixture.booster?.BoosterInventory?.length || 0) > 0,
+			},
+			base: {
+				isOwned: (mixture.base?.BaseInventory?.length || 0) > 0,
+			},
+		}) : undefined,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.count({
 				where: filter,

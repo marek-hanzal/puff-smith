@@ -37,11 +37,23 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							aroma: {
 								include: {
 									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
 								}
 							},
 							mixture: {
 								include: {
 									vendor: true,
+									MixtureDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
 									base: {
 										include: {
 											vendor: true,
@@ -55,6 +67,12 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 									aroma: {
 										include: {
 											vendor: true,
+											AromaTaste: {
+												orderBy: {taste: {sort: "asc"}},
+												include: {
+													taste: true,
+												}
+											}
 										}
 									},
 								}
@@ -82,11 +100,23 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 							aroma: {
 								include: {
 									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
 								}
 							},
 							mixture: {
 								include: {
 									vendor: true,
+									MixtureDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
 									base: {
 										include: {
 											vendor: true,
@@ -100,6 +130,12 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 									aroma: {
 										include: {
 											vendor: true,
+											AromaTaste: {
+												orderBy: {taste: {sort: "asc"}},
+												include: {
+													taste: true,
+												}
+											}
 										}
 									},
 								}

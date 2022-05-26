@@ -13,7 +13,7 @@ export interface IMixtureMarket {
 	base: { isOwned: boolean | undefined };
 }
 
-export type  IMixtureMarketEntity = IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity<{ BaseInventory: IBaseInventoryEntity[] }> & IWithNullBoosterEntity<{ BoosterInventory: IBoosterInventoryEntity[] }> & IWithMixtureDraw>;
+export type  IMixtureMarketEntity = IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity<{ BaseInventory: IBaseInventoryEntity[] } & IWithVendor> & IWithNullBoosterEntity<{ BoosterInventory: IBoosterInventoryEntity[] } & IWithVendor> & IWithMixtureDraw>;
 
 export interface IMixtureMarketSource extends ISource<undefined, IMixtureMarketEntity, IMixtureMarket, IMixtureQuery> {
 }
