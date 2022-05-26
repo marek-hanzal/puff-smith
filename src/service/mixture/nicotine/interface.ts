@@ -3,7 +3,7 @@ import {ISource} from "@leight-core/api";
 
 export interface IMixtureNicotine {
 	label: string;
-	value: string;
+	value: number;
 	nicotine: number;
 }
 

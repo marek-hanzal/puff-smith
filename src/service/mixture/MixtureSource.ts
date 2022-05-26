@@ -18,21 +18,16 @@ export const MixtureSource = (): IMixtureSource => {
 	const source: IMixtureSource = Source<IMixtureSource>({
 		name: "mixture",
 		prisma,
-		map: async mixture => {
-			if (!mixture) {
-				return;
-			}
-			return {
-				...mixture,
-				vgToRound: mixture.vgToRound,
-				pgToRound: mixture.pgToRound,
-				aroma: await aromaSource().mapper.map(mixture.aroma),
-				booster: await boosterSource().map(mixture.booster),
-				base: await baseSource().map(mixture.base),
-				volume: mixture.aroma.volume || 0,
-				draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
-			};
-		},
+		map: async mixture => mixture ? {
+			...mixture,
+			vgToRound: mixture.vgToRound,
+			pgToRound: mixture.pgToRound,
+			aroma: await aromaSource().mapper.map(mixture.aroma),
+			booster: await boosterSource().map(mixture.booster),
+			base: await baseSource().map(mixture.base),
+			volume: mixture.aroma.volume || 0,
+			draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
+		} : undefined,
 		source: {
 			create: async ({code, draws, ...mixture}) => {
 				const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;
@@ -65,6 +60,12 @@ export const MixtureSource = (): IMixtureSource => {
 							aroma: {
 								include: {
 									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										},
+									},
 								},
 							},
 							base: {
@@ -106,6 +107,12 @@ export const MixtureSource = (): IMixtureSource => {
 								aroma: {
 									include: {
 										vendor: true,
+										AromaTaste: {
+											orderBy: {taste: {sort: "asc"}},
+											include: {
+												taste: true,
+											},
+										},
 									},
 								},
 								base: {

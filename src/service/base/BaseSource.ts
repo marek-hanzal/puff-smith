@@ -17,6 +17,13 @@ export const BaseSource = (): IBaseSource => {
 			vendor: await vendorSource().mapper.map(base.vendor),
 		}) : undefined,
 		source: {
+			get: async id => source.prisma.base.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
 				where: merge(filter, {
 					OR: [

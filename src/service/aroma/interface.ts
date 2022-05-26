@@ -22,8 +22,8 @@ export type IAromaWhere = Prisma.AromaWhereInput & IWithFulltext;
 export interface IAromaQuery extends IQuery<IAromaWhere, Prisma.AromaOrderByWithRelationInput> {
 }
 
-export type IAromaEntity<T = any> = Aroma & T;
-export type IWithAroma<T = any> = { aroma: IAromaEntity<T>; }
+export type IAromaEntity<T = never> = Aroma & T;
+export type IWithAroma<T = never> = { aroma: IAromaEntity<T>; }
 export type IWithAromaTaste = { AromaTaste: { taste: ITagEntity }[]; }
 
 export interface IAroma {

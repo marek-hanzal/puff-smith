@@ -4,16 +4,19 @@ import {Source} from "@leight-core/server";
 
 export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 	const source: IMixtureNicotineSource = Source<IMixtureNicotineSource>({
-		name: "mixture.inventory..nicotine",
+		name: "mixture.inventory.nicotine",
 		prisma,
 		map: async mixture => mixture ? ({
-			label: `${mixture.nicotine}`,
-			value: `${mixture.nicotine}`,
-			nicotine: mixture.nicotine,
+			label: `${mixture.nicotineToRound}`,
+			value: mixture.nicotineToRound,
+			nicotine: mixture.nicotineToRound,
 		}) : undefined,
 		source: {
 			query: async () => source.prisma.mixture.findMany({
 				distinct: ["nicotineToRound"],
+				select: {
+					nicotineToRound: true,
+				},
 				where: {
 					MixtureInventory: {
 						some: {

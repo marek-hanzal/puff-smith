@@ -17,9 +17,9 @@ export type IBaseWhere = Prisma.BaseWhereInput & IWithFulltext;
 export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRelationInput> {
 }
 
-export type IBaseEntity<T = any> = Base & T;
-export type IWithBaseEntity<T = any> = { base: IBaseEntity<T>; };
-export type IWithNullBaseEntity = { base: IBaseEntity | null; };
+export type IBaseEntity<T = void> = T extends void ? Base : Base & T;
+export type IWithBaseEntity<T = void> = { base: IBaseEntity<T>; };
+export type IWithNullBaseEntity<T = void> = { base: IBaseEntity<T> | null; };
 
 export interface IBase {
 	id: string;

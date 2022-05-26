@@ -8,7 +8,7 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 		prisma,
 		map: async mixture => mixture ? ({
 			label: `${mixture.nicotineToRound}`,
-			value: `${mixture.nicotineToRound}`,
+			value: mixture.nicotineToRound,
 			nicotine: mixture.nicotineToRound,
 		}) : undefined,
 		source: {

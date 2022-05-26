@@ -20,7 +20,7 @@ export interface IBaseInventory {
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput, Prisma.BaseInventoryOrderByWithRelationInput> {
 }
 
-export type IBaseInventoryEntity = BaseInventory & IWithBaseEntity & IWithTransaction;
+export type IBaseInventoryEntity<T = void> = T extends void ? BaseInventory : BaseInventory & T;
 
-export interface IBaseInventorySource extends ISource<IBaseInventoryCreate, IBaseInventoryEntity, IBaseInventory, IBaseInventoryQuery> {
+export interface IBaseInventorySource extends ISource<IBaseInventoryCreate, IBaseInventoryEntity<IWithBaseEntity & IWithTransaction>, IBaseInventory, IBaseInventoryQuery> {
 }
