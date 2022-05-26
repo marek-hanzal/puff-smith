@@ -112,6 +112,7 @@ export interface IMixtureMarketListSourceProps extends Partial<IListProps<ISourc
 
 export const MixtureMarketListSource: FC<IMixtureMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <MixtureMarketProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureMarketSource>>
@@ -161,7 +162,7 @@ export interface IMixtureMarketSelectionProviderProps extends Partial<ISelection
 
 export const MixtureMarketSelectionProvider: FC<IMixtureMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureMarketSource>> {...props}/>;
-};
+}
 
 export const useMixtureMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

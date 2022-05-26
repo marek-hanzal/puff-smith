@@ -111,6 +111,7 @@ export interface IDrawListSourceProps extends Partial<IListProps<ISourceItem<IMi
 
 export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...props}) => {
 	return <DrawProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureDrawSource>>
@@ -160,7 +161,7 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureDrawSource>> {...props}/>;
-};
+}
 
 export const useDrawQueryInvalidate = () => {
 	const queryClient = useQueryClient();

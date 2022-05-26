@@ -111,6 +111,7 @@ export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFi
 
 export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...props}) => {
 	return <FileProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IFileSource>>
@@ -160,7 +161,7 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
-};
+}
 
 export const useFileQueryInvalidate = () => {
 	const queryClient = useQueryClient();

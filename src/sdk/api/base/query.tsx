@@ -111,6 +111,7 @@ export interface IBaseListSourceProps extends Partial<IListProps<ISourceItem<IBa
 
 export const BaseListSource: FC<IBaseListSourceProps> = ({providerProps, ...props}) => {
 	return <BaseProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IBaseSource>>
@@ -160,7 +161,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseSource>> {...props}/>;
-};
+}
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

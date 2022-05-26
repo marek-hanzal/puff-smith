@@ -111,6 +111,7 @@ export interface IJobListSourceProps extends Partial<IListProps<ISourceItem<IJob
 
 export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}) => {
 	return <JobProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IJobSource>>
@@ -160,7 +161,7 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
-};
+}
 
 export const useJobQueryInvalidate = () => {
 	const queryClient = useQueryClient();

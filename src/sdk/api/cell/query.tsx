@@ -111,6 +111,7 @@ export interface ICellListSourceProps extends Partial<IListProps<ISourceItem<ICe
 
 export const CellListSource: FC<ICellListSourceProps> = ({providerProps, ...props}) => {
 	return <CellProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ICellSource>>
@@ -160,7 +161,7 @@ export interface ICellSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const CellSelectionProvider: FC<ICellSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellSource>> {...props}/>;
-};
+}
 
 export const useCellQueryInvalidate = () => {
 	const queryClient = useQueryClient();

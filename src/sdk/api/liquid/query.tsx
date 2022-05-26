@@ -111,6 +111,7 @@ export interface ILiquidListSourceProps extends Partial<IListProps<ISourceItem<I
 
 export const LiquidListSource: FC<ILiquidListSourceProps> = ({providerProps, ...props}) => {
 	return <LiquidProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ILiquidSource>>
@@ -160,7 +161,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
-};
+}
 
 export const useLiquidQueryInvalidate = () => {
 	const queryClient = useQueryClient();

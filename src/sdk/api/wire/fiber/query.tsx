@@ -111,6 +111,7 @@ export interface IWireFiberListSourceProps extends Partial<IListProps<ISourceIte
 
 export const WireFiberListSource: FC<IWireFiberListSourceProps> = ({providerProps, ...props}) => {
 	return <WireFiberProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireFiberSource>>
@@ -160,7 +161,7 @@ export interface IWireFiberSelectionProviderProps extends Partial<ISelectionProv
 
 export const WireFiberSelectionProvider: FC<IWireFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>;
-};
+}
 
 export const useWireFiberQueryInvalidate = () => {
 	const queryClient = useQueryClient();

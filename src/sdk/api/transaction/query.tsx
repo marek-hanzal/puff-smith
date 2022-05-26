@@ -112,6 +112,7 @@ export interface ITransactionListSourceProps extends Partial<IListProps<ISourceI
 
 export const TransactionListSource: FC<ITransactionListSourceProps> = ({providerProps, ...props}) => {
 	return <TransactionProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ITransactionSource>>
@@ -161,7 +162,7 @@ export interface ITransactionSelectionProviderProps extends Partial<ISelectionPr
 
 export const TransactionSelectionProvider: FC<ITransactionSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITransactionSource>> {...props}/>;
-};
+}
 
 export const useTransactionQueryInvalidate = () => {
 	const queryClient = useQueryClient();

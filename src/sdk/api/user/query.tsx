@@ -111,6 +111,7 @@ export interface IUserListSourceProps extends Partial<IListProps<ISourceItem<IUs
 
 export const UserListSource: FC<IUserListSourceProps> = ({providerProps, ...props}) => {
 	return <UserProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IUserSource>>
@@ -160,7 +161,7 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>;
-};
+}
 
 export const useUserQueryInvalidate = () => {
 	const queryClient = useQueryClient();

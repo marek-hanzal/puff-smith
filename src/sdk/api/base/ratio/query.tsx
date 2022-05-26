@@ -111,6 +111,7 @@ export interface IRatioListSourceProps extends Partial<IListProps<ISourceItem<IB
 
 export const RatioListSource: FC<IRatioListSourceProps> = ({providerProps, ...props}) => {
 	return <RatioProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IBaseRatioSource>>
@@ -160,7 +161,7 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseRatioSource>> {...props}/>;
-};
+}
 
 export const useRatioQueryInvalidate = () => {
 	const queryClient = useQueryClient();

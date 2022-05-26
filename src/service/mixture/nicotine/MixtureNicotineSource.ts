@@ -7,13 +7,17 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 		name: "mixture.nicotine",
 		prisma,
 		map: async mixture => mixture ? ({
-			label: `${mixture.nicotine}`,
-			value: `${mixture.nicotine}`,
-			nicotine: mixture.nicotine,
+			label: `${mixture.nicotineToRound}`,
+			value: `${mixture.nicotineToRound}`,
+			nicotine: mixture.nicotineToRound,
 		}) : undefined,
 		source: {
-			query: async () => source.prisma.mixture.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["nicotineToRound"],
+				where: filter,
+				select: {
+					nicotineToRound: true,
+				},
 				orderBy: [
 					{nicotineToRound: "asc"},
 				]

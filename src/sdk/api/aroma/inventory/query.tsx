@@ -112,6 +112,7 @@ export interface IAromaInventoryListSourceProps extends Partial<IListProps<ISour
 
 export const AromaInventoryListSource: FC<IAromaInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <AromaInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaInventorySource>>
@@ -161,7 +162,7 @@ export interface IAromaInventorySelectionProviderProps extends Partial<ISelectio
 
 export const AromaInventorySelectionProvider: FC<IAromaInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventorySource>> {...props}/>;
-};
+}
 
 export const useAromaInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

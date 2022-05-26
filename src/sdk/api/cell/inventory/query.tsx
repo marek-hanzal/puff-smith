@@ -112,6 +112,7 @@ export interface ICellInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <CellInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ICellInventorySource>>
@@ -161,7 +162,7 @@ export interface ICellInventorySelectionProviderProps extends Partial<ISelection
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
-};
+}
 
 export const useCellInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

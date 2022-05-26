@@ -112,6 +112,7 @@ export interface IAtomizerInventoryListSourceProps extends Partial<IListProps<IS
 
 export const AtomizerInventoryListSource: FC<IAtomizerInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <AtomizerInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAtomizerInventorySource>>
@@ -161,7 +162,7 @@ export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelec
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerInventorySource>> {...props}/>;
-};
+}
 
 export const useAtomizerInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

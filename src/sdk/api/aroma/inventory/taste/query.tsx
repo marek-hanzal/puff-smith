@@ -111,6 +111,7 @@ export interface ITasteListSourceProps extends Partial<IListProps<ISourceItem<IA
 
 export const TasteListSource: FC<ITasteListSourceProps> = ({providerProps, ...props}) => {
 	return <TasteProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaTasteSource>>
@@ -160,7 +161,7 @@ export interface ITasteSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TasteSelectionProvider: FC<ITasteSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>;
-};
+}
 
 export const useTasteQueryInvalidate = () => {
 	const queryClient = useQueryClient();

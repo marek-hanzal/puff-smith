@@ -13,8 +13,13 @@ export const MixtureRatioSource = (): IMixtureRatioSource => {
 			pg: mixture.pgToRound,
 		}) : undefined,
 		source: {
-			query: async () => source.prisma.mixture.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["vgToRound", "pgToRound"],
+				where: filter,
+				select: {
+					vgToRound: true,
+					pgToRound: true,
+				},
 				orderBy: [
 					{vgToRound: "asc"},
 				]

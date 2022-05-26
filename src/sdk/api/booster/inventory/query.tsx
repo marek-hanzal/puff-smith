@@ -112,6 +112,7 @@ export interface IBoosterInventoryListSourceProps extends Partial<IListProps<ISo
 
 export const BoosterInventoryListSource: FC<IBoosterInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <BoosterInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IBoosterInventorySource>>
@@ -161,7 +162,7 @@ export interface IBoosterInventorySelectionProviderProps extends Partial<ISelect
 
 export const BoosterInventorySelectionProvider: FC<IBoosterInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterInventorySource>> {...props}/>;
-};
+}
 
 export const useBoosterInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

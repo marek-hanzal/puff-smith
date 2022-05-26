@@ -112,6 +112,7 @@ export interface IBaseInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const BaseInventoryListSource: FC<IBaseInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <BaseInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IBaseInventorySource>>
@@ -161,7 +162,7 @@ export interface IBaseInventorySelectionProviderProps extends Partial<ISelection
 
 export const BaseInventorySelectionProvider: FC<IBaseInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseInventorySource>> {...props}/>;
-};
+}
 
 export const useBaseInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

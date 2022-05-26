@@ -111,6 +111,7 @@ export interface IVendorListSourceProps extends Partial<IListProps<ISourceItem<I
 
 export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...props}) => {
 	return <VendorProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireVendorSource>>
@@ -160,7 +161,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireVendorSource>> {...props}/>;
-};
+}
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();

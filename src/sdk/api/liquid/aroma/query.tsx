@@ -111,6 +111,7 @@ export interface IAromaListSourceProps extends Partial<IListProps<ISourceItem<IL
 
 export const AromaListSource: FC<IAromaListSourceProps> = ({providerProps, ...props}) => {
 	return <AromaProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ILiquidAromaSource>>
@@ -160,7 +161,7 @@ export interface IAromaSelectionProviderProps extends Partial<ISelectionProvider
 
 export const AromaSelectionProvider: FC<IAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidAromaSource>> {...props}/>;
-};
+}
 
 export const useAromaQueryInvalidate = () => {
 	const queryClient = useQueryClient();

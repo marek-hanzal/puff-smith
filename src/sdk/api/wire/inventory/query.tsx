@@ -112,6 +112,7 @@ export interface IWireInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const WireInventoryListSource: FC<IWireInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <WireInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireInventorySource>>
@@ -161,7 +162,7 @@ export interface IWireInventorySelectionProviderProps extends Partial<ISelection
 
 export const WireInventorySelectionProvider: FC<IWireInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireInventorySource>> {...props}/>;
-};
+}
 
 export const useWireInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

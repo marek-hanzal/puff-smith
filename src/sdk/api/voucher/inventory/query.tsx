@@ -112,6 +112,7 @@ export interface IVoucherInventoryListSourceProps extends Partial<IListProps<ISo
 
 export const VoucherInventoryListSource: FC<IVoucherInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <VoucherInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IVoucherInventorySource>>
@@ -161,7 +162,7 @@ export interface IVoucherInventorySelectionProviderProps extends Partial<ISelect
 
 export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVoucherInventorySource>> {...props}/>;
-};
+}
 
 export const useVoucherInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

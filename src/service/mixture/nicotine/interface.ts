@@ -7,5 +7,5 @@ export interface IMixtureNicotine {
 	nicotine: number;
 }
 
-export interface IMixtureNicotineSource extends ISource<undefined, Pick<IMixtureEntity, "nicotine">, IMixtureNicotine, IMixtureQuery> {
+export interface IMixtureNicotineSource extends ISource<undefined, Pick<IMixtureEntity, "nicotineToRound">, IMixtureNicotine, IMixtureQuery> {
 }

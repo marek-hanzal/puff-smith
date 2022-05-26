@@ -112,6 +112,7 @@ export interface IAtomizerMarketListSourceProps extends Partial<IListProps<ISour
 
 export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <AtomizerMarketProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAtomizerMarketSource>>
@@ -161,7 +162,7 @@ export interface IAtomizerMarketSelectionProviderProps extends Partial<ISelectio
 
 export const AtomizerMarketSelectionProvider: FC<IAtomizerMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerMarketSource>> {...props}/>;
-};
+}
 
 export const useAtomizerMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

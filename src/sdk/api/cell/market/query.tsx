@@ -111,6 +111,7 @@ export interface ICellMarketListSourceProps extends Partial<IListProps<ISourceIt
 
 export const CellMarketListSource: FC<ICellMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <CellMarketProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ICellMarketSource>>
@@ -160,7 +161,7 @@ export interface ICellMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellMarketSource>> {...props}/>;
-};
+}
 
 export const useCellMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

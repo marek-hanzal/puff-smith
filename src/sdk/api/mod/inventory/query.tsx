@@ -112,6 +112,7 @@ export interface IModInventoryListSourceProps extends Partial<IListProps<ISource
 
 export const ModInventoryListSource: FC<IModInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <ModInventoryProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IModInventorySource>>
@@ -161,7 +162,7 @@ export interface IModInventorySelectionProviderProps extends Partial<ISelectionP
 
 export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModInventorySource>> {...props}/>;
-};
+}
 
 export const useModInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

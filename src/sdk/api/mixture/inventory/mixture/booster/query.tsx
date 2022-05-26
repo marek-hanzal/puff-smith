@@ -111,6 +111,7 @@ export interface IBoosterListSourceProps extends Partial<IListProps<ISourceItem<
 
 export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, ...props}) => {
 	return <BoosterProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureBoosterSource>>
@@ -160,7 +161,7 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureBoosterSource>> {...props}/>;
-};
+}
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();

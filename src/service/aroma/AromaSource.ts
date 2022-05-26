@@ -21,6 +21,18 @@ export const AromaSource = (): IAromaSource => {
 			tastes: await tagSource().mapper.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 		}) : null,
 		source: {
+			get: async id => source.prisma.aroma.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+					AromaTaste: {
+						include: {
+							taste: true,
+						}
+					}
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: merge(filter || {}, {
 					OR: [

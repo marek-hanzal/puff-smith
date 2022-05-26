@@ -14,8 +14,9 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: filter,
 			}),
-			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.aroma.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.aroma.findMany({
 				where: filter,
+				orderBy,
 				include: {
 					vendor: true,
 					AromaTaste: {

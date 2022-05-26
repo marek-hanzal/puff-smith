@@ -111,6 +111,7 @@ export interface IVendorListSourceProps extends Partial<IListProps<ISourceItem<I
 
 export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...props}) => {
 	return <VendorProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaVendorSource>>

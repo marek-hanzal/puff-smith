@@ -112,6 +112,7 @@ export interface IAromaMarketListSourceProps extends Partial<IListProps<ISourceI
 
 export const AromaMarketListSource: FC<IAromaMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <AromaMarketProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaMarketSource>>
@@ -161,7 +162,7 @@ export interface IAromaMarketSelectionProviderProps extends Partial<ISelectionPr
 
 export const AromaMarketSelectionProvider: FC<IAromaMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaMarketSource>> {...props}/>;
-};
+}
 
 export const useAromaMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

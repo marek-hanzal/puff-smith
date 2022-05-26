@@ -112,6 +112,7 @@ export interface ICottonMarketListSourceProps extends Partial<IListProps<ISource
 
 export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <CottonMarketProvider
+		withPagination
 		{...providerProps}
 	>
 		<List<ISourceItem<ICottonMarketSource>>
@@ -161,7 +162,7 @@ export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionP
 
 export const CottonMarketSelectionProvider: FC<ICottonMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonMarketSource>> {...props}/>;
-};
+}
 
 export const useCottonMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
