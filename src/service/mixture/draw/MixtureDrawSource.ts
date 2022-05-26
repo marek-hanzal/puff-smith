@@ -18,11 +18,13 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 			}),
 			query: async ({filter}) => source.prisma.mixtureDraw.findMany({
 				distinct: ["drawId"],
-				where: filter,
+				where: {
+					mixture: filter,
+				},
 				orderBy: [
 					{draw: {sort: "asc"}}
 				],
-				include: {
+				select: {
 					draw: true,
 				}
 			}),

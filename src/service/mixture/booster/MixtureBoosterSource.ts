@@ -41,18 +41,8 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 				orderBy: [
 					{booster: {name: "asc"}},
 				],
-				include: {
-					base: {
-						include: {
-							vendor: true,
-						}
-					},
+				select: {
 					booster: {
-						include: {
-							vendor: true,
-						}
-					},
-					aroma: {
 						include: {
 							vendor: true,
 						}

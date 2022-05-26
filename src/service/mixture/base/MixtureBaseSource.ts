@@ -41,18 +41,8 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 				orderBy: [
 					{base: {name: "asc"}},
 				],
-				include: {
+				select: {
 					base: {
-						include: {
-							vendor: true,
-						}
-					},
-					booster: {
-						include: {
-							vendor: true,
-						}
-					},
-					aroma: {
 						include: {
 							vendor: true,
 						}
