@@ -1,8 +1,8 @@
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerMarketSource} from "@/puff-smith/service/atomizer/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 	const atomizerSource = singletonOf(() => AtomizerSource());
@@ -12,13 +12,49 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 		prisma,
 		map: async atomizer => atomizer ? ({
 			atomizer: await atomizerSource().mapper.map(atomizer),
-			isOwned: source.user.optional() ? (await source.prisma.atomizerInventory.count({
-				where: {
-					atomizerId: atomizer.id,
-					userId: source.user.required(),
-				}
-			})) > 0 : undefined,
+			isOwned: false,
 		}) : undefined,
+		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
+				where: merge(filter, {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						},
+					}
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.atomizer.findMany({
+				where: merge(filter, {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+					vendor: {
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						},
+					}
+				}),
+				orderBy,
+				include: {
+					vendor: true,
+					AtomizerDraw: {
+						orderBy: {draw: {sort: "asc"}},
+						include: {
+							draw: true,
+						}
+					}
+				},
+				...pageOf(query),
+			}),
+		}
 	});
 
 	return source;

@@ -15,22 +15,11 @@ export const AtomizerSource = (): IAtomizerSource => {
 	const source: IAtomizerSource = Source<IAtomizerSource>({
 		name: "atomizer",
 		prisma,
-		map: async atomizer => atomizer ? ({
+		map: async atomizer => atomizer ? {
 			...atomizer,
 			vendor: await vendorSource().mapper.map(atomizer.vendor),
-			draws: await tagSource().mapper.list(source.prisma.tag.findMany({
-				where: {
-					AtomizerDraw: {
-						some: {
-							atomizerId: atomizer.id,
-						}
-					}
-				},
-				orderBy: {
-					sort: "asc",
-				}
-			})),
-		}) : undefined,
+			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
+		} : undefined,
 		source: {
 			create: async ({draws, type, vendor, code, ...atomizer}) => {
 				const create = {
@@ -65,6 +54,12 @@ export const AtomizerSource = (): IAtomizerSource => {
 						data: create,
 						include: {
 							vendor: true,
+							AtomizerDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
 						},
 					});
 				} catch (e) {
@@ -97,6 +92,12 @@ export const AtomizerSource = (): IAtomizerSource => {
 							data: create,
 							include: {
 								vendor: true,
+								AtomizerDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
 							},
 						});
 					});
