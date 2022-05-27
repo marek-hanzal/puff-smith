@@ -1,13 +1,12 @@
 import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
-import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
+import {IVendor, IVendorReference, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export interface IAromaCreate {
+export type IAromaCreate = {
 	name: string;
 	code?: string;
-	vendor: string;
 	cost: number;
 	pg: number;
 	vg: number;
@@ -15,7 +14,7 @@ export interface IAromaCreate {
 	content: number;
 	steep?: number;
 	tastes?: string;
-}
+} & IVendorReference;
 
 export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput> {
 }
