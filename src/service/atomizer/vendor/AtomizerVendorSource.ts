@@ -25,7 +25,7 @@ export const AtomizerVendorSource = (): IAtomizerVendorSource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				orderBy: [
