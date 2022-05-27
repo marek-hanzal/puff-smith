@@ -9,11 +9,11 @@ export interface IWireFiberInlineProps {
 
 export const WireFiberInline: FC<IWireFiberInlineProps> = ({wire, color = "lime"}) => {
 	return <>
-		{wire.fibers.map(wireFiber => <Tag
-			key={`fiber-${wireFiber.id}`}
+		{wire.fibers.map(fiber => <Tag
+			key={`fiber-${fiber.id}`}
 			color={color}
 		>
-			{`${wireFiber.count}x ${wireFiber.fiber.code}`}
+			{`${fiber.count}x ${fiber.fiber.code}`}
 		</Tag>)}
 	</>;
 };

@@ -15,8 +15,8 @@ export type IFiberCreate = {
 export interface IFiberQuery extends IQuery<Prisma.FiberWhereInput, Prisma.FiberOrderByWithRelationInput> {
 }
 
-export type IFiberEntity<T = any> = Fiber & T;
-export type IWithFiber<T = any> = { fiber: IFiberEntity<T>; };
+export type IFiberEntity<T = void> = T extends void ? Fiber : Fiber & T;
+export type IWithFiber<T = void> = { fiber: IFiberEntity<T>; };
 export type IWithFiberMaterial = { material: ITagEntity; };
 
 export interface IFiber {

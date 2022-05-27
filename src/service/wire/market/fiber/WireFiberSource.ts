@@ -1,6 +1,6 @@
 import {FiberSource} from "@/puff-smith/service/fiber/FiberSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IWireFiberSource} from "@/puff-smith/service/wire/fiber/interface";
+import {IWireFiberSource} from "@/puff-smith/service/wire/market/fiber/interface";
 import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
@@ -8,35 +8,30 @@ export const WireFiberSource = (): IWireFiberSource => {
 	const fiberSource = singletonOf(() => FiberSource());
 
 	const source: IWireFiberSource = Source<IWireFiberSource>({
-		name: "wire.fiber",
+		name: "wire.market.fiber",
 		prisma,
-		map: async wireFiber => wireFiber ? {
-			id: wireFiber.id,
-			count: wireFiber.count,
-			fiberId: wireFiber.fiberId,
-			fiber: await fiberSource().mapper.map(wireFiber?.fiber),
-		} : undefined,
+		map: async wireFiber => fiberSource().map(wireFiber?.fiber),
 		source: {
 			count: async () => source.prisma.wireFiber.count({
 				distinct: ["fiberId"],
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wireFiber.findMany({
 				distinct: ["fiberId"],
-				include: {
+				select: {
 					fiber: {
 						include: {
 							material: true,
 						}
 					},
 				},
-				where: merge(filter, {
-					fiber: {
+				where: {
+					fiber: merge(filter, {
 						code: {
 							contains: fulltext,
 							mode: "insensitive",
 						},
-					},
-				}),
+					}),
+				},
 				orderBy: [
 					{fiber: {code: "asc"}},
 				],

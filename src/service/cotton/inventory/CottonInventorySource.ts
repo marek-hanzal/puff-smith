@@ -43,7 +43,13 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 							cotton: {
 								include: {
 									vendor: true,
-								}
+									CottonDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
+								},
 							},
 							transaction: true,
 						},
@@ -64,7 +70,13 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 							cotton: {
 								include: {
 									vendor: true,
-								}
+									CottonDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
+								},
 							},
 							transaction: true,
 						},

@@ -10,10 +10,11 @@ export const WireVendorSource = (): IWireVendorSource => {
 	const source: IWireVendorSource = Source<IWireVendorSource>({
 		name: "wire.vendor",
 		prisma,
+		map: async wire => vendorSource().map(wire?.vendor),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				where: merge(filter, {
@@ -29,7 +30,6 @@ export const WireVendorSource = (): IWireVendorSource => {
 				],
 			}),
 		},
-		map: vendorSource().mapper.map,
 	});
 
 	return source;

@@ -3,6 +3,7 @@ import {FiberSource} from "@/puff-smith/service/fiber/FiberSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {WireFiberSource} from "@/puff-smith/service/wire/fiber/WireFiberSource";
 import {IWireFiberCreate, IWireSource} from "@/puff-smith/service/wire/interface";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
@@ -11,6 +12,7 @@ import YAML from "yaml";
 
 export const WireSource = (): IWireSource => {
 	const fiberSource = singletonOf(() => FiberSource());
+	const wireFiberSource = singletonOf(() => WireFiberSource());
 	const vendorSource = singletonOf(() => VendorSource());
 	const tagSource = singletonOf(() => TagSource());
 	const codeService = singletonOf(() => CodeService());
@@ -22,10 +24,17 @@ export const WireSource = (): IWireSource => {
 		name: "wire",
 		prisma,
 		map: async wire => wire ? ({
-			...wire,
+			id: wire.id,
+			name: wire.name,
+			code: wire.code,
+			vendorId: wire.vendorId,
+			isTCR: wire.isTCR,
+			mm: wire.mm,
+			mmToRound: wire.mmToRound,
+			cost: wire.cost,
 			vendor: await vendorSource().mapper.map(wire.vendor),
 			draws: await tagSource().mapper.list(Promise.resolve(wire.WireDraw.map(({draw}) => draw))),
-			fibers: wire.WireFiber.map(({fiber}) => fiber),
+			fibers: await wireFiberSource().mapper.list(Promise.resolve(wire.WireFiber)),
 		}) : undefined,
 		source: {
 			create: async ({code, name, vendor, vendorId, draws, fibers, isTCR, ...wire}) => {

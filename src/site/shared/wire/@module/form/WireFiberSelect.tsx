@@ -1,4 +1,4 @@
-import {IWireFiberSourceSelectProps, WireFiberProviderControl, WireFiberSourceSelect} from "@/sdk/api/wire/fiber/query";
+import {IWireFiberSourceSelectProps, WireFiberProviderControl, WireFiberSourceSelect} from "@/sdk/api/wire/market/fiber/query";
 import {FC} from "react";
 
 export interface IWireFiberSelectProps extends Partial<IWireFiberSourceSelectProps> {

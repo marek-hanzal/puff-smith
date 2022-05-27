@@ -8,5 +8,5 @@ export interface IWireDrawQuery extends IQuery<Prisma.WireDrawWhereInput, Prisma
 export type IWireDrawEntity<T = any> = WireDraw & T;
 export type IWithWireDraw = { draw: ITagEntity };
 
-export interface IWireDrawSource extends ISource<undefined, IWireDrawEntity<IWithWireDraw>, ITag, IWireDrawQuery> {
+export interface IWireDrawSource extends ISource<undefined, IWithWireDraw, ITag, IWireDrawQuery> {
 }

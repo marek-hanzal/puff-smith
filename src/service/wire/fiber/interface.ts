@@ -1,4 +1,4 @@
-import {IFiber, IWithFiber} from "@/puff-smith/service/fiber/interface";
+import {IFiber, IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Prisma, WireFiber} from "@prisma/client";
 
@@ -12,7 +12,7 @@ export interface IWireFiber {
 export interface IWireFiberQuery extends IQuery<Prisma.WireFiberWhereInput & IWithFulltext, Prisma.WireFiberOrderByWithRelationInput> {
 }
 
-export type IWireFiberEntity<T = any> = WireFiber & T;
+export type IWireFiberEntity<T = void> = T extends void ? WireFiber : WireFiber & T;
 
-export interface IWireFiberSource extends ISource<undefined, IWireFiberEntity<IWithFiber>, IFiber, IWireFiberQuery> {
+export interface IWireFiberSource extends ISource<undefined, IWireFiberEntity<IWithFiber<IWithFiberMaterial>>, IWireFiber, IWireFiberQuery> {
 }

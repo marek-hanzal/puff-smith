@@ -17,7 +17,7 @@ export const WireDrawSource = (): IWireDrawSource => {
 			}),
 			query: async () => source.prisma.wireDraw.findMany({
 				distinct: ["drawId"],
-				include: {
+				select: {
 					draw: true,
 				},
 				orderBy: [

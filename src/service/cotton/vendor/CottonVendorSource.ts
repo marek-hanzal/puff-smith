@@ -10,11 +10,11 @@ export const CottonVendorSource = (): ICottonVendorSource => {
 	const source: ICottonVendorSource = Source<ICottonVendorSource>({
 		name: "cotton.vendor",
 		prisma,
-		map: vendorSource().map,
+		map: async cotton => vendorSource().map(cotton?.vendor),
 		source: {
 			query: async ({filter}) => source.prisma.cotton.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				where: {

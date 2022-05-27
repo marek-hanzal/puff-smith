@@ -17,17 +17,22 @@ export const CottonSource = (): ICottonSource => {
 		map: async cotton => cotton ? ({
 			...cotton,
 			vendor: await vendorSource().mapper.map(cotton.vendor),
-			draws: await tagSource().mapper.list(source.prisma.tag.findMany({
-				where: {
-					CottonDraw: {
-						some: {
-							cottonId: cotton.id,
-						}
-					}
-				}
-			})),
+			draws: await tagSource().mapper.list(Promise.resolve(cotton.CottonDraw.map(({draw}) => draw))),
 		}) : undefined,
 		source: {
+			get: async id => source.prisma.cotton.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+					CottonDraw: {
+						orderBy: {draw: {sort: "asc"}},
+						include: {
+							draw: true,
+						}
+					}
+				},
+				rejectOnNotFound: true,
+			}),
 			create: async ({vendor, draws, code, ...cotton}) => {
 				const create = {
 					...cotton,
@@ -50,6 +55,12 @@ export const CottonSource = (): ICottonSource => {
 						data: create,
 						include: {
 							vendor: true,
+							CottonDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
 						},
 					});
 				} catch (e) {
@@ -82,6 +93,12 @@ export const CottonSource = (): ICottonSource => {
 							data: create,
 							include: {
 								vendor: true,
+								CottonDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
 							},
 						});
 					});
