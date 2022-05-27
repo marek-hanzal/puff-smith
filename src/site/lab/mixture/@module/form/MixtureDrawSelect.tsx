@@ -1,4 +1,4 @@
-import {DrawProviderControl, DrawSourceSelect, IDrawSourceSelectProps} from "@/sdk/api/mixture/inventory/mixture/draw/query";
+import {DrawProviderControl, DrawSourceSelect, IDrawSourceSelectProps} from "@/sdk/api/mixture/inventory/draw/query";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 

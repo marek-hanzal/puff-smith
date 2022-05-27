@@ -1,5 +1,7 @@
+import {IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interface";
 import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
-import {IWire, IWireReference, IWithWire} from "@/puff-smith/service/wire/interface";
+import {IWithVendor} from "@/puff-smith/service/vendor/interface";
+import {IWire, IWireReference, IWithWire, IWithWireDraw, IWithWireFiber} from "@/puff-smith/service/wire/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Coil, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -40,5 +42,5 @@ export interface ICoilFetchParams extends ParsedUrlQuery {
 	coilId: string;
 }
 
-export interface ICoilSource extends ISource<ICoilCreate, ICoilEntity<IWithWire & IWithCoilDraw>, ICoil, ICoilQuery, ICoilFetch, ICoilFetchParams> {
+export interface ICoilSource extends ISource<ICoilCreate, ICoilEntity<IWithWire<IWithVendor & IWithWireDraw & IWithWireFiber<IWithFiber<IWithFiberMaterial>>> & IWithCoilDraw>, ICoil, ICoilQuery, ICoilFetch, ICoilFetchParams> {
 }

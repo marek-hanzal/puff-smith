@@ -34,7 +34,26 @@ export const WireInventorySource = (): IWireInventorySource => {
 							userId: source.user.required(),
 						},
 						include: {
-							wire: true,
+							wire: {
+								include: {
+									vendor: true,
+									WireDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
+									WireFiber: {
+										include: {
+											fiber: {
+												include: {
+													material: true,
+												}
+											}
+										}
+									}
+								},
+							},
 							transaction: true,
 						},
 					}),
@@ -51,7 +70,26 @@ export const WireInventorySource = (): IWireInventorySource => {
 					const wireInventorySource = await prisma.wireInventory.findMany({
 						where,
 						include: {
-							wire: true,
+							wire: {
+								include: {
+									vendor: true,
+									WireDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
+									WireFiber: {
+										include: {
+											fiber: {
+												include: {
+													material: true,
+												}
+											}
+										}
+									}
+								},
+							},
 							transaction: true,
 						}
 					});

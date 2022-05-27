@@ -1,4 +1,4 @@
-import {ITasteSourceSelectProps, TasteSourceSelect} from "@/sdk/api/mixture/inventory/mixture/aroma/taste/query";
+import {ITasteSourceSelectProps, TasteSourceSelect} from "@/sdk/api/mixture/inventory/aroma/taste/query";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 

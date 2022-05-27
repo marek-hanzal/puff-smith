@@ -47,7 +47,26 @@ export const CoilSource = (): ICoilSource => {
 					return await source.prisma.coil.create({
 						data: create,
 						include: {
-							wire: true,
+							wire: {
+								include: {
+									vendor: true,
+									WireDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
+									WireFiber: {
+										include: {
+											fiber: {
+												include: {
+													material: true,
+												}
+											}
+										}
+									}
+								},
+							},
 							CoilDraw: {
 								include: {
 									draw: true,
@@ -82,7 +101,26 @@ export const CoilSource = (): ICoilSource => {
 							},
 							data: create,
 							include: {
-								wire: true,
+								wire: {
+									include: {
+										vendor: true,
+										WireDraw: {
+											orderBy: {draw: {sort: "asc"}},
+											include: {
+												draw: true,
+											},
+										},
+										WireFiber: {
+											include: {
+												fiber: {
+													include: {
+														material: true,
+													}
+												}
+											}
+										}
+									},
+								},
 								CoilDraw: {
 									include: {
 										draw: true,

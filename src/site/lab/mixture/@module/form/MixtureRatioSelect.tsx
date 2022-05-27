@@ -1,5 +1,5 @@
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
-import {IRatioSourceSelectProps, RatioSourceSelect} from "@/sdk/api/mixture/inventory/mixture/ratio/query";
+import {IRatioSourceSelectProps, RatioSourceSelect} from "@/sdk/api/mixture/inventory/ratio/query";
 import {FC} from "react";
 
 export interface IMixtureRatioSelectProps extends Partial<IRatioSourceSelectProps> {

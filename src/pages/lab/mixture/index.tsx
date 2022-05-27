@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
 import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
-import {MixtureProviderControl} from "@/sdk/api/mixture/inventory/mixture/query";
+import {MixtureInventoryProviderControl} from "@/sdk/api/mixture/inventory/query";
 import {PushRight, Template, useFilterContext} from "@leight-core/client";
 import {Col, Divider, Row, Space} from "antd";
 import {FC} from "react";
@@ -51,7 +51,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/mixture"]}
 		icon={<MixtureIcon/>}
 	>
-		<MixtureProviderControl
+		<MixtureInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={[
 				{aroma: {name: "asc"}},
@@ -60,6 +60,6 @@ export default withLabLayout(function Index() {
 			] as any}
 		>
 			<InternalList/>
-		</MixtureProviderControl>
+		</MixtureInventoryProviderControl>
 	</LabPage>;
 });

@@ -1,3 +1,4 @@
+import {IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IWire, IWireEntity, IWireQuery, IWithWireDraw, IWithWireFiber} from "@/puff-smith/service/wire/interface";
 import {IWireInventoryEntity} from "@/puff-smith/service/wire/inventory/interface";
@@ -8,8 +9,8 @@ export interface IWireMarket {
 	isOwned: boolean | undefined;
 }
 
-export type IWithWireMarketInventory = { WireInventory: IWireInventoryEntity[]; };
+export type IWithWireMarketInventory<T = void> = { WireInventory: IWireInventoryEntity<T>[]; };
 
 
-export interface IWireMarketSource extends ISource<undefined, IWireEntity<IWithVendor & IWithWireDraw & IWithWireFiber & IWithWireMarketInventory>, IWireMarket, IWireQuery> {
+export interface IWireMarketSource extends ISource<undefined, IWireEntity<IWithVendor & IWithWireDraw & IWithWireFiber<IWithFiber<IWithFiberMaterial>> & IWithWireMarketInventory>, IWireMarket, IWireQuery> {
 }

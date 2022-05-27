@@ -81,7 +81,11 @@ export const WireSource = (): IWireSource => {
 							},
 							WireFiber: {
 								include: {
-									fiber: true,
+									fiber: {
+										include: {
+											material: true,
+										}
+									},
 								},
 							},
 						},
@@ -127,7 +131,11 @@ export const WireSource = (): IWireSource => {
 								},
 								WireFiber: {
 									include: {
-										fiber: true,
+										fiber: {
+											include: {
+												material: true,
+											}
+										},
 									},
 								},
 							},

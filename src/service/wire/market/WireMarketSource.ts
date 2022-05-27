@@ -30,7 +30,11 @@ export const WireMarketSource = (): IWireMarketSource => {
 					},
 					WireFiber: {
 						include: {
-							fiber: true,
+							fiber: {
+								include: {
+									material: true,
+								},
+							},
 						},
 					},
 					WireDraw: {

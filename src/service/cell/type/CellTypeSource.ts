@@ -10,6 +10,7 @@ export const CellTypeSource = (): ICellTypeSource => {
 	const source: ICellTypeSource = Source<ICellTypeSource>({
 		name: "cell.type",
 		prisma,
+		map: async cell => tagSource().map(cell?.type),
 		source: {
 			count: async () => source.prisma.cell.count({
 				distinct: ["typeId"],
@@ -19,13 +20,11 @@ export const CellTypeSource = (): ICellTypeSource => {
 				orderBy: [
 					{type: {sort: "asc"}},
 				],
-				include: {
-					vendor: true,
+				select: {
 					type: true,
 				}
 			}),
 		},
-		map: async ({type}) => tagSource().mapper.map(type),
 	});
 
 	return source;

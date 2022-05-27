@@ -1,4 +1,4 @@
-import {IVendorSourceSelectProps, VendorSourceSelect} from "@/sdk/api/mixture/inventory/mixture/vendor/query";
+import {IVendorSourceSelectProps, VendorSourceSelect} from "@/sdk/api/mixture/inventory/vendor/query";
 import {FC} from "react";
 
 export interface IMixtureVendorSelectProps extends Partial<IVendorSourceSelectProps> {
