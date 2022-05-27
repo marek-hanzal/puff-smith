@@ -21,6 +21,19 @@ export const AtomizerSource = (): IAtomizerSource => {
 			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 		} : undefined,
 		source: {
+			get: async id => source.prisma.atomizer.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+					AtomizerDraw: {
+						orderBy: {draw: {sort: "asc"}},
+						include: {
+							draw: true,
+						}
+					}
+				},
+				rejectOnNotFound: true,
+			}),
 			create: async ({draws, type, vendor, code, ...atomizer}) => {
 				const create = {
 					...atomizer,

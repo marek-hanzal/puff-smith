@@ -12,7 +12,7 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 		prisma,
 		map: async atomizer => atomizer ? ({
 			atomizer: await atomizerSource().mapper.map(atomizer),
-			isOwned: false,
+			isOwned: atomizer.AtomizerInventory.length > 0,
 		}) : undefined,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
@@ -49,6 +49,11 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 						orderBy: {draw: {sort: "asc"}},
 						include: {
 							draw: true,
+						}
+					},
+					AtomizerInventory: {
+						where: {
+							userId: source.user.required(),
 						}
 					}
 				},

@@ -12,7 +12,7 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAtomizerInventorySource = Source<IAtomizerInventorySource>({
-		name: "atomizer-inventory",
+		name: "atomizer.inventory",
 		prisma: prisma,
 		map: async atomizerInventory => atomizerInventory ? ({
 			...atomizerInventory,
@@ -39,6 +39,12 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 							atomizer: {
 								include: {
 									vendor: true,
+									AtomizerDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
 								}
 							},
 							transaction: true,
