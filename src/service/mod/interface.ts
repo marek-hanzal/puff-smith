@@ -27,21 +27,19 @@ export interface IMod {
 	power: number;
 }
 
-export type IModWhere = Prisma.ModWhereInput & IWithFulltext;
-
-export interface IModQuery extends IQuery<IModWhere, Prisma.ModOrderByWithRelationInput> {
+export interface IModQuery extends IQuery<Prisma.ModWhereInput & IWithFulltext, Prisma.ModOrderByWithRelationInput> {
 }
 
-export type IModEntity<T = any> = Mod & T;
-export type IWithMod<T = any> = { mod: IModEntity<T>; };
+export type IModEntity<T = void> = T extends void ? Mod : Mod & T;
+export type IWithMod<T = void> = { mod: IModEntity<T>; };
 
-export interface IModFetchProps {
+export interface IModFetch {
 	mod: IMod;
 }
 
-export interface IModFetchQuery extends ParsedUrlQuery {
+export interface IModFetchParams extends ParsedUrlQuery {
 	modId: string;
 }
 
-export interface IModSource extends ISource<IModCreate, IModEntity<IWithVendor & IWithModCell>, IMod, IModQuery> {
+export interface IModSource extends ISource<IModCreate, IModEntity<IWithVendor & IWithModCell>, IMod, IModQuery, IModFetch, IModFetchParams> {
 }

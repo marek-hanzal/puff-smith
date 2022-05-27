@@ -22,7 +22,8 @@ export interface IModInventory {
 export interface IModInventoryQuery extends IQuery<Prisma.ModInventoryWhereInput, Prisma.ModInventoryOrderByWithRelationInput> {
 }
 
-export type IModInventoryEntity<T = any> = ModInventory & T;
+export type IModInventoryEntity<T = void> = T extends void ? ModInventory : ModInventory & T;
+export type IWithModInventoryEntity<T = void> = { ModInventory: IModInventoryEntity<T>[]; };
 
 export interface IModInventorySource extends ISource<IModInventoryCreate, IModInventoryEntity<IWithTransaction & IWithMod<IWithVendor & IWithModCell>>, IModInventory, IModInventoryQuery> {
 }

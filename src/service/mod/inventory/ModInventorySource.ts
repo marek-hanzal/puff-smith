@@ -21,11 +21,8 @@ export const ModInventorySource = (): IModInventorySource => {
 		}) : undefined,
 		source: {
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
-				const modSource = ModSource();
-				const transactionSource = TransactionSource();
-				modSource.withPrisma(prisma);
-				transactionSource.withPrisma(prisma);
-
+				const modSource = ModSource().withPrisma(prisma);
+				const transactionSource = TransactionSource().withPrisma(prisma);
 				const $mod = await modSource.get(mod.modId);
 				return transactionSource.handleTransaction({
 					userId: source.user.required(),
