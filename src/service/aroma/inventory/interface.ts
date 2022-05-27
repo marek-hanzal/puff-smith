@@ -1,4 +1,4 @@
-import {IAroma, IWithAroma} from "@/puff-smith/service/aroma/interface";
+import {IAroma, IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource} from "@leight-core/api";
@@ -23,5 +23,5 @@ export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereI
 
 export type IAromaInventoryEntity<T = void> = T extends void ? AromaInventory : AromaInventory & T;
 
-export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity<IWithAroma<IWithVendor> & IWithTransaction>, IAromaInventory, IAromaInventoryQuery> {
+export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity<IWithAroma<IWithVendor & IWithAromaTaste> & IWithTransaction>, IAromaInventory, IAromaInventoryQuery> {
 }

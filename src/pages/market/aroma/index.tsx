@@ -11,6 +11,9 @@ export default withMarketLayout(function Index() {
 		title={"market.aroma.index"}
 		menuSelection={["/market/aroma"]}
 		icon={<LiquidIcon/>}
+		withHelp={{
+			translation: "market.aroma.index",
+		}}
 	>
 		<AromaProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

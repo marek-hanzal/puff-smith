@@ -10,6 +10,10 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 	const source: IAromaMarketSource = Source<IAromaMarketSource>({
 		name: "aroma.market",
 		prisma,
+		map: async aroma => aroma ? ({
+			aroma: await aromaSource().mapper.map(aroma),
+			isOwned: aroma.AromaInventory.length > 0,
+		}) : undefined,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: filter,
@@ -36,10 +40,6 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 				...pageOf(query),
 			}),
 		},
-		map: async aroma => aroma ? ({
-			aroma: await aromaSource().mapper.map(aroma),
-			isOwned: aroma.AromaInventory.length > 0,
-		}) : undefined,
 	});
 
 	return source;

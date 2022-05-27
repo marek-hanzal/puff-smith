@@ -9,14 +9,18 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaInventorySource = (): IAromaInventorySource => {
+	const aromaSource = singletonOf(() => AromaSource());
+	const transactionSource = singletonOf(() => TransactionSource());
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
 		name: "aroma-inventory",
 		prisma,
-		map: async item => {
-			throw new Error("not yet");
-		},
+		map: async aromaInventory => aromaInventory ? {
+			...aromaInventory,
+			aroma: await aromaSource().mapper.map(aromaInventory.aroma),
+			transaction: await transactionSource().mapper.map(aromaInventory.transaction),
+		} : undefined,
 		source: {
 			create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
 				const transactionSource = TransactionSource().withPrisma(prisma);
@@ -38,6 +42,12 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 								aroma: {
 									include: {
 										vendor: true,
+										AromaTaste: {
+											orderBy: {taste: {sort: "asc"}},
+											include: {
+												taste: true,
+											}
+										},
 									},
 								},
 								transaction: true,
@@ -63,6 +73,12 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 							aroma: {
 								include: {
 									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									},
 								}
 							},
 							transaction: true,

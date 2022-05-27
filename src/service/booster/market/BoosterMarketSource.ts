@@ -1,7 +1,7 @@
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {IBoosterMarketSource} from "@/puff-smith/service/booster/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Source} from "@leight-core/server";
+import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BoosterMarketSource = (): IBoosterMarketSource => {
@@ -12,13 +12,26 @@ export const BoosterMarketSource = (): IBoosterMarketSource => {
 		prisma,
 		map: async booster => booster ? ({
 			booster: await boosterSource().mapper.map(booster),
-			isOwned: source.user.optional() ? (await source.prisma.boosterInventory.count({
-				where: {
-					boosterId: booster.id,
-					userId: source.user.required(),
-				}
-			})) > 0 : undefined,
+			isOwned: booster.BoosterInventory.length > 0,
 		}) : undefined,
+		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.booster.count({
+				where: filter,
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.booster.findMany({
+				where: filter,
+				orderBy,
+				include: {
+					vendor: true,
+					BoosterInventory: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+				},
+				...pageOf(query),
+			}),
+		},
 	});
 
 	return source;
