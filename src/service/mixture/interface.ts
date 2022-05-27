@@ -35,7 +35,7 @@ export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrder
 }
 
 export type IMixtureEntity<T = void> = T extends void ? Mixture : Mixture & T;
-export type IWithMixtureEntity<T = void> = { mixture: IMixtureEntity<T>; }
+export type IWithMixture<T = void> = { mixture: IMixtureEntity<T>; }
 export type IWithMixtureDraw<T = void> = { MixtureDraw: { draw: ITagEntity; }[]; }
 
 export interface IMixture {

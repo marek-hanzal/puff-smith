@@ -4,8 +4,8 @@ import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidSource = (): ILiquidSource => {
 	const transactionSource = singletonOf(() => TransactionSource());
@@ -22,6 +22,53 @@ export const LiquidSource = (): ILiquidSource => {
 			mixture: await mixtureSource().mapper.map(liquid.mixture),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.liquid.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					vendor: true,
+					transaction: true,
+					mixture: {
+						include: {
+							aroma: {
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
+								},
+							},
+							base: {
+								include: {
+									vendor: true,
+								},
+							},
+							booster: {
+								include: {
+									vendor: true,
+								},
+							},
+							MixtureDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								},
+							},
+						}
+					}
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => {
 				const userId = source.user.required();
 				const tariffSource = TariffSource();
@@ -53,26 +100,10 @@ export const LiquidSource = (): ILiquidSource => {
 								mixed: mixed || new Date(),
 							},
 							include: {
+								vendor: true,
 								transaction: true,
-								aroma: {
-									include: {
-										vendor: true,
-										AromaTaste: {
-											orderBy: {taste: {sort: "asc"}},
-											include: {
-												taste: true,
-											},
-										},
-									},
-								},
 								mixture: {
 									include: {
-										MixtureDraw: {
-											orderBy: {draw: {sort: "asc"}},
-											include: {
-												draw: true,
-											},
-										},
 										aroma: {
 											include: {
 												vendor: true,
@@ -80,22 +111,28 @@ export const LiquidSource = (): ILiquidSource => {
 													orderBy: {taste: {sort: "asc"}},
 													include: {
 														taste: true,
-													},
-												},
+													}
+												}
+											},
+										},
+										base: {
+											include: {
+												vendor: true,
 											},
 										},
 										booster: {
 											include: {
 												vendor: true,
-											}
+											},
 										},
-										base: {
+										MixtureDraw: {
+											orderBy: {draw: {sort: "asc"}},
 											include: {
-												vendor: true,
-											}
+												draw: true,
+											},
 										},
 									}
-								},
+								}
 							},
 						});
 					}
@@ -112,26 +149,10 @@ export const LiquidSource = (): ILiquidSource => {
 					const liquids = await prisma.liquid.findMany({
 						where,
 						include: {
+							vendor: true,
 							transaction: true,
-							aroma: {
-								include: {
-									vendor: true,
-									AromaTaste: {
-										orderBy: {taste: {sort: "asc"}},
-										include: {
-											taste: true,
-										},
-									},
-								},
-							},
 							mixture: {
 								include: {
-									MixtureDraw: {
-										orderBy: {draw: {sort: "asc"}},
-										include: {
-											draw: true,
-										},
-									},
 									aroma: {
 										include: {
 											vendor: true,
@@ -139,22 +160,28 @@ export const LiquidSource = (): ILiquidSource => {
 												orderBy: {taste: {sort: "asc"}},
 												include: {
 													taste: true,
-												},
-											},
+												}
+											}
+										},
+									},
+									base: {
+										include: {
+											vendor: true,
 										},
 									},
 									booster: {
 										include: {
 											vendor: true,
-										}
+										},
 									},
-									base: {
+									MixtureDraw: {
+										orderBy: {draw: {sort: "asc"}},
 										include: {
-											vendor: true,
-										}
+											draw: true,
+										},
 									},
 								}
-							},
+							}
 						},
 					});
 					await prisma.liquid.deleteMany({

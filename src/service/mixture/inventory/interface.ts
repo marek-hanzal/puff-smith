@@ -1,7 +1,7 @@
 import {IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
 import {IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
 import {IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
-import {IMixture, IWithMixtureDraw, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
+import {IMixture, IWithMixture, IWithMixtureDraw} from "@/puff-smith/service/mixture/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {MixtureInventory, Prisma} from "@prisma/client";
@@ -24,5 +24,5 @@ export interface IMixtureInventory {
 	mixture: IMixture;
 }
 
-export interface IMixtureInventorySource extends ISource<IMixtureInventoryCreate, IMixtureInventoryEntity<IWithVendor & IWithAroma<IWithVendor & IWithAromaTaste> & IWithMixtureEntity<IWithMixtureDraw & IWithAroma<IWithVendor & IWithAromaTaste> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>>, IMixtureInventory, IMixtureInventoryQuery> {
+export interface IMixtureInventorySource extends ISource<IMixtureInventoryCreate, IMixtureInventoryEntity<IWithVendor & IWithAroma<IWithVendor & IWithAromaTaste> & IWithMixture<IWithMixtureDraw & IWithAroma<IWithVendor & IWithAromaTaste> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>>, IMixtureInventory, IMixtureInventoryQuery> {
 }

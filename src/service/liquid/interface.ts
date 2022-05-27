@@ -1,7 +1,7 @@
 import {IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
 import {IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
 import {IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
-import {IMixture, IWithMixtureDraw, IWithMixtureEntity} from "@/puff-smith/service/mixture/interface";
+import {IMixture, IWithMixture, IWithMixtureDraw} from "@/puff-smith/service/mixture/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
@@ -25,9 +25,7 @@ export interface ILiquid {
 	mixtureId: string;
 }
 
-export type ILiquidWhere = Prisma.LiquidWhereInput & IWithFulltext;
-
-export interface ILiquidQuery extends IQuery<ILiquidWhere, Prisma.LiquidOrderByWithRelationInput> {
+export interface ILiquidQuery extends IQuery<Prisma.LiquidWhereInput & IWithFulltext, Prisma.LiquidOrderByWithRelationInput> {
 }
 
 export type ILiquidEntity<T = void> = T extends void ? Liquid : Liquid & T;
@@ -40,7 +38,5 @@ export interface ILiquidFetchParams extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-export type ILiquidSourceEntity = ILiquidEntity<IWithAroma<IWithVendor> & IWithMixtureEntity<IWithMixtureDraw & IWithNullBoosterEntity<IWithVendor> & IWithNullBaseEntity<IWithVendor> & IWithAroma<IWithVendor & IWithAromaTaste>> & IWithTransaction>;
-
-export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidSourceEntity, ILiquid, ILiquidQuery, ILiquidFetch, ILiquidFetchParams> {
+export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidEntity<IWithTransaction & IWithMixture<IWithMixtureDraw & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor> & IWithAroma<IWithVendor & IWithAromaTaste>>>, ILiquid, ILiquidQuery, ILiquidFetch, ILiquidFetchParams> {
 }
