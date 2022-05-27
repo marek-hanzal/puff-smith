@@ -7,7 +7,7 @@ import {UseMutationResult} from "react-query";
 
 export interface IDeleteConfirmButtonProps {
 	translation: string;
-	mutator: UseMutationResult<any, any, any>;
+	mutator: UseMutationResult<any, any, string[]>;
 	invalidator?: () => Promise<any>;
 }
 
@@ -39,7 +39,7 @@ export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation,
 		closable={!mutator.isLoading}
 		maskClosable={!mutator.isLoading}
 		onOk={setShow => {
-			mutator.mutate({ids: selectionContext.toSelection()}, {
+			mutator.mutate(selectionContext.toSelection(), {
 				onSuccess: async () => {
 					selectionContext.clear();
 					message.success(t(`${translation}.delete.success`));

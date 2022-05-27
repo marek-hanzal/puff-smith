@@ -71,8 +71,7 @@ export const LiquidSource = (): ILiquidSource => {
 			}),
 			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => {
 				const userId = source.user.required();
-				const tariffSource = TariffSource();
-				tariffSource.withPrisma(prisma);
+				const tariffSource = TariffSource().withPrisma(prisma);
 
 				return tariffSource.transactionOf({
 					tariff: "default",
