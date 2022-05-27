@@ -1,7 +1,7 @@
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITransactionSource} from "@/puff-smith/service/transaction/interface";
-import {Source} from "@leight-core/server";
+import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const TransactionSource = (): ITransactionSource => {
@@ -21,6 +21,11 @@ export const TransactionSource = (): ITransactionSource => {
 					...create,
 					created: new Date(),
 				},
+			}),
+			count: async () => source.prisma.transaction.count({}),
+			query: async ({orderBy, ...query}) => source.prisma.transaction.findMany({
+				orderBy,
+				...pageOf(query),
 			}),
 		},
 		sum: async query => (await source.prisma.transaction.aggregate({

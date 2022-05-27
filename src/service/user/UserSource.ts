@@ -4,7 +4,7 @@ import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const UserSource = (): IUserSource => {
@@ -32,6 +32,18 @@ export const UserSource = (): IUserSource => {
 					}
 				},
 				rejectOnNotFound: true,
+			}),
+			count: async () => source.prisma.user.count({}),
+			query: async ({orderBy, ...query}) => source.prisma.user.findMany({
+				orderBy,
+				include: {
+					UserToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
+				...pageOf(query),
 			}),
 		},
 		async handleRootUser() {

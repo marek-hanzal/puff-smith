@@ -21,8 +21,8 @@ export const VoucherInventorySource = (): IVoucherInventorySource => {
 		}) : undefined,
 		source: {
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
-				const transactionSource = TransactionSource().withPrisma(prisma);
-				const voucher = await voucherSource().get(create.voucherId);
+				const transactionSource = TransactionSource().withPrisma(prisma).withUser(source.user);
+				const voucher = await voucherSource().withPrisma(prisma).get(create.voucherId);
 				voucher.maxFortune && (await transactionSource.sumOf()) >= voucher.maxFortune && (() => {
 					throw new Error("Too much puffies");
 				})();

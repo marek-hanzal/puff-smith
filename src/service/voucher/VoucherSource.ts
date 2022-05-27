@@ -27,6 +27,10 @@ export const VoucherSource = (): IVoucherSource => {
 					}));
 				}
 			},
+			get: async id => source.prisma.voucher.findUnique({
+				where: {id},
+				rejectOnNotFound: true,
+			}),
 			count: async () => source.prisma.voucher.count(),
 			query: async ({orderBy, ...query}) => source.prisma.voucher.findMany({
 				orderBy,
