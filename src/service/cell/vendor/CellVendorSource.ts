@@ -10,13 +10,12 @@ export const CellVendorSource = (): ICellVendorSource => {
 	const source: ICellVendorSource = Source<ICellVendorSource>({
 		name: "cell.vendor",
 		prisma,
-		map: vendorSource().map,
+		map: async cell => vendorSource().map(cell?.vendor),
 		source: {
 			query: async () => source.prisma.cell.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
-					type: true,
 				},
 				orderBy: [
 					{vendor: {name: "asc"}},

@@ -20,9 +20,9 @@ export type ICellWhere = Prisma.CellWhereInput & IWithFulltext;
 export interface ICellQuery extends IQuery<ICellWhere, Prisma.CellOrderByWithRelationInput> {
 }
 
-export type ICellEntity<T = any> = Cell & T;
-export type IWithCell<T = any> = { cell: ICellEntity<T>; };
-export type IWithCellType = { type: ITagEntity };
+export type ICellEntity<T = void> = T extends void ? Cell : Cell & T;
+export type IWithCell<T = void> = { cell: ICellEntity<T>; };
+export type IWithCellType = { type: ITagEntity; };
 
 export interface ICell {
 	id: string;
