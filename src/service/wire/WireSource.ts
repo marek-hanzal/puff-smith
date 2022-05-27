@@ -51,7 +51,12 @@ export const WireSource = (): IWireSource => {
 					name: name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
 					mm,
 					mmToRound: toMmRound(mm),
-					vendorId: (await vendorSource().fetchByReference({vendor, vendorId})).id,
+					vendor: {
+						connect: {
+							name: vendor,
+							id: vendorId,
+						},
+					},
 					isTCR: boolean(isTCR),
 					WireFiber: {
 						createMany: {
