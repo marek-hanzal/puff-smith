@@ -38,7 +38,7 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 				orderBy: [
 					{vendor: {name: "asc"}}
 				],
-				include: {
+				select: {
 					vendor: true,
 				}
 			}),

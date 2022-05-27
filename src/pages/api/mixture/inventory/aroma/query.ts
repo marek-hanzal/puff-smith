@@ -2,4 +2,4 @@ import {IMixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/
 import {MixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/MixtureAromaSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Aroma", IMixtureAromaSource>(MixtureAromaSource());
+export default QueryEndpoint<"MixtureAroma", IMixtureAromaSource>(MixtureAromaSource());

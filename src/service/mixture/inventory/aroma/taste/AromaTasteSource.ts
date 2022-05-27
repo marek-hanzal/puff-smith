@@ -15,14 +15,9 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 			count: async () => source.prisma.aromaTaste.count({
 				distinct: ["tasteId"],
 			}),
-			query: async ({filter}) => source.prisma.aromaTaste.findMany({
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aromaTaste.findMany({
 				distinct: ["tasteId"],
-				include: {
-					aroma: {
-						include: {
-							vendor: true,
-						},
-					},
+				select: {
 					taste: true,
 				},
 				where: merge(filter || {}, {

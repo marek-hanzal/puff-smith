@@ -38,36 +38,12 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 			}),
 			query: async ({filter}) => prisma.mixtureInventory.findMany({
 				distinct: ["baseId"],
-				include: {
-					aroma: {
-						include: {
-							vendor: true,
-						}
-					},
+				select: {
 					base: {
 						include: {
 							vendor: true,
 						}
 					},
-					mixture: {
-						include: {
-							aroma: {
-								include: {
-									vendor: true,
-								}
-							},
-							base: {
-								include: {
-									vendor: true,
-								}
-							},
-							booster: {
-								include: {
-									vendor: true,
-								}
-							},
-						}
-					}
 				},
 				where: {
 					NOT: {

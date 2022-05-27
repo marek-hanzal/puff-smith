@@ -1,13 +1,13 @@
-import {ITasteSourceSelectProps, TasteSourceSelect} from "@/sdk/api/mixture/inventory/aroma/taste/query";
+import {AromaTasteSourceSelect, IAromaTasteSourceSelectProps} from "@/sdk/api/mixture/inventory/aroma/taste/query";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IMixtureTasteSelectProps extends Partial<ITasteSourceSelectProps> {
+export interface IMixtureTasteSelectProps extends Partial<IAromaTasteSourceSelectProps> {
 }
 
 export const MixtureTasteSelect: FC<IMixtureTasteSelectProps> = props => {
 	const {t} = useTranslation();
-	return <TasteSourceSelect
+	return <AromaTasteSourceSelect
 		toOption={item => ({
 			value: item.id,
 			label: t(`common.taste.${item.code}`, item.code),

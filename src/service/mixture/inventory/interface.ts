@@ -17,7 +17,7 @@ export interface IMixtureInventoryCreate {
 export interface IMixtureInventoryQuery extends IQuery<Prisma.MixtureInventoryWhereInput & IWithFulltext, Prisma.MixtureInventoryOrderByWithRelationInput> {
 }
 
-export type IMixtureInventoryEntity<T = any> = MixtureInventory & T;
+export type IMixtureInventoryEntity<T = void> = T extends void ? MixtureInventory : MixtureInventory & T;
 
 export interface IMixtureInventory {
 	id: string;
