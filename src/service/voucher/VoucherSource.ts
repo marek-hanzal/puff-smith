@@ -1,6 +1,6 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVoucherSource} from "@/puff-smith/service/voucher/interface";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 
 export const VoucherSource = (): IVoucherSource => {
 	const source: IVoucherSource = Source<IVoucherSource>({
@@ -27,6 +27,11 @@ export const VoucherSource = (): IVoucherSource => {
 					}));
 				}
 			},
+			count: async () => source.prisma.voucher.count(),
+			query: async ({orderBy, ...query}) => source.prisma.voucher.findMany({
+				orderBy,
+				...pageOf(query),
+			}),
 		},
 	});
 
