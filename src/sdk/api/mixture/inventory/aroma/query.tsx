@@ -119,7 +119,7 @@ export const MixtureAromaListSource: FC<IMixtureAromaListSourceProps> = ({provid
 			{...props}
 		/>
 	</MixtureAromaProvider>;
-};
+}
 
 export interface IMixtureAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureAromaSource>>;
@@ -162,7 +162,7 @@ export interface IMixtureAromaSelectionProviderProps extends Partial<ISelectionP
 
 export const MixtureAromaSelectionProvider: FC<IMixtureAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureAromaSource>> {...props}/>;
-};
+}
 
 export const useMixtureAromaQueryInvalidate = () => {
 	const queryClient = useQueryClient();

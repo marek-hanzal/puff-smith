@@ -1,5 +1,6 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAroma, IAromaFetch} from "@/puff-smith/service/aroma/interface";
@@ -13,8 +14,8 @@ import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/Aro
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureProviderControl} from "@/sdk/api/mixture/query";
-import {PushRight, Template, useFilterContext} from "@leight-core/client";
-import {Col, Divider, Row, Space} from "antd";
+import {Template, useFilterContext} from "@leight-core/client";
+import {Space} from "antd";
 import {FC} from "react";
 
 interface IInternalListProps {
@@ -37,26 +38,17 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 			/>
 		</Template> :
 		<MixtureList
-			header={() => <>
-				<Row align={"middle"}>
-					<Col span={12}>
-						<Space split={<Divider type={"vertical"}/>}>
-							<MixtureFilter
-								aroma={aroma}
-							/>
-							<Space>
-								<AromaNameInline aroma={aroma}/>
-								<AromaContentInline aroma={aroma}/>
-							</Space>
-						</Space>
-					</Col>
-					<Col span={12}>
-						<PushRight>
-							<MixtureJobButton aroma={aroma}/>
-						</PushRight>
-					</Col>
-				</Row>
-			</>}
+			header={() => <RowInline
+				extra={<MixtureJobButton aroma={aroma}/>}
+			>
+				<MixtureFilter
+					aroma={aroma}
+				/>
+				<Space>
+					<AromaNameInline aroma={aroma}/>
+					<AromaContentInline aroma={aroma}/>
+				</Space>
+			</RowInline>}
 			locale={{
 				emptyText: <MixtureListEmpty/>,
 			}}

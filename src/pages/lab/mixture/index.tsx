@@ -1,13 +1,13 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
 import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
 import {MixtureInventoryProviderControl} from "@/sdk/api/mixture/inventory/query";
-import {PushRight, Template, useFilterContext} from "@leight-core/client";
-import {Col, Divider, Row, Space} from "antd";
+import {Template, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
 interface IInternalListProps {
@@ -28,20 +28,11 @@ const InternalList: FC<IInternalListProps> = () => {
 			/>
 		</Template> :
 		<MixtureList
-			header={() => <>
-				<Row align={"middle"}>
-					<Col span={12}>
-						<Space split={<Divider type={"vertical"}/>}>
-							<MixtureFilter/>
-						</Space>
-					</Col>
-					<Col span={12}>
-						<PushRight>
-							<MixtureUserJobButton/>
-						</PushRight>
-					</Col>
-				</Row>
-			</>}
+			header={() => <RowInline
+				extra={<MixtureUserJobButton/>}
+			>
+				<MixtureFilter/>
+			</RowInline>}
 		/>;
 };
 

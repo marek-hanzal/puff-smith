@@ -1,6 +1,7 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {onUnique, pageOf, Source} from "@leight-core/server";
+import {merge} from "@leight-core/utils";
 
 export const VendorSource = (): IVendorSource => {
 	const source: IVendorSource = Source<IVendorSource>({
@@ -23,13 +24,21 @@ export const VendorSource = (): IVendorSource => {
 					}));
 				}
 			},
-			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.vendor.findMany({
-				where: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.vendor.count({
+				where: merge(filter, {
 					name: {
 						contains: fulltext,
 						mode: "insensitive",
 					},
-				},
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.vendor.findMany({
+				where: merge(filter, {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+				}),
 				orderBy: [
 					{name: "asc"},
 				],
