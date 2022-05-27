@@ -1,7 +1,7 @@
 import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/interface";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const MixtureInventorySource = (): IMixtureInventorySource => {
@@ -145,7 +145,71 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 					}));
 				}
 			},
-		}
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixtureInventory.count({
+				where: filter,
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.mixtureInventory.findMany({
+				where: filter,
+				orderBy,
+				include: {
+					vendor: true,
+					base: {
+						include: {
+							vendor: true,
+						}
+					},
+					booster: {
+						include: {
+							vendor: true,
+						}
+					},
+					aroma: {
+						include: {
+							vendor: true,
+							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
+								include: {
+									taste: true,
+								}
+							}
+						}
+					},
+					mixture: {
+						include: {
+							vendor: true,
+							MixtureDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								},
+							},
+							base: {
+								include: {
+									vendor: true,
+								}
+							},
+							booster: {
+								include: {
+									vendor: true,
+								}
+							},
+							aroma: {
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
+								}
+							},
+						}
+					},
+				},
+				...pageOf(query),
+			})
+		},
 	});
 
 	return source;
