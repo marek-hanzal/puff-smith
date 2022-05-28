@@ -1,4 +1,4 @@
-import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
+import {BaseInventoryList} from "@/puff-smith/site/inventory/base/@module/list/BaseInventoryList";
 import {BaseFilter} from "@/puff-smith/site/shared/base/@module/filter/BaseFilter";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
 import {BaseInventoryProviderControl, BaseInventorySourceSelect, IBaseInventorySourceSelectProps} from "@/sdk/api/inventory/base/query";

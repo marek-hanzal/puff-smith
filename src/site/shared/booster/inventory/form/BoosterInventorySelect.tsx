@@ -1,4 +1,4 @@
-import {BoosterInventoryList} from "@/puff-smith/site/lab/booster/inventory/@module/list/BoosterInventoryList";
+import {BoosterInventoryList} from "@/puff-smith/site/inventory/booster/@module/list/BoosterInventoryList";
 import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
 import {BoosterInventoryProviderControl, BoosterInventorySourceSelect, IBoosterInventorySourceSelectProps} from "@/sdk/api/inventory/booster/query";

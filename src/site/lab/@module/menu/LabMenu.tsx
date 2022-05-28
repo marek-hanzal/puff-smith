@@ -1,18 +1,13 @@
-import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
-import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
-import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
-import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
-import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
-import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VapeIcon} from "@/puff-smith/component/icon/VapeIcon";
 import {hasToken} from "@/puff-smith/service/user/utils";
 import {useWhoamiQuery} from "@/sdk/api/user/whoami";
-import {ContainerOutlined, SlidersOutlined} from "@ant-design/icons";
-import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
+import {SlidersOutlined} from "@ant-design/icons";
+import {CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
@@ -29,15 +24,7 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 			CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>),
 			CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>),
 			CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>),
-			CreateMenuGroup("lab.inventory.menu", <ContainerOutlined/>, [
-				CreateMenuItem("lab.atomizer.inventory.menu", "/lab/atomizer/inventory", <AtomizerIcon/>),
-				CreateMenuItem("lab.mod.inventory.menu", "/lab/mod/inventory", <ModIcon/>),
-				CreateMenuItem("lab.cell.inventory.menu", "/lab/cell/inventory", <CellIcon/>),
-				CreateMenuItem("lab.cotton.inventory.menu", "/lab/cotton/inventory", <CottonIcon/>),
-				CreateMenuItem("lab.aroma.inventory.menu", "/lab/aroma/inventory", <LiquidIcon/>),
-				CreateMenuItem("lab.base.inventory.menu", "/lab/base/inventory", <BaseIcon/>),
-				CreateMenuItem("lab.booster.inventory.menu", "/lab/booster/inventory", <BoosterIcon/>),
-			]),
+			CreateMenuItem("lab.inventory.menu", "/to/inventory", <InventoryIcon/>),
 			CreateMenuItem("lab.market.menu", "/to/market", <MarketIcon/>),
 			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("lab.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
 		]}

@@ -4,6 +4,7 @@ import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
@@ -41,6 +42,7 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 			CreateMenuGroup("market.other.menu", <GroupOutlined/>, [
 				CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
 			]),
+			CreateMenuItem("market.inventory.menu", "/to/inventory", <InventoryIcon/>),
 			CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
 			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("lab.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
 		]}
