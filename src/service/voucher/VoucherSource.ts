@@ -14,9 +14,9 @@ export const VoucherSource = (): IVoucherSource => {
 						data: voucher,
 					});
 				} catch (e) {
-					return onUnique(e, async voucher => source.prisma.voucher.update({
+					return onUnique(e, async () => source.prisma.voucher.update({
 						where: {
-							id: (await source.prisma.voucher.findFirst({
+							id: (await source.prisma.voucher.findUnique({
 								where: {
 									name: voucher.name,
 								},
