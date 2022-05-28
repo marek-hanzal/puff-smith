@@ -1,4 +1,4 @@
-import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/base/inventory/base/vendor";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/inventory/base/vendor/query";
 import {FC} from "react";
 
 export interface IBaseVendorSelectProps extends Partial<IVendorSourceSelectProps> {

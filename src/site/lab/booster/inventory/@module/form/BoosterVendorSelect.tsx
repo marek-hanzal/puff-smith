@@ -1,4 +1,4 @@
-import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/booster/inventory/booster/vendor/query";
+import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/inventory/booster/vendor/query";
 import {FC} from "react";
 
 export interface IBoosterVendorSelectProps extends Partial<IVendorSourceSelectProps> {

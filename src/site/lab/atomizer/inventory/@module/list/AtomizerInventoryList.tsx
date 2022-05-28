@@ -1,7 +1,7 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {AtomizerListEmpty} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
-import {AtomizerInventoryListSource, IAtomizerInventoryListSourceProps} from "@/sdk/api/atomizer/inventory/query";
+import {AtomizerInventoryListSource, IAtomizerInventoryListSourceProps} from "@/sdk/api/inventory/atomizer/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BaseFilter} from "@/puff-smith/site/lab/base/inventory/@module/filter/BaseFilter";
 import {BaseInventoryList} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseInventoryList";
 import {BaseListToolbar} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseListToolbar";
-import {BaseInventoryProviderControl} from "@/sdk/api/base/inventory/query";
+import {BaseInventoryProviderControl} from "@/sdk/api/inventory/base/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 

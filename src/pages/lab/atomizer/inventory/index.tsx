@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AtomizerInventoryList} from "@/puff-smith/site/lab/atomizer/inventory/@module/list/AtomizerInventoryList";
-import {AtomizerInventoryProviderControl} from "@/sdk/api/atomizer/inventory/query";
+import {AtomizerInventoryProviderControl} from "@/sdk/api/inventory/atomizer/query";
 
 export default withLabLayout(function Index() {
 	return <LabPage

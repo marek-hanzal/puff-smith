@@ -119,7 +119,7 @@ export const AromaVendorListSource: FC<IAromaVendorListSourceProps> = ({provider
 			{...props}
 		/>
 	</AromaVendorProvider>;
-};
+}
 
 export interface IAromaVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaVendorSource>>;
@@ -162,7 +162,7 @@ export interface IAromaVendorSelectionProviderProps extends Partial<ISelectionPr
 
 export const AromaVendorSelectionProvider: FC<IAromaVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaVendorSource>> {...props}/>;
-};
+}
 
 export const useAromaVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();

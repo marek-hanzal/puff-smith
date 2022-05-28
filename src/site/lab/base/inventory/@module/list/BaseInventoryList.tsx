@@ -2,7 +2,7 @@ import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BaseListEmpty} from "@/puff-smith/site/lab/base/inventory/@module/list/BaseListEmpty";
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {BaseInventoryListSource, IBaseInventoryListSourceProps} from "@/sdk/api/base/inventory/query";
+import {BaseInventoryListSource, IBaseInventoryListSourceProps} from "@/sdk/api/inventory/base/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

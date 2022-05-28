@@ -1,6 +1,6 @@
 import {DeleteConfirmButton} from "@/puff-smith/component/button/DeleteConfirmButton";
-import {useDeleteMutation} from "@/sdk/api/base/inventory/delete";
-import {useBaseInventoryQueryInvalidate} from "@/sdk/api/base/inventory/query";
+import {useDeleteMutation} from "@/sdk/api/inventory/base/delete";
+import {useBaseInventoryQueryInvalidate} from "@/sdk/api/inventory/base/query";
 import {ButtonBar, IButtonBarProps} from "@leight-core/client";
 import {FC} from "react";
 

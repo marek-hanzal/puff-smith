@@ -1,7 +1,7 @@
 import {IAtomizer} from "@/puff-smith/service/atomizer/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
-import {useCreateMutation} from "@/sdk/api/atomizer/inventory/create";
-import {useAtomizerMarketQueryInvalidate} from "@/sdk/api/atomizer/market/query";
+import {useCreateMutation} from "@/sdk/api/inventory/atomizer/create";
+import {useAtomizerMarketQueryInvalidate} from "@/sdk/api/market/atomizer/query";
 import {FC, useState} from "react";
 
 export interface IAtomizerInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
