@@ -5,7 +5,7 @@ import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/@module/button/L
 import {MixtureListEmpty} from "@/puff-smith/site/lab/mixture/@module/list/MixtureListEmpty";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
-import {IMixtureInventoryListSourceProps, MixtureInventoryListSource} from "@/sdk/api/mixture/inventory/query";
+import {IMixtureInventoryListSourceProps, MixtureInventoryListSource} from "@/sdk/api/inventory/mixture/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

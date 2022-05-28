@@ -1,5 +1,5 @@
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {IMixtureAromaSourceSelectProps, MixtureAromaSourceSelect} from "@/sdk/api/mixture/inventory/aroma/query";
+import {IMixtureAromaSourceSelectProps, MixtureAromaSourceSelect} from "@/sdk/api/inventory/mixture/aroma/query";
 import {FC} from "react";
 
 export interface IMixtureAromaSelectProps extends Partial<IMixtureAromaSourceSelectProps> {

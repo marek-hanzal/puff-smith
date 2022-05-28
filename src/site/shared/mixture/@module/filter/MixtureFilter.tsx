@@ -6,7 +6,7 @@ import {MixtureBoosterSelect} from "@/puff-smith/site/shared/mixture/@module/for
 import {MixtureDrawSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureDrawSelect";
 import {MixtureNicotineSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureNicotineSelect";
 import {MixtureRatioSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureRatioSelect";
-import {MixtureMarketProviderControl, MixtureMarketProviderFilter} from "@/sdk/api/mixture/market/query";
+import {MixtureMarketProviderControl, MixtureMarketProviderFilter} from "@/sdk/api/market/mixture/query";
 import {CloudOutlined, PercentageOutlined} from "@ant-design/icons";
 import {FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
 import {Tabs} from "antd";

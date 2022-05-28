@@ -1,6 +1,6 @@
 import {IVoucher} from "@/puff-smith/service/voucher/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
-import {useCreateMutation} from "@/sdk/api/voucher/inventory/create";
+import {useCreateMutation} from "@/sdk/api/inventory/voucher/create";
 import {FC} from "react";
 
 export interface IVoucherInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {

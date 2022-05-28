@@ -1,5 +1,5 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
-import {INicotineSourceSelectProps, NicotineSourceSelect} from "@/sdk/api/mixture/inventory/nicotine/query";
+import {INicotineSourceSelectProps, NicotineSourceSelect} from "@/sdk/api/inventory/mixture/nicotine/query";
 import {FC} from "react";
 
 export interface IMixtureNicotineSelectProps extends Partial<INicotineSourceSelectProps> {

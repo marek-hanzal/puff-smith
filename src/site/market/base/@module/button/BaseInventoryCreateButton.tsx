@@ -2,7 +2,7 @@ import {IBase} from "@/puff-smith/service/base/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
 import {useCreateMutation} from "@/sdk/api/inventory/base/create";
 import {useBaseMarketQueryInvalidate} from "@/sdk/api/market/base/query";
-import {useMixtureMarketQueryInvalidate} from "@/sdk/api/mixture/market/query";
+import {useMixtureMarketQueryInvalidate} from "@/sdk/api/market/mixture/query";
 import {FC, useState} from "react";
 
 export interface IBaseInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {

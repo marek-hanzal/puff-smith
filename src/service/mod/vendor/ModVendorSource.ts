@@ -36,7 +36,7 @@ export const ModVendorSource = (): IModVendorSource => {
 				orderBy: [
 					{vendor: {name: "asc"}}
 				],
-				include: {
+				select: {
 					vendor: true,
 				}
 			}),

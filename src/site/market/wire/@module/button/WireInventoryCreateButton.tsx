@@ -1,7 +1,7 @@
 import {IWire} from "@/puff-smith/service/wire/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
-import {useCreateMutation} from "@/sdk/api/wire/inventory/create";
-import {useWireMarketQueryInvalidate} from "@/sdk/api/wire/market/query";
+import {useCreateMutation} from "@/sdk/api/inventory/wire/create";
+import {useWireMarketQueryInvalidate} from "@/sdk/api/market/wire/query";
 import {FC, useState} from "react";
 
 export interface IWireInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {

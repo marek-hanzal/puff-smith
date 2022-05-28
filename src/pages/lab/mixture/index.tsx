@@ -6,7 +6,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
 import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
-import {MixtureInventoryProviderControl} from "@/sdk/api/mixture/inventory/query";
+import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
 import {Template, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 

@@ -2,7 +2,7 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {WireInventoryCreateButton} from "@/puff-smith/site/market/wire/@module/button/WireInventoryCreateButton";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
-import {IWireMarketListSourceProps, WireMarketListSource} from "@/sdk/api/wire/market/query";
+import {IWireMarketListSourceProps, WireMarketListSource} from "@/sdk/api/market/wire/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

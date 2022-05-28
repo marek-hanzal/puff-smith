@@ -1,7 +1,7 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod/@module/button/ModInventoryCreateButton";
 import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
-import {IModMarketListSourceProps, ModMarketListSource} from "@/sdk/api/mod/market/query";
+import {IModMarketListSourceProps, ModMarketListSource} from "@/sdk/api/market/mod/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

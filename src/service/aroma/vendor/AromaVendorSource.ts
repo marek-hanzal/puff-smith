@@ -2,7 +2,7 @@ import {IAromaVendorSource} from "@/puff-smith/service/aroma/vendor/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaVendorSource = (): IAromaVendorSource => {
 	const vendorSource = singletonOf(() => VendorSource());
@@ -17,20 +17,20 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.findMany({
 				distinct: ["vendorId"],
-				include: {
+				select: {
 					vendor: true,
 				},
 				orderBy: [
 					{vendor: {name: "asc"}},
 				],
-				where: {
+				where: merge(filter, {
 					vendor: {
 						name: {
 							contains: fulltext,
 							mode: "insensitive",
 						}
 					}
-				},
+				}),
 			})
 		},
 	});
