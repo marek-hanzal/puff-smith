@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromaTasteApiLink = "/api/aroma/taste/query";
-export const AromaTasteCountApiLink = "/api/aroma/taste/query/count";
+export const AromaTasteApiLink = "/api/inventory/aroma/taste/query";
+export const AromaTasteCountApiLink = "/api/inventory/aroma/taste/query/count";
 
 export type IAromaTasteQueryParams = undefined;
 

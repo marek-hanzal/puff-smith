@@ -6,7 +6,7 @@ import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interf
 import {ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, toLink} from "@leight-core/client";
 
-export const DeleteApiLink = "/api/aroma/inventory/delete";
+export const DeleteApiLink = "/api/inventory/aroma/delete";
 
 export type IDeleteQueryParams = undefined;
 

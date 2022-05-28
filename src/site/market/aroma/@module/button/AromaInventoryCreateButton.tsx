@@ -1,7 +1,7 @@
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
-import {useCreateMutation} from "@/sdk/api/aroma/inventory/create";
-import {useAromaMarketQueryInvalidate} from "@/sdk/api/aroma/market/query";
+import {useCreateMutation} from "@/sdk/api/inventory/aroma/create";
+import {useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
 import {FC, useState} from "react";
 
 export interface IAromaInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {

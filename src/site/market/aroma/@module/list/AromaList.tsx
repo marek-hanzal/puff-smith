@@ -3,7 +3,7 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/aroma/market/query";
+import {AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/market/aroma/query";
 import {BoolInline, LinkTo, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

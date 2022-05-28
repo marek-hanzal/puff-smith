@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {AromaFilter} from "@/puff-smith/site/lab/aroma/inventory/@module/filter/AromaFilter";
 import {AromaInventoryList} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaInventoryList";
 import {AromaListToolbar} from "@/puff-smith/site/lab/aroma/inventory/@module/list/AromaListToolbar";
-import {AromaInventoryProviderControl} from "@/sdk/api/aroma/inventory/query";
+import {AromaInventoryProviderControl} from "@/sdk/api/inventory/aroma/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 

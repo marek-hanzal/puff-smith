@@ -19,8 +19,8 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 			<Preview translation={"lab.mixture.preview"} size={"small"}>
 				{{
 					aroma: <AromaNameInline aroma={mixture.aroma}/>,
-					base: mixture.base && <MixtureBaseInline mixture={mixture}/>,
 					booster: mixture.booster && <MixtureBoosterInline mixture={mixture}/>,
+					base: mixture.base && <MixtureBaseInline mixture={mixture}/>,
 				}}
 			</Preview>
 		</Col>
@@ -28,8 +28,8 @@ export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
 			<Preview translation={"lab.mixture.preview"} size={"small"}>
 				{{
 					aromaContent: <AromaContentInline aroma={mixture.aroma}/>,
-					pgvg: <VgPgInline vgpg={mixture}/>,
 					nicotine: <NicotineInline nicotine={mixture.nicotine}/>,
+					pgvg: <VgPgInline vgpg={mixture}/>,
 				}}
 			</Preview>
 		</Col>

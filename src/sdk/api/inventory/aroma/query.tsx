@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromaInventoryApiLink = "/api/aroma/inventory/query";
-export const AromaInventoryCountApiLink = "/api/aroma/inventory/query/count";
+export const AromaInventoryApiLink = "/api/inventory/aroma/query";
+export const AromaInventoryCountApiLink = "/api/inventory/aroma/query/count";
 
 export type IAromaInventoryQueryParams = undefined;
 
@@ -119,7 +119,7 @@ export const AromaInventoryListSource: FC<IAromaInventoryListSourceProps> = ({pr
 			{...props}
 		/>
 	</AromaInventoryProvider>;
-}
+};
 
 export interface IAromaInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaInventorySource>>;
@@ -162,7 +162,7 @@ export interface IAromaInventorySelectionProviderProps extends Partial<ISelectio
 
 export const AromaInventorySelectionProvider: FC<IAromaInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventorySource>> {...props}/>;
-}
+};
 
 export const useAromaInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

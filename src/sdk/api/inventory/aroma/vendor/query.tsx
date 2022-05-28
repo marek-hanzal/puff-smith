@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromaVendorApiLink = "/api/aroma/vendor/query";
-export const AromaVendorCountApiLink = "/api/aroma/vendor/query/count";
+export const AromaVendorApiLink = "/api/inventory/aroma/vendor/query";
+export const AromaVendorCountApiLink = "/api/inventory/aroma/vendor/query/count";
 
 export type IAromaVendorQueryParams = undefined;
 

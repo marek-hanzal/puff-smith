@@ -1,12 +1,12 @@
-import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/aroma/vendor/query";
+import {AromaVendorProviderControl, AromaVendorSourceSelect, IAromaVendorSourceSelectProps} from "@/sdk/api/aroma/vendor/query";
 import {FC} from "react";
 
-export interface IAromaVendorSelectProps extends Partial<IVendorSourceSelectProps> {
+export interface IAromaVendorSelectProps extends Partial<IAromaVendorSourceSelectProps> {
 }
 
 export const AromaVendorSelect: FC<IAromaVendorSelectProps> = props => {
-	return <VendorProviderControl>
-		<VendorSourceSelect
+	return <AromaVendorProviderControl>
+		<AromaVendorSourceSelect
 			showSearch
 			toOption={item => ({
 				value: item.id,
@@ -14,5 +14,5 @@ export const AromaVendorSelect: FC<IAromaVendorSelectProps> = props => {
 			})}
 			{...props}
 		/>
-	</VendorProviderControl>;
+	</AromaVendorProviderControl>;
 };

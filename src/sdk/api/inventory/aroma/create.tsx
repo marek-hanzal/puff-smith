@@ -8,7 +8,7 @@ import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, 
 import {FC} from "react";
 import {useQueryClient} from "react-query";
 
-export const CreateApiLink = "/api/aroma/inventory/create";
+export const CreateApiLink = "/api/inventory/aroma/create";
 
 export type ICreateQueryParams = undefined;
 
@@ -17,7 +17,7 @@ export const useCreateMutation = createMutationHook<ISourceCreate<IAromaInventor
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
+};
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IAromaInventorySource>, ISourceItem<IAromaInventorySource>>> {
 }
@@ -25,7 +25,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreat
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<IAromaInventorySource>, ISourceItem<IAromaInventorySource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>
+/>;
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

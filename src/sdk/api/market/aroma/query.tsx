@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromaMarketApiLink = "/api/aroma/market/query";
-export const AromaMarketCountApiLink = "/api/aroma/market/query/count";
+export const AromaMarketApiLink = "/api/market/aroma/query";
+export const AromaMarketCountApiLink = "/api/market/aroma/query/count";
 
 export type IAromaMarketQueryParams = undefined;
 
@@ -119,7 +119,7 @@ export const AromaMarketListSource: FC<IAromaMarketListSourceProps> = ({provider
 			{...props}
 		/>
 	</AromaMarketProvider>;
-}
+};
 
 export interface IAromaMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaMarketSource>>;
@@ -162,7 +162,7 @@ export interface IAromaMarketSelectionProviderProps extends Partial<ISelectionPr
 
 export const AromaMarketSelectionProvider: FC<IAromaMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaMarketSource>> {...props}/>;
-}
+};
 
 export const useAromaMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();
