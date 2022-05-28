@@ -119,7 +119,7 @@ export const NicotineListSource: FC<INicotineListSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</NicotineProvider>;
-};
+}
 
 export interface INicotineSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBoosterNicotineSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBoosterNicotineSource>>;
@@ -162,7 +162,7 @@ export interface INicotineSelectionProviderProps extends Partial<ISelectionProvi
 
 export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterNicotineSource>> {...props}/>;
-};
+}
 
 export const useNicotineQueryInvalidate = () => {
 	const queryClient = useQueryClient();

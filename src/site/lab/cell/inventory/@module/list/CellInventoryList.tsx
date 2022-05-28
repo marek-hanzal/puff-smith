@@ -2,7 +2,7 @@ import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CellListEmpty} from "@/puff-smith/site/lab/cell/inventory/@module/list/CellListEmpty";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
-import {CellInventoryListSource, ICellInventoryListSourceProps} from "@/sdk/api/cell/inventory/query";
+import {CellInventoryListSource, ICellInventoryListSourceProps} from "@/sdk/api/inventory/cell/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

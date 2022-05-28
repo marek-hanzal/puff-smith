@@ -119,7 +119,7 @@ export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({pr
 			{...props}
 		/>
 	</AtomizerMarketProvider>;
-};
+}
 
 export interface IAtomizerMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerMarketSource>>;
@@ -162,7 +162,7 @@ export interface IAtomizerMarketSelectionProviderProps extends Partial<ISelectio
 
 export const AtomizerMarketSelectionProvider: FC<IAtomizerMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerMarketSource>> {...props}/>;
-};
+}
 
 export const useAtomizerMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

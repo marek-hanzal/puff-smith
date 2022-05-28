@@ -1,7 +1,7 @@
 import {Tags} from "@/puff-smith/component/Tags";
 import {CottonInventoryCreateButton} from "@/puff-smith/site/market/cotton/@module/button/CottonInventoryCreateButton";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
-import {CottonMarketListSource, ICottonMarketListSourceProps} from "@/sdk/api/cotton/market/query";
+import {CottonMarketListSource, ICottonMarketListSourceProps} from "@/sdk/api/market/cotton/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

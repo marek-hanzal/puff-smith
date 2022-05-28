@@ -2,7 +2,7 @@ import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CellInventoryCreateButton} from "@/puff-smith/site/market/cell/@module/button/CellInventoryCreateButton";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
-import {CellMarketListSource, ICellMarketListSourceProps} from "@/sdk/api/cell/market/query";
+import {CellMarketListSource, ICellMarketListSourceProps} from "@/sdk/api/market/cell/query";
 import {BoolInline, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

@@ -1,7 +1,7 @@
 import {ICotton} from "@/puff-smith/service/cotton/interface";
 import {ITransactionModalButtonProps, TransactionModalButton} from "@/puff-smith/site/shared/transaction/@module/button/TransactionModalButton";
-import {useCreateMutation} from "@/sdk/api/cotton/inventory/create";
-import {useCottonMarketQueryInvalidate} from "@/sdk/api/cotton/market/query";
+import {useCreateMutation} from "@/sdk/api/inventory/cotton/create";
+import {useCottonMarketQueryInvalidate} from "@/sdk/api/market/cotton/query";
 import {FC, useState} from "react";
 
 export interface ICottonInventoryCreateButtonProps extends Partial<ITransactionModalButtonProps<typeof useCreateMutation>> {
