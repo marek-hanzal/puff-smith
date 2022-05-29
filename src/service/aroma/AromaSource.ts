@@ -1,5 +1,4 @@
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {memoTastes} from "@/puff-smith/service/aroma/memoize";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
@@ -136,7 +135,6 @@ export const AromaSource = (): IAromaSource => {
 								aromaId: $aroma.id,
 							}
 						});
-						await memoTastes.delete($aroma.id, undefined);
 						return source.prisma.aroma.update({
 							where: {
 								id: $aroma.id,

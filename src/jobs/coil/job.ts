@@ -1,4 +1,4 @@
-import {COIL_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams} from "@/puff-smith/jobs/coil/interface";
+import {COIL_JOB, COIL_USER_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams, ICoilUserJobParams} from "@/puff-smith/jobs/coil/interface";
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -51,6 +51,29 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_
 			}));
 		}
 	}
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));
+
+export const CoilUserJob: IJobProcessor<ICoilUserJobParams> = jobService.processor(COIL_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
+	logger.debug("User coil update.", {userId});
+	if (!userId) {
+		throw new Error("User not provided!");
+	}
+
+	await jobProgress.setTotal(await prisma.coil.count({
+		where: {
+			wire: {
+				WireInventory: {
+					some: {
+						userId,
+					}
+				}
+			}
+		}
+	}));
 }, options => new PQueue({
 	...options,
 	concurrency: 5,

@@ -39,6 +39,7 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 						data: {
 							name: coil.name,
 							coilId: coil.id,
+							wireId: coil.wireId,
 							userId,
 						},
 						include: {

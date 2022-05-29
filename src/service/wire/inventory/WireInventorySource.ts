@@ -1,3 +1,4 @@
+import {CoilUserJob} from "@/puff-smith/jobs/coil/job";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
@@ -61,37 +62,41 @@ export const WireInventorySource = (): IWireInventorySource => {
 					userId: source.user.required(),
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
-					callback: async transaction => prisma.wireInventory.create({
-						data: {
-							code: code || codeService().code(),
-							wireId: wire.id,
-							transactionId: transaction.id,
-							userId: source.user.required(),
-						},
-						include: {
-							wire: {
-								include: {
-									vendor: true,
-									WireDraw: {
-										orderBy: {draw: {sort: "asc"}},
-										include: {
-											draw: true,
+					callback: async transaction => {
+						const $wire = prisma.wireInventory.create({
+							data: {
+								code: code || codeService().code(),
+								wireId: wire.id,
+								transactionId: transaction.id,
+								userId: source.user.required(),
+							},
+							include: {
+								wire: {
+									include: {
+										vendor: true,
+										WireDraw: {
+											orderBy: {draw: {sort: "asc"}},
+											include: {
+												draw: true,
+											},
 										},
-									},
-									WireFiber: {
-										include: {
-											fiber: {
-												include: {
-													material: true,
+										WireFiber: {
+											include: {
+												fiber: {
+													include: {
+														material: true,
+													}
 												}
 											}
 										}
-									}
+									},
 								},
+								transaction: true,
 							},
-							transaction: true,
-						},
-					}),
+						});
+						await CoilUserJob.async({}, source.user.required());
+						return $wire;
+					},
 				});
 			}),
 			delete: async ids => {
@@ -130,6 +135,14 @@ export const WireInventorySource = (): IWireInventorySource => {
 					});
 					await prisma.wireInventory.deleteMany({
 						where,
+					});
+					await prisma.coilInventory.deleteMany({
+						where: {
+							wireId: {
+								in: wireInventorySource.map(item => item.wireId),
+							},
+							userId: source.user.required(),
+						}
 					});
 					return wireInventorySource;
 				});

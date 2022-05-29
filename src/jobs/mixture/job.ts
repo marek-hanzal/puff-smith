@@ -195,4 +195,8 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 			mixtureId: id,
 		}), 125);
 	}
-});
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));

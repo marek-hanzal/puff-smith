@@ -10,5 +10,4 @@ export interface IMixtureJobParams {
 }
 
 export interface IMixtureUserJobParams {
-	userId: string;
 }

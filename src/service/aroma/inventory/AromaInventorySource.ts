@@ -1,7 +1,6 @@
 import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
-import {memoIsOwned} from "@/puff-smith/service/aroma/memoize";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
@@ -79,8 +78,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 								transaction: true,
 							}
 						});
-						await MixtureUserJob.async({userId}, userId);
-						await memoIsOwned.delete($aroma.id, userId);
+						await MixtureUserJob.async({}, userId);
 						return $aromaInventory;
 					},
 				});
