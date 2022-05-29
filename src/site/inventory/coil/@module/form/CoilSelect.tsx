@@ -6,6 +6,7 @@ export interface ICoilSelectProps extends Partial<ICoilInventorySourceSelectProp
 
 export const CoilSelect: FC<ICoilSelectProps> = props => {
 	return <CoilInventoryProviderControl
+		defaultSize={25}
 		defaultOrderBy={{
 			name: "asc",
 		}}
