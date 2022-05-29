@@ -197,5 +197,5 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 				</Tabs>}
 			</FormContext.Consumer>
 		</MixtureInventoryProviderControl>
-	</MixtureInventoryProviderFilter>;
+	</MixtureInventoryProviderFilter>
 };
