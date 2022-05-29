@@ -27,6 +27,25 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.atomizerInventory.findMany({
 				where: merge(filter, {
+					atomizer: {
+						OR: [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								}
+							}
+						],
+
+					},
 					userId: source.user.required(),
 				}),
 				orderBy,

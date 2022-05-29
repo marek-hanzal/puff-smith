@@ -11,7 +11,7 @@ export const CellInventorySource = (): ICellInventorySource => {
 	const transactionSource = singletonOf(() => TransactionSource());
 
 	const source: ICellInventorySource = Source<ICellInventorySource>({
-		name: "cell-inventory",
+		name: "cell.inventory",
 		prisma,
 		map: async cellInventory => cellInventory ? ({
 			...cellInventory,
@@ -42,10 +42,8 @@ export const CellInventorySource = (): ICellInventorySource => {
 			}),
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const cellSource = CellSource();
-				const transactionSource = TransactionSource();
-				cellSource.withPrisma(prisma);
-				transactionSource.withPrisma(prisma);
+				const cellSource = CellSource().withPrisma(prisma);
+				const transactionSource = TransactionSource().withPrisma(prisma);
 				const cell = await cellSource.get(create.cellId);
 				return transactionSource.handleTransaction({
 					userId,
