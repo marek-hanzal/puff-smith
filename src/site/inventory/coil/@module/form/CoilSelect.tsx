@@ -13,7 +13,7 @@ export const CoilSelect: FC<ICoilSelectProps> = props => {
 	>
 		<CoilInventorySourceSelect
 			showSearch
-			toOption={({coil}) => ({
+			toOption={coil => ({
 				value: coil.id,
 				label: coil.name,
 			})}

@@ -1,4 +1,3 @@
-import {CoilUserJob} from "@/puff-smith/jobs/coil/job";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
@@ -94,7 +93,6 @@ export const WireInventorySource = (): IWireInventorySource => {
 								transaction: true,
 							},
 						});
-						await CoilUserJob.async({}, source.user.required());
 						return $wire;
 					},
 				});

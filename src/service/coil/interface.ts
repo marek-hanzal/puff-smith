@@ -2,7 +2,7 @@ import {IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interfa
 import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IWire, IWireReference, IWithWire, IWithWireDraw, IWithWireFiber} from "@/puff-smith/service/wire/interface";
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Coil, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -18,7 +18,7 @@ export interface ICoilDraws {
 	drawIds?: string[];
 }
 
-export interface ICoilQuery extends IQuery<Prisma.CoilWhereInput, Prisma.CoilOrderByWithRelationInput> {
+export interface ICoilQuery extends IQuery<Prisma.CoilWhereInput & IWithFulltext, Prisma.CoilOrderByWithRelationInput> {
 }
 
 export type ICoilEntity<T = void> = T extends void ? Coil : Coil & T;
