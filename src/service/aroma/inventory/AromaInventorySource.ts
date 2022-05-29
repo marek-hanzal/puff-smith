@@ -1,8 +1,8 @@
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
-import {AromaMarketCache} from "@/puff-smith/service/aroma/market/cache";
+import {AromaMarketSource} from "@/puff-smith/service/aroma/market/AromaMarketSource";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {MixtureAromaCache} from "@/puff-smith/service/mixture/inventory/aroma/cache";
+import {MixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/MixtureAromaSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {pageOf, Source} from "@leight-core/server";
@@ -11,6 +11,8 @@ import {merge, singletonOf} from "@leight-core/utils";
 export const AromaInventorySource = (): IAromaInventorySource => {
 	const aromaSource = singletonOf(() => AromaSource());
 	const transactionSource = singletonOf(() => TransactionSource());
+	const mixtureAromaSource = singletonOf(() => MixtureAromaSource());
+	const aromaMarketSource = singletonOf(() => AromaMarketSource());
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
@@ -22,6 +24,10 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 			transaction: await transactionSource().mapper.map(aromaInventory.transaction),
 		} : undefined,
 		source: {
+			clearCache: async () => {
+				await mixtureAromaSource().clearCache();
+				await aromaMarketSource().clearCache();
+			},
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aromaInventory.count({
 				where: merge(filter, {
 					userId: source.user.required(),
@@ -56,32 +62,28 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					userId,
 					cost: $aroma.cost,
 					note: `Purchase of aroma [${$aroma.vendor.name} ${$aroma.name}]`,
-					callback: async transaction => {
-						MixtureAromaCache.clear();
-						AromaMarketCache.clear();
-						return prisma.aromaInventory.create({
-							data: {
-								code: code || codeService().code(),
-								aromaId: $aroma.id,
-								transactionId: transaction.id,
-								userId,
-							},
-							include: {
-								aroma: {
-									include: {
-										vendor: true,
-										AromaTaste: {
-											orderBy: {taste: {sort: "asc"}},
-											include: {
-												taste: true,
-											}
-										},
+					callback: async transaction => prisma.aromaInventory.create({
+						data: {
+							code: code || codeService().code(),
+							aromaId: $aroma.id,
+							transactionId: transaction.id,
+							userId,
+						},
+						include: {
+							aroma: {
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
 									},
 								},
-								transaction: true,
-							}
-						});
-					},
+							},
+							transaction: true,
+						}
+					}),
 				});
 			}),
 			delete: async ids => {

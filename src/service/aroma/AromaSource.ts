@@ -1,5 +1,5 @@
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {AromaMarketCache} from "@/puff-smith/service/aroma/market/cache";
+import {AromaMarketSource} from "@/puff-smith/service/aroma/market/AromaMarketSource";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
@@ -11,6 +11,7 @@ export const AromaSource = (): IAromaSource => {
 	const tagSource = singletonOf(() => TagSource());
 	const vendorSource = singletonOf(() => VendorSource());
 	const codeService = singletonOf(() => CodeService());
+	const aromaMarketSource = singletonOf(() => AromaMarketSource());
 
 	const source: IAromaSource = Source<IAromaSource>({
 		name: "aroma",
@@ -21,6 +22,9 @@ export const AromaSource = (): IAromaSource => {
 			tastes: await tagSource().mapper.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 		}) : null,
 		source: {
+			clearCache: async () => {
+				await aromaMarketSource().clearCache();
+			},
 			get: async id => source.prisma.aroma.findUnique({
 				where: {id},
 				include: {
@@ -102,8 +106,6 @@ export const AromaSource = (): IAromaSource => {
 					},
 				};
 				try {
-					AromaMarketCache.count.clear();
-					AromaMarketCache.query.clear();
 					return await source.prisma.aroma.create({
 						data: create,
 						include: {
