@@ -2,7 +2,7 @@ import {IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interfa
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IWire, IWithWire, IWithWireDraw, IWithWireFiber} from "@/puff-smith/service/wire/interface";
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Prisma, WireInventory} from "@prisma/client";
 
 export interface IWireInventoryCreate {
@@ -19,7 +19,7 @@ export interface IWireInventory {
 	transactionId: string;
 }
 
-export interface IWireInventoryQuery extends IQuery<Prisma.WireInventoryWhereInput, Prisma.WireInventoryOrderByWithRelationInput> {
+export interface IWireInventoryQuery extends IQuery<Prisma.WireInventoryWhereInput & IWithFulltext, Prisma.WireInventoryOrderByWithRelationInput> {
 }
 
 export type IWireInventoryEntity<T = void> = T extends void ? WireInventory : WireInventory & T;

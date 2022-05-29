@@ -1,29 +1,29 @@
-import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
+import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
-import {ModInventoryList} from "@/puff-smith/site/inventory/mod/@module/list/ModInventoryList";
-import {ModListToolbar} from "@/puff-smith/site/inventory/mod/@module/list/ModListToolbar";
-import {ModInventoryProviderControl} from "@/sdk/api/inventory/mod/query";
+import {WireInventoryList} from "@/puff-smith/site/inventory/wire/@module/list/WireInventoryList";
+import {WireListToolbar} from "@/puff-smith/site/inventory/wire/@module/list/WireListToolbar";
+import {WireInventoryProviderControl} from "@/sdk/api/inventory/wire/query";
 import {SelectionProvider} from "@leight-core/client";
 import {Space} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
-		title={"inventory.mod.index"}
-		menuSelection={["/inventory/mod"]}
-		icon={<ModIcon/>}
+		title={"inventory.wire.index"}
+		menuSelection={["/inventory/wire"]}
+		icon={<WireIcon/>}
 	>
-		<ModInventoryProviderControl
+		<WireInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
 			<SelectionProvider type={"multi"}>
-				<ModInventoryList
+				<WireInventoryList
 					header={() => <Space size={"large"}>
-						<ModListToolbar/>
+						<WireListToolbar/>
 					</Space>}
 				/>
 			</SelectionProvider>
-		</ModInventoryProviderControl>
+		</WireInventoryProviderControl>
 	</InventoryPage>;
 });

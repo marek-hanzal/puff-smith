@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModListEmpty} from "@/puff-smith/site/inventory/mod/@module/list/ModListEmpty";
 import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
@@ -19,6 +20,7 @@ export const ModInventoryList: FC<IModInventoryListProps> = props => {
 		{modInventory => <ListItem key={modInventory.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={modInventory}/>
 					<ModNameInline mod={modInventory.mod}/>
 					{modInventory.mod.cells.length > 0 && <Tags tags={modInventory.mod.cells}/>}
 				</Space>}

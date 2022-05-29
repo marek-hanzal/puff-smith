@@ -22,7 +22,7 @@ export const CellListEmpty: FC<ICellListEmptyProps> = () => {
 			<Divider/>
 			<ButtonLink
 				icon={<CellIcon/>}
-				href={"/market/cell"}
+				href={"/to/market/cell"}
 				label={"lab.market.cell.label"}
 			/>
 		</>}

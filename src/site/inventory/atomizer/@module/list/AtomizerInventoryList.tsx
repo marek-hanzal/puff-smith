@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {AtomizerListEmpty} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
@@ -19,6 +20,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 		{atomizerInventory => <ListItem key={atomizerInventory.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={atomizerInventory}/>
 					<AtomizerNameInline atomizer={atomizerInventory.atomizer}/>
 					<Tags tags={atomizerInventory.atomizer.draws} color={"geekblue"} translation={"common.draw"}/>
 				</Space>}

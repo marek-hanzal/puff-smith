@@ -22,7 +22,7 @@ export const ModListEmpty: FC<IModListEmptyProps> = () => {
 			<Divider/>
 			<ButtonLink
 				icon={<ModIcon/>}
-				href={"/market/mod"}
+				href={"/to/market/mod"}
 				label={"lab.market.mod.label"}
 			/>
 		</>}

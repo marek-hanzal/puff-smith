@@ -3,8 +3,8 @@ import {ICellInventorySource} from "@/puff-smith/service/cell/inventory/interfac
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const CellInventorySource = (): ICellInventorySource => {
 	const cellSource = singletonOf(() => CellSource());
@@ -19,6 +19,27 @@ export const CellInventorySource = (): ICellInventorySource => {
 			transaction: await transactionSource().mapper.map(cellInventory.transaction),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cellInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cellInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					cell: {
+						include: {
+							vendor: true,
+							type: true,
+						}
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
 				const cellSource = CellSource();

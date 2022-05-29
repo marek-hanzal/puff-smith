@@ -118,7 +118,7 @@ export const CellMarketListSource: FC<ICellMarketListSourceProps> = ({providerPr
 			{...props}
 		/>
 	</CellMarketProvider>;
-};
+}
 
 export interface ICellMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellMarketSource>>;
@@ -161,7 +161,7 @@ export interface ICellMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellMarketSource>> {...props}/>;
-};
+}
 
 export const useCellMarketQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -5,8 +5,8 @@ import {memoIsOwned} from "@/puff-smith/service/aroma/memoize";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaInventorySource = (): IAromaInventorySource => {
 	const aromaSource = singletonOf(() => AromaSource());
@@ -14,7 +14,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
-		name: "aroma-inventory",
+		name: "aroma.inventory",
 		prisma,
 		map: async aromaInventory => aromaInventory ? {
 			...aromaInventory,
@@ -22,6 +22,32 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 			transaction: await transactionSource().mapper.map(aromaInventory.transaction),
 		} : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aromaInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.aromaInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					aroma: {
+						include: {
+							vendor: true,
+							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
+								include: {
+									taste: true,
+								}
+							},
+						},
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
 				const transactionSource = TransactionSource().withPrisma(prisma);
 				const $aroma = await AromaSource().withPrisma(prisma).get(aroma.aromaId);

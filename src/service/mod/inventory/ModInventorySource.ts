@@ -3,8 +3,8 @@ import {IModInventorySource} from "@/puff-smith/service/mod/inventory/interface"
 import {ModSource} from "@/puff-smith/service/mod/ModSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const ModInventorySource = (): IModInventorySource => {
 	const modSource = singletonOf(() => ModSource());
@@ -20,6 +20,31 @@ export const ModInventorySource = (): IModInventorySource => {
 			transaction: await transactionSource().mapper.map(modInventory.transaction),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.modInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.modInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					mod: {
+						include: {
+							vendor: true,
+							ModCell: {
+								include: {
+									cell: true,
+								}
+							},
+						},
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
 				const modSource = ModSource().withPrisma(prisma);
 				const transactionSource = TransactionSource().withPrisma(prisma);

@@ -1,4 +1,5 @@
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CellListEmpty} from "@/puff-smith/site/inventory/cell/@module/list/CellListEmpty";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
@@ -20,6 +21,7 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 		{cellInventory => <ListItem key={cellInventory.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={cellInventory}/>
 					<CellNameInline cell={cellInventory.cell}/>
 					<CodeInline code={cellInventory}/>
 					<Tags tags={[cellInventory.cell.type]}/>

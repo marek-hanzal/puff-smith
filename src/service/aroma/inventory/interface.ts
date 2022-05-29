@@ -1,7 +1,7 @@
 import {IAroma, IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {AromaInventory, Prisma} from "@prisma/client";
 
 export interface IAromaInventoryCreate {
@@ -18,7 +18,7 @@ export interface IAromaInventory {
 	transactionId: string;
 }
 
-export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput, Prisma.AromaInventoryOrderByWithRelationInput> {
+export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput & IWithFulltext, Prisma.AromaInventoryOrderByWithRelationInput> {
 }
 
 export type IAromaInventoryEntity<T = void> = T extends void ? AromaInventory : AromaInventory & T;

@@ -3,8 +3,8 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {IWireInventorySource} from "@/puff-smith/service/wire/inventory/interface";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const WireInventorySource = (): IWireInventorySource => {
 	const wireSource = singletonOf(() => WireSource());
@@ -20,6 +20,41 @@ export const WireInventorySource = (): IWireInventorySource => {
 			transaction: await transactionSource().mapper.map(wireInventory.transaction),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wireInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.wireInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					wire: {
+						include: {
+							vendor: true,
+							WireDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								},
+							},
+							WireFiber: {
+								include: {
+									fiber: {
+										include: {
+											material: true,
+										}
+									}
+								}
+							}
+						},
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
 				const wire = await WireSource().withPrisma(prisma).get(wireInventory.wireId);
 				return TransactionSource().withPrisma(prisma).handleTransaction({

@@ -4,8 +4,8 @@ import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/in
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const BoosterInventorySource = (): IBoosterInventorySource => {
 	const boosterSource = singletonOf(() => BoosterSource());
@@ -21,6 +21,26 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 			transaction: await transactionSource().mapper.map(boosterInventory.transaction),
 		}) : boosterInventory,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.boosterInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.boosterInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					booster: {
+						include: {
+							vendor: true,
+						}
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
 				const boosterSource = BoosterSource().withPrisma(prisma);

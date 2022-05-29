@@ -119,7 +119,7 @@ export const VoucherInventoryListSource: FC<IVoucherInventoryListSourceProps> = 
 			{...props}
 		/>
 	</VoucherInventoryProvider>;
-};
+}
 
 export interface IVoucherInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IVoucherInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IVoucherInventorySource>>;
@@ -162,7 +162,7 @@ export interface IVoucherInventorySelectionProviderProps extends Partial<ISelect
 
 export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVoucherInventorySource>> {...props}/>;
-};
+}
 
 export const useVoucherInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

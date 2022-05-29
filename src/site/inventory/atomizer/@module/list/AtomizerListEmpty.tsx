@@ -22,7 +22,7 @@ export const AtomizerListEmpty: FC<IAtomizerListEmptyProps> = () => {
 			<Divider/>
 			<ButtonLink
 				icon={<AtomizerIcon/>}
-				href={"/market/atomizer"}
+				href={"/to/market/atomizer"}
 				label={"lab.market.atomizer.label"}
 			/>
 		</>}

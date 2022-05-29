@@ -37,6 +37,27 @@ export const WireSource = (): IWireSource => {
 			fibers: await wireFiberSource().mapper.list(Promise.resolve(wire.WireFiber)),
 		}) : undefined,
 		source: {
+			get: async id => source.prisma.wire.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+					WireDraw: {
+						include: {
+							draw: true,
+						},
+					},
+					WireFiber: {
+						include: {
+							fiber: {
+								include: {
+									material: true,
+								}
+							},
+						},
+					},
+				},
+				rejectOnNotFound: true,
+			}),
 			create: async ({code, name, vendor, vendorId, draws, fibers, isTCR, ...wire}) => {
 				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
 					return ({

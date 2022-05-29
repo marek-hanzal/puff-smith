@@ -3,8 +3,8 @@ import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 	const atomizerSource = singletonOf(() => AtomizerSource());
@@ -20,6 +20,32 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 			transaction: await transactionSource().mapper.map(atomizerInventory.transaction),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizerInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.atomizerInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					atomizer: {
+						include: {
+							vendor: true,
+							AtomizerDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
+						}
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, atomizerId}) => prisma.$transaction(async prisma => {
 				const $atomizer = await AtomizerSource().withPrisma(prisma).get(atomizerId);
 				const transactionSource = TransactionSource();
@@ -52,6 +78,37 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 					}),
 				});
 			}),
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+					userId: source.user.required(),
+				};
+				return prisma.$transaction(async prisma => {
+					const atomizerInventory = await prisma.atomizerInventory.findMany({
+						where,
+						include: {
+							atomizer: {
+								include: {
+									vendor: true,
+									AtomizerDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
+								}
+							},
+							transaction: true,
+						}
+					});
+					await prisma.atomizerInventory.deleteMany({
+						where,
+					});
+					return atomizerInventory;
+				});
+			}
 		}
 	});
 

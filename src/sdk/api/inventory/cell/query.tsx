@@ -119,7 +119,7 @@ export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({prov
 			{...props}
 		/>
 	</CellInventoryProvider>;
-};
+}
 
 export interface ICellInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellInventorySource>>;
@@ -162,7 +162,7 @@ export interface ICellInventorySelectionProviderProps extends Partial<ISelection
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
-};
+}
 
 export const useCellInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

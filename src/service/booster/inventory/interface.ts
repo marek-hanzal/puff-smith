@@ -1,7 +1,7 @@
 import {IBooster, IWithBoosterEntity} from "@/puff-smith/service/booster/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {BoosterInventory, Prisma} from "@prisma/client";
 
 export interface IBoosterInventoryCreate {
@@ -18,7 +18,7 @@ export interface IBoosterInventory {
 	transactionId: string;
 }
 
-export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput, Prisma.BoosterInventoryOrderByWithRelationInput> {
+export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput & IWithFulltext, Prisma.BoosterInventoryOrderByWithRelationInput> {
 }
 
 export type IBoosterInventoryEntity<T = void> = T extends void ? BoosterInventory : BoosterInventory & T;
