@@ -32,7 +32,7 @@ const createPrismaClient = () => {
 	});
 	prisma.$on("query", ({query, params, duration}) => {
 		duration >= 100 ?
-			Logger("query").warn(`===\nLong query (${toHumanNumber(duration)}ms)\n=====\n${query}\n=======\n`, {params, duration, labels: {slowQuery: true}}) :
+			Logger("query").warn(`===\nSlow query (${toHumanNumber(duration)}ms)\n=====\n${query}\n=======\n`, {params, duration, labels: {slowQuery: true}}) :
 			Logger("query").debug(query, {params, duration});
 	});
 	prisma.$on("info", e => Logger("query").info(e.message));
