@@ -3,6 +3,7 @@ import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interf
 import {AromaMarketSource} from "@/puff-smith/service/aroma/market/AromaMarketSource";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {MixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/MixtureAromaSource";
+import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {pageOf, Source} from "@leight-core/server";
@@ -13,6 +14,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 	const transactionSource = singletonOf(() => TransactionSource());
 	const mixtureAromaSource = singletonOf(() => MixtureAromaSource());
 	const aromaMarketSource = singletonOf(() => AromaMarketSource());
+	const mixtureInventorySource = singletonOf(() => MixtureInventorySource());
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
@@ -27,6 +29,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 			clearCache: async () => {
 				await mixtureAromaSource().clearCache();
 				await aromaMarketSource().clearCache();
+				await mixtureInventorySource().clearCache();
 			},
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aromaInventory.count({
 				where: merge(filter, {
