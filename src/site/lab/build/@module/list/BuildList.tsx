@@ -8,8 +8,9 @@ import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/C
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
-import {Divider, Space} from "antd";
+import {DislikeOutlined, LikeOutlined} from "@ant-design/icons";
+import {ButtonBar, LinkTo, ListItem, ListItemMeta} from "@leight-core/client";
+import {Button, Divider, Space, Tooltip} from "antd";
 import {FC} from "react";
 
 export interface IBuildListProps extends Partial<IBuildListSourceProps> {
@@ -24,11 +25,19 @@ export const BuildList: FC<IBuildListProps> = props => {
 	>
 		{build => <ListItem
 			key={build.id}
+			extra={<ButtonBar>
+				<Tooltip title={"dsfgf"}>
+					<Button type={"link"} danger icon={<DislikeOutlined/>}/>
+				</Tooltip>
+				<Button type={"link"} icon={<LikeOutlined/>}/>
+			</ButtonBar>}
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={build}/>
-					<AtomizerNameInline atomizer={build.atomizer}/>
+					<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
+						<AtomizerNameInline atomizer={build.atomizer}/>
+					</LinkTo>
 					<CodeInline code={build}/>
 					<Ohm ohm={build.ohm}/>
 					<LocalDate date={build.created}/>
