@@ -680,15 +680,15 @@ model Build {
 
 // One of heating types for atomizer
 model Coil {
-  id     String @id @default(cuid())
+  id     String  @id @default(cuid())
   // Name could (and probably should be) based on size + wraps + wire.name or something similar
   name   String
-  code   String @unique
+  code   String  @unique
   // Size of a coil wrap, usually something like 0.2, 0.25 and so on
-  size   Float
+  size   Decimal @db.Decimal(3, 2)
   wraps  Int
   wireId String
-  wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  wire   Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
 
