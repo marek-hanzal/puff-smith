@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CottonListEmpty} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListEmpty";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
@@ -19,8 +20,9 @@ export const CottonInventoryList: FC<ICottonInventoryListProps> = props => {
 		{cottonInventory => <ListItem key={cottonInventory.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={cottonInventory}/>
 					<CottonNameInline cotton={cottonInventory.cotton}/>
-					{cottonInventory.cotton.draws.length > 0 && <Tags tags={cottonInventory.cotton.draws}/>}
+					{cottonInventory.cotton.draws.length > 0 && <Tags tags={cottonInventory.cotton.draws} translation={"common.draw"}/>}
 				</Space>}
 			/>
 		</ListItem>}

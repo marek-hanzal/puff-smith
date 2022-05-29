@@ -3,8 +3,8 @@ import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
 import {ICottonInventorySource} from "@/puff-smith/service/cotton/inventory/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const CottonInventorySource = (): ICottonInventorySource => {
 	const cottonSource = singletonOf(() => CottonSource());
@@ -20,6 +20,32 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 			transaction: await transactionSource().mapper.map(cottonInventory.transaction),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cottonInventory.count({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cottonInventory.findMany({
+				where: merge(filter, {
+					userId: source.user.required(),
+				}),
+				orderBy,
+				include: {
+					cotton: {
+						include: {
+							vendor: true,
+							CottonDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
+						},
+					},
+					transaction: true,
+				},
+				...pageOf(query),
+			}),
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
 				const cottonSource = CottonSource();
