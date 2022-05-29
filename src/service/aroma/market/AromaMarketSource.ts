@@ -1,4 +1,5 @@
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
+import {AromaMarketCache} from "@/puff-smith/service/aroma/market/cache";
 import {IAromaMarketSource} from "@/puff-smith/service/aroma/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {pageOf, Source} from "@leight-core/server";
@@ -14,6 +15,7 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 			aroma: await aromaSource().mapper.map(aroma),
 			isOwned: aroma.AromaInventory.length > 0,
 		}) : undefined,
+		cache: AromaMarketCache,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: filter,

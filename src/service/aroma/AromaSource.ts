@@ -1,4 +1,5 @@
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
+import {AromaMarketCache} from "@/puff-smith/service/aroma/market/cache";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
@@ -101,6 +102,8 @@ export const AromaSource = (): IAromaSource => {
 					},
 				};
 				try {
+					AromaMarketCache.count.clear();
+					AromaMarketCache.query.clear();
 					return await source.prisma.aroma.create({
 						data: create,
 						include: {
