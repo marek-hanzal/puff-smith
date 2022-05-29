@@ -131,5 +131,5 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 				</Tabs>}
 			</FormContext.Consumer>
 		</MixtureMarketProviderControl>
-	</MixtureMarketProviderFilter>;
+	</MixtureMarketProviderFilter>
 };
