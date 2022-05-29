@@ -63,7 +63,7 @@ export const WireInventorySource = (): IWireInventorySource => {
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
 					callback: async transaction => {
-						const $wire = prisma.wireInventory.create({
+						const $wire = await prisma.wireInventory.create({
 							data: {
 								code: code || codeService().code(),
 								wireId: wire.id,

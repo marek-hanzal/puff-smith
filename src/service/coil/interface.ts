@@ -21,8 +21,8 @@ export interface ICoilDraws {
 export interface ICoilQuery extends IQuery<Prisma.CoilWhereInput, Prisma.CoilOrderByWithRelationInput> {
 }
 
-export type ICoilEntity<T = any> = Coil & T;
-export type IWithCoil<T = any> = { coil: ICoilEntity<T>; };
+export type ICoilEntity<T = void> = T extends void ? Coil : Coil & T;
+export type IWithCoil<T = void> = { coil: ICoilEntity<T>; };
 export type IWithCoilDraw = { CoilDraw: { draw: ITagEntity }[]; };
 
 export interface ICoil {

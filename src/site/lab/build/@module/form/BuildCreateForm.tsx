@@ -1,5 +1,6 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {AtomizerSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerSelect";
+import {CoilSelect} from "@/puff-smith/site/inventory/coil/@module/form/CoilSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/build/create";
 import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {message} from "antd";
@@ -26,6 +27,7 @@ export const BuildCreateForm: FC<IBuildCreateFormProps> = props => {
 			<AtomizerSelect/>
 		</FormItem>
 		<FormItem field={"coilId"} required>
+			<CoilSelect/>
 		</FormItem>
 		<SwitchItem field={"archive"} hasTooltip/>
 		<Centered>

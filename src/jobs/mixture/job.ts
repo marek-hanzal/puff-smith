@@ -177,14 +177,14 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 	}));
 
 	const mixtureInventorySource = MixtureInventorySource().withUserId(userId);
-	const $mixtures = (await prisma.mixture.findMany({
+	const $mixtures = await prisma.mixture.findMany({
 		include: {
 			aroma: true,
 			booster: true,
 			base: true,
 		},
 		where,
-	}));
+	});
 	for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
 		logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
 		await progress(async () => mixtureInventorySource.create({
@@ -193,7 +193,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 			boosterId,
 			baseId,
 			mixtureId: id,
-		}), 125);
+		}), 50);
 	}
 }, options => new PQueue({
 	...options,

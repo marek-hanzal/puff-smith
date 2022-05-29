@@ -20,6 +20,37 @@ export const CoilSource = (): ICoilSource => {
 			draws: await tagSource().mapper.list(Promise.resolve(coil.CoilDraw.map(({draw}) => draw))),
 		}) : undefined,
 		source: {
+			get: async id => source.prisma.coil.findUnique({
+				where: {id},
+				include: {
+					wire: {
+						include: {
+							vendor: true,
+							WireDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								},
+							},
+							WireFiber: {
+								include: {
+									fiber: {
+										include: {
+											material: true,
+										}
+									}
+								}
+							}
+						},
+					},
+					CoilDraw: {
+						include: {
+							draw: true,
+						},
+					},
+				},
+				rejectOnNotFound: true,
+			}),
 			create: async ({code, name, draws, drawIds, wire, wireId, ...coil}) => {
 				const $wire = await wireSource().fetchByReference({wire, wireId});
 				drawIds = drawIds || (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => tag.id) : undefined);

@@ -1,5 +1,6 @@
 import {COIL_JOB, COIL_USER_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams, ICoilUserJobParams} from "@/puff-smith/jobs/coil/interface";
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
+import {CoilInventorySource} from "@/puff-smith/service/coil/inventory/CoilInventorySource";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
@@ -63,17 +64,29 @@ export const CoilUserJob: IJobProcessor<ICoilUserJobParams> = jobService.process
 		throw new Error("User not provided!");
 	}
 
-	await jobProgress.setTotal(await prisma.coil.count({
-		where: {
-			wire: {
-				WireInventory: {
-					some: {
-						userId,
-					}
+	const where = {
+		wire: {
+			WireInventory: {
+				some: {
+					userId,
 				}
 			}
 		}
+	};
+
+	await jobProgress.setTotal(await prisma.coil.count({
+		where,
 	}));
+	const $coils = await prisma.coil.findMany({
+		where,
+	});
+	const coilInventorySource = CoilInventorySource().withUserId(userId);
+	for (const {id} of $coils) {
+		await progress(async () => coilInventorySource.create({
+			coilId: id,
+		}), 50);
+	}
+
 }, options => new PQueue({
 	...options,
 	concurrency: 5,

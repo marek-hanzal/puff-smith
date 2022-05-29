@@ -17,25 +17,61 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.coilInventory.count({
 				where: merge(filter, {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
 					userId: source.user.required(),
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.coilInventory.findMany({
 				where: merge(filter, {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
 					userId: source.user.required(),
 				}),
 				orderBy,
 				include: {
-					coil: true,
+					coil: {
+						include: {
+							wire: {
+								include: {
+									vendor: true,
+									WireDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										},
+									},
+									WireFiber: {
+										include: {
+											fiber: {
+												include: {
+													material: true,
+												}
+											}
+										}
+									}
+								},
+							},
+							CoilDraw: {
+								include: {
+									draw: true,
+								},
+							},
+						}
+					},
 				},
 				...pageOf(query),
 			}),
-			create: async ({...create}) => prisma.$transaction(async prisma => {
+			create: async ({...create}) => {
 				const userId = source.user.required();
-				const coilSource = CoilSource().withPrisma(prisma);
+				const coilSource = CoilSource();
 				const coil = await coilSource.get(create.coilId);
 				try {
-					return prisma.coilInventory.create({
+					return source.prisma.coilInventory.create({
 						data: {
 							name: coil.name,
 							coilId: coil.id,
@@ -43,7 +79,35 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 							userId,
 						},
 						include: {
-							coil: true,
+							coil: {
+								include: {
+									wire: {
+										include: {
+											vendor: true,
+											WireDraw: {
+												orderBy: {draw: {sort: "asc"}},
+												include: {
+													draw: true,
+												},
+											},
+											WireFiber: {
+												include: {
+													fiber: {
+														include: {
+															material: true,
+														}
+													}
+												}
+											}
+										},
+									},
+									CoilDraw: {
+										include: {
+											draw: true,
+										},
+									},
+								}
+							},
 						},
 					});
 				} catch (e) {
@@ -55,12 +119,40 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 							},
 						},
 						include: {
-							coil: true,
+							coil: {
+								include: {
+									wire: {
+										include: {
+											vendor: true,
+											WireDraw: {
+												orderBy: {draw: {sort: "asc"}},
+												include: {
+													draw: true,
+												},
+											},
+											WireFiber: {
+												include: {
+													fiber: {
+														include: {
+															material: true,
+														}
+													}
+												}
+											}
+										},
+									},
+									CoilDraw: {
+										include: {
+											draw: true,
+										},
+									},
+								}
+							},
 						},
 						rejectOnNotFound: true,
 					}));
 				}
-			}),
+			},
 		},
 	});
 
