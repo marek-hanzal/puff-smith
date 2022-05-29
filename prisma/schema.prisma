@@ -507,6 +507,8 @@ model AromaInventory {
   aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  MixtureInventory MixtureInventory[]
 }
 
 model Booster {
@@ -537,6 +539,8 @@ model BoosterInventory {
   booster       Booster     @relation(fields: [boosterId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  MixtureInventory MixtureInventory[]
 }
 
 model Base {
@@ -565,6 +569,8 @@ model BaseInventory {
   base          Base        @relation(fields: [baseId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  MixtureInventory MixtureInventory[]
 }
 
 model Liquid {
@@ -627,19 +633,25 @@ model Mixture {
   baseMl          Float
   error           MixtureError?
 
-  Liquid      Liquid[]
-  MixtureDraw MixtureDraw[]
+  Liquid           Liquid[]
+  MixtureDraw      MixtureDraw[]
+  MixtureInventory MixtureInventory[]
 
   @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
-  MixtureInventory MixtureInventory[]
 }
 
 model MixtureInventory {
-  id        String  @id @default(cuid())
-  mixtureId String
-  mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  userId    String
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                 String            @id @default(cuid())
+  mixtureId          String
+  mixture            Mixture           @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  userId             String
+  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aromaInventoryId   String?
+  aromaInventory     AromaInventory?   @relation(fields: [aromaInventoryId], references: [id], onDelete: Cascade)
+  boosterInventoryId String?
+  boosterInventory   BoosterInventory? @relation(fields: [boosterInventoryId], references: [id], onDelete: Cascade)
+  baseInventoryId    String?
+  baseInventory      BaseInventory?    @relation(fields: [baseInventoryId], references: [id], onDelete: Cascade)
 
   @@unique([mixtureId, userId])
 }

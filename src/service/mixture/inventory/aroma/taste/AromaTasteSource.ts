@@ -28,45 +28,11 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 						aroma: {
 							Mixture: {
 								some: {
-									AND: [
-										{
-											aroma: {
-												AromaInventory: {
-													some: {
-														userId,
-													},
-												},
-											},
-										},
-										{
-											OR: [
-												{base: null},
-												{
-													base: {
-														BaseInventory: {
-															some: {
-																userId,
-															},
-														},
-													},
-												},
-											]
-										},
-										{
-											OR: [
-												{booster: null},
-												{
-													booster: {
-														BoosterInventory: {
-															some: {
-																userId,
-															},
-														},
-													},
-												}
-											],
-										},
-									]
+									MixtureInventory: {
+										some: {
+											userId,
+										}
+									}
 								}
 							}
 						}

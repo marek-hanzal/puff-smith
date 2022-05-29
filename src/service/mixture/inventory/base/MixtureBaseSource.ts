@@ -44,45 +44,11 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 								}
 							],
 						},
-						AND: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
+						MixtureInventory: {
+							some: {
+								userId,
 							},
-							{
-								OR: [
-									{base: null},
-									{
-										base: {
-											BaseInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									},
-								]
-							},
-							{
-								OR: [
-									{booster: null},
-									{
-										booster: {
-											BoosterInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									}
-								],
-							},
-						]
+						},
 					}),
 					orderBy: [
 						{base: {name: "asc"}},

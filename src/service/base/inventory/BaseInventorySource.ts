@@ -66,7 +66,10 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 								transaction: true,
 							}
 						});
-						await MixtureInventoryBaseJob.async({baseId: $base.id}, userId);
+						await MixtureInventoryBaseJob.async({
+							baseId: $base.id,
+							baseInventoryId: baseInventory.id,
+						}, userId);
 						return baseInventory;
 					},
 				});

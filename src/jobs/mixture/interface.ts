@@ -13,12 +13,15 @@ export interface IMixtureJobParams {
 
 export interface IMixtureInventoryAromaJobParams {
 	aromaId: string;
+	aromaInventoryId: string;
 }
 
 export interface IMixtureInventoryBoosterJobParams {
 	boosterId: string;
+	boosterInventoryId: string;
 }
 
 export interface IMixtureInventoryBaseJobParams {
 	baseId: string;
+	baseInventoryId: string;
 }

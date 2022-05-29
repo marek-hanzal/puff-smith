@@ -89,7 +89,10 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 								transaction: true,
 							}
 						});
-						await MixtureInventoryAromaJob.async({aromaId: $aroma.id}, userId);
+						await MixtureInventoryAromaJob.async({
+							aromaId: $aroma.id,
+							aromaInventoryId: aromaInventory.id,
+						}, userId);
 						return aromaInventory;
 					},
 				});

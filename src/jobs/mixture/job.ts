@@ -133,7 +133,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	intervalCap: 5,
 }));
 
-const mixtureInventoryUpdate = async <T>(where: T, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
+const mixtureInventoryUpdate = async <T, U>(where: T, create: U, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
 	if (!userId) {
 		throw new Error("User not provided!");
 	}
@@ -159,6 +159,7 @@ const mixtureInventoryUpdate = async <T>(where: T, {jobProgress, userId, progres
 			create: {
 				mixtureId,
 				userId,
+				...create
 			},
 			update: {},
 		}), 50);
@@ -212,6 +213,8 @@ export const MixtureInventoryAromaJob: IJobProcessor<IMixtureInventoryAromaJobPa
 					]
 				}
 			],
+		}, {
+			aromaInventoryId: params.job.params.aromaInventoryId,
 		}, params);
 	});
 }, options => new PQueue({
@@ -262,6 +265,8 @@ export const MixtureInventoryBoosterJob: IJobProcessor<IMixtureInventoryBoosterJ
 					]
 				}
 			],
+		}, {
+			boosterInventoryId: params.job.params.boosterInventoryId,
 		}, params);
 	});
 }, options => new PQueue({
@@ -314,6 +319,8 @@ export const MixtureInventoryBaseJob: IJobProcessor<IMixtureInventoryBaseJobPara
 					]
 				}
 			],
+		}, {
+			baseInventoryId: params.job.params.baseInventoryId,
 		}, params);
 	});
 }, options => new PQueue({

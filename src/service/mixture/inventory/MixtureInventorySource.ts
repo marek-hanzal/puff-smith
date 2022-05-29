@@ -18,45 +18,11 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 				const userId = source.user.required();
 				return source.prisma.mixture.count({
 					where: merge(filter, {
-						AND: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
+						MixtureInventory: {
+							some: {
+								userId,
 							},
-							{
-								OR: [
-									{base: null},
-									{
-										base: {
-											BaseInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									},
-								]
-							},
-							{
-								OR: [
-									{booster: null},
-									{
-										booster: {
-											BoosterInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									}
-								],
-							},
-						]
+						},
 					}),
 				});
 			},
@@ -64,45 +30,11 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 				const userId = source.user.required();
 				return source.prisma.mixture.findMany({
 					where: merge(filter, {
-						AND: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
+						MixtureInventory: {
+							some: {
+								userId,
 							},
-							{
-								OR: [
-									{base: null},
-									{
-										base: {
-											BaseInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									},
-								]
-							},
-							{
-								OR: [
-									{booster: null},
-									{
-										booster: {
-											BoosterInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									}
-								],
-							},
-						]
+						},
 					}),
 					orderBy,
 					include: {

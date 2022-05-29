@@ -25,45 +25,11 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 								mode: "insensitive",
 							},
 						},
-						AND: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
+						MixtureInventory: {
+							some: {
+								userId,
 							},
-							{
-								OR: [
-									{base: null},
-									{
-										base: {
-											BaseInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									},
-								]
-							},
-							{
-								OR: [
-									{booster: null},
-									{
-										booster: {
-											BoosterInventory: {
-												some: {
-													userId,
-												},
-											},
-										},
-									}
-								],
-							},
-						]
+						},
 					}),
 					orderBy: [
 						{vendor: {name: "asc"}}

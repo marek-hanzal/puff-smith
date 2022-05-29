@@ -50,7 +50,7 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
 					callback: async transaction => {
-						const boosterInventory = prisma.boosterInventory.create({
+						const boosterInventory = await prisma.boosterInventory.create({
 							data: {
 								code: code || codeService().code(),
 								boosterId: $booster.id,
@@ -66,7 +66,10 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 								transaction: true,
 							},
 						});
-						await MixtureInventoryBoosterJob.async({boosterId: $booster.id}, userId);
+						await MixtureInventoryBoosterJob.async({
+							boosterId: $booster.id,
+							boosterInventoryId: boosterInventory.id,
+						}, userId);
 						return boosterInventory;
 					},
 				});
