@@ -5,7 +5,6 @@ import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
-import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
 import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
 import {Template, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
@@ -21,16 +20,13 @@ const InternalList: FC<IInternalListProps> = () => {
 			icon={<MixtureIcon/>}
 			label={"market.aroma.mixture.filter"}
 			span={12}
-			extra={<MixtureUserJobButton/>}
 		>
 			<MixtureFilter
 				inline
 			/>
 		</Template> :
 		<MixtureList
-			header={() => <RowInline
-				extra={<MixtureUserJobButton/>}
-			>
+			header={() => <RowInline>
 				<MixtureFilter/>
 			</RowInline>}
 		/>;
@@ -46,8 +42,8 @@ export default withLabLayout(function Index() {
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={[
 				{aroma: {name: "asc"}},
-				{mixture: {vg: "desc"}},
-				{mixture: {nicotine: "asc"}},
+				{vg: "desc"},
+				{nicotine: "asc"},
 			] as any}
 		>
 			<InternalList/>

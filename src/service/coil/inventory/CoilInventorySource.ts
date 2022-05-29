@@ -14,7 +14,7 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => {
 				const $fulltext = fulltext?.split(/\s+/g);
-				return source.prisma.coilInventory.count({
+				return source.prisma.coil.count({
 					where: merge(filter, {
 						AND: $fulltext?.map(fulltext => ({
 							name: {

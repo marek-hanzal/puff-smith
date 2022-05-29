@@ -10,72 +10,89 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 	const source: IMixtureAromaSource = Source<IMixtureAromaSource>({
 		name: "mixture.inventory.aroma",
 		prisma,
-		map: async mixtureInventory => aromaSource().map(mixtureInventory?.aroma),
+		map: async mixture => aromaSource().map(mixture?.aroma),
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => prisma.mixtureInventory.count({
-				distinct: ["aromaId"],
-				where: merge(filter, {
-					aroma: {
-						OR: [
-							{
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							},
-							{
-								vendor: {
+			query: async ({filter: {fulltext, ...filter} = {}}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					distinct: ["aromaId"],
+					where: merge(filter, {
+						aroma: {
+							OR: [
+								{
 									name: {
 										contains: fulltext,
 										mode: "insensitive",
 									},
 								},
-							}
-						],
-					},
-					userId: source.user.required(),
-				}),
-			}),
-			query: async ({filter: {fulltext, ...filter} = {}}) => prisma.mixtureInventory.findMany({
-				distinct: ["aromaId"],
-				where: merge(filter, {
-					aroma: {
-						OR: [
+								{
+									vendor: {
+										name: {
+											contains: fulltext,
+											mode: "insensitive",
+										},
+									},
+								}
+							],
+						},
+						AND: [
 							{
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
 								},
 							},
 							{
-								vendor: {
-									name: {
-										contains: fulltext,
-										mode: "insensitive",
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
 									},
-								},
-							}
-						],
-					},
-					userId: source.user.required(),
-				}),
-				select: {
-					aroma: {
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
+					}),
+					select: {
+						aroma: {
+							include: {
+								vendor: true,
+								AromaTaste: {
+									orderBy: {taste: {sort: "asc"}},
+									include: {
+										taste: true,
+									}
 								}
 							}
-						}
+						},
 					},
-				},
-				orderBy: [
-					{aroma: {name: "asc"}},
-				],
-			}),
+					orderBy: [
+						{aroma: {name: "asc"}},
+					],
+				});
+			},
 		}
 	});
 

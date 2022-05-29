@@ -12,22 +12,59 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 			nicotine: mixture.nicotineToRound,
 		}) : undefined,
 		source: {
-			query: async () => source.prisma.mixture.findMany({
-				distinct: ["nicotineToRound"],
-				select: {
-					nicotineToRound: true,
-				},
-				where: {
-					MixtureInventory: {
-						some: {
-							userId: source.user.required(),
-						},
+			query: async () => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					distinct: ["nicotineToRound"],
+					select: {
+						nicotineToRound: true,
 					},
-				},
-				orderBy: [
-					{nicotineToRound: "asc"},
-				]
-			}),
+					where: {
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
+					},
+					orderBy: [
+						{nicotineToRound: "asc"},
+					]
+				});
+			},
 		},
 	});
 

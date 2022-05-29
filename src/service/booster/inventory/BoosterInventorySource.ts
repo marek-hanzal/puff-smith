@@ -1,4 +1,3 @@
-import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -50,37 +49,30 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					userId,
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
-					callback: async transaction => {
-						console.log("\n\n\nCREATING BOOSTER INVENTORY - Transaction\n\n", booster, transaction);
-
-						const $boosterInventory = prisma.boosterInventory.create({
-							data: {
-								code: code || codeService().code(),
-								boosterId: $booster.id,
-								transactionId: transaction.id,
-								userId,
+					callback: async transaction => prisma.boosterInventory.create({
+						data: {
+							code: code || codeService().code(),
+							boosterId: $booster.id,
+							transactionId: transaction.id,
+							userId,
+						},
+						include: {
+							booster: {
+								include: {
+									vendor: true,
+								}
 							},
-							include: {
-								booster: {
-									include: {
-										vendor: true,
-									}
-								},
-								transaction: true,
-							},
-						});
-						await MixtureUserJob.async({userId}, userId);
-						return $boosterInventory;
-					},
+							transaction: true,
+						},
+					}),
 				});
 			}),
 			delete: async ids => {
-				const userId = source.user.required();
 				const where = {
 					id: {
 						in: ids,
 					},
-					userId,
+					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
 					const boosterInventory = await prisma.boosterInventory.findMany({
@@ -96,14 +88,6 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					});
 					await prisma.boosterInventory.deleteMany({
 						where,
-					});
-					await prisma.mixtureInventory.deleteMany({
-						where: {
-							boosterId: {
-								in: boosterInventory.map(item => item.boosterId),
-							},
-							userId,
-						},
 					});
 					return boosterInventory;
 				});

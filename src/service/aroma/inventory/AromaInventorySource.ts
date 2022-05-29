@@ -1,4 +1,3 @@
-import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -55,32 +54,28 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					userId,
 					cost: $aroma.cost,
 					note: `Purchase of aroma [${$aroma.vendor.name} ${$aroma.name}]`,
-					callback: async transaction => {
-						const $aromaInventory = prisma.aromaInventory.create({
-							data: {
-								code: code || codeService().code(),
-								aromaId: $aroma.id,
-								transactionId: transaction.id,
-								userId,
-							},
-							include: {
-								aroma: {
-									include: {
-										vendor: true,
-										AromaTaste: {
-											orderBy: {taste: {sort: "asc"}},
-											include: {
-												taste: true,
-											}
-										},
+					callback: async transaction => prisma.aromaInventory.create({
+						data: {
+							code: code || codeService().code(),
+							aromaId: $aroma.id,
+							transactionId: transaction.id,
+							userId,
+						},
+						include: {
+							aroma: {
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
 									},
 								},
-								transaction: true,
-							}
-						});
-						await MixtureUserJob.async({}, userId);
-						return $aromaInventory;
-					},
+							},
+							transaction: true,
+						}
+					}),
 				});
 			}),
 			delete: async ids => {
@@ -110,14 +105,6 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					});
 					await prisma.aromaInventory.deleteMany({
 						where,
-					});
-					await prisma.mixtureInventory.deleteMany({
-						where: {
-							aromaId: {
-								in: aromaInventory.map(item => item.aromaId),
-							},
-							userId: source.user.required(),
-						}
 					});
 					return aromaInventory;
 				});

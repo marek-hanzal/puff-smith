@@ -58,7 +58,6 @@ model User {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   WireInventory     WireInventory[]
-  MixtureInventory  MixtureInventory[]
 }
 
 model VerificationToken {
@@ -206,19 +205,18 @@ model Tag {
 }
 
 model Vendor {
-  id               String             @id @default(cuid())
-  name             String             @unique
-  atomizers        Atomizer[]
-  Cell             Cell[]
-  Mod              Mod[]
-  Cotton           Cotton[]
-  Aroma            Aroma[]
-  Booster          Booster[]
-  Base             Base[]
-  Wire             Wire[]
-  Mixture          Mixture[]
-  MixtureInventory MixtureInventory[]
-  Liquid           Liquid[]
+  id        String     @id @default(cuid())
+  name      String     @unique
+  atomizers Atomizer[]
+  Cell      Cell[]
+  Mod       Mod[]
+  Cotton    Cotton[]
+  Aroma     Aroma[]
+  Booster   Booster[]
+  Base      Base[]
+  Wire      Wire[]
+  Mixture   Mixture[]
+  Liquid    Liquid[]
 }
 
 model Tariff {
@@ -474,12 +472,11 @@ model Aroma {
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   steep    Int    @default(14)
 
-  AromaInventory   AromaInventory[]
-  AromaComment     AromaComment[]
-  AromaTaste       AromaTaste[]
-  Mixture          Mixture[]
-  MixtureInventory MixtureInventory[]
-  Liquid           Liquid[]
+  AromaInventory AromaInventory[]
+  AromaComment   AromaComment[]
+  AromaTaste     AromaTaste[]
+  Mixture        Mixture[]
+  Liquid         Liquid[]
 
   @@unique([name, vendorId])
 }
@@ -525,7 +522,6 @@ model Booster {
 
   BoosterInventory BoosterInventory[]
   Mixture          Mixture[]
-  MixtureInventory MixtureInventory[]
   Liquid           Liquid[]
 
   @@unique([name, vendorId])
@@ -552,10 +548,9 @@ model Base {
   vendorId String
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
-  BaseInventory    BaseInventory[]
-  Mixture          Mixture[]
-  MixtureInventory MixtureInventory[]
-  Liquid           Liquid[]
+  BaseInventory BaseInventory[]
+  Mixture       Mixture[]
+  Liquid        Liquid[]
 
   @@unique([name, vendorId])
 }
@@ -631,9 +626,8 @@ model Mixture {
   baseMl          Float
   error           MixtureError?
 
-  MixtureInventory MixtureInventory[]
-  Liquid           Liquid[]
-  MixtureDraw      MixtureDraw[]
+  Liquid      Liquid[]
+  MixtureDraw MixtureDraw[]
 
   @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
@@ -644,25 +638,6 @@ model MixtureDraw {
   mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
   drawId    String
   draw      Tag     @relation(fields: [drawId], references: [id], onDelete: Cascade)
-}
-
-model MixtureInventory {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mixtureId String
-  mixture   Mixture  @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  aromaId   String
-  aroma     Aroma    @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  vendorId  String
-  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  boosterId String?
-  booster   Booster? @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  baseId    String?
-  base      Base?    @relation(fields: [baseId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, mixtureId])
-  @@index([userId, mixtureId, aromaId, vendorId, boosterId, baseId], type: Brin)
 }
 
 enum MixtureError {

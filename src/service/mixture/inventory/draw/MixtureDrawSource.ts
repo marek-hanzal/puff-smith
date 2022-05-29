@@ -12,36 +12,63 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 		prisma,
 		map: async mixtureDraw => tagSource().map(mixtureDraw?.draw),
 		source: {
-			count: async ({filter}) => source.prisma.mixtureDraw.count({
-				distinct: ["drawId"],
-				where: merge(filter || {}, {
-					mixture: {
-						MixtureInventory: {
-							some: {
-								userId: source.user.required(),
+			query: async ({filter}) => {
+				const userId = source.user.required();
+				return source.prisma.mixtureDraw.findMany({
+					distinct: ["drawId"],
+					where: merge(filter || {}, {
+						where: merge(filter || {}, {
+							mixture: {
+								AND: [
+									{
+										aroma: {
+											AromaInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+									{
+										OR: [
+											{base: null},
+											{
+												base: {
+													BaseInventory: {
+														some: {
+															userId,
+														},
+													},
+												},
+											},
+										]
+									},
+									{
+										OR: [
+											{booster: null},
+											{
+												booster: {
+													BoosterInventory: {
+														some: {
+															userId,
+														},
+													},
+												},
+											}
+										],
+									},
+								]
 							}
-						}
+						}),
+					}),
+					orderBy: [
+						{draw: {sort: "asc"}}
+					],
+					select: {
+						draw: true,
 					}
-				}),
-			}),
-			query: async ({filter}) => source.prisma.mixtureDraw.findMany({
-				distinct: ["drawId"],
-				where: merge(filter || {}, {
-					mixture: {
-						MixtureInventory: {
-							some: {
-								userId: source.user.required(),
-							}
-						}
-					}
-				}),
-				orderBy: [
-					{draw: {sort: "asc"}}
-				],
-				include: {
-					draw: true,
-				}
-			}),
+				});
+			},
 		}
 	});
 

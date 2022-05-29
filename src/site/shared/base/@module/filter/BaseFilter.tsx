@@ -1,4 +1,5 @@
 import {BaseRatioSelect} from "@/puff-smith/site/shared/base/@module/form/BaseRatioSelect";
+import {BaseSelect} from "@/puff-smith/site/shared/base/@module/form/BaseSelect";
 import {BaseVendorSelect} from "@/puff-smith/site/shared/base/@module/form/BaseVendorSelect";
 import {BaseProviderFilter} from "@/sdk/api/base/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
@@ -30,6 +31,9 @@ export const BaseFilter: FC<IBaseFilterProps> = ({toFilter = filter => filter, .
 		})}
 		{...props}
 	>
+		<FormItem field={"id"}>
+			<BaseSelect/>
+		</FormItem>
 		<FormItem field={"ratio"}>
 			<BaseRatioSelect
 				allowClear

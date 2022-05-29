@@ -1,4 +1,3 @@
-import {MixtureUserJob} from "@/puff-smith/jobs/mixture/job";
 import {BaseSource} from "@/puff-smith/service/base/BaseSource";
 import {IBaseInventorySource} from "@/puff-smith/service/base/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -49,35 +48,30 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 					userId,
 					cost: $base.cost,
 					note: `Purchase of base [${$base.vendor.name} ${$base.name}]`,
-					callback: async transaction => {
-						const $baseInventory = prisma.baseInventory.create({
-							data: {
-								code: code || codeService().code(),
-								baseId: $base.id,
-								transactionId: transaction.id,
-								userId,
+					callback: async transaction => prisma.baseInventory.create({
+						data: {
+							code: code || codeService().code(),
+							baseId: $base.id,
+							transactionId: transaction.id,
+							userId,
+						},
+						include: {
+							base: {
+								include: {
+									vendor: true,
+								}
 							},
-							include: {
-								base: {
-									include: {
-										vendor: true,
-									}
-								},
-								transaction: true,
-							}
-						});
-						await MixtureUserJob.async({userId}, userId);
-						return $baseInventory;
-					},
+							transaction: true,
+						}
+					}),
 				});
 			}),
 			delete: async ids => {
-				const userId = source.user.required();
 				const where = {
 					id: {
 						in: ids,
 					},
-					userId,
+					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
 					const baseInventory = await prisma.baseInventory.findMany({
@@ -93,14 +87,6 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 					});
 					await prisma.baseInventory.deleteMany({
 						where,
-					});
-					await prisma.mixtureInventory.deleteMany({
-						where: {
-							baseId: {
-								in: baseInventory.map(item => item.baseId),
-							},
-							userId,
-						}
 					});
 					return baseInventory;
 				});

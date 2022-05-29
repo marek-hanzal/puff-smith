@@ -13,19 +13,56 @@ export const MixtureRatioSource = (): IMixtureRatioSource => {
 			pg: mixture.pgToRound,
 		}) : undefined,
 		source: {
-			query: async () => source.prisma.mixture.findMany({
-				distinct: ["vgToRound", "pgToRound"],
-				where: {
-					MixtureInventory: {
-						some: {
-							userId: source.user.required(),
-						},
+			query: async () => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					distinct: ["vgToRound", "pgToRound"],
+					where: {
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
 					},
-				},
-				orderBy: [
-					{vgToRound: "asc"},
-				]
-			}),
+					orderBy: [
+						{vgToRound: "asc"},
+					]
+				});
+			},
 		},
 	});
 

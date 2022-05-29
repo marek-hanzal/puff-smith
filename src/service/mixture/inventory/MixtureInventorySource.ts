@@ -1,8 +1,8 @@
 import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/interface";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {onUnique, pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {pageOf, Source} from "@leight-core/server";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const MixtureInventorySource = (): IMixtureInventorySource => {
 	const mixtureSource = singletonOf(() => MixtureSource());
@@ -10,205 +10,132 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 	const source: IMixtureInventorySource = Source<IMixtureInventorySource>({
 		name: "mixture.inventory",
 		prisma,
-		map: async mixtureInventory => mixtureInventory ? ({
-			...mixtureInventory,
-			mixture: await mixtureSource().mapper.map(mixtureInventory.mixture)
-		}) : undefined,
+		map: async mixture => mixtureSource().map(mixture),
 		source: {
-			create: async mixtureInventory => {
-				try {
-					return await source.prisma.mixtureInventory.create({
-						data: {
-							...mixtureInventory,
-							userId: source.user.required(),
-						},
-						include: {
-							vendor: true,
-							base: {
-								include: {
-									vendor: true,
-								}
-							},
-							booster: {
-								include: {
-									vendor: true,
-								}
-							},
-							aroma: {
-								include: {
-									vendor: true,
-									AromaTaste: {
-										orderBy: {taste: {sort: "asc"}},
-										include: {
-											taste: true,
-										}
-									}
-								}
-							},
-							mixture: {
-								include: {
-									vendor: true,
-									MixtureDraw: {
-										orderBy: {draw: {sort: "asc"}},
-										include: {
-											draw: true,
+			count: async ({filter: {fulltext, ...filter} = {}}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.count({
+					where: merge(filter, {
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
 										},
 									},
-									base: {
-										include: {
-											vendor: true,
-										}
-									},
-									booster: {
-										include: {
-											vendor: true,
-										}
-									},
-									aroma: {
-										include: {
-											vendor: true,
-											AromaTaste: {
-												orderBy: {taste: {sort: "asc"}},
-												include: {
-													taste: true,
-												}
-											}
-										}
-									},
-								}
-							},
-						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => source.prisma.mixtureInventory.findFirst({
-						where: {
-							...mixtureInventory,
-							userId: source.user.required(),
-						},
-						include: {
-							vendor: true,
-							base: {
-								include: {
-									vendor: true,
-								}
-							},
-							booster: {
-								include: {
-									vendor: true,
-								}
-							},
-							aroma: {
-								include: {
-									vendor: true,
-									AromaTaste: {
-										orderBy: {taste: {sort: "asc"}},
-										include: {
-											taste: true,
-										}
-									}
-								}
-							},
-							mixture: {
-								include: {
-									vendor: true,
-									MixtureDraw: {
-										orderBy: {draw: {sort: "asc"}},
-										include: {
-											draw: true,
-										},
-									},
-									base: {
-										include: {
-											vendor: true,
-										}
-									},
-									booster: {
-										include: {
-											vendor: true,
-										}
-									},
-									aroma: {
-										include: {
-											vendor: true,
-											AromaTaste: {
-												orderBy: {taste: {sort: "asc"}},
-												include: {
-													taste: true,
-												}
-											}
-										}
-									},
-								}
-							},
-						},
-						rejectOnNotFound: true,
-					}));
-				}
-			},
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixtureInventory.count({
-				where: filter,
-			}),
-			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.mixtureInventory.findMany({
-				where: filter,
-				orderBy,
-				include: {
-					vendor: true,
-					base: {
-						include: {
-							vendor: true,
-						}
-					},
-					booster: {
-						include: {
-							vendor: true,
-						}
-					},
-					aroma: {
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
-								}
-							}
-						}
-					},
-					mixture: {
-						include: {
-							vendor: true,
-							MixtureDraw: {
-								orderBy: {draw: {sort: "asc"}},
-								include: {
-									draw: true,
 								},
 							},
-							base: {
-								include: {
-									vendor: true,
-								}
+							{
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+								]
 							},
-							booster: {
-								include: {
-									vendor: true,
-								}
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
 							},
-							aroma: {
-								include: {
-									vendor: true,
-									AromaTaste: {
-										orderBy: {taste: {sort: "asc"}},
-										include: {
-											taste: true,
-										}
+						]
+					}),
+				});
+			},
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					where: merge(filter, {
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
+					}),
+					orderBy,
+					include: {
+						vendor: true,
+						MixtureDraw: {
+							orderBy: {draw: {sort: "asc"}},
+							include: {
+								draw: true,
+							},
+						},
+						base: {
+							include: {
+								vendor: true,
+							}
+						},
+						booster: {
+							include: {
+								vendor: true,
+							}
+						},
+						aroma: {
+							include: {
+								vendor: true,
+								AromaTaste: {
+									orderBy: {taste: {sort: "asc"}},
+									include: {
+										taste: true,
 									}
 								}
-							},
-						}
+							}
+						},
 					},
-				},
-				...pageOf(query),
-			})
+					...pageOf(query),
+				});
+			}
 		},
 	});
 

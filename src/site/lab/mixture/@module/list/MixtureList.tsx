@@ -20,7 +20,7 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 		}}
 		{...props}
 	>
-		{({mixture}) => <ListItem>
+		{mixture => <ListItem>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={mixture.aroma}/>

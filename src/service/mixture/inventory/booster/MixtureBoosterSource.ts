@@ -2,7 +2,7 @@ import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {IMixtureBoosterSource} from "@/puff-smith/service/mixture/inventory/booster/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 	const boosterSource = singletonOf(() => BoosterSource());
@@ -10,69 +10,83 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 	const source: IMixtureBoosterSource = Source<IMixtureBoosterSource>({
 		name: "mixture.inventory.booster",
 		prisma,
-		map: async mixtureInventory => boosterSource().map(mixtureInventory?.booster),
+		map: async mixture => boosterSource().map(mixture?.booster),
 		source: {
-			count: async ({filter}) => prisma.mixtureInventory.count({
-				distinct: ["boosterId"],
-				where: {
-					booster: {
-						OR: [
-							{
-								name: {
-									contains: filter?.fulltext,
-									mode: "insensitive",
-								},
-							},
-							{
-								vendor: {
+			query: async ({filter: {fulltext, ...filter} = {}}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					distinct: ["boosterId"],
+					select: {
+						booster: {
+							include: {
+								vendor: true,
+							}
+						},
+					},
+					where: merge(filter, {
+						booster: {
+							OR: [
+								{
 									name: {
-										contains: filter?.fulltext,
+										contains: fulltext,
 										mode: "insensitive",
 									},
 								},
-							}
-						],
-					},
-					userId: source.user.required(),
-				},
-			}),
-			query: async ({filter}) => prisma.mixtureInventory.findMany({
-				distinct: ["boosterId"],
-				select: {
-					booster: {
-						include: {
-							vendor: true,
-						}
-					},
-				},
-				where: {
-					NOT: {
-						boosterId: null,
-					},
-					booster: {
-						OR: [
+								{
+									vendor: {
+										name: {
+											contains: fulltext,
+											mode: "insensitive",
+										},
+									},
+								}
+							],
+						},
+						AND: [
 							{
-								name: {
-									contains: filter?.fulltext,
-									mode: "insensitive",
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
 								},
 							},
 							{
-								vendor: {
-									name: {
-										contains: filter?.fulltext,
-										mode: "insensitive",
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
 									},
-								},
-							}
-						],
-					},
-					userId: source.user.required(),
-				},
-				orderBy: [
-					{booster: {name: "asc"}},
-				],
-			}),
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
+					}),
+					orderBy: [
+						{booster: {name: "asc"}},
+					],
+				});
+			},
 		}
 	});
 

@@ -134,14 +134,6 @@ export const WireInventorySource = (): IWireInventorySource => {
 					await prisma.wireInventory.deleteMany({
 						where,
 					});
-					await prisma.coilInventory.deleteMany({
-						where: {
-							wireId: {
-								in: wireInventorySource.map(item => item.wireId),
-							},
-							userId: source.user.required(),
-						}
-					});
 					return wireInventorySource;
 				});
 			},

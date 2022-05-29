@@ -1,5 +1,6 @@
 import {BoosterNicotineSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterNicotineSelect";
 import {BoosterRatioSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterRatioSelect";
+import {BoosterSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterSelect";
 import {BoosterVendorSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterVendorSelect";
 import {BoosterProviderFilter} from "@/sdk/api/booster/query";
 import {FormItem, IFilterProps} from "@leight-core/client";
@@ -31,6 +32,9 @@ export const BoosterFilter: FC<IBoosterFilterProps> = ({toFilter = filter => fil
 		})}
 		{...props}
 	>
+		<FormItem field={"id"}>
+			<BoosterSelect/>
+		</FormItem>
 		<FormItem field={"ratio"}>
 			<BoosterRatioSelect
 				allowClear

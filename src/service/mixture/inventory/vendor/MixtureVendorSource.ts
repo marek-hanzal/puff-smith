@@ -12,36 +12,108 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 		prisma,
 		map: async mixtureInventory => vendorSource().map(mixtureInventory?.vendor),
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixtureInventory.count({
-				distinct: ["vendorId"],
-				where: merge(filter || {}, {
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+			count: async ({filter: {fulltext, ...filter} = {}}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.count({
+					distinct: ["vendorId"],
+					where: merge(filter || {}, {
+						vendor: {
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							},
 						},
-					},
-					userId: source.user.required(),
-				}),
-			}),
-			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixtureInventory.findMany({
-				distinct: ["vendorId"],
-				where: merge(filter || {}, {
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+						AND: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								OR: [
+									{base: null},
+									{
+										base: {
+											BaseInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									},
+								]
+							},
+							{
+								OR: [
+									{booster: null},
+									{
+										booster: {
+											BoosterInventory: {
+												some: {
+													userId,
+												},
+											},
+										},
+									}
+								],
+							},
+						]
+					}),
+				});
+			},
+			query: async ({filter: {fulltext, ...filter} = {}}) => {
+				const userId = source.user.required();
+				return source.prisma.mixture.findMany({
+					distinct: ["vendorId"],
+					where: merge(filter || {}, {
+						vendor: {
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							},
 						},
-					},
-					userId: source.user.required(),
-				}),
-				orderBy: [
-					{vendor: {name: "asc"}}
-				],
-				select: {
-					vendor: true,
-				}
-			}),
+						OR: [
+							{
+								aroma: {
+									AromaInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								base: {
+									BaseInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+							{
+								booster: {
+									BoosterInventory: {
+										some: {
+											userId,
+										},
+									},
+								},
+							},
+						]
+					}),
+					orderBy: [
+						{vendor: {name: "asc"}}
+					],
+					select: {
+						vendor: true,
+					}
+				});
+			},
 		}
 	});
 

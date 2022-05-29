@@ -71,24 +71,22 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 					},
 				},
 			},
-			mixture: {
-				nicotineToRound,
-				AND: andDrawIds?.map((drawId: string) => ({
-					MixtureDraw: {
-						some: {
-							drawId,
-						},
-					},
-				})),
+			nicotineToRound,
+			AND: andDrawIds?.map((drawId: string) => ({
 				MixtureDraw: {
 					some: {
-						drawId: {
-							in: orDrawIds,
-						},
+						drawId,
 					},
 				},
-				...ratio.current,
-			}
+			})),
+			MixtureDraw: {
+				some: {
+					drawId: {
+						in: orDrawIds,
+					},
+				},
+			},
+			...ratio.current,
 		})}
 		{...props}
 	>
