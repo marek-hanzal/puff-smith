@@ -12,9 +12,9 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 		prisma,
 		map: async mixtureInventory => vendorSource().map(mixtureInventory?.vendor),
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => {
+			query: async ({filter: {fulltext, ...filter} = {}}) => {
 				const userId = source.user.required();
-				return source.prisma.mixture.count({
+				return source.prisma.mixture.findMany({
 					distinct: ["vendorId"],
 					where: merge(filter || {}, {
 						vendor: {
@@ -60,49 +60,6 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 										},
 									}
 								],
-							},
-						]
-					}),
-				});
-			},
-			query: async ({filter: {fulltext, ...filter} = {}}) => {
-				const userId = source.user.required();
-				return source.prisma.mixture.findMany({
-					distinct: ["vendorId"],
-					where: merge(filter || {}, {
-						vendor: {
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							},
-						},
-						OR: [
-							{
-								aroma: {
-									AromaInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
-							},
-							{
-								base: {
-									BaseInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
-							},
-							{
-								booster: {
-									BoosterInventory: {
-										some: {
-											userId,
-										},
-									},
-								},
 							},
 						]
 					}),

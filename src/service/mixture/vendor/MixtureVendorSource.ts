@@ -12,17 +12,6 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 		prisma,
 		map: async mixture => vendorSource().map(mixture?.vendor),
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.count({
-				distinct: ["vendorId"],
-				where: merge(filter || {}, {
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
-						},
-					},
-				}),
-			}),
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["vendorId"],
 				where: merge(filter || {}, {
