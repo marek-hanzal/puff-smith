@@ -17,49 +17,47 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 				return source.prisma.mixtureDraw.findMany({
 					distinct: ["drawId"],
 					where: merge(filter || {}, {
-						where: merge(filter || {}, {
-							mixture: {
-								AND: [
-									{
-										aroma: {
-											AromaInventory: {
-												some: {
-													userId,
-												},
+						mixture: {
+							AND: [
+								{
+									aroma: {
+										AromaInventory: {
+											some: {
+												userId,
 											},
 										},
 									},
-									{
-										OR: [
-											{base: null},
-											{
-												base: {
-													BaseInventory: {
-														some: {
-															userId,
-														},
+								},
+								{
+									OR: [
+										{base: null},
+										{
+											base: {
+												BaseInventory: {
+													some: {
+														userId,
 													},
 												},
 											},
-										]
-									},
-									{
-										OR: [
-											{booster: null},
-											{
-												booster: {
-													BoosterInventory: {
-														some: {
-															userId,
-														},
+										},
+									]
+								},
+								{
+									OR: [
+										{booster: null},
+										{
+											booster: {
+												BoosterInventory: {
+													some: {
+														userId,
 													},
 												},
-											}
-										],
-									},
-								]
-							}
-						}),
+											},
+										}
+									],
+								},
+							]
+						}
 					}),
 					orderBy: [
 						{draw: {sort: "asc"}}
