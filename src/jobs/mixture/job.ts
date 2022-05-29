@@ -11,6 +11,15 @@ import {
 	MIXTURES_JOB
 } from "@/puff-smith/jobs/mixture/interface";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
+import {MixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/MixtureAromaSource";
+import {AromaTasteSource} from "@/puff-smith/service/mixture/inventory/aroma/taste/AromaTasteSource";
+import {MixtureBaseSource} from "@/puff-smith/service/mixture/inventory/base/MixtureBaseSource";
+import {MixtureBoosterSource} from "@/puff-smith/service/mixture/inventory/booster/MixtureBoosterSource";
+import {MixtureDrawSource} from "@/puff-smith/service/mixture/inventory/draw/MixtureDrawSource";
+import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
+import {MixtureNicotineSource} from "@/puff-smith/service/mixture/inventory/nicotine/MixtureNicotineSource";
+import {MixtureRatioSource} from "@/puff-smith/service/mixture/inventory/ratio/MixtureRatioSource";
+import {MixtureVendorSource} from "@/puff-smith/service/mixture/inventory/vendor/MixtureVendorSource";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -164,6 +173,16 @@ const mixtureInventoryUpdate = async <T, U>(where: T, create: U, {jobProgress, u
 			update: {},
 		}), 50);
 	}
+
+	await MixtureInventorySource().withUserId(userId).clearCache();
+	await MixtureAromaSource().withUserId(userId).clearCache();
+	await MixtureBoosterSource().withUserId(userId).clearCache();
+	await MixtureBaseSource().withUserId(userId).clearCache();
+	await MixtureNicotineSource().withUserId(userId).clearCache();
+	await MixtureRatioSource().withUserId(userId).clearCache();
+	await MixtureDrawSource().withUserId(userId).clearCache();
+	await MixtureVendorSource().withUserId(userId).clearCache();
+	await AromaTasteSource().withUserId(userId).clearCache();
 };
 
 export const MixtureInventoryAromaJob: IJobProcessor<IMixtureInventoryAromaJobParams> = jobService.processor(MIXTURE_INVENTORY_AROMA_JOB, async params => {
