@@ -5,9 +5,11 @@ import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
+import AsyncLock from "async-lock";
 import PQueue from "p-queue";
 
 const jobService = JobSource();
+const lock = new AsyncLock({});
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
@@ -122,79 +124,81 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 }));
 
 export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
-	logger.debug("User mixture update.", {userId});
+	await lock.acquire("mixture-user" + userId, async () => {
+		logger.debug("User mixture update.", {userId});
 
-	if (!userId) {
-		throw new Error("User not provided!");
-	}
+		if (!userId) {
+			throw new Error("User not provided!");
+		}
 
-	const where = {
-		aroma: {
-			AromaInventory: {
-				some: {
-					userId,
+		const where = {
+			aroma: {
+				AromaInventory: {
+					some: {
+						userId,
+					},
 				},
 			},
-		},
-		AND: [
-			{
-				OR: [
-					{
-						booster: {
-							BoosterInventory: {
-								some: {
-									userId,
+			AND: [
+				{
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId,
+									},
 								},
 							},
 						},
-					},
-					{
-						boosterId: null,
-					}
-				]
+						{
+							boosterId: null,
+						}
+					]
+				},
+				{
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId,
+									},
+								},
+							},
+						},
+						{
+							baseId: null,
+						}
+					]
+				}
+			],
+		};
+
+		await jobProgress.setTotal(await prisma.mixture.count({
+			where,
+		}));
+
+		const mixtureInventorySource = MixtureInventorySource().withUserId(userId);
+		const $mixtures = await prisma.mixture.findMany({
+			include: {
+				aroma: true,
+				booster: true,
+				base: true,
 			},
-			{
-				OR: [
-					{
-						base: {
-							BaseInventory: {
-								some: {
-									userId,
-								},
-							},
-						},
-					},
-					{
-						baseId: null,
-					}
-				]
-			}
-		],
-	};
-
-	await jobProgress.setTotal(await prisma.mixture.count({
-		where,
-	}));
-
-	const mixtureInventorySource = MixtureInventorySource().withUserId(userId);
-	const $mixtures = await prisma.mixture.findMany({
-		include: {
-			aroma: true,
-			booster: true,
-			base: true,
-		},
-		where,
+			where,
+		});
+		for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
+			logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
+			await progress(async () => mixtureInventorySource.create({
+				aromaId,
+				vendorId: aroma.vendorId,
+				boosterId,
+				baseId,
+				mixtureId: id,
+			}), 50);
+		}
 	});
-	for (const {aromaId, aroma, boosterId, booster, baseId, base, id} of $mixtures) {
-		logger.debug(`Connecting mixture [id ${id}] [aroma ${aroma.name}] [booster ${booster?.name || "-"}] [base ${base?.name || "-"}]`);
-		await progress(async () => mixtureInventorySource.create({
-			aromaId,
-			vendorId: aroma.vendorId,
-			boosterId,
-			baseId,
-			mixtureId: id,
-		}), 50);
-	}
 }, options => new PQueue({
 	...options,
 	concurrency: 5,

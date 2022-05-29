@@ -4,9 +4,11 @@ import {CoilInventorySource} from "@/puff-smith/service/coil/inventory/CoilInven
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobProcessor} from "@leight-core/api";
+import AsyncLock from "async-lock";
 import PQueue from "p-queue";
 
 const jobService = JobSource();
+const lock = new AsyncLock({});
 
 export const CoilsJob: IJobProcessor<ICoilsJobParams> = jobService.processor(COILS_JOB, async ({jobProgress, job: {userId}, logger, progress}) => {
 	logger.debug("Scheduling updating all coils.");
@@ -59,34 +61,35 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_
 }));
 
 export const CoilUserJob: IJobProcessor<ICoilUserJobParams> = jobService.processor(COIL_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
-	logger.debug("User coil update.", {userId});
-	if (!userId) {
-		throw new Error("User not provided!");
-	}
+	await lock.acquire("coil-user" + userId, async () => {
+		logger.debug("User coil update.", {userId});
+		if (!userId) {
+			throw new Error("User not provided!");
+		}
 
-	const where = {
-		wire: {
-			WireInventory: {
-				some: {
-					userId,
+		const where = {
+			wire: {
+				WireInventory: {
+					some: {
+						userId,
+					}
 				}
 			}
+		};
+
+		await jobProgress.setTotal(await prisma.coil.count({
+			where,
+		}));
+		const $coils = await prisma.coil.findMany({
+			where,
+		});
+		const coilInventorySource = CoilInventorySource().withUserId(userId);
+		for (const {id} of $coils) {
+			await progress(async () => coilInventorySource.create({
+				coilId: id,
+			}), 50);
 		}
-	};
-
-	await jobProgress.setTotal(await prisma.coil.count({
-		where,
-	}));
-	const $coils = await prisma.coil.findMany({
-		where,
 	});
-	const coilInventorySource = CoilInventorySource().withUserId(userId);
-	for (const {id} of $coils) {
-		await progress(async () => coilInventorySource.create({
-			coilId: id,
-		}), 50);
-	}
-
 }, options => new PQueue({
 	...options,
 	concurrency: 5,

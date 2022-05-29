@@ -28,7 +28,7 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 				const $fulltext = fulltext?.split(/\s+/g);
 				return source.prisma.coilInventory.findMany({
 					where: merge(filter, {
-						OR: $fulltext?.map(fulltext => ({
+						AND: $fulltext?.map(fulltext => ({
 							name: {
 								contains: fulltext,
 								mode: "insensitive",
