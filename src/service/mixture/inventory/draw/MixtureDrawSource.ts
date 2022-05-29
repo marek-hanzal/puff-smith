@@ -1,4 +1,5 @@
 import {IMixtureDrawSource} from "@/puff-smith/service/mixture/draw/interface";
+import {MixtureDrawCache} from "@/puff-smith/service/mixture/inventory/draw/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {Source} from "@leight-core/server";
@@ -11,6 +12,7 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 		name: "mixture.inventory.draw",
 		prisma,
 		map: async mixtureDraw => tagSource().map(mixtureDraw?.draw),
+		cache: MixtureDrawCache,
 		source: {
 			query: async ({filter}) => {
 				const userId = source.user.required();

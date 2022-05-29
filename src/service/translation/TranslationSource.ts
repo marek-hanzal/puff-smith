@@ -1,4 +1,5 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TranslationCache} from "@/puff-smith/service/translation/cache";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {sha256} from "@/puff-smith/service/utils/sha256";
 import {onUnique, pageOf, Source} from "@leight-core/server";
@@ -11,6 +12,7 @@ export const TranslationSource = (): ITranslationSource => {
 			key: translation.label,
 			value: translation.text,
 		}) : undefined,
+		cache: TranslationCache,
 		source: {
 			query: async ({filter, ...query}) => source.prisma.translation.findMany({
 				where: filter,

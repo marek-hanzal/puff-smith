@@ -1,3 +1,4 @@
+import {MixtureInventoryCache} from "@/puff-smith/service/mixture/inventory/cache";
 import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/interface";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -11,6 +12,7 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 		name: "mixture.inventory",
 		prisma,
 		map: async mixture => mixtureSource().map(mixture),
+		cache: MixtureInventoryCache,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => {
 				const userId = source.user.required();

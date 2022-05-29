@@ -1,4 +1,5 @@
 import {BaseSource} from "@/puff-smith/service/base/BaseSource";
+import {MixtureBaseCache} from "@/puff-smith/service/mixture/inventory/base/cache";
 import {IMixtureBaseSource} from "@/puff-smith/service/mixture/inventory/base/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
@@ -11,6 +12,7 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 		name: "mixture.inventory.base",
 		prisma,
 		map: async mixture => baseSource().map(mixture?.base),
+		cache: MixtureBaseCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {
 				const userId = source.user.required();

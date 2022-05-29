@@ -1,4 +1,5 @@
 import {IAromaTasteSource} from "@/puff-smith/service/aroma/taste/interface";
+import {AromaTasteCache} from "@/puff-smith/service/mixture/inventory/aroma/taste/cache";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {Source} from "@leight-core/server";
@@ -11,6 +12,7 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 		name: "mixture.inventory.aroma.taste",
 		prisma,
 		map: aromaTaste => tagSource().map(aromaTaste?.taste),
+		cache: AromaTasteCache,
 		source: {
 			count: async () => source.prisma.aromaTaste.count({
 				distinct: ["tasteId"],

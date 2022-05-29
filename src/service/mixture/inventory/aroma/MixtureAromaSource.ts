@@ -1,4 +1,5 @@
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
+import {MixtureAromaCache} from "@/puff-smith/service/mixture/inventory/aroma/cache";
 import {IMixtureAromaSource} from "@/puff-smith/service/mixture/inventory/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
@@ -11,6 +12,7 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 		name: "mixture.inventory.aroma",
 		prisma,
 		map: async mixture => aromaSource().map(mixture?.aroma),
+		cache: MixtureAromaCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {
 				const userId = source.user.required();

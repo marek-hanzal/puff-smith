@@ -5,5 +5,10 @@ import {IMixture, IMixtureEntity, IMixtureQuery, IWithMixtureDraw} from "@/puff-
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {ISource} from "@leight-core/api";
 
-export interface IMixtureInventorySource extends ISource<undefined, IMixtureEntity<IWithMixtureDraw & IWithAroma<IWithVendor & IWithAromaTaste> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>, IMixture, IMixtureQuery> {
+export type IMixtureEntityExpanded =
+	IMixtureEntity<IWithMixtureDraw & IWithAroma<IWithVendor & IWithAromaTaste> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor>>
+	& IWithNullBaseEntity<IWithVendor>
+	& IWithNullBoosterEntity<IWithVendor>;
+
+export interface IMixtureInventorySource extends ISource<undefined, IMixtureEntityExpanded, IMixture, IMixtureQuery> {
 }
