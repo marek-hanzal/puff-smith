@@ -1,3 +1,4 @@
+import {MixtureInventoryBaseJob} from "@/puff-smith/jobs/mixture/job";
 import {BaseSource} from "@/puff-smith/service/base/BaseSource";
 import {IBaseInventorySource} from "@/puff-smith/service/base/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -41,29 +42,33 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, ...baseInventory}) => prisma.$transaction(async prisma => {
+				const userId = source.user.required();
 				const transactionSource = TransactionSource().withPrisma(prisma);
 				const $base = await BaseSource().withPrisma(prisma).get(baseInventory.baseId);
-				const userId = source.user.required();
 				return transactionSource.handleTransaction({
 					userId,
 					cost: $base.cost,
 					note: `Purchase of base [${$base.vendor.name} ${$base.name}]`,
-					callback: async transaction => prisma.baseInventory.create({
-						data: {
-							code: code || codeService().code(),
-							baseId: $base.id,
-							transactionId: transaction.id,
-							userId,
-						},
-						include: {
-							base: {
-								include: {
-									vendor: true,
-								}
+					callback: async transaction => {
+						const baseInventory = await prisma.baseInventory.create({
+							data: {
+								code: code || codeService().code(),
+								baseId: $base.id,
+								transactionId: transaction.id,
+								userId,
 							},
-							transaction: true,
-						}
-					}),
+							include: {
+								base: {
+									include: {
+										vendor: true,
+									}
+								},
+								transaction: true,
+							}
+						});
+						await MixtureInventoryBaseJob.async({baseId: $base.id}, userId);
+						return baseInventory;
+					},
 				});
 			}),
 			delete: async ids => {

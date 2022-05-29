@@ -1,12 +1,25 @@
-import {IMixtureJobParams, IMixturesJobParams, MIXTURE_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
+import {
+	IMixtureInventoryAromaJobParams,
+	IMixtureInventoryBaseJobParams,
+	IMixtureInventoryBoosterJobParams,
+	IMixtureJobParams,
+	IMixturesJobParams,
+	MIXTURE_INVENTORY_AROMA_JOB,
+	MIXTURE_INVENTORY_BASE_JOB,
+	MIXTURE_INVENTORY_BOOSTER_JOB,
+	MIXTURE_JOB,
+	MIXTURES_JOB
+} from "@/puff-smith/jobs/mixture/interface";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJobProcessor} from "@leight-core/api";
+import {IJobHandlerRequest, IJobProcessor} from "@leight-core/api";
+import AsyncLock from "async-lock";
 import PQueue from "p-queue";
 
 const jobService = JobSource();
+const lock = new AsyncLock();
 
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
@@ -114,6 +127,195 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		}
 	}
 	await $queue.onIdle();
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));
+
+const mixtureInventoryUpdate = async <T>(where: T, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
+	if (!userId) {
+		throw new Error("User not provided!");
+	}
+
+	await jobProgress.setTotal(await prisma.mixture.count({
+		where,
+	}));
+
+	const $mixtures = await prisma.mixture.findMany({
+		where,
+		select: {
+			id: true,
+		}
+	});
+	for (const {id: mixtureId} of $mixtures) {
+		await progress(async () => prisma.mixtureInventory.upsert({
+			where: {
+				mixtureId_userId: {
+					mixtureId,
+					userId,
+				},
+			},
+			create: {
+				mixtureId,
+				userId,
+			},
+			update: {},
+		}), 50);
+	}
+};
+
+export const MixtureInventoryAromaJob: IJobProcessor<IMixtureInventoryAromaJobParams> = jobService.processor(MIXTURE_INVENTORY_AROMA_JOB, async params => {
+	await lock.acquire(`mixture.inventory.aroma.${params.userId}`, async () => {
+		params.logger.debug("Mixture inventory aroma update.", {userId: params.userId, aromaId: params.job.params.aromaId});
+
+		if (!params.userId) {
+			throw new Error("User not provided!");
+		}
+
+		return mixtureInventoryUpdate({
+			aromaId: params.job.params.aromaId,
+			aroma: {
+				AromaInventory: {
+					some: {
+						userId: params.userId,
+					},
+				},
+			},
+			AND: [
+				{
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId: params.userId,
+									},
+								},
+							},
+						},
+						{boosterId: null},
+					]
+				},
+				{
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId: params.userId,
+									},
+								},
+							},
+						},
+						{baseId: null},
+					]
+				}
+			],
+		}, params);
+	});
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));
+
+export const MixtureInventoryBoosterJob: IJobProcessor<IMixtureInventoryBoosterJobParams> = jobService.processor(MIXTURE_INVENTORY_BOOSTER_JOB, async params => {
+	await lock.acquire(`mixture.inventory.booster.${params.userId}`, async () => {
+		params.logger.debug("Mixture inventory booster update.", {userId: params.userId, boosterId: params.job.params.boosterId});
+
+		if (!params.userId) {
+			throw new Error("User not provided!");
+		}
+
+		return mixtureInventoryUpdate({
+			aroma: {
+				AromaInventory: {
+					some: {
+						userId: params.userId,
+					},
+				},
+			},
+			AND: [
+				{
+					boosterId: params.job.params.boosterId,
+					booster: {
+						BoosterInventory: {
+							some: {
+								userId: params.userId,
+							},
+						},
+					},
+				},
+				{
+					OR: [
+						{
+							base: {
+								BaseInventory: {
+									some: {
+										userId: params.userId,
+									},
+								},
+							},
+						},
+						{baseId: null},
+					]
+				}
+			],
+		}, params);
+	});
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));
+
+export const MixtureInventoryBaseJob: IJobProcessor<IMixtureInventoryBaseJobParams> = jobService.processor(MIXTURE_INVENTORY_BASE_JOB, async params => {
+	await lock.acquire(`mixture.inventory.base.${params.userId}`, async () => {
+		params.logger.debug("Mixture inventory base update.", {userId: params.userId, baseId: params.job.params.baseId});
+
+		if (!params.userId) {
+			throw new Error("User not provided!");
+		}
+
+		return mixtureInventoryUpdate({
+			aroma: {
+				AromaInventory: {
+					some: {
+						userId: params.userId,
+					},
+				},
+			},
+			AND: [
+				{
+					baseId: params.job.params.baseId,
+					base: {
+						BaseInventory: {
+							some: {
+								userId: params.userId,
+
+							},
+						},
+					},
+				},
+				{
+					OR: [
+						{
+							booster: {
+								BoosterInventory: {
+									some: {
+										userId: params.userId,
+
+									},
+								},
+							},
+						},
+						{boosterId: null},
+					]
+				}
+			],
+		}, params);
+	});
 }, options => new PQueue({
 	...options,
 	concurrency: 5,

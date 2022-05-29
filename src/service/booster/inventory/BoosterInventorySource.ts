@@ -1,3 +1,4 @@
+import {MixtureInventoryBoosterJob} from "@/puff-smith/jobs/mixture/job";
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -42,29 +43,32 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 			}),
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const boosterSource = BoosterSource().withPrisma(prisma);
 				const transactionSource = TransactionSource().withPrisma(prisma);
-				const $booster = await boosterSource.get(booster.boosterId);
+				const $booster = await BoosterSource().withPrisma(prisma).get(booster.boosterId);
 				return transactionSource.handleTransaction({
 					userId,
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
-					callback: async transaction => prisma.boosterInventory.create({
-						data: {
-							code: code || codeService().code(),
-							boosterId: $booster.id,
-							transactionId: transaction.id,
-							userId,
-						},
-						include: {
-							booster: {
-								include: {
-									vendor: true,
-								}
+					callback: async transaction => {
+						const boosterInventory = prisma.boosterInventory.create({
+							data: {
+								code: code || codeService().code(),
+								boosterId: $booster.id,
+								transactionId: transaction.id,
+								userId,
 							},
-							transaction: true,
-						},
-					}),
+							include: {
+								booster: {
+									include: {
+										vendor: true,
+									}
+								},
+								transaction: true,
+							},
+						});
+						await MixtureInventoryBoosterJob.async({boosterId: $booster.id}, userId);
+						return boosterInventory;
+					},
 				});
 			}),
 			delete: async ids => {

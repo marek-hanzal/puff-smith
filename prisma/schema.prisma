@@ -58,6 +58,7 @@ model User {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   WireInventory     WireInventory[]
+  MixtureInventory  MixtureInventory[]
 }
 
 model VerificationToken {
@@ -630,6 +631,17 @@ model Mixture {
   MixtureDraw MixtureDraw[]
 
   @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
+  MixtureInventory MixtureInventory[]
+}
+
+model MixtureInventory {
+  id        String  @id @default(cuid())
+  mixtureId String
+  mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([mixtureId, userId])
 }
 
 model MixtureDraw {
