@@ -8,7 +8,7 @@ export interface IWireNameInlineProps extends Partial<SpaceProps> {
 
 export const WireNameInline: FC<IWireNameInlineProps> = ({wire, ...props}) => {
 	return <Space {...props}>
-		{wire.name}
+		<Typography.Text>{wire.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{wire.vendor.name}</Typography.Text>
 	</Space>;
 };
