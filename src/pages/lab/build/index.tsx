@@ -23,7 +23,7 @@ export default withLabLayout(function Index() {
 		<BuildProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			defaultOrderBy={{
-				created: "asc",
+				created: "desc",
 			}}
 		>
 			<SelectionProvider type={"multi"}>

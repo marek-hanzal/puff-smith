@@ -57,7 +57,7 @@ export const CoilSource = (): ICoilSource => {
 				const create = {
 					...coil,
 					code: code || codeService().code(),
-					name: name || `${$wire.name} ⌀${Math.round(coil.size * 1000) / 1000} ↺${coil.wraps}`,
+					name: name || `${$wire.name} o${Math.round(coil.size * 1000) / 1000}⌀ x${coil.wraps}↺`,
 					wireId: $wire.id,
 					CoilDraw: {
 						createMany: {

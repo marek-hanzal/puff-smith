@@ -18,7 +18,7 @@ export interface ICottonQuery extends IQuery<ICottonWhere, Prisma.CottonOrderByW
 }
 
 export type ICottonEntity<T = void> = T extends void ? Cotton : Cotton & T;
-export type IWithCottonEntity<T = void> = { cotton: ICottonEntity<T>; };
+export type IWithCotton<T = void> = { cotton: ICottonEntity<T>; };
 export type IWithCottonDraw = { CottonDraw: { draw: ITagEntity; }[] };
 
 export interface ICotton {

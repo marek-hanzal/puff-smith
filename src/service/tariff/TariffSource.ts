@@ -52,14 +52,14 @@ export const TariffSource = (): ITariffSource => {
 		transactionOf: async ({tariff, fallback, userId, callback, price, note}) => {
 			let $price: Price;
 			try {
-				$price = await priceSource().priceOf(tariff, price);
+				$price = await priceSource().ofSource(source).priceOf(tariff, price);
 			} catch (e) {
 				if (!fallback) {
 					throw e;
 				}
-				$price = await priceSource().priceOf(fallback, price);
+				$price = await priceSource().ofSource(source).priceOf(fallback, price);
 			}
-			return transactionSource().handleTransaction({
+			return transactionSource().ofSource(source).handleTransaction({
 				userId,
 				cost: $price.price.toNumber(),
 				callback: async transaction => callback(await source.prisma.tariff.findFirst({

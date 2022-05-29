@@ -286,6 +286,7 @@ model Atomizer {
 
   AtomizerInventory AtomizerInventory[]
   AtomizerComment   AtomizerComment[]
+  Build             Build[]
 
   @@unique([name, vendorId])
 }
@@ -409,6 +410,7 @@ model Cotton {
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
   CottonDraw      CottonDraw[]
+  Build           Build[]
 
   @@unique([name, vendorId])
 }
@@ -676,8 +678,15 @@ model Build {
   created       DateTime
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atomizerId    String
+  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  coilId        String
+  coil          Coil        @relation(fields: [coilId], references: [id], onDelete: Cascade)
+  cottonId      String
+  cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  ohm           Decimal     @db.Decimal(5, 3)
   archived      Boolean
 }
 
@@ -696,6 +705,7 @@ model Coil {
   CoilDraw CoilDraw[]
 
   @@unique([name, wireId])
+  Build Build[]
 }
 
 model CoilDraw {

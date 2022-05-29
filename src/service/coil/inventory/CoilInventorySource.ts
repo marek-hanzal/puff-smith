@@ -22,11 +22,13 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 								mode: "insensitive",
 							}
 						})),
-						CoilInventory: {
-							some: {
-								userId: source.user.required(),
+						wire: {
+							WireInventory: {
+								some: {
+									userId: source.user.required(),
+								},
 							},
-						},
+						}
 					}),
 				});
 			},
@@ -35,16 +37,32 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 				return source.prisma.coil.findMany({
 					where: merge(filter, {
 						AND: $fulltext?.map(fulltext => ({
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							}
+							OR: [
+								{
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+								{
+									wire: {
+										vendor: {
+											name: {
+												contains: fulltext,
+												mode: "insensitive",
+											},
+										},
+									},
+								},
+							],
 						})),
-						CoilInventory: {
-							some: {
-								userId: source.user.required(),
+						wire: {
+							WireInventory: {
+								some: {
+									userId: source.user.required(),
+								},
 							},
-						},
+						}
 					}),
 					orderBy,
 					include: {

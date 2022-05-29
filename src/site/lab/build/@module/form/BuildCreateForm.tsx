@@ -1,9 +1,10 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {AtomizerSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerSelect";
 import {CoilSelect} from "@/puff-smith/site/inventory/coil/@module/form/CoilSelect";
+import {CottonSelect} from "@/puff-smith/site/inventory/cotton/@module/form/CottonSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/build/create";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
-import {message} from "antd";
+import {Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/client";
+import {InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -24,10 +25,29 @@ export const BuildCreateForm: FC<IBuildCreateFormProps> = props => {
 		{...props}
 	>
 		<FormItem field={"atomizerId"} required>
-			<AtomizerSelect/>
+			<AtomizerSelect
+				allowClear
+			/>
+		</FormItem>
+		<FormItem field={"cottonId"} required>
+			<CottonSelect
+				allowClear
+			/>
 		</FormItem>
 		<FormItem field={"coilId"} required>
-			<CoilSelect/>
+			<CoilSelect
+				allowClear
+			/>
+		</FormItem>
+		<FormItem field={"ohm"} required hasTooltip>
+			<InputNumber
+				style={{width: "100%"}}
+				min={0.05}
+				max={4}
+			/>
+		</FormItem>
+		<FormItem field={"created"} hasTooltip>
+			<DatePicker/>
 		</FormItem>
 		<SwitchItem field={"archive"} hasTooltip/>
 		<Centered>

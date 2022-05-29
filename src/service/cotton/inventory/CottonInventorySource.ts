@@ -27,6 +27,24 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cottonInventory.findMany({
 				where: merge(filter, {
+					cotton: {
+						OR: [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							}
+						],
+					},
 					userId: source.user.required(),
 				}),
 				orderBy,

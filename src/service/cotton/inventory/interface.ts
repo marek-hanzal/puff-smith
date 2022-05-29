@@ -1,4 +1,4 @@
-import {ICotton, IWithCottonDraw, IWithCottonEntity} from "@/puff-smith/service/cotton/interface";
+import {ICotton, IWithCotton, IWithCottonDraw} from "@/puff-smith/service/cotton/interface";
 import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
@@ -23,5 +23,5 @@ export interface ICottonInventoryQuery extends IQuery<Prisma.CottonInventoryWher
 
 export type ICottonInventoryEntity<T = void> = T extends void ? CottonInventory : CottonInventory & T;
 
-export interface ICottonInventorySource extends ISource<ICottonInventoryCreate, ICottonInventoryEntity<IWithCottonEntity<IWithVendor & IWithCottonDraw> & IWithTransaction>, ICottonInventory, ICottonInventoryQuery> {
+export interface ICottonInventorySource extends ISource<ICottonInventoryCreate, ICottonInventoryEntity<IWithCotton<IWithVendor & IWithCottonDraw> & IWithTransaction>, ICottonInventory, ICottonInventoryQuery> {
 }
