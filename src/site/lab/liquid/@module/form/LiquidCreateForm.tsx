@@ -1,7 +1,7 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/liquid/create";
+import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/liquid/create";
 import {useCheckPriceQueryInvalidate} from "@/sdk/api/transaction/check-price";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";

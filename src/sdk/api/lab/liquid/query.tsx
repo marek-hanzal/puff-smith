@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const LiquidApiLink = "/api/liquid/query";
-export const LiquidCountApiLink = "/api/liquid/query/count";
+export const LiquidApiLink = "/api/lab/liquid/query";
+export const LiquidCountApiLink = "/api/lab/liquid/query/count";
 
 export type ILiquidQueryParams = undefined;
 
@@ -118,7 +118,7 @@ export const LiquidListSource: FC<ILiquidListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</LiquidProvider>;
-}
+};
 
 export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidSource>>;
@@ -161,7 +161,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
-}
+};
 
 export const useLiquidQueryInvalidate = () => {
 	const queryClient = useQueryClient();

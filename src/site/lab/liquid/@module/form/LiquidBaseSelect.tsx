@@ -1,5 +1,5 @@
 import {BaseNameInline} from "@/puff-smith/site/shared/base/@module/inline/BaseNameInline";
-import {BaseSourceSelect, IBaseSourceSelectProps} from "@/sdk/api/liquid/base/query";
+import {BaseSourceSelect, IBaseSourceSelectProps} from "@/sdk/api/lab/liquid/base/query";
 import {FC} from "react";
 
 export interface ILiquidBaseSelectProps extends Partial<IBaseSourceSelectProps> {

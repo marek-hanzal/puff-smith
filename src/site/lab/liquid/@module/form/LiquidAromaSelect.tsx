@@ -1,5 +1,5 @@
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromaSourceSelect, IAromaSourceSelectProps} from "@/sdk/api/liquid/aroma/query";
+import {AromaSourceSelect, IAromaSourceSelectProps} from "@/sdk/api/lab/liquid/aroma/query";
 import {FC} from "react";
 
 export interface ILiquidAromaSelectProps extends Partial<IAromaSourceSelectProps> {

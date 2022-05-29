@@ -1,6 +1,6 @@
 import {DeleteConfirmButton} from "@/puff-smith/component/button/DeleteConfirmButton";
-import {useDeleteMutation} from "@/sdk/api/liquid/delete";
-import {useLiquidCountQueryInvalidate, useLiquidQueryInvalidate} from "@/sdk/api/liquid/query";
+import {useDeleteMutation} from "@/sdk/api/lab/liquid/delete";
+import {useLiquidCountQueryInvalidate, useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
 import {ButtonBar, IButtonBarProps} from "@leight-core/client";
 import {FC} from "react";
 

@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const AromaApiLink = "/api/liquid/aroma/query";
-export const AromaCountApiLink = "/api/liquid/aroma/query/count";
+export const AromaApiLink = "/api/lab/liquid/aroma/query";
+export const AromaCountApiLink = "/api/lab/liquid/aroma/query/count";
 
 export type IAromaQueryParams = undefined;
 
@@ -118,7 +118,7 @@ export const AromaListSource: FC<IAromaListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</AromaProvider>;
-}
+};
 
 export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidAromaSource>>;
@@ -161,7 +161,7 @@ export interface IAromaSelectionProviderProps extends Partial<ISelectionProvider
 
 export const AromaSelectionProvider: FC<IAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidAromaSource>> {...props}/>;
-}
+};
 
 export const useAromaQueryInvalidate = () => {
 	const queryClient = useQueryClient();

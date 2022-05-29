@@ -1,7 +1,7 @@
 import {LiquidAromaSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidAromaSelect";
 import {LiquidBaseSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBaseSelect";
 import {LiquidBoosterSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBoosterSelect";
-import {ILiquidProviderFilterProps, LiquidProviderControl, LiquidProviderFilter} from "@/sdk/api/liquid/query";
+import {ILiquidProviderFilterProps, LiquidProviderControl, LiquidProviderFilter} from "@/sdk/api/lab/liquid/query";
 import {FormItem} from "@leight-core/client";
 import {FC} from "react";
 

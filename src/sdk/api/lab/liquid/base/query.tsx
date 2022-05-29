@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const BaseApiLink = "/api/liquid/base/query";
-export const BaseCountApiLink = "/api/liquid/base/query/count";
+export const BaseApiLink = "/api/lab/liquid/base/query";
+export const BaseCountApiLink = "/api/lab/liquid/base/query/count";
 
 export type IBaseQueryParams = undefined;
 
@@ -118,7 +118,7 @@ export const BaseListSource: FC<IBaseListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</BaseProvider>;
-}
+};
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBaseSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidBaseSource>>;
@@ -161,7 +161,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidBaseSource>> {...props}/>;
-}
+};
 
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

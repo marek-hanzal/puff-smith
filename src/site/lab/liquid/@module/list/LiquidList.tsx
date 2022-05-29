@@ -7,7 +7,7 @@ import {LiquidListEmpty} from "@/puff-smith/site/lab/liquid/@module/list/LiquidL
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {LiquidSteeping} from "@/puff-smith/site/shared/liquid/@module/inline/LiquidSteeping";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
-import {ILiquidListSourceProps, LiquidListSource} from "@/sdk/api/liquid/query";
+import {ILiquidListSourceProps, LiquidListSource} from "@/sdk/api/lab/liquid/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";

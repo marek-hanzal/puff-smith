@@ -40,8 +40,8 @@ import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
 import {useQueryClient} from "react-query";
 
-export const BoosterApiLink = "/api/liquid/booster/query";
-export const BoosterCountApiLink = "/api/liquid/booster/query/count";
+export const BoosterApiLink = "/api/lab/liquid/booster/query";
+export const BoosterCountApiLink = "/api/lab/liquid/booster/query/count";
 
 export type IBoosterQueryParams = undefined;
 
@@ -118,7 +118,7 @@ export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</BoosterProvider>;
-}
+};
 
 export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBoosterSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidBoosterSource>>;
@@ -161,7 +161,7 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidBoosterSource>> {...props}/>;
-}
+};
 
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();

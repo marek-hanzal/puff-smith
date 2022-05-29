@@ -6,7 +6,7 @@ import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
 import {ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, toLink} from "@leight-core/client";
 
-export const DeleteApiLink = "/api/liquid/delete";
+export const DeleteApiLink = "/api/lab/liquid/delete";
 
 export type IDeleteQueryParams = undefined;
 
