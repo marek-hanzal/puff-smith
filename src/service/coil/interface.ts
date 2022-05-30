@@ -29,6 +29,8 @@ export interface ICoil {
 	id: string;
 	name: string;
 	code: string;
+	wraps: number;
+	size: number;
 	wireId: string;
 	wire: IWire;
 	draws: ITag[];

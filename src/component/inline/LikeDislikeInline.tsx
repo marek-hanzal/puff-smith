@@ -8,7 +8,7 @@ import {UseMutationResult} from "react-query";
 export interface ILikeDislikeInlineProps {
 	id: string;
 	rating?: number | null;
-	mutator: UseMutationResult<any, any, { rating?: number | null; } & IWithIdentity>;
+	mutator: UseMutationResult<any, any, IWithIdentity & { rating?: number | null; }>;
 	onSuccess?: () => Promise<any>;
 }
 

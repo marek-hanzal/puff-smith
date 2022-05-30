@@ -244,7 +244,11 @@ export const BuildSource = (): IBuildSource => {
 				}),
 				patch: async patch => source.prisma.build.update({
 					where: {id: patch.id},
-					data: patch,
+					data: {
+						...patch,
+						code: patch.code || undefined,
+						created: undefined,
+					},
 					include: {
 						atomizer: {
 							include: {

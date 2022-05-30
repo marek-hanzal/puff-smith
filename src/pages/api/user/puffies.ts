@@ -1,4 +1,4 @@
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {FetchEndpoint} from "@leight-core/server";
+import {GetEndpoint} from "@leight-core/server";
 
-export default FetchEndpoint<"Puffies", number>(async ({user}) => TransactionSource().withUser(user).sumOf());
+export default GetEndpoint<"Puffies", number>(async ({user}) => TransactionSource().withUser(user).sumOf());

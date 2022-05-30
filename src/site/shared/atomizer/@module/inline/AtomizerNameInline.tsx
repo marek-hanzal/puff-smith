@@ -8,7 +8,7 @@ export interface IAtomizerNameInlineProps extends Partial<SpaceProps> {
 
 export const AtomizerNameInline: FC<IAtomizerNameInlineProps> = ({atomizer, ...props}) => {
 	return <Space {...props}>
-		{atomizer.name}
+		<Typography.Text>{atomizer.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{atomizer.vendor.name}</Typography.Text>
 	</Space>;
 };

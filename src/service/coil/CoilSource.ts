@@ -14,12 +14,18 @@ export const CoilSource = (): ICoilSource => {
 	const source: ICoilSource = Source<ICoilSource>({
 		name: "coil",
 		prisma,
-		map: async coil => coil ? {
-			...coil,
-			size: coil.size.toNumber(),
-			wire: await wireSource().mapper.map(coil.wire),
-			draws: await tagSource().mapper.list(Promise.resolve(coil.CoilDraw.map(({draw}) => draw))),
-		} : undefined,
+		map: async coil => {
+			if (!coil) {
+				return;
+			}
+			const {CoilDraw, ...$coil} = coil;
+			return {
+				...$coil,
+				size: coil.size.toNumber(),
+				wire: await wireSource().mapper.map(coil.wire),
+				draws: await tagSource().mapper.list(Promise.resolve(CoilDraw.map(({draw}) => draw))),
+			};
+		},
 		source: {
 			get: async id => source.prisma.coil.findUnique({
 				where: {id},

@@ -1,8 +1,8 @@
 import {FileSource} from "@/puff-smith/service/file/FileSource";
-import {FetchEndpoint} from "@leight-core/server";
+import {GetEndpoint} from "@leight-core/server";
 import fs from "node:fs";
 
-export default FetchEndpoint<"Download", string, { fileId: string }>(async ({res, query: {fileId}}) => {
+export default GetEndpoint<"Download", string, { fileId: string }>(async ({res, query: {fileId}}) => {
 	try {
 		const file = await FileSource().get(fileId);
 		res.writeHead(200, {
