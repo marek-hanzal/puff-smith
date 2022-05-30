@@ -242,6 +242,64 @@ export const BuildSource = (): IBuildSource => {
 						}
 					});
 				}),
+				patch: async patch => source.prisma.build.update({
+					where: {id: patch.id},
+					data: patch,
+					include: {
+						atomizer: {
+							include: {
+								vendor: true,
+								AtomizerDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
+							},
+						},
+						coil: {
+							include: {
+								CoilDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								},
+								wire: {
+									include: {
+										vendor: true,
+										WireFiber: {
+											include: {
+												fiber: {
+													include: {
+														material: true,
+													}
+												}
+											}
+										},
+										WireDraw: {
+											orderBy: {draw: {sort: "asc"}},
+											include: {
+												draw: true,
+											}
+										}
+									}
+								}
+							}
+						},
+						cotton: {
+							include: {
+								vendor: true,
+								CottonDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
+							},
+						},
+					},
+				}),
 				delete: async ids => {
 					const where = {
 						id: {

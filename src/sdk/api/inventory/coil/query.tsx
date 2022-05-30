@@ -119,7 +119,7 @@ export const CoilInventoryListSource: FC<ICoilInventoryListSourceProps> = ({prov
 			{...props}
 		/>
 	</CoilInventoryProvider>;
-};
+}
 
 export interface ICoilInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICoilInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<ICoilInventorySource>>;
@@ -162,7 +162,7 @@ export interface ICoilInventorySelectionProviderProps extends Partial<ISelection
 
 export const CoilInventorySelectionProvider: FC<ICoilInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICoilInventorySource>> {...props}/>;
-};
+}
 
 export const useCoilInventoryQueryInvalidate = () => {
 	const queryClient = useQueryClient();

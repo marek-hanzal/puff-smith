@@ -19,6 +19,9 @@ export default withLabLayout(function Index() {
 			icon={<BuildIcon/>}
 			label={"lab.build.create.button"}
 		/>}
+		withHelp={{
+			translation: "lab.build.index",
+		}}
 	>
 		<BuildProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
@@ -28,8 +31,9 @@ export default withLabLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<BuildList
-					header={() => <RowInline>
-						<BuildListToolbar/>
+					header={() => <RowInline
+						extra={<BuildListToolbar/>}
+					>
 					</RowInline>}
 				/>
 			</SelectionProvider>

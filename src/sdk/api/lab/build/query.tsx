@@ -118,7 +118,7 @@ export const BuildListSource: FC<IBuildListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</BuildProvider>;
-};
+}
 
 export interface IBuildSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildSource>>;
@@ -161,7 +161,7 @@ export interface IBuildSelectionProviderProps extends Partial<ISelectionProvider
 
 export const BuildSelectionProvider: FC<IBuildSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildSource>> {...props}/>;
-};
+}
 
 export const useBuildQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -16,6 +16,7 @@ export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation,
 	const selectionContext = useAromaSelectionContext();
 	return <ModalButton
 		button={{
+			type: "link",
 			disabled: selectionContext.isEmpty(),
 			icon: <DeleteItemIcon/>,
 			danger: true,

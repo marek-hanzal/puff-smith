@@ -22,6 +22,7 @@ export interface IBuild {
 	id: string;
 	code: string;
 	ohm: number;
+	rating?: number | null;
 	coil: ICoil;
 	coilId: string;
 	atomizer: IAtomizer;
