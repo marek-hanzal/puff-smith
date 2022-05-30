@@ -182,6 +182,7 @@ model Comment {
   ModComment      ModComment[]
   CottonComment   CottonComment[]
   AromaComment    AromaComment[]
+  BuildComment    BuildComment[]
 }
 
 model Tag {
@@ -673,22 +674,31 @@ enum MixtureError {
 }
 
 model Build {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String         @id @default(cuid())
+  code          String         @unique
   created       DateTime
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   atomizerId    String
-  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  atomizer      Atomizer       @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
   coilId        String
-  coil          Coil        @relation(fields: [coilId], references: [id], onDelete: Cascade)
+  coil          Coil           @relation(fields: [coilId], references: [id], onDelete: Cascade)
   cottonId      String
-  cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  cotton        Cotton         @relation(fields: [cottonId], references: [id], onDelete: Cascade)
   transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  ohm           Decimal     @db.Decimal(5, 3)
-  rating		Int?
+  transaction   Transaction    @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  ohm           Decimal        @db.Decimal(5, 3)
+  rating        Int?
   archived      Boolean
+  BuildComment  BuildComment[]
+}
+
+model BuildComment {
+  id        String  @id @default(cuid())
+  buildId   String
+  build     Build   @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 // One of heating types for atomizer
@@ -704,9 +714,9 @@ model Coil {
   wire   Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
+  Build Build[]
 
   @@unique([name, wireId])
-  Build Build[]
 }
 
 model CoilDraw {
