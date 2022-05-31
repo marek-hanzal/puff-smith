@@ -5,13 +5,12 @@ import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
-import {SmileOutlined} from "@ant-design/icons";
+import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Coil({build}: IBuildFetch) {
 	return <LabPage
 		title={"lab.build.coil"}
-		tabTitle={"lab.build.coil.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}
@@ -22,10 +21,10 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 		}}
 	>
 		<Template
-			icon={<SmileOutlined/>}
-			title={"Not Yet!"}
-			subTitle={"To be continue..."}
-		/>
+			title={build.coil.name}
+		>
+			<CoilView coil={build.coil}/>
+		</Template>
 	</LabPage>;
 });
 

@@ -5,13 +5,13 @@ import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
-import {SmileOutlined} from "@ant-design/icons";
+import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
+import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 	return <LabPage
 		title={"lab.build.atomizer"}
-		tabTitle={"lab.build.atomizer.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}
@@ -22,10 +22,10 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 		}}
 	>
 		<Template
-			icon={<SmileOutlined/>}
-			title={"Not Yet!"}
-			subTitle={"To be continue..."}
-		/>
+			title={<AtomizerNameInline atomizer={build.atomizer}/>}
+		>
+			<AtomizerView atomizer={build.atomizer}/>
+		</Template>
 	</LabPage>;
 });
 

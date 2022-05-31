@@ -18,7 +18,6 @@ export default withLabLayout(function Index() {
 			menuSelection={["/lab/build"]}
 			icon={<BuildIcon/>}
 			extra={<ButtonBar size={8}>
-				<BuildListToolbar/>
 				<ButtonLink
 					type={"primary"}
 					href={"/lab/build/create"}
@@ -30,7 +29,7 @@ export default withLabLayout(function Index() {
 				translation: "lab.build.index",
 			}}
 		>
-			<Tabs size={"large"}>
+			<Tabs size={"large"} tabBarExtraContent={<BuildListToolbar/>}>
 				<Tabs.TabPane key={"active"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.active.tab"}/>}>
 					<BuildProviderControl
 						defaultSize={DEFAULT_LIST_SIZE}

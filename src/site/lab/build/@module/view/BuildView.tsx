@@ -1,3 +1,4 @@
+import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
@@ -8,19 +9,18 @@ import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inli
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
-import {BoolInline, Preview} from "@leight-core/client";
+import {CommentOutlined} from "@ant-design/icons";
+import {BoolInline, Preview, TabInline} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
 export interface IBuildViewProps {
 	build: IBuild;
 }
 
 export const BuildView: FC<IBuildViewProps> = ({build}) => {
-	const {t} = useTranslation();
-	return <Tabs>
-		<Tabs.TabPane key={"info"} tab={t("lab.build.info.tab")}>
+	return <Tabs size={"large"}>
+		<Tabs.TabPane key={"info"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.info.tab"}/>}>
 			<Row gutter={32}>
 				<Col span={12}>
 					<Preview translation={"lab.build.view"}>
@@ -46,7 +46,7 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 				</Col>
 			</Row>
 		</Tabs.TabPane>
-		<Tabs.TabPane key={"comments"} tab={t("lab.build.comments.tab")}>
+		<Tabs.TabPane key={"comments"} tab={<TabInline icon={<CommentOutlined/>} title={"lab.build.comments.tab"}/>}>
 		</Tabs.TabPane>
 	</Tabs>;
 };

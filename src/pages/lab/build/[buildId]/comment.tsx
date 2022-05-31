@@ -10,7 +10,6 @@ import {Template} from "@leight-core/client";
 export default withLabLayout(function Comment({build}: IBuildFetch) {
 	return <LabPage
 		title={"lab.build.comment"}
-		tabTitle={"lab.build.comment.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}

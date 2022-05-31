@@ -5,13 +5,14 @@ import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
-import {SmileOutlined} from "@ant-design/icons";
-import {Template} from "@leight-core/client";
+import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
+import {FireOutlined} from "@ant-design/icons";
+import {TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
 	return <LabPage
 		title={"lab.build.liquid"}
-		tabTitle={"lab.build.liquid.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}
@@ -22,10 +23,17 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 		}}
 	>
 		<Template
-			icon={<SmileOutlined/>}
-			title={"Not Yet!"}
-			subTitle={"To be continue..."}
-		/>
+			title={<AtomizerNameInline atomizer={build.atomizer}/>}
+		>
+			<Tabs size={"large"}>
+				<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.liquid.recommended.tab"}/>}>
+
+				</Tabs.TabPane>
+				<Tabs.TabPane key={"liquids"} tab={<TabInline icon={<LiquidIcon/>} title={"lab.build.liquid.liquids.tab"}/>}>
+
+				</Tabs.TabPane>
+			</Tabs>
+		</Template>
 	</LabPage>;
 });
 

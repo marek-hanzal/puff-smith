@@ -5,13 +5,13 @@ import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
-import {SmileOutlined} from "@ant-design/icons";
+import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
+import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonView";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Cotton({build}: IBuildFetch) {
 	return <LabPage
 		title={"lab.build.cotton"}
-		tabTitle={"lab.build.cotton.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}
@@ -22,10 +22,10 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 		}}
 	>
 		<Template
-			icon={<SmileOutlined/>}
-			title={"Not Yet!"}
-			subTitle={"To be continue..."}
-		/>
+			title={<CottonNameInline cotton={build.cotton}/>}
+		>
+			<CottonView cotton={build.cotton}/>
+		</Template>
 	</LabPage>;
 });
 
