@@ -2,7 +2,7 @@ import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {ILiquidBoosterSource} from "@/puff-smith/service/liquid/booster/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidBoosterSource = (): ILiquidBoosterSource => {
 	const boosterSource = singletonOf(() => BoosterSource());
@@ -10,31 +10,40 @@ export const LiquidBoosterSource = (): ILiquidBoosterSource => {
 	const source: ILiquidBoosterSource = Source<ILiquidBoosterSource>({
 		name: "liquid.booster",
 		prisma,
-		map: boosterSource().mapper.map,
+		map: async liquid => boosterSource().map(liquid?.booster),
 		source: {
-			query: async ({filter}) => source.prisma.booster.findMany({
-				where: {
-					Liquid: {
-						some: {
-							userId: source.user.required(),
-						},
-					},
-					name: {
-						contains: filter?.fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: filter?.fulltext,
-							mode: "insensitive",
-						},
-					},
-				},
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
+				distinct: ["boosterId"],
+				where: merge(filter, {
+					userId: source.user.required(),
+					booster: {
+						OR: [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							}
+						],
+					}
+				}),
 				orderBy: [
-					{name: "asc"},
+					{booster: {name: "asc"}},
 				],
-				include: {
-					vendor: true,
+				select: {
+					booster: {
+						include: {
+							vendor: true,
+						}
+					}
 				},
 			}),
 		}

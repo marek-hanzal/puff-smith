@@ -33,6 +33,7 @@ export interface IAtomizer {
 	vendor: IVendor;
 	vendorId: string;
 	draws: ITag[];
+	drawIds: string[];
 }
 
 export interface IAtomizerFetch {

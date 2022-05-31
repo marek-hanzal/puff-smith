@@ -2,7 +2,7 @@ import {BaseSource} from "@/puff-smith/service/base/BaseSource";
 import {ILiquidBaseSource} from "@/puff-smith/service/liquid/base/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidBaseSource = (): ILiquidBaseSource => {
 	const baseSource = singletonOf(() => BaseSource());
@@ -10,31 +10,40 @@ export const LiquidBaseSource = (): ILiquidBaseSource => {
 	const source: ILiquidBaseSource = Source<ILiquidBaseSource>({
 		name: "liquid.base",
 		prisma,
-		map: baseSource().mapper.map,
+		map: async liquid => baseSource().map(liquid?.base),
 		source: {
-			query: async ({filter}) => source.prisma.base.findMany({
-				where: {
-					Liquid: {
-						some: {
-							userId: source.user.required(),
-						},
-					},
-					name: {
-						contains: filter?.fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: filter?.fulltext,
-							mode: "insensitive",
-						},
-					},
-				},
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
+				distinct: ["baseId"],
+				where: merge(filter, {
+					userId: source.user.required(),
+					base: {
+						OR: [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							}
+						],
+					}
+				}),
 				orderBy: [
-					{name: "asc"},
+					{base: {name: "asc"}},
 				],
-				include: {
-					vendor: true,
+				select: {
+					base: {
+						include: {
+							vendor: true,
+						}
+					}
 				},
 			}),
 		}

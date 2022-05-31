@@ -4,6 +4,7 @@ import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
+import {Tags} from "@/puff-smith/component/Tags";
 import {IBuild} from "@/puff-smith/service/build/interface";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
@@ -22,7 +23,7 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 	return <Tabs size={"large"}>
 		<Tabs.TabPane key={"info"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.info.tab"}/>}>
 			<Row gutter={32}>
-				<Col span={12}>
+				<Col span={8}>
 					<Preview translation={"lab.build.view"}>
 						{{
 							atomizer: <AtomizerNameInline atomizer={build.atomizer}/>,
@@ -33,7 +34,7 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 						}}
 					</Preview>
 				</Col>
-				<Col span={12}>
+				<Col span={8}>
 					<Preview translation={"lab.build.view"}>
 						{{
 							cotton: <CottonNameInline cotton={build.cotton}/>,
@@ -41,6 +42,15 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 							fiber: <WireFiberInline wire={build.coil.wire}/>,
 							wraps: <CoilWraps wraps={build.coil.wraps}/>,
 							size: <CoilSize size={build.coil.size}/>,
+						}}
+					</Preview>
+				</Col>
+				<Col span={8}>
+					<Preview translation={"lab.build.view"}>
+						{{
+							"atomizer.draw": <Tags tags={build.atomizer.draws} translation={"common.draw"}/>,
+							"coil.draw": <Tags tags={build.coil.draws} translation={"common.draw"}/>,
+							"wire.draw": <Tags tags={build.coil.wire.draws} translation={"common.draw"}/>,
 						}}
 					</Preview>
 				</Col>

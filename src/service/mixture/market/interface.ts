@@ -1,7 +1,7 @@
 import {IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
-import {IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
+import {IWithNullBase} from "@/puff-smith/service/base/interface";
 import {IBaseInventoryEntity} from "@/puff-smith/service/base/inventory/interface";
-import {IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
+import {IWithNullBooster} from "@/puff-smith/service/booster/interface";
 import {IBoosterInventoryEntity} from "@/puff-smith/service/booster/inventory/interface";
 import {IMixture, IMixtureEntity, IMixtureQuery, IWithMixtureDraw} from "@/puff-smith/service/mixture/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
@@ -13,7 +13,7 @@ export interface IMixtureMarket {
 	base: { isOwned: boolean | undefined };
 }
 
-export type  IMixtureMarketEntity = IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity<{ BaseInventory: IBaseInventoryEntity[] } & IWithVendor> & IWithNullBoosterEntity<{ BoosterInventory: IBoosterInventoryEntity[] } & IWithVendor> & IWithMixtureDraw>;
+export type  IMixtureMarketEntity = IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBase<{ BaseInventory: IBaseInventoryEntity[] } & IWithVendor> & IWithNullBooster<{ BoosterInventory: IBoosterInventoryEntity[] } & IWithVendor> & IWithMixtureDraw>;
 
 export interface IMixtureMarketSource extends ISource<undefined, IMixtureMarketEntity, IMixtureMarket, IMixtureQuery> {
 }

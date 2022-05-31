@@ -23,6 +23,7 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 	>
 		<Template
 			title={<AtomizerNameInline atomizer={build.atomizer}/>}
+			span={22}
 		>
 			<AtomizerView atomizer={build.atomizer}/>
 		</Template>

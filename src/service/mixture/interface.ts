@@ -1,6 +1,6 @@
 import {IAroma, IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
-import {IBase, IWithNullBaseEntity} from "@/puff-smith/service/base/interface";
-import {IBooster, IWithNullBoosterEntity} from "@/puff-smith/service/booster/interface";
+import {IBase, IWithNullBase} from "@/puff-smith/service/base/interface";
+import {IBooster, IWithNullBooster} from "@/puff-smith/service/booster/interface";
 import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
@@ -71,5 +71,5 @@ export interface IMixtureFetchParams extends ParsedUrlQuery {
 	mixtureId: string;
 }
 
-export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBaseEntity<IWithVendor> & IWithNullBoosterEntity<IWithVendor> & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
+export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
 }

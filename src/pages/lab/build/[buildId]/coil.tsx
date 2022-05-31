@@ -22,6 +22,7 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 	>
 		<Template
 			title={build.coil.name}
+			span={22}
 		>
 			<CoilView coil={build.coil}/>
 		</Template>

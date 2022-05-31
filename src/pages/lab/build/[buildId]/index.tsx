@@ -34,6 +34,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 						await buildQueryInvalidate();
 					}}
 				/>}
+				span={22}
 			>
 				<BuildView
 					build={build}

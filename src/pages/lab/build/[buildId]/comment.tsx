@@ -23,6 +23,7 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 			icon={<SmileOutlined/>}
 			title={"Not Yet!"}
 			subTitle={"To be continue..."}
+			span={22}
 		/>
 	</LabPage>;
 });

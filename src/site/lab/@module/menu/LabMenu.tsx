@@ -3,7 +3,6 @@ import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
-import {VapeIcon} from "@/puff-smith/component/icon/VapeIcon";
 import {hasToken} from "@/puff-smith/service/user/utils";
 import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {SlidersOutlined} from "@ant-design/icons";
@@ -21,7 +20,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 		items={[
 			CreateMenuItem("lab.home.menu", "/lab", <HomeIcon/>),
 			CreateMenuItem("lab.build.menu", "/lab/build", <BuildIcon/>),
-			CreateMenuItem("lab.vape.menu", "/lab/vape", <VapeIcon/>),
 			CreateMenuItem("lab.liquid.menu", "/lab/liquid", <LiquidIcon/>),
 			CreateMenuItem("lab.mixture.menu", "/lab/mixture", <MixtureIcon/>),
 			CreateMenuItem("lab.inventory.menu", "/to/inventory", <InventoryIcon/>),

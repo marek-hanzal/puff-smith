@@ -2,7 +2,7 @@ import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {ILiquidAromaSource} from "@/puff-smith/service/liquid/aroma/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidAromaSource = (): ILiquidAromaSource => {
 	const aromaSource = singletonOf(() => AromaSource());
@@ -10,31 +10,46 @@ export const LiquidAromaSource = (): ILiquidAromaSource => {
 	const source: ILiquidAromaSource = Source<ILiquidAromaSource>({
 		name: "liquid.aroma",
 		prisma,
-		map: aromaSource().mapper.map,
+		map: async liquid => aromaSource().map(liquid?.aroma),
 		source: {
-			query: async ({filter}) => source.prisma.aroma.findMany({
-				where: {
-					Liquid: {
-						some: {
-							userId: source.user.required(),
-						},
-					},
-					name: {
-						contains: filter?.fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: filter?.fulltext,
-							mode: "insensitive",
-						},
-					},
-				},
+			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
+				distinct: ["aromaId"],
+				where: merge(filter, {
+					userId: source.user.required(),
+					aroma: {
+						OR: [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							}
+						],
+					}
+				}),
 				orderBy: [
-					{name: "asc"},
+					{aroma: {name: "asc"}},
 				],
-				include: {
-					vendor: true,
+				select: {
+					aroma: {
+						include: {
+							vendor: true,
+							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
+								include: {
+									taste: true,
+								}
+							}
+						}
+					}
 				},
 			}),
 		}

@@ -18,8 +18,8 @@ export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRel
 }
 
 export type IBaseEntity<T = void> = T extends void ? Base : Base & T;
-export type IWithBaseEntity<T = void> = { base: IBaseEntity<T>; };
-export type IWithNullBaseEntity<T = void> = { base: IBaseEntity<T> | null; };
+export type IWithBase<T = void> = { base: IBaseEntity<T>; };
+export type IWithNullBase<T = void> = { base: IBaseEntity<T> | null; };
 
 export interface IBase {
 	id: string;

@@ -30,6 +30,7 @@ export const AromaSource = (): IAromaSource => {
 				include: {
 					vendor: true,
 					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
 						include: {
 							taste: true,
 						}
@@ -79,6 +80,7 @@ export const AromaSource = (): IAromaSource => {
 				include: {
 					vendor: true,
 					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
 						include: {
 							taste: true,
 						}
@@ -113,6 +115,7 @@ export const AromaSource = (): IAromaSource => {
 						include: {
 							vendor: true,
 							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
 								include: {
 									taste: true,
 								}
@@ -159,6 +162,7 @@ export const AromaSource = (): IAromaSource => {
 							include: {
 								vendor: true,
 								AromaTaste: {
+									orderBy: {taste: {sort: "asc"}},
 									include: {
 										taste: true,
 									}

@@ -3,6 +3,7 @@ import {LikeDislikeInline} from "@/puff-smith/component/inline/LikeDislikeInline
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {Tags} from "@/puff-smith/component/Tags";
 import {BuildListEmpty} from "@/puff-smith/site/lab/build/@module/list/BuildListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
@@ -45,10 +46,11 @@ export const BuildList: FC<IBuildListProps> = props => {
 					<Ohm ohm={build.ohm}/>
 					<LocalDate date={build.created}/>
 				</Space>}
-				description={<Space split={<Divider type={"vertical"}/>}>
+				description={<Space split={<Divider type={"vertical"}/>} size={0}>
 					<CottonNameInline cotton={build.cotton}/>
 					<WireNameInline wire={build.coil.wire}/>
 					<WireFiberInline wire={build.coil.wire}/>
+					{build.atomizer.draws.length > 0 && <Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
 				</Space>}
 			/>
 		</ListItem>}

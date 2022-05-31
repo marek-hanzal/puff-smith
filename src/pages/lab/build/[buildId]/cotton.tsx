@@ -23,6 +23,7 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 	>
 		<Template
 			title={<CottonNameInline cotton={build.cotton}/>}
+			span={22}
 		>
 			<CottonView cotton={build.cotton}/>
 		</Template>
