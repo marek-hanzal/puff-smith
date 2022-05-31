@@ -36,7 +36,7 @@ RUN echo "NEXT_PUBLIC_BUILD=$BUILD" >> .env.local
 RUN npx prisma generate
 RUN npm run build
 
-FROM alpine:3.15 as runtime
+FROM alpine:3.16 as runtime
 
 ENV \
 	NODE_ENV=production \
