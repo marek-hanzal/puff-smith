@@ -170,7 +170,7 @@ export const BuildSource = (): IBuildSource => {
 									await prisma.build.update({
 										where: {id},
 										data: {
-											archived: true,
+											active: false,
 										},
 									});
 								}
@@ -178,7 +178,7 @@ export const BuildSource = (): IBuildSource => {
 							return prisma.build.create({
 								data: {
 									...build,
-									archived: false,
+									active: true,
 									created: created || new Date(),
 									code: code || codeService().code(),
 									userId: source.user.required(),

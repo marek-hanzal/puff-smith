@@ -8,7 +8,7 @@ import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inli
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
-import {Preview} from "@leight-core/client";
+import {BoolInline, Preview} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -29,6 +29,7 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 							code: <CodeInline code={build}/>,
 							ohm: <Ohm ohm={build.ohm}/>,
 							created: <LocalDate date={build.created}/>,
+							active: <BoolInline bool={build.active}/>,
 						}}
 					</Preview>
 				</Col>

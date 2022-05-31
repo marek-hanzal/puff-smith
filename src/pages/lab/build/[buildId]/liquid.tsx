@@ -1,4 +1,4 @@
-import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
@@ -8,15 +8,15 @@ import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildInde
 import {SmileOutlined} from "@ant-design/icons";
 import {Template} from "@leight-core/client";
 
-export default withLabLayout(function Coil({build}: IBuildFetch) {
+export default withLabLayout(function Liquid({build}: IBuildFetch) {
 	return <LabPage
-		title={"lab.build.coil"}
-		tabTitle={"lab.build.coil.title.tab"}
+		title={"lab.build.liquid"}
+		tabTitle={"lab.build.liquid.title.tab"}
 		values={{build}}
 		components={TransComponents}
 		onBack={navigate => navigate("/lab/build")}
-		menuSelection={["/lab/build", "/lab/build/[buildId]/coil"]}
-		icon={<CoilIcon/>}
+		menuSelection={["/lab/build", "/lab/build/[buildId]/liquid"]}
+		icon={<LiquidIcon/>}
 		headerProps={{
 			footer: <BuildIndexMenu build={build}/>,
 		}}

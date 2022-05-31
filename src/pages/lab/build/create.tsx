@@ -8,6 +8,7 @@ export default withLabLayout(function Index() {
 	return <LabPage
 		title={"lab.build.create"}
 		menuSelection={["/lab/build"]}
+		onBack={navigate => navigate("/lab/build")}
 		icon={<BuildIcon/>}
 		extra={<ButtonLink
 			href={"/lab/build"}

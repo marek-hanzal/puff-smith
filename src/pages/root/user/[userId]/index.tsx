@@ -11,7 +11,9 @@ export default withRootLayout(function Index({user}: IUserFetch) {
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
-		headerPostfix={<UserIndexMenu user={user}/>}
+		headerProps={{
+			footer: <UserIndexMenu user={user}/>,
+		}}
 	>
 		<Row gutter={16}>
 			<Col span={12}>

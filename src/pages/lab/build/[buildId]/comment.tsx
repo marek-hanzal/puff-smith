@@ -3,7 +3,7 @@ import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
-import {BuildIndexMenu, BuildIndexMenuWidth} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
+import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
 import {Template} from "@leight-core/client";
 
@@ -16,8 +16,9 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/comment"]}
 		icon={<CommentOutlined/>}
-		extra={<BuildIndexMenu build={build}/>}
-		extraSize={BuildIndexMenuWidth}
+		headerProps={{
+			footer: <BuildIndexMenu build={build}/>,
+		}}
 	>
 		<Template
 			icon={<SmileOutlined/>}

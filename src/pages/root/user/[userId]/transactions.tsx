@@ -12,7 +12,9 @@ export default withRootLayout(function Transaction({user}: IUserFetch) {
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]/transactions"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
-		headerPostfix={<UserIndexMenu user={user}/>}
+		headerProps={{
+			footer: <UserIndexMenu user={user}/>,
+		}}
 	>
 		<TransactionProviderControl
 			applyFilter={{userId: user.id}}

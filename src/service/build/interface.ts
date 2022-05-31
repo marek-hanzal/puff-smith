@@ -30,6 +30,7 @@ export interface IBuild {
 	cotton: ICotton;
 	cottonId: string;
 	created: string;
+	active: boolean;
 }
 
 export interface IBuildQuery extends IQuery<Prisma.BuildWhereInput & IWithFulltext, Prisma.BuildOrderByWithRelationInput> {

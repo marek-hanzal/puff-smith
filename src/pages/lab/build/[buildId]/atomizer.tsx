@@ -17,7 +17,9 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/atomizer"]}
 		icon={<AtomizerIcon/>}
-		headerPostfix={<BuildIndexMenu build={build}/>}
+		headerProps={{
+			footer: <BuildIndexMenu build={build}/>,
+		}}
 	>
 		<Template
 			icon={<SmileOutlined/>}

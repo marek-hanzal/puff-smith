@@ -17,7 +17,9 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/cotton"]}
 		icon={<CottonIcon/>}
-		headerPostfix={<BuildIndexMenu build={build}/>}
+		headerProps={{
+			footer: <BuildIndexMenu build={build}/>,
+		}}
 	>
 		<Template
 			icon={<SmileOutlined/>}
