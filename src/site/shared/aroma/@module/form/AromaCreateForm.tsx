@@ -1,4 +1,5 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/aroma/create";
 import {useAromaCountQueryInvalidate, useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
@@ -41,6 +42,9 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = props => {
 	>
 		<FormItem field={"name"} required hasTooltip/>
 		<FormItem field={"code"} hasTooltip/>
+		<FormItem field={"vendorId"} required>
+			<VendorSelect/>
+		</FormItem>
 		<FormItem field={"cost"} hasTooltip required>
 			<InputNumber min={0} max={9999} style={{width: "100%"}}/>
 		</FormItem>
@@ -56,8 +60,14 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = props => {
 		<FormItem field={"steep"} hasTooltip required>
 			<InputNumber min={0} max={1000} style={{width: "100%"}}/>
 		</FormItem>
-		<FormItem field={"vendorId"} required>
-			<VendorSelect/>
+		<FormItem field={"tasteIds"} hasTooltip>
+			<TagSelect
+				translation={"common.taste"}
+				mode={"multiple"}
+				applyFilter={{
+					group: "taste",
+				}}
+			/>
 		</FormItem>
 		<Centered>
 			<Submit icon={<LiquidIcon/>} label={"create"}/>

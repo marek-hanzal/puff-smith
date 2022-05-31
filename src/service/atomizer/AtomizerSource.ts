@@ -34,7 +34,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({draws, type, vendor, code, ...atomizer}) => {
+			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, ...atomizer}) => {
 				const create = {
 					...atomizer,
 					code: code || codeService().code(),
@@ -43,22 +43,24 @@ export const AtomizerSource = (): IAtomizerSource => {
 					cost: atomizer.cost ? parseFloat(atomizer.cost) : undefined,
 					vendor: {
 						connect: {
+							id: vendorId,
 							name: vendor,
 						}
 					},
 					type: {
 						connect: {
-							code_group: {
+							id: typeId,
+							code_group: type ? {
 								code: `${type}`,
 								group: "atomizer-type",
-							}
+							} : undefined,
 						}
 					},
 					AtomizerDraw: {
 						createMany: {
-							data: draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
+							data: (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
 								drawId: tag.id,
-							})) : [],
+							})) : []).concat(drawIds?.map(id => ({drawId: id})) || []),
 						}
 					},
 				};

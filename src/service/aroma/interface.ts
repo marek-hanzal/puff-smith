@@ -14,6 +14,7 @@ export type IAromaCreate = {
 	content: number;
 	steep?: number;
 	tastes?: string;
+	tasteIds?: string[];
 } & IVendorReference;
 
 export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput> {

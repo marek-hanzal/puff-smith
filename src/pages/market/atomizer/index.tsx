@@ -4,6 +4,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerFilter} from "@/puff-smith/site/market/atomizer/@module/filter/AtomizerFilter";
 import {AtomizerList} from "@/puff-smith/site/market/atomizer/@module/list/AtomizerList";
+import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
 import {AtomizerProviderControl} from "@/sdk/api/atomizer/query";
 
 export default withMarketLayout(function Index() {
@@ -11,6 +12,7 @@ export default withMarketLayout(function Index() {
 		title={"market.atomizer.index"}
 		menuSelection={["/market/atomizer"]}
 		icon={<AtomizerIcon/>}
+		extra={<AtomizerCreateButton/>}
 	>
 		<AtomizerProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

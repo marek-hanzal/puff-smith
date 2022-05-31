@@ -32,7 +32,7 @@ export const useTranslationQuery = createQueryHook<void, ISourceItem<ITranslatio
 export const useTranslationQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationApiLink]);
-};
+}
 
 export const toTranslationLink = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;

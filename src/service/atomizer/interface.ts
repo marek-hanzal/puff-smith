@@ -5,12 +5,15 @@ import {Atomizer, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IAtomizerCreate {
-	vendor: string;
+	vendor?: string;
+	vendorId?: string;
 	code?: string;
 	name: string;
 	dualCoil?: string;
-	type: string;
+	type?: string;
+	typeId?: string;
 	draws?: string;
+	drawIds?: string[];
 	squonk?: string;
 	cost?: string;
 }

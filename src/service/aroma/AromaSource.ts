@@ -86,7 +86,7 @@ export const AromaSource = (): IAromaSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({vendor, vendorId, tastes, code, ...aroma}) => {
+			create: async ({vendor, vendorId, tastes, tasteIds, code, ...aroma}) => {
 				const create = {
 					...aroma,
 					code: code || codeService().code(),
@@ -99,9 +99,11 @@ export const AromaSource = (): IAromaSource => {
 					},
 					AromaTaste: {
 						createMany: {
-							data: tastes ? (await tagSource().fetchCodes(tastes, "taste")).map(tag => ({
+							data: (tastes ? (await tagSource().fetchCodes(tastes, "taste")).map(tag => ({
 								tasteId: tag.id,
-							})) : [],
+							})) : []).concat(tasteIds?.map(id => ({
+								tasteId: id,
+							})) || []),
 						}
 					},
 				};

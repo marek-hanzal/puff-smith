@@ -13,6 +13,7 @@ export default withMarketLayout(function Index() {
 		title={"market.aroma.index"}
 		menuSelection={["/market/aroma"]}
 		icon={<LiquidIcon/>}
+		extra={<AromaCreateButton/>}
 		withHelp={{
 			translation: "market.aroma.index",
 		}}
@@ -24,9 +25,7 @@ export default withMarketLayout(function Index() {
 			}}
 		>
 			<AromaList
-				header={() => <RowInline
-					extra={<AromaCreateButton/>}
-				>
+				header={() => <RowInline>
 					<AromaFilter/>
 				</RowInline>}
 			/>

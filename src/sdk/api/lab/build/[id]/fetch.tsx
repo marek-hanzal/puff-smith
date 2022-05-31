@@ -33,7 +33,7 @@ export const useBuildQuery = createQueryHook<void, ISourceItem<IBuildSource>, IB
 export const useBuildQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BuildApiLink]);
-};
+}
 
 export const toBuildLink = (queryParams?: IBuildQueryParams) => toLink(BuildApiLink, queryParams);
 export const useBuildLink = () => toBuildLink;
