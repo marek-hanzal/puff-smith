@@ -14,13 +14,13 @@ export const LiquidSource = (): ILiquidSource => {
 	const source: ILiquidSource = Source<ILiquidSource>({
 		name: "liquid",
 		prisma,
-		map: async liquid => liquid ? ({
+		map: async liquid => liquid ? {
 			...liquid,
 			created: liquid.created.toUTCString(),
 			mixed: liquid.mixed.toUTCString(),
 			transaction: await transactionSource().mapper.map(liquid.transaction),
 			mixture: await mixtureSource().mapper.map(liquid.mixture),
-		}) : undefined,
+		} : undefined,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
 				where: merge(filter, {

@@ -38,5 +38,9 @@ export interface ILiquidFetchParams extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidEntity<IWithTransaction & IWithMixture<IWithMixtureDraw & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithAroma<IWithVendor & IWithAromaTaste>>>, ILiquid, ILiquidQuery, ILiquidFetch, ILiquidFetchParams> {
+type ILiquidSourceEntityInternal = ILiquidEntity<IWithTransaction & IWithMixture<IWithMixtureDraw & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithAroma<IWithVendor & IWithAromaTaste>>>;
+
+export type ILiquidSourceEntity<T = void> = T extends void ? ILiquidSourceEntityInternal : ILiquidSourceEntityInternal & T;
+
+export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidSourceEntity, ILiquid, ILiquidQuery, ILiquidFetch, ILiquidFetchParams> {
 }

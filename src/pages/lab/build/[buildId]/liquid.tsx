@@ -8,15 +8,16 @@ import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
+import {BuildLiquidList} from "@/puff-smith/site/lab/build/liquid/@module/list/BuildLiquidList";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/filter/LiquidFilter";
-import {LiquidList} from "@/puff-smith/site/lab/liquid/@module/list/LiquidList";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
-import {LiquidProviderControl} from "@/sdk/api/lab/liquid/query";
+import {LiquidProviderControl, useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
 import {FireOutlined} from "@ant-design/icons";
-import {TabInline, Template} from "@leight-core/client";
+import {QueryParamsProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
+	const liquidQueryInvalidate = useLiquidQueryInvalidate();
 	return <LabPage
 		title={"lab.build.liquid"}
 		values={{build}}
@@ -52,23 +53,26 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 							}
 						}}
 					>
-						<LiquidList
-							header={() => <RowInline>
-								<LiquidFilter
-									applyFilter={{
-										mixture: {
-											MixtureDraw: {
-												some: {
-													drawId: {
-														in: build.atomizer.drawIds,
+						<QueryParamsProvider applyQueryParams={{id: build.id}}>
+							<BuildLiquidList
+								build={build}
+								header={() => <RowInline>
+									<LiquidFilter
+										applyFilter={{
+											mixture: {
+												MixtureDraw: {
+													some: {
+														drawId: {
+															in: build.atomizer.drawIds,
+														}
 													}
 												}
 											}
-										}
-									}}
-								/>
-							</RowInline>}
-						/>
+										}}
+									/>
+								</RowInline>}
+							/>
+						</QueryParamsProvider>
 					</LiquidProviderControl>
 				</Tabs.TabPane>
 				<Tabs.TabPane key={"liquids"} tab={<TabInline icon={<LiquidIcon/>} title={"lab.build.liquid.liquids.tab"}/>}>
@@ -78,11 +82,14 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 							mixed: "asc",
 						}}
 					>
-						<LiquidList
-							header={() => <RowInline>
-								<LiquidFilter/>
-							</RowInline>}
-						/>
+						<QueryParamsProvider applyQueryParams={{id: build.id}}>
+							<BuildLiquidList
+								build={build}
+								header={() => <RowInline>
+									<LiquidFilter/>
+								</RowInline>}
+							/>
+						</QueryParamsProvider>
 					</LiquidProviderControl>
 				</Tabs.TabPane>
 			</Tabs>

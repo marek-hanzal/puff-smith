@@ -118,7 +118,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITagSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITagSource>>;
@@ -161,7 +161,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-};
+}
 
 export const useTagQueryInvalidate = () => {
 	const queryClient = useQueryClient();

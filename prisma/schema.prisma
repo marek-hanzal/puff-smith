@@ -577,24 +577,26 @@ model BaseInventory {
 }
 
 model Liquid {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mixtureId     String
-  mixture       Mixture     @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  aromaId       String
-  aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  vendorId      String
-  vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  boosterId     String?
-  booster       Booster?    @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  baseId        String?
-  base          Base?       @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  created       DateTime
-  mixed         DateTime
+  id                String              @id @default(cuid())
+  code              String              @unique
+  userId            String
+  user              User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mixtureId         String
+  mixture           Mixture             @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
+  aromaId           String
+  aroma             Aroma               @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  vendorId          String
+  vendor            Vendor              @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  boosterId         String?
+  booster           Booster?            @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  baseId            String?
+  base              Base?               @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  transactionId     String
+  transaction       Transaction         @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  created           DateTime
+  mixed             DateTime
+
+  BuildLiquidRating BuildLiquidRating[]
 }
 
 model Mixture {
@@ -691,7 +693,8 @@ model Build {
   rating        Int?
   active        Boolean     @default(true)
 
-  BuildComment BuildComment[]
+  BuildComment      BuildComment[]
+  BuildLiquidRating BuildLiquidRating[]
 }
 
 model BuildComment {
@@ -700,6 +703,18 @@ model BuildComment {
   build     Build   @relation(fields: [buildId], references: [id], onDelete: Cascade)
   commentId String
   comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model BuildLiquidRating {
+  id       String   @id @default(cuid())
+  buildId  String
+  build    Build    @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  liquidId String
+  liquid   Liquid   @relation(fields: [liquidId], references: [id], onDelete: Cascade)
+  created  DateTime
+  rating   Int?
+
+  @@unique([buildId, liquidId])
 }
 
 // One of heating types for atomizer

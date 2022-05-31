@@ -17,7 +17,7 @@ export const useCreateMutation = createMutationHook<ISourceCreate<IAtomizerSourc
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IAtomizerSource>, ISourceItem<IAtomizerSource>>> {
 }
@@ -25,7 +25,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreat
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<IAtomizerSource>, ISourceItem<IAtomizerSource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
