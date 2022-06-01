@@ -51,7 +51,6 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 							"atomizer.draw": <Tags tags={build.atomizer.draws} translation={"common.draw"}/>,
 							"cotton.draw": <Tags tags={build.cotton.draws} translation={"common.draw"}/>,
 							"coil.draw": <Tags tags={build.coil.draws} translation={"common.draw"}/>,
-							"wire.draw": <Tags tags={build.coil.wire.draws} translation={"common.draw"}/>,
 						}}
 					</Preview>
 				</Col>
