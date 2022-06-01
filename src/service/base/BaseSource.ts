@@ -112,6 +112,27 @@ export const BaseSource = (): IBaseSource => {
 					}));
 				}
 			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.base.findMany({
+						where,
+						include: {
+							vendor: true,
+						},
+					});
+					await prisma.base.deleteMany({
+						where,
+					});
+					return items;
+				}, {
+					timeout: 1000 * 30,
+				});
+			},
 		},
 	});
 

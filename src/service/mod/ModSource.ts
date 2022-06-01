@@ -101,6 +101,30 @@ export const ModSource = (): IModSource => {
 					});
 				}
 			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.mod.findMany({
+						where,
+						include: {
+							vendor: true,
+							ModCell: {
+								include: {
+									cell: true,
+								}
+							}
+						},
+					});
+					await prisma.mod.deleteMany({
+						where,
+					});
+					return items;
+				});
+			}
 		},
 	});
 

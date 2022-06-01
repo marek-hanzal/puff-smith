@@ -168,7 +168,40 @@ export const WireSource = (): IWireSource => {
 						});
 					});
 				}
-			}
+			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.wire.findMany({
+						where,
+						include: {
+							vendor: true,
+							WireDraw: {
+								include: {
+									draw: true,
+								},
+							},
+							WireFiber: {
+								include: {
+									fiber: {
+										include: {
+											material: true,
+										}
+									},
+								},
+							},
+						},
+					});
+					await prisma.wire.deleteMany({
+						where,
+					});
+					return items;
+				});
+			},
 		},
 		fetchByReference: ({wireId, wire}) => {
 			if (!wire && !wireId) {

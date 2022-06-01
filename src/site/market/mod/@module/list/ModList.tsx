@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ModInventoryCreateButton} from "@/puff-smith/site/market/mod/@module/button/ModInventoryCreateButton";
 import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
@@ -16,6 +17,7 @@ export const ModList: FC<IModListProps> = props => {
 		{({mod, isOwned}) => <ListItem key={mod.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={mod}/>
 					<ModNameInline mod={mod}/>
 					{mod.cells.length > 0 && <Tags tags={mod.cells}/>}
 					{isOwned ? <BoolInline bool={isOwned}/> : <ModInventoryCreateButton type={"link"} mod={mod}/>}

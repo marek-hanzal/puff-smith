@@ -119,6 +119,31 @@ export const AtomizerSource = (): IAtomizerSource => {
 					});
 				}
 			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.atomizer.findMany({
+						where,
+						include: {
+							vendor: true,
+							AtomizerDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
+						},
+					});
+					await prisma.atomizer.deleteMany({
+						where,
+					});
+					return items;
+				});
+			}
 		}
 	});
 

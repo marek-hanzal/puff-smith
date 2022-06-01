@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {WireInventoryCreateButton} from "@/puff-smith/site/market/wire/@module/button/WireInventoryCreateButton";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
@@ -17,6 +18,7 @@ export const WireList: FC<IWireListProps> = props => {
 		{({wire, isOwned}) => <ListItem key={wire.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={wire}/>
 					<WireNameInline wire={wire}/>
 					{wire.draws.length > 0 && <Tags tags={wire.draws} translation={"common.draw"}/>}
 					{wire.fibers.length > 0 && <WireFiberInline wire={wire}/>}

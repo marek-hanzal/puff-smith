@@ -1,10 +1,13 @@
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BoosterList} from "@/puff-smith/site/market/booster/@module/list/BoosterList";
+import {BoosterListToolbar} from "@/puff-smith/site/market/booster/@module/list/BoosterListToolbar";
 import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
 import {BoosterProviderControl} from "@/sdk/api/booster/query";
+import {SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -21,9 +24,15 @@ export default withMarketLayout(function Index() {
 				vg: "desc",
 			}}
 		>
-			<BoosterList
-				header={() => <BoosterFilter/>}
-			/>
+			<SelectionProvider type={"multi"}>
+				<BoosterList
+					header={() => <RowInline
+						extra={<BoosterListToolbar/>}
+					>
+						<BoosterFilter/>
+					</RowInline>}
+				/>
+			</SelectionProvider>
 		</BoosterProviderControl>
 	</MarketPage>;
 });

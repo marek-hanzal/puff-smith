@@ -1,10 +1,13 @@
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {CellFilter} from "@/puff-smith/site/market/cell/@module/filter/CellFilter";
 import {CellList} from "@/puff-smith/site/market/cell/@module/list/CellList";
+import {CellListToolbar} from "@/puff-smith/site/market/cell/@module/list/CellListToolbar";
 import {CellProviderControl} from "@/sdk/api/cell/query";
+import {SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -18,9 +21,15 @@ export default withMarketLayout(function Index() {
 				name: "asc",
 			}}
 		>
-			<CellList
-				header={() => <CellFilter/>}
-			/>
+			<SelectionProvider type={"multi"}>
+				<CellList
+					header={() => <RowInline
+						extra={<CellListToolbar/>}
+					>
+						<CellFilter/>
+					</RowInline>}
+				/>
+			</SelectionProvider>
 		</CellProviderControl>
 	</MarketPage>;
 });

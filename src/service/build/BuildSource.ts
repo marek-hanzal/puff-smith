@@ -312,7 +312,7 @@ export const BuildSource = (): IBuildSource => {
 						userId: source.user.required(),
 					};
 					return prisma.$transaction(async prisma => {
-						const builds = await prisma.build.findMany({
+						const items = await prisma.build.findMany({
 							where,
 							include: {
 								atomizer: {
@@ -372,7 +372,7 @@ export const BuildSource = (): IBuildSource => {
 						await prisma.build.deleteMany({
 							where,
 						});
-						return builds;
+						return items;
 					});
 				}
 			}

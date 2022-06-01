@@ -1,4 +1,5 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {BoosterInventoryCreateButton} from "@/puff-smith/site/market/booster/@module/button/BoosterInventoryCreateButton";
 import {BoosterNameInline} from "@/puff-smith/site/shared/booster/@module/inline/BoosterNameInline";
@@ -17,6 +18,7 @@ export const BoosterList: FC<IBoosterListProps> = props => {
 		{({booster, isOwned}) => <ListItem key={booster.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={booster}/>
 					<BoosterNameInline booster={booster}/>
 					<VgPgInline vgpg={booster}/>
 					<NicotineInline nicotine={booster.nicotine}/>

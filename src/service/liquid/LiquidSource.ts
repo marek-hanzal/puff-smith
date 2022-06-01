@@ -145,7 +145,7 @@ export const LiquidSource = (): ILiquidSource => {
 					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
-					const liquids = await prisma.liquid.findMany({
+					const items = await prisma.liquid.findMany({
 						where,
 						include: {
 							vendor: true,
@@ -186,7 +186,7 @@ export const LiquidSource = (): ILiquidSource => {
 					await prisma.liquid.deleteMany({
 						where,
 					});
-					return liquids;
+					return items;
 				});
 			}
 		}

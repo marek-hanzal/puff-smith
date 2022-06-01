@@ -44,6 +44,24 @@ export const VendorSource = (): IVendorSource => {
 				],
 				...pageOf(query),
 			}),
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.vendor.findMany({
+						where,
+					});
+					await prisma.vendor.deleteMany({
+						where,
+					});
+					return items;
+				}, {
+					timeout: 1000 * 60,
+				});
+			},
 		},
 		fetchByReference: ({vendorId, vendor}) => {
 			if (!vendor && !vendorId) {

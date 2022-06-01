@@ -1,3 +1,4 @@
+import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
@@ -18,6 +19,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 		{({aroma, isOwned}) => <ListItem key={aroma.id}>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+					<SelectionBool selection={aroma}/>
 					<LinkTo href={"/market/aroma/[aromaId]"} query={{aromaId: aroma.id}}>
 						<AromaNameInline aroma={aroma}/>
 					</LinkTo>

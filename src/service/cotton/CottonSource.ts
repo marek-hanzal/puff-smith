@@ -110,6 +110,31 @@ export const CottonSource = (): ICottonSource => {
 					});
 				}
 			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.cotton.findMany({
+						where,
+						include: {
+							vendor: true,
+							CottonDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							}
+						},
+					});
+					await prisma.cotton.deleteMany({
+						where,
+					});
+					return items;
+				});
+			},
 		},
 	});
 

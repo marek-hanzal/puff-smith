@@ -84,7 +84,27 @@ export const CellSource = (): ICellSource => {
 						},
 					}));
 				}
-			}
+			},
+			delete: async ids => {
+				const where = {
+					id: {
+						in: ids,
+					},
+				};
+				return prisma.$transaction(async prisma => {
+					const items = await prisma.cell.findMany({
+						where,
+						include: {
+							vendor: true,
+							type: true,
+						},
+					});
+					await prisma.cell.deleteMany({
+						where,
+					});
+					return items;
+				});
+			},
 		},
 		fetchCells: async cells => source.prisma.cell.findMany({
 			where: {
