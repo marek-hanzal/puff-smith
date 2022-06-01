@@ -1,72 +1,52 @@
 import Icon from "@ant-design/icons";
 import {IWithIdentity} from "@leight-core/api";
-import {ButtonBar} from "@leight-core/client";
-import {Button, Divider, Spin} from "antd";
-import {FC} from "react";
-import {BsEmojiFrown, BsEmojiHeartEyes, BsEmojiSmile} from "react-icons/bs";
+import {numbersOf} from "@leight-core/utils";
+import {Radio, Tooltip} from "antd";
+import {ComponentProps, FC} from "react";
+import {useTranslation} from "react-i18next";
+import {MdDeleteOutline, MdOutlineThumbsUpDown, MdThumbDownOffAlt, MdThumbUpOffAlt, MdVerified} from "react-icons/md";
 import {UseMutationResult} from "react-query";
 
-export interface ILikeDislikeInlineProps {
+export interface ILikeDislikeInlineProps extends Partial<ComponentProps<typeof Radio["Group"]>> {
 	id: string;
+	tooltip?: string;
 	rating?: number | null;
 	mutator: UseMutationResult<any, any, IWithIdentity & { rating?: number | null; }>;
 	onSuccess?: () => Promise<any>;
 }
 
-const DislikeButton: FC<ILikeDislikeInlineProps> = ({id, mutator, rating, onSuccess}) => <Button
-	size={"large"}
-	type={"link"}
-	danger
-	icon={<Icon component={BsEmojiFrown}/>}
-	onClick={() => {
-		mutator.mutate({rating: rating ? null : -1, id}, {
-			onSuccess,
-		});
-	}}
-/>;
+export const LikeDislikeInline: FC<ILikeDislikeInlineProps> = ({id, tooltip, rating, mutator, onSuccess, ...props}) => {
+	const {t} = useTranslation();
 
-const LikeButton: FC<ILikeDislikeInlineProps> = ({id, mutator, rating, onSuccess}) => <Button
-	size={"large"}
-	type={"link"}
-	icon={<Icon component={BsEmojiSmile}/>}
-	onClick={() => {
-		mutator.mutate({rating: rating ? null : 1, id}, {
-			onSuccess,
-		});
-	}}
-/>;
+	const map: any = {
+		"-2": MdDeleteOutline,
+		"-1": MdThumbDownOffAlt,
+		"0": MdOutlineThumbsUpDown,
+		"1": MdThumbUpOffAlt,
+		"2": MdVerified,
+	};
 
-const GodlikeButton: FC<ILikeDislikeInlineProps> = ({id, mutator, rating, onSuccess}) => <Button
-	size={"large"}
-	type={"link"}
-	icon={<Icon component={BsEmojiHeartEyes}/>}
-	onClick={() => {
-		mutator.mutate({rating: rating ? null : 2, id}, {
-			onSuccess,
-		});
-	}}
-/>;
-
-export const LikeDislikeInline: FC<ILikeDislikeInlineProps> = props => {
-	return <ButtonBar split={<Divider type={"vertical"}/>}>
-		<Spin delay={100} spinning={props.mutator.isLoading} indicator={<></>}>
-			{((rating) => {
-				switch (rating) {
-					case undefined:
-					case null:
-						return [
-							<DislikeButton key={"dislike"} {...props}/>,
-							<LikeButton key={"like"} {...props}/>,
-							<GodlikeButton key={"godlike"} {...props}/>,
-						];
-					case -1:
-						return <DislikeButton {...props}/>;
-					case 1 :
-						return <LikeButton {...props}/>;
-					case 2:
-						return <GodlikeButton {...props}/>;
-				}
-			})(props.rating)}
-		</Spin>
-	</ButtonBar>;
+	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
+		<Radio.Group
+			value={rating}
+			disabled={mutator.isLoading}
+			size={"large"}
+			{...props}
+		>
+			{numbersOf(5).map(i => {
+				const $value = i - 2;
+				return <Radio.Button
+					key={$value}
+					value={$value}
+					onClick={() => {
+						mutator.mutate({rating: rating === $value ? null : $value, id}, {
+							onSuccess,
+						});
+					}}
+				>
+					<Icon component={map[$value]}/>
+				</Radio.Button>;
+			})}
+		</Radio.Group>
+	</Tooltip>;
 };

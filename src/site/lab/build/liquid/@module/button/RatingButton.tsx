@@ -14,31 +14,9 @@ export const RatingButton: FC<IRatingButtonProps> = ({liquid, build}) => {
 	const createMutation = useCreateMutation();
 	const buildLiquidQueryInvalidate = useBuildLiquidQueryInvalidate();
 	return <LikeInline
-		onDislike={() => {
+		onRating={rating => {
 			createMutation.mutate({
-				rating: liquid.rating?.rating === -1 ? null : -1,
-				buildId: build.id,
-				liquidId: liquid.id,
-			}, {
-				onSuccess: async () => {
-					await buildLiquidQueryInvalidate();
-				}
-			});
-		}}
-		onLike={() => {
-			createMutation.mutate({
-				rating: liquid.rating?.rating === 1 ? null : 1,
-				buildId: build.id,
-				liquidId: liquid.id,
-			}, {
-				onSuccess: async () => {
-					await buildLiquidQueryInvalidate();
-				}
-			});
-		}}
-		onGodlike={() => {
-			createMutation.mutate({
-				rating: liquid.rating?.rating === 2 ? null : 2,
+				rating,
 				buildId: build.id,
 				liquidId: liquid.id,
 			}, {

@@ -1,59 +1,45 @@
 import Icon from "@ant-design/icons";
-import {ButtonBar} from "@leight-core/client";
-import {Button, Divider, Spin} from "antd";
-import {FC} from "react";
-import {BsEmojiFrown, BsEmojiHeartEyes, BsEmojiSmile} from "react-icons/bs";
+import {numbersOf} from "@leight-core/utils";
+import {Radio, Tooltip} from "antd";
+import {ComponentProps, FC} from "react";
+import {useTranslation} from "react-i18next";
+import {MdDeleteOutline, MdOutlineThumbsUpDown, MdThumbDownOffAlt, MdThumbUpOffAlt, MdVerified} from "react-icons/md";
 
-export interface ILikeInlineProps {
+export interface ILikeInlineProps extends Partial<ComponentProps<typeof Radio["Group"]>> {
+	tooltip?: string;
 	rating?: number | null;
-	onDislike: () => void;
 	isLoading: boolean;
-	onLike: () => void;
-	onGodlike: () => void;
+	onRating: (rating: number | null) => void;
 }
 
-const DislikeButton: FC<ILikeInlineProps> = ({onDislike}) => <Button
-	size={"large"}
-	type={"link"}
-	danger
-	icon={<Icon component={BsEmojiFrown}/>}
-	onClick={() => onDislike()}
-/>;
+export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, ...props}) => {
+	const {t} = useTranslation();
 
-const LikeButton: FC<ILikeInlineProps> = ({onLike}) => <Button
-	size={"large"}
-	type={"link"}
-	icon={<Icon component={BsEmojiSmile}/>}
-	onClick={() => onLike()}
-/>;
+	const map: any = {
+		"-2": MdDeleteOutline,
+		"-1": MdThumbDownOffAlt,
+		"0": MdOutlineThumbsUpDown,
+		"1": MdThumbUpOffAlt,
+		"2": MdVerified,
+	};
 
-const GodlikeButton: FC<ILikeInlineProps> = ({onGodlike}) => <Button
-	size={"large"}
-	type={"link"}
-	icon={<Icon component={BsEmojiHeartEyes}/>}
-	onClick={() => onGodlike()}
-/>;
-
-export const LikeInline: FC<ILikeInlineProps> = props => {
-	return <ButtonBar split={<Divider type={"vertical"}/>}>
-		<Spin delay={100} spinning={props.isLoading} indicator={<></>}>
-			{((rating) => {
-				switch (rating) {
-					case undefined:
-					case null:
-						return [
-							<DislikeButton key={"dislike"} {...props}/>,
-							<LikeButton key={"like"} {...props}/>,
-							<GodlikeButton key={"godlike"} {...props}/>,
-						];
-					case -1:
-						return <DislikeButton {...props}/>;
-					case 1 :
-						return <LikeButton {...props}/>;
-					case 2:
-						return <GodlikeButton {...props}/>;
-				}
-			})(props.rating)}
-		</Spin>
-	</ButtonBar>;
+	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
+		<Radio.Group
+			value={rating}
+			disabled={isLoading}
+			size={"large"}
+			{...props}
+		>
+			{numbersOf(5).map(i => {
+				const $value = i - 2;
+				return <Radio.Button
+					key={$value}
+					value={$value}
+					onClick={() => onRating(rating === $value ? null : $value)}
+				>
+					<Icon component={map[$value]}/>
+				</Radio.Button>;
+			})}
+		</Radio.Group>
+	</Tooltip>;
 };
