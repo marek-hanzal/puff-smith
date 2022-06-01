@@ -1,19 +1,17 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
-import {LikeDislikeInline} from "@/puff-smith/component/inline/LikeDislikeInline";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {BuildView} from "@/puff-smith/site/lab/build/@module/view/BuildView";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
-import {FetchBuild, useBuildQueryInvalidate} from "@/sdk/api/lab/build/[id]/fetch";
-import {usePatchMutation} from "@/sdk/api/lab/build/patch";
+import {FetchBuild} from "@/sdk/api/lab/build/[id]/fetch";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Index({build}: IBuildFetch) {
-	const patchMutation = usePatchMutation();
-	const buildQueryInvalidate = useBuildQueryInvalidate();
+
 	return <FetchBuild queryParams={{id: build.id}}>
 		{build => <LabPage
 			title={"lab.build.build"}
@@ -26,14 +24,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 		>
 			<Template
 				title={<AtomizerNameInline atomizer={build.atomizer}/>}
-				subTitle={<LikeDislikeInline
-					id={build.id}
-					rating={build.rating}
-					mutator={patchMutation}
-					onSuccess={async () => {
-						await buildQueryInvalidate();
-					}}
-				/>}
+				subTitle={<BuildRatingButton build={build}/>}
 				span={22}
 			>
 				<BuildView

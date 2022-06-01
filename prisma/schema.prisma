@@ -192,18 +192,18 @@ model Tag {
   group String
   sort  Int?
 
-  Atomizer     Atomizer[]
-  AtomizerDraw AtomizerDraw[]
-  CottonDraw   CottonDraw[]
-  Cell         Cell[]
-  ModCell      ModCell[]
-  AromaTaste   AromaTaste[]
-  Fiber        Fiber[]
-  CoilDraw     CoilDraw[]
-  WireDraw     WireDraw[]
-  MixtureDraw  MixtureDraw[]
-
+  Atomizer               Atomizer[]
+  AtomizerDraw           AtomizerDraw[]
+  CottonDraw             CottonDraw[]
+  Cell                   Cell[]
+  ModCell                ModCell[]
+  AromaTaste             AromaTaste[]
+  Fiber                  Fiber[]
+  CoilDraw               CoilDraw[]
+  WireDraw               WireDraw[]
+  MixtureDraw            MixtureDraw[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
+
   @@unique([code, group])
 }
 
@@ -701,13 +701,13 @@ model Build {
 }
 
 model BuildLiquidTasteRating {
-  id       String @id @default(cuid())
+  id       String   @id @default(cuid())
   buildId  String
-  build    Build  @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  build    Build    @relation(fields: [buildId], references: [id], onDelete: Cascade)
   liquidId String
-  liquid   Liquid @relation(fields: [liquidId], references: [id], onDelete: Cascade)
+  liquid   Liquid   @relation(fields: [liquidId], references: [id], onDelete: Cascade)
   tasteId  String
-  taste    Tag    @relation(fields: [tasteId], references: [id], onDelete: Cascade)
+  taste    Tag      @relation(fields: [tasteId], references: [id], onDelete: Cascade)
   created  DateTime
   rating   Int?
 

@@ -11,7 +11,7 @@ export const AromaNameInline: FC<IAromaNameInlineProps> = ({aroma, ...props}) =>
 		split={"-"}
 		{...props}
 	>
-		{aroma.name}
+		<Typography.Text>{aroma.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{aroma.vendor.name}</Typography.Text>
 	</Space>;
 };
