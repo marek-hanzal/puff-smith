@@ -13,6 +13,6 @@ export const MixtureVendorSelect: FC<IMixtureVendorSelectProps> = props => {
 				label: item.name,
 			})}
 			{...props}
-		/>;
+		/>
 	</VendorProviderControl>;
 };
