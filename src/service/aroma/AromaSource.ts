@@ -178,24 +178,22 @@ export const AromaSource = (): IAromaSource => {
 						in: ids,
 					},
 				};
-				return prisma.$transaction(async prisma => {
-					const items = await prisma.aroma.findMany({
-						where,
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
-								}
+				const items = await prisma.aroma.findMany({
+					where,
+					include: {
+						vendor: true,
+						AromaTaste: {
+							orderBy: {taste: {sort: "asc"}},
+							include: {
+								taste: true,
 							}
-						},
-					});
-					await prisma.aroma.deleteMany({
-						where,
-					});
-					return items;
+						}
+					},
 				});
+				await prisma.aroma.deleteMany({
+					where,
+				});
+				return items;
 			}
 		},
 	});

@@ -118,20 +118,16 @@ export const BoosterSource = (): IBoosterSource => {
 						in: ids,
 					},
 				};
-				return prisma.$transaction(async prisma => {
-					const items = await prisma.booster.findMany({
-						where,
-						include: {
-							vendor: true,
-						},
-					});
-					await prisma.booster.deleteMany({
-						where,
-					});
-					return items;
-				}, {
-					timeout: 1000 * 30,
+				const items = await prisma.booster.findMany({
+					where,
+					include: {
+						vendor: true,
+					},
 				});
+				await prisma.booster.deleteMany({
+					where,
+				});
+				return items;
 			},
 		},
 	});

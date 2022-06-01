@@ -50,17 +50,13 @@ export const VendorSource = (): IVendorSource => {
 						in: ids,
 					},
 				};
-				return prisma.$transaction(async prisma => {
-					const items = await prisma.vendor.findMany({
-						where,
-					});
-					await prisma.vendor.deleteMany({
-						where,
-					});
-					return items;
-				}, {
-					timeout: 1000 * 60,
+				const items = await prisma.vendor.findMany({
+					where,
 				});
+				await prisma.vendor.deleteMany({
+					where,
+				});
+				return items;
 			},
 		},
 		fetchByReference: ({vendorId, vendor}) => {
