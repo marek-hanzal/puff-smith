@@ -63,13 +63,7 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 			const tastes = await source.prisma.liquid.findMany({
 				where: {
 					id: generate.liquidId,
-					mixture: {
-						MixtureInventory: {
-							some: {
-								userId: source.user.required(),
-							}
-						}
-					}
+					userId: source.user.required(),
 				},
 				select: {
 					aroma: {
