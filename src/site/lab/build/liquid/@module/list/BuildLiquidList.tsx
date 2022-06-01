@@ -32,7 +32,11 @@ export const BuildLiquidList: FC<IBuildLiquidListProps> = ({build, ...props}) =>
 			key={liquid.id}
 			extra={<ButtonBar split={<Divider type={"vertical"}/>}>
 				<RatingButton build={build} liquid={liquid}/>
-				<TasteRatingButton build={build} liquid={liquid}/>
+				<TasteRatingButton
+					disabled={!liquid.mixture.aroma.tastes.length}
+					build={build}
+					liquid={liquid}
+				/>
 			</ButtonBar>}
 		>
 			<ListItemMeta
