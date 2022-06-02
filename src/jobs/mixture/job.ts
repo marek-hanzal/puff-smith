@@ -16,28 +16,110 @@ import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobHandlerRequest, IJobProcessor} from "@leight-core/api";
+import {lengthOf} from "@leight-core/utils";
 import AsyncLock from "async-lock";
 import PQueue from "p-queue";
 
 const jobService = JobSource();
 const lock = new AsyncLock();
 
+function* nicotines() {
+	yield* [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+}
+
+function* vgpgs() {
+	for (let vg = 0; vg <= 100; vg += 10) {
+		yield {
+			vg,
+			pg: 100 - vg,
+		};
+	}
+}
+
+function* aromas() {
+	const $content = [10, 12, 15, 20, 24, 25, 30];
+	const $volume = [60, 120, 240];
+	const $vgpg = [{vg: 0, pg: 100}, {vg: 70, pg: 30}];
+	for (const content of $content) {
+		for (const volume of $volume) {
+			for (const {vg, pg} of $vgpg) {
+				yield {
+					content,
+					volume,
+					vg,
+					pg,
+				};
+			}
+		}
+	}
+}
+
+function* boosters() {
+	const $volume = [10];
+	for (const volume of $volume) {
+		for (const nicotine of nicotines()) {
+			for (const {vg, pg} of vgpgs()) {
+				yield {
+					volume,
+					nicotine,
+					vg,
+					pg,
+				};
+			}
+		}
+	}
+}
+
+function* bases() {
+	const $volume = [10];
+	for (const volume of $volume) {
+		for (const {vg, pg} of vgpgs()) {
+			yield {
+				volume,
+				vg,
+				pg,
+			};
+		}
+	}
+}
+
 export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.processor(MIXTURES_JOB, async ({jobProgress, userId, logger, progress}) => {
 	logger.debug("Scheduling updating all mixtures.");
-	await jobProgress.setTotal(await prisma.aroma.count());
-	for (const aroma of await prisma.aroma.findMany({
-		orderBy: {
-			name: "asc",
+	await jobProgress.setTotal(
+		lengthOf(aromas()) *
+		lengthOf(boosters()) *
+		lengthOf(bases()) *
+		lengthOf(nicotines())
+	);
+
+	for (const aroma of aromas()) {
+		for (const booster of boosters()) {
+			for (const base of bases()) {
+				for (const nicotine of nicotines()) {
+					toMixtureInfo({
+						nicotine,
+						aroma,
+						booster,
+						base,
+					});
+				}
+			}
 		}
-	})) {
-		if (aroma.volume && aroma.content < aroma.volume) {
-			await progress(async () => MixtureJob.async({
-				aromaId: aroma.id,
-			}, userId));
-			continue;
-		}
-		await jobProgress.onSkip();
 	}
+
+	// for (const aroma of await prisma.aroma.findMany({
+	// 	orderBy: {
+	// 		name: "asc",
+	// 	}
+	// })) {
+	// 	if (aroma.volume && aroma.content < aroma.volume) {
+	// 		await progress(async () => MixtureJob.async({
+	// 			aromaId: aroma.id,
+	// 		}, userId));
+	// 		continue;
+	// 	}
+	// 	await jobProgress.onSkip();
+	// }
 }, options => new PQueue({
 	...options,
 	concurrency: 1,

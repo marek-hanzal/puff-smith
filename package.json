@@ -41,7 +41,7 @@
 		"@leight-core/api": "^0.6.63",
 		"@leight-core/client": "^0.6.16",
 		"@leight-core/server": "^0.6.80",
-		"@leight-core/utils": "^0.5.19",
+		"@leight-core/utils": "^0.5.20",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.14.0",
 		"antd": "^4.20.6",
