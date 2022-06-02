@@ -11,7 +11,6 @@ import {MixtureList} from "@/puff-smith/site/market/mixture/@module/list/Mixture
 import {MixtureListEmpty} from "@/puff-smith/site/market/mixture/@module/list/MixtureListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {Template, useFilterContext} from "@leight-core/client";
@@ -30,7 +29,6 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 			icon={<MixtureIcon/>}
 			label={"market.aroma.mixture.filter"}
 			span={12}
-			extra={<MixtureJobButton aroma={aroma}/>}
 		>
 			<MixtureFilter
 				inline
@@ -38,9 +36,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 			/>
 		</Template> :
 		<MixtureList
-			header={() => <RowInline
-				extra={<MixtureJobButton aroma={aroma}/>}
-			>
+			header={() => <RowInline>
 				<MixtureFilter
 					aroma={aroma}
 				/>

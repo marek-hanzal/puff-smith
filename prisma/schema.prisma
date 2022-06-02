@@ -470,7 +470,7 @@ model Aroma {
   code     String @unique
   cost     Float
   content  Float
-  volume   Float?
+  volume   Float
   pg       Float
   vg       Float
   vendorId String

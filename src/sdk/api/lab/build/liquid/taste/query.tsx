@@ -119,7 +119,7 @@ export const BuildLiquidTasteRatingListSource: FC<IBuildLiquidTasteRatingListSou
 			{...props}
 		/>
 	</BuildLiquidTasteRatingProvider>;
-};
+}
 
 export interface IBuildLiquidTasteRatingSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildLiquidTasteRatingSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildLiquidTasteRatingSource>>;
@@ -162,7 +162,7 @@ export interface IBuildLiquidTasteRatingSelectionProviderProps extends Partial<I
 
 export const BuildLiquidTasteRatingSelectionProvider: FC<IBuildLiquidTasteRatingSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildLiquidTasteRatingSource>> {...props}/>;
-};
+}
 
 export const useBuildLiquidTasteRatingQueryInvalidate = () => {
 	const queryClient = useQueryClient();

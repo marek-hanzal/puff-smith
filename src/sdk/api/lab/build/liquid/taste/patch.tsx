@@ -17,7 +17,7 @@ export const usePatchMutation = createMutationHook<ISourcePatch<IBuildLiquidTast
 export const usePatchQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([PatchApiLink]);
-};
+}
 
 export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>>> {
 }
@@ -25,7 +25,7 @@ export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => <Form<ISourcePatch<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>>
 	useMutation={usePatchMutation}
 	{...props}
-/>;
+/>
 
 export const toPatchLink = (queryParams?: IPatchQueryParams) => toLink(PatchApiLink, queryParams);
 export const usePatchLink = () => toPatchLink;

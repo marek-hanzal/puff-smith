@@ -1,4 +1,3 @@
-import {MixtureInventoryBoosterJob} from "@/puff-smith/jobs/mixture/job";
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
@@ -49,29 +48,22 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					userId,
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,
-					callback: async transaction => {
-						const boosterInventory = await prisma.boosterInventory.create({
-							data: {
-								code: code || codeService().code(),
-								boosterId: $booster.id,
-								transactionId: transaction.id,
-								userId,
-							},
-							include: {
-								booster: {
-									include: {
-										vendor: true,
-									}
-								},
-								transaction: true,
-							},
-						});
-						await MixtureInventoryBoosterJob.async({
+					callback: async transaction => prisma.boosterInventory.create({
+						data: {
+							code: code || codeService().code(),
 							boosterId: $booster.id,
-							boosterInventoryId: boosterInventory.id,
-						}, userId);
-						return boosterInventory;
-					},
+							transactionId: transaction.id,
+							userId,
+						},
+						include: {
+							booster: {
+								include: {
+									vendor: true,
+								}
+							},
+							transaction: true,
+						},
+					}),
 				});
 			}),
 			delete: async ids => {

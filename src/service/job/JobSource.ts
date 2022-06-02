@@ -47,9 +47,7 @@ export const JobSource = (): IJobSource => {
 					data: {
 						total: ($total = total),
 					},
-					where: {
-						id: jobId,
-					}
+					where: {id: jobId}
 				}),
 				setStatus: status => source.prisma.job.update({
 					data: {
@@ -57,9 +55,7 @@ export const JobSource = (): IJobSource => {
 						started: ["RUNNING"].includes(status) ? new Date() : undefined,
 						finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : (["RUNNING"].includes(status) ? null : undefined),
 					},
-					where: {
-						id: jobId,
-					},
+					where: {id: jobId}
 				}),
 				onSuccess: () => source.prisma.job.update({
 					data: {
@@ -67,9 +63,7 @@ export const JobSource = (): IJobSource => {
 						successRatio: toPercent($success, $total),
 						progress: toPercent(++$processed, $total),
 					},
-					where: {
-						id: jobId,
-					}
+					where: {id: jobId}
 				}),
 				onFailure: () => source.prisma.job.update({
 					data: {
@@ -77,9 +71,7 @@ export const JobSource = (): IJobSource => {
 						failureRatio: toPercent($failure, $total),
 						progress: toPercent(++$processed, $total),
 					},
-					where: {
-						id: jobId,
-					}
+					where: {id: jobId}
 				}),
 				onSkip: () => source.prisma.job.update({
 					data: {
@@ -87,9 +79,7 @@ export const JobSource = (): IJobSource => {
 						skipRatio: toPercent($skip, $total),
 						progress: toPercent(++$processed, $total),
 					},
-					where: {
-						id: jobId,
-					}
+					where: {id: jobId}
 				}),
 				setResult: result => {
 					$result = result;

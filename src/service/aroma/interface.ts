@@ -10,7 +10,7 @@ export type IAromaCreate = {
 	cost: number;
 	pg: number;
 	vg: number;
-	volume?: number;
+	volume: number;
 	content: number;
 	steep?: number;
 	tastes?: string;
