@@ -1,10 +1,22 @@
 import {IMixtureError} from "@/puff-smith/service/mixture/interface";
-import {Aroma, Base, Booster} from "@prisma/client";
 
 export interface IToMixtureInfoRequest {
-	aroma: Aroma;
-	base?: Base;
-	booster?: Booster;
+	aroma: {
+		content: number,
+		volume: number,
+		vg: number,
+		pg: number,
+	};
+	base?: {
+		vg: number,
+		pg: number,
+	};
+	booster?: {
+		volume: number,
+		nicotine: number,
+		vg: number,
+		pg: number,
+	};
 	nicotine?: number;
 }
 
@@ -22,7 +34,6 @@ export interface IVgPgMl {
 }
 
 export interface IAromaInfo {
-	aromaId: string;
 	content: number;
 	volume: number;
 	available: number;
@@ -32,7 +43,6 @@ export interface IAromaInfo {
 }
 
 export interface IBaseInfo {
-	baseId: string;
 	volume: number;
 	pg: number;
 	vg: number;
@@ -40,7 +50,6 @@ export interface IBaseInfo {
 }
 
 export interface IBoosterInfo {
-	boosterId: string;
 	volume: number;
 	count: number;
 	pg: number;
@@ -49,9 +58,8 @@ export interface IBoosterInfo {
 }
 
 export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): Promise<IMixtureInfo> => {
-	const available = (aroma.volume ? aroma.volume : aroma.content) - aroma.content;
+	const available = aroma.volume - aroma.content;
 	const aromaInfo: IAromaInfo = {
-		aromaId: aroma.id,
 		content: aroma.content,
 		volume: aroma.volume || aroma.content,
 		available,
@@ -76,7 +84,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
-			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
 			pg: booster.pg,
@@ -88,7 +95,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			}),
 		};
 		const baseInfo: IBaseInfo = {
-			baseId: base.id,
 			volume: aromaInfo.available - boosterInfo.volume,
 			pg: base.pg,
 			vg: base.vg,
@@ -121,7 +127,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
-			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
 			pg: booster.pg,
@@ -148,7 +153,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 	}
 	if (base) {
 		const baseInfo: IBaseInfo = {
-			baseId: base.id,
 			volume: aromaInfo.available,
 			pg: base.pg,
 			vg: base.vg,

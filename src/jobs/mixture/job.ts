@@ -64,16 +64,16 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
 	const mixtureSource = MixtureSource().withUserId(userId);
 
-	const createMixture = async (info: IMixtureInfo) => {
+	const createMixture = async (aromaId: string, boosterId: string, baseId: string, info: IMixtureInfo) => {
 		const volume = aroma.volume || aroma.content;
 		if (info.result.error) {
 			return;
 		}
 		await mixtureSource.create({
 			aromaId: aroma.id,
-			baseId: info.base?.baseId,
+			baseId: baseId,
 			baseMl: info.base?.volume || 0,
-			boosterId: info.booster?.boosterId,
+			boosterId: boosterId,
 			boosterCount: info?.booster?.count || 0,
 			volume,
 			available: info.available,
@@ -118,9 +118,12 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 			}
 		})) {
 			for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-				await $queue.add(async () => progress(async () => createMixture(await toMixtureInfo({
+				await $queue.add(async () => progress(async () => createMixture(aroma.id, booster.id, base.id, await toMixtureInfo({
 					nicotine,
-					aroma,
+					aroma: {
+						...aroma,
+						volume: aroma.volume || aroma.content,
+					},
 					booster,
 					base,
 				}))));
