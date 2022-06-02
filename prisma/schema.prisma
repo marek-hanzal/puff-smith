@@ -58,7 +58,6 @@ model User {
   BoosterInventory  BoosterInventory[]
   BaseInventory     BaseInventory[]
   WireInventory     WireInventory[]
-  MixtureInventory  MixtureInventory[]
 }
 
 model VerificationToken {
@@ -218,7 +217,6 @@ model Vendor {
   Booster   Booster[]
   Base      Base[]
   Wire      Wire[]
-  Mixture   Mixture[]
   Liquid    Liquid[]
 }
 
@@ -480,7 +478,6 @@ model Aroma {
   AromaInventory AromaInventory[]
   AromaComment   AromaComment[]
   AromaTaste     AromaTaste[]
-  Mixture        Mixture[]
   Liquid         Liquid[]
 
   @@unique([name, vendorId])
@@ -511,8 +508,6 @@ model AromaInventory {
   aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-
-  MixtureInventory MixtureInventory[]
 }
 
 model Booster {
@@ -528,7 +523,6 @@ model Booster {
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   BoosterInventory BoosterInventory[]
-  Mixture          Mixture[]
   Liquid           Liquid[]
 
   @@unique([name, vendorId])
@@ -543,8 +537,6 @@ model BoosterInventory {
   booster       Booster     @relation(fields: [boosterId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-
-  MixtureInventory MixtureInventory[]
 }
 
 model Base {
@@ -558,7 +550,6 @@ model Base {
   vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
 
   BaseInventory BaseInventory[]
-  Mixture       Mixture[]
   Liquid        Liquid[]
 
   @@unique([name, vendorId])
@@ -573,8 +564,6 @@ model BaseInventory {
   base          Base        @relation(fields: [baseId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-
-  MixtureInventory MixtureInventory[]
 }
 
 model Liquid {
@@ -582,8 +571,6 @@ model Liquid {
   code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mixtureId     String
-  mixture       Mixture     @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
   aromaId       String
   aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   vendorId      String
@@ -602,65 +589,53 @@ model Liquid {
 }
 
 model Mixture {
-  id              String        @id @default(cuid())
-  // application based unique hash; main goal is a simple ability to update mixtures based on this hash
-  hash            String        @unique
-  code            String        @unique
-  // total size of a bottle
-  volume          Float
-  // amount of liquid in a bottle
-  content         Float
-  // amount of available space to be filled
-  available       Float
-  // volume - content => amount of extra or missing liquid
-  diff            Float
-  // amount of nicotine (mg/ml)
-  nicotine        Float
+  id   String @id @default(cuid())
+
+  // Requeste values
+  // -- Aroma
+  // -- amount of aroma of the mix (for example 12ml)
+  aroma           Int
+  // -- total target volume of a bottle (for example 120ml)
+  volume          Int
+  // -- rounded amount of requested nicotine
   nicotineToRound Int
+  aromaVg         Int
+  aromaPg         Int
+
+  // -- Base
+  baseVg   Int
+  basePg   Int
+  // -- mixtures without base should have true (for example filled only by boosters)
+  withBase Boolean
+
+  // -- Booster
+  boosterVolume   Int
+  boosterNicotine Int
+  boosterVg       Int
+  boosterPg       Int
+  // -- mixtures without booster should have false (for example zero nic mixtures)
+  withBooster     Boolean
+
+  // Computed values
+  baseMl       Int
+  nicotine     Float
+  boosterMl    Int
+  boosterCount Int
+
   // vg/pg ratio
-  vg              Float
-  pg              Float
+  vg        Float
+  pg        Float
   // vg/pg in ml
-  vgToMl          Float
+  vgToMl    Float
   // rounded VG ratio (for example 70 instead of 76)
-  vgToRound       Int
-  pgToMl          Float
+  vgToRound Int
+  pgToMl    Float
   // rounded PG ratio (for example 70 instead of 76)
-  pgToRound       Int
-  aromaId         String
-  aroma           Aroma         @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  // vendor of an aroma
-  vendorId        String
-  vendor          Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  boosterId       String?
-  booster         Booster?      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  boosterCount    Int
-  baseId          String?
-  base            Base?         @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  baseMl          Float
-  error           MixtureError?
+  pgToRound Int
 
-  Liquid           Liquid[]
-  MixtureDraw      MixtureDraw[]
-  MixtureInventory MixtureInventory[]
+  MixtureDraw MixtureDraw[]
 
-  @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
-}
-
-model MixtureInventory {
-  id                 String            @id @default(cuid())
-  mixtureId          String
-  mixture            Mixture           @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  userId             String
-  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aromaInventoryId   String?
-  aromaInventory     AromaInventory?   @relation(fields: [aromaInventoryId], references: [id], onDelete: Cascade)
-  boosterInventoryId String?
-  boosterInventory   BoosterInventory? @relation(fields: [boosterInventoryId], references: [id], onDelete: Cascade)
-  baseInventoryId    String?
-  baseInventory      BaseInventory?    @relation(fields: [baseInventoryId], references: [id], onDelete: Cascade)
-
-  @@unique([mixtureId, userId])
+  @@index([nicotineToRound, vgToRound, pgToRound, aroma, volume, aromaVg, aromaPg, baseVg, basePg, boosterVolume, boosterMl, boosterNicotine, boosterVg, boosterPg], type: Brin)
 }
 
 model MixtureDraw {
@@ -669,12 +644,6 @@ model MixtureDraw {
   mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
   drawId    String
   draw      Tag     @relation(fields: [drawId], references: [id], onDelete: Cascade)
-}
-
-enum MixtureError {
-  LESS
-  MORE
-  FULL
 }
 
 model Build {

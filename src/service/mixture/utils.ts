@@ -61,7 +61,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	const available = aroma.volume - aroma.content;
 	const aromaInfo: IAromaInfo = {
 		content: aroma.content,
-		volume: aroma.volume || aroma.content,
+		volume: aroma.volume,
 		available,
 		pg: aroma.pg,
 		vg: aroma.vg,
@@ -80,7 +80,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
 	if (base && booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
@@ -111,7 +111,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				nicotine: boosterVolume * booster.nicotine,
 				fluids: [
@@ -123,7 +123,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		};
 	}
 	if (booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
@@ -142,7 +142,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				fluids: [
 					aromaInfo.ml,
@@ -167,7 +167,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				fluids: [
 					aromaInfo.ml,
@@ -180,7 +180,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		aroma: aromaInfo,
 		available,
 		result: toMixtureResult({
-			volume: aromaInfo.volume || 0,
+			volume: aromaInfo.volume,
 			available,
 			fluids: [
 				aromaInfo.ml,
@@ -201,7 +201,12 @@ interface IMixtureResult {
 	content: number;
 	error?: IMixtureError;
 	nicotine: number;
+	nicotineToRound: number;
 	ml: {
+		pg: number;
+		vg: number;
+	};
+	round: {
 		pg: number;
 		vg: number;
 	};
@@ -258,21 +263,27 @@ const drawMap: { [index in string | number]: string[] } = {
 
 const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResultRequest): IMixtureResult => {
 	const _fluids = fluids.filter((ml): ml is IVgPgMl => !!ml);
-	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vgToMl = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const total = pgToMl + vgToMl;
-	const pgToRatio = 100 * pgToMl / volume;
 	const vgToRatio = 100 * vgToMl / volume;
+	const pgToRatio = 100 * pgToMl / volume;
 	const vgToRound = Math.round(vgToRatio * 0.1) / 0.1;
+	const $nicotine = nicotine && nicotine > 0 ? nicotine / volume : 0;
 
 	return {
 		volume: total,
 		content: volume - total,
 		error: available <= 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
-		nicotine: nicotine && nicotine > 0 ? nicotine / volume : 0,
+		nicotine: $nicotine,
+		nicotineToRound: Math.round($nicotine || 0),
 		ml: {
-			pg: pgToMl,
 			vg: vgToMl,
+			pg: pgToMl,
+		},
+		round: {
+			vg: vgToRound,
+			pg: 100 - vgToRound,
 		},
 		ratio: {
 			pg: pgToRatio,
