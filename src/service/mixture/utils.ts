@@ -57,7 +57,7 @@ export interface IBoosterInfo {
 	ml: IVgPgMl;
 }
 
-export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): Promise<IMixtureInfo> => {
+export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): IMixtureInfo => {
 	const available = aroma.volume - aroma.content;
 	const aromaInfo: IAromaInfo = {
 		content: aroma.content,

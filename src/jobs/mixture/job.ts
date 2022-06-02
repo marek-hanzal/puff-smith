@@ -118,7 +118,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 			}
 		})) {
 			for (let nicotine = 0; nicotine <= maxNicotine; nicotine++) {
-				await $queue.add(async () => progress(async () => createMixture(aroma.id, booster.id, base.id, await toMixtureInfo({
+				await $queue.add(async () => progress(async () => createMixture(aroma.id, booster.id, base.id, toMixtureInfo({
 					nicotine,
 					aroma: {
 						...aroma,
