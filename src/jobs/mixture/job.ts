@@ -2,6 +2,7 @@ import {IMixturesJobParams, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interf
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {IJobProcessor} from "@leight-core/api";
 import {lengthOf} from "@leight-core/utils";
 import PQueue from "p-queue";
@@ -55,6 +56,7 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 		await lengthOf(nicotines())
 	);
 
+	const tagSource = TagSource();
 	await prisma.mixture.deleteMany();
 
 	for await (const aroma of $aroma) {
@@ -97,6 +99,13 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 								pg: $info.result.ratio.pg,
 								pgToMl: $info.result.ml.pg,
 								pgToRound: $info.result.round.pg,
+								MixtureDraw: {
+									createMany: {
+										data: (await tagSource.fetchByCodes($info.result.draws, "draw")).map(tag => ({
+											drawId: tag.id,
+										})),
+									}
+								},
 							}
 						});
 					});
