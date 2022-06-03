@@ -13,11 +13,7 @@ async function* nicotines() {
 		_max: {
 			nicotine: true,
 		}
-		/**
-		 * It's not possible to make liquid with same nicotine strength as is
-		 * in the booster, to safe some compute time by lowering max. by some epsilon
-		 * */
-	}))._max.nicotine || 0) - 2;
+	}))._max.nicotine || 0);
 	for (let nicotine = 0; nicotine <= limit; nicotine++) {
 		yield nicotine;
 	}
@@ -65,16 +61,17 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 		for await (const booster of $booster) {
 			for await (const base of $base) {
 				for await (const nicotine of nicotines()) {
+					const $info = toMixtureInfo({
+						nicotine,
+						aroma,
+						booster,
+						base,
+					});
+					if ($info.result.error) {
+						await jobProgress.onSkip();
+						continue;
+					}
 					await progress(async () => {
-						const $info = toMixtureInfo({
-							nicotine,
-							aroma,
-							booster,
-							base,
-						});
-						if ($info.result.error) {
-							return;
-						}
 						await prisma.mixture.create({
 							data: {
 								aroma: aroma.content,
