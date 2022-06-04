@@ -1,13 +1,16 @@
 import {DrawProviderControl, DrawSourceSelect, IDrawSourceSelectProps} from "@/sdk/api/inventory/mixture/draw/query";
-import {FC} from "react";
+import {ComponentProps, FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IMixtureDrawSelectProps extends Partial<IDrawSourceSelectProps> {
+	control?: ComponentProps<typeof DrawProviderControl>;
 }
 
-export const MixtureDrawSelect: FC<IMixtureDrawSelectProps> = props => {
+export const MixtureDrawSelect: FC<IMixtureDrawSelectProps> = ({control, ...props}) => {
 	const {t} = useTranslation();
-	return <DrawProviderControl>
+	return <DrawProviderControl
+		{...control}
+	>
 		<DrawSourceSelect
 			toOption={item => ({
 				value: item.id,

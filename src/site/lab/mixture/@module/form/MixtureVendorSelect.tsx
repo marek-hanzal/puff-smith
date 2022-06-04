@@ -1,11 +1,14 @@
 import {IVendorSourceSelectProps, VendorProviderControl, VendorSourceSelect} from "@/sdk/api/inventory/mixture/vendor/query";
-import {FC} from "react";
+import {ComponentProps, FC} from "react";
 
 export interface IMixtureVendorSelectProps extends Partial<IVendorSourceSelectProps> {
+	control?: ComponentProps<typeof VendorProviderControl>;
 }
 
-export const MixtureVendorSelect: FC<IMixtureVendorSelectProps> = props => {
-	return <VendorProviderControl>
+export const MixtureVendorSelect: FC<IMixtureVendorSelectProps> = ({control, ...props}) => {
+	return <VendorProviderControl
+		{...control}
+	>
 		<VendorSourceSelect
 			showSearch
 			toOption={item => ({

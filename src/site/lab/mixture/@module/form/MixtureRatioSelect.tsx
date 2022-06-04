@@ -1,16 +1,21 @@
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
-import {IRatioSourceSelectProps, RatioSourceSelect} from "@/sdk/api/inventory/mixture/ratio/query";
-import {FC} from "react";
+import {IRatioSourceSelectProps, RatioProviderControl, RatioSourceSelect} from "@/sdk/api/inventory/mixture/ratio/query";
+import {ComponentProps, FC} from "react";
 
 export interface IMixtureRatioSelectProps extends Partial<IRatioSourceSelectProps> {
+	control?: ComponentProps<typeof RatioProviderControl>;
 }
 
-export const MixtureRatioSelect: FC<IMixtureRatioSelectProps> = props => {
-	return <RatioSourceSelect
-		toOption={item => ({
-			...item,
-			label: <VgPgInline vgpg={item}/>
-		})}
-		{...props}
-	/>;
+export const MixtureRatioSelect: FC<IMixtureRatioSelectProps> = ({control, ...props}) => {
+	return <RatioProviderControl
+		{...control}
+	>
+		<RatioSourceSelect
+			toOption={item => ({
+				...item,
+				label: <VgPgInline vgpg={item}/>
+			})}
+			{...props}
+		/>
+	</RatioProviderControl>;
 };
