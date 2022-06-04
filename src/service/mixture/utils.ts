@@ -1,10 +1,22 @@
 import {IMixtureError} from "@/puff-smith/service/mixture/interface";
-import {Aroma, Base, Booster} from "@prisma/client";
 
 export interface IToMixtureInfoRequest {
-	aroma: Aroma;
-	base?: Base;
-	booster?: Booster;
+	aroma: {
+		content: number,
+		volume: number,
+		vg: number,
+		pg: number,
+	};
+	base?: {
+		vg: number,
+		pg: number,
+	};
+	booster?: {
+		volume: number,
+		nicotine: number,
+		vg: number,
+		pg: number,
+	};
 	nicotine?: number;
 }
 
@@ -22,7 +34,6 @@ export interface IVgPgMl {
 }
 
 export interface IAromaInfo {
-	aromaId: string;
 	content: number;
 	volume: number;
 	available: number;
@@ -32,7 +43,6 @@ export interface IAromaInfo {
 }
 
 export interface IBaseInfo {
-	baseId: string;
 	volume: number;
 	pg: number;
 	vg: number;
@@ -40,7 +50,6 @@ export interface IBaseInfo {
 }
 
 export interface IBoosterInfo {
-	boosterId: string;
 	volume: number;
 	count: number;
 	pg: number;
@@ -48,12 +57,11 @@ export interface IBoosterInfo {
 	ml: IVgPgMl;
 }
 
-export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): Promise<IMixtureInfo> => {
-	const available = (aroma.volume ? aroma.volume : aroma.content) - aroma.content;
+export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): IMixtureInfo => {
+	const available = aroma.volume - aroma.content;
 	const aromaInfo: IAromaInfo = {
-		aromaId: aroma.id,
 		content: aroma.content,
-		volume: aroma.volume || aroma.content,
+		volume: aroma.volume,
 		available,
 		pg: aroma.pg,
 		vg: aroma.vg,
@@ -72,11 +80,10 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
 	if (base && booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
-			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
 			pg: booster.pg,
@@ -88,7 +95,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			}),
 		};
 		const baseInfo: IBaseInfo = {
-			baseId: base.id,
 			volume: aromaInfo.available - boosterInfo.volume,
 			pg: base.pg,
 			vg: base.vg,
@@ -105,7 +111,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				nicotine: boosterVolume * booster.nicotine,
 				fluids: [
@@ -117,11 +123,10 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		};
 	}
 	if (booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = (aromaInfo.volume && nicotine * aromaInfo.volume || 0) / booster.nicotine || 0;
+		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
 		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
 		const boosterVolume = booster.volume * boosterCount;
 		const boosterInfo: IBoosterInfo = {
-			boosterId: booster.id,
 			volume: boosterVolume,
 			count: boosterCount,
 			pg: booster.pg,
@@ -137,7 +142,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				fluids: [
 					aromaInfo.ml,
@@ -148,7 +153,6 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 	}
 	if (base) {
 		const baseInfo: IBaseInfo = {
-			baseId: base.id,
 			volume: aromaInfo.available,
 			pg: base.pg,
 			vg: base.vg,
@@ -163,7 +167,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			available,
 			result: toMixtureResult({
-				volume: aromaInfo.volume || 0,
+				volume: aromaInfo.volume,
 				available,
 				fluids: [
 					aromaInfo.ml,
@@ -176,7 +180,7 @@ export const toMixtureInfo = async ({aroma, booster, base, nicotine}: IToMixture
 		aroma: aromaInfo,
 		available,
 		result: toMixtureResult({
-			volume: aromaInfo.volume || 0,
+			volume: aromaInfo.volume,
 			available,
 			fluids: [
 				aromaInfo.ml,
@@ -197,7 +201,12 @@ interface IMixtureResult {
 	content: number;
 	error?: IMixtureError;
 	nicotine: number;
+	nicotineToRound: number;
 	ml: {
+		pg: number;
+		vg: number;
+	};
+	round: {
 		pg: number;
 		vg: number;
 	};
@@ -254,21 +263,27 @@ const drawMap: { [index in string | number]: string[] } = {
 
 const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResultRequest): IMixtureResult => {
 	const _fluids = fluids.filter((ml): ml is IVgPgMl => !!ml);
-	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const vgToMl = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
 	const total = pgToMl + vgToMl;
-	const pgToRatio = 100 * pgToMl / volume;
 	const vgToRatio = 100 * vgToMl / volume;
+	const pgToRatio = 100 * pgToMl / volume;
 	const vgToRound = Math.round(vgToRatio * 0.1) / 0.1;
+	const $nicotine = nicotine && nicotine > 0 ? nicotine / volume : 0;
 
 	return {
 		volume: total,
 		content: volume - total,
 		error: available <= 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
-		nicotine: nicotine && nicotine > 0 ? nicotine / volume : 0,
+		nicotine: $nicotine,
+		nicotineToRound: Math.round($nicotine || 0),
 		ml: {
-			pg: pgToMl,
 			vg: vgToMl,
+			pg: pgToMl,
+		},
+		round: {
+			vg: vgToRound,
+			pg: 100 - vgToRound,
 		},
 		ratio: {
 			pg: pgToRatio,

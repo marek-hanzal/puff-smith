@@ -10,7 +10,7 @@ export type IAromaCreate = {
 	cost: number;
 	pg: number;
 	vg: number;
-	volume?: number;
+	volume: number;
 	content: number;
 	steep?: number;
 	tastes?: string;
@@ -34,7 +34,7 @@ export interface IAroma {
 	pg: number;
 	vg: number;
 	content: number;
-	volume?: number | null;
+	volume: number;
 	steep?: number | null;
 	tastes: ITag[];
 }
