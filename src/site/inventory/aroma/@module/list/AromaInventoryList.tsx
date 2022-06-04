@@ -1,3 +1,4 @@
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
@@ -5,7 +6,7 @@ import {AromaListEmpty} from "@/puff-smith/site/inventory/aroma/@module/list/Aro
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromaInventoryListSource, IAromaInventoryListSourceProps} from "@/sdk/api/inventory/aroma/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -21,6 +22,12 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 	>
 		{aromaInventory => <ListItem
 			key={aromaInventory.id}
+			extra={<ButtonLink
+				href={"/lab/liquid/create/aroma/[aromaId]"}
+				query={{aromaId: aromaInventory.aromaId}}
+				icon={<AromaIcon/>}
+				label={"inventory.liquid.create.button"}
+			/>}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>

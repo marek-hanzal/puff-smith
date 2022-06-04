@@ -19,6 +19,7 @@ import {VoucherSource} from "@/puff-smith/service/voucher/VoucherSource";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
+import PQueue from "p-queue";
 import xlsx from "xlsx";
 
 const importers = {
@@ -53,4 +54,8 @@ export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(
 	const workbook = xlsx.readFile(fileService.toLocation(fileId));
 	logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 	await toImport({job, jobProgress, workbook, importers});
-});
+}, options => new PQueue({
+	...options,
+	concurrency: 1,
+	interval: 1,
+}));

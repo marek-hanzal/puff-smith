@@ -34,7 +34,7 @@ export interface IAroma {
 	pg: number;
 	vg: number;
 	content: number;
-	volume?: number | null;
+	volume: number;
 	steep?: number | null;
 	tastes: ITag[];
 }
