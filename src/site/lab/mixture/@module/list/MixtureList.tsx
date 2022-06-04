@@ -20,7 +20,10 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 		}}
 		{...props}
 	>
-		{mixture => <ListItem>
+		{mixture => <ListItem
+			key={mixture.id}
+			extra={<LiquidCreateButton mixture={mixture}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<AromaNameInline aroma={mixture.aroma}/>
@@ -28,7 +31,6 @@ export const MixtureList: FC<IMixtureListProps> = props => {
 					<NicotineInline nicotine={mixture.nicotine}/>
 					{mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={mixture.aroma.tastes} translation={"common.taste"}/>}
 					{mixture.draws.length > 0 && <Tags tags={mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
-					<LiquidCreateButton mixture={mixture}/>
 				</Space>}
 				description={<MixtureInline hasBooster hasBase mixture={mixture}/>}
 			/>

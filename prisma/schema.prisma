@@ -615,7 +615,7 @@ model Mixture {
   // volume - content => amount of extra or missing liquid
   diff            Int
   // amount of nicotine (mg/ml)
-  nicotine        Int
+  nicotine        Float
   nicotineToRound Int
   // vg/pg ratio
   vg              Float

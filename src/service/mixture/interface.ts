@@ -9,29 +9,7 @@ import {ParsedUrlQuery} from "querystring";
 
 export type IMixtureError = "LESS" | "MORE" | "FULL";
 
-export interface IMixtureCreate {
-	code?: string;
-	aromaId: string;
-	boosterId?: string;
-	boosterCount: number;
-	baseId?: string;
-	baseMl: number;
-	content: number;
-	volume: number;
-	available: number;
-	diff: number;
-	nicotine: number;
-	vg: number;
-	pg: number;
-	vgToMl: number;
-	pgToMl: number;
-	error?: IMixtureError;
-	draws?: string[];
-}
-
-export type IMixtureWhere = Prisma.MixtureWhereInput & IWithFulltext;
-
-export interface IMixtureQuery extends IQuery<IMixtureWhere, Prisma.MixtureOrderByWithRelationInput> {
+export interface IMixtureQuery extends IQuery<Prisma.MixtureWhereInput & IWithFulltext, Prisma.MixtureOrderByWithRelationInput> {
 }
 
 export type IMixtureEntity<T = void> = T extends void ? Mixture : Mixture & T;
@@ -71,5 +49,5 @@ export interface IMixtureFetchParams extends ParsedUrlQuery {
 	mixtureId: string;
 }
 
-export interface IMixtureSource extends ISource<IMixtureCreate, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
+export interface IMixtureSource extends ISource<undefined, IMixtureEntity<IWithAroma<IWithAromaTaste & IWithVendor> & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithMixtureDraw>, IMixture, IMixtureQuery, IMixtureFetch, IMixtureFetchParams> {
 }

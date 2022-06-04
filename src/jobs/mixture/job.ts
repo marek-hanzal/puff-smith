@@ -12,7 +12,7 @@ import {
 } from "@/puff-smith/jobs/mixture/interface";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
-import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
+import {MixtureJobSource} from "@/puff-smith/service/mixture/job/MixtureJobSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IJobHandlerRequest, IJobProcessor} from "@leight-core/api";
@@ -62,7 +62,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		 * */
 	}))._max.nicotine || 0) - 2;
 	await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
-	const mixtureSource = MixtureSource().withUserId(userId);
+	const mixtureSource = MixtureJobSource().withUserId(userId);
 
 	const createMixture = async (aromaId: string, baseId: string, boosterId: string, info: IMixtureInfo) => {
 		const volume = aroma.volume || aroma.content;
@@ -71,9 +71,9 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		}
 		await mixtureSource.create({
 			aromaId,
-			baseId,
+			baseId: info.base ? baseId : undefined,
 			baseMl: info.base?.volume || 0,
-			boosterId,
+			boosterId: info.booster ? boosterId : undefined,
 			boosterCount: info?.booster?.count || 0,
 			volume,
 			available: info.available,
@@ -84,7 +84,6 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 			vgToMl: info.result.ml.vg,
 			pgToMl: info.result.ml.pg,
 			nicotine: info.result.nicotine,
-			error: info.result.error,
 			draws: info.result.draws,
 		});
 	};
