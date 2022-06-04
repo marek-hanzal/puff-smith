@@ -20,7 +20,8 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 	const filterContext = useFilterContext();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 	const [filter, setFilter] = useState<any>({
-		nicotineToRound: 0,
+		...filterContext.source,
+		nicotineToRound: filterContext?.source?.nicotineToRound || 0,
 	});
 
 	const onClear = () => {
@@ -39,9 +40,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 		formProps={{
 			onChange: ({values}) => setFilter(values),
 		}}
-		toForm={() => ({
-			nicotineToRound: 0,
-		})}
 		toFilter={({andDrawIds, orDrawIds, ratio: unused, ...values}) => toFilter({
 			...values,
 			AND: andDrawIds?.map((drawId: string) => ({
@@ -71,6 +69,8 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 							control={{
 								applyFilter: {
 									aromaId: aroma?.id,
+									baseId: filter?.baseId,
+									boosterId: filter?.boosterId,
 								}
 							}}
 						/>
@@ -98,6 +98,8 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 										applyFilter: {
 											aromaId: aroma?.id,
 											nicotineToRound: filter?.nicotineToRound,
+											baseId: filter?.baseId,
+											boosterId: filter?.boosterId,
 										}
 									}}
 								/>

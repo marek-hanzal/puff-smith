@@ -73,6 +73,12 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 			applyFilter={{
 				aromaId: aroma.id,
 			}}
+			defaultFilter={{
+				nicotineToRound: 0,
+			}}
+			defaultSource={{
+				nicotineToRound: 0,
+			}}
 			defaultOrderBy={[
 				{vg: "desc"},
 				{nicotine: "desc"},
