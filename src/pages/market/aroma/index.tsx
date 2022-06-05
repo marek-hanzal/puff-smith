@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -14,7 +14,7 @@ export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.aroma.index"}
 		menuSelection={["/market/aroma"]}
-		icon={<LiquidIcon/>}
+		icon={<AromaIcon/>}
 		extra={<AromaCreateButton/>}
 		withHelp={{
 			translation: "market.aroma.index",

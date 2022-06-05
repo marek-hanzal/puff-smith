@@ -1,20 +1,17 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {AromaCreateForm} from "@/puff-smith/site/shared/aroma/@module/form/AromaCreateForm";
-import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
+import {ButtonLink, IButtonLinkProps} from "@leight-core/client";
 import {FC} from "react";
 
-export interface IAromaCreateButtonProps extends Partial<IDrawerButtonProps> {
+export interface IAromaCreateButtonProps extends Partial<IButtonLinkProps> {
 }
 
 export const AromaCreateButton: FC<IAromaCreateButtonProps> = props => {
-	return <DrawerButton
-		size={"large"}
+	return <ButtonLink
 		type={"primary"}
-		title={"market.aroma.create.title"}
+		size={"large"}
+		icon={<AromaIcon/>}
+		href={"/market/aroma/create"}
 		label={"market.aroma.create.button"}
-		icon={<LiquidIcon/>}
 		{...props}
-	>
-		<AromaCreateForm/>
-	</DrawerButton>;
+	/>;
 };

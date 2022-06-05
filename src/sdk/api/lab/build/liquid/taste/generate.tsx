@@ -11,17 +11,17 @@ export const BuildTasteGenerateApiLink = "/api/lab/build/liquid/taste/generate";
 
 export type IBuildTasteGenerateQueryParams = undefined;
 
-export const useBuildTasteGenerateMutation = createMutationHook<IBuildLiquidTasteRatingGenerate, boolean>(BuildTasteGenerateApiLink, "post");
+export const useBuildTasteGenerateMutation = createMutationHook<IBuildLiquidTasteRatingGenerate, any>(BuildTasteGenerateApiLink, "post");
 
 export const useBuildTasteGenerateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BuildTasteGenerateApiLink]);
-};
-
-export interface IBuildTasteGenerateDefaultFormProps extends Partial<IFormProps<IBuildLiquidTasteRatingGenerate, boolean>> {
 }
 
-export const BuildTasteGenerateDefaultForm: FC<IBuildTasteGenerateDefaultFormProps> = props => <Form<IBuildLiquidTasteRatingGenerate, boolean>
+export interface IBuildTasteGenerateDefaultFormProps extends Partial<IFormProps<IBuildLiquidTasteRatingGenerate, any>> {
+}
+
+export const BuildTasteGenerateDefaultForm: FC<IBuildTasteGenerateDefaultFormProps> = props => <Form<IBuildLiquidTasteRatingGenerate, any>
 	useMutation={useBuildTasteGenerateMutation}
 	{...props}
 />;
@@ -29,6 +29,6 @@ export const BuildTasteGenerateDefaultForm: FC<IBuildTasteGenerateDefaultFormPro
 export const toBuildTasteGenerateLink = (queryParams?: IBuildTasteGenerateQueryParams) => toLink(BuildTasteGenerateApiLink, queryParams);
 export const useBuildTasteGenerateLink = () => toBuildTasteGenerateLink;
 
-export const useBuildTasteGeneratePromise = createPromiseHook<IBuildLiquidTasteRatingGenerate, boolean>(BuildTasteGenerateApiLink, "post");
+export const useBuildTasteGeneratePromise = createPromiseHook<IBuildLiquidTasteRatingGenerate, any>(BuildTasteGenerateApiLink, "post");
 
-export const BuildTasteGeneratePromise = createPromise<IBuildLiquidTasteRatingGenerate, boolean>(BuildTasteGenerateApiLink, "post");
+export const BuildTasteGeneratePromise = createPromise<IBuildLiquidTasteRatingGenerate, any>(BuildTasteGenerateApiLink, "post");

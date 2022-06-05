@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
@@ -6,19 +6,26 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {AromaView} from "@/puff-smith/site/market/aroma/@module/view/AromaView";
+import {ButtonLink, EditIcon} from "@leight-core/client";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 	return <MarketPage
+		onBack={navigate => navigate("/market/aroma")}
 		title={"market.aroma.aroma"}
 		tabTitle={"market.aroma.aroma.title.tab"}
 		values={{aroma}}
 		components={TransComponents}
-		onBack={navigate => navigate("/market/aroma")}
 		menuSelection={["/market/aroma", "/market/aroma/[aromaId]"]}
-		icon={<LiquidIcon/>}
+		icon={<AromaIcon/>}
 		headerProps={{
 			footer: <AromaIndexMenu aroma={aroma}/>,
 		}}
+		extra={<ButtonLink
+			href={"/market/aroma/[aromaId]/edit"}
+			query={{aromaId: aroma.id}}
+			label={"market.aroma.edit.button"}
+			icon={<EditIcon/>}
+		/>}
 	>
 		<AromaView aroma={aroma}/>
 	</MarketPage>;

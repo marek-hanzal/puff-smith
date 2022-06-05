@@ -1,22 +1,23 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {Space, SpaceProps, Tag, TagProps} from "antd";
+import {Tag, TagProps} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ITagsProps extends Partial<SpaceProps> {
+export interface ITagsProps {
 	tags: ITag[];
 	color?: TagProps["color"];
 	translation?: string;
 }
 
-export const Tags: FC<ITagsProps> = ({tags, translation, color = "cyan", ...props}) => {
+export const Tags: FC<ITagsProps> = ({tags, translation, color = "cyan"}) => {
 	const {t} = useTranslation();
-	return tags.length ? <Space size={0} {...props}>
+	return tags.length ? <span>
 		{tags.map(tag => <Tag
 			key={`tag-${tag.id}`}
 			color={color}
+			style={{margin: "0.4em 0.4em"}}
 		>
 			{translation ? t(`${translation}.${tag.code}`) : tag.code}
 		</Tag>)}
-	</Space> : null;
+	</span> : null;
 };

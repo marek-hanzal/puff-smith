@@ -9,16 +9,17 @@ import {useTranslation} from "react-i18next";
 export interface IVendorCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const VendorCreateForm: FC<IVendorCreateFormProps> = props => {
+export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const vendorQueryInvalidate = useVendorQueryInvalidate();
 	const vendorCountQueryInvalidate = useVendorCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.vendor.create"}
-		onSuccess={async ({response}) => {
-			message.success(t("shared.vendor.create.success", response));
+		onSuccess={async response => {
+			message.success(t("shared.vendor.create.success", response.response));
 			await vendorQueryInvalidate();
 			await vendorCountQueryInvalidate();
+			onSuccess?.(response);
 		}}
 		{...props}
 	>

@@ -1,47 +1,44 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
+import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {TagCreateInline} from "@/puff-smith/site/shared/tag/@module/form/TagCreateInline";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/aroma/create";
+import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/api/aroma/patch";
 import {useAromaCountQueryInvalidate, useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {useAromaMarketCountQueryInvalidate, useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
-import {useMixtureUpdateMutation} from "@/sdk/api/mixture/aroma/update";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IAromaCreateFormProps extends Partial<ICreateDefaultFormProps> {
+export interface IAromaEditFormProps extends Partial<IPatchDefaultFormProps> {
+	aroma: IAroma;
 }
 
-export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}) => {
+export const AromaEditForm: FC<IAromaEditFormProps> = ({onSuccess, aroma, ...props}) => {
 	const {t} = useTranslation();
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
 	const aromaMarketQueryInvalidate = useAromaMarketQueryInvalidate();
 	const aromaCountQueryInvalidate = useAromaCountQueryInvalidate();
 	const aromaMarketCountQueryInvalidate = useAromaMarketCountQueryInvalidate();
-	const mixtureUpdateMutation = useMixtureUpdateMutation();
-	return <CreateDefaultForm
+	return <PatchDefaultForm
 		translation={"shared.aroma.create"}
 		onSuccess={async response => {
-			message.success(t("shared.aroma.create.success", {aroma: response.response}));
+			message.success(t("shared.aroma.edit.success", {aroma: response.response}));
 			await aromaQueryInvalidate();
 			await aromaMarketQueryInvalidate();
 			await aromaCountQueryInvalidate();
 			await aromaMarketCountQueryInvalidate();
-			mixtureUpdateMutation.mutate({
-				aromaId: response.response.id,
-			});
 			onSuccess?.(response);
 		}}
 		toForm={() => ({
-			content: 12,
-			volume: 60,
-			steep: 14,
-			vgpg: 100,
+			...aroma,
+			vgpg: aroma.pg,
+			withMixtures: false,
 		})}
 		toMutation={({vgpg, ...values}) => ({
+			id: aroma.id,
 			...values,
 			pg: vgpg,
 			vg: 100 - vgpg,
@@ -89,11 +86,12 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				<FormItem field={"steep"} hasTooltip required>
 					<InputNumber min={0} max={1000} style={{width: "100%"}}/>
 				</FormItem>
+				<SwitchItem field={"withMixtures"} hasTooltip/>
 			</Col>
 		</Row>
 		<Divider/>
 		<Centered>
-			<Submit icon={<AromaIcon/>} label={"create"}/>
+			<Submit icon={<AromaIcon/>} label={"edit"}/>
 		</Centered>
-	</CreateDefaultForm>;
+	</PatchDefaultForm>;
 };

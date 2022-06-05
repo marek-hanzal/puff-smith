@@ -1,3 +1,4 @@
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
@@ -27,7 +28,7 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 		items={[
 			CreateMenuItem("market.home.menu", "/market", <HomeIcon/>),
 			CreateMenuGroup("market.liquid.menu", <LiquidIcon/>, [
-				CreateMenuItem("market.aroma.menu", "/market/aroma", <LiquidIcon/>),
+				CreateMenuItem("market.aroma.menu", "/market/aroma", <AromaIcon/>),
 				CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
 				CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),
 			]),
