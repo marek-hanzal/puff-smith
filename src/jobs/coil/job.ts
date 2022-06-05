@@ -53,6 +53,6 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_
 	}
 }, options => new PQueue({
 	...options,
-	concurrency: 5,
-	intervalCap: 5,
+	concurrency: 1,
+	intervalCap: 1,
 }));

@@ -65,28 +65,15 @@ export const WireFilter: FC<IWireFilterProps> = ({toFilter = filter => filter, .
 							allowClear
 						/>
 					</FormItem>
-					<TabAndOr
-						name={"fiberIds"}
-						orCondition={() => filterContext.source?.orFiberIds}
-						and={<FormItem field={"andFiberIds"} hasTooltip>
-							<WireFiberSelect
-								mode={"multiple"}
-								allowClear
-								onChange={() => formContext.setValues({
-									orFiberIds: undefined,
-								})}
-							/>
-						</FormItem>}
-						or={<FormItem field={"orFiberIds"} hasTooltip>
-							<WireFiberSelect
-								mode={"multiple"}
-								allowClear
-								onChange={() => formContext.setValues({
-									andFiberIds: undefined,
-								})}
-							/>
-						</FormItem>}
-					/>
+					<FormItem field={"orFiberIds"} hasTooltip>
+						<WireFiberSelect
+							mode={"multiple"}
+							allowClear
+							onChange={() => formContext.setValues({
+								andFiberIds: undefined,
+							})}
+						/>
+					</FormItem>
 					<Divider/>
 					<TabAndOr
 						name={"drawIds"}

@@ -10,7 +10,7 @@ import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/C
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
-import {LinkTo, ListItem, ListItemMeta} from "@leight-core/client";
+import {LinkTo, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -18,6 +18,7 @@ export interface IBuildListProps extends Partial<IBuildListSourceProps> {
 }
 
 export const BuildList: FC<IBuildListProps> = props => {
+	const selectionContext = useOptionalSelectionContext();
 	return <BuildListSource
 		locale={{
 			emptyText: <BuildListEmpty/>,
@@ -30,7 +31,7 @@ export const BuildList: FC<IBuildListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={build}/>
+					{selectionContext && <SelectionBool selection={build}/>}
 					<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
 						<AtomizerNameInline atomizer={build.atomizer}/>
 					</LinkTo>

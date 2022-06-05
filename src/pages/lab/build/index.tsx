@@ -1,4 +1,5 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
@@ -7,7 +8,7 @@ import {BuildListInactiveEmpty} from "@/puff-smith/site/lab/build/@module/list/B
 import {BuildListToolbar} from "@/puff-smith/site/lab/build/@module/list/BuildListToolbar";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import Icon from "@ant-design/icons";
-import {ButtonBar, ButtonLink, SelectionProvider, TabInline} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, SelectionProvider, TabInline} from "@leight-core/client";
 import {Tabs} from "antd";
 import {BsArchive} from "react-icons/bs";
 
@@ -25,6 +26,16 @@ export default withLabLayout(function Index() {
 					label={"lab.build.create.button"}
 				/>
 			</ButtonBar>}
+			breadcrumbProps={<Breadcrumbs>
+				<BreadcrumbButton
+					href={"/lab"}
+					icon={<LabIcon/>}
+				/>
+				<BreadcrumbIcon
+					icon={<BuildIcon/>}
+					label={"lab.build.label"}
+				/>
+			</Breadcrumbs>}
 			withHelp={{
 				translation: "lab.build.index",
 			}}

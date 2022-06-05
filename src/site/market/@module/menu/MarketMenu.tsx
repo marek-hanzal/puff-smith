@@ -45,8 +45,8 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 				CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
 				CreateMenuItem("market.vendor.menu", "/market/vendor", <VendorIcon/>),
 			]),
-			CreateMenuItem("market.inventory.menu", "/to/inventory", <InventoryIcon/>),
 			CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
+			CreateMenuItem("market.inventory.menu", "/to/inventory", <InventoryIcon/>),
 			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("lab.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
 		]}
 		{...props}

@@ -34,6 +34,8 @@ export interface IAtomizer {
 	vendorId: string;
 	draws: ITag[];
 	drawIds: string[];
+	coilMin?: number | null;
+	coilMax?: number | null;
 }
 
 export interface IAtomizerFetch {
