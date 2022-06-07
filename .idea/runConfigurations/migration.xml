@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="migration" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="migration" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs>
+      <env name="DATABASE_URL" value="postgresql://puff-smith:1234@localhost:5532/puff-smith?schema=public" />
+      <env name="LOKI_URL" value="http://loki:3100" />
+      <env name="NEXTAUTH_GITHUB_CLIENT_ID" value="abbc01fc85709ab26921" />
+      <env name="NEXTAUTH_GITHUB_CLIENT_SECRET" value="d1d4c98417588b8280c60ee0b3b4233761d529f7" />
+      <env name="NEXTAUTH_SECRET" value="1234" />
+      <env name="NEXTAUTH_URL" value="http://localhost:3000" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
