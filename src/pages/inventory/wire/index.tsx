@@ -1,12 +1,12 @@
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {WireInventoryList} from "@/puff-smith/site/inventory/wire/@module/list/WireInventoryList";
 import {WireListToolbar} from "@/puff-smith/site/inventory/wire/@module/list/WireListToolbar";
 import {WireInventoryProviderControl} from "@/sdk/api/inventory/wire/query";
 import {SelectionProvider} from "@leight-core/client";
-import {Space} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -19,9 +19,10 @@ export default withInventoryLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<WireInventoryList
-					header={() => <Space size={"large"}>
-						<WireListToolbar/>
-					</Space>}
+					header={() => <RowInline
+						extra={<WireListToolbar/>}
+					>
+					</RowInline>}
 				/>
 			</SelectionProvider>
 		</WireInventoryProviderControl>

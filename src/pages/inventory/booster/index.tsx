@@ -1,5 +1,6 @@
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {BoosterFilter} from "@/puff-smith/site/inventory/booster/@module/filter/BoosterFilter";
@@ -7,7 +8,6 @@ import {BoosterInventoryList} from "@/puff-smith/site/inventory/booster/@module/
 import {BoosterListToolbar} from "@/puff-smith/site/inventory/booster/@module/list/BoosterListToolbar";
 import {BoosterInventoryProviderControl} from "@/sdk/api/inventory/booster/query";
 import {SelectionProvider} from "@leight-core/client";
-import {Space} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -20,12 +20,13 @@ export default withInventoryLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<BoosterInventoryList
-					header={() => <Space size={"large"}>
+					header={() => <RowInline
+						extra={<BoosterListToolbar/>}
+					>
 						<BoosterFilter
 							toFilter={filter => ({booster: filter})}
 						/>
-						<BoosterListToolbar/>
-					</Space>}
+					</RowInline>}
 				/>
 			</SelectionProvider>
 		</BoosterInventoryProviderControl>

@@ -1,12 +1,12 @@
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CottonInventoryList} from "@/puff-smith/site/inventory/cotton/@module/list/CottonInventoryList";
 import {CottonListToolbar} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListToolbar";
 import {CottonInventoryProviderControl} from "@/sdk/api/inventory/cotton/query";
 import {SelectionProvider} from "@leight-core/client";
-import {Space} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -19,9 +19,10 @@ export default withInventoryLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<CottonInventoryList
-					header={() => <Space size={"large"}>
-						<CottonListToolbar/>
-					</Space>}
+					header={() => <RowInline
+						extra={<CottonListToolbar/>}
+					>
+					</RowInline>}
 				/>
 			</SelectionProvider>
 		</CottonInventoryProviderControl>
