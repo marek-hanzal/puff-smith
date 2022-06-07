@@ -1,5 +1,5 @@
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
-import {useWireFilterContext} from "@/sdk/api/wire/query";
+import {useWireOptionalFilterContext} from "@/sdk/api/wire/query";
 import {ButtonLink, Template} from "@leight-core/client";
 import {Divider} from "antd";
 import {FC} from "react";
@@ -8,8 +8,8 @@ export interface IWireListEmptyProps {
 }
 
 export const WireListEmpty: FC<IWireListEmptyProps> = () => {
-	const filterContext = useWireFilterContext();
-	if (!filterContext.isEmpty()) {
+	const filterContext = useWireOptionalFilterContext();
+	if (filterContext && !filterContext.isEmpty()) {
 		return <Template
 			icon={<WireIcon/>}
 			label={"lab.wire.list.filter.empty"}

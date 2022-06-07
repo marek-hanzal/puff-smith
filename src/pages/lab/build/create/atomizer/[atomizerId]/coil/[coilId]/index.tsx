@@ -9,13 +9,14 @@ import {IAtomizerFetch, IAtomizerFetchParams} from "@/puff-smith/service/atomize
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {ICoilFetch, ICoilFetchParams} from "@/puff-smith/service/coil/interface";
 import {CottonInventoryList} from "@/puff-smith/site/inventory/cotton/@module/list/CottonInventoryList";
+import {CottonListEmpty} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListEmpty";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
-import {CottonInventoryProviderControl} from "@/sdk/api/inventory/cotton/query";
+import {CottonInventoryProviderControl, useCottonInventoryCountQuery} from "@/sdk/api/inventory/cotton/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
@@ -24,6 +25,7 @@ import {Col, Row, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
 
 export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & ICoilFetch) {
+	const cottonInventoryCountQuery = useCottonInventoryCountQuery();
 	return <LabPage
 		title={"lab.build.create.cotton"}
 		menuSelection={["/lab/build"]}
@@ -77,7 +79,8 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 				</Tabs>
 			</Col>
 			<Col span={18}>
-				<Tabs size={"large"}>
+				{cottonInventoryCountQuery.data === 0 && <CottonListEmpty/>}
+				{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={"large"}>
 					<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.cotton.recommended.tab"}/>}>
 						<CottonInventoryProviderControl
 							defaultSize={DEFAULT_LIST_SIZE}
@@ -107,6 +110,12 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 									icon={<CottonIcon/>}
 									label={"lab.build.cotton.build.button"}
 								/>}
+								locale={{
+									emptyText: <Template
+										icon={<CottonIcon/>}
+										label={"lab.build.cotton.list.empty"}
+									/>
+								}}
 							/>
 						</CottonInventoryProviderControl>
 					</Tabs.TabPane>
@@ -160,7 +169,7 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							/>
 						</BuildProviderControl>
 					</Tabs.TabPane>
-				</Tabs>
+				</Tabs>}
 			</Col>
 		</Row>
 	</LabPage>;

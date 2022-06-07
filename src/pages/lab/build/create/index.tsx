@@ -7,11 +7,12 @@ import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@modul
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateForm} from "@/puff-smith/site/lab/build/@module/form/BuildCreateForm";
-import {AtomizerInventoryProviderControl} from "@/sdk/api/inventory/atomizer/query";
+import {AtomizerInventoryProviderControl, useAtomizerInventoryCountQuery} from "@/sdk/api/inventory/atomizer/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Create() {
+	const atomizerInventoryCountQuery = useAtomizerInventoryCountQuery();
 	return <LabPage
 		title={"lab.build.create"}
 		menuSelection={["/lab/build"]}
@@ -54,7 +55,7 @@ export default withLabLayout(function Create() {
 					/>
 				</AtomizerInventoryProviderControl>
 			</Tabs.TabPane>
-			<Tabs.TabPane key={"quick-build"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.create.quick-build.tab"}/>}>
+			<Tabs.TabPane key={"quick-build"} disabled={atomizerInventoryCountQuery.isLoading || atomizerInventoryCountQuery.data === 0} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.create.quick-build.tab"}/>}>
 				<Template span={10}>
 					<BuildCreateForm/>
 				</Template>

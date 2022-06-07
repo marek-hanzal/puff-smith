@@ -2,25 +2,28 @@ import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
+import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
 import {CoilFilter} from "@/puff-smith/site/inventory/coil/@module/filter/CoilFilter";
 import {CoilInventoryList} from "@/puff-smith/site/inventory/coil/@module/list/CoilInventoryList";
+import {WireListEmpty} from "@/puff-smith/site/inventory/wire/@module/list/WireListEmpty";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
-import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
+import {CoilInventoryProviderControl, useCoilInventoryCountQuery} from "@/sdk/api/inventory/coil/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
+	const coilInventoryCountQuery = useCoilInventoryCountQuery();
 	return <LabPage
 		title={"lab.build.create.coil"}
 		menuSelection={["/lab/build"]}
@@ -62,7 +65,8 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				</Tabs>
 			</Col>
 			<Col span={18}>
-				<Tabs size={"large"}>
+				{coilInventoryCountQuery.data === 0 && <WireListEmpty/>}
+				{coilInventoryCountQuery.isSuccess && coilInventoryCountQuery.data > 0 && <Tabs size={"large"}>
 					<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.coil.recommended.tab"}/>}>
 						<CoilInventoryProviderControl
 							defaultSize={5}
@@ -116,6 +120,12 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 									icon={<CoilIcon/>}
 									label={"lab.build.coil.build.button"}
 								/>}
+								locale={{
+									emptyText: <Template
+										icon={<WireIcon/>}
+										label={"lab.build.wire.list.empty"}
+									/>
+								}}
 							/>
 						</CoilInventoryProviderControl>
 					</Tabs.TabPane>
@@ -141,6 +151,9 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 									icon={<CoilIcon/>}
 									label={"lab.build.coil.build.button"}
 								/>}
+								locale={{
+									emptyText: <WireListEmpty/>,
+								}}
 							/>
 						</CoilInventoryProviderControl>
 					</Tabs.TabPane>
@@ -172,7 +185,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							/>
 						</BuildProviderControl>
 					</Tabs.TabPane>
-				</Tabs>
+				</Tabs>}
 			</Col>
 		</Row>
 	</LabPage>;
