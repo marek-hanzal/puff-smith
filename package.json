@@ -6,6 +6,7 @@
 		"next:dev": "next dev",
 		"dev": "npm run next:dev",
 		"build": "next build",
+		"migration": "node ./.next/server/migration.js",
 		"analyze": "cross-env ANALYZE=true next build",
 		"prisma migrate dev": "npx dotenv -c development npx prisma migrate dev",
 		"prisma migrate reset": "npx dotenv -c development npx prisma migrate reset --force",
@@ -76,7 +77,8 @@
 		"winston": "^3.7.2",
 		"winston-loki": "^6.0.5",
 		"xlsx": "^0.18.5",
-		"yaml": "^2.0.1"
+		"yaml": "^2.0.1",
+		"umzug": "^3.1.1"
 	},
 	"devDependencies": {
 		"@types/async-lock": "^1.1.5",

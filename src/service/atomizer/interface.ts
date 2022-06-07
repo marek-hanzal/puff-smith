@@ -15,6 +15,7 @@ export interface IAtomizerCreate {
 	draws?: string;
 	drawIds?: string[];
 	squonk?: string;
+	isHybrid?: string;
 	cost?: string;
 	coilMin?: number;
 	coilMax?: number;
@@ -42,6 +43,8 @@ export interface IAtomizer {
 	coilMax?: number | null;
 	wrapsMin?: number | null;
 	wrapsMax?: number | null;
+	squonk: boolean;
+	isHybrid: boolean;
 }
 
 export interface IAtomizerFetch {

@@ -1,9 +1,11 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {Amps} from "@/puff-smith/component/inline/Amps";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
+import {Watt} from "@/puff-smith/component/inline/Watt";
 import {Tags} from "@/puff-smith/component/Tags";
 import {IBuild} from "@/puff-smith/service/build/interface";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
@@ -12,7 +14,7 @@ import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/Wire
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {CommentOutlined} from "@ant-design/icons";
 import {BoolInline, Preview, TabInline} from "@leight-core/client";
-import {Col, Row, Tabs} from "antd";
+import {Col, Row, Space, Tabs} from "antd";
 import {FC} from "react";
 
 export interface IBuildViewProps {
@@ -28,7 +30,11 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 						{{
 							atomizer: <AtomizerNameInline atomizer={build.atomizer}/>,
 							code: <CodeInline code={build}/>,
-							ohm: <Ohm ohm={build.ohm}/>,
+							ohm: <Space>
+								<Ohm ohm={build.ohm}/>
+								<Amps amps={build.drain}/>
+								<Watt watt={build.watts}/>
+							</Space>,
 							created: <LocalDate date={build.created}/>,
 							active: <BoolInline bool={build.active}/>,
 						}}

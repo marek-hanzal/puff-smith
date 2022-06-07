@@ -1,13 +1,16 @@
+import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
 import {AromaTasteSelect} from "@/puff-smith/site/inventory/aroma/@module/form/AromaTasteSelect";
 import {AromaVendorSelect} from "@/puff-smith/site/inventory/aroma/@module/form/AromaVendorSelect";
 import {AromaProviderFilter} from "@/sdk/api/aroma/query";
-import {FormItem, IFilterProps} from "@leight-core/client";
+import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IAromaFilterProps extends Partial<IFilterProps> {
 }
 
 export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter, ...props}) => {
+	const filterContext = useFilterContext();
+
 	const onClear = () => {
 	};
 
@@ -36,22 +39,36 @@ export const AromaFilter: FC<IAromaFilterProps> = ({toFilter = filter => filter,
 		})}
 		{...props}
 	>
-		<FormItem field={"andTasteIds"} hasTooltip>
-			<AromaTasteSelect
-				allowClear
-				mode={"multiple"}
-			/>
-		</FormItem>
-		<FormItem field={"orTasteIds"} hasTooltip>
-			<AromaTasteSelect
-				allowClear
-				mode={"multiple"}
-			/>
-		</FormItem>
-		<FormItem field={"vendorId"}>
-			<AromaVendorSelect
-				allowClear
-			/>
-		</FormItem>
+		<FormContext.Consumer>
+			{formContext => <>
+				<TabAndOr
+					name={"tasteIds"}
+					orCondition={() => filterContext?.source?.orTasteIds}
+					and={<FormItem field={"andTasteIds"} hasTooltip>
+						<AromaTasteSelect
+							allowClear
+							mode={"multiple"}
+							onChange={() => formContext.setValues({
+								orTasteIds: undefined,
+							})}
+						/>
+					</FormItem>}
+					or={<FormItem field={"orTasteIds"} hasTooltip>
+						<AromaTasteSelect
+							allowClear
+							mode={"multiple"}
+							onChange={() => formContext.setValues({
+								andTasteIds: undefined,
+							})}
+						/>
+					</FormItem>}
+				/>
+				<FormItem field={"vendorId"}>
+					<AromaVendorSelect
+						allowClear
+					/>
+				</FormItem>
+			</>}
+		</FormContext.Consumer>
 	</AromaProviderFilter>;
 };

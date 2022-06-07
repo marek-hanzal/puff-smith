@@ -1,7 +1,9 @@
+import {Amps} from "@/puff-smith/component/inline/Amps";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {Watt} from "@/puff-smith/component/inline/Watt";
 import {Tags} from "@/puff-smith/component/Tags";
 import {IBuild} from "@/puff-smith/service/build/interface";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
@@ -39,6 +41,8 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 					</LinkTo>
 					<CodeInline code={build}/>
 					<Ohm ohm={build.ohm}/>
+					<Watt watt={build.watts} tooltip={"lab.build.watt.tooltip"}/>
+					<Amps amps={build.drain} tooltip={"lab.build.amps.tooltip"}/>
 					<LocalDate date={build.created}/>
 				</Space>}
 				description={<Space split={<Divider type={"vertical"}/>} size={0}>

@@ -45,6 +45,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 					code: code || codeService().code(),
 					dualCoil: boolean(atomizer?.dualCoil),
 					squonk: boolean(atomizer?.squonk),
+					isHybrid: boolean(atomizer?.isHybrid),
 					cost: atomizer.cost ? parseFloat(atomizer.cost) : undefined,
 					vendor: {
 						connect: {

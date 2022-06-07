@@ -23,6 +23,8 @@ export interface IBuild {
 	id: string;
 	code: string;
 	ohm: number;
+	drain?: number | null;
+	watts?: number | null;
 	rating?: number | null;
 	coil: ICoil;
 	coilId: string;
