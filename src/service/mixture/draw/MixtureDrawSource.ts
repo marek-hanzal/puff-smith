@@ -14,7 +14,9 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 		source: {
 			count: async ({filter}) => source.prisma.mixtureDraw.count({
 				distinct: ["drawId"],
-				where: filter,
+				where: {
+					mixture: filter,
+				},
 			}),
 			query: async ({filter}) => source.prisma.mixtureDraw.findMany({
 				distinct: ["drawId"],

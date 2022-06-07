@@ -25,8 +25,9 @@ export const JobSource = (): IJobSource => {
 			count: async ({filter}) => source.prisma.job.count({
 				where: filter,
 			}),
-			query: async ({filter, ...query}) => source.prisma.job.findMany({
+			query: async ({filter, orderBy, ...query}) => source.prisma.job.findMany({
 				where: filter,
+				orderBy,
 				...pageOf(query),
 			}),
 		},

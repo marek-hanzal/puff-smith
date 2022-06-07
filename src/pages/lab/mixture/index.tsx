@@ -28,7 +28,9 @@ const InternalList: FC<IInternalListProps> = () => {
 			/>
 		</Template> :
 		<MixtureList
-			header={() => <RowInline>
+			header={() => <RowInline
+				extra={<MixtureUserJobButton/>}
+			>
 				<MixtureFilter/>
 			</RowInline>}
 		/>;
@@ -47,6 +49,12 @@ export default withLabLayout(function Index() {
 				{vg: "desc"},
 				{nicotine: "asc"},
 			] as any}
+			defaultFilter={{
+				nicotineToRound: 0,
+			}}
+			defaultSource={{
+				nicotineToRound: 0,
+			}}
 		>
 			<InternalList/>
 		</MixtureInventoryProviderControl>

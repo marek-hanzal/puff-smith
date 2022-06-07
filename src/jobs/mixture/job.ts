@@ -417,6 +417,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 				});
 			}
 		}
+		await MixtureInventorySource().withUserId(userId).clearCache();
 	});
 }, options => new PQueue({
 	...options,

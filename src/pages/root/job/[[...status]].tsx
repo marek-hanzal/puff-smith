@@ -110,7 +110,7 @@ export default withRootLayout(function Index() {
 			}}
 			defaultOrderBy={[
 				{
-					started: "asc",
+					started: "desc",
 				},
 				{
 					created: "desc",

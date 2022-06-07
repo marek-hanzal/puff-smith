@@ -5,7 +5,7 @@ import {useJobQuery, useJobQueryInvalidate} from "@/sdk/api/job/query";
 import {IJob, IQueryFilter} from "@leight-core/api";
 import {isString, toHumanNumber} from "@leight-core/utils";
 import {Button, message, Space, Tooltip} from "antd";
-import {ComponentProps, ReactNode} from "react";
+import {ComponentProps, ReactNode, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {UseMutationResult} from "react-query";
 
@@ -15,12 +15,16 @@ export interface IJobButtonProps<TJobParams> extends Partial<ComponentProps<type
 	schedule: TJobParams;
 	filter?: IQueryFilter<IJobQuery>;
 	label?: ReactNode;
+
+	onDone?(): Promise<any>;
 }
 
-export const JobButton = <TJobParams, >({translation, scheduler, schedule, filter, label, ...props}: IJobButtonProps<TJobParams>) => {
+export const JobButton = <TJobParams, >({translation, scheduler, schedule, filter, label, onDone, ...props}: IJobButtonProps<TJobParams>) => {
 	const {t} = useTranslation();
 	const jobQueryInvalidate = useJobQueryInvalidate();
-	const jobQuery = useJobQuery({
+	const [job, setJob] = useState<IJob>();
+	const info = useRef(false);
+	useJobQuery({
 		size: 1,
 		page: 0,
 		filter: {
@@ -32,16 +36,26 @@ export const JobButton = <TJobParams, >({translation, scheduler, schedule, filte
 	}, undefined, {
 		keepPreviousData: true,
 		refetchInterval: 2500,
+		onSuccess: job => {
+			setJob(prev => {
+				if (prev && !job?.[0] && !info.current) {
+					info.current = true;
+					message.success(t(`${translation}.job.done`), undefined, () => {
+						info.current = false;
+					});
+					onDone?.();
+				}
+				return job?.[0];
+			});
+		}
 	});
-	const isRunning = jobQuery.isSuccess && jobQuery.data.length > 0;
-	const job = isRunning ? jobQuery.data[0] : null;
 
 	return <Tooltip title={job?.started && <JobPerformanceInline job={job}/>}>
 		<Button
 			icon={<JobIcon/>}
 			size={"large"}
 			type={"link"}
-			loading={scheduler.isLoading || jobQuery.isLoading || isRunning}
+			loading={scheduler.isLoading || !!job}
 			onClick={() => scheduler.mutate(schedule, {
 				onSuccess: async () => {
 					await jobQueryInvalidate();

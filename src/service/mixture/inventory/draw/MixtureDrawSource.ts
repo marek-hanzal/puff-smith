@@ -18,15 +18,15 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 				const userId = source.user.required();
 				return source.prisma.mixtureDraw.findMany({
 					distinct: ["drawId"],
-					where: merge(filter || {}, {
-						mixture: {
+					where: {
+						mixture: merge(filter || {}, {
 							MixtureInventory: {
 								some: {
 									userId,
 								},
 							},
-						}
-					}),
+						}),
+					},
 					orderBy: [
 						{draw: {sort: "asc"}}
 					],

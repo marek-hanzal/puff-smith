@@ -21,7 +21,8 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 	const filterContext = useFilterContext();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 	const [filter, setFilter] = useState<any>({
-		nicotineToRound: 0,
+		...filterContext.source,
+		nicotineToRound: filterContext?.source?.nicotineToRound || 0,
 	});
 
 	const onClear = () => {
@@ -199,6 +200,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 									aromaId: filter?.aromaId,
 									nicotineToRound: filter?.nicotineToRound,
 									baseId: filter?.baseId,
+									...ratio.current,
 								}
 							}}
 						/>
@@ -211,6 +213,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 									aromaId: filter?.aromaId,
 									nicotineToRound: filter?.nicotineToRound,
 									boosterId: filter?.boosterId,
+									...ratio.current,
 								}
 							}}
 						/>
@@ -246,6 +249,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({toFilter = filter => fil
 									aromaId: filter?.aromaId,
 									nicotineToRound: filter?.nicotineToRound,
 									boosterId: filter?.boosterId,
+									...ratio.current,
 								}
 							}}
 						/>
