@@ -117,7 +117,18 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 								{cotton: {name: "asc"}},
 							] as any}
 						>
-							<CottonInventoryList/>
+							<CottonInventoryList
+								itemExtra={cotton => <ButtonLink
+									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
+									query={{
+										atomizerId: atomizer.id,
+										coilId: coil.id,
+										cottonId: cotton.id,
+									}}
+									icon={<CottonIcon/>}
+									label={"lab.build.cotton.build.button"}
+								/>}
+							/>
 						</CottonInventoryProviderControl>
 					</Tabs.TabPane>
 					<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
