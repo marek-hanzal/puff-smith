@@ -1,5 +1,6 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AromaFilter} from "@/puff-smith/site/inventory/aroma/@module/filter/AromaFilter";
@@ -7,7 +8,6 @@ import {AromaInventoryList} from "@/puff-smith/site/inventory/aroma/@module/list
 import {AromaListToolbar} from "@/puff-smith/site/inventory/aroma/@module/list/AromaListToolbar";
 import {AromaInventoryProviderControl} from "@/sdk/api/inventory/aroma/query";
 import {SelectionProvider} from "@leight-core/client";
-import {Space} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -20,12 +20,13 @@ export default withInventoryLayout(function Index() {
 		>
 			<SelectionProvider type={"multi"}>
 				<AromaInventoryList
-					header={() => <Space size={"large"}>
+					header={() => <RowInline
+						extra={<AromaListToolbar/>}
+					>
 						<AromaFilter
 							toFilter={filter => ({aroma: filter})}
 						/>
-						<AromaListToolbar/>
-					</Space>}
+					</RowInline>}
 				/>
 			</SelectionProvider>
 		</AromaInventoryProviderControl>
