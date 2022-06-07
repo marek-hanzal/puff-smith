@@ -4,10 +4,12 @@ import {
 	IMixtureInventoryBoosterJobParams,
 	IMixtureJobParams,
 	IMixturesJobParams,
+	IMixtureUserJobParams,
 	MIXTURE_INVENTORY_AROMA_JOB,
 	MIXTURE_INVENTORY_BASE_JOB,
 	MIXTURE_INVENTORY_BOOSTER_JOB,
 	MIXTURE_JOB,
+	MIXTURE_USER_JOB,
 	MIXTURES_JOB
 } from "@/puff-smith/jobs/mixture/interface";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
@@ -324,6 +326,97 @@ export const MixtureInventoryBaseJob: IJobProcessor<IMixtureInventoryBaseJobPara
 		}, {
 			baseInventoryId: params.job.params.baseInventoryId,
 		}, params);
+	});
+}, options => new PQueue({
+	...options,
+	concurrency: 5,
+	intervalCap: 5,
+}));
+
+export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.processor(MIXTURE_USER_JOB, async ({jobProgress, userId, logger, progress}) => {
+	await lock.acquire("mixture-user" + userId, async () => {
+		logger.debug("User mixture update.", {userId});
+
+		if (!userId) {
+			throw new Error("User not provided!");
+		}
+
+		const where = {userId};
+
+		const $aromaInventory = prisma.aromaInventory.findMany({
+			where,
+		});
+		const $boosterInventory = prisma.boosterInventory.findMany({
+			where,
+		});
+		const $baseInventory = prisma.baseInventory.findMany({
+			where,
+		});
+
+		let $count = 0;
+		for (const aromaInventory of await $aromaInventory) {
+			for (const boosterInventory of await $boosterInventory) {
+				for (const baseInventory of await $baseInventory) {
+					$count++;
+				}
+			}
+			for (const baseInventory of await $baseInventory) {
+				$count++;
+			}
+			for (const boosterInventory of await $boosterInventory) {
+				$count++;
+			}
+		}
+
+		await jobProgress.setTotal($count);
+
+		for (const aromaInventory of await $aromaInventory) {
+			for (const boosterInventory of await $boosterInventory) {
+				for (const baseInventory of await $baseInventory) {
+					await progress(async () => {
+						const $mixtures = await prisma.mixture.findMany({where: {aromaId: aromaInventory.aromaId, boosterId: boosterInventory.boosterId, baseId: baseInventory.baseId}});
+						await prisma.mixtureInventory.createMany({
+							data: $mixtures.map(mixture => ({
+								mixtureId: mixture.id,
+								userId,
+								aromaInventoryId: aromaInventory.id,
+								baseInventoryId: baseInventory.id,
+								boosterInventoryId: boosterInventory.id,
+							})),
+							skipDuplicates: true,
+						});
+					});
+				}
+			}
+			for (const baseInventory of await $baseInventory) {
+				await progress(async () => {
+					const $mixtures = await prisma.mixture.findMany({where: {aromaId: aromaInventory.aromaId, boosterId: null, baseId: baseInventory.baseId}});
+					await prisma.mixtureInventory.createMany({
+						data: $mixtures.map(mixture => ({
+							mixtureId: mixture.id,
+							userId,
+							aromaInventoryId: aromaInventory.id,
+							baseInventoryId: baseInventory.id,
+						})),
+						skipDuplicates: true,
+					});
+				});
+			}
+			for (const boosterInventory of await $boosterInventory) {
+				await progress(async () => {
+					const $mixtures = await prisma.mixture.findMany({where: {aromaId: aromaInventory.aromaId, boosterId: boosterInventory.boosterId, baseId: null}});
+					await prisma.mixtureInventory.createMany({
+						data: $mixtures.map(mixture => ({
+							mixtureId: mixture.id,
+							userId,
+							aromaInventoryId: aromaInventory.id,
+							boosterInventoryId: boosterInventory.id,
+						})),
+						skipDuplicates: true,
+					});
+				});
+			}
+		}
 	});
 }, options => new PQueue({
 	...options,
