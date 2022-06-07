@@ -1,4 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
@@ -9,13 +10,14 @@ import {CoilFilter} from "@/puff-smith/site/inventory/coil/@module/filter/CoilFi
 import {CoilInventoryList} from "@/puff-smith/site/inventory/coil/@module/list/CoilInventoryList";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
@@ -52,6 +54,13 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 		}}
 	>
 		<Row gutter={32}>
+			<Col span={6}>
+				<Tabs size={"large"}>
+					<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
+						<AtomizerView atomizer={atomizer}/>
+					</Tabs.TabPane>
+				</Tabs>
+			</Col>
 			<Col span={18}>
 				<Tabs size={"large"}>
 					<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.coil.recommended.tab"}/>}>
@@ -120,6 +129,9 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							] as any}
 						>
 							<CoilInventoryList
+								header={() => <RowInline>
+									<CoilFilter/>
+								</RowInline>}
 								itemExtra={coil => <ButtonLink
 									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]"}
 									query={{
@@ -145,13 +157,22 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 								},
 							}}
 						>
-							<BuildList/>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.atomizer.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <BuildCreateLink
+									atomizer={build.atomizer}
+									coil={build.coil}
+									cotton={build.cotton}
+								/>}
+							/>
 						</BuildProviderControl>
 					</Tabs.TabPane>
 				</Tabs>
-			</Col>
-			<Col span={6}>
-				<AtomizerView atomizer={atomizer}/>
 			</Col>
 		</Row>
 	</LabPage>;

@@ -3,6 +3,7 @@ import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
+import {IBuild} from "@/puff-smith/service/build/interface";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildListEmpty} from "@/puff-smith/site/lab/build/@module/list/BuildListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
@@ -12,12 +13,13 @@ import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireN
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
 import {LinkTo, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
-import {FC} from "react";
+import {FC, ReactNode} from "react";
 
 export interface IBuildListProps extends Partial<IBuildListSourceProps> {
+	itemExtra?(build: IBuild): ReactNode;
 }
 
-export const BuildList: FC<IBuildListProps> = props => {
+export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 	const selectionContext = useOptionalSelectionContext();
 	return <BuildListSource
 		locale={{
@@ -27,7 +29,7 @@ export const BuildList: FC<IBuildListProps> = props => {
 	>
 		{build => <ListItem
 			key={build.id}
-			extra={<BuildRatingButton build={build}/>}
+			extra={itemExtra?.(build) || <BuildRatingButton build={build}/>}
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
