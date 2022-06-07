@@ -24,7 +24,7 @@ export interface IBuildTasteGenerateDefaultFormProps extends Partial<IFormProps<
 export const BuildTasteGenerateDefaultForm: FC<IBuildTasteGenerateDefaultFormProps> = props => <Form<IBuildLiquidTasteRatingGenerate, any>
 	useMutation={useBuildTasteGenerateMutation}
 	{...props}
-/>;
+/>
 
 export const toBuildTasteGenerateLink = (queryParams?: IBuildTasteGenerateQueryParams) => toLink(BuildTasteGenerateApiLink, queryParams);
 export const useBuildTasteGenerateLink = () => toBuildTasteGenerateLink;

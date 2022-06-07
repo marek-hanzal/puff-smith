@@ -16,6 +16,10 @@ export interface IAtomizerCreate {
 	drawIds?: string[];
 	squonk?: string;
 	cost?: string;
+	coilMin?: number;
+	coilMax?: number;
+	wrapsMin?: number;
+	wrapsMax?: number;
 }
 
 export interface IAtomizerQuery extends IQuery<Prisma.AtomizerWhereInput & IWithFulltext, Prisma.AtomizerOrderByWithRelationInput> {
@@ -36,6 +40,8 @@ export interface IAtomizer {
 	drawIds: string[];
 	coilMin?: number | null;
 	coilMax?: number | null;
+	wrapsMin?: number | null;
+	wrapsMax?: number | null;
 }
 
 export interface IAtomizerFetch {

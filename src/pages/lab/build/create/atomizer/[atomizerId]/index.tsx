@@ -2,8 +2,10 @@ import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
+import {CoilFilter} from "@/puff-smith/site/inventory/coil/@module/filter/CoilFilter";
 import {CoilInventoryList} from "@/puff-smith/site/inventory/coil/@module/list/CoilInventoryList";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
@@ -54,11 +56,11 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				<Tabs size={"large"}>
 					<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.coil.recommended.tab"}/>}>
 						<CoilInventoryProviderControl
-							defaultSize={DEFAULT_LIST_SIZE}
+							defaultSize={5}
 							defaultOrderBy={[
 								{name: "asc"},
-								{size: "desc"},
-								{wraps: "asc"},
+								{wraps: "desc"},
+								{size: "asc"},
 							] as any}
 							applyFilter={{
 								AND: [
@@ -72,6 +74,16 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 											lte: atomizer.coilMax || undefined,
 										},
 									},
+									{
+										wraps: {
+											gte: atomizer.wrapsMin || undefined,
+										},
+									},
+									{
+										wraps: {
+											lte: atomizer.wrapsMax || undefined,
+										},
+									},
 								],
 								CoilDraw: {
 									some: {
@@ -83,6 +95,9 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							}}
 						>
 							<CoilInventoryList
+								header={() => <RowInline>
+									<CoilFilter/>
+								</RowInline>}
 								itemExtra={coil => <ButtonLink
 									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]"}
 									query={{
@@ -97,14 +112,24 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 					</Tabs.TabPane>
 					<Tabs.TabPane key={"coils"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.atomizer.coil.coils.tab"}/>}>
 						<CoilInventoryProviderControl
-							defaultSize={DEFAULT_LIST_SIZE}
+							defaultSize={5}
 							defaultOrderBy={[
 								{name: "asc"},
 								{size: "desc"},
 								{wraps: "asc"},
 							] as any}
 						>
-							<CoilInventoryList/>
+							<CoilInventoryList
+								itemExtra={coil => <ButtonLink
+									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]"}
+									query={{
+										atomizerId: atomizer.id,
+										coilId: coil.id,
+									}}
+									icon={<CoilIcon/>}
+									label={"lab.build.coil.build.button"}
+								/>}
+							/>
 						</CoilInventoryProviderControl>
 					</Tabs.TabPane>
 					<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.coil.favourites.tab"}/>}>

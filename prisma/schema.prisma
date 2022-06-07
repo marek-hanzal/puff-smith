@@ -279,8 +279,10 @@ model Atomizer {
   vendor       Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   typeId       String
   type         Tag            @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  coilMin      Float?
-  coilMax      Float?
+  coilMin      Decimal?       @db.Decimal(3, 2)
+  coilMax      Decimal?       @db.Decimal(3, 2)
+  wrapsMin     Int?
+  wrapsMax     Int?
   dualCoil     Boolean        @default(false)
   squonk       Boolean        @default(false)
   AtomizerDraw AtomizerDraw[]

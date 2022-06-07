@@ -16,27 +16,7 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 				const $fulltext = fulltext?.split(/\s+/g);
 				return source.prisma.coil.count({
 					where: merge(filter, {
-						AND: $fulltext?.map(fulltext => ({
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							}
-						})),
-						wire: {
-							WireInventory: {
-								some: {
-									userId: source.user.required(),
-								},
-							},
-						}
-					}),
-				});
-			},
-			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => {
-				const $fulltext = fulltext?.split(/\s+/g);
-				return source.prisma.coil.findMany({
-					where: merge(filter, {
-						AND: $fulltext?.map(fulltext => ({
+						AND: ($fulltext?.map(fulltext => ({
 							OR: [
 								{
 									name: {
@@ -55,7 +35,41 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 									},
 								},
 							],
-						})),
+						})) || []).concat(filter?.AND as [] || []),
+						wire: {
+							WireInventory: {
+								some: {
+									userId: source.user.required(),
+								},
+							},
+						}
+					}),
+				});
+			},
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => {
+				const $fulltext = fulltext?.split(/\s+/g);
+				return source.prisma.coil.findMany({
+					where: merge(filter, {
+						AND: ($fulltext?.map(fulltext => ({
+							OR: [
+								{
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+								{
+									wire: {
+										vendor: {
+											name: {
+												contains: fulltext,
+												mode: "insensitive",
+											},
+										},
+									},
+								},
+							],
+						})) || []).concat(filter?.AND as [] || []),
 						wire: {
 							WireInventory: {
 								some: {

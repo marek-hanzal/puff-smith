@@ -18,6 +18,10 @@ export const AtomizerSource = (): IAtomizerSource => {
 		map: async atomizer => atomizer ? {
 			...atomizer,
 			vendor: await vendorSource().mapper.map(atomizer.vendor),
+			coilMin: atomizer.coilMin?.toNumber() || null,
+			coilMax: atomizer.coilMax?.toNumber() || null,
+			wrapsMin: atomizer.wrapsMin || null,
+			wrapsMax: atomizer.wrapsMax || null,
 			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 			drawIds: atomizer.AtomizerDraw.map(({draw}) => draw.id),
 		} : undefined,

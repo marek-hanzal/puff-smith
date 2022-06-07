@@ -2,6 +2,7 @@ import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ICoil} from "@/puff-smith/service/coil/interface";
+import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {CoilInventoryListSource, ICoilInventoryListSourceProps} from "@/sdk/api/inventory/coil/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -27,6 +28,7 @@ export const CoilInventoryList: FC<ICoilInventoryListProps> = ({itemExtra, ...pr
 					<CoilWraps wraps={coil.wraps}/>
 					<Tags tags={coil.wire.draws} translation={"common.draw"}/>
 				</Space>}
+				description={<WireFiberInline wire={coil.wire}/>}
 			/>
 		</ListItem>}
 	</CoilInventoryListSource>;

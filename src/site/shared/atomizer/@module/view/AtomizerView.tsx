@@ -19,7 +19,8 @@ export const AtomizerView: FC<IAtomizerViewProps> = ({atomizer}) => {
 					name: <AtomizerNameInline atomizer={atomizer}/>,
 					code: <CodeInline code={atomizer}/>,
 					draws: <Tags tags={atomizer.draws} translation={"common.draw"}/>,
-					coilSize: <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>
+					coilSize: <RangeInline from={atomizer.coilMin} to={atomizer.coilMax}/>,
+					wraps: <RangeInline from={atomizer.wrapsMin} to={atomizer.wrapsMax}/>,
 				}}
 			</Preview>
 		</Col>

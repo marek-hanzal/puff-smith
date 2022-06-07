@@ -1,7 +1,8 @@
 import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
-import {AtomizerDrawSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerDrawSelect";
-import {AtomizerVendorSelect} from "@/puff-smith/site/market/atomizer/@module/form/AtomizerVendorSelect";
-import {AtomizerProviderFilter} from "@/sdk/api/atomizer/query";
+import {AtomizerDrawSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerDrawSelect";
+import {AtomizerSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerSelect";
+import {AtomizerVendorSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerVendorSelect";
+import {AtomizerInventoryProviderFilter} from "@/sdk/api/inventory/atomizer/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
@@ -14,7 +15,7 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 	const onClear = () => {
 	};
 
-	return <AtomizerProviderFilter
+	return <AtomizerInventoryProviderFilter
 		spaceProps={{
 			size: 0,
 		}}
@@ -41,6 +42,11 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 	>
 		<FormContext.Consumer>
 			{formContext => <>
+				<FormItem field={"id"}>
+					<AtomizerSelect
+						allowClear
+					/>
+				</FormItem>
 				<FormItem field={"vendorId"}>
 					<AtomizerVendorSelect
 						allowClear
@@ -70,5 +76,5 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 				/>
 			</>}
 		</FormContext.Consumer>
-	</AtomizerProviderFilter>;
+	</AtomizerInventoryProviderFilter>;
 };
