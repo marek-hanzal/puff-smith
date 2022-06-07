@@ -24,7 +24,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 		>
 			<Template
 				title={<AtomizerNameInline atomizer={build.atomizer}/>}
-				subTitle={<BuildRatingButton build={build}/>}
+				subTitle={build.active && <BuildRatingButton build={build}/>}
 				span={22}
 			>
 				<BuildView

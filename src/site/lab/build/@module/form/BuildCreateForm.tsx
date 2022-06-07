@@ -26,6 +26,7 @@ export const BuildCreateForm: FC<IBuildCreateFormProps> = props => {
 	>
 		<FormItem field={"atomizerId"} required>
 			<AtomizerSelect
+				autoFocus
 				allowClear
 			/>
 		</FormItem>
