@@ -90,7 +90,7 @@ export const AromaSource = (): IAromaSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({vendor, vendorId, tastes, tasteIds, code, ...aroma}) => {
+			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, ...aroma}) => {
 				const create = {
 					...aroma,
 					code: code || codeService().code(),

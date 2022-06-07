@@ -246,6 +246,7 @@ export const BuildSource = (): IBuildSource => {
 					where: {id: patch.id},
 					data: {
 						...patch,
+						active: patch.active === null ? undefined : patch.active,
 						code: patch.code || undefined,
 						created: undefined,
 					},

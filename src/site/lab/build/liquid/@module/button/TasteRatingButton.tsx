@@ -34,7 +34,7 @@ export const TasteRatingButton: FC<ITasteRatingButtonProps> = ({build, liquid, .
 				</>}
 				span={24}
 			>
-				{liquid.mixture.aroma.tastes.length > 0 ?
+				{liquid.mixture.aroma.tastes.length > 0 &&
 					<BuildLiquidTasteRatingProviderControl
 						applyFilter={{
 							liquidId: liquid.id,
@@ -42,12 +42,12 @@ export const TasteRatingButton: FC<ITasteRatingButtonProps> = ({build, liquid, .
 						}}
 					>
 						<BuildLiquidTasteRatingList build={build} liquid={liquid}/>
-					</BuildLiquidTasteRatingProviderControl> :
+					</BuildLiquidTasteRatingProviderControl>}
+				{!liquid.mixture.aroma.tastes.length &&
 					<Template
 						icon={<Icon component={IoFlowerOutline}/>}
 						label={"lab.build.liquid.taste.rating.no-tastes"}
-					/>
-				}
+					/>}
 			</Template>
 		</DrawerButton>
 	</Tooltip>;

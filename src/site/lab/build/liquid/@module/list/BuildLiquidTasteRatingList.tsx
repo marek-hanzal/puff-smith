@@ -8,7 +8,7 @@ import {ListItem, ListItemMeta, Template} from "@leight-core/client";
 import {Button, Divider} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
-import {IoFileTrayFullOutline, IoFileTrayOutline} from "react-icons/io5";
+import {IoFileTrayFullOutline, IoFileTrayOutline, IoFlowerOutline} from "react-icons/io5";
 
 export interface IBuildLiquidTasteRatingListProps extends Partial<IBuildLiquidTasteRatingListSourceProps> {
 	build: IBuild;
@@ -23,7 +23,7 @@ export const BuildLiquidTasteRatingList: FC<IBuildLiquidTasteRatingListProps> = 
 	return <BuildLiquidTasteRatingListSource
 		size={"small"}
 		locale={{
-			emptyText: <Template
+			emptyText: build.active ? <Template
 				icon={<Icon component={IoFileTrayOutline}/>}
 				label={"lab.build.liquid.taste.list.rating.empty"}
 				extra={<Divider/>}
@@ -47,7 +47,11 @@ export const BuildLiquidTasteRatingList: FC<IBuildLiquidTasteRatingListProps> = 
 				>
 					{t("lab.build.liquid.taste.generate.button")}
 				</Button>
-			</Template>,
+			</Template> : <Template
+				icon={<Icon component={IoFlowerOutline}/>}
+				status={"warning"}
+				label={"lab.build.liquid.taste.rating.disabled"}
+			/>,
 		}}
 		{...props}
 	>

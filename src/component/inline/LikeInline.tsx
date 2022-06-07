@@ -12,7 +12,7 @@ export interface ILikeInlineProps extends Partial<ComponentProps<typeof Radio["G
 	onRating: (rating: number | null) => void;
 }
 
-export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, ...props}) => {
+export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, disabled, ...props}) => {
 	const {t} = useTranslation();
 
 	const map: any = {
@@ -26,7 +26,7 @@ export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, on
 	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
 		<Radio.Group
 			value={rating}
-			disabled={isLoading}
+			disabled={isLoading || disabled}
 			size={"large"}
 			{...props}
 		>

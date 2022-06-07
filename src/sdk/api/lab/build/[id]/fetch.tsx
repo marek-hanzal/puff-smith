@@ -3,14 +3,14 @@
  */
 
 import {IBuildSource} from "@/puff-smith/service/build/interface";
-import {IEntityContext, ISourceItem, IWithIdentity} from "@leight-core/api";
+import {IEntityContext, ISourceItem, IWithIdentityQuery} from "@leight-core/api";
 import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
 export const BuildApiLink = "/api/lab/build/[id]/fetch";
 
-export type IBuildQueryParams = IWithIdentity;
+export type IBuildQueryParams = IWithIdentityQuery;
 
 export const BuildContext = createContext(null as unknown as IEntityContext<ISourceItem<IBuildSource>>);
 

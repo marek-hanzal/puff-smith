@@ -2,14 +2,14 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IEntityContext, ISourceItem, ITranslationBundle, IWithIdentity} from "@leight-core/api";
+import {IEntityContext, ISourceItem, ITranslationBundle, IWithIdentityQuery} from "@leight-core/api";
 import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
 import {createContext, FC} from "react";
 import {useQueryClient} from "react-query";
 
 export const TranslationApiLink = "/api/translation";
 
-export type ITranslationQueryParams = IWithIdentity;
+export type ITranslationQueryParams = IWithIdentityQuery;
 
 export const TranslationContext = createContext(null as unknown as IEntityContext<ISourceItem<ITranslationBundle>>);
 

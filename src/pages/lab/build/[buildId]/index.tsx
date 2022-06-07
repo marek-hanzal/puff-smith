@@ -3,6 +3,7 @@ import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildDisableButton} from "@/puff-smith/site/lab/build/@module/button/BuildDisableButton";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {BuildView} from "@/puff-smith/site/lab/build/@module/view/BuildView";
@@ -11,7 +12,6 @@ import {FetchBuild} from "@/sdk/api/lab/build/[id]/fetch";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Index({build}: IBuildFetch) {
-
 	return <FetchBuild queryParams={{id: build.id}}>
 		{build => <LabPage
 			title={"lab.build.build"}
@@ -21,6 +21,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 			headerProps={{
 				footer: <BuildIndexMenu build={build}/>,
 			}}
+			extra={build.active && <BuildDisableButton build={build}/>}
 		>
 			<Template
 				title={<AtomizerNameInline atomizer={build.atomizer}/>}

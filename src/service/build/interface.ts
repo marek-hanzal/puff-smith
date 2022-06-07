@@ -16,6 +16,7 @@ export interface IBuildCreate {
 	ohm: number;
 	created?: Date;
 	archive: boolean;
+	active?: boolean;
 }
 
 export interface IBuild {

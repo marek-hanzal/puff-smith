@@ -26,6 +26,7 @@ export const RatingButton: FC<IRatingButtonProps> = ({liquid, build}) => {
 			});
 		}}
 		isLoading={createMutation.isLoading}
+		disabled={!build.active}
 		rating={liquid.rating?.rating}
 	/>;
 };
