@@ -1,10 +1,9 @@
 import {IMigration} from "@/puff-smith/cli/migration";
 import {OhmService} from "@/puff-smith/service/ohm/OhmService";
-import prisma from "@/puff-smith/service/side-effect/prisma";
 
 export const BuildComputation: IMigration = {
 	name: "BuildComputation",
-	up: async () => {
+	up: async ({context: prisma}) => {
 		const builds = await prisma.build.findMany();
 		const ohmService = OhmService();
 		for (const build of builds) {
