@@ -3,6 +3,7 @@ import {IBuildSource} from "@/puff-smith/service/build/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
+import {OhmService} from "@/puff-smith/service/ohm/OhmService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
 import {pageOf, Source} from "@leight-core/server";
@@ -12,7 +13,8 @@ export const BuildSource = (): IBuildSource => {
 		const cottonSource = singletonOf(() => CottonSource());
 		const atomizerSource = singletonOf(() => AtomizerSource());
 		const coilSource = singletonOf(() => CoilSource());
-		const codeService = singletonOf(() => CodeService());
+	const codeService = singletonOf(() => CodeService());
+	const ohmService = singletonOf(() => OhmService());
 
 		const source: IBuildSource = Source<IBuildSource>({
 			name: "build",
@@ -175,6 +177,8 @@ export const BuildSource = (): IBuildSource => {
 									});
 								}
 							}
+							const drain = ohmService().toAmps(3.7, build.ohm);
+							const watts = ohmService().toWatt(3.7, drain);
 							return prisma.build.create({
 								data: {
 									...build,
@@ -183,6 +187,8 @@ export const BuildSource = (): IBuildSource => {
 									code: code || codeService().code(),
 									userId: source.user.required(),
 									transactionId: transaction.id,
+									drain,
+									watts,
 								},
 								include: {
 									atomizer: {
@@ -242,69 +248,75 @@ export const BuildSource = (): IBuildSource => {
 						}
 					});
 				}),
-				patch: async patch => source.prisma.build.update({
-					where: {id: patch.id},
-					data: {
-						...patch,
-						active: patch.active === null ? undefined : patch.active,
-						code: patch.code || undefined,
-						created: undefined,
-					},
-					include: {
-						atomizer: {
-							include: {
-								vendor: true,
-								AtomizerDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
-									}
-								}
-							},
+				patch: async patch => {
+					const drain = patch.ohm ? ohmService().toAmps(3.7, patch.ohm) : undefined;
+					const watts = drain ? ohmService().toWatt(3.7, drain) : undefined;
+					return source.prisma.build.update({
+						where: {id: patch.id},
+						data: {
+							...patch,
+							active: patch.active === null ? undefined : patch.active,
+							code: patch.code || undefined,
+							created: undefined,
+							drain,
+							watts,
 						},
-						coil: {
-							include: {
-								CoilDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
+						include: {
+							atomizer: {
+								include: {
+									vendor: true,
+									AtomizerDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
 									}
 								},
-								wire: {
-									include: {
-										vendor: true,
-										WireFiber: {
-											include: {
-												fiber: {
-													include: {
-														material: true,
+							},
+							coil: {
+								include: {
+									CoilDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									},
+									wire: {
+										include: {
+											vendor: true,
+											WireFiber: {
+												include: {
+													fiber: {
+														include: {
+															material: true,
+														}
 													}
 												}
-											}
-										},
-										WireDraw: {
-											orderBy: {draw: {sort: "asc"}},
-											include: {
-												draw: true,
+											},
+											WireDraw: {
+												orderBy: {draw: {sort: "asc"}},
+												include: {
+													draw: true,
+												}
 											}
 										}
 									}
 								}
-							}
-						},
-						cotton: {
-							include: {
-								vendor: true,
-								CottonDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
+							},
+							cotton: {
+								include: {
+									vendor: true,
+									CottonDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
 									}
-								}
+								},
 							},
 						},
-					},
-				}),
+					});
+				},
 				delete: async ids => {
 					const where = {
 						id: {
