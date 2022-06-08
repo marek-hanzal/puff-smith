@@ -10,21 +10,21 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const BuildSource = (): IBuildSource => {
-		const cottonSource = singletonOf(() => CottonSource());
-		const atomizerSource = singletonOf(() => AtomizerSource());
-		const coilSource = singletonOf(() => CoilSource());
+	const cottonSource = singletonOf(() => CottonSource());
+	const atomizerSource = singletonOf(() => AtomizerSource());
+	const coilSource = singletonOf(() => CoilSource());
 	const codeService = singletonOf(() => CodeService());
 	const ohmService = singletonOf(() => OhmService());
 
-		const source: IBuildSource = Source<IBuildSource>({
-			name: "build",
-			prisma,
-			map: async build => build ? {
-				...build,
-				created: build.created.toUTCString(),
-				ohm: build.ohm.toNumber(),
-				atomizer: await atomizerSource().mapper.map(build.atomizer),
-				coil: await coilSource().mapper.map(build.coil),
+	const source: IBuildSource = Source<IBuildSource>({
+		name: "build",
+		prisma,
+		map: async build => build ? {
+			...build,
+			created: build.created.toUTCString(),
+			ohm: build.ohm.toNumber(),
+			atomizer: await atomizerSource().mapper.map(build.atomizer),
+			coil: await coilSource().mapper.map(build.coil),
 				cotton: await cottonSource().mapper.map(build.cotton),
 			} : undefined,
 			source: {
