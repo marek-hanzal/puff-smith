@@ -25,16 +25,16 @@ export const BuildSource = (): IBuildSource => {
 			ohm: build.ohm.toNumber(),
 			atomizer: await atomizerSource().mapper.map(build.atomizer),
 			coil: await coilSource().mapper.map(build.coil),
-				cotton: await cottonSource().mapper.map(build.cotton),
-			} : undefined,
-			source: {
-				get: async id => source.prisma.build.findUnique({
-					where: {id},
-					include: {
-						atomizer: {
-							include: {
-								vendor: true,
-								AtomizerDraw: {
+			cotton: await cottonSource().mapper.map(build.cotton),
+		} : undefined,
+		source: {
+			get: async id => source.prisma.build.findUnique({
+				where: {id},
+				include: {
+					atomizer: {
+						include: {
+							vendor: true,
+							AtomizerDraw: {
 									orderBy: {draw: {sort: "asc"}},
 									include: {
 										draw: true,
