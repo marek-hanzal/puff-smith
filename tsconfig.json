@@ -46,5 +46,15 @@
 		"_component",
 		"_site",
 		"tmp"
-	]
+	],
+	"ts-node": {
+		"transpileOnly": true,
+		"esm": true,
+		"require": [
+			"tsconfig-paths/register"
+		],
+		"compilerOptions": {
+			"module": "CommonJS"
+		}
+	}
 }
