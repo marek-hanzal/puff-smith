@@ -63,7 +63,9 @@ COPY --chown=app:app next.config.mjs next.config.mjs
 COPY --chown=app:app fixtures fixtures
 COPY --chown=app:app prisma prisma
 COPY --chown=app:app public public
+COPY --chown=app:app src src
 COPY --chown=app:app package.json package-lock.json ./
+COPY --chown=app:app tsconfig.json ./
 COPY --from=builder --chown=app:app /opt/app/node_modules ./node_modules
 COPY --from=builder --chown=app:app /opt/app/.next ./.next
 

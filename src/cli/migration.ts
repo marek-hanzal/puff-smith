@@ -23,7 +23,9 @@ const umzug = new Umzug({
 			};
 		},
 	},
-	storage: new JSONStorage(),
+	storage: new JSONStorage({
+		path: "./.data/umzug.json",
+	}),
 	context: prisma,
 	logger: console,
 });
