@@ -9,6 +9,6 @@ export const up: IMigration = async ({context: prisma}) => {
 	for (const {id, ohm} of builds) {
 		const drain = ohmService.toAmps(3.7, ohm.toNumber());
 		const watts = ohmService.toWatt(3.7, drain);
-		await prisma.$executeRaw`UPDATE "Build" SET 'drain'=${drain}, "watts"=${watts} WHERE "id" = ${id}`;
+		await prisma.$executeRaw`UPDATE "Build" SET "drain"=${drain}, "watts"=${watts} WHERE "id" = ${id}`;
 	}
 };
