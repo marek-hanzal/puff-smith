@@ -2,12 +2,34 @@ import "@/puff-smith/service/side-effect/bootstrap";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {sha256} from "@/puff-smith/service/utils/sha256";
 import {executeSql, runSql} from "@leight-core/server";
+import {PrismaClient} from "@prisma/client";
 import fs from "node:fs";
 import path from "node:path";
 import {Umzug} from "umzug";
 import {v4} from "uuid";
 
 const EMPTY_MIGRATION = "__empty__";
+
+const ensureMigrationTable = async (prisma: PrismaClient) => {
+	try {
+		await executeSql(`
+			create table _prisma_migrations
+			(
+				id                  varchar(36)  not null primary key,
+				checksum            varchar(64)  not null,
+				finished_at         timestamp with time zone,
+				migration_name      varchar(255) not null,
+				logs                text,
+				rolled_back_at      timestamp with time zone,
+				started_at          timestamp with time zone default now() not null,
+				applied_steps_count integer                  default 0 not null
+			);
+
+			alter table _prisma_migrations owner to "puff-smith";
+		`, prisma);
+	} catch (e) {
+	}
+};
 
 const umzug = new Umzug({
 	migrations: {
@@ -44,30 +66,16 @@ const umzug = new Umzug({
 			if (params.name === EMPTY_MIGRATION) {
 				return;
 			}
-			try {
-				await executeSql(`
-					create table _prisma_migrations
-					(
-						id                  varchar(36)  not null primary key,
-						checksum            varchar(64)  not null,
-						finished_at         timestamp with time zone,
-						migration_name      varchar(255) not null,
-						logs                text,
-						rolled_back_at      timestamp with time zone,
-						started_at          timestamp with time zone default now() not null,
-						applied_steps_count integer                  default 0 not null
-					);
-
-					alter table _prisma_migrations owner to "puff-smith";
-				`, prisma);
-			} catch (e) {
-			}
+			await ensureMigrationTable(prisma);
 			const hash = sha256(fs.readFileSync(params.path!).toString());
 			await prisma.$executeRaw`INSERT INTO _prisma_migrations VALUES (${v4()}, ${hash}, NOW(), ${params.name}, NULL, NULL, now(), 1)`;
 		},
 		unlogMigration: async params => {
 		},
-		executed: async ({context: prisma}) => (await prisma.$queryRaw<{ migration_name: string }[]>`SELECT migration_name FROM _prisma_migrations ORDER BY migration_name ASC`).map(({migration_name}) => migration_name),
+		executed: async ({context: prisma}) => {
+			await ensureMigrationTable(prisma);
+			return (await prisma.$queryRaw<{ migration_name: string }[]>`SELECT migration_name FROM _prisma_migrations ORDER BY migration_name ASC`).map(({migration_name}) => migration_name);
+		},
 	},
 	context: prisma,
 	logger: undefined,
