@@ -35,16 +35,16 @@ export const BuildSource = (): IBuildSource => {
 						include: {
 							vendor: true,
 							AtomizerDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
-									}
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
 								}
-							},
+							}
 						},
-						coil: {
-							include: {
-								CoilDraw: {
+					},
+					coil: {
+						include: {
+							CoilDraw: {
 									orderBy: {draw: {sort: "asc"}},
 									include: {
 										draw: true,
