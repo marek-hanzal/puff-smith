@@ -11,13 +11,13 @@ import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildInde
 import {BuildLiquidList} from "@/puff-smith/site/lab/build/liquid/@module/list/BuildLiquidList";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/filter/LiquidFilter";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
-import {LiquidProviderControl, useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
-import {FireOutlined} from "@ant-design/icons";
+import {LiquidProviderControl, useLiquidCountQuery} from "@/sdk/api/lab/liquid/query";
+import {FireOutlined, LikeOutlined} from "@ant-design/icons";
 import {QueryParamsProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
-	const liquidQueryInvalidate = useLiquidQueryInvalidate();
+	const liquidCountQuery = useLiquidCountQuery();
 	return <LabPage
 		title={"lab.build.liquid"}
 		values={{build}}
@@ -35,13 +35,77 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 			span={22}
 		>
 			<Tabs size={"large"}>
-				<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.liquid.recommended.tab"}/>}>
+				<Tabs.TabPane key={"recommended-unrated"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.liquid.recommended.unrated.tab"}/>}>
 					<LiquidProviderControl
 						defaultSize={DEFAULT_LIST_SIZE}
 						defaultOrderBy={{
 							mixed: "asc",
 						}}
 						applyFilter={{
+							mixture: {
+								MixtureDraw: {
+									some: {
+										drawId: {
+											in: build.atomizer.drawIds,
+										}
+									}
+								}
+							},
+							BuildLiquidRating: {
+								every: {
+									rating: null,
+								},
+							},
+						}}
+					>
+						<QueryParamsProvider applyQueryParams={{id: build.id}}>
+							<BuildLiquidList
+								build={build}
+								header={() => <RowInline>
+									<LiquidFilter
+										applyFilter={{
+											mixture: {
+												MixtureDraw: {
+													some: {
+														drawId: {
+															in: build.atomizer.drawIds,
+														}
+													}
+												}
+											},
+											BuildLiquidRating: {
+												every: {
+													rating: null,
+												},
+											},
+										}}
+									/>
+								</RowInline>}
+								locale={{
+									emptyText: liquidCountQuery.isSuccess ?
+										<Template
+											icon={<LiquidIcon/>}
+											label={liquidCountQuery.data === 0 ? "lab.liquid.rating.list.empty" : "lab.liquid.rating.list.rated"}
+										/> : undefined,
+								}}
+							/>
+						</QueryParamsProvider>
+					</LiquidProviderControl>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={"recommended-rated"} tab={<TabInline icon={<LikeOutlined/>} title={"lab.build.liquid.recommended.rated.tab"}/>}>
+					<LiquidProviderControl
+						defaultSize={DEFAULT_LIST_SIZE}
+						defaultOrderBy={{
+							mixed: "asc",
+						}}
+						applyFilter={{
+							BuildLiquidRating: {
+								some: {
+									NOT: {
+										rating: null,
+									}
+								}
+							},
 							mixture: {
 								MixtureDraw: {
 									some: {
@@ -59,6 +123,13 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 								header={() => <RowInline>
 									<LiquidFilter
 										applyFilter={{
+											BuildLiquidRating: {
+												some: {
+													NOT: {
+														rating: null,
+													}
+												}
+											},
 											mixture: {
 												MixtureDraw: {
 													some: {
@@ -71,6 +142,13 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 										}}
 									/>
 								</RowInline>}
+								locale={{
+									emptyText: liquidCountQuery.isSuccess ?
+										<Template
+											icon={<LiquidIcon/>}
+											label={liquidCountQuery.data === 0 ? "lab.liquid.unrated.list.empty" : "lab.liquid.unrated.list.unrated"}
+										/> : undefined,
+								}}
 							/>
 						</QueryParamsProvider>
 					</LiquidProviderControl>
@@ -88,6 +166,13 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 								header={() => <RowInline>
 									<LiquidFilter/>
 								</RowInline>}
+								locale={{
+									emptyText: liquidCountQuery.isSuccess ?
+										<Template
+											icon={<LiquidIcon/>}
+											label={liquidCountQuery.data === 0 ? "lab.liquid.all.list.empty" : "lab.liquid.all.list.rated"}
+										/> : undefined,
+								}}
 							/>
 						</QueryParamsProvider>
 					</LiquidProviderControl>

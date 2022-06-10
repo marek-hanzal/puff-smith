@@ -115,6 +115,14 @@ jobs:
                     script_stop: true
                     script: |
                         cd /opt/app/.docker/production
-                        docker system prune -f --all
+
+                        echo DATABASE_URL="${{ secrets.DATABASE_URL }}" >> .env
+                        echo NEXTAUTH_GITHUB_CLIENT_ID="${{ secrets.NEXTAUTH_GITHUB_CLIENT_ID }}" >> .env
+                        echo NEXTAUTH_GITHUB_CLIENT_SECRET="${{ secrets.NEXTAUTH_GITHUB_CLIENT_SECRET }}" >> .env
+                        echo NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}" >> .env
+                        echo POSTGRES_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" >> .env
+                        echo POSTGRESQL_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" >> .env
+
                         docker compose pull
                         docker compose up -d
+                        docker system prune -f --all
