@@ -41,7 +41,7 @@
 		"@ant-design/icons": "^4.7.0",
 		"@leight-core/api": "^0.6.68",
 		"@leight-core/client": "^0.6.24",
-		"@leight-core/server": "^0.6.85",
+		"@leight-core/server": "^0.6.86",
 		"@leight-core/utils": "^0.5.26",
 		"@next-auth/prisma-adapter": "^1.0.3",
 		"@prisma/client": "^3.14.0",
