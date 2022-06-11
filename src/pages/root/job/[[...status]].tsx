@@ -1,17 +1,19 @@
 import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu} from "@/puff-smith/site/root/job/@module/menu/JobMenu";
 import {IJobListProps, JobList} from "@/puff-smith/site/shared/job/@module/list/JobList";
 import {JobProviderControl} from "@/sdk/api/job/query";
-import {IJobStatus} from "@leight-core/api";
+import {IJobStatus, IQueryOrderBy} from "@leight-core/api";
 import {useNavigate, useParams} from "@leight-core/client";
 import {message} from "antd";
 import {useTranslation} from "react-i18next";
 
 interface IJobConfig {
 	filter?: IJobStatus[];
+	orderBy?: IQueryOrderBy<IJobQuery>;
 	listProps?: Partial<IJobListProps>;
 }
 
@@ -26,6 +28,10 @@ export default withRootLayout(function Index() {
 	const configs: IJobConfigObject = {
 		"running": {
 			filter: ["RUNNING", "NEW"],
+			orderBy: [
+				{started: "asc"},
+				{created: "asc"},
+			] as any,
 			listProps: {
 				providerProps: {
 					live: 2500,
@@ -39,7 +45,7 @@ export default withRootLayout(function Index() {
 								});
 							}
 						}
-					}
+					},
 				},
 				disableToolbar: true,
 			},
@@ -108,7 +114,7 @@ export default withRootLayout(function Index() {
 				},
 				name,
 			}}
-			defaultOrderBy={[
+			defaultOrderBy={config.orderBy || [
 				{
 					started: "desc",
 				},
