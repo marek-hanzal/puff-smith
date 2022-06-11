@@ -131,8 +131,8 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	await $queue.onIdle();
 }, options => new PQueue({
 	...options,
-	concurrency: 5,
-	intervalCap: 5,
+	concurrency: 3,
+	intervalCap: 3,
 }));
 
 const mixtureInventoryUpdate = async <T, U>(where: T, create: U, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
