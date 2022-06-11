@@ -66,9 +66,8 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, atomizerId}) => prisma.$transaction(async prisma => {
-				const $atomizer = await AtomizerSource().withPrisma(prisma).get(atomizerId);
-				const transactionSource = TransactionSource();
-				transactionSource.withPrisma(prisma);
+				const $atomizer = await AtomizerSource().ofSource(source).withPrisma(prisma).get(atomizerId);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
 				return transactionSource.handleTransaction({
 					userId: source.user.required(),
 					cost: $atomizer.cost,

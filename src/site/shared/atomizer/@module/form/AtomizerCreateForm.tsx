@@ -12,7 +12,7 @@ import {useTranslation} from "react-i18next";
 export interface IAtomizerCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = props => {
+export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const atomizerQueryInvalidate = useAtomizerQueryInvalidate();
 	const atomizerMarketQueryInvalidate = useAtomizerMarketQueryInvalidate();
@@ -20,15 +20,20 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = props => {
 	const atomizerMarketCountQueryInvalidate = useAtomizerMarketCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.atomizer.create"}
-		onSuccess={async ({response}) => {
+		onSuccess={async ({response, ...rest}) => {
 			message.success(t("shared.atomizer.create.success", response));
 			await atomizerQueryInvalidate();
 			await atomizerMarketQueryInvalidate();
 			await atomizerCountQueryInvalidate();
 			await atomizerMarketCountQueryInvalidate();
+			await onSuccess?.({response, ...rest});
 		}}
 		toForm={() => ({
 			squonk: false,
+			coilMin: 0.2,
+			coilMax: 0.35,
+			wrapsMin: 5,
+			wrapsMax: 8,
 		})}
 		{...props}
 	>
@@ -39,6 +44,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = props => {
 				<FormItem field={"vendorId"} required>
 					<VendorSelect allowClear/>
 				</FormItem>
+				<SwitchItem field={"isHybrid"}/>
 			</Col>
 			<Col span={8}>
 				<FormItem field={"typeId"} hasTooltip required>
