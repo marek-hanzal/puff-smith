@@ -8,6 +8,7 @@ import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureLis
 import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
 import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
 import {Template, useFilterContext} from "@leight-core/client";
+import {Col, Row} from "antd";
 import {FC} from "react";
 
 interface IInternalListProps {
@@ -16,16 +17,23 @@ interface IInternalListProps {
 const InternalList: FC<IInternalListProps> = () => {
 	const filterContext = useFilterContext();
 	return filterContext.isEmpty() ?
-		<Template
-			style={{marginTop: "0em"}}
-			icon={<MixtureIcon/>}
-			label={"market.aroma.mixture.filter"}
-			span={12}
-			extra={<MixtureUserJobButton/>}
-		>
-			<MixtureFilter
-				inline
-			/>
+		<Template span={18}>
+			<Row gutter={32}>
+				<Col span={8}>
+					<Template
+						style={{marginTop: "0em"}}
+						icon={<MixtureIcon/>}
+						label={"market.aroma.mixture.filter"}
+						span={12}
+						extra={<MixtureUserJobButton/>}
+					/>
+				</Col>
+				<Col span={16}>
+					<MixtureFilter
+						inline
+					/>
+				</Col>
+			</Row>
 		</Template> :
 		<MixtureList
 			header={() => <RowInline
