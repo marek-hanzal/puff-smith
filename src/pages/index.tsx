@@ -5,19 +5,10 @@ export default function Index() {
 	return null;
 };
 
-export interface IWithTokenRequest {
-	toDestination: string;
-	toPublic?: string;
-}
-
-export const withToken: (withToken: IWithTokenRequest) => GetServerSideProps = ({toDestination, toPublic = "/public"}) => async ctx => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
 	const token = await getOptionalToken(ctx);
 	return {
-		redirect: token ? {destination: toDestination} : {destination: toPublic},
+		redirect: token ? {destination: "/lab"} : {destination: "/public"},
 		props: {},
 	};
 };
-
-export const getServerSideProps = withToken({
-	toDestination: "/lab",
-});
