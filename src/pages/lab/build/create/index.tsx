@@ -7,8 +7,9 @@ import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@modul
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateForm} from "@/puff-smith/site/lab/build/@module/form/BuildCreateForm";
+import {AtomizerCreateForm} from "@/puff-smith/site/shared/atomizer/@module/form/AtomizerCreateForm";
 import {AtomizerInventoryProviderControl, useAtomizerInventoryCountQuery} from "@/sdk/api/inventory/atomizer/query";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Create() {
@@ -18,11 +19,24 @@ export default withLabLayout(function Create() {
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build")}
 		icon={<BuildIcon/>}
-		extra={<ButtonLink
-			href={"/lab/build"}
-			icon={<ListIcon/>}
-			label={"lab.build.index.button"}
-		/>}
+		extra={<ButtonBar>
+			<ButtonLink
+				href={"/lab/build"}
+				icon={<ListIcon/>}
+				label={"lab.build.index.button"}
+			/>
+			<DrawerButton
+				size={"large"}
+				type={"primary"}
+				icon={<EditIcon/>}
+				title={"lab.atomizer.create.title"}
+				label={"lab.atomizer.create.button"}
+			>
+				<AtomizerCreateForm
+
+				/>
+			</DrawerButton>
+		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}

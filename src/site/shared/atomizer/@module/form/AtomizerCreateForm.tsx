@@ -41,10 +41,16 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = props => {
 			<InputNumber min={0} max={9999} style={{width: "100%"}}/>
 		</FormItem>
 		<FormItem field={"coilMin"} hasTooltip required>
-			<InputNumber min={0} max={1} step={0.05} style={{width: "100%"}}/>
+			<InputNumber min={0} max={0.5} step={0.05} style={{width: "100%"}}/>
 		</FormItem>
 		<FormItem field={"coilMax"} hasTooltip required>
-			<InputNumber min={0} max={1} step={0.05} style={{width: "100%"}}/>
+			<InputNumber min={0} max={0.5} step={0.05} style={{width: "100%"}}/>
+		</FormItem>
+		<FormItem field={"wrapsMin"} hasTooltip required>
+			<InputNumber min={3} max={16} step={1} style={{width: "100%"}}/>
+		</FormItem>
+		<FormItem field={"wrapsMax"} hasTooltip required>
+			<InputNumber min={3} max={16} step={1} style={{width: "100%"}}/>
 		</FormItem>
 		<FormItem field={"typeId"} hasTooltip required>
 			<TagSelect

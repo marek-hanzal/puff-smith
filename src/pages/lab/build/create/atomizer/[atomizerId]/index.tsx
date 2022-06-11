@@ -19,7 +19,7 @@ import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/Atomi
 import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
@@ -28,11 +28,21 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build/create")}
 		icon={<AtomizerIcon/>}
-		extra={<ButtonLink
-			href={"/lab/build"}
-			icon={<ListIcon/>}
-			label={"lab.build.index.button"}
-		/>}
+		extra={<ButtonBar>
+			<ButtonLink
+				href={"/lab/build"}
+				icon={<ListIcon/>}
+				label={"lab.build.index.button"}
+			/>
+			<DrawerButton
+				size={"large"}
+				type={"primary"}
+				icon={<EditIcon/>}
+				title={"lab.coil.create.title"}
+				label={"lab.coil.create.button"}
+			>
+			</DrawerButton>
+		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -173,9 +183,6 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 						/>}
 					/>
 				</BuildProviderControl>
-			</Tabs.TabPane>
-			<Tabs.TabPane key={"coil.create"} tab={<TabInline icon={<EditIcon/>} title={"lab.build.coil.create.tab"}/>}>
-
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
 				<AtomizerView atomizer={atomizer}/>
