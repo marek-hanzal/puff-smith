@@ -29,11 +29,17 @@ export default withLabLayout(function Create() {
 				size={"large"}
 				type={"primary"}
 				icon={<EditIcon/>}
+				width={860}
 				title={"lab.atomizer.create.title"}
 				label={"lab.atomizer.create.button"}
 			>
+				<h1>ADD ATOMIZER TO USER'S INVENTORY</h1>
 				<AtomizerCreateForm
-
+					onSuccess={({navigate, response}) => {
+						navigate("/lab/build/create/atomizer/[atomizerId]", {
+							atomizerId: response.id,
+						});
+					}}
 				/>
 			</DrawerButton>
 		</ButtonBar>}
