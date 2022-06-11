@@ -29,7 +29,7 @@ export default withLabLayout(function Create() {
 				size={"large"}
 				type={"primary"}
 				icon={<EditIcon/>}
-				width={860}
+				width={920}
 				title={"lab.atomizer.create.title"}
 				label={"lab.atomizer.create.button"}
 			>
