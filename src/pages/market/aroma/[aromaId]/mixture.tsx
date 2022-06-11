@@ -15,7 +15,7 @@ import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {Template, useFilterContext} from "@leight-core/client";
-import {Space} from "antd";
+import {Col, Row, Space} from "antd";
 import {FC} from "react";
 
 interface IInternalListProps {
@@ -25,17 +25,23 @@ interface IInternalListProps {
 const InternalList: FC<IInternalListProps> = ({aroma}) => {
 	const filterContext = useFilterContext();
 	return filterContext.isEmpty() ?
-		<Template
-			style={{marginTop: "0em"}}
-			icon={<MixtureIcon/>}
-			label={"market.aroma.mixture.filter"}
-			span={12}
-			extra={<MixtureJobButton aroma={aroma}/>}
-		>
-			<MixtureFilter
-				inline
-				aroma={aroma}
-			/>
+		<Template span={18}>
+			<Row gutter={32}>
+				<Col span={8}>
+					<Template
+						style={{marginTop: "0em"}}
+						icon={<MixtureIcon/>}
+						label={"market.aroma.mixture.filter"}
+						extra={<MixtureJobButton aroma={aroma}/>}
+					/>
+				</Col>
+				<Col span={16}>
+					<MixtureFilter
+						inline
+						aroma={aroma}
+					/>
+				</Col>
+			</Row>
 		</Template> :
 		<MixtureList
 			header={() => <RowInline
