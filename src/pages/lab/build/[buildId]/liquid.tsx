@@ -103,7 +103,8 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 								some: {
 									NOT: {
 										rating: null,
-									}
+									},
+									buildId: build.id,
 								}
 							},
 							mixture: {

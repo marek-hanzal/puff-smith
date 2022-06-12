@@ -41,6 +41,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				title={"lab.coil.create.title"}
 				label={"lab.coil.create.button"}
 			>
+
 			</DrawerButton>
 		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
