@@ -39,77 +39,40 @@ export const AtomizerSource = (): IAtomizerSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, ...atomizer}) => {
-				const create = {
-					...atomizer,
-					code: code || codeService().code(),
-					dualCoil: boolean(atomizer?.dualCoil),
-					squonk: boolean(atomizer?.squonk),
-					isHybrid: boolean(atomizer?.isHybrid),
-					cost: atomizer.cost ? parseFloat(atomizer.cost) : undefined,
-					vendor: {
-						connect: {
-							id: vendorId,
-							name: vendor,
-						}
-					},
-					type: {
-						connect: {
-							id: typeId,
-							code_group: type ? {
-								code: `${type}`,
-								group: "atomizer-type",
-							} : undefined,
-						}
-					},
-					AtomizerDraw: {
-						createMany: {
-							data: (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
-								drawId: tag.id,
-							})) : []).concat(drawIds?.map(id => ({drawId: id})) || []),
-						}
-					},
-				};
-				try {
-					return await source.prisma.atomizer.create({
-						data: create,
-						include: {
-							vendor: true,
-							AtomizerDraw: {
-								orderBy: {draw: {sort: "asc"}},
-								include: {
-									draw: true,
-								}
+			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, withInventory = false, ...atomizer}) => {
+				const $create = async () => {
+					const create = {
+						...atomizer,
+						code: code || codeService().code(),
+						dualCoil: boolean(atomizer?.dualCoil),
+						squonk: boolean(atomizer?.squonk),
+						isHybrid: boolean(atomizer?.isHybrid),
+						cost: atomizer.cost ? parseFloat(atomizer.cost) : undefined,
+						vendor: {
+							connect: {
+								id: vendorId,
+								name: vendor,
 							}
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => {
-						const $atomizer = (await source.prisma.atomizer.findFirst({
-							where: {
-								OR: [
-									{
-										name: create.name,
-										vendor: {
-											name: vendor,
-										},
-									},
-									{
-										code: create.code,
-									}
-								]
-							},
-							rejectOnNotFound: true,
-						}));
-						await source.prisma.atomizerDraw.deleteMany({
-							where: {
-								atomizerId: $atomizer.id,
+						type: {
+							connect: {
+								id: typeId,
+								code_group: type ? {
+									code: `${type}`,
+									group: "atomizer-type",
+								} : undefined,
 							}
-						});
-						return source.prisma.atomizer.update({
-							where: {
-								id: $atomizer.id,
-							},
+						},
+						AtomizerDraw: {
+							createMany: {
+								data: (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
+									drawId: tag.id,
+								})) : []).concat(drawIds?.map(id => ({drawId: id})) || []),
+							}
+						},
+					};
+					try {
+						return await source.prisma.atomizer.create({
 							data: create,
 							include: {
 								vendor: true,
@@ -121,8 +84,56 @@ export const AtomizerSource = (): IAtomizerSource => {
 								}
 							},
 						});
-					});
-				}
+					} catch (e) {
+						return onUnique(e, async () => {
+							const $atomizer = (await source.prisma.atomizer.findFirst({
+								where: {
+									OR: [
+										{
+											name: create.name,
+											vendor: {
+												name: vendor,
+											},
+										},
+										{
+											code: create.code,
+										}
+									]
+								},
+								rejectOnNotFound: true,
+							}));
+							await source.prisma.atomizerDraw.deleteMany({
+								where: {
+									atomizerId: $atomizer.id,
+								}
+							});
+							return source.prisma.atomizer.update({
+								where: {
+									id: $atomizer.id,
+								},
+								data: create,
+								include: {
+									vendor: true,
+									AtomizerDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
+								},
+							});
+						});
+					}
+				};
+				const $atomizer = await $create();
+				withInventory && await source.prisma.atomizerInventory.create({
+					data: {
+						code: codeService().code(),
+						atomizerId: $atomizer.id,
+						userId: source.user.required(),
+					}
+				});
+				return $atomizer;
 			},
 			delete: async ids => {
 				const where = {

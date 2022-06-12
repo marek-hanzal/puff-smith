@@ -14,6 +14,7 @@ export interface ITransactionQuery extends IQuery<Prisma.TransactionWhereInput, 
 
 export type ITransactionEntity = Transaction;
 export type IWithTransaction = { transaction: ITransactionEntity; };
+export type IWithNullTransaction = { transaction?: ITransactionEntity | null; };
 
 export interface ITransaction {
 	id: string;

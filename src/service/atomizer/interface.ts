@@ -21,6 +21,7 @@ export interface IAtomizerCreate {
 	coilMax?: number;
 	wrapsMin?: number;
 	wrapsMax?: number;
+	withInventory?: boolean;
 }
 
 export interface IAtomizerQuery extends IQuery<Prisma.AtomizerWhereInput & IWithFulltext, Prisma.AtomizerOrderByWithRelationInput> {

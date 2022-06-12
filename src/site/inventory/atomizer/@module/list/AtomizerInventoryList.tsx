@@ -32,7 +32,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{optionalSelectionContext && <SelectionBool selection={atomizerInventory}/>}
 					<AtomizerNameInline atomizer={atomizerInventory.atomizer}/>
-					<Tags tags={atomizerInventory.atomizer.draws} color={"geekblue"} translation={"common.draw"}/>
+					{atomizerInventory.atomizer.draws.length > 0 && <Tags color={"geekblue"} tags={atomizerInventory.atomizer.draws} translation={"common.draw"}/>}
 				</Space>}
 			/>
 		</ListItem>}
