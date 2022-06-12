@@ -14,6 +14,7 @@ import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
+import {CoilCreateForm} from "@/puff-smith/site/lab/coil/@module/form/CoilCreateForm";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
@@ -41,7 +42,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				title={"lab.coil.create.title"}
 				label={"lab.coil.create.button"}
 			>
-
+				<CoilCreateForm/>
 			</DrawerButton>
 		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
