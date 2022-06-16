@@ -1,9 +1,16 @@
 import Icon from "@ant-design/icons";
-import {numbersOf} from "@leight-core/utils";
-import {Radio, Tooltip} from "antd";
-import {ComponentProps, FC} from "react";
+import {Radio, Rate, Tooltip} from "antd";
+import {ComponentProps, FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {MdDeleteOutline, MdOutlineThumbsUpDown, MdThumbDownOffAlt, MdThumbUpOffAlt, MdVerified} from "react-icons/md";
+
+const icons: Record<string, ReactNode> = {
+	"-2": <Icon component={MdDeleteOutline}/>,
+	"-1": <Icon component={MdThumbDownOffAlt}/>,
+	"0": <Icon component={MdOutlineThumbsUpDown}/>,
+	"1": <Icon component={MdThumbUpOffAlt}/>,
+	"2": <Icon component={MdVerified}/>,
+};
 
 export interface ILikeInlineProps extends Partial<ComponentProps<typeof Radio["Group"]>> {
 	tooltip?: string;
@@ -15,31 +22,15 @@ export interface ILikeInlineProps extends Partial<ComponentProps<typeof Radio["G
 export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, disabled, ...props}) => {
 	const {t} = useTranslation();
 
-	const map: any = {
-		"-2": MdDeleteOutline,
-		"-1": MdThumbDownOffAlt,
-		"0": MdOutlineThumbsUpDown,
-		"1": MdThumbUpOffAlt,
-		"2": MdVerified,
-	};
-
 	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
-		<Radio.Group
-			value={rating}
+		<Rate
+			defaultValue={rating ? rating + 3 : undefined}
+			character={({index}) => icons[(index || 0) - 2]}
 			disabled={isLoading || disabled}
-			size={"large"}
-			{...props}
-		>
-			{numbersOf(5).map(i => {
-				const $value = i - 2;
-				return <Radio.Button
-					key={$value}
-					value={$value}
-					onClick={() => onRating(rating === $value ? null : $value)}
-				>
-					<Icon component={map[$value]}/>
-				</Radio.Button>;
-			})}
-		</Radio.Group>
+			onChange={value => {
+				const $value = value - 3;
+				onRating(rating === $value ? null : $value);
+			}}
+		/>
 	</Tooltip>;
 };
