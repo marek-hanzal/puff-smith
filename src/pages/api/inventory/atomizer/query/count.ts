@@ -2,4 +2,4 @@ import {AtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/A
 import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"AtomizerInventoryCount", IAtomizerInventorySource>(AtomizerInventorySource());
+export default CountEndpoint<"AtomizerInventoryCount", IAtomizerInventorySource>(AtomizerInventorySource);

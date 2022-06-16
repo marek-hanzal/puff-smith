@@ -2,4 +2,4 @@ import {BaseInventorySource} from "@/puff-smith/service/base/inventory/BaseInven
 import {IBaseInventorySource} from "@/puff-smith/service/base/inventory/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"BaseInventoryCount", IBaseInventorySource>(BaseInventorySource());
+export default CountEndpoint<"BaseInventoryCount", IBaseInventorySource>(BaseInventorySource);

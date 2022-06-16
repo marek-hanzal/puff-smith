@@ -2,4 +2,4 @@ import {CellMarketSource} from "@/puff-smith/service/cell/market/CellMarketSourc
 import {ICellMarketSource} from "@/puff-smith/service/cell/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"CellMarket", ICellMarketSource>(CellMarketSource());
+export default QueryEndpoint<"CellMarket", ICellMarketSource>(CellMarketSource);

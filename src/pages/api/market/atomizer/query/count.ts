@@ -2,4 +2,4 @@ import {AtomizerMarketSource} from "@/puff-smith/service/atomizer/market/Atomize
 import {IAtomizerMarketSource} from "@/puff-smith/service/atomizer/market/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"AtomizerMarketCount", IAtomizerMarketSource>(AtomizerMarketSource());
+export default CountEndpoint<"AtomizerMarketCount", IAtomizerMarketSource>(AtomizerMarketSource);

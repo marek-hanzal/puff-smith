@@ -2,4 +2,4 @@ import {IMixtureBoosterSource} from "@/puff-smith/service/mixture/inventory/boos
 import {MixtureBoosterSource} from "@/puff-smith/service/mixture/inventory/booster/MixtureBoosterSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Booster", IMixtureBoosterSource>(MixtureBoosterSource());
+export default QueryEndpoint<"Booster", IMixtureBoosterSource>(MixtureBoosterSource);

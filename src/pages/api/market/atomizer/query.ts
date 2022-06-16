@@ -2,4 +2,4 @@ import {AtomizerMarketSource} from "@/puff-smith/service/atomizer/market/Atomize
 import {IAtomizerMarketSource} from "@/puff-smith/service/atomizer/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AtomizerMarket", IAtomizerMarketSource>(AtomizerMarketSource());
+export default QueryEndpoint<"AtomizerMarket", IAtomizerMarketSource>(AtomizerMarketSource);

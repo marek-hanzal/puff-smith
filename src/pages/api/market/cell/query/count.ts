@@ -2,4 +2,4 @@ import {CellMarketSource} from "@/puff-smith/service/cell/market/CellMarketSourc
 import {ICellMarketSource} from "@/puff-smith/service/cell/market/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"CellMarketCount", ICellMarketSource>(CellMarketSource());
+export default CountEndpoint<"CellMarketCount", ICellMarketSource>(CellMarketSource);
