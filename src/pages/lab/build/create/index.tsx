@@ -42,10 +42,6 @@ export default withLabLayout(function Create() {
 							atomizerId: response.id,
 						});
 					}}
-					toMutation={values => ({
-						...values,
-						withInventory: true,
-					})}
 				/>
 			</DrawerButton>
 		</ButtonBar>}

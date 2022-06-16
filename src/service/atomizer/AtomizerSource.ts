@@ -65,7 +65,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 						},
 						AtomizerDraw: {
 							createMany: {
-								data: (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
+								data: (draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
 									drawId: tag.id,
 								})) : []).concat(drawIds?.map(id => ({drawId: id})) || []),
 							}

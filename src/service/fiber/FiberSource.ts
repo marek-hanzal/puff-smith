@@ -2,7 +2,7 @@ import {IFiberSource} from "@/puff-smith/service/fiber/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {onUnique, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const FiberSource = (): IFiberSource => {
 	const fiberSource = singletonOf(() => FiberSource());
@@ -16,6 +16,43 @@ export const FiberSource = (): IFiberSource => {
 			material: await tagSource().mapper.map(fiber.material),
 		}) : undefined,
 		source: {
+			count: async ({filter: {fulltext, ...filter} = {}}) => {
+				const $fulltext = fulltext?.split(/\s+/g);
+				return source.prisma.fiber.count({
+					where: merge(filter, {
+						AND: ($fulltext?.map(fulltext => ({
+							OR: [
+								{
+									code: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							],
+						})) || []).concat(filter?.AND as [] || []),
+					}),
+				});
+			},
+			query: async ({filter: {fulltext, ...filter} = {}}) => {
+				const $fulltext = fulltext?.split(/\s+/g);
+				return source.prisma.fiber.findMany({
+					where: merge(filter, {
+						AND: ($fulltext?.map(fulltext => ({
+							OR: [
+								{
+									code: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							],
+						})) || []).concat(filter?.AND as [] || []),
+					}),
+					include: {
+						material: true,
+					}
+				});
+			},
 			create: async ({material, materialId, ...fiber}) => {
 				const $material = await tagSource().fetchTag("material", material, materialId);
 				const create = {

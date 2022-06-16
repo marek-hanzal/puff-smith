@@ -35,6 +35,10 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 			wrapsMin: 5,
 			wrapsMax: 8,
 		})}
+		toMutation={values => ({
+			...values,
+			withInventory: true,
+		})}
 		{...props}
 	>
 		<Row gutter={32}>

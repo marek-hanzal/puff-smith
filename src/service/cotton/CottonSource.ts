@@ -50,7 +50,7 @@ export const CottonSource = (): ICottonSource => {
 					},
 					CottonDraw: {
 						createMany: {
-							data: draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
+							data: draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
 								drawId: tag.id,
 							})) : [],
 						}

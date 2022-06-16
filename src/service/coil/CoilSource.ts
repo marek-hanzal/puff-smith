@@ -60,7 +60,7 @@ export const CoilSource = (): ICoilSource => {
 			}),
 			create: async ({code, name, draws, drawIds, wire, wireId, ...coil}) => {
 				const $wire = await wireSource().fetchByReference({wire, wireId});
-				drawIds = drawIds || (draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => tag.id) : undefined);
+				drawIds = drawIds || (draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => tag.id) : undefined);
 				const create = {
 					...coil,
 					code: code || codeService().code(),

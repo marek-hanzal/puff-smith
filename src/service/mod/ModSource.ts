@@ -43,7 +43,7 @@ export const ModSource = (): IModSource => {
 					},
 					ModCell: {
 						createMany: {
-							data: cells ? (await tagSource().fetchCodes(`${cells}`, "cell-type")).map(tag => ({
+							data: cells ? (await tagSource().fetchByCodes(`${cells}`, "cell-type")).map(tag => ({
 								cellId: tag.id,
 							})) : [],
 						},

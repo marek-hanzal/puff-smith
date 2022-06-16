@@ -103,7 +103,7 @@ export const AromaSource = (): IAromaSource => {
 					},
 					AromaTaste: {
 						createMany: {
-							data: (tastes ? (await tagSource().fetchCodes(tastes, "taste")).map(tag => ({
+							data: (tastes ? (await tagSource().fetchByCodes(tastes, "taste")).map(tag => ({
 								tasteId: tag.id,
 							})) : []).concat(tasteIds?.map(id => ({
 								tasteId: id,
@@ -155,7 +155,7 @@ export const AromaSource = (): IAromaSource => {
 								...create,
 								AromaTaste: {
 									createMany: {
-										data: tastes ? (await tagSource().fetchCodes(tastes, "taste")).map(tag => ({
+										data: tastes ? (await tagSource().fetchByCodes(tastes, "taste")).map(tag => ({
 											tasteId: tag.id,
 										})) : [],
 									}

@@ -42,22 +42,26 @@ export const TagSource = (): ITagSource => {
 				}
 			},
 		},
-		fetchCodes: async (codes, group) => source.prisma.tag.findMany({
-			where: {
-				code: {
-					in: codes.split(/,\s*/ig).map(code => `${code}`.toLowerCase()),
-				},
-				group,
-			}
-		}),
-		fetchByCodes: async (codes, group) => source.prisma.tag.findMany({
-			where: {
-				code: {
-					in: codes.map(code => `${code}`.toLowerCase()),
-				},
-				group,
-			}
-		}),
+		fetchByCodes: async (codes, group) => {
+			const $codes = Array.isArray(codes) ? codes : codes.split(/,\s*/ig).map(code => `${code}`.toLowerCase());
+			return source.prisma.tag.findMany({
+				where: {
+					OR: [
+						{
+							code: {
+								in: $codes,
+							},
+						},
+						{
+							id: {
+								in: $codes,
+							},
+						},
+					],
+					group,
+				}
+			});
+		},
 		fetchTag: (group, code, tagId) => {
 			if (!code && !tagId) {
 				throw new Error(`Provide [code] or [tagId] in group [${group}].`);

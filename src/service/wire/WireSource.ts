@@ -58,95 +58,46 @@ export const WireSource = (): IWireSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({code, name, vendor, vendorId, draws, fibers, isTCR, ...wire}) => {
-				const wireFiberCreate: IWireFiberCreate[] = await Promise.all((YAML.parse(fibers || "[]") as IWireFiberCreate[]).map(async item => {
-					return ({
-						...item,
-						$fiber: await fiberSource().fetchByCode(item.fiber),
-					});
-				}));
-				const mm = toMm(wireFiberCreate);
-				const create = {
-					...wire,
-					code: code || codeService().code(),
-					name: name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
-					mm,
-					mmToRound: toMmRound(mm),
-					vendor: {
-						connect: {
-							name: vendor,
-							id: vendorId,
-						},
-					},
-					isTCR: boolean(isTCR),
-					WireFiber: {
-						createMany: {
-							data: wireFiberCreate.map(item => ({
-								fiberId: item.$fiber.id,
-								count: item.count,
-							})),
-						}
-					},
-					WireDraw: {
-						createMany: {
-							data: draws ? (await tagSource().fetchCodes(draws, "draw")).map(tag => ({
-								drawId: tag.id,
-							})) : [],
-						}
-					},
-				};
-				try {
-					return await source.prisma.wire.create({
-						data: create,
-						include: {
-							vendor: true,
-							WireDraw: {
-								include: {
-									draw: true,
-								},
-							},
-							WireFiber: {
-								include: {
-									fiber: {
-										include: {
-											material: true,
-										}
-									},
-								},
+			create: async ({code, name, vendor, vendorId, draws, fibers, isTCR, withInventory = false, ...wire}) => {
+				const $create = async () => {
+					const wireFiberCreate: IWireFiberCreate[] = fibers ? await Promise.all((YAML.parse(fibers) as IWireFiberCreate[]).map(async item => {
+						return ({
+							...item,
+							$fiber: await fiberSource().fetchByCode(item.fiber),
+						});
+					})) : [];
+					const mm = toMm(wireFiberCreate);
+					const create = {
+						...wire,
+						code: code || codeService().code(),
+						name: name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
+						mm,
+						mmToRound: toMmRound(mm),
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
 							},
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => {
-						const $wire = (await source.prisma.wire.findFirst({
-							where: {
-								OR: [
-									{
-										name: create.name,
-										vendorId: (await vendorSource().fetchByReference({vendor, vendorId})).id,
-									},
-									{
-										code: create.code,
-									}
-								],
-							},
-							rejectOnNotFound: true,
-						}));
-
-						await source.prisma.wireFiber.deleteMany({
-							where: {
-								wireId: $wire.id,
+						isTCR: boolean(isTCR),
+						WireFiber: {
+							createMany: {
+								data: wireFiberCreate.map(item => ({
+									fiberId: item.$fiber.id,
+									count: item.count,
+								})),
 							}
-						});
-						await source.prisma.wireDraw.deleteMany({
-							where: {
-								wireId: $wire.id,
+						},
+						WireDraw: {
+							createMany: {
+								data: draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
+									drawId: tag.id,
+								})) : [],
 							}
-						});
-						return source.prisma.wire.update({
-							where: {
-								id: $wire.id,
-							},
+						},
+					};
+					try {
+						return await source.prisma.wire.create({
 							data: create,
 							include: {
 								vendor: true,
@@ -166,8 +117,68 @@ export const WireSource = (): IWireSource => {
 								},
 							},
 						});
-					});
-				}
+					} catch (e) {
+						return onUnique(e, async () => {
+							const $wire = (await source.prisma.wire.findFirst({
+								where: {
+									OR: [
+										{
+											name: create.name,
+											vendorId: (await vendorSource().fetchByReference({vendor, vendorId})).id,
+										},
+										{
+											code: create.code,
+										}
+									],
+								},
+								rejectOnNotFound: true,
+							}));
+
+							await source.prisma.wireFiber.deleteMany({
+								where: {
+									wireId: $wire.id,
+								}
+							});
+							await source.prisma.wireDraw.deleteMany({
+								where: {
+									wireId: $wire.id,
+								}
+							});
+							return source.prisma.wire.update({
+								where: {
+									id: $wire.id,
+								},
+								data: create,
+								include: {
+									vendor: true,
+									WireDraw: {
+										include: {
+											draw: true,
+										},
+									},
+									WireFiber: {
+										include: {
+											fiber: {
+												include: {
+													material: true,
+												}
+											},
+										},
+									},
+								},
+							});
+						});
+					}
+				};
+				const $wire = await $create();
+				withInventory && await source.prisma.wireInventory.create({
+					data: {
+						code: codeService().code(),
+						wireId: $wire.id,
+						userId: source.user.required(),
+					}
+				});
+				return $wire;
 			},
 			delete: async ids => {
 				const where = {
