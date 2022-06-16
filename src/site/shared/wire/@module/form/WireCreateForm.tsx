@@ -3,13 +3,15 @@ import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorS
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/wire/create";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
-import {Button, Divider, Form, InputNumber} from "antd";
+import {Button, Col, Divider, Form, InputNumber, Row} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface IWireCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const WireCreateForm: FC<IWireCreateFormProps> = props => {
+	const {t} = useTranslation();
 	return <CreateDefaultForm
 		translation={"shared.wire.create"}
 		toForm={() => ({
@@ -17,7 +19,7 @@ export const WireCreateForm: FC<IWireCreateFormProps> = props => {
 		})}
 		{...props}
 	>
-		<FormItem field={"name"} hasTooltip required/>
+		<FormItem field={"name"} hasTooltip/>
 		<FormItem field={"vendorId"} required>
 			<VendorSelect/>
 		</FormItem>
@@ -25,30 +27,58 @@ export const WireCreateForm: FC<IWireCreateFormProps> = props => {
 			<InputNumber min={0} max={9999} style={{width: "100%"}}/>
 		</FormItem>
 		<SwitchItem field={"isTCR"} hasTooltip/>
+		<Divider/>
 		<Form.List name={"fibers"}>
 			{(fields, {add, remove}, {errors}) => <>
-				{fields.map((field, index) => <Form.Item
-					label={index === 0 ? "Fiber biber ..." : ""}
-					key={field.key}
+				{fields.map(({key, name, ...rest}) => <Form.Item
+					key={key}
+					noStyle
 				>
-					<FormItem
-						{...field}
-						field={"blabla"}
-						noStyle
-					/>
-					<MinusCircleOutlined
-						onClick={() => remove(field.name)}
-					/>
+					<Row gutter={16} align={"middle"}>
+						<Col span={8}>
+							<FormItem
+								{...rest}
+								field={[name, "count"]}
+								labels={"shared.wire.create.fiber.count"}
+								required
+							>
+								<InputNumber
+									min={1}
+									max={6}
+									step={1}
+									style={{width: "100%"}}
+								/>
+							</FormItem>
+						</Col>
+						<Col span={14}>
+							<FormItem
+								{...rest}
+								field={[name, "fiberId"]}
+								labels={"shared.wire.create.fiber.fiberId"}
+								required
+							/>
+						</Col>
+						<Col span={2}>
+							<Button
+								size={"large"}
+								type={"link"}
+								icon={<MinusCircleOutlined/>}
+								onClick={() => remove(name)}
+							/>
+						</Col>
+					</Row>
 				</Form.Item>)}
 				<Form.Item>
-					<Button
-						type="dashed"
-						onClick={() => add()}
-						style={{width: "60%"}}
-						icon={<PlusOutlined/>}
-					>
-						Add field
-					</Button>
+					<Centered>
+						<Button
+							size={"large"}
+							type={"text"}
+							onClick={() => add()}
+							icon={<PlusOutlined/>}
+						>
+							{t("shared.wire.create.fiber.add.button")}
+						</Button>
+					</Centered>
 					<Form.ErrorList errors={errors}/>
 				</Form.Item>
 			</>}
