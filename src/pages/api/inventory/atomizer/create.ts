@@ -2,4 +2,4 @@ import {AtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/A
 import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/interface";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", IAtomizerInventorySource>(AtomizerInventorySource());
+export default CreateEndpoint<"Create", IAtomizerInventorySource>(AtomizerInventorySource);

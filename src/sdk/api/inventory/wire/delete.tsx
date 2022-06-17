@@ -8,7 +8,7 @@ import {createMutationHook, createPromise, createPromiseHook, toLink} from "@lei
 
 export const DeleteApiLink = "/api/inventory/wire/delete";
 
-export type IDeleteQueryParams = undefined;
+export type IDeleteQueryParams = any;
 
 export const useDeleteMutation = createMutationHook<string[], ISourceItem<IWireInventorySource>>(DeleteApiLink, "post");
 

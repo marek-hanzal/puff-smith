@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BaseMarketApiLink = "/api/market/base/query";
 export const BaseMarketCountApiLink = "/api/market/base/query/count";
 
-export type IBaseMarketQueryParams = undefined;
+export type IBaseMarketQueryParams = any;
 
 export const useBaseMarketQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, ISourceItem<IBaseMarketSource>[], IBaseMarketQueryParams>(BaseMarketApiLink, "post");
 export const useBaseMarketCountQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, number, IBaseMarketQueryParams>(BaseMarketCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const JobApiLink = "/api/job/query";
 export const JobCountApiLink = "/api/job/query/count";
 
-export type IJobQueryParams = undefined;
+export type IJobQueryParams = any;
 
 export const useJobQuery = createQueryHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
 export const useJobCountQuery = createQueryHook<ISourceQuery<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");

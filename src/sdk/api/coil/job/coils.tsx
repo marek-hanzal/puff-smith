@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const CoilsJobApiLink = "/api/coil/job/coils";
 
-export type ICoilsJobQueryParams = undefined;
+export type ICoilsJobQueryParams = any;
 
 export const useCoilsJobMutation = createMutationHook<ICoilsJobParams, IJob<ICoilsJobParams>>(CoilsJobApiLink, "post");
 

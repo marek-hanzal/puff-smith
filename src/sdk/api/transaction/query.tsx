@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const TransactionApiLink = "/api/transaction/query";
 export const TransactionCountApiLink = "/api/transaction/query/count";
 
-export type ITransactionQueryParams = undefined;
+export type ITransactionQueryParams = any;
 
 export const useTransactionQuery = createQueryHook<ISourceQuery<ITransactionSource>, ISourceItem<ITransactionSource>[], ITransactionQueryParams>(TransactionApiLink, "post");
 export const useTransactionCountQuery = createQueryHook<ISourceQuery<ITransactionSource>, number, ITransactionQueryParams>(TransactionCountApiLink, "post");

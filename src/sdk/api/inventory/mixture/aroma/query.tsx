@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const MixtureAromaApiLink = "/api/inventory/mixture/aroma/query";
 export const MixtureAromaCountApiLink = "/api/inventory/mixture/aroma/query/count";
 
-export type IMixtureAromaQueryParams = undefined;
+export type IMixtureAromaQueryParams = any;
 
 export const useMixtureAromaQuery = createQueryHook<ISourceQuery<IMixtureAromaSource>, ISourceItem<IMixtureAromaSource>[], IMixtureAromaQueryParams>(MixtureAromaApiLink, "post");
 export const useMixtureAromaCountQuery = createQueryHook<ISourceQuery<IMixtureAromaSource>, number, IMixtureAromaQueryParams>(MixtureAromaCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AromaApiLink = "/api/lab/liquid/aroma/query";
 export const AromaCountApiLink = "/api/lab/liquid/aroma/query/count";
 
-export type IAromaQueryParams = undefined;
+export type IAromaQueryParams = any;
 
 export const useAromaQuery = createQueryHook<ISourceQuery<ILiquidAromaSource>, ISourceItem<ILiquidAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
 export const useAromaCountQuery = createQueryHook<ISourceQuery<ILiquidAromaSource>, number, IAromaQueryParams>(AromaCountApiLink, "post");

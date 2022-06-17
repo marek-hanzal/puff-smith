@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AtomizerInventoryApiLink = "/api/inventory/atomizer/query";
 export const AtomizerInventoryCountApiLink = "/api/inventory/atomizer/query/count";
 
-export type IAtomizerInventoryQueryParams = undefined;
+export type IAtomizerInventoryQueryParams = any;
 
 export const useAtomizerInventoryQuery = createQueryHook<ISourceQuery<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>[], IAtomizerInventoryQueryParams>(AtomizerInventoryApiLink, "post");
 export const useAtomizerInventoryCountQuery = createQueryHook<ISourceQuery<IAtomizerInventorySource>, number, IAtomizerInventoryQueryParams>(AtomizerInventoryCountApiLink, "post");

@@ -60,17 +60,17 @@ export const WireSource = (): IWireSource => {
 			}),
 			create: async ({code, name, vendor, vendorId, draws, fiberId, fibers, withFibers = [], isTCR, withInventory = false, ...wire}) => {
 				const $create = async () => {
-					const wireFiberCreate: IWireFiberCreate[] = fibers ? await Promise.all((YAML.parse(fibers) as IWireFiberCreate[]).map(async item => {
+					const $withFibers: IWireFiberCreate[] = await Promise.all(withFibers.concat(fiberId ? [{count: 1, fiber: fiberId}] : [], YAML.parse(fibers || "[]")).map(async item => {
 						return ({
 							...item,
 							$fiber: await fiberSource().fetchByCode(item.fiber),
 						});
-					})) : [];
-					const mm = toMm(wireFiberCreate);
+					}));
+					const mm = toMm($withFibers);
 					const create = {
 						...wire,
 						code: code || codeService().code(),
-						name: name || wireFiberCreate.map(item => item.fiber).sort().join(", "),
+						name: name || $withFibers.map(item => item.$fiber.code).sort().join(", "),
 						mm,
 						mmToRound: toMmRound(mm),
 						vendor: {
@@ -82,7 +82,7 @@ export const WireSource = (): IWireSource => {
 						isTCR: boolean(isTCR),
 						WireFiber: {
 							createMany: {
-								data: wireFiberCreate.map(item => ({
+								data: $withFibers.map(item => ({
 									fiberId: item.$fiber.id,
 									count: item.count,
 								})),

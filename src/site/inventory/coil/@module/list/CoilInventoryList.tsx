@@ -1,5 +1,6 @@
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
 import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
+import {SizeMm} from "@/puff-smith/component/inline/SizeMm";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ICoil} from "@/puff-smith/service/coil/interface";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
@@ -26,7 +27,8 @@ export const CoilInventoryList: FC<ICoilInventoryListProps> = ({itemExtra, ...pr
 					<WireNameInline wire={coil.wire}/>
 					<CoilSize size={coil.size}/>
 					<CoilWraps wraps={coil.wraps}/>
-					<Tags tags={coil.wire.draws} translation={"common.draw"}/>
+					<SizeMm size={coil.wire.mmToRound}/>
+					{coil.wire.draws.length > 0 && <Tags tags={coil.wire.draws} translation={"common.draw"}/>}
 				</Space>}
 				description={<Space split={<Divider/>}>
 					<Typography.Text type={"secondary"}>{coil.name}</Typography.Text>

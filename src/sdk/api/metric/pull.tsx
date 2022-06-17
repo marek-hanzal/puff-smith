@@ -9,7 +9,7 @@ import {useQueryClient} from "react-query";
 
 export const MetricPullApiLink = "/api/metric/pull";
 
-export type IMetricPullQueryParams = undefined;
+export type IMetricPullQueryParams = any;
 
 export const MetricPullContext = createContext(null as unknown as IEntityContext<string>);
 

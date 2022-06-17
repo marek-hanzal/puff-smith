@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BaseApiLink = "/api/base/query";
 export const BaseCountApiLink = "/api/base/query/count";
 
-export type IBaseQueryParams = undefined;
+export type IBaseQueryParams = any;
 
 export const useBaseQuery = createQueryHook<ISourceQuery<IBaseSource>, ISourceItem<IBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
 export const useBaseCountQuery = createQueryHook<ISourceQuery<IBaseSource>, number, IBaseQueryParams>(BaseCountApiLink, "post");

@@ -9,7 +9,7 @@ import {useQueryClient} from "react-query";
 
 export const PuffiesApiLink = "/api/user/puffies";
 
-export type IPuffiesQueryParams = undefined;
+export type IPuffiesQueryParams = any;
 
 export const PuffiesContext = createContext(null as unknown as IEntityContext<number>);
 

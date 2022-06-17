@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const ModCellApiLink = "/api/mod/cell/query";
 export const ModCellCountApiLink = "/api/mod/cell/query/count";
 
-export type IModCellQueryParams = undefined;
+export type IModCellQueryParams = any;
 
 export const useModCellQuery = createQueryHook<ISourceQuery<IModCellSource>, ISourceItem<IModCellSource>[], IModCellQueryParams>(ModCellApiLink, "post");
 export const useModCellCountQuery = createQueryHook<ISourceQuery<IModCellSource>, number, IModCellQueryParams>(ModCellCountApiLink, "post");

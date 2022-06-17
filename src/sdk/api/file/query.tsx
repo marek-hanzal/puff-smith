@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const FileApiLink = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
 
-export type IFileQueryParams = undefined;
+export type IFileQueryParams = any;
 
 export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 export const useFileCountQuery = createQueryHook<ISourceQuery<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");

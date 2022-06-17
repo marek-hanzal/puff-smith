@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const DrawApiLink = "/api/wire/draw/query";
 export const DrawCountApiLink = "/api/wire/draw/query/count";
 
-export type IDrawQueryParams = undefined;
+export type IDrawQueryParams = any;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<IWireDrawSource>, ISourceItem<IWireDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<IWireDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");

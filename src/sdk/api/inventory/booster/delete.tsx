@@ -8,7 +8,7 @@ import {createMutationHook, createPromise, createPromiseHook, toLink} from "@lei
 
 export const DeleteApiLink = "/api/inventory/booster/delete";
 
-export type IDeleteQueryParams = undefined;
+export type IDeleteQueryParams = any;
 
 export const useDeleteMutation = createMutationHook<string[], ISourceItem<IBoosterInventorySource>>(DeleteApiLink, "post");
 

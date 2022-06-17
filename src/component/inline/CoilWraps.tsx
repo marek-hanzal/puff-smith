@@ -12,7 +12,7 @@ export const CoilWraps: FC<ICoilWrapsProps> = ({noTooltip = false, wraps}) => {
 	const {t} = useTranslation();
 	return <Tooltip title={noTooltip ? undefined : t("common.coil.wraps.tooltip")}>
 		<Space size={1}>
-			<ReloadOutlined/>
+			<Typography.Text type={"secondary"}><ReloadOutlined/></Typography.Text>
 			<Typography.Text>{wraps}</Typography.Text>
 		</Space>
 	</Tooltip>;

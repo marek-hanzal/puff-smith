@@ -17,7 +17,7 @@ export const WireInventorySource = (): IWireInventorySource => {
 		map: async wireInventory => wireInventory ? ({
 			...wireInventory,
 			wire: await wireSource().mapper.map(wireInventory.wire),
-			transaction: await transactionSource().mapper.map(wireInventory.transaction),
+			transaction: await transactionSource().map(wireInventory.transaction),
 		}) : undefined,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wireInventory.count({
@@ -62,7 +62,7 @@ export const WireInventorySource = (): IWireInventorySource => {
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,
 					callback: async transaction => {
-						const $wire = await prisma.wireInventory.create({
+						return await prisma.wireInventory.create({
 							data: {
 								code: code || codeService().code(),
 								wireId: wire.id,
@@ -93,7 +93,6 @@ export const WireInventorySource = (): IWireInventorySource => {
 								transaction: true,
 							},
 						});
-						return $wire;
 					},
 				});
 			}),

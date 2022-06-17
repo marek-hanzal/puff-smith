@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AromaTasteApiLink = "/api/aroma/taste/query";
 export const AromaTasteCountApiLink = "/api/aroma/taste/query/count";
 
-export type IAromaTasteQueryParams = undefined;
+export type IAromaTasteQueryParams = any;
 
 export const useAromaTasteQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>[], IAromaTasteQueryParams>(AromaTasteApiLink, "post");
 export const useAromaTasteCountQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, number, IAromaTasteQueryParams>(AromaTasteCountApiLink, "post");

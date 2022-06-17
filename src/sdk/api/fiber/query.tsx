@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const FiberApiLink = "/api/fiber/query";
 export const FiberCountApiLink = "/api/fiber/query/count";
 
-export type IFiberQueryParams = undefined;
+export type IFiberQueryParams = any;
 
 export const useFiberQuery = createQueryHook<ISourceQuery<IFiberSource>, ISourceItem<IFiberSource>[], IFiberQueryParams>(FiberApiLink, "post");
 export const useFiberCountQuery = createQueryHook<ISourceQuery<IFiberSource>, number, IFiberQueryParams>(FiberCountApiLink, "post");
@@ -118,7 +118,7 @@ export const FiberListSource: FC<IFiberListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</FiberProvider>;
-};
+}
 
 export interface IFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFiberSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFiberSource>>;
@@ -161,7 +161,7 @@ export interface IFiberSelectionProviderProps extends Partial<ISelectionProvider
 
 export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFiberSource>> {...props}/>;
-};
+}
 
 export const useFiberQueryInvalidate = () => {
 	const queryClient = useQueryClient();

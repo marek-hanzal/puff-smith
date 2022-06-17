@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BuildLiquidTasteRatingApiLink = "/api/lab/build/liquid/taste/query";
 export const BuildLiquidTasteRatingCountApiLink = "/api/lab/build/liquid/taste/query/count";
 
-export type IBuildLiquidTasteRatingQueryParams = undefined;
+export type IBuildLiquidTasteRatingQueryParams = any;
 
 export const useBuildLiquidTasteRatingQuery = createQueryHook<ISourceQuery<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>[], IBuildLiquidTasteRatingQueryParams>(BuildLiquidTasteRatingApiLink, "post");
 export const useBuildLiquidTasteRatingCountQuery = createQueryHook<ISourceQuery<IBuildLiquidTasteRatingSource>, number, IBuildLiquidTasteRatingQueryParams>(BuildLiquidTasteRatingCountApiLink, "post");

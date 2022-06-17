@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const PatchApiLink = "/api/lab/build/patch";
 
-export type IPatchQueryParams = undefined;
+export type IPatchQueryParams = any;
 
 export const usePatchMutation = createMutationHook<ISourcePatch<IBuildSource>, ISourceItem<IBuildSource>>(PatchApiLink, "post");
 

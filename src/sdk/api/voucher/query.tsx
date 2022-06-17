@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const VoucherApiLink = "/api/voucher/query";
 export const VoucherCountApiLink = "/api/voucher/query/count";
 
-export type IVoucherQueryParams = undefined;
+export type IVoucherQueryParams = any;
 
 export const useVoucherQuery = createQueryHook<ISourceQuery<IVoucherSource>, ISourceItem<IVoucherSource>[], IVoucherQueryParams>(VoucherApiLink, "post");
 export const useVoucherCountQuery = createQueryHook<ISourceQuery<IVoucherSource>, number, IVoucherQueryParams>(VoucherCountApiLink, "post");

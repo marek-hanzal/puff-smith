@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const DrawApiLink = "/api/inventory/coil/draw/query";
 export const DrawCountApiLink = "/api/inventory/coil/draw/query/count";
 
-export type IDrawQueryParams = undefined;
+export type IDrawQueryParams = any;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<ICoilDrawSource>, ISourceItem<ICoilDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<ICoilDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CottonApiLink = "/api/cotton/query";
 export const CottonCountApiLink = "/api/cotton/query/count";
 
-export type ICottonQueryParams = undefined;
+export type ICottonQueryParams = any;
 
 export const useCottonQuery = createQueryHook<ISourceQuery<ICottonSource>, ISourceItem<ICottonSource>[], ICottonQueryParams>(CottonApiLink, "post");
 export const useCottonCountQuery = createQueryHook<ISourceQuery<ICottonSource>, number, ICottonQueryParams>(CottonCountApiLink, "post");

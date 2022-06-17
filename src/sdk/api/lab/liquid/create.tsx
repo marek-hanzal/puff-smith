@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/lab/liquid/create";
 
-export type ICreateQueryParams = undefined;
+export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<ILiquidSource>, ISourceItem<ILiquidSource>>(CreateApiLink, "post");
 

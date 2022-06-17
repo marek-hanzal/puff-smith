@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const DrawApiLink = "/api/cotton/draw/query";
 export const DrawCountApiLink = "/api/cotton/draw/query/count";
 
-export type IDrawQueryParams = undefined;
+export type IDrawQueryParams = any;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<ICottonDrawSource>, ISourceItem<ICottonDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<ICottonDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");

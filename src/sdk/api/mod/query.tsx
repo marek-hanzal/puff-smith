@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const ModApiLink = "/api/mod/query";
 export const ModCountApiLink = "/api/mod/query/count";
 
-export type IModQueryParams = undefined;
+export type IModQueryParams = any;
 
 export const useModQuery = createQueryHook<ISourceQuery<IModSource>, ISourceItem<IModSource>[], IModQueryParams>(ModApiLink, "post");
 export const useModCountQuery = createQueryHook<ISourceQuery<IModSource>, number, IModQueryParams>(ModCountApiLink, "post");

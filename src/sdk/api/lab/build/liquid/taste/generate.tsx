@@ -9,7 +9,7 @@ import {useQueryClient} from "react-query";
 
 export const BuildTasteGenerateApiLink = "/api/lab/build/liquid/taste/generate";
 
-export type IBuildTasteGenerateQueryParams = undefined;
+export type IBuildTasteGenerateQueryParams = any;
 
 export const useBuildTasteGenerateMutation = createMutationHook<IBuildLiquidTasteRatingGenerate, any>(BuildTasteGenerateApiLink, "post");
 

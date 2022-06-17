@@ -1,6 +1,8 @@
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
+import {FiberCreateInline} from "@/puff-smith/site/shared/fiber/@module/form/FiberCreateInline";
 import {FiberSelect} from "@/puff-smith/site/shared/fiber/@module/form/FiberSelect";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
+import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {useWireInventoryQueryInvalidate} from "@/sdk/api/inventory/wire/query";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/wire/create";
@@ -8,14 +10,13 @@ import {useWireQueryInvalidate} from "@/sdk/api/wire/query";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import {Centered, FormContext, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Button, Col, Divider, Form, InputNumber, message, Row} from "antd";
-import {FC, useState} from "react";
+import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IWireCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
 export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) => {
-	const [itemCount, setItemCount] = useState<number>(0);
 	const {t} = useTranslation();
 	const wireQueryInvalidate = useWireQueryInvalidate();
 	const wireInventoryQueryInvalidate = useWireInventoryQueryInvalidate();
@@ -39,11 +40,8 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 		<FormContext.Consumer>
 			{formContext => <>
 				<FormItem field={"name"} hasTooltip/>
-				<FormItem field={"vendorId"} required>
+				<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
 					<VendorSelect/>
-				</FormItem>
-				<FormItem field={"fiberId"} required={!itemCount} hasTooltip>
-					<FiberSelect disabled={itemCount > 0}/>
 				</FormItem>
 				<FormItem field={"draws"} hasTooltip>
 					<TagSelect
@@ -59,7 +57,18 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 				</FormItem>
 				<SwitchItem field={"isTCR"} hasTooltip/>
 				<Divider/>
-				<Form.List name={"withFibers"}>
+				<Form.List
+					name={"withFibers"}
+					rules={[
+						{
+							validator: async (_, withFibers) => {
+								if (!withFibers || !withFibers.length) {
+									return Promise.reject(new Error(t("error.There must be at least one fiber!")));
+								}
+							}
+						}
+					]}
+				>
 					{(fields, {add, remove}, {errors}) => <>
 						{fields.map(({key, name, ...rest}) => <Form.Item
 							key={key}
@@ -72,6 +81,7 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 										field={[name, "count"]}
 										labels={"shared.wire.create.fiber.count"}
 										required
+										extra={<></>}
 									>
 										<InputNumber
 											min={1}
@@ -84,9 +94,11 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 								<Col span={14}>
 									<FormItem
 										{...rest}
-										field={[name, "fiberId"]}
+										field={[name, "fiber"]}
+										path={["withFibers", name, "fiber"]}
 										labels={"shared.wire.create.fiber.fiberId"}
 										required
+										extra={<FiberCreateInline/>}
 									>
 										<FiberSelect/>
 									</FormItem>
@@ -96,10 +108,7 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 										size={"large"}
 										type={"link"}
 										icon={<MinusCircleOutlined/>}
-										onClick={() => {
-											remove(name);
-											setItemCount(count => count - 1);
-										}}
+										onClick={() => remove(name)}
 									/>
 								</Col>
 							</Row>
@@ -109,11 +118,9 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 								<Button
 									size={"large"}
 									type={"text"}
-									onClick={() => {
-										add();
-										setItemCount(count => count + 1);
-										formContext.setValues({fiberId: undefined});
-									}}
+									onClick={() => add({
+										count: 1,
+									})}
 									icon={<PlusOutlined/>}
 								>
 									{t("shared.wire.create.fiber.add.button")}

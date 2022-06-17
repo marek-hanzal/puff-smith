@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const MixtureMarketApiLink = "/api/market/mixture/query";
 export const MixtureMarketCountApiLink = "/api/market/mixture/query/count";
 
-export type IMixtureMarketQueryParams = undefined;
+export type IMixtureMarketQueryParams = any;
 
 export const useMixtureMarketQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, ISourceItem<IMixtureMarketSource>[], IMixtureMarketQueryParams>(MixtureMarketApiLink, "post");
 export const useMixtureMarketCountQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, number, IMixtureMarketQueryParams>(MixtureMarketCountApiLink, "post");

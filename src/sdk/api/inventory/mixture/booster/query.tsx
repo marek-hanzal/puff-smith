@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BoosterApiLink = "/api/inventory/mixture/booster/query";
 export const BoosterCountApiLink = "/api/inventory/mixture/booster/query/count";
 
-export type IBoosterQueryParams = undefined;
+export type IBoosterQueryParams = any;
 
 export const useBoosterQuery = createQueryHook<ISourceQuery<IMixtureBoosterSource>, ISourceItem<IMixtureBoosterSource>[], IBoosterQueryParams>(BoosterApiLink, "post");
 export const useBoosterCountQuery = createQueryHook<ISourceQuery<IMixtureBoosterSource>, number, IBoosterQueryParams>(BoosterCountApiLink, "post");

@@ -8,7 +8,7 @@ import {useQueryClient} from "react-query";
 
 export const CommitApiLink = "/api/job/commit";
 
-export type ICommitQueryParams = undefined;
+export type ICommitQueryParams = any;
 
 export const useCommitMutation = createMutationHook<void, void>(CommitApiLink, "post");
 

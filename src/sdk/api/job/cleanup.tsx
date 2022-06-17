@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const CleanupApiLink = "/api/job/cleanup";
 
-export type ICleanupQueryParams = undefined;
+export type ICleanupQueryParams = any;
 
 export const useCleanupMutation = createMutationHook<IQueryFilter<IJobQuery> | undefined, void>(CleanupApiLink, "post");
 

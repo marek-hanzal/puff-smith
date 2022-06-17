@@ -25,7 +25,7 @@ import {useQueryClient} from "react-query";
 
 export const SumApiLink = "/api/transaction/sum";
 
-export type ISumQueryParams = undefined;
+export type ISumQueryParams = any;
 
 export const useSumQuery = createQueryHook<ITransactionQuery, number, ISumQueryParams>(SumApiLink, "post");
 

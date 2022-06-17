@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BoosterMarketApiLink = "/api/market/booster/query";
 export const BoosterMarketCountApiLink = "/api/market/booster/query/count";
 
-export type IBoosterMarketQueryParams = undefined;
+export type IBoosterMarketQueryParams = any;
 
 export const useBoosterMarketQuery = createQueryHook<ISourceQuery<IBoosterMarketSource>, ISourceItem<IBoosterMarketSource>[], IBoosterMarketQueryParams>(BoosterMarketApiLink, "post");
 export const useBoosterMarketCountQuery = createQueryHook<ISourceQuery<IBoosterMarketSource>, number, IBoosterMarketQueryParams>(BoosterMarketCountApiLink, "post");

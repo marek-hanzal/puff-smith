@@ -8,7 +8,7 @@ import {useQueryClient} from "react-query";
 
 export const CheckPriceApiLink = "/api/transaction/check-price";
 
-export type ICheckPriceQueryParams = undefined;
+export type ICheckPriceQueryParams = any;
 
 export const useCheckPriceQuery = createQueryHook<ICheckRequest, ICheckResponse, ICheckPriceQueryParams>(CheckPriceApiLink, "post");
 

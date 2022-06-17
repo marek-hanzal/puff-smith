@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AromaMarketApiLink = "/api/market/aroma/query";
 export const AromaMarketCountApiLink = "/api/market/aroma/query/count";
 
-export type IAromaMarketQueryParams = undefined;
+export type IAromaMarketQueryParams = any;
 
 export const useAromaMarketQuery = createQueryHook<ISourceQuery<IAromaMarketSource>, ISourceItem<IAromaMarketSource>[], IAromaMarketQueryParams>(AromaMarketApiLink, "post");
 export const useAromaMarketCountQuery = createQueryHook<ISourceQuery<IAromaMarketSource>, number, IAromaMarketQueryParams>(AromaMarketCountApiLink, "post");

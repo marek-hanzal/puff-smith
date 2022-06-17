@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CellMarketApiLink = "/api/market/cell/query";
 export const CellMarketCountApiLink = "/api/market/cell/query/count";
 
-export type ICellMarketQueryParams = undefined;
+export type ICellMarketQueryParams = any;
 
 export const useCellMarketQuery = createQueryHook<ISourceQuery<ICellMarketSource>, ISourceItem<ICellMarketSource>[], ICellMarketQueryParams>(CellMarketApiLink, "post");
 export const useCellMarketCountQuery = createQueryHook<ISourceQuery<ICellMarketSource>, number, ICellMarketQueryParams>(CellMarketCountApiLink, "post");

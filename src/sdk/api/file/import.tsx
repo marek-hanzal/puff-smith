@@ -9,7 +9,7 @@ import {useQueryClient} from "react-query";
 
 export const ImportApiLink = "/api/file/import";
 
-export type IImportQueryParams = undefined;
+export type IImportQueryParams = any;
 
 export const useImportMutation = createMutationHook<IImportJobParams, IImportJob>(ImportApiLink, "post");
 

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const VendorApiLink = "/api/mixture/vendor/query";
 export const VendorCountApiLink = "/api/mixture/vendor/query/count";
 
-export type IVendorQueryParams = undefined;
+export type IVendorQueryParams = any;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<IMixtureVendorSource>, ISourceItem<IMixtureVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<IMixtureVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");

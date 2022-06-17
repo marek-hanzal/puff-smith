@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const WireMarketApiLink = "/api/market/wire/query";
 export const WireMarketCountApiLink = "/api/market/wire/query/count";
 
-export type IWireMarketQueryParams = undefined;
+export type IWireMarketQueryParams = any;
 
 export const useWireMarketQuery = createQueryHook<ISourceQuery<IWireMarketSource>, ISourceItem<IWireMarketSource>[], IWireMarketQueryParams>(WireMarketApiLink, "post");
 export const useWireMarketCountQuery = createQueryHook<ISourceQuery<IWireMarketSource>, number, IWireMarketQueryParams>(WireMarketCountApiLink, "post");

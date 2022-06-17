@@ -8,7 +8,7 @@ import {useQueryClient} from "react-query";
 
 export const GenerateApiLink = "/api/sdk/generate";
 
-export type IGenerateQueryParams = undefined;
+export type IGenerateQueryParams = any;
 
 export const useGenerateMutation = createMutationHook<void, string[]>(GenerateApiLink, "post");
 

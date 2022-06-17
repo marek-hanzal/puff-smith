@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CottonMarketApiLink = "/api/market/cotton/query";
 export const CottonMarketCountApiLink = "/api/market/cotton/query/count";
 
-export type ICottonMarketQueryParams = undefined;
+export type ICottonMarketQueryParams = any;
 
 export const useCottonMarketQuery = createQueryHook<ISourceQuery<ICottonMarketSource>, ISourceItem<ICottonMarketSource>[], ICottonMarketQueryParams>(CottonMarketApiLink, "post");
 export const useCottonMarketCountQuery = createQueryHook<ISourceQuery<ICottonMarketSource>, number, ICottonMarketQueryParams>(CottonMarketCountApiLink, "post");

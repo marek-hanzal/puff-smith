@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const VendorApiLink = "/api/atomizer/vendor/query";
 export const VendorCountApiLink = "/api/atomizer/vendor/query/count";
 
-export type IVendorQueryParams = undefined;
+export type IVendorQueryParams = any;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, ISourceItem<IAtomizerVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");

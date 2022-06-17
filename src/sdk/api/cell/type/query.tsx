@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CellTypeApiLink = "/api/cell/type/query";
 export const CellTypeCountApiLink = "/api/cell/type/query/count";
 
-export type ICellTypeQueryParams = undefined;
+export type ICellTypeQueryParams = any;
 
 export const useCellTypeQuery = createQueryHook<ISourceQuery<ICellTypeSource>, ISourceItem<ICellTypeSource>[], ICellTypeQueryParams>(CellTypeApiLink, "post");
 export const useCellTypeCountQuery = createQueryHook<ISourceQuery<ICellTypeSource>, number, ICellTypeQueryParams>(CellTypeCountApiLink, "post");

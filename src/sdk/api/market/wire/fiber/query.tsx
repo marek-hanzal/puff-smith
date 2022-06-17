@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const WireFiberApiLink = "/api/market/wire/fiber/query";
 export const WireFiberCountApiLink = "/api/market/wire/fiber/query/count";
 
-export type IWireFiberQueryParams = undefined;
+export type IWireFiberQueryParams = any;
 
 export const useWireFiberQuery = createQueryHook<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>[], IWireFiberQueryParams>(WireFiberApiLink, "post");
 export const useWireFiberCountQuery = createQueryHook<ISourceQuery<IWireFiberSource>, number, IWireFiberQueryParams>(WireFiberCountApiLink, "post");

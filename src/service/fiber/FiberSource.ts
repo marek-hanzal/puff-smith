@@ -1,7 +1,7 @@
 import {IFiberSource} from "@/puff-smith/service/fiber/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const FiberSource = (): IFiberSource => {
@@ -33,7 +33,7 @@ export const FiberSource = (): IFiberSource => {
 					}),
 				});
 			},
-			query: async ({filter: {fulltext, ...filter} = {}}) => {
+			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => {
 				const $fulltext = fulltext?.split(/\s+/g);
 				return source.prisma.fiber.findMany({
 					where: merge(filter, {
@@ -48,6 +48,7 @@ export const FiberSource = (): IFiberSource => {
 							],
 						})) || []).concat(filter?.AND as [] || []),
 					}),
+					...pageOf(query),
 					include: {
 						material: true,
 					}
@@ -97,9 +98,12 @@ export const FiberSource = (): IFiberSource => {
 				}
 			},
 		},
-		fetchByCode: code => source.prisma.fiber.findUnique({
+		fetchByCode: async code => source.prisma.fiber.findFirst({
 			where: {
-				code,
+				OR: [
+					{code},
+					{id: code},
+				],
 			},
 			rejectOnNotFound: true,
 			include: {

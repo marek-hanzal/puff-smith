@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/inventory/cell/create";
 
-export type ICreateQueryParams = undefined;
+export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<ICellInventorySource>, ISourceItem<ICellInventorySource>>(CreateApiLink, "post");
 

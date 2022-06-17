@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const TagApiLink = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
 
-export type ITagQueryParams = undefined;
+export type ITagQueryParams = any;
 
 export const useTagQuery = createQueryHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
 export const useTagCountQuery = createQueryHook<ISourceQuery<ITagSource>, number, ITagQueryParams>(TagCountApiLink, "post");

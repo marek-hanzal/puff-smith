@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const DrawApiLink = "/api/inventory/mixture/draw/query";
 export const DrawCountApiLink = "/api/inventory/mixture/draw/query/count";
 
-export type IDrawQueryParams = undefined;
+export type IDrawQueryParams = any;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<IMixtureDrawSource>, ISourceItem<IMixtureDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<IMixtureDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const ModMarketApiLink = "/api/market/mod/query";
 export const ModMarketCountApiLink = "/api/market/mod/query/count";
 
-export type IModMarketQueryParams = undefined;
+export type IModMarketQueryParams = any;
 
 export const useModMarketQuery = createQueryHook<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>[], IModMarketQueryParams>(ModMarketApiLink, "post");
 export const useModMarketCountQuery = createQueryHook<ISourceQuery<IModMarketSource>, number, IModMarketQueryParams>(ModMarketCountApiLink, "post");

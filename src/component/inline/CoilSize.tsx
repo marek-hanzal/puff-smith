@@ -12,7 +12,7 @@ export const CoilSize: FC<ICoilSizeProps> = ({noTooltip = false, size}) => {
 	const {t} = useTranslation();
 	return <Tooltip title={noTooltip ? undefined : t("common.coil.size.tooltip")}>
 		<Space size={1}>
-			<ArrowsAltOutlined/>
+			<Typography.Text type={"secondary"}><ArrowsAltOutlined/></Typography.Text>
 			<Typography.Text>{size}</Typography.Text>
 		</Space>
 	</Tooltip>;

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const UserApiLink = "/api/user/query";
 export const UserCountApiLink = "/api/user/query/count";
 
-export type IUserQueryParams = undefined;
+export type IUserQueryParams = any;
 
 export const useUserQuery = createQueryHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
 export const useUserCountQuery = createQueryHook<ISourceQuery<IUserSource>, number, IUserQueryParams>(UserCountApiLink, "post");

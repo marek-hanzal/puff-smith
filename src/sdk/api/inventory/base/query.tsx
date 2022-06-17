@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BaseInventoryApiLink = "/api/inventory/base/query";
 export const BaseInventoryCountApiLink = "/api/inventory/base/query/count";
 
-export type IBaseInventoryQueryParams = undefined;
+export type IBaseInventoryQueryParams = any;
 
 export const useBaseInventoryQuery = createQueryHook<ISourceQuery<IBaseInventorySource>, ISourceItem<IBaseInventorySource>[], IBaseInventoryQueryParams>(BaseInventoryApiLink, "post");
 export const useBaseInventoryCountQuery = createQueryHook<ISourceQuery<IBaseInventorySource>, number, IBaseInventoryQueryParams>(BaseInventoryCountApiLink, "post");

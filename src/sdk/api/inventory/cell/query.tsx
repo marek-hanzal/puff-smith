@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CellInventoryApiLink = "/api/inventory/cell/query";
 export const CellInventoryCountApiLink = "/api/inventory/cell/query/count";
 
-export type ICellInventoryQueryParams = undefined;
+export type ICellInventoryQueryParams = any;
 
 export const useCellInventoryQuery = createQueryHook<ISourceQuery<ICellInventorySource>, ISourceItem<ICellInventorySource>[], ICellInventoryQueryParams>(CellInventoryApiLink, "post");
 export const useCellInventoryCountQuery = createQueryHook<ISourceQuery<ICellInventorySource>, number, ICellInventoryQueryParams>(CellInventoryCountApiLink, "post");

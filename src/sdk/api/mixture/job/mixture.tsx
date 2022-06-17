@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const MixtureJobApiLink = "/api/mixture/job/mixture";
 
-export type IMixtureJobQueryParams = undefined;
+export type IMixtureJobQueryParams = any;
 
 export const useMixtureJobMutation = createMutationHook<IMixtureJobParams, IJob<IMixtureJobParams>>(MixtureJobApiLink, "post");
 

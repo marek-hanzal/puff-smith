@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const WhoamiApiLink = "/api/user/whoami";
 
-export type IWhoamiQueryParams = undefined;
+export type IWhoamiQueryParams = any;
 
 export const WhoamiContext = createContext(null as unknown as IEntityContext<IUser>);
 

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AtomizerApiLink = "/api/atomizer/query";
 export const AtomizerCountApiLink = "/api/atomizer/query/count";
 
-export type IAtomizerQueryParams = undefined;
+export type IAtomizerQueryParams = any;
 
 export const useAtomizerQuery = createQueryHook<ISourceQuery<IAtomizerSource>, ISourceItem<IAtomizerSource>[], IAtomizerQueryParams>(AtomizerApiLink, "post");
 export const useAtomizerCountQuery = createQueryHook<ISourceQuery<IAtomizerSource>, number, IAtomizerQueryParams>(AtomizerCountApiLink, "post");

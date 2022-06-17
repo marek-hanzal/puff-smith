@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const LiquidApiLink = "/api/lab/liquid/query";
 export const LiquidCountApiLink = "/api/lab/liquid/query/count";
 
-export type ILiquidQueryParams = undefined;
+export type ILiquidQueryParams = any;
 
 export const useLiquidQuery = createQueryHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
 export const useLiquidCountQuery = createQueryHook<ISourceQuery<ILiquidSource>, number, ILiquidQueryParams>(LiquidCountApiLink, "post");

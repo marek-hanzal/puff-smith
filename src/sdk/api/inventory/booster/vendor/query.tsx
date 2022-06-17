@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const VendorApiLink = "/api/inventory/booster/vendor/query";
 export const VendorCountApiLink = "/api/inventory/booster/vendor/query/count";
 
-export type IVendorQueryParams = undefined;
+export type IVendorQueryParams = any;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<IBoosterVendorSource>, ISourceItem<IBoosterVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<IBoosterVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");

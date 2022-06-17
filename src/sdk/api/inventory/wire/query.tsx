@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const WireInventoryApiLink = "/api/inventory/wire/query";
 export const WireInventoryCountApiLink = "/api/inventory/wire/query/count";
 
-export type IWireInventoryQueryParams = undefined;
+export type IWireInventoryQueryParams = any;
 
 export const useWireInventoryQuery = createQueryHook<ISourceQuery<IWireInventorySource>, ISourceItem<IWireInventorySource>[], IWireInventoryQueryParams>(WireInventoryApiLink, "post");
 export const useWireInventoryCountQuery = createQueryHook<ISourceQuery<IWireInventorySource>, number, IWireInventoryQueryParams>(WireInventoryCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const ModInventoryApiLink = "/api/inventory/mod/query";
 export const ModInventoryCountApiLink = "/api/inventory/mod/query/count";
 
-export type IModInventoryQueryParams = undefined;
+export type IModInventoryQueryParams = any;
 
 export const useModInventoryQuery = createQueryHook<ISourceQuery<IModInventorySource>, ISourceItem<IModInventorySource>[], IModInventoryQueryParams>(ModInventoryApiLink, "post");
 export const useModInventoryCountQuery = createQueryHook<ISourceQuery<IModInventorySource>, number, IModInventoryQueryParams>(ModInventoryCountApiLink, "post");

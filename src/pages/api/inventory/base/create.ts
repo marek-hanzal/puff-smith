@@ -2,4 +2,4 @@ import {BaseInventorySource} from "@/puff-smith/service/base/inventory/BaseInven
 import {IBaseInventorySource} from "@/puff-smith/service/base/inventory/interface";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", IBaseInventorySource>(BaseInventorySource());
+export default CreateEndpoint<"Create", IBaseInventorySource>(BaseInventorySource);

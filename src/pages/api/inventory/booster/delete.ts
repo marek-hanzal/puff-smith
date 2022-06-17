@@ -2,4 +2,4 @@ import {BoosterInventorySource} from "@/puff-smith/service/booster/inventory/Boo
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", IBoosterInventorySource>(BoosterInventorySource());
+export default DeleteEndpoint<"Delete", IBoosterInventorySource>(BoosterInventorySource);

@@ -6,7 +6,9 @@ export interface IFiberSelectProps extends Partial<IFiberSourceSelectProps> {
 }
 
 export const FiberSelect: FC<IFiberSelectProps> = props => {
-	return <FiberProviderControl>
+	return <FiberProviderControl
+		defaultSize={10}
+	>
 		<FiberSourceSelect
 			showSearch
 			allowClear

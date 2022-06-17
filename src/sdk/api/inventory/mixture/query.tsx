@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const MixtureInventoryApiLink = "/api/inventory/mixture/query";
 export const MixtureInventoryCountApiLink = "/api/inventory/mixture/query/count";
 
-export type IMixtureInventoryQueryParams = undefined;
+export type IMixtureInventoryQueryParams = any;
 
 export const useMixtureInventoryQuery = createQueryHook<ISourceQuery<IMixtureInventorySource>, ISourceItem<IMixtureInventorySource>[], IMixtureInventoryQueryParams>(MixtureInventoryApiLink, "post");
 export const useMixtureInventoryCountQuery = createQueryHook<ISourceQuery<IMixtureInventorySource>, number, IMixtureInventoryQueryParams>(MixtureInventoryCountApiLink, "post");

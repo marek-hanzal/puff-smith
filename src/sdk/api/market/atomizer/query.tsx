@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AtomizerMarketApiLink = "/api/market/atomizer/query";
 export const AtomizerMarketCountApiLink = "/api/market/atomizer/query/count";
 
-export type IAtomizerMarketQueryParams = undefined;
+export type IAtomizerMarketQueryParams = any;
 
 export const useAtomizerMarketQuery = createQueryHook<ISourceQuery<IAtomizerMarketSource>, ISourceItem<IAtomizerMarketSource>[], IAtomizerMarketQueryParams>(AtomizerMarketApiLink, "post");
 export const useAtomizerMarketCountQuery = createQueryHook<ISourceQuery<IAtomizerMarketSource>, number, IAtomizerMarketQueryParams>(AtomizerMarketCountApiLink, "post");

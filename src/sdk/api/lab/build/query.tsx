@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BuildApiLink = "/api/lab/build/query";
 export const BuildCountApiLink = "/api/lab/build/query/count";
 
-export type IBuildQueryParams = undefined;
+export type IBuildQueryParams = any;
 
 export const useBuildQuery = createQueryHook<ISourceQuery<IBuildSource>, ISourceItem<IBuildSource>[], IBuildQueryParams>(BuildApiLink, "post");
 export const useBuildCountQuery = createQueryHook<ISourceQuery<IBuildSource>, number, IBuildQueryParams>(BuildCountApiLink, "post");

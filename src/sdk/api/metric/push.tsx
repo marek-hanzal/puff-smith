@@ -8,7 +8,7 @@ import {useQueryClient} from "react-query";
 
 export const MetricPushApiLink = "/api/metric/push";
 
-export type IMetricPushQueryParams = undefined;
+export type IMetricPushQueryParams = any;
 
 export const useMetricPushQuery = createQueryHook<IMetricCreate, boolean, IMetricPushQueryParams>(MetricPushApiLink, "post");
 

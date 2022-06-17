@@ -23,6 +23,10 @@ export const CoilCreateForm: FC<ICoilCreateFormProps> = ({onSuccess, ...props}) 
 			await coilInventoryQueryInvalidate();
 			onSuccess?.(result);
 		}}
+		toForm={() => ({
+			size: 0.25,
+			wraps: 7,
+		})}
 		{...props}
 	>
 		<FormItem field={"size"}>

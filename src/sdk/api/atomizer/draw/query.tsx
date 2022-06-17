@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const DrawApiLink = "/api/atomizer/draw/query";
 export const DrawCountApiLink = "/api/atomizer/draw/query/count";
 
-export type IDrawQueryParams = undefined;
+export type IDrawQueryParams = any;
 
 export const useDrawQuery = createQueryHook<ISourceQuery<IAtomizerDrawSource>, ISourceItem<IAtomizerDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<IAtomizerDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");

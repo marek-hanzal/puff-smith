@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const NicotineApiLink = "/api/booster/nicotine/query";
 export const NicotineCountApiLink = "/api/booster/nicotine/query/count";
 
-export type INicotineQueryParams = undefined;
+export type INicotineQueryParams = any;
 
 export const useNicotineQuery = createQueryHook<ISourceQuery<IBoosterNicotineSource>, ISourceItem<IBoosterNicotineSource>[], INicotineQueryParams>(NicotineApiLink, "post");
 export const useNicotineCountQuery = createQueryHook<ISourceQuery<IBoosterNicotineSource>, number, INicotineQueryParams>(NicotineCountApiLink, "post");

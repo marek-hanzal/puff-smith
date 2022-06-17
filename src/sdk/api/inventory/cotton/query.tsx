@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CottonInventoryApiLink = "/api/inventory/cotton/query";
 export const CottonInventoryCountApiLink = "/api/inventory/cotton/query/count";
 
-export type ICottonInventoryQueryParams = undefined;
+export type ICottonInventoryQueryParams = any;
 
 export const useCottonInventoryQuery = createQueryHook<ISourceQuery<ICottonInventorySource>, ISourceItem<ICottonInventorySource>[], ICottonInventoryQueryParams>(CottonInventoryApiLink, "post");
 export const useCottonInventoryCountQuery = createQueryHook<ISourceQuery<ICottonInventorySource>, number, ICottonInventoryQueryParams>(CottonInventoryCountApiLink, "post");

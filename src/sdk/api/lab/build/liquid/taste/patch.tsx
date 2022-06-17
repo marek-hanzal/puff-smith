@@ -10,7 +10,7 @@ import {useQueryClient} from "react-query";
 
 export const PatchApiLink = "/api/lab/build/liquid/taste/patch";
 
-export type IPatchQueryParams = undefined;
+export type IPatchQueryParams = any;
 
 export const usePatchMutation = createMutationHook<ISourcePatch<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>>(PatchApiLink, "post");
 

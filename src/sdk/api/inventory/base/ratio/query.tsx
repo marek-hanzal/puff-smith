@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const RatioApiLink = "/api/inventory/base/ratio/query";
 export const RatioCountApiLink = "/api/inventory/base/ratio/query/count";
 
-export type IRatioQueryParams = undefined;
+export type IRatioQueryParams = any;
 
 export const useRatioQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, ISourceItem<IBaseRatioSource>[], IRatioQueryParams>(RatioApiLink, "post");
 export const useRatioCountQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, number, IRatioQueryParams>(RatioCountApiLink, "post");

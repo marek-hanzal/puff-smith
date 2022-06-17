@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const MixtureApiLink = "/api/mixture/query";
 export const MixtureCountApiLink = "/api/mixture/query/count";
 
-export type IMixtureQueryParams = undefined;
+export type IMixtureQueryParams = any;
 
 export const useMixtureQuery = createQueryHook<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
 export const useMixtureCountQuery = createQueryHook<ISourceQuery<IMixtureSource>, number, IMixtureQueryParams>(MixtureCountApiLink, "post");

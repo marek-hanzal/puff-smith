@@ -9,7 +9,7 @@ import {useQueryClient} from "react-query";
 
 export const VersionApiLink = "/api/version";
 
-export type IVersionQueryParams = undefined;
+export type IVersionQueryParams = any;
 
 export const VersionContext = createContext(null as unknown as IEntityContext<string>);
 

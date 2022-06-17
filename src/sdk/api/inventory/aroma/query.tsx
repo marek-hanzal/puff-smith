@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const AromaInventoryApiLink = "/api/inventory/aroma/query";
 export const AromaInventoryCountApiLink = "/api/inventory/aroma/query/count";
 
-export type IAromaInventoryQueryParams = undefined;
+export type IAromaInventoryQueryParams = any;
 
 export const useAromaInventoryQuery = createQueryHook<ISourceQuery<IAromaInventorySource>, ISourceItem<IAromaInventorySource>[], IAromaInventoryQueryParams>(AromaInventoryApiLink, "post");
 export const useAromaInventoryCountQuery = createQueryHook<ISourceQuery<IAromaInventorySource>, number, IAromaInventoryQueryParams>(AromaInventoryCountApiLink, "post");

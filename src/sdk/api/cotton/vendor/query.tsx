@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const VendorApiLink = "/api/cotton/vendor/query";
 export const VendorCountApiLink = "/api/cotton/vendor/query/count";
 
-export type IVendorQueryParams = undefined;
+export type IVendorQueryParams = any;
 
 export const useVendorQuery = createQueryHook<ISourceQuery<ICottonVendorSource>, ISourceItem<ICottonVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<ICottonVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");

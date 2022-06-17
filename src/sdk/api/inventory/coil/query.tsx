@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const CoilInventoryApiLink = "/api/inventory/coil/query";
 export const CoilInventoryCountApiLink = "/api/inventory/coil/query/count";
 
-export type ICoilInventoryQueryParams = undefined;
+export type ICoilInventoryQueryParams = any;
 
 export const useCoilInventoryQuery = createQueryHook<ISourceQuery<ICoilInventorySource>, ISourceItem<ICoilInventorySource>[], ICoilInventoryQueryParams>(CoilInventoryApiLink, "post");
 export const useCoilInventoryCountQuery = createQueryHook<ISourceQuery<ICoilInventorySource>, number, ICoilInventoryQueryParams>(CoilInventoryCountApiLink, "post");

@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const BoosterApiLink = "/api/lab/liquid/booster/query";
 export const BoosterCountApiLink = "/api/lab/liquid/booster/query/count";
 
-export type IBoosterQueryParams = undefined;
+export type IBoosterQueryParams = any;
 
 export const useBoosterQuery = createQueryHook<ISourceQuery<ILiquidBoosterSource>, ISourceItem<ILiquidBoosterSource>[], IBoosterQueryParams>(BoosterApiLink, "post");
 export const useBoosterCountQuery = createQueryHook<ISourceQuery<ILiquidBoosterSource>, number, IBoosterQueryParams>(BoosterCountApiLink, "post");

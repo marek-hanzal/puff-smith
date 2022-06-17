@@ -43,7 +43,7 @@ import {useQueryClient} from "react-query";
 export const WireApiLink = "/api/wire/query";
 export const WireCountApiLink = "/api/wire/query/count";
 
-export type IWireQueryParams = undefined;
+export type IWireQueryParams = any;
 
 export const useWireQuery = createQueryHook<ISourceQuery<IWireSource>, ISourceItem<IWireSource>[], IWireQueryParams>(WireApiLink, "post");
 export const useWireCountQuery = createQueryHook<ISourceQuery<IWireSource>, number, IWireQueryParams>(WireCountApiLink, "post");
