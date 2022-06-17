@@ -1,5 +1,5 @@
 import {IBase, IWithBase} from "@/puff-smith/service/base/interface";
-import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
+import {ITransaction, IWithNullTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {BaseInventory, Prisma} from "@prisma/client";
@@ -14,8 +14,8 @@ export interface IBaseInventory {
 	code: string;
 	base: IBase;
 	baseId: string;
-	transaction: ITransaction;
-	transactionId: string;
+	transaction?: ITransaction | null;
+	transactionId?: string | null;
 }
 
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput & IWithFulltext, Prisma.BaseInventoryOrderByWithRelationInput> {
@@ -23,5 +23,5 @@ export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInp
 
 export type IBaseInventoryEntity<T = void> = T extends void ? BaseInventory : BaseInventory & T;
 
-export interface IBaseInventorySource extends ISource<IBaseInventoryCreate, IBaseInventoryEntity<IWithBase<IWithVendor> & IWithTransaction>, IBaseInventory, IBaseInventoryQuery> {
+export interface IBaseInventorySource extends ISource<IBaseInventoryCreate, IBaseInventoryEntity<IWithBase<IWithVendor> & IWithNullTransaction>, IBaseInventory, IBaseInventoryQuery> {
 }

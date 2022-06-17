@@ -212,21 +212,35 @@ export const LiquidSource = (): ILiquidSource => {
 				where: {id: baseId},
 				rejectOnNotFound: true,
 			}) : undefined;
-			const $boosterInventory = $booster?.id ? await source.prisma.boosterInventory.createMany({
+			$booster?.id && await source.prisma.boosterInventory.createMany({
 				data: [{
 					code: codeService().code(),
 					boosterId: $booster.id,
 					userId: source.user.required(),
 				}],
 				skipDuplicates: true,
+			});
+			const $boosterInventory = $booster?.id ? await source.prisma.boosterInventory.findFirst({
+				where: {
+					boosterId: $booster.id,
+					userId: source.user.required(),
+				},
+				rejectOnNotFound: true,
 			}) : undefined;
-			const $baseInventory = $base?.id ? await source.prisma.baseInventory.createMany({
+			$base?.id ? await source.prisma.baseInventory.createMany({
 				data: [{
 					code: codeService().code(),
 					baseId: $base.id,
 					userId: source.user.required(),
 				}],
 				skipDuplicates: true,
+			}) : undefined;
+			const $baseInventory = $base?.id ? await source.prisma.baseInventory.findFirst({
+				where: {
+					baseId: $base.id,
+					userId: source.user.required(),
+				},
+				rejectOnNotFound: true,
 			}) : undefined;
 			const $info = toMixtureInfo({
 				aroma: $aroma,
