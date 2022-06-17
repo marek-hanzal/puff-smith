@@ -30,7 +30,7 @@ export const CoilInventoryList: FC<ICoilInventoryListProps> = ({itemExtra, ...pr
 					<SizeMm size={coil.wire.mmToRound}/>
 					{coil.wire.draws.length > 0 && <Tags tags={coil.wire.draws} translation={"common.draw"}/>}
 				</Space>}
-				description={<Space split={<Divider/>}>
+				description={<Space split={<Divider type={"vertical"}/>}>
 					<Typography.Text type={"secondary"}>{coil.name}</Typography.Text>
 					<WireFiberInline wire={coil.wire}/>
 				</Space>}

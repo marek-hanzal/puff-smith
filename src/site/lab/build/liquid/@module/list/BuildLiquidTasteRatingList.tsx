@@ -57,7 +57,7 @@ export const BuildLiquidTasteRatingList: FC<IBuildLiquidTasteRatingListProps> = 
 	>
 		{buildLiquidTasteRating => <ListItem
 			key={buildLiquidTasteRating.id}
-			extra={<BuildTasteRatingButton taste={buildLiquidTasteRating}/>}
+			extra={<BuildTasteRatingButton disabled={!build.active} taste={buildLiquidTasteRating}/>}
 		>
 			<ListItemMeta
 				title={t(`common.taste.${buildLiquidTasteRating.taste.code}`)}

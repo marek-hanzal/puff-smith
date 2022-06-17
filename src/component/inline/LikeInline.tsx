@@ -29,7 +29,7 @@ export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, on
 			disabled={isLoading || disabled}
 			onChange={value => {
 				const $value = value - 3;
-				onRating(rating === $value ? null : $value);
+				onRating(rating === $value || value === 0 ? null : $value);
 			}}
 		/>
 	</Tooltip>;

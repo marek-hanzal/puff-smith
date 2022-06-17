@@ -32,7 +32,7 @@ export const LikeDislikeInline: FC<ILikeDislikeInlineProps> = ({id, tooltip, rat
 			disabled={mutator.isLoading || disabled}
 			onChange={value => {
 				const $value = value - 3;
-				mutator.mutate({rating: rating === $value ? null : $value, id}, {
+				mutator.mutate({rating: rating === $value || value === 0 ? null : $value, id}, {
 					onSuccess,
 				});
 			}}

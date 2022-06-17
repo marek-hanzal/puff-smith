@@ -52,7 +52,7 @@ export const BuildLiquidList: FC<IBuildLiquidListProps> = ({build, ...props}) =>
 				description={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{liquid.mixture.aroma.tastes.length > 0 && <Tags color={"magenta"} tags={liquid.mixture.aroma.tastes} translation={"common.taste"}/>}
 					{liquid.mixture.draws.length > 0 && <Tags tags={liquid.mixture.draws} color={"geekblue"} translation={"common.draw"}/>}
-					{liquid.rating?.rating && <DurationOf tooltip={"lab.build.rating.duration.tooltip"} start={liquid.mixed} end={liquid.rating.created}/>}
+					{liquid.rating?.rating !== null && <DurationOf tooltip={"lab.build.rating.duration.tooltip"} start={liquid.mixed} end={liquid.rating?.created}/>}
 				</Space>}
 			/>
 		</ListItem>}

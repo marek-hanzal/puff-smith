@@ -68,7 +68,6 @@ export default withLabLayout(function Index() {
 							locale={{
 								emptyText: <BuildListInactiveEmpty/>,
 							}}
-							itemExtra={() => <></>}
 						/>
 					</BuildProviderControl>
 				</Tabs.TabPane>

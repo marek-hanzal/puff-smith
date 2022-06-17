@@ -1,3 +1,4 @@
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {Amps} from "@/puff-smith/component/inline/Amps";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
@@ -13,7 +14,7 @@ import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/C
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
-import {LinkTo, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {ButtonLink, LinkTo, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC, ReactNode} from "react";
 
@@ -31,7 +32,15 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 	>
 		{build => <ListItem
 			key={build.id}
-			extra={itemExtra?.(build) || <BuildRatingButton build={build}/>}
+			extra={itemExtra?.(build) || <Space size={4}>
+				<ButtonLink
+					icon={<LiquidIcon/>}
+					label={"lab.build.liquid.button"}
+					href={"/lab/build/[buildId]/liquid"}
+					query={{buildId: build.id}}
+				/>
+				<BuildRatingButton build={build}/>
+			</Space>}
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>

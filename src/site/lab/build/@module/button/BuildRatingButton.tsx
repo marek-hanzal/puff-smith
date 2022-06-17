@@ -18,6 +18,7 @@ export const BuildRatingButton: FC<IBuildRatingButtonProps> = ({build}) => {
 		id={build.id}
 		rating={build.rating}
 		mutator={patchMutation}
+		disabled={!build.active}
 		onSuccess={async () => {
 			await buildQueryInvalidate();
 			await labBuildQueryInvalidate();
