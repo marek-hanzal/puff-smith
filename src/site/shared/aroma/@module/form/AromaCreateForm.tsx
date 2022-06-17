@@ -25,7 +25,7 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	return <CreateDefaultForm
 		translation={"shared.aroma.create"}
 		onSuccess={async response => {
-			message.success(t("shared.aroma.create.success", {aroma: response.response}));
+			message.success(t("shared.aroma.create.success", response.response));
 			await aromaQueryInvalidate();
 			await aromaMarketQueryInvalidate();
 			await aromaCountQueryInvalidate();
@@ -45,6 +45,7 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			...values,
 			pg: vgpg,
 			vg: 100 - vgpg,
+			withInventory: true,
 		})}
 		{...props}
 	>

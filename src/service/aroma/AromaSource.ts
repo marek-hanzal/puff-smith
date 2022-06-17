@@ -90,77 +90,29 @@ export const AromaSource = (): IAromaSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, ...aroma}) => {
-				const create = {
-					...aroma,
-					code: code || codeService().code(),
-					name: `${aroma.name}`,
-					vendor: {
-						connect: {
-							name: vendor,
-							id: vendorId,
-						}
-					},
-					AromaTaste: {
-						createMany: {
-							data: (tastes ? (await tagSource().fetchByCodes(tastes, "taste")).map(tag => ({
-								tasteId: tag.id,
-							})) : []).concat(tasteIds?.map(id => ({
-								tasteId: id,
-							})) || []),
-						}
-					},
-				};
-				try {
-					return await source.prisma.aroma.create({
-						data: create,
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
-								}
+			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, withInventory = false, ...aroma}) => {
+				const $create = async () => {
+					const create = {
+						...aroma,
+						code: code || codeService().code(),
+						name: `${aroma.name}`,
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
 							}
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => {
-						const $aroma = await source.prisma.aroma.findFirst({
-							where: {
-								OR: [
-									{
-										name: `${create.name}`,
-										vendor: {
-											name: vendor,
-										}
-									},
-									{
-										code: create.code,
-									}
-								],
-							},
-							rejectOnNotFound: true,
-						});
-						await source.prisma.aromaTaste.deleteMany({
-							where: {
-								aromaId: $aroma.id,
+						AromaTaste: {
+							createMany: {
+								data: (await tagSource().fetchByCodes(tasteIds || tastes, "taste")).map(tag => ({
+									tasteId: tag.id,
+								})),
 							}
-						});
-						return source.prisma.aroma.update({
-							where: {
-								id: $aroma.id,
-							},
-							data: {
-								...create,
-								AromaTaste: {
-									createMany: {
-										data: tastes ? (await tagSource().fetchByCodes(tastes, "taste")).map(tag => ({
-											tasteId: tag.id,
-										})) : [],
-									}
-								},
-							},
+						},
+					};
+					try {
+						return await source.prisma.aroma.create({
+							data: create,
 							include: {
 								vendor: true,
 								AromaTaste: {
@@ -171,8 +123,66 @@ export const AromaSource = (): IAromaSource => {
 								}
 							},
 						});
-					});
-				}
+					} catch (e) {
+						return onUnique(e, async () => {
+							const $aroma = await source.prisma.aroma.findFirst({
+								where: {
+									OR: [
+										{
+											name: `${create.name}`,
+											vendor: {
+												name: vendor,
+											}
+										},
+										{
+											code: create.code,
+										}
+									],
+								},
+								rejectOnNotFound: true,
+							});
+							await source.prisma.aromaTaste.deleteMany({
+								where: {
+									aromaId: $aroma.id,
+								}
+							});
+							return source.prisma.aroma.update({
+								where: {
+									id: $aroma.id,
+								},
+								data: {
+									...create,
+									AromaTaste: {
+										createMany: {
+											data: (await tagSource().fetchByCodes(tasteIds || tastes, "taste")).map(tag => ({
+												tasteId: tag.id,
+											})),
+										}
+									},
+								},
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
+								},
+							});
+						});
+					}
+				};
+				const $aroma = await $create();
+				withInventory && await source.prisma.aromaInventory.createMany({
+					data: [{
+						code: codeService().code(),
+						aromaId: $aroma.id,
+						userId: source.user.required(),
+					}],
+					skipDuplicates: true,
+				});
+				return $aroma;
 			},
 			patch: async ({vendor, vendorId, tastes, tasteIds, code, steep, withMixtures, ...patch}) => {
 				await source.prisma.aromaTaste.deleteMany({

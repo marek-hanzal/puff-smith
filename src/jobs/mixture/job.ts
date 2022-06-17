@@ -67,7 +67,6 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	const mixtureSource = MixtureJobSource().withUserId(userId);
 
 	const createMixture = async (aromaId: string, baseId: string, boosterId: string, info: IMixtureInfo) => {
-		const volume = aroma.volume || aroma.content;
 		if (info.result.error) {
 			return;
 		}
@@ -77,10 +76,10 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 			baseMl: info.base?.volume || 0,
 			boosterId: info.booster ? boosterId : undefined,
 			boosterCount: info?.booster?.count || 0,
-			volume,
+			volume: aroma.volume,
 			available: info.available,
 			content: info.result.volume,
-			diff: info.result.volume - volume,
+			diff: info.result.volume - aroma.volume,
 			vg: info.result.ratio.vg,
 			pg: info.result.ratio.pg,
 			vgToMl: info.result.ml.vg,

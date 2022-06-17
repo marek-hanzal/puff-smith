@@ -6,12 +6,14 @@ import {ParsedUrlQuery} from "querystring";
 export interface IBoosterCreate {
 	name: string;
 	code?: string;
-	vendor: string;
+	vendor?: string;
+	vendorId?: string;
 	cost: number;
 	pg: number;
 	vg: number;
 	nicotine: number;
 	volume: number;
+	withInventory?: boolean;
 }
 
 export type IBoosterWhere = Prisma.BoosterWhereInput & IWithFulltext;

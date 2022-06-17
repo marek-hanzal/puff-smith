@@ -68,49 +68,62 @@ export const BaseSource = (): IBaseSource => {
 					vendor: true,
 				},
 			}),
-			create: async ({vendor, code, ...base}) => {
-				const create = {
-					...base,
-					code: code || codeService().code(),
-					vendor: {
-						connect: {
-							name: vendor,
-						}
-					},
-				};
-				try {
-					return await source.prisma.base.create({
-						data: create,
-						include: {
-							vendor: true,
+			create: async ({vendor, vendorId, code, withInventory, ...base}) => {
+				const $create = async () => {
+					const create = {
+						...base,
+						code: code || codeService().code(),
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
+							}
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => source.prisma.base.update({
-						where: {
-							id: (await source.prisma.base.findFirst({
-								where: {
-									OR: [
-										{
-											name: create.name,
-											vendor: {
-												name: vendor,
+					};
+					try {
+						return await source.prisma.base.create({
+							data: create,
+							include: {
+								vendor: true,
+							},
+						});
+					} catch (e) {
+						return onUnique(e, async () => source.prisma.base.update({
+							where: {
+								id: (await source.prisma.base.findFirst({
+									where: {
+										OR: [
+											{
+												name: create.name,
+												vendor: {
+													name: vendor,
+												},
 											},
-										},
-										{
-											code: create.code,
-										}
-									]
-								},
-								rejectOnNotFound: true,
-							})).id,
-						},
-						data: base,
-						include: {
-							vendor: true,
-						},
-					}));
-				}
+											{
+												code: create.code,
+											}
+										]
+									},
+									rejectOnNotFound: true,
+								})).id,
+							},
+							data: base,
+							include: {
+								vendor: true,
+							},
+						}));
+					}
+				};
+				const $base = await $create();
+				withInventory && await source.prisma.baseInventory.createMany({
+					data: [{
+						code: codeService().code(),
+						baseId: $base.id,
+						userId: source.user.required(),
+					}],
+					skipDuplicates: true,
+				});
+				return $base;
 			},
 			delete: async ids => {
 				const where = {

@@ -1,5 +1,5 @@
+import {SizeMm} from "@/puff-smith/component/inline/SizeMm";
 import {IWire} from "@/puff-smith/service/wire/interface";
-import {toHumanNumber} from "@leight-core/utils";
 import {Tag, TagProps, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -16,7 +16,7 @@ export const WireFiberInline: FC<IWireFiberInlineProps> = ({wire, color = "lime"
 			key={`fiber-${fiber.id}`}
 			color={color}
 		>
-			{`${fiber.count}x ${fiber.fiber.code} ${toHumanNumber(fiber.fiber.mm, "-", 1)}mm`}
+			{`${fiber.count}x ${fiber.fiber.code}`} <SizeMm size={fiber.fiber.mm}/>
 		</Tag>) : <Typography.Text type={"secondary"}>{t("shared.wire.no-fibers")}</Typography.Text>}
 	</>;
 };

@@ -1,8 +1,8 @@
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
-import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/@module/button/LiquidCreateButton";
 import {MixtureListEmpty} from "@/puff-smith/site/lab/mixture/@module/list/MixtureListEmpty";
+import {LiquidCreateButton} from "@/puff-smith/site/lab/mixture/liquid/button/LiquidCreateButton";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
 import {IMixtureInventoryListSourceProps, MixtureInventoryListSource} from "@/sdk/api/inventory/mixture/query";

@@ -1,4 +1,5 @@
 import {IMixtureError} from "@/puff-smith/service/mixture/interface";
+import {toPercent} from "@leight-core/utils";
 
 export interface IToMixtureInfoRequest {
 	aroma: {
@@ -37,6 +38,7 @@ export interface IAromaInfo {
 	content: number;
 	volume: number;
 	available: number;
+	ratio: number,
 	pg: number;
 	vg: number;
 	ml: IVgPgMl;
@@ -62,6 +64,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	const aromaInfo: IAromaInfo = {
 		content: aroma.content,
 		volume: aroma.volume,
+		ratio: toPercent(aroma.content, aroma.volume),
 		available,
 		pg: aroma.pg,
 		vg: aroma.vg,

@@ -1,6 +1,6 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
-import {LiquidCreateForm} from "@/puff-smith/site/lab/liquid/@module/form/LiquidCreateForm";
+import {LiquidCreateForm} from "@/puff-smith/site/lab/mixture/liquid/form/LiquidCreateForm";
 import {MixturePreview} from "@/puff-smith/site/shared/mixture/@module/view/MixturePreview";
 import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";

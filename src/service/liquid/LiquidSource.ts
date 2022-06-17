@@ -1,15 +1,20 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
+import {MixtureJobSource} from "@/puff-smith/service/mixture/job/MixtureJobSource";
 import {MixtureSource} from "@/puff-smith/service/mixture/MixtureSource";
+import {toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
+import {ClientError} from "@leight-core/api";
 import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidSource = (): ILiquidSource => {
 	const transactionSource = singletonOf(() => TransactionSource());
 	const mixtureSource = singletonOf(() => MixtureSource());
+	const mixtureJobSource = singletonOf(() => MixtureJobSource());
+	const codeService = singletonOf(() => CodeService());
 
 	const source: ILiquidSource = Source<ILiquidSource>({
 		name: "liquid",
@@ -189,6 +194,81 @@ export const LiquidSource = (): ILiquidSource => {
 					return items;
 				});
 			}
+		},
+		standalone: async ({aromaId, boosterId, baseId, code, mixed, nicotine}) => {
+			const $aromaInventory = await source.prisma.aromaInventory.findFirst({
+				where: {aromaId},
+				rejectOnNotFound: true,
+				include: {
+					aroma: true,
+				}
+			});
+			const $aroma = $aromaInventory.aroma;
+			const $booster = boosterId ? await source.prisma.booster.findFirst({
+				where: {id: boosterId},
+				rejectOnNotFound: true,
+			}) : undefined;
+			const $base = baseId ? await source.prisma.base.findFirst({
+				where: {id: baseId},
+				rejectOnNotFound: true,
+			}) : undefined;
+			const $boosterInventory = $booster?.id ? await source.prisma.boosterInventory.createMany({
+				data: [{
+					code: codeService().code(),
+					boosterId: $booster.id,
+					userId: source.user.required(),
+				}],
+				skipDuplicates: true,
+			}) : undefined;
+			const $baseInventory = $base?.id ? await source.prisma.baseInventory.createMany({
+				data: [{
+					code: codeService().code(),
+					baseId: $base.id,
+					userId: source.user.required(),
+				}],
+				skipDuplicates: true,
+			}) : undefined;
+			const $info = toMixtureInfo({
+				aroma: $aroma,
+				booster: $booster,
+				base: $base,
+				nicotine,
+			});
+			if ($info.result.error) {
+				throw new ClientError(`Invalid mixture: ${$info.result.error}`);
+			}
+			const $mixture = await mixtureJobSource().create({
+				aromaId,
+				baseId: $info.base ? baseId : undefined,
+				baseMl: $info.base?.volume || 0,
+				boosterId: $info.booster ? boosterId : undefined,
+				boosterCount: $info?.booster?.count || 0,
+				volume: $aroma.volume,
+				available: $info.available,
+				content: $info.result.volume,
+				diff: $info.result.volume - $aroma.volume,
+				vg: $info.result.ratio.vg,
+				pg: $info.result.ratio.pg,
+				vgToMl: $info.result.ml.vg,
+				pgToMl: $info.result.ml.pg,
+				nicotine: $info.result.nicotine,
+				draws: $info.result.draws,
+			});
+			await source.prisma.mixtureInventory.createMany({
+				data: [{
+					aromaInventoryId: $aromaInventory.id,
+					boosterInventoryId: $boosterInventory?.id,
+					baseInventoryId: $baseInventory?.id,
+					mixtureId: $mixture.id,
+					userId: source.user.required(),
+				}],
+				skipDuplicates: true,
+			});
+			return source.create({
+				code: code || codeService().code(),
+				mixed,
+				mixtureId: $mixture.id,
+			});
 		}
 	});
 

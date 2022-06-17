@@ -12,6 +12,7 @@ export const BoosterSelect: FC<IBoosterSelectProps> = props => {
 	return <BoosterFilterProvider>
 		<BoosterSourceSelect
 			showSearch
+			allowClear
 			toOption={booster => ({
 				label: <Space>
 					<BoosterNameInline booster={booster}/>

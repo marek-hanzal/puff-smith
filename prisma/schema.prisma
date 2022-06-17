@@ -510,17 +510,19 @@ model AromaComment {
 }
 
 model AromaInventory {
-  id            String      @id @default(cuid())
+  id            String       @id @default(cuid())
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  code          String      @unique
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code          String       @unique
   aromaId       String
-  aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  aroma         Aroma        @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
   MixtureInventory MixtureInventory[]
+
+  @@unique([userId, aromaId])
 }
 
 model Booster {
@@ -543,17 +545,19 @@ model Booster {
 }
 
 model BoosterInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String       @id @default(cuid())
+  code          String       @unique
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   boosterId     String
-  booster       Booster     @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  booster       Booster      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
   MixtureInventory MixtureInventory[]
+
+  @@unique([userId, boosterId])
 }
 
 model Base {
@@ -574,17 +578,19 @@ model Base {
 }
 
 model BaseInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String       @id @default(cuid())
+  code          String       @unique
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   baseId        String
-  base          Base        @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  base          Base         @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
   MixtureInventory MixtureInventory[]
+
+  @@unique([userId, baseId])
 }
 
 model Liquid {

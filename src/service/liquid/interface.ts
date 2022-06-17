@@ -14,6 +14,15 @@ export interface ILiquidCreate {
 	mixtureId: string;
 }
 
+export interface ILiquidStandaloneCreate {
+	aromaId: string;
+	baseId?: string;
+	boosterId?: string;
+	nicotine: number;
+	code?: string;
+	mixed?: Date;
+}
+
 export interface ILiquid {
 	id: string;
 	code: string;
@@ -43,4 +52,5 @@ type ILiquidSourceEntityInternal = ILiquidEntity<IWithTransaction & IWithMixture
 export type ILiquidSourceEntity<T = void> = T extends void ? ILiquidSourceEntityInternal : ILiquidSourceEntityInternal & T;
 
 export interface ILiquidSource extends ISource<ILiquidCreate, ILiquidSourceEntity, ILiquid, ILiquidQuery, ILiquidFetch, ILiquidFetchParams> {
+	standalone(create: ILiquidStandaloneCreate): Promise<ILiquidSourceEntityInternal>;
 }

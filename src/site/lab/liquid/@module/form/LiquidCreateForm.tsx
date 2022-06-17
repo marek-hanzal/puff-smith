@@ -1,40 +1,64 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {IMixture} from "@/puff-smith/service/mixture/interface";
+import {AromaSelect} from "@/puff-smith/site/inventory/aroma/@module/form/AromaSelect";
+import {AromaCreateInline} from "@/puff-smith/site/shared/aroma/@module/form/AromaCreateInline";
+import {BaseCreateInline} from "@/puff-smith/site/shared/base/@module/form/BaseCreateInline";
+import {BaseSelect} from "@/puff-smith/site/shared/base/@module/form/BaseSelect";
+import {BoosterCreateInline} from "@/puff-smith/site/shared/booster/@module/form/BoosterCreateInline";
+import {BoosterSelect} from "@/puff-smith/site/shared/booster/@module/form/BoosterSelect";
 import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
-import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/liquid/create";
+import {useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
+import {IStandaloneDefaultFormProps, StandaloneDefaultForm} from "@/sdk/api/lab/liquid/standalone";
 import {useCheckPriceQueryInvalidate} from "@/sdk/api/transaction/check-price";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
-import {message} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ILiquidCreateFormProps extends Partial<ICreateDefaultFormProps> {
-	mixture: IMixture;
+export interface ILiquidCreateFormProps extends Partial<IStandaloneDefaultFormProps> {
 }
 
-export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({mixture, ...props}) => {
+export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
 	const checkPriceQueryInvalidate = useCheckPriceQueryInvalidate();
+	const liquidQueryInvalidate = useLiquidQueryInvalidate();
 	const checkPrice = useCheckPrice("lab.liquid.create");
-	return <CreateDefaultForm
+	return <StandaloneDefaultForm
 		translation={"lab.liquid.create"}
-		toMutation={values => ({
-			...values,
-			mixtureId: mixture.id,
-		})}
-		onSuccess={async ({navigate}) => {
+		onSuccess={async request => {
+			message.success(t("lab.mixture.liquid.create.success"));
 			await puffiesQueryInvalidate();
 			await checkPriceQueryInvalidate();
-			message.success(t("lab.mixture.liquid.create.success"));
-			navigate("/lab/liquid");
+			await liquidQueryInvalidate();
+			onSuccess?.(request);
 		}}
+		toForm={() => ({
+			nicotine: 0,
+		})}
 		{...props}
 	>
+		<FormItem field={"aromaId"} required extra={<AromaCreateInline/>}>
+			<AromaSelect/>
+		</FormItem>
+		<FormItem field={"boosterId"} extra={<BoosterCreateInline/>}>
+			<BoosterSelect/>
+		</FormItem>
+		<FormItem field={"baseId"} extra={<BaseCreateInline/>}>
+			<BaseSelect/>
+		</FormItem>
+		<FormItem field={"nicotine"}>
+			<InputNumber
+				min={0}
+				max={50}
+				step={1}
+				style={{width: "100%"}}
+			/>
+		</FormItem>
 		<FormItem field={"mixed"}>
 			<DatePicker/>
 		</FormItem>
+		<Divider/>
 		<Centered>
 			<Submit
 				icon={<LiquidIcon/>}
@@ -42,5 +66,5 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({mixture, ...props}
 				label={"create"}
 			/>
 		</Centered>
-	</CreateDefaultForm>;
+	</StandaloneDefaultForm>;
 };

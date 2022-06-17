@@ -9,7 +9,9 @@ export interface IBaseCreate {
 	cost: number;
 	pg: number;
 	vg: number;
-	vendor: string;
+	vendor?: string;
+	vendorId: string;
+	withInventory?: boolean;
 }
 
 export type IBaseWhere = Prisma.BaseWhereInput & IWithFulltext;

@@ -68,49 +68,62 @@ export const BoosterSource = (): IBoosterSource => {
 					vendor: true,
 				}
 			}),
-			create: async ({vendor, code, ...booster}) => {
-				const create = {
-					...booster,
-					code: code || codeService().code(),
-					vendor: {
-						connect: {
-							name: vendor,
-						}
-					},
-				};
-				try {
-					return await source.prisma.booster.create({
-						data: create,
-						include: {
-							vendor: true,
-						}
-					});
-				} catch (e) {
-					return onUnique(e, async () => source.prisma.booster.update({
-						where: {
-							id: (await source.prisma.booster.findFirst({
-								where: {
-									OR: [
-										{
-											name: create.name,
-											vendor: {
-												name: vendor,
-											},
-										},
-										{
-											code: create.code,
-										}
-									]
-								},
-								rejectOnNotFound: true,
-							})).id,
+			create: async ({vendor, vendorId, code, withInventory = false, ...booster}) => {
+				const $create = async () => {
+					const create = {
+						...booster,
+						code: code || codeService().code(),
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
+							}
 						},
-						data: create,
-						include: {
-							vendor: true,
-						}
-					}));
-				}
+					};
+					try {
+						return await source.prisma.booster.create({
+							data: create,
+							include: {
+								vendor: true,
+							}
+						});
+					} catch (e) {
+						return onUnique(e, async () => source.prisma.booster.update({
+							where: {
+								id: (await source.prisma.booster.findFirst({
+									where: {
+										OR: [
+											{
+												name: create.name,
+												vendor: {
+													name: vendor,
+												},
+											},
+											{
+												code: create.code,
+											}
+										]
+									},
+									rejectOnNotFound: true,
+								})).id,
+							},
+							data: create,
+							include: {
+								vendor: true,
+							}
+						}));
+					}
+				};
+				const $booster = await $create();
+				withInventory && await source.prisma.boosterInventory.createMany({
+					data: [{
+						code: codeService().code(),
+						boosterId: $booster.id,
+						userId: source.user.required(),
+					}],
+					skipDuplicates: true,
+				});
+				return $booster;
 			},
 			delete: async ids => {
 				const where = {

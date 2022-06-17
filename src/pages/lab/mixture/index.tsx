@@ -1,15 +1,19 @@
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
+import {IMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
 import {MixtureUserJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureUserJobButton";
+import {MixtureInfoForm} from "@/puff-smith/site/shared/mixture/@module/form/MixtureInfoForm";
+import {MixtureInfoView} from "@/puff-smith/site/shared/mixture/@module/view/MixtureInfoView";
 import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
-import {Template, useFilterContext} from "@leight-core/client";
-import {Col, Row} from "antd";
-import {FC} from "react";
+import {CalculatorOutlined} from "@ant-design/icons";
+import {TabInline, Template, useFilterContext} from "@leight-core/client";
+import {Col, Row, Tabs} from "antd";
+import {FC, useState} from "react";
 
 interface IInternalListProps {
 }
@@ -17,20 +21,20 @@ interface IInternalListProps {
 const InternalList: FC<IInternalListProps> = () => {
 	const filterContext = useFilterContext();
 	return filterContext.isEmpty() ?
-		<Template span={18}>
+		<Template span={22}>
 			<Row gutter={32}>
-				<Col span={8}>
+				<Col span={12}>
+					<MixtureFilter
+						inline
+					/>
+				</Col>
+				<Col span={12}>
 					<Template
 						style={{marginTop: "0em"}}
 						icon={<MixtureIcon/>}
 						label={"market.aroma.mixture.filter"}
 						span={12}
 						extra={<MixtureUserJobButton/>}
-					/>
-				</Col>
-				<Col span={16}>
-					<MixtureFilter
-						inline
 					/>
 				</Col>
 			</Row>
@@ -45,26 +49,50 @@ const InternalList: FC<IInternalListProps> = () => {
 };
 
 export default withLabLayout(function Index() {
+	const [info, setInfo] = useState<IMixtureInfo>();
 	return <LabPage
 		title={"lab.mixture.index"}
 		menuSelection={["/lab/mixture"]}
 		icon={<MixtureIcon/>}
 	>
-		<MixtureInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-			defaultOrderBy={[
-				{aroma: {name: "asc"}},
-				{vg: "desc"},
-				{nicotine: "asc"},
-			] as any}
-			defaultFilter={{
-				nicotineToRound: 0,
-			}}
-			defaultSource={{
-				nicotineToRound: 0,
-			}}
-		>
-			<InternalList/>
-		</MixtureInventoryProviderControl>
+		<Tabs size={"large"}>
+			<Tabs.TabPane key={"search"} tab={<TabInline icon={<MixtureIcon/>} title={"lab.mixture.search.tab"}/>}>
+				<MixtureInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={[
+						{aroma: {name: "asc"}},
+						{vg: "desc"},
+						{nicotine: "asc"},
+					] as any}
+					defaultFilter={{
+						nicotineToRound: 0,
+					}}
+					defaultSource={{
+						nicotineToRound: 0,
+					}}
+				>
+					<InternalList/>
+				</MixtureInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"calculator"} tab={<TabInline icon={<CalculatorOutlined/>} title={"lab.mixture.calculator.tab"}/>}>
+				<Template span={22}>
+					<Row gutter={32}>
+						<Col span={12}>
+							<MixtureInfoForm
+								onSuccess={({response}) => setInfo(response)}
+							/>
+						</Col>
+						<Col span={12}>
+							{info ? <MixtureInfoView info={info}/> : <Template
+								style={{marginTop: "0em"}}
+								icon={<CalculatorOutlined/>}
+								label={"lab.mixture.calculator.tab"}
+								span={12}
+							/>}
+						</Col>
+					</Row>
+				</Template>
+			</Tabs.TabPane>
+		</Tabs>
 	</LabPage>;
 });

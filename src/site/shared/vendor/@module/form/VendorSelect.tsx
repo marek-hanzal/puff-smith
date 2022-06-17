@@ -8,6 +8,7 @@ export const VendorSelect: FC<IVendorSelectProps> = props => {
 	return <VendorProviderControl>
 		<VendorSourceSelect
 			showSearch
+			allowClear
 			toOption={vendor => ({
 				value: vendor.id,
 				label: vendor.name,
