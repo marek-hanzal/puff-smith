@@ -42,7 +42,14 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				title={"lab.coil.create.title"}
 				label={"lab.coil.create.button"}
 			>
-				<CoilCreateForm/>
+				<CoilCreateForm
+					onSuccess={({navigate, response}) => {
+						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
+							atomizerId: atomizer.id,
+							coilId: response.id,
+						});
+					}}
+				/>
 			</DrawerButton>
 		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
