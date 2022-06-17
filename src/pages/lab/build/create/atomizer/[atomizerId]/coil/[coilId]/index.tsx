@@ -49,7 +49,7 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 			>
 				<CottonCreateForm
 					onSuccess={({navigate, response}) => {
-						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]", {
+						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
 							atomizerId: atomizer.id,
 							coilId: coil.id,
 							cottonId: response.id,
