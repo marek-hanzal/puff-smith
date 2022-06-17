@@ -55,7 +55,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab/mixture"]}
 		icon={<MixtureIcon/>}
 	>
-		<Tabs size={"large"}>
+		<Tabs size={"large"} destroyInactiveTabPane onChange={() => setInfo(undefined)}>
 			<Tabs.TabPane key={"search"} tab={<TabInline icon={<MixtureIcon/>} title={"lab.mixture.search.tab"}/>}>
 				<MixtureInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}

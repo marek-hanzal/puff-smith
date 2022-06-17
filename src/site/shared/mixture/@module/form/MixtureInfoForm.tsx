@@ -1,7 +1,7 @@
 import {VgPgSlider} from "@/puff-smith/component/input/VgPgSliter";
 import {IMixtureInfoDefaultFormProps, MixtureInfoDefaultForm} from "@/sdk/api/mixture/info";
 import {CalculatorOutlined} from "@ant-design/icons";
-import {Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/client";
+import {Card, Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, Row, Spin} from "antd";
 import {FC, useState} from "react";
 
@@ -82,55 +82,64 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 						</FormItem>
 					</Col>
 					<Col span={12}>
-						<SwitchItem
-							field={"withBase"}
-							noStyle
-							switchProps={{
-								onChange: checked => setWithBase(checked),
-							}}
-						/>
-						<Spin indicator={<></>} spinning={!withBase}>
-							<ItemGroup prefix={"base"}>
-								<FormItem field={"vgpg"}>
-									<VgPgSlider/>
-								</FormItem>
-							</ItemGroup>
-						</Spin>
-						<SwitchItem
-							field={"withBooster"}
-							noStyle
-							switchProps={{
-								disabled: !nicotine,
-								onChange: checked => {
-									setWithBooster(checked);
-									!checked && formContext.setValues({
-										withBooster: false,
-										nicotine: 0,
-									});
-									!checked && setNicotine(0);
-								},
-							}}
-						/>
-						<Spin indicator={<></>} spinning={!withBooster}>
-							<ItemGroup prefix={"booster"}>
-								<FormItem field={"nicotine"} required={withBooster}>
-									<InputNumber min={0} max={100} step={1} style={{width: "100%"}}/>
-								</FormItem>
-								<FormItem field={"volume"} required={withBooster}>
-									<InputNumber min={0} max={3000} step={1} style={{width: "100%"}}/>
-								</FormItem>
-								<FormItem field={"vgpg"}>
-									<VgPgSlider/>
-								</FormItem>
-							</ItemGroup>
-						</Spin>
+						<Card
+							title={"shared.mixture.info.withBase.title"}
+							extra={<SwitchItem
+								field={"withBase"}
+								noStyle
+								switchProps={{
+									onChange: checked => setWithBase(checked),
+								}}
+							/>}
+						>
+							<Spin indicator={<></>} spinning={!withBase}>
+								<ItemGroup prefix={"base"}>
+									<FormItem field={"vgpg"}>
+										<VgPgSlider/>
+									</FormItem>
+								</ItemGroup>
+							</Spin>
+						</Card>
+						<Card
+							title={"shared.mixture.info.withBooster.title"}
+							extra={<SwitchItem
+								field={"withBooster"}
+								noStyle
+								switchProps={{
+									disabled: !nicotine,
+									onChange: checked => {
+										setWithBooster(checked);
+										!checked && formContext.setValues({
+											withBooster: false,
+											nicotine: 0,
+										});
+										!checked && setNicotine(0);
+									},
+								}}
+							/>}
+						>
+							<Spin indicator={<></>} spinning={!withBooster}>
+								<ItemGroup prefix={"booster"}>
+									<FormItem field={"nicotine"} required={withBooster}>
+										<InputNumber min={0} max={100} step={1} style={{width: "100%"}}/>
+									</FormItem>
+									<FormItem field={"vgpg"}>
+										<VgPgSlider/>
+									</FormItem>
+									<FormItem field={"volume"} required={withBooster}>
+										<InputNumber min={0} max={3000} step={1} style={{width: "100%"}}/>
+									</FormItem>
+								</ItemGroup>
+							</Spin>
+						</Card>
 					</Col>
 				</Row>
+
+				<Divider/>
+				<Centered>
+					<Submit icon={<CalculatorOutlined/>} label={"calculate"}/>
+				</Centered>
 			</>}
 		</FormContext.Consumer>
-		<Divider/>
-		<Centered>
-			<Submit icon={<CalculatorOutlined/>} label={"calculate"}/>
-		</Centered>
 	</MixtureInfoDefaultForm>;
 };
