@@ -73,7 +73,14 @@ export const AtomizerSource = (): IAtomizerSource => {
 					};
 					try {
 						return await source.prisma.atomizer.create({
-							data: create,
+							data: {
+								...create,
+								user: source.user.optional() ? {
+									connect: {
+										id: source.user.optional(),
+									}
+								} : undefined,
+							},
 							include: {
 								vendor: true,
 								AtomizerDraw: {

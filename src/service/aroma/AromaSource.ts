@@ -112,7 +112,14 @@ export const AromaSource = (): IAromaSource => {
 					};
 					try {
 						return await source.prisma.aroma.create({
-							data: create,
+							data: {
+								...create,
+								user: source.user.optional() ? {
+									connect: {
+										id: source.user.optional(),
+									}
+								} : undefined,
+							},
 							include: {
 								vendor: true,
 								AromaTaste: {

@@ -59,6 +59,16 @@ model User {
   BaseInventory     BaseInventory[]
   WireInventory     WireInventory[]
   MixtureInventory  MixtureInventory[]
+  Atomizer          Atomizer[]
+  Cell              Cell[]
+  Mod               Mod[]
+  Cotton            Cotton[]
+  Aroma             Aroma[]
+  Booster           Booster[]
+  Base              Base[]
+  Coil              Coil[]
+  Wire              Wire[]
+  Fiber             Fiber[]
 }
 
 model VerificationToken {
@@ -288,6 +298,8 @@ model Atomizer {
   AtomizerDraw AtomizerDraw[]
   cost         Float?
   isHybrid     Boolean        @default(false)
+  userId       String?
+  user         User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   AtomizerInventory AtomizerInventory[]
   AtomizerComment   AtomizerComment[]
@@ -325,17 +337,19 @@ model AtomizerInventory {
 }
 
 model Cell {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  code     String @unique
+  code     String  @unique
   voltage  Float
   drain    Float?
   ohm      Float?
   cost     Float
   typeId   String
-  type     Tag    @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  type     Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
   vendorId String
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   CellInventory CellInventory[]
   CellComment   CellComment[]
@@ -364,14 +378,16 @@ model CellComment {
 }
 
 model Mod {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  code     String @unique
+  code     String  @unique
   vendorId String
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   cost     Float
   voltage  Float
   power    Float
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   ModCell      ModCell[]
   ModInventory ModInventory[]
@@ -409,12 +425,15 @@ model ModComment {
 }
 
 model Cotton {
-  id              String            @id @default(cuid())
-  name            String
-  code            String            @unique
-  vendorId        String
-  vendor          Vendor            @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost            Float
+  id       String  @id @default(cuid())
+  name     String
+  code     String  @unique
+  vendorId String
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  cost     Float
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
   CottonDraw      CottonDraw[]
@@ -438,8 +457,8 @@ model CottonInventory {
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   cottonId      String
   cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 }
 
@@ -472,17 +491,19 @@ model VoucherInventory {
 }
 
 model Aroma {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  code     String @unique
+  code     String  @unique
   cost     Float
   content  Int
   volume   Int
   pg       Int
   vg       Int
   vendorId String
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  steep    Int    @default(14)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  steep    Int     @default(14)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   AromaInventory AromaInventory[]
   AromaComment   AromaComment[]
@@ -526,16 +547,18 @@ model AromaInventory {
 }
 
 model Booster {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  code     String @unique
+  code     String  @unique
   cost     Float
   volume   Int
   nicotine Int
   pg       Int
   vg       Int
   vendorId String
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   BoosterInventory BoosterInventory[]
   Mixture          Mixture[]
@@ -561,14 +584,16 @@ model BoosterInventory {
 }
 
 model Base {
-  id       String @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  code     String @unique
+  code     String  @unique
   cost     Float
   pg       Int
   vg       Int
   vendorId String
-  vendor   Vendor @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  userId   String?
+  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   BaseInventory BaseInventory[]
   Mixture       Mixture[]
@@ -757,6 +782,8 @@ model Coil {
   wraps  Int
   wireId String
   wire   Wire    @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   CoilDraw CoilDraw[]
   Build    Build[]
@@ -785,6 +812,8 @@ model Wire {
   mmToRound Float
   vendorId  String
   vendor    Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   WireFiber     WireFiber[]
   Coil          Coil[]
@@ -828,14 +857,16 @@ model WireFiber {
 
 // Fiber is a base for a wire; the wire could be made of several fibers (like claptons or so)
 model Fiber {
-  id         String @id @default(cuid())
-  code       String @unique
+  id         String  @id @default(cuid())
+  code       String  @unique
   // Thickness of a fiber in mm (for example 0.3 or something; should be rounded)
   mm         Float
   // Thickness of a fiber
   ga         Int
   materialId String
-  material   Tag    @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  material   Tag     @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   WireFiber WireFiber[]
 

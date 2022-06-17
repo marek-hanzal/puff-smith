@@ -51,7 +51,14 @@ export const CellSource = (): ICellSource => {
 				};
 				try {
 					return await source.prisma.cell.create({
-						data: create,
+						data: {
+							...create,
+							user: source.user.optional() ? {
+								connect: {
+									id: source.user.optional(),
+								}
+							} : undefined,
+						},
 						include: {
 							vendor: true,
 							type: true,

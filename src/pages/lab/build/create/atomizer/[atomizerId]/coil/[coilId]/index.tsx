@@ -16,10 +16,11 @@ import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildC
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
+import {CottonCreateForm} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateForm";
 import {CottonInventoryProviderControl, useCottonInventoryCountQuery} from "@/sdk/api/inventory/cotton/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, ListIcon, TabInline, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
 import {Col, Row, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
@@ -33,11 +34,30 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 			atomizerId: atomizer.id,
 		})}
 		icon={<CottonIcon/>}
-		extra={<ButtonLink
-			href={"/lab/build"}
-			icon={<ListIcon/>}
-			label={"lab.build.index.button"}
-		/>}
+		extra={<ButtonBar>
+			<ButtonLink
+				href={"/lab/build"}
+				icon={<ListIcon/>}
+				label={"lab.build.index.button"}
+			/>
+			<DrawerButton
+				size={"large"}
+				type={"primary"}
+				icon={<EditIcon/>}
+				title={"lab.cotton.create.title"}
+				label={"lab.cotton.create.button"}
+			>
+				<CottonCreateForm
+					onSuccess={({navigate, response}) => {
+						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]", {
+							atomizerId: atomizer.id,
+							coilId: coil.id,
+							cottonId: response.id,
+						});
+					}}
+				/>
+			</DrawerButton>
+		</ButtonBar>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}

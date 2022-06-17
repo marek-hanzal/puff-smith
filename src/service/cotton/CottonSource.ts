@@ -39,64 +39,35 @@ export const CottonSource = (): ICottonSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({vendor, draws, code, ...cotton}) => {
-				const create = {
-					...cotton,
-					code: code || codeService().code(),
-					vendor: {
-						connect: {
-							name: vendor,
-						}
-					},
-					CottonDraw: {
-						createMany: {
-							data: draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
-								drawId: tag.id,
-							})) : [],
-						}
-					},
-				};
-				try {
-					return await source.prisma.cotton.create({
-						data: create,
-						include: {
-							vendor: true,
-							CottonDraw: {
-								orderBy: {draw: {sort: "asc"}},
-								include: {
-									draw: true,
-								}
+			create: async ({vendor, vendorId, draws, code, withInventory = false, ...cotton}) => {
+				const $create = async () => {
+					const create = {
+						...cotton,
+						code: code || codeService().code(),
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
 							}
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => {
-						const $cotton = (await source.prisma.cotton.findFirst({
-							where: {
-								OR: [
-									{
-										name: create.name,
-										vendor: {
-											name: vendor,
-										},
-									},
-									{
-										code: create.code,
-									}
-								]
-							},
-							rejectOnNotFound: true,
-						}));
-						await source.prisma.cottonDraw.deleteMany({
-							where: {
-								cottonId: $cotton.id,
+						CottonDraw: {
+							createMany: {
+								data: draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
+									drawId: tag.id,
+								})) : [],
 							}
-						});
-						return source.prisma.cotton.update({
-							where: {
-								id: $cotton.id,
+						},
+					};
+					try {
+						return await source.prisma.cotton.create({
+							data: {
+								...create,
+								user: source.user.optional() ? {
+									connect: {
+										id: source.user.optional(),
+									}
+								} : undefined,
 							},
-							data: create,
 							include: {
 								vendor: true,
 								CottonDraw: {
@@ -107,8 +78,57 @@ export const CottonSource = (): ICottonSource => {
 								}
 							},
 						});
-					});
-				}
+					} catch (e) {
+						return onUnique(e, async () => {
+							const $cotton = (await source.prisma.cotton.findFirst({
+								where: {
+									OR: [
+										{
+											name: create.name,
+											vendor: {
+												name: vendor,
+											},
+										},
+										{
+											code: create.code,
+										}
+									]
+								},
+								rejectOnNotFound: true,
+							}));
+							await source.prisma.cottonDraw.deleteMany({
+								where: {
+									cottonId: $cotton.id,
+								}
+							});
+							return source.prisma.cotton.update({
+								where: {
+									id: $cotton.id,
+								},
+								data: create,
+								include: {
+									vendor: true,
+									CottonDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
+											draw: true,
+										}
+									}
+								},
+							});
+						});
+					}
+				};
+				const $cotton = await $create();
+				withInventory && source.prisma.cottonInventory.createMany({
+					data: [{
+						code: codeService().code(),
+						cottonId: $cotton.id,
+						userId: source.user.required(),
+					}],
+					skipDuplicates: true,
+				});
+				return $cotton;
 			},
 			delete: async ids => {
 				const where = {

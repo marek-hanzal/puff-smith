@@ -82,7 +82,14 @@ export const BoosterSource = (): IBoosterSource => {
 					};
 					try {
 						return await source.prisma.booster.create({
-							data: create,
+							data: {
+								...create,
+								user: source.user.optional() ? {
+									connect: {
+										id: source.user.optional(),
+									}
+								} : undefined,
+							},
 							include: {
 								vendor: true,
 							}

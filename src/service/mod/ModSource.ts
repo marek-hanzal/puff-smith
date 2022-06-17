@@ -51,7 +51,14 @@ export const ModSource = (): IModSource => {
 				};
 				try {
 					return await source.prisma.mod.create({
-						data: create,
+						data: {
+							...create,
+							user: source.user.optional() ? {
+								connect: {
+									id: source.user.optional(),
+								}
+							} : undefined,
+						},
 						include: {
 							vendor: true,
 							ModCell: {

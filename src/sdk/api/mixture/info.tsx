@@ -16,7 +16,7 @@ export const useMixtureInfoMutation = createMutationHook<IToMixtureInfoRequest, 
 export const useMixtureInfoQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureInfoApiLink]);
-};
+}
 
 export interface IMixtureInfoDefaultFormProps extends Partial<IFormProps<IToMixtureInfoRequest, IMixtureInfo>> {
 }
@@ -24,7 +24,7 @@ export interface IMixtureInfoDefaultFormProps extends Partial<IFormProps<IToMixt
 export const MixtureInfoDefaultForm: FC<IMixtureInfoDefaultFormProps> = props => <Form<IToMixtureInfoRequest, IMixtureInfo>
 	useMutation={useMixtureInfoMutation}
 	{...props}
-/>;
+/>
 
 export const toMixtureInfoLink = (queryParams?: IMixtureInfoQueryParams) => toLink(MixtureInfoApiLink, queryParams);
 export const useMixtureInfoLink = () => toMixtureInfoLink;

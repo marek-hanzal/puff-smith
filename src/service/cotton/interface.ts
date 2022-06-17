@@ -7,9 +7,11 @@ import {ParsedUrlQuery} from "querystring";
 export interface ICottonCreate {
 	name: string;
 	code?: string;
-	vendor: string;
+	vendor?: string;
+	vendorId?: string;
 	draws?: string;
 	cost: number;
+	withInventory?: boolean;
 }
 
 export type ICottonWhere = Prisma.CottonWhereInput & IWithFulltext;

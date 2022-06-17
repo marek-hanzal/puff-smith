@@ -16,7 +16,7 @@ export const useStandaloneMutation = createMutationHook<ILiquidStandaloneCreate,
 export const useStandaloneQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([StandaloneApiLink]);
-};
+}
 
 export interface IStandaloneDefaultFormProps extends Partial<IFormProps<ILiquidStandaloneCreate, ILiquid>> {
 }
@@ -24,7 +24,7 @@ export interface IStandaloneDefaultFormProps extends Partial<IFormProps<ILiquidS
 export const StandaloneDefaultForm: FC<IStandaloneDefaultFormProps> = props => <Form<ILiquidStandaloneCreate, ILiquid>
 	useMutation={useStandaloneMutation}
 	{...props}
-/>;
+/>
 
 export const toStandaloneLink = (queryParams?: IStandaloneQueryParams) => toLink(StandaloneApiLink, queryParams);
 export const useStandaloneLink = () => toStandaloneLink;
