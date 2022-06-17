@@ -1,5 +1,6 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
+import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/atomizer/create";
 import {useAtomizerCountQueryInvalidate, useAtomizerQueryInvalidate} from "@/sdk/api/atomizer/query";
@@ -45,7 +46,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 			<Col span={8}>
 				<FormItem field={"name"} required hasTooltip/>
 				<FormItem field={"code"} hasTooltip/>
-				<FormItem field={"vendorId"} required>
+				<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
 					<VendorSelect allowClear/>
 				</FormItem>
 				<SwitchItem field={"isHybrid"}/>

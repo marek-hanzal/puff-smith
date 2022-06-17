@@ -10,11 +10,9 @@ import {BuildCreateForm} from "@/puff-smith/site/lab/build/@module/form/BuildCre
 import {AtomizerCreateForm} from "@/puff-smith/site/shared/atomizer/@module/form/AtomizerCreateForm";
 import {AtomizerInventoryProviderControl, useAtomizerInventoryCountQuery} from "@/sdk/api/inventory/atomizer/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
-import {Alert, Tabs} from "antd";
-import {useTranslation} from "react-i18next";
+import {Tabs} from "antd";
 
 export default withLabLayout(function Create() {
-	const {t} = useTranslation();
 	const atomizerInventoryCountQuery = useAtomizerInventoryCountQuery();
 	return <LabPage
 		title={"lab.build.create"}
@@ -35,7 +33,6 @@ export default withLabLayout(function Create() {
 				title={"lab.atomizer.create.title"}
 				label={"lab.atomizer.create.button"}
 			>
-				<Alert type={"success"} message={t("lab.build.atomizer.create.alert")}/>
 				<AtomizerCreateForm
 					onSuccess={({navigate, response}) => {
 						navigate("/lab/build/create/atomizer/[atomizerId]", {
