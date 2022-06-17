@@ -798,6 +798,8 @@ model WireInventory {
   transactionId String?
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
+
+  @@unique([userId, wireId])
 }
 
 model WireDraw {

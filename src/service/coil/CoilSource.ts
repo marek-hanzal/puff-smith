@@ -60,15 +60,20 @@ export const CoilSource = (): ICoilSource => {
 			}),
 			create: async ({code, name, draws, drawIds, wire, wireId, ...coil}) => {
 				const $wire = await wireSource().fetchByReference({wire, wireId});
-				drawIds = drawIds || (draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => tag.id) : undefined);
+				const $drawIds = (await tagSource().fetchByCodes(drawIds || draws, "draw")).map(tag => tag.id);
+				let $name = [$wire.name];
+				if ($wire.mmToRound > 0) {
+					$name.push(`⌀${$wire.mmToRound}mm`);
+				}
+				$name = $name.concat([`o${Math.round(coil.size * 1000) / 1000}⌀`, `x${coil.wraps}↺`]);
 				const create = {
 					...coil,
 					code: code || codeService().code(),
-					name: name || `${$wire.name} o${Math.round(coil.size * 1000) / 1000}⌀ x${coil.wraps}↺`,
+					name: name || $name.join(" "),
 					wireId: $wire.id,
 					CoilDraw: {
 						createMany: {
-							data: drawIds ? drawIds.map(drawId => ({drawId})) : (await source.prisma.wireDraw.findMany({
+							data: $drawIds.length > 0 ? $drawIds.map(drawId => ({drawId})) : (await source.prisma.wireDraw.findMany({
 								where: {
 									wireId,
 								},

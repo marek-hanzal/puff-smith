@@ -4,16 +4,25 @@ import {CoilSizeInput} from "@/puff-smith/site/shared/coil/@module/form/CoilSize
 import {CoilWrapsInput} from "@/puff-smith/site/shared/coil/@module/form/CoilWrapsInput";
 import {WireCreateInline} from "@/puff-smith/site/shared/wire/@module/form/WireCreateInline";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/coil/create";
+import {useCoilInventoryQueryInvalidate} from "@/sdk/api/inventory/coil/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
-import {Divider} from "antd";
+import {Divider, message} from "antd";
 import {FC} from "react";
+import {useTranslation} from "react-i18next";
 
 export interface ICoilCreateFormProps extends Partial<ICreateDefaultFormProps> {
 }
 
-export const CoilCreateForm: FC<ICoilCreateFormProps> = props => {
+export const CoilCreateForm: FC<ICoilCreateFormProps> = ({onSuccess, ...props}) => {
+	const {t} = useTranslation();
+	const coilInventoryQueryInvalidate = useCoilInventoryQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"lab.coil.create"}
+		onSuccess={async result => {
+			message.success(t("lab.coil.create.success"));
+			await coilInventoryQueryInvalidate();
+			onSuccess?.(result);
+		}}
 		{...props}
 	>
 		<FormItem field={"size"}>

@@ -43,6 +43,9 @@ export const TagSource = (): ITagSource => {
 			},
 		},
 		fetchByCodes: async (codes, group) => {
+			if (!codes) {
+				return [];
+			}
 			const $codes = Array.isArray(codes) ? codes : codes.split(/,\s*/ig).map(code => `${code}`.toLowerCase());
 			return source.prisma.tag.findMany({
 				where: {

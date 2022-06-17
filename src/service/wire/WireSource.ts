@@ -58,7 +58,7 @@ export const WireSource = (): IWireSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({code, name, vendor, vendorId, draws, fibers, isTCR, withInventory = false, ...wire}) => {
+			create: async ({code, name, vendor, vendorId, draws, fiberId, fibers, withFibers = [], isTCR, withInventory = false, ...wire}) => {
 				const $create = async () => {
 					const wireFiberCreate: IWireFiberCreate[] = fibers ? await Promise.all((YAML.parse(fibers) as IWireFiberCreate[]).map(async item => {
 						return ({
@@ -90,9 +90,9 @@ export const WireSource = (): IWireSource => {
 						},
 						WireDraw: {
 							createMany: {
-								data: draws ? (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
+								data: (await tagSource().fetchByCodes(draws, "draw")).map(tag => ({
 									drawId: tag.id,
-								})) : [],
+								})),
 							}
 						},
 					};
@@ -171,12 +171,15 @@ export const WireSource = (): IWireSource => {
 					}
 				};
 				const $wire = await $create();
-				withInventory && await source.prisma.wireInventory.create({
-					data: {
-						code: codeService().code(),
-						wireId: $wire.id,
-						userId: source.user.required(),
-					}
+				withInventory && await source.prisma.wireInventory.createMany({
+					data: [
+						{
+							code: codeService().code(),
+							wireId: $wire.id,
+							userId: source.user.required(),
+						}
+					],
+					skipDuplicates: true,
 				});
 				return $wire;
 			},

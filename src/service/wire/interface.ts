@@ -14,6 +14,8 @@ export type IWireCreate = {
 	mm?: number;
 	draws?: string;
 	fibers?: string;
+	withFibers?: any;
+	fiberId?: string;
 	withInventory?: boolean;
 } & IVendorReference;
 
