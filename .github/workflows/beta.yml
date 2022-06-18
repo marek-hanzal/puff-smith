@@ -127,5 +127,5 @@ jobs:
                         echo POSTGRESQL_PASSWORD="${{ secrets.POSTGRES_PASSWORD }}" >> .env
 
                         docker compose pull
-                        docker compose up -d
+                        docker compose up -d --remove-orphans
                         docker system prune -f --all

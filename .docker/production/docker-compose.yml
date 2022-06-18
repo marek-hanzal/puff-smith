@@ -6,8 +6,8 @@ services:
         networks:
             - web
             - postgres
-            - loki
-            - prometheus
+#            - loki
+#            - prometheus
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -35,52 +35,52 @@ services:
         volumes:
             - "puff-smith-postgres:/var/lib/postgresql/data"
 
-    loki:
-        image: grafana/loki
-        restart: always
-        networks:
-            - loki
-
-    grafana:
-        image: grafana/grafana-oss
-        networks:
-            - web
-            - loki
-            - prometheus
-        volumes:
-            - ./grafana/provisioning:/etc/grafana/provisioning
-        labels:
-            - 'traefik.enable=true'
-            # http stuff
-            - 'traefik.http.routers.puff-smith-production-grafana.rule=Host(`grafana.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-production-grafana.entrypoints=http'
-            - 'traefik.http.routers.puff-smith-production-grafana.middlewares=redirect-to-https'
-            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
-            # https stuff
-            - 'traefik.http.routers.puff-smith-production-grafana-tls.rule=Host(`grafana.beta.puff-smith.rocks`)'
-            - 'traefik.http.routers.puff-smith-production-grafana-tls.entrypoints=https'
-            - 'traefik.http.routers.puff-smith-production-grafana-tls.tls=true'
-            - 'traefik.http.routers.puff-smith-production-grafana-tls.tls.certresolver=default'
-            - 'traefik.http.services.puff-smith-production-grafana-tls.loadbalancer.server.port=3000'
-
-    prometheus:
-        image: prom/prometheus
-        command:
-            - '--config.file=/etc/prometheus/prometheus.yml'
-            - '--storage.tsdb.path=/prometheus'
-            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-            - '--web.console.templates=/usr/share/prometheus/consoles'
-        networks:
-            - prometheus
-        volumes:
-            - ./prometheus:/etc/prometheus
+#    loki:
+#        image: grafana/loki
+#        restart: always
+#        networks:
+#            - loki
+#
+#    grafana:
+#        image: grafana/grafana-oss
+#        networks:
+#            - web
+#            - loki
+#            - prometheus
+#        volumes:
+#            - ./grafana/provisioning:/etc/grafana/provisioning
+#        labels:
+#            - 'traefik.enable=true'
+#            # http stuff
+#            - 'traefik.http.routers.puff-smith-production-grafana.rule=Host(`grafana.puff-smith.rocks`)'
+#            - 'traefik.http.routers.puff-smith-production-grafana.entrypoints=http'
+#            - 'traefik.http.routers.puff-smith-production-grafana.middlewares=redirect-to-https'
+#            - 'traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https'
+#            # https stuff
+#            - 'traefik.http.routers.puff-smith-production-grafana-tls.rule=Host(`grafana.beta.puff-smith.rocks`)'
+#            - 'traefik.http.routers.puff-smith-production-grafana-tls.entrypoints=https'
+#            - 'traefik.http.routers.puff-smith-production-grafana-tls.tls=true'
+#            - 'traefik.http.routers.puff-smith-production-grafana-tls.tls.certresolver=default'
+#            - 'traefik.http.services.puff-smith-production-grafana-tls.loadbalancer.server.port=3000'
+#
+#    prometheus:
+#        image: prom/prometheus
+#        command:
+#            - '--config.file=/etc/prometheus/prometheus.yml'
+#            - '--storage.tsdb.path=/prometheus'
+#            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+#            - '--web.console.templates=/usr/share/prometheus/consoles'
+#        networks:
+#            - prometheus
+#        volumes:
+#            - ./prometheus:/etc/prometheus
 
 networks:
     web:
         external: true
     postgres:
-    loki:
-    prometheus:
+#    loki:
+#    prometheus:
 
 volumes:
     puff-smith-data:
