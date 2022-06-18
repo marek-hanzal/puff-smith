@@ -92,10 +92,33 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 								}
 							},
 							transaction: true,
-						}
+						},
 					}),
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.atomizerInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						atomizer: {
+							include: {
+								vendor: true,
+								AtomizerDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
+							}
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

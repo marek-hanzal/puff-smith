@@ -1,3 +1,4 @@
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -7,13 +8,14 @@ import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildNameInline";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {BuildLiquidList} from "@/puff-smith/site/lab/build/liquid/@module/list/BuildLiquidList";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/filter/LiquidFilter";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {LiquidProviderControl, useLiquidCountQuery} from "@/sdk/api/lab/liquid/query";
 import {FireOutlined, LikeOutlined} from "@ant-design/icons";
-import {QueryParamsProvider, TabInline, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, QueryParamsProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
@@ -28,6 +30,27 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 		headerProps={{
 			footer: <BuildIndexMenu build={build}/>,
 		}}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/lab"}
+				icon={<LabIcon/>}
+			/>
+			<BreadcrumbButton
+				href={"/lab/build"}
+				label={"lab.build.label"}
+			/>
+			<BreadcrumbButton
+				href={"/lab/build/[buildId]"}
+				query={{
+					buildId: build.id,
+				}}
+				label={<BuildNameInline build={build}/>}
+			/>
+			<BreadcrumbIcon
+				icon={<LiquidIcon/>}
+				label={"lab.build.liquid.title"}
+			/>
+		</Breadcrumbs>}
 	>
 		<Template
 			title={<AtomizerNameInline atomizer={build.atomizer}/>}
