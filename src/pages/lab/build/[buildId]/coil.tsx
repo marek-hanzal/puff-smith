@@ -9,6 +9,7 @@ import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildN
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
+import {Divider} from "antd";
 
 export default withLabLayout(function Coil({build}: IBuildFetch) {
 	return <LabPage
@@ -46,6 +47,7 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 		<Template
 			title={build.coil.name}
 			span={22}
+			extra={<Divider/>}
 		>
 			<CoilView coil={build.coil}/>
 		</Template>

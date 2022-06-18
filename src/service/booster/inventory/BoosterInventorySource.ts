@@ -74,6 +74,23 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					},
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.boosterInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						booster: {
+							include: {
+								vendor: true,
+							}
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

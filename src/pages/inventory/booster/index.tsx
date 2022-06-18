@@ -7,7 +7,9 @@ import {BoosterFilter} from "@/puff-smith/site/inventory/booster/@module/filter/
 import {BoosterInventoryList} from "@/puff-smith/site/inventory/booster/@module/list/BoosterInventoryList";
 import {BoosterListToolbar} from "@/puff-smith/site/inventory/booster/@module/list/BoosterListToolbar";
 import {BoosterInventoryProviderControl} from "@/sdk/api/inventory/booster/query";
-import {SelectionProvider} from "@leight-core/client";
+import {FireOutlined} from "@ant-design/icons";
+import {SelectionProvider, TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -15,20 +17,58 @@ export default withInventoryLayout(function Index() {
 		menuSelection={["/inventory/booster"]}
 		icon={<BoosterIcon/>}
 	>
-		<BoosterInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
-			<SelectionProvider type={"multi"}>
-				<BoosterInventoryList
-					header={() => <RowInline
-						extra={<BoosterListToolbar/>}
-					>
-						<BoosterFilter
-							toFilter={filter => ({booster: filter})}
+		<Tabs size={"large"} destroyInactiveTabPane>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.booster.favorite.tab"}/>}>
+				<BoosterInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<BoosterInventoryList
+							header={() => <RowInline
+								extra={<BoosterListToolbar/>}
+							>
+								<BoosterFilter
+									toFilter={filter => ({booster: filter})}
+								/>
+							</RowInline>}
+							locale={{
+								emptyText: <Template
+									icon={<BoosterIcon/>}
+									label={"lab.booster.list.favorite.empty"}
+								/>,
+							}}
 						/>
-					</RowInline>}
-				/>
-			</SelectionProvider>
-		</BoosterInventoryProviderControl>
+					</SelectionProvider>
+				</BoosterInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"all"} tab={<TabInline icon={<BoosterIcon/>} title={"inventory.booster.all.tab"}/>}>
+				<BoosterInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<BoosterInventoryList
+							header={() => <RowInline
+								extra={<BoosterListToolbar/>}
+							>
+								<BoosterFilter
+									toFilter={filter => ({booster: filter})}
+								/>
+							</RowInline>}
+						/>
+					</SelectionProvider>
+				</BoosterInventoryProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</InventoryPage>;
 });

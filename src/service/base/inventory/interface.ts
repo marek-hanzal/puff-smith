@@ -16,6 +16,7 @@ export interface IBaseInventory {
 	baseId: string;
 	transaction?: ITransaction | null;
 	transactionId?: string | null;
+	rating?: number | null;
 }
 
 export interface IBaseInventoryQuery extends IQuery<Prisma.BaseInventoryWhereInput & IWithFulltext, Prisma.BaseInventoryOrderByWithRelationInput> {

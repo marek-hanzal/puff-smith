@@ -17,7 +17,7 @@ export const usePatchMutation = createMutationHook<ISourcePatch<IAtomizerInvento
 export const usePatchQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([PatchApiLink]);
-};
+}
 
 export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>>> {
 }
@@ -25,7 +25,7 @@ export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<
 export const PatchDefaultForm: FC<IPatchDefaultFormProps> = props => <Form<ISourcePatch<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>>
 	useMutation={usePatchMutation}
 	{...props}
-/>;
+/>
 
 export const toPatchLink = (queryParams?: IPatchQueryParams) => toLink(PatchApiLink, queryParams);
 export const usePatchLink = () => toPatchLink;

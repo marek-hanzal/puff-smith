@@ -7,7 +7,9 @@ import {BaseFilter} from "@/puff-smith/site/inventory/base/@module/filter/BaseFi
 import {BaseInventoryList} from "@/puff-smith/site/inventory/base/@module/list/BaseInventoryList";
 import {BaseListToolbar} from "@/puff-smith/site/inventory/base/@module/list/BaseListToolbar";
 import {BaseInventoryProviderControl} from "@/sdk/api/inventory/base/query";
-import {SelectionProvider} from "@leight-core/client";
+import {FireOutlined} from "@ant-design/icons";
+import {SelectionProvider, TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -15,20 +17,58 @@ export default withInventoryLayout(function Index() {
 		menuSelection={["/inventory/base"]}
 		icon={<BaseIcon/>}
 	>
-		<BaseInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
-			<SelectionProvider type={"multi"}>
-				<BaseInventoryList
-					header={() => <RowInline
-						extra={<BaseListToolbar/>}
-					>
-						<BaseFilter
-							toFilter={filter => ({base: filter})}
+		<Tabs size={"large"} destroyInactiveTabPane>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.base.favorite.tab"}/>}>
+				<BaseInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<BaseInventoryList
+							header={() => <RowInline
+								extra={<BaseListToolbar/>}
+							>
+								<BaseFilter
+									toFilter={filter => ({base: filter})}
+								/>
+							</RowInline>}
+							locale={{
+								emptyText: <Template
+									icon={<BaseIcon/>}
+									label={"lab.base.list.favorite.empty"}
+								/>,
+							}}
 						/>
-					</RowInline>}
-				/>
-			</SelectionProvider>
-		</BaseInventoryProviderControl>
+					</SelectionProvider>
+				</BaseInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"all"} tab={<TabInline icon={<BaseIcon/>} title={"inventory.base.all.tab"}/>}>
+				<BaseInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<BaseInventoryList
+							header={() => <RowInline
+								extra={<BaseListToolbar/>}
+							>
+								<BaseFilter
+									toFilter={filter => ({base: filter})}
+								/>
+							</RowInline>}
+						/>
+					</SelectionProvider>
+				</BaseInventoryProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</InventoryPage>;
 });

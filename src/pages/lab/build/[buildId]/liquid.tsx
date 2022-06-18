@@ -16,7 +16,7 @@ import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inli
 import {LiquidProviderControl, useLiquidCountQuery} from "@/sdk/api/lab/liquid/query";
 import {FireOutlined, LikeOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, QueryParamsProvider, TabInline, Template} from "@leight-core/client";
-import {Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
 	const liquidCountQuery = useLiquidCountQuery();
@@ -56,6 +56,7 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 			title={<AtomizerNameInline atomizer={build.atomizer}/>}
 			subTitle={<Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
 			span={22}
+			extra={<Divider/>}
 		>
 			<Tabs size={"large"}>
 				<Tabs.TabPane key={"recommended-unrated"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.liquid.recommended.unrated.tab"}/>}>

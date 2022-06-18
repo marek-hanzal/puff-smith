@@ -1,6 +1,8 @@
+import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
+import {AromaRatingButton} from "@/puff-smith/site/inventory/aroma/@module/button/AromaRatingButton";
 import {AromaListEmpty} from "@/puff-smith/site/inventory/aroma/@module/list/AromaListEmpty";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
@@ -21,11 +23,13 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 	>
 		{aromaInventory => <ListItem
 			key={aromaInventory.id}
+			extra={<AromaRatingButton aromaInventory={aromaInventory}/>}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={aromaInventory}/>
 					<AromaNameInline aroma={aromaInventory.aroma}/>
+					<CodeInline code={aromaInventory}/>
 				</Space>}
 				description={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<VgPgInline vgpg={aromaInventory.aroma}/>

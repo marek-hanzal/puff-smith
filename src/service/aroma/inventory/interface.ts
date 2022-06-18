@@ -16,6 +16,7 @@ export interface IAromaInventory {
 	aromaId: string;
 	transaction?: ITransaction | null;
 	transactionId?: string | null;
+	rating?: number | null;
 }
 
 export interface IAromaInventoryQuery extends IQuery<Prisma.AromaInventoryWhereInput & IWithFulltext, Prisma.AromaInventoryOrderByWithRelationInput> {

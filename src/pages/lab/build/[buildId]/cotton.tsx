@@ -10,6 +10,7 @@ import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildInde
 import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/CottonNameInline";
 import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
+import {Divider} from "antd";
 
 export default withLabLayout(function Cotton({build}: IBuildFetch) {
 	return <LabPage
@@ -47,6 +48,7 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 		<Template
 			title={<CottonNameInline cotton={build.cotton}/>}
 			span={22}
+			extra={<Divider/>}
 		>
 			<CottonView cotton={build.cotton}/>
 		</Template>

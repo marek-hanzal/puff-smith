@@ -1,6 +1,6 @@
 import Icon from "@ant-design/icons";
-import {Radio, Rate, Tooltip} from "antd";
-import {ComponentProps, FC, ReactNode} from "react";
+import {Rate, Tooltip} from "antd";
+import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {MdDeleteOutline, MdOutlineThumbsUpDown, MdThumbDownOffAlt, MdThumbUpOffAlt, MdVerified} from "react-icons/md";
 
@@ -12,14 +12,15 @@ const icons: Record<string, ReactNode> = {
 	"2": <Icon component={MdVerified}/>,
 };
 
-export interface ILikeInlineProps extends Partial<ComponentProps<typeof Radio["Group"]>> {
+export interface ILikeInlineProps {
 	tooltip?: string;
 	rating?: number | null;
 	isLoading: boolean;
+	disabled?: boolean;
 	onRating: (rating: number | null) => void;
 }
 
-export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, disabled, ...props}) => {
+export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, onRating, disabled}) => {
 	const {t} = useTranslation();
 
 	return <Tooltip title={tooltip ? t(tooltip) : undefined}>

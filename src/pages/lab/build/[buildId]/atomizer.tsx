@@ -10,6 +10,7 @@ import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildInde
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
+import {Divider} from "antd";
 
 export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 	return <LabPage
@@ -47,6 +48,7 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 		<Template
 			title={<AtomizerNameInline atomizer={build.atomizer}/>}
 			span={22}
+			extra={<Divider/>}
 		>
 			<AtomizerView atomizer={build.atomizer}/>
 		</Template>

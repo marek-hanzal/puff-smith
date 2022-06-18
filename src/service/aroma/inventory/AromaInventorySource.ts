@@ -87,7 +87,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 									},
 								},
 								transaction: true,
-							}
+							},
 						});
 						await MixtureInventoryAromaJob.async({
 							aromaId: $aroma.id,
@@ -97,6 +97,29 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					},
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.aromaInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						aroma: {
+							include: {
+								vendor: true,
+								AromaTaste: {
+									orderBy: {taste: {sort: "asc"}},
+									include: {
+										taste: true,
+									}
+								},
+							},
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

@@ -64,7 +64,7 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 									}
 								},
 								transaction: true,
-							}
+							},
 						});
 						await MixtureInventoryBaseJob.async({
 							baseId: $base.id,
@@ -74,6 +74,23 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 					},
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.baseInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						base: {
+							include: {
+								vendor: true,
+							}
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

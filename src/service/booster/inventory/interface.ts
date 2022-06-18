@@ -16,6 +16,7 @@ export interface IBoosterInventory {
 	boosterId: string;
 	transaction?: ITransaction | null;
 	transactionId?: string | null;
+	rating?: number | null;
 }
 
 export interface IBoosterInventoryQuery extends IQuery<Prisma.BoosterInventoryWhereInput & IWithFulltext, Prisma.BoosterInventoryOrderByWithRelationInput> {

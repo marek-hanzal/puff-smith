@@ -100,6 +100,29 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 					}),
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.cottonInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						cotton: {
+							include: {
+								vendor: true,
+								CottonDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									}
+								}
+							},
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

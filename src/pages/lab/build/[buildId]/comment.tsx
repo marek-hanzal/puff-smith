@@ -8,6 +8,7 @@ import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildN
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
 import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
+import {Divider} from "antd";
 
 export default withLabLayout(function Comment({build}: IBuildFetch) {
 	return <LabPage
@@ -47,6 +48,7 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 			title={"Not Yet!"}
 			subTitle={"To be continue..."}
 			span={22}
+			extra={<Divider/>}
 		/>
 	</LabPage>;
 });
