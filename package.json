@@ -71,16 +71,15 @@
 		"sharp": "^0.30.4",
 		"stream-chain": "^2.2.5",
 		"stream-json": "^1.7.4",
+		"ts-node": "^10.8.1",
 		"typescript": "^4.6.4",
+		"umzug": "^3.1.1",
 		"unique-objects": "^1.0.5",
 		"uuid": "^8.3.2",
 		"winston": "^3.7.2",
 		"winston-loki": "^6.0.5",
 		"xlsx": "^0.18.5",
-		"yaml": "^2.0.1",
-		"umzug": "^3.1.1",
-		"ts-node": "^10.8.1",
-		"tsconfig-paths": "^4.0.0"
+		"yaml": "^2.0.1"
 	},
 	"devDependencies": {
 		"@types/async-lock": "^1.1.5",

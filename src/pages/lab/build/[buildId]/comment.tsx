@@ -49,7 +49,8 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 			subTitle={"To be continue..."}
 			span={22}
 			extra={<Divider/>}
-		/>
+		>
+		</Template>
 	</LabPage>;
 });
 

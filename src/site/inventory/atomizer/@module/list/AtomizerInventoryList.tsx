@@ -9,10 +9,13 @@ import {ButtonBar, ButtonLink, ListItem, ListItemMeta, useOptionalSelectionConte
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
+export type IAtomizerInventoryListItems = "rating";
+
 export interface IAtomizerInventoryListProps extends Partial<IAtomizerInventoryListSourceProps> {
+	hidden?: IAtomizerInventoryListItems[];
 }
 
-export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
+export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = ({hidden = [], ...props}) => {
 	const optionalSelectionContext = useOptionalSelectionContext();
 	return <AtomizerInventoryListSource
 		locale={{
@@ -23,7 +26,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = props => {
 		{atomizerInventory => <ListItem
 			key={atomizerInventory.id}
 			extra={<ButtonBar align={"baseline"}>
-				<AtomizerRatingButton atomizerInventory={atomizerInventory}/>
+				{!hidden?.includes("rating") && <AtomizerRatingButton atomizerInventory={atomizerInventory}/>}
 				<ButtonLink
 					href={"/lab/build/create/atomizer/[atomizerId]"}
 					query={{atomizerId: atomizerInventory.atomizerId}}

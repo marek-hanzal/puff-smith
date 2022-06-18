@@ -17,7 +17,7 @@ import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonVie
 import {CreateDefaultForm} from "@/sdk/api/lab/build/create";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, Centered, DatePicker, FormItem, ListIcon, Submit, SwitchItem, TabInline, Template} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
-import {Col, InputNumber, message, Row, Tabs} from "antd";
+import {InputNumber, message, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
 import {useTranslation} from "react-i18next";
 
@@ -73,22 +73,9 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 			translation: "lab.build.create.build",
 		}}
 	>
-		<Row gutter={32}>
-			<Col span={8}>
-				<Tabs size={"large"}>
-					<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
-						<AtomizerView atomizer={atomizer}/>
-					</Tabs.TabPane>
-					<Tabs.TabPane key={"coil.preview"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.coil.preview.tab"}/>}>
-						<CoilView coil={coil}/>
-					</Tabs.TabPane>
-					<Tabs.TabPane key={"cotton.preview"} tab={<TabInline icon={<CottonIcon/>} title={"lab.build.cotton.preview.tab"}/>}>
-						<CottonView cotton={cotton}/>
-					</Tabs.TabPane>
-				</Tabs>
-			</Col>
-			<Col span={16}>
-				<Template span={10}>
+		<Tabs size={"large"}>
+			<Tabs.TabPane key={"build"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.tab"}/>}>
+				<Template>
 					<CreateDefaultForm
 						onSuccess={({navigate, response}) => {
 							message.success(t("lab.build.create.success", response));
@@ -122,8 +109,23 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 						</Centered>
 					</CreateDefaultForm>
 				</Template>
-			</Col>
-		</Row>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
+				<Template>
+					<AtomizerView atomizer={atomizer}/>
+				</Template>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"coil.preview"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.coil.preview.tab"}/>}>
+				<Template>
+					<CoilView coil={coil}/>
+				</Template>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"cotton.preview"} tab={<TabInline icon={<CottonIcon/>} title={"lab.build.cotton.preview.tab"}/>}>
+				<Template>
+					<CottonView cotton={cotton}/>
+				</Template>
+			</Tabs.TabPane>
+		</Tabs>
 	</LabPage>;
 });
 

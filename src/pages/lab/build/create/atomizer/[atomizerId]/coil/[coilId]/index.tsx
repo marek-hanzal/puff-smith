@@ -22,7 +22,7 @@ import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, StarOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
-import {Col, Row, Tabs} from "antd";
+import {Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
 
 export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & ICoilFetch) {
@@ -87,111 +87,103 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 			translation: "lab.build.cotton",
 		}}
 	>
-		<Row gutter={32}>
-			<Col span={6}>
-				<Tabs size={"large"}>
-					<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
-						<AtomizerView atomizer={atomizer}/>
-					</Tabs.TabPane>
-					<Tabs.TabPane key={"coil.preview"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.coil.preview.tab"}/>}>
-						<CoilView coil={coil}/>
-					</Tabs.TabPane>
-				</Tabs>
-			</Col>
-			<Col span={18}>
-				{cottonInventoryCountQuery.data === 0 && <CottonListEmpty/>}
-				{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={"large"}>
-					<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.cotton.recommended.tab"}/>}>
-						<CottonInventoryProviderControl
-							defaultSize={DEFAULT_LIST_SIZE}
-							defaultOrderBy={[
-								{cotton: {name: "asc"}},
-							] as any}
-							applyFilter={{
-								cotton: {
-									CottonDraw: {
-										some: {
-											drawId: {
-												in: atomizer.drawIds,
-											}
-										}
-									},
+		{cottonInventoryCountQuery.data === 0 && <CottonListEmpty/>}
+		{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={"large"}>
+			<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.cotton.recommended.tab"}/>}>
+				<CottonInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={[
+						{cotton: {name: "asc"}},
+					] as any}
+					applyFilter={{
+						cotton: {
+							CottonDraw: {
+								some: {
+									drawId: {
+										in: atomizer.drawIds,
+									}
 								}
-							}}
-						>
-							<CottonInventoryList
-								itemExtra={cotton => <ButtonLink
-									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
-									query={{
-										atomizerId: atomizer.id,
-										coilId: coil.id,
-										cottonId: cotton.id,
-									}}
-									icon={<CottonIcon/>}
-									label={"lab.build.cotton.build.button"}
-								/>}
-								locale={{
-									emptyText: <Template
-										icon={<CottonIcon/>}
-										label={"lab.build.cotton.list.empty"}
-									/>
-								}}
-							/>
-						</CottonInventoryProviderControl>
-					</Tabs.TabPane>
-					<Tabs.TabPane key={"cottons"} tab={<TabInline icon={<CottonIcon/>} title={"lab.build.atomizer.cotton.list.tab"}/>}>
-						<CottonInventoryProviderControl
-							defaultSize={DEFAULT_LIST_SIZE}
-							defaultOrderBy={[
-								{cotton: {name: "asc"}},
-							] as any}
-						>
-							<CottonInventoryList
-								itemExtra={cotton => <ButtonLink
-									href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
-									query={{
-										atomizerId: atomizer.id,
-										coilId: coil.id,
-										cottonId: cotton.id,
-									}}
-									icon={<CottonIcon/>}
-									label={"lab.build.cotton.build.button"}
-								/>}
-							/>
-						</CottonInventoryProviderControl>
-					</Tabs.TabPane>
-					<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
-						<BuildProviderControl
-							defaultSize={DEFAULT_LIST_SIZE}
-							defaultOrderBy={{
-								created: "desc",
-							}}
-							applyFilter={{
+							},
+						}
+					}}
+				>
+					<CottonInventoryList
+						itemExtra={cotton => <ButtonLink
+							href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
+							query={{
 								atomizerId: atomizer.id,
 								coilId: coil.id,
-								rating: {
-									gt: 0,
-								},
+								cottonId: cotton.id,
 							}}
-						>
-							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.coil.list.empty"}
-									/>,
-								}}
-								itemExtra={build => <BuildCreateLink
-									atomizer={build.atomizer}
-									coil={build.coil}
-									cotton={build.cotton}
-								/>}
+							icon={<CottonIcon/>}
+							label={"lab.build.cotton.build.button"}
+						/>}
+						locale={{
+							emptyText: <Template
+								icon={<CottonIcon/>}
+								label={"lab.build.cotton.list.empty"}
 							/>
-						</BuildProviderControl>
-					</Tabs.TabPane>
-				</Tabs>}
-			</Col>
-		</Row>
+						}}
+					/>
+				</CottonInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"cottons"} tab={<TabInline icon={<CottonIcon/>} title={"lab.build.atomizer.cotton.list.tab"}/>}>
+				<CottonInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={[
+						{cotton: {name: "asc"}},
+					] as any}
+				>
+					<CottonInventoryList
+						itemExtra={cotton => <ButtonLink
+							href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
+							query={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								cottonId: cotton.id,
+							}}
+							icon={<CottonIcon/>}
+							label={"lab.build.cotton.build.button"}
+						/>}
+					/>
+				</CottonInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
+				<BuildProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						created: "desc",
+					}}
+					applyFilter={{
+						atomizerId: atomizer.id,
+						coilId: coil.id,
+						rating: {
+							gt: 0,
+						},
+					}}
+				>
+					<BuildList
+						locale={{
+							emptyText: <Template
+								icon={<BuildIcon/>}
+								label={"lab.build.create.coil.list.empty"}
+							/>,
+						}}
+						itemExtra={build => <BuildCreateLink
+							atomizer={build.atomizer}
+							coil={build.coil}
+							cotton={build.cotton}
+						/>}
+					/>
+				</BuildProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
+				<AtomizerView atomizer={atomizer}/>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"coil.preview"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.coil.preview.tab"}/>}>
+				<CoilView coil={coil}/>
+			</Tabs.TabPane>
+		</Tabs>}
 	</LabPage>;
 });
 

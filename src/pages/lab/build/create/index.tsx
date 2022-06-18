@@ -66,6 +66,7 @@ export default withLabLayout(function Create() {
 					defaultSize={5}
 				>
 					<AtomizerInventoryList
+						hidden={["rating"]}
 						header={() => <RowInline>
 							<AtomizerFilter
 								toFilter={values => ({atomizer: values})}
