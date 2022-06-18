@@ -1,3 +1,5 @@
+import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
@@ -5,7 +7,7 @@ import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage"
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
-import {Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 	return <MarketPage
@@ -19,6 +21,27 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 		headerProps={{
 			footer: <AromaIndexMenu aroma={aroma}/>,
 		}}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<LabIcon/>}
+			/>
+			<BreadcrumbButton
+				href={"/market/aroma"}
+				label={"market.aroma.label"}
+			/>
+			<BreadcrumbButton
+				href={"/market/aroma/[aromaId]"}
+				query={{
+					aromaId: aroma.id,
+				}}
+				label={`${aroma.name} ${aroma.vendor.name}`}
+			/>
+			<BreadcrumbIcon
+				icon={<AromaIcon/>}
+				label={"market.aroma.comment.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<Template
 			icon={<SmileOutlined/>}

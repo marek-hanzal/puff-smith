@@ -1,3 +1,4 @@
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -14,7 +15,7 @@ import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/Aro
 import {MixtureJobButton} from "@/puff-smith/site/shared/mixture/@module/button/MixtureJobButton";
 import {MixtureFilter} from "@/puff-smith/site/shared/mixture/@module/filter/MixtureFilter";
 import {MixtureProviderControl} from "@/sdk/api/mixture/query";
-import {Template, useFilterContext} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template, useFilterContext} from "@leight-core/client";
 import {Col, Row, Space} from "antd";
 import {FC} from "react";
 
@@ -73,6 +74,27 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 		headerProps={{
 			footer: <AromaIndexMenu aroma={aroma}/>,
 		}}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<LabIcon/>}
+			/>
+			<BreadcrumbButton
+				href={"/market/aroma"}
+				label={"market.aroma.label"}
+			/>
+			<BreadcrumbButton
+				href={"/market/aroma/[aromaId]"}
+				query={{
+					aromaId: aroma.id,
+				}}
+				label={`${aroma.name} ${aroma.vendor.name}`}
+			/>
+			<BreadcrumbIcon
+				icon={<MixtureIcon/>}
+				label={"market.aroma.mixture.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
