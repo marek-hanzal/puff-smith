@@ -6,7 +6,9 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {CellInventoryList} from "@/puff-smith/site/inventory/cell/@module/list/CellInventoryList";
 import {CellListToolbar} from "@/puff-smith/site/inventory/cell/@module/list/CellListToolbar";
 import {CellInventoryProviderControl} from "@/sdk/api/inventory/cell/query";
-import {SelectionProvider} from "@leight-core/client";
+import {FireOutlined} from "@ant-design/icons";
+import {SelectionProvider, TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -14,16 +16,50 @@ export default withInventoryLayout(function Index() {
 		menuSelection={["/inventory/cell"]}
 		icon={<CellIcon/>}
 	>
-		<CellInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
-			<SelectionProvider type={"multi"}>
-				<CellInventoryList
-					header={() => <RowInline
-						extra={<CellListToolbar/>}
-					></RowInline>}
-				/>
-			</SelectionProvider>
-		</CellInventoryProviderControl>
+		<Tabs size={"large"} destroyInactiveTabPane>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.cell.favorite.tab"}/>}>
+				<CellInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<CellInventoryList
+							header={() => <RowInline
+								extra={<CellListToolbar/>}
+							></RowInline>}
+							locale={{
+								emptyText: <Template
+									icon={<CellIcon/>}
+									label={"lab.cell.list.favorite.empty"}
+								/>,
+							}}
+						/>
+					</SelectionProvider>
+				</CellInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"all"} tab={<TabInline icon={<CellIcon/>} title={"inventory.cell.all.tab"}/>}>
+				<CellInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<CellInventoryList
+							header={() => <RowInline
+								extra={<CellListToolbar/>}
+							></RowInline>}
+						/>
+					</SelectionProvider>
+				</CellInventoryProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</InventoryPage>;
 });

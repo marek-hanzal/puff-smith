@@ -33,7 +33,7 @@ export const useCottonQuery = createQueryHook<void, ISourceItem<ICottonInventory
 export const useCottonQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonApiLink]);
-};
+}
 
 export const toCottonLink = (queryParams?: ICottonQueryParams) => toLink(CottonApiLink, queryParams);
 export const useCottonLink = () => toCottonLink;

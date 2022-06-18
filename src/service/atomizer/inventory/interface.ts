@@ -16,6 +16,7 @@ export interface IAtomizerInventory {
 	atomizerId: string;
 	transaction?: ITransaction | null;
 	transactionId?: string | null;
+	rating?: number | null;
 }
 
 export interface IAtomizerInventoryQuery extends IQuery<Prisma.AtomizerInventoryWhereInput & IWithFulltext, Prisma.AtomizerInventoryOrderByWithRelationInput> {

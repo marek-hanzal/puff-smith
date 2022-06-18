@@ -16,6 +16,7 @@ export interface ICellInventory {
 	cellId: string;
 	transaction: ITransaction;
 	transactionId: string;
+	rating?: number | null;
 }
 
 export interface ICellInventoryQuery extends IQuery<Prisma.CellInventoryWhereInput & IWithFulltext, Prisma.CellInventoryOrderByWithRelationInput> {

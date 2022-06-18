@@ -17,6 +17,7 @@ export interface IWireInventory {
 	wireId: string;
 	transaction?: ITransaction | null;
 	transactionId?: string | null;
+	rating?: number | null;
 }
 
 export interface IWireInventoryQuery extends IQuery<Prisma.WireInventoryWhereInput & IWithFulltext, Prisma.WireInventoryOrderByWithRelationInput> {

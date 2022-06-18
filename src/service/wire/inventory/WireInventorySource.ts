@@ -96,6 +96,38 @@ export const WireInventorySource = (): IWireInventorySource => {
 					},
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.wireInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						wire: {
+							include: {
+								vendor: true,
+								WireDraw: {
+									orderBy: {draw: {sort: "asc"}},
+									include: {
+										draw: true,
+									},
+								},
+								WireFiber: {
+									include: {
+										fiber: {
+											include: {
+												material: true,
+											}
+										}
+									}
+								}
+							},
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

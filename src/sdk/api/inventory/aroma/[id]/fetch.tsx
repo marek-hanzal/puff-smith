@@ -33,7 +33,7 @@ export const useAromaQuery = createQueryHook<void, ISourceItem<IAromaInventorySo
 export const useAromaQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaApiLink]);
-};
+}
 
 export const toAromaLink = (queryParams?: IAromaQueryParams) => toLink(AromaApiLink, queryParams);
 export const useAromaLink = () => toAromaLink;

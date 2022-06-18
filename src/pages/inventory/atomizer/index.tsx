@@ -7,7 +7,9 @@ import {AtomizerFilter} from "@/puff-smith/site/inventory/atomizer/@module/filte
 import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerInventoryList";
 import {AtomizerListToolbar} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerListToolbar";
 import {AtomizerInventoryProviderControl} from "@/sdk/api/inventory/atomizer/query";
-import {SelectionProvider} from "@leight-core/client";
+import {FireOutlined} from "@ant-design/icons";
+import {SelectionProvider, TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -15,20 +17,58 @@ export default withInventoryLayout(function Index() {
 		menuSelection={["/inventory/atomizer"]}
 		icon={<AtomizerIcon/>}
 	>
-		<AtomizerInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
-			<SelectionProvider type={"multi"}>
-				<AtomizerInventoryList
-					header={() => <RowInline
-						extra={<AtomizerListToolbar/>}
-					>
-						<AtomizerFilter
-							toFilter={values => ({atomizer: values})}
+		<Tabs size={"large"} destroyInactiveTabPane>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.atomizer.favorite.tab"}/>}>
+				<AtomizerInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<AtomizerInventoryList
+							header={() => <RowInline
+								extra={<AtomizerListToolbar/>}
+							>
+								<AtomizerFilter
+									toFilter={values => ({atomizer: values})}
+								/>
+							</RowInline>}
+							locale={{
+								emptyText: <Template
+									icon={<AtomizerIcon/>}
+									label={"lab.atomizer.list.favorite.empty"}
+								/>,
+							}}
 						/>
-					</RowInline>}
-				/>
-			</SelectionProvider>
-		</AtomizerInventoryProviderControl>
+					</SelectionProvider>
+				</AtomizerInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"all"} tab={<TabInline icon={<AtomizerIcon/>} title={"inventory.atomizer.all.tab"}/>}>
+				<AtomizerInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<AtomizerInventoryList
+							header={() => <RowInline
+								extra={<AtomizerListToolbar/>}
+							>
+								<AtomizerFilter
+									toFilter={values => ({atomizer: values})}
+								/>
+							</RowInline>}
+						/>
+					</SelectionProvider>
+				</AtomizerInventoryProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</InventoryPage>;
 });

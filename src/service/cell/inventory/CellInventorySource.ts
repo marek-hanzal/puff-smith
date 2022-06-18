@@ -64,10 +64,28 @@ export const CellInventorySource = (): ICellInventorySource => {
 								}
 							},
 							transaction: true,
-						}
+						},
 					}),
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.cellInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						cell: {
+							include: {
+								vendor: true,
+								type: true,
+							}
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

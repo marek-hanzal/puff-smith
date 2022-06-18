@@ -33,7 +33,7 @@ export const useBaseQuery = createQueryHook<void, ISourceItem<IBaseInventorySour
 export const useBaseQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseApiLink]);
-};
+}
 
 export const toBaseLink = (queryParams?: IBaseQueryParams) => toLink(BaseApiLink, queryParams);
 export const useBaseLink = () => toBaseLink;

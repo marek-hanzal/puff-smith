@@ -6,7 +6,9 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {ModInventoryList} from "@/puff-smith/site/inventory/mod/@module/list/ModInventoryList";
 import {ModListToolbar} from "@/puff-smith/site/inventory/mod/@module/list/ModListToolbar";
 import {ModInventoryProviderControl} from "@/sdk/api/inventory/mod/query";
-import {SelectionProvider} from "@leight-core/client";
+import {FireOutlined} from "@ant-design/icons";
+import {SelectionProvider, TabInline, Template} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
 	return <InventoryPage
@@ -14,17 +16,53 @@ export default withInventoryLayout(function Index() {
 		menuSelection={["/inventory/mod"]}
 		icon={<ModIcon/>}
 	>
-		<ModInventoryProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
-			<SelectionProvider type={"multi"}>
-				<ModInventoryList
-					header={() => <RowInline
-						extra={<ModListToolbar/>}
-					>
-					</RowInline>}
-				/>
-			</SelectionProvider>
-		</ModInventoryProviderControl>
+		<Tabs size={"large"} destroyInactiveTabPane>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.mod.favorite.tab"}/>}>
+				<ModInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<ModInventoryList
+							header={() => <RowInline
+								extra={<ModListToolbar/>}
+							>
+							</RowInline>}
+							locale={{
+								emptyText: <Template
+									icon={<ModIcon/>}
+									label={"lab.mod.list.favorite.empty"}
+								/>,
+							}}
+						/>
+					</SelectionProvider>
+				</ModInventoryProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"all"} tab={<TabInline icon={<ModIcon/>} title={"inventory.mod.all.tab"}/>}>
+				<ModInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						rating: "desc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<ModInventoryList
+							header={() => <RowInline
+								extra={<ModListToolbar/>}
+							>
+							</RowInline>}
+						/>
+					</SelectionProvider>
+				</ModInventoryProviderControl>
+
+			</Tabs.TabPane>
+		</Tabs>
 	</InventoryPage>;
 });

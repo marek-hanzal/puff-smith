@@ -33,7 +33,7 @@ export const useBoosterQuery = createQueryHook<void, ISourceItem<IBoosterInvento
 export const useBoosterQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterApiLink]);
-};
+}
 
 export const toBoosterLink = (queryParams?: IBoosterQueryParams) => toLink(BoosterApiLink, queryParams);
 export const useBoosterLink = () => toBoosterLink;

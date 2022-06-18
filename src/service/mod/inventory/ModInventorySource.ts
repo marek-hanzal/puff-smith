@@ -72,10 +72,32 @@ export const ModInventorySource = (): IModInventorySource => {
 								},
 							},
 							transaction: true,
-						}
+						},
 					}),
 				});
 			}),
+			patch: async patch => {
+				return source.prisma.modInventory.update({
+					where: {id: patch.id},
+					data: {
+						...patch,
+						code: patch.code || undefined,
+					},
+					include: {
+						mod: {
+							include: {
+								vendor: true,
+								ModCell: {
+									include: {
+										cell: true,
+									}
+								},
+							},
+						},
+						transaction: true,
+					},
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

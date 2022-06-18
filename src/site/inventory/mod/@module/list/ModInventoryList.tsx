@@ -1,5 +1,6 @@
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
+import {ModRatingButton} from "@/puff-smith/site/inventory/mod/@module/button/ModRatingButton";
 import {ModListEmpty} from "@/puff-smith/site/inventory/mod/@module/list/ModListEmpty";
 import {ModNameInline} from "@/puff-smith/site/shared/mod/@module/inline/ModNameInline";
 import {IModInventoryListSourceProps, ModInventoryListSource} from "@/sdk/api/inventory/mod/query";
@@ -17,7 +18,10 @@ export const ModInventoryList: FC<IModInventoryListProps> = props => {
 		}}
 		{...props}
 	>
-		{modInventory => <ListItem key={modInventory.id}>
+		{modInventory => <ListItem
+			key={modInventory.id}
+			extra={<ModRatingButton modInventory={modInventory}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={modInventory}/>
