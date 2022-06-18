@@ -19,5 +19,5 @@ export const Tags: FC<ITagsProps> = ({tags, translation, color = "cyan"}) => {
 		>
 			{translation ? t(`${translation}.${tag.code}`) : tag.code}
 		</Tag>)}
-	</span> : null;
+	</span> : (translation ? t(`${translation}.empty`) : null);
 };

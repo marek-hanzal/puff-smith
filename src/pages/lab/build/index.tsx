@@ -7,7 +7,7 @@ import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {BuildListInactiveEmpty} from "@/puff-smith/site/lab/build/@module/list/BuildListInactiveEmpty";
 import {BuildListToolbar} from "@/puff-smith/site/lab/build/@module/list/BuildListToolbar";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
-import Icon from "@ant-design/icons";
+import Icon, {FireOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, SelectionProvider, TabInline} from "@leight-core/client";
 import {Tabs} from "antd";
 import {BsArchive} from "react-icons/bs";
@@ -49,6 +49,22 @@ export default withLabLayout(function Index() {
 						}}
 						applyFilter={{
 							active: true,
+						}}
+					>
+						<BuildList/>
+					</BuildProviderControl>
+				</Tabs.TabPane>
+				<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.favorite.tab"}/>}>
+					<BuildProviderControl
+						defaultSize={DEFAULT_LIST_SIZE}
+						defaultOrderBy={[
+							{active: "desc"},
+							{rating: "desc"},
+						] as any}
+						applyFilter={{
+							rating: {
+								gt: 0,
+							}
 						}}
 					>
 						<BuildList/>

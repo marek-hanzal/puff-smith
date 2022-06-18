@@ -1,9 +1,12 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {Amps} from "@/puff-smith/component/inline/Amps";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
+import {CoilWraps} from "@/puff-smith/component/inline/CoilWraps";
 import {LocalDate} from "@/puff-smith/component/inline/LocalDate";
 import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {SizeMm} from "@/puff-smith/component/inline/SizeMm";
 import {Watt} from "@/puff-smith/component/inline/Watt";
 import {Tags} from "@/puff-smith/component/Tags";
 import {IBuild} from "@/puff-smith/service/build/interface";
@@ -54,11 +57,18 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 					<Amps amps={build.drain} tooltip={"lab.build.amps.tooltip"}/>
 					<LocalDate date={build.created}/>
 				</Space>}
-				description={<Space split={<Divider type={"vertical"}/>} size={0}>
-					<CottonNameInline cotton={build.cotton}/>
-					<WireNameInline wire={build.coil.wire}/>
-					<WireFiberInline wire={build.coil.wire}/>
-					{build.atomizer.draws.length > 0 && <Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
+				description={<Space direction={"vertical"}>
+					<Space split={<Divider type={"vertical"}/>} size={0}>
+						<CottonNameInline cotton={build.cotton}/>
+						<WireNameInline wire={build.coil.wire}/>
+						<WireFiberInline wire={build.coil.wire}/>
+						{build.atomizer.draws.length > 0 && <Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
+					</Space>
+					<Space split={<Divider type={"vertical"}/>} size={0}>
+						<CoilWraps wraps={build.coil.wraps}/>
+						<CoilSize size={build.coil.size}/>
+						<SizeMm size={build.coil.wire.mm}/>
+					</Space>
 				</Space>}
 			/>
 		</ListItem>}
