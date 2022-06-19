@@ -69,6 +69,8 @@ model User {
   Coil              Coil[]
   Wire              Wire[]
   Fiber             Fiber[]
+  UserCertificate   UserCertificate[]
+  UserLicense       UserLicense[]
 }
 
 model VerificationToken {
@@ -82,11 +84,12 @@ model VerificationToken {
 // Leight Core Stuff
 
 model Token {
-  id    String    @id @default(cuid())
-  name  String    @unique
-  until DateTime?
+  id   String @id @default(cuid())
+  name String @unique
 
-  UserToken UserToken[]
+  UserToken        UserToken[]
+  CertificateToken CertificateToken[]
+  LicenseToken     LicenseToken[]
 }
 
 model UserToken {
@@ -880,4 +883,78 @@ model Fiber {
   WireFiber WireFiber[]
 
   @@unique([ga, materialId])
+}
+
+// Certificate is kind of grouped ACL tokens tokens; it's the highest possible thing a user can acquire
+// In general - it gives permanent rights (tokens) in opposite to a License which could be temporary
+model Certificate {
+  id   String @id @default(cuid())
+  // name goes through translation
+  name String @unique
+  // code as usueal
+  code String @unique
+  // interesting part: certificate could be bought but when NULL, it should not be available for buy
+  cost Float?
+
+  CertificateToken CertificateToken[]
+  UserCertificate  UserCertificate[]
+}
+
+model CertificateToken {
+  id            String      @id @default(cuid())
+  certificateId String
+  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+  tokenId       String
+  token         Token       @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  @@unique([certificateId, tokenId])
+}
+
+model UserCertificate {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  certificateId String
+  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, certificateId])
+}
+
+// License is basically the same as Certificate, but for "Common humans"; acquire licence could be quite common
+// as there are only for short time.
+model License {
+  id       String @id @default(cuid())
+  name     String @unique
+  code     String @unique
+  // if the cost is available, License could be bought on the Market
+  cost     Float?
+  // if provided, License could be renewed (on an user action)
+  renew    Float?
+  // if provided, automatically creates licence with duration (from time it's bought + "duration" days)
+  duration Int?
+
+  LicenseToken LicenseToken[]
+  UserLicense  UserLicense[]
+}
+
+model LicenseToken {
+  id        String  @id @default(cuid())
+  licenseId String
+  license   License @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  tokenId   String
+  token     Token   @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  @@unique([licenseId, tokenId])
+}
+
+model UserLicense {
+  id        String    @id @default(cuid())
+  from      DateTime?
+  to        DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseId String
+  license   License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, licenseId])
 }
