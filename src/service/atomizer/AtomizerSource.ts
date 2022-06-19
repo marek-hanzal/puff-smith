@@ -3,6 +3,7 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {ClientError} from "@leight-core/api";
 import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 import {boolean} from "boolean";
@@ -40,6 +41,16 @@ export const AtomizerSource = (): IAtomizerSource => {
 				rejectOnNotFound: true,
 			}),
 			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, withInventory = false, ...atomizer}) => {
+				source.user.checkAny([
+					"*",
+					"site.root",
+					"site.market.atomizer.create",
+				]);
+				const $canUpdate = source.user.hasAny([
+					"*",
+					"site.root",
+					"site.market.atomizer.patch",
+				]);
 				const $create = async () => {
 					const create = {
 						...atomizer,
@@ -93,6 +104,9 @@ export const AtomizerSource = (): IAtomizerSource => {
 						});
 					} catch (e) {
 						return onUnique(e, async () => {
+							if (!$canUpdate) {
+								throw new ClientError("Atomizer already exists.", 409);
+							}
 							const $atomizer = (await source.prisma.atomizer.findFirst({
 								where: {
 									OR: [

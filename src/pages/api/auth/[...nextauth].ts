@@ -1,6 +1,6 @@
 import prismaClient from "@/puff-smith/service/side-effect/prisma";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
-import {Logger} from "@leight-core/server";
+import {Logger, User} from "@leight-core/server";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
@@ -47,8 +47,7 @@ export default NextAuth({
 			try {
 				logger.debug("Resolving JWT token", {isNewUser});
 				if (token?.sub) {
-					const userService = UserSource();
-					userService.withUserId(token.sub);
+					const userService = UserSource().withUser(User(token.sub));
 					logger.debug("Token found with sub");
 					const user = await userService.get(token.sub);
 					if (isNewUser) {

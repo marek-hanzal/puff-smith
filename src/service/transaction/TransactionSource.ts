@@ -1,10 +1,12 @@
 import {PriceSource} from "@/puff-smith/service/price/PriceSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITransactionSource} from "@/puff-smith/service/transaction/interface";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const TransactionSource = (): ITransactionSource => {
+	const userSource = singletonOf(() => UserSource());
 	const priceSource = singletonOf(() => PriceSource());
 
 	const source: ITransactionSource = Source<ITransactionSource>({
@@ -44,7 +46,7 @@ export const TransactionSource = (): ITransactionSource => {
 			}
 		}),
 		handleTransaction: async ({userId, cost, callback, note}) => {
-			const transactionService = TransactionSource().withUserId(userId);
+			const transactionService = TransactionSource().withUser(await userSource().asUser(userId));
 			const transaction = await transactionService.create({
 				amount: -1 * (cost || 0),
 				note,

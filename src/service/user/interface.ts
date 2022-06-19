@@ -1,6 +1,6 @@
 import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
 import {IWithUserToken} from "@/puff-smith/service/user/token/interface";
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IUser as ICoolUser} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -35,4 +35,6 @@ export interface IUserSource extends ISource<undefined, IUserEntity<IWithUserTok
 	createToken(token: string): Promise<void>;
 
 	whoami(): Promise<IUser>;
+
+	asUser(userId?: string | null): Promise<ICoolUser>;
 }

@@ -17,6 +17,7 @@ import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/Mix
 import {MixtureJobSource} from "@/puff-smith/service/mixture/job/MixtureJobSource";
 import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {IJobHandlerRequest, IJobProcessor} from "@leight-core/api";
 import AsyncLock from "async-lock";
 import PQueue from "p-queue";
@@ -64,7 +65,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 		 * */
 	}))._max.nicotine || 0) - 2;
 	await jobProgress.setTotal((maxNicotine + 1) * await prisma.booster.count() * await prisma.base.count());
-	const mixtureSource = MixtureJobSource().withUserId(userId);
+	const mixtureSource = MixtureJobSource().withUser(await UserSource().asUser(userId));
 
 	const createMixture = async (aromaId: string, baseId: string, boosterId: string, info: IMixtureInfo) => {
 		if (info.result.error) {
@@ -166,7 +167,7 @@ const mixtureInventoryUpdate = async <T, U>(where: T, create: U, {jobProgress, u
 		}), 50);
 	}
 
-	await MixtureInventorySource().withUserId(userId).clearCache();
+	await MixtureInventorySource().withUser(await UserSource().asUser(userId)).clearCache();
 };
 
 export const MixtureInventoryAromaJob: IJobProcessor<IMixtureInventoryAromaJobParams> = jobService.processor(MIXTURE_INVENTORY_AROMA_JOB, async params => {
@@ -416,7 +417,7 @@ export const MixtureUserJob: IJobProcessor<IMixtureUserJobParams> = jobService.p
 				});
 			}
 		}
-		await MixtureInventorySource().withUserId(userId).clearCache();
+		await MixtureInventorySource().withUser(await UserSource().asUser(userId)).clearCache();
 	});
 }, options => new PQueue({
 	...options,

@@ -2,6 +2,7 @@ import {COIL_JOB, COILS_JOB, ICoilJobParams, ICoilsJobParams} from "@/puff-smith
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {IJobProcessor} from "@leight-core/api";
 import PQueue from "p-queue";
 
@@ -40,8 +41,8 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_
 	});
 	logger.debug(`Updating coils of wire [${wire.name}].`);
 	await jobProgress.setTotal(96);
-	const coilSource = CoilSource().withUserId(userId);
 	for (let wraps = 3; wraps <= 16; wraps++) {
+		const coilSource = CoilSource().withUser(await UserSource().asUser(userId));
 		for (let size = 0.15; size <= 0.5; size += 0.05) {
 			await progress(async () => await coilSource.create({
 				wraps,

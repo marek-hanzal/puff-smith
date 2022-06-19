@@ -1,12 +1,15 @@
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {IJobProcessor, IJobStatus} from "@leight-core/api";
 import {Logger, pageOf, Source} from "@leight-core/server";
-import {toPercent} from "@leight-core/utils";
+import {singletonOf, toPercent} from "@leight-core/utils";
 import delay from "delay";
 import PQueue from "p-queue";
 
 export const JobSource = (): IJobSource => {
+	const userSource = singletonOf(() => UserSource());
+
 	const source: IJobSource = Source<IJobSource>({
 		name: "job",
 		prisma,
@@ -122,8 +125,7 @@ export const JobSource = (): IJobSource => {
 			});
 			const async: IJobProcessor["async"] = async (params, userId, queue) => {
 				let logger = Logger(name);
-				const jobSource = JobSource();
-				jobSource.withUserId(userId);
+				const jobSource = JobSource().withUser(await userSource().asUser(userId));
 				const job = await jobSource.mapper.map(await jobSource.create({
 					userId,
 					name,

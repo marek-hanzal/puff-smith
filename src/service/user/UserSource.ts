@@ -4,7 +4,7 @@ import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
-import {onUnique, pageOf, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source, User} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const UserSource = (): IUserSource => {
@@ -102,6 +102,7 @@ export const UserSource = (): IUserSource => {
 			}
 		},
 		whoami: async () => source.mapper.map(await source.get(source.user.required())),
+		asUser: async userId => User(userId, userId ? (await source.get(userId)).UserToken.map(({token}) => token.name) : []),
 	});
 
 	return source;
