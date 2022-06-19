@@ -1,8 +1,7 @@
-import {CommentDeleteButton} from "@/puff-smith/site/shared/comment/@module/button/CommentDeleteButton";
+import {CommentItem} from "@/puff-smith/site/shared/comment/@module/component/CommentItem";
 import {AromaInventoryCommentListSource, IAromaInventoryCommentListSourceProps, useAromaInventoryCommentCountQueryInvalidate, useAromaInventoryCommentQueryInvalidate} from "@/sdk/api/inventory/aroma/comment/query";
 import {CommentOutlined} from "@ant-design/icons";
-import {ListItem, Template, toLocalDateTime} from "@leight-core/client";
-import {Comment} from "antd";
+import {Template} from "@leight-core/client";
 import {FC} from "react";
 
 export interface ICommentListProps extends Partial<IAromaInventoryCommentListSourceProps> {
@@ -20,23 +19,12 @@ export const CommentList: FC<ICommentListProps> = props => {
 		}}
 		{...props}
 	>
-		{buildComment => <ListItem>
-			<Comment
-				content={<div style={{whiteSpace: "pre-wrap"}}>
-					{buildComment.comment.comment}
-				</div>}
-				datetime={toLocalDateTime(buildComment.comment.created)}
-				actions={[
-					<CommentDeleteButton
-						key={buildComment.id}
-						comment={buildComment.comment}
-						onSuccess={async () => {
-							await aromaInventoryCommentQueryInvalidate();
-							await aromaInventoryCommentCountQueryInvalidate();
-						}}
-					/>,
-				]}
-			/>
-		</ListItem>}
+		{buildComment => <CommentItem
+			comment={buildComment}
+			onDelete={async () => {
+				await aromaInventoryCommentQueryInvalidate();
+				await aromaInventoryCommentCountQueryInvalidate();
+			}}
+		/>}
 	</AromaInventoryCommentListSource>;
 };
