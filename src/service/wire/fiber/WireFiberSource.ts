@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const WireFiberSource = (): IWireFiberSource => {
-	const fiberSource = singletonOf(() => FiberSource());
+	const fiberSource = singletonOf(() => FiberSource().ofSource(source));
 
 	const source: IWireFiberSource = Source<IWireFiberSource>({
 		name: "wire.fiber",

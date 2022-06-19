@@ -7,8 +7,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const WireInventorySource = (): IWireInventorySource => {
-	const wireSource = singletonOf(() => WireSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const wireSource = singletonOf(() => WireSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IWireInventorySource = Source<IWireInventorySource>({
@@ -56,8 +56,8 @@ export const WireInventorySource = (): IWireInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, ...wireInventory}) => prisma.$transaction(async prisma => {
-				const wire = await WireSource().withPrisma(prisma).get(wireInventory.wireId);
-				return TransactionSource().withPrisma(prisma).handleTransaction({
+				const wire = await WireSource().ofSource(source).withPrisma(prisma).get(wireInventory.wireId);
+				return TransactionSource().ofSource(source).withPrisma(prisma).handleTransaction({
 					userId: source.user.required(),
 					cost: wire.cost,
 					note: `Purchase of wire [${wire.vendor.name} ${wire.name}]`,

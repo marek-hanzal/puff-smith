@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BaseVendorSource = (): IBaseVendorSource => {
-	const vendorSource = singletonOf(() => VendorSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 
 	const source: IBaseVendorSource = Source<IBaseVendorSource>({
 		name: "base.inventory.vendor",

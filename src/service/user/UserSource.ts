@@ -8,10 +8,10 @@ import {onUnique, pageOf, Source, User} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const UserSource = (): IUserSource => {
-	const tokenSource = singletonOf(() => TokenSource());
-	const userTokenSource = singletonOf(() => UserTokenSource());
-	const transactionSource = singletonOf(() => TransactionSource());
-	const priceSource = singletonOf(() => PriceSource());
+	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
+	const userTokenSource = singletonOf(() => UserTokenSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
+	const priceSource = singletonOf(() => PriceSource().ofSource(source));
 
 	const source: IUserSource = Source<IUserSource>({
 		name: "user",

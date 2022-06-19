@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidAromaSource = (): ILiquidAromaSource => {
-	const aromaSource = singletonOf(() => AromaSource());
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
 
 	const source: ILiquidAromaSource = Source<ILiquidAromaSource>({
 		name: "liquid.aroma",

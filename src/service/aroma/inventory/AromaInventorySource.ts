@@ -11,11 +11,11 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaInventorySource = (): IAromaInventorySource => {
-	const aromaSource = singletonOf(() => AromaSource());
-	const transactionSource = singletonOf(() => TransactionSource());
-	const mixtureAromaSource = singletonOf(() => MixtureAromaSource());
-	const aromaMarketSource = singletonOf(() => AromaMarketSource());
-	const mixtureInventorySource = singletonOf(() => MixtureInventorySource());
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
+	const mixtureAromaSource = singletonOf(() => MixtureAromaSource().ofSource(source));
+	const aromaMarketSource = singletonOf(() => AromaMarketSource().ofSource(source));
+	const mixtureInventorySource = singletonOf(() => MixtureInventorySource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
@@ -77,8 +77,8 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
-				const transactionSource = TransactionSource().withPrisma(prisma);
-				const $aroma = await AromaSource().withPrisma(prisma).get(aroma.aromaId);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
+				const $aroma = await AromaSource().ofSource(source).withPrisma(prisma).get(aroma.aromaId);
 				const userId = source.user.required();
 				return transactionSource.handleTransaction({
 					userId,

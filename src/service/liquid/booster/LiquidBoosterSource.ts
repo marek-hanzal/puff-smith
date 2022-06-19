@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidBoosterSource = (): ILiquidBoosterSource => {
-	const boosterSource = singletonOf(() => BoosterSource());
+	const boosterSource = singletonOf(() => BoosterSource().ofSource(source));
 
 	const source: ILiquidBoosterSource = Source<ILiquidBoosterSource>({
 		name: "liquid.booster",

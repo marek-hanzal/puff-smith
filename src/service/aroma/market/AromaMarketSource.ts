@@ -6,7 +6,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaMarketSource = (): IAromaMarketSource => {
-	const aromaSource = singletonOf(() => AromaSource());
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
 
 	const source: IAromaMarketSource = Source<IAromaMarketSource>({
 		name: "aroma.market",

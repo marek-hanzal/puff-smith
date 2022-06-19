@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const BuildLiquidSource = (buildId: string): IBuildLiquidSource => {
-	const liquidSource = singletonOf(() => LiquidSource());
+	const liquidSource = singletonOf(() => LiquidSource().ofSource(source));
 
 	const source: IBuildLiquidSource = Source<IBuildLiquidSource>({
 		name: "build.liquid",

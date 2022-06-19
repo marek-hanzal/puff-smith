@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const ModCellSource = (): IModCellSource => {
-	const tagSource = singletonOf(() => TagSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 
 	const source: IModCellSource = Source<IModCellSource>({
 		name: "mod.cell",

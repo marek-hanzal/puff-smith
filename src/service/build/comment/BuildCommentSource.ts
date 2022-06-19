@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BuildCommentSource = (): IBuildCommentSource => {
-	const commentSource = singletonOf(() => CommentSource());
+	const commentSource = singletonOf(() => CommentSource().ofSource(source));
 
 	const source: IBuildCommentSource = Source<IBuildCommentSource>({
 		name: "build.comment",

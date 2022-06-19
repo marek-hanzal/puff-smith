@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CellMarketSource = (): ICellMarketSource => {
-	const cellSource = singletonOf(() => CellSource());
+	const cellSource = singletonOf(() => CellSource().ofSource(source));
 
 	const source: ICellMarketSource = Source<ICellMarketSource>({
 		name: "cell.market",

@@ -10,10 +10,10 @@ import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaSource = (): IAromaSource => {
-	const tagSource = singletonOf(() => TagSource());
-	const vendorSource = singletonOf(() => VendorSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
+	const aromaMarketSource = singletonOf(() => AromaMarketSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
-	const aromaMarketSource = singletonOf(() => AromaMarketSource());
 
 	const source: IAromaSource = Source<IAromaSource>({
 		name: "aroma",
@@ -24,6 +24,9 @@ export const AromaSource = (): IAromaSource => {
 			tastes: await tagSource().mapper.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 			tasteIds: aroma.AromaTaste.map(({taste}) => taste.id),
 		}) : null,
+		acl: {
+			lock: true,
+		},
 		source: {
 			clearCache: async () => {
 				await aromaMarketSource().clearCache();
@@ -92,11 +95,6 @@ export const AromaSource = (): IAromaSource => {
 				...pageOf(query),
 			}),
 			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, withInventory = false, ...aroma}) => {
-				source.user.checkAny([
-					"*",
-					"site.root",
-					"aroma.create",
-				]);
 				const $canUpdate = source.user.hasAny([
 					"*",
 					"site.root",

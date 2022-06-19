@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const CellVendorSource = (): ICellVendorSource => {
-	const vendorSource = singletonOf(() => VendorSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 
 	const source: ICellVendorSource = Source<ICellVendorSource>({
 		name: "cell.vendor",

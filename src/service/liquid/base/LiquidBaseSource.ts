@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidBaseSource = (): ILiquidBaseSource => {
-	const baseSource = singletonOf(() => BaseSource());
+	const baseSource = singletonOf(() => BaseSource().ofSource(source));
 
 	const source: ILiquidBaseSource = Source<ILiquidBaseSource>({
 		name: "liquid.base",

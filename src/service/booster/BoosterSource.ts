@@ -6,8 +6,8 @@ import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BoosterSource = (): IBoosterSource => {
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
-	const vendorSource = singletonOf(() => VendorSource());
 
 	const source: IBoosterSource = Source<IBoosterSource>({
 		name: "booster",

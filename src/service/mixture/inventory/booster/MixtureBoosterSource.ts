@@ -6,7 +6,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const MixtureBoosterSource = (): IMixtureBoosterSource => {
-	const boosterSource = singletonOf(() => BoosterSource());
+	const boosterSource = singletonOf(() => BoosterSource().ofSource(source));
 
 	const source: IMixtureBoosterSource = Source<IMixtureBoosterSource>({
 		name: "mixture.inventory.booster",

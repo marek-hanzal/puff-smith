@@ -7,8 +7,8 @@ import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const CoilSource = (): ICoilSource => {
-	const wireSource = singletonOf(() => WireSource());
-	const tagSource = singletonOf(() => TagSource());
+	const wireSource = singletonOf(() => WireSource().ofSource(source));
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ICoilSource = Source<ICoilSource>({

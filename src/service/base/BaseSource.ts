@@ -6,8 +6,8 @@ import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const BaseSource = (): IBaseSource => {
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
-	const vendorSource = singletonOf(() => VendorSource());
 
 	const source: IBaseSource = Source<IBaseSource>({
 		name: "base",

@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const WireMarketSource = (): IWireMarketSource => {
-	const wireSource = singletonOf(() => WireSource());
+	const wireSource = singletonOf(() => WireSource().ofSource(source));
 
 	const source: IWireMarketSource = Source<IWireMarketSource>({
 		name: "wire.market",

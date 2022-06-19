@@ -8,8 +8,8 @@ import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const MixtureJobSource = (): IMixtureJobSource => {
-	const tagSource = singletonOf(() => TagSource());
-	const aromaSource = singletonOf(() => AromaSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IMixtureJobSource = Source<IMixtureJobSource>({

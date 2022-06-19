@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BoosterMarketSource = (): IBoosterMarketSource => {
-	const boosterSource = singletonOf(() => BoosterSource());
+	const boosterSource = singletonOf(() => BoosterSource().ofSource(source));
 
 	const source: IBoosterMarketSource = Source<IBoosterMarketSource>({
 		name: "booster.market",

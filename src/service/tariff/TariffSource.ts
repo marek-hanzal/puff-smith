@@ -8,8 +8,8 @@ import {singletonOf} from "@leight-core/utils";
 import {Price} from "@prisma/client";
 
 export const TariffSource = (): ITariffSource => {
-	const priceSource = singletonOf(() => PriceSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const priceSource = singletonOf(() => PriceSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ITariffSource = Source<ITariffSource>({

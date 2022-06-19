@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const MixtureMarketSource = (): IMixtureMarketSource => {
-	const mixtureSource = singletonOf(() => MixtureSource());
+	const mixtureSource = singletonOf(() => MixtureSource().ofSource(source));
 
 	const source: IMixtureMarketSource = Source<IMixtureMarketSource>({
 		name: "mixture.market",

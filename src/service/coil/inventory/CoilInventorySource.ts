@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CoilInventorySource = (): ICoilInventorySource => {
-	const coilSource = singletonOf(() => CoilSource());
+	const coilSource = singletonOf(() => CoilSource().ofSource(source));
 
 	const source: ICoilInventorySource = Source<ICoilInventorySource>({
 		name: "coil.inventory",
@@ -109,57 +109,6 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 					...pageOf(query),
 				});
 			},
-			// create: async ({...create}) => {
-			// 	const userId = source.user.required();
-			// 	const coilSource = CoilSource();
-			// 	const coil = await coilSource.get(create.coilId);
-			// 	return source.prisma.coilInventory.upsert({
-			// 		where: {
-			// 			coilId_userId: {
-			// 				userId: source.user.required(),
-			// 				coilId: create.coilId,
-			// 			},
-			// 		},
-			// 		create: {
-			// 			name: coil.name,
-			// 			coilId: coil.id,
-			// 			wireId: coil.wireId,
-			// 			userId,
-			// 		},
-			// 		update: {},
-			// 		include: {
-			// 			coil: {
-			// 				include: {
-			// 					wire: {
-			// 						include: {
-			// 							vendor: true,
-			// 							WireDraw: {
-			// 								orderBy: {draw: {sort: "asc"}},
-			// 								include: {
-			// 									draw: true,
-			// 								},
-			// 							},
-			// 							WireFiber: {
-			// 								include: {
-			// 									fiber: {
-			// 										include: {
-			// 											material: true,
-			// 										}
-			// 									}
-			// 								}
-			// 							}
-			// 						},
-			// 					},
-			// 					CoilDraw: {
-			// 						include: {
-			// 							draw: true,
-			// 						},
-			// 					},
-			// 				}
-			// 			},
-			// 		},
-			// 	});
-			// },
 		},
 	});
 

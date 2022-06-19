@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource => {
-	const tagSource = singletonOf(() => TagSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 
 	const source: IBuildLiquidTasteRatingSource = Source<IBuildLiquidTasteRatingSource>({
 		name: "build.liquid.taste.rating",

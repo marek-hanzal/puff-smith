@@ -8,12 +8,12 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const MixtureSource = (): IMixtureSource => {
-	const tagSource = singletonOf(() => TagSource());
-	const aromaSource = singletonOf(() => AromaSource());
-	const boosterSource = singletonOf(() => BoosterSource());
-	const baseSource = singletonOf(() => BaseSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
+	const boosterSource = singletonOf(() => BoosterSource().ofSource(source));
+	const baseSource = singletonOf(() => BaseSource().ofSource(source));
 
-	return Source<IMixtureSource>({
+	const source: IMixtureSource = Source<IMixtureSource>({
 		name: "mixture",
 		prisma,
 		map: async mixture => mixture ? {
@@ -25,4 +25,6 @@ export const MixtureSource = (): IMixtureSource => {
 			draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
 		} : undefined,
 	});
+
+	return source;
 };

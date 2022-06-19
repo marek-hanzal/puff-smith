@@ -8,8 +8,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const BoosterInventorySource = (): IBoosterInventorySource => {
-	const boosterSource = singletonOf(() => BoosterSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const boosterSource = singletonOf(() => BoosterSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IBoosterInventorySource = Source<IBoosterInventorySource>({
@@ -43,8 +43,8 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 			}),
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const transactionSource = TransactionSource().withPrisma(prisma);
-				const $booster = await BoosterSource().withPrisma(prisma).get(booster.boosterId);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
+				const $booster = await BoosterSource().ofSource(source).withPrisma(prisma).get(booster.boosterId);
 				return transactionSource.handleTransaction({
 					userId,
 					cost: $booster.cost,

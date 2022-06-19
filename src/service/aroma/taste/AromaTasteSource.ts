@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaTasteSource = (): IAromaTasteSource => {
-	const tagSource = singletonOf(() => TagSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 
 	const source: IAromaTasteSource = Source<IAromaTasteSource>({
 		name: "aroma.taste",

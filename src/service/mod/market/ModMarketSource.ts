@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const ModMarketSource = (): IModMarketSource => {
-	const modSource = singletonOf(() => ModSource());
+	const modSource = singletonOf(() => ModSource().ofSource(source));
 
 	const source: IModMarketSource = Source<IModMarketSource>({
 		name: "mod.market",

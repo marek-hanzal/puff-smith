@@ -7,8 +7,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CottonInventorySource = (): ICottonInventorySource => {
-	const cottonSource = singletonOf(() => CottonSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const cottonSource = singletonOf(() => CottonSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ICottonInventorySource = Source<ICottonInventorySource>({
@@ -66,12 +66,8 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 			}),
 			create: async ({code, ...cotton}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const cottonSource = CottonSource();
-				const transactionSource = TransactionSource();
-				cottonSource.withPrisma(prisma);
-				transactionSource.withPrisma(prisma);
-
-				const $cotton = await cottonSource.get(cotton.cottonId);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
+				const $cotton = await CottonSource().ofSource(source).withPrisma(prisma).get(cotton.cottonId);
 				return transactionSource.handleTransaction({
 					userId,
 					cost: $cotton.cost,

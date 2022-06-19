@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CoilVendorSource = (): ICoilVendorSource => {
-	const vendorSource = singletonOf(() => VendorSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 
 	const source: ICoilVendorSource = Source<ICoilVendorSource>({
 		name: "coil.inventory.vendor",

@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const PriceSource = (): IPriceSource => {
-	const tariffSource = singletonOf(() => TariffSource());
+	const tariffSource = singletonOf(() => TariffSource().ofSource(source));
 
 	const source: IPriceSource = Source<IPriceSource>({
 		name: "price",

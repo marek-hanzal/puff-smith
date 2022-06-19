@@ -7,8 +7,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CellInventorySource = (): ICellInventorySource => {
-	const cellSource = singletonOf(() => CellSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const cellSource = singletonOf(() => CellSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 
 	const source: ICellInventorySource = Source<ICellInventorySource>({
 		name: "cell.inventory",
@@ -42,9 +42,8 @@ export const CellInventorySource = (): ICellInventorySource => {
 			}),
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const cellSource = CellSource().withPrisma(prisma);
-				const transactionSource = TransactionSource().withPrisma(prisma);
-				const cell = await cellSource.get(create.cellId);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
+				const cell = await CellSource().ofSource(source).withPrisma(prisma).get(create.cellId);
 				return transactionSource.handleTransaction({
 					userId,
 					cost: cell.cost,

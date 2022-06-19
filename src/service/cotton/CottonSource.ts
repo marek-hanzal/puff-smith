@@ -7,8 +7,8 @@ import {onUnique, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const CottonSource = (): ICottonSource => {
-	const vendorSource = singletonOf(() => VendorSource());
-	const tagSource = singletonOf(() => TagSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ICottonSource = Source<ICottonSource>({

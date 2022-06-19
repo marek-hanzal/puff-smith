@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
-	const commentSource = singletonOf(() => CommentSource());
+	const commentSource = singletonOf(() => CommentSource().ofSource(source));
 
 	const source: IAromaInventoryCommentSource = Source<IAromaInventoryCommentSource>({
 		name: "aroma.inventory.comment",

@@ -10,9 +10,9 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const BuildSource = (): IBuildSource => {
-	const cottonSource = singletonOf(() => CottonSource());
-	const atomizerSource = singletonOf(() => AtomizerSource());
-	const coilSource = singletonOf(() => CoilSource());
+	const cottonSource = singletonOf(() => CottonSource().ofSource(source));
+	const atomizerSource = singletonOf(() => AtomizerSource().ofSource(source));
+	const coilSource = singletonOf(() => CoilSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 	const ohmService = singletonOf(() => OhmService());
 
@@ -55,16 +55,16 @@ export const BuildSource = (): IBuildSource => {
 									vendor: true,
 									WireFiber: {
 										include: {
-												fiber: {
-													include: {
-														material: true,
-													}
+											fiber: {
+												include: {
+													material: true,
 												}
 											}
-										},
-										WireDraw: {
-											orderBy: {draw: {sort: "asc"}},
-											include: {
+										}
+									},
+									WireDraw: {
+										orderBy: {draw: {sort: "asc"}},
+										include: {
 												draw: true,
 											}
 										}

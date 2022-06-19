@@ -6,7 +6,7 @@ import {singletonOf} from "@leight-core/utils";
 import deepmerge from "deepmerge";
 
 export const MixtureBaseSource = (): IMixtureBaseSource => {
-	const baseSource = singletonOf(() => BaseSource());
+	const baseSource = singletonOf(() => BaseSource().ofSource(source));
 
 	const source: IMixtureBaseSource = Source<IMixtureBaseSource>({
 		name: "mixture.base",

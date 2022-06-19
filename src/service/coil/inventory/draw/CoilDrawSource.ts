@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const CoilDrawSource = (): ICoilDrawSource => {
-	const tagSource = singletonOf(() => TagSource());
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 
 	const source: ICoilDrawSource = Source<ICoilDrawSource>({
 		name: "coil.inventory.draw",

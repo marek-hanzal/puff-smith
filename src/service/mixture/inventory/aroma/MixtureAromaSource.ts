@@ -6,7 +6,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const MixtureAromaSource = (): IMixtureAromaSource => {
-	const aromaSource = singletonOf(() => AromaSource());
+	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
 
 	const source: IMixtureAromaSource = Source<IMixtureAromaSource>({
 		name: "mixture.inventory.aroma",

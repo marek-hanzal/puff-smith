@@ -9,8 +9,8 @@ import {singletonOf} from "@leight-core/utils";
 import {boolean} from "boolean";
 
 export const AtomizerSource = (): IAtomizerSource => {
-	const vendorSource = singletonOf(() => VendorSource());
-	const tagSource = singletonOf(() => TagSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAtomizerSource = Source<IAtomizerSource>({
@@ -41,15 +41,9 @@ export const AtomizerSource = (): IAtomizerSource => {
 				rejectOnNotFound: true,
 			}),
 			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, withInventory = false, ...atomizer}) => {
-				source.user.checkAny([
-					"*",
-					"site.root",
-					"atomizer.create",
-				]);
 				const $canUpdate = source.user.hasAny([
 					"*",
-					"site.root",
-					"atomizer.patch",
+					`${source.name}.patch`,
 				]);
 				const $create = async () => {
 					const create = {

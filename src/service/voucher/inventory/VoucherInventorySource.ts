@@ -7,8 +7,8 @@ import {Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const VoucherInventorySource = (): IVoucherInventorySource => {
-	const voucherSource = singletonOf(() => VoucherSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const voucherSource = singletonOf(() => VoucherSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IVoucherInventorySource = Source<IVoucherInventorySource>({
@@ -21,7 +21,7 @@ export const VoucherInventorySource = (): IVoucherInventorySource => {
 		}) : undefined,
 		source: {
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
-				const transactionSource = TransactionSource().withPrisma(prisma).withUser(source.user);
+				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
 				const voucher = await voucherSource().withPrisma(prisma).get(create.voucherId);
 				voucher.maxFortune && (await transactionSource.sumOf()) >= voucher.maxFortune && (() => {
 					throw new Error("Too much puffies");

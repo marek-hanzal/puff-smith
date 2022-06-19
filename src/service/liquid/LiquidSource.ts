@@ -11,9 +11,9 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LiquidSource = (): ILiquidSource => {
-	const transactionSource = singletonOf(() => TransactionSource());
-	const mixtureSource = singletonOf(() => MixtureSource());
-	const mixtureJobSource = singletonOf(() => MixtureJobSource());
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
+	const mixtureSource = singletonOf(() => MixtureSource().ofSource(source));
+	const mixtureJobSource = singletonOf(() => MixtureJobSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ILiquidSource = Source<ILiquidSource>({
@@ -76,9 +76,7 @@ export const LiquidSource = (): ILiquidSource => {
 			}),
 			create: async ({code, mixed, ...liquid}) => prisma.$transaction(prisma => {
 				const userId = source.user.required();
-				const tariffSource = TariffSource().withPrisma(prisma);
-
-				return tariffSource.transactionOf({
+				return TariffSource().ofSource(source).withPrisma(prisma).transactionOf({
 					tariff: "default",
 					userId,
 					price: "lab.liquid.create",

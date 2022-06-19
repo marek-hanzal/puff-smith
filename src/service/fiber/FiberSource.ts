@@ -5,8 +5,8 @@ import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const FiberSource = (): IFiberSource => {
-	const fiberSource = singletonOf(() => FiberSource());
-	const tagSource = singletonOf(() => TagSource());
+	const fiberSource = singletonOf(() => FiberSource().ofSource(source));
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 
 	const source: IFiberSource = Source<IFiberSource>({
 		name: "fiber",

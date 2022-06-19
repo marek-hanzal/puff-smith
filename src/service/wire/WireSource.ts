@@ -11,10 +11,10 @@ import {boolean} from "boolean";
 import YAML from "yaml";
 
 export const WireSource = (): IWireSource => {
-	const fiberSource = singletonOf(() => FiberSource());
-	const wireFiberSource = singletonOf(() => WireFiberSource());
-	const vendorSource = singletonOf(() => VendorSource());
-	const tagSource = singletonOf(() => TagSource());
+	const fiberSource = singletonOf(() => FiberSource().ofSource(source));
+	const wireFiberSource = singletonOf(() => WireFiberSource().ofSource(source));
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
+	const tagSource = singletonOf(() => TagSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const toMm = (wireFiberCreate: IWireFiberCreate[]) => wireFiberCreate.map(({$fiber, count}) => count * $fiber.mm).reduce((prev, current) => prev + current, 0);

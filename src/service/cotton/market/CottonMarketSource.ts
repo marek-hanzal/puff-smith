@@ -5,7 +5,7 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const CottonMarketSource = (): ICottonMarketSource => {
-	const cottonSource = singletonOf(() => CottonSource());
+	const cottonSource = singletonOf(() => CottonSource().ofSource(source));
 
 	const source: ICottonMarketSource = Source<ICottonMarketSource>({
 		name: "cotton.market",

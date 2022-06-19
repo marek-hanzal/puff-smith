@@ -1,11 +1,8 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
 import {onUnique, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
 
 export const TokenSource = (): ITokenSource => {
-	const tokenSource = singletonOf(() => TokenSource());
-
 	const source: ITokenSource = Source<ITokenSource>({
 		name: "token",
 		prisma,
@@ -26,7 +23,7 @@ export const TokenSource = (): ITokenSource => {
 				}
 			}
 		},
-		tokensOf: userId => tokenSource().mapper.list(source.prisma.token.findMany({
+		tokensOf: userId => source.mapper.list(source.prisma.token.findMany({
 			where: {
 				UserToken: {
 					every: {

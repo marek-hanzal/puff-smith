@@ -6,8 +6,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const TransactionSource = (): ITransactionSource => {
-	const userSource = singletonOf(() => UserSource());
-	const priceSource = singletonOf(() => PriceSource());
+	const userSource = singletonOf(() => UserSource().ofSource(source));
+	const priceSource = singletonOf(() => PriceSource().ofSource(source));
 
 	const source: ITransactionSource = Source<ITransactionSource>({
 		name: "transaction",

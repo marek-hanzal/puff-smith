@@ -7,8 +7,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const AtomizerInventorySource = (): IAtomizerInventorySource => {
-	const atomizerSource = singletonOf(() => AtomizerSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const atomizerSource = singletonOf(() => AtomizerSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IAtomizerInventorySource = Source<IAtomizerInventorySource>({

@@ -8,7 +8,7 @@ import delay from "delay";
 import PQueue from "p-queue";
 
 export const JobSource = (): IJobSource => {
-	const userSource = singletonOf(() => UserSource());
+	const userSource = singletonOf(() => UserSource().ofSource(source));
 
 	const source: IJobSource = Source<IJobSource>({
 		name: "job",

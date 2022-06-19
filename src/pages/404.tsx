@@ -16,7 +16,7 @@ export default withPublicLayout(function Custom404() {
 			label={"public.404"}
 			extra={
 				<ButtonBar split={<Divider type={"vertical"}/>}>
-					<Button icon={<BackIcon/>} onClick={() => router.back()}>{t("public.404.back")}</Button>
+					<Button type={"text"} icon={<BackIcon/>} onClick={() => router.back()}>{t("public.404.back")}</Button>
 					<ButtonLink icon={<HomeIcon/>} href={"/"} label={"public.404.home"}/>
 				</ButtonBar>
 			}

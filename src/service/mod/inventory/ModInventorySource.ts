@@ -7,8 +7,8 @@ import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const ModInventorySource = (): IModInventorySource => {
-	const modSource = singletonOf(() => ModSource());
-	const transactionSource = singletonOf(() => TransactionSource());
+	const modSource = singletonOf(() => ModSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: IModInventorySource = Source<IModInventorySource>({
@@ -46,10 +46,8 @@ export const ModInventorySource = (): IModInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, ...mod}) => prisma.$transaction(async prisma => {
-				const modSource = ModSource().withPrisma(prisma);
-				const transactionSource = TransactionSource().withPrisma(prisma);
-				const $mod = await modSource.get(mod.modId);
-				return transactionSource.handleTransaction({
+				const $mod = await ModSource().ofSource(source).withPrisma(prisma).get(mod.modId);
+				return TransactionSource().ofSource(source).withPrisma(prisma).handleTransaction({
 					userId: source.user.required(),
 					cost: $mod.cost,
 					note: `Purchase of mod [${$mod.vendor.name} ${$mod.name}]`,

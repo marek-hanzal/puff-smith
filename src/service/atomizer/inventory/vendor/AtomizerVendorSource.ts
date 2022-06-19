@@ -5,7 +5,7 @@ import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const AtomizerVendorSource = (): IAtomizerVendorSource => {
-	const vendorSource = singletonOf(() => VendorSource());
+	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 
 	const source: IAtomizerVendorSource = Source<IAtomizerVendorSource>({
 		name: "atomizer.inventory.vendor",
