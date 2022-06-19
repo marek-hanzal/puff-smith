@@ -1,6 +1,6 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
-import {onUnique, Source} from "@leight-core/server";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 
 export const TokenSource = (): ITokenSource => {
 	const source: ITokenSource = Source<ITokenSource>({
@@ -11,15 +11,35 @@ export const TokenSource = (): ITokenSource => {
 			lock: true,
 		},
 		source: {
-			create: async token => {
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.token.count({
+				where: {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+				},
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.token.findMany({
+				where: {
+					name: {
+						contains: fulltext,
+						mode: "insensitive",
+					},
+				},
+				orderBy,
+				...pageOf(query),
+			}),
+			create: async ({name}) => {
 				try {
 					return await source.prisma.token.create({
-						data: token,
+						data: {
+							name,
+						},
 					});
 				} catch (e) {
 					return onUnique(e, async () => source.prisma.token.findFirst({
 						where: {
-							name: token.name,
+							name,
 						},
 						rejectOnNotFound: true,
 					}));

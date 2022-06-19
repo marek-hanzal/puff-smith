@@ -1,32 +1,30 @@
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Prisma, Token} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IToken {
 	id: string;
 	name: string;
-	until?: Date | null;
 }
 
 export interface ITokenCreate {
 	name: string;
-	until?: Date | null;
 }
 
-export interface ITokenQuery extends IQuery<Prisma.TokenWhereInput, Prisma.TokenOrderByWithRelationInput> {
+export interface ITokenQuery extends IQuery<Prisma.TokenWhereInput & IWithFulltext, Prisma.TokenOrderByWithRelationInput> {
 }
 
-export type ITokenEntity = Token;
-export type IWithTokenEntity = { token: ITokenEntity; };
+export type ITokenEntity<T = void> = T extends void ? Token : Token & T;
+export type IWithTokenEntity<T = void> = { token: ITokenEntity<T>; };
 
-export interface ITokenFetchProps {
+export interface ITokenFetch {
 	token: IToken;
 }
 
-export interface ITokenFetchQuery extends ParsedUrlQuery {
+export interface ITokenFetchParams extends ParsedUrlQuery {
 	tokenId: string;
 }
 
-export interface ITokenSource extends ISource<ITokenCreate, ITokenEntity, IToken, ITokenQuery> {
+export interface ITokenSource extends ISource<ITokenCreate, ITokenEntity, IToken, ITokenQuery, ITokenFetch, ITokenFetchParams> {
 	tokensOf(userId: string): Promise<IToken[]>;
 }

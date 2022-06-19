@@ -17,7 +17,7 @@ export const useCreateMutation = createMutationHook<ISourceCreate<IAromaInventor
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IAromaInventoryCommentSource>, ISourceItem<IAromaInventoryCommentSource>>> {
 }
@@ -25,7 +25,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreat
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<IAromaInventoryCommentSource>, ISourceItem<IAromaInventoryCommentSource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;

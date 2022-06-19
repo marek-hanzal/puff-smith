@@ -22,7 +22,7 @@ export const JobListHeader: FC<IJobListHeaderProps> = ({showCommit = true, showC
 	const filterContext = useJobOptionalFilterContext();
 	return <RowInline
 		extra={showCleanup && <Button
-			type={"ghost"}
+			type={"text"}
 			danger
 			icon={<DeleteItemIcon/>}
 			loading={cleanupMutation.isLoading}

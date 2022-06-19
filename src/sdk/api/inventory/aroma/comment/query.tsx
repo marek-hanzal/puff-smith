@@ -119,7 +119,7 @@ export const AromaInventoryCommentListSource: FC<IAromaInventoryCommentListSourc
 			{...props}
 		/>
 	</AromaInventoryCommentProvider>;
-};
+}
 
 export interface IAromaInventoryCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaInventoryCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaInventoryCommentSource>>;
@@ -162,7 +162,7 @@ export interface IAromaInventoryCommentSelectionProviderProps extends Partial<IS
 
 export const AromaInventoryCommentSelectionProvider: FC<IAromaInventoryCommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventoryCommentSource>> {...props}/>;
-};
+}
 
 export const useAromaInventoryCommentQueryInvalidate = () => {
 	const queryClient = useQueryClient();

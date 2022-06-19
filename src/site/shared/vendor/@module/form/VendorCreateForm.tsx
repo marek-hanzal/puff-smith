@@ -2,7 +2,7 @@ import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/vendor/create";
 import {useVendorCountQueryInvalidate, useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
-import {message} from "antd";
+import {Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -24,6 +24,7 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 		{...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>
+		<Divider/>
 		<Centered>
 			<Submit icon={<LiquidIcon/>} label={"create"}/>
 		</Centered>

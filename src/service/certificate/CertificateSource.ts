@@ -1,10 +1,12 @@
 import {ICertificateSource} from "@/puff-smith/service/certificate/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CertificateSource = (): ICertificateSource => {
+	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ICertificateSource = Source<ICertificateSource>({
@@ -12,6 +14,7 @@ export const CertificateSource = (): ICertificateSource => {
 		prisma,
 		map: async certificate => certificate ? {
 			...certificate,
+			tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
 		} : undefined,
 		acl: {
 			lock: true,
@@ -37,7 +40,7 @@ export const CertificateSource = (): ICertificateSource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.certificate.findMany({
 				where: merge(filter, {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
 								contains: fulltext,
@@ -50,18 +53,40 @@ export const CertificateSource = (): ICertificateSource => {
 								mode: "insensitive",
 							},
 						},
-					],
+					] : undefined,
 				}),
+				include: {
+					CertificateToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
 				orderBy: [
 					{name: "asc"},
 				],
 				...pageOf(query),
 			}),
-			create: async ({name, code, cost}) => source.prisma.certificate.create({
+			create: async ({name, code, cost, tokens = []}) => source.prisma.certificate.create({
 				data: {
 					name,
 					code: code || codeService().code(),
 					cost,
+					CertificateToken: {
+						createMany: {
+							data: tokens.map(tokenId => ({
+								tokenId,
+							})),
+							skipDuplicates: true,
+						}
+					}
+				},
+				include: {
+					CertificateToken: {
+						include: {
+							token: true,
+						}
+					}
 				},
 			}),
 			patch: async ({id, name, code, cost}) => source.prisma.certificate.update({
@@ -70,7 +95,14 @@ export const CertificateSource = (): ICertificateSource => {
 					name,
 					code: code || undefined,
 					cost,
-				}
+				},
+				include: {
+					CertificateToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
 			}),
 			delete: async ids => {
 				const where = {
@@ -80,6 +112,13 @@ export const CertificateSource = (): ICertificateSource => {
 				};
 				const items = await prisma.certificate.findMany({
 					where,
+					include: {
+						CertificateToken: {
+							include: {
+								token: true,
+							}
+						}
+					},
 				});
 				await prisma.certificate.deleteMany({
 					where,

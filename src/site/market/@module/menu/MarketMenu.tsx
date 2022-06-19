@@ -4,9 +4,11 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
@@ -44,6 +46,8 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 			CreateMenuGroup("market.other.menu", <GroupOutlined/>, [
 				CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
 				CreateMenuItem("market.vendor.menu", "/market/vendor", <VendorIcon/>),
+				CreateMenuItem("market.certificate.menu", "/market/certificate", <CertificateIcon/>),
+				CreateMenuItem("market.license.menu", "/market/license", <LicenseIcon/>),
 			]),
 			CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
 			CreateMenuItem("market.inventory.menu", "/to/inventory", <InventoryIcon/>),
