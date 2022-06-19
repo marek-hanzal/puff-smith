@@ -32,5 +32,7 @@ export interface ICertificateFetchParams extends ParsedUrlQuery {
 	certificateId: string;
 }
 
-export interface ICertificateSource extends ISource<ICertificateCreate, ICertificateEntity<{ CertificateToken: IWithTokenEntity[]; }>, ICertificate, ICertificateQuery, ICertificateFetch, ICertificateFetchParams> {
+export type ICertificateSourceEntity = ICertificateEntity<{ CertificateToken: IWithTokenEntity[]; }>;
+
+export interface ICertificateSource extends ISource<ICertificateCreate, ICertificateSourceEntity, ICertificate, ICertificateQuery, ICertificateFetch, ICertificateFetchParams> {
 }
