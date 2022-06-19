@@ -44,12 +44,12 @@ export const AtomizerSource = (): IAtomizerSource => {
 				source.user.checkAny([
 					"*",
 					"site.root",
-					"site.market.atomizer.create",
+					"atomizer.create",
 				]);
 				const $canUpdate = source.user.hasAny([
 					"*",
 					"site.root",
-					"site.market.atomizer.patch",
+					"atomizer.patch",
 				]);
 				const $create = async () => {
 					const create = {

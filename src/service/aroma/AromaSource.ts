@@ -5,6 +5,7 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {ClientError} from "@leight-core/api";
 import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
@@ -91,6 +92,16 @@ export const AromaSource = (): IAromaSource => {
 				...pageOf(query),
 			}),
 			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, withInventory = false, ...aroma}) => {
+				source.user.checkAny([
+					"*",
+					"site.root",
+					"aroma.create",
+				]);
+				const $canUpdate = source.user.hasAny([
+					"*",
+					"site.root",
+					"aroma.patch",
+				]);
 				const $create = async () => {
 					const create = {
 						...aroma,
@@ -132,6 +143,9 @@ export const AromaSource = (): IAromaSource => {
 						});
 					} catch (e) {
 						return onUnique(e, async () => {
+							if (!$canUpdate) {
+								throw new ClientError("Aroma already exists.", 409);
+							}
 							const $aroma = await source.prisma.aroma.findFirst({
 								where: {
 									OR: [
