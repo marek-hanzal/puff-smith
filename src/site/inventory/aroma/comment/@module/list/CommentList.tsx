@@ -1,7 +1,7 @@
 import {CommentDeleteButton} from "@/puff-smith/site/shared/comment/@module/button/CommentDeleteButton";
 import {AromaInventoryCommentListSource, IAromaInventoryCommentListSourceProps, useAromaInventoryCommentCountQueryInvalidate, useAromaInventoryCommentQueryInvalidate} from "@/sdk/api/inventory/aroma/comment/query";
 import {CommentOutlined} from "@ant-design/icons";
-import {ListItem, Template, TextArea, toLocalDateTime} from "@leight-core/client";
+import {ListItem, Template, toLocalDateTime} from "@leight-core/client";
 import {Comment} from "antd";
 import {FC} from "react";
 
@@ -22,13 +22,9 @@ export const CommentList: FC<ICommentListProps> = props => {
 	>
 		{buildComment => <ListItem>
 			<Comment
-				content={<TextArea
-					style={{padding: 0}}
-					autoSize
-					bordered={false}
-					readOnly
-					value={buildComment.comment.comment}
-				/>}
+				content={<div style={{whiteSpace: "pre-wrap"}}>
+					{buildComment.comment.comment}
+				</div>}
 				datetime={toLocalDateTime(buildComment.comment.created)}
 				actions={[
 					<CommentDeleteButton
