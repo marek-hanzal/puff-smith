@@ -1,3 +1,4 @@
+import {Tags} from "@/puff-smith/component/Tags";
 import {IUserFetch} from "@/puff-smith/service/user/interface";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
@@ -21,6 +22,15 @@ export default withRootLayout(function Index({user}: IUserFetch) {
 					{{
 						"name": user.name,
 						"email": user.email,
+						"tokens": <Tags
+							color={"red"}
+							translation={"common.token"}
+							tags={user.tokens.map(token => ({
+								id: token.id,
+								group: "token",
+								code: token.name,
+							}))}
+						/>,
 					}}
 				</Preview>
 			</Col>

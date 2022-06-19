@@ -1,5 +1,6 @@
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
 import {ILicenseListSourceProps, LicenseListSource} from "@/sdk/api/license/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -21,6 +22,7 @@ export const LicenseList: FC<ILicenseListProps> = props => {
 					<SelectionBool selection={license}/>
 					{t(`license.${license.name}`, license.name)}
 					<CodeInline code={license}/>
+					<Price withColor withIcon price={license.cost}/>
 				</Space>}
 				description={<Tags
 					color={"red"}

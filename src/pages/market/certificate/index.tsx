@@ -8,7 +8,9 @@ import {CertificateCreateButton} from "@/puff-smith/site/shared/certificate/@mod
 import {CertificateList} from "@/puff-smith/site/shared/certificate/@module/list/CertificateList";
 import {CertificateListToolbar} from "@/puff-smith/site/shared/certificate/@module/list/CertificateListToolbar";
 import {CertificateProviderControl} from "@/sdk/api/certificate/query";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
+import {FireOutlined, LockOutlined} from "@ant-design/icons";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -30,19 +32,55 @@ export default withMarketLayout(function Index() {
 			translation: "market.certificate.index",
 		}}
 	>
-		<CertificateProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-			defaultOrderBy={{
-				name: "asc",
-			}}
-		>
-			<SelectionProvider type={"multi"}>
-				<CertificateList
-					header={() => <RowInline
-						extra={<CertificateListToolbar/>}
-					/>}
-				/>
-			</SelectionProvider>
-		</CertificateProviderControl>
+		<Tabs size={"large"}>
+			<Tabs.TabPane key={"available"} tab={<TabInline icon={<FireOutlined/>} title={"market.certificate.available.tab"}/>}>
+				<CertificateProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						cost: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<CertificateList/>
+					</SelectionProvider>
+				</CertificateProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"private"} tab={<TabInline icon={<LockOutlined/>} title={"market.certificate.private.tab"}/>}>
+				<CertificateProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						cost: null,
+					}}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<CertificateList/>
+					</SelectionProvider>
+				</CertificateProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"certificates"} tab={<TabInline icon={<CertificateIcon/>} title={"market.certificate.certificates.tab"}/>}>
+				<CertificateProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<CertificateList
+							header={() => <RowInline
+								extra={<CertificateListToolbar/>}
+							/>}
+						/>
+					</SelectionProvider>
+				</CertificateProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</MarketPage>;
 });

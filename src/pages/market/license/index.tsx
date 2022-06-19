@@ -8,7 +8,9 @@ import {LicenseCreateButton} from "@/puff-smith/site/shared/license/@module/butt
 import {LicenseList} from "@/puff-smith/site/shared/license/@module/list/LicenseList";
 import {LicenseListToolbar} from "@/puff-smith/site/shared/license/@module/list/LicenseListToolbar";
 import {LicenseProviderControl} from "@/sdk/api/license/query";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
+import {FireOutlined, LockOutlined} from "@ant-design/icons";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
+import {Tabs} from "antd";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -30,19 +32,55 @@ export default withMarketLayout(function Index() {
 			translation: "market.license.index",
 		}}
 	>
-		<LicenseProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-			defaultOrderBy={{
-				name: "asc",
-			}}
-		>
-			<SelectionProvider type={"multi"}>
-				<LicenseList
-					header={() => <RowInline
-						extra={<LicenseListToolbar/>}
-					/>}
-				/>
-			</SelectionProvider>
-		</LicenseProviderControl>
+		<Tabs size={"large"}>
+			<Tabs.TabPane key={"available"} tab={<TabInline icon={<FireOutlined/>} title={"market.license.available.tab"}/>}>
+				<LicenseProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						cost: {
+							gt: 0,
+						},
+					}}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<LicenseList/>
+					</SelectionProvider>
+				</LicenseProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"private"} tab={<TabInline icon={<LockOutlined/>} title={"market.license.private.tab"}/>}>
+				<LicenseProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					applyFilter={{
+						cost: null,
+					}}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<LicenseList/>
+					</SelectionProvider>
+				</LicenseProviderControl>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"licenses"} tab={<TabInline icon={<LicenseIcon/>} title={"market.license.licenses.tab"}/>}>
+				<LicenseProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={{
+						name: "asc",
+					}}
+				>
+					<SelectionProvider type={"multi"}>
+						<LicenseList
+							header={() => <RowInline
+								extra={<LicenseListToolbar/>}
+							/>}
+						/>
+					</SelectionProvider>
+				</LicenseProviderControl>
+			</Tabs.TabPane>
+		</Tabs>
 	</MarketPage>;
 });

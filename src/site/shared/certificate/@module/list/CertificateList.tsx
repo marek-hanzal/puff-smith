@@ -1,5 +1,6 @@
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
+import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CertificateListSource, ICertificateListSourceProps} from "@/sdk/api/certificate/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
@@ -21,6 +22,7 @@ export const CertificateList: FC<ICertificateListProps> = props => {
 					<SelectionBool selection={certificate}/>
 					{t(`certificate.${certificate.name}`, certificate.name)}
 					<CodeInline code={certificate}/>
+					<Price withColor withIcon price={certificate.cost}/>
 				</Space>}
 				description={<Tags
 					color={"red"}
