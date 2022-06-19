@@ -62,10 +62,10 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 				},
 			}),
 		},
-		generateFor: async generate => {
-			const tastes = await source.prisma.liquid.findMany({
+		generateFor: async ({buildId, liquidId}) => {
+			const liquid = await source.prisma.liquid.findFirst({
 				where: {
-					id: generate.liquidId,
+					id: liquidId,
 					userId: source.user.required(),
 				},
 				select: {
@@ -76,18 +76,20 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 							},
 						}
 					}
-				}
+				},
+				rejectOnNotFound: true,
 			});
-			for (const liquid of tastes) {
-				for (const taste of liquid.aroma.AromaTaste) {
-					await source.create({
-						tasteId: taste.tasteId,
-						buildId: generate.buildId,
-						liquidId: generate.liquidId,
-						rating: null,
-					});
-				}
-			}
+
+			await source.prisma.buildLiquidTasteRating.createMany({
+				data: liquid.aroma.AromaTaste.map(({tasteId}) => ({
+					buildId,
+					liquidId,
+					tasteId,
+					created: new Date(),
+				})),
+				skipDuplicates: true,
+			});
+
 			return true;
 		}
 	});
