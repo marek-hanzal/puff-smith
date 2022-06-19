@@ -16,6 +16,9 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 			isOwned: aroma.AromaInventory.length > 0,
 		}) : undefined,
 		cache: AromaMarketCache,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: filter,

@@ -11,6 +11,9 @@ export const AromaVendorSource = (): IAromaVendorSource => {
 		name: "aroma.inventory.vendor",
 		prisma,
 		map: aroma => vendorSource().map(aroma?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async () => source.prisma.aroma.count({
 				distinct: ["vendorId"],

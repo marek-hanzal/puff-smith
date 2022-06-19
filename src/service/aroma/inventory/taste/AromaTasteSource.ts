@@ -11,6 +11,9 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 		name: "aroma.inventory.taste",
 		prisma,
 		map: aromaTaste => tagSource().map(aromaTaste?.taste),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async () => source.prisma.aromaTaste.count({
 				distinct: ["tasteId"],

@@ -14,6 +14,9 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 			...aromaInventoryComment,
 			comment: await commentSource().mapper.map(aromaInventoryComment.comment),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter}) => source.prisma.aromaInventoryComment.count({
 				where: filter,
