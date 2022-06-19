@@ -1,3 +1,4 @@
+import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {License, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -8,13 +9,14 @@ export interface ILicenseCreate {
 	cost?: number;
 	renew?: number;
 	duration?: number;
+	tokens?: string[];
 }
 
 export interface ILicenseQuery extends IQuery<Prisma.LicenseWhereInput & IWithFulltext, Prisma.LicenseOrderByWithRelationInput> {
 }
 
-export type ILicenseEntity = License;
-export type IWithLicense = { license: ILicenseEntity };
+export type ILicenseEntity<T = void> = T extends void ? License : License & T;
+export type IWithLicense<T = void> = { license: ILicenseEntity<T>; };
 
 export interface ILicense {
 	id: string;
@@ -23,6 +25,7 @@ export interface ILicense {
 	cost?: number | null;
 	renew?: number | null;
 	duration?: number | null;
+	tokens: IToken[];
 }
 
 export interface ILicenseFetch {
@@ -33,5 +36,5 @@ export interface ILicenseFetchParams extends ParsedUrlQuery {
 	licenseId: string;
 }
 
-export interface ILicenseSource extends ISource<ILicenseCreate, ILicenseEntity, ILicense, ILicenseQuery, ILicenseFetch, ILicenseFetchParams> {
+export interface ILicenseSource extends ISource<ILicenseCreate, ILicenseEntity<{ LicenseToken: IWithTokenEntity[]; }>, ILicense, ILicenseQuery, ILicenseFetch, ILicenseFetchParams> {
 }

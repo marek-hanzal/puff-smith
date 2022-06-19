@@ -1,4 +1,4 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {CertificateCreateForm} from "@/puff-smith/site/shared/certificate/@module/form/CertificateCreateForm";
 import {DrawerButton, IDrawerButtonProps} from "@leight-core/client";
 import {FC} from "react";
@@ -12,7 +12,7 @@ export const CertificateCreateButton: FC<ICertificateCreateButtonProps> = props 
 		type={"primary"}
 		title={"market.certificate.create.title"}
 		label={"market.certificate.create.button"}
-		icon={<LiquidIcon/>}
+		icon={<CertificateIcon/>}
 		{...props}
 	>
 		<CertificateCreateForm/>

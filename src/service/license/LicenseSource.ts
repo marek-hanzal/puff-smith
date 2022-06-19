@@ -1,10 +1,12 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILicenseSource} from "@/puff-smith/service/license/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LicenseSource = (): ILicenseSource => {
+	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ILicenseSource = Source<ILicenseSource>({
@@ -12,6 +14,7 @@ export const LicenseSource = (): ILicenseSource => {
 		prisma,
 		map: async license => license ? {
 			...license,
+			tokens: await tokenSource().mapper.list(Promise.resolve(license.LicenseToken.map(({token}) => token))),
 		} : undefined,
 		acl: {
 			lock: true,
@@ -37,7 +40,7 @@ export const LicenseSource = (): ILicenseSource => {
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.license.findMany({
 				where: merge(filter, {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
 								contains: fulltext,
@@ -50,20 +53,42 @@ export const LicenseSource = (): ILicenseSource => {
 								mode: "insensitive",
 							},
 						},
-					],
+					] : undefined,
 				}),
+				include: {
+					LicenseToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
 				orderBy: [
 					{name: "asc"},
 				],
 				...pageOf(query),
 			}),
-			create: async ({name, code, cost, renew, duration}) => source.prisma.license.create({
+			create: async ({name, code, cost, renew, duration, tokens = []}) => source.prisma.license.create({
 				data: {
 					name,
 					code: code || codeService().code(),
 					cost,
 					renew,
 					duration,
+					LicenseToken: {
+						createMany: {
+							data: tokens.map(tokenId => ({
+								tokenId,
+							})),
+							skipDuplicates: true,
+						}
+					}
+				},
+				include: {
+					LicenseToken: {
+						include: {
+							token: true,
+						}
+					}
 				},
 			}),
 			patch: async ({id, name, code, cost, renew, duration}) => source.prisma.license.update({
@@ -74,7 +99,14 @@ export const LicenseSource = (): ILicenseSource => {
 					cost,
 					renew,
 					duration,
-				}
+				},
+				include: {
+					LicenseToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
 			}),
 			delete: async ids => {
 				const where = {
@@ -84,6 +116,13 @@ export const LicenseSource = (): ILicenseSource => {
 				};
 				const items = await prisma.license.findMany({
 					where,
+					include: {
+						LicenseToken: {
+							include: {
+								token: true,
+							}
+						}
+					},
 				});
 				await prisma.license.deleteMany({
 					where,

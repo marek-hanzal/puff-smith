@@ -1,31 +1,31 @@
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
-import {CertificateListSource, ICertificateListSourceProps} from "@/sdk/api/certificate/query";
+import {ILicenseListSourceProps, LicenseListSource} from "@/sdk/api/license/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface ICertificateListProps extends Partial<ICertificateListSourceProps> {
+export interface ILicenseListProps extends Partial<ILicenseListSourceProps> {
 }
 
-export const CertificateList: FC<ICertificateListProps> = props => {
+export const LicenseList: FC<ILicenseListProps> = props => {
 	const {t} = useTranslation();
-	return <CertificateListSource
+	return <LicenseListSource
 		{...props}
 	>
-		{certificate => <ListItem>
+		{license => <ListItem>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={certificate}/>
-					{t(`certificate.${certificate.name}`, certificate.name)}
-					<CodeInline code={certificate}/>
+					<SelectionBool selection={license}/>
+					{t(`license.${license.name}`, license.name)}
+					<CodeInline code={license}/>
 				</Space>}
 				description={<Tags
 					color={"red"}
 					translation={"common.token"}
-					tags={certificate.tokens.map(token => ({
+					tags={license.tokens.map(token => ({
 						id: token.id,
 						group: "token",
 						code: token.name,
@@ -33,5 +33,5 @@ export const CertificateList: FC<ICertificateListProps> = props => {
 				/>}
 			/>
 		</ListItem>}
-	</CertificateListSource>;
+	</LicenseListSource>;
 };
