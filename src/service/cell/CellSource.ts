@@ -21,6 +21,9 @@ export const CellSource = (): ICellSource => {
 			vendor: await vendorSource().mapper.map(cell.vendor),
 			type: await tagSource().mapper.map(cell.type),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.cell.findUnique({
 				where: {id},

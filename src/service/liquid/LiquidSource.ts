@@ -26,6 +26,9 @@ export const LiquidSource = (): ILiquidSource => {
 			transaction: await transactionSource().mapper.map(liquid.transaction),
 			mixture: await mixtureSource().mapper.map(liquid.mixture),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
 				where: merge(filter, {

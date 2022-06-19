@@ -21,6 +21,9 @@ export const MixtureInventorySource = (): IMixtureInventorySource => {
 		prisma,
 		map: async mixture => mixtureSource().map(mixture),
 		cache: MixtureInventoryCache,
+		acl: {
+			lock: true,
+		},
 		source: {
 			clearCache: async () => {
 				await MixtureAromaSource().ofSource(source).clearCache();

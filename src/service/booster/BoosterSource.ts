@@ -16,6 +16,9 @@ export const BoosterSource = (): IBoosterSource => {
 			...booster,
 			vendor: await vendorSource().mapper.map(booster.vendor),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.booster.findUnique({
 				where: {id},

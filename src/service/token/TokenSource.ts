@@ -7,6 +7,9 @@ export const TokenSource = (): ITokenSource => {
 		name: "token",
 		prisma,
 		map: async token => token,
+		acl: {
+			lock: true,
+		},
 		source: {
 			create: async token => {
 				try {

@@ -11,6 +11,9 @@ export const ModCellSource = (): IModCellSource => {
 		name: "mod.cell",
 		prisma,
 		map: async modCell => tagSource().map(modCell?.cell),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async () => source.prisma.modCell.findMany({
 				distinct: ["cellId"],

@@ -19,6 +19,9 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 			atomizer: await atomizerSource().mapper.map(atomizerInventory.atomizer),
 			transaction: await transactionSource().map(atomizerInventory.transaction),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizerInventory.count({
 				where: merge(filter, {

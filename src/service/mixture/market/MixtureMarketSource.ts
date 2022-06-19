@@ -19,6 +19,9 @@ export const MixtureMarketSource = (): IMixtureMarketSource => {
 				isOwned: (mixture.base?.BaseInventory?.length || 0) > 0,
 			},
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.count({
 				where: filter,

@@ -12,6 +12,9 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 		name: "mixture.aroma",
 		prisma,
 		map: async mixture => aromaSource().map(mixture?.aroma),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["aromaId"],

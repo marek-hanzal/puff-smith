@@ -14,6 +14,9 @@ export const WireMarketSource = (): IWireMarketSource => {
 			wire: await wireSource().mapper.map(wire),
 			isOwned: wire.WireInventory.length > 0,
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.count({
 				where: filter,

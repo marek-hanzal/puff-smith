@@ -11,6 +11,9 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 		name: "mixture.vendor",
 		prisma,
 		map: async mixture => vendorSource().map(mixture?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["vendorId"],

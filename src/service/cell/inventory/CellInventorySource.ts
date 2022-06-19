@@ -18,6 +18,9 @@ export const CellInventorySource = (): ICellInventorySource => {
 			cell: await cellSource().mapper.map(cellInventory.cell),
 			transaction: await transactionSource().mapper.map(cellInventory.transaction),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cellInventory.count({
 				where: merge(filter, {

@@ -12,6 +12,9 @@ export const FileSource = (): IFileSource => {
 			updated: file?.updated?.toUTCString() || undefined,
 			ttl: file.ttl || undefined,
 		}) : file,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.file.findUnique({
 				where: {id},

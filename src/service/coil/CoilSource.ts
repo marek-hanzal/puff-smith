@@ -26,6 +26,9 @@ export const CoilSource = (): ICoilSource => {
 				draws: await tagSource().mapper.list(Promise.resolve(CoilDraw.map(({draw}) => draw))),
 			};
 		},
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.coil.findUnique({
 				where: {id},

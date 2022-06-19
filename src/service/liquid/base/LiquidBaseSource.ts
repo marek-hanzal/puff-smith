@@ -11,6 +11,9 @@ export const LiquidBaseSource = (): ILiquidBaseSource => {
 		name: "liquid.base",
 		prisma,
 		map: async liquid => baseSource().map(liquid?.base),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
 				distinct: ["baseId"],

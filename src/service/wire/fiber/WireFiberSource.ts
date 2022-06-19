@@ -16,6 +16,9 @@ export const WireFiberSource = (): IWireFiberSource => {
 			fiberId: wireFiber.fiberId,
 			fiber: await fiberSource().mapper.map(wireFiber?.fiber),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async () => source.prisma.wireFiber.count({
 				distinct: ["fiberId"],

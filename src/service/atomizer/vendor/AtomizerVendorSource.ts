@@ -11,6 +11,9 @@ export const AtomizerVendorSource = (): IAtomizerVendorSource => {
 		name: "atomizer.vendor",
 		prisma,
 		map: async atomizer => vendorSource().map(atomizer?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
 				distinct: ["vendorId"],

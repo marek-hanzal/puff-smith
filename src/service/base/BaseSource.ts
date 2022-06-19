@@ -16,6 +16,9 @@ export const BaseSource = (): IBaseSource => {
 			...base,
 			vendor: await vendorSource().mapper.map(base.vendor),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.base.findUnique({
 				where: {id},

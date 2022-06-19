@@ -14,6 +14,9 @@ export const BaseMarketSource = (): IBaseMarketSource => {
 			base: await baseSource().mapper.map(base),
 			isOwned: base.BaseInventory.length > 0,
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
 				where: filter,

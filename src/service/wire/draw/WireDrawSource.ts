@@ -11,6 +11,9 @@ export const WireDrawSource = (): IWireDrawSource => {
 		name: "wire.draw",
 		prisma,
 		map: async wire => tagSource().map(wire?.draw),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async () => source.prisma.wireDraw.count({
 				distinct: ["drawId"],

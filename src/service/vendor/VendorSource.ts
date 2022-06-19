@@ -8,6 +8,9 @@ export const VendorSource = (): IVendorSource => {
 		name: "vendor",
 		prisma,
 		map: async vendor => vendor,
+		acl: {
+			lock: true,
+		},
 		source: {
 			create: async vendor => {
 				const create = vendor;

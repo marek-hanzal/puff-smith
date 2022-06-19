@@ -11,6 +11,9 @@ export const CoilVendorSource = (): ICoilVendorSource => {
 		name: "coil.inventory.vendor",
 		prisma,
 		map: async coil => vendorSource().map(coil?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.count({
 				distinct: ["vendorId"],

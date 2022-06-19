@@ -18,6 +18,9 @@ export const MixtureJobSource = (): IMixtureJobSource => {
 		map: async mixture => mixture ? {
 			...mixture,
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			create: async ({code, draws, ...mixture}) => {
 				const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;

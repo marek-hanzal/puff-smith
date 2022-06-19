@@ -27,6 +27,9 @@ export const BuildSource = (): IBuildSource => {
 			coil: await coilSource().mapper.map(build.coil),
 			cotton: await cottonSource().mapper.map(build.cotton),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => source.prisma.build.findUnique({
 				where: {id},

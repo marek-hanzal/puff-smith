@@ -13,6 +13,9 @@ export const LicenseSource = (): ILicenseSource => {
 		map: async license => license ? {
 			...license,
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.license.count({
 				where: merge(filter, {

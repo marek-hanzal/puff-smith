@@ -13,6 +13,9 @@ export const CertificateSource = (): ICertificateSource => {
 		map: async certificate => certificate ? {
 			...certificate,
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.certificate.count({
 				where: merge(filter, {

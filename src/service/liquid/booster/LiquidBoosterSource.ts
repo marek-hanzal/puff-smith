@@ -11,6 +11,9 @@ export const LiquidBoosterSource = (): ILiquidBoosterSource => {
 		name: "liquid.booster",
 		prisma,
 		map: async liquid => boosterSource().map(liquid?.booster),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
 				distinct: ["boosterId"],

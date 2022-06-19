@@ -11,6 +11,9 @@ export const CottonDrawSource = (): ICottonDrawSource => {
 		name: "cotton.draw",
 		prisma,
 		map: async cottonDraw => tagSource().map(cottonDraw?.draw),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async () => source.prisma.cottonDraw.count({
 				distinct: ["drawId"],

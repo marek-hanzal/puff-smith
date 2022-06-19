@@ -11,6 +11,9 @@ export const ModVendorSource = (): IModVendorSource => {
 		name: "mod.vendor",
 		prisma,
 		map: async mod => vendorSource().map(mod?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mod.count({
 				distinct: ["vendorId"],

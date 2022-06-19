@@ -20,6 +20,9 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 			booster: await boosterSource().mapper.map(boosterInventory.booster),
 			transaction: await transactionSource().map(boosterInventory.transaction),
 		}) : boosterInventory,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.boosterInventory.count({
 				where: merge(filter, {
@@ -43,9 +46,8 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 			}),
 			create: async ({code, ...booster}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
 				const $booster = await BoosterSource().ofSource(source).withPrisma(prisma).get(booster.boosterId);
-				return transactionSource.handleTransaction({
+				return TransactionSource().ofSource(source).withPrisma(prisma).handleTransaction({
 					userId,
 					cost: $booster.cost,
 					note: `Purchase of booster [${$booster.vendor.name} ${$booster.name}]`,

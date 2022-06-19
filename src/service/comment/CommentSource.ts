@@ -11,6 +11,9 @@ export const CommentSource = (): ICommentSource => {
 			...comment,
 			created: comment.created.toUTCString(),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.comment.count({
 				where: merge(filter, {

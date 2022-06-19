@@ -14,6 +14,9 @@ export const ModMarketSource = (): IModMarketSource => {
 			mod: await modSource().mapper.map(mod),
 			isOwned: mod.ModInventory.length > 0,
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mod.count({
 				where: merge(filter, {

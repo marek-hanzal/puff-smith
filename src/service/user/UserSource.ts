@@ -21,6 +21,9 @@ export const UserSource = (): IUserSource => {
 			tokens: user.UserToken.map(({token}) => token),
 			tokenIds: user.UserToken.map(({token}) => token.id),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			get: async id => await source.prisma.user.findUnique({
 				where: {id},
@@ -102,7 +105,7 @@ export const UserSource = (): IUserSource => {
 			}
 		},
 		whoami: async () => source.mapper.map(await source.get(source.user.required())),
-		asUser: async userId => User(userId, userId ? (await source.get(userId)).UserToken.map(({token}) => token.name) : []),
+		asUser: async userId => User(userId, userId ? (await UserSource().withUser(User(undefined, ["*"])).get(userId)).UserToken.map(({token}) => token.name) : []),
 	});
 
 	return source;

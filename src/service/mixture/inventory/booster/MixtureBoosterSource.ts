@@ -12,6 +12,9 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 		name: "mixture.inventory.booster",
 		prisma,
 		map: async mixture => boosterSource().map(mixture?.booster),
+		acl: {
+			lock: true,
+		},
 		cache: MixtureBoosterCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {

@@ -23,6 +23,9 @@ export const BuildLiquidSource = (buildId: string): IBuildLiquidSource => {
 				} : undefined,
 			};
 		},
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
 				where: merge(filter, {

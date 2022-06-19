@@ -17,6 +17,9 @@ export const TransactionSource = (): ITransactionSource => {
 			created: transaction.created.toUTCString(),
 			amount: transaction.amount.toNumber(),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			create: async create => source.prisma.transaction.create({
 				data: {

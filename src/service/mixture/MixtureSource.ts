@@ -16,6 +16,9 @@ export const MixtureSource = (): IMixtureSource => {
 	const source: IMixtureSource = Source<IMixtureSource>({
 		name: "mixture",
 		prisma,
+		acl: {
+			lock: true,
+		},
 		map: async mixture => mixture ? {
 			...mixture,
 			volume: mixture.aroma.volume,

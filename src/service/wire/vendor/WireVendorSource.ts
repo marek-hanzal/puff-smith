@@ -11,6 +11,9 @@ export const WireVendorSource = (): IWireVendorSource => {
 		name: "wire.vendor",
 		prisma,
 		map: async wire => vendorSource().map(wire?.vendor),
+		acl: {
+			lock: true,
+		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.findMany({
 				distinct: ["vendorId"],

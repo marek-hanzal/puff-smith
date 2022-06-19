@@ -19,6 +19,9 @@ export const WireInventorySource = (): IWireInventorySource => {
 			wire: await wireSource().mapper.map(wireInventory.wire),
 			transaction: await transactionSource().map(wireInventory.transaction),
 		}) : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wireInventory.count({
 				where: merge(filter, {

@@ -15,6 +15,9 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 			created: buildLiquidTasteRating.created.toUTCString(),
 			taste: await tagSource().mapper.map(buildLiquidTasteRating.taste),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter}) => source.prisma.buildLiquidTasteRating.count({
 				where: filter,

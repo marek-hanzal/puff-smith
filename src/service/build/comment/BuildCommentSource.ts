@@ -14,6 +14,9 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 			...buildComment,
 			comment: await commentSource().mapper.map(buildComment.comment),
 		} : undefined,
+		acl: {
+			lock: true,
+		},
 		source: {
 			count: async ({filter}) => source.prisma.buildComment.count({
 				where: filter,
