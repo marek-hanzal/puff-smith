@@ -118,7 +118,7 @@ export const TokenListSource: FC<ITokenListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</TokenProvider>;
-};
+}
 
 export interface ITokenSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITokenSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITokenSource>>;
@@ -161,7 +161,7 @@ export interface ITokenSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TokenSelectionProvider: FC<ITokenSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITokenSource>> {...props}/>;
-};
+}
 
 export const useTokenQueryInvalidate = () => {
 	const queryClient = useQueryClient();

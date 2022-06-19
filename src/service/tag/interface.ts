@@ -17,6 +17,7 @@ export interface ITag {
 }
 
 export type ITagEntity = Tag;
+export type IWithTag = { tag: Tag; };
 
 export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationInput> {
 }

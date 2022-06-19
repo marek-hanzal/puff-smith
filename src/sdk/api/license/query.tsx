@@ -118,7 +118,7 @@ export const LicenseListSource: FC<ILicenseListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</LicenseProvider>;
-};
+}
 
 export interface ILicenseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILicenseSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILicenseSource>>;
@@ -161,7 +161,7 @@ export interface ILicenseSelectionProviderProps extends Partial<ISelectionProvid
 
 export const LicenseSelectionProvider: FC<ILicenseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILicenseSource>> {...props}/>;
-};
+}
 
 export const useLicenseQueryInvalidate = () => {
 	const queryClient = useQueryClient();

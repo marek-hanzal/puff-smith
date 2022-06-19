@@ -71,6 +71,7 @@ model User {
   Fiber             Fiber[]
   UserCertificate   UserCertificate[]
   UserLicense       UserLicense[]
+  Wishlist          Wishlist[]
 }
 
 model VerificationToken {
@@ -216,6 +217,7 @@ model Tag {
   WireDraw               WireDraw[]
   MixtureDraw            MixtureDraw[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
+  WishlistTag            WishlistTag[]
 
   @@unique([code, group])
 }
@@ -957,4 +959,31 @@ model UserLicense {
   license   License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
 
   @@unique([userId, licenseId])
+}
+
+model Wishlist {
+  id      String   @id @default(cuid())
+  // name of the wanted thing
+  name    String
+  // optional url where to find that thing
+  url     String?
+  // optional cost of the thing in user's native currency (this value is user-centric, so it has a meaning for him)
+  cost    Float?
+  // note about the whish list item
+  note    String?  @db.Text
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  created DateTime
+
+  WishlistTag WishlistTag[]
+}
+
+model WishlistTag {
+  id         String   @id @default(cuid())
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  tagId      String
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([wishlistId, tagId])
 }
