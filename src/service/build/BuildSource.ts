@@ -45,16 +45,16 @@ export const BuildSource = (): IBuildSource => {
 					coil: {
 						include: {
 							CoilDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
-									}
-								},
-								wire: {
-									include: {
-										vendor: true,
-										WireFiber: {
-											include: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								}
+							},
+							wire: {
+								include: {
+									vendor: true,
+									WireFiber: {
+										include: {
 												fiber: {
 													include: {
 														material: true,

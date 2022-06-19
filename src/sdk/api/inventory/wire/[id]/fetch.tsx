@@ -33,7 +33,7 @@ export const useWireQuery = createQueryHook<void, ISourceItem<IWireInventorySour
 export const useWireQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireApiLink]);
-};
+}
 
 export const toWireLink = (queryParams?: IWireQueryParams) => toLink(WireApiLink, queryParams);
 export const useWireLink = () => toWireLink;

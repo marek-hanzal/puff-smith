@@ -22,15 +22,15 @@ export interface IVendor {
 	name: string;
 }
 
-export interface IVendorFetchProps {
+export interface IVendorFetch {
 	vendor: IVendor;
 }
 
-export interface IVendorFetchQuery extends ParsedUrlQuery {
+export interface IVendorFetchParams extends ParsedUrlQuery {
 	vendorId: string;
 }
 
-export interface IVendorSource extends ISource<IVendorCreate, IVendorEntity, IVendor, IVendorQuery> {
+export interface IVendorSource extends ISource<IVendorCreate, IVendorEntity, IVendor, IVendorQuery, IVendorFetch, IVendorFetchParams> {
 	fetchByReference(request: IVendorReference): Promise<IVendorEntity>;
 
 	fetchByReferenceOptional(request: IVendorReference): Promise<IVendorEntity | undefined>;

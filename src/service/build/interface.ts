@@ -40,6 +40,7 @@ export interface IBuildQuery extends IQuery<Prisma.BuildWhereInput & IWithFullte
 }
 
 export type IBuildEntity<T = void> = T extends void ? Build : Build & T;
+export type IWithBuild<T = void> = { build: IBuildEntity<T>; };
 
 export interface IBuildFetch {
 	build: IBuild;

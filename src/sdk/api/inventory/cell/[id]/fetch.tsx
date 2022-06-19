@@ -33,7 +33,7 @@ export const useCellQuery = createQueryHook<void, ISourceItem<ICellInventorySour
 export const useCellQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellApiLink]);
-};
+}
 
 export const toCellLink = (queryParams?: ICellQueryParams) => toLink(CellApiLink, queryParams);
 export const useCellLink = () => toCellLink;

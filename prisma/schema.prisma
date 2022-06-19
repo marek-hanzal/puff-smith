@@ -185,7 +185,6 @@ model Comment {
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   comment String   @db.Text
   created DateTime
-  public  Boolean  @default(false)
 
   AtomizerComment AtomizerComment[]
   CellComment     CellComment[]

@@ -33,7 +33,7 @@ export const useAtomizerQuery = createQueryHook<void, ISourceItem<IAtomizerInven
 export const useAtomizerQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerApiLink]);
-};
+}
 
 export const toAtomizerLink = (queryParams?: IAtomizerQueryParams) => toLink(AtomizerApiLink, queryParams);
 export const useAtomizerLink = () => toAtomizerLink;

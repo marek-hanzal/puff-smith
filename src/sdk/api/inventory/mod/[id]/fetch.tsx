@@ -33,7 +33,7 @@ export const useModQuery = createQueryHook<void, ISourceItem<IModInventorySource
 export const useModQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModApiLink]);
-};
+}
 
 export const toModLink = (queryParams?: IModQueryParams) => toLink(ModApiLink, queryParams);
 export const useModLink = () => toModLink;
