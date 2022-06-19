@@ -2,7 +2,11 @@ import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {AtomizerSelect} from "@/puff-smith/site/inventory/atomizer/@module/form/AtomizerSelect";
 import {CoilSelect} from "@/puff-smith/site/inventory/coil/@module/form/CoilSelect";
 import {CottonSelect} from "@/puff-smith/site/inventory/cotton/@module/form/CottonSelect";
+import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
+import {CoilCreateInline} from "@/puff-smith/site/shared/coil/@module/button/CoilCreateInline";
+import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateInline";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/build/create";
+import {PlusOutlined} from "@ant-design/icons";
 import {Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {InputNumber, message} from "antd";
 import {FC} from "react";
@@ -24,18 +28,18 @@ export const BuildCreateForm: FC<IBuildCreateFormProps> = props => {
 		})}
 		{...props}
 	>
-		<FormItem field={"atomizerId"} required>
+		<FormItem field={"atomizerId"} required extra={<AtomizerCreateButton icon={<PlusOutlined/>} type={"link"} size={"small"}/>}>
 			<AtomizerSelect
 				autoFocus
 				allowClear
 			/>
 		</FormItem>
-		<FormItem field={"cottonId"} required>
+		<FormItem field={"cottonId"} required extra={<CottonCreateInline/>}>
 			<CottonSelect
 				allowClear
 			/>
 		</FormItem>
-		<FormItem field={"coilId"} required>
+		<FormItem field={"coilId"} required extra={<CoilCreateInline/>}>
 			<CoilSelect
 				allowClear
 			/>

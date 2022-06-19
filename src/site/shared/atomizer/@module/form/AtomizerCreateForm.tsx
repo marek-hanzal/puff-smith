@@ -4,6 +4,7 @@ import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/V
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/atomizer/create";
 import {useAtomizerCountQueryInvalidate, useAtomizerQueryInvalidate} from "@/sdk/api/atomizer/query";
+import {useAtomizerInventoryQueryInvalidate} from "@/sdk/api/inventory/atomizer/query";
 import {useAtomizerMarketCountQueryInvalidate, useAtomizerMarketQueryInvalidate} from "@/sdk/api/market/atomizer/query";
 import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
@@ -19,6 +20,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 	const atomizerMarketQueryInvalidate = useAtomizerMarketQueryInvalidate();
 	const atomizerCountQueryInvalidate = useAtomizerCountQueryInvalidate();
 	const atomizerMarketCountQueryInvalidate = useAtomizerMarketCountQueryInvalidate();
+	const atomizerInventoryQueryInvalidate = useAtomizerInventoryQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.atomizer.create"}
 		onSuccess={async ({response, ...rest}) => {
@@ -27,6 +29,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 			await atomizerMarketQueryInvalidate();
 			await atomizerCountQueryInvalidate();
 			await atomizerMarketCountQueryInvalidate();
+			await atomizerInventoryQueryInvalidate();
 			await onSuccess?.({response, ...rest});
 		}}
 		toForm={() => ({
