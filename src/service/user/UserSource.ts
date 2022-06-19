@@ -55,14 +55,7 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.root", 1000000),
 				note: "Welcome gift for the Root User!",
 			});
-			return Promise.all([
-				source.createToken(
-					"site.root"
-				),
-				source.createToken(
-					"*"
-				)
-			]);
+			return source.createToken("*");
 		},
 		async handleCommonUser() {
 			await transactionSource().create({
@@ -70,23 +63,6 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
-			return Promise.all([
-				source.createToken(
-					"user"
-				),
-				source.createToken(
-					"site.lab"
-				),
-				source.createToken(
-					"site.market"
-				),
-				source.createToken(
-					"/lab*"
-				),
-				source.createToken(
-					"/market*"
-				)
-			]);
 		},
 		createToken: async token => {
 			const $token = await tokenSource().create({
