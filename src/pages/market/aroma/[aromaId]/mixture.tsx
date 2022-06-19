@@ -62,7 +62,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 		/>;
 };
 
-export default withMarketLayout(function Index({aroma}: IAromaFetch) {
+export default withMarketLayout(function Mixture({aroma}: IAromaFetch) {
 	return <MarketPage
 		title={"market.aroma.mixture"}
 		tabTitle={"market.aroma.mixture.title.tab"}

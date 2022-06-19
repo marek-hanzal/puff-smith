@@ -118,7 +118,7 @@ export const CommentListSource: FC<ICommentListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</CommentProvider>;
-};
+}
 
 export interface ICommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICommentSource>>;
@@ -161,7 +161,7 @@ export interface ICommentSelectionProviderProps extends Partial<ISelectionProvid
 
 export const CommentSelectionProvider: FC<ICommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICommentSource>> {...props}/>;
-};
+}
 
 export const useCommentQueryInvalidate = () => {
 	const queryClient = useQueryClient();

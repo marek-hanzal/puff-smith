@@ -186,12 +186,13 @@ model Comment {
   comment String   @db.Text
   created DateTime
 
-  AtomizerComment AtomizerComment[]
-  CellComment     CellComment[]
-  ModComment      ModComment[]
-  CottonComment   CottonComment[]
-  AromaComment    AromaComment[]
-  BuildComment    BuildComment[]
+  AtomizerComment       AtomizerComment[]
+  CellComment           CellComment[]
+  ModComment            ModComment[]
+  CottonComment         CottonComment[]
+  AromaComment          AromaComment[]
+  BuildComment          BuildComment[]
+  AromaInventoryComment AromaInventoryComment[]
 }
 
 model Tag {
@@ -450,12 +451,12 @@ model CottonDraw {
 }
 
 model CottonInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String       @id @default(cuid())
+  code          String       @unique
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   cottonId      String
-  cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  cotton        Cotton       @relation(fields: [cottonId], references: [id], onDelete: Cascade)
   transactionId String?
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
@@ -540,9 +541,18 @@ model AromaInventory {
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
-  MixtureInventory MixtureInventory[]
+  MixtureInventory      MixtureInventory[]
+  AromaInventoryComment AromaInventoryComment[]
 
   @@unique([userId, aromaId])
+}
+
+model AromaInventoryComment {
+  id               String         @id @default(cuid())
+  aromaInventoryId String
+  aromaInventory   AromaInventory @relation(fields: [aromaInventoryId], references: [id], onDelete: Cascade)
+  commentId        String
+  comment          Comment        @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model Booster {

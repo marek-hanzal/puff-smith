@@ -7,7 +7,7 @@ import {AromaListEmpty} from "@/puff-smith/site/inventory/aroma/@module/list/Aro
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromaInventoryListSource, IAromaInventoryListSourceProps} from "@/sdk/api/inventory/aroma/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -28,7 +28,14 @@ export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={aromaInventory}/>
-					<AromaNameInline aroma={aromaInventory.aroma}/>
+					<ButtonLink
+						size={"small"}
+						href={"/inventory/aroma/[aromaId]"}
+						query={{
+							aromaId: aromaInventory.id,
+						}}
+						label={<AromaNameInline aroma={aromaInventory.aroma}/>}
+					/>
 					<CodeInline code={aromaInventory}/>
 				</Space>}
 				description={<Space size={0} split={<Divider type={"vertical"}/>}>

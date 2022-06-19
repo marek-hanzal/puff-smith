@@ -9,7 +9,7 @@ import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaI
 import {CommentOutlined, SmileOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
 
-export default withMarketLayout(function Index({aroma}: IAromaFetch) {
+export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 	return <MarketPage
 		title={"market.aroma.comment"}
 		tabTitle={"market.aroma.comment.title.tab"}

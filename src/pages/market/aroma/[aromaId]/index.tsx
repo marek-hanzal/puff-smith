@@ -6,8 +6,8 @@ import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
-import {AromaView} from "@/puff-smith/site/market/aroma/@module/view/AromaView";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
+import {AromaView} from "@/puff-smith/site/shared/aroma/@module/view/AromaView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, EditIcon} from "@leight-core/client";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetch) {
