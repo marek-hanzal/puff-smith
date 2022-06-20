@@ -1,6 +1,6 @@
 {
 	"name": "puff-smith",
-	"version": "0.6.10",
+	"version": "0.6.11",
 	"private": true,
 	"scripts": {
 		"next:dev": "next dev",
