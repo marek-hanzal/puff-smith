@@ -1,5 +1,5 @@
 import {ITag} from "@/puff-smith/service/tag/interface";
-import {Tag, TagProps} from "antd";
+import {Tag, TagProps, Typography} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -19,5 +19,5 @@ export const Tags: FC<ITagsProps> = ({tags, translation, color = "cyan"}) => {
 		>
 			{translation ? t(`${translation}.${tag.code}`) : tag.code}
 		</Tag>)}
-	</span> : (translation ? t(`${translation}.empty`) : null);
+	</span> : (translation ? <Typography.Text type={"secondary"}>{t(`${translation}.empty`)}</Typography.Text> : null);
 };

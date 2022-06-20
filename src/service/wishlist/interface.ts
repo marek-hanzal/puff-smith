@@ -23,6 +23,7 @@ export interface IWishlist {
 	url?: string | null;
 	cost?: number | null;
 	note?: string | null;
+	created: string;
 	tags: ITag[];
 }
 
