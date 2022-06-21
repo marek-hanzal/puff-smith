@@ -118,7 +118,7 @@ export const WishlistListSource: FC<IWishlistListSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</WishlistProvider>;
-};
+}
 
 export interface IWishlistSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWishlistSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWishlistSource>>;
@@ -161,7 +161,7 @@ export interface IWishlistSelectionProviderProps extends Partial<ISelectionProvi
 
 export const WishlistSelectionProvider: FC<IWishlistSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWishlistSource>> {...props}/>;
-};
+}
 
 export const useWishlistQueryInvalidate = () => {
 	const queryClient = useQueryClient();

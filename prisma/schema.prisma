@@ -284,6 +284,8 @@ model Transaction {
   Liquid            Liquid[]
   WireInventory     WireInventory[]
   Build             Build[]
+  UserCertificate   UserCertificate[]
+  UserLicense       UserLicense[]
 }
 
 model Atomizer {
@@ -913,11 +915,13 @@ model CertificateToken {
 }
 
 model UserCertificate {
-  id            String      @id @default(cuid())
+  id            String       @id @default(cuid())
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   certificateId String
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+  certificate   Certificate  @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 
   @@unique([userId, certificateId])
 }
@@ -950,13 +954,15 @@ model LicenseToken {
 }
 
 model UserLicense {
-  id        String    @id @default(cuid())
-  from      DateTime?
-  to        DateTime?
-  userId    String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  licenseId String
-  license   License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  id            String       @id @default(cuid())
+  from          DateTime?
+  to            DateTime?
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseId     String
+  license       License      @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 
   @@unique([userId, licenseId])
 }

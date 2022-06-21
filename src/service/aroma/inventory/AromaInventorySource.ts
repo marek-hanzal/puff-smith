@@ -80,10 +80,9 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 				...pageOf(query),
 			}),
 			create: async ({code, ...aroma}) => prisma.$transaction(async prisma => {
-				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);
-				const $aroma = await AromaSource().ofSource(source).withPrisma(prisma).get(aroma.aromaId);
 				const userId = source.user.required();
-				return transactionSource.handleTransaction({
+				const $aroma = await aromaSource().withPrisma(prisma).get(aroma.aromaId);
+				return transactionSource().withPrisma(prisma).handleTransaction({
 					userId,
 					cost: $aroma.cost,
 					note: `Purchase of aroma [${$aroma.vendor.name} ${$aroma.name}]`,

@@ -1,11 +1,14 @@
 import {CertificateSource} from "@/puff-smith/service/certificate/CertificateSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
+import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
 import {IUserCertificateSource} from "@/puff-smith/service/user/certificate/interface";
+import {ClientError} from "@leight-core/api";
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const UserCertificate = (): IUserCertificateSource => {
+export const UserCertificateSource = (): IUserCertificateSource => {
 	const certificateSource = singletonOf(() => CertificateSource().ofSource(source));
+	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 
 	const source: IUserCertificateSource = Source<IUserCertificateSource>({
 		name: "user.certificate",
@@ -56,22 +59,35 @@ export const UserCertificate = (): IUserCertificateSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({certificateId}) => source.prisma.userCertificate.create({
-				data: {
-					userId: source.user.required(),
-					certificateId,
-				},
-				include: {
-					certificate: {
+			create: async ({certificateId}) => prisma.$transaction(async prisma => {
+				const userId = source.user.required();
+				const certificate = await certificateSource().withPrisma(prisma).get(certificateId);
+				if (!certificate.cost) {
+					throw new ClientError("Cannot acquire certificate without a cost.");
+				}
+				return transactionSource().withPrisma(prisma).handleTransaction({
+					userId,
+					cost: certificate.cost,
+					note: "Purchase of certificate",
+					callback: async transaction => source.prisma.userCertificate.create({
+						data: {
+							userId,
+							certificateId,
+							transactionId: transaction.id,
+						},
 						include: {
-							CertificateToken: {
+							certificate: {
 								include: {
-									token: true,
+									CertificateToken: {
+										include: {
+											token: true,
+										}
+									}
 								}
 							}
-						}
-					}
-				},
+						},
+					}),
+				});
 			}),
 			delete: async ids => {
 				const where = {

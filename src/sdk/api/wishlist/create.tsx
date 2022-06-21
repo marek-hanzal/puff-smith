@@ -17,7 +17,7 @@ export const useCreateMutation = createMutationHook<ISourceCreate<IWishlistSourc
 export const useCreateQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CreateApiLink]);
-};
+}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IWishlistSource>, ISourceItem<IWishlistSource>>> {
 }
@@ -25,7 +25,7 @@ export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreat
 export const CreateDefaultForm: FC<ICreateDefaultFormProps> = props => <Form<ISourceCreate<IWishlistSource>, ISourceItem<IWishlistSource>>
 	useMutation={useCreateMutation}
 	{...props}
-/>;
+/>
 
 export const toCreateLink = (queryParams?: ICreateQueryParams) => toLink(CreateApiLink, queryParams);
 export const useCreateLink = () => toCreateLink;
