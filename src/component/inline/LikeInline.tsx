@@ -25,7 +25,7 @@ export const LikeInline: FC<ILikeInlineProps> = ({tooltip, rating, isLoading, on
 
 	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
 		<Rate
-			defaultValue={rating ? rating + 3 : undefined}
+			defaultValue={(rating !== null && rating !== undefined) ? rating + 3 : undefined}
 			character={({index}) => icons[(index || 0) - 2]}
 			disabled={isLoading || disabled}
 			onChange={value => {

@@ -27,7 +27,7 @@ export const LikeDislikeInline: FC<ILikeDislikeInlineProps> = ({id, tooltip, rat
 	const {t} = useTranslation();
 	return <Tooltip title={tooltip ? t(tooltip) : undefined}>
 		<Rate
-			value={rating !== null && rating !== undefined ? rating + 3 : undefined}
+			defaultValue={(rating !== null && rating !== undefined) ? rating + 3 : undefined}
 			character={({index}) => icons[(index || 0) - 2]}
 			disabled={mutator.isLoading || disabled}
 			onChange={value => {
