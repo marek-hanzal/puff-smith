@@ -7,9 +7,10 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {CertificateCreateButton} from "@/puff-smith/site/shared/certificate/@module/button/CertificateCreateButton";
 import {CertificateList} from "@/puff-smith/site/shared/certificate/@module/list/CertificateList";
 import {CertificateListToolbar} from "@/puff-smith/site/shared/certificate/@module/list/CertificateListToolbar";
+import {UserCertificateCreateButton} from "@/puff-smith/site/shared/user/certificate/@module/button/UserCertificateCreateButton";
 import {CertificateProviderControl} from "@/sdk/api/certificate/query";
 import {FireOutlined, LockOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
+import {BoolInline, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withMarketLayout(function Index() {
@@ -46,7 +47,11 @@ export default withMarketLayout(function Index() {
 					}}
 				>
 					<SelectionProvider type={"multi"}>
-						<CertificateList/>
+						<CertificateList
+							renderItemExtra={certificate => certificate.isOwned ? <BoolInline bool/> : <UserCertificateCreateButton
+								certificate={certificate}
+							/>}
+						/>
 					</SelectionProvider>
 				</CertificateProviderControl>
 			</Tabs.TabPane>

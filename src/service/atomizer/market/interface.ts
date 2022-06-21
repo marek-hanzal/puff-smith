@@ -5,7 +5,7 @@ import {ISource} from "@leight-core/api";
 
 export interface IAtomizerMarket {
 	atomizer: IAtomizer;
-	isOwned: boolean | undefined;
+	isOwned?: boolean;
 }
 
 export interface IAtomizerMarketSource extends ISource<void, IAtomizerEntity<IWithAtomizerInventory & IWithVendor & IWithAtomizerDraw>, IAtomizerMarket, IAtomizerQuery> {

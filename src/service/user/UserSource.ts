@@ -16,11 +16,26 @@ export const UserSource = (): IUserSource => {
 	const source: IUserSource = Source<IUserSource>({
 		name: "user",
 		prisma,
-		map: async user => user ? {
-			...user,
-			tokens: user.UserToken.map(({token}) => token),
-			tokenIds: user.UserToken.map(({token}) => token.id),
-		} : undefined,
+		map: async user => {
+			if (!user) {
+				return undefined;
+			}
+			let tokens = user.UserToken.map(({token}) => token);
+			const tokenIds = user.UserToken.map(({token}) => token.id);
+
+			for (const {certificate} of user.UserCertificate) {
+				tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token));
+			}
+			for (const {license} of user.UserLicense) {
+				tokens = tokens.concat(license.LicenseToken.map(({token}) => token));
+			}
+
+			return {
+				...user,
+				tokens,
+				tokenIds,
+			};
+		},
 		acl: {
 			lock: true,
 		},
@@ -31,8 +46,42 @@ export const UserSource = (): IUserSource => {
 					UserToken: {
 						include: {
 							token: true,
-						}
-					}
+						},
+					},
+					UserCertificate: {
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										},
+									},
+								},
+							},
+						},
+					},
+					UserLicense: {
+						where: {
+							OR: [
+								{from: {gte: new Date()}, to: {lte: new Date()}},
+								{from: {gte: new Date()}, to: null},
+								{from: null, to: {lte: new Date()}},
+								{from: null, to: null},
+							]
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										},
+									},
+								},
+							},
+						},
+					},
 				},
 				rejectOnNotFound: true,
 			}),
@@ -43,8 +92,42 @@ export const UserSource = (): IUserSource => {
 					UserToken: {
 						include: {
 							token: true,
-						}
-					}
+						},
+					},
+					UserCertificate: {
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										},
+									},
+								},
+							},
+						},
+					},
+					UserLicense: {
+						where: {
+							OR: [
+								{from: {gte: new Date()}, to: {lte: new Date()}},
+								{from: {gte: new Date()}, to: null},
+								{from: null, to: {lte: new Date()}},
+								{from: null, to: null},
+							]
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										},
+									},
+								},
+							},
+						},
+					},
 				},
 				...pageOf(query),
 			}),

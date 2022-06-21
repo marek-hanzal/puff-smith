@@ -36,5 +36,7 @@ export interface ILicenseFetchParams extends ParsedUrlQuery {
 	licenseId: string;
 }
 
-export interface ILicenseSource extends ISource<ILicenseCreate, ILicenseEntity<{ LicenseToken: IWithTokenEntity[]; }>, ILicense, ILicenseQuery, ILicenseFetch, ILicenseFetchParams> {
+export type ILicenseSourceEntity = ILicenseEntity<{ LicenseToken: IWithTokenEntity[]; }>;
+
+export interface ILicenseSource extends ISource<ILicenseCreate, ILicenseSourceEntity, ILicense, ILicenseQuery, ILicenseFetch, ILicenseFetchParams> {
 }

@@ -11,7 +11,9 @@ export const VendorList: FC<IVendorListProps> = props => {
 	return <VendorListSource
 		{...props}
 	>
-		{vendor => <ListItem>
+		{vendor => <ListItem
+			key={vendor.id}
+		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={vendor}/>

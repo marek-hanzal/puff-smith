@@ -58,7 +58,7 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 						where: {
 							userId: source.user.required(),
 						}
-					}
+					},
 				},
 				...pageOf(query),
 			}),

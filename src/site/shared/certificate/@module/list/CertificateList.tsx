@@ -11,12 +11,15 @@ import {useTranslation} from "react-i18next";
 export interface ICertificateListProps extends Partial<ICertificateListSourceProps> {
 }
 
-export const CertificateList: FC<ICertificateListProps> = props => {
+export const CertificateList: FC<ICertificateListProps> = ({renderItemExtra, ...props}) => {
 	const {t} = useTranslation();
 	return <CertificateListSource
 		{...props}
 	>
-		{certificate => <ListItem>
+		{certificate => <ListItem
+			key={certificate.id}
+			extra={renderItemExtra?.(certificate)}
+		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={certificate}/>

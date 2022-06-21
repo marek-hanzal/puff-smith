@@ -15,11 +15,28 @@ export const CertificateSource = (): ICertificateSource => {
 		map: async certificate => certificate ? {
 			...certificate,
 			tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
+			isOwned: certificate.UserCertificate.length > 0,
 		} : undefined,
 		acl: {
 			lock: true,
 		},
 		source: {
+			get: async id => source.prisma.certificate.findUnique({
+				where: {id},
+				include: {
+					CertificateToken: {
+						include: {
+							token: true,
+						}
+					},
+					UserCertificate: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.certificate.count({
 				where: merge(filter, {
 					OR: [
@@ -60,7 +77,12 @@ export const CertificateSource = (): ICertificateSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserCertificate: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
 				},
 				orderBy: [
 					{name: "asc"},
@@ -86,7 +108,12 @@ export const CertificateSource = (): ICertificateSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserCertificate: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
 				},
 			}),
 			patch: async ({id, name, code, cost}) => source.prisma.certificate.update({
@@ -101,7 +128,12 @@ export const CertificateSource = (): ICertificateSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserCertificate: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
 				},
 			}),
 			delete: async ids => {
@@ -117,7 +149,12 @@ export const CertificateSource = (): ICertificateSource => {
 							include: {
 								token: true,
 							}
-						}
+						},
+						UserCertificate: {
+							where: {
+								userId: source.user.required(),
+							},
+						},
 					},
 				});
 				await prisma.certificate.deleteMany({

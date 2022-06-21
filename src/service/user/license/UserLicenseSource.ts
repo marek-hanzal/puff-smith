@@ -1,37 +1,37 @@
-import {CertificateSource} from "@/puff-smith/service/certificate/CertificateSource";
+import {LicenseSource} from "@/puff-smith/service/license/LicenseSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSource";
-import {IUserCertificateSource} from "@/puff-smith/service/user/certificate/interface";
+import {IUserLicenseSource} from "@/puff-smith/service/user/license/interface";
 import {ClientError} from "@leight-core/api";
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const UserCertificateSource = (): IUserCertificateSource => {
-	const certificateSource = singletonOf(() => CertificateSource().ofSource(source));
+export const UserLicenseSource = (): IUserLicenseSource => {
+	const licenseSource = singletonOf(() => LicenseSource().ofSource(source));
 	const transactionSource = singletonOf(() => TransactionSource().ofSource(source));
 
-	const source: IUserCertificateSource = Source<IUserCertificateSource>({
-		name: "user.certificate",
+	const source: IUserLicenseSource = Source<IUserLicenseSource>({
+		name: "user.license",
 		prisma,
-		map: async userCertificate => userCertificate ? {
-			...userCertificate,
-			certificate: await certificateSource().mapper.map(userCertificate.certificate),
+		map: async userLicense => userLicense ? {
+			...userLicense,
+			license: await licenseSource().mapper.map(userLicense.license),
 		} : undefined,
 		acl: {
 			lock: true,
 		},
 		source: {
-			get: async id => source.prisma.userCertificate.findUnique({
+			get: async id => source.prisma.userLicense.findUnique({
 				where: {id},
 				include: {
-					certificate: {
+					license: {
 						include: {
-							CertificateToken: {
+							LicenseToken: {
 								include: {
 									token: true,
 								}
 							},
-							UserCertificate: {
+							UserLicense: {
 								where: {
 									userId: source.user.required(),
 								},
@@ -41,25 +41,25 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			count: async () => source.prisma.userCertificate.count({
+			count: async () => source.prisma.userLicense.count({
 				where: {
 					userId: source.user.required(),
 				},
 			}),
-			query: async ({orderBy, ...query}) => source.prisma.userCertificate.findMany({
+			query: async ({orderBy, ...query}) => source.prisma.userLicense.findMany({
 				where: {
 					userId: source.user.required(),
 				},
 				orderBy,
 				include: {
-					certificate: {
+					license: {
 						include: {
-							CertificateToken: {
+							LicenseToken: {
 								include: {
 									token: true,
 								}
 							},
-							UserCertificate: {
+							UserLicense: {
 								where: {
 									userId: source.user.required(),
 								},
@@ -69,31 +69,31 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({certificateId}) => prisma.$transaction(async prisma => {
+			create: async ({licenseId}) => prisma.$transaction(async prisma => {
 				const userId = source.user.required();
-				const certificate = await certificateSource().withPrisma(prisma).get(certificateId);
-				if (!certificate.cost) {
-					throw new ClientError("Cannot acquire certificate without a cost.");
+				const license = await licenseSource().withPrisma(prisma).get(licenseId);
+				if (!license.cost) {
+					throw new ClientError("Cannot acquire license without a cost.");
 				}
 				return transactionSource().withPrisma(prisma).handleTransaction({
 					userId,
-					cost: certificate.cost,
-					note: "Purchase of certificate",
-					callback: async transaction => source.prisma.userCertificate.create({
+					cost: license.cost,
+					note: "Purchase of license",
+					callback: async transaction => source.prisma.userLicense.create({
 						data: {
 							userId,
-							certificateId,
+							licenseId,
 							transactionId: transaction.id,
 						},
 						include: {
-							certificate: {
+							license: {
 								include: {
-									CertificateToken: {
+									LicenseToken: {
 										include: {
 											token: true,
 										}
 									},
-									UserCertificate: {
+									UserLicense: {
 										where: {
 											userId: source.user.required(),
 										},
@@ -112,17 +112,17 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
-					const userCertificate = await prisma.userCertificate.findMany({
+					const userLicense = await prisma.userLicense.findMany({
 						where,
 						include: {
-							certificate: {
+							license: {
 								include: {
-									CertificateToken: {
+									LicenseToken: {
 										include: {
 											token: true,
 										}
 									},
-									UserCertificate: {
+									UserLicense: {
 										where: {
 											userId: source.user.required(),
 										},
@@ -131,10 +131,10 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 							}
 						},
 					});
-					await prisma.userCertificate.deleteMany({
+					await prisma.userLicense.deleteMany({
 						where,
 					});
-					return userCertificate;
+					return userLicense;
 				});
 			}
 		}

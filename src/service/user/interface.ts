@@ -1,4 +1,8 @@
+import {IWithCertificate} from "@/puff-smith/service/certificate/interface";
+import {IWithLicense} from "@/puff-smith/service/license/interface";
 import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
+import {IWithUserCertificate} from "@/puff-smith/service/user/certificate/interface";
+import {IWithUserLicense} from "@/puff-smith/service/user/license/interface";
 import {IWithUserToken} from "@/puff-smith/service/user/token/interface";
 import {IQuery, ISource, IUser as ICoolUser} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
@@ -27,7 +31,9 @@ export interface IUserFetchParams extends ParsedUrlQuery {
 	userId: string;
 }
 
-export interface IUserSource extends ISource<undefined, IUserEntity<IWithUserToken<IWithTokenEntity>>, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
+export type IUserSourceEntity = IUserEntity<IWithUserLicense<IWithLicense<{ LicenseToken: IWithTokenEntity[] }>> & IWithUserCertificate<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>> & IWithUserToken<IWithTokenEntity>>;
+
+export interface IUserSource extends ISource<undefined, IUserSourceEntity, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
 	handleRootUser(): Promise<any>;
 
 	handleCommonUser(): Promise<any>;

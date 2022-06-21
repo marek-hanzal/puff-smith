@@ -16,7 +16,9 @@ export const LicenseList: FC<ILicenseListProps> = props => {
 	return <LicenseListSource
 		{...props}
 	>
-		{license => <ListItem>
+		{license => <ListItem
+			key={license.id}
+		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={license}/>

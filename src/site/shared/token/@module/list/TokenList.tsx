@@ -11,7 +11,9 @@ export const TokenList: FC<ITokenListProps> = props => {
 	return <TokenListSource
 		{...props}
 	>
-		{token => <ListItem>
+		{token => <ListItem
+			key={token.id}
+		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={token}/>

@@ -20,6 +20,17 @@ export const LicenseSource = (): ILicenseSource => {
 			lock: true,
 		},
 		source: {
+			get: async id => source.prisma.license.findUnique({
+				where: {id},
+				include: {
+					LicenseToken: {
+						include: {
+							token: true,
+						}
+					}
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.license.count({
 				where: merge(filter, {
 					OR: [

@@ -51,13 +51,22 @@ export function TransactionModalButton<THook extends IMutationHook<any, any>>(
 				children: <Price price={cost && cost >= 0 ? cost : undefined} defaultText={translation + ".buy.free"}/>,
 				...props,
 			}}
+			okButtonProps={{
+				icon: <PurchaseIcon/>,
+				loading: createMutation.isLoading,
+				size: "large",
+			}}
+			cancelButtonProps={{
+				type: "text",
+				size: "large",
+			}}
 			okText={t(translation + ".buy.confirm.button")}
 			title={t(translation + ".buy.confirm.title")}
 			onOk={setShow => {
 				onOk?.();
 				createMutation.mutate(toMutate(), {
 					onSuccess: async data => {
-						message.success(t(translation + ".buy.success", {data}));
+						message.success(t(translation + ".buy.success", data));
 						await puffiesQueryInvalidate();
 						onSuccess?.();
 					},
