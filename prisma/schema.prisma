@@ -40,38 +40,42 @@ model User {
   tariffId      String?
   tariff        Tariff?   @relation(fields: [tariffId], references: [id])
 
-  accounts          Account[]
-  files             File[]
-  jobs              Job[]
-  Transaction       Transaction[]
-  Comment           Comment[]
-  UserToken         UserToken[]
-  Liquid            Liquid[]
-  Metric            Metric[]
-  Build             Build[]
-  AtomizerInventory AtomizerInventory[]
-  CellInventory     CellInventory[]
-  ModInventory      ModInventory[]
-  CottonInventory   CottonInventory[]
-  VoucherInventory  VoucherInventory[]
-  AromaInventory    AromaInventory[]
-  BoosterInventory  BoosterInventory[]
-  BaseInventory     BaseInventory[]
-  WireInventory     WireInventory[]
-  MixtureInventory  MixtureInventory[]
-  Atomizer          Atomizer[]
-  Cell              Cell[]
-  Mod               Mod[]
-  Cotton            Cotton[]
-  Aroma             Aroma[]
-  Booster           Booster[]
-  Base              Base[]
-  Coil              Coil[]
-  Wire              Wire[]
-  Fiber             Fiber[]
-  UserCertificate   UserCertificate[]
-  UserLicense       UserLicense[]
-  Wishlist          Wishlist[]
+  accounts                       Account[]
+  files                          File[]
+  jobs                           Job[]
+  Transaction                    Transaction[]
+  Comment                        Comment[]
+  UserToken                      UserToken[]
+  Liquid                         Liquid[]
+  Metric                         Metric[]
+  Build                          Build[]
+  AtomizerInventory              AtomizerInventory[]
+  CellInventory                  CellInventory[]
+  ModInventory                   ModInventory[]
+  CottonInventory                CottonInventory[]
+  VoucherInventory               VoucherInventory[]
+  AromaInventory                 AromaInventory[]
+  BoosterInventory               BoosterInventory[]
+  BaseInventory                  BaseInventory[]
+  WireInventory                  WireInventory[]
+  MixtureInventory               MixtureInventory[]
+  Atomizer                       Atomizer[]
+  Cell                           Cell[]
+  Mod                            Mod[]
+  Cotton                         Cotton[]
+  Aroma                          Aroma[]
+  Booster                        Booster[]
+  Base                           Base[]
+  Coil                           Coil[]
+  Wire                           Wire[]
+  Fiber                          Fiber[]
+  UserCertificate                UserCertificate[]
+  UserLicense                    UserLicense[]
+  Wishlist                       Wishlist[]
+  UserCertificateRequestUser     UserCertificateRequest[] @relation("UserCertificateRequestUser")
+  UserCertificateRequestApprover UserCertificateRequest[] @relation("UserCertificateRequestApprover")
+  UserLicenseRequestUser         UserLicenseRequest[]     @relation("UserLicenseRequestUser")
+  UserLicenseRequestApprover     UserLicenseRequest[]     @relation("UserLicenseRequestApprover")
 }
 
 model VerificationToken {
@@ -900,8 +904,9 @@ model Certificate {
   // interesting part: certificate could be bought but when NULL, it should not be available for buy
   cost Float?
 
-  CertificateToken CertificateToken[]
-  UserCertificate  UserCertificate[]
+  CertificateToken       CertificateToken[]
+  UserCertificate        UserCertificate[]
+  UserCertificateRequest UserCertificateRequest[]
 }
 
 model CertificateToken {
@@ -926,6 +931,22 @@ model UserCertificate {
   @@unique([userId, certificateId])
 }
 
+model UserCertificateRequest {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation("UserCertificateRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+  certificateId String
+  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
+  approverId    String?
+  approver      User?       @relation("UserCertificateRequestApprover", fields: [approverId], references: [id], onDelete: Cascade)
+  // null - pending; 0, 1 are obvious
+  status        Int?
+  created       DateTime
+  updated       DateTime?
+
+  @@unique([userId, certificateId])
+}
+
 // License is basically the same as Certificate, but for "Common humans"; acquire licence could be quite common
 // as there are only for short time.
 model License {
@@ -939,8 +960,9 @@ model License {
   // if provided, automatically creates licence with duration (from time it's bought + "duration" days)
   duration Int?
 
-  LicenseToken LicenseToken[]
-  UserLicense  UserLicense[]
+  LicenseToken       LicenseToken[]
+  UserLicense        UserLicense[]
+  UserLicenseRequest UserLicenseRequest[]
 }
 
 model LicenseToken {
@@ -963,6 +985,22 @@ model UserLicense {
   license       License      @relation(fields: [licenseId], references: [id], onDelete: Cascade)
   transactionId String?
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, licenseId])
+}
+
+model UserLicenseRequest {
+  id         String    @id @default(cuid())
+  userId     String
+  user       User      @relation("UserLicenseRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+  licenseId  String
+  license    License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  approverId String?
+  approver   User?     @relation("UserLicenseRequestApprover", fields: [approverId], references: [id], onDelete: Cascade)
+  // null - pending; 0, 1 are obvious
+  status     Int?
+  created    DateTime
+  updated    DateTime?
 
   @@unique([userId, licenseId])
 }

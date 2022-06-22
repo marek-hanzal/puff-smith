@@ -25,7 +25,7 @@ export const CertificateList: FC<ICertificateListProps> = ({renderItemExtra, ...
 					<SelectionBool selection={certificate}/>
 					{t(`certificate.${certificate.name}`, certificate.name)}
 					<CodeInline code={certificate}/>
-					<Price withColor withIcon price={certificate.cost}/>
+					{certificate.cost && <Price withColor withIcon price={certificate.cost}/>}
 				</Space>}
 				description={<Tags
 					color={"red"}

@@ -5,7 +5,7 @@ import {TransactionSource} from "@/puff-smith/service/transaction/TransactionSou
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
 import {onUnique, pageOf, Source, User} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {singletonOf, uniqueOf} from "@leight-core/utils";
 
 export const UserSource = (): IUserSource => {
 	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
@@ -29,10 +29,9 @@ export const UserSource = (): IUserSource => {
 			for (const {license} of user.UserLicense) {
 				tokens = tokens.concat(license.LicenseToken.map(({token}) => token));
 			}
-
 			return {
 				...user,
-				tokens,
+				tokens: uniqueOf(tokens, "name"),
 				tokenIds,
 			};
 		},

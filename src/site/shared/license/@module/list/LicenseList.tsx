@@ -24,7 +24,7 @@ export const LicenseList: FC<ILicenseListProps> = props => {
 					<SelectionBool selection={license}/>
 					{t(`license.${license.name}`, license.name)}
 					<CodeInline code={license}/>
-					<Price withColor withIcon price={license.cost}/>
+					{license.cost && <Price withColor withIcon price={license.cost}/>}
 				</Space>}
 				description={<Tags
 					color={"red"}
