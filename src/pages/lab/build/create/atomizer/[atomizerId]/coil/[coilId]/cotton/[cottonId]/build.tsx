@@ -3,6 +3,7 @@ import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch, IAtomizerFetchParams} from "@/puff-smith/service/atomizer/interface";
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
@@ -11,10 +12,14 @@ import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
 import {ICottonFetch, ICottonFetchParams} from "@/puff-smith/service/cotton/interface";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
+import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
 import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonView";
 import {CreateDefaultForm} from "@/sdk/api/lab/build/create";
+import {BuildProviderControl} from "@/sdk/api/lab/build/query";
+import {StarOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, Centered, DatePicker, FormItem, ListIcon, Submit, SwitchItem, TabInline, Template} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
 import {InputNumber, message, Tabs} from "antd";
@@ -109,6 +114,86 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 						</Centered>
 					</CreateDefaultForm>
 				</Template>
+			</Tabs.TabPane>
+			<Tabs.TabPane key={"builds"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.atomizer.coil.builds.tab"}/>}>
+				<Tabs>
+					<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								cottonId: cotton.id,
+								rating: {
+									gt: 0,
+								},
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.coil.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+					<Tabs.TabPane key={"builds.cotton"} tab={<TabInline icon={<CottonIcon/>} title={"lab.build.atomizer.coil.builds.coil.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								cottonId: cotton.id,
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.build.coil.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+					<Tabs.TabPane key={"all"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.atomizer.coil.builds.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.atomizer.build.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+				</Tabs>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
 				<Template>

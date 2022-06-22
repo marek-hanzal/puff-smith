@@ -13,6 +13,7 @@ import {CottonListEmpty} from "@/puff-smith/site/inventory/cotton/@module/list/C
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
+import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
@@ -148,34 +149,98 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 					/>
 				</CottonInventoryProviderControl>
 			</Tabs.TabPane>
-			<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
-				<BuildProviderControl
-					defaultSize={DEFAULT_LIST_SIZE}
-					defaultOrderBy={{
-						created: "desc",
-					}}
-					applyFilter={{
-						atomizerId: atomizer.id,
-						coilId: coil.id,
-						rating: {
-							gt: 0,
-						},
-					}}
-				>
-					<BuildList
-						locale={{
-							emptyText: <Template
-								icon={<BuildIcon/>}
-								label={"lab.build.create.coil.list.empty"}
-							/>,
-						}}
-						itemExtra={build => <BuildCreateLink
-							atomizer={build.atomizer}
-							coil={build.coil}
-							cotton={build.cotton}
-						/>}
-					/>
-				</BuildProviderControl>
+			<Tabs.TabPane key={"builds"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.atomizer.coil.builds.tab"}/>}>
+				<Tabs>
+					<Tabs.TabPane key={"favourites"} tab={<TabInline icon={<StarOutlined/>} title={"lab.build.atomizer.cotton.favourites.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								rating: {
+									gt: 0,
+								},
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.coil.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+									<BuildCreateLink
+										atomizer={build.atomizer}
+										coil={build.coil}
+										cotton={build.cotton}
+									/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+					<Tabs.TabPane key={"builds.coil"} tab={<TabInline icon={<CoilIcon/>} title={"lab.build.atomizer.coil.builds.coil.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.build.coil.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+									<BuildCreateLink
+										atomizer={build.atomizer}
+										coil={build.coil}
+										cotton={build.cotton}
+									/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+					<Tabs.TabPane key={"all"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.atomizer.coil.builds.tab"}/>}>
+						<BuildProviderControl
+							defaultSize={DEFAULT_LIST_SIZE}
+							defaultOrderBy={{
+								created: "desc",
+							}}
+							applyFilter={{
+								atomizerId: atomizer.id,
+							}}
+						>
+							<BuildList
+								locale={{
+									emptyText: <Template
+										icon={<BuildIcon/>}
+										label={"lab.build.create.atomizer.build.list.empty"}
+									/>,
+								}}
+								itemExtra={build => <>
+									<BuildRatingButton disabled build={build}/>
+									<BuildCreateLink
+										atomizer={build.atomizer}
+										coil={build.coil}
+										cotton={build.cotton}
+									/>
+								</>}
+							/>
+						</BuildProviderControl>
+					</Tabs.TabPane>
+				</Tabs>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"atomizer.preview"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.atomizer.preview.tab"}/>}>
 				<AtomizerView atomizer={atomizer}/>

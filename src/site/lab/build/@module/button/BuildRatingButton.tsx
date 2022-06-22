@@ -7,9 +7,10 @@ import {FC} from "react";
 
 export interface IBuildRatingButtonProps {
 	build: IBuild;
+	disabled?: boolean;
 }
 
-export const BuildRatingButton: FC<IBuildRatingButtonProps> = ({build}) => {
+export const BuildRatingButton: FC<IBuildRatingButtonProps> = ({build, disabled = false}) => {
 	const patchMutation = usePatchMutation();
 	const buildQueryInvalidate = useBuildQueryInvalidate();
 	const labBuildQueryInvalidate = useLabBuildQueryInvalidate();
@@ -18,7 +19,7 @@ export const BuildRatingButton: FC<IBuildRatingButtonProps> = ({build}) => {
 		id={build.id}
 		rating={build.rating}
 		mutator={patchMutation}
-		disabled={!build.active}
+		disabled={disabled || !build.active}
 		onSuccess={async () => {
 			await buildQueryInvalidate();
 			await labBuildQueryInvalidate();
