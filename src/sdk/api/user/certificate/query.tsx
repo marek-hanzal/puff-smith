@@ -119,7 +119,7 @@ export const UserCertificateListSource: FC<IUserCertificateListSourceProps> = ({
 			{...props}
 		/>
 	</UserCertificateProvider>;
-};
+}
 
 export interface IUserCertificateSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserCertificateSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserCertificateSource>>;
@@ -162,7 +162,7 @@ export interface IUserCertificateSelectionProviderProps extends Partial<ISelecti
 
 export const UserCertificateSelectionProvider: FC<IUserCertificateSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserCertificateSource>> {...props}/>;
-};
+}
 
 export const useUserCertificateQueryInvalidate = () => {
 	const queryClient = useQueryClient();

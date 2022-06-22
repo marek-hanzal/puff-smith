@@ -4,7 +4,7 @@ import {IUserCertificateRequestSource} from "@/puff-smith/service/user/certifica
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const UserCertificateRequestRequestSource = (): IUserCertificateRequestSource => {
+export const UserCertificateRequestSource = (): IUserCertificateRequestSource => {
 	const certificateSource = singletonOf(() => CertificateSource().ofSource(source));
 
 	const source: IUserCertificateRequestSource = Source<IUserCertificateRequestSource>({
