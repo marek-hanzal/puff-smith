@@ -1,4 +1,5 @@
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
 import {UserIcon} from "@/puff-smith/component/icon/UserIcon";
 import {IUser} from "@/puff-smith/service/user/interface";
@@ -18,6 +19,7 @@ export const UserIndexMenu: FC<IUserIndexMenuProps> = ({user, ...props}) => {
 			CreateMenuItem("root.user.index.menu", "/root/user/[userId]", <UserIcon/>, query),
 			CreateMenuItem("root.user.transactions.menu", "/root/user/[userId]/transactions", <PurchaseIcon/>, query),
 			CreateMenuItem("root.user.certificates.menu", "/root/user/[userId]/certificates", <CertificateIcon/>, query),
+			CreateMenuItem("root.user.licenses.menu", "/root/user/[userId]/licenses", <LicenseIcon/>, query),
 		]}
 		{...props}
 	/>;

@@ -49,13 +49,11 @@ export default withMarketLayout(function Index() {
 						name: "asc",
 					}}
 				>
-					<SelectionProvider type={"multi"}>
-						<CertificateList
-							renderItemExtra={certificate => certificate.isOwned ? <BoolInline bool/> : <UserCertificateCreateButton
-								certificate={certificate}
-							/>}
-						/>
-					</SelectionProvider>
+					<CertificateList
+						renderItemExtra={certificate => certificate.isOwned ? <BoolInline bool/> : <UserCertificateCreateButton
+							certificate={certificate}
+						/>}
+					/>
 				</CertificateProviderControl>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"private"} tab={<TabInline icon={<LockOutlined/>} title={"market.certificate.private.tab"}/>}>
@@ -68,24 +66,22 @@ export default withMarketLayout(function Index() {
 						name: "asc",
 					}}
 				>
-					<SelectionProvider type={"multi"}>
-						<CertificateList
-							renderItemExtra={certificate => {
-								if (certificate.isOwned) {
-									return <BoolInline bool/>;
-								}
-								switch (certificate.request?.status) {
-									case null:
-										return <BoolInline checkIcon={<QuestionCircleTwoTone/>} bool={true}/>;
-									case 0:
-										return <BoolInline bool={false}/>;
-								}
-								return <UserCertificateRequestCreateButton
-									certificate={certificate}
-								/>;
-							}}
-						/>
-					</SelectionProvider>
+					<CertificateList
+						renderItemExtra={certificate => {
+							if (certificate.isOwned) {
+								return <BoolInline bool/>;
+							}
+							switch (certificate.request?.status) {
+								case null:
+									return <BoolInline checkIcon={<QuestionCircleTwoTone/>} bool={true}/>;
+								case 0:
+									return <BoolInline bool={false}/>;
+							}
+							return <UserCertificateRequestCreateButton
+								certificate={certificate}
+							/>;
+						}}
+					/>
 				</CertificateProviderControl>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"certificates"} tab={<TabInline icon={<CertificateIcon/>} title={"market.certificate.certificates.tab"}/>}>

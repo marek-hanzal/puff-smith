@@ -19,6 +19,7 @@ export interface IUserLicenseQuery extends IQuery<Prisma.UserLicenseWhereInput, 
 
 export type IUserLicenseEntity<T = void> = T extends void ? UserLicense : UserLicense & T;
 export type IWithUserLicense<T = void> = { UserLicense: IUserLicenseEntity<T>[]; };
+export type IWithNullUserLicense<T = void> = { UserLicense?: IUserLicenseEntity<T>[]; };
 
 export interface IUserLicenseFetch {
 	userLicense: IUserLicense;

@@ -7,12 +7,16 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {LicenseCreateButton} from "@/puff-smith/site/shared/license/@module/button/LicenseCreateButton";
 import {LicenseList} from "@/puff-smith/site/shared/license/@module/list/LicenseList";
 import {LicenseListToolbar} from "@/puff-smith/site/shared/license/@module/list/LicenseListToolbar";
+import {UserLicenseCreateButton} from "@/puff-smith/site/shared/user/license/@module/button/UserLicenseCreateButton";
+import {UserLicenseRequestCreateButton} from "@/puff-smith/site/shared/user/license/request/@module/button/UserLicenseRequestCreateButton";
 import {LicenseProviderControl} from "@/sdk/api/license/query";
-import {FireOutlined, LockOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
+import {FireOutlined, LockOutlined, QuestionCircleTwoTone} from "@ant-design/icons";
+import {BoolInline, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
 import {Tabs} from "antd";
+import {useTranslation} from "react-i18next";
 
 export default withMarketLayout(function Index() {
+	const {t} = useTranslation();
 	return <MarketPage
 		title={"market.license.index"}
 		menuSelection={["/market/license"]}
@@ -45,9 +49,11 @@ export default withMarketLayout(function Index() {
 						name: "asc",
 					}}
 				>
-					<SelectionProvider type={"multi"}>
-						<LicenseList/>
-					</SelectionProvider>
+					<LicenseList
+						renderItemExtra={license => license.isOwned ? <BoolInline bool/> : <UserLicenseCreateButton
+							license={license}
+						/>}
+					/>
 				</LicenseProviderControl>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"private"} tab={<TabInline icon={<LockOutlined/>} title={"market.license.private.tab"}/>}>
@@ -60,9 +66,22 @@ export default withMarketLayout(function Index() {
 						name: "asc",
 					}}
 				>
-					<SelectionProvider type={"multi"}>
-						<LicenseList/>
-					</SelectionProvider>
+					<LicenseList
+						renderItemExtra={license => {
+							if (license.isOwned) {
+								return <BoolInline bool/>;
+							}
+							switch (license.request?.status) {
+								case null:
+									return <BoolInline checkIcon={<QuestionCircleTwoTone/>} bool={true}/>;
+								case 0:
+									return <BoolInline bool={false}/>;
+							}
+							return <UserLicenseRequestCreateButton
+								license={license}
+							/>;
+						}}
+					/>
 				</LicenseProviderControl>
 			</Tabs.TabPane>
 			<Tabs.TabPane key={"licenses"} tab={<TabInline icon={<LicenseIcon/>} title={"market.license.licenses.tab"}/>}>

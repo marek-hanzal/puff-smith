@@ -2,20 +2,33 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {ILicenseSource} from "@/puff-smith/service/license/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenSource} from "@/puff-smith/service/token/TokenSource";
+import {UserLicenseRequestSource} from "@/puff-smith/service/user/license/request/UserLicenseRequestSource";
 import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LicenseSource = (): ILicenseSource => {
 	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
+	const userLicenseRequestSource = singletonOf(() => UserLicenseRequestSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ILicenseSource = Source<ILicenseSource>({
 		name: "license",
 		prisma,
-		map: async license => license ? {
-			...license,
-			tokens: await tokenSource().mapper.list(Promise.resolve(license.LicenseToken.map(({token}) => token))),
-		} : undefined,
+		map: async license => {
+			if (!license) {
+				return undefined;
+			}
+			const {id, name, code, cost} = license;
+			return {
+				id,
+				name,
+				code,
+				cost,
+				tokens: await tokenSource().mapper.list(Promise.resolve(license.LicenseToken.map(({token}) => token))),
+				isOwned: license.UserLicense ? license.UserLicense.length > 0 : undefined,
+				request: await userLicenseRequestSource().map(license.UserLicenseRequest?.[0]),
+			};
+		},
 		acl: {
 			lock: true,
 		},
@@ -27,7 +40,28 @@ export const LicenseSource = (): ILicenseSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserLicense: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+					UserLicenseRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 				rejectOnNotFound: true,
 			}),
@@ -71,7 +105,28 @@ export const LicenseSource = (): ILicenseSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserLicense: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+					UserLicenseRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 				orderBy: [
 					{name: "asc"},
@@ -99,7 +154,28 @@ export const LicenseSource = (): ILicenseSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserLicense: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+					UserLicenseRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 			}),
 			patch: async ({id, name, code, cost, renew, duration}) => source.prisma.license.update({
@@ -116,7 +192,28 @@ export const LicenseSource = (): ILicenseSource => {
 						include: {
 							token: true,
 						}
-					}
+					},
+					UserLicense: {
+						where: {
+							userId: source.user.required(),
+						},
+					},
+					UserLicenseRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							license: {
+								include: {
+									LicenseToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 			}),
 			delete: async ids => {
@@ -132,7 +229,28 @@ export const LicenseSource = (): ILicenseSource => {
 							include: {
 								token: true,
 							}
-						}
+						},
+						UserLicense: {
+							where: {
+								userId: source.user.required(),
+							},
+						},
+						UserLicenseRequest: {
+							where: {
+								userId: source.user.required(),
+							},
+							include: {
+								license: {
+									include: {
+										LicenseToken: {
+											include: {
+												token: true,
+											}
+										},
+									},
+								},
+							},
+						},
 					},
 				});
 				await prisma.license.deleteMany({

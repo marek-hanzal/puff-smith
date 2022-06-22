@@ -3,7 +3,7 @@ import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CertificateListSource, ICertificateListSourceProps} from "@/sdk/api/certificate/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -13,6 +13,7 @@ export interface ICertificateListProps extends Partial<ICertificateListSourcePro
 
 export const CertificateList: FC<ICertificateListProps> = ({renderItemExtra, ...props}) => {
 	const {t} = useTranslation();
+	const selectionContext = useOptionalSelectionContext();
 	return <CertificateListSource
 		{...props}
 	>
@@ -22,7 +23,7 @@ export const CertificateList: FC<ICertificateListProps> = ({renderItemExtra, ...
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
-					<SelectionBool selection={certificate}/>
+					{selectionContext && <SelectionBool selection={certificate}/>}
 					{t(`certificate.${certificate.name}`, certificate.name)}
 					<CodeInline code={certificate}/>
 					{certificate.cost && <Price withColor withIcon price={certificate.cost}/>}
