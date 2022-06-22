@@ -19,6 +19,7 @@ export interface IUserCertificateQuery extends IQuery<Prisma.UserCertificateWher
 
 export type IUserCertificateEntity<T = void> = T extends void ? UserCertificate : UserCertificate & T;
 export type IWithUserCertificate<T = void> = { UserCertificate: IUserCertificateEntity<T>[]; };
+export type IWithNullUserCertificate<T = void> = { UserCertificate?: IUserCertificateEntity<T>[]; };
 
 export interface IUserCertificateFetch {
 	userCertificate: IUserCertificate;

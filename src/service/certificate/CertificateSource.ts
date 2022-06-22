@@ -15,7 +15,7 @@ export const CertificateSource = (): ICertificateSource => {
 		map: async certificate => certificate ? {
 			...certificate,
 			tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
-			isOwned: certificate.UserCertificate.length > 0,
+			isOwned: certificate.UserCertificate ? certificate.UserCertificate.length > 0 : undefined,
 		} : undefined,
 		acl: {
 			lock: true,
