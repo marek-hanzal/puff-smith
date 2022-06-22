@@ -6,18 +6,12 @@ import {IChunkCommit, IFile} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CommitApiLink = "/api/file/chunk/[chunkId]/commit";
 
 export type ICommitQueryParams = IChunkEndpointQuery;
 
 export const useCommitMutation = createMutationHook<IChunkCommit, IFile, IChunkEndpointQuery>(CommitApiLink, "post");
-
-export const useCommitQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CommitApiLink]);
-}
 
 export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit, IFile, IChunkEndpointQuery>> {
 }

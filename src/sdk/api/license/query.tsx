@@ -161,16 +161,19 @@ export interface ILicenseSelectionProviderProps extends Partial<ISelectionProvid
 
 export const LicenseSelectionProvider: FC<ILicenseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILicenseSource>> {...props}/>;
-}
-
-export const useLicenseQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([LicenseApiLink]);
 };
 
 export const useLicenseCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([LicenseCountApiLink]);
+};
+
+export const useLicenseQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([LicenseApiLink]),
+		withCount && queryClient.invalidateQueries([LicenseCountApiLink]),
+	]);
 };
 
 export const useLicenseOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILicenseSource>>();

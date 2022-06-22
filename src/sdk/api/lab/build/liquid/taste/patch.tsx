@@ -6,18 +6,12 @@ import {IBuildLiquidTasteRatingSource} from "@/puff-smith/service/build/liquid/t
 import {ISourceItem, ISourcePatch} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const PatchApiLink = "/api/lab/build/liquid/taste/patch";
 
 export type IPatchQueryParams = any;
 
 export const usePatchMutation = createMutationHook<ISourcePatch<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>>(PatchApiLink, "post");
-
-export const usePatchQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([PatchApiLink]);
-}
 
 export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>>> {
 }

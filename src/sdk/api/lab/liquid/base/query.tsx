@@ -161,16 +161,19 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidBaseSource>> {...props}/>;
-}
-
-export const useBaseQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BaseApiLink]);
 };
 
 export const useBaseCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseCountApiLink]);
+};
+
+export const useBaseQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BaseApiLink]),
+		withCount && queryClient.invalidateQueries([BaseCountApiLink]),
+	]);
 };
 
 export const useBaseOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidBaseSource>>();

@@ -161,16 +161,19 @@ export interface IWireSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const WireSelectionProvider: FC<IWireSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireSource>> {...props}/>;
-}
-
-export const useWireQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WireApiLink]);
 };
 
 export const useWireCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireCountApiLink]);
+};
+
+export const useWireQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([WireApiLink]),
+		withCount && queryClient.invalidateQueries([WireCountApiLink]),
+	]);
 };
 
 export const useWireOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireSource>>();

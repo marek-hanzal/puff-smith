@@ -6,18 +6,12 @@ import {IBoosterSource} from "@/puff-smith/service/booster/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/booster/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<IBoosterSource>, ISourceItem<IBoosterSource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IBoosterSource>, ISourceItem<IBoosterSource>>> {
 }

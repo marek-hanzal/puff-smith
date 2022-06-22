@@ -162,16 +162,19 @@ export interface IUserCertificateSelectionProviderProps extends Partial<ISelecti
 
 export const UserCertificateSelectionProvider: FC<IUserCertificateSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserCertificateSource>> {...props}/>;
-}
-
-export const useUserCertificateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([UserCertificateApiLink]);
 };
 
 export const useUserCertificateCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UserCertificateCountApiLink]);
+};
+
+export const useUserCertificateQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([UserCertificateApiLink]),
+		withCount && queryClient.invalidateQueries([UserCertificateCountApiLink]),
+	]);
 };
 
 export const useUserCertificateOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserCertificateSource>>();

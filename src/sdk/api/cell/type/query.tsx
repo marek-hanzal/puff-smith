@@ -161,16 +161,19 @@ export interface ICellTypeSelectionProviderProps extends Partial<ISelectionProvi
 
 export const CellTypeSelectionProvider: FC<ICellTypeSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellTypeSource>> {...props}/>;
-}
-
-export const useCellTypeQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CellTypeApiLink]);
 };
 
 export const useCellTypeCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellTypeCountApiLink]);
+};
+
+export const useCellTypeQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CellTypeApiLink]),
+		withCount && queryClient.invalidateQueries([CellTypeCountApiLink]),
+	]);
 };
 
 export const useCellTypeOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellTypeSource>>();

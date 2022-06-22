@@ -161,16 +161,19 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>;
-}
-
-export const useUserQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([UserApiLink]);
 };
 
 export const useUserCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UserCountApiLink]);
+};
+
+export const useUserQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([UserApiLink]),
+		withCount && queryClient.invalidateQueries([UserCountApiLink]),
+	]);
 };
 
 export const useUserOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserSource>>();

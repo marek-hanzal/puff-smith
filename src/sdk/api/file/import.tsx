@@ -5,18 +5,12 @@
 import {IImportJob, IImportJobParams} from "@/puff-smith/jobs/import/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const ImportApiLink = "/api/file/import";
 
 export type IImportQueryParams = any;
 
 export const useImportMutation = createMutationHook<IImportJobParams, IImportJob>(ImportApiLink, "post");
-
-export const useImportQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([ImportApiLink]);
-}
 
 export interface IImportDefaultFormProps extends Partial<IFormProps<IImportJobParams, IImportJob>> {
 }

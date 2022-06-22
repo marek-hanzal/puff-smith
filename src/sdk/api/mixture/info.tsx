@@ -5,18 +5,12 @@
 import {IMixtureInfo, IToMixtureInfoRequest} from "@/puff-smith/service/mixture/utils";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const MixtureInfoApiLink = "/api/mixture/info";
 
 export type IMixtureInfoQueryParams = any;
 
 export const useMixtureInfoMutation = createMutationHook<IToMixtureInfoRequest, IMixtureInfo>(MixtureInfoApiLink, "post");
-
-export const useMixtureInfoQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixtureInfoApiLink]);
-}
 
 export interface IMixtureInfoDefaultFormProps extends Partial<IFormProps<IToMixtureInfoRequest, IMixtureInfo>> {
 }

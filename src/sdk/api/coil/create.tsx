@@ -6,18 +6,12 @@ import {ICoilSource} from "@/puff-smith/service/coil/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/coil/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<ICoilSource>, ISourceItem<ICoilSource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<ICoilSource>, ISourceItem<ICoilSource>>> {
 }

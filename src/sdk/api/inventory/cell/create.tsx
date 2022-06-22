@@ -6,18 +6,12 @@ import {ICellInventorySource} from "@/puff-smith/service/cell/inventory/interfac
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/inventory/cell/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<ICellInventorySource>, ISourceItem<ICellInventorySource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<ICellInventorySource>, ISourceItem<ICellInventorySource>>> {
 }

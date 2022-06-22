@@ -161,16 +161,19 @@ export interface IWishlistSelectionProviderProps extends Partial<ISelectionProvi
 
 export const WishlistSelectionProvider: FC<IWishlistSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWishlistSource>> {...props}/>;
-}
-
-export const useWishlistQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WishlistApiLink]);
 };
 
 export const useWishlistCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WishlistCountApiLink]);
+};
+
+export const useWishlistQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([WishlistApiLink]),
+		withCount && queryClient.invalidateQueries([WishlistCountApiLink]),
+	]);
 };
 
 export const useWishlistOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWishlistSource>>();

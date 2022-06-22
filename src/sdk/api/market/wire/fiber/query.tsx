@@ -161,16 +161,19 @@ export interface IWireFiberSelectionProviderProps extends Partial<ISelectionProv
 
 export const WireFiberSelectionProvider: FC<IWireFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>;
-}
-
-export const useWireFiberQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WireFiberApiLink]);
 };
 
 export const useWireFiberCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireFiberCountApiLink]);
+};
+
+export const useWireFiberQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([WireFiberApiLink]),
+		withCount && queryClient.invalidateQueries([WireFiberCountApiLink]),
+	]);
 };
 
 export const useWireFiberOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireFiberSource>>();

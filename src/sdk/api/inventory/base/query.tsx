@@ -162,16 +162,19 @@ export interface IBaseInventorySelectionProviderProps extends Partial<ISelection
 
 export const BaseInventorySelectionProvider: FC<IBaseInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseInventorySource>> {...props}/>;
-}
-
-export const useBaseInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BaseInventoryApiLink]);
 };
 
 export const useBaseInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseInventoryCountApiLink]);
+};
+
+export const useBaseInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BaseInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([BaseInventoryCountApiLink]),
+	]);
 };
 
 export const useBaseInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseInventorySource>>();

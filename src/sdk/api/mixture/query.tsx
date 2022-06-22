@@ -161,16 +161,19 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>;
-}
-
-export const useMixtureQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixtureApiLink]);
 };
 
 export const useMixtureCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureCountApiLink]);
+};
+
+export const useMixtureQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([MixtureApiLink]),
+		withCount && queryClient.invalidateQueries([MixtureCountApiLink]),
+	]);
 };
 
 export const useMixtureOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureSource>>();

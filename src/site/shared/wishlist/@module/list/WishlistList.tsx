@@ -2,7 +2,7 @@ import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
 import {WishlistCreateForm} from "@/puff-smith/site/shared/wishlist/@module/form/WishlistCreateForm";
 import {useDeleteMutation} from "@/sdk/api/wishlist/delete";
-import {IWishlistListSourceProps, useWishlistCountQueryInvalidate, useWishlistQueryInvalidate, WishlistListSource} from "@/sdk/api/wishlist/query";
+import {IWishlistListSourceProps, useWishlistQueryInvalidate, WishlistListSource} from "@/sdk/api/wishlist/query";
 import {ExportOutlined} from "@ant-design/icons";
 import {BlockProvider, DeleteItemIcon, ListItem, ListItemMeta, ModalButton, Template, toLocalDateTime} from "@leight-core/client";
 import {Divider, message, Space} from "antd";
@@ -16,7 +16,6 @@ export const WishlistList: FC<IWishlistListProps> = props => {
 	const {t} = useTranslation();
 	const deleteMutation = useDeleteMutation();
 	const wishlistQueryInvalidate = useWishlistQueryInvalidate();
-	const wishlistCountQueryInvalidate = useWishlistCountQueryInvalidate();
 	return <WishlistListSource
 		locale={{
 			emptyText: <Template
@@ -56,7 +55,6 @@ export const WishlistList: FC<IWishlistListProps> = props => {
 						onSuccess: async () => {
 							message.success(t("shared.wishlist.delete.success"));
 							await wishlistQueryInvalidate();
-							await wishlistCountQueryInvalidate();
 							setShow(false);
 						},
 					});

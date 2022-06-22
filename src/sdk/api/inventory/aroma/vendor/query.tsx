@@ -162,16 +162,19 @@ export interface IAromaVendorSelectionProviderProps extends Partial<ISelectionPr
 
 export const AromaVendorSelectionProvider: FC<IAromaVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaVendorSource>> {...props}/>;
-}
-
-export const useAromaVendorQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AromaVendorApiLink]);
 };
 
 export const useAromaVendorCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaVendorCountApiLink]);
+};
+
+export const useAromaVendorQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AromaVendorApiLink]),
+		withCount && queryClient.invalidateQueries([AromaVendorCountApiLink]),
+	]);
 };
 
 export const useAromaVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaVendorSource>>();

@@ -161,16 +161,19 @@ export interface IBaseMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const BaseMarketSelectionProvider: FC<IBaseMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseMarketSource>> {...props}/>;
-}
-
-export const useBaseMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BaseMarketApiLink]);
 };
 
 export const useBaseMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BaseMarketCountApiLink]);
+};
+
+export const useBaseMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BaseMarketApiLink]),
+		withCount && queryClient.invalidateQueries([BaseMarketCountApiLink]),
+	]);
 };
 
 export const useBaseMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseMarketSource>>();

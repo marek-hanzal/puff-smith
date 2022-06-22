@@ -162,16 +162,19 @@ export interface IMixtureAromaSelectionProviderProps extends Partial<ISelectionP
 
 export const MixtureAromaSelectionProvider: FC<IMixtureAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureAromaSource>> {...props}/>;
-}
-
-export const useMixtureAromaQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixtureAromaApiLink]);
 };
 
 export const useMixtureAromaCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureAromaCountApiLink]);
+};
+
+export const useMixtureAromaQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([MixtureAromaApiLink]),
+		withCount && queryClient.invalidateQueries([MixtureAromaCountApiLink]),
+	]);
 };
 
 export const useMixtureAromaOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureAromaSource>>();

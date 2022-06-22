@@ -6,18 +6,12 @@ import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {IQueryFilter} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CleanupApiLink = "/api/job/cleanup";
 
 export type ICleanupQueryParams = any;
 
 export const useCleanupMutation = createMutationHook<IQueryFilter<IJobQuery> | undefined, void>(CleanupApiLink, "post");
-
-export const useCleanupQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CleanupApiLink]);
-}
 
 export interface ICleanupDefaultFormProps extends Partial<IFormProps<IQueryFilter<IJobQuery> | undefined, void>> {
 }

@@ -161,16 +161,19 @@ export interface ITokenSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TokenSelectionProvider: FC<ITokenSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITokenSource>> {...props}/>;
-}
-
-export const useTokenQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([TokenApiLink]);
 };
 
 export const useTokenCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TokenCountApiLink]);
+};
+
+export const useTokenQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([TokenApiLink]),
+		withCount && queryClient.invalidateQueries([TokenCountApiLink]),
+	]);
 };
 
 export const useTokenOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITokenSource>>();

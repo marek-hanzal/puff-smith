@@ -161,16 +161,19 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterSource>> {...props}/>;
-}
-
-export const useBoosterQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BoosterApiLink]);
 };
 
 export const useBoosterCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterCountApiLink]);
+};
+
+export const useBoosterQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BoosterApiLink]),
+		withCount && queryClient.invalidateQueries([BoosterCountApiLink]),
+	]);
 };
 
 export const useBoosterOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterSource>>();

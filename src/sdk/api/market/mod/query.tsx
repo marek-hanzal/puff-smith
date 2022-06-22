@@ -161,16 +161,19 @@ export interface IModMarketSelectionProviderProps extends Partial<ISelectionProv
 
 export const ModMarketSelectionProvider: FC<IModMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModMarketSource>> {...props}/>;
-}
-
-export const useModMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([ModMarketApiLink]);
 };
 
 export const useModMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModMarketCountApiLink]);
+};
+
+export const useModMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([ModMarketApiLink]),
+		withCount && queryClient.invalidateQueries([ModMarketCountApiLink]),
+	]);
 };
 
 export const useModMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModMarketSource>>();

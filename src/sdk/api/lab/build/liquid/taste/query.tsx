@@ -162,16 +162,19 @@ export interface IBuildLiquidTasteRatingSelectionProviderProps extends Partial<I
 
 export const BuildLiquidTasteRatingSelectionProvider: FC<IBuildLiquidTasteRatingSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildLiquidTasteRatingSource>> {...props}/>;
-}
-
-export const useBuildLiquidTasteRatingQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BuildLiquidTasteRatingApiLink]);
 };
 
 export const useBuildLiquidTasteRatingCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BuildLiquidTasteRatingCountApiLink]);
+};
+
+export const useBuildLiquidTasteRatingQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BuildLiquidTasteRatingApiLink]),
+		withCount && queryClient.invalidateQueries([BuildLiquidTasteRatingCountApiLink]),
+	]);
 };
 
 export const useBuildLiquidTasteRatingOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBuildLiquidTasteRatingSource>>();

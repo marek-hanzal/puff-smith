@@ -162,16 +162,19 @@ export interface IWireInventorySelectionProviderProps extends Partial<ISelection
 
 export const WireInventorySelectionProvider: FC<IWireInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireInventorySource>> {...props}/>;
-}
-
-export const useWireInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WireInventoryApiLink]);
 };
 
 export const useWireInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireInventoryCountApiLink]);
+};
+
+export const useWireInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([WireInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([WireInventoryCountApiLink]),
+	]);
 };
 
 export const useWireInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireInventorySource>>();

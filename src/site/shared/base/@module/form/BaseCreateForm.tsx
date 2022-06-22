@@ -2,8 +2,8 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/base/create";
-import {useBaseCountQueryInvalidate, useBaseQueryInvalidate} from "@/sdk/api/base/query";
-import {useBaseMarketCountQueryInvalidate, useBaseMarketQueryInvalidate} from "@/sdk/api/market/base/query";
+import {useBaseQueryInvalidate} from "@/sdk/api/base/query";
+import {useBaseMarketQueryInvalidate} from "@/sdk/api/market/base/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
@@ -16,16 +16,12 @@ export const BaseCreateForm: FC<IBaseCreateFormProps> = ({onSuccess, ...props}) 
 	const {t} = useTranslation();
 	const baseQueryInvalidate = useBaseQueryInvalidate();
 	const baseMarketQueryInvalidate = useBaseMarketQueryInvalidate();
-	const baseCountQueryInvalidate = useBaseCountQueryInvalidate();
-	const baseMarketCountQueryInvalidate = useBaseMarketCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.base.create"}
 		onSuccess={async response => {
 			message.success(t("shared.base.create.success", response.response));
 			await baseQueryInvalidate();
 			await baseMarketQueryInvalidate();
-			await baseCountQueryInvalidate();
-			await baseMarketCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		toForm={() => ({

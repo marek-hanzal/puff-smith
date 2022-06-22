@@ -161,16 +161,19 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
-}
-
-export const useFileQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([FileApiLink]);
 };
 
 export const useFileCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FileCountApiLink]);
+};
+
+export const useFileQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([FileApiLink]),
+		withCount && queryClient.invalidateQueries([FileCountApiLink]),
+	]);
 };
 
 export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();

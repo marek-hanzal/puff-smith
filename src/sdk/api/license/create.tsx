@@ -6,18 +6,12 @@ import {ILicenseSource} from "@/puff-smith/service/license/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/license/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<ILicenseSource>, ISourceItem<ILicenseSource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<ILicenseSource>, ISourceItem<ILicenseSource>>> {
 }

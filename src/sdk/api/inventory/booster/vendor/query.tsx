@@ -161,16 +161,19 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterVendorSource>> {...props}/>;
-}
-
-export const useVendorQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([VendorApiLink]);
 };
 
 export const useVendorCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorCountApiLink]);
+};
+
+export const useVendorQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([VendorApiLink]),
+		withCount && queryClient.invalidateQueries([VendorCountApiLink]),
+	]);
 };
 
 export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterVendorSource>>();

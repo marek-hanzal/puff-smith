@@ -1,5 +1,5 @@
 import {CommentItem} from "@/puff-smith/site/shared/comment/@module/component/CommentItem";
-import {AromaInventoryCommentListSource, IAromaInventoryCommentListSourceProps, useAromaInventoryCommentCountQueryInvalidate, useAromaInventoryCommentQueryInvalidate} from "@/sdk/api/inventory/aroma/comment/query";
+import {AromaInventoryCommentListSource, IAromaInventoryCommentListSourceProps, useAromaInventoryCommentQueryInvalidate} from "@/sdk/api/inventory/aroma/comment/query";
 import {CommentOutlined} from "@ant-design/icons";
 import {Template} from "@leight-core/client";
 import {FC} from "react";
@@ -9,7 +9,6 @@ export interface ICommentListProps extends Partial<IAromaInventoryCommentListSou
 
 export const CommentList: FC<ICommentListProps> = props => {
 	const aromaInventoryCommentQueryInvalidate = useAromaInventoryCommentQueryInvalidate();
-	const aromaInventoryCommentCountQueryInvalidate = useAromaInventoryCommentCountQueryInvalidate();
 	return <AromaInventoryCommentListSource
 		locale={{
 			emptyText: <Template
@@ -21,10 +20,7 @@ export const CommentList: FC<ICommentListProps> = props => {
 	>
 		{buildComment => <CommentItem
 			comment={buildComment}
-			onDelete={async () => {
-				await aromaInventoryCommentQueryInvalidate();
-				await aromaInventoryCommentCountQueryInvalidate();
-			}}
+			onDelete={async () => aromaInventoryCommentQueryInvalidate()}
 		/>}
 	</AromaInventoryCommentListSource>;
 };

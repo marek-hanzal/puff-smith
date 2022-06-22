@@ -119,7 +119,7 @@ export const UserCertificateRequestListSource: FC<IUserCertificateRequestListSou
 			{...props}
 		/>
 	</UserCertificateRequestProvider>;
-};
+}
 
 export interface IUserCertificateRequestSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserCertificateRequestSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserCertificateRequestSource>>;
@@ -164,14 +164,17 @@ export const UserCertificateRequestSelectionProvider: FC<IUserCertificateRequest
 	return <SelectionProvider<ISourceItem<IUserCertificateRequestSource>> {...props}/>;
 };
 
-export const useUserCertificateRequestQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([UserCertificateRequestApiLink]);
-};
-
 export const useUserCertificateRequestCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([UserCertificateRequestCountApiLink]);
+};
+
+export const useUserCertificateRequestQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([UserCertificateRequestApiLink]),
+		withCount && queryClient.invalidateQueries([UserCertificateRequestCountApiLink]),
+	]);
 };
 
 export const useUserCertificateRequestOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserCertificateRequestSource>>();

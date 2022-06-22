@@ -1,6 +1,6 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/vendor/create";
-import {useVendorCountQueryInvalidate, useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
+import {useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, message} from "antd";
 import {FC} from "react";
@@ -12,13 +12,11 @@ export interface IVendorCreateFormProps extends Partial<ICreateDefaultFormProps>
 export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const vendorQueryInvalidate = useVendorQueryInvalidate();
-	const vendorCountQueryInvalidate = useVendorCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.vendor.create"}
 		onSuccess={async response => {
 			message.success(t("shared.vendor.create.success", response.response));
 			await vendorQueryInvalidate();
-			await vendorCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}

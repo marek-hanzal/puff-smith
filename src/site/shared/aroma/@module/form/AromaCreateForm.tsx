@@ -4,8 +4,8 @@ import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/aroma/create";
-import {useAromaCountQueryInvalidate, useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {useAromaMarketCountQueryInvalidate, useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
+import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
+import {useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
 import {useMixtureUpdateMutation} from "@/sdk/api/mixture/aroma/update";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
@@ -19,8 +19,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	const {t} = useTranslation();
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
 	const aromaMarketQueryInvalidate = useAromaMarketQueryInvalidate();
-	const aromaCountQueryInvalidate = useAromaCountQueryInvalidate();
-	const aromaMarketCountQueryInvalidate = useAromaMarketCountQueryInvalidate();
 	const mixtureUpdateMutation = useMixtureUpdateMutation();
 	return <CreateDefaultForm
 		translation={"shared.aroma.create"}
@@ -28,8 +26,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			message.success(t("shared.aroma.create.success", response.response));
 			await aromaQueryInvalidate();
 			await aromaMarketQueryInvalidate();
-			await aromaCountQueryInvalidate();
-			await aromaMarketCountQueryInvalidate();
 			mixtureUpdateMutation.mutate({
 				aromaId: response.response.id,
 			});

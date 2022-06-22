@@ -162,16 +162,19 @@ export interface ICottonMarketSelectionProviderProps extends Partial<ISelectionP
 
 export const CottonMarketSelectionProvider: FC<ICottonMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonMarketSource>> {...props}/>;
-}
-
-export const useCottonMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CottonMarketApiLink]);
 };
 
 export const useCottonMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonMarketCountApiLink]);
+};
+
+export const useCottonMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CottonMarketApiLink]),
+		withCount && queryClient.invalidateQueries([CottonMarketCountApiLink]),
+	]);
 };
 
 export const useCottonMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonMarketSource>>();

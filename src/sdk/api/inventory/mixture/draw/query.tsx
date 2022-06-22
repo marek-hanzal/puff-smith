@@ -161,16 +161,19 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureDrawSource>> {...props}/>;
-}
-
-export const useDrawQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([DrawApiLink]);
 };
 
 export const useDrawCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([DrawCountApiLink]);
+};
+
+export const useDrawQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([DrawApiLink]),
+		withCount && queryClient.invalidateQueries([DrawCountApiLink]),
+	]);
 };
 
 export const useDrawOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureDrawSource>>();

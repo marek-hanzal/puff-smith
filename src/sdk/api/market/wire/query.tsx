@@ -161,16 +161,19 @@ export interface IWireMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const WireMarketSelectionProvider: FC<IWireMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireMarketSource>> {...props}/>;
-}
-
-export const useWireMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([WireMarketApiLink]);
 };
 
 export const useWireMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([WireMarketCountApiLink]);
+};
+
+export const useWireMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([WireMarketApiLink]),
+		withCount && queryClient.invalidateQueries([WireMarketCountApiLink]),
+	]);
 };
 
 export const useWireMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IWireMarketSource>>();

@@ -161,16 +161,19 @@ export interface IAtomizerSelectionProviderProps extends Partial<ISelectionProvi
 
 export const AtomizerSelectionProvider: FC<IAtomizerSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerSource>> {...props}/>;
-}
-
-export const useAtomizerQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AtomizerApiLink]);
 };
 
 export const useAtomizerCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerCountApiLink]);
+};
+
+export const useAtomizerQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AtomizerApiLink]),
+		withCount && queryClient.invalidateQueries([AtomizerCountApiLink]),
+	]);
 };
 
 export const useAtomizerOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerSource>>();

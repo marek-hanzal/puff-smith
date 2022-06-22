@@ -2,8 +2,8 @@ import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/booster/create";
-import {useBoosterCountQueryInvalidate, useBoosterQueryInvalidate} from "@/sdk/api/booster/query";
-import {useBoosterMarketCountQueryInvalidate, useBoosterMarketQueryInvalidate} from "@/sdk/api/market/booster/query";
+import {useBoosterQueryInvalidate} from "@/sdk/api/booster/query";
+import {useBoosterMarketQueryInvalidate} from "@/sdk/api/market/booster/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
@@ -16,16 +16,12 @@ export const BoosterCreateForm: FC<IBoosterCreateFormProps> = ({onSuccess, ...pr
 	const {t} = useTranslation();
 	const boosterQueryInvalidate = useBoosterQueryInvalidate();
 	const boosterMarketQueryInvalidate = useBoosterMarketQueryInvalidate();
-	const boosterCountQueryInvalidate = useBoosterCountQueryInvalidate();
-	const boosterMarketCountQueryInvalidate = useBoosterMarketCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.booster.create"}
 		onSuccess={async response => {
 			message.success(t("shared.booster.create.success", response.response));
 			await boosterQueryInvalidate();
 			await boosterMarketQueryInvalidate();
-			await boosterCountQueryInvalidate();
-			await boosterMarketCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		toForm={() => ({

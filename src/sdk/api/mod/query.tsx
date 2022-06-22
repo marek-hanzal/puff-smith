@@ -161,16 +161,19 @@ export interface IModSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const ModSelectionProvider: FC<IModSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>;
-}
-
-export const useModQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([ModApiLink]);
 };
 
 export const useModCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModCountApiLink]);
+};
+
+export const useModQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([ModApiLink]),
+		withCount && queryClient.invalidateQueries([ModCountApiLink]),
+	]);
 };
 
 export const useModOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModSource>>();

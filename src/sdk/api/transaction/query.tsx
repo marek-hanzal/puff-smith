@@ -162,16 +162,19 @@ export interface ITransactionSelectionProviderProps extends Partial<ISelectionPr
 
 export const TransactionSelectionProvider: FC<ITransactionSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITransactionSource>> {...props}/>;
-}
-
-export const useTransactionQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([TransactionApiLink]);
 };
 
 export const useTransactionCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TransactionCountApiLink]);
+};
+
+export const useTransactionQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([TransactionApiLink]),
+		withCount && queryClient.invalidateQueries([TransactionCountApiLink]),
+	]);
 };
 
 export const useTransactionOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITransactionSource>>();

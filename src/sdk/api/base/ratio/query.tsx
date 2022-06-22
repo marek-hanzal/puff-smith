@@ -161,16 +161,19 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBaseRatioSource>> {...props}/>;
-}
-
-export const useRatioQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([RatioApiLink]);
 };
 
 export const useRatioCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([RatioCountApiLink]);
+};
+
+export const useRatioQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([RatioApiLink]),
+		withCount && queryClient.invalidateQueries([RatioCountApiLink]),
+	]);
 };
 
 export const useRatioOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBaseRatioSource>>();

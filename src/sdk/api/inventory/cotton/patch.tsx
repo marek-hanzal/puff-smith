@@ -6,18 +6,12 @@ import {ICottonInventorySource} from "@/puff-smith/service/cotton/inventory/inte
 import {ISourceItem, ISourcePatch} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const PatchApiLink = "/api/inventory/cotton/patch";
 
 export type IPatchQueryParams = any;
 
 export const usePatchMutation = createMutationHook<ISourcePatch<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>(PatchApiLink, "post");
-
-export const usePatchQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([PatchApiLink]);
-}
 
 export interface IPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<ICottonInventorySource>, ISourceItem<ICottonInventorySource>>> {
 }

@@ -162,16 +162,19 @@ export interface IVoucherInventorySelectionProviderProps extends Partial<ISelect
 
 export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVoucherInventorySource>> {...props}/>;
-}
-
-export const useVoucherInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([VoucherInventoryApiLink]);
 };
 
 export const useVoucherInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VoucherInventoryCountApiLink]);
+};
+
+export const useVoucherInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([VoucherInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([VoucherInventoryCountApiLink]),
+	]);
 };
 
 export const useVoucherInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IVoucherInventorySource>>();

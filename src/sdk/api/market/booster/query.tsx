@@ -162,16 +162,19 @@ export interface IBoosterMarketSelectionProviderProps extends Partial<ISelection
 
 export const BoosterMarketSelectionProvider: FC<IBoosterMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterMarketSource>> {...props}/>;
-}
-
-export const useBoosterMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BoosterMarketApiLink]);
 };
 
 export const useBoosterMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterMarketCountApiLink]);
+};
+
+export const useBoosterMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BoosterMarketApiLink]),
+		withCount && queryClient.invalidateQueries([BoosterMarketCountApiLink]),
+	]);
 };
 
 export const useBoosterMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterMarketSource>>();

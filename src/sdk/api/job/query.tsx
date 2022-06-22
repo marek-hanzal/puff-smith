@@ -161,16 +161,19 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
-}
-
-export const useJobQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([JobApiLink]);
 };
 
 export const useJobCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([JobCountApiLink]);
+};
+
+export const useJobQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([JobApiLink]),
+		withCount && queryClient.invalidateQueries([JobCountApiLink]),
+	]);
 };
 
 export const useJobOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobSource>>();

@@ -6,18 +6,12 @@ import {IWireInventorySource} from "@/puff-smith/service/wire/inventory/interfac
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/inventory/wire/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<IWireInventorySource>, ISourceItem<IWireInventorySource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IWireInventorySource>, ISourceItem<IWireInventorySource>>> {
 }

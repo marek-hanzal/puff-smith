@@ -6,18 +6,12 @@ import {IMixtureJobParams} from "@/puff-smith/jobs/mixture/interface";
 import {IJob} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const MixtureUpdateApiLink = "/api/mixture/aroma/update";
 
 export type IMixtureUpdateQueryParams = any;
 
 export const useMixtureUpdateMutation = createMutationHook<IMixtureJobParams, IJob<IMixtureJobParams>>(MixtureUpdateApiLink, "post");
-
-export const useMixtureUpdateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixtureUpdateApiLink]);
-}
 
 export interface IMixtureUpdateDefaultFormProps extends Partial<IFormProps<IMixtureJobParams, IJob<IMixtureJobParams>>> {
 }

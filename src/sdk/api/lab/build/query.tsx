@@ -161,16 +161,19 @@ export interface IBuildSelectionProviderProps extends Partial<ISelectionProvider
 
 export const BuildSelectionProvider: FC<IBuildSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildSource>> {...props}/>;
-}
-
-export const useBuildQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BuildApiLink]);
 };
 
 export const useBuildCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BuildCountApiLink]);
+};
+
+export const useBuildQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BuildApiLink]),
+		withCount && queryClient.invalidateQueries([BuildCountApiLink]),
+	]);
 };
 
 export const useBuildOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBuildSource>>();

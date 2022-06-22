@@ -161,16 +161,19 @@ export interface ICellMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellMarketSource>> {...props}/>;
-}
-
-export const useCellMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CellMarketApiLink]);
 };
 
 export const useCellMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellMarketCountApiLink]);
+};
+
+export const useCellMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CellMarketApiLink]),
+		withCount && queryClient.invalidateQueries([CellMarketCountApiLink]),
+	]);
 };
 
 export const useCellMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellMarketSource>>();

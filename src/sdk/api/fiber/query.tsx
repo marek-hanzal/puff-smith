@@ -161,16 +161,19 @@ export interface IFiberSelectionProviderProps extends Partial<ISelectionProvider
 
 export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFiberSource>> {...props}/>;
-}
-
-export const useFiberQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([FiberApiLink]);
 };
 
 export const useFiberCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([FiberCountApiLink]);
+};
+
+export const useFiberQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([FiberApiLink]),
+		withCount && queryClient.invalidateQueries([FiberCountApiLink]),
+	]);
 };
 
 export const useFiberOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFiberSource>>();

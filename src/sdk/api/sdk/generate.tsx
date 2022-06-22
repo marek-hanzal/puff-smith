@@ -4,18 +4,12 @@
 
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const GenerateApiLink = "/api/sdk/generate";
 
 export type IGenerateQueryParams = any;
 
 export const useGenerateMutation = createMutationHook<void, string[]>(GenerateApiLink, "post");
-
-export const useGenerateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([GenerateApiLink]);
-}
 
 export interface IGenerateDefaultFormProps extends Partial<IFormProps<void, string[]>> {
 }

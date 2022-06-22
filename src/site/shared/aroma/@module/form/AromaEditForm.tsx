@@ -5,8 +5,8 @@ import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {IPatchDefaultFormProps, PatchDefaultForm} from "@/sdk/api/aroma/patch";
-import {useAromaCountQueryInvalidate, useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {useAromaMarketCountQueryInvalidate, useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
+import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
+import {useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
 import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
 import {FC} from "react";
@@ -20,16 +20,12 @@ export const AromaEditForm: FC<IAromaEditFormProps> = ({onSuccess, aroma, ...pro
 	const {t} = useTranslation();
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
 	const aromaMarketQueryInvalidate = useAromaMarketQueryInvalidate();
-	const aromaCountQueryInvalidate = useAromaCountQueryInvalidate();
-	const aromaMarketCountQueryInvalidate = useAromaMarketCountQueryInvalidate();
 	return <PatchDefaultForm
 		translation={"shared.aroma.create"}
 		onSuccess={async response => {
 			message.success(t("shared.aroma.edit.success", {aroma: response.response}));
 			await aromaQueryInvalidate();
 			await aromaMarketQueryInvalidate();
-			await aromaCountQueryInvalidate();
-			await aromaMarketCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		toForm={() => ({

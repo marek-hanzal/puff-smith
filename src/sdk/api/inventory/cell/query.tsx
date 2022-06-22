@@ -162,16 +162,19 @@ export interface ICellInventorySelectionProviderProps extends Partial<ISelection
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
-}
-
-export const useCellInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CellInventoryApiLink]);
 };
 
 export const useCellInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CellInventoryCountApiLink]);
+};
+
+export const useCellInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CellInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([CellInventoryCountApiLink]),
+	]);
 };
 
 export const useCellInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICellInventorySource>>();

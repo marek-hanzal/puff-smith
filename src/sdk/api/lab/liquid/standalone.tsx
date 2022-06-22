@@ -5,18 +5,12 @@
 import {ILiquid, ILiquidStandaloneCreate} from "@/puff-smith/service/liquid/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const StandaloneApiLink = "/api/lab/liquid/standalone";
 
 export type IStandaloneQueryParams = any;
 
 export const useStandaloneMutation = createMutationHook<ILiquidStandaloneCreate, ILiquid>(StandaloneApiLink, "post");
-
-export const useStandaloneQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([StandaloneApiLink]);
-}
 
 export interface IStandaloneDefaultFormProps extends Partial<IFormProps<ILiquidStandaloneCreate, ILiquid>> {
 }

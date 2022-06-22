@@ -1,7 +1,7 @@
 import {WishlistIcon} from "@/puff-smith/component/icon/WishlistIcon";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/wishlist/create";
-import {useWishlistCountQueryInvalidate, useWishlistQueryInvalidate} from "@/sdk/api/wishlist/query";
+import {useWishlistQueryInvalidate} from "@/sdk/api/wishlist/query";
 import {Centered, FormItem, Submit, TextArea} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
@@ -13,13 +13,11 @@ export interface IWishlistCreateFormProps extends Partial<ICreateDefaultFormProp
 export const WishlistCreateForm: FC<IWishlistCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const wishlistQueryInvalidate = useWishlistQueryInvalidate();
-	const wishlistCountQueryInvalidate = useWishlistCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.wishlist.create"}
 		onSuccess={async response => {
 			message.success(t("shared.wishlist.create.success", response.response));
 			await wishlistQueryInvalidate();
-			await wishlistCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}

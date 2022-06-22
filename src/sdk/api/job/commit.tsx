@@ -4,18 +4,12 @@
 
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CommitApiLink = "/api/job/commit";
 
 export type ICommitQueryParams = any;
 
 export const useCommitMutation = createMutationHook<void, void>(CommitApiLink, "post");
-
-export const useCommitQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CommitApiLink]);
-}
 
 export interface ICommitDefaultFormProps extends Partial<IFormProps<void, void>> {
 }

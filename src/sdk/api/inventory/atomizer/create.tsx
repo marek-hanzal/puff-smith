@@ -6,18 +6,12 @@ import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CreateApiLink = "/api/inventory/atomizer/create";
 
 export type ICreateQueryParams = any;
 
 export const useCreateMutation = createMutationHook<ISourceCreate<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>>(CreateApiLink, "post");
-
-export const useCreateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CreateApiLink]);
-}
 
 export interface ICreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IAtomizerInventorySource>, ISourceItem<IAtomizerInventorySource>>> {
 }

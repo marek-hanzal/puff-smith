@@ -162,16 +162,19 @@ export interface IAromaInventoryCommentSelectionProviderProps extends Partial<IS
 
 export const AromaInventoryCommentSelectionProvider: FC<IAromaInventoryCommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventoryCommentSource>> {...props}/>;
-}
-
-export const useAromaInventoryCommentQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AromaInventoryCommentApiLink]);
 };
 
 export const useAromaInventoryCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaInventoryCommentCountApiLink]);
+};
+
+export const useAromaInventoryCommentQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AromaInventoryCommentApiLink]),
+		withCount && queryClient.invalidateQueries([AromaInventoryCommentCountApiLink]),
+	]);
 };
 
 export const useAromaInventoryCommentOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaInventoryCommentSource>>();

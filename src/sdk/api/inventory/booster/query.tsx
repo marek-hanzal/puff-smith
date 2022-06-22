@@ -162,16 +162,19 @@ export interface IBoosterInventorySelectionProviderProps extends Partial<ISelect
 
 export const BoosterInventorySelectionProvider: FC<IBoosterInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterInventorySource>> {...props}/>;
-}
-
-export const useBoosterInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BoosterInventoryApiLink]);
 };
 
 export const useBoosterInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BoosterInventoryCountApiLink]);
+};
+
+export const useBoosterInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BoosterInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([BoosterInventoryCountApiLink]),
+	]);
 };
 
 export const useBoosterInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBoosterInventorySource>>();

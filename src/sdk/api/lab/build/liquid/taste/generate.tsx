@@ -5,18 +5,12 @@
 import {IBuildLiquidTasteRatingGenerate} from "@/puff-smith/service/build/liquid/taste/rating/interface";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildTasteGenerateApiLink = "/api/lab/build/liquid/taste/generate";
 
 export type IBuildTasteGenerateQueryParams = any;
 
 export const useBuildTasteGenerateMutation = createMutationHook<IBuildLiquidTasteRatingGenerate, any>(BuildTasteGenerateApiLink, "post");
-
-export const useBuildTasteGenerateQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BuildTasteGenerateApiLink]);
-}
 
 export interface IBuildTasteGenerateDefaultFormProps extends Partial<IFormProps<IBuildLiquidTasteRatingGenerate, any>> {
 }

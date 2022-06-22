@@ -162,16 +162,19 @@ export interface IAromaInventorySelectionProviderProps extends Partial<ISelectio
 
 export const AromaInventorySelectionProvider: FC<IAromaInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventorySource>> {...props}/>;
-}
-
-export const useAromaInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AromaInventoryApiLink]);
 };
 
 export const useAromaInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaInventoryCountApiLink]);
+};
+
+export const useAromaInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AromaInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([AromaInventoryCountApiLink]),
+	]);
 };
 
 export const useAromaInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaInventorySource>>();

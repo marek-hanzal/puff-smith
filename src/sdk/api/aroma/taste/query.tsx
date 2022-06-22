@@ -161,16 +161,19 @@ export interface IAromaTasteSelectionProviderProps extends Partial<ISelectionPro
 
 export const AromaTasteSelectionProvider: FC<IAromaTasteSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>;
-}
-
-export const useAromaTasteQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AromaTasteApiLink]);
 };
 
 export const useAromaTasteCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AromaTasteCountApiLink]);
+};
+
+export const useAromaTasteQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AromaTasteApiLink]),
+		withCount && queryClient.invalidateQueries([AromaTasteCountApiLink]),
+	]);
 };
 
 export const useAromaTasteOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaTasteSource>>();

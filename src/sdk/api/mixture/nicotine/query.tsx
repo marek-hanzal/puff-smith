@@ -162,16 +162,19 @@ export interface INicotineSelectionProviderProps extends Partial<ISelectionProvi
 
 export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureNicotineSource>> {...props}/>;
-}
-
-export const useNicotineQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([NicotineApiLink]);
 };
 
 export const useNicotineCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([NicotineCountApiLink]);
+};
+
+export const useNicotineQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([NicotineApiLink]),
+		withCount && queryClient.invalidateQueries([NicotineCountApiLink]),
+	]);
 };
 
 export const useNicotineOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureNicotineSource>>();

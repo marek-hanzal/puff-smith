@@ -5,18 +5,12 @@
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const UploadApiLink = "/api/file/chunk/[chunkId]/upload";
 
 export type IUploadQueryParams = IChunkEndpointQuery;
 
 export const useUploadMutation = createMutationHook<string, void, IChunkEndpointQuery>(UploadApiLink, "post");
-
-export const useUploadQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([UploadApiLink]);
-}
 
 export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void, IChunkEndpointQuery>> {
 }

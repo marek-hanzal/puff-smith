@@ -162,16 +162,19 @@ export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelec
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerInventorySource>> {...props}/>;
-}
-
-export const useAtomizerInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AtomizerInventoryApiLink]);
 };
 
 export const useAtomizerInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerInventoryCountApiLink]);
+};
+
+export const useAtomizerInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AtomizerInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([AtomizerInventoryCountApiLink]),
+	]);
 };
 
 export const useAtomizerInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerInventorySource>>();

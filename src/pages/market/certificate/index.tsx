@@ -8,6 +8,7 @@ import {CertificateCreateButton} from "@/puff-smith/site/shared/certificate/@mod
 import {CertificateList} from "@/puff-smith/site/shared/certificate/@module/list/CertificateList";
 import {CertificateListToolbar} from "@/puff-smith/site/shared/certificate/@module/list/CertificateListToolbar";
 import {UserCertificateCreateButton} from "@/puff-smith/site/shared/user/certificate/@module/button/UserCertificateCreateButton";
+import {UserCertificateRequestCreateButton} from "@/puff-smith/site/shared/user/certificate/request/@module/button/UserCertificateRequestCreateButton";
 import {CertificateProviderControl} from "@/sdk/api/certificate/query";
 import {FireOutlined, LockOutlined} from "@ant-design/icons";
 import {BoolInline, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
@@ -66,7 +67,11 @@ export default withMarketLayout(function Index() {
 					}}
 				>
 					<SelectionProvider type={"multi"}>
-						<CertificateList/>
+						<CertificateList
+							renderItemExtra={certificate => certificate.isOwned ? <BoolInline bool/> : <UserCertificateRequestCreateButton
+								certificate={certificate}
+							/>}
+						/>
 					</SelectionProvider>
 				</CertificateProviderControl>
 			</Tabs.TabPane>

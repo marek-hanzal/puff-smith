@@ -1,7 +1,7 @@
 import {IBuild} from "@/puff-smith/service/build/interface";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {useBuildTasteGenerateMutation} from "@/sdk/api/lab/build/liquid/taste/generate";
-import {useBuildLiquidTasteRatingCountQueryInvalidate, useBuildLiquidTasteRatingQueryInvalidate} from "@/sdk/api/lab/build/liquid/taste/query";
+import {useBuildLiquidTasteRatingQueryInvalidate} from "@/sdk/api/lab/build/liquid/taste/query";
 import Icon from "@ant-design/icons";
 import {Button, ButtonProps} from "antd";
 import {FC} from "react";
@@ -17,7 +17,6 @@ export const BuildLiquidTasteGenerateButton: FC<IBuildLiquidTasteGenerateButtonP
 	const {t} = useTranslation();
 	const buildTasteGenerateMutation = useBuildTasteGenerateMutation();
 	const buildLiquidTasteRatingQueryInvalidate = useBuildLiquidTasteRatingQueryInvalidate();
-	const buildLiquidTasteRatingCountQueryInvalidate = useBuildLiquidTasteRatingCountQueryInvalidate();
 	props.children = props.children || t("lab.build.liquid.taste.generate.button");
 	return <Button
 		size={"large"}
@@ -29,10 +28,7 @@ export const BuildLiquidTasteGenerateButton: FC<IBuildLiquidTasteGenerateButtonP
 				buildId: build.id,
 				liquidId: liquid.id,
 			}, {
-				onSuccess: async () => {
-					await buildLiquidTasteRatingQueryInvalidate();
-					await buildLiquidTasteRatingCountQueryInvalidate();
-				},
+				onSuccess: async () => buildLiquidTasteRatingQueryInvalidate(),
 			});
 		}}
 		{...props}

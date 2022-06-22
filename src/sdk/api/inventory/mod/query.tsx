@@ -162,16 +162,19 @@ export interface IModInventorySelectionProviderProps extends Partial<ISelectionP
 
 export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModInventorySource>> {...props}/>;
-}
-
-export const useModInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([ModInventoryApiLink]);
 };
 
 export const useModInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([ModInventoryCountApiLink]);
+};
+
+export const useModInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([ModInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([ModInventoryCountApiLink]),
+	]);
 };
 
 export const useModInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IModInventorySource>>();

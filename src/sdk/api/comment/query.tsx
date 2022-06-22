@@ -161,16 +161,19 @@ export interface ICommentSelectionProviderProps extends Partial<ISelectionProvid
 
 export const CommentSelectionProvider: FC<ICommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICommentSource>> {...props}/>;
-}
-
-export const useCommentQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CommentApiLink]);
 };
 
 export const useCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CommentCountApiLink]);
+};
+
+export const useCommentQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CommentApiLink]),
+		withCount && queryClient.invalidateQueries([CommentCountApiLink]),
+	]);
 };
 
 export const useCommentOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICommentSource>>();

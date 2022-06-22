@@ -2,7 +2,7 @@ import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {TokenCreateInline} from "@/puff-smith/site/shared/token/@module/form/TokenCreateInline";
 import {TokenSelect} from "@/puff-smith/site/shared/token/@module/form/TokenSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/license/create";
-import {useLicenseCountQueryInvalidate, useLicenseQueryInvalidate} from "@/sdk/api/license/query";
+import {useLicenseQueryInvalidate} from "@/sdk/api/license/query";
 import {Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
@@ -14,13 +14,11 @@ export interface ILicenseCreateFormProps extends Partial<ICreateDefaultFormProps
 export const LicenseCreateForm: FC<ILicenseCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const licenseQueryInvalidate = useLicenseQueryInvalidate();
-	const licenseCountQueryInvalidate = useLicenseCountQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.license.create"}
 		onSuccess={async response => {
 			message.success(t("shared.license.create.success", response.response));
 			await licenseQueryInvalidate();
-			await licenseCountQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		{...props}

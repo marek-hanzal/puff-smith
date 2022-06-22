@@ -162,16 +162,19 @@ export interface ICottonInventorySelectionProviderProps extends Partial<ISelecti
 
 export const CottonInventorySelectionProvider: FC<ICottonInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonInventorySource>> {...props}/>;
-}
-
-export const useCottonInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CottonInventoryApiLink]);
 };
 
 export const useCottonInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([CottonInventoryCountApiLink]);
+};
+
+export const useCottonInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([CottonInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([CottonInventoryCountApiLink]),
+	]);
 };
 
 export const useCottonInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ICottonInventorySource>>();

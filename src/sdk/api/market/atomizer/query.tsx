@@ -162,16 +162,19 @@ export interface IAtomizerMarketSelectionProviderProps extends Partial<ISelectio
 
 export const AtomizerMarketSelectionProvider: FC<IAtomizerMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerMarketSource>> {...props}/>;
-}
-
-export const useAtomizerMarketQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([AtomizerMarketApiLink]);
 };
 
 export const useAtomizerMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([AtomizerMarketCountApiLink]);
+};
+
+export const useAtomizerMarketQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([AtomizerMarketApiLink]),
+		withCount && queryClient.invalidateQueries([AtomizerMarketCountApiLink]),
+	]);
 };
 
 export const useAtomizerMarketOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAtomizerMarketSource>>();

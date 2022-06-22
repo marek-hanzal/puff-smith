@@ -6,18 +6,12 @@ import {ICoilsJobParams} from "@/puff-smith/jobs/coil/interface";
 import {IJob} from "@leight-core/api";
 import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const CoilsJobApiLink = "/api/coil/job/coils";
 
 export type ICoilsJobQueryParams = any;
 
 export const useCoilsJobMutation = createMutationHook<ICoilsJobParams, IJob<ICoilsJobParams>>(CoilsJobApiLink, "post");
-
-export const useCoilsJobQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CoilsJobApiLink]);
-}
 
 export interface ICoilsJobDefaultFormProps extends Partial<IFormProps<ICoilsJobParams, IJob<ICoilsJobParams>>> {
 }

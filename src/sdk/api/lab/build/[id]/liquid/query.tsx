@@ -162,16 +162,19 @@ export interface IBuildLiquidSelectionProviderProps extends Partial<ISelectionPr
 
 export const BuildLiquidSelectionProvider: FC<IBuildLiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildLiquidSource>> {...props}/>;
-}
-
-export const useBuildLiquidQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([BuildLiquidApiLink]);
 };
 
 export const useBuildLiquidCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([BuildLiquidCountApiLink]);
+};
+
+export const useBuildLiquidQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([BuildLiquidApiLink]),
+		withCount && queryClient.invalidateQueries([BuildLiquidCountApiLink]),
+	]);
 };
 
 export const useBuildLiquidOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IBuildLiquidSource>>();

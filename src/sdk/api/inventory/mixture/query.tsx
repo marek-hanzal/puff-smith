@@ -162,16 +162,19 @@ export interface IMixtureInventorySelectionProviderProps extends Partial<ISelect
 
 export const MixtureInventorySelectionProvider: FC<IMixtureInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureInventorySource>> {...props}/>;
-}
-
-export const useMixtureInventoryQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([MixtureInventoryApiLink]);
 };
 
 export const useMixtureInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([MixtureInventoryCountApiLink]);
+};
+
+export const useMixtureInventoryQueryInvalidate = (withCount: boolean = true) => {
+	const queryClient = useQueryClient();
+	return () => Promise.all([
+		queryClient.invalidateQueries([MixtureInventoryApiLink]),
+		withCount && queryClient.invalidateQueries([MixtureInventoryCountApiLink]),
+	]);
 };
 
 export const useMixtureInventoryOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureInventorySource>>();

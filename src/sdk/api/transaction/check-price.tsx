@@ -4,7 +4,6 @@
 
 import {ICheckRequest, ICheckResponse} from "@/puff-smith/service/transaction/interface";
 import {createPromise, createPromiseHook, createQueryHook, toLink} from "@leight-core/client";
-import {useQueryClient} from "react-query";
 
 export const CheckPriceApiLink = "/api/transaction/check-price";
 
@@ -17,8 +16,3 @@ export const useCheckPriceLink = () => toCheckPriceLink;
 
 export const useCheckPricePromise = createPromiseHook<ICheckRequest, ICheckResponse, ICheckPriceQueryParams>(CheckPriceApiLink, "post");
 export const CheckPricePromise = createPromise<ICheckRequest, ICheckResponse, ICheckPriceQueryParams>(CheckPriceApiLink, "post");
-
-export const useCheckPriceQueryInvalidate = () => {
-	const queryClient = useQueryClient();
-	return () => queryClient.invalidateQueries([CheckPriceApiLink]);
-}
