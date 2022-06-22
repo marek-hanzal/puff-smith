@@ -90,7 +90,6 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 					id: {
 						in: ids,
 					},
-					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
 					const userCertificate = await prisma.userCertificate.findMany({

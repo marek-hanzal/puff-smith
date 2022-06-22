@@ -1,4 +1,5 @@
 import {IUserCertificateRequest} from "@/puff-smith/service/user/certificate/request/interface";
+import {useUserCertificateQueryInvalidate} from "@/sdk/api/user/certificate/query";
 import {useCertificateRequestApproveMutation} from "@/sdk/api/user/certificate/request/approve";
 import {useUserCertificateRequestQueryInvalidate} from "@/sdk/api/user/certificate/request/query";
 import {CheckCircleOutlined} from "@ant-design/icons";
@@ -14,6 +15,7 @@ export const CertificateApproveButton: FC<ICertificateApproveButtonProps> = ({us
 	const {t} = useTranslation();
 	const certificateRequestApproveMutation = useCertificateRequestApproveMutation();
 	const userCertificateRequestQueryInvalidate = useUserCertificateRequestQueryInvalidate(false);
+	const userCertificateQueryInvalidate = useUserCertificateQueryInvalidate();
 	return <Button
 		type={"link"}
 		size={"large"}
@@ -23,6 +25,7 @@ export const CertificateApproveButton: FC<ICertificateApproveButtonProps> = ({us
 			onSuccess: async () => {
 				message.success(t("shared.user.certificate.request.approve.success"));
 				await userCertificateRequestQueryInvalidate();
+				await userCertificateQueryInvalidate();
 			},
 			onError: async () => {
 				message.error(t("shared.user.certificate.request.approve.failure"));
