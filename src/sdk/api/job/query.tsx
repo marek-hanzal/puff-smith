@@ -161,7 +161,7 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
-};
+}
 
 export const useJobCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

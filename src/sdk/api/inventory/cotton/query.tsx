@@ -162,7 +162,7 @@ export interface ICottonInventorySelectionProviderProps extends Partial<ISelecti
 
 export const CottonInventorySelectionProvider: FC<ICottonInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICottonInventorySource>> {...props}/>;
-};
+}
 
 export const useCottonInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

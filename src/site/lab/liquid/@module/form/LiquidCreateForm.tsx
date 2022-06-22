@@ -8,7 +8,6 @@ import {BoosterSelect} from "@/puff-smith/site/shared/booster/@module/form/Boost
 import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
 import {useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
 import {IStandaloneDefaultFormProps, StandaloneDefaultForm} from "@/sdk/api/lab/liquid/standalone";
-import {useCheckPriceQueryInvalidate} from "@/sdk/api/transaction/check-price";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
@@ -21,7 +20,6 @@ export interface ILiquidCreateFormProps extends Partial<IStandaloneDefaultFormPr
 export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...props}) => {
 	const {t} = useTranslation();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
-	const checkPriceQueryInvalidate = useCheckPriceQueryInvalidate();
 	const liquidQueryInvalidate = useLiquidQueryInvalidate();
 	const checkPrice = useCheckPrice("lab.liquid.create");
 	return <StandaloneDefaultForm
@@ -29,7 +27,6 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 		onSuccess={async request => {
 			message.success(t("lab.mixture.liquid.create.success"));
 			await puffiesQueryInvalidate();
-			await checkPriceQueryInvalidate();
 			await liquidQueryInvalidate();
 			onSuccess?.(request);
 		}}

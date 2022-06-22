@@ -1,4 +1,5 @@
-import {ICertificate, ICertificateSourceEntity} from "@/puff-smith/service/certificate/interface";
+import {ICertificate, IWithCertificate} from "@/puff-smith/service/certificate/interface";
+import {IWithTokenEntity} from "@/puff-smith/service/token/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, UserCertificate} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -29,5 +30,5 @@ export interface IUserCertificateFetchParams extends ParsedUrlQuery {
 	userCertificateId: string;
 }
 
-export interface IUserCertificateSource extends ISource<IUserCertificateCreate, IUserCertificateEntity<{ certificate: ICertificateSourceEntity }>, IUserCertificate, IUserCertificateQuery, IUserCertificateFetch, IUserCertificateFetchParams> {
+export interface IUserCertificateSource extends ISource<IUserCertificateCreate, IUserCertificateEntity<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>>, IUserCertificate, IUserCertificateQuery, IUserCertificateFetch, IUserCertificateFetchParams> {
 }

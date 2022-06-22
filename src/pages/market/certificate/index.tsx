@@ -10,11 +10,13 @@ import {CertificateListToolbar} from "@/puff-smith/site/shared/certificate/@modu
 import {UserCertificateCreateButton} from "@/puff-smith/site/shared/user/certificate/@module/button/UserCertificateCreateButton";
 import {UserCertificateRequestCreateButton} from "@/puff-smith/site/shared/user/certificate/request/@module/button/UserCertificateRequestCreateButton";
 import {CertificateProviderControl} from "@/sdk/api/certificate/query";
-import {FireOutlined, LockOutlined} from "@ant-design/icons";
+import {FireOutlined, LockOutlined, QuestionCircleTwoTone} from "@ant-design/icons";
 import {BoolInline, BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInline} from "@leight-core/client";
 import {Tabs} from "antd";
+import {useTranslation} from "react-i18next";
 
 export default withMarketLayout(function Index() {
+	const {t} = useTranslation();
 	return <MarketPage
 		title={"market.certificate.index"}
 		menuSelection={["/market/certificate"]}
@@ -68,9 +70,20 @@ export default withMarketLayout(function Index() {
 				>
 					<SelectionProvider type={"multi"}>
 						<CertificateList
-							renderItemExtra={certificate => certificate.isOwned ? <BoolInline bool/> : <UserCertificateRequestCreateButton
-								certificate={certificate}
-							/>}
+							renderItemExtra={certificate => {
+								if (certificate.isOwned) {
+									return <BoolInline bool/>;
+								}
+								switch (certificate.request?.status) {
+									case null:
+										return <BoolInline checkIcon={<QuestionCircleTwoTone/>} bool={true}/>;
+									case 0:
+										return <BoolInline bool={false}/>;
+								}
+								return <UserCertificateRequestCreateButton
+									certificate={certificate}
+								/>;
+							}}
 						/>
 					</SelectionProvider>
 				</CertificateProviderControl>

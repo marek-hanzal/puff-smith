@@ -161,7 +161,7 @@ export interface IWishlistSelectionProviderProps extends Partial<ISelectionProvi
 
 export const WishlistSelectionProvider: FC<IWishlistSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWishlistSource>> {...props}/>;
-};
+}
 
 export const useWishlistCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

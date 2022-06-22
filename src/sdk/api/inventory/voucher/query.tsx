@@ -162,7 +162,7 @@ export interface IVoucherInventorySelectionProviderProps extends Partial<ISelect
 
 export const VoucherInventorySelectionProvider: FC<IVoucherInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVoucherInventorySource>> {...props}/>;
-};
+}
 
 export const useVoucherInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

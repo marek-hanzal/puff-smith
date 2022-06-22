@@ -161,7 +161,7 @@ export interface ICellMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const CellMarketSelectionProvider: FC<ICellMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellMarketSource>> {...props}/>;
-};
+}
 
 export const useCellMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

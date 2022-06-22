@@ -162,7 +162,7 @@ export interface IMixtureAromaSelectionProviderProps extends Partial<ISelectionP
 
 export const MixtureAromaSelectionProvider: FC<IMixtureAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureAromaSource>> {...props}/>;
-};
+}
 
 export const useMixtureAromaCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

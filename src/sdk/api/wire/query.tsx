@@ -161,7 +161,7 @@ export interface IWireSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const WireSelectionProvider: FC<IWireSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireSource>> {...props}/>;
-};
+}
 
 export const useWireCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

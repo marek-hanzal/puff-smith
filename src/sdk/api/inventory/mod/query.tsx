@@ -162,7 +162,7 @@ export interface IModInventorySelectionProviderProps extends Partial<ISelectionP
 
 export const ModInventorySelectionProvider: FC<IModInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModInventorySource>> {...props}/>;
-};
+}
 
 export const useModInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

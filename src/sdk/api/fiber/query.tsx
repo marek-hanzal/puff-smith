@@ -161,7 +161,7 @@ export interface IFiberSelectionProviderProps extends Partial<ISelectionProvider
 
 export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IFiberSource>> {...props}/>;
-};
+}
 
 export const useFiberCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

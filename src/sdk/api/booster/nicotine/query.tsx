@@ -162,7 +162,7 @@ export interface INicotineSelectionProviderProps extends Partial<ISelectionProvi
 
 export const NicotineSelectionProvider: FC<INicotineSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBoosterNicotineSource>> {...props}/>;
-};
+}
 
 export const useNicotineCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

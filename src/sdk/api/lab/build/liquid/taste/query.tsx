@@ -162,7 +162,7 @@ export interface IBuildLiquidTasteRatingSelectionProviderProps extends Partial<I
 
 export const BuildLiquidTasteRatingSelectionProvider: FC<IBuildLiquidTasteRatingSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IBuildLiquidTasteRatingSource>> {...props}/>;
-};
+}
 
 export const useBuildLiquidTasteRatingCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

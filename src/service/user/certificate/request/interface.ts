@@ -33,5 +33,12 @@ export interface IUserCertificateRequestFetchParams extends ParsedUrlQuery {
 	userCertificateRequestId: string;
 }
 
+export type IUserCertificateRequestRequest = {
+	id: string;
+}
+
 export interface IUserCertificateRequestSource extends ISource<IUserCertificateRequestCreate, IUserCertificateRequestEntity<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>>, IUserCertificateRequest, IUserCertificateRequestQuery, IUserCertificateRequestFetch, IUserCertificateRequestFetchParams> {
+	approve(request: IUserCertificateRequestRequest): Promise<any>;
+
+	decline(request: IUserCertificateRequestRequest): Promise<any>;
 }

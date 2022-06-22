@@ -161,7 +161,7 @@ export interface ILicenseSelectionProviderProps extends Partial<ISelectionProvid
 
 export const LicenseSelectionProvider: FC<ILicenseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILicenseSource>> {...props}/>;
-};
+}
 
 export const useLicenseCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -162,7 +162,7 @@ export interface ICellInventorySelectionProviderProps extends Partial<ISelection
 
 export const CellInventorySelectionProvider: FC<ICellInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICellInventorySource>> {...props}/>;
-};
+}
 
 export const useCellInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

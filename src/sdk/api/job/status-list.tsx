@@ -161,7 +161,7 @@ export interface IStatusListSelectionProviderProps extends Partial<ISelectionPro
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>;
-};
+}
 
 export const useStatusListCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

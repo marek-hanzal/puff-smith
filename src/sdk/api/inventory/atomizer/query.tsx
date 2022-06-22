@@ -162,7 +162,7 @@ export interface IAtomizerInventorySelectionProviderProps extends Partial<ISelec
 
 export const AtomizerInventorySelectionProvider: FC<IAtomizerInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerInventorySource>> {...props}/>;
-};
+}
 
 export const useAtomizerInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -161,7 +161,7 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerDrawSource>> {...props}/>;
-};
+}
 
 export const useDrawCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

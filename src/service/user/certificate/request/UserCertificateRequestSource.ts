@@ -100,7 +100,39 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 					return userCertificateRequest;
 				});
 			}
-		}
+		},
+		approve: async ({id}) => {
+			const approverId = source.user.required();
+			const $userCertificateRequest = await source.get(id);
+			await source.prisma.userCertificate.createMany({
+				data: [{
+					userId: $userCertificateRequest.userId,
+					certificateId: $userCertificateRequest.certificateId,
+				}],
+				skipDuplicates: true,
+			});
+			await source.prisma.userCertificateRequest.update({
+				where: {id},
+				data: {
+					status: 1,
+					approverId,
+					updated: new Date(),
+				}
+			});
+			return true;
+		},
+		decline: async ({id}) => {
+			const approverId = source.user.required();
+			await source.prisma.userCertificateRequest.update({
+				where: {id},
+				data: {
+					status: 0,
+					approverId,
+					updated: new Date(),
+				}
+			});
+			return true;
+		},
 	});
 
 	return source;

@@ -162,7 +162,7 @@ export interface ICertificateSelectionProviderProps extends Partial<ISelectionPr
 
 export const CertificateSelectionProvider: FC<ICertificateSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICertificateSource>> {...props}/>;
-};
+}
 
 export const useCertificateCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

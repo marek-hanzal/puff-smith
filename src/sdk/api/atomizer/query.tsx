@@ -161,7 +161,7 @@ export interface IAtomizerSelectionProviderProps extends Partial<ISelectionProvi
 
 export const AtomizerSelectionProvider: FC<IAtomizerSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerSource>> {...props}/>;
-};
+}
 
 export const useAtomizerCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

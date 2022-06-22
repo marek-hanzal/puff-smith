@@ -161,7 +161,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
-};
+}
 
 export const useLiquidCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

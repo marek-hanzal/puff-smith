@@ -161,7 +161,7 @@ export interface IWireMarketSelectionProviderProps extends Partial<ISelectionPro
 
 export const WireMarketSelectionProvider: FC<IWireMarketSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IWireMarketSource>> {...props}/>;
-};
+}
 
 export const useWireMarketCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -161,7 +161,7 @@ export interface IBoosterSelectionProviderProps extends Partial<ISelectionProvid
 
 export const BoosterSelectionProvider: FC<IBoosterSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureBoosterSource>> {...props}/>;
-};
+}
 
 export const useBoosterCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

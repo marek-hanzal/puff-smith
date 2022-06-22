@@ -161,7 +161,7 @@ export interface ITokenSelectionProviderProps extends Partial<ISelectionProvider
 
 export const TokenSelectionProvider: FC<ITokenSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITokenSource>> {...props}/>;
-};
+}
 
 export const useTokenCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

@@ -161,7 +161,7 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>;
-};
+}
 
 export const useUserCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

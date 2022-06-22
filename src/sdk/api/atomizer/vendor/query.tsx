@@ -161,7 +161,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerVendorSource>> {...props}/>;
-};
+}
 
 export const useVendorCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

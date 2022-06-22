@@ -162,7 +162,7 @@ export interface IAromaInventoryCommentSelectionProviderProps extends Partial<IS
 
 export const AromaInventoryCommentSelectionProvider: FC<IAromaInventoryCommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaInventoryCommentSource>> {...props}/>;
-};
+}
 
 export const useAromaInventoryCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

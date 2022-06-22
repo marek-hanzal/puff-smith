@@ -2,7 +2,6 @@ import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {IMixture} from "@/puff-smith/service/mixture/interface";
 import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useCheckPrice";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/liquid/create";
-import {useCheckPriceQueryInvalidate} from "@/sdk/api/transaction/check-price";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
 import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
 import {message} from "antd";
@@ -16,7 +15,6 @@ export interface ILiquidCreateFormProps extends Partial<ICreateDefaultFormProps>
 export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({mixture, ...props}) => {
 	const {t} = useTranslation();
 	const puffiesQueryInvalidate = usePuffiesQueryInvalidate();
-	const checkPriceQueryInvalidate = useCheckPriceQueryInvalidate();
 	const checkPrice = useCheckPrice("lab.liquid.create");
 	return <CreateDefaultForm
 		translation={"lab.liquid.create"}
@@ -26,7 +24,6 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({mixture, ...props}
 		})}
 		onSuccess={async ({navigate}) => {
 			await puffiesQueryInvalidate();
-			await checkPriceQueryInvalidate();
 			message.success(t("lab.mixture.liquid.create.success"));
 			navigate("/lab/liquid");
 		}}

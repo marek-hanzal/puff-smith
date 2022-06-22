@@ -4,6 +4,7 @@ import {useCertificateQueryInvalidate} from "@/sdk/api/certificate/query";
 import {useCreateMutation} from "@/sdk/api/user/certificate/request/create";
 import {useUserCertificateRequestQueryInvalidate} from "@/sdk/api/user/certificate/request/query";
 import {IModalButtonProps, ModalButton} from "@leight-core/client";
+import {message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -25,6 +26,20 @@ export const UserCertificateRequestCreateButton: FC<IUserCertificateRequestCreat
 		okText={t("shared.user.certificate.request.button")}
 		okButtonProps={{
 			icon: <CertificateIcon/>,
+		}}
+		onOk={setShow => {
+			createMutation.mutate({
+				certificateId: certificate.id,
+			}, {
+				onSuccess: async () => {
+					message.success(t("shared.user.certificate.request.success"));
+					await certificateQueryInvalidate();
+					await userCertificateRequestQueryInvalidate();
+				},
+				onSettled: () => {
+					setShow(false);
+				}
+			});
 		}}
 		title={"shared.user.certificate.request.title"}
 		{...props}

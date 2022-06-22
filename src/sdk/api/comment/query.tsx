@@ -161,7 +161,7 @@ export interface ICommentSelectionProviderProps extends Partial<ISelectionProvid
 
 export const CommentSelectionProvider: FC<ICommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICommentSource>> {...props}/>;
-};
+}
 
 export const useCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

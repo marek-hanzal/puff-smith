@@ -1,3 +1,4 @@
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {IUserFetch} from "@/puff-smith/service/user/interface";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
@@ -17,6 +18,7 @@ export default withRootLayout(function Transaction({user}: IUserFetch) {
 		}}
 	>
 		<TransactionProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{userId: user.id}}
 			defaultOrderBy={{created: "desc"}}
 		>

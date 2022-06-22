@@ -2,21 +2,33 @@ import {ICertificateSource} from "@/puff-smith/service/certificate/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenSource} from "@/puff-smith/service/token/TokenSource";
+import {UserCertificateRequestSource} from "@/puff-smith/service/user/certificate/request/UserCertificateRequestSource";
 import {pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CertificateSource = (): ICertificateSource => {
 	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
+	const userCertificateRequestSource = singletonOf(() => UserCertificateRequestSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
 
 	const source: ICertificateSource = Source<ICertificateSource>({
 		name: "certificate",
 		prisma,
-		map: async certificate => certificate ? {
-			...certificate,
-			tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
-			isOwned: certificate.UserCertificate ? certificate.UserCertificate.length > 0 : undefined,
-		} : undefined,
+		map: async certificate => {
+			if (!certificate) {
+				return undefined;
+			}
+			const {id, name, code, cost} = certificate;
+			return {
+				id,
+				name,
+				code,
+				cost,
+				tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
+				isOwned: certificate.UserCertificate ? certificate.UserCertificate.length > 0 : undefined,
+				request: await userCertificateRequestSource().map(certificate.UserCertificateRequest?.[0]),
+			};
+		},
 		acl: {
 			lock: true,
 		},
@@ -32,6 +44,22 @@ export const CertificateSource = (): ICertificateSource => {
 					UserCertificate: {
 						where: {
 							userId: source.user.required(),
+						},
+					},
+					UserCertificateRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
 						},
 					},
 				},
@@ -83,6 +111,22 @@ export const CertificateSource = (): ICertificateSource => {
 							userId: source.user.required(),
 						},
 					},
+					UserCertificateRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 				orderBy: [
 					{name: "asc"},
@@ -114,6 +158,22 @@ export const CertificateSource = (): ICertificateSource => {
 							userId: source.user.required(),
 						},
 					},
+					UserCertificateRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
+						},
+					},
 				},
 			}),
 			patch: async ({id, name, code, cost}) => source.prisma.certificate.update({
@@ -132,6 +192,22 @@ export const CertificateSource = (): ICertificateSource => {
 					UserCertificate: {
 						where: {
 							userId: source.user.required(),
+						},
+					},
+					UserCertificateRequest: {
+						where: {
+							userId: source.user.required(),
+						},
+						include: {
+							certificate: {
+								include: {
+									CertificateToken: {
+										include: {
+											token: true,
+										}
+									},
+								},
+							},
 						},
 					},
 				},
@@ -153,6 +229,22 @@ export const CertificateSource = (): ICertificateSource => {
 						UserCertificate: {
 							where: {
 								userId: source.user.required(),
+							},
+						},
+						UserCertificateRequest: {
+							where: {
+								userId: source.user.required(),
+							},
+							include: {
+								certificate: {
+									include: {
+										CertificateToken: {
+											include: {
+												token: true,
+											}
+										},
+									},
+								},
 							},
 						},
 					},

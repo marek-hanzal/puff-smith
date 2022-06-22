@@ -161,7 +161,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-};
+}
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

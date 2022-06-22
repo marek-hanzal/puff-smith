@@ -31,25 +31,16 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 									token: true,
 								}
 							},
-							UserCertificate: {
-								where: {
-									userId: source.user.required(),
-								},
-							},
 						}
 					}
 				},
 				rejectOnNotFound: true,
 			}),
-			count: async () => source.prisma.userCertificate.count({
-				where: {
-					userId: source.user.required(),
-				},
+			count: async ({filter}) => source.prisma.userCertificate.count({
+				where: filter,
 			}),
-			query: async ({orderBy, ...query}) => source.prisma.userCertificate.findMany({
-				where: {
-					userId: source.user.required(),
-				},
+			query: async ({filter, orderBy, ...query}) => source.prisma.userCertificate.findMany({
+				where: filter,
 				orderBy,
 				include: {
 					certificate: {
@@ -58,11 +49,6 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 								include: {
 									token: true,
 								}
-							},
-							UserCertificate: {
-								where: {
-									userId: source.user.required(),
-								},
 							},
 						}
 					}
@@ -93,11 +79,6 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 											token: true,
 										}
 									},
-									UserCertificate: {
-										where: {
-											userId: source.user.required(),
-										},
-									},
 								}
 							}
 						},
@@ -121,11 +102,6 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 										include: {
 											token: true,
 										}
-									},
-									UserCertificate: {
-										where: {
-											userId: source.user.required(),
-										},
 									},
 								}
 							}

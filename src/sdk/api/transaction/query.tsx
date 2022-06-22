@@ -162,7 +162,7 @@ export interface ITransactionSelectionProviderProps extends Partial<ISelectionPr
 
 export const TransactionSelectionProvider: FC<ITransactionSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITransactionSource>> {...props}/>;
-};
+}
 
 export const useTransactionCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

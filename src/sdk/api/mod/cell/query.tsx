@@ -161,7 +161,7 @@ export interface IModCellSelectionProviderProps extends Partial<ISelectionProvid
 
 export const ModCellSelectionProvider: FC<IModCellSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IModCellSource>> {...props}/>;
-};
+}
 
 export const useModCellCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

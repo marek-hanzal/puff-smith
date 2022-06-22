@@ -162,7 +162,7 @@ export interface ICoilInventorySelectionProviderProps extends Partial<ISelection
 
 export const CoilInventorySelectionProvider: FC<ICoilInventorySelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ICoilInventorySource>> {...props}/>;
-};
+}
 
 export const useCoilInventoryCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
