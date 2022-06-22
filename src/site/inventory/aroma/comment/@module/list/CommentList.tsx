@@ -21,6 +21,7 @@ export const CommentList: FC<ICommentListProps> = props => {
 		{buildComment => <CommentItem
 			comment={buildComment}
 			onDelete={async () => aromaInventoryCommentQueryInvalidate()}
+			onEdit={async () => aromaInventoryCommentQueryInvalidate()}
 		/>}
 	</AromaInventoryCommentListSource>;
 };

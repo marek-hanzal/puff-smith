@@ -26,10 +26,6 @@ export const CommentDeleteButton: FC<ICommentDeleteButtonProps> = ({comment, onS
 			danger: true,
 			loading: deleteMutation.isLoading,
 		}}
-		cancelButtonProps={{
-			size: "large",
-			type: "link",
-		}}
 		onOk={() => {
 			deleteMutation.mutate([comment.id], {
 				onSuccess: () => onSuccess?.(),

@@ -11,7 +11,7 @@ import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildInde
 import {BuildView} from "@/puff-smith/site/lab/build/@module/view/BuildView";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {FetchBuild} from "@/sdk/api/lab/build/[id]/fetch";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, EditIcon, Template} from "@leight-core/client";
 import {Divider} from "antd";
 
 export default withLabLayout(function Index({build}: IBuildFetch) {
@@ -24,7 +24,17 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 			headerProps={{
 				footer: <BuildIndexMenu build={build}/>,
 			}}
-			extra={build.active && <BuildDisableButton build={build}/>}
+			extra={<ButtonBar>
+				<ButtonLink
+					icon={<EditIcon/>}
+					href={"/lab/build/[buildId]/edit"}
+					query={{
+						buildId: build.id,
+					}}
+					label={"lab.build.edit.button"}
+				/>
+				{build.active && <BuildDisableButton build={build}/>}
+			</ButtonBar>}
 			breadcrumbProps={<Breadcrumbs>
 				<BreadcrumbButton
 					href={"/lab"}

@@ -8,7 +8,7 @@ import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/C
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/lab/build/create";
 import {PlusOutlined} from "@ant-design/icons";
 import {Centered, DatePicker, FormItem, Submit, SwitchItem} from "@leight-core/client";
-import {InputNumber, message} from "antd";
+import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
 
@@ -49,12 +49,14 @@ export const BuildCreateForm: FC<IBuildCreateFormProps> = props => {
 				style={{width: "100%"}}
 				min={0.05}
 				max={4}
+				step={0.2}
 			/>
 		</FormItem>
 		<FormItem field={"created"} hasTooltip>
 			<DatePicker/>
 		</FormItem>
 		<SwitchItem field={"archive"} hasTooltip/>
+		<Divider/>
 		<Centered>
 			<Submit icon={<BuildIcon/>} label={"create"}/>
 		</Centered>
