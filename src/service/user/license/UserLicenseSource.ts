@@ -36,15 +36,11 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			count: async () => source.prisma.userLicense.count({
-				where: {
-					userId: source.user.required(),
-				},
+			count: async ({filter}) => source.prisma.userLicense.count({
+				where: filter,
 			}),
-			query: async ({orderBy, ...query}) => source.prisma.userLicense.findMany({
-				where: {
-					userId: source.user.required(),
-				},
+			query: async ({filter, orderBy, ...query}) => source.prisma.userLicense.findMany({
+				where: filter,
 				orderBy,
 				include: {
 					license: {

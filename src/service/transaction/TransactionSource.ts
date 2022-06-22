@@ -27,8 +27,11 @@ export const TransactionSource = (): ITransactionSource => {
 					created: new Date(),
 				},
 			}),
-			count: async () => source.prisma.transaction.count({}),
-			query: async ({orderBy, ...query}) => source.prisma.transaction.findMany({
+			count: async ({filter}) => source.prisma.transaction.count({
+				where: filter,
+			}),
+			query: async ({filter, orderBy, ...query}) => source.prisma.transaction.findMany({
+				where: filter,
 				orderBy,
 				...pageOf(query),
 			}),

@@ -55,6 +55,17 @@ export const TokenSource = (): ITokenSource => {
 				}
 			}
 		})),
+		fetchByNames: async tokens => {
+			const $names = Array.isArray(tokens) ? tokens : tokens.split(/,\s*/ig).map(tokens => `${tokens}`.toLowerCase());
+			return source.prisma.token.findMany({
+				where: {
+					OR: [
+						{name: {in: $names}},
+						{id: {in: $names}},
+					],
+				}
+			});
+		},
 	});
 
 	return source;

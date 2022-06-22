@@ -27,4 +27,6 @@ export interface ITokenFetchParams extends ParsedUrlQuery {
 
 export interface ITokenSource extends ISource<ITokenCreate, ITokenEntity, IToken, ITokenQuery, ITokenFetch, ITokenFetchParams> {
 	tokensOf(userId: string): Promise<IToken[]>;
+
+	fetchByNames(tokens: string[] | string): Promise<ITokenEntity[]>;
 }

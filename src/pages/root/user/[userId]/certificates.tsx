@@ -48,6 +48,7 @@ export default withRootLayout(function Certificates({user}: IUserFetch) {
 				<UserCertificateRequestProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{
+						userId: user.id,
 						status: null,
 					}}
 				>
@@ -68,6 +69,7 @@ export default withRootLayout(function Certificates({user}: IUserFetch) {
 				<UserCertificateRequestProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{
+						userId: user.id,
 						status: 1,
 					}}
 				>
@@ -84,6 +86,7 @@ export default withRootLayout(function Certificates({user}: IUserFetch) {
 				<UserCertificateRequestProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{
+						userId: user.id,
 						status: 0,
 					}}
 				>

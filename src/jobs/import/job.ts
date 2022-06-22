@@ -15,6 +15,7 @@ import {PriceSource} from "@/puff-smith/service/price/PriceSource";
 import fileService from "@/puff-smith/service/side-effect/fileService";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {TariffSource} from "@/puff-smith/service/tariff/TariffSource";
+import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
@@ -40,6 +41,7 @@ const importers = {
 	...PriceSource().importers(),
 	...TagSource().importers(),
 	...TariffSource().importers(),
+	...TokenSource().importers(),
 	...TranslationSource().importers(),
 	...VendorSource().importers(),
 	...VoucherSource().importers(),

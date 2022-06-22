@@ -3,7 +3,8 @@ import {ILicenseSource} from "@/puff-smith/service/license/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {UserLicenseRequestSource} from "@/puff-smith/service/user/license/request/UserLicenseRequestSource";
-import {pageOf, Source} from "@leight-core/server";
+import {ClientError} from "@leight-core/api";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const LicenseSource = (): ILicenseSource => {
@@ -133,8 +134,12 @@ export const LicenseSource = (): ILicenseSource => {
 				],
 				...pageOf(query),
 			}),
-			create: async ({name, code, cost, renew, duration, tokens = []}) => source.prisma.license.create({
-				data: {
+			create: async ({name, code, cost, renew, duration, tokens = []}) => {
+				const $canUpdate = source.user.hasAny([
+					"*",
+					`${source.name}.patch`,
+				]);
+				const $create = {
 					name,
 					code: code || codeService().code(),
 					cost,
@@ -142,80 +147,120 @@ export const LicenseSource = (): ILicenseSource => {
 					duration,
 					LicenseToken: {
 						createMany: {
-							data: tokens.map(tokenId => ({
+							data: (await tokenSource().fetchByNames(tokens)).map(({id: tokenId}) => ({
 								tokenId,
 							})),
 							skipDuplicates: true,
 						}
 					}
-				},
-				include: {
-					LicenseToken: {
+				};
+				try {
+					return await source.prisma.license.create({
+						data: $create,
 						include: {
-							token: true,
-						}
-					},
-					UserLicense: {
-						where: {
-							userId: source.user.required(),
-						},
-					},
-					UserLicenseRequest: {
-						where: {
-							userId: source.user.required(),
-						},
-						include: {
-							license: {
+							LicenseToken: {
 								include: {
-									LicenseToken: {
+									token: true,
+								}
+							},
+							UserLicense: {
+								where: {
+									userId: source.user.required(),
+								},
+							},
+							UserLicenseRequest: {
+								where: {
+									userId: source.user.required(),
+								},
+								include: {
+									license: {
 										include: {
-											token: true,
-										}
+											LicenseToken: {
+												include: {
+													token: true,
+												}
+											},
+										},
+									},
+								},
+							},
+						},
+					});
+				} catch (e) {
+					return onUnique(e, async () => {
+						if (!$canUpdate) {
+							throw new ClientError("License already exists.", 409);
+						}
+						return source.patch({
+							...$create,
+							tokens,
+							id: (await source.prisma.license.findFirst({
+								where: {
+									OR: [
+										{code: $create.code},
+										{name: $create.name},
+									],
+								},
+								select: {
+									id: true,
+								},
+								rejectOnNotFound: true,
+							})).id
+						});
+					});
+				}
+			},
+			patch: async ({id, name, code, cost, renew, duration, tokens}) => {
+				await source.prisma.licenseToken.deleteMany({
+					where: {licenseId: id},
+				});
+				return source.prisma.license.update({
+					where: {id},
+					data: {
+						name,
+						code: code || undefined,
+						cost,
+						renew,
+						duration,
+						LicenseToken: tokens ? {
+							createMany: {
+								data: (await tokenSource().fetchByNames(tokens)).map(({id: tokenId}) => ({
+									tokenId,
+								})),
+								skipDuplicates: true,
+							}
+						} : undefined,
+					},
+					include: {
+						LicenseToken: {
+							include: {
+								token: true,
+							}
+						},
+						UserLicense: {
+							where: {
+								userId: source.user.required(),
+							},
+						},
+						UserLicenseRequest: {
+							where: {
+								userId: source.user.required(),
+							},
+							include: {
+								license: {
+									include: {
+										LicenseToken: {
+											include: {
+												token: true,
+											}
+										},
 									},
 								},
 							},
 						},
 					},
-				},
-			}),
-			patch: async ({id, name, code, cost, renew, duration}) => source.prisma.license.update({
-				where: {id},
-				data: {
-					name,
-					code: code || undefined,
-					cost,
-					renew,
-					duration,
-				},
-				include: {
-					LicenseToken: {
-						include: {
-							token: true,
-						}
-					},
-					UserLicense: {
-						where: {
-							userId: source.user.required(),
-						},
-					},
-					UserLicenseRequest: {
-						where: {
-							userId: source.user.required(),
-						},
-						include: {
-							license: {
-								include: {
-									LicenseToken: {
-										include: {
-											token: true,
-										}
-									},
-								},
-							},
-						},
-					},
-				},
-			}),
+				});
+			},
 			delete: async ids => {
 				const where = {
 					id: {

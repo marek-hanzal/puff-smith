@@ -12,9 +12,6 @@ export const TranslationSource = (): ITranslationSource => {
 			key: translation.label,
 			value: translation.text,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		cache: TranslationCache,
 		source: {
 			query: async ({filter, ...query}) => source.prisma.translation.findMany({

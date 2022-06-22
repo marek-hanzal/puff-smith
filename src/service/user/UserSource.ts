@@ -20,17 +20,29 @@ export const UserSource = (): IUserSource => {
 			if (!user) {
 				return undefined;
 			}
-			let tokens = user.UserToken.map(({token}) => token);
-			const tokenIds = user.UserToken.map(({token}) => token.id);
+			const {
+				UserToken,
+				UserCertificate,
+				UserLicense,
+				name,
+				id,
+				image,
+				email,
+			} = user;
+			let tokens = UserToken.map(({token}) => token);
+			const tokenIds = UserToken.map(({token}) => token.id);
 
-			for (const {certificate} of user.UserCertificate) {
+			for (const {certificate} of UserCertificate) {
 				tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token));
 			}
-			for (const {license} of user.UserLicense) {
+			for (const {license} of UserLicense) {
 				tokens = tokens.concat(license.LicenseToken.map(({token}) => token));
 			}
 			return {
-				...user,
+				id,
+				name,
+				email,
+				image,
 				tokens: uniqueOf(tokens, "name"),
 				tokenIds,
 			};
@@ -145,6 +157,27 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
+			const licenses = [
+				"Market - Common",
+				"Lab - Common",
+				"Inventory - Common",
+			];
+			for (const license of licenses) {
+				await source.prisma.userLicense.create({
+					data: {
+						user: {
+							connect: {
+								id: source.user.required(),
+							}
+						},
+						license: {
+							connect: {
+								name: license,
+							}
+						}
+					}
+				});
+			}
 		},
 		createToken: async token => {
 			const $token = await tokenSource().create({

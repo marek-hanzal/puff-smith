@@ -38,7 +38,7 @@ export const CommentEditButton: FC<ICommentEditButtonProps> = ({comment, onSucce
 					usePlaceholder
 					autoFocus
 					allowClear
-					autoSize={{minRows: 6, maxRows: 6}}
+					autoSize={{minRows: 24, maxRows: 24}}
 				/>
 			</FormItem>
 			<Divider/>
