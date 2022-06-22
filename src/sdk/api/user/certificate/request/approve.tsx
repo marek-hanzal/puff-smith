@@ -18,7 +18,7 @@ export interface ICertificateRequestApproveDefaultFormProps extends Partial<IFor
 export const CertificateRequestApproveDefaultForm: FC<ICertificateRequestApproveDefaultFormProps> = props => <Form<IUserCertificateRequestRequest, any>
 	useMutation={useCertificateRequestApproveMutation}
 	{...props}
-/>;
+/>
 
 export const toCertificateRequestApproveLink = (queryParams?: ICertificateRequestApproveQueryParams) => toLink(CertificateRequestApproveApiLink, queryParams);
 export const useCertificateRequestApproveLink = () => toCertificateRequestApproveLink;

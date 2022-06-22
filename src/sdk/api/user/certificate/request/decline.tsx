@@ -18,7 +18,7 @@ export interface ICertificateRequestDeclineDefaultFormProps extends Partial<IFor
 export const CertificateRequestDeclineDefaultForm: FC<ICertificateRequestDeclineDefaultFormProps> = props => <Form<IUserCertificateRequestRequest, any>
 	useMutation={useCertificateRequestDeclineMutation}
 	{...props}
-/>;
+/>
 
 export const toCertificateRequestDeclineLink = (queryParams?: ICertificateRequestDeclineQueryParams) => toLink(CertificateRequestDeclineApiLink, queryParams);
 export const useCertificateRequestDeclineLink = () => toCertificateRequestDeclineLink;

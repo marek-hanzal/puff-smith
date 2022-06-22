@@ -31,11 +31,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 									token: true,
 								}
 							},
-							UserLicense: {
-								where: {
-									userId: source.user.required(),
-								},
-							},
 						}
 					}
 				},
@@ -58,11 +53,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 								include: {
 									token: true,
 								}
-							},
-							UserLicense: {
-								where: {
-									userId: source.user.required(),
-								},
 							},
 						}
 					}
@@ -93,11 +83,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 											token: true,
 										}
 									},
-									UserLicense: {
-										where: {
-											userId: source.user.required(),
-										},
-									},
 								}
 							}
 						},
@@ -109,7 +94,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 					id: {
 						in: ids,
 					},
-					userId: source.user.required(),
 				};
 				return prisma.$transaction(async prisma => {
 					const userLicense = await prisma.userLicense.findMany({
@@ -121,11 +105,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 										include: {
 											token: true,
 										}
-									},
-									UserLicense: {
-										where: {
-											userId: source.user.required(),
-										},
 									},
 								}
 							}
