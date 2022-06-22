@@ -3,6 +3,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IUserLicenseRequestSource} from "@/puff-smith/service/user/license/request/interface";
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
+import dayjs from "dayjs";
 
 export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 	const licenseSource = singletonOf(() => LicenseSource().ofSource(source));
@@ -108,6 +109,8 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 				data: [{
 					userId: $userLicenseRequest.userId,
 					licenseId: $userLicenseRequest.licenseId,
+					from: new Date(),
+					to: $userLicenseRequest.license.duration ? dayjs().add($userLicenseRequest.license.duration, "day").toDate() : undefined,
 				}],
 				skipDuplicates: true,
 			});
