@@ -5,6 +5,6 @@ export interface IRootPageProps extends IPageProps {
 }
 
 export const RootPage: FC<IRootPageProps> = props => {
-	useSession({required: true});
+	useSession();
 	return <Page {...props}/>;
 };

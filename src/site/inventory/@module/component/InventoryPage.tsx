@@ -8,6 +8,6 @@ export interface IInventoryPageProps extends IPageProps {
  * This page is the common page for all inventory related pages.
  */
 export const InventoryPage: FC<IInventoryPageProps> = props => {
-	useSession({required: true});
+	useSession();
 	return <Page {...props}/>;
 };

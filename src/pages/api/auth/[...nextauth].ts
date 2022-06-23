@@ -48,7 +48,10 @@ export default NextAuth({
 				logger.debug("Resolving JWT token", {isNewUser});
 				if (token?.sub) {
 					logger.debug("Token found with sub");
-					const userService = UserSource().withUser(User(token.sub, ["*"]));
+					const userService = UserSource().withUser(User({
+						userId: token.sub,
+						tokens: ["*"],
+					}));
 					const user = await userService.asUser(token.sub);
 					if (isNewUser) {
 						(await prismaClient.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();

@@ -13,7 +13,7 @@ import type {AppProps} from "next/app";
 // 	});
 // }
 
-export default function PuffSmith({Component, pageProps: {session, ...pageProps}}: AppProps) {
+export default function PuffSmith({Component, pageProps: {session, user, ...pageProps}}: AppProps) {
 	return <BootstrapLoader session={session}>
 		{((Component as unknown as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
 	</BootstrapLoader>;

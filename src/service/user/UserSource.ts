@@ -199,7 +199,13 @@ export const UserSource = (): IUserSource => {
 			}
 		},
 		whoami: async () => source.mapper.map(await source.get(source.user.required())),
-		asUser: async userId => User(userId, userId ? (await UserSource().withUser(User(undefined, ["*"])).get(userId)).UserToken.map(({token}) => token.name) : []),
+		asUser: async userId => {
+			const $user = await source.map(userId ? await source.get(userId) : null);
+			return User({
+				userId,
+				tokens: $user?.tokens?.map(({name}) => name),
+			});
+		},
 	});
 
 	return source;
