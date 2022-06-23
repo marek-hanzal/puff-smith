@@ -2,4 +2,6 @@ import {BaseRatioSource} from "@/puff-smith/service/base/inventory/ratio/BaseRat
 import {IBaseRatioSource} from "@/puff-smith/service/base/ratio/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Ratio", IBaseRatioSource>(BaseRatioSource);
+export default QueryEndpoint<"Ratio", IBaseRatioSource>({
+	source: BaseRatioSource,
+});

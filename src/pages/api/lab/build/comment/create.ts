@@ -2,4 +2,6 @@ import {BuildCommentSource} from "@/puff-smith/service/build/comment/BuildCommen
 import {IBuildCommentSource} from "@/puff-smith/service/build/comment/interface";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", IBuildCommentSource>(BuildCommentSource);
+export default CreateEndpoint<"Create", IBuildCommentSource>({
+	source: BuildCommentSource,
+});

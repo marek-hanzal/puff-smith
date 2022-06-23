@@ -2,4 +2,6 @@ import {IUserCertificateRequestSource} from "@/puff-smith/service/user/certifica
 import {UserCertificateRequestSource} from "@/puff-smith/service/user/certificate/request/UserCertificateRequestSource";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", IUserCertificateRequestSource>(UserCertificateRequestSource);
+export default DeleteEndpoint<"Delete", IUserCertificateRequestSource>({
+	source: UserCertificateRequestSource,
+});

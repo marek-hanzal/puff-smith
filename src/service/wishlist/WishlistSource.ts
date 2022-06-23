@@ -15,9 +15,6 @@ export const WishlistSource = (): IWishlistSource => {
 			created: wishlist.created.toUTCString(),
 			tags: await tagSource().mapper.list(Promise.resolve(wishlist.WishlistTag.map(({tag}) => tag))),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async ({name, url, note, cost, tags = []}) => source.prisma.wishlist.create({
 				data: {

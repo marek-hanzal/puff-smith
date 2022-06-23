@@ -18,7 +18,7 @@ export interface ILicenseRequestDeclineDefaultFormProps extends Partial<IFormPro
 export const LicenseRequestDeclineDefaultForm: FC<ILicenseRequestDeclineDefaultFormProps> = props => <Form<IUserLicenseRequestRequest, any>
 	useMutation={useLicenseRequestDeclineMutation}
 	{...props}
-/>;
+/>
 
 export const toLicenseRequestDeclineLink = (queryParams?: ILicenseRequestDeclineQueryParams) => toLink(LicenseRequestDeclineApiLink, queryParams);
 export const useLicenseRequestDeclineLink = () => toLicenseRequestDeclineLink;

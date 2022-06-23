@@ -2,4 +2,6 @@ import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaIn
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", IAromaInventorySource>(AromaInventorySource);
+export default CreateEndpoint<"Create", IAromaInventorySource>({
+	source: AromaInventorySource,
+});

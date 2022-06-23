@@ -2,4 +2,6 @@ import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaIn
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", IAromaInventorySource>(AromaInventorySource);
+export default DeleteEndpoint<"Delete", IAromaInventorySource>({
+	source: AromaInventorySource,
+});

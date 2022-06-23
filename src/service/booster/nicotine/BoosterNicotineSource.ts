@@ -11,9 +11,6 @@ export const BoosterNicotineSource = (): IBoosterNicotineSource => {
 			value: booster.nicotine,
 			nicotine: booster.nicotine,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async () => source.prisma.booster.findMany({
 				distinct: ["nicotine"],

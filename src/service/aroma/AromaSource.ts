@@ -24,9 +24,6 @@ export const AromaSource = (): IAromaSource => {
 			tastes: await tagSource().mapper.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 			tasteIds: aroma.AromaTaste.map(({taste}) => taste.id),
 		}) : null,
-		acl: {
-			lock: true,
-		},
 		source: {
 			clearCache: async () => {
 				await aromaMarketSource().clearCache();

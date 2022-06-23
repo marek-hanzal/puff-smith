@@ -2,4 +2,6 @@ import {CoilInventorySource} from "@/puff-smith/service/coil/inventory/CoilInven
 import {ICoilInventorySource} from "@/puff-smith/service/coil/inventory/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"CoilInventoryCount", ICoilInventorySource>(CoilInventorySource);
+export default CountEndpoint<"CoilInventoryCount", ICoilInventorySource>({
+	source: CoilInventorySource,
+});

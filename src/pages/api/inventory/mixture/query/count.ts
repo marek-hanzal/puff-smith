@@ -2,4 +2,6 @@ import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/in
 import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"MixtureInventoryCount", IMixtureInventorySource>(MixtureInventorySource);
+export default CountEndpoint<"MixtureInventoryCount", IMixtureInventorySource>({
+	source: MixtureInventorySource,
+});

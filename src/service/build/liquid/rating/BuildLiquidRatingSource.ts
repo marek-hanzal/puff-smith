@@ -10,9 +10,6 @@ export const BuildLiquidRatingSource = (): IBuildLiquidRatingSource => {
 			...buildLiquidRating,
 			created: buildLiquidRating.created.toUTCString(),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async create => source.prisma.buildLiquidRating.upsert({
 				create: {

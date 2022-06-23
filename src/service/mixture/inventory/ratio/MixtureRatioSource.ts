@@ -13,9 +13,6 @@ export const MixtureRatioSource = (): IMixtureRatioSource => {
 			vg: mixture.vgToRound,
 			pg: mixture.pgToRound,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		cache: MixtureRatioCache,
 		source: {
 			query: async () => {

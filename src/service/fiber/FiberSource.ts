@@ -15,9 +15,6 @@ export const FiberSource = (): IFiberSource => {
 			...fiber,
 			material: await tagSource().mapper.map(fiber.material),
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => {
 				const $fulltext = fulltext?.split(/\s+/g);

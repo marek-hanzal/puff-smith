@@ -2,4 +2,6 @@ import {CottonInventorySource} from "@/puff-smith/service/cotton/inventory/Cotto
 import {ICottonInventorySource} from "@/puff-smith/service/cotton/inventory/interface";
 import {PatchEndpoint} from "@leight-core/server";
 
-export default PatchEndpoint<"Patch", ICottonInventorySource>(CottonInventorySource);
+export default PatchEndpoint<"Patch", ICottonInventorySource>({
+	source: CottonInventorySource,
+});

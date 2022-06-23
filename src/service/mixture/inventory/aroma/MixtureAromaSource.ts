@@ -12,9 +12,6 @@ export const MixtureAromaSource = (): IMixtureAromaSource => {
 		name: "mixture.inventory.aroma",
 		prisma,
 		map: async mixture => aromaSource().map(mixture?.aroma),
-		acl: {
-			lock: true,
-		},
 		cache: MixtureAromaCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {

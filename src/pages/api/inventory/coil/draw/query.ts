@@ -2,4 +2,6 @@ import {CoilDrawSource} from "@/puff-smith/service/coil/inventory/draw/CoilDrawS
 import {ICoilDrawSource} from "@/puff-smith/service/coil/inventory/draw/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Draw", ICoilDrawSource>(CoilDrawSource);
+export default QueryEndpoint<"Draw", ICoilDrawSource>({
+	source: CoilDrawSource,
+});

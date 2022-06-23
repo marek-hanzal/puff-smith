@@ -20,9 +20,6 @@ export const JobStatusSource = (): IJobStatusSource => {
 			value: status,
 			label: status,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async () => items,
 		},

@@ -21,9 +21,6 @@ export const TariffSource = (): ITariffSource => {
 			to: tariff.to?.toUTCString(),
 			created: tariff.created.toUTCString(),
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async ({code, ...tariff}) => {
 				const create = {

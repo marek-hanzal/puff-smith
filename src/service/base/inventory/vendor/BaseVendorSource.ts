@@ -11,9 +11,6 @@ export const BaseVendorSource = (): IBaseVendorSource => {
 		name: "base.inventory.vendor",
 		prisma,
 		map: async base => vendorSource().map(base?.vendor),
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter: {fulltext} = {}}) => source.prisma.base.findMany({
 				distinct: ["vendorId"],

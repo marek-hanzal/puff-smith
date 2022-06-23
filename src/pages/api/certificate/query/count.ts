@@ -2,4 +2,6 @@ import {CertificateSource} from "@/puff-smith/service/certificate/CertificateSou
 import {ICertificateSource} from "@/puff-smith/service/certificate/interface";
 import {CountEndpoint} from "@leight-core/server";
 
-export default CountEndpoint<"CertificateCount", ICertificateSource>(CertificateSource);
+export default CountEndpoint<"CertificateCount", ICertificateSource>({
+	source: CertificateSource,
+});

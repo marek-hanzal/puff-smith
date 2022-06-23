@@ -18,9 +18,6 @@ export const PriceSource = (): IPriceSource => {
 			to: price.to?.toUTCString(),
 			created: price.created.toUTCString(),
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async ({tariff, ...price}) => source.prisma.price.create({
 				data: {

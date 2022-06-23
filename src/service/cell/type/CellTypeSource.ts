@@ -11,9 +11,6 @@ export const CellTypeSource = (): ICellTypeSource => {
 		name: "cell.type",
 		prisma,
 		map: async cell => tagSource().map(cell?.type),
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async () => source.prisma.cell.count({
 				distinct: ["typeId"],

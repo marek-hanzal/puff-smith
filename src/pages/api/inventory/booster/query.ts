@@ -2,4 +2,6 @@ import {BoosterInventorySource} from "@/puff-smith/service/booster/inventory/Boo
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"BoosterInventory", IBoosterInventorySource>(BoosterInventorySource);
+export default QueryEndpoint<"BoosterInventory", IBoosterInventorySource>({
+	source: BoosterInventorySource,
+});

@@ -12,9 +12,6 @@ export const BaseRatioSource = (): IBaseRatioSource => {
 			vg: base.vg,
 			pg: base.pg,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async () => source.prisma.base.findMany({
 				distinct: ["pg", "vg"],

@@ -11,9 +11,6 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 			value: mixture.nicotineToRound,
 			nicotine: mixture.nicotineToRound,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["nicotineToRound"],

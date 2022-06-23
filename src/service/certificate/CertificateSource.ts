@@ -29,9 +29,6 @@ export const CertificateSource = (): ICertificateSource => {
 				request: await userCertificateRequestSource().map(certificate.UserCertificateRequest?.[0]),
 			};
 		},
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.certificate.findUnique({
 				where: {id},

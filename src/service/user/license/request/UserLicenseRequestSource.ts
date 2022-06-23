@@ -17,9 +17,6 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 			updated: userLicenseRequest.updated?.toUTCString(),
 			license: await licenseSource().mapper.map(userLicenseRequest.license),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.userLicenseRequest.findUnique({
 				where: {id},

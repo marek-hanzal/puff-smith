@@ -12,9 +12,6 @@ export const MixtureVendorSource = (): IMixtureVendorSource => {
 		name: "mixture.inventory.vendor",
 		prisma,
 		map: async mixtureInventory => vendorSource().map(mixtureInventory?.vendor),
-		acl: {
-			lock: true,
-		},
 		cache: MixtureVendorCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {

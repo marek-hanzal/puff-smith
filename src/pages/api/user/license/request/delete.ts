@@ -2,4 +2,6 @@ import {IUserLicenseRequestSource} from "@/puff-smith/service/user/license/reque
 import {UserLicenseRequestSource} from "@/puff-smith/service/user/license/request/UserLicenseRequestSource";
 import {DeleteEndpoint} from "@leight-core/server";
 
-export default DeleteEndpoint<"Delete", IUserLicenseRequestSource>(UserLicenseRequestSource);
+export default DeleteEndpoint<"Delete", IUserLicenseRequestSource>({
+	source: UserLicenseRequestSource,
+});

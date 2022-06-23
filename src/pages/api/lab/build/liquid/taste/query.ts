@@ -2,4 +2,6 @@ import {BuildLiquidTasteRatingSource} from "@/puff-smith/service/build/liquid/ta
 import {IBuildLiquidTasteRatingSource} from "@/puff-smith/service/build/liquid/taste/rating/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"BuildLiquidTasteRating", IBuildLiquidTasteRatingSource>(BuildLiquidTasteRatingSource);
+export default QueryEndpoint<"BuildLiquidTasteRating", IBuildLiquidTasteRatingSource>({
+	source: BuildLiquidTasteRatingSource,
+});

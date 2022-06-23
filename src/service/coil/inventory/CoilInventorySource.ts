@@ -11,9 +11,6 @@ export const CoilInventorySource = (): ICoilInventorySource => {
 		name: "coil.inventory",
 		prisma,
 		map: async coil => coilSource().map(coil),
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => {
 				const $fulltext = fulltext?.split(/\s+/g);

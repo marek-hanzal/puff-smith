@@ -12,9 +12,6 @@ export const MixtureRatioSource = (): IMixtureRatioSource => {
 			vg: mixture.vgToRound,
 			pg: mixture.pgToRound,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["vgToRound", "pgToRound"],

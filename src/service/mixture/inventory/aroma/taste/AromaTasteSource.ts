@@ -12,9 +12,6 @@ export const AromaTasteSource = (): IAromaTasteSource => {
 		name: "mixture.inventory.aroma.taste",
 		prisma,
 		map: aromaTaste => tagSource().map(aromaTaste?.taste),
-		acl: {
-			lock: true,
-		},
 		cache: AromaTasteCache,
 		source: {
 			count: async () => source.prisma.aromaTaste.count({

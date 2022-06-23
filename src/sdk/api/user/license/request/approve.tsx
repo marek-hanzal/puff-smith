@@ -18,7 +18,7 @@ export interface ILicenseRequestApproveDefaultFormProps extends Partial<IFormPro
 export const LicenseRequestApproveDefaultForm: FC<ILicenseRequestApproveDefaultFormProps> = props => <Form<IUserLicenseRequestRequest, any>
 	useMutation={useLicenseRequestApproveMutation}
 	{...props}
-/>;
+/>
 
 export const toLicenseRequestApproveLink = (queryParams?: ILicenseRequestApproveQueryParams) => toLink(LicenseRequestApproveApiLink, queryParams);
 export const useLicenseRequestApproveLink = () => toLicenseRequestApproveLink;

@@ -7,9 +7,6 @@ export const TokenSource = (): ITokenSource => {
 		name: "token",
 		prisma,
 		map: async token => token,
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.token.count({
 				where: {

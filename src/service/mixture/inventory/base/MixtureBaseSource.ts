@@ -12,9 +12,6 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 		name: "mixture.inventory.base",
 		prisma,
 		map: async mixture => baseSource().map(mixture?.base),
-		acl: {
-			lock: true,
-		},
 		cache: MixtureBaseCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {

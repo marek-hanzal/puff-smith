@@ -12,9 +12,6 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 			value: mixture.nicotineToRound,
 			nicotine: mixture.nicotineToRound,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		cache: MixtureNicotineCache,
 		source: {
 			query: async () => {

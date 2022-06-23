@@ -19,9 +19,6 @@ export const ModSource = (): IModSource => {
 			vendor: await vendorSource().mapper.map(mod.vendor),
 			cells: await tagSource().mapper.list(Promise.resolve(mod.ModCell.map(item => item.cell))),
 		}) : mod,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.mod.findUnique({
 				where: {id},

@@ -19,9 +19,6 @@ export const ModInventorySource = (): IModInventorySource => {
 			mod: await modSource().mapper.map(modInventory.mod),
 			transaction: await transactionSource().mapper.map(modInventory.transaction),
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.modInventory.count({
 				where: merge(filter, {

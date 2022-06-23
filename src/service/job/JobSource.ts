@@ -17,9 +17,6 @@ export const JobSource = (): IJobSource => {
 			...job,
 			params: job.params && JSON.parse(job.params)
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async job => source.prisma.job.create({
 				data: {

@@ -14,9 +14,6 @@ export const CellMarketSource = (): ICellMarketSource => {
 			cell: await cellSource().mapper.map(cell),
 			isOwned: cell.CellInventory.length > 0,
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cell.count({
 				where: merge(filter, {

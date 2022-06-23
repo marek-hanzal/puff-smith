@@ -2,4 +2,6 @@ import {IUserCertificateRequestSource} from "@/puff-smith/service/user/certifica
 import {UserCertificateRequestSource} from "@/puff-smith/service/user/certificate/request/UserCertificateRequestSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"UserCertificateRequest", IUserCertificateRequestSource>(UserCertificateRequestSource);
+export default QueryEndpoint<"UserCertificateRequest", IUserCertificateRequestSource>({
+	source: UserCertificateRequestSource,
+});

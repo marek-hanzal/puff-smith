@@ -2,4 +2,6 @@ import {IUserLicenseRequestRequest} from "@/puff-smith/service/user/license/requ
 import {UserLicenseRequestSource} from "@/puff-smith/service/user/license/request/UserLicenseRequestSource";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"LicenseRequestApprove", IUserLicenseRequestRequest, any>(async ({user, request}) => UserLicenseRequestSource().withUser(user).approve(request));
+export default MutationEndpoint<"LicenseRequestApprove", IUserLicenseRequestRequest, any>({
+	handler: async ({user, request}) => UserLicenseRequestSource().withUser(user).approve(request),
+});

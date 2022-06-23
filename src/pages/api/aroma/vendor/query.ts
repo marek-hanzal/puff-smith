@@ -2,4 +2,6 @@ import {AromaVendorSource} from "@/puff-smith/service/aroma/vendor/AromaVendorSo
 import {IAromaVendorSource} from "@/puff-smith/service/aroma/vendor/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AromaVendor", IAromaVendorSource>(AromaVendorSource);
+export default QueryEndpoint<"AromaVendor", IAromaVendorSource>({
+	source: AromaVendorSource,
+});

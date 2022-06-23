@@ -119,7 +119,7 @@ export const UserLicenseListSource: FC<IUserLicenseListSourceProps> = ({provider
 			{...props}
 		/>
 	</UserLicenseProvider>;
-};
+}
 
 export interface IUserLicenseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserLicenseSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserLicenseSource>>;
@@ -162,7 +162,7 @@ export interface IUserLicenseSelectionProviderProps extends Partial<ISelectionPr
 
 export const UserLicenseSelectionProvider: FC<IUserLicenseSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IUserLicenseSource>> {...props}/>;
-};
+}
 
 export const useUserLicenseCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

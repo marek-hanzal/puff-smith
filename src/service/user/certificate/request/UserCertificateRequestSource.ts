@@ -16,9 +16,6 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 			updated: userCertificateRequest.updated?.toUTCString(),
 			certificate: await certificateSource().mapper.map(userCertificateRequest.certificate),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.userCertificateRequest.findUnique({
 				where: {id},

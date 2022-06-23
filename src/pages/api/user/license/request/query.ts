@@ -2,4 +2,6 @@ import {IUserLicenseRequestSource} from "@/puff-smith/service/user/license/reque
 import {UserLicenseRequestSource} from "@/puff-smith/service/user/license/request/UserLicenseRequestSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"UserLicenseRequest", IUserLicenseRequestSource>(UserLicenseRequestSource);
+export default QueryEndpoint<"UserLicenseRequest", IUserLicenseRequestSource>({
+	source: UserLicenseRequestSource,
+});

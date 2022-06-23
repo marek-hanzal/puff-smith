@@ -2,4 +2,6 @@ import {BaseInventorySource} from "@/puff-smith/service/base/inventory/BaseInven
 import {IBaseInventorySource} from "@/puff-smith/service/base/inventory/interface";
 import {PatchEndpoint} from "@leight-core/server";
 
-export default PatchEndpoint<"Patch", IBaseInventorySource>(BaseInventorySource);
+export default PatchEndpoint<"Patch", IBaseInventorySource>({
+	source: BaseInventorySource,
+});

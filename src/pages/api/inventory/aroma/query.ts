@@ -2,4 +2,6 @@ import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaIn
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AromaInventory", IAromaInventorySource>(AromaInventorySource);
+export default QueryEndpoint<"AromaInventory", IAromaInventorySource>({
+	source: AromaInventorySource,
+});

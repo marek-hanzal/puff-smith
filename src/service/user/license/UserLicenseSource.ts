@@ -17,9 +17,6 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 			...userLicense,
 			license: await licenseSource().mapper.map(userLicense.license),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.userLicense.findUnique({
 				where: {id},

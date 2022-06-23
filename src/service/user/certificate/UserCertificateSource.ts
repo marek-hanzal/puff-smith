@@ -17,9 +17,6 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 			...userCertificate,
 			certificate: await certificateSource().mapper.map(userCertificate.certificate),
 		} : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.userCertificate.findUnique({
 				where: {id},

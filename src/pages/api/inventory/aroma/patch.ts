@@ -2,4 +2,6 @@ import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaIn
 import {IAromaInventorySource} from "@/puff-smith/service/aroma/inventory/interface";
 import {PatchEndpoint} from "@leight-core/server";
 
-export default PatchEndpoint<"Patch", IAromaInventorySource>(AromaInventorySource);
+export default PatchEndpoint<"Patch", IAromaInventorySource>({
+	source: AromaInventorySource,
+});

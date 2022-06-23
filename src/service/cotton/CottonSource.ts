@@ -25,9 +25,6 @@ export const CottonSource = (): ICottonSource => {
 				draws: await tagSource().mapper.list(Promise.resolve(CottonDraw.map(({draw}) => draw))),
 			};
 		},
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.cotton.findUnique({
 				where: {id},

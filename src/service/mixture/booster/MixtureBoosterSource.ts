@@ -12,9 +12,6 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 		name: "mixture.booster",
 		prisma,
 		map: async mixture => boosterSource().map(mixture?.booster),
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["boosterId"],

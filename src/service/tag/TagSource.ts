@@ -7,9 +7,6 @@ export const TagSource = (): ITagSource => {
 		name: "tag",
 		prisma,
 		map: async tag => tag,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.tag.findUnique({
 				where: {id},

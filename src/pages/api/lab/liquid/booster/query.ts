@@ -2,4 +2,6 @@ import {ILiquidBoosterSource} from "@/puff-smith/service/liquid/booster/interfac
 import {LiquidBoosterSource} from "@/puff-smith/service/liquid/booster/LiquidBoosterSource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Booster", ILiquidBoosterSource>(LiquidBoosterSource);
+export default QueryEndpoint<"Booster", ILiquidBoosterSource>({
+	source: LiquidBoosterSource,
+});

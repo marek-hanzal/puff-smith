@@ -7,9 +7,6 @@ export const VoucherSource = (): IVoucherSource => {
 		name: "voucher",
 		prisma,
 		map: async voucher => voucher,
-		acl: {
-			lock: true,
-		},
 		source: {
 			create: async voucher => {
 				try {

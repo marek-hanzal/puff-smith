@@ -11,9 +11,6 @@ export const AtomizerDrawSource = (): IAtomizerDrawSource => {
 		name: "atomizer.draw",
 		prisma,
 		map: async atomizerDraw => tagSource().map(atomizerDraw?.draw),
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async () => source.prisma.atomizerDraw.count({
 				distinct: ["drawId"],

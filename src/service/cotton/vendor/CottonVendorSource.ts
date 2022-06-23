@@ -11,9 +11,6 @@ export const CottonVendorSource = (): ICottonVendorSource => {
 		name: "cotton.vendor",
 		prisma,
 		map: async cotton => vendorSource().map(cotton?.vendor),
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter}) => source.prisma.cotton.findMany({
 				distinct: ["vendorId"],

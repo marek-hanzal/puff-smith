@@ -2,4 +2,6 @@ import {AtomizerDrawSource} from "@/puff-smith/service/atomizer/inventory/draw/A
 import {IAtomizerDrawSource} from "@/puff-smith/service/atomizer/inventory/draw/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Draw", IAtomizerDrawSource>(AtomizerDrawSource);
+export default QueryEndpoint<"Draw", IAtomizerDrawSource>({
+	source: AtomizerDrawSource,
+});

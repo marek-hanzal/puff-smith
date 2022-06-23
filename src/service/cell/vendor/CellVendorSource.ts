@@ -11,9 +11,6 @@ export const CellVendorSource = (): ICellVendorSource => {
 		name: "cell.vendor",
 		prisma,
 		map: async cell => vendorSource().map(cell?.vendor),
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async () => source.prisma.cell.findMany({
 				distinct: ["vendorId"],

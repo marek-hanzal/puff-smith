@@ -33,10 +33,16 @@ export const UserSource = (): IUserSource => {
 			const tokenIds = UserToken.map(({token}) => token.id);
 
 			for (const {certificate} of UserCertificate) {
-				tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token));
+				tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token)).concat([{
+					id: `certificate.${certificate.name}`,
+					name: `certificate.${certificate.name}`,
+				}]);
 			}
 			for (const {license} of UserLicense) {
-				tokens = tokens.concat(license.LicenseToken.map(({token}) => token));
+				tokens = tokens.concat(license.LicenseToken.map(({token}) => token)).concat([{
+					id: `license.${license.name}`,
+					name: `license.${license.name}`,
+				}]);
 			}
 			return {
 				id,
@@ -46,9 +52,6 @@ export const UserSource = (): IUserSource => {
 				tokens: uniqueOf(tokens, "name"),
 				tokenIds,
 			};
-		},
-		acl: {
-			lock: true,
 		},
 		source: {
 			get: async id => await source.prisma.user.findUnique({

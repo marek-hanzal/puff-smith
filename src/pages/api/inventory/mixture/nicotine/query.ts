@@ -2,4 +2,6 @@ import {MixtureNicotineSource} from "@/puff-smith/service/mixture/inventory/nico
 import {IMixtureNicotineSource} from "@/puff-smith/service/mixture/nicotine/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Nicotine", IMixtureNicotineSource>(MixtureNicotineSource);
+export default QueryEndpoint<"Nicotine", IMixtureNicotineSource>({
+	source: MixtureNicotineSource,
+});

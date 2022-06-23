@@ -2,4 +2,6 @@ import {MixtureRatioSource} from "@/puff-smith/service/mixture/inventory/ratio/M
 import {IMixtureRatioSource} from "@/puff-smith/service/mixture/ratio/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Ratio", IMixtureRatioSource>(MixtureRatioSource);
+export default QueryEndpoint<"Ratio", IMixtureRatioSource>({
+	source: MixtureRatioSource,
+});

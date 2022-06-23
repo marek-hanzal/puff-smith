@@ -2,4 +2,6 @@ import {AtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/A
 import {IAtomizerInventorySource} from "@/puff-smith/service/atomizer/inventory/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"AtomizerInventory", IAtomizerInventorySource>(AtomizerInventorySource);
+export default QueryEndpoint<"AtomizerInventory", IAtomizerInventorySource>({
+	source: AtomizerInventorySource,
+});

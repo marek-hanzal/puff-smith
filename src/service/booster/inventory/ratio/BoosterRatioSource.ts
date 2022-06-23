@@ -12,9 +12,6 @@ export const BoosterRatioSource = (): IBoosterRatioSource => {
 			vg: booster.vg,
 			pg: booster.pg,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async () => source.prisma.booster.findMany({
 				distinct: ["pg", "vg"],

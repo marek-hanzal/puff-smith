@@ -3,4 +3,6 @@ import {MixtureJob} from "@/puff-smith/jobs/mixture/job";
 import {IJob} from "@leight-core/api";
 import {MutationEndpoint} from "@leight-core/server";
 
-export default MutationEndpoint<"MixtureUpdate", IMixtureJobParams, IJob<IMixtureJobParams>>(MixtureJob.request);
+export default MutationEndpoint<"MixtureUpdate", IMixtureJobParams, IJob<IMixtureJobParams>>({
+	handler: MixtureJob.request,
+});

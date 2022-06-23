@@ -2,4 +2,6 @@ import {BoosterInventorySource} from "@/puff-smith/service/booster/inventory/Boo
 import {IBoosterInventorySource} from "@/puff-smith/service/booster/inventory/interface";
 import {FetchEndpoint} from "@leight-core/server";
 
-export default FetchEndpoint<"Booster", IBoosterInventorySource>(BoosterInventorySource);
+export default FetchEndpoint<"Booster", IBoosterInventorySource>({
+	source: BoosterInventorySource,
+});

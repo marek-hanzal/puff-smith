@@ -12,9 +12,6 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 		name: "mixture.inventory.draw",
 		prisma,
 		map: async mixtureDraw => tagSource().map(mixtureDraw?.draw),
-		acl: {
-			lock: true,
-		},
 		cache: MixtureDrawCache,
 		source: {
 			query: async ({filter}) => {

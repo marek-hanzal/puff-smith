@@ -2,4 +2,6 @@ import {IVoucherInventorySource} from "@/puff-smith/service/voucher/inventory/in
 import {VoucherInventorySource} from "@/puff-smith/service/voucher/inventory/VoucherInventorySource";
 import {CreateEndpoint} from "@leight-core/server";
 
-export default CreateEndpoint<"Create", IVoucherInventorySource>(VoucherInventorySource);
+export default CreateEndpoint<"Create", IVoucherInventorySource>({
+	source: VoucherInventorySource,
+});

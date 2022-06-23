@@ -11,9 +11,6 @@ export const CoilDrawSource = (): ICoilDrawSource => {
 		name: "coil.inventory.draw",
 		prisma,
 		map: async coilDraw => tagSource().map(coilDraw?.draw),
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async () => source.prisma.coilDraw.count({
 				distinct: ["drawId"],

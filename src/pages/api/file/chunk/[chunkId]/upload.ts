@@ -7,4 +7,4 @@ export const config = {
 	},
 };
 
-export default Endpoint<"Upload", string, void, IChunkEndpointQuery>(UploadChunkEndpoint(chunkService));
+export default Endpoint<"Upload", string, void, IChunkEndpointQuery>(UploadChunkEndpoint({chunkService}));

@@ -11,9 +11,6 @@ export const MixtureDrawSource = (): IMixtureDrawSource => {
 		name: "mixture.draw",
 		prisma,
 		map: async mixtureDraw => tagSource().map(mixtureDraw?.draw),
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter}) => source.prisma.mixtureDraw.count({
 				distinct: ["drawId"],

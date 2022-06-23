@@ -11,9 +11,6 @@ export const BoosterVendorSource = (): IBoosterVendorSource => {
 		name: "booster.vendor",
 		prisma,
 		map: async booster => vendorSource().map(booster?.vendor),
-		acl: {
-			lock: true,
-		},
 		source: {
 			query: async ({filter: {fulltext} = {}}) => source.prisma.booster.findMany({
 				distinct: ["vendorId"],

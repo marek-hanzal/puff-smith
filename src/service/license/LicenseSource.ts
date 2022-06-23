@@ -30,9 +30,6 @@ export const LicenseSource = (): ILicenseSource => {
 				request: await userLicenseRequestSource().map(license.UserLicenseRequest?.[0]),
 			};
 		},
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.license.findUnique({
 				where: {id},

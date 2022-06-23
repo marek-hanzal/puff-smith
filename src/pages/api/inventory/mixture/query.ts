@@ -2,4 +2,6 @@ import {IMixtureInventorySource} from "@/puff-smith/service/mixture/inventory/in
 import {MixtureInventorySource} from "@/puff-smith/service/mixture/inventory/MixtureInventorySource";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"MixtureInventory", IMixtureInventorySource>(MixtureInventorySource);
+export default QueryEndpoint<"MixtureInventory", IMixtureInventorySource>({
+	source: MixtureInventorySource,
+});

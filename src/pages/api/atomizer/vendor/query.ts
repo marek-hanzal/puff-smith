@@ -2,4 +2,6 @@ import {AtomizerVendorSource} from "@/puff-smith/service/atomizer/vendor/Atomize
 import {IAtomizerVendorSource} from "@/puff-smith/service/atomizer/vendor/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"Vendor", IAtomizerVendorSource>(AtomizerVendorSource);
+export default QueryEndpoint<"Vendor", IAtomizerVendorSource>({
+	source: AtomizerVendorSource,
+});

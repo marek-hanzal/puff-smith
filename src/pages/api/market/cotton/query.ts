@@ -2,4 +2,6 @@ import {CottonMarketSource} from "@/puff-smith/service/cotton/market/CottonMarke
 import {ICottonMarketSource} from "@/puff-smith/service/cotton/market/interface";
 import {QueryEndpoint} from "@leight-core/server";
 
-export default QueryEndpoint<"CottonMarket", ICottonMarketSource>(CottonMarketSource);
+export default QueryEndpoint<"CottonMarket", ICottonMarketSource>({
+	source: CottonMarketSource,
+});

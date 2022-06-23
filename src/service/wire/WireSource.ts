@@ -36,9 +36,6 @@ export const WireSource = (): IWireSource => {
 			draws: await tagSource().mapper.list(Promise.resolve(wire.WireDraw.map(({draw}) => draw))),
 			fibers: await wireFiberSource().mapper.list(Promise.resolve(wire.WireFiber)),
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			get: async id => source.prisma.wire.findUnique({
 				where: {id},

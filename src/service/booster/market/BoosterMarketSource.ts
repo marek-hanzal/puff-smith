@@ -14,9 +14,6 @@ export const BoosterMarketSource = (): IBoosterMarketSource => {
 			booster: await boosterSource().mapper.map(booster),
 			isOwned: booster.BoosterInventory.length > 0,
 		}) : undefined,
-		acl: {
-			lock: true,
-		},
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.booster.count({
 				where: filter,
