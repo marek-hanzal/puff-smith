@@ -17,17 +17,18 @@ import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/Buil
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
 import {CoilView} from "@/puff-smith/site/shared/coil/@module/view/CoilView";
-import {CottonCreateForm} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateForm";
+import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateInline";
 import {CottonInventoryProviderControl, useCottonInventoryCountQuery} from "@/sdk/api/inventory/cotton/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
-import {FireOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
+import {FireOutlined, MenuOutlined, StarOutlined} from "@ant-design/icons";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
-import {Tabs} from "antd";
+import {Divider, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
 
 export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & ICoilFetch) {
 	const cottonInventoryCountQuery = useCottonInventoryCountQuery();
+	const isMobile = useIsMobile();
 	return <LabPage
 		title={"lab.build.create.cotton"}
 		menuSelection={["/lab/build"]}
@@ -35,30 +36,63 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 			atomizerId: atomizer.id,
 		})}
 		icon={<CottonIcon/>}
-		extra={<ButtonBar>
-			<ButtonLink
-				href={"/lab/build"}
-				icon={<ListIcon/>}
-				label={"lab.build.index.button"}
-			/>
-			<DrawerButton
-				size={"large"}
-				type={"primary"}
-				icon={<EditIcon/>}
-				title={"lab.cotton.create.title"}
-				label={"lab.cotton.create.button"}
-			>
-				<CottonCreateForm
-					onSuccess={({navigate, response}) => {
-						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
-							atomizerId: atomizer.id,
-							coilId: coil.id,
-							cottonId: response.id,
-						});
-					}}
-				/>
-			</DrawerButton>
-		</ButtonBar>}
+		extra={<>
+			<BrowserContent>
+				<ButtonBar>
+					<ButtonLink
+						href={"/lab/build"}
+						icon={<ListIcon/>}
+						label={"lab.build.index.button"}
+					/>
+					<CottonCreateInline
+						size={"large"}
+						type={"primary"}
+						icon={<EditIcon/>}
+						title={"lab.cotton.create.title"}
+						label={"lab.cotton.create.button"}
+						onSuccess={({navigate, response}) => {
+							navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								cottonId: response.id,
+							});
+						}}
+					/>
+				</ButtonBar>
+			</BrowserContent>
+			<MobileContent>
+				<DrawerButton
+					type={"text"}
+					size={"large"}
+					icon={<MenuOutlined/>}
+					title={"lab.build.create.context.menu.title"}
+				>
+					<Template
+						forceIcon
+						icon={<BuildIcon/>}
+						extra={<>
+							<Divider/>
+							<ButtonBar direction={"vertical"} size={8}>
+								<CottonCreateInline
+									size={"large"}
+									type={"primary"}
+									icon={<EditIcon/>}
+									title={"lab.cotton.create.title"}
+									label={"lab.cotton.create.button"}
+									onSuccess={({navigate, response}) => {
+										navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
+											atomizerId: atomizer.id,
+											coilId: coil.id,
+											cottonId: response.id,
+										});
+									}}
+								/>
+							</ButtonBar>
+						</>}
+					/>
+				</DrawerButton>
+			</MobileContent>
+		</>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -89,7 +123,7 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 		}}
 	>
 		{cottonInventoryCountQuery.data === 0 && <CottonListEmpty/>}
-		{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={"large"}>
+		{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={isMobile ? "small" : "large"}>
 			<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.cotton.recommended.tab"}/>}>
 				<CottonInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}

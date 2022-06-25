@@ -15,44 +15,77 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
-import {CoilCreateForm} from "@/puff-smith/site/lab/coil/@module/form/CoilCreateForm";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/AtomizerView";
+import {CoilCreateInline} from "@/puff-smith/site/shared/coil/@module/button/CoilCreateInline";
 import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
-import {FireOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, TabInline, Template} from "@leight-core/client";
-import {Tabs} from "antd";
+import {FireOutlined, MenuOutlined, StarOutlined} from "@ant-design/icons";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
+import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
+	const isMobile = useIsMobile();
 	return <LabPage
 		title={"lab.build.create.coil"}
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build/create")}
 		icon={<AtomizerIcon/>}
-		extra={<ButtonBar>
-			<ButtonLink
-				href={"/lab/build"}
-				icon={<ListIcon/>}
-				label={"lab.build.index.button"}
-			/>
-			<DrawerButton
-				size={"large"}
-				type={"primary"}
-				icon={<EditIcon/>}
-				title={"lab.coil.create.title"}
-				label={"lab.coil.create.button"}
-			>
-				<CoilCreateForm
-					onSuccess={({navigate, response}) => {
-						navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
-							atomizerId: atomizer.id,
-							coilId: response.id,
-						});
-					}}
-				/>
-			</DrawerButton>
-		</ButtonBar>}
+		extra={<>
+			<BrowserContent>
+				<ButtonBar>
+					<ButtonLink
+						href={"/lab/build"}
+						icon={<ListIcon/>}
+						label={"lab.build.index.button"}
+					/>
+					<CoilCreateInline
+						size={"large"}
+						type={"primary"}
+						icon={<EditIcon/>}
+						title={"lab.coil.create.title"}
+						label={"lab.coil.create.button"}
+						onSuccess={({navigate, response}) => {
+							navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
+								atomizerId: atomizer.id,
+								coilId: response.id,
+							});
+						}}
+					/>
+				</ButtonBar>
+			</BrowserContent>
+			<MobileContent>
+				<DrawerButton
+					type={"text"}
+					size={"large"}
+					icon={<MenuOutlined/>}
+					title={"lab.build.create.context.menu.title"}
+				>
+					<Template
+						forceIcon
+						icon={<BuildIcon/>}
+						extra={<>
+							<Divider/>
+							<ButtonBar direction={"vertical"} size={8}>
+								<CoilCreateInline
+									size={"large"}
+									type={"primary"}
+									icon={<EditIcon/>}
+									title={"lab.coil.create.title"}
+									label={"lab.coil.create.button"}
+									onSuccess={({navigate, response}) => {
+										navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
+											atomizerId: atomizer.id,
+											coilId: response.id,
+										});
+									}}
+								/>
+							</ButtonBar>
+						</>}
+					/>
+				</DrawerButton>
+			</MobileContent>
+		</>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -75,7 +108,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 			translation: "lab.build.atomizer",
 		}}
 	>
-		<Tabs size={"large"}>
+		<Tabs size={isMobile ? "small" : "large"}>
 			<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.coil.recommended.tab"}/>}>
 				<CoilInventoryProviderControl
 					defaultSize={5}

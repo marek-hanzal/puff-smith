@@ -1,12 +1,14 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {AtomizerCreateForm} from "@/puff-smith/site/shared/atomizer/@module/form/AtomizerCreateForm";
+import {ICreateDefaultFormProps} from "@/sdk/api/atomizer/create";
 import {DrawerButton, IDrawerButtonProps, useOptionalFormItemContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IAtomizerCreateButtonProps extends Partial<IDrawerButtonProps> {
+	onSuccess?: ICreateDefaultFormProps["onSuccess"];
 }
 
-export const AtomizerCreateButton: FC<IAtomizerCreateButtonProps> = props => {
+export const AtomizerCreateButton: FC<IAtomizerCreateButtonProps> = ({onSuccess, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return <DrawerButton
 		size={"large"}
@@ -18,8 +20,9 @@ export const AtomizerCreateButton: FC<IAtomizerCreateButtonProps> = props => {
 		{...props}
 	>
 		<AtomizerCreateForm
-			onSuccess={({response}) => {
+			onSuccess={({response, ...rest}) => {
 				formItem?.setValue(response.id);
+				onSuccess?.({response, ...rest});
 			}}
 		/>
 	</DrawerButton>;

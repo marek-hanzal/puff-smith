@@ -12,7 +12,7 @@ import {MixtureInfoForm} from "@/puff-smith/site/shared/mixture/@module/form/Mix
 import {MixtureInfoView} from "@/puff-smith/site/shared/mixture/@module/view/MixtureInfoView";
 import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
 import {CalculatorOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, TabInline, Template, useFilterContext} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, TabInline, Template, useFilterContext, useIsMobile} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 import {FC, useState} from "react";
 
@@ -21,15 +21,16 @@ interface IInternalListProps {
 
 const InternalList: FC<IInternalListProps> = () => {
 	const filterContext = useFilterContext();
+	const isMobile = useIsMobile();
 	return filterContext.isEmpty() ?
 		<Template span={22}>
 			<Row gutter={32}>
-				<Col span={12}>
+				<Col span={isMobile ? 24 : 12}>
 					<MixtureFilter
 						inline
 					/>
 				</Col>
-				<Col span={12}>
+				<Col span={isMobile ? 24 : 12}>
 					<Template
 						style={{marginTop: "0em"}}
 						icon={<MixtureIcon/>}
@@ -51,6 +52,7 @@ const InternalList: FC<IInternalListProps> = () => {
 
 export default withLabLayout(function Index() {
 	const [info, setInfo] = useState<IMixtureInfo>();
+	const isMobile = useIsMobile();
 	return <LabPage
 		title={"lab.mixture.index"}
 		menuSelection={["/lab/mixture"]}
@@ -88,12 +90,12 @@ export default withLabLayout(function Index() {
 			<Tabs.TabPane key={"calculator"} tab={<TabInline icon={<CalculatorOutlined/>} title={"lab.mixture.calculator.tab"}/>}>
 				<Template span={22}>
 					<Row gutter={32}>
-						<Col span={12}>
+						<Col span={isMobile ? 24 : 12}>
 							<MixtureInfoForm
 								onSuccess={({response}) => setInfo(response)}
 							/>
 						</Col>
-						<Col span={12}>
+						<Col span={isMobile ? 24 : 12}>
 							{info ? <MixtureInfoView info={info}/> : <Template
 								style={{marginTop: "0em"}}
 								icon={<CalculatorOutlined/>}

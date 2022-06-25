@@ -6,7 +6,7 @@ import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {Tags} from "@/puff-smith/component/Tags";
 import {IMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import {CheckCircleOutlined, CloseCircleOutlined, PercentageOutlined} from "@ant-design/icons";
-import {Card, Preview, Template} from "@leight-core/client";
+import {Card, Preview, Template, useIsMobile} from "@leight-core/client";
 import {toHumanNumber} from "@leight-core/utils";
 import {Alert, Col, Divider, Row, Space, Typography} from "antd";
 import {FC} from "react";
@@ -18,12 +18,13 @@ export interface IMixtureInfoViewProps {
 
 export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 	const {t} = useTranslation();
+	const isMobile = useIsMobile();
 	return <>
 		{info.result.error && <Alert type={"error"} message={t(`error.Invalid mixture: ${info.result.error}`)}/>}
 		{!info.result.error && <Alert type={"success"} message={t("shared.mixture.info.success")}/>}
 		<Divider/>
 		<Row>
-			<Col span={12}>
+			<Col span={isMobile ? 24 : 12}>
 				<Preview translation={"shared.mixture.info.result"}>
 					{{
 						nicotine: <NicotineInline nicotine={info.result.nicotine}/>,
@@ -39,7 +40,7 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 					}}
 				</Preview>
 			</Col>
-			<Col span={12}>
+			<Col span={isMobile ? 24 : 12}>
 				<Preview translation={"shared.mixture.info.result"}>
 					{{
 						vgpgToMl: <Space split={"/"}>
@@ -53,7 +54,7 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 		</Row>
 		<Divider/>
 		<Row>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.aroma.title"}>
 					<Preview translation={"shared.mixture.info.aroma"}>
 						{{
@@ -69,7 +70,7 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 					</Preview>
 				</Card>
 			</Col>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.booster.title"}>
 					{info.booster ? <Preview translation={"shared.mixture.info.booster"}>
 						{{
@@ -86,7 +87,7 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 					/>}
 				</Card>
 			</Col>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.base.title"}>
 					{info.base ? <Preview translation={"shared.mixture.info.base"}>
 						{{

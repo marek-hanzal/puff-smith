@@ -8,7 +8,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/atomizer/cre
 import {useAtomizerQueryInvalidate} from "@/sdk/api/atomizer/query";
 import {useAtomizerInventoryQueryInvalidate} from "@/sdk/api/inventory/atomizer/query";
 import {useAtomizerMarketQueryInvalidate} from "@/sdk/api/market/atomizer/query";
-import {ButtonBar, ButtonLink, Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit, SwitchItem, useIsMobile} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -21,6 +21,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 	const atomizerQueryInvalidate = useAtomizerQueryInvalidate();
 	const atomizerMarketQueryInvalidate = useAtomizerMarketQueryInvalidate();
 	const atomizerInventoryQueryInvalidate = useAtomizerInventoryQueryInvalidate();
+	const isMobile = useIsMobile();
 	return <CreateDefaultForm
 		translation={"shared.atomizer.create"}
 		onSuccess={async ({response, ...rest}) => {
@@ -58,7 +59,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 		{...props}
 	>
 		<Row gutter={32}>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 8}>
 				<FormItem field={"name"} required hasTooltip/>
 				<FormItem field={"code"} hasTooltip/>
 				<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
@@ -66,7 +67,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 				</FormItem>
 				<SwitchItem field={"isHybrid"}/>
 			</Col>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 8}>
 				<FormItem field={"typeId"} hasTooltip required>
 					<TagSelect
 						applyFilter={{
@@ -88,7 +89,7 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 				</FormItem>
 				<SwitchItem field={"squonk"}/>
 			</Col>
-			<Col span={8}>
+			<Col span={isMobile ? 24 : 8}>
 				<FormItem field={"coilMin"} hasTooltip required>
 					<InputNumber min={0} max={0.5} step={0.05} style={{width: "100%"}}/>
 				</FormItem>

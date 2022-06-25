@@ -3,7 +3,7 @@ import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {VgPgSlider} from "@/puff-smith/component/input/VgPgSliter";
 import {IMixtureInfoDefaultFormProps, MixtureInfoDefaultForm} from "@/sdk/api/mixture/info";
 import {CalculatorOutlined} from "@ant-design/icons";
-import {ButtonBar, ButtonLink, Card, Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Card, Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem, useIsMobile} from "@leight-core/client";
 import {Col, Divider, InputNumber, Row, Spin} from "antd";
 import {FC, useState} from "react";
 
@@ -14,6 +14,7 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 	const [withBase, setWithBase] = useState<boolean>(true);
 	const [withBooster, setWithBooster] = useState<boolean>(false);
 	const [nicotine, setNicotine] = useState<number>(0);
+	const isMobile = useIsMobile();
 	return <MixtureInfoDefaultForm
 		translation={"shared.mixture.info"}
 		toForm={() => ({
@@ -71,7 +72,7 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 		<FormContext.Consumer>
 			{formContext => <>
 				<Row gutter={32}>
-					<Col span={12}>
+					<Col span={isMobile ? 24 : 12}>
 						<ItemGroup prefix={"aroma"}>
 							<FormItem field={"content"} required>
 								<InputNumber min={0} max={3000} step={1} style={{width: "100%"}} autoFocus/>
@@ -97,7 +98,7 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 							/>
 						</FormItem>
 					</Col>
-					<Col span={12}>
+					<Col span={isMobile ? 24 : 12}>
 						<Card
 							title={"shared.mixture.info.withBase.title"}
 							extra={<SwitchItem
@@ -150,7 +151,6 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 						</Card>
 					</Col>
 				</Row>
-
 				<Divider/>
 				<Centered>
 					<Submit icon={<CalculatorOutlined/>} label={"calculate"}/>

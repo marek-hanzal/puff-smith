@@ -27,7 +27,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 			wrapsMax: atomizer.wrapsMax || null,
 			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 			drawIds: atomizer.AtomizerDraw.map(({draw}) => draw.id),
-			user: await userSource().map(atomizer.user),
+			user: await userSource().map(atomizer.user) || null,
 		} : undefined,
 		source: {
 			get: async id => source.prisma.atomizer.findUnique({

@@ -20,7 +20,7 @@ import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonVie
 import {CreateDefaultForm} from "@/sdk/api/lab/build/create";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, Centered, DatePicker, FormItem, ListIcon, Submit, SwitchItem, TabInline, Template} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonLink, Centered, DatePicker, FormItem, ListIcon, Submit, SwitchItem, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
 import {InputNumber, message, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
@@ -28,6 +28,7 @@ import {useTranslation} from "react-i18next";
 
 export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerFetch & ICoilFetch & ICottonFetch) {
 	const {t} = useTranslation();
+	const isMobile = useIsMobile();
 	return <LabPage
 		title={"lab.build.create.build"}
 		menuSelection={["/lab/build"]}
@@ -36,11 +37,15 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 			coilId: coil.id,
 		})}
 		icon={<BuildIcon/>}
-		extra={<ButtonLink
-			href={"/lab/build"}
-			icon={<ListIcon/>}
-			label={"lab.build.index.button"}
-		/>}
+		extra={<>
+			<BrowserContent>
+				<ButtonLink
+					href={"/lab/build"}
+					icon={<ListIcon/>}
+					label={"lab.build.index.button"}
+				/>
+			</BrowserContent>
+		</>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -78,7 +83,7 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 			translation: "lab.build.create.build",
 		}}
 	>
-		<Tabs size={"large"}>
+		<Tabs size={isMobile ? "small" : "large"}>
 			<Tabs.TabPane key={"build"} tab={<TabInline icon={<BuildIcon/>} title={"lab.build.tab"}/>}>
 				<Template>
 					<CreateDefaultForm

@@ -1,4 +1,5 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {AgeOfInline} from "@/puff-smith/component/inline/AgeOfInline";
 import {Amps} from "@/puff-smith/component/inline/Amps";
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {CoilSize} from "@/puff-smith/component/inline/CoilSize";
@@ -17,7 +18,7 @@ import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/C
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
-import {ButtonLink, LinkTo, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {BrowserContent, ButtonLink, LinkTo, ListItem, ListItemMeta, MobileContent, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC, ReactNode} from "react";
 
@@ -33,44 +34,70 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 		}}
 		{...props}
 	>
-		{build => <ListItem
-			key={build.id}
-			extra={itemExtra?.(build) || <Space size={4}>
-				<ButtonLink
-					icon={<LiquidIcon/>}
-					label={"lab.build.liquid.button"}
-					href={"/lab/build/[buildId]/liquid"}
-					query={{buildId: build.id}}
-				/>
-				<BuildRatingButton build={build}/>
-			</Space>}
-		>
-			<ListItemMeta
-				title={<Space split={<Divider type={"vertical"}/>}>
-					{selectionContext && <SelectionBool selection={build}/>}
-					<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
-						<AtomizerNameInline atomizer={build.atomizer}/>
-					</LinkTo>
-					<CodeInline code={build}/>
-					<Ohm ohm={build.ohm}/>
-					<Watt watt={build.watts} tooltip={"lab.build.watt.tooltip"}/>
-					<Amps amps={build.drain} tooltip={"lab.build.amps.tooltip"}/>
-					<LocalDate date={build.created}/>
-				</Space>}
-				description={<Space direction={"vertical"}>
-					<Space split={<Divider type={"vertical"}/>} size={0}>
-						<CottonNameInline cotton={build.cotton}/>
-						<WireNameInline wire={build.coil.wire}/>
-						<WireFiberInline wire={build.coil.wire}/>
-						{build.atomizer.draws.length > 0 && <Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
-					</Space>
-					<Space split={<Divider type={"vertical"}/>} size={0}>
-						<CoilWraps wraps={build.coil.wraps}/>
-						<CoilSize size={build.coil.size}/>
-						<SizeMm size={build.coil.wire.mm}/>
-					</Space>
-				</Space>}
-			/>
-		</ListItem>}
+		{build => <>
+			<BrowserContent>
+				<ListItem
+					extra={itemExtra?.(build) || <Space size={4}>
+						<ButtonLink
+							icon={<LiquidIcon/>}
+							label={"lab.build.liquid.button"}
+							href={"/lab/build/[buildId]/liquid"}
+							query={{buildId: build.id}}
+						/>
+						<BuildRatingButton build={build}/>
+					</Space>}
+				>
+					<ListItemMeta
+						title={<Space split={<Divider type={"vertical"}/>}>
+							{selectionContext && <SelectionBool selection={build}/>}
+							<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
+								<AtomizerNameInline atomizer={build.atomizer}/>
+							</LinkTo>
+							<CodeInline code={build}/>
+							<Ohm ohm={build.ohm}/>
+							<Watt watt={build.watts} tooltip={"lab.build.watt.tooltip"}/>
+							<Amps amps={build.drain} tooltip={"lab.build.amps.tooltip"}/>
+							<LocalDate date={build.created}/>
+							<AgeOfInline date={build.created}/>
+						</Space>}
+						description={<Space direction={"vertical"}>
+							<Space split={<Divider type={"vertical"}/>} size={0}>
+								<CottonNameInline cotton={build.cotton}/>
+								<WireNameInline wire={build.coil.wire}/>
+								<WireFiberInline wire={build.coil.wire}/>
+								{build.atomizer.draws.length > 0 && <Tags tags={build.atomizer.draws} translation={"common.draw"}/>}
+							</Space>
+							<Space split={<Divider type={"vertical"}/>} size={0}>
+								<CoilWraps wraps={build.coil.wraps}/>
+								<CoilSize size={build.coil.size}/>
+								<SizeMm size={build.coil.wire.mm}/>
+							</Space>
+						</Space>}
+					/>
+				</ListItem>
+			</BrowserContent>
+			<MobileContent>
+				<ListItem
+					// extra={itemExtra?.(build) || <Space size={4}>
+					// 	<ButtonLink
+					// 		icon={<LiquidIcon/>}
+					// 		label={"lab.build.liquid.button"}
+					// 		href={"/lab/build/[buildId]/liquid"}
+					// 		query={{buildId: build.id}}
+					// 	/>
+					// 	<BuildRatingButton build={build}/>
+					// </Space>}
+				>
+					<ListItemMeta
+						title={<Space split={<Divider type={"vertical"}/>}>
+							{selectionContext && <SelectionBool selection={build}/>}
+							<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
+								<AtomizerNameInline atomizer={build.atomizer}/>
+							</LinkTo>
+						</Space>}
+					/>
+				</ListItem>
+			</MobileContent>
+		</>}
 	</BuildListSource>;
 };

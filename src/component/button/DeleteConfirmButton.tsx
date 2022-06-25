@@ -1,17 +1,17 @@
 import {useAromaSelectionContext} from "@/sdk/api/aroma/query";
-import {DeleteItemIcon, ModalButton} from "@leight-core/client";
+import {DeleteItemIcon, IModalButtonProps, ModalButton} from "@leight-core/client";
 import {message} from "antd";
 import {FC} from "react";
 import {Trans, useTranslation} from "react-i18next";
 import {UseMutationResult} from "react-query";
 
-export interface IDeleteConfirmButtonProps {
+export interface IDeleteConfirmButtonProps extends Partial<IModalButtonProps> {
 	translation: string;
 	mutator: UseMutationResult<any, any, string[]>;
 	invalidator?: () => Promise<any>;
 }
 
-export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation, mutator, invalidator = async () => null}) => {
+export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation, mutator, invalidator = async () => null, button, ...props}) => {
 	const {t} = useTranslation();
 	const selectionContext = useAromaSelectionContext();
 	return <ModalButton
@@ -23,6 +23,7 @@ export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation,
 			children: "common.delete.modal.button",
 			size: "large",
 			loading: mutator.isLoading,
+			...button,
 		}}
 		okButtonProps={{
 			danger: true,
@@ -52,6 +53,7 @@ export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation,
 				onSettled: () => setShow(false),
 			});
 		}}
+		{...props}
 	>
 		<Trans i18nKey={`${translation}.delete.modal.content`}/>
 	</ModalButton>;

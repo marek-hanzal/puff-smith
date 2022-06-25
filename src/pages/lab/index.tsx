@@ -1,7 +1,8 @@
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
-import {HomeIcon, Template} from "@leight-core/client";
+import {LabMenu} from "@/puff-smith/site/lab/@module/menu/LabMenu";
+import {BrowserContent, HomeIcon, MobileContent, Template} from "@leight-core/client";
 
 export default withLabLayout(function Index() {
 	return <LabPage
@@ -9,11 +10,18 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab"]}
 		icon={<HomeIcon/>}
 	>
-		<Template
-			style={{}}
-			icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
-			status={"info"}
-			label={"lab.home"}
-		/>
+		<BrowserContent>
+			<Template
+				style={{}}
+				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
+				status={"info"}
+				label={"lab.home"}
+			/>
+		</BrowserContent>
+		<MobileContent>
+			<LabMenu
+				mode={"inline"}
+			/>
+		</MobileContent>
 	</LabPage>;
 });

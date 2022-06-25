@@ -5,7 +5,7 @@ import {AtomizerRatingButton} from "@/puff-smith/site/inventory/atomizer/@module
 import {AtomizerListEmpty} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerListEmpty";
 import {AtomizerNameInline} from "@/puff-smith/site/shared/atomizer/@module/inline/AtomizerNameInline";
 import {AtomizerInventoryListSource, IAtomizerInventoryListSourceProps} from "@/sdk/api/inventory/atomizer/query";
-import {ButtonBar, ButtonLink, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {ButtonBar, ButtonLink, ListItem, ListItemMeta, useIsMobile, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -17,6 +17,7 @@ export interface IAtomizerInventoryListProps extends Partial<IAtomizerInventoryL
 
 export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = ({hidden = [], ...props}) => {
 	const optionalSelectionContext = useOptionalSelectionContext();
+	const isMobile = useIsMobile();
 	return <AtomizerInventoryListSource
 		locale={{
 			emptyText: <AtomizerListEmpty/>
@@ -36,7 +37,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = ({hidden =
 			</ButtonBar>}
 		>
 			<ListItemMeta
-				title={<Space size={0} split={<Divider type={"vertical"}/>}>
+				title={<Space direction={isMobile ? "vertical" : "horizontal"} size={0} split={isMobile ? undefined : <Divider type={"vertical"}/>}>
 					{optionalSelectionContext && <SelectionBool selection={atomizerInventory}/>}
 					<AtomizerNameInline atomizer={atomizerInventory.atomizer}/>
 					{atomizerInventory.atomizer.draws.length > 0 && <Tags color={"geekblue"} tags={atomizerInventory.atomizer.draws} translation={"common.draw"}/>}
