@@ -68,7 +68,7 @@ export default withLabLayout(function Index() {
 			/>
 		</Breadcrumbs>}
 	>
-		<Tabs size={"large"} destroyInactiveTabPane onChange={() => setInfo(undefined)}>
+		<Tabs size={isMobile ? "small" : "large"} destroyInactiveTabPane onChange={() => setInfo(undefined)}>
 			<Tabs.TabPane key={"search"} tab={<TabInline icon={<MixtureIcon/>} title={"lab.mixture.search.tab"}/>}>
 				<MixtureInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}

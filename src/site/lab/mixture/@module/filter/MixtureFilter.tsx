@@ -13,7 +13,7 @@ import {MixtureTasteSelect} from "@/puff-smith/site/lab/mixture/@module/form/Mix
 import {MixtureVendorSelect} from "@/puff-smith/site/lab/mixture/@module/form/MixtureVendorSelect";
 import {MixtureInventoryProviderFilter} from "@/sdk/api/inventory/mixture/query";
 import {CloudOutlined, PercentageOutlined, QuestionOutlined} from "@ant-design/icons";
-import {ButtonBar, ButtonLink, FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
+import {ButtonBar, ButtonLink, FormContext, FormItem, IconText, IFilterProps, useFilterContext, useIsMobile} from "@leight-core/client";
 import {Divider, Spin, Tabs} from "antd";
 import {FC, useRef, useState} from "react";
 
@@ -23,6 +23,7 @@ export interface IMixtureFilterProps extends Partial<IFilterProps> {
 
 export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter => filter, ...props}) => {
 	const filterContext = useFilterContext();
+	const isMobile = useIsMobile();
 	const ratio = useRef<{ pgToRound: number, vgToRound: number }>();
 	const [filter, setFilter] = useState<any>({
 		...filterContext.source,
@@ -116,7 +117,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 		{...props}
 	>
 		<FormContext.Consumer>
-			{formContext => <Tabs size={"large"}>
+			{formContext => <Tabs size={isMobile ? "small" : "large"}>
 				<Tabs.TabPane forceRender key={"liquid"} tab={<IconText icon={<PercentageOutlined/>} text={"market.mixture.filter.liquid.tab"}/>}>
 					{!aroma && <FormItem field={"aromaId"}>
 						<MixtureAromaSelect
