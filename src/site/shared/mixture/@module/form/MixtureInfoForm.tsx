@@ -54,7 +54,6 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 		})}
 		withTokenProps={{
 			tokens: [
-				"*",
 				"feature.mixture.info",
 			],
 			template: {

@@ -47,7 +47,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 		})}
 		withTokenProps={{
 			tokens: [
-				// "*",
 				"feature.aroma.create",
 			],
 			template: {

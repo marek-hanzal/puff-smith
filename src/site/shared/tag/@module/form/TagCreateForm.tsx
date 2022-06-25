@@ -22,7 +22,6 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 		}}
 		withTokenProps={{
 			tokens: [
-				"*",
 				"feature.aroma.create",
 			],
 			template: {

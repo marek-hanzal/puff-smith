@@ -23,7 +23,6 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 		}}
 		withTokenProps={{
 			tokens: [
-				"*",
 				"feature.aroma.create",
 				"feature.booster.create",
 				"feature.base.create",

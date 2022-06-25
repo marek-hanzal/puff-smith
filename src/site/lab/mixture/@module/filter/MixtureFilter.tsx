@@ -46,7 +46,6 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 			onChange: ({values}) => setFilter(values),
 			withTokenProps: {
 				tokens: [
-					"*",
 					"feature.mixture.search",
 				],
 				template: {

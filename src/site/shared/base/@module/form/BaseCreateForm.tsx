@@ -38,7 +38,6 @@ export const BaseCreateForm: FC<IBaseCreateFormProps> = ({onSuccess, ...props}) 
 		})}
 		withTokenProps={{
 			tokens: [
-				// "*",
 				"feature.base.create",
 			],
 			template: {

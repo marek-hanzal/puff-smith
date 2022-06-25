@@ -37,7 +37,6 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 		})}
 		withTokenProps={{
 			tokens: [
-				"*",
 				"feature.liquid.create",
 			],
 			template: {

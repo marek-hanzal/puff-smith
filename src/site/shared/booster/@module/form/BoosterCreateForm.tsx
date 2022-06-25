@@ -38,7 +38,6 @@ export const BoosterCreateForm: FC<IBoosterCreateFormProps> = ({onSuccess, ...pr
 		})}
 		withTokenProps={{
 			tokens: [
-				// "*",
 				"feature.booster.create",
 			],
 			template: {
