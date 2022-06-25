@@ -6,9 +6,11 @@ import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaIn
 import {IAromaInventoryFetch} from "@/puff-smith/service/aroma/inventory/interface";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
+import {AromaRatingButton} from "@/puff-smith/site/inventory/aroma/@module/button/AromaRatingButton";
 import {AromaIndexMenu} from "@/puff-smith/site/inventory/aroma/@module/menu/AromaIndexMenu";
 import {AromaView} from "@/puff-smith/site/shared/aroma/@module/view/AromaView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs} from "@leight-core/client";
+import {Divider} from "antd";
 
 export default withInventoryLayout(function Index({aromaInventory}: IAromaInventoryFetch) {
 	return <InventoryPage
@@ -38,7 +40,13 @@ export default withInventoryLayout(function Index({aromaInventory}: IAromaInvent
 			/>
 		</Breadcrumbs>}
 	>
-		<AromaView aroma={aromaInventory.aroma}/>
+		<AromaView
+			aroma={aromaInventory.aroma}
+			extra={<>
+				<AromaRatingButton aromaInventory={aromaInventory}/>
+				<Divider/>
+			</>}
+		/>
 	</InventoryPage>;
 });
 

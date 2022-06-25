@@ -4,20 +4,21 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {Preview, Template} from "@leight-core/client";
+import {ITemplateProps, Preview, Template} from "@leight-core/client";
 import {Col, Divider, Row} from "antd";
 import dayjs from "dayjs";
 import {FC} from "react";
 
-export interface IAromaViewProps {
+export interface IAromaViewProps extends Partial<ITemplateProps> {
 	aroma: IAroma;
 }
 
-export const AromaView: FC<IAromaViewProps> = ({aroma}) => {
+export const AromaView: FC<IAromaViewProps> = ({aroma, ...props}) => {
 	return <Template
 		title={aroma.name}
 		subTitle={aroma.vendor.name}
 		extra={<Divider/>}
+		{...props}
 	>
 		<Row gutter={16}>
 			<Col span={12}>
