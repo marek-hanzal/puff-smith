@@ -2,6 +2,7 @@ import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
+import {UserNameInline} from "@/puff-smith/site/shared/user/@module/inline/UserNameInline";
 import {IUserCertificateRequestListSourceProps, UserCertificateRequestListSource} from "@/sdk/api/user/certificate/request/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -23,9 +24,9 @@ export const CertificateRequestList: FC<ICertificateRequestListProps> = ({render
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={userCertificateRequest}/>
-					{user?.name}
 					{t(`certificate.${certificate.name}`, certificate.name)}
 					<CodeInline code={certificate}/>
+					<UserNameInline user={user}/>
 					{certificate.cost && <Price withColor withIcon price={certificate.cost}/>}
 				</Space>}
 				description={<Tags

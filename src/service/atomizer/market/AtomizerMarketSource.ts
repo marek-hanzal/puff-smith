@@ -44,6 +44,7 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 				}),
 				orderBy,
 				include: {
+					user: true,
 					vendor: true,
 					AtomizerDraw: {
 						orderBy: {draw: {sort: "asc"}},

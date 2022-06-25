@@ -2,6 +2,7 @@ import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Price} from "@/puff-smith/component/Price";
 import {Tags} from "@/puff-smith/component/Tags";
+import {UserNameInline} from "@/puff-smith/site/shared/user/@module/inline/UserNameInline";
 import {IUserLicenseRequestListSourceProps, UserLicenseRequestListSource} from "@/sdk/api/user/license/request/query";
 import {ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
@@ -16,15 +17,16 @@ export const LicenseRequestList: FC<ILicenseRequestListProps> = ({renderItemExtr
 	return <UserLicenseRequestListSource
 		{...props}
 	>
-		{({license, ...userLicenseRequest}) => <ListItem
+		{({license, user, ...userLicenseRequest}) => <ListItem
 			key={userLicenseRequest.id}
-			extra={renderItemExtra?.({license, ...userLicenseRequest})}
+			extra={renderItemExtra?.({license, user, ...userLicenseRequest})}
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={userLicenseRequest}/>
 					{t(`license.${license.name}`, license.name)}
 					<CodeInline code={license}/>
+					<UserNameInline user={user}/>
 					{license.cost && <Price withColor withIcon price={license.cost}/>}
 				</Space>}
 				description={<Tags

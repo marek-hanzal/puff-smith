@@ -2,6 +2,7 @@ import {IAtomizerSource} from "@/puff-smith/service/atomizer/interface";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {ClientError} from "@leight-core/api";
 import {onUnique, Source} from "@leight-core/server";
@@ -9,6 +10,7 @@ import {singletonOf} from "@leight-core/utils";
 import {boolean} from "boolean";
 
 export const AtomizerSource = (): IAtomizerSource => {
+	const userSource = singletonOf(() => UserSource().ofSource(source));
 	const vendorSource = singletonOf(() => VendorSource().ofSource(source));
 	const tagSource = singletonOf(() => TagSource().ofSource(source));
 	const codeService = singletonOf(() => CodeService());
@@ -25,12 +27,14 @@ export const AtomizerSource = (): IAtomizerSource => {
 			wrapsMax: atomizer.wrapsMax || null,
 			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 			drawIds: atomizer.AtomizerDraw.map(({draw}) => draw.id),
+			user: await userSource().map(atomizer.user),
 		} : undefined,
 		source: {
 			get: async id => source.prisma.atomizer.findUnique({
 				where: {id},
 				include: {
 					vendor: true,
+					user: true,
 					AtomizerDraw: {
 						orderBy: {draw: {sort: "asc"}},
 						include: {
@@ -87,6 +91,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 								} : undefined,
 							},
 							include: {
+								user: true,
 								vendor: true,
 								AtomizerDraw: {
 									orderBy: {draw: {sort: "asc"}},
@@ -129,6 +134,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 								data: create,
 								include: {
 									vendor: true,
+									user: true,
 									AtomizerDraw: {
 										orderBy: {draw: {sort: "asc"}},
 										include: {
@@ -159,6 +165,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 				const items = await prisma.atomizer.findMany({
 					where,
 					include: {
+						user: true,
 						vendor: true,
 						AtomizerDraw: {
 							orderBy: {draw: {sort: "asc"}},

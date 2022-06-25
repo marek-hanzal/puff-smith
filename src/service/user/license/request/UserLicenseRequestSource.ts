@@ -43,6 +43,7 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 				where: filter,
 				orderBy,
 				include: {
+					user: true,
 					license: {
 						include: {
 							LicenseToken: {

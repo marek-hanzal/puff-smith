@@ -1,4 +1,5 @@
 import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
+import {IUser, IWithNullUser} from "@/puff-smith/service/user/interface";
 import {IVendor, IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Atomizer, Prisma} from "@prisma/client";
@@ -46,6 +47,7 @@ export interface IAtomizer {
 	wrapsMax?: number | null;
 	squonk: boolean;
 	isHybrid: boolean;
+	user?: IUser | null;
 }
 
 export interface IAtomizerFetch {
@@ -56,5 +58,7 @@ export interface IAtomizerFetchParams extends ParsedUrlQuery {
 	atomizerId: string;
 }
 
-export interface IAtomizerSource extends ISource<IAtomizerCreate, IAtomizerEntity<IWithVendor & IWithAtomizerDraw>, IAtomizer, IAtomizerQuery, IAtomizerFetch, IAtomizerFetchParams> {
+export type IIAtomizerSourceEntity = IAtomizerEntity<IWithVendor & IWithAtomizerDraw & IWithNullUser>;
+
+export interface IAtomizerSource extends ISource<IAtomizerCreate, IIAtomizerSourceEntity, IAtomizer, IAtomizerQuery, IAtomizerFetch, IAtomizerFetchParams> {
 }
