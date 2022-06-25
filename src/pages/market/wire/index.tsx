@@ -1,3 +1,4 @@
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -8,7 +9,7 @@ import {WireListToolbar} from "@/puff-smith/site/market/wire/@module/list/WireLi
 import {WireFilter} from "@/puff-smith/site/shared/wire/@module/filter/WireFilter";
 import {WireCreateInline} from "@/puff-smith/site/shared/wire/@module/form/WireCreateInline";
 import {WireProviderControl} from "@/sdk/api/wire/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -20,6 +21,16 @@ export default withMarketLayout(function Index() {
 			size={"large"}
 			icon={<WireIcon/>}
 		/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<WireIcon/>}
+				label={"market.wire.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<WireProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

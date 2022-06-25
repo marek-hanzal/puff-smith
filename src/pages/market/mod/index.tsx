@@ -1,3 +1,4 @@
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -7,13 +8,23 @@ import {ModFilter} from "@/puff-smith/site/market/mod/@module/filter/ModFilter";
 import {ModList} from "@/puff-smith/site/market/mod/@module/list/ModList";
 import {ModListToolbar} from "@/puff-smith/site/market/mod/@module/list/ModListToolbar";
 import {ModProviderControl} from "@/sdk/api/mod/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.mod.index"}
 		menuSelection={["/market/mod"]}
 		icon={<ModIcon/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<ModIcon/>}
+				label={"market.mod.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<ModProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

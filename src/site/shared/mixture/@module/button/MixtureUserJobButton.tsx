@@ -53,6 +53,9 @@ export const MixtureUserJobButton: FC<IMixtureUserJobButtonProps> = props => {
 			await nicotineQueryInvalidate();
 			await aromaTasteQueryInvalidate();
 		}}
+		tokens={[
+			"feature.mixture.search",
+		]}
 		{...props}
 	/>;
 };

@@ -1,3 +1,4 @@
+import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -11,7 +12,7 @@ import {MixtureInfoForm} from "@/puff-smith/site/shared/mixture/@module/form/Mix
 import {MixtureInfoView} from "@/puff-smith/site/shared/mixture/@module/view/MixtureInfoView";
 import {MixtureInventoryProviderControl} from "@/sdk/api/inventory/mixture/query";
 import {CalculatorOutlined} from "@ant-design/icons";
-import {TabInline, Template, useFilterContext} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, TabInline, Template, useFilterContext} from "@leight-core/client";
 import {Col, Row, Tabs} from "antd";
 import {FC, useState} from "react";
 
@@ -34,12 +35,7 @@ const InternalList: FC<IInternalListProps> = () => {
 						icon={<MixtureIcon/>}
 						label={"market.aroma.mixture.filter"}
 						span={12}
-						extra={<MixtureUserJobButton
-							tokens={[
-								"*",
-								"feature.mixture.search",
-							]}
-						/>}
+						extra={<MixtureUserJobButton/>}
 					/>
 				</Col>
 			</Row>
@@ -59,6 +55,16 @@ export default withLabLayout(function Index() {
 		title={"lab.mixture.index"}
 		menuSelection={["/lab/mixture"]}
 		icon={<MixtureIcon/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/lab"}
+				icon={<LabIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<MixtureIcon/>}
+				label={"lab.mixture.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane onChange={() => setInfo(undefined)}>
 			<Tabs.TabPane key={"search"} tab={<TabInline icon={<MixtureIcon/>} title={"lab.mixture.search.tab"}/>}>

@@ -1,3 +1,4 @@
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -8,7 +9,7 @@ import {VendorFilter} from "@/puff-smith/site/shared/vendor/@module/filter/Vendo
 import {VendorList} from "@/puff-smith/site/shared/vendor/@module/list/VendorList";
 import {VendorListToolbar} from "@/puff-smith/site/shared/vendor/@module/list/VendorListToolbar";
 import {VendorProviderControl} from "@/sdk/api/vendor/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -16,6 +17,16 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/vendor"]}
 		icon={<VendorIcon/>}
 		extra={<VendorCreateButton/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<VendorIcon/>}
+				label={"market.vendor.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<VendorProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

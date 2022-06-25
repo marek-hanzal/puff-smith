@@ -1,4 +1,6 @@
 import {TabAndOr} from "@/puff-smith/component/filter/TabAndOr";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {MixtureBaseSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureBaseSelect";
@@ -8,8 +10,8 @@ import {MixtureNicotineSelect} from "@/puff-smith/site/shared/mixture/@module/fo
 import {MixtureRatioSelect} from "@/puff-smith/site/shared/mixture/@module/form/MixtureRatioSelect";
 import {MixtureMarketProviderFilter} from "@/sdk/api/market/mixture/query";
 import {CloudOutlined, PercentageOutlined} from "@ant-design/icons";
-import {FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
-import {Tabs} from "antd";
+import {ButtonBar, ButtonLink, FormContext, FormItem, IconText, IFilterProps, useFilterContext} from "@leight-core/client";
+import {Divider, Tabs} from "antd";
 import {FC, useRef, useState} from "react";
 
 export interface IMixtureFilterProps extends Partial<IFilterProps> {
@@ -39,6 +41,20 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 		}}
 		formProps={{
 			onChange: ({values}) => setFilter(values),
+			withTokenProps: {
+				tokens: [
+					"feature.mixture.search",
+				],
+				template: {
+					extra: <>
+						<Divider/>
+						<ButtonBar split={<Divider type={"vertical"}/>}>
+							<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+							<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+						</ButtonBar>
+					</>
+				}
+			},
 		}}
 		toFilter={({andDrawIds, orDrawIds, ratio: unused, ...values}) => toFilter({
 			...values,

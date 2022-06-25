@@ -1,4 +1,5 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -8,7 +9,7 @@ import {AromaListToolbar} from "@/puff-smith/site/market/aroma/@module/list/Arom
 import {AromaCreateButton} from "@/puff-smith/site/shared/aroma/@module/button/AromaCreateButton";
 import {AromaFilter} from "@/puff-smith/site/shared/aroma/@module/filter/AromaFilter";
 import {AromaProviderControl} from "@/sdk/api/aroma/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -16,6 +17,16 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/aroma"]}
 		icon={<AromaIcon/>}
 		extra={<AromaCreateButton/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<AromaIcon/>}
+				label={"market.aroma.label"}
+			/>
+		</Breadcrumbs>}
 		withHelp={{
 			translation: "market.aroma.index",
 		}}

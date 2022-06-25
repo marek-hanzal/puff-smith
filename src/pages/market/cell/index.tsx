@@ -1,4 +1,5 @@
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -7,13 +8,23 @@ import {CellFilter} from "@/puff-smith/site/market/cell/@module/filter/CellFilte
 import {CellList} from "@/puff-smith/site/market/cell/@module/list/CellList";
 import {CellListToolbar} from "@/puff-smith/site/market/cell/@module/list/CellListToolbar";
 import {CellProviderControl} from "@/sdk/api/cell/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
 		title={"market.cell.index"}
 		menuSelection={["/market/cell"]}
 		icon={<CellIcon/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<CellIcon/>}
+				label={"market.cell.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<CellProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

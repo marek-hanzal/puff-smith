@@ -26,20 +26,21 @@ interface IInternalListProps {
 const InternalList: FC<IInternalListProps> = ({aroma}) => {
 	const filterContext = useFilterContext();
 	return filterContext.isEmpty() ?
-		<Template span={18}>
+		<Template span={22}>
 			<Row gutter={32}>
-				<Col span={8}>
+				<Col span={12}>
+					<MixtureFilter
+						inline
+						aroma={aroma}
+					/>
+				</Col>
+				<Col span={12}>
 					<Template
 						style={{marginTop: "0em"}}
 						icon={<MixtureIcon/>}
 						label={"market.aroma.mixture.filter"}
+						span={12}
 						extra={<MixtureJobButton aroma={aroma}/>}
-					/>
-				</Col>
-				<Col span={16}>
-					<MixtureFilter
-						inline
-						aroma={aroma}
 					/>
 				</Col>
 			</Row>

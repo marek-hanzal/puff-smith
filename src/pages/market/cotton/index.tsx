@@ -1,4 +1,5 @@
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -8,7 +9,7 @@ import {CottonList} from "@/puff-smith/site/market/cotton/@module/list/CottonLis
 import {CottonListToolbar} from "@/puff-smith/site/market/cotton/@module/list/CottonListToolbar";
 import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateInline";
 import {CottonProviderControl} from "@/sdk/api/cotton/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -20,6 +21,16 @@ export default withMarketLayout(function Index() {
 			size={"large"}
 			icon={<CottonIcon/>}
 		/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<CottonIcon/>}
+				label={"market.cotton.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<CottonProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

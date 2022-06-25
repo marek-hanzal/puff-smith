@@ -24,6 +24,9 @@ export const MixtureJobButton: FC<IMixtureJobButtonProps> = ({aroma, ...props}) 
 			}
 		}}
 		translation={"lab.mixture.job"}
+		tokens={[
+			"feature.mixture.search",
+		]}
 		{...props}
 	/>;
 };

@@ -57,7 +57,7 @@ export const MixtureFilter: FC<IMixtureFilterProps> = ({aroma, toFilter = filter
 						</ButtonBar>
 					</>
 				}
-			}
+			},
 		}}
 		toFilter={(
 			{

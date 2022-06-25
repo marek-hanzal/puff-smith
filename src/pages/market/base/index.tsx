@@ -1,4 +1,5 @@
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -8,7 +9,7 @@ import {BaseListToolbar} from "@/puff-smith/site/market/base/@module/list/BaseLi
 import {BaseFilter} from "@/puff-smith/site/shared/base/@module/filter/BaseFilter";
 import {BaseCreateInline} from "@/puff-smith/site/shared/base/@module/form/BaseCreateInline";
 import {BaseProviderControl} from "@/sdk/api/base/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -20,6 +21,16 @@ export default withMarketLayout(function Index() {
 			size={"large"}
 			icon={<BaseIcon/>}
 		/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<BaseIcon/>}
+				label={"market.base.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<BaseProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

@@ -1,4 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
@@ -8,7 +9,7 @@ import {AtomizerList} from "@/puff-smith/site/market/atomizer/@module/list/Atomi
 import {AtomizerListToolbar} from "@/puff-smith/site/market/atomizer/@module/list/AtomizerListToolbar";
 import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
 import {AtomizerProviderControl} from "@/sdk/api/atomizer/query";
-import {SelectionProvider} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
 	return <MarketPage
@@ -16,6 +17,16 @@ export default withMarketLayout(function Index() {
 		menuSelection={["/market/atomizer"]}
 		icon={<AtomizerIcon/>}
 		extra={<AtomizerCreateButton/>}
+		breadcrumbProps={<Breadcrumbs>
+			<BreadcrumbButton
+				href={"/market"}
+				icon={<MarketIcon/>}
+			/>
+			<BreadcrumbIcon
+				icon={<AtomizerIcon/>}
+				label={"market.atomizer.label"}
+			/>
+		</Breadcrumbs>}
 	>
 		<AtomizerProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
