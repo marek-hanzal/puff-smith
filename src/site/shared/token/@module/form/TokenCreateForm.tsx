@@ -19,6 +19,12 @@ export const TokenCreateForm: FC<ITokenCreateFormProps> = ({onSuccess, ...props}
 			await tokenQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		withTokenProps={{
+			tokens: [
+				"feature.certificate.create",
+				"feature.license.create",
+			],
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>

@@ -29,7 +29,7 @@ export const CottonCreateForm: FC<ICottonCreateFormProps> = ({onSuccess, ...prop
 		})}
 		withTokenProps={{
 			tokens: [
-				"*",
+				"feature.cotton.create",
 			],
 			template: {
 				extra: <>

@@ -6,6 +6,7 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BoosterList} from "@/puff-smith/site/market/booster/@module/list/BoosterList";
 import {BoosterListToolbar} from "@/puff-smith/site/market/booster/@module/list/BoosterListToolbar";
 import {BoosterFilter} from "@/puff-smith/site/shared/booster/@module/filter/BoosterFilter";
+import {BoosterCreateInline} from "@/puff-smith/site/shared/booster/@module/form/BoosterCreateInline";
 import {BoosterProviderControl} from "@/sdk/api/booster/query";
 import {SelectionProvider} from "@leight-core/client";
 
@@ -17,6 +18,11 @@ export default withMarketLayout(function Index() {
 		withHelp={{
 			translation: "market.booster.index",
 		}}
+		extra={<BoosterCreateInline
+			type={"primary"}
+			size={"large"}
+			icon={<BoosterIcon/>}
+		/>}
 	>
 		<BoosterProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

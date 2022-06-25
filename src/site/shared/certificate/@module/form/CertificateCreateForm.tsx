@@ -21,6 +21,11 @@ export const CertificateCreateForm: FC<ICertificateCreateFormProps> = ({onSucces
 			await certificateQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		withTokenProps={{
+			tokens: [
+				"feature.certificate.create",
+			],
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>

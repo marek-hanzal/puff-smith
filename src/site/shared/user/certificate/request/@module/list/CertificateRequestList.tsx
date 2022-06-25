@@ -16,13 +16,14 @@ export const CertificateRequestList: FC<ICertificateRequestListProps> = ({render
 	return <UserCertificateRequestListSource
 		{...props}
 	>
-		{({certificate, ...userCertificateRequest}) => <ListItem
+		{({certificate, user, ...userCertificateRequest}) => <ListItem
 			key={userCertificateRequest.id}
-			extra={renderItemExtra?.({certificate, ...userCertificateRequest})}
+			extra={renderItemExtra?.({certificate, user, ...userCertificateRequest})}
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={userCertificateRequest}/>
+					{user?.name}
 					{t(`certificate.${certificate.name}`, certificate.name)}
 					<CodeInline code={certificate}/>
 					{certificate.cost && <Price withColor withIcon price={certificate.cost}/>}

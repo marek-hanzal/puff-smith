@@ -80,7 +80,7 @@ export const FiberCreateForm: FC<IFiberCreateFormProps> = ({onSuccess, ...props}
 		}}
 		withTokenProps={{
 			tokens: [
-				"*",
+				"feature.wire.create",
 			],
 			template: {
 				extra: <>

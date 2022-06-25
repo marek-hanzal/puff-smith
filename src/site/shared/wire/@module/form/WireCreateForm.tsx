@@ -7,6 +7,7 @@ import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {useWireInventoryQueryInvalidate} from "@/sdk/api/inventory/wire/query";
+import {useWireMarketQueryInvalidate} from "@/sdk/api/market/wire/query";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/wire/create";
 import {useWireQueryInvalidate} from "@/sdk/api/wire/query";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
@@ -23,12 +24,14 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 	const {t} = useTranslation();
 	const wireQueryInvalidate = useWireQueryInvalidate();
 	const wireInventoryQueryInvalidate = useWireInventoryQueryInvalidate();
+	const wireMarketQueryInvalidate = useWireMarketQueryInvalidate();
 	return <CreateDefaultForm
 		translation={"shared.wire.create"}
 		onSuccess={async response => {
 			message.success(t("shared.wire.create.success"));
 			await wireQueryInvalidate();
 			await wireInventoryQueryInvalidate();
+			await wireMarketQueryInvalidate();
 			onSuccess?.(response);
 		}}
 		toForm={() => ({
@@ -40,7 +43,7 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 		})}
 		withTokenProps={{
 			tokens: [
-				"*",
+				"feature.wire.create",
 			],
 			template: {
 				extra: <>

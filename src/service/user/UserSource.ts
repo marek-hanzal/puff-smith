@@ -22,15 +22,15 @@ export const UserSource = (): IUserSource => {
 			}
 			const {
 				UserToken,
-				UserCertificate,
-				UserLicense,
+				UserCertificate = [],
+				UserLicense = [],
 				name,
 				id,
 				image,
 				email,
 			} = user;
-			let tokens = UserToken.map(({token}) => token);
-			const tokenIds = UserToken.map(({token}) => token.id);
+			let tokens = UserToken?.map(({token}) => token) || [];
+			const tokenIds = UserToken?.map(({token}) => token.id) || [];
 
 			for (const {certificate} of UserCertificate) {
 				tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token)).concat([{

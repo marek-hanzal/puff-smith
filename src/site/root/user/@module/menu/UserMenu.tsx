@@ -1,3 +1,5 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {CreateMenuItem, IMenuProps, ListIcon, Menu} from "@leight-core/client";
 import {FC} from "react";
 
@@ -12,6 +14,16 @@ export const UserMenu: FC<IUserMenuProps> = props => <Menu
 			title: "root.user.list",
 			href: "/root/user",
 			icon: <ListIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.user.certificate.pending.list",
+			href: "/root/user/certificate/pending",
+			icon: <CertificateIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.user.license.pending.list",
+			href: "/root/user/license/pending",
+			icon: <LicenseIcon/>,
 		}),
 	]}
 	{...props}

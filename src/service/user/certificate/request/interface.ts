@@ -1,5 +1,6 @@
 import {ICertificate, IWithCertificate} from "@/puff-smith/service/certificate/interface";
 import {IWithTokenEntity} from "@/puff-smith/service/token/interface";
+import {IUser, IWithNullUser} from "@/puff-smith/service/user/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {Prisma, UserCertificateRequest} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -13,6 +14,7 @@ export interface IUserCertificateRequest {
 	certificate: ICertificate;
 	certificateId: string;
 	userId: string;
+	user?: IUser | null;
 	approverId?: string | null;
 	created: string;
 	updated?: string | null;
@@ -37,7 +39,9 @@ export type IUserCertificateRequestRequest = {
 	id: string;
 }
 
-export interface IUserCertificateRequestSource extends ISource<IUserCertificateRequestCreate, IUserCertificateRequestEntity<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>>, IUserCertificateRequest, IUserCertificateRequestQuery, IUserCertificateRequestFetch, IUserCertificateRequestFetchParams> {
+export type IUserCertificateRequestSourceEntity = IUserCertificateRequestEntity<IWithNullUser & IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>>;
+
+export interface IUserCertificateRequestSource extends ISource<IUserCertificateRequestCreate, IUserCertificateRequestSourceEntity, IUserCertificateRequest, IUserCertificateRequestQuery, IUserCertificateRequestFetch, IUserCertificateRequestFetchParams> {
 	approve(request: IUserCertificateRequestRequest): Promise<any>;
 
 	decline(request: IUserCertificateRequestRequest): Promise<any>;

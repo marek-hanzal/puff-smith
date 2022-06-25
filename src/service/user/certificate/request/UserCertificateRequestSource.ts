@@ -1,10 +1,12 @@
 import {CertificateSource} from "@/puff-smith/service/certificate/CertificateSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IUserCertificateRequestSource} from "@/puff-smith/service/user/certificate/request/interface";
-import {pageOf, Source} from "@leight-core/server";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
 export const UserCertificateRequestSource = (): IUserCertificateRequestSource => {
+	const userSource = singletonOf(() => UserSource().ofSource(source));
 	const certificateSource = singletonOf(() => CertificateSource().ofSource(source));
 
 	const source: IUserCertificateRequestSource = Source<IUserCertificateRequestSource>({
@@ -14,12 +16,14 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 			...userCertificateRequest,
 			created: userCertificateRequest.created.toUTCString(),
 			updated: userCertificateRequest.updated?.toUTCString(),
+			user: await userSource().map(userCertificateRequest.user),
 			certificate: await certificateSource().mapper.map(userCertificateRequest.certificate),
 		} : undefined,
 		source: {
 			get: async id => source.prisma.userCertificateRequest.findUnique({
 				where: {id},
 				include: {
+					user: true,
 					certificate: {
 						include: {
 							CertificateToken: {
@@ -39,6 +43,7 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 				where: filter,
 				orderBy,
 				include: {
+					user: true,
 					certificate: {
 						include: {
 							CertificateToken: {
@@ -58,6 +63,7 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 					created: new Date(),
 				},
 				include: {
+					user: true,
 					certificate: {
 						include: {
 							CertificateToken: {
@@ -80,6 +86,7 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 					const userCertificateRequest = await prisma.userCertificateRequest.findMany({
 						where,
 						include: {
+							user: true,
 							certificate: {
 								include: {
 									CertificateToken: {
@@ -101,21 +108,38 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 		approve: async ({id}) => {
 			const approverId = source.user.required();
 			const $userCertificateRequest = await source.get(id);
-			await source.prisma.userCertificate.createMany({
-				data: [{
-					userId: $userCertificateRequest.userId,
-					certificateId: $userCertificateRequest.certificateId,
-				}],
-				skipDuplicates: true,
-			});
-			await source.prisma.userCertificateRequest.update({
-				where: {id},
-				data: {
-					status: 1,
-					approverId,
-					updated: new Date(),
-				}
-			});
+			try {
+				const userCertificate = await source.prisma.userCertificate.create({
+					data: {
+						userId: $userCertificateRequest.userId,
+						certificateId: $userCertificateRequest.certificateId,
+					},
+					include: {
+						user: true,
+						certificate: {
+							include: {
+								CertificateToken: {
+									include: {
+										token: true,
+									}
+								},
+							}
+						}
+					},
+				});
+				await source.prisma.userCertificateRequest.update({
+					where: {id},
+					data: {
+						status: 1,
+						approverId,
+						updated: new Date(),
+						userCertificateId: userCertificate.id,
+					}
+				});
+			} catch (e) {
+				onUnique(e, async () => {
+				});
+			}
 			return true;
 		},
 		decline: async ({id}) => {

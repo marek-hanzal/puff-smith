@@ -21,6 +21,11 @@ export const LicenseCreateForm: FC<ILicenseCreateFormProps> = ({onSuccess, ...pr
 			await licenseQueryInvalidate();
 			onSuccess?.(response);
 		}}
+		withTokenProps={{
+			tokens: [
+				"feature.license.create",
+			],
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>

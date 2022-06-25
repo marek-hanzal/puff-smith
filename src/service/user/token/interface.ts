@@ -11,6 +11,7 @@ export interface IUserTokenQuery extends IQuery<Prisma.UserTokenWhereInput, Pris
 
 export type IUserTokenEntity<T = void> = T extends void ? UserToken : UserToken & T;
 export type IWithUserToken<T = void> = { UserToken: IUserTokenEntity<T>[]; };
+export type IWithNullUserToken<T = void> = { UserToken?: IUserTokenEntity<T>[] | null; };
 
 export interface IUserToken {
 	id: string;

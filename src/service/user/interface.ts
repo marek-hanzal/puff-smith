@@ -1,9 +1,9 @@
 import {IWithCertificate} from "@/puff-smith/service/certificate/interface";
 import {IWithLicense} from "@/puff-smith/service/license/interface";
 import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
-import {IWithUserCertificate} from "@/puff-smith/service/user/certificate/interface";
-import {IWithUserLicense} from "@/puff-smith/service/user/license/interface";
-import {IWithUserToken} from "@/puff-smith/service/user/token/interface";
+import {IWithNullUserCertificate} from "@/puff-smith/service/user/certificate/interface";
+import {IWithNullUserLicense} from "@/puff-smith/service/user/license/interface";
+import {IWithNullUserToken} from "@/puff-smith/service/user/token/interface";
 import {IQuery, ISource, IUser as ICoolUser} from "@leight-core/api";
 import {Prisma, User} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -12,7 +12,8 @@ interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWit
 }
 
 export type IUserEntity<T = void> = T extends void ? User : User & T;
-export type IWithUserEntity<T = void> = { user: IUserEntity<T>; };
+export type IWithUser<T = void> = { user: IUserEntity<T>; };
+export type IWithNullUser<T = void> = { user?: IUserEntity<T> | null; };
 
 export interface IUser {
 	id: string;
@@ -31,7 +32,7 @@ export interface IUserFetchParams extends ParsedUrlQuery {
 	userId: string;
 }
 
-export type IUserSourceEntity = IUserEntity<IWithUserLicense<IWithLicense<{ LicenseToken: IWithTokenEntity[] }>> & IWithUserCertificate<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>> & IWithUserToken<IWithTokenEntity>>;
+export type IUserSourceEntity = IUserEntity<IWithNullUserLicense<IWithLicense<{ LicenseToken: IWithTokenEntity[] }>> & IWithNullUserCertificate<IWithCertificate<{ CertificateToken: IWithTokenEntity[] }>> & IWithNullUserToken<IWithTokenEntity>>;
 
 export interface IUserSource extends ISource<undefined, IUserSourceEntity, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
 	handleRootUser(): Promise<any>;

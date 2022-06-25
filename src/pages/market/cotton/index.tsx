@@ -6,6 +6,7 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {CottonFilter} from "@/puff-smith/site/market/cotton/@module/filter/CottonFilter";
 import {CottonList} from "@/puff-smith/site/market/cotton/@module/list/CottonList";
 import {CottonListToolbar} from "@/puff-smith/site/market/cotton/@module/list/CottonListToolbar";
+import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/CottonCreateInline";
 import {CottonProviderControl} from "@/sdk/api/cotton/query";
 import {SelectionProvider} from "@leight-core/client";
 
@@ -14,6 +15,11 @@ export default withMarketLayout(function Index() {
 		title={"market.cotton.index"}
 		menuSelection={["/market/cotton"]}
 		icon={<CottonIcon/>}
+		extra={<CottonCreateInline
+			type={"primary"}
+			size={"large"}
+			icon={<CottonIcon/>}
+		/>}
 	>
 		<CottonProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
