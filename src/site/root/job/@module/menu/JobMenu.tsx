@@ -13,12 +13,36 @@ export const JobMenu: FC<IJobMenuProps> = props => <Menu
 	style={{border: "none"}}
 	mode={"horizontal"}
 	items={[
-		CreateMenuItem("common.job.status.RUNNING.tab", "/root/job/running", <JobRunningIcon/>),
-		CreateMenuItem("common.job.status.REVIEW.tab", "/root/job/review", <JobReviewIcon/>),
-		CreateMenuItem("common.job.status.FAILURE.tab", "/root/job/failure", <JobFailureIcon/>),
-		CreateMenuItem("common.job.status.SUCCESS.tab", "/root/job/success", <JobSuccessIcon/>),
-		CreateMenuItem("common.job.status.DONE.tab", "/root/job/done", <JobDoneIcon/>),
-		CreateMenuItem("common.job.status.ALL.tab", "/root/job/all", <ListIcon/>),
+		CreateMenuItem({
+			title: "common.job.status.RUNNING.tab",
+			href: "/root/job/running",
+			icon: <JobRunningIcon/>,
+		}),
+		CreateMenuItem({
+			title: "common.job.status.REVIEW.tab",
+			href: "/root/job/review",
+			icon: <JobReviewIcon/>,
+		}),
+		CreateMenuItem({
+			title: "common.job.status.FAILURE.tab",
+			href: "/root/job/failure",
+			icon: <JobFailureIcon/>,
+		}),
+		CreateMenuItem({
+			title: "common.job.status.SUCCESS.tab",
+			href: "/root/job/success",
+			icon: <JobSuccessIcon/>,
+		}),
+		CreateMenuItem({
+			title: "common.job.status.DONE.tab",
+			href: "/root/job/done",
+			icon: <JobDoneIcon/>,
+		}),
+		CreateMenuItem({
+			title: "common.job.status.ALL.tab",
+			href: "/root/job/all",
+			icon: <ListIcon/>,
+		}),
 	]}
 	{...props}
 />;

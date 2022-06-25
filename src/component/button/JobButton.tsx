@@ -3,6 +3,7 @@ import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {JobPerformanceInline} from "@/puff-smith/site/root/job/@module/inline/JobPerformanceInline";
 import {useJobQuery, useJobQueryInvalidate} from "@/sdk/api/job/query";
 import {IJob, IQueryFilter} from "@leight-core/api";
+import {UseToken} from "@leight-core/client";
 import {isString, toHumanNumber} from "@leight-core/utils";
 import {Button, message, Space, Tooltip} from "antd";
 import {ComponentProps, ReactNode, useRef, useState} from "react";
@@ -15,11 +16,12 @@ export interface IJobButtonProps<TJobParams> extends Partial<ComponentProps<type
 	schedule: TJobParams;
 	filter?: IQueryFilter<IJobQuery>;
 	label?: ReactNode;
+	tokens?: string[];
 
 	onDone?(): Promise<any>;
 }
 
-export const JobButton = <TJobParams, >({translation, scheduler, schedule, filter, label, onDone, ...props}: IJobButtonProps<TJobParams>) => {
+export const JobButton = <TJobParams, >({translation, scheduler, schedule, filter, label, onDone, tokens, ...props}: IJobButtonProps<TJobParams>) => {
 	const {t} = useTranslation();
 	const jobQueryInvalidate = useJobQueryInvalidate();
 	const [job, setJob] = useState<IJob>();
@@ -51,26 +53,28 @@ export const JobButton = <TJobParams, >({translation, scheduler, schedule, filte
 	});
 
 	return <Tooltip title={job?.started && <JobPerformanceInline job={job}/>}>
-		<Button
-			icon={<JobIcon/>}
-			size={"large"}
-			type={"link"}
-			loading={scheduler.isLoading || !!job}
-			onClick={() => scheduler.mutate(schedule, {
-				onSuccess: async () => {
-					await jobQueryInvalidate();
-					await message.success(t(`${translation}.schedule.success`));
-				},
-				onError: async () => {
-					await message.error(t(`${translation}.schedule.failure`));
-				},
-			})}
-			{...props}
-		>
-			<Space>
-				{t(isString(label) ? label as string : (job ? `${translation}.schedule.${job.status}.button` : `${translation}.schedule.button`))}
-				{job ? toHumanNumber(job?.progress) + "%" : null}
-			</Space>
-		</Button>
+		<UseToken tokens={tokens}>
+			<Button
+				icon={<JobIcon/>}
+				size={"large"}
+				type={"link"}
+				loading={scheduler.isLoading || !!job}
+				onClick={() => scheduler.mutate(schedule, {
+					onSuccess: async () => {
+						await jobQueryInvalidate();
+						await message.success(t(`${translation}.schedule.success`));
+					},
+					onError: async () => {
+						await message.error(t(`${translation}.schedule.failure`));
+					},
+				})}
+				{...props}
+			>
+				<Space>
+					{t(isString(label) ? label as string : (job ? `${translation}.schedule.${job.status}.button` : `${translation}.schedule.button`))}
+					{job ? toHumanNumber(job?.progress) + "%" : null}
+				</Space>
+			</Button>
+		</UseToken>
 	</Tooltip>;
 };

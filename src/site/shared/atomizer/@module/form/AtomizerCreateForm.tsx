@@ -1,4 +1,6 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
@@ -6,7 +8,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/atomizer/cre
 import {useAtomizerQueryInvalidate} from "@/sdk/api/atomizer/query";
 import {useAtomizerInventoryQueryInvalidate} from "@/sdk/api/inventory/atomizer/query";
 import {useAtomizerMarketQueryInvalidate} from "@/sdk/api/market/atomizer/query";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -39,6 +41,20 @@ export const AtomizerCreateForm: FC<IAtomizerCreateFormProps> = ({onSuccess, ...
 			...values,
 			withInventory: true,
 		})}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<Row gutter={32}>

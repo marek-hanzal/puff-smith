@@ -1,4 +1,6 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {TagCreateInline} from "@/puff-smith/site/shared/tag/@module/form/TagCreateInline";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
@@ -7,7 +9,7 @@ import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/aroma/create
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {useAromaMarketQueryInvalidate} from "@/sdk/api/market/aroma/query";
 import {useMixtureUpdateMutation} from "@/sdk/api/mixture/aroma/update";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Col, Divider, InputNumber, message, Row} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -43,6 +45,21 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			vg: 100 - vgpg,
 			withInventory: true,
 		})}
+		withTokenProps={{
+			tokens: [
+				// "*",
+				"feature.aroma.create",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<Row gutter={32}>

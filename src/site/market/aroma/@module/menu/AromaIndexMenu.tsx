@@ -15,9 +15,24 @@ export const AromaIndexMenu: FC<IAromaIndexMenuProps> = ({aroma, ...props}) => {
 		style={{border: "none"}}
 		mode={"horizontal"}
 		items={[
-			CreateMenuItem("market.aroma.aroma.menu", "/market/aroma/[aromaId]", <AromaIcon/>, query),
-			CreateMenuItem("market.aroma.mixture.menu", "/market/aroma/[aromaId]/mixture", <MixtureIcon/>, query),
-			CreateMenuItem("market.aroma.comment.menu", "/market/aroma/[aromaId]/comment", <CommentOutlined/>, query),
+			CreateMenuItem({
+				title: "market.aroma.aroma.menu",
+				href: "/market/aroma/[aromaId]",
+				icon: <AromaIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "market.aroma.mixture.menu",
+				href: "/market/aroma/[aromaId]/mixture",
+				icon: <MixtureIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "market.aroma.comment.menu",
+				href: "/market/aroma/[aromaId]/comment",
+				icon: <CommentOutlined/>,
+				query,
+			}),
 		]}
 		{...props}
 	/>;

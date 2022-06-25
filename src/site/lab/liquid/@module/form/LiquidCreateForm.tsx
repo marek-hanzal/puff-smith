@@ -1,3 +1,5 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {AromaSelect} from "@/puff-smith/site/inventory/aroma/@module/form/AromaSelect";
 import {AromaCreateInline} from "@/puff-smith/site/shared/aroma/@module/form/AromaCreateInline";
@@ -9,7 +11,7 @@ import {useCheckPrice} from "@/puff-smith/site/shared/price/@module/hook/useChec
 import {useLiquidQueryInvalidate} from "@/sdk/api/lab/liquid/query";
 import {IStandaloneDefaultFormProps, StandaloneDefaultForm} from "@/sdk/api/lab/liquid/standalone";
 import {usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies";
-import {Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, DatePicker, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -33,6 +35,21 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({onSuccess, ...prop
 		toForm={() => ({
 			nicotine: 0,
 		})}
+		withTokenProps={{
+			tokens: [
+				"*",
+				"feature.liquid.create",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<FormItem field={"aromaId"} required extra={<AromaCreateInline/>}>

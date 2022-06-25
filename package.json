@@ -39,8 +39,8 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
-		"@leight-core/api": "^0.6.79",
-		"@leight-core/client": "^0.6.32",
+		"@leight-core/api": "^0.6.83",
+		"@leight-core/client": "^0.6.39",
 		"@leight-core/server": "^0.6.114",
 		"@leight-core/utils": "^0.5.31",
 		"@next-auth/prisma-adapter": "^1.0.3",

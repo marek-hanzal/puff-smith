@@ -198,7 +198,6 @@ export const UserSource = (): IUserSource => {
 				await onUnique(e, async () => null);
 			}
 		},
-		whoami: async () => source.mapper.map(await source.get(source.user.required())),
 		asUser: async userId => {
 			const $user = await source.map(userId ? await source.get(userId) : null);
 			return User({

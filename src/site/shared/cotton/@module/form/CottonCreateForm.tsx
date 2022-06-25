@@ -1,9 +1,11 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/cotton/create";
 import {useCottonQueryInvalidate} from "@/sdk/api/cotton/query";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -25,6 +27,20 @@ export const CottonCreateForm: FC<ICottonCreateFormProps> = ({onSuccess, ...prop
 			...values,
 			withInventory: true,
 		})}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} required/>

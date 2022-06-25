@@ -14,44 +14,122 @@ import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
-import {hasToken} from "@/puff-smith/service/user/utils";
-import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {GroupOutlined, MedicineBoxOutlined, SlidersOutlined} from "@ant-design/icons";
-import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
+import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IMarketMenuProps extends Partial<IMenuProps> {
 }
 
 export const MarketMenu: FC<IMarketMenuProps> = props => {
-	const whoamiQuery = useWhoamiQuery();
+	const userContext = useUserContext();
 	return <Menu
 		style={{backgroundColor: "transparent", minWidth: "50vw"}} mode={"horizontal"}
 		items={[
-			CreateMenuItem("market.home.menu", "/market", <HomeIcon/>),
-			CreateMenuGroup("market.liquid.menu", <LiquidIcon/>, [
-				CreateMenuItem("market.aroma.menu", "/market/aroma", <AromaIcon/>),
-				CreateMenuItem("market.base.menu", "/market/base", <BaseIcon/>),
-				CreateMenuItem("market.booster.menu", "/market/booster", <BoosterIcon/>),
-			]),
-			CreateMenuGroup("market.build.menu", <BuildIcon/>, [
-				CreateMenuItem("market.cotton.menu", "/market/cotton", <CottonIcon/>),
-				CreateMenuItem("market.wire.menu", "/market/wire", <WireIcon/>),
-			]),
-			CreateMenuGroup("market.hardware.menu", <MedicineBoxOutlined/>, [
-				CreateMenuItem("market.atomizer.menu", "/market/atomizer", <AtomizerIcon/>),
-				CreateMenuItem("market.mod.menu", "/market/mod", <ModIcon/>),
-				CreateMenuItem("market.cell.menu", "/market/cell", <CellIcon/>),
-			]),
-			CreateMenuGroup("market.other.menu", <GroupOutlined/>, [
-				CreateMenuItem("market.voucher.menu", "/market/voucher", <VoucherIcon/>),
-				CreateMenuItem("market.vendor.menu", "/market/vendor", <VendorIcon/>),
-				CreateMenuItem("market.certificate.menu", "/market/certificate", <CertificateIcon/>),
-				CreateMenuItem("market.license.menu", "/market/license", <LicenseIcon/>),
-			]),
-			CreateMenuItem("market.lab.menu", "/to/lab", <LabIcon/>),
-			CreateMenuItem("market.inventory.menu", "/to/inventory", <InventoryIcon/>),
-			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("lab.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
+			CreateMenuItem({
+				title: "market.home.menu",
+				href: "/market",
+				icon: <HomeIcon/>,
+			}),
+			CreateMenuGroup({
+				title: "market.liquid.menu",
+				icon: <LiquidIcon/>,
+				items: [
+					CreateMenuItem({
+						title: "market.aroma.menu",
+						href: "/market/aroma",
+						icon: <AromaIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.base.menu",
+						href: "/market/base",
+						icon: <BaseIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.booster.menu",
+						href: "/market/booster",
+						icon: <BoosterIcon/>,
+					}),
+				],
+			}),
+			CreateMenuGroup({
+				title: "market.build.menu",
+				icon: <BuildIcon/>,
+				items: [
+					CreateMenuItem({
+						title: "market.cotton.menu",
+						href: "/market/cotton",
+						icon: <CottonIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.wire.menu",
+						href: "/market/wire",
+						icon: <WireIcon/>,
+					}),
+				],
+			}),
+			CreateMenuGroup({
+				title: "market.hardware.menu",
+				icon: <MedicineBoxOutlined/>,
+				items: [
+					CreateMenuItem({
+						title: "market.atomizer.menu",
+						href: "/market/atomizer",
+						icon: <AtomizerIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.mod.menu",
+						href: "/market/mod",
+						icon: <ModIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.cell.menu",
+						href: "/market/cell",
+						icon: <CellIcon/>,
+					}),
+				],
+			}),
+			CreateMenuGroup({
+				title: "market.other.menu",
+				icon: <GroupOutlined/>,
+				items: [
+					CreateMenuItem({
+						title: "market.voucher.menu",
+						href: "/market/voucher",
+						icon: <VoucherIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.vendor.menu",
+						href: "/market/vendor",
+						icon: <VendorIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.certificate.menu",
+						href: "/market/certificate",
+						icon: <CertificateIcon/>,
+					}),
+					CreateMenuItem({
+						title: "market.license.menu",
+						href: "/market/license",
+						icon: <LicenseIcon/>,
+					}),
+				],
+			}),
+			CreateMenuItem({
+				title: "market.lab.menu",
+				href: "/to/lab",
+				icon: <LabIcon/>,
+			}),
+			CreateMenuItem({
+				title: "market.inventory.menu",
+				href: "/to/inventory",
+				icon: <InventoryIcon/>,
+			}),
+			userContext.user.hasAny(["site.root", "*"]) ? CreateMenuItem({
+				title: "inventory.root.home.menu",
+				href: "/to/root",
+				icon: <SlidersOutlined/>,
+			}) : null,
 		]}
 		{...props}
 	/>;

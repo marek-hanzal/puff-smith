@@ -18,12 +18,42 @@ export const BuildIndexMenu: FC<IBuildIndexMenuProps> = ({build, ...props}) => {
 		style={{border: "none"}}
 		mode={"horizontal"}
 		items={[
-			CreateMenuItem("lab.build.build.menu", "/lab/build/[buildId]", <BuildIcon/>, query),
-			CreateMenuItem("lab.build.liquid.menu", "/lab/build/[buildId]/liquid", <LiquidIcon/>, query),
-			CreateMenuItem("lab.build.atomizer.menu", "/lab/build/[buildId]/atomizer", <AtomizerIcon/>, query),
-			CreateMenuItem("lab.build.coil.menu", "/lab/build/[buildId]/coil", <CoilIcon/>, query),
-			CreateMenuItem("lab.build.cotton.menu", "/lab/build/[buildId]/cotton", <CottonIcon/>, query),
-			CreateMenuItem("lab.build.comment.menu", "/lab/build/[buildId]/comment", <CommentOutlined/>, query),
+			CreateMenuItem({
+				title: "lab.build.build.menu",
+				href: "/lab/build/[buildId]",
+				icon: <BuildIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.liquid.menu",
+				href: "/lab/build/[buildId]/liquid",
+				icon: <LiquidIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.atomizer.menu",
+				href: "/lab/build/[buildId]/atomizer",
+				icon: <AtomizerIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.coil.menu",
+				href: "/lab/build/[buildId]/coil",
+				icon: <CoilIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.cotton.menu",
+				href: "/lab/build/[buildId]/cotton",
+				icon: <CottonIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.comment.menu",
+				href: "/lab/build/[buildId]/comment",
+				icon: <CommentOutlined/>,
+				query,
+			}),
 		]}
 		{...props}
 	/>;

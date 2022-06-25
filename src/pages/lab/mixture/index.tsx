@@ -34,7 +34,12 @@ const InternalList: FC<IInternalListProps> = () => {
 						icon={<MixtureIcon/>}
 						label={"market.aroma.mixture.filter"}
 						span={12}
-						extra={<MixtureUserJobButton/>}
+						extra={<MixtureUserJobButton
+							tokens={[
+								"*",
+								"feature.mixture.search",
+							]}
+						/>}
 					/>
 				</Col>
 			</Row>

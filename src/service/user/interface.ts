@@ -40,7 +40,5 @@ export interface IUserSource extends ISource<undefined, IUserSourceEntity, IUser
 
 	createToken(token: string): Promise<void>;
 
-	whoami(): Promise<IUser>;
-
 	asUser(userId?: string | null): Promise<ICoolUser>;
 }

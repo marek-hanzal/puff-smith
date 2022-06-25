@@ -1,7 +1,9 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {VgPgSlider} from "@/puff-smith/component/input/VgPgSliter";
 import {IMixtureInfoDefaultFormProps, MixtureInfoDefaultForm} from "@/sdk/api/mixture/info";
 import {CalculatorOutlined} from "@ant-design/icons";
-import {Card, Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Card, Centered, FormContext, FormItem, ItemGroup, Submit, SwitchItem} from "@leight-core/client";
 import {Col, Divider, InputNumber, Row, Spin} from "antd";
 import {FC, useState} from "react";
 
@@ -50,6 +52,21 @@ export const MixtureInfoForm: FC<IMixtureInfoFormProps> = props => {
 				pg: 100 - booster.vgpg,
 			} : undefined,
 		})}
+		withTokenProps={{
+			tokens: [
+				"*",
+				"feature.mixture.info",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<FormContext.Consumer>

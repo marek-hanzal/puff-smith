@@ -16,18 +16,58 @@ export const RootMenu: FC<IRootMenuProps> = props => <Menu
 	style={{backgroundColor: "transparent", minWidth: "50vw"}}
 	mode={"horizontal"}
 	items={[
-		CreateMenuItem("root.home.menu", "/root", <HomeIcon/>),
-		CreateMenuItem("root.import.menu", "/root/import", <ImportIcon/>),
-		CreateMenuItem("root.job.menu", "/root/job", <JobIcon/>),
-		CreateMenuItem("root.file.menu", "/root/file", <FileIcon/>),
-		CreateMenuItem("root.user.menu", "/root/user", <UserIcon/>),
-		CreateMenuGroup("root.sites.menu", <SitesIcon/>, [
-			CreateMenuItem("root.market.menu", "/to/market", <MarketIcon/>),
-			CreateMenuItem("root.lab.menu", "/to/lab", <LabIcon/>),
-			CreateMenuItem("root.public.menu", "/to/public", <PublicIcon/>),
-			{type: "divider"},
-			CreateMenuItem("root.sdk.generate.menu", "/api/sdk/generate", <CodeOutlined/>),
-		]),
+		CreateMenuItem({
+			title: "root.home.menu",
+			href: "/root",
+			icon: <HomeIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.import.menu",
+			href: "/root/import",
+			icon: <ImportIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.job.menu",
+			href: "/root/job",
+			icon: <JobIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.file.menu",
+			href: "/root/file",
+			icon: <FileIcon/>,
+		}),
+		CreateMenuItem({
+			title: "root.user.menu",
+			href: "/root/user",
+			icon: <UserIcon/>,
+		}),
+		CreateMenuGroup({
+			title: "root.sites.menu",
+			icon: <SitesIcon/>,
+			items: [
+				CreateMenuItem({
+					title: "root.market.menu",
+					href: "/to/market",
+					icon: <MarketIcon/>,
+				}),
+				CreateMenuItem({
+					title: "root.lab.menu",
+					href: "/to/lab",
+					icon: <LabIcon/>,
+				}),
+				CreateMenuItem({
+					title: "root.public.menu",
+					href: "/to/public",
+					icon: <PublicIcon/>,
+				}),
+				{type: "divider"},
+				CreateMenuItem({
+					title: "root.sdk.generate.menu",
+					href: "/api/sdk/generate",
+					icon: <CodeOutlined/>,
+				}),
+			],
+		}),
 	]}
 	{...props}
 />;

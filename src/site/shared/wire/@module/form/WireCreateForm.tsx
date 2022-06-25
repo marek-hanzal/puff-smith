@@ -1,3 +1,5 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {FiberCreateInline} from "@/puff-smith/site/shared/fiber/@module/form/FiberCreateInline";
 import {FiberSelect} from "@/puff-smith/site/shared/fiber/@module/form/FiberSelect";
@@ -8,7 +10,7 @@ import {useWireInventoryQueryInvalidate} from "@/sdk/api/inventory/wire/query";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/wire/create";
 import {useWireQueryInvalidate} from "@/sdk/api/wire/query";
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
-import {Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit, SwitchItem} from "@leight-core/client";
 import {Button, Col, Divider, Form, InputNumber, message, Row} from "antd";
 import {FC, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -36,6 +38,20 @@ export const WireCreateForm: FC<IWireCreateFormProps> = ({onSuccess, ...props}) 
 			...values,
 			withInventory: true,
 		})}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} hasTooltip required={!itemCount}/>

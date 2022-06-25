@@ -1,6 +1,8 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/tag/create";
 import {useTagQueryInvalidate} from "@/sdk/api/tag/query";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -17,6 +19,20 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 			message.success(t("shared.tag.create.success", {tag: response.response}));
 			await tagQueryInvalidate();
 			onSuccess?.(response);
+		}}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
 		}}
 		{...props}
 	>

@@ -1,8 +1,10 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {TagSelect} from "@/puff-smith/site/shared/tag/@module/form/TagSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/fiber/create";
 import {useFiberQueryInvalidate} from "@/sdk/api/fiber/query";
-import {Centered, FormContext, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormContext, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -75,6 +77,20 @@ export const FiberCreateForm: FC<IFiberCreateFormProps> = ({onSuccess, ...props}
 			message.success(t("shared.fiber.create.success"));
 			await fiberQueryInvalidate();
 			onSuccess?.(response);
+		}}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
 		}}
 		{...props}
 	>

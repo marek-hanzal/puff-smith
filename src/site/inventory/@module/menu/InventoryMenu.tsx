@@ -9,39 +9,97 @@ import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
-import {hasToken} from "@/puff-smith/service/user/utils";
-import {useWhoamiQuery} from "@/sdk/api/user/whoami";
 import {SlidersOutlined} from "@ant-design/icons";
-import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
+import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IInventoryMenuProps extends Partial<IMenuProps> {
 }
 
 export const InventoryMenu: FC<IInventoryMenuProps> = props => {
-	const whoamiQuery = useWhoamiQuery();
+	const userContext = useUserContext();
 	return <Menu
 		style={{backgroundColor: "transparent", minWidth: "50vw"}}
 		mode={"horizontal"}
 		items={[
-			CreateMenuItem("inventory.home.menu", "/inventory", <HomeIcon/>),
-			CreateMenuGroup("inventory.liquid.menu", <LiquidIcon/>, [
-				CreateMenuItem("inventory.aroma.menu", "/inventory/aroma", <LiquidIcon/>),
-				CreateMenuItem("inventory.base.menu", "/inventory/base", <BaseIcon/>),
-				CreateMenuItem("inventory.booster.menu", "/inventory/booster", <BoosterIcon/>),
-			]),
-			CreateMenuGroup("inventory.build.menu", <BuildIcon/>, [
-				CreateMenuItem("inventory.cotton.menu", "/inventory/cotton", <CottonIcon/>),
-				CreateMenuItem("inventory.wire.menu", "/inventory/wire", <WireIcon/>),
-			]),
-			CreateMenuGroup("inventory.hardware.menu", <LiquidIcon/>, [
-				CreateMenuItem("inventory.atomizer.menu", "/inventory/atomizer", <AtomizerIcon/>),
-				CreateMenuItem("inventory.mod.menu", "/inventory/mod", <ModIcon/>),
-				CreateMenuItem("inventory.cell.menu", "/inventory/cell", <CellIcon/>),
-			]),
-			CreateMenuItem("inventory.lab.menu", "/to/lab", <LabIcon/>),
-			CreateMenuItem("inventory.market.menu", "/to/market", <MarketIcon/>),
-			whoamiQuery.isSuccess && hasToken(whoamiQuery.data, "site.root") ? CreateMenuItem("inventory.root.home.menu", "/to/root", <SlidersOutlined/>) : null,
+			CreateMenuItem({
+				title: "inventory.home.menu",
+				href: "/inventory",
+				icon: <HomeIcon/>,
+			}),
+			CreateMenuGroup({
+				title: "inventory.liquid.menu",
+				icon: <LiquidIcon/>,
+				items: [
+					CreateMenuItem({
+						title: "inventory.aroma.menu",
+						href: "/inventory/aroma",
+						icon: <LiquidIcon/>,
+					}),
+					CreateMenuItem({
+						title: "inventory.base.menu",
+						href: "/inventory/base",
+						icon: <BaseIcon/>,
+					}),
+					CreateMenuItem({
+						title: "inventory.booster.menu",
+						href: "/inventory/booster",
+						icon: <BoosterIcon/>,
+					}),
+				],
+			}),
+			CreateMenuGroup({
+				title: "inventory.build.menu",
+				icon: <BuildIcon/>,
+				items: [
+					CreateMenuItem({
+						title: "inventory.cotton.menu",
+						href: "/inventory/cotton",
+						icon: <CottonIcon/>,
+					}),
+					CreateMenuItem({
+						title: "inventory.wire.menu",
+						href: "/inventory/wire",
+						icon: <WireIcon/>,
+					}),
+				],
+			}),
+			CreateMenuGroup({
+				title: "inventory.hardware.menu",
+				icon: <LiquidIcon/>,
+				items: [
+					CreateMenuItem({
+						title: "inventory.atomizer.menu",
+						href: "/inventory/atomizer",
+						icon: <AtomizerIcon/>,
+					}),
+					CreateMenuItem({
+						title: "inventory.mod.menu",
+						href: "/inventory/mod",
+						icon: <ModIcon/>,
+					}),
+					CreateMenuItem({
+						title: "inventory.cell.menu",
+						href: "/inventory/cell",
+						icon: <CellIcon/>,
+					}),
+				],
+			}),
+			CreateMenuItem({
+				title: "inventory.lab.menu",
+				href: "/to/lab",
+				icon: <LabIcon/>,
+			}),
+			CreateMenuItem({
+				title: "inventory.market.menu",
+				href: "/to/market",
+				icon: <MarketIcon/>,
+			}),
+			userContext.user.hasAny(["site.root", "*"]) ? CreateMenuItem({
+				title: "inventory.root.home.menu",
+				href: "/to/root",
+				icon: <SlidersOutlined/>,
+			}) : null,
 		]}
 		{...props}
 	/>;

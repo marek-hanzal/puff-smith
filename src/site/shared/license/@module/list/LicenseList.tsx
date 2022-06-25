@@ -24,7 +24,7 @@ export const LicenseList: FC<ILicenseListProps> = ({renderItemExtra, ...props}) 
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					{selectionContext && <SelectionBool selection={license}/>}
-					{t(`license.${license.name}`, license.name)}
+					{t(`license.${license.name}`)}
 					<CodeInline code={license}/>
 					{license.cost && <Price withColor withIcon price={license.cost}/>}
 				</Space>}

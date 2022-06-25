@@ -3,7 +3,8 @@ import {CodeService} from "@/puff-smith/service/code/CodeService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {UserCertificateRequestSource} from "@/puff-smith/service/user/certificate/request/UserCertificateRequestSource";
-import {pageOf, Source} from "@leight-core/server";
+import {ClientError} from "@leight-core/api";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
 
 export const CertificateSource = (): ICertificateSource => {
@@ -130,49 +131,80 @@ export const CertificateSource = (): ICertificateSource => {
 				],
 				...pageOf(query),
 			}),
-			create: async ({name, code, cost, tokens = []}) => source.prisma.certificate.create({
-				data: {
+			create: async ({name, code, cost, tokens = []}) => {
+				const $canUpdate = source.user.hasAny([
+					"*",
+					`${source.name}.patch`,
+				]);
+				const $create = {
 					name,
 					code: code || codeService().code(),
 					cost,
 					CertificateToken: {
 						createMany: {
-							data: tokens.map(tokenId => ({
+							data: (await tokenSource().fetchByNames(tokens)).map(({id: tokenId}) => ({
 								tokenId,
 							})),
 							skipDuplicates: true,
 						}
 					}
-				},
-				include: {
-					CertificateToken: {
+				};
+				try {
+					return await source.prisma.certificate.create({
+						data: $create,
 						include: {
-							token: true,
-						}
-					},
-					UserCertificate: {
-						where: {
-							userId: source.user.required(),
-						},
-					},
-					UserCertificateRequest: {
-						where: {
-							userId: source.user.required(),
-						},
-						include: {
-							certificate: {
+							CertificateToken: {
 								include: {
-									CertificateToken: {
+									token: true,
+								}
+							},
+							UserCertificate: {
+								where: {
+									userId: source.user.required(),
+								},
+							},
+							UserCertificateRequest: {
+								where: {
+									userId: source.user.required(),
+								},
+								include: {
+									certificate: {
 										include: {
-											token: true,
-										}
+											CertificateToken: {
+												include: {
+													token: true,
+												}
+											},
+										},
 									},
 								},
 							},
 						},
-					},
-				},
-			}),
+					});
+				} catch (e) {
+					return onUnique(e, async () => {
+						if (!$canUpdate) {
+							throw new ClientError("Certificate already exists.", 409);
+						}
+						return source.patch({
+							...$create,
+							tokens,
+							id: (await source.prisma.certificate.findFirst({
+								where: {
+									OR: [
+										{code: $create.code},
+										{name: $create.name},
+									],
+								},
+								select: {
+									id: true,
+								},
+								rejectOnNotFound: true,
+							})).id
+						});
+					});
+				}
+			},
 			patch: async ({id, name, code, cost}) => source.prisma.certificate.update({
 				where: {id},
 				data: {

@@ -16,10 +16,30 @@ export const UserIndexMenu: FC<IUserIndexMenuProps> = ({user, ...props}) => {
 		style={{border: "none"}}
 		mode={"horizontal"}
 		items={[
-			CreateMenuItem("root.user.index.menu", "/root/user/[userId]", <UserIcon/>, query),
-			CreateMenuItem("root.user.transactions.menu", "/root/user/[userId]/transactions", <PurchaseIcon/>, query),
-			CreateMenuItem("root.user.certificates.menu", "/root/user/[userId]/certificates", <CertificateIcon/>, query),
-			CreateMenuItem("root.user.licenses.menu", "/root/user/[userId]/licenses", <LicenseIcon/>, query),
+			CreateMenuItem({
+				title: "root.user.index.menu",
+				href: "/root/user/[userId]",
+				icon: <UserIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "root.user.transactions.menu",
+				href: "/root/user/[userId]/transactions",
+				icon: <PurchaseIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "root.user.certificates.menu",
+				href: "/root/user/[userId]/certificates",
+				icon: <CertificateIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "root.user.licenses.menu",
+				href: "/root/user/[userId]/licenses",
+				icon: <LicenseIcon/>,
+				query,
+			}),
 		]}
 		{...props}
 	/>;

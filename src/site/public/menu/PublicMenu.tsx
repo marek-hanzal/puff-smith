@@ -10,9 +10,21 @@ export const PublicMenu: FC<IPublicMenuProps> = props => <Menu
 	style={{backgroundColor: "transparent", minWidth: "50vw"}}
 	mode={"horizontal"}
 	items={[
-		CreateMenuItem("public.home.menu", "/public", <HomeIcon/>),
-		CreateMenuItem("public.about.menu", "/public/about", <AboutIcon/>),
-		CreateMenuItem("public.tos.menu", "/public/tos", <TosIcon/>),
+		CreateMenuItem({
+			title: "public.home.menu",
+			href: "/public",
+			icon: <HomeIcon/>,
+		}),
+		CreateMenuItem({
+			title: "public.about.menu",
+			href: "/public/about",
+			icon: <AboutIcon/>,
+		}),
+		CreateMenuItem({
+			title: "public.tos.menu",
+			href: "/public/tos",
+			icon: <TosIcon/>,
+		}),
 	]}
 	{...props}
 />;

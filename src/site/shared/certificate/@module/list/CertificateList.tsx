@@ -24,7 +24,7 @@ export const CertificateList: FC<ICertificateListProps> = ({renderItemExtra, ...
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					{selectionContext && <SelectionBool selection={certificate}/>}
-					{t(`certificate.${certificate.name}`, certificate.name)}
+					{t(`certificate.${certificate.name}`)}
 					<CodeInline code={certificate}/>
 					{certificate.cost && <Price withColor withIcon price={certificate.cost}/>}
 				</Space>}

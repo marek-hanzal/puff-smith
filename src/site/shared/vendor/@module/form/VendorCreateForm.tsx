@@ -1,7 +1,9 @@
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/vendor/create";
 import {useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -18,6 +20,20 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 			message.success(t("shared.vendor.create.success", response.response));
 			await vendorQueryInvalidate();
 			onSuccess?.(response);
+		}}
+		withTokenProps={{
+			tokens: [
+				"*",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
 		}}
 		{...props}
 	>

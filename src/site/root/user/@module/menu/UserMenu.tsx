@@ -8,7 +8,11 @@ export const UserMenu: FC<IUserMenuProps> = props => <Menu
 	style={{border: "none"}}
 	mode={"horizontal"}
 	items={[
-		CreateMenuItem("root.user.list", "/root/user", <ListIcon/>),
+		CreateMenuItem({
+			title: "root.user.list",
+			href: "/root/user",
+			icon: <ListIcon/>,
+		}),
 	]}
 	{...props}
 />;

@@ -11,16 +11,14 @@ import {useMixtureInventoryQueryInvalidate} from "@/sdk/api/inventory/mixture/qu
 import {useRatioQueryInvalidate} from "@/sdk/api/inventory/mixture/ratio/query";
 import {useVendorQueryInvalidate} from "@/sdk/api/inventory/mixture/vendor/query";
 import {useMixtureUserJobMutation} from "@/sdk/api/mixture/job/mixture-user";
-import {useWhoamiQuery} from "@/sdk/api/user/whoami";
+import {useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IMixtureUserJobButtonProps extends Partial<IJobButtonProps<IMixtureUserJobParams>> {
 }
 
 export const MixtureUserJobButton: FC<IMixtureUserJobButtonProps> = props => {
-	const whoamiQuery = useWhoamiQuery(undefined, undefined, {
-		keepPreviousData: true,
-	});
+	const userContext = useUserContext();
 	const mixtureUserJobMutation = useMixtureUserJobMutation();
 	const mixtureInventoryQueryInvalidate = useMixtureInventoryQueryInvalidate();
 	const mixtureAromaQueryInvalidate = useMixtureAromaQueryInvalidate(false);
@@ -31,16 +29,16 @@ export const MixtureUserJobButton: FC<IMixtureUserJobButtonProps> = props => {
 	const drawQueryInvalidate = useDrawQueryInvalidate(false);
 	const nicotineQueryInvalidate = useNicotineQueryInvalidate(false);
 	const aromaTasteQueryInvalidate = useAromaTasteQueryInvalidate(false);
-	return whoamiQuery.isSuccess ? <JobButton<IMixtureUserJobParams>
+	return <JobButton<IMixtureUserJobParams>
 		icon={<MixtureIcon/>}
-		disabled={whoamiQuery.isLoading}
+		disabled={!userContext.isReady}
 		scheduler={mixtureUserJobMutation}
 		schedule={{
-			userId: whoamiQuery.data?.id,
+			userId: userContext.user.userId,
 		}}
 		filter={{
 			name: MIXTURE_USER_JOB,
-			userId: whoamiQuery.data?.id,
+			userId: userContext.user.userId,
 		}}
 		translation={"lab.mixture.user.job"}
 		onDone={async () => {
@@ -56,5 +54,5 @@ export const MixtureUserJobButton: FC<IMixtureUserJobButtonProps> = props => {
 			await aromaTasteQueryInvalidate();
 		}}
 		{...props}
-	/> : null;
+	/>;
 };

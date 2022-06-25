@@ -1,10 +1,12 @@
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {VendorCreateInline} from "@/puff-smith/site/shared/vendor/@module/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/site/shared/vendor/@module/form/VendorSelect";
 import {CreateDefaultForm, ICreateDefaultFormProps} from "@/sdk/api/base/create";
 import {useBaseQueryInvalidate} from "@/sdk/api/base/query";
 import {useBaseMarketQueryInvalidate} from "@/sdk/api/market/base/query";
-import {Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, InputNumber, message} from "antd";
 import {FC} from "react";
 import {useTranslation} from "react-i18next";
@@ -34,6 +36,21 @@ export const BaseCreateForm: FC<IBaseCreateFormProps> = ({onSuccess, ...props}) 
 			vg: vgpg,
 			withInventory: true,
 		})}
+		withTokenProps={{
+			tokens: [
+				// "*",
+				"feature.base.create",
+			],
+			template: {
+				extra: <>
+					<Divider/>
+					<ButtonBar split={<Divider type={"vertical"}/>}>
+						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+					</ButtonBar>
+				</>
+			}
+		}}
 		{...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>

@@ -70,8 +70,10 @@ export default NextAuth({
 		},
 		session: async ({session, token}) => {
 			if (session && token?.sub) {
-				session.userId = token.sub;
-				session.tokens = token.tokens;
+				session.withUser = {
+					userId: token.sub,
+					tokens: token.tokens,
+				};
 			}
 			return session;
 		},
