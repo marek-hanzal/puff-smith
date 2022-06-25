@@ -1,4 +1,5 @@
 import {IComment, IWithComment} from "@/puff-smith/service/comment/interface";
+import {IWithUser} from "@/puff-smith/service/user/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {AromaInventoryComment, Prisma} from "@prisma/client";
 
@@ -19,5 +20,7 @@ export interface IAromaInventoryComment {
 	aromaInventoryId: string;
 }
 
-export interface IAromaInventoryCommentSource extends ISource<IAromaInventoryCommentCreate, IAromaInventoryCommentEntity<IWithComment>, IAromaInventoryComment, IAromaInventoryCommentQuery> {
+export type IAromaInventoryCommentSourceEntity = IAromaInventoryCommentEntity<IWithComment<IWithUser>>;
+
+export interface IAromaInventoryCommentSource extends ISource<IAromaInventoryCommentCreate, IAromaInventoryCommentSourceEntity, IAromaInventoryComment, IAromaInventoryCommentQuery> {
 }

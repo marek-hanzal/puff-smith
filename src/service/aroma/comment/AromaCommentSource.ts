@@ -1,24 +1,24 @@
-import {IAromaInventoryCommentSource} from "@/puff-smith/service/aroma/inventory/comment/interface";
+import {IAromaCommentSource} from "@/puff-smith/service/aroma/comment/interface";
 import {CommentSource} from "@/puff-smith/service/comment/CommentSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
 
-export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
+export const AromaCommentSource = (): IAromaCommentSource => {
 	const commentSource = singletonOf(() => CommentSource().ofSource(source));
 
-	const source: IAromaInventoryCommentSource = Source<IAromaInventoryCommentSource>({
-		name: "aroma.inventory.comment",
+	const source: IAromaCommentSource = Source<IAromaCommentSource>({
+		name: "aroma.comment",
 		prisma,
-		map: async aromaInventoryComment => aromaInventoryComment ? {
-			...aromaInventoryComment,
-			comment: await commentSource().mapper.map(aromaInventoryComment.comment),
+		map: async aromaComment => aromaComment ? {
+			...aromaComment,
+			comment: await commentSource().mapper.map(aromaComment.comment),
 		} : undefined,
 		source: {
-			count: async ({filter}) => source.prisma.aromaInventoryComment.count({
+			count: async ({filter}) => source.prisma.aromaComment.count({
 				where: filter,
 			}),
-			query: async ({filter, orderBy, ...query}) => source.prisma.aromaInventoryComment.findMany({
+			query: async ({filter, orderBy, ...query}) => source.prisma.aromaComment.findMany({
 				where: filter,
 				orderBy,
 				include: {
@@ -30,7 +30,7 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 				},
 				...pageOf(query),
 			}),
-			create: async ({comment, aromaInventoryId}) => source.prisma.aromaInventoryComment.create({
+			create: async ({comment, aromaId}) => source.prisma.aromaComment.create({
 				data: {
 					comment: {
 						create: {
@@ -43,9 +43,9 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 							},
 						},
 					},
-					aromaInventory: {
+					aroma: {
 						connect: {
-							id: aromaInventoryId,
+							id: aromaId,
 						}
 					},
 				},
@@ -63,7 +63,7 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 						in: ids,
 					},
 				};
-				const items = await prisma.aromaInventoryComment.findMany({
+				const items = await prisma.aromaComment.findMany({
 					where,
 					include: {
 						comment: {
@@ -73,7 +73,7 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 						},
 					},
 				});
-				await prisma.aromaInventoryComment.deleteMany({
+				await prisma.aromaComment.deleteMany({
 					where,
 				});
 				return items;

@@ -22,7 +22,11 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 				where: filter,
 				orderBy,
 				include: {
-					comment: true,
+					comment: {
+						include: {
+							user: true,
+						},
+					},
 				},
 				...pageOf(query),
 			}),
@@ -46,7 +50,11 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 					},
 				},
 				include: {
-					comment: true,
+					comment: {
+						include: {
+							user: true,
+						},
+					},
 				},
 			}),
 			delete: async ids => {
@@ -58,8 +66,12 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 				const items = await prisma.buildComment.findMany({
 					where,
 					include: {
-						comment: true,
-					}
+						comment: {
+							include: {
+								user: true,
+							},
+						},
+					},
 				});
 				await prisma.buildComment.deleteMany({
 					where,

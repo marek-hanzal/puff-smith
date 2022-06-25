@@ -1,4 +1,5 @@
 import {IComment, IWithComment} from "@/puff-smith/service/comment/interface";
+import {IWithUser} from "@/puff-smith/service/user/interface";
 import {IQuery, ISource} from "@leight-core/api";
 import {BuildComment, Prisma} from "@prisma/client";
 
@@ -19,5 +20,7 @@ export interface IBuildComment {
 	buildId: string;
 }
 
-export interface IBuildCommentSource extends ISource<IBuildCommentCreate, IBuildCommentEntity<IWithComment>, IBuildComment, IBuildCommentQuery> {
+export type IBuildCommentSourceEntity = IBuildCommentEntity<IWithComment<IWithUser>>;
+
+export interface IBuildCommentSource extends ISource<IBuildCommentCreate, IBuildCommentSourceEntity, IBuildComment, IBuildCommentQuery> {
 }
