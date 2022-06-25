@@ -994,21 +994,25 @@ model UserLicense {
   transactionId String?
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 
+  UserLicenseRequest UserLicenseRequest[]
+
   @@unique([userId, licenseId])
 }
 
 model UserLicenseRequest {
-  id         String    @id @default(cuid())
-  userId     String
-  user       User      @relation("UserLicenseRequestUser", fields: [userId], references: [id], onDelete: Cascade)
-  licenseId  String
-  license    License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
-  approverId String?
-  approver   User?     @relation("UserLicenseRequestApprover", fields: [approverId], references: [id], onDelete: Cascade)
+  id            String       @id @default(cuid())
+  userId        String
+  user          User         @relation("UserLicenseRequestUser", fields: [userId], references: [id], onDelete: Cascade)
+  licenseId     String
+  license       License      @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  approverId    String?
+  approver      User?        @relation("UserLicenseRequestApprover", fields: [approverId], references: [id], onDelete: Cascade)
+  userLicenseId String?
+  userLicense   UserLicense? @relation(fields: [userLicenseId], references: [id], onDelete: Cascade)
   // null - pending; 0, 1 are obvious
-  status     Int?
-  created    DateTime
-  updated    DateTime?
+  status        Int?
+  created       DateTime
+  updated       DateTime?
 
   @@unique([userId, licenseId])
 }

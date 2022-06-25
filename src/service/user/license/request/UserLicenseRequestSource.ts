@@ -1,11 +1,12 @@
 import {LicenseSource} from "@/puff-smith/service/license/LicenseSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IUserLicenseRequestSource} from "@/puff-smith/service/user/license/request/interface";
-import {pageOf, Source} from "@leight-core/server";
+import {UserSource} from "@/puff-smith/service/user/UserSource";
+import {onUnique, pageOf, Source} from "@leight-core/server";
 import {singletonOf} from "@leight-core/utils";
-import dayjs from "dayjs";
 
 export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
+	const userSource = singletonOf(() => UserSource().ofSource(source));
 	const licenseSource = singletonOf(() => LicenseSource().ofSource(source));
 
 	const source: IUserLicenseRequestSource = Source<IUserLicenseRequestSource>({
@@ -15,12 +16,14 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 			...userLicenseRequest,
 			created: userLicenseRequest.created.toUTCString(),
 			updated: userLicenseRequest.updated?.toUTCString(),
+			user: await userSource().map(userLicenseRequest.user),
 			license: await licenseSource().mapper.map(userLicenseRequest.license),
 		} : undefined,
 		source: {
 			get: async id => source.prisma.userLicenseRequest.findUnique({
 				where: {id},
 				include: {
+					user: true,
 					license: {
 						include: {
 							LicenseToken: {
@@ -59,6 +62,7 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 					created: new Date(),
 				},
 				include: {
+					user: true,
 					license: {
 						include: {
 							LicenseToken: {
@@ -81,6 +85,7 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 					const userLicenseRequest = await prisma.userLicenseRequest.findMany({
 						where,
 						include: {
+							user: true,
 							license: {
 								include: {
 									LicenseToken: {
@@ -102,23 +107,38 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 		approve: async ({id}) => {
 			const approverId = source.user.required();
 			const $userLicenseRequest = await source.get(id);
-			await source.prisma.userLicense.createMany({
-				data: [{
-					userId: $userLicenseRequest.userId,
-					licenseId: $userLicenseRequest.licenseId,
-					from: new Date(),
-					to: $userLicenseRequest.license.duration ? dayjs().add($userLicenseRequest.license.duration, "day").toDate() : undefined,
-				}],
-				skipDuplicates: true,
-			});
-			await source.prisma.userLicenseRequest.update({
-				where: {id},
-				data: {
-					status: 1,
-					approverId,
-					updated: new Date(),
-				}
-			});
+			try {
+				const userLicense = await source.prisma.userLicense.create({
+					data: {
+						userId: $userLicenseRequest.userId,
+						licenseId: $userLicenseRequest.licenseId,
+					},
+					include: {
+						user: true,
+						license: {
+							include: {
+								LicenseToken: {
+									include: {
+										token: true,
+									}
+								},
+							}
+						}
+					},
+				});
+				await source.prisma.userLicenseRequest.update({
+					where: {id},
+					data: {
+						status: 1,
+						approverId,
+						updated: new Date(),
+						userLicenseId: userLicense.id,
+					}
+				});
+			} catch (e) {
+				onUnique(e, async () => {
+				});
+			}
 			return true;
 		},
 		decline: async ({id}) => {
