@@ -24,6 +24,13 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 		withTokenProps={{
 			tokens: [
 				"*",
+				"feature.aroma.create",
+				"feature.booster.create",
+				"feature.base.create",
+				"feature.cotton.create",
+				"feature.wire.create",
+				"feature.mod.create",
+				"feature.cell.create",
 			],
 			template: {
 				extra: <>
