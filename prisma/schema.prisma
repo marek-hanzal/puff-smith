@@ -76,6 +76,7 @@ model User {
   UserCertificateRequestApprover UserCertificateRequest[] @relation("UserCertificateRequestApprover")
   UserLicenseRequestUser         UserLicenseRequest[]     @relation("UserLicenseRequestUser")
   UserLicenseRequestApprover     UserLicenseRequest[]     @relation("UserLicenseRequestApprover")
+  Vendor                         Vendor[]
 }
 
 model VerificationToken {
@@ -227,8 +228,11 @@ model Tag {
 }
 
 model Vendor {
-  id        String     @id @default(cuid())
-  name      String     @unique
+  id     String  @id @default(cuid())
+  name   String  @unique
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   atomizers Atomizer[]
   Cell      Cell[]
   Mod       Mod[]

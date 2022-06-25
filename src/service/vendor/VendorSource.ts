@@ -13,7 +13,10 @@ export const VendorSource = (): IVendorSource => {
 				const create = vendor;
 				try {
 					return await source.prisma.vendor.create({
-						data: create,
+						data: {
+							...create,
+							userId: source.user.optional(),
+						},
 					});
 				} catch (e) {
 					return onUnique(e, async () => source.prisma.vendor.findFirst({
