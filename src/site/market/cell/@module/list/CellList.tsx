@@ -15,7 +15,10 @@ export const CellList: FC<ICellListProps> = props => {
 	return <CellMarketListSource
 		{...props}
 	>
-		{({cell, isOwned}) => <ListItem key={cell.id}>
+		{({cell, isOwned}) => <ListItem
+			key={cell.id}
+			extra={<CellInventoryCreateButton type={"link"} cell={cell}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={cell}/>
@@ -23,7 +26,6 @@ export const CellList: FC<ICellListProps> = props => {
 					<Ohm ohm={cell.ohm} tooltip={"common.cell.ohm.tooltip"}/>
 					<Tags tags={[cell.type]}/>
 					{isOwned && <BoolInline bool={isOwned}/>}
-					<CellInventoryCreateButton type={"link"} cell={cell}/>
 				</Space>}
 			/>
 		</ListItem>}
