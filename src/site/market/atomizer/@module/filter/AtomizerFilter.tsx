@@ -5,10 +5,13 @@ import {AtomizerProviderFilter} from "@/sdk/api/atomizer/query";
 import {FormContext, FormItem, IFilterProps, useFilterContext} from "@leight-core/client";
 import {FC} from "react";
 
+export type IIAtomizerFilterPropsExclude = "vendorId";
+
 export interface IAtomizerFilterProps extends Partial<IFilterProps> {
+	exclude?: IIAtomizerFilterPropsExclude[];
 }
 
-export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => filter, ...props}) => {
+export const AtomizerFilter: FC<IAtomizerFilterProps> = ({exclude, toFilter = filter => filter, ...props}) => {
 	const filterContext = useFilterContext();
 
 	const onClear = () => {
@@ -41,11 +44,11 @@ export const AtomizerFilter: FC<IAtomizerFilterProps> = ({toFilter = filter => f
 	>
 		<FormContext.Consumer>
 			{formContext => <>
-				<FormItem field={"vendorId"}>
+				{!exclude?.includes("vendorId") && <FormItem field={"vendorId"}>
 					<AtomizerVendorSelect
 						allowClear
 					/>
-				</FormItem>
+				</FormItem>}
 				<TabAndOr
 					name={"drawIds"}
 					orCondition={() => filterContext.source?.orDrawIds}

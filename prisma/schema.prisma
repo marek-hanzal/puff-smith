@@ -195,13 +195,14 @@ model Comment {
   comment String   @db.Text
   created DateTime
 
-  AtomizerComment       AtomizerComment[]
-  CellComment           CellComment[]
-  ModComment            ModComment[]
-  CottonComment         CottonComment[]
-  AromaComment          AromaComment[]
-  BuildComment          BuildComment[]
-  AromaInventoryComment AromaInventoryComment[]
+  AtomizerComment          AtomizerComment[]
+  CellComment              CellComment[]
+  ModComment               ModComment[]
+  CottonComment            CottonComment[]
+  AromaComment             AromaComment[]
+  BuildComment             BuildComment[]
+  AromaInventoryComment    AromaInventoryComment[]
+  AtomizerInventoryComment AtomizerInventoryComment[]
 }
 
 model Tag {
@@ -340,15 +341,24 @@ model AtomizerComment {
 }
 
 model AtomizerInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  atomizerId    String
-  atomizer      Atomizer     @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id                       String                     @id @default(cuid())
+  code                     String                     @unique
+  userId                   String
+  user                     User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atomizerId               String
+  atomizer                 Atomizer                   @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  transactionId            String?
+  transaction              Transaction?               @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  rating                   Int?
+  AtomizerInventoryComment AtomizerInventoryComment[]
+}
+
+model AtomizerInventoryComment {
+  id                  String            @id @default(cuid())
+  atomizerInventoryId String
+  atomizerInventory   AtomizerInventory @relation(fields: [atomizerInventoryId], references: [id], onDelete: Cascade)
+  commentId           String
+  comment             Comment           @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model Cell {

@@ -119,7 +119,7 @@ export const AromaCommentListSource: FC<IAromaCommentListSourceProps> = ({provid
 			{...props}
 		/>
 	</AromaCommentProvider>;
-};
+}
 
 export interface IAromaCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaCommentSource>>;
@@ -162,7 +162,7 @@ export interface IAromaCommentSelectionProviderProps extends Partial<ISelectionP
 
 export const AromaCommentSelectionProvider: FC<IAromaCommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaCommentSource>> {...props}/>;
-};
+}
 
 export const useAromaCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
