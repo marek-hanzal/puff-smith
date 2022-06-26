@@ -19,6 +19,19 @@ export const CellInventorySource = (): ICellInventorySource => {
 			transaction: await transactionSource().mapper.map(cellInventory.transaction),
 		} : null,
 		source: {
+			get: async id => source.prisma.cellInventory.findUnique({
+				where: {id},
+				include: {
+					cell: {
+						include: {
+							vendor: true,
+							type: true,
+						}
+					},
+					transaction: true,
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cellInventory.count({
 				where: merge(filter, {
 					userId: source.user.required(),

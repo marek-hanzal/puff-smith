@@ -6,5 +6,5 @@ export interface IVoltProps {
 }
 
 export const Volt: FC<IVoltProps> = ({volt}) => {
-	return <>{volt ? toHumanNumber(volt) + "V" : "-"}</>;
+	return <>{volt ? toHumanNumber(volt, "-", 3) + "V" : "-"}</>;
 };

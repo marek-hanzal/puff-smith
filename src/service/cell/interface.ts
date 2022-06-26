@@ -9,6 +9,7 @@ export interface ICellCreate {
 	code?: string;
 	vendor: string;
 	voltage: number;
+	voltageMax?: number;
 	cost: number;
 	drain?: number;
 	ohm?: number;
@@ -29,8 +30,10 @@ export interface ICell {
 	vendor: IVendor;
 	vendorId: string;
 	voltage: number;
+	voltageMax?: number | null;
 	cost: number;
 	drain?: number | null;
+	capacity?: number | null;
 	ohm?: number | null;
 	type: ITag;
 	typeId: string;

@@ -363,20 +363,21 @@ model AtomizerInventoryComment {
 }
 
 model Cell {
-  id       String  @id @default(cuid())
-  name     String
-  code     String  @unique
-  voltage  Float
-  drain    Float?
-  ohm      Float?
-  cost     Float
-  capacity Int?
-  typeId   String
-  type     Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  userId   String?
-  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String  @id @default(cuid())
+  name       String
+  code       String  @unique
+  voltage    Float
+  voltageMax Float?
+  drain      Float?
+  ohm        Float?
+  cost       Float
+  capacity   Int?
+  typeId     String
+  type       Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  vendorId   String
+  vendor     Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   CellInventory CellInventory[]
   CellComment   CellComment[]
@@ -395,7 +396,7 @@ model CellInfo {
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   capacity        Int?
   capacityRatio   Float?
-  voltage         Int?
+  voltage         Float?
   voltageRatio    Float?
   // health is a combination of capacity and voltage percentage
   health          Float?

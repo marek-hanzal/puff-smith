@@ -1,6 +1,6 @@
 import {ICellInfoSource} from "@/puff-smith/service/cell/info/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Source} from "@leight-core/server";
+import {pageOf, Source} from "@leight-core/server";
 import {toPercent} from "@leight-core/utils";
 
 export const CellInfoSource = (): ICellInfoSource => {
@@ -12,12 +12,24 @@ export const CellInfoSource = (): ICellInfoSource => {
 			created: cellInfo.created.toUTCString(),
 		} : null,
 		source: {
+			count: async () => source.prisma.cellInfo.count({
+				where: {
+					userId: source.user.required(),
+				},
+			}),
+			query: async ({orderBy, ...query}) => source.prisma.cellInfo.findMany({
+				where: {
+					userId: source.user.required(),
+				},
+				orderBy,
+				...pageOf(query),
+			}),
 			create: async ({cellId, cellInventoryId, voltage, capacity}) => {
 				const $cell = await source.prisma.cell.findUnique({
 					where: {id: cellId},
 					rejectOnNotFound: true,
 				});
-				const voltageRatio = voltage ? toPercent(voltage, $cell.voltage) : undefined;
+				const voltageRatio = voltage && $cell.voltageMax ? toPercent(voltage, $cell.voltageMax) : undefined;
 				const capacityRatio = capacity && $cell.capacity ? toPercent(capacity, $cell.capacity) : undefined;
 				let healthRatio = 0;
 				voltageRatio && healthRatio++;

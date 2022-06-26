@@ -6,7 +6,7 @@ import {CellRatingButton} from "@/puff-smith/site/inventory/cell/@module/button/
 import {CellListEmpty} from "@/puff-smith/site/inventory/cell/@module/list/CellListEmpty";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
 import {CellInventoryListSource, ICellInventoryListSourceProps} from "@/sdk/api/inventory/cell/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -27,7 +27,15 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={cellInventory}/>
-					<CellNameInline cell={cellInventory.cell}/>
+					<ButtonLink
+						size={"small"}
+						type={"link"}
+						href={"/inventory/cell/[cellInventoryId]"}
+						query={{
+							cellInventoryId: cellInventory.id,
+						}}
+						label={<CellNameInline cell={cellInventory.cell}/>}
+					/>
 					<Ohm ohm={cellInventory.cell.ohm} tooltip={"common.cell.ohm.tooltip"}/>
 					<CodeInline code={cellInventory}/>
 					<Tags tags={[cellInventory.cell.type]}/>

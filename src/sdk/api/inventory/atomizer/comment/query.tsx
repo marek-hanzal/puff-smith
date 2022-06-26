@@ -120,7 +120,7 @@ export const AtomizerInventoryCommentListSource: FC<IAtomizerInventoryCommentLis
 			{...props}
 		/>
 	</AtomizerInventoryCommentProvider>;
-};
+}
 
 export interface IAtomizerInventoryCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerInventoryCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerInventoryCommentSource>>;
@@ -163,7 +163,7 @@ export interface IAtomizerInventoryCommentSelectionProviderProps extends Partial
 
 export const AtomizerInventoryCommentSelectionProvider: FC<IAtomizerInventoryCommentSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAtomizerInventoryCommentSource>> {...props}/>;
-};
+}
 
 export const useAtomizerInventoryCommentCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

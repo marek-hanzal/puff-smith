@@ -20,6 +20,7 @@ export interface ICellInfo {
 	voltage?: number | null;
 	capacity?: number | null;
 	health?: number | null;
+	created: string;
 }
 
 export interface ICellInfoFetch {

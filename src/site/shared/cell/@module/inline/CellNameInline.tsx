@@ -8,7 +8,7 @@ export interface ICellNameInlineProps extends Partial<SpaceProps> {
 
 export const CellNameInline: FC<ICellNameInlineProps> = ({cell, ...props}) => {
 	return <Space {...props}>
-		{cell.name}
+		<Typography.Text>{cell.name}</Typography.Text>
 		<Typography.Text type={"secondary"}>{cell.vendor.name}</Typography.Text>
 	</Space>;
 };
