@@ -25,8 +25,47 @@ export const LiquidSource = (): ILiquidSource => {
 			mixed: liquid.mixed.toUTCString(),
 			transaction: await transactionSource().mapper.map(liquid.transaction),
 			mixture: await mixtureSource().mapper.map(liquid.mixture),
-		} : undefined,
+		} : null,
 		source: {
+			get: async id => source.prisma.liquid.findUnique({
+				where: {id},
+				include: {
+					vendor: true,
+					transaction: true,
+					mixture: {
+						include: {
+							aroma: {
+								include: {
+									vendor: true,
+									AromaTaste: {
+										orderBy: {taste: {sort: "asc"}},
+										include: {
+											taste: true,
+										}
+									}
+								},
+							},
+							base: {
+								include: {
+									vendor: true,
+								},
+							},
+							booster: {
+								include: {
+									vendor: true,
+								},
+							},
+							MixtureDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
+								},
+							},
+						}
+					}
+				},
+				rejectOnNotFound: true,
+			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
 				where: merge(filter, {
 					userId: source.user.required(),

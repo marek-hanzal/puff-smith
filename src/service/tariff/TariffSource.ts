@@ -15,12 +15,12 @@ export const TariffSource = (): ITariffSource => {
 	const source: ITariffSource = Source<ITariffSource>({
 		name: "tariff",
 		prisma,
-		map: async tariff => tariff ? ({
+		map: async tariff => tariff ? {
 			...tariff,
 			from: tariff.from?.toUTCString(),
 			to: tariff.to?.toUTCString(),
 			created: tariff.created.toUTCString(),
-		}) : undefined,
+		} : null,
 		source: {
 			create: async ({code, ...tariff}) => {
 				const create = {

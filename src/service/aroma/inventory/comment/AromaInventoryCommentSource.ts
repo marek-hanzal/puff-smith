@@ -13,13 +13,23 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 		map: async aromaInventoryComment => aromaInventoryComment ? {
 			...aromaInventoryComment,
 			comment: await commentSource().mapper.map(aromaInventoryComment.comment),
-		} : undefined,
+		} : null,
 		source: {
 			count: async ({filter}) => source.prisma.aromaInventoryComment.count({
-				where: filter,
+				where: {
+					...filter,
+					aromaInventory: {
+						userId: source.user.required(),
+					},
+				},
 			}),
 			query: async ({filter, orderBy, ...query}) => source.prisma.aromaInventoryComment.findMany({
-				where: filter,
+				where: {
+					...filter,
+					aromaInventory: {
+						userId: source.user.required(),
+					},
+				},
 				orderBy,
 				include: {
 					comment: {
@@ -61,6 +71,9 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 				const where = {
 					id: {
 						in: ids,
+					},
+					aromaInventory: {
+						userId: source.user.required(),
 					},
 				};
 				const items = await prisma.aromaInventoryComment.findMany({

@@ -13,13 +13,12 @@ import {CommentList as AromaCommentList} from "@/puff-smith/site/shared/aroma/co
 import {AromaCommentProviderControl} from "@/sdk/api/aroma/comment/query";
 import {AromaInventoryCommentProviderControl} from "@/sdk/api/inventory/aroma/comment/query";
 import {CommentOutlined, UserOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, EditIcon, TabInline, Template, useUserContext} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, EditIcon, TabInline, Template} from "@leight-core/client";
 import {Divider, Tabs} from "antd";
 import {useState} from "react";
 
 export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 	const [commentTab, setCommentTab] = useState<string>("list");
-	const userContext = useUserContext();
 	return <MarketPage
 		title={"market.aroma.comment"}
 		tabTitle={"market.aroma.comment.title.tab"}
@@ -84,12 +83,11 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 						/>
 					</AromaCommentProviderControl>
 				</Tabs.TabPane>
-				{userContext.user.userId && <Tabs.TabPane key={"private-comments"} tab={<TabInline icon={<UserOutlined/>} title={"shared.comment.private.tab"}/>}>
+				<Tabs.TabPane key={"private-comments"} tab={<TabInline icon={<UserOutlined/>} title={"shared.comment.private.tab"}/>}>
 					<AromaInventoryCommentProviderControl
 						defaultSize={DEFAULT_LIST_SIZE}
 						applyFilter={{
 							aromaInventory: {
-								userId: userContext.user.userId,
 								aromaId: aroma.id,
 							},
 						}}
@@ -106,7 +104,7 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 							}}
 						/>
 					</AromaInventoryCommentProviderControl>
-				</Tabs.TabPane>}
+				</Tabs.TabPane>
 				<Tabs.TabPane key={"create"} tab={<TabInline icon={<EditIcon/>} title={"shared.comment.create.tab"}/>}>
 					<CommentCreateForm
 						aroma={aroma}

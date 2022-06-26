@@ -16,7 +16,7 @@ export const CottonSource = (): ICottonSource => {
 		prisma,
 		map: async cotton => {
 			if (!cotton) {
-				return;
+				return null;
 			}
 			const {CottonDraw, ...$cotton} = cotton;
 			return {

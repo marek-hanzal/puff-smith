@@ -18,7 +18,7 @@ export const UserSource = (): IUserSource => {
 		prisma,
 		map: async user => {
 			if (!user) {
-				return undefined;
+				return null;
 			}
 			const {
 				UserToken,
@@ -160,11 +160,10 @@ export const UserSource = (): IUserSource => {
 				amount: await priceSource().amountOf("default", "welcome-gift.user", 250),
 				note: "Welcome gift!",
 			});
-			const licenses = [
-				"Market - Common",
-				"Lab - Common",
-				"Inventory - Common",
-			];
+			await source.createToken("/lab*");
+			await source.createToken("/market*");
+			await source.createToken("/inventory*");
+			const licenses: string[] = [];
 			for (const license of licenses) {
 				await source.prisma.userLicense.create({
 					data: {

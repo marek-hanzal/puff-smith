@@ -11,7 +11,7 @@ export const BoosterRatioSource = (): IBoosterRatioSource => {
 			value: `${booster.vg}/${booster.pg}`,
 			vg: booster.vg,
 			pg: booster.pg,
-		}) : undefined,
+		}) : null,
 		source: {
 			query: async () => source.prisma.booster.findMany({
 				distinct: ["pg", "vg"],

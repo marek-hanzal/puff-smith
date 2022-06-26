@@ -7,5 +7,5 @@ export interface IUserNameInlineProps {
 }
 
 export const UserNameInline: FC<IUserNameInlineProps> = ({user}) => {
-	return user ? <Typography.Text type={"secondary"}>{user.name}</Typography.Text> : null;
+	return user ? <Typography.Text type={"secondary"}>{user.name || user.email}</Typography.Text> : null;
 };

@@ -17,7 +17,7 @@ export const LicenseSource = (): ILicenseSource => {
 		prisma,
 		map: async license => {
 			if (!license) {
-				return undefined;
+				return null;
 			}
 			const {id, name, code, cost} = license;
 			return {

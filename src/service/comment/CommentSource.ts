@@ -14,7 +14,7 @@ export const CommentSource = (): ICommentSource => {
 			...comment,
 			created: comment.created.toUTCString(),
 			user: await userSource().mapper.map(comment.user),
-		} : undefined,
+		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.comment.count({
 				where: merge(filter, {

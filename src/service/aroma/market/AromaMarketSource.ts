@@ -14,7 +14,7 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 		map: async aroma => aroma ? ({
 			aroma: await aromaSource().mapper.map(aroma),
 			isOwned: aroma.AromaInventory.length > 0,
-		}) : undefined,
+		}) : null,
 		cache: AromaMarketCache,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({

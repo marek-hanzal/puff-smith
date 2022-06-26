@@ -9,7 +9,7 @@ export const MetricSource = (): IMetricSource => {
 		map: async metric => metric ? ({
 			...metric,
 			start: metric?.start || 0,
-		}) : undefined,
+		}) : null,
 		source: {
 			create: async create => source.prisma.metric.create({
 				data: {

@@ -10,14 +10,14 @@ export const PriceSource = (): IPriceSource => {
 	const source: IPriceSource = Source<IPriceSource>({
 		name: "price",
 		prisma,
-		map: async price => price ? ({
+		map: async price => price ? {
 			...price,
 			price: price.price.toNumber(),
 			tariff: await tariffSource().mapper.map(price.tariff),
 			from: price.from?.toUTCString(),
 			to: price.to?.toUTCString(),
 			created: price.created.toUTCString(),
-		}) : undefined,
+		} : null,
 		source: {
 			create: async ({tariff, ...price}) => source.prisma.price.create({
 				data: {

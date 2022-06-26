@@ -12,7 +12,7 @@ export const BuildLiquidSource = (buildId: string): IBuildLiquidSource => {
 		prisma,
 		map: async liquid => {
 			if (!liquid) {
-				return;
+				return null;
 			}
 			const {BuildLiquidRating, ...$liquid} = liquid;
 			return {

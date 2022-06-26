@@ -16,7 +16,7 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 		map: async userCertificate => userCertificate ? {
 			...userCertificate,
 			certificate: await certificateSource().mapper.map(userCertificate.certificate),
-		} : undefined,
+		} : null,
 		source: {
 			get: async id => source.prisma.userCertificate.findUnique({
 				where: {id},

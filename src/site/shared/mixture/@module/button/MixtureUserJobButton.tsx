@@ -31,7 +31,6 @@ export const MixtureUserJobButton: FC<IMixtureUserJobButtonProps> = props => {
 	const aromaTasteQueryInvalidate = useAromaTasteQueryInvalidate(false);
 	return <JobButton<IMixtureUserJobParams>
 		icon={<MixtureIcon/>}
-		disabled={!userContext.isReady}
 		scheduler={mixtureUserJobMutation}
 		schedule={{
 			userId: userContext.user.userId,

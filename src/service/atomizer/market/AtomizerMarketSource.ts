@@ -13,7 +13,7 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 		map: async atomizer => atomizer ? ({
 			atomizer: await atomizerSource().mapper.map(atomizer),
 			isOwned: atomizer.AtomizerInventory.length > 0,
-		}) : undefined,
+		}) : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
 				where: merge(filter, {

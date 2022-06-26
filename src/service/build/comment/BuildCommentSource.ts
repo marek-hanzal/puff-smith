@@ -13,13 +13,23 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 		map: async buildComment => buildComment ? {
 			...buildComment,
 			comment: await commentSource().mapper.map(buildComment.comment),
-		} : undefined,
+		} : null,
 		source: {
 			count: async ({filter}) => source.prisma.buildComment.count({
-				where: filter,
+				where: {
+					...filter,
+					build: {
+						userId: source.user.required(),
+					},
+				},
 			}),
 			query: async ({filter, orderBy, ...query}) => source.prisma.buildComment.findMany({
-				where: filter,
+				where: {
+					...filter,
+					build: {
+						userId: source.user.required(),
+					},
+				},
 				orderBy,
 				include: {
 					comment: {
@@ -61,6 +71,9 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 				const where = {
 					id: {
 						in: ids,
+					},
+					build: {
+						userId: source.user.required(),
 					},
 				};
 				const items = await prisma.buildComment.findMany({

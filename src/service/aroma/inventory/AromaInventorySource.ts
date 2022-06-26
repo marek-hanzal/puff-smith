@@ -25,7 +25,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 			...aromaInventory,
 			aroma: await aromaSource().mapper.map(aromaInventory.aroma),
 			transaction: await transactionSource().map(aromaInventory.transaction),
-		} : undefined,
+		} : null,
 		source: {
 			clearCache: async () => {
 				await mixtureAromaSource().clearCache();

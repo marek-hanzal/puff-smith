@@ -10,10 +10,10 @@ export const CottonMarketSource = (): ICottonMarketSource => {
 	const source: ICottonMarketSource = Source<ICottonMarketSource>({
 		name: "cotton.market",
 		prisma,
-		map: async cotton => cotton ? ({
+		map: async cotton => cotton ? {
 			cotton: await cottonSource().mapper.map(cotton),
 			isOwned: cotton.CottonInventory.length > 0,
-		}) : undefined,
+		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cotton.count({
 				where: filter,

@@ -20,6 +20,7 @@ export const CoilInventoryList: FC<ICoilInventoryListProps> = ({itemExtra, ...pr
 	>
 		{coil => <ListItem
 			key={coil.id}
+			extra={itemExtra?.(coil)}
 		>
 			<BrowserContent>
 				<ListItemMeta
@@ -44,7 +45,6 @@ export const CoilInventoryList: FC<ICoilInventoryListProps> = ({itemExtra, ...pr
 					description={<Space direction={"vertical"}>
 						<Typography.Text type={"secondary"}>{coil.name}</Typography.Text>
 						<WireFiberInline wire={coil.wire}/>
-						{itemExtra?.(coil)}
 					</Space>}
 				/>
 			</MobileContent>

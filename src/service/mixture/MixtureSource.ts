@@ -23,7 +23,7 @@ export const MixtureSource = (): IMixtureSource => {
 			booster: await boosterSource().map(mixture.booster),
 			base: await baseSource().map(mixture.base),
 			draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
-		} : undefined,
+		} : null,
 	});
 
 	return source;

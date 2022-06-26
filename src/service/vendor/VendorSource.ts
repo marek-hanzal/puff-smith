@@ -7,7 +7,7 @@ export const VendorSource = (): IVendorSource => {
 	const source: IVendorSource = Source<IVendorSource>({
 		name: "vendor",
 		prisma,
-		map: async vendor => vendor,
+		map: async vendor => vendor || null,
 		source: {
 			create: async vendor => {
 				const create = vendor;

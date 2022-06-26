@@ -6,7 +6,7 @@ export const UserTokenSource = (): IUserTokenSource => {
 	const source: IUserTokenSource = Source<IUserTokenSource>({
 		name: "user.token",
 		prisma,
-		map: async userToken => userToken,
+		map: async userToken => userToken || null,
 		source: {
 			create: async create => source.prisma.userToken.create({
 				data: create,

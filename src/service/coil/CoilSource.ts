@@ -16,7 +16,7 @@ export const CoilSource = (): ICoilSource => {
 		prisma,
 		map: async coil => {
 			if (!coil) {
-				return;
+				return null;
 			}
 			const {CoilDraw, ...$coil} = coil;
 			return {

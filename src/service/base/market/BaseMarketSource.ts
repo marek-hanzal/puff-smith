@@ -13,7 +13,7 @@ export const BaseMarketSource = (): IBaseMarketSource => {
 		map: async base => base ? ({
 			base: await baseSource().mapper.map(base),
 			isOwned: base.BaseInventory.length > 0,
-		}) : undefined,
+		}) : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
 				where: filter,

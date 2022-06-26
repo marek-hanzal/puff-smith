@@ -17,7 +17,7 @@ export const CertificateSource = (): ICertificateSource => {
 		prisma,
 		map: async certificate => {
 			if (!certificate) {
-				return undefined;
+				return null;
 			}
 			const {id, name, code, cost} = certificate;
 			return {

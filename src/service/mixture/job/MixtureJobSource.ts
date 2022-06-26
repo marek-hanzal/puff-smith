@@ -17,7 +17,7 @@ export const MixtureJobSource = (): IMixtureJobSource => {
 		prisma,
 		map: async mixture => mixture ? {
 			...mixture,
-		} : undefined,
+		} : null,
 		source: {
 			create: async ({code, draws, ...mixture}) => {
 				const vgToRound = Math.round(mixture.vg * 0.1) / 0.1;

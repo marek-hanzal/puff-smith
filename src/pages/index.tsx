@@ -7,6 +7,7 @@ export default function Index() {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
 	const token = await getOptionalToken(ctx);
+	console.log("token???", token);
 	return {
 		redirect: token ? {destination: "/lab"} : {destination: "/public"},
 		props: {},

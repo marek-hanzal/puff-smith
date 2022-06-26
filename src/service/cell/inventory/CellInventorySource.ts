@@ -13,11 +13,11 @@ export const CellInventorySource = (): ICellInventorySource => {
 	const source: ICellInventorySource = Source<ICellInventorySource>({
 		name: "cell.inventory",
 		prisma,
-		map: async cellInventory => cellInventory ? ({
+		map: async cellInventory => cellInventory ? {
 			...cellInventory,
 			cell: await cellSource().mapper.map(cellInventory.cell),
 			transaction: await transactionSource().mapper.map(cellInventory.transaction),
-		}) : undefined,
+		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cellInventory.count({
 				where: merge(filter, {

@@ -20,7 +20,7 @@ export const CellSource = (): ICellSource => {
 			...cell,
 			vendor: await vendorSource().mapper.map(cell.vendor),
 			type: await tagSource().mapper.map(cell.type),
-		}) : undefined,
+		}) : null,
 		source: {
 			get: async id => source.prisma.cell.findUnique({
 				where: {id},

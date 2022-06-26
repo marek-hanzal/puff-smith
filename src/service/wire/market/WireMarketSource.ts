@@ -10,10 +10,10 @@ export const WireMarketSource = (): IWireMarketSource => {
 	const source: IWireMarketSource = Source<IWireMarketSource>({
 		name: "wire.market",
 		prisma,
-		map: async wire => wire ? ({
+		map: async wire => wire ? {
 			wire: await wireSource().mapper.map(wire),
 			isOwned: wire.WireInventory.length > 0,
-		}) : undefined,
+		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.count({
 				where: filter,

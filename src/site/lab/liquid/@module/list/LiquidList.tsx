@@ -9,7 +9,7 @@ import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/Aro
 import {LiquidSteeping} from "@/puff-smith/site/shared/liquid/@module/inline/LiquidSteeping";
 import {MixtureInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureInline";
 import {ILiquidListSourceProps, LiquidListSource} from "@/sdk/api/lab/liquid/query";
-import {ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {ButtonLink, ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -30,7 +30,12 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>}>
 					{selectionContext && <SelectionBool selection={liquid}/>}
-					<AromaNameInline aroma={liquid.mixture.aroma}/>
+					<ButtonLink
+						size={"small"}
+						href={"/lab/liquid/[liquidId]"}
+						query={{liquidId: liquid.id}}
+						label={<AromaNameInline aroma={liquid.mixture.aroma}/>}
+					/>
 					<VgPgInline vgpg={liquid.mixture}/>
 					<NicotineInline nicotine={liquid.mixture.nicotine}/>
 					<CodeInline code={liquid}/>

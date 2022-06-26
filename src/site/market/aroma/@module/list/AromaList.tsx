@@ -16,7 +16,10 @@ export const AromaList: FC<IAromaListProps> = props => {
 	return <AromaMarketListSource
 		{...props}
 	>
-		{({aroma, isOwned}) => <ListItem key={aroma.id}>
+		{({aroma, isOwned}) => <ListItem
+			key={aroma.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <AromaInventoryCreateButton type={"link"} aroma={aroma}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={aroma}/>
@@ -26,7 +29,6 @@ export const AromaList: FC<IAromaListProps> = props => {
 					<VgPgInline vgpg={aroma}/>
 					<AromaContentInline aroma={aroma}/>
 					{aroma.tastes.length > 0 && <Tags color={"magenta"} tags={aroma.tastes} translation={"common.taste"}/>}
-					{isOwned ? <BoolInline bool={isOwned}/> : <AromaInventoryCreateButton type={"link"} aroma={aroma}/>}
 				</Space>}
 			/>
 		</ListItem>}

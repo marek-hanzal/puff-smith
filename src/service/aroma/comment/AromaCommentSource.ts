@@ -13,7 +13,7 @@ export const AromaCommentSource = (): IAromaCommentSource => {
 		map: async aromaComment => aromaComment ? {
 			...aromaComment,
 			comment: await commentSource().mapper.map(aromaComment.comment),
-		} : undefined,
+		} : null,
 		source: {
 			count: async ({filter}) => source.prisma.aromaComment.count({
 				where: filter,
