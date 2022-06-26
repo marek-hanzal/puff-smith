@@ -7,6 +7,7 @@ import {CellListEmpty} from "@/puff-smith/site/inventory/cell/@module/list/CellL
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
 import {CellInventoryListSource, ICellInventoryListSourceProps} from "@/sdk/api/inventory/cell/query";
 import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
+import {toHumanNumber} from "@leight-core/utils";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -38,6 +39,7 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 					/>
 					<Ohm ohm={cellInventory.cell.ohm} tooltip={"common.cell.ohm.tooltip"}/>
 					<CodeInline code={cellInventory}/>
+					{toHumanNumber(cellInventory.cell.capacity)}
 					<Tags tags={[cellInventory.cell.type]}/>
 				</Space>}
 			/>
