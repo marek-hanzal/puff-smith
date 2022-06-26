@@ -50,9 +50,12 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 					<ListItemMeta
 						title={<Space split={<Divider type={"vertical"}/>}>
 							{selectionContext && <SelectionBool selection={build}/>}
-							<LinkTo href={"/lab/build/[buildId]"} query={{buildId: build.id}}>
-								<AtomizerNameInline atomizer={build.atomizer}/>
-							</LinkTo>
+							<ButtonLink
+								size={"small"}
+								href={"/lab/build/[buildId]"}
+								query={{buildId: build.id}}
+								label={<AtomizerNameInline atomizer={build.atomizer}/>}
+							/>
 							<CodeInline code={build}/>
 							<Ohm ohm={build.ohm}/>
 							<Watt watt={build.watts} tooltip={"lab.build.watt.tooltip"}/>
