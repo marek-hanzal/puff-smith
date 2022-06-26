@@ -17,6 +17,7 @@ export const AtomizerList: FC<IAtomizerListProps> = props => {
 	>
 		{({atomizer, isOwned}) => <ListItem
 			key={atomizer.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <AtomizerInventoryCreateButton type={"link"} atomizer={atomizer}/>}
 		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
@@ -29,7 +30,6 @@ export const AtomizerList: FC<IAtomizerListProps> = props => {
 					/>
 					{atomizer.user && <UserNameInline user={atomizer.user}/>}
 					{atomizer.draws.length > 0 && <Tags tags={atomizer.draws} translation={"common.draw"}/>}
-					{isOwned ? <BoolInline bool={isOwned}/> : <AtomizerInventoryCreateButton type={"link"} atomizer={atomizer}/>}
 				</Space>}
 			/>
 		</ListItem>}

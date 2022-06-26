@@ -14,13 +14,15 @@ export const BaseList: FC<IBaseListProps> = props => {
 	return <BaseMarketListSource
 		{...props}
 	>
-		{({base, isOwned}) => <ListItem key={base.id}>
+		{({base, isOwned}) => <ListItem
+			key={base.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <BaseInventoryCreateButton type={"link"} base={base}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={base}/>
 					<BaseNameInline base={base}/>
 					<VgPgInline vgpg={base}/>
-					{isOwned ? <BoolInline bool={isOwned}/> : <BaseInventoryCreateButton type={"link"} base={base}/>}
 				</Space>}
 			/>
 		</ListItem>}

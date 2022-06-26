@@ -14,13 +14,15 @@ export const CottonList: FC<ICottonListProps> = props => {
 	return <CottonMarketListSource
 		{...props}
 	>
-		{({cotton, isOwned}) => <ListItem key={cotton.id}>
+		{({cotton, isOwned}) => <ListItem
+			key={cotton.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <CottonInventoryCreateButton type={"link"} cotton={cotton}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={cotton}/>
 					<CottonNameInline cotton={cotton}/>
 					{cotton.draws.length > 0 && <Tags tags={cotton.draws} translation={"common.draw"}/>}
-					{isOwned ? <BoolInline bool={isOwned}/> : <CottonInventoryCreateButton type={"link"} cotton={cotton}/>}
 				</Space>}
 			/>
 		</ListItem>}

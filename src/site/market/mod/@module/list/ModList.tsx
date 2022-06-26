@@ -14,13 +14,15 @@ export const ModList: FC<IModListProps> = props => {
 	return <ModMarketListSource
 		{...props}
 	>
-		{({mod, isOwned}) => <ListItem key={mod.id}>
+		{({mod, isOwned}) => <ListItem
+			key={mod.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <ModInventoryCreateButton type={"link"} mod={mod}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={mod}/>
 					<ModNameInline mod={mod}/>
 					{mod.cells.length > 0 && <Tags tags={mod.cells}/>}
-					{isOwned ? <BoolInline bool={isOwned}/> : <ModInventoryCreateButton type={"link"} mod={mod}/>}
 				</Space>}
 			/>
 		</ListItem>}

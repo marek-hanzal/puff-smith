@@ -15,14 +15,16 @@ export const WireList: FC<IWireListProps> = props => {
 	return <WireMarketListSource
 		{...props}
 	>
-		{({wire, isOwned}) => <ListItem key={wire.id}>
+		{({wire, isOwned}) => <ListItem
+			key={wire.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <WireInventoryCreateButton type={"link"} wire={wire}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={wire}/>
 					<WireNameInline wire={wire}/>
 					{wire.draws.length > 0 && <Tags tags={wire.draws} translation={"common.draw"}/>}
 					{wire.fibers.length > 0 && <WireFiberInline wire={wire}/>}
-					{isOwned ? <BoolInline bool={isOwned}/> : <WireInventoryCreateButton type={"link"} wire={wire}/>}
 				</Space>}
 			/>
 		</ListItem>}

@@ -15,14 +15,16 @@ export const BoosterList: FC<IBoosterListProps> = props => {
 	return <BoosterMarketListSource
 		{...props}
 	>
-		{({booster, isOwned}) => <ListItem key={booster.id}>
+		{({booster, isOwned}) => <ListItem
+			key={booster.id}
+			extra={isOwned ? <BoolInline bool={isOwned}/> : <BoosterInventoryCreateButton type={"link"} booster={booster}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={booster}/>
 					<BoosterNameInline booster={booster}/>
 					<VgPgInline vgpg={booster}/>
-					<NicotineInline nicotine={booster.nicotine}/>
-					{isOwned ? <BoolInline bool={isOwned}/> : <BoosterInventoryCreateButton type={"link"} booster={booster}/>}
+					<NicotineInline nicotine={booster.nicotine}/> {}
 				</Space>}
 			/>
 		</ListItem>}

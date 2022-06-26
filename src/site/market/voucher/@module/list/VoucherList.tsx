@@ -13,11 +13,13 @@ export const VoucherList: FC<IVoucherListProps> = props => {
 	return <VoucherListSource
 		{...props}
 	>
-		{voucher => <ListItem key={voucher.id}>
+		{voucher => <ListItem
+			key={voucher.id}
+			extra={<VoucherInventoryCreateButton type={"link"} voucher={voucher}/>}
+		>
 			<ListItemMeta
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					{t("voucher." + voucher.name, voucher.name)}
-					<VoucherInventoryCreateButton type={"link"} voucher={voucher}/>
 				</Space>}
 			/>
 		</ListItem>}
