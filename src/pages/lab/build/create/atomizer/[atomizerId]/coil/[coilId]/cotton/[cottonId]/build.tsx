@@ -20,7 +20,7 @@ import {CottonView} from "@/puff-smith/site/shared/cotton/@module/view/CottonVie
 import {CreateDefaultForm} from "@/sdk/api/lab/build/create";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonLink, Centered, DatePicker, FormItem, ListIcon, Submit, SwitchItem, TabInline, Template, useIsMobile} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Centered, DatePicker, FormItem, Submit, SwitchItem, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
 import {InputNumber, message, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
@@ -37,15 +37,6 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 			coilId: coil.id,
 		})}
 		icon={<BuildIcon/>}
-		extra={<>
-			<BrowserContent>
-				<ButtonLink
-					href={"/lab/build"}
-					icon={<ListIcon/>}
-					label={"lab.build.index.button"}
-				/>
-			</BrowserContent>
-		</>}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}

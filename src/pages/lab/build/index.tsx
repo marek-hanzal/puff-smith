@@ -1,4 +1,5 @@
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
@@ -8,7 +9,7 @@ import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
 import {BuildListInactiveEmpty} from "@/puff-smith/site/lab/build/@module/list/BuildListInactiveEmpty";
 import {BuildListToolbar} from "@/puff-smith/site/lab/build/@module/list/BuildListToolbar";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
-import Icon, {FireOutlined, MenuOutlined} from "@ant-design/icons";
+import Icon, {MenuOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, MobileContent, SelectionProvider, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {Divider, Tabs} from "antd";
 import {BsArchive} from "react-icons/bs";
@@ -88,7 +89,7 @@ export default withLabLayout(function Index() {
 						<BuildList/>
 					</BuildProviderControl>
 				</Tabs.TabPane>
-				<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.favorite.tab"}/>}>
+				<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"lab.build.favorite.tab"}/>}>
 					<BuildProviderControl
 						defaultSize={DEFAULT_LIST_SIZE}
 						defaultOrderBy={[

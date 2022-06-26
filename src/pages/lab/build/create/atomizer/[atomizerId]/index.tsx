@@ -21,7 +21,7 @@ import {CoilCreateInline} from "@/puff-smith/site/shared/coil/@module/button/Coi
 import {CoilInventoryProviderControl} from "@/sdk/api/inventory/coil/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, MenuOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
@@ -32,28 +32,6 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 		onBack={navigate => navigate("/lab/build/create")}
 		icon={<AtomizerIcon/>}
 		extra={<>
-			<BrowserContent>
-				<ButtonBar>
-					<ButtonLink
-						href={"/lab/build"}
-						icon={<ListIcon/>}
-						label={"lab.build.index.button"}
-					/>
-					<CoilCreateInline
-						size={"large"}
-						type={"primary"}
-						icon={<EditIcon/>}
-						title={"lab.coil.create.title"}
-						label={"lab.coil.create.button"}
-						onSuccess={({navigate, response}) => {
-							navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
-								atomizerId: atomizer.id,
-								coilId: response.id,
-							});
-						}}
-					/>
-				</ButtonBar>
-			</BrowserContent>
 			<MobileContent>
 				<DrawerButton
 					type={"text"}
@@ -181,7 +159,21 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 					] as any}
 				>
 					<CoilInventoryList
-						header={() => <RowInline>
+						header={() => <RowInline
+							extra={<CoilCreateInline
+								size={"small"}
+								type={"link"}
+								icon={<EditIcon/>}
+								title={"lab.coil.create.title"}
+								label={"lab.coil.create.button"}
+								onSuccess={({navigate, response}) => {
+									navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
+										atomizerId: atomizer.id,
+										coilId: response.id,
+									});
+								}}
+							/>}
+						>
 							<CoilFilter/>
 						</RowInline>}
 						itemExtra={coil => <ButtonLink

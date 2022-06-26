@@ -1,5 +1,6 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerFilter} from "@/puff-smith/site/inventory/atomizer/@module/filter/AtomizerFilter";
@@ -10,7 +11,7 @@ import {BuildCreateForm} from "@/puff-smith/site/lab/build/@module/form/BuildCre
 import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
 import {AtomizerInventoryProviderControl, useAtomizerInventoryCountQuery} from "@/sdk/api/inventory/atomizer/query";
 import {MenuOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, DrawerButton, EditIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Create() {
@@ -22,28 +23,6 @@ export default withLabLayout(function Create() {
 		onBack={navigate => navigate("/lab/build")}
 		icon={<BuildIcon/>}
 		extra={<>
-			<BrowserContent>
-				<ButtonBar>
-					<ButtonLink
-						href={"/lab/build"}
-						icon={<ListIcon/>}
-						label={"lab.build.index.button"}
-					/>
-					<AtomizerCreateButton
-						size={"large"}
-						type={"primary"}
-						icon={<EditIcon/>}
-						width={960}
-						title={"lab.atomizer.create.title"}
-						label={"lab.atomizer.create.button"}
-						onSuccess={({navigate, response}) => {
-							navigate("/lab/build/create/atomizer/[atomizerId]", {
-								atomizerId: response.id,
-							});
-						}}
-					/>
-				</ButtonBar>
-			</BrowserContent>
 			<MobileContent>
 				<DrawerButton
 					type={"text"}
@@ -95,13 +74,46 @@ export default withLabLayout(function Create() {
 		}}
 	>
 		<Tabs size={isMobile ? "small" : "large"}>
+			<Tabs.TabPane key={"atomizer.favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"lab.build.create.atomizer.favorite.tab"}/>}>
+				<AtomizerInventoryProviderControl
+					defaultSize={5}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						}
+					}}
+				>
+					<AtomizerInventoryList
+						hidden={["rating"]}
+						header={() => <RowInline>
+							<AtomizerFilter
+								toFilter={values => ({atomizer: values})}
+							/>
+						</RowInline>}
+					/>
+				</AtomizerInventoryProviderControl>
+			</Tabs.TabPane>
 			<Tabs.TabPane key={"atomizer"} tab={<TabInline icon={<AtomizerIcon/>} title={"lab.build.create.atomizer.tab"}/>}>
 				<AtomizerInventoryProviderControl
 					defaultSize={5}
 				>
 					<AtomizerInventoryList
 						hidden={["rating"]}
-						header={() => <RowInline>
+						header={() => <RowInline
+							extra={<AtomizerCreateButton
+								size={"small"}
+								type={"link"}
+								icon={<EditIcon/>}
+								width={960}
+								title={"lab.atomizer.create.title"}
+								label={"lab.atomizer.create.button"}
+								onSuccess={({navigate, response}) => {
+									navigate("/lab/build/create/atomizer/[atomizerId]", {
+										atomizerId: response.id,
+									});
+								}}
+							/>}
+						>
 							<AtomizerFilter
 								toFilter={values => ({atomizer: values})}
 							/>

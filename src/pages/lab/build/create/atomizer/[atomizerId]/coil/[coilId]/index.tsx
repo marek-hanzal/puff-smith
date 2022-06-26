@@ -2,8 +2,10 @@ import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch, IAtomizerFetchParams} from "@/puff-smith/service/atomizer/interface";
 import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
@@ -21,7 +23,7 @@ import {CottonCreateInline} from "@/puff-smith/site/shared/cotton/@module/form/C
 import {CottonInventoryProviderControl, useCottonInventoryCountQuery} from "@/sdk/api/inventory/cotton/query";
 import {BuildProviderControl} from "@/sdk/api/lab/build/query";
 import {FireOutlined, MenuOutlined, StarOutlined} from "@ant-design/icons";
-import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, BrowserContent, ButtonBar, ButtonLink, DrawerButton, EditIcon, ListIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
+import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonBar, ButtonLink, DrawerButton, EditIcon, MobileContent, TabInline, Template, useIsMobile} from "@leight-core/client";
 import {merge} from "@leight-core/utils";
 import {Divider, Tabs} from "antd";
 import {GetServerSidePropsContext} from "next";
@@ -37,29 +39,6 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 		})}
 		icon={<CottonIcon/>}
 		extra={<>
-			<BrowserContent>
-				<ButtonBar>
-					<ButtonLink
-						href={"/lab/build"}
-						icon={<ListIcon/>}
-						label={"lab.build.index.button"}
-					/>
-					<CottonCreateInline
-						size={"large"}
-						type={"primary"}
-						icon={<EditIcon/>}
-						title={"lab.cotton.create.title"}
-						label={"lab.cotton.create.button"}
-						onSuccess={({navigate, response}) => {
-							navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
-								atomizerId: atomizer.id,
-								coilId: coil.id,
-								cottonId: response.id,
-							});
-						}}
-					/>
-				</ButtonBar>
-			</BrowserContent>
 			<MobileContent>
 				<DrawerButton
 					type={"text"}
@@ -124,6 +103,38 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 	>
 		{cottonInventoryCountQuery.data === 0 && <CottonListEmpty/>}
 		{cottonInventoryCountQuery.isSuccess && cottonInventoryCountQuery.data > 0 && <Tabs size={isMobile ? "small" : "large"}>
+			<Tabs.TabPane key={"recommended.favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"lab.build.atomizer.cotton.favorite.tab"}/>}>
+				<CottonInventoryProviderControl
+					defaultSize={DEFAULT_LIST_SIZE}
+					defaultOrderBy={[
+						{cotton: {name: "asc"}},
+					] as any}
+					applyFilter={{
+						rating: {
+							gt: 0,
+						}
+					}}
+				>
+					<CottonInventoryList
+						itemExtra={cotton => <ButtonLink
+							href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
+							query={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+								cottonId: cotton.id,
+							}}
+							icon={<CottonIcon/>}
+							label={"lab.build.cotton.build.button"}
+						/>}
+						locale={{
+							emptyText: <Template
+								icon={<CottonIcon/>}
+								label={"lab.build.cotton.list.empty"}
+							/>
+						}}
+					/>
+				</CottonInventoryProviderControl>
+			</Tabs.TabPane>
 			<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.cotton.recommended.tab"}/>}>
 				<CottonInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
@@ -170,6 +181,22 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 					] as any}
 				>
 					<CottonInventoryList
+						header={() => <RowInline
+							extra={<CottonCreateInline
+								size={"small"}
+								type={"link"}
+								icon={<EditIcon/>}
+								title={"lab.cotton.create.title"}
+								label={"lab.cotton.create.button"}
+								onSuccess={({navigate, response}) => {
+									navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build", {
+										atomizerId: atomizer.id,
+										coilId: coil.id,
+										cottonId: response.id,
+									});
+								}}
+							/>}
+						/>}
 						itemExtra={cotton => <ButtonLink
 							href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]/cotton/[cottonId]/build"}
 							query={{
