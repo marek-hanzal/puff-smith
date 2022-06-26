@@ -1,3 +1,4 @@
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -7,7 +8,6 @@ import {AromaFilter} from "@/puff-smith/site/inventory/aroma/@module/filter/Arom
 import {AromaInventoryList} from "@/puff-smith/site/inventory/aroma/@module/list/AromaInventoryList";
 import {AromaListToolbar} from "@/puff-smith/site/inventory/aroma/@module/list/AromaListToolbar";
 import {AromaInventoryProviderControl} from "@/sdk/api/inventory/aroma/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -18,7 +18,7 @@ export default withInventoryLayout(function Index() {
 		icon={<LiquidIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.aroma.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.aroma.favorite.tab"}/>}>
 				<AromaInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

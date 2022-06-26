@@ -1,4 +1,5 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
@@ -7,7 +8,6 @@ import {AtomizerFilter} from "@/puff-smith/site/inventory/atomizer/@module/filte
 import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerInventoryList";
 import {AtomizerListToolbar} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerListToolbar";
 import {AtomizerInventoryProviderControl} from "@/sdk/api/inventory/atomizer/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -18,7 +18,7 @@ export default withInventoryLayout(function Index() {
 		icon={<AtomizerIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.atomizer.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.atomizer.favorite.tab"}/>}>
 				<AtomizerInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

@@ -1,4 +1,5 @@
 import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
@@ -7,7 +8,6 @@ import {BaseFilter} from "@/puff-smith/site/inventory/base/@module/filter/BaseFi
 import {BaseInventoryList} from "@/puff-smith/site/inventory/base/@module/list/BaseInventoryList";
 import {BaseListToolbar} from "@/puff-smith/site/inventory/base/@module/list/BaseListToolbar";
 import {BaseInventoryProviderControl} from "@/sdk/api/inventory/base/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -18,7 +18,7 @@ export default withInventoryLayout(function Index() {
 		icon={<BaseIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.base.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.base.favorite.tab"}/>}>
 				<BaseInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

@@ -1,6 +1,7 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
@@ -87,6 +88,45 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 		}}
 	>
 		<Tabs size={isMobile ? "small" : "large"}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"lab.build.atomizer.coil.favorite.tab"}/>}>
+				<CoilInventoryProviderControl
+					defaultSize={5}
+					defaultOrderBy={[
+						{name: "asc"},
+						{size: "desc"},
+						{wraps: "asc"},
+					] as any}
+					applyFilter={{
+						wire: {
+							WireInventory: {
+								some: {
+									rating: {
+										gt: 0,
+									},
+								},
+							},
+						},
+					}}
+				>
+					<CoilInventoryList
+						header={() => <RowInline>
+							<CoilFilter/>
+						</RowInline>}
+						itemExtra={coil => <ButtonLink
+							href={"/lab/build/create/atomizer/[atomizerId]/coil/[coilId]"}
+							query={{
+								atomizerId: atomizer.id,
+								coilId: coil.id,
+							}}
+							icon={<CoilIcon/>}
+							label={"lab.build.coil.build.button"}
+						/>}
+						locale={{
+							emptyText: <WireListEmpty/>,
+						}}
+					/>
+				</CoilInventoryProviderControl>
+			</Tabs.TabPane>
 			<Tabs.TabPane key={"recommended"} tab={<TabInline icon={<FireOutlined/>} title={"lab.build.atomizer.coil.recommended.tab"}/>}>
 				<CoilInventoryProviderControl
 					defaultSize={5}

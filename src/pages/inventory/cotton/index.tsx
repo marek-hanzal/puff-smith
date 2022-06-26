@@ -1,4 +1,5 @@
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
@@ -6,7 +7,6 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {CottonInventoryList} from "@/puff-smith/site/inventory/cotton/@module/list/CottonInventoryList";
 import {CottonListToolbar} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListToolbar";
 import {CottonInventoryProviderControl} from "@/sdk/api/inventory/cotton/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -17,7 +17,7 @@ export default withInventoryLayout(function Index() {
 		icon={<CottonIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.cotton.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.cotton.favorite.tab"}/>}>
 				<CottonInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

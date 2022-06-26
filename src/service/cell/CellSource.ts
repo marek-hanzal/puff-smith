@@ -30,67 +30,81 @@ export const CellSource = (): ICellSource => {
 				},
 				rejectOnNotFound: true,
 			}),
-			create: async ({type, vendor, code, ...cell}) => {
-				const create = {
-					...cell,
-					code: code || codeService().code(),
-					ohm: cell.drain ? ohmService().toOhm(cell.voltage, cell.drain * 0.75) : undefined,
-					vendor: {
-						connect: {
-							name: vendor,
-						}
-					},
-					type: {
-						connect: {
-							code_group: {
-								code: `${type}`,
-								group: "cell-type",
+			create: async ({type, typeId, vendor, vendorId, code, withInventory = false, ...cell}) => {
+				const $create = async () => {
+					const create = {
+						...cell,
+						code: code || codeService().code(),
+						ohm: cell.drain ? ohmService().toOhm(cell.voltage, cell.drain * 0.75) : undefined,
+						vendor: {
+							connect: {
+								name: vendor,
+								id: vendorId,
 							}
-						}
-					},
-				};
-				try {
-					return await source.prisma.cell.create({
-						data: {
-							...create,
-							user: source.user.optional() ? {
-								connect: {
-									id: source.user.optional(),
-								}
-							} : undefined,
 						},
-						include: {
-							vendor: true,
-							type: true,
+						type: {
+							connect: {
+								code_group: type ? {
+									code: `${type}`,
+									group: "cell-type",
+								} : undefined,
+								id: typeId,
+							}
 						},
-					});
-				} catch (e) {
-					return onUnique(e, async () => source.prisma.cell.update({
-						where: {
-							id: (await source.prisma.cell.findFirst({
-								where: {
-									OR: [
-										{
-											name: create.name,
-											vendor: {
-												name: vendor,
+					};
+					try {
+						return await source.prisma.cell.create({
+							data: {
+								...create,
+								user: source.user.optional() ? {
+									connect: {
+										id: source.user.optional(),
+									}
+								} : undefined,
+							},
+							include: {
+								vendor: true,
+								type: true,
+							},
+						});
+					} catch (e) {
+						return onUnique(e, async () => source.prisma.cell.update({
+							where: {
+								id: (await source.prisma.cell.findFirst({
+									where: {
+										OR: [
+											{
+												name: create.name,
+												vendor: {
+													name: vendor,
+												}
+											},
+											{
+												code: create.code,
 											}
-										},
-										{
-											code: create.code,
-										}
-									],
-								},
-								rejectOnNotFound: true,
-							})).id,
-						},
-						data: create,
-						include: {
-							vendor: true,
-							type: true,
-						},
-					}));
-				}
+										],
+									},
+									rejectOnNotFound: true,
+								})).id,
+							},
+							data: create,
+							include: {
+								vendor: true,
+								type: true,
+							},
+						}));
+					}
+				};
+				const $cell = await $create();
+				withInventory && await source.prisma.cellInventory.createMany({
+					data: [{
+						code: codeService().code(),
+						cellId: $cell.id,
+						userId: source.user.required(),
+					}],
+					skipDuplicates: true,
+				});
+				return $cell;
 			},
 			delete: async ids => {
 				const where = {

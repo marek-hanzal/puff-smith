@@ -404,15 +404,16 @@ model CellInfo {
 }
 
 model CellInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
+  id            String       @id @default(cuid())
+  code          String       @unique
   userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   cellId        String
-  cell          Cell        @relation(fields: [cellId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  cell          Cell         @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
+
   CellInfo      CellInfo[]
 }
 

@@ -1,3 +1,4 @@
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -6,7 +7,6 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {ModInventoryList} from "@/puff-smith/site/inventory/mod/@module/list/ModInventoryList";
 import {ModListToolbar} from "@/puff-smith/site/inventory/mod/@module/list/ModListToolbar";
 import {ModInventoryProviderControl} from "@/sdk/api/inventory/mod/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -17,7 +17,7 @@ export default withInventoryLayout(function Index() {
 		icon={<ModIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.mod.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.mod.favorite.tab"}/>}>
 				<ModInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

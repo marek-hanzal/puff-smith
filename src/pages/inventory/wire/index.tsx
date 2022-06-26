@@ -1,3 +1,4 @@
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
@@ -6,7 +7,6 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {WireInventoryList} from "@/puff-smith/site/inventory/wire/@module/list/WireInventoryList";
 import {WireListToolbar} from "@/puff-smith/site/inventory/wire/@module/list/WireListToolbar";
 import {WireInventoryProviderControl} from "@/sdk/api/inventory/wire/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -17,7 +17,7 @@ export default withInventoryLayout(function Index() {
 		icon={<WireIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.wire.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.wire.favorite.tab"}/>}>
 				<WireInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{

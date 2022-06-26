@@ -1,4 +1,5 @@
 import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
@@ -7,7 +8,6 @@ import {BoosterFilter} from "@/puff-smith/site/inventory/booster/@module/filter/
 import {BoosterInventoryList} from "@/puff-smith/site/inventory/booster/@module/list/BoosterInventoryList";
 import {BoosterListToolbar} from "@/puff-smith/site/inventory/booster/@module/list/BoosterListToolbar";
 import {BoosterInventoryProviderControl} from "@/sdk/api/inventory/booster/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -18,7 +18,7 @@ export default withInventoryLayout(function Index() {
 		icon={<BoosterIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.booster.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.booster.favorite.tab"}/>}>
 				<BoosterInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{
