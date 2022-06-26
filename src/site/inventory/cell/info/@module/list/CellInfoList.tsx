@@ -25,8 +25,8 @@ export const CellInfoList: FC<ICellInfoListProps> = props => {
 		>
 			<ListItemMeta
 				title={<Space split={<Divider type={"vertical"}/>} size={4}>
-					{cellInfo.capacity}
 					<Volt volt={cellInfo.voltage}/>
+					{toHumanNumber(cellInfo.capacity)}
 					<AgeOfInline date={cellInfo.created} tooltip={"inventory.cell.info.age.tooltip"}/>
 				</Space>}
 				description={cellInfo.health && <Progress
