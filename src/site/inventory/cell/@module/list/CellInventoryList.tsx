@@ -1,4 +1,5 @@
 import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
+import {Ohm} from "@/puff-smith/component/inline/Ohm";
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {Tags} from "@/puff-smith/component/Tags";
 import {CellRatingButton} from "@/puff-smith/site/inventory/cell/@module/button/CellRatingButton";
@@ -27,6 +28,7 @@ export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 				title={<Space size={0} split={<Divider type={"vertical"}/>}>
 					<SelectionBool selection={cellInventory}/>
 					<CellNameInline cell={cellInventory.cell}/>
+					<Ohm ohm={cellInventory.cell.ohm} tooltip={"common.cell.ohm.tooltip"}/>
 					<CodeInline code={cellInventory}/>
 					<Tags tags={[cellInventory.cell.type]}/>
 				</Space>}

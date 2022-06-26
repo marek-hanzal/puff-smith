@@ -1,5 +1,6 @@
 import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
+import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {CoilIcon} from "@/puff-smith/component/icon/CoilIcon";
 import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
@@ -40,6 +41,12 @@ export const BuildIndexMenu: FC<IBuildIndexMenuProps> = ({build, ...props}) => {
 				title: "lab.build.coil.menu",
 				href: "/lab/build/[buildId]/coil",
 				icon: <CoilIcon/>,
+				query,
+			}),
+			CreateMenuItem({
+				title: "lab.build.cells.menu",
+				href: "/lab/build/[buildId]/cells",
+				icon: <CellIcon/>,
 				query,
 			}),
 			CreateMenuItem({

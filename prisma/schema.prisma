@@ -77,6 +77,7 @@ model User {
   UserLicenseRequestUser         UserLicenseRequest[]     @relation("UserLicenseRequestUser")
   UserLicenseRequestApprover     UserLicenseRequest[]     @relation("UserLicenseRequestApprover")
   Vendor                         Vendor[]
+  CellInfo                       CellInfo[]
 }
 
 model VerificationToken {
@@ -369,6 +370,7 @@ model Cell {
   drain    Float?
   ohm      Float?
   cost     Float
+  capacity Int?
   typeId   String
   type     Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
   vendorId String
@@ -378,8 +380,26 @@ model Cell {
 
   CellInventory CellInventory[]
   CellComment   CellComment[]
+  CellInfo      CellInfo[]
 
   @@unique([name, vendorId])
+}
+
+model CellInfo {
+  id              String        @id @default(cuid())
+  cellId          String
+  cell            Cell          @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  cellInventoryId String
+  cellInventory   CellInventory @relation(fields: [cellInventoryId], references: [id], onDelete: Cascade)
+  userId          String
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  capacity        Int?
+  capacityRatio   Float?
+  voltage         Int?
+  voltageRatio    Float?
+  // health is a combination of capacity and voltage percentage
+  health          Float?
+  created         DateTime
 }
 
 model CellInventory {
@@ -392,6 +412,7 @@ model CellInventory {
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
+  CellInfo      CellInfo[]
 }
 
 model CellComment {

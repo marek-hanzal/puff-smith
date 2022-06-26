@@ -1,4 +1,5 @@
 import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
+import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
@@ -6,7 +7,6 @@ import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/la
 import {CellInventoryList} from "@/puff-smith/site/inventory/cell/@module/list/CellInventoryList";
 import {CellListToolbar} from "@/puff-smith/site/inventory/cell/@module/list/CellListToolbar";
 import {CellInventoryProviderControl} from "@/sdk/api/inventory/cell/query";
-import {FireOutlined} from "@ant-design/icons";
 import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
@@ -17,7 +17,7 @@ export default withInventoryLayout(function Index() {
 		icon={<CellIcon/>}
 	>
 		<Tabs size={"large"} destroyInactiveTabPane>
-			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FireOutlined/>} title={"inventory.cell.favorite.tab"}/>}>
+			<Tabs.TabPane key={"favorite"} tab={<TabInline icon={<FavoriteIcon/>} title={"inventory.cell.favorite.tab"}/>}>
 				<CellInventoryProviderControl
 					defaultSize={DEFAULT_LIST_SIZE}
 					applyFilter={{
