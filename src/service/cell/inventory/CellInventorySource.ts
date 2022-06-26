@@ -16,7 +16,7 @@ export const CellInventorySource = (): ICellInventorySource => {
 		map: async cellInventory => cellInventory ? {
 			...cellInventory,
 			cell: await cellSource().mapper.map(cellInventory.cell),
-			transaction: await transactionSource().mapper.map(cellInventory.transaction),
+			transaction: await transactionSource().map(cellInventory.transaction),
 		} : null,
 		source: {
 			get: async id => source.prisma.cellInventory.findUnique({

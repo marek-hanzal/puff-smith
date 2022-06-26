@@ -1,5 +1,5 @@
 import {ICell, IWithCell, IWithCellType} from "@/puff-smith/service/cell/interface";
-import {ITransaction, IWithTransaction} from "@/puff-smith/service/transaction/interface";
+import {ITransaction, IWithNullTransaction} from "@/puff-smith/service/transaction/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {CellInventory, Prisma} from "@prisma/client";
@@ -15,8 +15,8 @@ export interface ICellInventory {
 	code: string;
 	cell: ICell;
 	cellId: string;
-	transaction: ITransaction;
-	transactionId: string;
+	transaction?: ITransaction | null;
+	transactionId?: string | null;
 	rating?: number | null;
 }
 
@@ -34,5 +34,7 @@ export interface ICellInventoryFetchParams extends ParsedUrlQuery {
 	cellInventoryId: string;
 }
 
-export interface ICellInventorySource extends ISource<ICellInventoryCreate, ICellInventoryEntity<IWithCell<IWithVendor & IWithCellType> & IWithTransaction>, ICellInventory, ICellInventoryQuery, ICellInventoryFetch, ICellInventoryFetchParams> {
+export type ICellInventorySourceEntity = ICellInventoryEntity<IWithCell<IWithVendor & IWithCellType> & IWithNullTransaction>;
+
+export interface ICellInventorySource extends ISource<ICellInventoryCreate, ICellInventorySourceEntity, ICellInventory, ICellInventoryQuery, ICellInventoryFetch, ICellInventoryFetchParams> {
 }
