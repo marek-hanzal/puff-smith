@@ -20,7 +20,7 @@ export const ModSource = (): IModSource => {
 			cells: await tagSource().mapper.list(Promise.resolve(mod.ModCell.map(item => item.cell))),
 		} : null,
 		source: {
-			get: async id => source.prisma.mod.findUnique({
+			get: async id => source.prisma.mod.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
@@ -30,7 +30,6 @@ export const ModSource = (): IModSource => {
 						}
 					},
 				},
-				rejectOnNotFound: true,
 			}),
 			create: async ({vendor, cells, code, ...mod}) => {
 				const create = {
@@ -70,7 +69,7 @@ export const ModSource = (): IModSource => {
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $mod = (await source.prisma.mod.findFirst({
+						const $mod = (await source.prisma.mod.findFirstOrThrow({
 							where: {
 								OR: [
 									{
@@ -84,7 +83,6 @@ export const ModSource = (): IModSource => {
 									}
 								]
 							},
-							rejectOnNotFound: true,
 						}));
 						await source.prisma.modCell.deleteMany({
 							where: {

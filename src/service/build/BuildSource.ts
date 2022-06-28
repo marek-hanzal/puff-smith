@@ -28,7 +28,7 @@ export const BuildSource = (): IBuildSource => {
 			cotton: await cottonSource().mapper.map(build.cotton),
 		} : null,
 		source: {
-			get: async id => source.prisma.build.findUnique({
+			get: async id => source.prisma.build.findUniqueOrThrow({
 				where: {id},
 				include: {
 					atomizer: {
@@ -65,16 +65,16 @@ export const BuildSource = (): IBuildSource => {
 									WireDraw: {
 										orderBy: {draw: {sort: "asc"}},
 										include: {
-												draw: true,
-											}
+											draw: true,
 										}
 									}
 								}
 							}
-						},
-						cotton: {
-							include: {
-								vendor: true,
+						}
+					},
+					cotton: {
+						include: {
+							vendor: true,
 								CottonDraw: {
 									orderBy: {draw: {sort: "asc"}},
 									include: {
@@ -84,7 +84,6 @@ export const BuildSource = (): IBuildSource => {
 							},
 						},
 					},
-					rejectOnNotFound: true,
 				}),
 				count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.build.count({
 					where: merge(filter, {

@@ -136,7 +136,7 @@ export const JobSource = (): IJobSource => {
 				const jobProgress = jobSource.createProgress(job.id);
 				setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
 					try {
-						await prisma.job.findUnique({where: {id: job.id}, rejectOnNotFound: true});
+						await prisma.job.findUniqueOrThrow({where: {id: job.id}});
 						await jobProgress.setStatus("RUNNING");
 						resolve(await handler({
 							name,

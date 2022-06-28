@@ -31,7 +31,7 @@ export const CertificateSource = (): ICertificateSource => {
 			};
 		},
 		source: {
-			get: async id => source.prisma.certificate.findUnique({
+			get: async id => source.prisma.certificate.findUniqueOrThrow({
 				where: {id},
 				include: {
 					CertificateToken: {
@@ -61,7 +61,6 @@ export const CertificateSource = (): ICertificateSource => {
 						},
 					},
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.certificate.count({
 				where: merge(filter, {
@@ -189,7 +188,7 @@ export const CertificateSource = (): ICertificateSource => {
 						return source.patch({
 							...$create,
 							tokens,
-							id: (await source.prisma.certificate.findFirst({
+							id: (await source.prisma.certificate.findFirstOrThrow({
 								where: {
 									OR: [
 										{code: $create.code},
@@ -199,7 +198,6 @@ export const CertificateSource = (): ICertificateSource => {
 								select: {
 									id: true,
 								},
-								rejectOnNotFound: true,
 							})).id
 						});
 					});

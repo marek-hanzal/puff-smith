@@ -27,7 +27,7 @@ export const CoilSource = (): ICoilSource => {
 			};
 		},
 		source: {
-			get: async id => source.prisma.coil.findUnique({
+			get: async id => source.prisma.coil.findUniqueOrThrow({
 				where: {id},
 				include: {
 					wire: {
@@ -56,7 +56,6 @@ export const CoilSource = (): ICoilSource => {
 						},
 					},
 				},
-				rejectOnNotFound: true,
 			}),
 			create: async ({code, name, draws, drawIds, wire, wireId, ...coil}) => {
 				const $wire = await wireSource().fetchByReference({wire, wireId});
@@ -119,7 +118,7 @@ export const CoilSource = (): ICoilSource => {
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $coil = await source.prisma.coil.findFirst({
+						const $coil = await source.prisma.coil.findFirstOrThrow({
 							where: {
 								OR: [
 									{
@@ -131,7 +130,6 @@ export const CoilSource = (): ICoilSource => {
 									}
 								],
 							},
-							rejectOnNotFound: true,
 						});
 						await source.prisma.coilDraw.deleteMany({
 							where: {

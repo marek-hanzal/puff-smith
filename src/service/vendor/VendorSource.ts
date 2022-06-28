@@ -19,11 +19,10 @@ export const VendorSource = (): IVendorSource => {
 						},
 					});
 				} catch (e) {
-					return onUnique(e, async () => source.prisma.vendor.findFirst({
+					return onUnique(e, async () => source.prisma.vendor.findFirstOrThrow({
 						where: {
 							name: create.name,
 						},
-						rejectOnNotFound: true,
 					}));
 				}
 			},
@@ -66,13 +65,12 @@ export const VendorSource = (): IVendorSource => {
 			if (!vendor && !vendorId) {
 				throw new Error(`Provide [vendor] or [vendorId].`);
 			}
-			return source.prisma.vendor.findUnique({
+			return source.prisma.vendor.findUniqueOrThrow({
 				where: vendorId ? {
 					id: vendorId,
 				} : {
 					name: vendor,
 				},
-				rejectOnNotFound: true,
 			});
 		},
 		fetchByReferenceOptional: async fetch => {

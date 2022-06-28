@@ -34,7 +34,7 @@ export const PriceSource = (): IPriceSource => {
 				}
 			}),
 		},
-		priceOf: async (tariff, price) => source.prisma.price.findFirst({
+		priceOf: async (tariff, price) => source.prisma.price.findFirstOrThrow({
 			where: {
 				name: price,
 				tariff: {
@@ -51,7 +51,6 @@ export const PriceSource = (): IPriceSource => {
 					created: "desc",
 				},
 			],
-			rejectOnNotFound: true,
 		}),
 		amountOf: async (tariff, price, fallback) => {
 			try {

@@ -22,13 +22,12 @@ export const CellSource = (): ICellSource => {
 			type: await tagSource().mapper.map(cell.type),
 		} : null,
 		source: {
-			get: async id => source.prisma.cell.findUnique({
+			get: async id => source.prisma.cell.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
 					type: true,
 				},
-				rejectOnNotFound: true,
 			}),
 			create: async ({type, typeId, vendor, vendorId, code, withInventory = false, ...cell}) => {
 				const $create = async () => {
@@ -70,7 +69,7 @@ export const CellSource = (): ICellSource => {
 					} catch (e) {
 						return onUnique(e, async () => source.prisma.cell.update({
 							where: {
-								id: (await source.prisma.cell.findFirst({
+								id: (await source.prisma.cell.findFirstOrThrow({
 									where: {
 										OR: [
 											{
@@ -84,7 +83,6 @@ export const CellSource = (): ICellSource => {
 											}
 										],
 									},
-									rejectOnNotFound: true,
 								})).id,
 							},
 							data: create,

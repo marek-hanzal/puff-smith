@@ -54,7 +54,7 @@ export const UserSource = (): IUserSource => {
 			};
 		},
 		source: {
-			get: async id => await source.prisma.user.findUnique({
+			get: async id => await source.prisma.user.findUniqueOrThrow({
 				where: {id},
 				include: {
 					UserToken: {
@@ -97,7 +97,6 @@ export const UserSource = (): IUserSource => {
 						},
 					},
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async () => source.prisma.user.count({}),
 			query: async ({orderBy, ...query}) => source.prisma.user.findMany({

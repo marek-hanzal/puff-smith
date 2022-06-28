@@ -27,7 +27,7 @@ export const LiquidSource = (): ILiquidSource => {
 			mixture: await mixtureSource().mapper.map(liquid.mixture),
 		} : null,
 		source: {
-			get: async id => source.prisma.liquid.findUnique({
+			get: async id => source.prisma.liquid.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
@@ -64,7 +64,6 @@ export const LiquidSource = (): ILiquidSource => {
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.count({
 				where: merge(filter, {
@@ -121,11 +120,10 @@ export const LiquidSource = (): ILiquidSource => {
 					price: "lab.liquid.create",
 					note: "New liquid",
 					callback: async (_, transaction) => {
-						const $mixture = await prisma.mixture.findUnique({
+						const $mixture = await prisma.mixture.findUniqueOrThrow({
 							where: {
 								id: liquid.mixtureId,
 							},
-							rejectOnNotFound: true,
 						});
 						return prisma.liquid.create({
 							data: {
@@ -233,21 +231,18 @@ export const LiquidSource = (): ILiquidSource => {
 			}
 		},
 		standalone: async ({aromaId, boosterId, baseId, code, mixed, nicotine}) => {
-			const $aromaInventory = await source.prisma.aromaInventory.findFirst({
+			const $aromaInventory = await source.prisma.aromaInventory.findFirstOrThrow({
 				where: {aromaId},
-				rejectOnNotFound: true,
 				include: {
 					aroma: true,
 				}
 			});
 			const $aroma = $aromaInventory.aroma;
-			const $booster = boosterId ? await source.prisma.booster.findFirst({
+			const $booster = boosterId ? await source.prisma.booster.findFirstOrThrow({
 				where: {id: boosterId},
-				rejectOnNotFound: true,
 			}) : undefined;
-			const $base = baseId ? await source.prisma.base.findFirst({
+			const $base = baseId ? await source.prisma.base.findFirstOrThrow({
 				where: {id: baseId},
-				rejectOnNotFound: true,
 			}) : undefined;
 			$booster?.id && await source.prisma.boosterInventory.createMany({
 				data: [{
@@ -257,12 +252,11 @@ export const LiquidSource = (): ILiquidSource => {
 				}],
 				skipDuplicates: true,
 			});
-			const $boosterInventory = $booster?.id ? await source.prisma.boosterInventory.findFirst({
+			const $boosterInventory = $booster?.id ? await source.prisma.boosterInventory.findFirstOrThrow({
 				where: {
 					boosterId: $booster.id,
 					userId: source.user.required(),
 				},
-				rejectOnNotFound: true,
 			}) : undefined;
 			$base?.id ? await source.prisma.baseInventory.createMany({
 				data: [{
@@ -272,12 +266,11 @@ export const LiquidSource = (): ILiquidSource => {
 				}],
 				skipDuplicates: true,
 			}) : undefined;
-			const $baseInventory = $base?.id ? await source.prisma.baseInventory.findFirst({
+			const $baseInventory = $base?.id ? await source.prisma.baseInventory.findFirstOrThrow({
 				where: {
 					baseId: $base.id,
 					userId: source.user.required(),
 				},
-				rejectOnNotFound: true,
 			}) : undefined;
 			const $info = toMixtureInfo({
 				aroma: $aroma,

@@ -31,7 +31,7 @@ export const LicenseSource = (): ILicenseSource => {
 			};
 		},
 		source: {
-			get: async id => source.prisma.license.findUnique({
+			get: async id => source.prisma.license.findUniqueOrThrow({
 				where: {id},
 				include: {
 					LicenseToken: {
@@ -61,7 +61,6 @@ export const LicenseSource = (): ILicenseSource => {
 						},
 					},
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.license.count({
 				where: merge(filter, {
@@ -191,7 +190,7 @@ export const LicenseSource = (): ILicenseSource => {
 						return source.patch({
 							...$create,
 							tokens,
-							id: (await source.prisma.license.findFirst({
+							id: (await source.prisma.license.findFirstOrThrow({
 								where: {
 									OR: [
 										{code: $create.code},
@@ -201,7 +200,6 @@ export const LicenseSource = (): ILicenseSource => {
 								select: {
 									id: true,
 								},
-								rejectOnNotFound: true,
 							})).id
 						});
 					});

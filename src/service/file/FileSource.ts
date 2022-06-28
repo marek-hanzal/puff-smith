@@ -13,9 +13,8 @@ export const FileSource = (): IFileSource => {
 			ttl: file.ttl || undefined,
 		} : null,
 		source: {
-			get: async id => source.prisma.file.findUnique({
+			get: async id => source.prisma.file.findUniqueOrThrow({
 				where: {id},
-				rejectOnNotFound: true,
 			}),
 		}
 	});

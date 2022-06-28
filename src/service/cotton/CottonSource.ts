@@ -26,7 +26,7 @@ export const CottonSource = (): ICottonSource => {
 			};
 		},
 		source: {
-			get: async id => source.prisma.cotton.findUnique({
+			get: async id => source.prisma.cotton.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
@@ -37,7 +37,6 @@ export const CottonSource = (): ICottonSource => {
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			create: async ({vendor, vendorId, draws, code, withInventory = false, ...cotton}) => {
 				const $create = async () => {
@@ -80,7 +79,7 @@ export const CottonSource = (): ICottonSource => {
 						});
 					} catch (e) {
 						return onUnique(e, async () => {
-							const $cotton = (await source.prisma.cotton.findFirst({
+							const $cotton = (await source.prisma.cotton.findFirstOrThrow({
 								where: {
 									OR: [
 										{
@@ -94,7 +93,6 @@ export const CottonSource = (): ICottonSource => {
 										}
 									]
 								},
-								rejectOnNotFound: true,
 							}));
 							await source.prisma.cottonDraw.deleteMany({
 								where: {

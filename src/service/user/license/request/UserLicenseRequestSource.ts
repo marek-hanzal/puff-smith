@@ -20,7 +20,7 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 			license: await licenseSource().mapper.map(userLicenseRequest.license),
 		} : null,
 		source: {
-			get: async id => source.prisma.userLicenseRequest.findUnique({
+			get: async id => source.prisma.userLicenseRequest.findUniqueOrThrow({
 				where: {id},
 				include: {
 					user: true,
@@ -34,7 +34,6 @@ export const UserLicenseRequestSource = (): IUserLicenseRequestSource => {
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter}) => source.prisma.userLicenseRequest.count({
 				where: filter,

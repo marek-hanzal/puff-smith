@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["interactiveTransactions", "extendedIndexes", "improvedQueryRaw"]
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -204,6 +204,7 @@ model Comment {
   BuildComment             BuildComment[]
   AromaInventoryComment    AromaInventoryComment[]
   AtomizerInventoryComment AtomizerInventoryComment[]
+  CellInventoryComment     CellInventoryComment[]
 }
 
 model Tag {
@@ -414,7 +415,16 @@ model CellInventory {
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
-  CellInfo      CellInfo[]
+  CellInfo             CellInfo[]
+  CellInventoryComment CellInventoryComment[]
+}
+
+model CellInventoryComment {
+  id              String        @id @default(cuid())
+  cellInventoryId String
+  cellInventory   CellInventory @relation(fields: [cellInventoryId], references: [id], onDelete: Cascade)
+  commentId       String
+  comment         Comment       @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model CellComment {

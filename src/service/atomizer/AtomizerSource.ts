@@ -30,7 +30,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 			user: await userSource().map(atomizer.user) || null,
 		} : null,
 		source: {
-			get: async id => source.prisma.atomizer.findUnique({
+			get: async id => source.prisma.atomizer.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
@@ -42,7 +42,6 @@ export const AtomizerSource = (): IAtomizerSource => {
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			create: async ({draws, type, typeId, vendor, vendorId, drawIds, code, withInventory = false, ...atomizer}) => {
 				const $canUpdate = source.user.hasAny([
@@ -106,7 +105,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 							if (!$canUpdate) {
 								throw new ClientError("Atomizer already exists.", 409);
 							}
-							const $atomizer = (await source.prisma.atomizer.findFirst({
+							const $atomizer = (await source.prisma.atomizer.findFirstOrThrow({
 								where: {
 									OR: [
 										{
@@ -120,7 +119,6 @@ export const AtomizerSource = (): IAtomizerSource => {
 										}
 									]
 								},
-								rejectOnNotFound: true,
 							}));
 							await source.prisma.atomizerDraw.deleteMany({
 								where: {

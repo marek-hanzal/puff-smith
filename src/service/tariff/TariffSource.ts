@@ -37,11 +37,10 @@ export const TariffSource = (): ITariffSource => {
 				} catch (e) {
 					return onUnique(e, async () => source.prisma.tariff.update({
 						where: {
-							id: (await source.prisma.tariff.findUnique({
+							id: (await source.prisma.tariff.findUniqueOrThrow({
 								where: {
 									code: create.code,
 								},
-								rejectOnNotFound: true,
 							})).id,
 						},
 						data: create,
@@ -62,11 +61,10 @@ export const TariffSource = (): ITariffSource => {
 			return transactionSource().ofSource(source).handleTransaction({
 				userId,
 				cost: $price.price.toNumber(),
-				callback: async transaction => callback(await source.prisma.tariff.findFirst({
+				callback: async transaction => callback(await source.prisma.tariff.findFirstOrThrow({
 					where: {
 						id: $price.tariffId,
 					},
-					rejectOnNotFound: true,
 				}), transaction),
 				note
 			});

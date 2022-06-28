@@ -28,7 +28,7 @@ export const AromaSource = (): IAromaSource => {
 			clearCache: async () => {
 				await aromaMarketSource().clearCache();
 			},
-			get: async id => source.prisma.aroma.findUnique({
+			get: async id => source.prisma.aroma.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
@@ -39,7 +39,6 @@ export const AromaSource = (): IAromaSource => {
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
 				where: merge(filter || {}, {
@@ -141,7 +140,7 @@ export const AromaSource = (): IAromaSource => {
 							if (!$canUpdate) {
 								throw new ClientError("Aroma already exists.", 409);
 							}
-							const $aroma = await source.prisma.aroma.findFirst({
+							const $aroma = await source.prisma.aroma.findFirstOrThrow({
 								where: {
 									OR: [
 										{
@@ -155,7 +154,6 @@ export const AromaSource = (): IAromaSource => {
 										}
 									],
 								},
-								rejectOnNotFound: true,
 							});
 							await source.prisma.aromaTaste.deleteMany({
 								where: {

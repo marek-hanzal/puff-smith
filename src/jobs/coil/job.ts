@@ -26,7 +26,7 @@ export const CoilsJob: IJobProcessor<ICoilsJobParams> = jobService.processor(COI
 }));
 
 export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_JOB, async ({jobProgress, job: {params: {wireId}, userId}, logger, progress}) => {
-	const wire = await prisma.wire.findUnique({
+	const wire = await prisma.wire.findUniqueOrThrow({
 		where: {
 			id: wireId,
 		},
@@ -37,7 +37,6 @@ export const CoilJob: IJobProcessor<ICoilJobParams> = jobService.processor(COIL_
 				}
 			},
 		},
-		rejectOnNotFound: true,
 	});
 	logger.debug(`Updating coils of wire [${wire.name}].`);
 	await jobProgress.setTotal(96);

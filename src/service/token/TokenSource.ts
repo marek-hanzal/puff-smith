@@ -34,11 +34,10 @@ export const TokenSource = (): ITokenSource => {
 						},
 					});
 				} catch (e) {
-					return onUnique(e, async () => source.prisma.token.findFirst({
+					return onUnique(e, async () => source.prisma.token.findFirstOrThrow({
 						where: {
 							name,
 						},
-						rejectOnNotFound: true,
 					}));
 				}
 			}

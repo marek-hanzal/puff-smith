@@ -8,9 +8,8 @@ export const TagSource = (): ITagSource => {
 		prisma,
 		map: async tag => tag || null,
 		source: {
-			get: async id => source.prisma.tag.findUnique({
+			get: async id => source.prisma.tag.findUniqueOrThrow({
 				where: {id},
-				rejectOnNotFound: true,
 			}),
 			query: async ({filter, orderBy, ...query}) => source.prisma.tag.findMany({
 				where: filter,
@@ -29,12 +28,11 @@ export const TagSource = (): ITagSource => {
 				} catch (e) {
 					return onUnique(e, async () => source.prisma.tag.update({
 						where: {
-							id: (await source.prisma.tag.findFirst({
+							id: (await source.prisma.tag.findFirstOrThrow({
 								where: {
 									code: `${create.code}`,
 									group: create.group,
 								},
-								rejectOnNotFound: true,
 							})).id,
 						},
 						data: create,
@@ -69,7 +67,7 @@ export const TagSource = (): ITagSource => {
 			if (!code && !tagId) {
 				throw new Error(`Provide [code] or [tagId] in group [${group}].`);
 			}
-			return source.prisma.tag.findUnique({
+			return source.prisma.tag.findUniqueOrThrow({
 				where: tagId ? {
 					id: tagId,
 				} : {
@@ -78,7 +76,6 @@ export const TagSource = (): ITagSource => {
 						code: code!,
 					}
 				},
-				rejectOnNotFound: true,
 			});
 		},
 	});

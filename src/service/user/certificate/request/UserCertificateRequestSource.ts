@@ -20,7 +20,7 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 			certificate: await certificateSource().mapper.map(userCertificateRequest.certificate),
 		} : null,
 		source: {
-			get: async id => source.prisma.userCertificateRequest.findUnique({
+			get: async id => source.prisma.userCertificateRequest.findUniqueOrThrow({
 				where: {id},
 				include: {
 					user: true,
@@ -34,7 +34,6 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter}) => source.prisma.userCertificateRequest.count({
 				where: filter,

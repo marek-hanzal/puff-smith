@@ -47,11 +47,10 @@ export const MixtureJobSource = (): IMixtureJobSource => {
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $mixture = await source.prisma.mixture.findUnique({
+						const $mixture = await source.prisma.mixture.findUniqueOrThrow({
 							where: {
 								hash: create.hash,
 							},
-							rejectOnNotFound: true,
 						});
 						await source.prisma.mixtureDraw.deleteMany({
 							where: {

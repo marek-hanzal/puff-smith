@@ -60,7 +60,7 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 			}),
 		},
 		generateFor: async ({buildId, liquidId}) => {
-			const liquid = await source.prisma.liquid.findFirst({
+			const liquid = await source.prisma.liquid.findFirstOrThrow({
 				where: {
 					id: liquidId,
 					userId: source.user.required(),
@@ -74,7 +74,6 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 						}
 					}
 				},
-				rejectOnNotFound: true,
 			});
 
 			await source.prisma.buildLiquidTasteRating.createMany({

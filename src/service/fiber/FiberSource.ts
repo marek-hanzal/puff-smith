@@ -71,7 +71,7 @@ export const FiberSource = (): IFiberSource => {
 					});
 				} catch (e) {
 					return onUnique(e, async () => {
-						const $fiber = (await source.prisma.fiber.findFirst({
+						const $fiber = (await source.prisma.fiber.findFirstOrThrow({
 							where: {
 								OR: [
 									{
@@ -83,7 +83,6 @@ export const FiberSource = (): IFiberSource => {
 									},
 								],
 							},
-							rejectOnNotFound: true,
 						}));
 						return source.prisma.fiber.update({
 							where: {
@@ -98,14 +97,13 @@ export const FiberSource = (): IFiberSource => {
 				}
 			},
 		},
-		fetchByCode: async code => source.prisma.fiber.findFirst({
+		fetchByCode: async code => source.prisma.fiber.findFirstOrThrow({
 			where: {
 				OR: [
 					{code},
 					{id: code},
 				],
 			},
-			rejectOnNotFound: true,
 			include: {
 				material: true,
 			},

@@ -25,9 +25,8 @@ export const CellInfoSource = (): ICellInfoSource => {
 				...pageOf(query),
 			}),
 			create: async ({cellId, cellInventoryId, voltage, capacity}) => {
-				const $cell = await source.prisma.cell.findUnique({
+				const $cell = await source.prisma.cell.findUniqueOrThrow({
 					where: {id: cellId},
-					rejectOnNotFound: true,
 				});
 				const voltageRatio = voltage && $cell.voltageMax ? toPercent(voltage, $cell.voltageMax) : undefined;
 				const capacityRatio = capacity && $cell.capacity ? toPercent(capacity, $cell.capacity) : undefined;

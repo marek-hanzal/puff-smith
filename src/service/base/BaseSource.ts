@@ -17,12 +17,11 @@ export const BaseSource = (): IBaseSource => {
 			vendor: await vendorSource().mapper.map(base.vendor),
 		}) : null,
 		source: {
-			get: async id => source.prisma.base.findUnique({
+			get: async id => source.prisma.base.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
 				where: merge(filter, {
@@ -97,7 +96,7 @@ export const BaseSource = (): IBaseSource => {
 					} catch (e) {
 						return onUnique(e, async () => source.prisma.base.update({
 							where: {
-								id: (await source.prisma.base.findFirst({
+								id: (await source.prisma.base.findFirstOrThrow({
 									where: {
 										OR: [
 											{
@@ -111,7 +110,6 @@ export const BaseSource = (): IBaseSource => {
 											}
 										]
 									},
-									rejectOnNotFound: true,
 								})).id,
 							},
 							data: base,

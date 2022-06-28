@@ -19,7 +19,7 @@ export const CellInventorySource = (): ICellInventorySource => {
 			transaction: await transactionSource().map(cellInventory.transaction),
 		} : null,
 		source: {
-			get: async id => source.prisma.cellInventory.findUnique({
+			get: async id => source.prisma.cellInventory.findUniqueOrThrow({
 				where: {id},
 				include: {
 					cell: {
@@ -30,7 +30,6 @@ export const CellInventorySource = (): ICellInventorySource => {
 					},
 					transaction: true,
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cellInventory.count({
 				where: merge(filter, {

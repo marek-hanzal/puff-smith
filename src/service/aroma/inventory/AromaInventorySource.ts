@@ -32,7 +32,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 				await aromaMarketSource().clearCache();
 				await mixtureInventorySource().clearCache();
 			},
-			get: async id => source.prisma.aromaInventory.findUnique({
+			get: async id => source.prisma.aromaInventory.findUniqueOrThrow({
 				where: {id},
 				include: {
 					aroma: {
@@ -48,7 +48,6 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					},
 					transaction: true,
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aromaInventory.count({
 				where: merge(filter, {

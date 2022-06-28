@@ -49,11 +49,10 @@ export const MixturesJob: IJobProcessor<IMixturesJobParams> = jobService.process
 
 export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor(MIXTURE_JOB, async ({jobProgress, params: {aromaId}, userId, logger, progress}) => {
 	logger.debug(`Updating mixture of aroma [${aromaId}].`);
-	const aroma = await prisma.aroma.findUnique({
+	const aroma = await prisma.aroma.findUniqueOrThrow({
 		where: {
 			id: aromaId,
 		},
-		rejectOnNotFound: true
 	});
 	const maxNicotine = ((await prisma.booster.aggregate({
 		_max: {

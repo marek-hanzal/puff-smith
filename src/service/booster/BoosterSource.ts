@@ -17,12 +17,11 @@ export const BoosterSource = (): IBoosterSource => {
 			vendor: await vendorSource().mapper.map(booster.vendor),
 		}) : null,
 		source: {
-			get: async id => source.prisma.booster.findUnique({
+			get: async id => source.prisma.booster.findUniqueOrThrow({
 				where: {id},
 				include: {
 					vendor: true,
 				},
-				rejectOnNotFound: true,
 			}),
 			count: async ({filter}) => source.prisma.booster.count({
 				where: {
@@ -97,7 +96,7 @@ export const BoosterSource = (): IBoosterSource => {
 					} catch (e) {
 						return onUnique(e, async () => source.prisma.booster.update({
 							where: {
-								id: (await source.prisma.booster.findFirst({
+								id: (await source.prisma.booster.findFirstOrThrow({
 									where: {
 										OR: [
 											{
@@ -111,7 +110,6 @@ export const BoosterSource = (): IBoosterSource => {
 											}
 										]
 									},
-									rejectOnNotFound: true,
 								})).id,
 							},
 							data: create,
