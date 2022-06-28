@@ -14,6 +14,7 @@ export const CommentList: FC<ICommentListProps> = props => {
 			icon={<CommentOutlined/>}
 			label={"shared.comment.empty"}
 		/>}
+		withLoading={"isLoading"}
 		{...props}
 	>
 		{aromaComment => <CommentItem

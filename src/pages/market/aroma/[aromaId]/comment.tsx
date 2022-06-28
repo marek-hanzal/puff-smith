@@ -92,12 +92,10 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 						}}
 					>
 						<AromaInventoryCommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.private.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.private.empty"}
+							/>}
 						/>
 					</AromaInventoryCommentProviderControl>
 				</Tabs.TabPane>
