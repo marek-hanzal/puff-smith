@@ -64,7 +64,7 @@ export const LicenseSource = (): ILicenseSource => {
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.license.count({
 				where: merge(filter, {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
 								contains: fulltext,
@@ -77,7 +77,7 @@ export const LicenseSource = (): ILicenseSource => {
 								mode: "insensitive",
 							},
 						},
-					],
+					] : undefined,
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.license.findMany({

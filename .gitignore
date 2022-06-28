@@ -2,6 +2,7 @@
 /.next/
 /build
 /dist
+/.swc
 .env.development.local
 .env.production.local
 ~*.xlsx

@@ -24,6 +24,7 @@ export const JobList: FC<IJobListProps> = ({showCommit = true, showCleanup = tru
 		providerProps={{
 			live: 2500,
 		}}
+		withLoading={"isLoading"}
 		itemLayout={"vertical"}
 		header={disableToolbar ? undefined : (() => <JobListHeader
 			showCommit={showCommit}

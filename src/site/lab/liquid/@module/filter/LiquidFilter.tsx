@@ -1,4 +1,5 @@
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
+import {AromaVendorSelect} from "@/puff-smith/site/inventory/aroma/@module/form/AromaVendorSelect";
 import {LiquidAromaSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidAromaSelect";
 import {LiquidBaseSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBaseSelect";
 import {LiquidBoosterSelect} from "@/puff-smith/site/lab/liquid/@module/form/LiquidBoosterSelect";
@@ -16,16 +17,25 @@ export const LiquidFilter: FC<ILiquidFilterProps> = ({applyFilter, ...props}) =>
 		spaceProps={{
 			size: 0,
 		}}
-		toFilter={({aromaId, boosterId, baseId, ...values}) => ({
+		toFilter={({vendorId, aromaId, boosterId, baseId, ...values}) => ({
 			...values,
 			mixture: {
 				aromaId,
 				boosterId,
 				baseId,
+				aroma: {
+					vendorId,
+				}
 			},
 		})}
 		{...props}
 	>
+		<FormItem field={"vendorId"}>
+			<AromaVendorSelect
+				allowClear
+				applyFilter={applyFilter}
+			/>
+		</FormItem>
 		<FormItem field={"aromaId"}>
 			<LiquidAromaSelect
 				allowClear

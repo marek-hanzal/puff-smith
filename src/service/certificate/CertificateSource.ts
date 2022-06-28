@@ -64,7 +64,7 @@ export const CertificateSource = (): ICertificateSource => {
 			}),
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.certificate.count({
 				where: merge(filter, {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
 								contains: fulltext,
@@ -77,7 +77,7 @@ export const CertificateSource = (): ICertificateSource => {
 								mode: "insensitive",
 							},
 						},
-					],
+					] : undefined,
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.certificate.findMany({
