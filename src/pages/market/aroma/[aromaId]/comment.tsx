@@ -27,9 +27,6 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 		onBack={navigate => navigate("/market/aroma")}
 		menuSelection={["/market/aroma", "/market/aroma/[aromaId]/comment"]}
 		icon={<CommentOutlined/>}
-		headerProps={{
-			footer: <AromaIndexMenu aroma={aroma}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/market"}
@@ -51,6 +48,7 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 				label={"market.aroma.comment.label"}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aroma={aroma}/>}
 	>
 		<Template
 			span={22}
@@ -70,16 +68,14 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 						}}
 					>
 						<AromaCommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.empty"}
-									extra={<>
-										<Divider/>
-										<CommentCreateForm aroma={aroma}/>
-									</>}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.empty"}
+								extra={<>
+									<Divider/>
+									<CommentCreateForm aroma={aroma}/>
+								</>}
+							/>}
 						/>
 					</AromaCommentProviderControl>
 				</Tabs.TabPane>

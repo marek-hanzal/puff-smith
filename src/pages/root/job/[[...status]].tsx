@@ -102,9 +102,7 @@ export default withRootLayout(function Index() {
 		title={"root.job"}
 		menuSelection={["/root/job", "/root/job/" + (status || "running")]}
 		icon={<JobIcon/>}
-		headerProps={{
-			footer: <JobMenu/>,
-		}}
+		footer={<JobMenu/>}
 	>
 		<JobProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

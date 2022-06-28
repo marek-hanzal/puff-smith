@@ -41,9 +41,7 @@ export default withMarketLayout(function Vendor({atomizer}: IAtomizerFetch) {
 				label={"market.atomizer.vendor.label"}
 			/>
 		</Breadcrumbs>}
-		headerProps={{
-			footer: <AtomizerIndexMenu atomizer={atomizer}/>
-		}}
+		footer={<AtomizerIndexMenu atomizer={atomizer}/>}
 	>
 		<AtomizerProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

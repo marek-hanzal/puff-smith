@@ -27,9 +27,6 @@ export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 		onBack={navigate => navigate("/market/atomizer")}
 		menuSelection={["/market/atomizer", "/market/atomizer/[atomizerId]/comment"]}
 		icon={<CommentOutlined/>}
-		headerProps={{
-			footer: <AtomizerIndexMenu atomizer={atomizer}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/market"}
@@ -51,6 +48,7 @@ export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 				label={"market.atomizer.comment.label"}
 			/>
 		</Breadcrumbs>}
+		footer={<AtomizerIndexMenu atomizer={atomizer}/>}
 	>
 		<Template
 			span={22}

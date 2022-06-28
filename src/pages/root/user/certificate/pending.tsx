@@ -17,9 +17,7 @@ export default withRootLayout(function Pending() {
 		title={"root.user.certificate.pending"}
 		menuSelection={["/root/user/certificate/pending"]}
 		icon={<CertificateIcon/>}
-		headerProps={{
-			footer: <UserMenu/>,
-		}}
+		footer={<UserMenu/>}
 	>
 		<UserCertificateRequestProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

@@ -72,9 +72,6 @@ export default withMarketLayout(function Mixture({aroma}: IAromaFetch) {
 		onBack={navigate => navigate("/market/aroma")}
 		menuSelection={["/market/aroma", "/market/aroma/[aromaId]/mixture"]}
 		icon={<MixtureIcon/>}
-		headerProps={{
-			footer: <AromaIndexMenu aroma={aroma}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/market"}
@@ -96,6 +93,7 @@ export default withMarketLayout(function Mixture({aroma}: IAromaFetch) {
 				label={"market.aroma.mixture.label"}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aroma={aroma}/>}
 	>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

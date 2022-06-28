@@ -25,9 +25,6 @@ export default withInventoryLayout(function Comment({aromaInventory}: IAromaInve
 		onBack={navigate => navigate("/inventory/aroma")}
 		menuSelection={["/inventory/aroma", "/inventory/aroma/[aromaInventoryId]/comment"]}
 		icon={<CommentOutlined/>}
-		headerProps={{
-			footer: <AromaIndexMenu aromaInventory={aromaInventory}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/inventory"}
@@ -49,6 +46,7 @@ export default withInventoryLayout(function Comment({aromaInventory}: IAromaInve
 				label={"inventory.aroma.comment.label"}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aromaInventory={aromaInventory}/>}
 	>
 		<Template
 			span={22}

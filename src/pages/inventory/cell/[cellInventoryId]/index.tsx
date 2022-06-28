@@ -28,9 +28,7 @@ export default withInventoryLayout(function Index({cellInventory}: ICellInventor
 				label={<CellNameInline cell={cellInventory.cell}/>}
 			/>
 		</Breadcrumbs>}
-		headerProps={{
-			footer: <CellIndexMenu cellInventory={cellInventory}/>,
-		}}
+		footer={<CellIndexMenu cellInventory={cellInventory}/>}
 	>
 		<Template>
 			<CellView cell={cellInventory.cell}/>

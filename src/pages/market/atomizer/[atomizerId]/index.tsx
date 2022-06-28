@@ -30,9 +30,7 @@ export default withMarketLayout(function Index({atomizer}: IAtomizerFetch) {
 				label={<AtomizerNameInline atomizer={atomizer}/>}
 			/>
 		</Breadcrumbs>}
-		headerProps={{
-			footer: <AtomizerIndexMenu atomizer={atomizer}/>
-		}}
+		footer={<AtomizerIndexMenu atomizer={atomizer}/>}
 	>
 		<Template>
 			<AtomizerView atomizer={atomizer}/>

@@ -23,9 +23,7 @@ export default withRootLayout(function Licenses({user}: IUserFetch) {
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]/licenses"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
-		headerProps={{
-			footer: <UserIndexMenu user={user}/>,
-		}}
+		footer={<UserIndexMenu user={user}/>}
 	>
 		<Tabs>
 			<Tabs.TabPane key={"licenses"} tab={<TabInline icon={<LicenseIcon/>} title={"root.user.license.licenses.tab"}/>}>

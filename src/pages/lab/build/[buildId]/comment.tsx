@@ -24,9 +24,6 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/comment"]}
 		icon={<CommentOutlined/>}
-		headerProps={{
-			footer: <BuildIndexMenu build={build}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -48,6 +45,7 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 				label={"lab.build.comment.title"}
 			/>
 		</Breadcrumbs>}
+		footer={<BuildIndexMenu build={build}/>}
 	>
 		<Template
 			span={22}

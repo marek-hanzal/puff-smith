@@ -23,9 +23,7 @@ export default withRootLayout(function Certificates({user}: IUserFetch) {
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]/certificates"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
-		headerProps={{
-			footer: <UserIndexMenu user={user}/>,
-		}}
+		footer={<UserIndexMenu user={user}/>}
 	>
 		<Tabs>
 			<Tabs.TabPane key={"certificates"} tab={<TabInline icon={<CertificateIcon/>} title={"root.user.certificate.certificates.tab"}/>}>

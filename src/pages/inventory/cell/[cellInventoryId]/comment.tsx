@@ -32,9 +32,7 @@ export default withInventoryLayout(function Comment({cellInventory}: ICellInvent
 				label={"inventory.cell.comment.label"}
 			/>
 		</Breadcrumbs>}
-		headerProps={{
-			footer: <CellIndexMenu cellInventory={cellInventory}/>,
-		}}
+		footer={<CellIndexMenu cellInventory={cellInventory}/>}
 	>
 		komenty budou
 	</InventoryPage>;

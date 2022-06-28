@@ -20,9 +20,6 @@ export default withLabLayout(function Cells({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/cells"]}
 		icon={<CellIcon/>}
-		headerProps={{
-			footer: <BuildIndexMenu build={build}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -44,6 +41,7 @@ export default withLabLayout(function Cells({build}: IBuildFetch) {
 				label={"lab.build.cells.title"}
 			/>
 		</Breadcrumbs>}
+		footer={<BuildIndexMenu build={build}/>}
 	>
 		<CellInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

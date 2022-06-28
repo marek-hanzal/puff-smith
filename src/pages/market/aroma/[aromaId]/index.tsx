@@ -19,9 +19,6 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 		components={TransComponents}
 		menuSelection={["/market/aroma", "/market/aroma/[aromaId]"]}
 		icon={<AromaIcon/>}
-		headerProps={{
-			footer: <AromaIndexMenu aroma={aroma}/>,
-		}}
 		extra={<ButtonLink
 			href={"/market/aroma/[aromaId]/edit"}
 			query={{aromaId: aroma.id}}
@@ -42,6 +39,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 				label={<AromaNameInline aroma={aroma}/>}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aroma={aroma}/>}
 	>
 		<AromaView aroma={aroma}/>
 	</MarketPage>;

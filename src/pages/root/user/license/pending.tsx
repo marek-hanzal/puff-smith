@@ -17,9 +17,7 @@ export default withRootLayout(function Pending() {
 		title={"root.user.license.pending"}
 		menuSelection={["/root/user/license/pending"]}
 		icon={<LicenseIcon/>}
-		headerProps={{
-			footer: <UserMenu/>,
-		}}
+		footer={<UserMenu/>}
 	>
 		<UserLicenseRequestProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

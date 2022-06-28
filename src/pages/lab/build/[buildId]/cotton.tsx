@@ -20,9 +20,6 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/cotton"]}
 		icon={<CottonIcon/>}
-		headerProps={{
-			footer: <BuildIndexMenu build={build}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -44,6 +41,7 @@ export default withLabLayout(function Cotton({build}: IBuildFetch) {
 				label={"lab.build.cotton.title"}
 			/>
 		</Breadcrumbs>}
+		footer={<BuildIndexMenu build={build}/>}
 	>
 		<Template
 			title={<CottonNameInline cotton={build.cotton}/>}

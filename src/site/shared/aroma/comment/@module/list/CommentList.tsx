@@ -10,12 +10,10 @@ export interface ICommentListProps extends Partial<IAromaCommentListSourceProps>
 export const CommentList: FC<ICommentListProps> = props => {
 	const aromaCommentQueryInvalidate = useAromaCommentQueryInvalidate();
 	return <AromaCommentListSource
-		locale={{
-			emptyText: <Template
-				icon={<CommentOutlined/>}
-				label={"shared.comment.empty"}
-			/>,
-		}}
+		emptyText={<Template
+			icon={<CommentOutlined/>}
+			label={"shared.comment.empty"}
+		/>}
 		{...props}
 	>
 		{aromaComment => <CommentItem

@@ -41,12 +41,10 @@ export default withInventoryLayout(function Info({cellInventory}: ICellInventory
 				label={"inventory.cell.info.label"}
 			/>
 		</Breadcrumbs>}
-		headerProps={{
-			footer: <CellIndexMenu cellInventory={cellInventory}/>,
-		}}
 		withHelp={{
 			translation: "inventory.cell.info",
 		}}
+		footer={<CellIndexMenu cellInventory={cellInventory}/>}
 	>
 		<CellInfoProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

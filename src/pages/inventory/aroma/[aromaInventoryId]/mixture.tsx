@@ -61,9 +61,6 @@ export default withInventoryLayout(function Mixture({aromaInventory}: IAromaInve
 		onBack={navigate => navigate("/inventory/aroma")}
 		menuSelection={["/inventory/aroma", "/inventory/aroma/[aromaInventoryId]/mixture"]}
 		icon={<MixtureIcon/>}
-		headerProps={{
-			footer: <AromaIndexMenu aromaInventory={aromaInventory}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/inventory"}
@@ -85,6 +82,7 @@ export default withInventoryLayout(function Mixture({aromaInventory}: IAromaInve
 				label={"inventory.aroma.mixture.label"}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aromaInventory={aromaInventory}/>}
 	>
 		<MixtureInventoryProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

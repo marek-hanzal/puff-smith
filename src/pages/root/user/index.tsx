@@ -11,9 +11,7 @@ export default withRootLayout(function Index() {
 		title={"root.user"}
 		menuSelection={["/root/user"]}
 		icon={<UserIcon/>}
-		headerProps={{
-			footer: <UserMenu/>,
-		}}
+		footer={<UserMenu/>}
 	>
 		<UserProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

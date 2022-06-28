@@ -21,9 +21,6 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 			menuSelection={["/lab/build", "/lab/build/[buildId]"]}
 			onBack={navigate => navigate("/lab/build")}
 			icon={<BuildIcon/>}
-			headerProps={{
-				footer: <BuildIndexMenu build={build}/>,
-			}}
 			extra={<ButtonBar>
 				<ButtonLink
 					icon={<EditIcon/>}
@@ -49,6 +46,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 					label={<BuildNameInline build={build}/>}
 				/>
 			</Breadcrumbs>}
+			footer={<BuildIndexMenu build={build}/>}
 		>
 			<Template
 				title={<AtomizerNameInline atomizer={build.atomizer}/>}

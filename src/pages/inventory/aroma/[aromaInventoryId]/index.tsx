@@ -21,9 +21,6 @@ export default withInventoryLayout(function Index({aromaInventory}: IAromaInvent
 		components={TransComponents}
 		menuSelection={["/inventory/aroma", "/inventory/aroma/[aromaInventoryId]"]}
 		icon={<LiquidIcon/>}
-		headerProps={{
-			footer: <AromaIndexMenu aromaInventory={aromaInventory}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/inventory"}
@@ -39,6 +36,7 @@ export default withInventoryLayout(function Index({aromaInventory}: IAromaInvent
 				label={`${aromaInventory.aroma.name} ${aromaInventory.aroma.vendor.name}`}
 			/>
 		</Breadcrumbs>}
+		footer={<AromaIndexMenu aromaInventory={aromaInventory}/>}
 	>
 		<AromaView
 			aroma={aromaInventory.aroma}

@@ -20,9 +20,6 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/atomizer"]}
 		icon={<AtomizerIcon/>}
-		headerProps={{
-			footer: <BuildIndexMenu build={build}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -44,6 +41,7 @@ export default withLabLayout(function Atomizer({build}: IBuildFetch) {
 				label={"lab.build.atomizer.title"}
 			/>
 		</Breadcrumbs>}
+		footer={<BuildIndexMenu build={build}/>}
 	>
 		<Template
 			title={<AtomizerNameInline atomizer={build.atomizer}/>}

@@ -13,9 +13,7 @@ export default withRootLayout(function Transaction({user}: IUserFetch) {
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]/transactions"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
-		headerProps={{
-			footer: <UserIndexMenu user={user}/>,
-		}}
+		footer={<UserIndexMenu user={user}/>}
 	>
 		<TransactionProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}

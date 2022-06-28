@@ -19,9 +19,6 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 		onBack={navigate => navigate("/lab/build")}
 		menuSelection={["/lab/build", "/lab/build/[buildId]/coil"]}
 		icon={<CoilIcon/>}
-		headerProps={{
-			footer: <BuildIndexMenu build={build}/>,
-		}}
 		breadcrumbProps={<Breadcrumbs>
 			<BreadcrumbButton
 				href={"/lab"}
@@ -43,6 +40,7 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 				label={"lab.build.coil.title"}
 			/>
 		</Breadcrumbs>}
+		footer={<BuildIndexMenu build={build}/>}
 	>
 		<Template
 			title={build.coil.name}
