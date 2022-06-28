@@ -17,16 +17,14 @@ export const WishlistList: FC<IWishlistListProps> = props => {
 	const deleteMutation = useDeleteMutation();
 	const wishlistQueryInvalidate = useWishlistQueryInvalidate();
 	return <WishlistListSource
-		locale={{
-			emptyText: <Template
-				label={"shared.wishlist.empty"}
-				extra={<Divider/>}
-			>
-				<BlockProvider>
-					<WishlistCreateForm/>
-				</BlockProvider>
-			</Template>
-		}}
+		emptyText={<Template
+			label={"shared.wishlist.empty"}
+			extra={<Divider/>}
+		>
+			<BlockProvider>
+				<WishlistCreateForm/>
+			</BlockProvider>
+		</Template>}
 		{...props}
 	>
 		{wishlist => <ListItem

@@ -17,9 +17,7 @@ export const CottonInventoryList: FC<ICottonInventoryListProps> = ({itemExtra, .
 	const selectionContext = useOptionalSelectionContext();
 	const isMobile = useIsMobile();
 	return <CottonInventoryListSource
-		locale={{
-			emptyText: <CottonListEmpty/>,
-		}}
+		emptyText={<CottonListEmpty/>}
 		{...props}
 	>
 		{cottonInventory => <ListItem

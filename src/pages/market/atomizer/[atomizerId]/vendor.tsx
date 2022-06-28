@@ -62,12 +62,10 @@ export default withMarketLayout(function Vendor({atomizer}: IAtomizerFetch) {
 					>
 						<AtomizerFilter exclude={["vendorId"]}/>
 					</RowInline>}
-					locale={{
-						emptyText: <Template
-							icon={<AtomizerIcon/>}
-							label={"market.atomizer.vendor.list.empty"}
-						/>,
-					}}
+					emptyText={<Template
+						icon={<AtomizerIcon/>}
+						label={"market.atomizer.vendor.list.empty"}
+					/>}
 				/>
 			</SelectionProvider>
 		</AtomizerProviderControl>

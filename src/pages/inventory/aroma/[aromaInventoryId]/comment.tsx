@@ -66,16 +66,14 @@ export default withInventoryLayout(function Comment({aromaInventory}: IAromaInve
 						}}
 					>
 						<CommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.empty"}
-									extra={<>
-										<Divider/>
-										<CommentCreateForm aromaInventory={aromaInventory}/>
-									</>}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.empty"}
+								extra={<>
+									<Divider/>
+									<CommentCreateForm aromaInventory={aromaInventory}/>
+								</>}
+							/>}
 						/>
 					</AromaInventoryCommentProviderControl>
 				</Tabs.TabPane>

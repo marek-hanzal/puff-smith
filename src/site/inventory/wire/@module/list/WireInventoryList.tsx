@@ -15,9 +15,7 @@ export interface IWireInventoryListProps extends Partial<IWireInventoryListSourc
 
 export const WireInventoryList: FC<IWireInventoryListProps> = props => {
 	return <WireInventoryListSource
-		locale={{
-			emptyText: <WireListEmpty/>
-		}}
+		emptyText={<WireListEmpty/>}
 		{...props}
 	>
 		{wireInventory => <ListItem

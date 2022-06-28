@@ -16,9 +16,7 @@ export interface IAromaInventoryListProps extends Partial<IAromaInventoryListSou
 
 export const AromaInventoryList: FC<IAromaInventoryListProps> = props => {
 	return <AromaInventoryListSource
-		locale={{
-			emptyText: <AromaListEmpty/>,
-		}}
+		emptyText={<AromaListEmpty/>}
 		{...props}
 	>
 		{aromaInventory => <ListItem

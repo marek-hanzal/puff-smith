@@ -30,17 +30,15 @@ export const BuildLiquidTasteRatingList: FC<IBuildLiquidTasteRatingListProps> = 
 				{t("lab.build.liquid.taste.generate.refresh.button")}
 			</BuildLiquidTasteGenerateButton>}
 		/>}
-		locale={{
-			emptyText: build.active ? <Template
-				icon={<Icon component={IoFileTrayOutline}/>}
-				label={"lab.build.liquid.taste.list.rating.empty"}
-				extra={<Divider/>}
-			/> : <Template
-				icon={<Icon component={IoFlowerOutline}/>}
-				status={"warning"}
-				label={"lab.build.liquid.taste.rating.disabled"}
-			/>,
-		}}
+		emptyText={build.active ? <Template
+			icon={<Icon component={IoFileTrayOutline}/>}
+			label={"lab.build.liquid.taste.list.rating.empty"}
+			extra={<Divider/>}
+		/> : <Template
+			icon={<Icon component={IoFlowerOutline}/>}
+			status={"warning"}
+			label={"lab.build.liquid.taste.rating.disabled"}
+		/>}
 		{...props}
 	>
 		{buildLiquidTasteRating => <ListItem

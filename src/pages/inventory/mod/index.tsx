@@ -35,12 +35,10 @@ export default withInventoryLayout(function Index() {
 								extra={<ModListToolbar/>}
 							>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<ModIcon/>}
-									label={"lab.mod.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<ModIcon/>}
+								label={"lab.mod.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</ModInventoryProviderControl>

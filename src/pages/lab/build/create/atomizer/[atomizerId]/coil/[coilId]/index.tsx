@@ -126,12 +126,10 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							icon={<CottonIcon/>}
 							label={"lab.build.cotton.build.button"}
 						/>}
-						locale={{
-							emptyText: <Template
-								icon={<CottonIcon/>}
-								label={"lab.build.cotton.list.empty"}
-							/>
-						}}
+						emptyText={<Template
+							icon={<CottonIcon/>}
+							label={"lab.build.cotton.list.empty"}
+						/>}
 					/>
 				</CottonInventoryProviderControl>
 			</Tabs.TabPane>
@@ -164,12 +162,10 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							icon={<CottonIcon/>}
 							label={"lab.build.cotton.build.button"}
 						/>}
-						locale={{
-							emptyText: <Template
-								icon={<CottonIcon/>}
-								label={"lab.build.cotton.list.empty"}
-							/>
-						}}
+						emptyText={<Template
+							icon={<CottonIcon/>}
+							label={"lab.build.cotton.list.empty"}
+						/>}
 					/>
 				</CottonInventoryProviderControl>
 			</Tabs.TabPane>
@@ -227,12 +223,10 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.coil.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.coil.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 									<BuildCreateLink
@@ -256,12 +250,10 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.build.coil.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.build.coil.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 									<BuildCreateLink
@@ -284,12 +276,10 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.atomizer.build.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.atomizer.build.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 									<BuildCreateLink

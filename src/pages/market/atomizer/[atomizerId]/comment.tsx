@@ -68,16 +68,14 @@ export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 						}}
 					>
 						<AtomizerCommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.empty"}
-									extra={<>
-										<Divider/>
-										<CommentCreateForm atomizer={atomizer}/>
-									</>}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.empty"}
+								extra={<>
+									<Divider/>
+									<CommentCreateForm atomizer={atomizer}/>
+								</>}
+							/>}
 						/>
 					</AtomizerCommentProviderControl>
 				</Tabs.TabPane>
@@ -94,12 +92,10 @@ export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 						}}
 					>
 						<AtomizerInventoryCommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.private.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.private.empty"}
+							/>}
 						/>
 					</AtomizerInventoryCommentProviderControl>
 				</Tabs.TabPane>

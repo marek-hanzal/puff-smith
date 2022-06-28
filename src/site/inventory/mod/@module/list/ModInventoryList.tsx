@@ -13,9 +13,7 @@ export interface IModInventoryListProps extends Partial<IModInventoryListSourceP
 
 export const ModInventoryList: FC<IModInventoryListProps> = props => {
 	return <ModInventoryListSource
-		locale={{
-			emptyText: <ModListEmpty/>,
-		}}
+		emptyText={<ModListEmpty/>}
 		{...props}
 	>
 		{modInventory => <ListItem

@@ -10,12 +10,10 @@ export interface ICommentListProps extends Partial<IBuildCommentListSourceProps>
 export const CommentList: FC<ICommentListProps> = props => {
 	const buildCommentQueryInvalidate = useBuildCommentQueryInvalidate();
 	return <BuildCommentListSource
-		locale={{
-			emptyText: <Template
-				icon={<CommentOutlined/>}
-				label={"shared.comment.empty"}
-			/>,
-		}}
+		emptyText={<Template
+			icon={<CommentOutlined/>}
+			label={"shared.comment.empty"}
+		/>}
 		{...props}
 	>
 		{buildComment => <CommentItem

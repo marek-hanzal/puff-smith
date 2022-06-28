@@ -13,9 +13,7 @@ export interface IBaseInventoryListProps extends Partial<IBaseInventoryListSourc
 
 export const BaseInventoryList: FC<IBaseInventoryListProps> = props => {
 	return <BaseInventoryListSource
-		locale={{
-			emptyText: <BaseListEmpty/>,
-		}}
+		emptyText={<BaseListEmpty/>}
 		{...props}
 	>
 		{baseInventory => <ListItem

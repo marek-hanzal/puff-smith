@@ -57,9 +57,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 					<AromaContentInline aroma={aroma}/>
 				</Space>
 			</RowInline>}
-			locale={{
-				emptyText: <MixtureListEmpty/>,
-			}}
+			emptyText={<MixtureListEmpty/>}
 		/>;
 };
 

@@ -39,12 +39,10 @@ export default withInventoryLayout(function Index() {
 									toFilter={filter => ({base: filter})}
 								/>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<BaseIcon/>}
-									label={"lab.base.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<BaseIcon/>}
+								label={"lab.base.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</BaseInventoryProviderControl>

@@ -65,16 +65,14 @@ export default withLabLayout(function Comment({build}: IBuildFetch) {
 						}}
 					>
 						<CommentList
-							locale={{
-								emptyText: <Template
-									icon={<CommentOutlined/>}
-									label={"shared.comment.empty"}
-									extra={<>
-										<Divider/>
-										<CommentCreateForm build={build}/>
-									</>}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CommentOutlined/>}
+								label={"shared.comment.empty"}
+								extra={<>
+									<Divider/>
+									<CommentCreateForm build={build}/>
+								</>}
+							/>}
 						/>
 					</BuildCommentProviderControl>
 				</Tabs.TabPane>

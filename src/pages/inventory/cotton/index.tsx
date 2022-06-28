@@ -35,12 +35,10 @@ export default withInventoryLayout(function Index() {
 								extra={<CottonListToolbar/>}
 							>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<CottonIcon/>}
-									label={"lab.cotton.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CottonIcon/>}
+								label={"lab.cotton.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</CottonInventoryProviderControl>

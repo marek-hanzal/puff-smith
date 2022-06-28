@@ -16,9 +16,7 @@ export interface ICellInventoryListProps extends Partial<ICellInventoryListSourc
 
 export const CellInventoryList: FC<ICellInventoryListProps> = props => {
 	return <CellInventoryListSource
-		locale={{
-			emptyText: <CellListEmpty/>
-		}}
+		emptyText={<CellListEmpty/>}
 		{...props}
 	>
 		{cellInventory => <ListItem

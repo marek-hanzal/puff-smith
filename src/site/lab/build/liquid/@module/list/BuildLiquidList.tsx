@@ -23,9 +23,7 @@ export interface IBuildLiquidListProps extends Partial<IBuildLiquidListSourcePro
 export const BuildLiquidList: FC<IBuildLiquidListProps> = ({build, ...props}) => {
 	const selectionContext = useOptionalSelectionContext();
 	return <BuildLiquidListSource
-		locale={{
-			emptyText: <LiquidListEmpty/>,
-		}}
+		emptyText={<LiquidListEmpty/>}
 		{...props}
 	>
 		{liquid => <ListItem

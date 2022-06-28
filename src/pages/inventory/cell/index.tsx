@@ -45,12 +45,10 @@ export default withInventoryLayout(function Index() {
 							header={() => <RowInline
 								extra={<CellListToolbar/>}
 							></RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<CellIcon/>}
-									label={"lab.cell.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<CellIcon/>}
+								label={"lab.cell.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</CellInventoryProviderControl>

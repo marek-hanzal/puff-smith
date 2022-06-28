@@ -10,12 +10,10 @@ export interface ICommentListProps extends Partial<IAtomizerCommentListSourcePro
 export const CommentList: FC<ICommentListProps> = props => {
 	const atomizerCommentQueryInvalidate = useAtomizerCommentQueryInvalidate();
 	return <AtomizerCommentListSource
-		locale={{
-			emptyText: <Template
-				icon={<CommentOutlined/>}
-				label={"shared.comment.empty"}
-			/>,
-		}}
+		emptyText={<Template
+			icon={<CommentOutlined/>}
+			label={"shared.comment.empty"}
+		/>}
 		{...props}
 	>
 		{atomizerComment => <CommentItem

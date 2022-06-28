@@ -29,9 +29,7 @@ export interface IBuildListProps extends Partial<IBuildListSourceProps> {
 export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 	const selectionContext = useOptionalSelectionContext();
 	return <BuildListSource
-		locale={{
-			emptyText: <BuildListEmpty/>,
-		}}
+		emptyText={<BuildListEmpty/>}
 		{...props}
 	>
 		{build => <>

@@ -12,12 +12,10 @@ export interface ICellInfoListProps extends Partial<ICellInfoListSourceProps> {
 
 export const CellInfoList: FC<ICellInfoListProps> = props => {
 	return <CellInfoListSource
-		locale={{
-			emptyText: <Template
-				icon={<ToolOutlined/>}
-				label={"inventory.cell.info.list.empty"}
-			/>,
-		}}
+		emptyText={<Template
+			icon={<ToolOutlined/>}
+			label={"inventory.cell.info.list.empty"}
+		/>}
 		{...props}
 	>
 		{cellInfo => <ListItem

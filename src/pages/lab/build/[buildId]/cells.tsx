@@ -57,13 +57,11 @@ export default withLabLayout(function Cells({build}: IBuildFetch) {
 			}}
 		>
 			<CellInventoryList
-				locale={{
-					emptyText: <Template
-						status={"error"}
-						icon={<CellIcon/>}
-						label={"lab.build.cell.list.empty"}
-					/>,
-				}}
+				emptyText={<Template
+					status={"error"}
+					icon={<CellIcon/>}
+					label={"lab.build.cell.list.empty"}
+				/>}
 			/>
 		</CellInventoryProviderControl>
 	</LabPage>;

@@ -116,9 +116,7 @@ export default withLabLayout(function Index() {
 						}}
 					>
 						<BuildList
-							locale={{
-								emptyText: <BuildListInactiveEmpty/>,
-							}}
+							emptyText={<BuildListInactiveEmpty/>}
 						/>
 					</BuildProviderControl>
 				</Tabs.TabPane>

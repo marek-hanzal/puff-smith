@@ -35,12 +35,10 @@ export default withInventoryLayout(function Index() {
 								extra={<WireListToolbar/>}
 							>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<WireIcon/>}
-									label={"lab.wire.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<WireIcon/>}
+								label={"lab.wire.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</WireInventoryProviderControl>

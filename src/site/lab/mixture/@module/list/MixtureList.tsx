@@ -15,9 +15,7 @@ export interface IMixtureListProps extends Partial<IMixtureInventoryListSourcePr
 
 export const MixtureList: FC<IMixtureListProps> = props => {
 	return <MixtureInventoryListSource
-		locale={{
-			emptyText: <MixtureListEmpty/>,
-		}}
+		emptyText={<MixtureListEmpty/>}
 		{...props}
 	>
 		{mixture => <ListItem

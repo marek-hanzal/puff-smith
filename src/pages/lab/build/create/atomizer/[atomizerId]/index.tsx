@@ -121,9 +121,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							icon={<CoilIcon/>}
 							label={"lab.build.coil.build.button"}
 						/>}
-						locale={{
-							emptyText: <WireListEmpty/>,
-						}}
+						emptyText={<WireListEmpty/>}
 					/>
 				</CoilInventoryProviderControl>
 			</Tabs.TabPane>
@@ -180,12 +178,10 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							icon={<CoilIcon/>}
 							label={"lab.build.coil.build.button"}
 						/>}
-						locale={{
-							emptyText: <Template
-								icon={<WireIcon/>}
-								label={"lab.build.wire.list.empty"}
-							/>
-						}}
+						emptyText={<Template
+							icon={<WireIcon/>}
+							label={"lab.build.wire.list.empty"}
+						/>}
 					/>
 				</CoilInventoryProviderControl>
 			</Tabs.TabPane>
@@ -225,9 +221,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							icon={<CoilIcon/>}
 							label={"lab.build.coil.build.button"}
 						/>}
-						locale={{
-							emptyText: <WireListEmpty/>,
-						}}
+						emptyText={<WireListEmpty/>}
 					/>
 				</CoilInventoryProviderControl>
 			</Tabs.TabPane>
@@ -247,12 +241,10 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.coil.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.coil.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 									<BuildCreateLink
@@ -275,12 +267,10 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.atomizer.build.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.atomizer.build.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 									<BuildCreateLink

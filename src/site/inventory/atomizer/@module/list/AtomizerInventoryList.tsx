@@ -19,9 +19,7 @@ export const AtomizerInventoryList: FC<IAtomizerInventoryListProps> = ({hidden =
 	const optionalSelectionContext = useOptionalSelectionContext();
 	const isMobile = useIsMobile();
 	return <AtomizerInventoryListSource
-		locale={{
-			emptyText: <AtomizerListEmpty/>
-		}}
+		emptyText={<AtomizerListEmpty/>}
 		{...props}
 	>
 		{atomizerInventory => <ListItem

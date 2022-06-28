@@ -39,12 +39,10 @@ export default withInventoryLayout(function Index() {
 									toFilter={filter => ({aroma: filter})}
 								/>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<LiquidIcon/>}
-									label={"lab.aroma.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<LiquidIcon/>}
+								label={"lab.aroma.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</AromaInventoryProviderControl>

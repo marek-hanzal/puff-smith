@@ -39,12 +39,10 @@ export default withInventoryLayout(function Index() {
 									toFilter={filter => ({booster: filter})}
 								/>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<BoosterIcon/>}
-									label={"lab.booster.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<BoosterIcon/>}
+								label={"lab.booster.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</BoosterInventoryProviderControl>

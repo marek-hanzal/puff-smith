@@ -19,9 +19,7 @@ export interface ILiquidListProps extends Partial<ILiquidListSourceProps> {
 export const LiquidList: FC<ILiquidListProps> = props => {
 	const selectionContext = useOptionalSelectionContext();
 	return <LiquidListSource
-		locale={{
-			emptyText: <LiquidListEmpty/>,
-		}}
+		emptyText={<LiquidListEmpty/>}
 		{...props}
 	>
 		{liquid => <ListItem

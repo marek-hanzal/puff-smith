@@ -129,12 +129,10 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.coil.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.coil.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 								</>}
@@ -154,12 +152,10 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.build.coil.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.build.coil.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 								</>}
@@ -177,12 +173,10 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 							}}
 						>
 							<BuildList
-								locale={{
-									emptyText: <Template
-										icon={<BuildIcon/>}
-										label={"lab.build.create.atomizer.build.list.empty"}
-									/>,
-								}}
+								emptyText={<Template
+									icon={<BuildIcon/>}
+									label={"lab.build.create.atomizer.build.list.empty"}
+								/>}
 								itemExtra={build => <>
 									<BuildRatingButton disabled build={build}/>
 								</>}

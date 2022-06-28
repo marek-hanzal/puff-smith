@@ -39,12 +39,10 @@ export default withInventoryLayout(function Index() {
 									toFilter={values => ({atomizer: values})}
 								/>
 							</RowInline>}
-							locale={{
-								emptyText: <Template
-									icon={<AtomizerIcon/>}
-									label={"lab.atomizer.list.favorite.empty"}
-								/>,
-							}}
+							emptyText={<Template
+								icon={<AtomizerIcon/>}
+								label={"lab.atomizer.list.favorite.empty"}
+							/>}
 						/>
 					</SelectionProvider>
 				</AtomizerInventoryProviderControl>

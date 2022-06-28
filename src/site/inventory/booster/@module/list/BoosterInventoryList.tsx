@@ -14,9 +14,7 @@ export interface IBoosterInventoryListProps extends Partial<IBoosterInventoryLis
 
 export const BoosterInventoryList: FC<IBoosterInventoryListProps> = props => {
 	return <BoosterInventoryListSource
-		locale={{
-			emptyText: <BoosterListEmpty/>,
-		}}
+		emptyText={<BoosterListEmpty/>}
 		{...props}
 	>
 		{boosterInventory => <ListItem

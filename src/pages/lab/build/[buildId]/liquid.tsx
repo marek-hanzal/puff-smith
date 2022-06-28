@@ -103,13 +103,11 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 										}}
 									/>
 								</RowInline>}
-								locale={{
-									emptyText: liquidCountQuery.isSuccess ?
-										<Template
-											icon={<LiquidIcon/>}
-											label={liquidCountQuery.data === 0 ? "lab.liquid.rating.list.empty" : "lab.liquid.rating.list.rated"}
-										/> : undefined,
-								}}
+								emptyText={liquidCountQuery.isSuccess &&
+									<Template
+										icon={<LiquidIcon/>}
+										label={liquidCountQuery.data === 0 ? "lab.liquid.rating.list.empty" : "lab.liquid.rating.list.rated"}
+									/>}
 							/>
 						</QueryParamsProvider>
 					</LiquidProviderControl>
@@ -165,13 +163,11 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 										}}
 									/>
 								</RowInline>}
-								locale={{
-									emptyText: liquidCountQuery.isSuccess ?
-										<Template
-											icon={<LiquidIcon/>}
-											label={liquidCountQuery.data === 0 ? "lab.liquid.unrated.list.empty" : "lab.liquid.unrated.list.unrated"}
-										/> : undefined,
-								}}
+								emptyText={liquidCountQuery.isSuccess &&
+									<Template
+										icon={<LiquidIcon/>}
+										label={liquidCountQuery.data === 0 ? "lab.liquid.unrated.list.empty" : "lab.liquid.unrated.list.unrated"}
+									/>}
 							/>
 						</QueryParamsProvider>
 					</LiquidProviderControl>
@@ -189,13 +185,11 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 								header={() => <RowInline>
 									<LiquidFilter/>
 								</RowInline>}
-								locale={{
-									emptyText: liquidCountQuery.isSuccess ?
-										<Template
-											icon={<LiquidIcon/>}
-											label={liquidCountQuery.data === 0 ? "lab.liquid.all.list.empty" : "lab.liquid.all.list.rated"}
-										/> : undefined,
-								}}
+								emptyText={liquidCountQuery.isSuccess &&
+									<Template
+										icon={<LiquidIcon/>}
+										label={liquidCountQuery.data === 0 ? "lab.liquid.all.list.empty" : "lab.liquid.all.list.rated"}
+									/>}
 							/>
 						</QueryParamsProvider>
 					</LiquidProviderControl>
