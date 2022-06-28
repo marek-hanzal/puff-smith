@@ -9,6 +9,7 @@ import {Avatar, Col, Row} from "antd";
 
 export default withRootLayout(function Index({user}: IUserFetch) {
 	return <RootPage
+		onBack={navigate => navigate("/root/user")}
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]"]}
 		icon={<Avatar src={user.image} size={"large"}/>}
