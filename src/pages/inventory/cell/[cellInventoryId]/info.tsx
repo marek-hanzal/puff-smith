@@ -61,7 +61,7 @@ export default withInventoryLayout(function Info({cellInventory}: ICellInventory
 				>
 					<Space split={<Divider type={"vertical"}/>} size={4}>
 						<CellNameInline cell={cellInventory.cell}/>
-						<CodeInline code={cellInventory.cell}/>
+						<CodeInline code={cellInventory}/>
 						<Volt volt={cellInventory.cell.voltageMax}/>
 						{toHumanNumber(cellInventory.cell.capacity)}
 					</Space>

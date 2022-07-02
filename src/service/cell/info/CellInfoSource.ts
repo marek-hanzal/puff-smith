@@ -12,13 +12,15 @@ export const CellInfoSource = (): ICellInfoSource => {
 			created: cellInfo.created.toUTCString(),
 		} : null,
 		source: {
-			count: async () => source.prisma.cellInfo.count({
+			count: async ({filter}) => source.prisma.cellInfo.count({
 				where: {
+					...filter,
 					userId: source.user.required(),
 				},
 			}),
-			query: async ({orderBy, ...query}) => source.prisma.cellInfo.findMany({
+			query: async ({filter, orderBy, ...query}) => source.prisma.cellInfo.findMany({
 				where: {
+					...filter,
 					userId: source.user.required(),
 				},
 				orderBy,
