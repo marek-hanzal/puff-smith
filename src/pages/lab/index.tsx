@@ -1,3 +1,4 @@
+import {Editor} from "@/puff-smith/component/editor/Editor";
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
@@ -10,6 +11,7 @@ export default withLabLayout(function Index() {
 		menuSelection={["/lab"]}
 		icon={<HomeIcon/>}
 	>
+		<Editor/>
 		<BrowserContent>
 			<Template
 				style={{}}
