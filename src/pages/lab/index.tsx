@@ -3,9 +3,10 @@ import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {LabMenu} from "@/puff-smith/site/lab/@module/menu/LabMenu";
-import {BrowserContent, HomeIcon, MobileContent, Template} from "@leight-core/client";
+import {BrowserContent, HomeIcon, MobileContent, Template, useMobile} from "@leight-core/client";
 
 export default withLabLayout(function Index() {
+	const mobile = useMobile();
 	return <LabPage
 		title={"lab.index"}
 		menuSelection={["/lab"]}
@@ -15,6 +16,9 @@ export default withLabLayout(function Index() {
 				<SignOutButton/>
 			</MobileContent>
 		</>}
+		cardProps={{
+			bodyStyle: mobile({padding: "0"}, undefined),
+		}}
 	>
 		<BrowserContent>
 			<Template
