@@ -6,7 +6,7 @@ import { merge } from 'webpack-merge';
 
 export default withPlugins([
 	images,
-	withTM([]),
+	withTM(['antd-mobile']),
 ], {
 	swcMinify:                   true,
 	images:                      {
@@ -27,7 +27,7 @@ export default withPlugins([
 			}),
 		);
 		if (isServer && nextRuntime === 'nodejs') {
-			return merge(config, {
+			return patchWebpackConfig(merge(config, {
 				entry() {
 					return config.entry().then(entry => {
 						Object.keys(entry).map(key => {
@@ -36,7 +36,7 @@ export default withPlugins([
 						return entry;
 					});
 				}
-			});
+			}), options);
 		}
 		return patchWebpackConfig(config, options);
 	},
