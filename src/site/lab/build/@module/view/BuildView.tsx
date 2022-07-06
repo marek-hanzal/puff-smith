@@ -21,7 +21,7 @@ export interface IBuildViewProps {
 
 export const BuildView: FC<IBuildViewProps> = ({build}) => {
 	return <Preview
-		name={"build"}
+		name={"lab.build"}
 		translation={"lab.build.view"}
 	>
 		{[

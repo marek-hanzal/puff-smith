@@ -22,13 +22,8 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cottonInventory.count({
 				where: merge(filter, {
-					userId: source.user.required(),
-				}),
-			}),
-			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cottonInventory.findMany({
-				where: merge(filter, {
 					cotton: {
-						OR: [
+						OR: fulltext ? [
 							{
 								name: {
 									contains: fulltext,
@@ -43,7 +38,30 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 									},
 								},
 							}
-						],
+						] : undefined,
+					},
+					userId: source.user.required(),
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cottonInventory.findMany({
+				where: merge(filter, {
+					cotton: {
+						OR: fulltext ? [
+							{
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+							{
+								vendor: {
+									name: {
+										contains: fulltext,
+										mode: "insensitive",
+									},
+								},
+							}
+						] : undefined,
 					},
 					userId: source.user.required(),
 				}),

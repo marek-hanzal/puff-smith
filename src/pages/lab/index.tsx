@@ -1,22 +1,21 @@
-import {Editor} from "@/puff-smith/component/Editor";
+import {SignOutButton} from "@/puff-smith/component/button/SignOutButton";
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {LabMenu} from "@/puff-smith/site/lab/@module/menu/LabMenu";
 import {BrowserContent, HomeIcon, MobileContent, Template} from "@leight-core/client";
-import {useRef} from "react";
 
 export default withLabLayout(function Index() {
-	const ref = useRef<any>();
 	return <LabPage
 		title={"lab.index"}
 		menuSelection={["/lab"]}
 		icon={<HomeIcon/>}
+		extra={<>
+			<MobileContent>
+				<SignOutButton/>
+			</MobileContent>
+		</>}
 	>
-		<Editor
-			element={ref}
-			value={"Default value"}
-		/>
 		<BrowserContent>
 			<Template
 				style={{}}
@@ -30,6 +29,5 @@ export default withLabLayout(function Index() {
 				mode={"inline"}
 			/>
 		</MobileContent>
-		<div ref={ref}/>
 	</LabPage>;
 });

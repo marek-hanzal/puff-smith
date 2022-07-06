@@ -19,7 +19,7 @@ import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/Wire
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BuildListSource, IBuildListSourceProps} from "@/sdk/api/lab/build/query";
 import {BrowserContent, ButtonLink, LinkTo, ListItem, ListItemMeta, MobileContent, useOptionalSelectionContext} from "@leight-core/client";
-import {Divider, Space} from "antd";
+import {Divider, Space, Typography} from "antd";
 import {FC, ReactNode} from "react";
 
 export interface IBuildListProps extends Partial<IBuildListSourceProps> {
@@ -78,17 +78,7 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 				</ListItem>
 			</BrowserContent>
 			<MobileContent>
-				<ListItem
-					// extra={itemExtra?.(build) || <Space size={4}>
-					// 	<ButtonLink
-					// 		icon={<LiquidIcon/>}
-					// 		label={"lab.build.liquid.button"}
-					// 		href={"/lab/build/[buildId]/liquid"}
-					// 		query={{buildId: build.id}}
-					// 	/>
-					// 	<BuildRatingButton build={build}/>
-					// </Space>}
-				>
+				<ListItem>
 					<ListItemMeta
 						title={<Space split={<Divider type={"vertical"}/>}>
 							{selectionContext && <SelectionBool selection={build}/>}
@@ -96,6 +86,24 @@ export const BuildList: FC<IBuildListProps> = ({itemExtra, ...props}) => {
 								<AtomizerNameInline atomizer={build.atomizer}/>
 							</LinkTo>
 						</Space>}
+						description={itemExtra?.(build) || <Space size={4} direction={"vertical"}>
+							<Space split={<Divider type={"vertical"}/>} size={0}>
+								<Typography.Text>{build.coil.wire.name}</Typography.Text>
+								<CoilWraps wraps={build.coil.wraps}/>
+								<CoilSize size={build.coil.size}/>
+								<SizeMm size={build.coil.wire.mm}/>
+							</Space>
+							<Space size={4}>
+								<ButtonLink
+									icon={<LiquidIcon/>}
+									label={"lab.build.liquid.button"}
+									href={"/lab/build/[buildId]/liquid"}
+									query={{buildId: build.id}}
+								/>
+								<BuildRatingButton build={build}/>
+							</Space>
+						</Space>
+						}
 					/>
 				</ListItem>
 			</MobileContent>

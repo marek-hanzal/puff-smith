@@ -9,6 +9,7 @@ export const CottonSelect: FC<ICottonSelectProps> = props => {
 	return <CottonInventoryProviderControl>
 		<CottonInventorySourceSelect
 			showSearch
+			toId={cottonId => ({cottonId})}
 			toOption={({cotton}) => ({
 				value: cotton.id,
 				label: <CottonNameInline cotton={cotton}/>,

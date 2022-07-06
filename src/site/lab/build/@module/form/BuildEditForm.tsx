@@ -27,12 +27,21 @@ export const BuildEditForm: FC<IBuildEditFormProps> = ({build, ...props}) => {
 		})}
 		{...props}
 	>
-		<FormItem field={"cottonId"} required extra={<CottonCreateInline/>}>
+		<FormItem
+			field={"cottonId"}
+			required
+			extra={<CottonCreateInline/>}
+		>
 			<CottonSelect
+				autoFocus
 				allowClear
 			/>
 		</FormItem>
-		<FormItem field={"ohm"} required hasTooltip>
+		<FormItem
+			field={"ohm"}
+			required
+			hasTooltip
+		>
 			<InputNumber
 				style={{width: "100%"}}
 				min={0.05}
