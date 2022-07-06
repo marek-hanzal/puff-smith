@@ -6,7 +6,6 @@ import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/Aro
 import {MixtureBaseInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBaseInline";
 import {MixtureBoosterInline} from "@/puff-smith/site/shared/mixture/@module/inline/MixtureBoosterInline";
 import {Preview} from "@leight-core/client";
-import {Col, Row} from "antd";
 import {FC} from "react";
 
 export interface IMixturePreviewProps {
@@ -14,24 +13,24 @@ export interface IMixturePreviewProps {
 }
 
 export const MixturePreview: FC<IMixturePreviewProps> = ({mixture}) => {
-	return <Row gutter={16}>
-		<Col span={16}>
-			<Preview translation={"lab.mixture.preview"} size={"small"}>
-				{{
+	return <Preview name={"mixture"} translation={"lab.mixture.preview"} size={"small"}>
+		{[
+			{
+				name: "info",
+				items: {
 					aroma: <AromaNameInline aroma={mixture.aroma}/>,
 					booster: mixture.booster && <MixtureBoosterInline mixture={mixture}/>,
 					base: mixture.base && <MixtureBaseInline mixture={mixture}/>,
-				}}
-			</Preview>
-		</Col>
-		<Col span={8}>
-			<Preview translation={"lab.mixture.preview"} size={"small"}>
-				{{
+				},
+			},
+			{
+				name: "more",
+				items: {
 					aromaContent: <AromaContentInline aroma={mixture.aroma}/>,
 					nicotine: <NicotineInline nicotine={mixture.nicotine}/>,
 					pgvg: <VgPgInline vgpg={mixture}/>,
-				}}
-			</Preview>
-		</Col>
-	</Row>;
+				},
+			},
+		]}
+	</Preview>;
 };

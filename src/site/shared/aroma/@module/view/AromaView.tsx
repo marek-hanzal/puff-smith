@@ -5,7 +5,7 @@ import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {ITemplateProps, Preview, Template} from "@leight-core/client";
-import {Col, Divider, Row} from "antd";
+import {Divider} from "antd";
 import dayjs from "dayjs";
 import {FC} from "react";
 
@@ -20,25 +20,28 @@ export const AromaView: FC<IAromaViewProps> = ({aroma, ...props}) => {
 		extra={<Divider/>}
 		{...props}
 	>
-		<Row gutter={16}>
-			<Col span={12}>
-				<Preview translation={"market.aroma.view"}>
-					{{
+		<Preview
+			name={"aroma"}
+			translation={"market.aroma.view"}
+		>
+			{[
+				{
+					name: "info",
+					items: {
 						name: <AromaNameInline aroma={aroma}/>,
 						pgvg: <VgPgInline vgpg={aroma}/>,
 						content: <AromaContentInline aroma={aroma}/>,
-					}}
-				</Preview>
-			</Col>
-			<Col span={12}>
-				<Preview translation={"market.aroma.view"}>
-					{{
+					},
+				},
+				{
+					name: "more",
+					items: {
 						steep: aroma.steep ? dayjs.duration(aroma.steep, "days").humanize() : undefined,
 						cost: <Price withIcon withColor price={aroma.cost}/>,
 						tastes: aroma.tastes ? <Tags tags={aroma.tastes} translation={"common.taste"}/> : undefined,
-					}}
-				</Preview>
-			</Col>
-		</Row>
+					},
+				},
+			]}
+		</Preview>
 	</Template>;
 };

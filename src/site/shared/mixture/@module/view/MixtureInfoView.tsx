@@ -25,30 +25,40 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 		<Divider/>
 		<Row>
 			<Col span={isMobile ? 24 : 12}>
-				<Preview translation={"shared.mixture.info.result"}>
-					{{
-						nicotine: <NicotineInline nicotine={info.result.nicotine}/>,
-						vgpg: <Space>
-							<VgPgInline vgpg={info.result.ratio}/>
-							{(info.result.ratio.vg + info.result.ratio.pg) === 100 ? <CheckCircleOutlined style={{color: "green"}}/> : <CloseCircleOutlined style={{color: "red"}}/>}
-						</Space>,
-						draws: <Tags translation={"common.draw"} color={"gold"} tags={info.result.draws.map(draw => ({
-							id: draw,
-							code: draw,
-							group: "draw",
-						}))}/>,
-					}}
+				<Preview name={"mixture.info"} translation={"shared.mixture.info.result"}>
+					{[
+						{
+							name: "info",
+							items: {
+								nicotine: <NicotineInline nicotine={info.result.nicotine}/>,
+								vgpg: <Space>
+									<VgPgInline vgpg={info.result.ratio}/>
+									{(info.result.ratio.vg + info.result.ratio.pg) === 100 ? <CheckCircleOutlined style={{color: "green"}}/> : <CloseCircleOutlined style={{color: "red"}}/>}
+								</Space>,
+								draws: <Tags translation={"common.draw"} color={"gold"} tags={info.result.draws.map(draw => ({
+									id: draw,
+									code: draw,
+									group: "draw",
+								}))}/>,
+							},
+						},
+					]}
 				</Preview>
 			</Col>
 			<Col span={isMobile ? 24 : 12}>
-				<Preview translation={"shared.mixture.info.result"}>
-					{{
-						vgpgToMl: <Space split={"/"}>
-							<ContentInline content={info.result.ml.vg}/>
-							<ContentInline content={info.result.ml.pg}/>
-						</Space>,
-						vgpgToRound: <VgPgInline vgpg={info.result.round}/>,
-					}}
+				<Preview name={"mixture.info"} translation={"shared.mixture.info.result"}>
+					{[
+						{
+							name: "info",
+							items: {
+								vgpgToMl: <Space split={"/"}>
+									<ContentInline content={info.result.ml.vg}/>
+									<ContentInline content={info.result.ml.pg}/>
+								</Space>,
+								vgpgToRound: <VgPgInline vgpg={info.result.round}/>,
+							},
+						},
+					]}
 				</Preview>
 			</Col>
 		</Row>
@@ -56,30 +66,40 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 		<Row>
 			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.aroma.title"}>
-					<Preview translation={"shared.mixture.info.aroma"}>
-						{{
-							vgpg: <VgPgInline vgpg={info.aroma}/>,
-							volume: <ContentInline content={info.aroma.volume}/>,
-							content: <ContentInline content={info.aroma.content}/>,
-							ratio: <Space size={1}>
-								<Typography.Text>{toHumanNumber(info.aroma.ratio, "-", 2)}</Typography.Text>
-								<Typography.Text type={"secondary"}><PercentageOutlined/></Typography.Text>
-							</Space>,
-							available: <ContentInline content={info.available}/>,
-						}}
+					<Preview name={"mixture.info"} translation={"shared.mixture.info.aroma"}>
+						{[
+							{
+								name: "info",
+								items: {
+									vgpg: <VgPgInline vgpg={info.aroma}/>,
+									volume: <ContentInline content={info.aroma.volume}/>,
+									content: <ContentInline content={info.aroma.content}/>,
+									ratio: <Space size={1}>
+										<Typography.Text>{toHumanNumber(info.aroma.ratio, "-", 2)}</Typography.Text>
+										<Typography.Text type={"secondary"}><PercentageOutlined/></Typography.Text>
+									</Space>,
+									available: <ContentInline content={info.available}/>,
+								}
+							},
+						]}
 					</Preview>
 				</Card>
 			</Col>
 			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.booster.title"}>
-					{info.booster ? <Preview translation={"shared.mixture.info.booster"}>
-						{{
-							vgpg: <VgPgInline vgpg={info.booster}/>,
-							info: <Space size={2}>
-								<Typography.Text>{info.booster?.count}x</Typography.Text>
-								(=<ContentInline content={info.booster?.volume} max={info.available}/>)
-							</Space>,
-						}}
+					{info.booster ? <Preview name={"mixture.info"} translation={"shared.mixture.info.booster"}>
+						{[
+							{
+								name: "info",
+								items: {
+									vgpg: <VgPgInline vgpg={info.booster}/>,
+									info: <Space size={2}>
+										<Typography.Text>{info.booster?.count}x</Typography.Text>
+										(=<ContentInline content={info.booster?.volume} max={info.available}/>)
+									</Space>,
+								}
+							},
+						]}
 					</Preview> : <Template
 						icon={<BoosterIcon/>}
 						label={"shared.mixture.info.booster.empty"}
@@ -89,11 +109,16 @@ export const MixtureInfoView: FC<IMixtureInfoViewProps> = ({info}) => {
 			</Col>
 			<Col span={isMobile ? 24 : 12}>
 				<Card title={"shared.mixture.info.base.title"}>
-					{info.base ? <Preview translation={"shared.mixture.info.base"}>
-						{{
-							vgpg: <VgPgInline vgpg={info.base}/>,
-							content: <ContentInline content={info.base.volume}/>,
-						}}
+					{info.base ? <Preview name={"mixture.info"} translation={"shared.mixture.info.base"}>
+						{[
+							{
+								name: "info",
+								items: {
+									vgpg: <VgPgInline vgpg={info.base}/>,
+									content: <ContentInline content={info.base.volume}/>,
+								}
+							},
+						]}
 					</Preview> : info.result.content ? <Template
 						icon={<BaseIcon/>}
 						status={"warning"}

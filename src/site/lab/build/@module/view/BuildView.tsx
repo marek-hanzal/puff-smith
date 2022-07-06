@@ -12,7 +12,7 @@ import {CottonNameInline} from "@/puff-smith/site/shared/cotton/@module/inline/C
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {BoolInline, Preview} from "@leight-core/client";
-import {Col, Row, Space} from "antd";
+import {Space} from "antd";
 import {FC} from "react";
 
 export interface IBuildViewProps {
@@ -20,10 +20,14 @@ export interface IBuildViewProps {
 }
 
 export const BuildView: FC<IBuildViewProps> = ({build}) => {
-	return <Row gutter={32}>
-		<Col span={8}>
-			<Preview translation={"lab.build.view"}>
-				{{
+	return <Preview
+		name={"build"}
+		translation={"lab.build.view"}
+	>
+		{[
+			{
+				name: "info",
+				items: {
 					atomizer: <AtomizerNameInline atomizer={build.atomizer}/>,
 					code: <CodeInline code={build}/>,
 					ohm: <Space>
@@ -33,28 +37,26 @@ export const BuildView: FC<IBuildViewProps> = ({build}) => {
 					</Space>,
 					created: <LocalDate date={build.created}/>,
 					active: <BoolInline bool={build.active}/>,
-				}}
-			</Preview>
-		</Col>
-		<Col span={8}>
-			<Preview translation={"lab.build.view"}>
-				{{
+				},
+			},
+			{
+				name: "coil",
+				items: {
 					cotton: <CottonNameInline cotton={build.cotton}/>,
 					wire: <WireNameInline wire={build.coil.wire}/>,
 					fiber: <WireFiberInline wire={build.coil.wire}/>,
 					wraps: <CoilWraps wraps={build.coil.wraps}/>,
 					size: <CoilSize size={build.coil.size}/>,
-				}}
-			</Preview>
-		</Col>
-		<Col span={8}>
-			<Preview translation={"lab.build.view"}>
-				{{
+				},
+			},
+			{
+				name: "draws",
+				items: {
 					"atomizer.draw": <Tags tags={build.atomizer.draws} translation={"common.draw"}/>,
 					"cotton.draw": <Tags tags={build.cotton.draws} translation={"common.draw"}/>,
 					"coil.draw": <Tags tags={build.coil.draws} translation={"common.draw"}/>,
-				}}
-			</Preview>
-		</Col>
-	</Row>;
+				},
+			},
+		]}
+	</Preview>;
 };

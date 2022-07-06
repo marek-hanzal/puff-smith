@@ -5,7 +5,6 @@ import {ICoil} from "@/puff-smith/service/coil/interface";
 import {WireFiberInline} from "@/puff-smith/site/shared/wire/@module/inline/WireFiberInline";
 import {WireNameInline} from "@/puff-smith/site/shared/wire/@module/inline/WireNameInline";
 import {Preview} from "@leight-core/client";
-import {Col, Row} from "antd";
 import {FC} from "react";
 
 export interface ICoilViewProps {
@@ -13,24 +12,27 @@ export interface ICoilViewProps {
 }
 
 export const CoilView: FC<ICoilViewProps> = ({coil}) => {
-	return <Row gutter={32}>
-		<Col span={12}>
-			<Preview translation={"shared.coil.view"}>
-				{{
+	return <Preview
+		name={"coil"}
+		translation={"shared.coil.view"}
+	>
+		{[
+			{
+				name: "info",
+				items: {
 					name: coil.name,
 					size: <CoilSize size={coil.size}/>,
 					wraps: <CoilWraps wraps={coil.wraps}/>,
-				}}
-			</Preview>
-		</Col>
-		<Col span={12}>
-			<Preview translation={"shared.coil.view"}>
-				{{
+				},
+			},
+			{
+				name: "more",
+				items: {
 					draws: <Tags tags={coil.draws} translation={"common.draw"}/>,
 					wire: <WireNameInline wire={coil.wire}/>,
 					fibers: <WireFiberInline wire={coil.wire}/>,
-				}}
-			</Preview>
-		</Col>
-	</Row>;
+				},
+			},
+		]}
+	</Preview>;
 };

@@ -1,10 +1,9 @@
-import {Tags} from "@/puff-smith/component/Tags";
 import {IUserFetch} from "@/puff-smith/service/user/interface";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserIndexMenu} from "@/puff-smith/site/root/user/@module/menu/UserIndexMenu";
-import {Preview} from "@leight-core/client";
+import {UserView} from "@/puff-smith/site/root/user/@module/view/UserView";
 import {Avatar, Col, Row} from "antd";
 
 export default withRootLayout(function Index({user}: IUserFetch) {
@@ -17,21 +16,7 @@ export default withRootLayout(function Index({user}: IUserFetch) {
 	>
 		<Row gutter={16}>
 			<Col span={12}>
-				<Preview translation={"root.user.preview"}>
-					{{
-						"name": user.name,
-						"email": user.email,
-						"tokens": <Tags
-							color={"red"}
-							translation={"common.token"}
-							tags={user.tokens.map(token => ({
-								id: token.id,
-								group: "token",
-								code: token.name,
-							}))}
-						/>,
-					}}
-				</Preview>
+				<UserView user={user}/>
 			</Col>
 		</Row>
 	</RootPage>;
