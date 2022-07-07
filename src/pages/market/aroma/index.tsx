@@ -35,9 +35,10 @@ export default withMarketLayout(function Index() {
 		>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<AromaList
@@ -58,9 +59,10 @@ export default withMarketLayout(function Index() {
 		>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<AromaList/>

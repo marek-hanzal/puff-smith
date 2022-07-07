@@ -36,9 +36,11 @@ export default withMarketLayout(function Index() {
 		>
 			<BaseProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					vg: "desc",
-				}}
+				defaultOrderBy={[
+					{vg: "desc"},
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<BaseList
@@ -57,6 +59,18 @@ export default withMarketLayout(function Index() {
 			icon={<BaseIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
+			<BaseProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{vg: "desc"},
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<BaseList/>
+				</SelectionProvider>
+			</BaseProviderControl>
 		</MobileMarketPage>
 	</>;
 });

@@ -39,9 +39,12 @@ export default withMarketLayout(function Index() {
 		>
 			<BoosterProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					vg: "desc",
-				}}
+				defaultOrderBy={[
+					{vg: "desc"},
+					{nicotine: "desc"},
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<BoosterList
@@ -60,7 +63,19 @@ export default withMarketLayout(function Index() {
 			icon={<BoosterIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			boosters
+			<BoosterProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{vg: "desc"},
+					{nicotine: "desc"},
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<BoosterList/>
+				</SelectionProvider>
+			</BoosterProviderControl>
 		</MobileMarketPage>
 	</>;
 });

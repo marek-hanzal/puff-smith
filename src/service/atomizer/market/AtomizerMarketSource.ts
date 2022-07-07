@@ -16,31 +16,43 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 		}) : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.atomizer.findMany({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 				orderBy,
 				include: {

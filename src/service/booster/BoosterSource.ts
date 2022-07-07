@@ -23,44 +23,44 @@ export const BoosterSource = (): IBoosterSource => {
 					vendor: true,
 				},
 			}),
-			count: async ({filter}) => source.prisma.booster.count({
+			count: async ({filter: {fulltext} = {}}) => source.prisma.booster.count({
 				where: {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
-								contains: filter?.fulltext,
+								contains: fulltext,
 								mode: "insensitive",
 							}
 						},
 						{
 							vendor: {
 								name: {
-									contains: filter?.fulltext,
+									contains: fulltext,
 									mode: "insensitive",
 								}
 							}
 						}
-					]
+					] : undefined,
 				}
 			}),
-			query: async ({filter, ...query}) => source.prisma.booster.findMany({
+			query: async ({filter: {fulltext} = {}, ...query}) => source.prisma.booster.findMany({
 				where: {
-					OR: [
+					OR: fulltext ? [
 						{
 							name: {
-								contains: filter?.fulltext,
+								contains: fulltext,
 								mode: "insensitive",
 							}
 						},
 						{
 							vendor: {
 								name: {
-									contains: filter?.fulltext,
+									contains: fulltext,
 									mode: "insensitive",
 								}
 							}
 						}
-					]
+					] : undefined,
 				},
 				...pageOf(query),
 				include: {

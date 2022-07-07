@@ -16,31 +16,43 @@ export const ModMarketSource = (): IModMarketSource => {
 		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mod.count({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.mod.findMany({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 				orderBy,
 				include: {

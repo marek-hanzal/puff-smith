@@ -3,7 +3,7 @@ import {AromaMarketCache} from "@/puff-smith/service/aroma/market/cache";
 import {IAromaMarketSource} from "@/puff-smith/service/aroma/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const AromaMarketSource = (): IAromaMarketSource => {
 	const aromaSource = singletonOf(() => AromaSource().ofSource(source));
@@ -18,10 +18,44 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 		cache: AromaMarketCache,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.aroma.findMany({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 				orderBy,
 				include: {
 					vendor: true,

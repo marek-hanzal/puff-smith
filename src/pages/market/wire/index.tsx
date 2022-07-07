@@ -36,9 +36,10 @@ export default withMarketLayout(function Index() {
 		>
 			<WireProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<WireList
@@ -57,7 +58,17 @@ export default withMarketLayout(function Index() {
 			icon={<WireIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			wires
+			<WireProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<WireList/>
+				</SelectionProvider>
+			</WireProviderControl>
 		</MobileMarketPage>
 	</>;
 });

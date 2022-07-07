@@ -36,9 +36,10 @@ export default withMarketLayout(function Index() {
 		>
 			<CottonProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<CottonList
@@ -57,7 +58,17 @@ export default withMarketLayout(function Index() {
 			icon={<CottonIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			cottons
+			<CottonProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<CottonList/>
+				</SelectionProvider>
+			</CottonProviderControl>
 		</MobileMarketPage>
 	</>;
 });

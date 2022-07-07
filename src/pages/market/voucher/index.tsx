@@ -27,9 +27,10 @@ export default withMarketLayout(function Index() {
 		>
 			<VoucherProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					cost: "asc",
-				}}
+				defaultOrderBy={[
+					{cost: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<VoucherList/>
 			</VoucherProviderControl>
@@ -40,7 +41,15 @@ export default withMarketLayout(function Index() {
 			icon={<VoucherIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			vouchers
+			<VoucherProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{cost: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<VoucherList/>
+			</VoucherProviderControl>
 		</MobileMarketPage>
 	</>;
 });

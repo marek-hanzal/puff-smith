@@ -6,7 +6,8 @@ import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
 import {AromaMarketInfiniteListSource, AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/market/aroma/query";
 import {BoolInline, BrowserContent, InfiniteListItem, LinkTo, ListItem, ListItemMeta, MobileContent} from "@leight-core/client";
-import {Divider, Space} from "antd";
+import {Space} from "antd";
+import {Divider} from "antd-mobile";
 import {FC} from "react";
 
 export interface IAromaListProps extends Partial<IAromaMarketListSourceProps> {
@@ -37,7 +38,9 @@ export const AromaList: FC<IAromaListProps> = props => {
 			</AromaMarketListSource>
 		</BrowserContent>
 		<MobileContent>
-			<AromaMarketInfiniteListSource>
+			<AromaMarketInfiniteListSource
+				withFulltext
+			>
 				{aromaMarket => <InfiniteListItem
 					key={aromaMarket.aroma.id}
 					onClick={navigate => navigate("/market/aroma/[aromaId]", {aromaId: aromaMarket.aroma.id})}

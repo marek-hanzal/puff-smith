@@ -2,7 +2,7 @@ import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IWireMarketSource} from "@/puff-smith/service/wire/market/interface";
 import {WireSource} from "@/puff-smith/service/wire/WireSource";
 import {pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const WireMarketSource = (): IWireMarketSource => {
 	const wireSource = singletonOf(() => WireSource().ofSource(source));
@@ -16,10 +16,44 @@ export const WireMarketSource = (): IWireMarketSource => {
 		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.wire.count({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.wire.findMany({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 				orderBy,
 				include: {
 					vendor: true,

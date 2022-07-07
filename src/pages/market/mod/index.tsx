@@ -30,9 +30,10 @@ export default withMarketLayout(function Index() {
 		>
 			<ModProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<ModList
@@ -51,7 +52,17 @@ export default withMarketLayout(function Index() {
 			icon={<ModIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			mods
+			<ModProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<ModList/>
+				</SelectionProvider>
+			</ModProviderControl>
 		</MobileMarketPage>
 	</>;
 });

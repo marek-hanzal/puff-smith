@@ -36,9 +36,10 @@ export default withMarketLayout(function Index() {
 		>
 			<CellProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<CellList
@@ -57,7 +58,17 @@ export default withMarketLayout(function Index() {
 			icon={<CellIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			cells
+			<CellProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<CellList/>
+				</SelectionProvider>
+			</CellProviderControl>
 		</MobileMarketPage>
 	</>;
 });

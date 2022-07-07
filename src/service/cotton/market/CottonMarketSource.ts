@@ -2,7 +2,7 @@ import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
 import {ICottonMarketSource} from "@/puff-smith/service/cotton/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const CottonMarketSource = (): ICottonMarketSource => {
 	const cottonSource = singletonOf(() => CottonSource().ofSource(source));
@@ -16,10 +16,44 @@ export const CottonMarketSource = (): ICottonMarketSource => {
 		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cotton.count({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cotton.findMany({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 				orderBy,
 				include: {
 					vendor: true,

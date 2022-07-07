@@ -32,9 +32,10 @@ export default withMarketLayout(function Index() {
 		>
 			<AtomizerProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<AtomizerList
@@ -53,7 +54,17 @@ export default withMarketLayout(function Index() {
 			icon={<AtomizerIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			atomizers
+			<AtomizerProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<AtomizerList/>
+				</SelectionProvider>
+			</AtomizerProviderControl>
 		</MobileMarketPage>
 	</>;
 });

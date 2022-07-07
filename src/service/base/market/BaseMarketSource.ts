@@ -2,7 +2,7 @@ import {BaseSource} from "@/puff-smith/service/base/BaseSource";
 import {IBaseMarketSource} from "@/puff-smith/service/base/market/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {pageOf, Source} from "@leight-core/server";
-import {singletonOf} from "@leight-core/utils";
+import {merge, singletonOf} from "@leight-core/utils";
 
 export const BaseMarketSource = (): IBaseMarketSource => {
 	const baseSource = singletonOf(() => BaseSource().ofSource(source));
@@ -16,10 +16,44 @@ export const BaseMarketSource = (): IBaseMarketSource => {
 		}) : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.base.findMany({
-				where: filter,
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
+				}),
 				orderBy,
 				include: {
 					vendor: true,

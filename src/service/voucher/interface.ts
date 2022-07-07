@@ -1,4 +1,4 @@
-import {IQuery, ISource} from "@leight-core/api";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Prisma, Voucher} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -8,7 +8,7 @@ export interface IVoucherCreate {
 	maxFortune?: number;
 }
 
-export interface IVoucherQuery extends IQuery<Prisma.VoucherWhereInput, Prisma.VoucherOrderByWithRelationInput> {
+export interface IVoucherQuery extends IQuery<Prisma.VoucherWhereInput & IWithFulltext, Prisma.VoucherOrderByWithRelationInput> {
 }
 
 export type IVoucherEntity<T = any> = Voucher & T;

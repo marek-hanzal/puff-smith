@@ -32,9 +32,10 @@ export default withMarketLayout(function Index() {
 		>
 			<VendorProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
-				defaultOrderBy={{
-					name: "asc",
-				}}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
 			>
 				<SelectionProvider type={"multi"}>
 					<VendorList
@@ -53,7 +54,17 @@ export default withMarketLayout(function Index() {
 			icon={<VendorIcon/>}
 			onBack={navigate => navigate("/market")}
 		>
-			vendors
+			<VendorProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={[
+					{name: "asc"},
+					{id: "asc"},
+				] as any}
+			>
+				<SelectionProvider type={"multi"}>
+					<VendorList/>
+				</SelectionProvider>
+			</VendorProviderControl>
 		</MobileMarketPage>
 	</>;
 });

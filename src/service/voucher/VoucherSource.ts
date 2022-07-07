@@ -1,6 +1,7 @@
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVoucherSource} from "@/puff-smith/service/voucher/interface";
 import {onUnique, pageOf, Source} from "@leight-core/server";
+import {merge} from "@leight-core/utils";
 
 export const VoucherSource = (): IVoucherSource => {
 	const source: IVoucherSource = Source<IVoucherSource>({
@@ -29,8 +30,29 @@ export const VoucherSource = (): IVoucherSource => {
 			get: async id => source.prisma.voucher.findUniqueOrThrow({
 				where: {id},
 			}),
-			count: async () => source.prisma.voucher.count(),
-			query: async ({orderBy, ...query}) => source.prisma.voucher.findMany({
+			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.voucher.count({
+				where: merge(filter || {}, {
+					OR: fulltext ? [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+					] : undefined,
+				}),
+			}),
+			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.voucher.findMany({
+				where: merge(filter || {}, {
+					OR: fulltext ? [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
+						},
+					] : undefined,
+				}),
 				orderBy,
 				...pageOf(query),
 			}),

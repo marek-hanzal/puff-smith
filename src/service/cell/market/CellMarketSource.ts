@@ -16,31 +16,43 @@ export const CellMarketSource = (): ICellMarketSource => {
 		} : null,
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cell.count({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 			}),
 			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.cell.findMany({
-				where: merge(filter, {
-					name: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-					vendor: {
-						name: {
-							contains: fulltext,
-							mode: "insensitive",
+				where: merge(filter || {}, {
+					OR: [
+						{
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							}
 						},
-					}
+						{
+							vendor: {
+								name: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							}
+						},
+					],
 				}),
 				orderBy,
 				include: {
