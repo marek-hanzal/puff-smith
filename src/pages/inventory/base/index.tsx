@@ -2,7 +2,7 @@ import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
 import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {BaseFilter} from "@/puff-smith/site/inventory/base/@module/filter/BaseFilter";
 import {BaseInventoryList} from "@/puff-smith/site/inventory/base/@module/list/BaseInventoryList";
@@ -12,7 +12,7 @@ import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.base.index"}
 		menuSelection={["/inventory/base"]}
 		icon={<BaseIcon/>}
@@ -68,5 +68,5 @@ export default withInventoryLayout(function Index() {
 				</BaseInventoryProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

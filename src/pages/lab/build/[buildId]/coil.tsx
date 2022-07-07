@@ -3,7 +3,7 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildNameInline";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
@@ -12,7 +12,7 @@ import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-c
 import {Divider} from "antd";
 
 export default withLabLayout(function Coil({build}: IBuildFetch) {
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.coil"}
 		values={{build}}
 		components={TransComponents}
@@ -49,7 +49,7 @@ export default withLabLayout(function Coil({build}: IBuildFetch) {
 		>
 			<CoilView coil={build.coil}/>
 		</Template>
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = BuildSource().withFetch("build", "buildId");

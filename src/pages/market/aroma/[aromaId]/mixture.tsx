@@ -5,7 +5,7 @@ import {RowInline} from "@/puff-smith/component/RowInline";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAroma, IAromaFetch} from "@/puff-smith/service/aroma/interface";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {MixtureList} from "@/puff-smith/site/market/mixture/@module/list/MixtureList";
@@ -62,7 +62,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 };
 
 export default withMarketLayout(function Mixture({aroma}: IAromaFetch) {
-	return <MarketPage
+	return <BrowserMarketPage
 		title={"market.aroma.mixture"}
 		tabTitle={"market.aroma.mixture.title.tab"}
 		values={{aroma}}
@@ -111,7 +111,7 @@ export default withMarketLayout(function Mixture({aroma}: IAromaFetch) {
 		>
 			<InternalList aroma={aroma}/>
 		</MixtureProviderControl>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AromaSource().withFetch("aroma", "aromaId");

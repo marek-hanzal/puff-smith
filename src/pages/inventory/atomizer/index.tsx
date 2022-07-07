@@ -2,7 +2,7 @@ import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AtomizerFilter} from "@/puff-smith/site/inventory/atomizer/@module/filter/AtomizerFilter";
 import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerInventoryList";
@@ -12,7 +12,7 @@ import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.atomizer.index"}
 		menuSelection={["/inventory/atomizer"]}
 		icon={<AtomizerIcon/>}
@@ -68,5 +68,5 @@ export default withInventoryLayout(function Index() {
 				</AtomizerInventoryProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

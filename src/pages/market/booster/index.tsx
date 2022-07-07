@@ -2,7 +2,8 @@ import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
+import {MobileMarketPage} from "@/puff-smith/site/market/@module/component/MobileMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {BoosterList} from "@/puff-smith/site/market/booster/@module/list/BoosterList";
 import {BoosterListToolbar} from "@/puff-smith/site/market/booster/@module/list/BoosterListToolbar";
@@ -12,44 +13,54 @@ import {BoosterProviderControl} from "@/sdk/api/booster/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
-	return <MarketPage
-		title={"market.booster.index"}
-		menuSelection={["/market/booster"]}
-		icon={<BoosterIcon/>}
-		withHelp={{
-			translation: "market.booster.index",
-		}}
-		extra={<BoosterCreateInline
-			type={"primary"}
-			size={"large"}
+	return <>
+		<BrowserMarketPage
+			title={"market.booster.index"}
+			menuSelection={["/market/booster"]}
 			icon={<BoosterIcon/>}
-		/>}
-		breadcrumbProps={<Breadcrumbs>
-			<BreadcrumbButton
-				href={"/market"}
-				icon={<MarketIcon/>}
-			/>
-			<BreadcrumbIcon
-				icon={<BoosterIcon/>}
-				label={"market.booster.label"}
-			/>
-		</Breadcrumbs>}
-	>
-		<BoosterProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-			defaultOrderBy={{
-				vg: "desc",
+			withHelp={{
+				translation: "market.booster.index",
 			}}
-		>
-			<SelectionProvider type={"multi"}>
-				<BoosterList
-					header={() => <RowInline
-						extra={<BoosterListToolbar/>}
-					>
-						<BoosterFilter/>
-					</RowInline>}
+			extra={<BoosterCreateInline
+				type={"primary"}
+				size={"large"}
+				icon={<BoosterIcon/>}
+			/>}
+			breadcrumbProps={<Breadcrumbs>
+				<BreadcrumbButton
+					href={"/market"}
+					icon={<MarketIcon/>}
 				/>
-			</SelectionProvider>
-		</BoosterProviderControl>
-	</MarketPage>;
+				<BreadcrumbIcon
+					icon={<BoosterIcon/>}
+					label={"market.booster.label"}
+				/>
+			</Breadcrumbs>}
+		>
+			<BoosterProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={{
+					vg: "desc",
+				}}
+			>
+				<SelectionProvider type={"multi"}>
+					<BoosterList
+						header={() => <RowInline
+							extra={<BoosterListToolbar/>}
+						>
+							<BoosterFilter/>
+						</RowInline>}
+					/>
+				</SelectionProvider>
+			</BoosterProviderControl>
+		</BrowserMarketPage>
+		<MobileMarketPage
+			title={"market.booster.index"}
+			menuSelection={["/market/booster"]}
+			icon={<BoosterIcon/>}
+			onBack={navigate => navigate("/market")}
+		>
+			boosters
+		</MobileMarketPage>
+	</>;
 });

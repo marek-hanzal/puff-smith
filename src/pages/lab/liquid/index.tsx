@@ -2,7 +2,7 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {LiquidFilter} from "@/puff-smith/site/lab/liquid/@module/filter/LiquidFilter";
 import {LiquidCreateButton} from "@/puff-smith/site/lab/liquid/@module/form/LiquidCreateButton";
@@ -12,7 +12,7 @@ import {LiquidProviderControl} from "@/sdk/api/lab/liquid/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withLabLayout(function Index() {
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.liquid.index"}
 		menuSelection={["/lab/liquid"]}
 		icon={<LiquidIcon/>}
@@ -44,5 +44,5 @@ export default withLabLayout(function Index() {
 				/>
 			</SelectionProvider>
 		</LiquidProviderControl>
-	</LabPage>;
+	</BrowserLabPage>;
 });

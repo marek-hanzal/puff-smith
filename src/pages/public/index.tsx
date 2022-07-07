@@ -1,7 +1,7 @@
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {BrowserPublicPage} from "@/puff-smith/site/public/component/BrowserPublicPage";
 import {EmailButton} from "@/puff-smith/site/public/component/button/EmailButton";
 import {GithubButton} from "@/puff-smith/site/public/component/button/GithubButton";
-import {PublicPage} from "@/puff-smith/site/public/component/PublicPage";
 import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
 import {BrowserContent, Card, Centered, MobileContent, Template} from "@leight-core/client";
 import {numbersOf} from "@leight-core/utils";
@@ -10,7 +10,7 @@ import {Trans, useTranslation} from "react-i18next";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();
-	return <PublicPage
+	return <BrowserPublicPage
 		title={"public.index"}
 		menuSelection={["/public"]}
 	>
@@ -53,5 +53,5 @@ export default withPublicLayout(function Index() {
 				</div>
 			</Template>
 		</MobileContent>
-	</PublicPage>;
+	</BrowserPublicPage>;
 });

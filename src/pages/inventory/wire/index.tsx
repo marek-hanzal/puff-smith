@@ -2,7 +2,7 @@ import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {WireInventoryList} from "@/puff-smith/site/inventory/wire/@module/list/WireInventoryList";
 import {WireListToolbar} from "@/puff-smith/site/inventory/wire/@module/list/WireListToolbar";
@@ -11,7 +11,7 @@ import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.wire.index"}
 		menuSelection={["/inventory/wire"]}
 		icon={<WireIcon/>}
@@ -62,5 +62,5 @@ export default withInventoryLayout(function Index() {
 
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

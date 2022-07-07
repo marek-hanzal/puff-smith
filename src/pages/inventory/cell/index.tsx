@@ -3,7 +3,7 @@ import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CellInventoryList} from "@/puff-smith/site/inventory/cell/@module/list/CellInventoryList";
 import {CellListToolbar} from "@/puff-smith/site/inventory/cell/@module/list/CellListToolbar";
@@ -12,7 +12,7 @@ import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, TabInl
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.cell.index"}
 		menuSelection={["/inventory/cell"]}
 		icon={<CellIcon/>}
@@ -70,5 +70,5 @@ export default withInventoryLayout(function Index() {
 				</CellInventoryProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

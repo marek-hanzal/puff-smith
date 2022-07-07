@@ -2,7 +2,7 @@ import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildDeleteButton} from "@/puff-smith/site/lab/build/@module/button/BuildDeleteButton";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
@@ -17,7 +17,7 @@ import {BsArchive} from "react-icons/bs";
 export default withLabLayout(function Index() {
 	const isMobile = useIsMobile();
 	return <SelectionProvider type={"multi"}>
-		<LabPage
+		<BrowserLabPage
 			title={"lab.build.index"}
 			menuSelection={["/lab/build"]}
 			icon={<BuildIcon/>}
@@ -121,6 +121,6 @@ export default withLabLayout(function Index() {
 					</BuildProviderControl>
 				</Tabs.TabPane>
 			</Tabs>
-		</LabPage>
+		</BrowserLabPage>
 	</SelectionProvider>;
 });

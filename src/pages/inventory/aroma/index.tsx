@@ -2,7 +2,7 @@ import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AromaFilter} from "@/puff-smith/site/inventory/aroma/@module/filter/AromaFilter";
 import {AromaInventoryList} from "@/puff-smith/site/inventory/aroma/@module/list/AromaInventoryList";
@@ -12,7 +12,7 @@ import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.aroma.index"}
 		menuSelection={["/inventory/aroma"]}
 		icon={<LiquidIcon/>}
@@ -68,5 +68,5 @@ export default withInventoryLayout(function Index() {
 				</AromaInventoryProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

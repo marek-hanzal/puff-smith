@@ -1,5 +1,5 @@
 import {ImportIcon} from "@/puff-smith/component/icon/ImportIcon";
-import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {Uploader} from "@/puff-smith/site/shared/file/@module/component/Uploader";
 import {useImportMutation} from "@/sdk/api/file/import";
@@ -11,7 +11,7 @@ export default withRootLayout(function Index() {
 	const {t} = useTranslation();
 	const importMutation = useImportMutation();
 	const navigate = useNavigate<{ name: string }>();
-	return <RootPage
+	return <BrowserRootPage
 		title={"root.import"}
 		menuSelection={["/root/import"]}
 		icon={<ImportIcon/>}
@@ -37,5 +37,5 @@ export default withRootLayout(function Index() {
 				}}
 			/>
 		</Template>
-	</RootPage>;
+	</BrowserRootPage>;
 });

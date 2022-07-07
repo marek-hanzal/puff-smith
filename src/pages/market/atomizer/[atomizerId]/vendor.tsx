@@ -5,7 +5,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerFilter} from "@/puff-smith/site/market/atomizer/@module/filter/AtomizerFilter";
 import {AtomizerList} from "@/puff-smith/site/market/atomizer/@module/list/AtomizerList";
@@ -17,7 +17,7 @@ import {AtomizerProviderControl} from "@/sdk/api/atomizer/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider, Template} from "@leight-core/client";
 
 export default withMarketLayout(function Vendor({atomizer}: IAtomizerFetch) {
-	return <MarketPage
+	return <BrowserMarketPage
 		title={"market.atomizer.vendor"}
 		menuSelection={["/market/atomizer", "/market/atomizer/[atomizerId]/vendor"]}
 		icon={<VendorIcon/>}
@@ -69,7 +69,7 @@ export default withMarketLayout(function Vendor({atomizer}: IAtomizerFetch) {
 				/>
 			</SelectionProvider>
 		</AtomizerProviderControl>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AtomizerSource().withFetch("atomizer", "atomizerId");

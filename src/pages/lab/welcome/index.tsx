@@ -1,11 +1,11 @@
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {Template} from "@leight-core/client";
 import {Divider} from "antd";
 
 export default withLabLayout(function Index() {
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.welcome"}
 		menuSelection={["/lab"]}
 	>
@@ -16,5 +16,5 @@ export default withLabLayout(function Index() {
 			<Divider/>
 			# put some welcome shit here!
 		</Template>
-	</LabPage>;
+	</BrowserLabPage>;
 });

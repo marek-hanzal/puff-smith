@@ -5,7 +5,7 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {AtomizerFilter} from "@/puff-smith/site/inventory/atomizer/@module/filter/AtomizerFilter";
 import {AtomizerInventoryList} from "@/puff-smith/site/inventory/atomizer/@module/list/AtomizerInventoryList";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateForm} from "@/puff-smith/site/lab/build/@module/form/BuildCreateForm";
 import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
@@ -17,7 +17,7 @@ import {Divider, Tabs} from "antd";
 export default withLabLayout(function Create() {
 	const atomizerInventoryCountQuery = useAtomizerInventoryCountQuery();
 	const isMobile = useIsMobile();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.create"}
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build")}
@@ -127,5 +127,5 @@ export default withLabLayout(function Create() {
 				</Template>
 			</Tabs.TabPane>
 		</Tabs>
-	</LabPage>;
+	</BrowserLabPage>;
 });

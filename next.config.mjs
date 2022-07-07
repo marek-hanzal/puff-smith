@@ -6,7 +6,7 @@ import { merge } from 'webpack-merge';
 
 export default withPlugins([
 	images,
-	withTM(['antd-mobile']),
+	withTM(['antd-mobile', '@leight-core/client']),
 ], {
 	swcMinify:                   true,
 	images:                      {

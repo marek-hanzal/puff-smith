@@ -4,7 +4,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaInventorySource";
 import {IAromaInventoryFetch} from "@/puff-smith/service/aroma/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/inventory/aroma/@module/menu/AromaIndexMenu";
 import {CommentCreateForm} from "@/puff-smith/site/inventory/aroma/comment/@module/form/CommentCreateForm";
@@ -17,7 +17,7 @@ import {useState} from "react";
 
 export default withInventoryLayout(function Comment({aromaInventory}: IAromaInventoryFetch) {
 	const [commentTab, setCommentTab] = useState<string>("list");
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.aroma.comment"}
 		tabTitle={"inventory.aroma.comment.title.tab"}
 		values={{aromaInventory}}
@@ -87,7 +87,7 @@ export default withInventoryLayout(function Comment({aromaInventory}: IAromaInve
 				</Tabs.TabPane>
 			</Tabs>
 		</Template>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = AromaInventorySource().withFetch("aromaInventory", "aromaInventoryId");

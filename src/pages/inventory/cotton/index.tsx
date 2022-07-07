@@ -2,7 +2,7 @@ import {CottonIcon} from "@/puff-smith/component/icon/CottonIcon";
 import {FavoriteIcon} from "@/puff-smith/component/icon/FavoriteIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CottonInventoryList} from "@/puff-smith/site/inventory/cotton/@module/list/CottonInventoryList";
 import {CottonListToolbar} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListToolbar";
@@ -11,7 +11,7 @@ import {SelectionProvider, TabInline, Template} from "@leight-core/client";
 import {Tabs} from "antd";
 
 export default withInventoryLayout(function Index() {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.cotton.index"}
 		menuSelection={["/inventory/cotton"]}
 		icon={<CottonIcon/>}
@@ -61,5 +61,5 @@ export default withInventoryLayout(function Index() {
 				</CottonInventoryProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });

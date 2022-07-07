@@ -1,11 +1,11 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaCreateForm} from "@/puff-smith/site/shared/aroma/@module/form/AromaCreateForm";
 import {Template} from "@leight-core/client";
 
 export default withMarketLayout(function Create() {
-	return <MarketPage
+	return <BrowserMarketPage
 		onBack={navigate => navigate("/market/aroma")}
 		title={"market.aroma.create"}
 		menuSelection={["/market/aroma"]}
@@ -23,5 +23,5 @@ export default withMarketLayout(function Create() {
 				}}
 			/>
 		</Template>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });

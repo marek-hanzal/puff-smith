@@ -1,7 +1,7 @@
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserMenu} from "@/puff-smith/site/root/user/@module/menu/UserMenu";
 import {LicenseApproveButton} from "@/puff-smith/site/shared/user/license/request/@module/button/LicenseApproveButton";
@@ -12,7 +12,7 @@ import {UserLicenseRequestProviderControl} from "@/sdk/api/user/license/request/
 import {ButtonBar, SelectionProvider} from "@leight-core/client";
 
 export default withRootLayout(function Pending() {
-	return <RootPage
+	return <BrowserRootPage
 		onBack={navigate => navigate("/root/user")}
 		title={"root.user.license.pending"}
 		menuSelection={["/root/user/license/pending"]}
@@ -37,5 +37,5 @@ export default withRootLayout(function Pending() {
 				/>
 			</SelectionProvider>
 		</UserLicenseRequestProviderControl>
-	</RootPage>;
+	</BrowserRootPage>;
 });

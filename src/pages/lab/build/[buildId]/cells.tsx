@@ -5,7 +5,7 @@ import {TransComponents} from "@/puff-smith/component/Trans";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
 import {CellInventoryList} from "@/puff-smith/site/inventory/cell/@module/list/CellInventoryList";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildNameInline";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
@@ -13,7 +13,7 @@ import {CellInventoryProviderControl} from "@/sdk/api/inventory/cell/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
 
 export default withLabLayout(function Cells({build}: IBuildFetch) {
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.cells"}
 		values={{build}}
 		components={TransComponents}
@@ -64,7 +64,7 @@ export default withLabLayout(function Cells({build}: IBuildFetch) {
 				/>}
 			/>
 		</CellInventoryProviderControl>
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = BuildSource().withFetch("build", "buildId");

@@ -15,18 +15,14 @@ import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {GroupOutlined, MedicineBoxOutlined, SlidersOutlined} from "@ant-design/icons";
-import {BrowserContent, CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, MobileContent, useNavigate, useUserContext} from "@leight-core/client";
-import {List} from "antd-mobile";
+import {BrowserContent, CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
 export interface IMarketMenuProps extends Partial<IMenuProps> {
 }
 
 export const MarketMenu: FC<IMarketMenuProps> = props => {
 	const userContext = useUserContext();
-	const navigate = useNavigate();
-	const {t} = useTranslation();
 	return <>
 		<BrowserContent>
 			<Menu
@@ -140,32 +136,85 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 				{...props}
 			/>
 		</BrowserContent>
-		<MobileContent>
-			<List header={t("market.liquid.menu")}>
-				<List.Item
-					key={"/market/aroma"}
-					prefix={<AromaIcon/>}
-					onClick={() => navigate("/market/aroma")}
-				>
-					{t("market.aroma.menu")}
-				</List.Item>
-				<List.Item
-					key={"/market/base"}
-					prefix={<BaseIcon/>}
-					onClick={() => navigate("/market/base")}
-				>
-					{t("market.base.menu")}
-				</List.Item>
-			</List>
-			<List header={t("market.hardware.menu")}>
-				<List.Item
-					key={"/market/atomizer"}
-					prefix={<AtomizerIcon/>}
-					onClick={() => navigate("/market/atomizer")}
-				>
-					{t("market.atomizer.menu")}
-				</List.Item>
-			</List>
-		</MobileContent>
+		<MobileMenu
+			title={"market.liquid.menu"}
+			items={[
+				{
+					label: "market.aroma.menu",
+					icon: <AromaIcon/>,
+					href: "/market/aroma",
+				},
+				{
+					label: "market.base.menu",
+					icon: <BaseIcon/>,
+					href: "/market/base",
+				},
+				{
+					label: "market.booster.menu",
+					icon: <BoosterIcon/>,
+					href: "/market/booster",
+				},
+			]}
+		/>
+		<MobileMenu
+			title={"market.build.menu"}
+			items={[
+				{
+					label: "market.cotton.menu",
+					icon: <CottonIcon/>,
+					href: "/market/cotton",
+				},
+				{
+					label: "market.wire.menu",
+					icon: <WireIcon/>,
+					href: "/market/wire",
+				},
+			]}
+		/>
+		<MobileMenu
+			title={"market.hardware.menu"}
+			items={[
+				{
+					label: "market.atomizer.menu",
+					href: "/market/atomizer",
+					icon: <AtomizerIcon/>,
+				},
+				{
+					label: "market.mod.menu",
+					href: "/market/mod",
+					icon: <ModIcon/>,
+				},
+				{
+					label: "market.cell.menu",
+					href: "/market/cell",
+					icon: <CellIcon/>,
+				},
+			]}
+		/>
+		<MobileMenu
+			title={"market.other.menu"}
+			items={[
+				{
+					label: "market.voucher.menu",
+					href: "/market/voucher",
+					icon: <VoucherIcon/>,
+				},
+				{
+					label: "market.vendor.menu",
+					href: "/market/vendor",
+					icon: <VendorIcon/>,
+				},
+				{
+					label: "market.certificate.menu",
+					href: "/market/certificate",
+					icon: <CertificateIcon/>,
+				},
+				{
+					label: "market.license.menu",
+					href: "/market/license",
+					icon: <LicenseIcon/>,
+				},
+			]}
+		/>
 	</>;
 };

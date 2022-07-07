@@ -6,7 +6,7 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildNameInline} from "@/puff-smith/site/lab/build/@module/inline/BuildNameInline";
 import {BuildIndexMenu} from "@/puff-smith/site/lab/build/@module/menu/BuildIndexMenu";
@@ -20,7 +20,7 @@ import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Liquid({build}: IBuildFetch) {
 	const liquidCountQuery = useLiquidCountQuery();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.liquid"}
 		values={{build}}
 		components={TransComponents}
@@ -196,7 +196,7 @@ export default withLabLayout(function Liquid({build}: IBuildFetch) {
 				</Tabs.TabPane>
 			</Tabs>
 		</Template>
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = BuildSource().withFetch("build", "buildId");

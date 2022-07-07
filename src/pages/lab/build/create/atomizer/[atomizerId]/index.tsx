@@ -11,7 +11,7 @@ import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
 import {CoilFilter} from "@/puff-smith/site/inventory/coil/@module/filter/CoilFilter";
 import {CoilInventoryList} from "@/puff-smith/site/inventory/coil/@module/list/CoilInventoryList";
 import {WireListEmpty} from "@/puff-smith/site/inventory/wire/@module/list/WireListEmpty";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
@@ -27,7 +27,7 @@ import {Divider, Tabs} from "antd";
 
 export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 	const isMobile = useIsMobile();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.create.coil"}
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build/create")}
@@ -288,7 +288,7 @@ export default withLabLayout(function Index({atomizer}: IAtomizerFetch) {
 				<AtomizerView atomizer={atomizer}/>
 			</Tabs.TabPane>
 		</Tabs>
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = AtomizerSource().withFetch("atomizer", "atomizerId");

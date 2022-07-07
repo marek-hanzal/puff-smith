@@ -2,7 +2,7 @@ import {AtomizerIcon} from "@/puff-smith/component/icon/AtomizerIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerIndexMenu} from "@/puff-smith/site/market/atomizer/@module/menu/AtomizerIndexMenu";
 import {AtomizerCreateButton} from "@/puff-smith/site/shared/atomizer/@module/button/AtomizerCreateButton";
@@ -11,7 +11,7 @@ import {AtomizerView} from "@/puff-smith/site/shared/atomizer/@module/view/Atomi
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
 
 export default withMarketLayout(function Index({atomizer}: IAtomizerFetch) {
-	return <MarketPage
+	return <BrowserMarketPage
 		title={"market.atomizer.index"}
 		menuSelection={["/market/atomizer", "/market/atomizer/[atomizerId]"]}
 		icon={<AtomizerIcon/>}
@@ -35,7 +35,7 @@ export default withMarketLayout(function Index({atomizer}: IAtomizerFetch) {
 		<Template>
 			<AtomizerView atomizer={atomizer}/>
 		</Template>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AtomizerSource().withFetch("atomizer", "atomizerId");

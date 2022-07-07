@@ -2,7 +2,7 @@ import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {BuildSource} from "@/puff-smith/service/build/BuildSource";
 import {IBuildFetch} from "@/puff-smith/service/build/interface";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildDisableButton} from "@/puff-smith/site/lab/build/@module/button/BuildDisableButton";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
@@ -16,7 +16,7 @@ import {Divider} from "antd";
 
 export default withLabLayout(function Index({build}: IBuildFetch) {
 	return <FetchBuild queryParams={{id: build.id}}>
-		{build => <LabPage
+		{build => <BrowserLabPage
 			title={"lab.build.build"}
 			menuSelection={["/lab/build", "/lab/build/[buildId]"]}
 			onBack={navigate => navigate("/lab/build")}
@@ -58,7 +58,7 @@ export default withLabLayout(function Index({build}: IBuildFetch) {
 					build={build}
 				/>
 			</Template>
-		</LabPage>}
+		</BrowserLabPage>}
 	</FetchBuild>;
 });
 

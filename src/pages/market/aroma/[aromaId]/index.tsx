@@ -3,7 +3,7 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
@@ -11,7 +11,7 @@ import {AromaView} from "@/puff-smith/site/shared/aroma/@module/view/AromaView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, ButtonLink, EditIcon} from "@leight-core/client";
 
 export default withMarketLayout(function Index({aroma}: IAromaFetch) {
-	return <MarketPage
+	return <BrowserMarketPage
 		onBack={navigate => navigate("/market/aroma")}
 		title={"market.aroma.aroma"}
 		tabTitle={"market.aroma.aroma.title.tab"}
@@ -42,7 +42,7 @@ export default withMarketLayout(function Index({aroma}: IAromaFetch) {
 		footer={<AromaIndexMenu aroma={aroma}/>}
 	>
 		<AromaView aroma={aroma}/>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AromaSource().withFetch("aroma", "aromaId");

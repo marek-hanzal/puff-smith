@@ -5,7 +5,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {CellInventorySource} from "@/puff-smith/service/cell/inventory/CellInventorySource";
 import {ICellInventoryFetch} from "@/puff-smith/service/cell/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CellIndexMenu} from "@/puff-smith/site/inventory/cell/@module/menu/CellIndexMenu";
 import {CellInfoCreateButton} from "@/puff-smith/site/inventory/cell/info/@module/button/CellInfoCreateButton";
@@ -18,7 +18,7 @@ import {toHumanNumber} from "@leight-core/utils";
 import {Divider, Space} from "antd";
 
 export default withInventoryLayout(function Info({cellInventory}: ICellInventoryFetch) {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.cell.info"}
 		menuSelection={["/inventory/cell", "/inventory/cell/[cellInventoryId]/info"]}
 		icon={<ToolOutlined/>}
@@ -68,7 +68,7 @@ export default withInventoryLayout(function Info({cellInventory}: ICellInventory
 				</RowInline>}
 			/>
 		</CellInfoProviderControl>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = CellInventorySource().withFetch("cellInventory", "cellInventoryId");

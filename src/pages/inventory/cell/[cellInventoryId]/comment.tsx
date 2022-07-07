@@ -1,7 +1,7 @@
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {CellInventorySource} from "@/puff-smith/service/cell/inventory/CellInventorySource";
 import {ICellInventoryFetch} from "@/puff-smith/service/cell/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CellIndexMenu} from "@/puff-smith/site/inventory/cell/@module/menu/CellIndexMenu";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
@@ -9,7 +9,7 @@ import {CommentOutlined} from "@ant-design/icons";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs} from "@leight-core/client";
 
 export default withInventoryLayout(function Comment({cellInventory}: ICellInventoryFetch) {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.cell.comment"}
 		menuSelection={["/inventory/cell", "/inventory/cell/[cellInventoryId]/comment"]}
 		icon={<CommentOutlined/>}
@@ -35,7 +35,7 @@ export default withInventoryLayout(function Comment({cellInventory}: ICellInvent
 		footer={<CellIndexMenu cellInventory={cellInventory}/>}
 	>
 		komenty budou
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = CellInventorySource().withFetch("cellInventory", "cellInventoryId");

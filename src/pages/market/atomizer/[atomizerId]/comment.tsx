@@ -5,7 +5,7 @@ import {TransComponents} from "@/puff-smith/component/Trans";
 import {AtomizerSource} from "@/puff-smith/service/atomizer/AtomizerSource";
 import {IAtomizerFetch} from "@/puff-smith/service/atomizer/interface";
 import {CommentList as AtomizerInventoryCommentList} from "@/puff-smith/site/inventory/atomizer/comment/@module/list/CommentList";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AtomizerIndexMenu} from "@/puff-smith/site/market/atomizer/@module/menu/AtomizerIndexMenu";
 import {CommentCreateForm} from "@/puff-smith/site/shared/atomizer/comment/@module/form/CommentCreateForm";
@@ -19,7 +19,7 @@ import {useState} from "react";
 
 export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 	const [commentTab, setCommentTab] = useState<string>("list");
-	return <MarketPage
+	return <BrowserMarketPage
 		title={"market.atomizer.comment"}
 		tabTitle={"market.atomizer.comment.title.tab"}
 		values={{atomizer}}
@@ -109,7 +109,7 @@ export default withMarketLayout(function Comment({atomizer}: IAtomizerFetch) {
 				</Tabs.TabPane>
 			</Tabs>
 		</Template>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AtomizerSource().withFetch("atomizer", "atomizerId");

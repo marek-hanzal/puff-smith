@@ -12,7 +12,7 @@ import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {ICoilFetch, ICoilFetchParams} from "@/puff-smith/service/coil/interface";
 import {CottonInventoryList} from "@/puff-smith/site/inventory/cotton/@module/list/CottonInventoryList";
 import {CottonListEmpty} from "@/puff-smith/site/inventory/cotton/@module/list/CottonListEmpty";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildCreateLink} from "@/puff-smith/site/lab/build/@module/button/BuildCreateLink";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
@@ -31,7 +31,7 @@ import {GetServerSidePropsContext} from "next";
 export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & ICoilFetch) {
 	const cottonInventoryCountQuery = useCottonInventoryCountQuery();
 	const isMobile = useIsMobile();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.create.cotton"}
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build/create/atomizer/[atomizerId]", {
@@ -300,7 +300,7 @@ export default withLabLayout(function Index({atomizer, coil}: IAtomizerFetch & I
 				<CoilView coil={coil}/>
 			</Tabs.TabPane>
 		</Tabs>}
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = async (context: GetServerSidePropsContext<IAtomizerFetchParams & ICoilFetchParams>) => merge<any, any>(

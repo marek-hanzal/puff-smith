@@ -1,7 +1,7 @@
 import {JobIcon} from "@/puff-smith/component/icon/JobIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {IJobQuery} from "@/puff-smith/service/job/interface";
-import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu} from "@/puff-smith/site/root/job/@module/menu/JobMenu";
 import {IJobListProps, JobList} from "@/puff-smith/site/shared/job/@module/list/JobList";
@@ -98,7 +98,7 @@ export default withRootLayout(function Index() {
 		},
 	};
 	const config = configs[status || "running"];
-	return <RootPage
+	return <BrowserRootPage
 		title={"root.job"}
 		menuSelection={["/root/job", "/root/job/" + (status || "running")]}
 		icon={<JobIcon/>}
@@ -123,6 +123,6 @@ export default withRootLayout(function Index() {
 		>
 			<JobList {...config.listProps}/>
 		</JobProviderControl>
-	</RootPage>;
+	</BrowserRootPage>;
 });
 

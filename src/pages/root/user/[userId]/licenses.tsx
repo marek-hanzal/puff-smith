@@ -3,7 +3,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {IUserFetch} from "@/puff-smith/service/user/interface";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
-import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {UserIndexMenu} from "@/puff-smith/site/root/user/@module/menu/UserIndexMenu";
 import {UserLicenseList} from "@/puff-smith/site/shared/user/license/@module/list/UserLicenseList";
@@ -19,7 +19,7 @@ import {ButtonBar, SelectionProvider, TabInline} from "@leight-core/client";
 import {Avatar, Tabs} from "antd";
 
 export default withRootLayout(function Licenses({user}: IUserFetch) {
-	return <RootPage
+	return <BrowserRootPage
 		onBack={navigate => navigate("/root/user")}
 		title={"root.user.index"}
 		menuSelection={["/root/user", "/root/user/[userId]/licenses"]}
@@ -99,7 +99,7 @@ export default withRootLayout(function Licenses({user}: IUserFetch) {
 				</UserLicenseRequestProviderControl>
 			</Tabs.TabPane>
 		</Tabs>
-	</RootPage>;
+	</BrowserRootPage>;
 });
 
 export const getServerSideProps = UserSource().withFetch("user", "userId");

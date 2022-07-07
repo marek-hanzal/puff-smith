@@ -10,7 +10,7 @@ import {CoilSource} from "@/puff-smith/service/coil/CoilSource";
 import {ICoilFetch, ICoilFetchParams} from "@/puff-smith/service/coil/interface";
 import {CottonSource} from "@/puff-smith/service/cotton/CottonSource";
 import {ICottonFetch, ICottonFetchParams} from "@/puff-smith/service/cotton/interface";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {BuildRatingButton} from "@/puff-smith/site/lab/build/@module/button/BuildRatingButton";
 import {BuildList} from "@/puff-smith/site/lab/build/@module/list/BuildList";
@@ -29,7 +29,7 @@ import {useTranslation} from "react-i18next";
 export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerFetch & ICoilFetch & ICottonFetch) {
 	const {t} = useTranslation();
 	const isMobile = useIsMobile();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.build.create.build"}
 		menuSelection={["/lab/build"]}
 		onBack={navigate => navigate("/lab/build/create/atomizer/[atomizerId]/coil/[coilId]", {
@@ -201,7 +201,7 @@ export default withLabLayout(function Build({atomizer, coil, cotton}: IAtomizerF
 				</Template>
 			</Tabs.TabPane>
 		</Tabs>
-	</LabPage>;
+	</BrowserLabPage>;
 });
 
 export const getServerSideProps = async (context: GetServerSidePropsContext<IAtomizerFetchParams & ICoilFetchParams & ICottonFetchParams>) => merge<any, any>(

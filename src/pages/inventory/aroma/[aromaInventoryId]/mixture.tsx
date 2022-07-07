@@ -6,7 +6,7 @@ import {TransComponents} from "@/puff-smith/component/Trans";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaInventorySource";
 import {IAromaInventoryFetch} from "@/puff-smith/service/aroma/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/inventory/aroma/@module/menu/AromaIndexMenu";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
@@ -53,7 +53,7 @@ const InternalList: FC<IInternalListProps> = ({aroma}) => {
 };
 
 export default withInventoryLayout(function Mixture({aromaInventory}: IAromaInventoryFetch) {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.aroma.mixture"}
 		tabTitle={"inventory.aroma.mixture.title.tab"}
 		values={{aromaInventory}}
@@ -102,7 +102,7 @@ export default withInventoryLayout(function Mixture({aromaInventory}: IAromaInve
 		>
 			<InternalList aroma={aromaInventory.aroma}/>
 		</MixtureInventoryProviderControl>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = AromaInventorySource().withFetch("aromaInventory", "aromaInventoryId");

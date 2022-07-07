@@ -4,14 +4,14 @@ import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {COIL_JOB, COILS_JOB} from "@/puff-smith/jobs/coil/interface";
 import {MIXTURE_JOB, MIXTURES_JOB} from "@/puff-smith/jobs/mixture/interface";
-import {RootPage} from "@/puff-smith/site/root/@module/component/RootPage";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {useCoilsJobMutation} from "@/sdk/api/coil/job/coils";
 import {useMixturesJobMutation} from "@/sdk/api/mixture/job/mixtures";
 import {ButtonBar, HomeIcon, Template} from "@leight-core/client";
 
 export default withRootLayout(function Index() {
-	return <RootPage
+	return <BrowserRootPage
 		title={"root.index"}
 		menuSelection={["/root"]}
 		icon={<HomeIcon/>}
@@ -45,5 +45,5 @@ export default withRootLayout(function Index() {
 				/>
 			</ButtonBar>}
 		/>
-	</RootPage>;
+	</BrowserRootPage>;
 });

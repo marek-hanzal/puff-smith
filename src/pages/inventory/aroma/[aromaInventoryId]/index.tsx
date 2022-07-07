@@ -4,7 +4,7 @@ import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaInventorySource} from "@/puff-smith/service/aroma/inventory/AromaInventorySource";
 import {IAromaInventoryFetch} from "@/puff-smith/service/aroma/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {AromaRatingButton} from "@/puff-smith/site/inventory/aroma/@module/button/AromaRatingButton";
 import {AromaIndexMenu} from "@/puff-smith/site/inventory/aroma/@module/menu/AromaIndexMenu";
@@ -13,7 +13,7 @@ import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs} from "@leight-core/client
 import {Divider} from "antd";
 
 export default withInventoryLayout(function Index({aromaInventory}: IAromaInventoryFetch) {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		onBack={navigate => navigate("/inventory/aroma")}
 		title={"inventory.aroma.aroma"}
 		tabTitle={"inventory.aroma.aroma.title.tab"}
@@ -45,7 +45,7 @@ export default withInventoryLayout(function Index({aromaInventory}: IAromaInvent
 				<Divider/>
 			</>}
 		/>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = AromaInventorySource().withFetch("aromaInventory", "aromaInventoryId");

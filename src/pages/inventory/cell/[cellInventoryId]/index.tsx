@@ -2,7 +2,7 @@ import {CellIcon} from "@/puff-smith/component/icon/CellIcon";
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {CellInventorySource} from "@/puff-smith/service/cell/inventory/CellInventorySource";
 import {ICellInventoryFetch} from "@/puff-smith/service/cell/inventory/interface";
-import {InventoryPage} from "@/puff-smith/site/inventory/@module/component/InventoryPage";
+import {BrowserInventoryPage} from "@/puff-smith/site/inventory/@module/component/BrowserInventoryPage";
 import {withInventoryLayout} from "@/puff-smith/site/inventory/@module/layout/layout";
 import {CellIndexMenu} from "@/puff-smith/site/inventory/cell/@module/menu/CellIndexMenu";
 import {CellNameInline} from "@/puff-smith/site/shared/cell/@module/inline/CellNameInline";
@@ -10,7 +10,7 @@ import {CellView} from "@/puff-smith/site/shared/cell/@module/view/CellView";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, Template} from "@leight-core/client";
 
 export default withInventoryLayout(function Index({cellInventory}: ICellInventoryFetch) {
-	return <InventoryPage
+	return <BrowserInventoryPage
 		title={"inventory.cell.cell"}
 		menuSelection={["/inventory/cell", "/inventory/cell/[cellInventoryId]"]}
 		icon={<CellIcon/>}
@@ -33,7 +33,7 @@ export default withInventoryLayout(function Index({cellInventory}: ICellInventor
 		<Template>
 			<CellView cell={cellInventory.cell}/>
 		</Template>
-	</InventoryPage>;
+	</BrowserInventoryPage>;
 });
 
 export const getServerSideProps = CellInventorySource().withFetch("cellInventory", "cellInventoryId");

@@ -3,13 +3,13 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaEditForm} from "@/puff-smith/site/shared/aroma/@module/form/AromaEditForm";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, EditIcon, Template} from "@leight-core/client";
 
 export default withMarketLayout(function Edit({aroma}: IAromaFetch) {
-	return <MarketPage
+	return <BrowserMarketPage
 		onBack={navigate => navigate("/market/aroma/[aromaId]", {aromaId: aroma.id})}
 		title={"market.aroma.aroma"}
 		tabTitle={"market.aroma.edit.title.tab"}
@@ -52,7 +52,7 @@ export default withMarketLayout(function Edit({aroma}: IAromaFetch) {
 				}}
 			/>
 		</Template>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AromaSource().withFetch("aroma", "aromaId");

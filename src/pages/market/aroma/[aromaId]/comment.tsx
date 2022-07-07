@@ -5,7 +5,7 @@ import {TransComponents} from "@/puff-smith/component/Trans";
 import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {IAromaFetch} from "@/puff-smith/service/aroma/interface";
 import {CommentList as AromaInventoryCommentList} from "@/puff-smith/site/inventory/aroma/comment/@module/list/CommentList";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaIndexMenu} from "@/puff-smith/site/market/aroma/@module/menu/AromaIndexMenu";
 import {CommentCreateForm} from "@/puff-smith/site/shared/aroma/comment/@module/form/CommentCreateForm";
@@ -19,7 +19,7 @@ import {useState} from "react";
 
 export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 	const [commentTab, setCommentTab] = useState<string>("list");
-	return <MarketPage
+	return <BrowserMarketPage
 		title={"market.aroma.comment"}
 		tabTitle={"market.aroma.comment.title.tab"}
 		values={{aroma}}
@@ -109,7 +109,7 @@ export default withMarketLayout(function Comment({aroma}: IAromaFetch) {
 				</Tabs.TabPane>
 			</Tabs>
 		</Template>
-	</MarketPage>;
+	</BrowserMarketPage>;
 });
 
 export const getServerSideProps = AromaSource().withFetch("aroma", "aromaId");

@@ -3,7 +3,7 @@ import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
 import {IMixtureInfo} from "@/puff-smith/service/mixture/utils";
-import {LabPage} from "@/puff-smith/site/lab/@module/component/LabPage";
+import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {MixtureFilter} from "@/puff-smith/site/lab/mixture/@module/filter/MixtureFilter";
 import {MixtureList} from "@/puff-smith/site/lab/mixture/@module/list/MixtureList";
@@ -53,7 +53,7 @@ const InternalList: FC<IInternalListProps> = () => {
 export default withLabLayout(function Index() {
 	const [info, setInfo] = useState<IMixtureInfo>();
 	const isMobile = useIsMobile();
-	return <LabPage
+	return <BrowserLabPage
 		title={"lab.mixture.index"}
 		menuSelection={["/lab/mixture"]}
 		icon={<MixtureIcon/>}
@@ -107,5 +107,5 @@ export default withLabLayout(function Index() {
 				</Template>
 			</Tabs.TabPane>
 		</Tabs>
-	</LabPage>;
+	</BrowserLabPage>;
 });

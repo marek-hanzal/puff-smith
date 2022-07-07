@@ -2,7 +2,8 @@ import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {RowInline} from "@/puff-smith/component/RowInline";
-import {MarketPage} from "@/puff-smith/site/market/@module/component/MarketPage";
+import {BrowserMarketPage} from "@/puff-smith/site/market/@module/component/BrowserMarketPage";
+import {MobileMarketPage} from "@/puff-smith/site/market/@module/component/MobileMarketPage";
 import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {VendorCreateButton} from "@/puff-smith/site/shared/vendor/@module/button/VendorCreateButton";
 import {VendorFilter} from "@/puff-smith/site/shared/vendor/@module/filter/VendorFilter";
@@ -12,37 +13,47 @@ import {VendorProviderControl} from "@/sdk/api/vendor/query";
 import {BreadcrumbButton, BreadcrumbIcon, Breadcrumbs, SelectionProvider} from "@leight-core/client";
 
 export default withMarketLayout(function Index() {
-	return <MarketPage
-		title={"market.vendor.index"}
-		menuSelection={["/market/vendor"]}
-		icon={<VendorIcon/>}
-		extra={<VendorCreateButton/>}
-		breadcrumbProps={<Breadcrumbs>
-			<BreadcrumbButton
-				href={"/market"}
-				icon={<MarketIcon/>}
-			/>
-			<BreadcrumbIcon
-				icon={<VendorIcon/>}
-				label={"market.vendor.label"}
-			/>
-		</Breadcrumbs>}
-	>
-		<VendorProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-			defaultOrderBy={{
-				name: "asc",
-			}}
-		>
-			<SelectionProvider type={"multi"}>
-				<VendorList
-					header={() => <RowInline
-						extra={<VendorListToolbar/>}
-					>
-						<VendorFilter/>
-					</RowInline>}
+	return <>
+		<BrowserMarketPage
+			title={"market.vendor.index"}
+			menuSelection={["/market/vendor"]}
+			icon={<VendorIcon/>}
+			extra={<VendorCreateButton/>}
+			breadcrumbProps={<Breadcrumbs>
+				<BreadcrumbButton
+					href={"/market"}
+					icon={<MarketIcon/>}
 				/>
-			</SelectionProvider>
-		</VendorProviderControl>
-	</MarketPage>;
+				<BreadcrumbIcon
+					icon={<VendorIcon/>}
+					label={"market.vendor.label"}
+				/>
+			</Breadcrumbs>}
+		>
+			<VendorProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={{
+					name: "asc",
+				}}
+			>
+				<SelectionProvider type={"multi"}>
+					<VendorList
+						header={() => <RowInline
+							extra={<VendorListToolbar/>}
+						>
+							<VendorFilter/>
+						</RowInline>}
+					/>
+				</SelectionProvider>
+			</VendorProviderControl>
+		</BrowserMarketPage>
+		<MobileMarketPage
+			title={"market.vendor.index"}
+			menuSelection={["/market/vendor"]}
+			icon={<VendorIcon/>}
+			onBack={navigate => navigate("/market")}
+		>
+			vendors
+		</MobileMarketPage>
+	</>;
 });
