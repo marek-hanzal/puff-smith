@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface ITransactionListSourceProps extends Partial<IListProps<ISourceI
 
 export const TransactionListSource: FC<ITransactionListSourceProps> = ({providerProps, ...props}) => {
 	return <TransactionProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ITransactionSource>>
@@ -120,6 +122,21 @@ export const TransactionListSource: FC<ITransactionListSourceProps> = ({provider
 		/>
 	</TransactionProvider>;
 }
+
+export interface ITransactionInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITransactionSource>>> {
+	providerProps?: Partial<ITransactionProviderProps>;
+}
+
+export const TransactionInfiniteListSource: FC<ITransactionInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <TransactionProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ITransactionSource>>
+			{...props}
+		/>
+	</TransactionProvider>;
+};
 
 export interface ITransactionSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITransactionSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITransactionSource>>;

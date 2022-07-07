@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface ICommentListSourceProps extends Partial<IListProps<ISourceItem<
 
 export const CommentListSource: FC<ICommentListSourceProps> = ({providerProps, ...props}) => {
 	return <CommentProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ICommentSource>>
@@ -119,6 +121,21 @@ export const CommentListSource: FC<ICommentListSourceProps> = ({providerProps, .
 		/>
 	</CommentProvider>;
 }
+
+export interface ICommentInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ICommentSource>>> {
+	providerProps?: Partial<ICommentProviderProps>;
+}
+
+export const CommentInfiniteListSource: FC<ICommentInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <CommentProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ICommentSource>>
+			{...props}
+		/>
+	</CommentProvider>;
+};
 
 export interface ICommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICommentSource>>;

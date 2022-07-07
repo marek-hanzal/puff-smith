@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IRatioListSourceProps extends Partial<IListProps<ISourceItem<IB
 
 export const RatioListSource: FC<IRatioListSourceProps> = ({providerProps, ...props}) => {
 	return <RatioProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IBaseRatioSource>>
@@ -119,6 +121,21 @@ export const RatioListSource: FC<IRatioListSourceProps> = ({providerProps, ...pr
 		/>
 	</RatioProvider>;
 }
+
+export interface IRatioInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IBaseRatioSource>>> {
+	providerProps?: Partial<IRatioProviderProps>;
+}
+
+export const RatioInfiniteListSource: FC<IRatioInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <RatioProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IBaseRatioSource>>
+			{...props}
+		/>
+	</RatioProvider>;
+};
 
 export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseRatioSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseRatioSource>>;

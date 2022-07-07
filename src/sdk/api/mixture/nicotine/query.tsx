@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface INicotineListSourceProps extends Partial<IListProps<ISourceItem
 
 export const NicotineListSource: FC<INicotineListSourceProps> = ({providerProps, ...props}) => {
 	return <NicotineProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureNicotineSource>>
@@ -120,6 +122,21 @@ export const NicotineListSource: FC<INicotineListSourceProps> = ({providerProps,
 		/>
 	</NicotineProvider>;
 }
+
+export interface INicotineInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IMixtureNicotineSource>>> {
+	providerProps?: Partial<INicotineProviderProps>;
+}
+
+export const NicotineInfiniteListSource: FC<INicotineInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <NicotineProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IMixtureNicotineSource>>
+			{...props}
+		/>
+	</NicotineProvider>;
+};
 
 export interface INicotineSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureNicotineSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureNicotineSource>>;

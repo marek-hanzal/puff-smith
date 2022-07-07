@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IDrawListSourceProps extends Partial<IListProps<ISourceItem<IWi
 
 export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...props}) => {
 	return <DrawProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireDrawSource>>
@@ -119,6 +121,21 @@ export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...prop
 		/>
 	</DrawProvider>;
 }
+
+export interface IDrawInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IWireDrawSource>>> {
+	providerProps?: Partial<IDrawProviderProps>;
+}
+
+export const DrawInfiniteListSource: FC<IDrawInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <DrawProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IWireDrawSource>>
+			{...props}
+		/>
+	</DrawProvider>;
+};
 
 export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireDrawSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireDrawSource>>;

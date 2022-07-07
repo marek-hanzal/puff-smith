@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IAtomizerMarketListSourceProps extends Partial<IListProps<ISour
 
 export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <AtomizerMarketProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IAtomizerMarketSource>>
@@ -120,6 +122,21 @@ export const AtomizerMarketListSource: FC<IAtomizerMarketListSourceProps> = ({pr
 		/>
 	</AtomizerMarketProvider>;
 }
+
+export interface IAtomizerMarketInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAtomizerMarketSource>>> {
+	providerProps?: Partial<IAtomizerMarketProviderProps>;
+}
+
+export const AtomizerMarketInfiniteListSource: FC<IAtomizerMarketInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <AtomizerMarketProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IAtomizerMarketSource>>
+			{...props}
+		/>
+	</AtomizerMarketProvider>;
+};
 
 export interface IAtomizerMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerMarketSource>>;

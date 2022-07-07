@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IWireInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const WireInventoryListSource: FC<IWireInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <WireInventoryProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireInventorySource>>
@@ -120,6 +122,21 @@ export const WireInventoryListSource: FC<IWireInventoryListSourceProps> = ({prov
 		/>
 	</WireInventoryProvider>;
 }
+
+export interface IWireInventoryInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IWireInventorySource>>> {
+	providerProps?: Partial<IWireInventoryProviderProps>;
+}
+
+export const WireInventoryInfiniteListSource: FC<IWireInventoryInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <WireInventoryProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IWireInventorySource>>
+			{...props}
+		/>
+	</WireInventoryProvider>;
+};
 
 export interface IWireInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireInventorySource>>;

@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface ICottonMarketListSourceProps extends Partial<IListProps<ISource
 
 export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <CottonMarketProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ICottonMarketSource>>
@@ -120,6 +122,21 @@ export const CottonMarketListSource: FC<ICottonMarketListSourceProps> = ({provid
 		/>
 	</CottonMarketProvider>;
 }
+
+export interface ICottonMarketInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ICottonMarketSource>>> {
+	providerProps?: Partial<ICottonMarketProviderProps>;
+}
+
+export const CottonMarketInfiniteListSource: FC<ICottonMarketInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <CottonMarketProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ICottonMarketSource>>
+			{...props}
+		/>
+	</CottonMarketProvider>;
+};
 
 export interface ICottonMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICottonMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICottonMarketSource>>;

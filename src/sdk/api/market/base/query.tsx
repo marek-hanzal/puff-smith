@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IBaseMarketListSourceProps extends Partial<IListProps<ISourceIt
 
 export const BaseMarketListSource: FC<IBaseMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <BaseMarketProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IBaseMarketSource>>
@@ -119,6 +121,21 @@ export const BaseMarketListSource: FC<IBaseMarketListSourceProps> = ({providerPr
 		/>
 	</BaseMarketProvider>;
 }
+
+export interface IBaseMarketInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IBaseMarketSource>>> {
+	providerProps?: Partial<IBaseMarketProviderProps>;
+}
+
+export const BaseMarketInfiniteListSource: FC<IBaseMarketInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <BaseMarketProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IBaseMarketSource>>
+			{...props}
+		/>
+	</BaseMarketProvider>;
+};
 
 export interface IBaseMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseMarketSource>>;

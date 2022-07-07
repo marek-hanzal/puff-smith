@@ -4,8 +4,8 @@ import {Tags} from "@/puff-smith/component/Tags";
 import {AromaInventoryCreateButton} from "@/puff-smith/site/market/aroma/@module/button/AromaInventoryCreateButton";
 import {AromaContentInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/site/shared/aroma/@module/inline/AromaNameInline";
-import {AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/market/aroma/query";
-import {BoolInline, BrowserContent, LinkTo, ListItem, ListItemMeta, MobileContent} from "@leight-core/client";
+import {AromaMarketInfiniteListSource, AromaMarketListSource, IAromaMarketListSourceProps} from "@/sdk/api/market/aroma/query";
+import {BoolInline, BrowserContent, InfiniteListItem, LinkTo, ListItem, ListItemMeta, MobileContent} from "@leight-core/client";
 import {Divider, Space} from "antd";
 import {FC} from "react";
 
@@ -37,6 +37,14 @@ export const AromaList: FC<IAromaListProps> = props => {
 			</AromaMarketListSource>
 		</BrowserContent>
 		<MobileContent>
+			<AromaMarketInfiniteListSource>
+				{aromaMarket => <InfiniteListItem
+					key={aromaMarket.aroma.id}
+					onClick={navigate => navigate("/market/aroma/[aromaId]", {aromaId: aromaMarket.aroma.id})}
+				>
+					<AromaNameInline inline={false} aroma={aromaMarket.aroma}/>
+				</InfiniteListItem>}
+			</AromaMarketInfiniteListSource>
 		</MobileContent>
 	</>;
 };

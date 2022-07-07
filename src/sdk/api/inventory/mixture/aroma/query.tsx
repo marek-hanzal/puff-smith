@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IMixtureAromaListSourceProps extends Partial<IListProps<ISource
 
 export const MixtureAromaListSource: FC<IMixtureAromaListSourceProps> = ({providerProps, ...props}) => {
 	return <MixtureAromaProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureAromaSource>>
@@ -120,6 +122,21 @@ export const MixtureAromaListSource: FC<IMixtureAromaListSourceProps> = ({provid
 		/>
 	</MixtureAromaProvider>;
 }
+
+export interface IMixtureAromaInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IMixtureAromaSource>>> {
+	providerProps?: Partial<IMixtureAromaProviderProps>;
+}
+
+export const MixtureAromaInfiniteListSource: FC<IMixtureAromaInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <MixtureAromaProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IMixtureAromaSource>>
+			{...props}
+		/>
+	</MixtureAromaProvider>;
+};
 
 export interface IMixtureAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureAromaSource>>;

@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IBuildLiquidTasteRatingListSourceProps extends Partial<IListPro
 
 export const BuildLiquidTasteRatingListSource: FC<IBuildLiquidTasteRatingListSourceProps> = ({providerProps, ...props}) => {
 	return <BuildLiquidTasteRatingProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IBuildLiquidTasteRatingSource>>
@@ -120,6 +122,21 @@ export const BuildLiquidTasteRatingListSource: FC<IBuildLiquidTasteRatingListSou
 		/>
 	</BuildLiquidTasteRatingProvider>;
 }
+
+export interface IBuildLiquidTasteRatingInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IBuildLiquidTasteRatingSource>>> {
+	providerProps?: Partial<IBuildLiquidTasteRatingProviderProps>;
+}
+
+export const BuildLiquidTasteRatingInfiniteListSource: FC<IBuildLiquidTasteRatingInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <BuildLiquidTasteRatingProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IBuildLiquidTasteRatingSource>>
+			{...props}
+		/>
+	</BuildLiquidTasteRatingProvider>;
+};
 
 export interface IBuildLiquidTasteRatingSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildLiquidTasteRatingSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildLiquidTasteRatingSource>>;

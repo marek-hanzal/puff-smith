@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IAromaInventoryListSourceProps extends Partial<IListProps<ISour
 
 export const AromaInventoryListSource: FC<IAromaInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <AromaInventoryProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaInventorySource>>
@@ -120,6 +122,21 @@ export const AromaInventoryListSource: FC<IAromaInventoryListSourceProps> = ({pr
 		/>
 	</AromaInventoryProvider>;
 }
+
+export interface IAromaInventoryInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAromaInventorySource>>> {
+	providerProps?: Partial<IAromaInventoryProviderProps>;
+}
+
+export const AromaInventoryInfiniteListSource: FC<IAromaInventoryInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <AromaInventoryProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IAromaInventorySource>>
+			{...props}
+		/>
+	</AromaInventoryProvider>;
+};
 
 export interface IAromaInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaInventorySource>>;

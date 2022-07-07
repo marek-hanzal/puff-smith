@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IUserCertificateListSourceProps extends Partial<IListProps<ISou
 
 export const UserCertificateListSource: FC<IUserCertificateListSourceProps> = ({providerProps, ...props}) => {
 	return <UserCertificateProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IUserCertificateSource>>
@@ -120,6 +122,21 @@ export const UserCertificateListSource: FC<IUserCertificateListSourceProps> = ({
 		/>
 	</UserCertificateProvider>;
 }
+
+export interface IUserCertificateInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IUserCertificateSource>>> {
+	providerProps?: Partial<IUserCertificateProviderProps>;
+}
+
+export const UserCertificateInfiniteListSource: FC<IUserCertificateInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <UserCertificateProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IUserCertificateSource>>
+			{...props}
+		/>
+	</UserCertificateProvider>;
+};
 
 export interface IUserCertificateSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserCertificateSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserCertificateSource>>;

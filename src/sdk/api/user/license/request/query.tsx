@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IUserLicenseRequestListSourceProps extends Partial<IListProps<I
 
 export const UserLicenseRequestListSource: FC<IUserLicenseRequestListSourceProps> = ({providerProps, ...props}) => {
 	return <UserLicenseRequestProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IUserLicenseRequestSource>>
@@ -120,6 +122,21 @@ export const UserLicenseRequestListSource: FC<IUserLicenseRequestListSourceProps
 		/>
 	</UserLicenseRequestProvider>;
 }
+
+export interface IUserLicenseRequestInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IUserLicenseRequestSource>>> {
+	providerProps?: Partial<IUserLicenseRequestProviderProps>;
+}
+
+export const UserLicenseRequestInfiniteListSource: FC<IUserLicenseRequestInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <UserLicenseRequestProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IUserLicenseRequestSource>>
+			{...props}
+		/>
+	</UserLicenseRequestProvider>;
+};
 
 export interface IUserLicenseRequestSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserLicenseRequestSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserLicenseRequestSource>>;

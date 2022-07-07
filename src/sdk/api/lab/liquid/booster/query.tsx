@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IBoosterListSourceProps extends Partial<IListProps<ISourceItem<
 
 export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, ...props}) => {
 	return <BoosterProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ILiquidBoosterSource>>
@@ -119,6 +121,21 @@ export const BoosterListSource: FC<IBoosterListSourceProps> = ({providerProps, .
 		/>
 	</BoosterProvider>;
 }
+
+export interface IBoosterInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ILiquidBoosterSource>>> {
+	providerProps?: Partial<IBoosterProviderProps>;
+}
+
+export const BoosterInfiniteListSource: FC<IBoosterInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <BoosterProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ILiquidBoosterSource>>
+			{...props}
+		/>
+	</BoosterProvider>;
+};
 
 export interface IBoosterSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBoosterSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidBoosterSource>>;

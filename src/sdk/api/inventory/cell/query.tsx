@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface ICellInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <CellInventoryProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ICellInventorySource>>
@@ -120,6 +122,21 @@ export const CellInventoryListSource: FC<ICellInventoryListSourceProps> = ({prov
 		/>
 	</CellInventoryProvider>;
 }
+
+export interface ICellInventoryInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ICellInventorySource>>> {
+	providerProps?: Partial<ICellInventoryProviderProps>;
+}
+
+export const CellInventoryInfiniteListSource: FC<ICellInventoryInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <CellInventoryProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ICellInventorySource>>
+			{...props}
+		/>
+	</CellInventoryProvider>;
+};
 
 export interface ICellInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellInventorySource>>;

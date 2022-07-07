@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IFiberListSourceProps extends Partial<IListProps<ISourceItem<IF
 
 export const FiberListSource: FC<IFiberListSourceProps> = ({providerProps, ...props}) => {
 	return <FiberProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IFiberSource>>
@@ -119,6 +121,21 @@ export const FiberListSource: FC<IFiberListSourceProps> = ({providerProps, ...pr
 		/>
 	</FiberProvider>;
 }
+
+export interface IFiberInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IFiberSource>>> {
+	providerProps?: Partial<IFiberProviderProps>;
+}
+
+export const FiberInfiniteListSource: FC<IFiberInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <FiberProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IFiberSource>>
+			{...props}
+		/>
+	</FiberProvider>;
+};
 
 export interface IFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFiberSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFiberSource>>;

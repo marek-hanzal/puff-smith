@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IWireFiberListSourceProps extends Partial<IListProps<ISourceIte
 
 export const WireFiberListSource: FC<IWireFiberListSourceProps> = ({providerProps, ...props}) => {
 	return <WireFiberProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IWireFiberSource>>
@@ -119,6 +121,21 @@ export const WireFiberListSource: FC<IWireFiberListSourceProps> = ({providerProp
 		/>
 	</WireFiberProvider>;
 }
+
+export interface IWireFiberInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IWireFiberSource>>> {
+	providerProps?: Partial<IWireFiberProviderProps>;
+}
+
+export const WireFiberInfiniteListSource: FC<IWireFiberInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <WireFiberProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IWireFiberSource>>
+			{...props}
+		/>
+	</WireFiberProvider>;
+};
 
 export interface IWireFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireFiberSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireFiberSource>>;

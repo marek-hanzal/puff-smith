@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IBuildLiquidListSourceProps extends Partial<IListProps<ISourceI
 
 export const BuildLiquidListSource: FC<IBuildLiquidListSourceProps> = ({providerProps, ...props}) => {
 	return <BuildLiquidProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IBuildLiquidSource>>
@@ -120,6 +122,21 @@ export const BuildLiquidListSource: FC<IBuildLiquidListSourceProps> = ({provider
 		/>
 	</BuildLiquidProvider>;
 }
+
+export interface IBuildLiquidInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IBuildLiquidSource>>> {
+	providerProps?: Partial<IBuildLiquidProviderProps>;
+}
+
+export const BuildLiquidInfiniteListSource: FC<IBuildLiquidInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <BuildLiquidProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IBuildLiquidSource>>
+			{...props}
+		/>
+	</BuildLiquidProvider>;
+};
 
 export interface IBuildLiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildLiquidSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildLiquidSource>>;

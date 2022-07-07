@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IVoucherListSourceProps extends Partial<IListProps<ISourceItem<
 
 export const VoucherListSource: FC<IVoucherListSourceProps> = ({providerProps, ...props}) => {
 	return <VoucherProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IVoucherSource>>
@@ -119,6 +121,21 @@ export const VoucherListSource: FC<IVoucherListSourceProps> = ({providerProps, .
 		/>
 	</VoucherProvider>;
 }
+
+export interface IVoucherInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IVoucherSource>>> {
+	providerProps?: Partial<IVoucherProviderProps>;
+}
+
+export const VoucherInfiniteListSource: FC<IVoucherInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <VoucherProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IVoucherSource>>
+			{...props}
+		/>
+	</VoucherProvider>;
+};
 
 export interface IVoucherSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IVoucherSource>> {
 	toOption: IToOptionMapper<ISourceItem<IVoucherSource>>;

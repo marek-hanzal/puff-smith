@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IDrawListSourceProps extends Partial<IListProps<ISourceItem<IAt
 
 export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...props}) => {
 	return <DrawProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IAtomizerDrawSource>>
@@ -119,6 +121,21 @@ export const DrawListSource: FC<IDrawListSourceProps> = ({providerProps, ...prop
 		/>
 	</DrawProvider>;
 }
+
+export interface IDrawInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAtomizerDrawSource>>> {
+	providerProps?: Partial<IDrawProviderProps>;
+}
+
+export const DrawInfiniteListSource: FC<IDrawInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <DrawProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IAtomizerDrawSource>>
+			{...props}
+		/>
+	</DrawProvider>;
+};
 
 export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerDrawSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerDrawSource>>;

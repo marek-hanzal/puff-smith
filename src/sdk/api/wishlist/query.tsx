@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IWishlistListSourceProps extends Partial<IListProps<ISourceItem
 
 export const WishlistListSource: FC<IWishlistListSourceProps> = ({providerProps, ...props}) => {
 	return <WishlistProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IWishlistSource>>
@@ -119,6 +121,21 @@ export const WishlistListSource: FC<IWishlistListSourceProps> = ({providerProps,
 		/>
 	</WishlistProvider>;
 }
+
+export interface IWishlistInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IWishlistSource>>> {
+	providerProps?: Partial<IWishlistProviderProps>;
+}
+
+export const WishlistInfiniteListSource: FC<IWishlistInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <WishlistProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IWishlistSource>>
+			{...props}
+		/>
+	</WishlistProvider>;
+};
 
 export interface IWishlistSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWishlistSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWishlistSource>>;

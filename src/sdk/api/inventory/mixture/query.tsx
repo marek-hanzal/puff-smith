@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface IMixtureInventoryListSourceProps extends Partial<IListProps<ISo
 
 export const MixtureInventoryListSource: FC<IMixtureInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <MixtureInventoryProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IMixtureInventorySource>>
@@ -120,6 +122,21 @@ export const MixtureInventoryListSource: FC<IMixtureInventoryListSourceProps> = 
 		/>
 	</MixtureInventoryProvider>;
 }
+
+export interface IMixtureInventoryInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IMixtureInventorySource>>> {
+	providerProps?: Partial<IMixtureInventoryProviderProps>;
+}
+
+export const MixtureInventoryInfiniteListSource: FC<IMixtureInventoryInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <MixtureInventoryProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IMixtureInventorySource>>
+			{...props}
+		/>
+	</MixtureInventoryProvider>;
+};
 
 export interface IMixtureInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureInventorySource>>;

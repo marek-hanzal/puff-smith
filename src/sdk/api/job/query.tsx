@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IJobListSourceProps extends Partial<IListProps<ISourceItem<IJob
 
 export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}) => {
 	return <JobProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IJobSource>>
@@ -119,6 +121,21 @@ export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}
 		/>
 	</JobProvider>;
 }
+
+export interface IJobInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IJobSource>>> {
+	providerProps?: Partial<IJobProviderProps>;
+}
+
+export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <JobProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IJobSource>>
+			{...props}
+		/>
+	</JobProvider>;
+};
 
 export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobSource>>;

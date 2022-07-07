@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,14 +114,29 @@ export interface IAromaMarketListSourceProps extends Partial<IListProps<ISourceI
 
 export const AromaMarketListSource: FC<IAromaMarketListSourceProps> = ({providerProps, ...props}) => {
 	return <AromaMarketProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IAromaMarketSource>>
 			{...props}
 		/>
 	</AromaMarketProvider>;
+};
+
+export interface IAromaMarketInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAromaMarketSource>>> {
+	providerProps?: Partial<IAromaMarketProviderProps>;
 }
+
+export const AromaMarketInfiniteListSource: FC<IAromaMarketInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <AromaMarketProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IAromaMarketSource>>
+			{...props}
+		/>
+	</AromaMarketProvider>;
+};
 
 export interface IAromaMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaMarketSource>>;

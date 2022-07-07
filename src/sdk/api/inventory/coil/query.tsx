@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -112,7 +114,7 @@ export interface ICoilInventoryListSourceProps extends Partial<IListProps<ISourc
 
 export const CoilInventoryListSource: FC<ICoilInventoryListSourceProps> = ({providerProps, ...props}) => {
 	return <CoilInventoryProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ICoilInventorySource>>
@@ -120,6 +122,21 @@ export const CoilInventoryListSource: FC<ICoilInventoryListSourceProps> = ({prov
 		/>
 	</CoilInventoryProvider>;
 }
+
+export interface ICoilInventoryInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ICoilInventorySource>>> {
+	providerProps?: Partial<ICoilInventoryProviderProps>;
+}
+
+export const CoilInventoryInfiniteListSource: FC<ICoilInventoryInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <CoilInventoryProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ICoilInventorySource>>
+			{...props}
+		/>
+	</CoilInventoryProvider>;
+};
 
 export interface ICoilInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICoilInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<ICoilInventorySource>>;

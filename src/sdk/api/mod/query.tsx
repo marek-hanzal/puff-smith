@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IModListSourceProps extends Partial<IListProps<ISourceItem<IMod
 
 export const ModListSource: FC<IModListSourceProps> = ({providerProps, ...props}) => {
 	return <ModProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IModSource>>
@@ -119,6 +121,21 @@ export const ModListSource: FC<IModListSourceProps> = ({providerProps, ...props}
 		/>
 	</ModProvider>;
 }
+
+export interface IModInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IModSource>>> {
+	providerProps?: Partial<IModProviderProps>;
+}
+
+export const ModInfiniteListSource: FC<IModInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <ModProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IModSource>>
+			{...props}
+		/>
+	</ModProvider>;
+};
 
 export interface IModSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModSource>>;

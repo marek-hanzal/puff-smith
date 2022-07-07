@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IStatusListListSourceProps extends Partial<IListProps<ISourceIt
 
 export const StatusListListSource: FC<IStatusListListSourceProps> = ({providerProps, ...props}) => {
 	return <StatusListProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IJobStatusSource>>
@@ -119,6 +121,21 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({providerPr
 		/>
 	</StatusListProvider>;
 }
+
+export interface IStatusListInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IJobStatusSource>>> {
+	providerProps?: Partial<IStatusListProviderProps>;
+}
+
+export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <StatusListProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IJobStatusSource>>
+			{...props}
+		/>
+	</StatusListProvider>;
+};
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobStatusSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobStatusSource>>;

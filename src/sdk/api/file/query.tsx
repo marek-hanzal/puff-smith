@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFi
 
 export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...props}) => {
 	return <FileProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<IFileSource>>
@@ -119,6 +121,21 @@ export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...prop
 		/>
 	</FileProvider>;
 }
+
+export interface IFileInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IFileSource>>> {
+	providerProps?: Partial<IFileProviderProps>;
+}
+
+export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <FileProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<IFileSource>>
+			{...props}
+		/>
+	</FileProvider>;
+};
 
 export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFileSource>>;

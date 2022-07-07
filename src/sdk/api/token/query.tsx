@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface ITokenListSourceProps extends Partial<IListProps<ISourceItem<IT
 
 export const TokenListSource: FC<ITokenListSourceProps> = ({providerProps, ...props}) => {
 	return <TokenProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ITokenSource>>
@@ -119,6 +121,21 @@ export const TokenListSource: FC<ITokenListSourceProps> = ({providerProps, ...pr
 		/>
 	</TokenProvider>;
 }
+
+export interface ITokenInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITokenSource>>> {
+	providerProps?: Partial<ITokenProviderProps>;
+}
+
+export const TokenInfiniteListSource: FC<ITokenInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <TokenProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ITokenSource>>
+			{...props}
+		/>
+	</TokenProvider>;
+};
 
 export interface ITokenSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITokenSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITokenSource>>;

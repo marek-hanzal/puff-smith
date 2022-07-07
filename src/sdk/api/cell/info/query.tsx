@@ -14,7 +14,9 @@ import {
 	FilterProvider,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
+	IInfiniteListProps,
 	IListProps,
+	InfiniteList,
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
@@ -111,7 +113,7 @@ export interface ICellInfoListSourceProps extends Partial<IListProps<ISourceItem
 
 export const CellInfoListSource: FC<ICellInfoListSourceProps> = ({providerProps, ...props}) => {
 	return <CellInfoProvider
-		withPagination
+		withCount
 		{...providerProps}
 	>
 		<List<ISourceItem<ICellInfoSource>>
@@ -119,6 +121,21 @@ export const CellInfoListSource: FC<ICellInfoListSourceProps> = ({providerProps,
 		/>
 	</CellInfoProvider>;
 }
+
+export interface ICellInfoInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ICellInfoSource>>> {
+	providerProps?: Partial<ICellInfoProviderProps>;
+}
+
+export const CellInfoInfiniteListSource: FC<ICellInfoInfiniteListSourceProps> = ({providerProps, ...props}) => {
+	return <CellInfoProvider
+		withCount
+		{...providerProps}
+	>
+		<InfiniteList<ISourceItem<ICellInfoSource>>
+			{...props}
+		/>
+	</CellInfoProvider>;
+};
 
 export interface ICellInfoSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellInfoSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellInfoSource>>;
