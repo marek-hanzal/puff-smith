@@ -56,6 +56,16 @@ export default withMarketLayout(function Index() {
 			title={"market.aroma.index"}
 			menuSelection={["/market/aroma"]}
 		>
+			<AromaProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+				defaultOrderBy={{
+					name: "asc",
+				}}
+			>
+				<SelectionProvider type={"multi"}>
+					<AromaList/>
+				</SelectionProvider>
+			</AromaProviderControl>
 		</MobileMarketPage>
 	</>;
 });
