@@ -9,11 +9,12 @@ export interface IMobileLabPageProps extends IMobilePageProps {
 /**
  * This page is the common page for all lab related pages.
  */
-export const MobileLabPage: FC<IMobileLabPageProps> = props => {
+export const MobileLabPage: FC<IMobileLabPageProps> = ({menuSelection, ...props}) => {
+	menuSelection = ["/lab"].concat(menuSelection || []);
 	return <MobilePage
 		icon={<LabIcon/>}
 		title={"lab.index"}
-		menuSelection={["/lab"]}
+		menuSelection={menuSelection}
 		footer={<MobileMenu/>}
 		{...props}
 	/>;

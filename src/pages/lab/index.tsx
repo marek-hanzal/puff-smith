@@ -3,6 +3,7 @@ import {LabIcon} from "@/puff-smith/component/icon/LabIcon";
 import {BrowserLabPage} from "@/puff-smith/site/lab/@module/component/BrowserLabPage";
 import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {LabMenu} from "@/puff-smith/site/lab/@module/menu/LabMenu";
 import {Template} from "@leight-core/client";
 
 export default withLabLayout(function Index() {
@@ -20,7 +21,7 @@ export default withLabLayout(function Index() {
 			/>
 		</BrowserLabPage>
 		<MobileLabPage>
-			...lab menu here
+			<LabMenu/>
 		</MobileLabPage>
 	</>;
 });
