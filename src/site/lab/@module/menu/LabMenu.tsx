@@ -4,7 +4,7 @@ import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {SlidersOutlined} from "@ant-design/icons";
-import {BrowserContent, CreateMenuItem, HomeIcon, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
+import {BrowserContent, CreateMenuItem, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface ILabMenuProps extends Partial<IMenuProps> {
@@ -18,11 +18,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 				style={{backgroundColor: "transparent", minWidth: "50vw"}}
 				mode={"horizontal"}
 				items={[
-					CreateMenuItem({
-						title: "lab.home.menu",
-						href: "/lab",
-						icon: <HomeIcon/>,
-					}),
 					CreateMenuItem({
 						title: "lab.build.menu",
 						href: "/lab/build",

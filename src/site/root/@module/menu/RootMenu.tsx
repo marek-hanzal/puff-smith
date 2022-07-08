@@ -6,7 +6,7 @@ import {PublicIcon} from "@/puff-smith/component/icon/PublicIcon";
 import {SitesIcon} from "@/puff-smith/component/icon/SitesIcon";
 import {UserIcon} from "@/puff-smith/component/icon/UserIcon";
 import {CodeOutlined} from "@ant-design/icons";
-import {CreateMenuGroup, CreateMenuItem, FileIcon, HomeIcon, IMenuProps, Menu} from "@leight-core/client";
+import {CreateMenuGroup, CreateMenuItem, FileIcon, IMenuProps, Menu} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IRootMenuProps extends Partial<IMenuProps> {
@@ -16,11 +16,6 @@ export const RootMenu: FC<IRootMenuProps> = props => <Menu
 	style={{backgroundColor: "transparent", minWidth: "50vw"}}
 	mode={"horizontal"}
 	items={[
-		CreateMenuItem({
-			title: "root.home.menu",
-			href: "/root",
-			icon: <HomeIcon/>,
-		}),
 		CreateMenuItem({
 			title: "root.import.menu",
 			href: "/root/import",

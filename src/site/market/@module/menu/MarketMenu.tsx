@@ -15,7 +15,7 @@ import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {GroupOutlined, MedicineBoxOutlined, SlidersOutlined} from "@ant-design/icons";
-import {BrowserContent, CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
+import {BrowserContent, CreateMenuGroup, CreateMenuItem, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IMarketMenuProps extends Partial<IMenuProps> {
@@ -28,11 +28,6 @@ export const MarketMenu: FC<IMarketMenuProps> = props => {
 			<Menu
 				style={{backgroundColor: "transparent", minWidth: "50vw"}} mode={"horizontal"}
 				items={[
-					CreateMenuItem({
-						title: "market.home.menu",
-						href: "/market",
-						icon: <HomeIcon/>,
-					}),
 					CreateMenuGroup({
 						title: "market.liquid.menu",
 						icon: <LiquidIcon/>,

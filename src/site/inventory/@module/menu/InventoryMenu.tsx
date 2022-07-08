@@ -10,7 +10,7 @@ import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
 import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
 import {SlidersOutlined} from "@ant-design/icons";
-import {CreateMenuGroup, CreateMenuItem, HomeIcon, IMenuProps, Menu, useUserContext} from "@leight-core/client";
+import {CreateMenuGroup, CreateMenuItem, IMenuProps, Menu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IInventoryMenuProps extends Partial<IMenuProps> {
@@ -22,11 +22,6 @@ export const InventoryMenu: FC<IInventoryMenuProps> = props => {
 		style={{backgroundColor: "transparent", minWidth: "50vw"}}
 		mode={"horizontal"}
 		items={[
-			CreateMenuItem({
-				title: "inventory.home.menu",
-				href: "/inventory",
-				icon: <HomeIcon/>,
-			}),
 			CreateMenuGroup({
 				title: "inventory.liquid.menu",
 				icon: <LiquidIcon/>,
