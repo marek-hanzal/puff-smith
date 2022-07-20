@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const WireApiLink = "/api/wire/query";
 export const WireCountApiLink = "/api/wire/query/count";
@@ -50,7 +50,7 @@ export type IWireQueryParams = any;
 export const useWireQuery = createQueryHook<ISourceQuery<IWireSource>, ISourceItem<IWireSource>[], IWireQueryParams>(WireApiLink, "post");
 export const useWireCountQuery = createQueryHook<ISourceQuery<IWireSource>, number, IWireQueryParams>(WireCountApiLink, "post");
 
-export const useWireSource = () => useSourceContext<ISourceItem<IWireSource>>();
+export const useWireSource = () => useSourceContext<ISourceItem<IWireSource>>()
 
 export interface IWireSourceContext extends ISourceContext<ISourceItem<IWireSource>> {
 }
@@ -83,15 +83,15 @@ export interface IWireFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const WireFilterProvider: FC<IWireFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IWireSource>>> name={"Wire"} {...props}/>;
 
-export const useWireOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireSource>>>();
-export const useWireFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireSource>>>();
+export const useWireOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireSource>>>()
+export const useWireFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireSource>>>()
 
 export interface IWireProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IWireSource>>> {
 }
 
 export const WireProviderFilter: FC<IWireProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Wire"}
+	translation={'common.filter.Wire'}
 />;
 
 export interface IWireOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IWireSource>>>> {
@@ -99,8 +99,8 @@ export interface IWireOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const WireOrderByProvider: FC<IWireOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IWireSource>>> name={"Wire"} {...props}/>;
 
-export const useWireOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireSource>>>();
-export const useWireOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireSource>>>();
+export const useWireOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireSource>>>()
+export const useWireOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireSource>>>()
 
 export interface IWireProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IWireSource>>, IQueryOrderBy<ISourceQuery<IWireSource>>, IWireQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const WireInfiniteListSource: FC<IWireInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</WireProvider>;
-};
+}
 
 export interface IWireSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireSource>>;
@@ -159,7 +159,7 @@ export const WireSourceSelect: FC<IWireSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Wire.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<WireProviderControl>
@@ -177,7 +177,7 @@ export interface IWireSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const WireSelectionProvider: FC<IWireSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IWireSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IWireSource>> {...props}/>
 }
 
 export const useWireCountQueryInvalidate = () => {

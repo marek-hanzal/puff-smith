@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BaseApiLink = "/api/lab/liquid/base/query";
 export const BaseCountApiLink = "/api/lab/liquid/base/query/count";
@@ -50,7 +50,7 @@ export type IBaseQueryParams = any;
 export const useBaseQuery = createQueryHook<ISourceQuery<ILiquidBaseSource>, ISourceItem<ILiquidBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
 export const useBaseCountQuery = createQueryHook<ISourceQuery<ILiquidBaseSource>, number, IBaseQueryParams>(BaseCountApiLink, "post");
 
-export const useBaseSource = () => useSourceContext<ISourceItem<ILiquidBaseSource>>();
+export const useBaseSource = () => useSourceContext<ISourceItem<ILiquidBaseSource>>()
 
 export interface IBaseSourceContext extends ISourceContext<ISourceItem<ILiquidBaseSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>();
-export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>();
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>()
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidBaseSource>>>()
 
 export interface IBaseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidBaseSource>>> {
 }
 
 export const BaseProviderFilter: FC<IBaseProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Base"}
+	translation={'common.filter.Base'}
 />;
 
 export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>> {
@@ -99,8 +99,8 @@ export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>();
-export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>();
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>()
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>>()
 
 export interface IBaseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidBaseSource>>, IQueryOrderBy<ISourceQuery<ILiquidBaseSource>>, IBaseQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const BaseInfiniteListSource: FC<IBaseInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</BaseProvider>;
-};
+}
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidBaseSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidBaseSource>>;
@@ -159,7 +159,7 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Base.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BaseProviderControl>
@@ -177,7 +177,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ILiquidBaseSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ILiquidBaseSource>> {...props}/>
 }
 
 export const useBaseCountQueryInvalidate = () => {

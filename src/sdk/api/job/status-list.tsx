@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const StatusListApiLink = "/api/job/status-list";
 export const StatusListCountApiLink = "/api/job/status-list/count";
@@ -50,7 +50,7 @@ export type IStatusListQueryParams = any;
 export const useStatusListQuery = createQueryHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
 export const useStatusListCountQuery = createQueryHook<ISourceQuery<IJobStatusSource>, number, IStatusListQueryParams>(StatusListCountApiLink, "post");
 
-export const useStatusListSource = () => useSourceContext<ISourceItem<IJobStatusSource>>();
+export const useStatusListSource = () => useSourceContext<ISourceItem<IJobStatusSource>>()
 
 export interface IStatusListSourceContext extends ISourceContext<ISourceItem<IJobStatusSource>> {
 }
@@ -83,15 +83,15 @@ export interface IStatusListFilterProviderProps extends Partial<IFilterProviderP
 
 export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>()
+export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>()
 
 export interface IStatusListProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobStatusSource>>> {
 }
 
 export const StatusListProviderFilter: FC<IStatusListProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.StatusList"}
+	translation={'common.filter.StatusList'}
 />;
 
 export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>> {
@@ -99,8 +99,8 @@ export interface IStatusListOrderByProviderProps extends Partial<IOrderByProvide
 
 export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>()
+export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>()
 
 export interface IStatusListProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>, IStatusListQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 			{...props}
 		/>
 	</StatusListProvider>;
-};
+}
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobStatusSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobStatusSource>>;
@@ -159,7 +159,7 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({provid
 					size={props.size}
 					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<StatusListProviderControl>
@@ -177,7 +177,7 @@ export interface IStatusListSelectionProviderProps extends Partial<ISelectionPro
 }
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>
 }
 
 export const useStatusListCountQueryInvalidate = () => {

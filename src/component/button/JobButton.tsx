@@ -5,10 +5,10 @@ import {useJobQuery, useJobQueryInvalidate} from "@/sdk/api/job/query";
 import {IJob, IQueryFilter} from "@leight-core/api";
 import {UseToken} from "@leight-core/client";
 import {isString, toHumanNumber} from "@leight-core/utils";
+import {UseMutationResult} from "@tanstack/react-query";
 import {Button, message, Space, Tooltip} from "antd";
 import {ComponentProps, ReactNode, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {UseMutationResult} from "react-query";
 
 export interface IJobButtonProps<TJobParams> extends Partial<ComponentProps<typeof Button>> {
 	translation: string;

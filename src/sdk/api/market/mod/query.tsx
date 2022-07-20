@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const ModMarketApiLink = "/api/market/mod/query";
 export const ModMarketCountApiLink = "/api/market/mod/query/count";
@@ -50,7 +50,7 @@ export type IModMarketQueryParams = any;
 export const useModMarketQuery = createQueryHook<ISourceQuery<IModMarketSource>, ISourceItem<IModMarketSource>[], IModMarketQueryParams>(ModMarketApiLink, "post");
 export const useModMarketCountQuery = createQueryHook<ISourceQuery<IModMarketSource>, number, IModMarketQueryParams>(ModMarketCountApiLink, "post");
 
-export const useModMarketSource = () => useSourceContext<ISourceItem<IModMarketSource>>();
+export const useModMarketSource = () => useSourceContext<ISourceItem<IModMarketSource>>()
 
 export interface IModMarketSourceContext extends ISourceContext<ISourceItem<IModMarketSource>> {
 }
@@ -83,15 +83,15 @@ export interface IModMarketFilterProviderProps extends Partial<IFilterProviderPr
 
 export const ModMarketFilterProvider: FC<IModMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IModMarketSource>>> name={"ModMarket"} {...props}/>;
 
-export const useModMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>();
-export const useModMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>();
+export const useModMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>()
+export const useModMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModMarketSource>>>()
 
 export interface IModMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IModMarketSource>>> {
 }
 
 export const ModMarketProviderFilter: FC<IModMarketProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.ModMarket"}
+	translation={'common.filter.ModMarket'}
 />;
 
 export interface IModMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IModMarketSource>>>> {
@@ -99,8 +99,8 @@ export interface IModMarketOrderByProviderProps extends Partial<IOrderByProvider
 
 export const ModMarketOrderByProvider: FC<IModMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IModMarketSource>>> name={"ModMarket"} {...props}/>;
 
-export const useModMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>();
-export const useModMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>();
+export const useModMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>()
+export const useModMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModMarketSource>>>()
 
 export interface IModMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IModMarketSource>>, IQueryOrderBy<ISourceQuery<IModMarketSource>>, IModMarketQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const ModMarketInfiniteListSource: FC<IModMarketInfiniteListSourceProps> 
 			{...props}
 		/>
 	</ModMarketProvider>;
-};
+}
 
 export interface IModMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModMarketSource>>;
@@ -159,7 +159,7 @@ export const ModMarketSourceSelect: FC<IModMarketSourceSelectProps> = ({provider
 					size={props.size}
 					tooltip={"common.selection.ModMarket.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<ModMarketProviderControl>
@@ -177,7 +177,7 @@ export interface IModMarketSelectionProviderProps extends Partial<ISelectionProv
 }
 
 export const ModMarketSelectionProvider: FC<IModMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IModMarketSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IModMarketSource>> {...props}/>
 }
 
 export const useModMarketCountQueryInvalidate = () => {

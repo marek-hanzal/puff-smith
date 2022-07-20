@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BaseApiLink = "/api/mixture/base/query";
 export const BaseCountApiLink = "/api/mixture/base/query/count";
@@ -50,7 +50,7 @@ export type IBaseQueryParams = any;
 export const useBaseQuery = createQueryHook<ISourceQuery<IMixtureBaseSource>, ISourceItem<IMixtureBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
 export const useBaseCountQuery = createQueryHook<ISourceQuery<IMixtureBaseSource>, number, IBaseQueryParams>(BaseCountApiLink, "post");
 
-export const useBaseSource = () => useSourceContext<ISourceItem<IMixtureBaseSource>>();
+export const useBaseSource = () => useSourceContext<ISourceItem<IMixtureBaseSource>>()
 
 export interface IBaseSourceContext extends ISourceContext<ISourceItem<IMixtureBaseSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureBaseSource>>>();
-export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureBaseSource>>>();
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureBaseSource>>>()
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureBaseSource>>>()
 
 export interface IBaseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureBaseSource>>> {
 }
 
 export const BaseProviderFilter: FC<IBaseProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Base"}
+	translation={'common.filter.Base'}
 />;
 
 export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>>> {
@@ -99,8 +99,8 @@ export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>>();
-export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>>();
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>>()
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>>()
 
 export interface IBaseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureBaseSource>>, IQueryOrderBy<ISourceQuery<IMixtureBaseSource>>, IBaseQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const BaseInfiniteListSource: FC<IBaseInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</BaseProvider>;
-};
+}
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureBaseSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureBaseSource>>;
@@ -159,7 +159,7 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Base.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BaseProviderControl>
@@ -177,7 +177,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IMixtureBaseSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IMixtureBaseSource>> {...props}/>
 }
 
 export const useBaseCountQueryInvalidate = () => {

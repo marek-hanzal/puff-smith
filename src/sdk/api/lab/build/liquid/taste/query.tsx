@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildLiquidTasteRatingApiLink = "/api/lab/build/liquid/taste/query";
 export const BuildLiquidTasteRatingCountApiLink = "/api/lab/build/liquid/taste/query/count";
@@ -50,7 +50,7 @@ export type IBuildLiquidTasteRatingQueryParams = any;
 export const useBuildLiquidTasteRatingQuery = createQueryHook<ISourceQuery<IBuildLiquidTasteRatingSource>, ISourceItem<IBuildLiquidTasteRatingSource>[], IBuildLiquidTasteRatingQueryParams>(BuildLiquidTasteRatingApiLink, "post");
 export const useBuildLiquidTasteRatingCountQuery = createQueryHook<ISourceQuery<IBuildLiquidTasteRatingSource>, number, IBuildLiquidTasteRatingQueryParams>(BuildLiquidTasteRatingCountApiLink, "post");
 
-export const useBuildLiquidTasteRatingSource = () => useSourceContext<ISourceItem<IBuildLiquidTasteRatingSource>>();
+export const useBuildLiquidTasteRatingSource = () => useSourceContext<ISourceItem<IBuildLiquidTasteRatingSource>>()
 
 export interface IBuildLiquidTasteRatingSourceContext extends ISourceContext<ISourceItem<IBuildLiquidTasteRatingSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBuildLiquidTasteRatingFilterProviderProps extends Partial<IFil
 
 export const BuildLiquidTasteRatingFilterProvider: FC<IBuildLiquidTasteRatingFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>> name={"BuildLiquidTasteRating"} {...props}/>;
 
-export const useBuildLiquidTasteRatingOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>>();
-export const useBuildLiquidTasteRatingFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>>();
+export const useBuildLiquidTasteRatingOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>>()
+export const useBuildLiquidTasteRatingFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>>()
 
 export interface IBuildLiquidTasteRatingProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>> {
 }
 
 export const BuildLiquidTasteRatingProviderFilter: FC<IBuildLiquidTasteRatingProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.BuildLiquidTasteRating"}
+	translation={'common.filter.BuildLiquidTasteRating'}
 />;
 
 export interface IBuildLiquidTasteRatingOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>>> {
@@ -99,14 +99,13 @@ export interface IBuildLiquidTasteRatingOrderByProviderProps extends Partial<IOr
 
 export const BuildLiquidTasteRatingOrderByProvider: FC<IBuildLiquidTasteRatingOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>> name={"BuildLiquidTasteRating"} {...props}/>;
 
-export const useBuildLiquidTasteRatingOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>>();
-export const useBuildLiquidTasteRatingOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>>();
+export const useBuildLiquidTasteRatingOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>>()
+export const useBuildLiquidTasteRatingOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>>()
 
 export interface IBuildLiquidTasteRatingProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>, IBuildLiquidTasteRatingQueryParams>> {
 }
 
-export const BuildLiquidTasteRatingProviderControl: FC<IBuildLiquidTasteRatingProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>> name={"BuildLiquidTasteRating"} {...props}/>;
+export const BuildLiquidTasteRatingProviderControl: FC<IBuildLiquidTasteRatingProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IBuildLiquidTasteRatingSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidTasteRatingSource>>> name={"BuildLiquidTasteRating"} {...props}/>;
 
 export interface IBuildLiquidTasteRatingListSourceProps extends Partial<IListProps<ISourceItem<IBuildLiquidTasteRatingSource>>> {
 	providerProps?: Partial<IBuildLiquidTasteRatingProviderProps>;
@@ -136,7 +135,7 @@ export const BuildLiquidTasteRatingInfiniteListSource: FC<IBuildLiquidTasteRatin
 			{...props}
 		/>
 	</BuildLiquidTasteRatingProvider>;
-};
+}
 
 export interface IBuildLiquidTasteRatingSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildLiquidTasteRatingSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildLiquidTasteRatingSource>>;
@@ -160,7 +159,7 @@ export const BuildLiquidTasteRatingSourceSelect: FC<IBuildLiquidTasteRatingSourc
 					size={props.size}
 					tooltip={"common.selection.BuildLiquidTasteRating.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BuildLiquidTasteRatingProviderControl>
@@ -178,7 +177,7 @@ export interface IBuildLiquidTasteRatingSelectionProviderProps extends Partial<I
 }
 
 export const BuildLiquidTasteRatingSelectionProvider: FC<IBuildLiquidTasteRatingSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBuildLiquidTasteRatingSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBuildLiquidTasteRatingSource>> {...props}/>
 }
 
 export const useBuildLiquidTasteRatingCountQueryInvalidate = () => {

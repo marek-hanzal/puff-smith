@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const FiberApiLink = "/api/fiber/query";
 export const FiberCountApiLink = "/api/fiber/query/count";
@@ -50,7 +50,7 @@ export type IFiberQueryParams = any;
 export const useFiberQuery = createQueryHook<ISourceQuery<IFiberSource>, ISourceItem<IFiberSource>[], IFiberQueryParams>(FiberApiLink, "post");
 export const useFiberCountQuery = createQueryHook<ISourceQuery<IFiberSource>, number, IFiberQueryParams>(FiberCountApiLink, "post");
 
-export const useFiberSource = () => useSourceContext<ISourceItem<IFiberSource>>();
+export const useFiberSource = () => useSourceContext<ISourceItem<IFiberSource>>()
 
 export interface IFiberSourceContext extends ISourceContext<ISourceItem<IFiberSource>> {
 }
@@ -83,15 +83,15 @@ export interface IFiberFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const FiberFilterProvider: FC<IFiberFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFiberSource>>> name={"Fiber"} {...props}/>;
 
-export const useFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFiberSource>>>();
-export const useFiberFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFiberSource>>>();
+export const useFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFiberSource>>>()
+export const useFiberFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFiberSource>>>()
 
 export interface IFiberProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFiberSource>>> {
 }
 
 export const FiberProviderFilter: FC<IFiberProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Fiber"}
+	translation={'common.filter.Fiber'}
 />;
 
 export interface IFiberOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IFiberSource>>>> {
@@ -99,8 +99,8 @@ export interface IFiberOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const FiberOrderByProvider: FC<IFiberOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFiberSource>>> name={"Fiber"} {...props}/>;
 
-export const useFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFiberSource>>>();
-export const useFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFiberSource>>>();
+export const useFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFiberSource>>>()
+export const useFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFiberSource>>>()
 
 export interface IFiberProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFiberSource>>, IQueryOrderBy<ISourceQuery<IFiberSource>>, IFiberQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const FiberInfiniteListSource: FC<IFiberInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</FiberProvider>;
-};
+}
 
 export interface IFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFiberSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFiberSource>>;
@@ -159,7 +159,7 @@ export const FiberSourceSelect: FC<IFiberSourceSelectProps> = ({providerProps, s
 					size={props.size}
 					tooltip={"common.selection.Fiber.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<FiberProviderControl>
@@ -177,7 +177,7 @@ export interface IFiberSelectionProviderProps extends Partial<ISelectionProvider
 }
 
 export const FiberSelectionProvider: FC<IFiberSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IFiberSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IFiberSource>> {...props}/>
 }
 
 export const useFiberCountQueryInvalidate = () => {

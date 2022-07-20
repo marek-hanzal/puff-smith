@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const LiquidApiLink = "/api/lab/liquid/query";
 export const LiquidCountApiLink = "/api/lab/liquid/query/count";
@@ -50,7 +50,7 @@ export type ILiquidQueryParams = any;
 export const useLiquidQuery = createQueryHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
 export const useLiquidCountQuery = createQueryHook<ISourceQuery<ILiquidSource>, number, ILiquidQueryParams>(LiquidCountApiLink, "post");
 
-export const useLiquidSource = () => useSourceContext<ISourceItem<ILiquidSource>>();
+export const useLiquidSource = () => useSourceContext<ISourceItem<ILiquidSource>>()
 
 export interface ILiquidSourceContext extends ISourceContext<ISourceItem<ILiquidSource>> {
 }
@@ -83,15 +83,15 @@ export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps
 
 export const LiquidFilterProvider: FC<ILiquidFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
-export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
-export const useLiquidFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
+export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>()
+export const useLiquidFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>()
 
 export interface ILiquidProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidSource>>> {
 }
 
 export const LiquidProviderFilter: FC<ILiquidProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Liquid"}
+	translation={'common.filter.Liquid'}
 />;
 
 export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILiquidSource>>>> {
@@ -99,8 +99,8 @@ export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderPro
 
 export const LiquidOrderByProvider: FC<ILiquidOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
-export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
-export const useLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
+export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>()
+export const useLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>()
 
 export interface ILiquidProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidSource>>, IQueryOrderBy<ISourceQuery<ILiquidSource>>, ILiquidQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</LiquidProvider>;
-};
+}
 
 export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidSource>>;
@@ -159,7 +159,7 @@ export const LiquidSourceSelect: FC<ILiquidSourceSelectProps> = ({providerProps,
 					size={props.size}
 					tooltip={"common.selection.Liquid.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<LiquidProviderControl>
@@ -177,7 +177,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 }
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>
 }
 
 export const useLiquidCountQueryInvalidate = () => {

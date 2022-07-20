@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const AromaVendorApiLink = "/api/inventory/aroma/vendor/query";
 export const AromaVendorCountApiLink = "/api/inventory/aroma/vendor/query/count";
@@ -50,7 +50,7 @@ export type IAromaVendorQueryParams = any;
 export const useAromaVendorQuery = createQueryHook<ISourceQuery<IAromaVendorSource>, ISourceItem<IAromaVendorSource>[], IAromaVendorQueryParams>(AromaVendorApiLink, "post");
 export const useAromaVendorCountQuery = createQueryHook<ISourceQuery<IAromaVendorSource>, number, IAromaVendorQueryParams>(AromaVendorCountApiLink, "post");
 
-export const useAromaVendorSource = () => useSourceContext<ISourceItem<IAromaVendorSource>>();
+export const useAromaVendorSource = () => useSourceContext<ISourceItem<IAromaVendorSource>>()
 
 export interface IAromaVendorSourceContext extends ISourceContext<ISourceItem<IAromaVendorSource>> {
 }
@@ -83,15 +83,15 @@ export interface IAromaVendorFilterProviderProps extends Partial<IFilterProvider
 
 export const AromaVendorFilterProvider: FC<IAromaVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaVendorSource>>> name={"AromaVendor"} {...props}/>;
 
-export const useAromaVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaVendorSource>>>();
-export const useAromaVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaVendorSource>>>();
+export const useAromaVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaVendorSource>>>()
+export const useAromaVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaVendorSource>>>()
 
 export interface IAromaVendorProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaVendorSource>>> {
 }
 
 export const AromaVendorProviderFilter: FC<IAromaVendorProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AromaVendor"}
+	translation={'common.filter.AromaVendor'}
 />;
 
 export interface IAromaVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>>> {
@@ -99,14 +99,13 @@ export interface IAromaVendorOrderByProviderProps extends Partial<IOrderByProvid
 
 export const AromaVendorOrderByProvider: FC<IAromaVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>> name={"AromaVendor"} {...props}/>;
 
-export const useAromaVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>>();
-export const useAromaVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>>();
+export const useAromaVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>>()
+export const useAromaVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaVendorSource>>>()
 
 export interface IAromaVendorProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaVendorSource>>, IQueryOrderBy<ISourceQuery<IAromaVendorSource>>, IAromaVendorQueryParams>> {
 }
 
-export const AromaVendorProviderControl: FC<IAromaVendorProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IAromaVendorSource>>, IQueryOrderBy<ISourceQuery<IAromaVendorSource>>> name={"AromaVendor"} {...props}/>;
+export const AromaVendorProviderControl: FC<IAromaVendorProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAromaVendorSource>>, IQueryOrderBy<ISourceQuery<IAromaVendorSource>>> name={"AromaVendor"} {...props}/>;
 
 export interface IAromaVendorListSourceProps extends Partial<IListProps<ISourceItem<IAromaVendorSource>>> {
 	providerProps?: Partial<IAromaVendorProviderProps>;
@@ -136,7 +135,7 @@ export const AromaVendorInfiniteListSource: FC<IAromaVendorInfiniteListSourcePro
 			{...props}
 		/>
 	</AromaVendorProvider>;
-};
+}
 
 export interface IAromaVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaVendorSource>>;
@@ -160,7 +159,7 @@ export const AromaVendorSourceSelect: FC<IAromaVendorSourceSelectProps> = ({prov
 					size={props.size}
 					tooltip={"common.selection.AromaVendor.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<AromaVendorProviderControl>
@@ -178,7 +177,7 @@ export interface IAromaVendorSelectionProviderProps extends Partial<ISelectionPr
 }
 
 export const AromaVendorSelectionProvider: FC<IAromaVendorSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAromaVendorSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAromaVendorSource>> {...props}/>
 }
 
 export const useAromaVendorCountQueryInvalidate = () => {

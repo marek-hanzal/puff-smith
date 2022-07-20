@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const JobApiLink = "/api/job/query";
 export const JobCountApiLink = "/api/job/query/count";
@@ -50,7 +50,7 @@ export type IJobQueryParams = any;
 export const useJobQuery = createQueryHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
 export const useJobCountQuery = createQueryHook<ISourceQuery<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");
 
-export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>();
+export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>()
 
 export interface IJobSourceContext extends ISourceContext<ISourceItem<IJobSource>> {
 }
@@ -83,15 +83,15 @@ export interface IJobFilterProviderProps extends Partial<IFilterProviderProps<IQ
 
 export const JobFilterProvider: FC<IJobFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
 
-export const useJobOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>();
-export const useJobFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>();
+export const useJobOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>()
+export const useJobFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>()
 
 export interface IJobProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobSource>>> {
 }
 
 export const JobProviderFilter: FC<IJobProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Job"}
+	translation={'common.filter.Job'}
 />;
 
 export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobSource>>>> {
@@ -99,8 +99,8 @@ export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<
 
 export const JobOrderByProvider: FC<IJobOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
 
-export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
-export const useJobOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
+export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>()
+export const useJobOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>()
 
 export interface IJobProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobSource>>, IQueryOrderBy<ISourceQuery<IJobSource>>, IJobQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</JobProvider>;
-};
+}
 
 export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobSource>>;
@@ -159,7 +159,7 @@ export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selec
 					size={props.size}
 					tooltip={"common.selection.Job.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<JobProviderControl>
@@ -177,7 +177,7 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 }
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>
 }
 
 export const useJobCountQueryInvalidate = () => {

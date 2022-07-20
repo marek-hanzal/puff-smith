@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const UserLicenseApiLink = "/api/user/license/query";
 export const UserLicenseCountApiLink = "/api/user/license/query/count";
@@ -50,7 +50,7 @@ export type IUserLicenseQueryParams = any;
 export const useUserLicenseQuery = createQueryHook<ISourceQuery<IUserLicenseSource>, ISourceItem<IUserLicenseSource>[], IUserLicenseQueryParams>(UserLicenseApiLink, "post");
 export const useUserLicenseCountQuery = createQueryHook<ISourceQuery<IUserLicenseSource>, number, IUserLicenseQueryParams>(UserLicenseCountApiLink, "post");
 
-export const useUserLicenseSource = () => useSourceContext<ISourceItem<IUserLicenseSource>>();
+export const useUserLicenseSource = () => useSourceContext<ISourceItem<IUserLicenseSource>>()
 
 export interface IUserLicenseSourceContext extends ISourceContext<ISourceItem<IUserLicenseSource>> {
 }
@@ -83,15 +83,15 @@ export interface IUserLicenseFilterProviderProps extends Partial<IFilterProvider
 
 export const UserLicenseFilterProvider: FC<IUserLicenseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IUserLicenseSource>>> name={"UserLicense"} {...props}/>;
 
-export const useUserLicenseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserLicenseSource>>>();
-export const useUserLicenseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserLicenseSource>>>();
+export const useUserLicenseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserLicenseSource>>>()
+export const useUserLicenseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserLicenseSource>>>()
 
 export interface IUserLicenseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IUserLicenseSource>>> {
 }
 
 export const UserLicenseProviderFilter: FC<IUserLicenseProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.UserLicense"}
+	translation={'common.filter.UserLicense'}
 />;
 
 export interface IUserLicenseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>>> {
@@ -99,14 +99,13 @@ export interface IUserLicenseOrderByProviderProps extends Partial<IOrderByProvid
 
 export const UserLicenseOrderByProvider: FC<IUserLicenseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>> name={"UserLicense"} {...props}/>;
 
-export const useUserLicenseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>>();
-export const useUserLicenseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>>();
+export const useUserLicenseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>>()
+export const useUserLicenseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserLicenseSource>>>()
 
 export interface IUserLicenseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IUserLicenseSource>>, IQueryOrderBy<ISourceQuery<IUserLicenseSource>>, IUserLicenseQueryParams>> {
 }
 
-export const UserLicenseProviderControl: FC<IUserLicenseProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IUserLicenseSource>>, IQueryOrderBy<ISourceQuery<IUserLicenseSource>>> name={"UserLicense"} {...props}/>;
+export const UserLicenseProviderControl: FC<IUserLicenseProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IUserLicenseSource>>, IQueryOrderBy<ISourceQuery<IUserLicenseSource>>> name={"UserLicense"} {...props}/>;
 
 export interface IUserLicenseListSourceProps extends Partial<IListProps<ISourceItem<IUserLicenseSource>>> {
 	providerProps?: Partial<IUserLicenseProviderProps>;
@@ -136,7 +135,7 @@ export const UserLicenseInfiniteListSource: FC<IUserLicenseInfiniteListSourcePro
 			{...props}
 		/>
 	</UserLicenseProvider>;
-};
+}
 
 export interface IUserLicenseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserLicenseSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserLicenseSource>>;
@@ -160,7 +159,7 @@ export const UserLicenseSourceSelect: FC<IUserLicenseSourceSelectProps> = ({prov
 					size={props.size}
 					tooltip={"common.selection.UserLicense.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<UserLicenseProviderControl>
@@ -178,7 +177,7 @@ export interface IUserLicenseSelectionProviderProps extends Partial<ISelectionPr
 }
 
 export const UserLicenseSelectionProvider: FC<IUserLicenseSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IUserLicenseSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IUserLicenseSource>> {...props}/>
 }
 
 export const useUserLicenseCountQueryInvalidate = () => {

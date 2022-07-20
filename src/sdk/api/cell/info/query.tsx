@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CellInfoApiLink = "/api/cell/info/query";
 export const CellInfoCountApiLink = "/api/cell/info/query/count";
@@ -50,7 +50,7 @@ export type ICellInfoQueryParams = any;
 export const useCellInfoQuery = createQueryHook<ISourceQuery<ICellInfoSource>, ISourceItem<ICellInfoSource>[], ICellInfoQueryParams>(CellInfoApiLink, "post");
 export const useCellInfoCountQuery = createQueryHook<ISourceQuery<ICellInfoSource>, number, ICellInfoQueryParams>(CellInfoCountApiLink, "post");
 
-export const useCellInfoSource = () => useSourceContext<ISourceItem<ICellInfoSource>>();
+export const useCellInfoSource = () => useSourceContext<ISourceItem<ICellInfoSource>>()
 
 export interface ICellInfoSourceContext extends ISourceContext<ISourceItem<ICellInfoSource>> {
 }
@@ -83,15 +83,15 @@ export interface ICellInfoFilterProviderProps extends Partial<IFilterProviderPro
 
 export const CellInfoFilterProvider: FC<ICellInfoFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellInfoSource>>> name={"CellInfo"} {...props}/>;
 
-export const useCellInfoOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellInfoSource>>>();
-export const useCellInfoFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellInfoSource>>>();
+export const useCellInfoOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellInfoSource>>>()
+export const useCellInfoFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellInfoSource>>>()
 
 export interface ICellInfoProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellInfoSource>>> {
 }
 
 export const CellInfoProviderFilter: FC<ICellInfoProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.CellInfo"}
+	translation={'common.filter.CellInfo'}
 />;
 
 export interface ICellInfoOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellInfoSource>>>> {
@@ -99,8 +99,8 @@ export interface ICellInfoOrderByProviderProps extends Partial<IOrderByProviderP
 
 export const CellInfoOrderByProvider: FC<ICellInfoOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellInfoSource>>> name={"CellInfo"} {...props}/>;
 
-export const useCellInfoOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellInfoSource>>>();
-export const useCellInfoOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellInfoSource>>>();
+export const useCellInfoOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellInfoSource>>>()
+export const useCellInfoOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellInfoSource>>>()
 
 export interface ICellInfoProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellInfoSource>>, IQueryOrderBy<ISourceQuery<ICellInfoSource>>, ICellInfoQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const CellInfoInfiniteListSource: FC<ICellInfoInfiniteListSourceProps> = 
 			{...props}
 		/>
 	</CellInfoProvider>;
-};
+}
 
 export interface ICellInfoSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellInfoSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellInfoSource>>;
@@ -159,7 +159,7 @@ export const CellInfoSourceSelect: FC<ICellInfoSourceSelectProps> = ({providerPr
 					size={props.size}
 					tooltip={"common.selection.CellInfo.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CellInfoProviderControl>
@@ -177,7 +177,7 @@ export interface ICellInfoSelectionProviderProps extends Partial<ISelectionProvi
 }
 
 export const CellInfoSelectionProvider: FC<ICellInfoSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICellInfoSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICellInfoSource>> {...props}/>
 }
 
 export const useCellInfoCountQueryInvalidate = () => {

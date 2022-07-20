@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const LicenseApiLink = "/api/license/query";
 export const LicenseCountApiLink = "/api/license/query/count";
@@ -50,7 +50,7 @@ export type ILicenseQueryParams = any;
 export const useLicenseQuery = createQueryHook<ISourceQuery<ILicenseSource>, ISourceItem<ILicenseSource>[], ILicenseQueryParams>(LicenseApiLink, "post");
 export const useLicenseCountQuery = createQueryHook<ISourceQuery<ILicenseSource>, number, ILicenseQueryParams>(LicenseCountApiLink, "post");
 
-export const useLicenseSource = () => useSourceContext<ISourceItem<ILicenseSource>>();
+export const useLicenseSource = () => useSourceContext<ISourceItem<ILicenseSource>>()
 
 export interface ILicenseSourceContext extends ISourceContext<ISourceItem<ILicenseSource>> {
 }
@@ -83,15 +83,15 @@ export interface ILicenseFilterProviderProps extends Partial<IFilterProviderProp
 
 export const LicenseFilterProvider: FC<ILicenseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILicenseSource>>> name={"License"} {...props}/>;
 
-export const useLicenseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILicenseSource>>>();
-export const useLicenseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILicenseSource>>>();
+export const useLicenseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILicenseSource>>>()
+export const useLicenseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILicenseSource>>>()
 
 export interface ILicenseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILicenseSource>>> {
 }
 
 export const LicenseProviderFilter: FC<ILicenseProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.License"}
+	translation={'common.filter.License'}
 />;
 
 export interface ILicenseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILicenseSource>>>> {
@@ -99,8 +99,8 @@ export interface ILicenseOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const LicenseOrderByProvider: FC<ILicenseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILicenseSource>>> name={"License"} {...props}/>;
 
-export const useLicenseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILicenseSource>>>();
-export const useLicenseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILicenseSource>>>();
+export const useLicenseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILicenseSource>>>()
+export const useLicenseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILicenseSource>>>()
 
 export interface ILicenseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILicenseSource>>, IQueryOrderBy<ISourceQuery<ILicenseSource>>, ILicenseQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const LicenseInfiniteListSource: FC<ILicenseInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</LicenseProvider>;
-};
+}
 
 export interface ILicenseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILicenseSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILicenseSource>>;
@@ -159,7 +159,7 @@ export const LicenseSourceSelect: FC<ILicenseSourceSelectProps> = ({providerProp
 					size={props.size}
 					tooltip={"common.selection.License.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<LicenseProviderControl>
@@ -177,7 +177,7 @@ export interface ILicenseSelectionProviderProps extends Partial<ISelectionProvid
 }
 
 export const LicenseSelectionProvider: FC<ILicenseSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ILicenseSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ILicenseSource>> {...props}/>
 }
 
 export const useLicenseCountQueryInvalidate = () => {

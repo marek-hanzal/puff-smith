@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildLiquidApiLink = "/api/lab/build/[id]/liquid/query";
 export const BuildLiquidCountApiLink = "/api/lab/build/[id]/liquid/query/count";
@@ -50,7 +50,7 @@ export type IBuildLiquidQueryParams = any;
 export const useBuildLiquidQuery = createQueryHook<ISourceQuery<IBuildLiquidSource>, ISourceItem<IBuildLiquidSource>[], IBuildLiquidQueryParams>(BuildLiquidApiLink, "post");
 export const useBuildLiquidCountQuery = createQueryHook<ISourceQuery<IBuildLiquidSource>, number, IBuildLiquidQueryParams>(BuildLiquidCountApiLink, "post");
 
-export const useBuildLiquidSource = () => useSourceContext<ISourceItem<IBuildLiquidSource>>();
+export const useBuildLiquidSource = () => useSourceContext<ISourceItem<IBuildLiquidSource>>()
 
 export interface IBuildLiquidSourceContext extends ISourceContext<ISourceItem<IBuildLiquidSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBuildLiquidFilterProviderProps extends Partial<IFilterProvider
 
 export const BuildLiquidFilterProvider: FC<IBuildLiquidFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBuildLiquidSource>>> name={"BuildLiquid"} {...props}/>;
 
-export const useBuildLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidSource>>>();
-export const useBuildLiquidFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidSource>>>();
+export const useBuildLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidSource>>>()
+export const useBuildLiquidFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildLiquidSource>>>()
 
 export interface IBuildLiquidProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBuildLiquidSource>>> {
 }
 
 export const BuildLiquidProviderFilter: FC<IBuildLiquidProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.BuildLiquid"}
+	translation={'common.filter.BuildLiquid'}
 />;
 
 export interface IBuildLiquidOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>>> {
@@ -99,14 +99,13 @@ export interface IBuildLiquidOrderByProviderProps extends Partial<IOrderByProvid
 
 export const BuildLiquidOrderByProvider: FC<IBuildLiquidOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>> name={"BuildLiquid"} {...props}/>;
 
-export const useBuildLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>>();
-export const useBuildLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>>();
+export const useBuildLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>>()
+export const useBuildLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>>()
 
 export interface IBuildLiquidProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBuildLiquidSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>, IBuildLiquidQueryParams>> {
 }
 
-export const BuildLiquidProviderControl: FC<IBuildLiquidProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IBuildLiquidSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>> name={"BuildLiquid"} {...props}/>;
+export const BuildLiquidProviderControl: FC<IBuildLiquidProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IBuildLiquidSource>>, IQueryOrderBy<ISourceQuery<IBuildLiquidSource>>> name={"BuildLiquid"} {...props}/>;
 
 export interface IBuildLiquidListSourceProps extends Partial<IListProps<ISourceItem<IBuildLiquidSource>>> {
 	providerProps?: Partial<IBuildLiquidProviderProps>;
@@ -136,7 +135,7 @@ export const BuildLiquidInfiniteListSource: FC<IBuildLiquidInfiniteListSourcePro
 			{...props}
 		/>
 	</BuildLiquidProvider>;
-};
+}
 
 export interface IBuildLiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildLiquidSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildLiquidSource>>;
@@ -160,7 +159,7 @@ export const BuildLiquidSourceSelect: FC<IBuildLiquidSourceSelectProps> = ({prov
 					size={props.size}
 					tooltip={"common.selection.BuildLiquid.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BuildLiquidProviderControl>
@@ -178,7 +177,7 @@ export interface IBuildLiquidSelectionProviderProps extends Partial<ISelectionPr
 }
 
 export const BuildLiquidSelectionProvider: FC<IBuildLiquidSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBuildLiquidSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBuildLiquidSource>> {...props}/>
 }
 
 export const useBuildLiquidCountQueryInvalidate = () => {

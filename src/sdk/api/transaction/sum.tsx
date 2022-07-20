@@ -20,8 +20,8 @@ import {
 	useOptionalOrderByContext,
 	useOrderByContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const SumApiLink = "/api/transaction/sum";
 

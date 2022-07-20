@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const WishlistApiLink = "/api/wishlist/query";
 export const WishlistCountApiLink = "/api/wishlist/query/count";
@@ -50,7 +50,7 @@ export type IWishlistQueryParams = any;
 export const useWishlistQuery = createQueryHook<ISourceQuery<IWishlistSource>, ISourceItem<IWishlistSource>[], IWishlistQueryParams>(WishlistApiLink, "post");
 export const useWishlistCountQuery = createQueryHook<ISourceQuery<IWishlistSource>, number, IWishlistQueryParams>(WishlistCountApiLink, "post");
 
-export const useWishlistSource = () => useSourceContext<ISourceItem<IWishlistSource>>();
+export const useWishlistSource = () => useSourceContext<ISourceItem<IWishlistSource>>()
 
 export interface IWishlistSourceContext extends ISourceContext<ISourceItem<IWishlistSource>> {
 }
@@ -83,15 +83,15 @@ export interface IWishlistFilterProviderProps extends Partial<IFilterProviderPro
 
 export const WishlistFilterProvider: FC<IWishlistFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IWishlistSource>>> name={"Wishlist"} {...props}/>;
 
-export const useWishlistOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWishlistSource>>>();
-export const useWishlistFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWishlistSource>>>();
+export const useWishlistOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWishlistSource>>>()
+export const useWishlistFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWishlistSource>>>()
 
 export interface IWishlistProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IWishlistSource>>> {
 }
 
 export const WishlistProviderFilter: FC<IWishlistProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Wishlist"}
+	translation={'common.filter.Wishlist'}
 />;
 
 export interface IWishlistOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IWishlistSource>>>> {
@@ -99,8 +99,8 @@ export interface IWishlistOrderByProviderProps extends Partial<IOrderByProviderP
 
 export const WishlistOrderByProvider: FC<IWishlistOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IWishlistSource>>> name={"Wishlist"} {...props}/>;
 
-export const useWishlistOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWishlistSource>>>();
-export const useWishlistOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWishlistSource>>>();
+export const useWishlistOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWishlistSource>>>()
+export const useWishlistOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWishlistSource>>>()
 
 export interface IWishlistProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IWishlistSource>>, IQueryOrderBy<ISourceQuery<IWishlistSource>>, IWishlistQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const WishlistInfiniteListSource: FC<IWishlistInfiniteListSourceProps> = 
 			{...props}
 		/>
 	</WishlistProvider>;
-};
+}
 
 export interface IWishlistSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWishlistSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWishlistSource>>;
@@ -159,7 +159,7 @@ export const WishlistSourceSelect: FC<IWishlistSourceSelectProps> = ({providerPr
 					size={props.size}
 					tooltip={"common.selection.Wishlist.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<WishlistProviderControl>
@@ -177,7 +177,7 @@ export interface IWishlistSelectionProviderProps extends Partial<ISelectionProvi
 }
 
 export const WishlistSelectionProvider: FC<IWishlistSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IWishlistSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IWishlistSource>> {...props}/>
 }
 
 export const useWishlistCountQueryInvalidate = () => {

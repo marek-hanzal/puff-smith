@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const ModApiLink = "/api/mod/query";
 export const ModCountApiLink = "/api/mod/query/count";
@@ -50,7 +50,7 @@ export type IModQueryParams = any;
 export const useModQuery = createQueryHook<ISourceQuery<IModSource>, ISourceItem<IModSource>[], IModQueryParams>(ModApiLink, "post");
 export const useModCountQuery = createQueryHook<ISourceQuery<IModSource>, number, IModQueryParams>(ModCountApiLink, "post");
 
-export const useModSource = () => useSourceContext<ISourceItem<IModSource>>();
+export const useModSource = () => useSourceContext<ISourceItem<IModSource>>()
 
 export interface IModSourceContext extends ISourceContext<ISourceItem<IModSource>> {
 }
@@ -83,15 +83,15 @@ export interface IModFilterProviderProps extends Partial<IFilterProviderProps<IQ
 
 export const ModFilterProvider: FC<IModFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IModSource>>> name={"Mod"} {...props}/>;
 
-export const useModOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModSource>>>();
-export const useModFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModSource>>>();
+export const useModOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModSource>>>()
+export const useModFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModSource>>>()
 
 export interface IModProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IModSource>>> {
 }
 
 export const ModProviderFilter: FC<IModProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Mod"}
+	translation={'common.filter.Mod'}
 />;
 
 export interface IModOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IModSource>>>> {
@@ -99,8 +99,8 @@ export interface IModOrderByProviderProps extends Partial<IOrderByProviderProps<
 
 export const ModOrderByProvider: FC<IModOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IModSource>>> name={"Mod"} {...props}/>;
 
-export const useModOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>();
-export const useModOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>();
+export const useModOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>()
+export const useModOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModSource>>>()
 
 export interface IModProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IModSource>>, IQueryOrderBy<ISourceQuery<IModSource>>, IModQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const ModInfiniteListSource: FC<IModInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</ModProvider>;
-};
+}
 
 export interface IModSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModSource>>;
@@ -159,7 +159,7 @@ export const ModSourceSelect: FC<IModSourceSelectProps> = ({providerProps, selec
 					size={props.size}
 					tooltip={"common.selection.Mod.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<ModProviderControl>
@@ -177,7 +177,7 @@ export interface IModSelectionProviderProps extends Partial<ISelectionProviderPr
 }
 
 export const ModSelectionProvider: FC<IModSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IModSource>> {...props}/>
 }
 
 export const useModCountQueryInvalidate = () => {

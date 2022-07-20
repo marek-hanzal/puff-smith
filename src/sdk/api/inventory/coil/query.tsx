@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CoilInventoryApiLink = "/api/inventory/coil/query";
 export const CoilInventoryCountApiLink = "/api/inventory/coil/query/count";
@@ -50,7 +50,7 @@ export type ICoilInventoryQueryParams = any;
 export const useCoilInventoryQuery = createQueryHook<ISourceQuery<ICoilInventorySource>, ISourceItem<ICoilInventorySource>[], ICoilInventoryQueryParams>(CoilInventoryApiLink, "post");
 export const useCoilInventoryCountQuery = createQueryHook<ISourceQuery<ICoilInventorySource>, number, ICoilInventoryQueryParams>(CoilInventoryCountApiLink, "post");
 
-export const useCoilInventorySource = () => useSourceContext<ISourceItem<ICoilInventorySource>>();
+export const useCoilInventorySource = () => useSourceContext<ISourceItem<ICoilInventorySource>>()
 
 export interface ICoilInventorySourceContext extends ISourceContext<ISourceItem<ICoilInventorySource>> {
 }
@@ -83,15 +83,15 @@ export interface ICoilInventoryFilterProviderProps extends Partial<IFilterProvid
 
 export const CoilInventoryFilterProvider: FC<ICoilInventoryFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICoilInventorySource>>> name={"CoilInventory"} {...props}/>;
 
-export const useCoilInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICoilInventorySource>>>();
-export const useCoilInventoryFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICoilInventorySource>>>();
+export const useCoilInventoryOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICoilInventorySource>>>()
+export const useCoilInventoryFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICoilInventorySource>>>()
 
 export interface ICoilInventoryProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICoilInventorySource>>> {
 }
 
 export const CoilInventoryProviderFilter: FC<ICoilInventoryProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.CoilInventory"}
+	translation={'common.filter.CoilInventory'}
 />;
 
 export interface ICoilInventoryOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>>> {
@@ -99,14 +99,13 @@ export interface ICoilInventoryOrderByProviderProps extends Partial<IOrderByProv
 
 export const CoilInventoryOrderByProvider: FC<ICoilInventoryOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>> name={"CoilInventory"} {...props}/>;
 
-export const useCoilInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>>();
-export const useCoilInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>>();
+export const useCoilInventoryOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>>()
+export const useCoilInventoryOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICoilInventorySource>>>()
 
 export interface ICoilInventoryProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICoilInventorySource>>, IQueryOrderBy<ISourceQuery<ICoilInventorySource>>, ICoilInventoryQueryParams>> {
 }
 
-export const CoilInventoryProviderControl: FC<ICoilInventoryProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<ICoilInventorySource>>, IQueryOrderBy<ISourceQuery<ICoilInventorySource>>> name={"CoilInventory"} {...props}/>;
+export const CoilInventoryProviderControl: FC<ICoilInventoryProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ICoilInventorySource>>, IQueryOrderBy<ISourceQuery<ICoilInventorySource>>> name={"CoilInventory"} {...props}/>;
 
 export interface ICoilInventoryListSourceProps extends Partial<IListProps<ISourceItem<ICoilInventorySource>>> {
 	providerProps?: Partial<ICoilInventoryProviderProps>;
@@ -136,7 +135,7 @@ export const CoilInventoryInfiniteListSource: FC<ICoilInventoryInfiniteListSourc
 			{...props}
 		/>
 	</CoilInventoryProvider>;
-};
+}
 
 export interface ICoilInventorySourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICoilInventorySource>> {
 	toOption: IToOptionMapper<ISourceItem<ICoilInventorySource>>;
@@ -160,7 +159,7 @@ export const CoilInventorySourceSelect: FC<ICoilInventorySourceSelectProps> = ({
 					size={props.size}
 					tooltip={"common.selection.CoilInventory.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CoilInventoryProviderControl>
@@ -178,7 +177,7 @@ export interface ICoilInventorySelectionProviderProps extends Partial<ISelection
 }
 
 export const CoilInventorySelectionProvider: FC<ICoilInventorySelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICoilInventorySource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICoilInventorySource>> {...props}/>
 }
 
 export const useCoilInventoryCountQueryInvalidate = () => {

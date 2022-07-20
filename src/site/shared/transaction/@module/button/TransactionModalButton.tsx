@@ -4,10 +4,10 @@ import {usePuffiesQuery, usePuffiesQueryInvalidate} from "@/sdk/api/user/puffies
 import {IMutationHook} from "@leight-core/api";
 import {ModalButton} from "@leight-core/client";
 import {toHumanNumber} from "@leight-core/utils";
+import {UseQueryResult} from "@tanstack/react-query";
 import {ButtonProps, message, Tooltip} from "antd";
 import {PropsWithChildren} from "react";
 import {Trans, useTranslation} from "react-i18next";
-import {UseQueryResult} from "react-query";
 
 type IMutationRequest<T> = T extends IMutationHook<infer TRequest, any> ? TRequest : T;
 

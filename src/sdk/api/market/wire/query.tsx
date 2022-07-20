@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const WireMarketApiLink = "/api/market/wire/query";
 export const WireMarketCountApiLink = "/api/market/wire/query/count";
@@ -50,7 +50,7 @@ export type IWireMarketQueryParams = any;
 export const useWireMarketQuery = createQueryHook<ISourceQuery<IWireMarketSource>, ISourceItem<IWireMarketSource>[], IWireMarketQueryParams>(WireMarketApiLink, "post");
 export const useWireMarketCountQuery = createQueryHook<ISourceQuery<IWireMarketSource>, number, IWireMarketQueryParams>(WireMarketCountApiLink, "post");
 
-export const useWireMarketSource = () => useSourceContext<ISourceItem<IWireMarketSource>>();
+export const useWireMarketSource = () => useSourceContext<ISourceItem<IWireMarketSource>>()
 
 export interface IWireMarketSourceContext extends ISourceContext<ISourceItem<IWireMarketSource>> {
 }
@@ -83,15 +83,15 @@ export interface IWireMarketFilterProviderProps extends Partial<IFilterProviderP
 
 export const WireMarketFilterProvider: FC<IWireMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IWireMarketSource>>> name={"WireMarket"} {...props}/>;
 
-export const useWireMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireMarketSource>>>();
-export const useWireMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireMarketSource>>>();
+export const useWireMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireMarketSource>>>()
+export const useWireMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireMarketSource>>>()
 
 export interface IWireMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IWireMarketSource>>> {
 }
 
 export const WireMarketProviderFilter: FC<IWireMarketProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.WireMarket"}
+	translation={'common.filter.WireMarket'}
 />;
 
 export interface IWireMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IWireMarketSource>>>> {
@@ -99,8 +99,8 @@ export interface IWireMarketOrderByProviderProps extends Partial<IOrderByProvide
 
 export const WireMarketOrderByProvider: FC<IWireMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IWireMarketSource>>> name={"WireMarket"} {...props}/>;
 
-export const useWireMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireMarketSource>>>();
-export const useWireMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireMarketSource>>>();
+export const useWireMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireMarketSource>>>()
+export const useWireMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireMarketSource>>>()
 
 export interface IWireMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IWireMarketSource>>, IQueryOrderBy<ISourceQuery<IWireMarketSource>>, IWireMarketQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const WireMarketInfiniteListSource: FC<IWireMarketInfiniteListSourceProps
 			{...props}
 		/>
 	</WireMarketProvider>;
-};
+}
 
 export interface IWireMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireMarketSource>>;
@@ -159,7 +159,7 @@ export const WireMarketSourceSelect: FC<IWireMarketSourceSelectProps> = ({provid
 					size={props.size}
 					tooltip={"common.selection.WireMarket.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<WireMarketProviderControl>
@@ -177,7 +177,7 @@ export interface IWireMarketSelectionProviderProps extends Partial<ISelectionPro
 }
 
 export const WireMarketSelectionProvider: FC<IWireMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IWireMarketSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IWireMarketSource>> {...props}/>
 }
 
 export const useWireMarketCountQueryInvalidate = () => {

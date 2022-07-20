@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CommentApiLink = "/api/comment/query";
 export const CommentCountApiLink = "/api/comment/query/count";
@@ -50,7 +50,7 @@ export type ICommentQueryParams = any;
 export const useCommentQuery = createQueryHook<ISourceQuery<ICommentSource>, ISourceItem<ICommentSource>[], ICommentQueryParams>(CommentApiLink, "post");
 export const useCommentCountQuery = createQueryHook<ISourceQuery<ICommentSource>, number, ICommentQueryParams>(CommentCountApiLink, "post");
 
-export const useCommentSource = () => useSourceContext<ISourceItem<ICommentSource>>();
+export const useCommentSource = () => useSourceContext<ISourceItem<ICommentSource>>()
 
 export interface ICommentSourceContext extends ISourceContext<ISourceItem<ICommentSource>> {
 }
@@ -83,15 +83,15 @@ export interface ICommentFilterProviderProps extends Partial<IFilterProviderProp
 
 export const CommentFilterProvider: FC<ICommentFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICommentSource>>> name={"Comment"} {...props}/>;
 
-export const useCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICommentSource>>>();
-export const useCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICommentSource>>>();
+export const useCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICommentSource>>>()
+export const useCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICommentSource>>>()
 
 export interface ICommentProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICommentSource>>> {
 }
 
 export const CommentProviderFilter: FC<ICommentProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Comment"}
+	translation={'common.filter.Comment'}
 />;
 
 export interface ICommentOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICommentSource>>>> {
@@ -99,8 +99,8 @@ export interface ICommentOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const CommentOrderByProvider: FC<ICommentOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICommentSource>>> name={"Comment"} {...props}/>;
 
-export const useCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICommentSource>>>();
-export const useCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICommentSource>>>();
+export const useCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICommentSource>>>()
+export const useCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICommentSource>>>()
 
 export interface ICommentProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICommentSource>>, IQueryOrderBy<ISourceQuery<ICommentSource>>, ICommentQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const CommentInfiniteListSource: FC<ICommentInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</CommentProvider>;
-};
+}
 
 export interface ICommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICommentSource>>;
@@ -159,7 +159,7 @@ export const CommentSourceSelect: FC<ICommentSourceSelectProps> = ({providerProp
 					size={props.size}
 					tooltip={"common.selection.Comment.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CommentProviderControl>
@@ -177,7 +177,7 @@ export interface ICommentSelectionProviderProps extends Partial<ISelectionProvid
 }
 
 export const CommentSelectionProvider: FC<ICommentSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICommentSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICommentSource>> {...props}/>
 }
 
 export const useCommentCountQueryInvalidate = () => {

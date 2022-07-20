@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const MixtureAromaApiLink = "/api/inventory/mixture/aroma/query";
 export const MixtureAromaCountApiLink = "/api/inventory/mixture/aroma/query/count";
@@ -50,7 +50,7 @@ export type IMixtureAromaQueryParams = any;
 export const useMixtureAromaQuery = createQueryHook<ISourceQuery<IMixtureAromaSource>, ISourceItem<IMixtureAromaSource>[], IMixtureAromaQueryParams>(MixtureAromaApiLink, "post");
 export const useMixtureAromaCountQuery = createQueryHook<ISourceQuery<IMixtureAromaSource>, number, IMixtureAromaQueryParams>(MixtureAromaCountApiLink, "post");
 
-export const useMixtureAromaSource = () => useSourceContext<ISourceItem<IMixtureAromaSource>>();
+export const useMixtureAromaSource = () => useSourceContext<ISourceItem<IMixtureAromaSource>>()
 
 export interface IMixtureAromaSourceContext extends ISourceContext<ISourceItem<IMixtureAromaSource>> {
 }
@@ -83,15 +83,15 @@ export interface IMixtureAromaFilterProviderProps extends Partial<IFilterProvide
 
 export const MixtureAromaFilterProvider: FC<IMixtureAromaFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureAromaSource>>> name={"MixtureAroma"} {...props}/>;
 
-export const useMixtureAromaOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureAromaSource>>>();
-export const useMixtureAromaFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureAromaSource>>>();
+export const useMixtureAromaOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureAromaSource>>>()
+export const useMixtureAromaFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureAromaSource>>>()
 
 export interface IMixtureAromaProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureAromaSource>>> {
 }
 
 export const MixtureAromaProviderFilter: FC<IMixtureAromaProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.MixtureAroma"}
+	translation={'common.filter.MixtureAroma'}
 />;
 
 export interface IMixtureAromaOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>>> {
@@ -99,14 +99,13 @@ export interface IMixtureAromaOrderByProviderProps extends Partial<IOrderByProvi
 
 export const MixtureAromaOrderByProvider: FC<IMixtureAromaOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>> name={"MixtureAroma"} {...props}/>;
 
-export const useMixtureAromaOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>>();
-export const useMixtureAromaOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>>();
+export const useMixtureAromaOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>>()
+export const useMixtureAromaOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>>()
 
 export interface IMixtureAromaProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureAromaSource>>, IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>, IMixtureAromaQueryParams>> {
 }
 
-export const MixtureAromaProviderControl: FC<IMixtureAromaProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IMixtureAromaSource>>, IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>> name={"MixtureAroma"} {...props}/>;
+export const MixtureAromaProviderControl: FC<IMixtureAromaProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IMixtureAromaSource>>, IQueryOrderBy<ISourceQuery<IMixtureAromaSource>>> name={"MixtureAroma"} {...props}/>;
 
 export interface IMixtureAromaListSourceProps extends Partial<IListProps<ISourceItem<IMixtureAromaSource>>> {
 	providerProps?: Partial<IMixtureAromaProviderProps>;
@@ -136,7 +135,7 @@ export const MixtureAromaInfiniteListSource: FC<IMixtureAromaInfiniteListSourceP
 			{...props}
 		/>
 	</MixtureAromaProvider>;
-};
+}
 
 export interface IMixtureAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureAromaSource>>;
@@ -160,7 +159,7 @@ export const MixtureAromaSourceSelect: FC<IMixtureAromaSourceSelectProps> = ({pr
 					size={props.size}
 					tooltip={"common.selection.MixtureAroma.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<MixtureAromaProviderControl>
@@ -178,7 +177,7 @@ export interface IMixtureAromaSelectionProviderProps extends Partial<ISelectionP
 }
 
 export const MixtureAromaSelectionProvider: FC<IMixtureAromaSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IMixtureAromaSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IMixtureAromaSource>> {...props}/>
 }
 
 export const useMixtureAromaCountQueryInvalidate = () => {

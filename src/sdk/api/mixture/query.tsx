@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const MixtureApiLink = "/api/mixture/query";
 export const MixtureCountApiLink = "/api/mixture/query/count";
@@ -50,7 +50,7 @@ export type IMixtureQueryParams = any;
 export const useMixtureQuery = createQueryHook<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
 export const useMixtureCountQuery = createQueryHook<ISourceQuery<IMixtureSource>, number, IMixtureQueryParams>(MixtureCountApiLink, "post");
 
-export const useMixtureSource = () => useSourceContext<ISourceItem<IMixtureSource>>();
+export const useMixtureSource = () => useSourceContext<ISourceItem<IMixtureSource>>()
 
 export interface IMixtureSourceContext extends ISourceContext<ISourceItem<IMixtureSource>> {
 }
@@ -83,15 +83,15 @@ export interface IMixtureFilterProviderProps extends Partial<IFilterProviderProp
 
 export const MixtureFilterProvider: FC<IMixtureFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureSource>>> name={"Mixture"} {...props}/>;
 
-export const useMixtureOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>();
-export const useMixtureFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>();
+export const useMixtureOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>()
+export const useMixtureFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>()
 
 export interface IMixtureProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureSource>>> {
 }
 
 export const MixtureProviderFilter: FC<IMixtureProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Mixture"}
+	translation={'common.filter.Mixture'}
 />;
 
 export interface IMixtureOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureSource>>>> {
@@ -99,8 +99,8 @@ export interface IMixtureOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const MixtureOrderByProvider: FC<IMixtureOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureSource>>> name={"Mixture"} {...props}/>;
 
-export const useMixtureOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>();
-export const useMixtureOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>();
+export const useMixtureOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>()
+export const useMixtureOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>()
 
 export interface IMixtureProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureSource>>, IQueryOrderBy<ISourceQuery<IMixtureSource>>, IMixtureQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const MixtureInfiniteListSource: FC<IMixtureInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</MixtureProvider>;
-};
+}
 
 export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureSource>>;
@@ -159,7 +159,7 @@ export const MixtureSourceSelect: FC<IMixtureSourceSelectProps> = ({providerProp
 					size={props.size}
 					tooltip={"common.selection.Mixture.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<MixtureProviderControl>
@@ -177,7 +177,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 }
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>
 }
 
 export const useMixtureCountQueryInvalidate = () => {

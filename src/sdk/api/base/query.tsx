@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BaseApiLink = "/api/base/query";
 export const BaseCountApiLink = "/api/base/query/count";
@@ -50,7 +50,7 @@ export type IBaseQueryParams = any;
 export const useBaseQuery = createQueryHook<ISourceQuery<IBaseSource>, ISourceItem<IBaseSource>[], IBaseQueryParams>(BaseApiLink, "post");
 export const useBaseCountQuery = createQueryHook<ISourceQuery<IBaseSource>, number, IBaseQueryParams>(BaseCountApiLink, "post");
 
-export const useBaseSource = () => useSourceContext<ISourceItem<IBaseSource>>();
+export const useBaseSource = () => useSourceContext<ISourceItem<IBaseSource>>()
 
 export interface IBaseSourceContext extends ISourceContext<ISourceItem<IBaseSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBaseFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const BaseFilterProvider: FC<IBaseFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseSource>>>();
-export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseSource>>>();
+export const useBaseOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseSource>>>()
+export const useBaseFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseSource>>>()
 
 export interface IBaseProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBaseSource>>> {
 }
 
 export const BaseProviderFilter: FC<IBaseProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Base"}
+	translation={'common.filter.Base'}
 />;
 
 export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBaseSource>>>> {
@@ -99,8 +99,8 @@ export interface IBaseOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const BaseOrderByProvider: FC<IBaseOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBaseSource>>> name={"Base"} {...props}/>;
 
-export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseSource>>>();
-export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseSource>>>();
+export const useBaseOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseSource>>>()
+export const useBaseOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseSource>>>()
 
 export interface IBaseProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBaseSource>>, IQueryOrderBy<ISourceQuery<IBaseSource>>, IBaseQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const BaseInfiniteListSource: FC<IBaseInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</BaseProvider>;
-};
+}
 
 export interface IBaseSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseSource>>;
@@ -159,7 +159,7 @@ export const BaseSourceSelect: FC<IBaseSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Base.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BaseProviderControl>
@@ -177,7 +177,7 @@ export interface IBaseSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const BaseSelectionProvider: FC<IBaseSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBaseSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBaseSource>> {...props}/>
 }
 
 export const useBaseCountQueryInvalidate = () => {

@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CertificateApiLink = "/api/certificate/query";
 export const CertificateCountApiLink = "/api/certificate/query/count";
@@ -50,7 +50,7 @@ export type ICertificateQueryParams = any;
 export const useCertificateQuery = createQueryHook<ISourceQuery<ICertificateSource>, ISourceItem<ICertificateSource>[], ICertificateQueryParams>(CertificateApiLink, "post");
 export const useCertificateCountQuery = createQueryHook<ISourceQuery<ICertificateSource>, number, ICertificateQueryParams>(CertificateCountApiLink, "post");
 
-export const useCertificateSource = () => useSourceContext<ISourceItem<ICertificateSource>>();
+export const useCertificateSource = () => useSourceContext<ISourceItem<ICertificateSource>>()
 
 export interface ICertificateSourceContext extends ISourceContext<ISourceItem<ICertificateSource>> {
 }
@@ -83,15 +83,15 @@ export interface ICertificateFilterProviderProps extends Partial<IFilterProvider
 
 export const CertificateFilterProvider: FC<ICertificateFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICertificateSource>>> name={"Certificate"} {...props}/>;
 
-export const useCertificateOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICertificateSource>>>();
-export const useCertificateFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICertificateSource>>>();
+export const useCertificateOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICertificateSource>>>()
+export const useCertificateFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICertificateSource>>>()
 
 export interface ICertificateProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICertificateSource>>> {
 }
 
 export const CertificateProviderFilter: FC<ICertificateProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Certificate"}
+	translation={'common.filter.Certificate'}
 />;
 
 export interface ICertificateOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICertificateSource>>>> {
@@ -99,14 +99,13 @@ export interface ICertificateOrderByProviderProps extends Partial<IOrderByProvid
 
 export const CertificateOrderByProvider: FC<ICertificateOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICertificateSource>>> name={"Certificate"} {...props}/>;
 
-export const useCertificateOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICertificateSource>>>();
-export const useCertificateOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICertificateSource>>>();
+export const useCertificateOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICertificateSource>>>()
+export const useCertificateOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICertificateSource>>>()
 
 export interface ICertificateProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICertificateSource>>, IQueryOrderBy<ISourceQuery<ICertificateSource>>, ICertificateQueryParams>> {
 }
 
-export const CertificateProviderControl: FC<ICertificateProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<ICertificateSource>>, IQueryOrderBy<ISourceQuery<ICertificateSource>>> name={"Certificate"} {...props}/>;
+export const CertificateProviderControl: FC<ICertificateProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ICertificateSource>>, IQueryOrderBy<ISourceQuery<ICertificateSource>>> name={"Certificate"} {...props}/>;
 
 export interface ICertificateListSourceProps extends Partial<IListProps<ISourceItem<ICertificateSource>>> {
 	providerProps?: Partial<ICertificateProviderProps>;
@@ -136,7 +135,7 @@ export const CertificateInfiniteListSource: FC<ICertificateInfiniteListSourcePro
 			{...props}
 		/>
 	</CertificateProvider>;
-};
+}
 
 export interface ICertificateSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICertificateSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICertificateSource>>;
@@ -160,7 +159,7 @@ export const CertificateSourceSelect: FC<ICertificateSourceSelectProps> = ({prov
 					size={props.size}
 					tooltip={"common.selection.Certificate.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CertificateProviderControl>
@@ -178,7 +177,7 @@ export interface ICertificateSelectionProviderProps extends Partial<ISelectionPr
 }
 
 export const CertificateSelectionProvider: FC<ICertificateSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICertificateSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICertificateSource>> {...props}/>
 }
 
 export const useCertificateCountQueryInvalidate = () => {

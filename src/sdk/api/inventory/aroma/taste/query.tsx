@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const AromaTasteApiLink = "/api/inventory/aroma/taste/query";
 export const AromaTasteCountApiLink = "/api/inventory/aroma/taste/query/count";
@@ -50,7 +50,7 @@ export type IAromaTasteQueryParams = any;
 export const useAromaTasteQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, ISourceItem<IAromaTasteSource>[], IAromaTasteQueryParams>(AromaTasteApiLink, "post");
 export const useAromaTasteCountQuery = createQueryHook<ISourceQuery<IAromaTasteSource>, number, IAromaTasteQueryParams>(AromaTasteCountApiLink, "post");
 
-export const useAromaTasteSource = () => useSourceContext<ISourceItem<IAromaTasteSource>>();
+export const useAromaTasteSource = () => useSourceContext<ISourceItem<IAromaTasteSource>>()
 
 export interface IAromaTasteSourceContext extends ISourceContext<ISourceItem<IAromaTasteSource>> {
 }
@@ -83,15 +83,15 @@ export interface IAromaTasteFilterProviderProps extends Partial<IFilterProviderP
 
 export const AromaTasteFilterProvider: FC<IAromaTasteFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaTasteSource>>> name={"AromaTaste"} {...props}/>;
 
-export const useAromaTasteOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>();
-export const useAromaTasteFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>();
+export const useAromaTasteOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>()
+export const useAromaTasteFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaTasteSource>>>()
 
 export interface IAromaTasteProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaTasteSource>>> {
 }
 
 export const AromaTasteProviderFilter: FC<IAromaTasteProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AromaTaste"}
+	translation={'common.filter.AromaTaste'}
 />;
 
 export interface IAromaTasteOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>> {
@@ -99,8 +99,8 @@ export interface IAromaTasteOrderByProviderProps extends Partial<IOrderByProvide
 
 export const AromaTasteOrderByProvider: FC<IAromaTasteOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>> name={"AromaTaste"} {...props}/>;
 
-export const useAromaTasteOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>();
-export const useAromaTasteOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>();
+export const useAromaTasteOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>()
+export const useAromaTasteOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaTasteSource>>>()
 
 export interface IAromaTasteProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaTasteSource>>, IQueryOrderBy<ISourceQuery<IAromaTasteSource>>, IAromaTasteQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const AromaTasteInfiniteListSource: FC<IAromaTasteInfiniteListSourceProps
 			{...props}
 		/>
 	</AromaTasteProvider>;
-};
+}
 
 export interface IAromaTasteSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaTasteSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaTasteSource>>;
@@ -159,7 +159,7 @@ export const AromaTasteSourceSelect: FC<IAromaTasteSourceSelectProps> = ({provid
 					size={props.size}
 					tooltip={"common.selection.AromaTaste.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<AromaTasteProviderControl>
@@ -177,7 +177,7 @@ export interface IAromaTasteSelectionProviderProps extends Partial<ISelectionPro
 }
 
 export const AromaTasteSelectionProvider: FC<IAromaTasteSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAromaTasteSource>> {...props}/>
 }
 
 export const useAromaTasteCountQueryInvalidate = () => {

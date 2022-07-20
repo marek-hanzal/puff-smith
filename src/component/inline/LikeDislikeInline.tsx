@@ -1,10 +1,10 @@
 import Icon from "@ant-design/icons";
 import {IWithIdentity} from "@leight-core/api";
+import {UseMutationResult} from "@tanstack/react-query";
 import {Rate, Tooltip} from "antd";
 import {FC, ReactNode} from "react";
 import {useTranslation} from "react-i18next";
 import {MdDeleteOutline, MdOutlineThumbsUpDown, MdThumbDownOffAlt, MdThumbUpOffAlt, MdVerified} from "react-icons/md";
-import {UseMutationResult} from "react-query";
 
 const icons: Record<string, ReactNode> = {
 	"-2": <Icon component={MdDeleteOutline}/>,

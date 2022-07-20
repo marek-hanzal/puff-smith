@@ -5,8 +5,8 @@
 import {IBuildSource} from "@/puff-smith/service/build/interface";
 import {IEntityContext, ISourceItem, IWithIdentityQuery} from "@leight-core/api";
 import {createPromise, createPromiseHook, createQueryHook, EntityContext, EntityProvider, IEntityProviderProps, IQueryProps, Query, toLink, useContext, useOptionalContext} from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {createContext, FC} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildApiLink = "/api/lab/build/[id]/fetch";
 

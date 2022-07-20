@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BaseMarketApiLink = "/api/market/base/query";
 export const BaseMarketCountApiLink = "/api/market/base/query/count";
@@ -50,7 +50,7 @@ export type IBaseMarketQueryParams = any;
 export const useBaseMarketQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, ISourceItem<IBaseMarketSource>[], IBaseMarketQueryParams>(BaseMarketApiLink, "post");
 export const useBaseMarketCountQuery = createQueryHook<ISourceQuery<IBaseMarketSource>, number, IBaseMarketQueryParams>(BaseMarketCountApiLink, "post");
 
-export const useBaseMarketSource = () => useSourceContext<ISourceItem<IBaseMarketSource>>();
+export const useBaseMarketSource = () => useSourceContext<ISourceItem<IBaseMarketSource>>()
 
 export interface IBaseMarketSourceContext extends ISourceContext<ISourceItem<IBaseMarketSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBaseMarketFilterProviderProps extends Partial<IFilterProviderP
 
 export const BaseMarketFilterProvider: FC<IBaseMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBaseMarketSource>>> name={"BaseMarket"} {...props}/>;
 
-export const useBaseMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseMarketSource>>>();
-export const useBaseMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseMarketSource>>>();
+export const useBaseMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseMarketSource>>>()
+export const useBaseMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseMarketSource>>>()
 
 export interface IBaseMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBaseMarketSource>>> {
 }
 
 export const BaseMarketProviderFilter: FC<IBaseMarketProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.BaseMarket"}
+	translation={'common.filter.BaseMarket'}
 />;
 
 export interface IBaseMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>>> {
@@ -99,8 +99,8 @@ export interface IBaseMarketOrderByProviderProps extends Partial<IOrderByProvide
 
 export const BaseMarketOrderByProvider: FC<IBaseMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>> name={"BaseMarket"} {...props}/>;
 
-export const useBaseMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>>();
-export const useBaseMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>>();
+export const useBaseMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>>()
+export const useBaseMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseMarketSource>>>()
 
 export interface IBaseMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBaseMarketSource>>, IQueryOrderBy<ISourceQuery<IBaseMarketSource>>, IBaseMarketQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const BaseMarketInfiniteListSource: FC<IBaseMarketInfiniteListSourceProps
 			{...props}
 		/>
 	</BaseMarketProvider>;
-};
+}
 
 export interface IBaseMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseMarketSource>>;
@@ -159,7 +159,7 @@ export const BaseMarketSourceSelect: FC<IBaseMarketSourceSelectProps> = ({provid
 					size={props.size}
 					tooltip={"common.selection.BaseMarket.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BaseMarketProviderControl>
@@ -177,7 +177,7 @@ export interface IBaseMarketSelectionProviderProps extends Partial<ISelectionPro
 }
 
 export const BaseMarketSelectionProvider: FC<IBaseMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBaseMarketSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBaseMarketSource>> {...props}/>
 }
 
 export const useBaseMarketCountQueryInvalidate = () => {

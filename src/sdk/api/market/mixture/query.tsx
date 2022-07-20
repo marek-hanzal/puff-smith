@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const MixtureMarketApiLink = "/api/market/mixture/query";
 export const MixtureMarketCountApiLink = "/api/market/mixture/query/count";
@@ -50,7 +50,7 @@ export type IMixtureMarketQueryParams = any;
 export const useMixtureMarketQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, ISourceItem<IMixtureMarketSource>[], IMixtureMarketQueryParams>(MixtureMarketApiLink, "post");
 export const useMixtureMarketCountQuery = createQueryHook<ISourceQuery<IMixtureMarketSource>, number, IMixtureMarketQueryParams>(MixtureMarketCountApiLink, "post");
 
-export const useMixtureMarketSource = () => useSourceContext<ISourceItem<IMixtureMarketSource>>();
+export const useMixtureMarketSource = () => useSourceContext<ISourceItem<IMixtureMarketSource>>()
 
 export interface IMixtureMarketSourceContext extends ISourceContext<ISourceItem<IMixtureMarketSource>> {
 }
@@ -83,15 +83,15 @@ export interface IMixtureMarketFilterProviderProps extends Partial<IFilterProvid
 
 export const MixtureMarketFilterProvider: FC<IMixtureMarketFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureMarketSource>>> name={"MixtureMarket"} {...props}/>;
 
-export const useMixtureMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureMarketSource>>>();
-export const useMixtureMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureMarketSource>>>();
+export const useMixtureMarketOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureMarketSource>>>()
+export const useMixtureMarketFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureMarketSource>>>()
 
 export interface IMixtureMarketProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureMarketSource>>> {
 }
 
 export const MixtureMarketProviderFilter: FC<IMixtureMarketProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.MixtureMarket"}
+	translation={'common.filter.MixtureMarket'}
 />;
 
 export interface IMixtureMarketOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>>> {
@@ -99,14 +99,13 @@ export interface IMixtureMarketOrderByProviderProps extends Partial<IOrderByProv
 
 export const MixtureMarketOrderByProvider: FC<IMixtureMarketOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>> name={"MixtureMarket"} {...props}/>;
 
-export const useMixtureMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>>();
-export const useMixtureMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>>();
+export const useMixtureMarketOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>>()
+export const useMixtureMarketOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>>()
 
 export interface IMixtureMarketProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureMarketSource>>, IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>, IMixtureMarketQueryParams>> {
 }
 
-export const MixtureMarketProviderControl: FC<IMixtureMarketProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IMixtureMarketSource>>, IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>> name={"MixtureMarket"} {...props}/>;
+export const MixtureMarketProviderControl: FC<IMixtureMarketProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IMixtureMarketSource>>, IQueryOrderBy<ISourceQuery<IMixtureMarketSource>>> name={"MixtureMarket"} {...props}/>;
 
 export interface IMixtureMarketListSourceProps extends Partial<IListProps<ISourceItem<IMixtureMarketSource>>> {
 	providerProps?: Partial<IMixtureMarketProviderProps>;
@@ -136,7 +135,7 @@ export const MixtureMarketInfiniteListSource: FC<IMixtureMarketInfiniteListSourc
 			{...props}
 		/>
 	</MixtureMarketProvider>;
-};
+}
 
 export interface IMixtureMarketSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureMarketSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureMarketSource>>;
@@ -160,7 +159,7 @@ export const MixtureMarketSourceSelect: FC<IMixtureMarketSourceSelectProps> = ({
 					size={props.size}
 					tooltip={"common.selection.MixtureMarket.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<MixtureMarketProviderControl>
@@ -178,7 +177,7 @@ export interface IMixtureMarketSelectionProviderProps extends Partial<ISelection
 }
 
 export const MixtureMarketSelectionProvider: FC<IMixtureMarketSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IMixtureMarketSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IMixtureMarketSource>> {...props}/>
 }
 
 export const useMixtureMarketCountQueryInvalidate = () => {

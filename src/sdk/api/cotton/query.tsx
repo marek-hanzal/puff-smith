@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CottonApiLink = "/api/cotton/query";
 export const CottonCountApiLink = "/api/cotton/query/count";
@@ -50,7 +50,7 @@ export type ICottonQueryParams = any;
 export const useCottonQuery = createQueryHook<ISourceQuery<ICottonSource>, ISourceItem<ICottonSource>[], ICottonQueryParams>(CottonApiLink, "post");
 export const useCottonCountQuery = createQueryHook<ISourceQuery<ICottonSource>, number, ICottonQueryParams>(CottonCountApiLink, "post");
 
-export const useCottonSource = () => useSourceContext<ISourceItem<ICottonSource>>();
+export const useCottonSource = () => useSourceContext<ISourceItem<ICottonSource>>()
 
 export interface ICottonSourceContext extends ISourceContext<ISourceItem<ICottonSource>> {
 }
@@ -83,15 +83,15 @@ export interface ICottonFilterProviderProps extends Partial<IFilterProviderProps
 
 export const CottonFilterProvider: FC<ICottonFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICottonSource>>> name={"Cotton"} {...props}/>;
 
-export const useCottonOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICottonSource>>>();
-export const useCottonFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICottonSource>>>();
+export const useCottonOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICottonSource>>>()
+export const useCottonFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICottonSource>>>()
 
 export interface ICottonProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICottonSource>>> {
 }
 
 export const CottonProviderFilter: FC<ICottonProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Cotton"}
+	translation={'common.filter.Cotton'}
 />;
 
 export interface ICottonOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICottonSource>>>> {
@@ -99,8 +99,8 @@ export interface ICottonOrderByProviderProps extends Partial<IOrderByProviderPro
 
 export const CottonOrderByProvider: FC<ICottonOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICottonSource>>> name={"Cotton"} {...props}/>;
 
-export const useCottonOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICottonSource>>>();
-export const useCottonOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICottonSource>>>();
+export const useCottonOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICottonSource>>>()
+export const useCottonOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICottonSource>>>()
 
 export interface ICottonProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICottonSource>>, IQueryOrderBy<ISourceQuery<ICottonSource>>, ICottonQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const CottonInfiniteListSource: FC<ICottonInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</CottonProvider>;
-};
+}
 
 export interface ICottonSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICottonSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICottonSource>>;
@@ -159,7 +159,7 @@ export const CottonSourceSelect: FC<ICottonSourceSelectProps> = ({providerProps,
 					size={props.size}
 					tooltip={"common.selection.Cotton.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CottonProviderControl>
@@ -177,7 +177,7 @@ export interface ICottonSelectionProviderProps extends Partial<ISelectionProvide
 }
 
 export const CottonSelectionProvider: FC<ICottonSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICottonSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICottonSource>> {...props}/>
 }
 
 export const useCottonCountQueryInvalidate = () => {

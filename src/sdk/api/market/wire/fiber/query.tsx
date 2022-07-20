@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const WireFiberApiLink = "/api/market/wire/fiber/query";
 export const WireFiberCountApiLink = "/api/market/wire/fiber/query/count";
@@ -50,7 +50,7 @@ export type IWireFiberQueryParams = any;
 export const useWireFiberQuery = createQueryHook<ISourceQuery<IWireFiberSource>, ISourceItem<IWireFiberSource>[], IWireFiberQueryParams>(WireFiberApiLink, "post");
 export const useWireFiberCountQuery = createQueryHook<ISourceQuery<IWireFiberSource>, number, IWireFiberQueryParams>(WireFiberCountApiLink, "post");
 
-export const useWireFiberSource = () => useSourceContext<ISourceItem<IWireFiberSource>>();
+export const useWireFiberSource = () => useSourceContext<ISourceItem<IWireFiberSource>>()
 
 export interface IWireFiberSourceContext extends ISourceContext<ISourceItem<IWireFiberSource>> {
 }
@@ -83,15 +83,15 @@ export interface IWireFiberFilterProviderProps extends Partial<IFilterProviderPr
 
 export const WireFiberFilterProvider: FC<IWireFiberFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IWireFiberSource>>> name={"WireFiber"} {...props}/>;
 
-export const useWireFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>();
-export const useWireFiberFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>();
+export const useWireFiberOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>()
+export const useWireFiberFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IWireFiberSource>>>()
 
 export interface IWireFiberProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IWireFiberSource>>> {
 }
 
 export const WireFiberProviderFilter: FC<IWireFiberProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.WireFiber"}
+	translation={'common.filter.WireFiber'}
 />;
 
 export interface IWireFiberOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>> {
@@ -99,8 +99,8 @@ export interface IWireFiberOrderByProviderProps extends Partial<IOrderByProvider
 
 export const WireFiberOrderByProvider: FC<IWireFiberOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IWireFiberSource>>> name={"WireFiber"} {...props}/>;
 
-export const useWireFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>();
-export const useWireFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>();
+export const useWireFiberOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>()
+export const useWireFiberOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IWireFiberSource>>>()
 
 export interface IWireFiberProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IWireFiberSource>>, IQueryOrderBy<ISourceQuery<IWireFiberSource>>, IWireFiberQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const WireFiberInfiniteListSource: FC<IWireFiberInfiniteListSourceProps> 
 			{...props}
 		/>
 	</WireFiberProvider>;
-};
+}
 
 export interface IWireFiberSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IWireFiberSource>> {
 	toOption: IToOptionMapper<ISourceItem<IWireFiberSource>>;
@@ -159,7 +159,7 @@ export const WireFiberSourceSelect: FC<IWireFiberSourceSelectProps> = ({provider
 					size={props.size}
 					tooltip={"common.selection.WireFiber.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<WireFiberProviderControl>
@@ -177,7 +177,7 @@ export interface IWireFiberSelectionProviderProps extends Partial<ISelectionProv
 }
 
 export const WireFiberSelectionProvider: FC<IWireFiberSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IWireFiberSource>> {...props}/>
 }
 
 export const useWireFiberCountQueryInvalidate = () => {

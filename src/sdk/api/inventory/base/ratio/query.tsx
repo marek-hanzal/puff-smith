@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const RatioApiLink = "/api/inventory/base/ratio/query";
 export const RatioCountApiLink = "/api/inventory/base/ratio/query/count";
@@ -50,7 +50,7 @@ export type IRatioQueryParams = any;
 export const useRatioQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, ISourceItem<IBaseRatioSource>[], IRatioQueryParams>(RatioApiLink, "post");
 export const useRatioCountQuery = createQueryHook<ISourceQuery<IBaseRatioSource>, number, IRatioQueryParams>(RatioCountApiLink, "post");
 
-export const useRatioSource = () => useSourceContext<ISourceItem<IBaseRatioSource>>();
+export const useRatioSource = () => useSourceContext<ISourceItem<IBaseRatioSource>>()
 
 export interface IRatioSourceContext extends ISourceContext<ISourceItem<IBaseRatioSource>> {
 }
@@ -83,15 +83,15 @@ export interface IRatioFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const RatioFilterProvider: FC<IRatioFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBaseRatioSource>>> name={"Ratio"} {...props}/>;
 
-export const useRatioOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseRatioSource>>>();
-export const useRatioFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseRatioSource>>>();
+export const useRatioOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBaseRatioSource>>>()
+export const useRatioFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBaseRatioSource>>>()
 
 export interface IRatioProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBaseRatioSource>>> {
 }
 
 export const RatioProviderFilter: FC<IRatioProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Ratio"}
+	translation={'common.filter.Ratio'}
 />;
 
 export interface IRatioOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>>> {
@@ -99,8 +99,8 @@ export interface IRatioOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const RatioOrderByProvider: FC<IRatioOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>> name={"Ratio"} {...props}/>;
 
-export const useRatioOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>>();
-export const useRatioOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>>();
+export const useRatioOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>>()
+export const useRatioOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBaseRatioSource>>>()
 
 export interface IRatioProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBaseRatioSource>>, IQueryOrderBy<ISourceQuery<IBaseRatioSource>>, IRatioQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const RatioInfiniteListSource: FC<IRatioInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</RatioProvider>;
-};
+}
 
 export interface IRatioSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBaseRatioSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBaseRatioSource>>;
@@ -159,7 +159,7 @@ export const RatioSourceSelect: FC<IRatioSourceSelectProps> = ({providerProps, s
 					size={props.size}
 					tooltip={"common.selection.Ratio.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<RatioProviderControl>
@@ -177,7 +177,7 @@ export interface IRatioSelectionProviderProps extends Partial<ISelectionProvider
 }
 
 export const RatioSelectionProvider: FC<IRatioSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBaseRatioSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBaseRatioSource>> {...props}/>
 }
 
 export const useRatioCountQueryInvalidate = () => {

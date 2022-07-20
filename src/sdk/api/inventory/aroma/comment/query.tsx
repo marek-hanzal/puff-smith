@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const AromaInventoryCommentApiLink = "/api/inventory/aroma/comment/query";
 export const AromaInventoryCommentCountApiLink = "/api/inventory/aroma/comment/query/count";
@@ -50,7 +50,7 @@ export type IAromaInventoryCommentQueryParams = any;
 export const useAromaInventoryCommentQuery = createQueryHook<ISourceQuery<IAromaInventoryCommentSource>, ISourceItem<IAromaInventoryCommentSource>[], IAromaInventoryCommentQueryParams>(AromaInventoryCommentApiLink, "post");
 export const useAromaInventoryCommentCountQuery = createQueryHook<ISourceQuery<IAromaInventoryCommentSource>, number, IAromaInventoryCommentQueryParams>(AromaInventoryCommentCountApiLink, "post");
 
-export const useAromaInventoryCommentSource = () => useSourceContext<ISourceItem<IAromaInventoryCommentSource>>();
+export const useAromaInventoryCommentSource = () => useSourceContext<ISourceItem<IAromaInventoryCommentSource>>()
 
 export interface IAromaInventoryCommentSourceContext extends ISourceContext<ISourceItem<IAromaInventoryCommentSource>> {
 }
@@ -83,15 +83,15 @@ export interface IAromaInventoryCommentFilterProviderProps extends Partial<IFilt
 
 export const AromaInventoryCommentFilterProvider: FC<IAromaInventoryCommentFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>> name={"AromaInventoryComment"} {...props}/>;
 
-export const useAromaInventoryCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>>();
-export const useAromaInventoryCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>>();
+export const useAromaInventoryCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>>()
+export const useAromaInventoryCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>>()
 
 export interface IAromaInventoryCommentProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>> {
 }
 
 export const AromaInventoryCommentProviderFilter: FC<IAromaInventoryCommentProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AromaInventoryComment"}
+	translation={'common.filter.AromaInventoryComment'}
 />;
 
 export interface IAromaInventoryCommentOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>>> {
@@ -99,14 +99,13 @@ export interface IAromaInventoryCommentOrderByProviderProps extends Partial<IOrd
 
 export const AromaInventoryCommentOrderByProvider: FC<IAromaInventoryCommentOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>> name={"AromaInventoryComment"} {...props}/>;
 
-export const useAromaInventoryCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>>();
-export const useAromaInventoryCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>>();
+export const useAromaInventoryCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>>()
+export const useAromaInventoryCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>>()
 
 export interface IAromaInventoryCommentProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>, IAromaInventoryCommentQueryParams>> {
 }
 
-export const AromaInventoryCommentProviderControl: FC<IAromaInventoryCommentProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>> name={"AromaInventoryComment"} {...props}/>;
+export const AromaInventoryCommentProviderControl: FC<IAromaInventoryCommentProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAromaInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAromaInventoryCommentSource>>> name={"AromaInventoryComment"} {...props}/>;
 
 export interface IAromaInventoryCommentListSourceProps extends Partial<IListProps<ISourceItem<IAromaInventoryCommentSource>>> {
 	providerProps?: Partial<IAromaInventoryCommentProviderProps>;
@@ -136,7 +135,7 @@ export const AromaInventoryCommentInfiniteListSource: FC<IAromaInventoryCommentI
 			{...props}
 		/>
 	</AromaInventoryCommentProvider>;
-};
+}
 
 export interface IAromaInventoryCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaInventoryCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaInventoryCommentSource>>;
@@ -160,7 +159,7 @@ export const AromaInventoryCommentSourceSelect: FC<IAromaInventoryCommentSourceS
 					size={props.size}
 					tooltip={"common.selection.AromaInventoryComment.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<AromaInventoryCommentProviderControl>
@@ -178,7 +177,7 @@ export interface IAromaInventoryCommentSelectionProviderProps extends Partial<IS
 }
 
 export const AromaInventoryCommentSelectionProvider: FC<IAromaInventoryCommentSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAromaInventoryCommentSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAromaInventoryCommentSource>> {...props}/>
 }
 
 export const useAromaInventoryCommentCountQueryInvalidate = () => {

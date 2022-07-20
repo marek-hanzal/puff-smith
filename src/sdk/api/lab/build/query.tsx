@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildApiLink = "/api/lab/build/query";
 export const BuildCountApiLink = "/api/lab/build/query/count";
@@ -50,7 +50,7 @@ export type IBuildQueryParams = any;
 export const useBuildQuery = createQueryHook<ISourceQuery<IBuildSource>, ISourceItem<IBuildSource>[], IBuildQueryParams>(BuildApiLink, "post");
 export const useBuildCountQuery = createQueryHook<ISourceQuery<IBuildSource>, number, IBuildQueryParams>(BuildCountApiLink, "post");
 
-export const useBuildSource = () => useSourceContext<ISourceItem<IBuildSource>>();
+export const useBuildSource = () => useSourceContext<ISourceItem<IBuildSource>>()
 
 export interface IBuildSourceContext extends ISourceContext<ISourceItem<IBuildSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBuildFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const BuildFilterProvider: FC<IBuildFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBuildSource>>> name={"Build"} {...props}/>;
 
-export const useBuildOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildSource>>>();
-export const useBuildFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildSource>>>();
+export const useBuildOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildSource>>>()
+export const useBuildFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildSource>>>()
 
 export interface IBuildProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBuildSource>>> {
 }
 
 export const BuildProviderFilter: FC<IBuildProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Build"}
+	translation={'common.filter.Build'}
 />;
 
 export interface IBuildOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBuildSource>>>> {
@@ -99,8 +99,8 @@ export interface IBuildOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const BuildOrderByProvider: FC<IBuildOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBuildSource>>> name={"Build"} {...props}/>;
 
-export const useBuildOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildSource>>>();
-export const useBuildOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildSource>>>();
+export const useBuildOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildSource>>>()
+export const useBuildOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildSource>>>()
 
 export interface IBuildProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBuildSource>>, IQueryOrderBy<ISourceQuery<IBuildSource>>, IBuildQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const BuildInfiniteListSource: FC<IBuildInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</BuildProvider>;
-};
+}
 
 export interface IBuildSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildSource>>;
@@ -159,7 +159,7 @@ export const BuildSourceSelect: FC<IBuildSourceSelectProps> = ({providerProps, s
 					size={props.size}
 					tooltip={"common.selection.Build.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BuildProviderControl>
@@ -177,7 +177,7 @@ export interface IBuildSelectionProviderProps extends Partial<ISelectionProvider
 }
 
 export const BuildSelectionProvider: FC<IBuildSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBuildSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBuildSource>> {...props}/>
 }
 
 export const useBuildCountQueryInvalidate = () => {

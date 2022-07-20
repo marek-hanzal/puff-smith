@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const UserApiLink = "/api/user/query";
 export const UserCountApiLink = "/api/user/query/count";
@@ -50,7 +50,7 @@ export type IUserQueryParams = any;
 export const useUserQuery = createQueryHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
 export const useUserCountQuery = createQueryHook<ISourceQuery<IUserSource>, number, IUserQueryParams>(UserCountApiLink, "post");
 
-export const useUserSource = () => useSourceContext<ISourceItem<IUserSource>>();
+export const useUserSource = () => useSourceContext<ISourceItem<IUserSource>>()
 
 export interface IUserSourceContext extends ISourceContext<ISourceItem<IUserSource>> {
 }
@@ -83,15 +83,15 @@ export interface IUserFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const UserFilterProvider: FC<IUserFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
-export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
-export const useUserFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
+export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>()
+export const useUserFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>()
 
 export interface IUserProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IUserSource>>> {
 }
 
 export const UserProviderFilter: FC<IUserProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.User"}
+	translation={'common.filter.User'}
 />;
 
 export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IUserSource>>>> {
@@ -99,8 +99,8 @@ export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const UserOrderByProvider: FC<IUserOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
-export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
-export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
+export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>()
+export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>()
 
 export interface IUserProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IUserSource>>, IQueryOrderBy<ISourceQuery<IUserSource>>, IUserQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const UserInfiniteListSource: FC<IUserInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</UserProvider>;
-};
+}
 
 export interface IUserSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserSource>>;
@@ -159,7 +159,7 @@ export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.User.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<UserProviderControl>
@@ -177,7 +177,7 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IUserSource>> {...props}/>
 }
 
 export const useUserCountQueryInvalidate = () => {

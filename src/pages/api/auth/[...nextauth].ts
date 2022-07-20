@@ -33,8 +33,8 @@ export default NextAuth({
 	providers: [
 		GitHub({
 			name: "github",
-			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID,
-			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET,
+			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
+			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
 		}),
 		// https://next-auth.js.org/providers/email
 		EmailProvider({

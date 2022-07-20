@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const BuildCommentApiLink = "/api/lab/build/comment/query";
 export const BuildCommentCountApiLink = "/api/lab/build/comment/query/count";
@@ -50,7 +50,7 @@ export type IBuildCommentQueryParams = any;
 export const useBuildCommentQuery = createQueryHook<ISourceQuery<IBuildCommentSource>, ISourceItem<IBuildCommentSource>[], IBuildCommentQueryParams>(BuildCommentApiLink, "post");
 export const useBuildCommentCountQuery = createQueryHook<ISourceQuery<IBuildCommentSource>, number, IBuildCommentQueryParams>(BuildCommentCountApiLink, "post");
 
-export const useBuildCommentSource = () => useSourceContext<ISourceItem<IBuildCommentSource>>();
+export const useBuildCommentSource = () => useSourceContext<ISourceItem<IBuildCommentSource>>()
 
 export interface IBuildCommentSourceContext extends ISourceContext<ISourceItem<IBuildCommentSource>> {
 }
@@ -83,15 +83,15 @@ export interface IBuildCommentFilterProviderProps extends Partial<IFilterProvide
 
 export const BuildCommentFilterProvider: FC<IBuildCommentFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IBuildCommentSource>>> name={"BuildComment"} {...props}/>;
 
-export const useBuildCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildCommentSource>>>();
-export const useBuildCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildCommentSource>>>();
+export const useBuildCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IBuildCommentSource>>>()
+export const useBuildCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IBuildCommentSource>>>()
 
 export interface IBuildCommentProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IBuildCommentSource>>> {
 }
 
 export const BuildCommentProviderFilter: FC<IBuildCommentProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.BuildComment"}
+	translation={'common.filter.BuildComment'}
 />;
 
 export interface IBuildCommentOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>>> {
@@ -99,14 +99,13 @@ export interface IBuildCommentOrderByProviderProps extends Partial<IOrderByProvi
 
 export const BuildCommentOrderByProvider: FC<IBuildCommentOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>> name={"BuildComment"} {...props}/>;
 
-export const useBuildCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>>();
-export const useBuildCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>>();
+export const useBuildCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>>()
+export const useBuildCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IBuildCommentSource>>>()
 
 export interface IBuildCommentProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IBuildCommentSource>>, IQueryOrderBy<ISourceQuery<IBuildCommentSource>>, IBuildCommentQueryParams>> {
 }
 
-export const BuildCommentProviderControl: FC<IBuildCommentProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IBuildCommentSource>>, IQueryOrderBy<ISourceQuery<IBuildCommentSource>>> name={"BuildComment"} {...props}/>;
+export const BuildCommentProviderControl: FC<IBuildCommentProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IBuildCommentSource>>, IQueryOrderBy<ISourceQuery<IBuildCommentSource>>> name={"BuildComment"} {...props}/>;
 
 export interface IBuildCommentListSourceProps extends Partial<IListProps<ISourceItem<IBuildCommentSource>>> {
 	providerProps?: Partial<IBuildCommentProviderProps>;
@@ -136,7 +135,7 @@ export const BuildCommentInfiniteListSource: FC<IBuildCommentInfiniteListSourceP
 			{...props}
 		/>
 	</BuildCommentProvider>;
-};
+}
 
 export interface IBuildCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IBuildCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IBuildCommentSource>>;
@@ -160,7 +159,7 @@ export const BuildCommentSourceSelect: FC<IBuildCommentSourceSelectProps> = ({pr
 					size={props.size}
 					tooltip={"common.selection.BuildComment.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<BuildCommentProviderControl>
@@ -178,7 +177,7 @@ export interface IBuildCommentSelectionProviderProps extends Partial<ISelectionP
 }
 
 export const BuildCommentSelectionProvider: FC<IBuildCommentSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IBuildCommentSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IBuildCommentSource>> {...props}/>
 }
 
 export const useBuildCommentCountQueryInvalidate = () => {

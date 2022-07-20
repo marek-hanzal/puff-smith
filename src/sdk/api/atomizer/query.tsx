@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const AtomizerApiLink = "/api/atomizer/query";
 export const AtomizerCountApiLink = "/api/atomizer/query/count";
@@ -50,7 +50,7 @@ export type IAtomizerQueryParams = any;
 export const useAtomizerQuery = createQueryHook<ISourceQuery<IAtomizerSource>, ISourceItem<IAtomizerSource>[], IAtomizerQueryParams>(AtomizerApiLink, "post");
 export const useAtomizerCountQuery = createQueryHook<ISourceQuery<IAtomizerSource>, number, IAtomizerQueryParams>(AtomizerCountApiLink, "post");
 
-export const useAtomizerSource = () => useSourceContext<ISourceItem<IAtomizerSource>>();
+export const useAtomizerSource = () => useSourceContext<ISourceItem<IAtomizerSource>>()
 
 export interface IAtomizerSourceContext extends ISourceContext<ISourceItem<IAtomizerSource>> {
 }
@@ -83,15 +83,15 @@ export interface IAtomizerFilterProviderProps extends Partial<IFilterProviderPro
 
 export const AtomizerFilterProvider: FC<IAtomizerFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAtomizerSource>>> name={"Atomizer"} {...props}/>;
 
-export const useAtomizerOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerSource>>>();
-export const useAtomizerFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerSource>>>();
+export const useAtomizerOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerSource>>>()
+export const useAtomizerFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerSource>>>()
 
 export interface IAtomizerProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAtomizerSource>>> {
 }
 
 export const AtomizerProviderFilter: FC<IAtomizerProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Atomizer"}
+	translation={'common.filter.Atomizer'}
 />;
 
 export interface IAtomizerOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAtomizerSource>>>> {
@@ -99,8 +99,8 @@ export interface IAtomizerOrderByProviderProps extends Partial<IOrderByProviderP
 
 export const AtomizerOrderByProvider: FC<IAtomizerOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerSource>>> name={"Atomizer"} {...props}/>;
 
-export const useAtomizerOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerSource>>>();
-export const useAtomizerOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerSource>>>();
+export const useAtomizerOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerSource>>>()
+export const useAtomizerOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerSource>>>()
 
 export interface IAtomizerProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAtomizerSource>>, IQueryOrderBy<ISourceQuery<IAtomizerSource>>, IAtomizerQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const AtomizerInfiniteListSource: FC<IAtomizerInfiniteListSourceProps> = 
 			{...props}
 		/>
 	</AtomizerProvider>;
-};
+}
 
 export interface IAtomizerSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerSource>>;
@@ -159,7 +159,7 @@ export const AtomizerSourceSelect: FC<IAtomizerSourceSelectProps> = ({providerPr
 					size={props.size}
 					tooltip={"common.selection.Atomizer.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<AtomizerProviderControl>
@@ -177,7 +177,7 @@ export interface IAtomizerSelectionProviderProps extends Partial<ISelectionProvi
 }
 
 export const AtomizerSelectionProvider: FC<IAtomizerSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAtomizerSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAtomizerSource>> {...props}/>
 }
 
 export const useAtomizerCountQueryInvalidate = () => {

@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const AtomizerInventoryCommentApiLink = "/api/inventory/atomizer/comment/query";
 export const AtomizerInventoryCommentCountApiLink = "/api/inventory/atomizer/comment/query/count";
@@ -50,7 +50,7 @@ export type IAtomizerInventoryCommentQueryParams = any;
 export const useAtomizerInventoryCommentQuery = createQueryHook<ISourceQuery<IAtomizerInventoryCommentSource>, ISourceItem<IAtomizerInventoryCommentSource>[], IAtomizerInventoryCommentQueryParams>(AtomizerInventoryCommentApiLink, "post");
 export const useAtomizerInventoryCommentCountQuery = createQueryHook<ISourceQuery<IAtomizerInventoryCommentSource>, number, IAtomizerInventoryCommentQueryParams>(AtomizerInventoryCommentCountApiLink, "post");
 
-export const useAtomizerInventoryCommentSource = () => useSourceContext<ISourceItem<IAtomizerInventoryCommentSource>>();
+export const useAtomizerInventoryCommentSource = () => useSourceContext<ISourceItem<IAtomizerInventoryCommentSource>>()
 
 export interface IAtomizerInventoryCommentSourceContext extends ISourceContext<ISourceItem<IAtomizerInventoryCommentSource>> {
 }
@@ -83,31 +83,29 @@ export interface IAtomizerInventoryCommentFilterProviderProps extends Partial<IF
 
 export const AtomizerInventoryCommentFilterProvider: FC<IAtomizerInventoryCommentFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>> name={"AtomizerInventoryComment"} {...props}/>;
 
-export const useAtomizerInventoryCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>>();
-export const useAtomizerInventoryCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>>();
+export const useAtomizerInventoryCommentOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>>()
+export const useAtomizerInventoryCommentFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>>()
 
 export interface IAtomizerInventoryCommentProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>> {
 }
 
 export const AtomizerInventoryCommentProviderFilter: FC<IAtomizerInventoryCommentProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.AtomizerInventoryComment"}
+	translation={'common.filter.AtomizerInventoryComment'}
 />;
 
 export interface IAtomizerInventoryCommentOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>>> {
 }
 
-export const AtomizerInventoryCommentOrderByProvider: FC<IAtomizerInventoryCommentOrderByProviderProps> = props =>
-	<OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>> name={"AtomizerInventoryComment"} {...props}/>;
+export const AtomizerInventoryCommentOrderByProvider: FC<IAtomizerInventoryCommentOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>> name={"AtomizerInventoryComment"} {...props}/>;
 
-export const useAtomizerInventoryCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>>();
-export const useAtomizerInventoryCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>>();
+export const useAtomizerInventoryCommentOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>>()
+export const useAtomizerInventoryCommentOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>>()
 
 export interface IAtomizerInventoryCommentProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>, IAtomizerInventoryCommentQueryParams>> {
 }
 
-export const AtomizerInventoryCommentProviderControl: FC<IAtomizerInventoryCommentProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>> name={"AtomizerInventoryComment"} {...props}/>;
+export const AtomizerInventoryCommentProviderControl: FC<IAtomizerInventoryCommentProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAtomizerInventoryCommentSource>>, IQueryOrderBy<ISourceQuery<IAtomizerInventoryCommentSource>>> name={"AtomizerInventoryComment"} {...props}/>;
 
 export interface IAtomizerInventoryCommentListSourceProps extends Partial<IListProps<ISourceItem<IAtomizerInventoryCommentSource>>> {
 	providerProps?: Partial<IAtomizerInventoryCommentProviderProps>;
@@ -137,7 +135,7 @@ export const AtomizerInventoryCommentInfiniteListSource: FC<IAtomizerInventoryCo
 			{...props}
 		/>
 	</AtomizerInventoryCommentProvider>;
-};
+}
 
 export interface IAtomizerInventoryCommentSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerInventoryCommentSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerInventoryCommentSource>>;
@@ -161,7 +159,7 @@ export const AtomizerInventoryCommentSourceSelect: FC<IAtomizerInventoryCommentS
 					size={props.size}
 					tooltip={"common.selection.AtomizerInventoryComment.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<AtomizerInventoryCommentProviderControl>
@@ -179,7 +177,7 @@ export interface IAtomizerInventoryCommentSelectionProviderProps extends Partial
 }
 
 export const AtomizerInventoryCommentSelectionProvider: FC<IAtomizerInventoryCommentSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAtomizerInventoryCommentSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAtomizerInventoryCommentSource>> {...props}/>
 }
 
 export const useAtomizerInventoryCommentCountQueryInvalidate = () => {

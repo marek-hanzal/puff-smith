@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const VendorApiLink = "/api/inventory/atomizer/vendor/query";
 export const VendorCountApiLink = "/api/inventory/atomizer/vendor/query/count";
@@ -50,7 +50,7 @@ export type IVendorQueryParams = any;
 export const useVendorQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, ISourceItem<IAtomizerVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<IAtomizerVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");
 
-export const useVendorSource = () => useSourceContext<ISourceItem<IAtomizerVendorSource>>();
+export const useVendorSource = () => useSourceContext<ISourceItem<IAtomizerVendorSource>>()
 
 export interface IVendorSourceContext extends ISourceContext<ISourceItem<IAtomizerVendorSource>> {
 }
@@ -83,15 +83,15 @@ export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps
 
 export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>>();
+export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>>()
+export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>>()
 
 export interface IVendorProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>> {
 }
 
 export const VendorProviderFilter: FC<IVendorProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Vendor"}
+	translation={'common.filter.Vendor'}
 />;
 
 export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>>> {
@@ -99,8 +99,8 @@ export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderPro
 
 export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>>();
+export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>>()
+export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>>()
 
 export interface IVendorProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAtomizerVendorSource>>, IQueryOrderBy<ISourceQuery<IAtomizerVendorSource>>, IVendorQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</VendorProvider>;
-};
+}
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAtomizerVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAtomizerVendorSource>>;
@@ -159,7 +159,7 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps,
 					size={props.size}
 					tooltip={"common.selection.Vendor.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<VendorProviderControl>
@@ -177,7 +177,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 }
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAtomizerVendorSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IAtomizerVendorSource>> {...props}/>
 }
 
 export const useVendorCountQueryInvalidate = () => {

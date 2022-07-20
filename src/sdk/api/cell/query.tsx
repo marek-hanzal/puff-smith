@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const CellApiLink = "/api/cell/query";
 export const CellCountApiLink = "/api/cell/query/count";
@@ -50,7 +50,7 @@ export type ICellQueryParams = any;
 export const useCellQuery = createQueryHook<ISourceQuery<ICellSource>, ISourceItem<ICellSource>[], ICellQueryParams>(CellApiLink, "post");
 export const useCellCountQuery = createQueryHook<ISourceQuery<ICellSource>, number, ICellQueryParams>(CellCountApiLink, "post");
 
-export const useCellSource = () => useSourceContext<ISourceItem<ICellSource>>();
+export const useCellSource = () => useSourceContext<ISourceItem<ICellSource>>()
 
 export interface ICellSourceContext extends ISourceContext<ISourceItem<ICellSource>> {
 }
@@ -83,15 +83,15 @@ export interface ICellFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const CellFilterProvider: FC<ICellFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICellSource>>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>();
-export const useCellFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>();
+export const useCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>()
+export const useCellFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICellSource>>>()
 
 export interface ICellProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICellSource>>> {
 }
 
 export const CellProviderFilter: FC<ICellProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Cell"}
+	translation={'common.filter.Cell'}
 />;
 
 export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICellSource>>>> {
@@ -99,8 +99,8 @@ export interface ICellOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const CellOrderByProvider: FC<ICellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICellSource>>> name={"Cell"} {...props}/>;
 
-export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>();
-export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>();
+export const useCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>()
+export const useCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICellSource>>>()
 
 export interface ICellProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICellSource>>, IQueryOrderBy<ISourceQuery<ICellSource>>, ICellQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const CellInfiniteListSource: FC<ICellInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</CellProvider>;
-};
+}
 
 export interface ICellSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICellSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICellSource>>;
@@ -159,7 +159,7 @@ export const CellSourceSelect: FC<ICellSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Cell.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<CellProviderControl>
@@ -177,7 +177,7 @@ export interface ICellSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const CellSelectionProvider: FC<ICellSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICellSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICellSource>> {...props}/>
 }
 
 export const useCellCountQueryInvalidate = () => {

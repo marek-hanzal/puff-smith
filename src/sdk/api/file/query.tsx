@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const FileApiLink = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
@@ -50,7 +50,7 @@ export type IFileQueryParams = any;
 export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 export const useFileCountQuery = createQueryHook<ISourceQuery<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");
 
-export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>();
+export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>()
 
 export interface IFileSourceContext extends ISourceContext<ISourceItem<IFileSource>> {
 }
@@ -83,15 +83,15 @@ export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
-export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
+export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>()
+export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>()
 
 export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFileSource>>> {
 }
 
 export const FileProviderFilter: FC<IFileProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.File"}
+	translation={'common.filter.File'}
 />;
 
 export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IFileSource>>>> {
@@ -99,8 +99,8 @@ export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
-export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
+export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>()
+export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>()
 
 export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>, IFileQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</FileProvider>;
-};
+}
 
 export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFileSource>>;
@@ -159,7 +159,7 @@ export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.File.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<FileProviderControl>
@@ -177,7 +177,7 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>
 }
 
 export const useFileCountQueryInvalidate = () => {

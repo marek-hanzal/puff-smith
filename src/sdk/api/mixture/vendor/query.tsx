@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const VendorApiLink = "/api/mixture/vendor/query";
 export const VendorCountApiLink = "/api/mixture/vendor/query/count";
@@ -50,7 +50,7 @@ export type IVendorQueryParams = any;
 export const useVendorQuery = createQueryHook<ISourceQuery<IMixtureVendorSource>, ISourceItem<IMixtureVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 export const useVendorCountQuery = createQueryHook<ISourceQuery<IMixtureVendorSource>, number, IVendorQueryParams>(VendorCountApiLink, "post");
 
-export const useVendorSource = () => useSourceContext<ISourceItem<IMixtureVendorSource>>();
+export const useVendorSource = () => useSourceContext<ISourceItem<IMixtureVendorSource>>()
 
 export interface IVendorSourceContext extends ISourceContext<ISourceItem<IMixtureVendorSource>> {
 }
@@ -83,15 +83,15 @@ export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps
 
 export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureVendorSource>>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureVendorSource>>>();
+export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureVendorSource>>>()
+export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureVendorSource>>>()
 
 export interface IVendorProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureVendorSource>>> {
 }
 
 export const VendorProviderFilter: FC<IVendorProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Vendor"}
+	translation={'common.filter.Vendor'}
 />;
 
 export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>>> {
@@ -99,8 +99,8 @@ export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderPro
 
 export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>> name={"Vendor"} {...props}/>;
 
-export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>>();
+export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>>()
+export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>>()
 
 export interface IVendorProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureVendorSource>>, IQueryOrderBy<ISourceQuery<IMixtureVendorSource>>, IVendorQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</VendorProvider>;
-};
+}
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureVendorSource>>;
@@ -159,7 +159,7 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps,
 					size={props.size}
 					tooltip={"common.selection.Vendor.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<VendorProviderControl>
@@ -177,7 +177,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 }
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IMixtureVendorSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IMixtureVendorSource>> {...props}/>
 }
 
 export const useVendorCountQueryInvalidate = () => {

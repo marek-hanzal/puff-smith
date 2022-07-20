@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const TagApiLink = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
@@ -50,7 +50,7 @@ export type ITagQueryParams = any;
 export const useTagQuery = createQueryHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
 export const useTagCountQuery = createQueryHook<ISourceQuery<ITagSource>, number, ITagQueryParams>(TagCountApiLink, "post");
 
-export const useTagSource = () => useSourceContext<ISourceItem<ITagSource>>();
+export const useTagSource = () => useSourceContext<ISourceItem<ITagSource>>()
 
 export interface ITagSourceContext extends ISourceContext<ISourceItem<ITagSource>> {
 }
@@ -83,15 +83,15 @@ export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<IQ
 
 export const TagFilterProvider: FC<ITagFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
 
-export const useTagOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
-export const useTagFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
+export const useTagOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>()
+export const useTagFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>()
 
 export interface ITagProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITagSource>>> {
 }
 
 export const TagProviderFilter: FC<ITagProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Tag"}
+	translation={'common.filter.Tag'}
 />;
 
 export interface ITagOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ITagSource>>>> {
@@ -99,8 +99,8 @@ export interface ITagOrderByProviderProps extends Partial<IOrderByProviderProps<
 
 export const TagOrderByProvider: FC<ITagOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
 
-export const useTagOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
-export const useTagOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
+export const useTagOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>()
+export const useTagOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>()
 
 export interface ITagProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITagSource>>, IQueryOrderBy<ISourceQuery<ITagSource>>, ITagQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITagSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITagSource>>;
@@ -159,7 +159,7 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 					size={props.size}
 					tooltip={"common.selection.Tag.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<TagProviderControl>
@@ -177,7 +177,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 }
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>
 }
 
 export const useTagCountQueryInvalidate = () => {

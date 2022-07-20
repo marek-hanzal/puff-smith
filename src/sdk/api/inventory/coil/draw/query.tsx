@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const DrawApiLink = "/api/inventory/coil/draw/query";
 export const DrawCountApiLink = "/api/inventory/coil/draw/query/count";
@@ -50,7 +50,7 @@ export type IDrawQueryParams = any;
 export const useDrawQuery = createQueryHook<ISourceQuery<ICoilDrawSource>, ISourceItem<ICoilDrawSource>[], IDrawQueryParams>(DrawApiLink, "post");
 export const useDrawCountQuery = createQueryHook<ISourceQuery<ICoilDrawSource>, number, IDrawQueryParams>(DrawCountApiLink, "post");
 
-export const useDrawSource = () => useSourceContext<ISourceItem<ICoilDrawSource>>();
+export const useDrawSource = () => useSourceContext<ISourceItem<ICoilDrawSource>>()
 
 export interface IDrawSourceContext extends ISourceContext<ISourceItem<ICoilDrawSource>> {
 }
@@ -83,15 +83,15 @@ export interface IDrawFilterProviderProps extends Partial<IFilterProviderProps<I
 
 export const DrawFilterProvider: FC<IDrawFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ICoilDrawSource>>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICoilDrawSource>>>();
-export const useDrawFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICoilDrawSource>>>();
+export const useDrawOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ICoilDrawSource>>>()
+export const useDrawFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ICoilDrawSource>>>()
 
 export interface IDrawProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ICoilDrawSource>>> {
 }
 
 export const DrawProviderFilter: FC<IDrawProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Draw"}
+	translation={'common.filter.Draw'}
 />;
 
 export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>>> {
@@ -99,8 +99,8 @@ export interface IDrawOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const DrawOrderByProvider: FC<IDrawOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>> name={"Draw"} {...props}/>;
 
-export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>>();
-export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>>();
+export const useDrawOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>>()
+export const useDrawOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ICoilDrawSource>>>()
 
 export interface IDrawProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ICoilDrawSource>>, IQueryOrderBy<ISourceQuery<ICoilDrawSource>>, IDrawQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const DrawInfiniteListSource: FC<IDrawInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</DrawProvider>;
-};
+}
 
 export interface IDrawSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ICoilDrawSource>> {
 	toOption: IToOptionMapper<ISourceItem<ICoilDrawSource>>;
@@ -159,7 +159,7 @@ export const DrawSourceSelect: FC<IDrawSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.Draw.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<DrawProviderControl>
@@ -177,7 +177,7 @@ export interface IDrawSelectionProviderProps extends Partial<ISelectionProviderP
 }
 
 export const DrawSelectionProvider: FC<IDrawSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ICoilDrawSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ICoilDrawSource>> {...props}/>
 }
 
 export const useDrawCountQueryInvalidate = () => {

@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const ModCellApiLink = "/api/mod/cell/query";
 export const ModCellCountApiLink = "/api/mod/cell/query/count";
@@ -50,7 +50,7 @@ export type IModCellQueryParams = any;
 export const useModCellQuery = createQueryHook<ISourceQuery<IModCellSource>, ISourceItem<IModCellSource>[], IModCellQueryParams>(ModCellApiLink, "post");
 export const useModCellCountQuery = createQueryHook<ISourceQuery<IModCellSource>, number, IModCellQueryParams>(ModCellCountApiLink, "post");
 
-export const useModCellSource = () => useSourceContext<ISourceItem<IModCellSource>>();
+export const useModCellSource = () => useSourceContext<ISourceItem<IModCellSource>>()
 
 export interface IModCellSourceContext extends ISourceContext<ISourceItem<IModCellSource>> {
 }
@@ -83,15 +83,15 @@ export interface IModCellFilterProviderProps extends Partial<IFilterProviderProp
 
 export const ModCellFilterProvider: FC<IModCellFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IModCellSource>>> name={"ModCell"} {...props}/>;
 
-export const useModCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModCellSource>>>();
-export const useModCellFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModCellSource>>>();
+export const useModCellOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IModCellSource>>>()
+export const useModCellFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IModCellSource>>>()
 
 export interface IModCellProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IModCellSource>>> {
 }
 
 export const ModCellProviderFilter: FC<IModCellProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.ModCell"}
+	translation={'common.filter.ModCell'}
 />;
 
 export interface IModCellOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IModCellSource>>>> {
@@ -99,8 +99,8 @@ export interface IModCellOrderByProviderProps extends Partial<IOrderByProviderPr
 
 export const ModCellOrderByProvider: FC<IModCellOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IModCellSource>>> name={"ModCell"} {...props}/>;
 
-export const useModCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModCellSource>>>();
-export const useModCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModCellSource>>>();
+export const useModCellOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IModCellSource>>>()
+export const useModCellOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IModCellSource>>>()
 
 export interface IModCellProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IModCellSource>>, IQueryOrderBy<ISourceQuery<IModCellSource>>, IModCellQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const ModCellInfiniteListSource: FC<IModCellInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</ModCellProvider>;
-};
+}
 
 export interface IModCellSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IModCellSource>> {
 	toOption: IToOptionMapper<ISourceItem<IModCellSource>>;
@@ -159,7 +159,7 @@ export const ModCellSourceSelect: FC<IModCellSourceSelectProps> = ({providerProp
 					size={props.size}
 					tooltip={"common.selection.ModCell.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<ModCellProviderControl>
@@ -177,7 +177,7 @@ export interface IModCellSelectionProviderProps extends Partial<ISelectionProvid
 }
 
 export const ModCellSelectionProvider: FC<IModCellSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IModCellSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<IModCellSource>> {...props}/>
 }
 
 export const useModCellCountQueryInvalidate = () => {

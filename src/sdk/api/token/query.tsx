@@ -38,9 +38,9 @@ import {
 	useSelectionContext,
 	useSourceContext
 } from "@leight-core/client";
+import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {ConsumerProps, FC, ReactNode} from "react";
-import {useQueryClient} from "react-query";
 
 export const TokenApiLink = "/api/token/query";
 export const TokenCountApiLink = "/api/token/query/count";
@@ -50,7 +50,7 @@ export type ITokenQueryParams = any;
 export const useTokenQuery = createQueryHook<ISourceQuery<ITokenSource>, ISourceItem<ITokenSource>[], ITokenQueryParams>(TokenApiLink, "post");
 export const useTokenCountQuery = createQueryHook<ISourceQuery<ITokenSource>, number, ITokenQueryParams>(TokenCountApiLink, "post");
 
-export const useTokenSource = () => useSourceContext<ISourceItem<ITokenSource>>();
+export const useTokenSource = () => useSourceContext<ISourceItem<ITokenSource>>()
 
 export interface ITokenSourceContext extends ISourceContext<ISourceItem<ITokenSource>> {
 }
@@ -83,15 +83,15 @@ export interface ITokenFilterProviderProps extends Partial<IFilterProviderProps<
 
 export const TokenFilterProvider: FC<ITokenFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITokenSource>>> name={"Token"} {...props}/>;
 
-export const useTokenOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITokenSource>>>();
-export const useTokenFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITokenSource>>>();
+export const useTokenOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITokenSource>>>()
+export const useTokenFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITokenSource>>>()
 
 export interface ITokenProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITokenSource>>> {
 }
 
 export const TokenProviderFilter: FC<ITokenProviderFilterProps> = props => <Filter
 	{...props}
-	translation={"common.filter.Token"}
+	translation={'common.filter.Token'}
 />;
 
 export interface ITokenOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ITokenSource>>>> {
@@ -99,8 +99,8 @@ export interface ITokenOrderByProviderProps extends Partial<IOrderByProviderProp
 
 export const TokenOrderByProvider: FC<ITokenOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITokenSource>>> name={"Token"} {...props}/>;
 
-export const useTokenOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITokenSource>>>();
-export const useTokenOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITokenSource>>>();
+export const useTokenOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITokenSource>>>()
+export const useTokenOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITokenSource>>>()
 
 export interface ITokenProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITokenSource>>, IQueryOrderBy<ISourceQuery<ITokenSource>>, ITokenQueryParams>> {
 }
@@ -135,7 +135,7 @@ export const TokenInfiniteListSource: FC<ITokenInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</TokenProvider>;
-};
+}
 
 export interface ITokenSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITokenSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITokenSource>>;
@@ -159,7 +159,7 @@ export const TokenSourceSelect: FC<ITokenSourceSelectProps> = ({providerProps, s
 					size={props.size}
 					tooltip={"common.selection.Token.title.tooltip"}
 					width={800}
-					type={"text"}
+					type={'text'}
 					ghost
 				>
 					<TokenProviderControl>
@@ -177,7 +177,7 @@ export interface ITokenSelectionProviderProps extends Partial<ISelectionProvider
 }
 
 export const TokenSelectionProvider: FC<ITokenSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ITokenSource>> {...props}/>;
+	return <SelectionProvider<ISourceItem<ITokenSource>> {...props}/>
 }
 
 export const useTokenCountQueryInvalidate = () => {
