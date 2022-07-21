@@ -2,19 +2,22 @@ import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
 import {BrowserPublicPage} from "@/puff-smith/site/public/component/BrowserPublicPage";
 import {EmailButton} from "@/puff-smith/site/public/component/button/EmailButton";
 import {GithubButton} from "@/puff-smith/site/public/component/button/GithubButton";
+import {GoogleButton} from "@/puff-smith/site/public/component/button/GoogleButton";
+import {SignInButton} from "@/puff-smith/site/public/component/button/SignInButton";
+import {MobilePublicPage} from "@/puff-smith/site/public/component/MobilePublicPage";
 import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
-import {BrowserContent, Card, Centered, MobileContent, Template} from "@leight-core/client";
+import {ButtonBar, Card, Centered, Template} from "@leight-core/client";
 import {numbersOf} from "@leight-core/utils";
 import {Col, Divider, Row, Space, Typography} from "antd";
 import {Trans, useTranslation} from "react-i18next";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();
-	return <BrowserPublicPage
-		title={"public.index"}
-		menuSelection={["/public"]}
-	>
-		<BrowserContent>
+	return <>
+		<BrowserPublicPage
+			title={"public.index"}
+			menuSelection={["/public"]}
+		>
 			<Template
 				icon={<FullLogoIcon height={200} style={{width: "300px"}}/>}
 			>
@@ -34,24 +37,30 @@ export default withPublicLayout(function Index() {
 							<Divider/>
 							<Space size={0} direction={"vertical"} split={<Divider/>}>
 								<EmailButton/>
-								<GithubButton/>
+								<ButtonBar split={<Divider type={"vertical"}/>} size={4}>
+									<GithubButton/>
+									<GoogleButton/>
+									<SignInButton/>
+								</ButtonBar>
 							</Space>
 						</Card>
 					</Col>
 				</Row>
 			</Template>
-		</BrowserContent>
-		<MobileContent>
+		</BrowserPublicPage>
+		<MobilePublicPage>
 			<Template
 				forceIcon
 				icon={<FullLogoIcon height={200} style={{width: "300px"}}/>}
 			>
-				<div style={{marginBottom: "2em"}}>
-					<Centered>
+				<Centered>
+					<ButtonBar direction={"vertical"} split={<Divider type={"vertical"}/>} size={4}>
 						<GithubButton/>
-					</Centered>
-				</div>
+						<GoogleButton/>
+						<SignInButton/>
+					</ButtonBar>
+				</Centered>
 			</Template>
-		</MobileContent>
-	</BrowserPublicPage>;
+		</MobilePublicPage>
+	</>;
 });

@@ -1,12 +1,49 @@
+import prisma from "@/puff-smith/service/side-effect/prisma";
 import prismaClient from "@/puff-smith/service/side-effect/prisma";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {Logger, User} from "@leight-core/server";
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import EmailProvider from "next-auth/providers/email";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 
 const logger = Logger("auth");
+
+const providers: any = [
+	GitHub({
+		name: "github",
+		clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
+		clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
+	}),
+	Google({
+		name: "google",
+		clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
+		clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET as string,
+	}),
+	// https://next-auth.js.org/providers/email
+	EmailProvider({
+		server: process.env.EMAIL_SERVER,
+		from: process.env.EMAIL_FROM,
+	}),
+];
+process.env.NODE_ENV === "development" && providers.push(CredentialsProvider({
+	name: "Credentials",
+	credentials: {
+		secret: {label: "Dark Secret", type: "text"},
+	},
+	async authorize({secret}: any) {
+		if (!secret) {
+			return null;
+		}
+		return prisma.user.findUnique({
+			where: {
+				email: secret,
+			}
+		});
+	}
+}));
 
 export default NextAuth({
 	theme: {
@@ -30,18 +67,7 @@ export default NextAuth({
 		newUser: "/lab/welcome",
 	},
 	// debug: process.env.NODE_ENV === 'development',
-	providers: [
-		GitHub({
-			name: "github",
-			clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
-			clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
-		}),
-		// https://next-auth.js.org/providers/email
-		EmailProvider({
-			server: process.env.EMAIL_SERVER,
-			from: process.env.EMAIL_FROM,
-		}),
-	],
+	providers,
 	callbacks: {
 		jwt: async ({token, isNewUser}) => {
 			try {

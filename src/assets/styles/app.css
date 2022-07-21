@@ -2,7 +2,6 @@
 @import './json.css';
 @import "~nprogress/nprogress.css";
 
-
 .module-menu {
 	border: none;
 	justify-content: end;

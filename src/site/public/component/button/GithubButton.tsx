@@ -15,6 +15,7 @@ export const GithubButton: FC<IGithubButtonProps> = props => {
 		icon={<GithubIcon/>}
 		ghost
 		onClick={() => signIn("github", {callbackUrl: "/"})}
+		{...props}
 	>
 		{t("public.sign-in.github.button")}
 	</Button>;
