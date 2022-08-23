@@ -5,7 +5,9 @@ export interface IVendorSelectProps extends Partial<IVendorSourceSelectProps> {
 }
 
 export const VendorSelect: FC<IVendorSelectProps> = props => {
-	return <VendorProviderControl>
+	return <VendorProviderControl
+		defaultSize={10}
+	>
 		<VendorSourceSelect
 			showSearch
 			allowClear
