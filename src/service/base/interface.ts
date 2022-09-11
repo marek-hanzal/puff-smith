@@ -38,9 +38,9 @@ export interface IBaseFetchProps {
 	base: IBase;
 }
 
-export interface IBaseFetchQuery extends ParsedUrlQuery {
+export interface IBaseFetchParams extends ParsedUrlQuery {
 	baseId: string;
 }
 
-export interface IBaseSource extends ISource<IBaseCreate, IBaseEntity<IWithVendor>, IBase, IBaseQuery> {
+export interface IBaseSource extends ISource<IBaseCreate, IBaseEntity<IWithVendor>, IBase, IBaseQuery, IBaseFetchProps, IBaseFetchParams> {
 }
