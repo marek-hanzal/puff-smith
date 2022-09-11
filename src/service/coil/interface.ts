@@ -44,5 +44,8 @@ export interface ICoilFetchParams extends ParsedUrlQuery {
 	coilId: string;
 }
 
-export interface ICoilSource extends ISource<ICoilCreate, ICoilEntity<IWithWire<IWithVendor & IWithWireDraw & IWithWireFiber<IWithFiber<IWithFiberMaterial>>> & IWithCoilDraw>, ICoil, ICoilQuery, ICoilFetch, ICoilFetchParams> {
+export type ICoilSourceEntity = ICoilEntity<IWithWire<IWithVendor & IWithWireDraw & IWithWireFiber<IWithFiber<IWithFiberMaterial>>> & IWithCoilDraw>;
+export type IWithCoilSourceEntity = { coil: ICoilSourceEntity; };
+
+export interface ICoilSource extends ISource<ICoilCreate, ICoilSourceEntity, ICoil, ICoilQuery, ICoilFetch, ICoilFetchParams> {
 }

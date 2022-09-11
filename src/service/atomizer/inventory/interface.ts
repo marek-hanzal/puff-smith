@@ -1,6 +1,5 @@
-import {IAtomizer, IWithAtomizer, IWithAtomizerDraw} from "@/puff-smith/service/atomizer/interface";
+import {IAtomizer, IWithAtomizerSourceEntity} from "@/puff-smith/service/atomizer/interface";
 import {ITransaction, IWithNullTransaction} from "@/puff-smith/service/transaction/interface";
-import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {AtomizerInventory, Prisma} from "@prisma/client";
 
@@ -25,5 +24,5 @@ export interface IAtomizerInventoryQuery extends IQuery<Prisma.AtomizerInventory
 export type IAtomizerInventoryEntity<T = void> = T extends void ? AtomizerInventory : AtomizerInventory & T;
 export type IWithAtomizerInventory<T = void> = { AtomizerInventory: IAtomizerInventoryEntity<T>[]; };
 
-export interface IAtomizerInventorySource extends ISource<IAtomizerInventoryCreate, IAtomizerInventoryEntity<IWithAtomizer<IWithVendor & IWithAtomizerDraw> & IWithNullTransaction>, IAtomizerInventory, IAtomizerInventoryQuery> {
+export interface IAtomizerInventorySource extends ISource<IAtomizerInventoryCreate, IAtomizerInventoryEntity<IWithAtomizerSourceEntity & IWithNullTransaction>, IAtomizerInventory, IAtomizerInventoryQuery> {
 }

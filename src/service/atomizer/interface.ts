@@ -59,6 +59,7 @@ export interface IAtomizerFetchParams extends ParsedUrlQuery {
 }
 
 export type IIAtomizerSourceEntity = IAtomizerEntity<IWithVendor & IWithAtomizerDraw & IWithNullUser>;
+export type IWithAtomizerSourceEntity = { atomizer: IIAtomizerSourceEntity; };
 
 export interface IAtomizerSource extends ISource<IAtomizerCreate, IIAtomizerSourceEntity, IAtomizer, IAtomizerQuery, IAtomizerFetch, IAtomizerFetchParams> {
 }

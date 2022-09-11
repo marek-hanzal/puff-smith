@@ -1,9 +1,6 @@
-import {IAtomizer, IWithAtomizer, IWithAtomizerDraw} from "@/puff-smith/service/atomizer/interface";
-import {ICoil, IWithCoil, IWithCoilDraw} from "@/puff-smith/service/coil/interface";
-import {ICotton, IWithCotton, IWithCottonDraw} from "@/puff-smith/service/cotton/interface";
-import {IWithFiber, IWithFiberMaterial} from "@/puff-smith/service/fiber/interface";
-import {IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IWithWire, IWithWireDraw, IWithWireFiber} from "@/puff-smith/service/wire/interface";
+import {IAtomizer, IWithAtomizerSourceEntity} from "@/puff-smith/service/atomizer/interface";
+import {ICoil, IWithCoilSourceEntity} from "@/puff-smith/service/coil/interface";
+import {ICotton, IWithCottonSourceEntity} from "@/puff-smith/service/cotton/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Build, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -50,7 +47,7 @@ export interface IBuildFetchParams extends ParsedUrlQuery {
 	buildId: string;
 }
 
-export type IBuildSourceEntity = IBuildEntity<IWithAtomizer<IWithVendor & IWithAtomizerDraw> & IWithCoil<IWithCoilDraw & IWithWire<IWithVendor & IWithWireDraw & IWithWireFiber<IWithFiber<IWithFiberMaterial>>>> & IWithCotton<IWithVendor & IWithCottonDraw>>;
+export type IBuildSourceEntity = IBuildEntity<IWithAtomizerSourceEntity & IWithCoilSourceEntity & IWithCottonSourceEntity>;
 
 export interface IBuildSource extends ISource<IBuildCreate, IBuildSourceEntity, IBuild, IBuildQuery, IBuildFetch, IBuildFetchParams> {
 }

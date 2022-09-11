@@ -14,9 +14,7 @@ export interface IBaseCreate {
 	withInventory?: boolean;
 }
 
-export type IBaseWhere = Prisma.BaseWhereInput & IWithFulltext;
-
-export interface IBaseQuery extends IQuery<IBaseWhere, Prisma.BaseOrderByWithRelationInput> {
+export interface IBaseQuery extends IQuery<Prisma.BaseWhereInput & IWithFulltext, Prisma.BaseOrderByWithRelationInput> {
 }
 
 export type IBaseEntity<T = void> = T extends void ? Base : Base & T;

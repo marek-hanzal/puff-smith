@@ -41,5 +41,8 @@ export interface ICottonFetchParams extends ParsedUrlQuery {
 	cottonId: string;
 }
 
-export interface ICottonSource extends ISource<ICottonCreate, ICottonEntity<IWithVendor & IWithCottonDraw>, ICotton, ICottonQuery, ICottonFetch, ICottonFetchParams> {
+export type ICottonSourceEntity = ICottonEntity<IWithVendor & IWithCottonDraw>;
+export type IWithCottonSourceEntity = { cotton: ICottonSourceEntity; };
+
+export interface ICottonSource extends ISource<ICottonCreate, ICottonSourceEntity, ICotton, ICottonQuery, ICottonFetch, ICottonFetchParams> {
 }
