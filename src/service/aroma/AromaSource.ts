@@ -40,45 +40,29 @@ export const AromaSource = (): IAromaSource => {
 					}
 				},
 			}),
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
-				where: merge(filter || {}, {
-					OR: [
-						{
+			withFilter: ({filter: {fulltext, ...filter} = {}}) => merge(filter || {}, {
+				OR: [
+					{
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						}
+					},
+					{
+						vendor: {
 							name: {
 								contains: fulltext,
 								mode: "insensitive",
-							}
-						},
-						{
-							vendor: {
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							}
-						},
-					],
-				}),
+							},
+						}
+					},
+				],
 			}),
-			query: async ({filter: {fulltext, ...filter} = {}, ...query}) => source.prisma.aroma.findMany({
-				where: merge(filter || {}, {
-					OR: [
-						{
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							}
-						},
-						{
-							vendor: {
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							}
-						},
-					],
-				}),
+			count: async query => source.prisma.aroma.count({
+				where: source.withFilter(query),
+			}),
+			query: async query => source.prisma.aroma.findMany({
+				where: source.withFilter(query),
 				include: {
 					vendor: true,
 					AromaTaste: {
