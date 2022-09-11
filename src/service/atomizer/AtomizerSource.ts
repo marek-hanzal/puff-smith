@@ -21,13 +21,11 @@ export const AtomizerSource = (): IAtomizerSource => {
 		map: async atomizer => atomizer ? {
 			...atomizer,
 			vendor: await vendorSource().mapper.map(atomizer.vendor),
-			coilMin: atomizer.coilMin?.toNumber() || null,
-			coilMax: atomizer.coilMax?.toNumber() || null,
-			wrapsMin: atomizer.wrapsMin || null,
-			wrapsMax: atomizer.wrapsMax || null,
+			coilMin: atomizer.coilMin?.toNumber(),
+			coilMax: atomizer.coilMax?.toNumber(),
 			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 			drawIds: atomizer.AtomizerDraw.map(({draw}) => draw.id),
-			user: await userSource().map(atomizer.user) || null,
+			user: await userSource().map(atomizer.user),
 		} : null,
 		source: {
 			get: async id => source.prisma.atomizer.findUniqueOrThrow({
