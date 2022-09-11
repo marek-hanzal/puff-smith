@@ -17,45 +17,11 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 		}) : null,
 		cache: AromaMarketCache,
 		source: {
-			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.aroma.count({
-				where: merge(filter || {}, {
-					OR: [
-						{
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							}
-						},
-						{
-							vendor: {
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							}
-						},
-					],
-				}),
+			count: async query => source.prisma.aroma.count({
+				where: source.withFilter(query),
 			}),
-			query: async ({filter: {fulltext, ...filter} = {}, orderBy, ...query}) => source.prisma.aroma.findMany({
-				where: merge(filter || {}, {
-					OR: [
-						{
-							name: {
-								contains: fulltext,
-								mode: "insensitive",
-							}
-						},
-						{
-							vendor: {
-								name: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							}
-						},
-					],
-				}),
+			query: async ({orderBy, ...query}) => source.prisma.aroma.findMany({
+				where: source.withFilter(query),
 				orderBy,
 				include: {
 					vendor: true,
@@ -74,6 +40,24 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 					},
 				},
 				...pageOf(query),
+			}),
+			withFilter: ({filter: {fulltext, ...filter} = {}}) => merge(filter || {}, {
+				OR: [
+					{
+						name: {
+							contains: fulltext,
+							mode: "insensitive",
+						}
+					},
+					{
+						vendor: {
+							name: {
+								contains: fulltext,
+								mode: "insensitive",
+							},
+						}
+					},
+				],
 			}),
 		},
 	});
