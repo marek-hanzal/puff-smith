@@ -40,6 +40,22 @@ export const AromaSource = (): IAromaSource => {
 					}
 				},
 			}),
+			count: async query => source.prisma.aroma.count({
+				where: source.withFilter(query),
+			}),
+			query: async query => source.prisma.aroma.findMany({
+				where: source.withFilter(query),
+				include: {
+					vendor: true,
+					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
+						include: {
+							taste: true,
+						}
+					}
+				},
+				...pageOf(query),
+			}),
 			withFilter: ({filter: {fulltext, ...filter} = {}}) => merge(filter || {}, {
 				OR: [
 					{
@@ -57,22 +73,6 @@ export const AromaSource = (): IAromaSource => {
 						}
 					},
 				],
-			}),
-			count: async query => source.prisma.aroma.count({
-				where: source.withFilter(query),
-			}),
-			query: async query => source.prisma.aroma.findMany({
-				where: source.withFilter(query),
-				include: {
-					vendor: true,
-					AromaTaste: {
-						orderBy: {taste: {sort: "asc"}},
-						include: {
-							taste: true,
-						}
-					}
-				},
-				...pageOf(query),
 			}),
 			create: async ({vendor, vendorId, tastes, tasteIds, code, withMixtures, withInventory = false, ...aroma}) => {
 				const $canUpdate = source.user.hasAny([
