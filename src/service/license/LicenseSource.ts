@@ -213,7 +213,7 @@ export const LicenseSource = (): ILicenseSource => {
 					where: {id},
 					data: {
 						name,
-						code: code || undefined,
+						code,
 						cost,
 						renew,
 						duration,

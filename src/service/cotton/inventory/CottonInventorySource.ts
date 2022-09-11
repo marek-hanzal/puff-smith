@@ -117,10 +117,7 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 			patch: async patch => {
 				return source.prisma.cottonInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						cotton: {
 							include: {

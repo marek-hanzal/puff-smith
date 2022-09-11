@@ -75,16 +75,16 @@ export const BuildSource = (): IBuildSource => {
 					cotton: {
 						include: {
 							vendor: true,
-								CottonDraw: {
-									orderBy: {draw: {sort: "asc"}},
-									include: {
-										draw: true,
-									}
+							CottonDraw: {
+								orderBy: {draw: {sort: "asc"}},
+								include: {
+									draw: true,
 								}
-							},
+							}
 						},
 					},
-				}),
+				},
+			}),
 				count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.build.count({
 					where: merge(filter, {
 						userId: source.user.required(),
@@ -254,8 +254,7 @@ export const BuildSource = (): IBuildSource => {
 						where: {id: patch.id},
 						data: {
 							...patch,
-							active: patch.active === null ? undefined : patch.active,
-							code: patch.code || undefined,
+							active: patch?.active,
 							created: undefined,
 							drain,
 							watts,

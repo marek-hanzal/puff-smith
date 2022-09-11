@@ -51,9 +51,7 @@ export const CommentSource = (): ICommentSource => {
 			}),
 			patch: async patch => source.prisma.comment.update({
 				where: {id: patch.id},
-				data: {
-					comment: patch.comment,
-				},
+				data: patch,
 				include: {
 					user: true,
 				},

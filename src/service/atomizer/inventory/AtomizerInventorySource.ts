@@ -99,10 +99,7 @@ export const AtomizerInventorySource = (): IAtomizerInventorySource => {
 			patch: async patch => {
 				return source.prisma.atomizerInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						atomizer: {
 							include: {

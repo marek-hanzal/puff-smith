@@ -99,10 +99,7 @@ export const WireInventorySource = (): IWireInventorySource => {
 			patch: async patch => {
 				return source.prisma.wireInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						wire: {
 							include: {

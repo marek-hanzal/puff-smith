@@ -182,7 +182,7 @@ export const AromaSource = (): IAromaSource => {
 				});
 				return $aroma;
 			},
-			patch: async ({vendor, vendorId, tastes, tasteIds, code, steep, withMixtures, ...patch}) => {
+			patch: async ({vendor, vendorId, tastes, tasteIds, withMixtures, ...patch}) => {
 				await source.prisma.aromaTaste.deleteMany({
 					where: {
 						aromaId: patch.id,
@@ -192,12 +192,10 @@ export const AromaSource = (): IAromaSource => {
 					where: {id: patch.id},
 					data: {
 						...patch,
-						code: code || undefined,
-						steep: steep || undefined,
 						vendor: {
 							connect: {
-								name: vendor || undefined,
-								id: vendorId || undefined,
+								name: vendor,
+								id: vendorId,
 							}
 						},
 						AromaTaste: {

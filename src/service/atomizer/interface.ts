@@ -29,7 +29,6 @@ export interface IAtomizerQuery extends IQuery<Prisma.AtomizerWhereInput & IWith
 }
 
 export type IAtomizerEntity<T = void> = T extends void ? Atomizer : Atomizer & T;
-export type IWithAtomizer<T = void> = { atomizer: IAtomizerEntity<T>; };
 export type IWithAtomizerDraw = { AtomizerDraw: { draw: ITagEntity }[]; };
 
 export interface IAtomizer {

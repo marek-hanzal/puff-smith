@@ -77,10 +77,7 @@ export const ModInventorySource = (): IModInventorySource => {
 			patch: async patch => {
 				return source.prisma.modInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						mod: {
 							include: {

@@ -77,10 +77,7 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 			patch: async patch => {
 				return source.prisma.baseInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						base: {
 							include: {

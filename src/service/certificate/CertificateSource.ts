@@ -203,13 +203,9 @@ export const CertificateSource = (): ICertificateSource => {
 					});
 				}
 			},
-			patch: async ({id, name, code, cost}) => source.prisma.certificate.update({
+			patch: async ({id, ...patch}) => source.prisma.certificate.update({
 				where: {id},
-				data: {
-					name,
-					code: code || undefined,
-					cost,
-				},
+				data: patch,
 				include: {
 					CertificateToken: {
 						include: {

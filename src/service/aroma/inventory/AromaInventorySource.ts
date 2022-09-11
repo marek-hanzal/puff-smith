@@ -116,10 +116,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 			patch: async patch => {
 				return source.prisma.aromaInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						aroma: {
 							include: {

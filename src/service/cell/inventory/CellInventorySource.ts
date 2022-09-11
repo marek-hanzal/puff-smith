@@ -82,10 +82,7 @@ export const CellInventorySource = (): ICellInventorySource => {
 			patch: async patch => {
 				return source.prisma.cellInventory.update({
 					where: {id: patch.id},
-					data: {
-						...patch,
-						code: patch.code || undefined,
-					},
+					data: patch,
 					include: {
 						cell: {
 							include: {
