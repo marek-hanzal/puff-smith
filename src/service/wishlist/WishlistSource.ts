@@ -92,7 +92,7 @@ export const WishlistSource = (): IWishlistSource => {
 				},
 				...pageOf(query),
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

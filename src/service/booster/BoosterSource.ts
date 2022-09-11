@@ -130,7 +130,7 @@ export const BoosterSource = (): IBoosterSource => {
 				});
 				return $booster;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

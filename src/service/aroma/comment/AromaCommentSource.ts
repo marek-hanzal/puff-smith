@@ -57,7 +57,7 @@ export const AromaCommentSource = (): IAromaCommentSource => {
 					},
 				},
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

@@ -91,7 +91,7 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 					},
 				});
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

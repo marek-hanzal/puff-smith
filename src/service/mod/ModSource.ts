@@ -106,7 +106,7 @@ export const ModSource = (): IModSource => {
 					});
 				}
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

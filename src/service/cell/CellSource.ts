@@ -104,7 +104,7 @@ export const CellSource = (): ICellSource => {
 				});
 				return $cell;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

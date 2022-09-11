@@ -130,7 +130,7 @@ export const BaseSource = (): IBaseSource => {
 				});
 				return $base;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

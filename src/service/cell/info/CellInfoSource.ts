@@ -50,7 +50,7 @@ export const CellInfoSource = (): ICellInfoSource => {
 					}
 				});
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

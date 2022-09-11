@@ -67,7 +67,7 @@ export const AtomizerInventoryCommentSource = (): IAtomizerInventoryCommentSourc
 					},
 				},
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

@@ -239,7 +239,7 @@ export const AromaSource = (): IAromaSource => {
 				}, source.user.required());
 				return aroma;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

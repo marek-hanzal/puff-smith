@@ -19,6 +19,7 @@ import {IMixtureInfo, toMixtureInfo} from "@/puff-smith/service/mixture/utils";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
 import {IJobHandlerRequest, IJobProcessor} from "@leight-core/api";
+import {Prisma} from "@prisma/client";
 import AsyncLock from "async-lock";
 import PQueue from "p-queue";
 
@@ -134,7 +135,7 @@ export const MixtureJob: IJobProcessor<IMixtureJobParams> = jobService.processor
 	intervalCap: 3,
 }));
 
-const mixtureInventoryUpdate = async <T, U>(where: T, create: U, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
+const mixtureInventoryUpdate = async <T extends Prisma.MixtureWhereInput, U>(where: T, create: U, {jobProgress, userId, progress}: IJobHandlerRequest<any>) => {
 	if (!userId) {
 		throw new Error("User not provided!");
 	}

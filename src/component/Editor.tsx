@@ -14,7 +14,6 @@ export const Editor: FC<IEditorProps> = ({element, value}) => {
 				// https://kothing.github.io/editor/html/getting-started.html
 				element?.current && !editor.current && (editor.current = kothingEditor.create(element.current, {
 					value,
-					placeholder: "bububu",
 					minHeight: "300",
 					height: "300",
 					maxHeight: "500",

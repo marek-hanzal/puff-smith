@@ -81,7 +81,7 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 					}),
 				});
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

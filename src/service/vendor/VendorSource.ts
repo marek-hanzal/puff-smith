@@ -46,7 +46,7 @@ export const VendorSource = (): IVendorSource => {
 				],
 				...pageOf(query),
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

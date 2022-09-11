@@ -136,7 +136,7 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 					},
 				});
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

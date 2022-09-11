@@ -90,7 +90,7 @@ export const BoosterInventorySource = (): IBoosterInventorySource => {
 					},
 				});
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

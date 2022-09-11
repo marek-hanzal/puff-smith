@@ -177,7 +177,7 @@ export const LiquidSource = (): ILiquidSource => {
 					}
 				});
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

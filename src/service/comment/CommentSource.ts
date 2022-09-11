@@ -58,7 +58,7 @@ export const CommentSource = (): ICommentSource => {
 					user: true,
 				},
 			}),
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

@@ -4,8 +4,8 @@ import {BootstrapLoader} from "@leight-core/client";
 import "kothing-editor/dist/css/kothing-editor.min.css";
 import type {AppProps} from "next/app";
 
-export default function PuffSmith({Component, pageProps: {session, ...pageProps}}: AppProps) {
-	return <BootstrapLoader session={session}>
+export default function PuffSmith({Component, pageProps}: AppProps) {
+	return <BootstrapLoader>
 		{((Component as unknown as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
 	</BootstrapLoader>;
 }

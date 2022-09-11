@@ -128,7 +128,7 @@ export const CottonSource = (): ICottonSource => {
 				});
 				return $cotton;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,

@@ -154,7 +154,7 @@ export const AtomizerSource = (): IAtomizerSource => {
 				});
 				return $atomizer;
 			},
-			delete: async ids => {
+			remove: async ids => {
 				const where = {
 					id: {
 						in: ids,
