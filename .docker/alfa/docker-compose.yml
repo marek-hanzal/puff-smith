@@ -76,7 +76,6 @@ services:
         image: mailhog/mailhog
         networks:
             - web
-            - mailhog
         labels:
             - 'traefik.enable=true'
             # http stuff
@@ -97,4 +96,3 @@ networks:
     postgres:
 #    loki:
 #    prometheus:
-    mailhog:
