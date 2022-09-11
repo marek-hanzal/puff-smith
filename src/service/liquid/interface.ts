@@ -1,4 +1,4 @@
-import {IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
+import {IWithAromaSourceEntity} from "@/puff-smith/service/aroma/interface";
 import {IWithNullBase} from "@/puff-smith/service/base/interface";
 import {IWithNullBooster} from "@/puff-smith/service/booster/interface";
 import {IMixture, IWithMixture, IWithMixtureDraw} from "@/puff-smith/service/mixture/interface";
@@ -47,7 +47,7 @@ export interface ILiquidFetchParams extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-type ILiquidSourceEntityInternal = ILiquidEntity<IWithTransaction & IWithMixture<IWithMixtureDraw & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithAroma<IWithVendor & IWithAromaTaste>>>;
+type ILiquidSourceEntityInternal = ILiquidEntity<IWithTransaction & IWithMixture<IWithMixtureDraw & IWithNullBase<IWithVendor> & IWithNullBooster<IWithVendor> & IWithAromaSourceEntity>>;
 
 export type ILiquidSourceEntity<T = void> = T extends void ? ILiquidSourceEntityInternal : ILiquidSourceEntityInternal & T;
 

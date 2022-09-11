@@ -23,7 +23,6 @@ export interface IAromaQuery extends IQuery<Prisma.AromaWhereInput & IWithFullte
 }
 
 export type IAromaEntity<T = void> = T extends void ? Aroma : Aroma & T;
-export type IWithAroma<T = void> = { aroma: IAromaEntity<T>; }
 export type IWithAromaTaste = { AromaTaste: { taste: ITagEntity }[]; }
 
 export interface IAroma {
@@ -49,5 +48,8 @@ export interface IAromaFetchParams extends ParsedUrlQuery {
 	aromaId: string;
 }
 
-export interface IAromaSource extends ISource<IAromaCreate, IAromaEntity<IWithVendor & IWithAromaTaste>, IAroma, IAromaQuery, IAromaFetch, IAromaFetchParams> {
+export type IAromaSourceEntity = IAromaEntity<IWithVendor & IWithAromaTaste>;
+export type IWithAromaSourceEntity = { aroma: IAromaSourceEntity; };
+
+export interface IAromaSource extends ISource<IAromaCreate, IAromaSourceEntity, IAroma, IAromaQuery, IAromaFetch, IAromaFetchParams> {
 }

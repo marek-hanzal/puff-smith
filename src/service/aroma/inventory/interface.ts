@@ -1,6 +1,5 @@
-import {IAroma, IWithAroma, IWithAromaTaste} from "@/puff-smith/service/aroma/interface";
+import {IAroma, IWithAromaSourceEntity} from "@/puff-smith/service/aroma/interface";
 import {ITransaction, IWithNullTransaction} from "@/puff-smith/service/transaction/interface";
-import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {AromaInventory, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
@@ -33,5 +32,5 @@ export interface IAromaInventoryFetchParams extends ParsedUrlQuery {
 	aromaInventoryId: string;
 }
 
-export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity<IWithAroma<IWithVendor & IWithAromaTaste> & IWithNullTransaction>, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetch, IAromaInventoryFetchParams> {
+export interface IAromaInventorySource extends ISource<IAromaInventoryCreate, IAromaInventoryEntity<IWithAromaSourceEntity & IWithNullTransaction>, IAromaInventory, IAromaInventoryQuery, IAromaInventoryFetch, IAromaInventoryFetchParams> {
 }
