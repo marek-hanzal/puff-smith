@@ -10,10 +10,10 @@ export const AromaInventoryCommentSource = (): IAromaInventoryCommentSource => {
 	const source: IAromaInventoryCommentSource = Source<IAromaInventoryCommentSource>({
 		name: "aroma.inventory.comment",
 		prisma,
-		map: async aromaInventoryComment => aromaInventoryComment ? {
+		map: async aromaInventoryComment => ({
 			...aromaInventoryComment,
-			comment: await commentSource().mapper.map(aromaInventoryComment.comment),
-		} : null,
+			comment: await commentSource().map(aromaInventoryComment.comment),
+		}),
 		source: {
 			count: async ({filter}) => source.prisma.aromaInventoryComment.count({
 				where: {

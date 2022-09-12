@@ -5,6 +5,6 @@ import {MutationEndpoint} from "@leight-core/server";
 export default MutationEndpoint<"Standalone", ILiquidStandaloneCreate, ILiquid>({
 	handler: async ({user, request}) => {
 		const liquidSource = LiquidSource().withUser(user);
-		return liquidSource.mapper.map(await liquidSource.standalone(request));
+		return liquidSource.map(await liquidSource.standalone(request));
 	},
 });

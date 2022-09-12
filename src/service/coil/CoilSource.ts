@@ -15,15 +15,12 @@ export const CoilSource = (): ICoilSource => {
 		name: "coil",
 		prisma,
 		map: async coil => {
-			if (!coil) {
-				return null;
-			}
 			const {CoilDraw, ...$coil} = coil;
 			return {
 				...$coil,
 				size: coil.size.toNumber(),
-				wire: await wireSource().mapper.map(coil.wire),
-				draws: await tagSource().mapper.list(Promise.resolve(CoilDraw.map(({draw}) => draw))),
+				wire: await wireSource().map(coil.wire),
+				draws: await tagSource().list(Promise.resolve(CoilDraw.map(({draw}) => draw))),
 			};
 		},
 		source: {

@@ -35,6 +35,7 @@ export interface IAroma {
 	volume: number;
 	steep?: number | null;
 	tastes: ITag[];
+	tasteIds: string[];
 }
 
 export interface IAromaFetch {
@@ -45,13 +46,14 @@ export interface IAromaFetchParams extends ParsedUrlQuery {
 	aromaId: string;
 }
 
+export type IAromaQuery = IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput>;
 export type IAromaSourceEntity = IAromaEntity<IWithVendor & IWithAromaTaste>;
 export type IWithAromaSourceEntity = { aroma: IAromaSourceEntity; };
 
 export interface IAromaSource extends ISource<IAromaCreate,
 	IAromaSourceEntity,
 	IAroma,
-	IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput>,
+	IAromaQuery,
 	IAromaFetch,
 	IAromaFetchParams> {
 }
