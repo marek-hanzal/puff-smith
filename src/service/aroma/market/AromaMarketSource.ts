@@ -11,10 +11,10 @@ export const AromaMarketSource = (): IAromaMarketSource => {
 	const source: IAromaMarketSource = Source<IAromaMarketSource>({
 		name: "aroma.market",
 		prisma,
-		map: async aroma => aroma ? ({
-			aroma: await aromaSource().mapper.map(aroma),
+		map: async aroma => ({
+			aroma: await aromaSource().map(aroma),
 			isOwned: aroma.AromaInventory.length > 0,
-		}) : null,
+		}),
 		cache: AromaMarketCache,
 		source: {
 			count: async query => source.prisma.aroma.count({

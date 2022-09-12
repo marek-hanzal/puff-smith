@@ -17,9 +17,6 @@ export const UserSource = (): IUserSource => {
 		name: "user",
 		prisma,
 		map: async user => {
-			if (!user) {
-				return null;
-			}
 			const {
 				UserToken,
 				UserCertificate = [],
@@ -197,7 +194,7 @@ export const UserSource = (): IUserSource => {
 			}
 		},
 		asUser: async userId => {
-			const $user = await source.map(userId ? await source.get(userId) : null);
+			const $user = await source.mapNull(userId ? await source.get(userId) : null);
 			return User({
 				userId,
 				tokens: $user?.tokens?.map(({name}) => name),

@@ -10,10 +10,10 @@ export const AtomizerInventoryCommentSource = (): IAtomizerInventoryCommentSourc
 	const source: IAtomizerInventoryCommentSource = Source<IAtomizerInventoryCommentSource>({
 		name: "atomizer.inventory.comment",
 		prisma,
-		map: async atomizerInventoryComment => atomizerInventoryComment ? {
+		map: async atomizerInventoryComment => ({
 			...atomizerInventoryComment,
-			comment: await commentSource().mapper.map(atomizerInventoryComment.comment),
-		} : null,
+			comment: await commentSource().map(atomizerInventoryComment.comment),
+		}),
 		source: {
 			count: async ({filter}) => source.prisma.atomizerInventoryComment.count({
 				where: {

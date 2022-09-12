@@ -11,12 +11,9 @@ export const BuildLiquidSource = (buildId: string): IBuildLiquidSource => {
 		name: "build.liquid",
 		prisma,
 		map: async liquid => {
-			if (!liquid) {
-				return null;
-			}
 			const {BuildLiquidRating, ...$liquid} = liquid;
 			return {
-				...(await liquidSource().mapper.map($liquid)),
+				...(await liquidSource().map($liquid)),
 				rating: liquid.BuildLiquidRating?.[0] ? {
 					...liquid.BuildLiquidRating[0],
 					created: liquid.BuildLiquidRating[0].created.toUTCString(),

@@ -14,11 +14,11 @@ export const CottonInventorySource = (): ICottonInventorySource => {
 	const source: ICottonInventorySource = Source<ICottonInventorySource>({
 		name: "cotton.inventory",
 		prisma,
-		map: async cottonInventory => cottonInventory ? {
+		map: async cottonInventory => ({
 			...cottonInventory,
-			cotton: await cottonSource().mapper.map(cottonInventory.cotton),
-			transaction: await transactionSource().map(cottonInventory.transaction),
-		} : null,
+			cotton: await cottonSource().map(cottonInventory.cotton),
+			transaction: await transactionSource().mapNull(cottonInventory.transaction),
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cottonInventory.count({
 				where: merge(filter, {

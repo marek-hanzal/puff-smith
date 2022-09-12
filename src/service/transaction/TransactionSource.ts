@@ -12,11 +12,11 @@ export const TransactionSource = (): ITransactionSource => {
 	const source: ITransactionSource = Source<ITransactionSource>({
 		name: "transaction",
 		prisma,
-		map: async transaction => transaction ? {
+		map: async transaction => ({
 			...transaction,
 			created: transaction.created.toUTCString(),
 			amount: transaction.amount.toNumber(),
-		} : null,
+		}),
 		source: {
 			create: async create => source.prisma.transaction.create({
 				data: {

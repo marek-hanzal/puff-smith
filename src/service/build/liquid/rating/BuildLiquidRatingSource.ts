@@ -6,10 +6,10 @@ export const BuildLiquidRatingSource = (): IBuildLiquidRatingSource => {
 	const source: IBuildLiquidRatingSource = Source<IBuildLiquidRatingSource>({
 		name: "build.liquid.rating",
 		prisma,
-		map: async buildLiquidRating => buildLiquidRating ? {
+		map: async buildLiquidRating => ({
 			...buildLiquidRating,
 			created: buildLiquidRating.created.toUTCString(),
-		} : null,
+		}),
 		source: {
 			create: async create => source.prisma.buildLiquidRating.upsert({
 				create: {

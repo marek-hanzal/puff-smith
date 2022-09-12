@@ -10,10 +10,10 @@ export const BaseMarketSource = (): IBaseMarketSource => {
 	const source: IBaseMarketSource = Source<IBaseMarketSource>({
 		name: "base.market",
 		prisma,
-		map: async base => base ? ({
-			base: await baseSource().mapper.map(base),
+		map: async base => ({
+			base: await baseSource().map(base),
 			isOwned: base.BaseInventory.length > 0,
-		}) : null,
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.base.count({
 				where: merge(filter || {}, {

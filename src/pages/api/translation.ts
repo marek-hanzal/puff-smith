@@ -9,7 +9,7 @@ export default ListEndpoint<"Translation", ITranslationBundle>({
 			bundles: [
 				{
 					language: "cs",
-					translations: (await translationSource.mapper.list(translationSource.query({
+					translations: (await translationSource.list(translationSource.query({
 						filter: {
 							language: "cs",
 						}

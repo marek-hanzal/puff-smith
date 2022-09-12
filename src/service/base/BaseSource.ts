@@ -12,10 +12,10 @@ export const BaseSource = (): IBaseSource => {
 	const source: IBaseSource = Source<IBaseSource>({
 		name: "base",
 		prisma,
-		map: async base => base ? ({
+		map: async base => ({
 			...base,
-			vendor: await vendorSource().mapper.map(base.vendor),
-		}) : null,
+			vendor: await vendorSource().map(base.vendor),
+		}),
 		source: {
 			get: async id => source.prisma.base.findUniqueOrThrow({
 				where: {id},

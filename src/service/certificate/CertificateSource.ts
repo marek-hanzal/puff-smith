@@ -15,21 +15,15 @@ export const CertificateSource = (): ICertificateSource => {
 	const source: ICertificateSource = Source<ICertificateSource>({
 		name: "certificate",
 		prisma,
-		map: async certificate => {
-			if (!certificate) {
-				return null;
-			}
-			const {id, name, code, cost} = certificate;
-			return {
-				id,
-				name,
-				code,
-				cost,
-				tokens: await tokenSource().mapper.list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
-				isOwned: certificate.UserCertificate ? certificate.UserCertificate.length > 0 : undefined,
-				request: await userCertificateRequestSource().map(certificate.UserCertificateRequest?.[0]),
-			};
-		},
+		map: async ({id, name, code, cost, ...certificate}) => ({
+			id,
+			name,
+			code,
+			cost,
+			tokens: await tokenSource().list(Promise.resolve(certificate.CertificateToken.map(({token}) => token))),
+			isOwned: certificate.UserCertificate ? certificate.UserCertificate.length > 0 : undefined,
+			request: await userCertificateRequestSource().mapNull(certificate.UserCertificateRequest?.[0]),
+		}),
 		source: {
 			get: async id => source.prisma.certificate.findUniqueOrThrow({
 				where: {id},

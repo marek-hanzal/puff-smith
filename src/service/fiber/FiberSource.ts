@@ -11,10 +11,10 @@ export const FiberSource = (): IFiberSource => {
 	const source: IFiberSource = Source<IFiberSource>({
 		name: "fiber",
 		prisma,
-		map: async fiber => fiber ? ({
+		map: async fiber => ({
 			...fiber,
-			material: await tagSource().mapper.map(fiber.material),
-		}) : null,
+			material: await tagSource().map(fiber.material),
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => {
 				const $fulltext = fulltext?.split(/\s+/g);

@@ -14,11 +14,11 @@ export const VoucherInventorySource = (): IVoucherInventorySource => {
 	const source: IVoucherInventorySource = Source<IVoucherInventorySource>({
 		name: "voucher-inventory",
 		prisma,
-		map: async voucherInventory => voucherInventory ? {
+		map: async voucherInventory => ({
 			...voucherInventory,
-			voucher: await voucherSource().mapper.map(voucherInventory.voucher),
-			transaction: await transactionSource().mapper.map(voucherInventory.transaction),
-		} : null,
+			voucher: await voucherSource().map(voucherInventory.voucher),
+			transaction: await transactionSource().map(voucherInventory.transaction),
+		}),
 		source: {
 			create: async ({code, ...create}) => prisma.$transaction(async prisma => {
 				const transactionSource = TransactionSource().ofSource(source).withPrisma(prisma);

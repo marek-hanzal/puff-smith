@@ -7,12 +7,12 @@ export const MixtureRatioSource = (): IMixtureRatioSource => {
 	const source: IMixtureRatioSource = Source<IMixtureRatioSource>({
 		name: "mixture.ratio",
 		prisma,
-		map: async mixture => mixture ? {
+		map: async mixture => ({
 			label: `${mixture.vgToRound}/${mixture.pgToRound}`,
 			value: `${mixture.vgToRound}/${mixture.pgToRound}`,
 			vg: mixture.vgToRound,
 			pg: mixture.pgToRound,
-		} : null,
+		}),
 		cache: MixtureRatioCache,
 		source: {
 			query: async () => {

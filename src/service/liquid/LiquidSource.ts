@@ -19,13 +19,13 @@ export const LiquidSource = (): ILiquidSource => {
 	const source: ILiquidSource = Source<ILiquidSource>({
 		name: "liquid",
 		prisma,
-		map: async liquid => liquid ? {
+		map: async liquid => ({
 			...liquid,
 			created: liquid.created.toUTCString(),
 			mixed: liquid.mixed.toUTCString(),
-			transaction: await transactionSource().mapper.map(liquid.transaction),
-			mixture: await mixtureSource().mapper.map(liquid.mixture),
-		} : null,
+			transaction: await transactionSource().map(liquid.transaction),
+			mixture: await mixtureSource().map(liquid.mixture),
+		}),
 		source: {
 			get: async id => source.prisma.liquid.findUniqueOrThrow({
 				where: {id},

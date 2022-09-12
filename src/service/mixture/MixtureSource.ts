@@ -16,14 +16,14 @@ export const MixtureSource = (): IMixtureSource => {
 	const source: IMixtureSource = Source<IMixtureSource>({
 		name: "mixture",
 		prisma,
-		map: async mixture => mixture ? {
+		map: async mixture => ({
 			...mixture,
 			volume: mixture.aroma.volume,
-			aroma: await aromaSource().mapper.map(mixture.aroma),
-			booster: await boosterSource().map(mixture.booster),
-			base: await baseSource().map(mixture.base),
-			draws: await tagSource().mapper.list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
-		} : null,
+			aroma: await aromaSource().map(mixture.aroma),
+			booster: await boosterSource().mapNull(mixture.booster),
+			base: await baseSource().mapNull(mixture.base),
+			draws: await tagSource().list(Promise.resolve(mixture.MixtureDraw.map(({draw}) => draw))),
+		}),
 	});
 
 	return source;

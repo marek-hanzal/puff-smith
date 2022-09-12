@@ -8,10 +8,10 @@ export const TranslationSource = (): ITranslationSource => {
 	const source: ITranslationSource = Source<ITranslationSource>({
 		name: "translation",
 		prisma,
-		map: async translation => translation ? {
+		map: async translation => ({
 			key: translation.label,
 			value: translation.text,
-		} : null,
+		}),
 		cache: TranslationCache,
 		source: {
 			query: async ({filter, ...query}) => source.prisma.translation.findMany({

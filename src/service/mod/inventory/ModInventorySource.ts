@@ -14,11 +14,11 @@ export const ModInventorySource = (): IModInventorySource => {
 	const source: IModInventorySource = Source<IModInventorySource>({
 		name: "mod.inventory",
 		prisma,
-		map: async modInventory => modInventory ? {
+		map: async modInventory => ({
 			...modInventory,
-			mod: await modSource().mapper.map(modInventory.mod),
-			transaction: await transactionSource().mapper.map(modInventory.transaction),
-		} : null,
+			mod: await modSource().map(modInventory.mod),
+			transaction: await transactionSource().map(modInventory.transaction),
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.modInventory.count({
 				where: merge(filter, {

@@ -10,11 +10,11 @@ export const BuildLiquidTasteRatingSource = (): IBuildLiquidTasteRatingSource =>
 	const source: IBuildLiquidTasteRatingSource = Source<IBuildLiquidTasteRatingSource>({
 		name: "build.liquid.taste.rating",
 		prisma,
-		map: async buildLiquidTasteRating => buildLiquidTasteRating ? {
+		map: async buildLiquidTasteRating => ({
 			...buildLiquidTasteRating,
 			created: buildLiquidTasteRating.created.toUTCString(),
-			taste: await tagSource().mapper.map(buildLiquidTasteRating.taste),
-		} : null,
+			taste: await tagSource().map(buildLiquidTasteRating.taste),
+		}),
 		source: {
 			count: async ({filter}) => source.prisma.buildLiquidTasteRating.count({
 				where: filter,

@@ -15,11 +15,11 @@ export const BaseInventorySource = (): IBaseInventorySource => {
 	const source: IBaseInventorySource = Source<IBaseInventorySource>({
 		name: "base.inventory",
 		prisma,
-		map: async baseInventory => baseInventory ? {
+		map: async baseInventory => ({
 			...baseInventory,
-			base: await baseSource().mapper.map(baseInventory.base),
-			transaction: await transactionSource().map(baseInventory.transaction),
-		} : null,
+			base: await baseSource().map(baseInventory.base),
+			transaction: await transactionSource().mapNull(baseInventory.transaction),
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.baseInventory.count({
 				where: merge(filter, {

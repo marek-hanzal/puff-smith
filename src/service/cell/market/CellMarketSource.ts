@@ -10,10 +10,10 @@ export const CellMarketSource = (): ICellMarketSource => {
 	const source: ICellMarketSource = Source<ICellMarketSource>({
 		name: "cell.market",
 		prisma,
-		map: async cell => cell ? {
-			cell: await cellSource().mapper.map(cell),
+		map: async cell => ({
+			cell: await cellSource().map(cell),
 			isOwned: cell.CellInventory.length > 0,
-		} : null,
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.cell.count({
 				where: merge(filter || {}, {

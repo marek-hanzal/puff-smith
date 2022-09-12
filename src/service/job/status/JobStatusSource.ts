@@ -16,10 +16,10 @@ export const JobStatusSource = (): IJobStatusSource => {
 	return Source<IJobStatusSource>({
 		name: "job.status",
 		prisma,
-		map: async status => status ? {
+		map: async status => ({
 			value: status,
 			label: status,
-		} : null,
+		}),
 		source: {
 			query: async () => items,
 		},

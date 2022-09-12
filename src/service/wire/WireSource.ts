@@ -23,7 +23,7 @@ export const WireSource = (): IWireSource => {
 	const source: IWireSource = Source<IWireSource>({
 		name: "wire",
 		prisma,
-		map: async wire => wire ? {
+		map: async wire => ({
 			id: wire.id,
 			name: wire.name,
 			code: wire.code,
@@ -32,10 +32,10 @@ export const WireSource = (): IWireSource => {
 			mm: wire.mm,
 			mmToRound: wire.mmToRound,
 			cost: wire.cost,
-			vendor: await vendorSource().mapper.map(wire.vendor),
-			draws: await tagSource().mapper.list(Promise.resolve(wire.WireDraw.map(({draw}) => draw))),
-			fibers: await wireFiberSource().mapper.list(Promise.resolve(wire.WireFiber)),
-		} : null,
+			vendor: await vendorSource().map(wire.vendor),
+			draws: await tagSource().list(Promise.resolve(wire.WireDraw.map(({draw}) => draw))),
+			fibers: await wireFiberSource().list(Promise.resolve(wire.WireFiber)),
+		}),
 		source: {
 			get: async id => source.prisma.wire.findUniqueOrThrow({
 				where: {id},

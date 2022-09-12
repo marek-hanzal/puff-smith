@@ -13,10 +13,10 @@ export const UserCertificateSource = (): IUserCertificateSource => {
 	const source: IUserCertificateSource = Source<IUserCertificateSource>({
 		name: "user.certificate",
 		prisma,
-		map: async userCertificate => userCertificate ? {
+		map: async userCertificate => ({
 			...userCertificate,
-			certificate: await certificateSource().mapper.map(userCertificate.certificate),
-		} : null,
+			certificate: await certificateSource().map(userCertificate.certificate),
+		}),
 		source: {
 			get: async id => source.prisma.userCertificate.findUniqueOrThrow({
 				where: {id},

@@ -10,11 +10,11 @@ export const WishlistSource = (): IWishlistSource => {
 	const source: IWishlistSource = Source<IWishlistSource>({
 		name: "wishlist",
 		prisma,
-		map: async wishlist => wishlist ? {
+		map: async wishlist => ({
 			...wishlist,
 			created: wishlist.created.toUTCString(),
-			tags: await tagSource().mapper.list(Promise.resolve(wishlist.WishlistTag.map(({tag}) => tag))),
-		} : null,
+			tags: await tagSource().list(Promise.resolve(wishlist.WishlistTag.map(({tag}) => tag))),
+		}),
 		source: {
 			create: async ({name, url, note, cost, tags = []}) => source.prisma.wishlist.create({
 				data: {

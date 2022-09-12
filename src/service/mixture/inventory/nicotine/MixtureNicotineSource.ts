@@ -7,11 +7,11 @@ export const MixtureNicotineSource = (): IMixtureNicotineSource => {
 	const source: IMixtureNicotineSource = Source<IMixtureNicotineSource>({
 		name: "mixture.inventory.nicotine",
 		prisma,
-		map: async mixture => mixture ? {
+		map: async mixture => ({
 			label: `${mixture.nicotineToRound}`,
 			value: mixture.nicotineToRound,
 			nicotine: mixture.nicotineToRound,
-		} : null,
+		}),
 		cache: MixtureNicotineCache,
 		source: {
 			query: async () => {

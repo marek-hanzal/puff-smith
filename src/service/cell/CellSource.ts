@@ -16,11 +16,11 @@ export const CellSource = (): ICellSource => {
 	const source: ICellSource = Source<ICellSource>({
 		name: "cell",
 		prisma,
-		map: async cell => cell ? {
+		map: async cell => ({
 			...cell,
-			vendor: await vendorSource().mapper.map(cell.vendor),
-			type: await tagSource().mapper.map(cell.type),
-		} : null,
+			vendor: await vendorSource().map(cell.vendor),
+			type: await tagSource().map(cell.type),
+		}),
 		source: {
 			get: async id => source.prisma.cell.findUniqueOrThrow({
 				where: {id},

@@ -14,11 +14,11 @@ export const ModSource = (): IModSource => {
 	const source: IModSource = Source<IModSource>({
 		name: "mod",
 		prisma,
-		map: async mod => mod ? {
+		map: async mod => ({
 			...mod,
-			vendor: await vendorSource().mapper.map(mod.vendor),
-			cells: await tagSource().mapper.list(Promise.resolve(mod.ModCell.map(item => item.cell))),
-		} : null,
+			vendor: await vendorSource().map(mod.vendor),
+			cells: await tagSource().list(Promise.resolve(mod.ModCell.map(item => item.cell))),
+		}),
 		source: {
 			get: async id => source.prisma.mod.findUniqueOrThrow({
 				where: {id},

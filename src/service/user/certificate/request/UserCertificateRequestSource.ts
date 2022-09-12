@@ -12,13 +12,13 @@ export const UserCertificateRequestSource = (): IUserCertificateRequestSource =>
 	const source: IUserCertificateRequestSource = Source<IUserCertificateRequestSource>({
 		name: "user.certificate.request",
 		prisma,
-		map: async userCertificateRequest => userCertificateRequest ? {
+		map: async userCertificateRequest => ({
 			...userCertificateRequest,
 			created: userCertificateRequest.created.toUTCString(),
 			updated: userCertificateRequest.updated?.toUTCString(),
-			user: await userSource().map(userCertificateRequest.user),
-			certificate: await certificateSource().mapper.map(userCertificateRequest.certificate),
-		} : null,
+			user: await userSource().mapNull(userCertificateRequest.user),
+			certificate: await certificateSource().map(userCertificateRequest.certificate),
+		}),
 		source: {
 			get: async id => source.prisma.userCertificateRequest.findUniqueOrThrow({
 				where: {id},

@@ -13,10 +13,10 @@ export const JobSource = (): IJobSource => {
 	const source: IJobSource = Source<IJobSource>({
 		name: "job",
 		prisma,
-		map: async job => job ? ({
+		map: async job => ({
 			...job,
 			params: job.params && JSON.parse(job.params)
-		}) : null,
+		}),
 		source: {
 			create: async job => source.prisma.job.create({
 				data: {
@@ -126,7 +126,7 @@ export const JobSource = (): IJobSource => {
 			const async: IJobProcessor["async"] = async (params, userId, queue) => {
 				let logger = Logger(name);
 				const jobSource = JobSource().withUser(await userSource().asUser(userId));
-				const job = await jobSource.mapper.map(await jobSource.create({
+				const job = await jobSource.map(await jobSource.create({
 					userId,
 					name,
 					params,

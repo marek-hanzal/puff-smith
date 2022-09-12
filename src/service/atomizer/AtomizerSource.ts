@@ -18,15 +18,15 @@ export const AtomizerSource = (): IAtomizerSource => {
 	const source: IAtomizerSource = Source<IAtomizerSource>({
 		name: "atomizer",
 		prisma,
-		map: async atomizer => atomizer ? {
+		map: async atomizer => ({
 			...atomizer,
-			vendor: await vendorSource().mapper.map(atomizer.vendor),
+			vendor: await vendorSource().map(atomizer.vendor),
 			coilMin: atomizer.coilMin?.toNumber(),
 			coilMax: atomizer.coilMax?.toNumber(),
-			draws: await tagSource().mapper.list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
+			draws: await tagSource().list(Promise.resolve(atomizer.AtomizerDraw.map(({draw}) => draw))),
 			drawIds: atomizer.AtomizerDraw.map(({draw}) => draw.id),
-			user: await userSource().map(atomizer.user),
-		} : null,
+			user: await userSource().mapNull(atomizer.user),
+		}),
 		source: {
 			get: async id => source.prisma.atomizer.findUniqueOrThrow({
 				where: {id},

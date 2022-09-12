@@ -15,21 +15,15 @@ export const LicenseSource = (): ILicenseSource => {
 	const source: ILicenseSource = Source<ILicenseSource>({
 		name: "license",
 		prisma,
-		map: async license => {
-			if (!license) {
-				return null;
-			}
-			const {id, name, code, cost} = license;
-			return {
-				id,
-				name,
-				code,
-				cost,
-				tokens: await tokenSource().mapper.list(Promise.resolve(license.LicenseToken.map(({token}) => token))),
-				isOwned: license.UserLicense ? license.UserLicense.length > 0 : undefined,
-				request: await userLicenseRequestSource().map(license.UserLicenseRequest?.[0]),
-			};
-		},
+		map: async ({id, name, code, cost, ...license}) => ({
+			id,
+			name,
+			code,
+			cost,
+			tokens: await tokenSource().list(Promise.resolve(license.LicenseToken.map(({token}) => token))),
+			isOwned: license.UserLicense ? license.UserLicense.length > 0 : undefined,
+			request: await userLicenseRequestSource().mapNull(license.UserLicenseRequest?.[0]),
+		}),
 		source: {
 			get: async id => source.prisma.license.findUniqueOrThrow({
 				where: {id},

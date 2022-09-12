@@ -13,10 +13,10 @@ export const UserLicenseSource = (): IUserLicenseSource => {
 	const source: IUserLicenseSource = Source<IUserLicenseSource>({
 		name: "user.license",
 		prisma,
-		map: async userLicense => userLicense ? {
+		map: async userLicense => ({
 			...userLicense,
-			license: await licenseSource().mapper.map(userLicense.license),
-		} : null,
+			license: await licenseSource().map(userLicense.license),
+		}),
 		source: {
 			get: async id => source.prisma.userLicense.findUniqueOrThrow({
 				where: {id},

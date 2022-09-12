@@ -10,10 +10,10 @@ export const AtomizerMarketSource = (): IAtomizerMarketSource => {
 	const source: IAtomizerMarketSource = Source<IAtomizerMarketSource>({
 		name: "atomizer.market",
 		prisma,
-		map: async atomizer => atomizer ? ({
-			atomizer: await atomizerSource().mapper.map(atomizer),
+		map: async atomizer => ({
+			atomizer: await atomizerSource().map(atomizer),
 			isOwned: atomizer.AtomizerInventory.length > 0,
-		}) : null,
+		}),
 		source: {
 			count: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.atomizer.count({
 				where: merge(filter || {}, {

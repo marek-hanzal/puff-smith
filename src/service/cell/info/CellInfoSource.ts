@@ -7,10 +7,10 @@ export const CellInfoSource = (): ICellInfoSource => {
 	const source: ICellInfoSource = Source<ICellInfoSource>({
 		name: "cell.info",
 		prisma,
-		map: async cellInfo => cellInfo ? {
+		map: async cellInfo => ({
 			...cellInfo,
 			created: cellInfo.created.toUTCString(),
-		} : null,
+		}),
 		source: {
 			count: async ({filter}) => source.prisma.cellInfo.count({
 				where: {

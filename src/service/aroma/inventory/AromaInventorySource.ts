@@ -21,11 +21,11 @@ export const AromaInventorySource = (): IAromaInventorySource => {
 	const source: IAromaInventorySource = Source<IAromaInventorySource>({
 		name: "aroma.inventory",
 		prisma,
-		map: async aromaInventory => aromaInventory ? {
+		map: async aromaInventory => ({
 			...aromaInventory,
-			aroma: await aromaSource().mapper.map(aromaInventory.aroma),
-			transaction: await transactionSource().map(aromaInventory.transaction),
-		} : null,
+			aroma: await aromaSource().map(aromaInventory.aroma),
+			transaction: await transactionSource().mapNull(aromaInventory.transaction),
+		}),
 		source: {
 			clearCache: async () => {
 				await mixtureAromaSource().clearCache();

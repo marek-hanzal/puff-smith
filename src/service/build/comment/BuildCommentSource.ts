@@ -10,10 +10,10 @@ export const BuildCommentSource = (): IBuildCommentSource => {
 	const source: IBuildCommentSource = Source<IBuildCommentSource>({
 		name: "build.comment",
 		prisma,
-		map: async buildComment => buildComment ? {
+		map: async buildComment => ({
 			...buildComment,
-			comment: await commentSource().mapper.map(buildComment.comment),
-		} : null,
+			comment: await commentSource().map(buildComment.comment),
+		}),
 		source: {
 			count: async ({filter}) => source.prisma.buildComment.count({
 				where: {

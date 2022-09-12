@@ -42,7 +42,7 @@ export const TokenSource = (): ITokenSource => {
 				}
 			}
 		},
-		tokensOf: userId => source.mapper.list(source.prisma.token.findMany({
+		tokensOf: userId => source.list(source.prisma.token.findMany({
 			where: {
 				UserToken: {
 					every: {

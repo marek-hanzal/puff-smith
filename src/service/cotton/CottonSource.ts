@@ -14,17 +14,11 @@ export const CottonSource = (): ICottonSource => {
 	const source: ICottonSource = Source<ICottonSource>({
 		name: "cotton",
 		prisma,
-		map: async cotton => {
-			if (!cotton) {
-				return null;
-			}
-			const {CottonDraw, ...$cotton} = cotton;
-			return {
-				...$cotton,
-				vendor: await vendorSource().mapper.map(cotton.vendor),
-				draws: await tagSource().mapper.list(Promise.resolve(CottonDraw.map(({draw}) => draw))),
-			};
-		},
+		map: async ({CottonDraw, ...cotton}) => ({
+			...cotton,
+			vendor: await vendorSource().map(cotton.vendor),
+			draws: await tagSource().list(Promise.resolve(CottonDraw.map(({draw}) => draw))),
+		}),
 		source: {
 			get: async id => source.prisma.cotton.findUniqueOrThrow({
 				where: {id},
