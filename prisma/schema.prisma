@@ -47,8 +47,6 @@ model User {
   Comment                        Comment[]
   UserToken                      UserToken[]
   Liquid                         Liquid[]
-  Metric                         Metric[]
-  Build                          Build[]
   AtomizerInventory              AtomizerInventory[]
   CellInventory                  CellInventory[]
   ModInventory                   ModInventory[]
@@ -78,6 +76,8 @@ model User {
   UserLicenseRequestApprover     UserLicenseRequest[]     @relation("UserLicenseRequestApprover")
   Vendor                         Vendor[]
   CellInfo                       CellInfo[]
+  CommentRating                  CommentRating[]
+  BuildAtomizer                  BuildAtomizer[]
 }
 
 model VerificationToken {
@@ -139,19 +139,20 @@ model Job {
   status       JobStatus @default(NEW)
   total        Int       @default(0)
   progress     Float     @default(0)
-  success      Int?
-  successRatio Float?
-  failure      Int?
-  failureRatio Float?
-  skip         Int?
-  skipRatio    Float?
+  success      Int
+  successRatio Float
+  failure      Int
+  failureRatio Float
+  skip         Int
+  skipRatio    Float
   created      DateTime
   started      DateTime?
   finished     DateTime?
-  logs         JobLog[]
   userId       String?
   user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   params       String?
+
+  logs JobLog[]
 }
 
 model JobLog {
@@ -176,17 +177,6 @@ enum JobStatus {
   DONE
 }
 
-model Metric {
-  id        String  @id @default(cuid())
-  reference String
-  name      String
-  start     Float?
-  value     Float
-  label     String?
-  userId    String?
-  user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 // Puff Smith Stuff
 
 model Comment {
@@ -196,38 +186,49 @@ model Comment {
   comment String   @db.Text
   created DateTime
 
+  CommentRating            CommentRating[]
   AtomizerComment          AtomizerComment[]
   CellComment              CellComment[]
   ModComment               ModComment[]
   CottonComment            CottonComment[]
   AromaComment             AromaComment[]
-  BuildComment             BuildComment[]
   AromaInventoryComment    AromaInventoryComment[]
   AtomizerInventoryComment AtomizerInventoryComment[]
   CellInventoryComment     CellInventoryComment[]
+  ModInventoryComment      ModInventoryComment[]
+  CottonInventoryComment   CottonInventoryComment[]
+  BuildAtomizerComment     BuildAtomizerComment[]
+}
+
+model CommentRating {
+  id        String  @id @default(cuid())
+  rating    Int
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model Tag {
-  id    String  @id @default(cuid())
-  code  String
-  label String?
+  id    String @id @default(cuid())
+  tag   String
   group String
   sort  Int?
 
   Atomizer               Atomizer[]
-  AtomizerDraw           AtomizerDraw[]
-  CottonDraw             CottonDraw[]
+  AtomizerTag            AtomizerTag[]
+  CottonTag              CottonTag[]
   Cell                   Cell[]
   ModCell                ModCell[]
-  AromaTaste             AromaTaste[]
+  AromaTag               AromaTag[]
   Fiber                  Fiber[]
-  CoilDraw               CoilDraw[]
-  WireDraw               WireDraw[]
-  MixtureDraw            MixtureDraw[]
+  CoilTag                CoilTag[]
+  WireTag                WireTag[]
+  MixtureTag             MixtureTag[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
   WishlistTag            WishlistTag[]
 
-  @@unique([code, group])
+  @@unique([tag, group])
 }
 
 model Vendor {
@@ -262,13 +263,11 @@ model Tariff {
 }
 
 model Price {
-  id       String    @id @default(cuid())
+  id       String   @id @default(cuid())
   name     String
-  price    Decimal   @db.Decimal(10, 2)
+  price    Decimal  @db.Decimal(10, 2)
   tariffId String
-  tariff   Tariff    @relation(fields: [tariffId], references: [id])
-  from     DateTime?
-  to       DateTime?
+  tariff   Tariff   @relation(fields: [tariffId], references: [id])
   created  DateTime
 
   Transaction Transaction[]
@@ -294,44 +293,43 @@ model Transaction {
   BaseInventory     BaseInventory[]
   Liquid            Liquid[]
   WireInventory     WireInventory[]
-  Build             Build[]
   UserCertificate   UserCertificate[]
   UserLicense       UserLicense[]
+  BuildAtomizer     BuildAtomizer[]
 }
 
 model Atomizer {
-  id           String         @id @default(cuid())
-  name         String
-  code         String         @unique
-  vendorId     String
-  vendor       Vendor         @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  typeId       String
-  type         Tag            @relation(fields: [typeId], references: [id], onDelete: Cascade)
-  coilMin      Decimal?       @db.Decimal(3, 2)
-  coilMax      Decimal?       @db.Decimal(3, 2)
-  wrapsMin     Int?
-  wrapsMax     Int?
-  dualCoil     Boolean        @default(false)
-  squonk       Boolean        @default(false)
-  AtomizerDraw AtomizerDraw[]
-  cost         Float?
-  isHybrid     Boolean        @default(false)
-  userId       String?
-  user         User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  id       String   @id @default(cuid())
+  name     String
+  code     String   @unique
+  vendorId String
+  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  typeId   String
+  type     Tag      @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  coilMin  Decimal? @db.Decimal(3, 2)
+  coilMax  Decimal? @db.Decimal(3, 2)
+  wrapsMin Int?
+  wrapsMax Int?
+  dualCoil Boolean  @default(false)
+  squonk   Boolean  @default(false)
+  isHybrid Boolean  @default(false)
+  userId   String?
+  user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   AtomizerInventory AtomizerInventory[]
   AtomizerComment   AtomizerComment[]
-  Build             Build[]
+  AtomizerTag       AtomizerTag[]
+  BuildAtomizer     BuildAtomizer[]
 
   @@unique([name, vendorId])
 }
 
-model AtomizerDraw {
+model AtomizerTag {
   id         String   @id @default(cuid())
   atomizerId String
   atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  drawId     String
-  draw       Tag      @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  tagId      String
+  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model AtomizerComment {
@@ -343,15 +341,16 @@ model AtomizerComment {
 }
 
 model AtomizerInventory {
-  id                       String                     @id @default(cuid())
-  code                     String                     @unique
-  userId                   String
-  user                     User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  atomizerId               String
-  atomizer                 Atomizer                   @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  transactionId            String?
-  transaction              Transaction?               @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating                   Int?
+  id            String      @id @default(cuid())
+  code          String      @unique
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atomizerId    String
+  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  rating        Int?
+
   AtomizerInventoryComment AtomizerInventoryComment[]
 }
 
@@ -371,7 +370,6 @@ model Cell {
   voltageMax Float?
   drain      Float?
   ohm        Float?
-  cost       Float
   capacity   Int?
   typeId     String
   type       Tag     @relation(fields: [typeId], references: [id], onDelete: Cascade)
@@ -385,6 +383,29 @@ model Cell {
   CellInfo      CellInfo[]
 
   @@unique([name, vendorId])
+}
+
+model CellComment {
+  id        String  @id @default(cuid())
+  cellId    String
+  cell      Cell    @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model CellInventory {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  userId        String
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cellId        String
+  cell          Cell         @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  transactionId String?
+  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  rating        Int?
+
+  CellInfo             CellInfo[]
+  CellInventoryComment CellInventoryComment[]
 }
 
 model CellInfo {
@@ -404,21 +425,6 @@ model CellInfo {
   created         DateTime
 }
 
-model CellInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cellId        String
-  cell          Cell         @relation(fields: [cellId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
-
-  CellInfo             CellInfo[]
-  CellInventoryComment CellInventoryComment[]
-}
-
 model CellInventoryComment {
   id              String        @id @default(cuid())
   cellInventoryId String
@@ -427,21 +433,12 @@ model CellInventoryComment {
   comment         Comment       @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
-model CellComment {
-  id        String  @id @default(cuid())
-  cellId    String
-  cell      Cell    @relation(fields: [cellId], references: [id], onDelete: Cascade)
-  commentId String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-}
-
 model Mod {
   id       String  @id @default(cuid())
   name     String
   code     String  @unique
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost     Float
   voltage  Float
   power    Float
   userId   String?
@@ -452,6 +449,14 @@ model Mod {
   ModComment   ModComment[]
 
   @@unique([name, vendorId])
+}
+
+model ModComment {
+  id        String  @id @default(cuid())
+  modId     String
+  mod       Mod     @relation(fields: [modId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model ModCell {
@@ -472,14 +477,16 @@ model ModInventory {
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
+
+  ModInventoryComment ModInventoryComment[]
 }
 
-model ModComment {
-  id        String  @id @default(cuid())
-  modId     String
-  mod       Mod     @relation(fields: [modId], references: [id], onDelete: Cascade)
-  commentId String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+model ModInventoryComment {
+  id             String       @id @default(cuid())
+  modInventoryId String
+  modInventory   ModInventory @relation(fields: [modInventoryId], references: [id], onDelete: Cascade)
+  commentId      String
+  comment        Comment      @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model Cotton {
@@ -488,24 +495,31 @@ model Cotton {
   code     String  @unique
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  cost     Float
   userId   String?
   user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
-  CottonDraw      CottonDraw[]
+  CottonTag       CottonTag[]
   Build           Build[]
 
   @@unique([name, vendorId])
 }
 
-model CottonDraw {
+model CottonComment {
+  id        String  @id @default(cuid())
+  cottonId  String
+  cotton    Cotton  @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model CottonTag {
   id       String @id @default(cuid())
   cottonId String
   cotton   Cotton @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  drawId   String
-  draw     Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  tagId    String
+  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model CottonInventory {
@@ -518,20 +532,22 @@ model CottonInventory {
   transactionId String?
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
+
+  CottonInventoryComment CottonInventoryComment[]
 }
 
-model CottonComment {
-  id        String  @id @default(cuid())
-  cottonId  String
-  cotton    Cotton  @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  commentId String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+model CottonInventoryComment {
+  id                String          @id @default(cuid())
+  cottonInventoryId String
+  cottonInventory   CottonInventory @relation(fields: [cottonInventoryId], references: [id], onDelete: Cascade)
+  commentId         String
+  comment           Comment         @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model Voucher {
   id         String @id @default(cuid())
   name       String @unique
-  cost       Float
+  premium    Float
   maxFortune Float?
 
   VoucherInventory VoucherInventory[]
@@ -552,32 +568,31 @@ model Aroma {
   id       String  @id @default(cuid())
   name     String
   code     String  @unique
-  cost     Float
   content  Int
   volume   Int
   pg       Int
   vg       Int
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  steep    Int     @default(14)
+  steep    Int
   userId   String?
   user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   AromaInventory AromaInventory[]
   AromaComment   AromaComment[]
-  AromaTaste     AromaTaste[]
+  AromaTag       AromaTag[]
   Mixture        Mixture[]
   Liquid         Liquid[]
 
   @@unique([name, vendorId])
 }
 
-model AromaTaste {
+model AromaTag {
   id      String @id @default(cuid())
   aromaId String
   aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  tasteId String
-  taste   Tag    @relation(fields: [tasteId], references: [id], onDelete: Cascade)
+  tagId   String
+  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model AromaComment {
@@ -617,7 +632,6 @@ model Booster {
   id       String  @id @default(cuid())
   name     String
   code     String  @unique
-  cost     Float
   volume   Int
   nicotine Int
   pg       Int
@@ -654,7 +668,7 @@ model Base {
   id       String  @id @default(cuid())
   name     String
   code     String  @unique
-  cost     Float
+  nicotine Int
   pg       Int
   vg       Int
   vendorId String
@@ -749,7 +763,7 @@ model Mixture {
   baseMl          Int
 
   Liquid           Liquid[]
-  MixtureDraw      MixtureDraw[]
+  MixtureTag       MixtureTag[]
   MixtureInventory MixtureInventory[]
 
   @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
@@ -771,37 +785,53 @@ model MixtureInventory {
   @@unique([mixtureId, userId])
 }
 
-model MixtureDraw {
+model MixtureTag {
   id        String  @id @default(cuid())
   mixtureId String
   mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  drawId    String
-  draw      Tag     @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  tagId     String
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model Build {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  created       DateTime
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  atomizerId    String
-  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  coilId        String
-  coil          Coil        @relation(fields: [coilId], references: [id], onDelete: Cascade)
-  cottonId      String
-  cotton        Cotton      @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  ohm           Decimal     @db.Decimal(5, 3)
-  drain         Float
-  watts         Float
-  rating        Int?
-  active        Boolean     @default(true)
+  id       String   @id @default(cuid())
+  code     String   @unique
+  created  DateTime
+  coilId   String
+  coil     Coil     @relation(fields: [coilId], references: [id], onDelete: Cascade)
+  cottonId String
+  cotton   Cotton   @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  ohm      Decimal  @db.Decimal(5, 3)
+  drain    Float
+  watts    Float
 
-  BuildComment           BuildComment[]
+  BuildAtomizer          BuildAtomizer[]
   BuildLiquidRating      BuildLiquidRating[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
+}
+
+model BuildAtomizer {
+  id            String      @id @default(cuid())
+  buildId       String
+  build         Build       @relation(fields: [buildId], references: [id], onDelete: Cascade)
+  atomizerId    String
+  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating        Int?
+  active        Boolean     @default(true)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  BuildAtomizerComment BuildAtomizerComment[]
+}
+
+model BuildAtomizerComment {
+  id              String        @id @default(cuid())
+  buildAtomizerId String
+  buildAtomizer   BuildAtomizer @relation(fields: [buildAtomizerId], references: [id], onDelete: Cascade)
+  commentId       String
+  comment         Comment       @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model BuildLiquidTasteRating {
@@ -816,14 +846,6 @@ model BuildLiquidTasteRating {
   rating   Int?
 
   @@unique([buildId, liquidId, tasteId])
-}
-
-model BuildComment {
-  id        String  @id @default(cuid())
-  buildId   String
-  build     Build   @relation(fields: [buildId], references: [id], onDelete: Cascade)
-  commentId String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 model BuildLiquidRating {
@@ -852,18 +874,18 @@ model Coil {
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  CoilDraw CoilDraw[]
-  Build    Build[]
+  CoilTag CoilTag[]
+  Build   Build[]
 
   @@unique([name, wireId])
 }
 
-model CoilDraw {
+model CoilTag {
   id     String @id @default(cuid())
   coilId String
   coil   Coil   @relation(fields: [coilId], references: [id], onDelete: Cascade)
-  drawId String
-  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  tagId  String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 // Wire is a source for a coil
@@ -871,7 +893,6 @@ model Wire {
   id        String  @id @default(cuid())
   name      String
   code      String  @unique
-  cost      Float
   // Is this wire TCR compatible?
   isTCR     Boolean
   // Expected thickness of a wire - sum of individual fibers; this could help to identify if a wire would fit in a post in atomizer
@@ -884,32 +905,32 @@ model Wire {
 
   WireFiber     WireFiber[]
   Coil          Coil[]
-  WireDraw      WireDraw[]
+  WireTag       WireTag[]
   WireInventory WireInventory[]
 
   @@unique([name, vendorId])
 }
 
 model WireInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
+  id            String      @id @default(cuid())
+  code          String      @unique
   userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   wireId        String
-  wire          Wire         @relation(fields: [wireId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  wire          Wire        @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
   @@unique([userId, wireId])
 }
 
-model WireDraw {
+model WireTag {
   id     String @id @default(cuid())
   wireId String
   wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
-  drawId String
-  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  tagId  String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 // Wire should be constructed of some fibers (logically at least one fiber should be in a wire)
@@ -948,8 +969,6 @@ model Certificate {
   name String @unique
   // code as usueal
   code String @unique
-  // interesting part: certificate could be bought but when NULL, it should not be available for buy
-  cost Float?
 
   CertificateToken       CertificateToken[]
   UserCertificate        UserCertificate[]
@@ -1004,8 +1023,6 @@ model License {
   id       String @id @default(cuid())
   name     String @unique
   code     String @unique
-  // if the cost is available, License could be bought on the Market
-  cost     Float?
   // if provided, License could be renewed (on an user action)
   renew    Float?
   // if provided, automatically creates licence with duration (from time it's bought + "duration" days)
@@ -1071,6 +1088,7 @@ model Wishlist {
   // note about the whish list item
   note    String?  @db.Text
   userId  String
+  sort    Int?
   user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   created DateTime
 
