@@ -1,4 +1,3 @@
-import {MixtureJob} from "@/puff-smith/jobs/mixture/job";
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
@@ -22,40 +21,88 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> {
 		};
 	}
 
-	async $create({vendor, vendorId, tastes, tasteIds, code, withMixtures, withInventory = false, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
+	async $create({vendor, vendorId, tastes, tasteIds, code, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
 		const $canUpdate = this.user.hasAny([
 			"*",
 			"site.root",
 			"aroma.patch",
 		]);
-		const $create = async () => {
-			const create = {
-				...aroma,
-				code: code || this.codeService.code(),
-				name: `${aroma.name}`,
-				vendor: {
-					connect: {
-						name: vendor,
-						id: vendorId,
+		const create = {
+			...aroma,
+			code: code || this.codeService.code(),
+			name: `${aroma.name}`,
+			vendor: {
+				connect: {
+					name: vendor,
+					id: vendorId,
+				}
+			},
+			AromaTaste: {
+				createMany: {
+					data: (await this.tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+						tasteId: tag.id,
+					})),
+				}
+			},
+		};
+		try {
+			return await this.prisma.aroma.create({
+				data: {
+					...create,
+					user: this.user.optional() ? {
+						connect: {
+							id: this.user.optional(),
+						}
+					} : undefined,
+				},
+				include: {
+					vendor: true,
+					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
+						include: {
+							taste: true,
+						}
 					}
 				},
-				AromaTaste: {
-					createMany: {
-						data: (await this.tagSource.fetchByCodes(tasteIds || tastes, "taste")).map(tag => ({
-							tasteId: tag.id,
-						})),
+			});
+		} catch (e) {
+			return onUnique(e, async () => {
+				if (!$canUpdate) {
+					throw new ClientError("Aroma already exists.", 409);
+				}
+				const $aroma = await this.prisma.aroma.findFirstOrThrow({
+					where: {
+						OR: [
+							{
+								name: `${create.name}`,
+								vendor: {
+									name: vendor,
+								}
+							},
+							{
+								code: create.code,
+							}
+						],
+					},
+				});
+				await this.prisma.aromaTaste.deleteMany({
+					where: {
+						aromaId: $aroma.id,
 					}
-				},
-			};
-			try {
-				return await this.prisma.aroma.create({
+				});
+				return this.prisma.aroma.update({
+					where: {
+						id: $aroma.id,
+					},
 					data: {
 						...create,
-						user: this.user.optional() ? {
-							connect: {
-								id: this.user.optional(),
+						AromaTaste: {
+							createMany: {
+								data: (await this.tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+									tasteId: tag.id,
+								})),
 							}
-						} : undefined,
+						},
 					},
 					include: {
 						vendor: true,
@@ -67,77 +114,17 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> {
 						}
 					},
 				});
-			} catch (e) {
-				return onUnique(e, async () => {
-					if (!$canUpdate) {
-						throw new ClientError("Aroma already exists.", 409);
-					}
-					const $aroma = await this.prisma.aroma.findFirstOrThrow({
-						where: {
-							OR: [
-								{
-									name: `${create.name}`,
-									vendor: {
-										name: vendor,
-									}
-								},
-								{
-									code: create.code,
-								}
-							],
-						},
-					});
-					await this.prisma.aromaTaste.deleteMany({
-						where: {
-							aromaId: $aroma.id,
-						}
-					});
-					return this.prisma.aroma.update({
-						where: {
-							id: $aroma.id,
-						},
-						data: {
-							...create,
-							AromaTaste: {
-								createMany: {
-									data: (await this.tagSource.fetchByCodes(tasteIds || tastes, "taste")).map(tag => ({
-										tasteId: tag.id,
-									})),
-								}
-							},
-						},
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
-								}
-							}
-						},
-					});
-				});
-			}
-		};
-		const $aroma = await $create();
-		withInventory && await this.prisma.aromaInventory.createMany({
-			data: [{
-				code: this.codeService.code(),
-				aromaId: $aroma.id,
-				userId: this.user.required(),
-			}],
-			skipDuplicates: true,
-		});
-		return $aroma;
+			});
+		}
 	}
 
-	async $patch({vendor, vendorId, tastes, tasteIds, withMixtures, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
+	async $patch({vendor, vendorId, tastes, tasteIds, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
 		await this.prisma.aromaTaste.deleteMany({
 			where: {
 				aromaId: patch.id,
 			}
 		});
-		const aroma = this.prisma.aroma.update({
+		return this.prisma.aroma.update({
 			where: {id: patch.id},
 			data: {
 				...patch,
@@ -165,10 +152,6 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> {
 				}
 			},
 		});
-		withMixtures && await MixtureJob.async({
-			aromaId: patch.id,
-		}, this.user.required());
-		return aroma;
 	}
 
 	async $remove(ids: string[]): Promise<ISourceEntity<IAromaSource>[]> {
@@ -230,10 +213,6 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> {
 		return this.prisma.aroma.count({
 			where: this.withFilter(query),
 		});
-	}
-
-	async $clearCache(): Promise<any> {
-		await this.aromaMarketSource.clearCache();
 	}
 
 	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IAromaSource>) {

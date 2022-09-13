@@ -70,7 +70,7 @@ model User {
   UserLicenseRequestUser         UserLicenseRequest[]     @relation("UserLicenseRequestUser")
   UserLicenseRequestApprover     UserLicenseRequest[]     @relation("UserLicenseRequestApprover")
   Vendor                         Vendor[]
-  CellInfo                       CellInfo[]
+  CellHealth                     CellHealth[]
   CommentRating                  CommentRating[]
   BuildAtomizer                  BuildAtomizer[]
 }
@@ -211,14 +211,14 @@ model Tag {
   sort  Int?
 
   Atomizer               Atomizer[]
-  AtomizerTag            AtomizerTag[]
-  CottonTag              CottonTag[]
+  AtomizerDraw           AtomizerDraw[]
+  CottonDraw             CottonDraw[]
   Cell                   Cell[]
   ModCell                ModCell[]
-  AromaTag               AromaTag[]
+  AromaTaste             AromaTaste[]
   Fiber                  Fiber[]
-  CoilTag                CoilTag[]
-  WireTag                WireTag[]
+  CoilDraw               CoilDraw[]
+  WireDraw               WireDraw[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
   WishlistTag            WishlistTag[]
 
@@ -274,17 +274,7 @@ model Transaction {
   price   Price?   @relation(fields: [priceId], references: [id])
   note    String?
 
-  AtomizerInventory AtomizerInventory[]
-  ModInventory      ModInventory[]
-  CellInventory     CellInventory[]
-  CottonInventory   CottonInventory[]
-  VoucherInventory  VoucherInventory[]
-  AromaInventory    AromaInventory[]
-  Liquid            Liquid[]
-  WireInventory     WireInventory[]
-  UserCertificate   UserCertificate[]
-  UserLicense       UserLicense[]
-  BuildAtomizer     BuildAtomizer[]
+  BuildAtomizer BuildAtomizer[]
 }
 
 model Atomizer {
@@ -307,18 +297,18 @@ model Atomizer {
 
   AtomizerInventory AtomizerInventory[]
   AtomizerComment   AtomizerComment[]
-  AtomizerTag       AtomizerTag[]
+  AtomizerDraw      AtomizerDraw[]
   BuildAtomizer     BuildAtomizer[]
 
   @@unique([name, vendorId])
 }
 
-model AtomizerTag {
+model AtomizerDraw {
   id         String   @id @default(cuid())
   atomizerId String
   atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  tagId      String
-  tag        Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  drawId     String
+  draw       Tag      @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model AtomizerComment {
@@ -330,15 +320,13 @@ model AtomizerComment {
 }
 
 model AtomizerInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  atomizerId    String
-  atomizer      Atomizer    @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id         String   @id @default(cuid())
+  code       String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  atomizerId String
+  atomizer   Atomizer @relation(fields: [atomizerId], references: [id], onDelete: Cascade)
+  rating     Int?
 
   AtomizerInventoryComment AtomizerInventoryComment[]
 }
@@ -369,7 +357,7 @@ model Cell {
 
   CellInventory CellInventory[]
   CellComment   CellComment[]
-  CellInfo      CellInfo[]
+  CellHealth    CellHealth[]
 
   @@unique([name, vendorId])
 }
@@ -383,21 +371,19 @@ model CellComment {
 }
 
 model CellInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cellId        String
-  cell          Cell         @relation(fields: [cellId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id     String @id @default(cuid())
+  code   String @unique
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cellId String
+  cell   Cell   @relation(fields: [cellId], references: [id], onDelete: Cascade)
+  rating Int?
 
-  CellInfo             CellInfo[]
+  CellHealth           CellHealth[]
   CellInventoryComment CellInventoryComment[]
 }
 
-model CellInfo {
+model CellHealth {
   id              String        @id @default(cuid())
   cellId          String
   cell            Cell          @relation(fields: [cellId], references: [id], onDelete: Cascade)
@@ -457,15 +443,13 @@ model ModCell {
 }
 
 model ModInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  modId         String
-  mod           Mod         @relation(fields: [modId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id     String @id @default(cuid())
+  code   String @unique
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  modId  String
+  mod    Mod    @relation(fields: [modId], references: [id], onDelete: Cascade)
+  rating Int?
 
   ModInventoryComment ModInventoryComment[]
 }
@@ -489,7 +473,7 @@ model Cotton {
 
   CottonInventory CottonInventory[]
   CottonComment   CottonComment[]
-  CottonTag       CottonTag[]
+  CottonDraw      CottonDraw[]
   Build           Build[]
 
   @@unique([name, vendorId])
@@ -503,24 +487,22 @@ model CottonComment {
   comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
-model CottonTag {
+model CottonDraw {
   id       String @id @default(cuid())
   cottonId String
   cotton   Cotton @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  tagId    String
-  tag      Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  drawId   String
+  draW     Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 model CottonInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  cottonId      String
-  cotton        Cotton       @relation(fields: [cottonId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id       String @id @default(cuid())
+  code     String @unique
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cottonId String
+  cotton   Cotton @relation(fields: [cottonId], references: [id], onDelete: Cascade)
+  rating   Int?
 
   CottonInventoryComment CottonInventoryComment[]
 }
@@ -543,14 +525,12 @@ model Voucher {
 }
 
 model VoucherInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  voucherId     String
-  voucher       Voucher     @relation(fields: [voucherId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid())
+  code      String  @unique
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  voucherId String
+  voucher   Voucher @relation(fields: [voucherId], references: [id], onDelete: Cascade)
 }
 
 model Aroma {
@@ -569,18 +549,18 @@ model Aroma {
 
   AromaInventory AromaInventory[]
   AromaComment   AromaComment[]
-  AromaTag       AromaTag[]
+  AromaTaste     AromaTaste[]
   Liquid         Liquid[]
 
   @@unique([name, vendorId])
 }
 
-model AromaTag {
+model AromaTaste {
   id      String @id @default(cuid())
   aromaId String
   aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  tagId   String
-  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tasteId String
+  taste   Tag    @relation(fields: [tasteId], references: [id], onDelete: Cascade)
 }
 
 model AromaComment {
@@ -592,15 +572,13 @@ model AromaComment {
 }
 
 model AromaInventory {
-  id            String       @id @default(cuid())
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  code          String       @unique
-  aromaId       String
-  aroma         Aroma        @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  code    String @unique
+  aromaId String
+  aroma   Aroma  @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  rating  Int?
 
   AromaInventoryComment AromaInventoryComment[]
 
@@ -616,19 +594,17 @@ model AromaInventoryComment {
 }
 
 model Liquid {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aromaId       String
-  aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  vendorId      String
-  vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  created       DateTime
-  mixed         DateTime
-  rating        Int?
+  id       String   @id @default(cuid())
+  code     String   @unique
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aromaId  String
+  aroma    Aroma    @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  vendorId String
+  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  created  DateTime
+  mixed    DateTime
+  rating   Int?
 
   BuildLiquidRating      BuildLiquidRating[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
@@ -715,18 +691,18 @@ model Coil {
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  CoilTag CoilTag[]
-  Build   Build[]
+  CoilDraw CoilDraw[]
+  Build    Build[]
 
   @@unique([name, wireId])
 }
 
-model CoilTag {
+model CoilDraw {
   id     String @id @default(cuid())
   coilId String
   coil   Coil   @relation(fields: [coilId], references: [id], onDelete: Cascade)
-  tagId  String
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  drawId String
+  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 // Wire is a source for a coil
@@ -746,32 +722,30 @@ model Wire {
 
   WireFiber     WireFiber[]
   Coil          Coil[]
-  WireTag       WireTag[]
+  WireDraw      WireDraw[]
   WireInventory WireInventory[]
 
   @@unique([name, vendorId])
 }
 
 model WireInventory {
-  id            String      @id @default(cuid())
-  code          String      @unique
-  userId        String
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  wireId        String
-  wire          Wire        @relation(fields: [wireId], references: [id], onDelete: Cascade)
-  transactionId String
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
+  id     String @id @default(cuid())
+  code   String @unique
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  wireId String
+  wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
+  rating Int?
 
   @@unique([userId, wireId])
 }
 
-model WireTag {
+model WireDraw {
   id     String @id @default(cuid())
   wireId String
   wire   Wire   @relation(fields: [wireId], references: [id], onDelete: Cascade)
-  tagId  String
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  drawId String
+  draw   Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 // Wire should be constructed of some fibers (logically at least one fiber should be in a wire)
@@ -827,13 +801,11 @@ model CertificateToken {
 }
 
 model UserCertificate {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   certificateId String
-  certificate   Certificate  @relation(fields: [certificateId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
 
   UserCertificateRequest UserCertificateRequest[]
 
@@ -885,15 +857,13 @@ model LicenseToken {
 }
 
 model UserLicense {
-  id            String       @id @default(cuid())
-  from          DateTime?
-  to            DateTime?
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  licenseId     String
-  license       License      @relation(fields: [licenseId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  id        String    @id @default(cuid())
+  from      DateTime?
+  to        DateTime?
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseId String
+  license   License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
 
   UserLicenseRequest UserLicenseRequest[]
 

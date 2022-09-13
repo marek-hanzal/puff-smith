@@ -2,7 +2,6 @@ import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {MarketIcon} from "@/puff-smith/component/icon/MarketIcon";
-import {MixtureIcon} from "@/puff-smith/component/icon/MixtureIcon";
 import {SlidersOutlined} from "@ant-design/icons";
 import {BrowserContent, CreateMenuItem, IMenuProps, Menu, MobileMenu, useUserContext} from "@leight-core/client";
 import {FC} from "react";
@@ -27,11 +26,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 						title: "lab.liquid.menu",
 						href: "/lab/liquid",
 						icon: <LiquidIcon/>,
-					}),
-					CreateMenuItem({
-						title: "lab.mixture.menu",
-						href: "/lab/mixture",
-						icon: <MixtureIcon/>,
 					}),
 					CreateMenuItem({
 						title: "lab.market.menu",
@@ -63,11 +57,6 @@ export const LabMenu: FC<ILabMenuProps> = props => {
 					label: "lab.liquid.menu",
 					href: "/lab/liquid",
 					icon: <LiquidIcon/>,
-				},
-				{
-					label: "lab.mixture.menu",
-					href: "/lab/mixture",
-					icon: <MixtureIcon/>,
 				},
 			]}
 		/>

@@ -24,5 +24,4 @@ export const toImportLink = (queryParams?: IImportQueryParams) => toLink(ImportA
 export const useImportLink = () => toImportLink;
 
 export const useImportPromise = createPromiseHook<IImportJobParams, IImportJob>(ImportApiLink, "post");
-
-export const ImportPromise = createPromise<IImportJobParams, IImportJob>(ImportApiLink, "post");
+export const createImportPromise = createPromise<IImportJobParams, IImportJob>(ImportApiLink, "post");

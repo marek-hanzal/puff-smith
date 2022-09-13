@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Mixture" ALTER COLUMN "nicotine" SET DATA TYPE DOUBLE PRECISION;

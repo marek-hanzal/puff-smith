@@ -24,5 +24,4 @@ export const toUploadLink = (queryParams?: IUploadQueryParams) => toLink(UploadA
 export const useUploadLink = () => toUploadLink;
 
 export const useUploadPromise = createPromiseHook<string, void, IChunkEndpointQuery>(UploadApiLink, "post");
-
-export const UploadPromise = createPromise<string, void, IChunkEndpointQuery>(UploadApiLink, "post");
+export const createUploadPromise = createPromise<string, void, IChunkEndpointQuery>(UploadApiLink, "post");

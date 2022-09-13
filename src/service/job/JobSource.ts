@@ -21,6 +21,12 @@ export const JobSource = (): IJobSource => {
 			create: async job => source.prisma.job.create({
 				data: {
 					...job,
+					success: 0,
+					successRatio: 0,
+					failure: 0,
+					failureRatio: 0,
+					skip: 0,
+					skipRatio: 0,
 					params: job.params && JSON.stringify(job.params),
 					created: new Date(),
 				}

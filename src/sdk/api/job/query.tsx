@@ -22,6 +22,7 @@ import {
 	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
+	ITableProps,
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
@@ -29,6 +30,7 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	Table,
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
@@ -99,13 +101,29 @@ export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<
 
 export const JobOrderByProvider: FC<IJobOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
 
-export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>()
-export const useJobOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>()
+export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
+export const useJobOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
 
 export interface IJobProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobSource>>, IQueryOrderBy<ISourceQuery<IJobSource>>, IJobQueryParams>> {
 }
 
 export const JobProviderControl: FC<IJobProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IJobSource>>, IQueryOrderBy<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
+
+export interface IJobTableSourceProps extends Partial<ITableProps<ISourceItem<IJobSource>>> {
+	providerProps?: Partial<IJobProviderProps>;
+}
+
+export const JobTableSource: FC<IJobTableSourceProps> = ({providerProps, ...props}) => {
+	return <JobProvider
+		withCount
+		{...providerProps}
+	>
+		<Table<ISourceItem<IJobSource>>
+			translation={JobApiLink}
+			{...props}
+		/>
+	</JobProvider>;
+};
 
 export interface IJobListSourceProps extends Partial<IListProps<ISourceItem<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;

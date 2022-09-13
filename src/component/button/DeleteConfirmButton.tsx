@@ -1,5 +1,4 @@
-import {useAromaSelectionContext} from "@/sdk/api/aroma/query";
-import {DeleteItemIcon, IModalButtonProps, ModalButton} from "@leight-core/client";
+import {DeleteItemIcon, IModalButtonProps, ModalButton, useSelectionContext} from "@leight-core/client";
 import {UseMutationResult} from "@tanstack/react-query";
 import {message} from "antd";
 import {FC} from "react";
@@ -13,7 +12,7 @@ export interface IDeleteConfirmButtonProps extends Partial<IModalButtonProps> {
 
 export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation, mutator, invalidator = async () => null, button, ...props}) => {
 	const {t} = useTranslation();
-	const selectionContext = useAromaSelectionContext();
+	const selectionContext = useSelectionContext();
 	return <ModalButton
 		button={{
 			type: "link",

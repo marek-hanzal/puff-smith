@@ -1,6 +1,5 @@
-import {Tags} from "@/puff-smith/component/Tags";
 import {IUser} from "@/puff-smith/service/user/interface";
-import {Preview} from "@leight-core/client";
+import {Preview, Tags} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IUserViewProps {
@@ -20,11 +19,11 @@ export const UserView: FC<IUserViewProps> = ({user}) => {
 					"email": user.email,
 					"tokens": <Tags
 						color={"red"}
-						translation={"common.token"}
+						translation={"common"}
 						tags={user.tokens.map(token => ({
 							id: token.id,
 							group: "token",
-							code: token.name,
+							tag: token.name,
 						}))}
 					/>,
 				},

@@ -1,6 +1,5 @@
-import {Tags} from "@/puff-smith/component/Tags";
 import {IUserListSourceProps, UserListSource} from "@/sdk/api/user/query";
-import {ButtonLink, ListItem, ListItemMeta} from "@leight-core/client";
+import {ButtonLink, ListItem, ListItemMeta, Tags} from "@leight-core/client";
 import {Avatar} from "antd";
 import {FC} from "react";
 
@@ -20,11 +19,11 @@ export const UserList: FC<IUserListProps> = props => {
 				/>}
 				description={<Tags
 					color={"red"}
-					translation={"common.token"}
+					translation={"common"}
 					tags={user.tokens.map(token => ({
 						id: token.id,
 						group: "token",
-						code: token.name,
+						tag: token.name,
 					}))}
 				/>}
 				avatar={<Avatar src={user.image}/>}

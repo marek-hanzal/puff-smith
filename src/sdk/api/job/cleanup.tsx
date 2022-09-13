@@ -25,5 +25,4 @@ export const toCleanupLink = (queryParams?: ICleanupQueryParams) => toLink(Clean
 export const useCleanupLink = () => toCleanupLink;
 
 export const useCleanupPromise = createPromiseHook<IQueryFilter<IJobQuery> | undefined, void>(CleanupApiLink, "post");
-
-export const CleanupPromise = createPromise<IQueryFilter<IJobQuery> | undefined, void>(CleanupApiLink, "post");
+export const createCleanupPromise = createPromise<IQueryFilter<IJobQuery> | undefined, void>(CleanupApiLink, "post");

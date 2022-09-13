@@ -1,6 +1,6 @@
-import {ITag, ITagEntity} from "@/puff-smith/service/tag/interface";
+import {ITagEntity} from "@/puff-smith/service/tag/interface";
 import {IVendor, IVendorReference, IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
+import {IfVoid, IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
@@ -12,14 +12,12 @@ export type IAromaCreate = {
 	vg: number;
 	volume: number;
 	content: number;
-	steep?: number;
+	steep: number;
 	tastes?: string;
 	tasteIds?: string[];
-	withMixtures?: boolean;
-	withInventory?: boolean;
 } & IVendorReference;
 
-export type IAromaEntity<T = void> = T extends void ? Aroma : Aroma & T;
+export type IAromaEntity<T = void> = IfVoid<Aroma, T>;
 export type IWithAromaTaste = { AromaTaste: { taste: ITagEntity }[]; }
 
 export interface IAroma {
@@ -28,7 +26,6 @@ export interface IAroma {
 	code: string;
 	vendor: IVendor;
 	vendorId: string;
-	cost: number;
 	pg: number;
 	vg: number;
 	content: number;

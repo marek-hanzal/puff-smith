@@ -16,13 +16,13 @@ export interface IJobFetchProps {
 	job: IJob;
 }
 
-export interface IJobFetchQuery extends ParsedUrlQuery {
+export interface IJobFetchParams extends ParsedUrlQuery {
 	jobId: string;
 }
 
 export type IJobEntity = Job;
 
-export interface IJobSource extends ISource<IJobCreate, IJobEntity, IJob, IJobQuery> {
+export interface IJobSource extends ISource<IJobCreate, IJobEntity, IJob, IJobQuery, IJobFetchProps, IJobFetchParams> {
 	createProgress(jobId: string): IJobProgress;
 
 	commit(): Promise<any>;

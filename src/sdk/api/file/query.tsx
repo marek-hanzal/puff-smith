@@ -22,6 +22,7 @@ import {
 	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
+	ITableProps,
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
@@ -29,6 +30,7 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	Table,
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
@@ -99,13 +101,29 @@ export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>()
-export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>()
+export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
+export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
 
 export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>, IFileQueryParams>> {
 }
 
 export const FileProviderControl: FC<IFileProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
+
+export interface IFileTableSourceProps extends Partial<ITableProps<ISourceItem<IFileSource>>> {
+	providerProps?: Partial<IFileProviderProps>;
+}
+
+export const FileTableSource: FC<IFileTableSourceProps> = ({providerProps, ...props}) => {
+	return <FileProvider
+		withCount
+		{...providerProps}
+	>
+		<Table<ISourceItem<IFileSource>>
+			translation={FileApiLink}
+			{...props}
+		/>
+	</FileProvider>;
+};
 
 export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;

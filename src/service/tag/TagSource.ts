@@ -6,7 +6,7 @@ export const TagSource = (): ITagSource => {
 	const source: ITagSource = Source<ITagSource>({
 		name: "tag",
 		prisma,
-		map: async tag => tag || null,
+		map: async tag => tag,
 		source: {
 			get: async id => source.prisma.tag.findUniqueOrThrow({
 				where: {id},
@@ -19,7 +19,7 @@ export const TagSource = (): ITagSource => {
 			create: async tag => {
 				const create = {
 					...tag,
-					code: `${tag.code}`,
+					tag: `${tag.tag}`,
 				};
 				try {
 					return await source.prisma.tag.create({
@@ -30,7 +30,7 @@ export const TagSource = (): ITagSource => {
 						where: {
 							id: (await source.prisma.tag.findFirstOrThrow({
 								where: {
-									code: `${create.code}`,
+									tag: `${create.tag}`,
 									group: create.group,
 								},
 							})).id,
@@ -40,22 +40,22 @@ export const TagSource = (): ITagSource => {
 				}
 			},
 		},
-		fetchByCodes: async (codes, group) => {
-			if (!codes) {
+		fetchByTags: async (tags, group) => {
+			if (!tags) {
 				return [];
 			}
-			const $codes = Array.isArray(codes) ? codes : codes.split(/,\s*/ig).map(code => `${code}`.toLowerCase());
+			const $tags = Array.isArray(tags) ? tags : tags.split(/,\s*/ig).map(tag => `${tag}`.toLowerCase());
 			return source.prisma.tag.findMany({
 				where: {
 					OR: [
 						{
-							code: {
-								in: $codes,
+							tag: {
+								in: $tags,
 							},
 						},
 						{
 							id: {
-								in: $codes,
+								in: $tags,
 							},
 						},
 					],
@@ -63,17 +63,17 @@ export const TagSource = (): ITagSource => {
 				}
 			});
 		},
-		fetchTag: (group, code, tagId) => {
-			if (!code && !tagId) {
-				throw new Error(`Provide [code] or [tagId] in group [${group}].`);
+		fetchTag: (group, tag, tagId) => {
+			if (!tag && !tagId) {
+				throw new Error(`Provide [tag] or [tagId] in group [${group}].`);
 			}
 			return source.prisma.tag.findUniqueOrThrow({
 				where: tagId ? {
 					id: tagId,
 				} : {
-					code_group: {
+					tag_group: {
 						group,
-						code: code!,
+						tag: tag!,
 					}
 				},
 			});

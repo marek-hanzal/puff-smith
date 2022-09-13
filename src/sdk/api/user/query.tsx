@@ -22,6 +22,7 @@ import {
 	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
+	ITableProps,
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
@@ -29,6 +30,7 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	Table,
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
@@ -99,13 +101,29 @@ export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps
 
 export const UserOrderByProvider: FC<IUserOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
-export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>()
-export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>()
+export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
+export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
 
 export interface IUserProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IUserSource>>, IQueryOrderBy<ISourceQuery<IUserSource>>, IUserQueryParams>> {
 }
 
 export const UserProviderControl: FC<IUserProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IUserSource>>, IQueryOrderBy<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
+
+export interface IUserTableSourceProps extends Partial<ITableProps<ISourceItem<IUserSource>>> {
+	providerProps?: Partial<IUserProviderProps>;
+}
+
+export const UserTableSource: FC<IUserTableSourceProps> = ({providerProps, ...props}) => {
+	return <UserProvider
+		withCount
+		{...providerProps}
+	>
+		<Table<ISourceItem<IUserSource>>
+			translation={UserApiLink}
+			{...props}
+		/>
+	</UserProvider>;
+};
 
 export interface IUserListSourceProps extends Partial<IListProps<ISourceItem<IUserSource>>> {
 	providerProps?: Partial<IUserProviderProps>;

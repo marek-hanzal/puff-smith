@@ -1,4 +1,3 @@
-import {AromaMarketSource} from "@/puff-smith/service/aroma/market/AromaMarketSource";
 import {CodeService} from "@/puff-smith/service/code/CodeService";
 import {TagSource} from "@/puff-smith/service/tag/TagSource";
 import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
@@ -14,9 +13,5 @@ export abstract class ContainerSource<TSource extends ISource<any, any, any>> ex
 
 	get vendorSource() {
 		return VendorSource().ofSource(this);
-	}
-
-	get aromaMarketSource() {
-		return AromaMarketSource().ofSource(this);
 	}
 }

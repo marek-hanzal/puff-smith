@@ -23,5 +23,4 @@ export const toGenerateLink = (queryParams?: IGenerateQueryParams) => toLink(Gen
 export const useGenerateLink = () => toGenerateLink;
 
 export const useGeneratePromise = createPromiseHook<void, string[]>(GenerateApiLink, "post");
-
-export const GeneratePromise = createPromise<void, string[]>(GenerateApiLink, "post");
+export const createGeneratePromise = createPromise<void, string[]>(GenerateApiLink, "post");

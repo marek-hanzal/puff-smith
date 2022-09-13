@@ -22,6 +22,7 @@ import {
 	ISelectionProviderProps,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
+	ITableProps,
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
@@ -29,6 +30,7 @@ import {
 	SourceContext,
 	SourceControlProvider,
 	SourceProvider,
+	Table,
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
@@ -99,13 +101,29 @@ export interface IStatusListOrderByProviderProps extends Partial<IOrderByProvide
 
 export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>()
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>()
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
 
 export interface IStatusListProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>, IStatusListQueryParams>> {
 }
 
 export const StatusListProviderControl: FC<IStatusListProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
+
+export interface IStatusListTableSourceProps extends Partial<ITableProps<ISourceItem<IJobStatusSource>>> {
+	providerProps?: Partial<IStatusListProviderProps>;
+}
+
+export const StatusListTableSource: FC<IStatusListTableSourceProps> = ({providerProps, ...props}) => {
+	return <StatusListProvider
+		withCount
+		{...providerProps}
+	>
+		<Table<ISourceItem<IJobStatusSource>>
+			translation={StatusListApiLink}
+			{...props}
+		/>
+	</StatusListProvider>;
+};
 
 export interface IStatusListListSourceProps extends Partial<IListProps<ISourceItem<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;

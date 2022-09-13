@@ -23,5 +23,4 @@ export const toCommitLink = (queryParams?: ICommitQueryParams) => toLink(CommitA
 export const useCommitLink = () => toCommitLink;
 
 export const useCommitPromise = createPromiseHook<void, void>(CommitApiLink, "post");
-
-export const CommitPromise = createPromise<void, void>(CommitApiLink, "post");
+export const createCommitPromise = createPromise<void, void>(CommitApiLink, "post");
