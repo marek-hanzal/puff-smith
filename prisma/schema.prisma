@@ -53,17 +53,12 @@ model User {
   CottonInventory                CottonInventory[]
   VoucherInventory               VoucherInventory[]
   AromaInventory                 AromaInventory[]
-  BoosterInventory               BoosterInventory[]
-  BaseInventory                  BaseInventory[]
   WireInventory                  WireInventory[]
-  MixtureInventory               MixtureInventory[]
   Atomizer                       Atomizer[]
   Cell                           Cell[]
   Mod                            Mod[]
   Cotton                         Cotton[]
   Aroma                          Aroma[]
-  Booster                        Booster[]
-  Base                           Base[]
   Coil                           Coil[]
   Wire                           Wire[]
   Fiber                          Fiber[]
@@ -224,7 +219,6 @@ model Tag {
   Fiber                  Fiber[]
   CoilTag                CoilTag[]
   WireTag                WireTag[]
-  MixtureTag             MixtureTag[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
   WishlistTag            WishlistTag[]
 
@@ -242,10 +236,7 @@ model Vendor {
   Mod       Mod[]
   Cotton    Cotton[]
   Aroma     Aroma[]
-  Booster   Booster[]
-  Base      Base[]
   Wire      Wire[]
-  Mixture   Mixture[]
   Liquid    Liquid[]
 }
 
@@ -289,8 +280,6 @@ model Transaction {
   CottonInventory   CottonInventory[]
   VoucherInventory  VoucherInventory[]
   AromaInventory    AromaInventory[]
-  BoosterInventory  BoosterInventory[]
-  BaseInventory     BaseInventory[]
   Liquid            Liquid[]
   WireInventory     WireInventory[]
   UserCertificate   UserCertificate[]
@@ -581,7 +570,6 @@ model Aroma {
   AromaInventory AromaInventory[]
   AromaComment   AromaComment[]
   AromaTag       AromaTag[]
-  Mixture        Mixture[]
   Liquid         Liquid[]
 
   @@unique([name, vendorId])
@@ -614,7 +602,6 @@ model AromaInventory {
   transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   rating        Int?
 
-  MixtureInventory      MixtureInventory[]
   AromaInventoryComment AromaInventoryComment[]
 
   @@unique([userId, aromaId])
@@ -628,92 +615,15 @@ model AromaInventoryComment {
   comment          Comment        @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
-model Booster {
-  id       String  @id @default(cuid())
-  name     String
-  code     String  @unique
-  volume   Int
-  nicotine Int
-  pg       Int
-  vg       Int
-  vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  userId   String?
-  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  BoosterInventory BoosterInventory[]
-  Mixture          Mixture[]
-  Liquid           Liquid[]
-
-  @@unique([name, vendorId])
-}
-
-model BoosterInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  boosterId     String
-  booster       Booster      @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
-
-  MixtureInventory MixtureInventory[]
-
-  @@unique([userId, boosterId])
-}
-
-model Base {
-  id       String  @id @default(cuid())
-  name     String
-  code     String  @unique
-  nicotine Int
-  pg       Int
-  vg       Int
-  vendorId String
-  vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  userId   String?
-  user     User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  BaseInventory BaseInventory[]
-  Mixture       Mixture[]
-  Liquid        Liquid[]
-
-  @@unique([name, vendorId])
-}
-
-model BaseInventory {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  userId        String
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  baseId        String
-  base          Base         @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  transactionId String?
-  transaction   Transaction? @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  rating        Int?
-
-  MixtureInventory MixtureInventory[]
-
-  @@unique([userId, baseId])
-}
-
 model Liquid {
   id            String      @id @default(cuid())
   code          String      @unique
   userId        String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  mixtureId     String
-  mixture       Mixture     @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
   aromaId       String
   aroma         Aroma       @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   vendorId      String
   vendor        Vendor      @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  boosterId     String?
-  booster       Booster?    @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  baseId        String?
-  base          Base?       @relation(fields: [baseId], references: [id], onDelete: Cascade)
   transactionId String
   transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
   created       DateTime
@@ -722,75 +632,6 @@ model Liquid {
 
   BuildLiquidRating      BuildLiquidRating[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
-}
-
-model Mixture {
-  id              String   @id @default(cuid())
-  // application based unique hash; main goal is a simple ability to update mixtures based on this hash
-  hash            String   @unique
-  code            String   @unique
-  // total size of a bottle
-  volume          Int
-  // amount of liquid in a bottle
-  content         Int
-  // amount of available space to be filled
-  available       Int
-  // volume - content => amount of extra or missing liquid
-  diff            Int
-  // amount of nicotine (mg/ml)
-  nicotine        Float
-  nicotineToRound Int
-  // vg/pg ratio
-  vg              Float
-  pg              Float
-  // vg/pg in ml
-  vgToMl          Float
-  // rounded VG ratio (for example 70 instead of 76)
-  vgToRound       Int
-  pgToMl          Float
-  // rounded PG ratio (for example 70 instead of 76)
-  pgToRound       Int
-  aromaId         String
-  aroma           Aroma    @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  // vendor of an aroma
-  vendorId        String
-  vendor          Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  boosterId       String?
-  booster         Booster? @relation(fields: [boosterId], references: [id], onDelete: Cascade)
-  boosterCount    Int
-  baseId          String?
-  base            Base?    @relation(fields: [baseId], references: [id], onDelete: Cascade)
-  baseMl          Int
-
-  Liquid           Liquid[]
-  MixtureTag       MixtureTag[]
-  MixtureInventory MixtureInventory[]
-
-  @@index([nicotineToRound, vgToRound, pgToRound, aromaId, vendorId, boosterId, baseId], type: Brin)
-}
-
-model MixtureInventory {
-  id                 String            @id @default(cuid())
-  mixtureId          String
-  mixture            Mixture           @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  userId             String
-  user               User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aromaInventoryId   String?
-  aromaInventory     AromaInventory?   @relation(fields: [aromaInventoryId], references: [id], onDelete: Cascade)
-  boosterInventoryId String?
-  boosterInventory   BoosterInventory? @relation(fields: [boosterInventoryId], references: [id], onDelete: Cascade)
-  baseInventoryId    String?
-  baseInventory      BaseInventory?    @relation(fields: [baseInventoryId], references: [id], onDelete: Cascade)
-
-  @@unique([mixtureId, userId])
-}
-
-model MixtureTag {
-  id        String  @id @default(cuid())
-  mixtureId String
-  mixture   Mixture @relation(fields: [mixtureId], references: [id], onDelete: Cascade)
-  tagId     String
-  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 }
 
 model Build {
