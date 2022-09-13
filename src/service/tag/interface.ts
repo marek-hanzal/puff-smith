@@ -5,7 +5,6 @@ export interface ITagCreate extends Omit<ITag, "id"> {
 }
 
 export type ITagEntity = Tag;
-export type IWithTag = { tag: Tag; };
 
 export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationInput> {
 }

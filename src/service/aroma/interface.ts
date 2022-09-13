@@ -1,36 +1,17 @@
 import {ITagEntity} from "@/puff-smith/service/tag/interface";
 import {IVendor, IVendorReference, IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IfVoid, IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
+import {IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
 import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export type IAromaCreate = {
-	name: string;
+export interface IAromaCreate extends Omit<IAroma, "id" | "vendor" | "vendorId" | "code" | "tastes" | "tasteIds">, IVendorReference {
 	code?: string;
-	cost: number;
-	pg: number;
-	vg: number;
-	volume: number;
-	content: number;
-	steep: number;
 	tastes?: string;
 	tasteIds?: string[];
-} & IVendorReference;
+}
 
-export type IAromaEntity<T = void> = IfVoid<Aroma, T>;
-export type IWithAromaTaste = { AromaTaste: { taste: ITagEntity }[]; }
-
-export interface IAroma {
-	id: string;
-	name: string;
-	code: string;
+export interface IAroma extends Omit<Aroma, "userId"> {
 	vendor: IVendor;
-	vendorId: string;
-	pg: number;
-	vg: number;
-	content: number;
-	volume: number;
-	steep?: number | null;
 	tastes: ITag[];
 	tasteIds: string[];
 }
@@ -43,14 +24,14 @@ export interface IAromaFetchParams extends ParsedUrlQuery {
 	aromaId: string;
 }
 
+export type IAromaEntity = Aroma & IWithVendor & { AromaTaste: { taste: ITagEntity }[]; };
 export type IAromaQuery = IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput>;
-export type IAromaSourceEntity = IAromaEntity<IWithVendor & IWithAromaTaste>;
-export type IWithAromaSourceEntity = { aroma: IAromaSourceEntity; };
 
-export interface IAromaSource extends ISource<IAromaCreate,
-	IAromaSourceEntity,
-	IAroma,
-	IAromaQuery,
-	IAromaFetch,
-	IAromaFetchParams> {
+export interface IAromaSource extends ISource
+	<IAromaCreate,
+		IAromaEntity,
+		IAroma,
+		IAromaQuery,
+		IAromaFetch,
+		IAromaFetchParams> {
 }
