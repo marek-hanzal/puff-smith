@@ -11,7 +11,7 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 	const source: IMixtureBoosterSource = Source<IMixtureBoosterSource>({
 		name: "mixture.booster",
 		prisma,
-		map: async mixture => boosterSource().map(mixture?.booster),
+		map: async mixture => boosterSource().map(mixture.booster!),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.mixture.findMany({
 				distinct: ["boosterId"],

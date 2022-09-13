@@ -1,5 +1,5 @@
 import {BoosterSource} from "@/puff-smith/service/booster/BoosterSource";
-import {ILiquidBoosterSource} from "@/puff-smith/service/liquid/booster/interface";
+import {ILiquidBoosterSource, ILiquidBoosterSourceEntity} from "@/puff-smith/service/liquid/booster/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
@@ -10,12 +10,15 @@ export const LiquidBoosterSource = (): ILiquidBoosterSource => {
 	const source: ILiquidBoosterSource = Source<ILiquidBoosterSource>({
 		name: "liquid.booster",
 		prisma,
-		map: async liquid => boosterSource().map(liquid?.booster),
+		map: async liquid => boosterSource().map(liquid.booster),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
 				distinct: ["boosterId"],
 				where: merge(filter, {
 					userId: source.user.required(),
+					NOT: {
+						boosterId: null,
+					},
 					booster: {
 						OR: [
 							{
@@ -45,7 +48,7 @@ export const LiquidBoosterSource = (): ILiquidBoosterSource => {
 						}
 					}
 				},
-			}),
+			}) as Promise<ILiquidBoosterSourceEntity[]>,
 		}
 	});
 

@@ -1,5 +1,5 @@
 import {BaseSource} from "@/puff-smith/service/base/BaseSource";
-import {ILiquidBaseSource} from "@/puff-smith/service/liquid/base/interface";
+import {ILiquidBaseSource, ILiquidBaseSourceEntity} from "@/puff-smith/service/liquid/base/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {Source} from "@leight-core/server";
 import {merge, singletonOf} from "@leight-core/utils";
@@ -10,12 +10,15 @@ export const LiquidBaseSource = (): ILiquidBaseSource => {
 	const source: ILiquidBaseSource = Source<ILiquidBaseSource>({
 		name: "liquid.base",
 		prisma,
-		map: async liquid => baseSource().map(liquid?.base),
+		map: async liquid => baseSource().map(liquid.base),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
 				distinct: ["baseId"],
 				where: merge(filter, {
 					userId: source.user.required(),
+					NOT: {
+						baseId: null,
+					},
 					base: {
 						OR: [
 							{
@@ -45,7 +48,7 @@ export const LiquidBaseSource = (): ILiquidBaseSource => {
 						}
 					}
 				},
-			}),
+			}) as Promise<ILiquidBaseSourceEntity[]>,
 		}
 	});
 

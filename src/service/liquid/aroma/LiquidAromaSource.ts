@@ -10,7 +10,7 @@ export const LiquidAromaSource = (): ILiquidAromaSource => {
 	const source: ILiquidAromaSource = Source<ILiquidAromaSource>({
 		name: "liquid.aroma",
 		prisma,
-		map: async liquid => aromaSource().map(liquid?.aroma),
+		map: async liquid => aromaSource().map(liquid.aroma),
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => source.prisma.liquid.findMany({
 				distinct: ["aromaId"],

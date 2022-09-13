@@ -1,7 +1,9 @@
-import {IBooster, IWithNullBooster} from "@/puff-smith/service/booster/interface";
+import {IBooster, IWithBoosterEntity} from "@/puff-smith/service/booster/interface";
 import {ILiquidQuery} from "@/puff-smith/service/liquid/interface";
 import {IWithVendor} from "@/puff-smith/service/vendor/interface";
 import {ISource} from "@leight-core/api";
 
-export interface ILiquidBoosterSource extends ISource<undefined, IWithNullBooster<IWithVendor>, IBooster, ILiquidQuery> {
+export type ILiquidBoosterSourceEntity = IWithBoosterEntity<IWithVendor>;
+
+export interface ILiquidBoosterSource extends ISource<undefined, ILiquidBoosterSourceEntity, IBooster, ILiquidQuery> {
 }

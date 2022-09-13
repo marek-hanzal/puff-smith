@@ -42,9 +42,9 @@ export interface IBoosterFetchProps {
 	booster: IBooster;
 }
 
-export interface IBoosterFetchQuery extends ParsedUrlQuery {
+export interface IBoosterFetchParams extends ParsedUrlQuery {
 	boosterId: string;
 }
 
-export interface IBoosterSource extends ISource<IBoosterCreate, IBoosterEntity<IWithVendor>, IBooster, IBoosterQuery> {
+export interface IBoosterSource extends ISource<IBoosterCreate, IBoosterEntity<IWithVendor>, IBooster, IBoosterQuery, IBoosterFetchProps, IBoosterFetchParams> {
 }

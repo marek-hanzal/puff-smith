@@ -11,7 +11,7 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 	const source: IMixtureBaseSource = Source<IMixtureBaseSource>({
 		name: "mixture.inventory.base",
 		prisma,
-		map: async mixture => baseSource().map(mixture?.base),
+		map: async mixture => baseSource().map(mixture.base!),
 		cache: MixtureBaseCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {
@@ -26,6 +26,9 @@ export const MixtureBaseSource = (): IMixtureBaseSource => {
 						},
 					},
 					where: merge(filter, {
+						NOT: {
+							baseId: null,
+						},
 						base: {
 							OR: [
 								{

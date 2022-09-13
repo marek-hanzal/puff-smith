@@ -11,7 +11,7 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 	const source: IMixtureBoosterSource = Source<IMixtureBoosterSource>({
 		name: "mixture.inventory.booster",
 		prisma,
-		map: async mixture => boosterSource().map(mixture?.booster),
+		map: async mixture => boosterSource().map(mixture.booster!),
 		cache: MixtureBoosterCache,
 		source: {
 			query: async ({filter: {fulltext, ...filter} = {}}) => {
@@ -26,6 +26,9 @@ export const MixtureBoosterSource = (): IMixtureBoosterSource => {
 						},
 					},
 					where: merge(filter, {
+						NOT: {
+							boosterId: null,
+						},
 						booster: {
 							OR: [
 								{
