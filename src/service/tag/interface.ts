@@ -10,7 +10,7 @@ export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderB
 }
 
 export interface ITagSource extends ISource<ITagCreate, ITagEntity, ITag, ITagQuery> {
-	fetchByTags(codes: string | string[] | undefined, group: string): Promise<ITagEntity[]>;
+	fetchByTags(tags: string | string[] | undefined, group: string): Promise<ITagEntity[]>;
 
-	fetchTag(group: string, code?: string, tagId?: string): Promise<ITagEntity>;
+	fetchTag(group: string, tag?: string, tagId?: string): Promise<ITagEntity>;
 }

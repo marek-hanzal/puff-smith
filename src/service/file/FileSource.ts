@@ -1,23 +1,27 @@
+import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {Source} from "@leight-core/server";
+import {ISourceEntity, ISourceItem} from "@leight-core/api";
 
-export const FileSource = (): IFileSource => {
-	const source: IFileSource = Source<IFileSource>({
-		name: "file",
-		prisma,
-		map: async file => ({
+export const FileSource = () => new FileSourceClass();
+
+export class FileSourceClass extends ContainerSource<IFileSource> implements IFileSource {
+	constructor() {
+		super("file", prisma);
+	}
+
+	async map(file: ISourceEntity<IFileSource>): Promise<ISourceItem<IFileSource>> {
+		return {
 			...file,
 			created: file.created.toUTCString(),
 			updated: file?.updated?.toUTCString(),
 			ttl: file.ttl || undefined,
-		}),
-		source: {
-			get: async id => source.prisma.file.findUniqueOrThrow({
-				where: {id},
-			}),
-		}
-	});
+		};
+	}
 
-	return source;
-};
+	$get(id: string): Promise<ISourceEntity<IFileSource>> {
+		return this.prisma.file.findUniqueOrThrow({
+			where: {id},
+		});
+	}
+}

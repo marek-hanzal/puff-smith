@@ -1,190 +1,170 @@
+import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {IUserSource} from "@/puff-smith/service/user/interface";
-import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
-import {onUnique, pageOf, Source, User} from "@leight-core/server";
-import {singletonOf, uniqueOf} from "@leight-core/utils";
+import {ISourceEntity, ISourceItem, ISourceQuery, IUser} from "@leight-core/api";
+import {pageOf, User} from "@leight-core/server";
+import {uniqueOf} from "@leight-core/utils";
 
-export const UserSource = (): IUserSource => {
-	const tokenSource = singletonOf(() => TokenSource().ofSource(source));
-	const userTokenSource = singletonOf(() => UserTokenSource().ofSource(source));
+export const UserSource = () => new UserSourceClass();
 
-	const source: IUserSource = Source<IUserSource>({
-		name: "user",
-		prisma,
-		map: async user => {
-			const {
-				UserToken,
-				name,
-				id,
-				image,
-				email,
-			} = user;
-			let tokens = UserToken?.map(({token}) => token) || [];
-			const tokenIds = UserToken?.map(({token}) => token.id) || [];
+export class UserSourceClass extends ContainerSource<IUserSource> implements IUserSource {
+	constructor() {
+		super("user", prisma);
+	}
 
-			// for (const {certificate} of UserCertificate) {
-			// 	tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token)).concat([{
-			// 		id: `certificate.${certificate.name}`,
-			// 		name: `certificate.${certificate.name}`,
-			// 	}]);
-			// }
-			// for (const {license} of UserLicense) {
-			// 	tokens = tokens.concat(license.LicenseToken.map(({token}) => token)).concat([{
-			// 		id: `license.${license.name}`,
-			// 		name: `license.${license.name}`,
-			// 	}]);
-			// }
-			return {
-				id,
-				name,
-				email,
-				image,
-				tokens: uniqueOf(tokens, "name"),
-				tokenIds,
-			};
-		},
-		source: {
-			get: async id => await source.prisma.user.findUniqueOrThrow({
-				where: {id},
-				include: {
-					UserToken: {
-						include: {
-							token: true,
-						},
+	async map({UserToken, name, id, image, email}: ISourceEntity<IUserSource>): Promise<ISourceItem<IUserSource>> {
+		let tokens = UserToken?.map(({token}) => token) || [];
+		const tokenIds = UserToken?.map(({token}) => token.id) || [];
+		// for (const {certificate} of UserCertificate) {
+		// 	tokens = tokens.concat(certificate.CertificateToken.map(({token}) => token)).concat([{
+		// 		id: `certificate.${certificate.name}`,
+		// 		name: `certificate.${certificate.name}`,
+		// 	}]);
+		// }
+		// for (const {license} of UserLicense) {
+		// 	tokens = tokens.concat(license.LicenseToken.map(({token}) => token)).concat([{
+		// 		id: `license.${license.name}`,
+		// 		name: `license.${license.name}`,
+		// 	}]);
+		// }
+		return {
+			id,
+			name,
+			email,
+			image,
+			tokens: uniqueOf(tokens, "name"),
+			tokenIds,
+		};
+	}
+
+	async $get(id: string): Promise<ISourceEntity<IUserSource>> {
+		return this.prisma.user.findUniqueOrThrow({
+			where: {id},
+			include: {
+				UserToken: {
+					include: {
+						token: true,
 					},
-					UserCertificate: {
-						include: {
-							certificate: {
-								include: {
-									CertificateToken: {
-										include: {
-											token: true,
-										},
-									},
-								},
-							},
-						},
-					},
-					UserLicense: {
-						where: {
-							OR: [
-								{from: {gte: new Date()}, to: {lte: new Date()}},
-								{from: {gte: new Date()}, to: null},
-								{from: null, to: {lte: new Date()}},
-								{from: null, to: null},
-							]
-						},
-						include: {
-							license: {
-								include: {
-									LicenseToken: {
-										include: {
-											token: true,
-										},
+				},
+				UserCertificate: {
+					include: {
+						certificate: {
+							include: {
+								CertificateToken: {
+									include: {
+										token: true,
 									},
 								},
 							},
 						},
 					},
 				},
-			}),
-			count: async () => source.prisma.user.count({}),
-			query: async ({orderBy, ...query}) => source.prisma.user.findMany({
-				orderBy,
-				include: {
-					UserToken: {
-						include: {
-							token: true,
-						},
+				UserLicense: {
+					where: {
+						OR: [
+							{from: {gte: new Date()}, to: {lte: new Date()}},
+							{from: {gte: new Date()}, to: null},
+							{from: null, to: {lte: new Date()}},
+							{from: null, to: null},
+						]
 					},
-					UserCertificate: {
-						include: {
-							certificate: {
-								include: {
-									CertificateToken: {
-										include: {
-											token: true,
-										},
-									},
-								},
-							},
-						},
-					},
-					UserLicense: {
-						where: {
-							OR: [
-								{from: {gte: new Date()}, to: {lte: new Date()}},
-								{from: {gte: new Date()}, to: null},
-								{from: null, to: {lte: new Date()}},
-								{from: null, to: null},
-							]
-						},
-						include: {
-							license: {
-								include: {
-									LicenseToken: {
-										include: {
-											token: true,
-										},
+					include: {
+						license: {
+							include: {
+								LicenseToken: {
+									include: {
+										token: true,
 									},
 								},
 							},
 						},
 					},
 				},
-				...pageOf(query),
-			}),
-		},
-		async handleRootUser() {
-			return source.createToken("*");
-		},
-		async handleCommonUser() {
-			await source.createToken("/lab*");
-			await source.createToken("/market*");
-			await source.createToken("/inventory*");
-			// const licenses: string[] = [];
-			// for (const license of licenses) {
-			// 	await source.prisma.userLicense.create({
-			// 		data: {
-			// 			user: {
-			// 				connect: {
-			// 					id: source.user.required(),
-			// 				}
-			// 			},
-			// 			license: {
-			// 				connect: {
-			// 					name: license,
-			// 				}
-			// 			}
-			// 		}
-			// 	});
-			// }
-		},
-		createToken: async token => {
-			const $token = await tokenSource().create({
-				name: token,
-			});
-			try {
-				await userTokenSource().create({
-					userId: source.user.required(),
-					tokenId: $token.id,
-				});
-			} catch (e) {
-				/**
-				 * Keep it here as it checks only for unique exceptions, others are re-thrown
-				 */
-				await onUnique(e, async () => null);
-			}
-		},
-		asUser: async userId => {
-			const $user = userId ? await source.map(await source.get(userId)) : null;
-			return User({
-				userId,
-				tokens: $user?.tokens?.map(({name}) => name),
-			});
-		},
-	});
+			},
+		});
+	}
 
-	return source;
-};
+	async $count(query: ISourceQuery<IUserSource>): Promise<number> {
+		return this.prisma.user.count({});
+	}
+
+	async $query({orderBy, ...query}: ISourceQuery<IUserSource>): Promise<ISourceEntity<IUserSource>[]> {
+		return this.prisma.user.findMany({
+			orderBy,
+			include: {
+				UserToken: {
+					include: {
+						token: true,
+					},
+				},
+				UserCertificate: {
+					include: {
+						certificate: {
+							include: {
+								CertificateToken: {
+									include: {
+										token: true,
+									},
+								},
+							},
+						},
+					},
+				},
+				UserLicense: {
+					where: {
+						OR: [
+							{from: {gte: new Date()}, to: {lte: new Date()}},
+							{from: {gte: new Date()}, to: null},
+							{from: null, to: {lte: new Date()}},
+							{from: null, to: null},
+						]
+					},
+					include: {
+						license: {
+							include: {
+								LicenseToken: {
+									include: {
+										token: true,
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			...pageOf(query),
+		});
+	}
+
+	async asUser(userId?: string | null): Promise<IUser> {
+		const $user = userId ? await this.map(await this.get(userId)) : null;
+		return User({
+			userId,
+			tokens: $user?.tokens?.map(({name}) => name),
+		});
+	}
+
+	async createToken(token: string): Promise<void> {
+		const $token = await this.tokenSource.import({
+			name: token,
+		});
+		await this.userTokenSource.import({
+			userId: this.user.required(),
+			tokenId: $token.id,
+		});
+	}
+
+	async handleCommonUser(): Promise<any> {
+		return Promise.all([
+			this.createToken("/lab*"),
+			this.createToken("/market*"),
+			this.createToken("/inventory*"),
+		]);
+	}
+
+	async handleRootUser(): Promise<any> {
+		return Promise.all([
+			this.createToken("*"),
+		]);
+	}
+}

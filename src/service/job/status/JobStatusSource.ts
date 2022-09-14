@@ -1,27 +1,32 @@
+import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJobStatus} from "@leight-core/api";
-import {Source} from "@leight-core/server";
+import {IJobStatus, ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
 
-export const JobStatusSource = (): IJobStatusSource => {
-	const items: IJobStatus[] = [
-		"NEW",
-		"RUNNING",
-		"FAILURE",
-		"SUCCESS",
-		"REVIEW",
-		"DONE",
-	];
+const items: IJobStatus[] = [
+	"NEW",
+	"RUNNING",
+	"FAILURE",
+	"SUCCESS",
+	"REVIEW",
+	"DONE",
+];
 
-	return Source<IJobStatusSource>({
-		name: "job.status",
-		prisma,
-		map: async status => ({
+export const JobStatusSource = () => new JobStatusSourceClass();
+
+export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> implements IJobStatusSource {
+	constructor() {
+		super("job.status", prisma);
+	}
+
+	async map(status: ISourceEntity<IJobStatusSource>): Promise<ISourceItem<IJobStatusSource>> {
+		return {
 			value: status,
 			label: status,
-		}),
-		source: {
-			query: async () => items,
-		},
-	});
-};
+		};
+	}
+
+	async $query(query: ISourceQuery<IJobStatusSource>): Promise<ISourceEntity<IJobStatusSource>[]> {
+		return items;
+	}
+}

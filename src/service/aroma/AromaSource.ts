@@ -7,7 +7,7 @@ import {merge} from "@leight-core/utils";
 
 export const AromaSource = () => new AromaSourceClass();
 
-export class AromaSourceClass extends ContainerSource<IAromaSource> {
+export class AromaSourceClass extends ContainerSource<IAromaSource> implements IAromaSource {
 	constructor() {
 		super("aroma", prisma);
 	}

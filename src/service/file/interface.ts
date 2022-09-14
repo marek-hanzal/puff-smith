@@ -4,9 +4,7 @@ import {File, Prisma} from "@prisma/client";
 export interface IFile extends ICoolFile {
 }
 
-export type IFileWhere = Prisma.FileWhereInput;
-
-export interface IFileQuery extends IQuery<IFileWhere, Prisma.FileOrderByWithRelationInput> {
+export interface IFileQuery extends IQuery<Prisma.FileWhereInput, Prisma.FileOrderByWithRelationInput> {
 }
 
 export type IFileEntity = File;
