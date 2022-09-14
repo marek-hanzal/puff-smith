@@ -12,7 +12,7 @@ export interface IAroma extends Omit<Aroma, "userId"> {
 	tasteIds: string[];
 }
 
-export interface IAromaCreate extends Omit<Aroma, "id" | "vendor" | "vendorId" | "code">, IVendorReference {
+export interface IAromaCreate extends Omit<Aroma, "id" | "userId" | "vendor" | "vendorId" | "code">, IVendorReference {
 	code?: string;
 	tastes?: string;
 	tasteIds?: string[];
