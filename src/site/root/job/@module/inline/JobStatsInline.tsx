@@ -12,7 +12,7 @@ export const JobStatsInline: FC<IJobStatsInlineProps> = ({job}) => {
 		{job.success && <Typography.Text type={"success"}>
 			<Space>
 				<CheckCircleOutlined/>
-				<span>{job.success || 0}</span>
+				<span>{job.success}</span>
 			</Space>
 		</Typography.Text>}
 		{job.skip && <Typography.Text type={"warning"}>

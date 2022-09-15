@@ -23,7 +23,7 @@ export const RootMenu: FC<IRootMenuProps> = props => <Menu
 		}),
 		CreateMenuItem({
 			title: "root.job.menu",
-			href: "/root/job",
+			href: "/root/job/running",
 			icon: <JobIcon/>,
 		}),
 		CreateMenuItem({
