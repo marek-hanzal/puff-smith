@@ -1,4 +1,4 @@
-import {CodeService} from "@/puff-smith/service/code/CodeService";
+import {ICodeService} from "@/puff-smith/service/code/interface";
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
@@ -9,7 +9,9 @@ import {ISource} from "@leight-core/api";
 import {AbstractSource} from "@leight-core/server";
 
 export abstract class ContainerSource<TSource extends ISource<any, any, any>> extends AbstractSource<TSource> {
-	readonly codeService = CodeService();
+	async useCodeService<T>(callback: (codeService: ICodeService) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/code/CodeService")).CodeService());
+	}
 
 	async useTagSource<T>(callback: (tagSource: ITagSource) => Promise<T>) {
 		return callback((await import("@/puff-smith/service/tag/TagSource")).TagSource().ofSource(this));
