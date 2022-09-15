@@ -16,7 +16,7 @@ export const DrawerCancelOk = <TSelection, >({toForm}: PropsWithChildren<IDrawer
 	return selectionContext && <ButtonBar split={<Divider type={"vertical"}/>} size={4}>
 		<Button
 			type={"link"}
-			onClick={() => drawerContext?.setVisible(false)}
+			onClick={() => drawerContext?.close()}
 		>
 			{t("common.selection.cancel.label")}
 		</Button>
@@ -25,7 +25,7 @@ export const DrawerCancelOk = <TSelection, >({toForm}: PropsWithChildren<IDrawer
 			disabled={selectionContext.isEmpty()}
 			onClick={() => {
 				formItemContext?.setValue(toForm(selectionContext?.selection()));
-				drawerContext?.setVisible(false);
+				drawerContext?.close();
 				selectionContext?.handleSelection();
 			}}
 		>
