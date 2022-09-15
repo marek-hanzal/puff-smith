@@ -6,6 +6,7 @@ export default withLabLayout(function Index() {
 	return <MobileLabPage
 		title={"lab.liquid.index"}
 		icon={<LiquidIcon/>}
+		onBack={navigate => navigate("/lab")}
 	>
 	</MobileLabPage>;
 });
