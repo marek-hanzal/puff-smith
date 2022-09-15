@@ -93,7 +93,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async $patch({vendor, vendorId, tastes, tasteIds = [], id, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
+	async $patch({vendor, vendorId, tastes, tasteIds = [], id, name, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
 		await this.prisma.aromaTaste.deleteMany({
 			where: {
 				aromaId: id,
@@ -103,6 +103,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 			where: {id},
 			data: {
 				...patch,
+				name: `${name}`,
 				vendor: {
 					connect: {
 						name: vendor,

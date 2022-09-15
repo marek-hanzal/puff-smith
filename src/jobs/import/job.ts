@@ -1,19 +1,23 @@
 import {IImportJobParams, IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
+import {AromaSource} from "@/puff-smith/service/aroma/AromaSource";
 import {JobSource} from "@/puff-smith/service/job/JobSource";
 import fileService from "@/puff-smith/service/side-effect/fileService";
+import {TagSource} from "@/puff-smith/service/tag/TagSource";
+import {TokenSource} from "@/puff-smith/service/token/TokenSource";
 import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
 import {UserSource} from "@/puff-smith/service/user/UserSource";
+import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
 import {IJobProcessor} from "@leight-core/api";
 import {toImport} from "@leight-core/server";
 import PQueue from "p-queue";
 import xlsx from "xlsx";
 
 const importers = {
-	// ...AromaSource().importers(),
-	// ...TagSource().importers(),
-	// ...TokenSource().importers(),
+	...AromaSource().importers(),
+	...TagSource().importers(),
+	...TokenSource().importers(),
 	...TranslationSource().importers(),
-	// ...VendorSource().importers(),
+	...VendorSource().importers(),
 };
 
 export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {

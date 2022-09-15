@@ -27,7 +27,7 @@ export default withRootLayout(function Index() {
 					importMutation.mutate({fileId: file.id}, {
 						onSuccess: async () => {
 							message.success(t("root.import.execute.success"));
-							navigate("/root/job", {name: "import"});
+							navigate("/root/job/running", {name: "import"});
 						},
 						onError: async e => {
 							console.error(e);

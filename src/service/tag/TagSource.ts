@@ -29,25 +29,31 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 		});
 	}
 
-	async $create(create: ISourceCreate<ITagSource>): Promise<ISourceEntity<ITagSource>> {
+	async $create({tag, ...create}: ISourceCreate<ITagSource>): Promise<ISourceEntity<ITagSource>> {
 		return this.prisma.tag.create({
-			data: create,
+			data: {
+				...create,
+				tag: `${tag}`,
+			},
 		});
 	}
 
 	async createToId({tag, group}: ISourceCreate<ITagSource>): Promise<{ id: string }> {
 		return this.prisma.tag.findFirstOrThrow({
 			where: {
-				tag,
+				tag: `${tag}`,
 				group,
 			},
 		});
 	}
 
-	async $patch({id, ...patch}: UndefinableOptional<ISourceCreate<ITagSource>> & IWithIdentity): Promise<ISourceEntity<ITagSource>> {
+	async $patch({id, tag, ...patch}: UndefinableOptional<ISourceCreate<ITagSource>> & IWithIdentity): Promise<ISourceEntity<ITagSource>> {
 		return this.prisma.tag.update({
 			where: {id},
-			data: patch,
+			data: {
+				...patch,
+				tag: `${tag}`,
+			},
 		});
 	}
 

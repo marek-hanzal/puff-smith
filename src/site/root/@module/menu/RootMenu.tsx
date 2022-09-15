@@ -56,11 +56,11 @@ export const RootMenu: FC<IRootMenuProps> = props => <Menu
 					icon: <PublicIcon/>,
 				}),
 				{type: "divider"},
-				CreateMenuItem({
+				process.env.NODE_ENV === "development" ? CreateMenuItem({
 					title: "root.sdk.generate.menu",
 					href: "/api/sdk/generate",
 					icon: <CodeOutlined/>,
-				}),
+				}) : null,
 			],
 		}),
 	]}
