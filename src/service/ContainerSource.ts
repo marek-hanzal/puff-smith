@@ -1,36 +1,37 @@
 import {CodeService} from "@/puff-smith/service/code/CodeService";
-import {TagSource} from "@/puff-smith/service/tag/TagSource";
-import {TokenSource} from "@/puff-smith/service/token/TokenSource";
-import {UserTokenSource} from "@/puff-smith/service/user/token/UserTokenSource";
-import {UserSource} from "@/puff-smith/service/user/UserSource";
-import {VendorSource} from "@/puff-smith/service/vendor/VendorSource";
+import {IJobSource} from "@/puff-smith/service/job/interface";
+import {ITagSource} from "@/puff-smith/service/tag/interface";
+import {ITokenSource} from "@/puff-smith/service/token/interface";
+import {IUserSource} from "@/puff-smith/service/user/interface";
+import {IUserTokenSource} from "@/puff-smith/service/user/token/interface";
+import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {ISource} from "@leight-core/api";
 import {AbstractSource} from "@leight-core/server";
-
-/**
- * CIRCULAR DEPENDENCY HERE .....
- */
 
 export abstract class ContainerSource<TSource extends ISource<any, any, any>> extends AbstractSource<TSource> {
 	readonly codeService = CodeService();
 
-	get tagSource() {
-		return TagSource().ofSource(this);
+	async useTagSource<T>(callback: (tagSource: ITagSource) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/tag/TagSource")).TagSource().ofSource(this));
 	}
 
-	get vendorSource() {
-		return VendorSource().ofSource(this);
+	async useJobSource<T>(callback: (jobSource: IJobSource) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/job/JobSource")).JobSource().ofSource(this));
 	}
 
-	get userSource() {
-		return UserSource().ofSource(this);
+	async useVendorSource<T>(callback: (vendorSource: IVendorSource) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/vendor/VendorSource")).VendorSource().ofSource(this));
 	}
 
-	get tokenSource() {
-		return TokenSource().ofSource(this);
+	async useUserSource<T>(callback: (userSource: IUserSource) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/user/UserSource")).UserSource().ofSource(this));
 	}
 
-	get userTokenSource() {
-		return UserTokenSource().ofSource(this);
+	async useTokenSource<T>(callback: (tokenSource: ITokenSource) => Promise<T>) {
+		return callback((await import("@/puff-smith/service/token/TokenSource")).TokenSource().ofSource(this));
+	}
+
+	async useUserTokenSource<T>(callback: (userTokenSource: IUserTokenSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/user/token/UserTokenSource")).UserTokenSource().ofSource(this));
 	}
 }

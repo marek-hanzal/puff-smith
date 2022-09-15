@@ -13,48 +13,54 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async map(aroma: ISourceEntity<IAromaSource>): Promise<ISourceItem<IAromaSource>> {
-		return {
-			...aroma,
-			vendor: await this.vendorSource.map(aroma.vendor),
-			tastes: await this.tagSource.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
-			tasteIds: aroma.AromaTaste.map(({taste}) => taste.id),
-		};
+		return this.useVendorSource(async vendorSource => {
+			return this.useTagSource(async tagSource => {
+				return {
+					...aroma,
+					vendor: await vendorSource.map(aroma.vendor),
+					tastes: await tagSource.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
+					tasteIds: aroma.AromaTaste.map(({taste}) => taste.id),
+				};
+			});
+		});
 	}
 
 	async $create({vendor, vendorId, tastes, tasteIds, code, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
-		return this.prisma.aroma.create({
-			data: {
-				...aroma,
-				code: code || this.codeService.code(),
-				name: `${aroma.name}`,
-				vendor: {
-					connect: {
-						name: vendor,
-						id: vendorId,
+		return this.useTagSource(async tagSource => {
+			return this.prisma.aroma.create({
+				data: {
+					...aroma,
+					code: code || this.codeService.code(),
+					name: `${aroma.name}`,
+					vendor: {
+						connect: {
+							name: vendor,
+							id: vendorId,
+						}
+					},
+					AromaTaste: {
+						createMany: {
+							data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+								tasteId: tag.id,
+							})),
+						}
+					},
+					user: this.user.optional() ? {
+						connect: {
+							id: this.user.optional(),
+						}
+					} : undefined,
+				},
+				include: {
+					vendor: true,
+					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
+						include: {
+							taste: true,
+						}
 					}
 				},
-				AromaTaste: {
-					createMany: {
-						data: (await this.tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
-							tasteId: tag.id,
-						})),
-					}
-				},
-				user: this.user.optional() ? {
-					connect: {
-						id: this.user.optional(),
-					}
-				} : undefined,
-			},
-			include: {
-				vendor: true,
-				AromaTaste: {
-					orderBy: {taste: {sort: "asc"}},
-					include: {
-						taste: true,
-					}
-				}
-			},
+			});
 		});
 	}
 

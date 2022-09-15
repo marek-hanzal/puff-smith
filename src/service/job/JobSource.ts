@@ -147,56 +147,58 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 			intervalCap: 5,
 			carryoverConcurrencyCount: true,
 		});
-		const async: IJobProcessor["async"] = async (params, userId, queue) => {
-			let logger = Logger(name);
-			const jobSource = JobSource().withUser(await this.userSource.asUser(userId));
-			const job = await jobSource.map(await jobSource.create({
-				userId,
-				name,
-				params,
-			}));
-			const labels = {name, jobId: job.id};
-			logger = logger.child({labels, jobId: labels.jobId, name});
-			const jobProgress = jobSource.createProgress(job.id);
-			setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
-				try {
-					await prisma.job.findUniqueOrThrow({where: {id: job.id}});
-					await jobProgress.setStatus("RUNNING");
-					resolve(await handler({
-						name,
-						job,
-						params: job.params,
-						userId: job.userId,
-						jobProgress,
-						logger,
-						progress: async (callback, $sleep = 0) => {
-							try {
-								await delay($sleep);
-								const result = await callback();
-								await jobProgress.onSuccess();
-								return result;
-							} catch (e) {
-								await jobProgress.onFailure();
-								if (e instanceof Error) {
-									logger.error(e.message);
-									logger.error(e.stack);
+		const async: IJobProcessor["async"] = async (params, userId, queue) => this.useUserSource(async userSource => {
+			return this.useJobSource(async jobSource => {
+				jobSource.withUser(await userSource.asUser(userId));
+				let logger = Logger(name);
+				const job = await jobSource.map(await jobSource.create({
+					userId,
+					name,
+					params,
+				}));
+				const labels = {name, jobId: job.id};
+				logger = logger.child({labels, jobId: labels.jobId, name});
+				const jobProgress = jobSource.createProgress(job.id);
+				setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
+					try {
+						await prisma.job.findUniqueOrThrow({where: {id: job.id}});
+						await jobProgress.setStatus("RUNNING");
+						resolve(await handler({
+							name,
+							job,
+							params: job.params,
+							userId: job.userId,
+							jobProgress,
+							logger,
+							progress: async (callback, $sleep = 0) => {
+								try {
+									await delay($sleep);
+									const result = await callback();
+									await jobProgress.onSuccess();
+									return result;
+								} catch (e) {
+									await jobProgress.onFailure();
+									if (e instanceof Error) {
+										logger.error(e.message);
+										logger.error(e.stack);
+									}
 								}
-							}
-						},
-					}));
-					await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
-				} catch (e) {
-					logger.error(`Job [${name}] failed.`);
-					if (e instanceof Error) {
-						logger.error(e.message);
-						logger.error(e.stack);
+							},
+						}));
+						await jobProgress.setStatus(jobProgress.result() || (jobProgress.isReview() ? "REVIEW" : "SUCCESS"));
+					} catch (e) {
+						logger.error(`Job [${name}] failed.`);
+						if (e instanceof Error) {
+							logger.error(e.message);
+							logger.error(e.stack);
+						}
+						await jobProgress.setStatus("FAILURE");
+						reject(e);
 					}
-					await jobProgress.setStatus("FAILURE");
-					reject(e);
-				}
-			}), queue), 0);
-			return job;
-		};
+				}), queue), 0);
+				return job;
+			});
+		});
 
 		return {
 			request: async ({request: params, user}) => async(params, user.required()),
