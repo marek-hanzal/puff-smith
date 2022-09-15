@@ -93,40 +93,42 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async $patch({vendor, vendorId, tastes, tasteIds = [], id, name, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
-		await this.prisma.aromaTaste.deleteMany({
-			where: {
-				aromaId: id,
-			}
-		});
-		return this.prisma.aroma.update({
-			where: {id},
-			data: {
-				...patch,
-				name: `${name}`,
-				vendor: {
-					connect: {
-						name: vendor,
-						id: vendorId,
-					}
-				},
-				AromaTaste: {
-					createMany: {
-						data: tasteIds.map(id => ({
-							tasteId: id,
-						})),
-					}
-				},
-			},
-			include: {
-				vendor: true,
-				AromaTaste: {
-					orderBy: {taste: {sort: "asc"}},
-					include: {
-						taste: true,
-					}
+	async $patch({vendor, vendorId, tastes, tasteIds, id, name, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
+		return this.useTagSource(async tagSource => {
+			await this.prisma.aromaTaste.deleteMany({
+				where: {
+					aromaId: id,
 				}
-			},
+			});
+			return this.prisma.aroma.update({
+				where: {id},
+				data: {
+					...patch,
+					name: `${name}`,
+					vendor: {
+						connect: {
+							name: vendor,
+							id: vendorId,
+						}
+					},
+					AromaTaste: {
+						createMany: {
+							data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+								tasteId: tag.id,
+							})),
+						}
+					},
+				},
+				include: {
+					vendor: true,
+					AromaTaste: {
+						orderBy: {taste: {sort: "asc"}},
+						include: {
+							taste: true,
+						}
+					}
+				},
+			});
 		});
 	}
 
