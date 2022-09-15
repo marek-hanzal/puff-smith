@@ -93,7 +93,7 @@ export interface IStatusListProviderFilterProps extends IFilterWithoutTranslatio
 
 export const StatusListProviderFilter: FC<IStatusListProviderFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.StatusList'}
+	translation={"common.filter.StatusList"}
 />;
 
 export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>> {
@@ -123,7 +123,7 @@ export const StatusListTableSource: FC<IStatusListTableSourceProps> = ({provider
 			{...props}
 		/>
 	</StatusListProvider>;
-};
+}
 
 export interface IStatusListListSourceProps extends Partial<IListProps<ISourceItem<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;

@@ -93,7 +93,7 @@ export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps
 
 export const FileProviderFilter: FC<IFileProviderFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.File'}
+	translation={"common.filter.File"}
 />;
 
 export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IFileSource>>>> {
@@ -123,7 +123,7 @@ export const FileTableSource: FC<IFileTableSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</FileProvider>;
-};
+}
 
 export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;

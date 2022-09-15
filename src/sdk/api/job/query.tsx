@@ -93,7 +93,7 @@ export interface IJobProviderFilterProps extends IFilterWithoutTranslationProps<
 
 export const JobProviderFilter: FC<IJobProviderFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.Job'}
+	translation={"common.filter.Job"}
 />;
 
 export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobSource>>>> {
@@ -123,7 +123,7 @@ export const JobTableSource: FC<IJobTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</JobProvider>;
-};
+}
 
 export interface IJobListSourceProps extends Partial<IListProps<ISourceItem<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;

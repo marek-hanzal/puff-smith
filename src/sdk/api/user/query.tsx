@@ -93,7 +93,7 @@ export interface IUserProviderFilterProps extends IFilterWithoutTranslationProps
 
 export const UserProviderFilter: FC<IUserProviderFilterProps> = props => <Filter
 	{...props}
-	translation={'common.filter.User'}
+	translation={"common.filter.User"}
 />;
 
 export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IUserSource>>>> {
@@ -123,7 +123,7 @@ export const UserTableSource: FC<IUserTableSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</UserProvider>;
-};
+}
 
 export interface IUserListSourceProps extends Partial<IListProps<ISourceItem<IUserSource>>> {
 	providerProps?: Partial<IUserProviderProps>;
