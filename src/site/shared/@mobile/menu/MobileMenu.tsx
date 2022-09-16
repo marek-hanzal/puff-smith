@@ -13,12 +13,12 @@ export const MobileMenu: FC<IMobileMenuProps> = () => {
 	return <TabBarMenu
 		items={[
 			{
-				icon: <MarketIcon/>,
-				href: "/market",
-			},
-			{
 				icon: <LabIcon/>,
 				href: "/lab",
+			},
+			{
+				icon: <MarketIcon/>,
+				href: "/market",
 			},
 			{
 				icon: <InventoryIcon/>,

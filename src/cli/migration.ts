@@ -15,14 +15,14 @@ const ensureMigrationTable = async (prisma: PrismaClient) => {
 		await executeSql(`
 			create table _prisma_migrations
 			(
-				id                  varchar(36)  not null primary key,
-				checksum            varchar(64)  not null,
+				id                  varchar(36)                            not null primary key,
+				checksum            varchar(64)                            not null,
 				finished_at         timestamp with time zone,
-				migration_name      varchar(255) not null,
+				migration_name      varchar(255)                           not null,
 				logs                text,
 				rolled_back_at      timestamp with time zone,
 				started_at          timestamp with time zone default now() not null,
-				applied_steps_count integer                  default 0 not null
+				applied_steps_count integer                  default 0     not null
 			);
 
 			alter table _prisma_migrations owner to "puff-smith";
