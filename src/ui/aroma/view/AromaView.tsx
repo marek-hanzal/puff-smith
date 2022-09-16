@@ -35,7 +35,7 @@ export const AromaView: FC<IAromaViewProps> = ({aroma, ...props}) => {
 					name: "more",
 					items: {
 						steep: aroma.steep ? dayjs.duration(aroma.steep, "days").humanize() : undefined,
-						tastes: aroma.tastes ? <Tags tags={aroma.tastes} translation={"common.taste"}/> : undefined,
+						tastes: aroma.tastes ? <Tags tags={aroma.tastes} translation={"common"}/> : undefined,
 					},
 				},
 			]}

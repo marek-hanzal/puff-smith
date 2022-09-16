@@ -14,11 +14,12 @@ export default withMarketLayout(function Index() {
 			icon={<AromaIcon/>}
 		>
 			<BubbleMenu
+				translation={"market.aroma"}
 				actions={[
 					{
-						key: "aaa",
+						key: "create.button",
+						onClick: ({navigate}) => navigate("/market/aroma/create"),
 					},
-					{text: "foo", key: "aa"},
 					{text: "bar", key: "bb"},
 					{
 						text: "bleh",

@@ -158,7 +158,9 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 
 	async $get(id: string): Promise<ISourceEntity<IAromaSource>> {
 		return this.prisma.aroma.findUniqueOrThrow({
-			where: {id},
+			where: {
+				id,
+			},
 			include: {
 				vendor: true,
 				AromaTaste: {
@@ -194,6 +196,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IAromaSource>) {
+		fulltext = fulltext?.toLowerCase();
 		return merge(filter || {}, {
 			OR: [
 				{
@@ -209,6 +212,18 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 							mode: "insensitive",
 						},
 					}
+				},
+				{
+					AromaTaste: {
+						some: {
+							taste: {
+								tag: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+						},
+					},
 				},
 			],
 		});

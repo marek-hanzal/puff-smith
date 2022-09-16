@@ -1,5 +1,5 @@
-import {CloudOutlined} from "@ant-design/icons";
-import {IIconProps} from "@leight-core/client";
-import {FC} from "react";
+import Icon from "@ant-design/icons";
+import {ComponentProps, FC} from "react";
+import {FaCottonBureau} from "react-icons/fa";
 
-export const CottonIcon: FC<IIconProps> = CloudOutlined;
+export const CottonIcon: FC<ComponentProps<typeof Icon>> = () => <Icon component={FaCottonBureau}/>;
