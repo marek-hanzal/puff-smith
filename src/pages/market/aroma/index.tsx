@@ -5,7 +5,6 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaList} from "@/puff-smith/ui/aroma/list/AromaList";
 import {AromaProviderControl} from "@/sdk/api/aroma/query";
 import {BubbleMenu} from "@leight-core/client";
-import {Input} from "antd";
 import {Dialog, Toast} from "antd-mobile";
 
 export default withMarketLayout(function Index() {
@@ -22,7 +21,9 @@ export default withMarketLayout(function Index() {
 					{text: "foo", key: "aa"},
 					{text: "bar", key: "bb"},
 					{
-						text: "bleh", key: "cc", onClick: async ({setVisible}) => {
+						text: "bleh",
+						key: "cc",
+						onClick: async ({setVisible}) => {
 							if (await Dialog.confirm({
 								content: "Boo？",
 								confirmText: "yep",
@@ -35,11 +36,10 @@ export default withMarketLayout(function Index() {
 									maskClickable: false,
 								});
 							}
-						}
+						},
 					},
 				]}
 			/>
-			<Input/>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
 			>
