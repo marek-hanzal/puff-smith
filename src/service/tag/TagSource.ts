@@ -58,12 +58,10 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 	}
 
 	async fetchByTags(tags: string | string[] | undefined, group: string): Promise<ITagEntity[]> {
-		console.log("Fetching by tags", tags, group);
 		if (!tags) {
 			return [];
 		}
 		const $tags = Array.isArray(tags) ? tags : tags.split(/,\s*/ig).map(tag => `${tag}`.toLowerCase());
-		console.log("Resolved to", tags, group);
 		return this.prisma.tag.findMany({
 			where: {
 				OR: [

@@ -69,6 +69,14 @@ CREATE TABLE "Translation" (
 );
 
 -- CreateTable
+CREATE TABLE "Keyword" (
+    "id" TEXT NOT NULL,
+    "text" TEXT NOT NULL,
+
+    CONSTRAINT "Keyword_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "File" (
     "id" TEXT NOT NULL,
     "path" TEXT NOT NULL,
@@ -446,6 +454,15 @@ CREATE TABLE "Aroma" (
 );
 
 -- CreateTable
+CREATE TABLE "AromaKeyword" (
+    "id" TEXT NOT NULL,
+    "aromaId" TEXT NOT NULL,
+    "keywordId" TEXT NOT NULL,
+
+    CONSTRAINT "AromaKeyword_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "AromaTaste" (
     "id" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
@@ -765,6 +782,9 @@ CREATE UNIQUE INDEX "UserToken_userId_tokenId_key" ON "UserToken"("userId", "tok
 CREATE UNIQUE INDEX "Translation_language_hash_key" ON "Translation"("language", "hash");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Keyword_text_key" ON "Keyword"("text");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Tag_tag_group_key" ON "Tag"("tag", "group");
 
 -- CreateIndex
@@ -1078,6 +1098,12 @@ ALTER TABLE "Aroma" ADD CONSTRAINT "Aroma_vendorId_fkey" FOREIGN KEY ("vendorId"
 
 -- AddForeignKey
 ALTER TABLE "Aroma" ADD CONSTRAINT "Aroma_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AromaKeyword" ADD CONSTRAINT "AromaKeyword_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AromaKeyword" ADD CONSTRAINT "AromaKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AromaTaste" ADD CONSTRAINT "AromaTaste_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;

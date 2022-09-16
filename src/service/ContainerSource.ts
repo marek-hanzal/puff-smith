@@ -1,5 +1,6 @@
 import {ICodeService} from "@/puff-smith/service/code/interface";
 import {IJobSource} from "@/puff-smith/service/job/interface";
+import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
 import {IUserSource} from "@/puff-smith/service/user/interface";
@@ -35,5 +36,9 @@ export abstract class ContainerSource<TSource extends ISource<any, any, any>> ex
 
 	async useUserTokenSource<T>(callback: (userTokenSource: IUserTokenSource) => Promise<T>) {
 		return callback((await import ("@/puff-smith/service/user/token/UserTokenSource")).UserTokenSource().ofSource(this));
+	}
+
+	async useKeywordSource<T>(callback: (keywordSource: IKeywordSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/keyword/KeywordSource")).KeywordSource().ofSource(this));
 	}
 }

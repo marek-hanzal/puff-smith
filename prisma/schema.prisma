@@ -114,6 +114,13 @@ model Translation {
   @@unique([language, hash])
 }
 
+model Keyword {
+  id   String @id @default(cuid())
+  text String @unique @db.Text
+
+  AromaKeyword AromaKeyword[]
+}
+
 model File {
   id       String    @id @default(cuid())
   path     String
@@ -551,8 +558,17 @@ model Aroma {
   AromaComment   AromaComment[]
   AromaTaste     AromaTaste[]
   Liquid         Liquid[]
+  AromaKeyword   AromaKeyword[]
 
   @@unique([name, vendorId])
+}
+
+model AromaKeyword {
+  id        String  @id @default(cuid())
+  aromaId   String
+  aroma     Aroma   @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
 }
 
 model AromaTaste {
