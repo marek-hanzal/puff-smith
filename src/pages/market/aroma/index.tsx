@@ -5,6 +5,7 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaList} from "@/puff-smith/ui/aroma/list/AromaList";
 import {AromaProviderControl} from "@/sdk/api/aroma/query";
 import {BubbleMenu} from "@leight-core/client";
+import {Input} from "antd";
 import {Dialog, Toast} from "antd-mobile";
 
 export default withMarketLayout(function Index() {
@@ -38,7 +39,7 @@ export default withMarketLayout(function Index() {
 					},
 				]}
 			/>
-
+			<Input/>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
 			>

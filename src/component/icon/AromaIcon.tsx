@@ -1,5 +1,5 @@
 import Icon from "@ant-design/icons";
 import {ComponentProps, FC} from "react";
-import {MdOutlineAlternateEmail} from "react-icons/md";
+import {FaGlassMartiniAlt} from "react-icons/fa";
 
-export const AromaIcon: FC<ComponentProps<typeof Icon>> = () => <Icon component={MdOutlineAlternateEmail}/>;
+export const AromaIcon: FC<ComponentProps<typeof Icon>> = () => <Icon component={FaGlassMartiniAlt}/>;
