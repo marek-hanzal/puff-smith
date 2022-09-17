@@ -16,6 +16,7 @@ export interface IGenerateDefaultFormProps extends Partial<IFormProps<void, stri
 
 export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form<void, string[]>
 	useMutation={useGenerateMutation}
+	translation={GenerateApiLink}
 	{...props}
 />
 

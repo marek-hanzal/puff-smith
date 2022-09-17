@@ -1,8 +1,9 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITagEntity, ITagSource} from "@/puff-smith/service/tag/interface";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
+import {IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
 import {pageOf} from "@leight-core/server";
+import {merge} from "@leight-core/utils";
 
 export const TagSource = () => new TagSourceClass();
 
@@ -21,21 +22,60 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 		});
 	}
 
-	async $query({filter, orderBy, ...query}: ISourceQuery<ITagSource>): Promise<ISourceEntity<ITagSource>[]> {
+	async $count(query: ISourceQuery<ITagSource>): Promise<number> {
+		return this.prisma.tag.count({
+			where: this.withFilter(query),
+		});
+	}
+
+	async $query({orderBy, ...query}: ISourceQuery<ITagSource>): Promise<ISourceEntity<ITagSource>[]> {
 		return this.prisma.tag.findMany({
-			where: filter,
+			where: this.withFilter(query),
 			orderBy,
 			...pageOf(query),
 		});
 	}
 
+	async updateKeywords(tag: ITagEntity): Promise<ITagEntity> {
+		return this.useKeywordSource(async keywordSource => {
+			const source: string[] = [
+				`${tag.group}.${tag.tag}`,
+			];
+			(await this.prisma.translation.findMany({
+				where: {
+					label: `common.${tag.group}.${tag.tag}`,
+				}
+			})).map(({text}) => source.push(text));
+			await this.prisma.tagKeyword.deleteMany({
+				where: {tagId: tag.id},
+			});
+			await this.prisma.tagKeyword.createMany({
+				data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
+					tagId: tag.id,
+					keywordId: (await keyword).id,
+				}))),
+			});
+			return tag;
+		});
+	}
+
 	async $create({tag, ...create}: ISourceCreate<ITagSource>): Promise<ISourceEntity<ITagSource>> {
-		return this.prisma.tag.create({
+		return this.updateKeywords(await this.prisma.tag.create({
 			data: {
 				...create,
 				tag: `${tag}`,
 			},
-		});
+		}));
+	}
+
+	async $patch({id, tag, ...patch}: UndefinableOptional<ISourceCreate<ITagSource>> & IWithIdentity): Promise<ISourceEntity<ITagSource>> {
+		return this.updateKeywords(await this.prisma.tag.update({
+			where: {id},
+			data: {
+				...patch,
+				tag: `${tag}`,
+			},
+		}));
 	}
 
 	async createToId({tag, group}: ISourceCreate<ITagSource>): Promise<{ id: string }> {
@@ -43,16 +83,6 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 			where: {
 				tag: `${tag}`,
 				group,
-			},
-		});
-	}
-
-	async $patch({id, tag, ...patch}: UndefinableOptional<ISourceCreate<ITagSource>> & IWithIdentity): Promise<ISourceEntity<ITagSource>> {
-		return this.prisma.tag.update({
-			where: {id},
-			data: {
-				...patch,
-				tag: `${tag}`,
 			},
 		});
 	}
@@ -95,5 +125,30 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 				}
 			},
 		});
+	}
+
+	withFilter({filter: {fulltext, id, ...filter} = {}}: ISourceQuery<ITagSource>): IQueryFilter<ISourceQuery<ITagSource>> | undefined {
+		fulltext = fulltext?.toLowerCase();
+		return merge(filter || {}, fulltext ? {
+			OR: [
+				{
+					TagKeyword: {
+						some: {
+							keyword: {
+								text: {
+									contains: fulltext,
+									mode: "insensitive",
+								},
+							},
+						},
+					},
+				},
+				{
+					id: {
+						in: Array.isArray(id) ? id : [id],
+					},
+				},
+			],
+		} : {});
 	}
 }

@@ -17,6 +17,7 @@ export interface IImportDefaultFormProps extends Partial<IFormProps<IImportJobPa
 
 export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<IImportJobParams, IImportJob>
 	useMutation={useImportMutation}
+	translation={ImportApiLink}
 	{...props}
 />
 

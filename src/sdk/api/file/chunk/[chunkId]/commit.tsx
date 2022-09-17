@@ -18,6 +18,7 @@ export interface ICommitDefaultFormProps extends Partial<IFormProps<IChunkCommit
 
 export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<IChunkCommit, IFile, IChunkEndpointQuery>
 	useMutation={useCommitMutation}
+	translation={CommitApiLink}
 	{...props}
 />
 

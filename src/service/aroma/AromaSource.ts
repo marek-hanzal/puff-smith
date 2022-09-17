@@ -225,26 +225,16 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IAromaSource>) {
 		fulltext = fulltext?.toLowerCase();
 		return merge(filter || {}, fulltext ? {
-			OR: [
-				{
-					AromaKeyword: {
-						some: {
-							keyword: {
-								text: {
-									contains: fulltext,
-									mode: "insensitive",
-								},
-							},
+			AromaKeyword: {
+				some: {
+					keyword: {
+						text: {
+							contains: fulltext,
+							mode: "insensitive",
 						},
 					},
 				},
-				{
-					code: {
-						contains: fulltext,
-						mode: "insensitive",
-					},
-				},
-			]
+			},
 		} : {});
 	}
 }

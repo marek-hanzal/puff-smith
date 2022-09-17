@@ -123,7 +123,7 @@ export const AromaTableSource: FC<IAromaTableSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</AromaProvider>;
-};
+}
 
 export interface IAromaListSourceProps extends Partial<IListProps<ISourceItem<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
@@ -138,7 +138,7 @@ export const AromaListSource: FC<IAromaListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</AromaProvider>;
-};
+}
 
 export interface IAromaInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
@@ -153,7 +153,7 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</AromaProvider>;
-};
+}
 
 export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaSource>>;
@@ -196,7 +196,7 @@ export interface IAromaSelectionProviderProps extends Partial<ISelectionProvider
 
 export const AromaSelectionProvider: FC<IAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IAromaSource>> {...props}/>;
-};
+}
 
 export const useAromaCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

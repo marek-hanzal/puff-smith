@@ -16,6 +16,7 @@ export interface ICommitDefaultFormProps extends Partial<IFormProps<void, void>>
 
 export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<void, void>
 	useMutation={useCommitMutation}
+	translation={CommitApiLink}
 	{...props}
 />
 

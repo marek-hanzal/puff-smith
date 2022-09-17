@@ -5,13 +5,13 @@ import {withMarketLayout} from "@/puff-smith/site/market/@module/layout/layout";
 import {AromaList} from "@/puff-smith/ui/aroma/list/AromaList";
 import {AromaProviderControl} from "@/sdk/api/aroma/query";
 import {BubbleMenu} from "@leight-core/client";
-import {Dialog, Toast} from "antd-mobile";
 
 export default withMarketLayout(function Index() {
 	return <>
 		<MobileMarketPage
 			title={"market.aroma.index"}
 			icon={<AromaIcon/>}
+			onBack={navigate => navigate("/market")}
 		>
 			<BubbleMenu
 				translation={"market.aroma"}
@@ -21,25 +21,25 @@ export default withMarketLayout(function Index() {
 						bold: true,
 						onClick: ({navigate}) => navigate("/market/aroma/create"),
 					},
-					{text: "bar", key: "bb"},
-					{
-						text: "bleh",
-						key: "cc",
-						onClick: async ({setVisible}) => {
-							if (await Dialog.confirm({
-								content: "Boo？",
-								confirmText: "yep",
-								cancelText: "nope",
-								onConfirm: () => setVisible(false),
-							})) {
-								Toast.show({
-									icon: "loading",
-									duration: 5000,
-									maskClickable: false,
-								});
-							}
-						},
-					},
+					// {text: "bar", key: "bb"},
+					// {
+					// 	text: "bleh",
+					// 	key: "cc",
+					// 	onClick: async ({setVisible}) => {
+					// 		if (await Dialog.confirm({
+					// 			content: "Boo？",
+					// 			confirmText: "yep",
+					// 			cancelText: "nope",
+					// 			onConfirm: () => setVisible(false),
+					// 		})) {
+					// 			Toast.show({
+					// 				icon: "loading",
+					// 				duration: 5000,
+					// 				maskClickable: false,
+					// 			});
+					// 		}
+					// 	},
+					// },
 				]}
 			/>
 			<AromaProviderControl

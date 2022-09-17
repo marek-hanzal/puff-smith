@@ -18,6 +18,7 @@ export interface ICleanupDefaultFormProps extends Partial<IFormProps<IQueryFilte
 
 export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<IQueryFilter<IJobQuery> | undefined, void>
 	useMutation={useCleanupMutation}
+	translation={CleanupApiLink}
 	{...props}
 />
 

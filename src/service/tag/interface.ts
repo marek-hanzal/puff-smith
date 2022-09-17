@@ -1,4 +1,4 @@
-import {IQuery, ISource, ITag} from "@leight-core/api";
+import {IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
 import {Prisma, Tag} from "@prisma/client";
 
 export interface ITagCreate extends Omit<ITag, "id"> {
@@ -6,7 +6,7 @@ export interface ITagCreate extends Omit<ITag, "id"> {
 
 export type ITagEntity = Tag;
 
-export interface ITagQuery extends IQuery<Prisma.TagWhereInput, Prisma.TagOrderByWithRelationInput> {
+export interface ITagQuery extends IQuery<Prisma.TagWhereInput & IWithFulltext, Prisma.TagOrderByWithRelationInput> {
 }
 
 export interface ITagSource extends ISource<ITagCreate, ITagEntity, ITag, ITagQuery> {

@@ -17,6 +17,7 @@ export interface IUploadDefaultFormProps extends Partial<IFormProps<string, void
 
 export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<string, void, IChunkEndpointQuery>
 	useMutation={useUploadMutation}
+	translation={UploadApiLink}
 	{...props}
 />
 

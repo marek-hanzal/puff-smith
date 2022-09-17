@@ -119,6 +119,7 @@ model Keyword {
   text String @unique @db.Text
 
   AromaKeyword AromaKeyword[]
+  TagKeyword   TagKeyword[]
 }
 
 model File {
@@ -228,8 +229,17 @@ model Tag {
   WireDraw               WireDraw[]
   BuildLiquidTasteRating BuildLiquidTasteRating[]
   WishlistTag            WishlistTag[]
+  TagKeyword             TagKeyword[]
 
   @@unique([tag, group])
+}
+
+model TagKeyword {
+  id        String  @id @default(cuid())
+  tagId     String
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
 }
 
 model Vendor {
