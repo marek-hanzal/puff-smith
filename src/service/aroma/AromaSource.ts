@@ -34,13 +34,13 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 				$aroma.name,
 				...$aroma.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
 			];
-			await Promise.all($aroma.tastes.map(async taste => {
-				(await this.prisma.translation.findMany({
-					where: {
-						label: `common.${taste.group}.${taste.tag}`,
-					}
-				})).map(({text}) => source.push(text));
-			}));
+			(await this.prisma.translation.findMany({
+				where: {
+					label: {
+						in: $aroma.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+					},
+				}
+			})).map(({text}) => source.push(text));
 			await this.prisma.aromaKeyword.deleteMany({
 				where: {aromaId: aroma.id},
 			});

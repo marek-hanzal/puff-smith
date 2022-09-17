@@ -18,6 +18,7 @@ export default withMarketLayout(function Index() {
 				actions={[
 					{
 						key: "create.button",
+						bold: true,
 						onClick: ({navigate}) => navigate("/market/aroma/create"),
 					},
 					{text: "bar", key: "bb"},
