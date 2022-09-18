@@ -223,18 +223,20 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IAromaSource>) {
-		fulltext = fulltext?.toLowerCase();
-		return merge(filter || {}, fulltext ? {
-			AromaKeyword: {
-				some: {
-					keyword: {
-						text: {
-							contains: fulltext,
-							mode: "insensitive",
+		const $fragments = fulltext?.toLowerCase()?.split(/\s+/gi) || [];
+		return merge(filter || {}, {
+			AND: $fragments.map(fragment => ({
+				AromaKeyword: {
+					some: {
+						keyword: {
+							text: {
+								contains: fragment,
+								mode: "insensitive",
+							},
 						},
 					},
-				},
-			},
-		} : {});
+				}
+			})),
+		});
 	}
 }

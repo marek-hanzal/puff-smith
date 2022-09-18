@@ -60,7 +60,11 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 		<VendorProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
-			<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
+			<FormItem
+				field={"vendorId"}
+				required
+				extra={<VendorCreateInline/>}
+			>
 				<VendorSelect
 					selectionList={() => <VendorList/>}
 				/>
