@@ -129,7 +129,7 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</TagProvider>;
-}
+};
 
 export interface ITagListSourceProps extends Partial<IListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -144,7 +144,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-}
+};
 
 export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -178,7 +178,7 @@ export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	const selection = useRef<Record<string, ISourceItem<ITagSource>>>();
-	return <Input.Group>
+	return selectionList ? <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<TagProvider {...providerProps}>
@@ -186,7 +186,7 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 				</TagProvider>
 			</Col>
 			<Col push={0}>
-				{selectionList && <DrawerButton
+				<DrawerButton
 					icon={<SelectOutlined/>}
 					title={"common.selection.Tag.title"}
 					size={props.size}
@@ -226,10 +226,12 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 							</SelectionProvider>
 						</TagProviderControl>}
 					</DrawerContext.Consumer>
-				</DrawerButton>}
+				</DrawerButton>
 			</Col>
 		</Row>
-	</Input.Group>;
+	</Input.Group> : <TagProvider {...providerProps}>
+		<QuerySourceSelect<ISourceItem<ITagSource>> {...props}/>
+	</TagProvider>;
 };
 
 export interface ITagSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ITagSource>>> {
@@ -237,7 +239,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-}
+};
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

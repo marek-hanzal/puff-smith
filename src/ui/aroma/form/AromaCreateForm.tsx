@@ -1,14 +1,17 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {TagCreateInline} from "@/puff-smith/ui/tag/form/TagCreateInline";
 import {TagSelect} from "@/puff-smith/ui/tag/form/TagSelect";
 import {TagList} from "@/puff-smith/ui/tag/list/TagList";
 import {VendorCreateInline} from "@/puff-smith/ui/vendor/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/ui/vendor/form/VendorSelect";
+import {VendorList} from "@/puff-smith/ui/vendor/list/VendorList";
 import {AromaCreateDefaultForm, IAromaCreateDefaultFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {TagProviderControl} from "@/sdk/api/tag/query";
+import {VendorProviderControl} from "@/sdk/api/vendor/query";
 import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, message} from "antd";
 import {FC} from "react";
@@ -54,9 +57,15 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	>
 		<FormItem field={"name"} required hasTooltip/>
 		<FormItem field={"code"} hasTooltip/>
-		<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
-			<VendorSelect/>
-		</FormItem>
+		<VendorProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
+		>
+			<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
+				<VendorSelect
+					selectionList={() => <VendorList/>}
+				/>
+			</FormItem>
+		</VendorProviderControl>
 		<TagProviderControl
 			applyFilter={{
 				group: "taste",

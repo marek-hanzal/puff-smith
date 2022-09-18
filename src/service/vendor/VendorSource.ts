@@ -1,7 +1,7 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IVendorEntity, IVendorReference, IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
+import {IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
 import {pageOf} from "@leight-core/server";
 import {merge} from "@leight-core/utils";
 
@@ -39,29 +39,31 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	async $count({filter: {fulltext, ...filter} = {}}: ISourceQuery<IVendorSource>): Promise<number> {
+	async $count(query: ISourceQuery<IVendorSource>): Promise<number> {
 		return this.prisma.vendor.count({
-			where: merge(filter, {
-				name: {
-					contains: fulltext,
-					mode: "insensitive",
-				},
-			}),
+			where: this.withFilter(query),
 		});
 	}
 
-	async $query({filter: {fulltext, ...filter} = {}, ...query}: ISourceQuery<IVendorSource>): Promise<ISourceEntity<IVendorSource>[]> {
+	async $query(query: ISourceQuery<IVendorSource>): Promise<ISourceEntity<IVendorSource>[]> {
 		return this.prisma.vendor.findMany({
-			where: merge(filter, {
-				name: {
-					contains: fulltext,
-					mode: "insensitive",
-				},
-			}),
+			where: this.withFilter(query),
 			orderBy: [
 				{name: "asc"},
 			],
 			...pageOf(query),
+		});
+	}
+
+	withFilter({filter: {fulltext, id, ...filter} = {}}: ISourceQuery<IVendorSource>): IQueryFilter<ISourceQuery<IVendorSource>> | undefined {
+		return merge(filter, {
+			id: Array.isArray(id) ? {
+				in: id,
+			} : id,
+			name: {
+				contains: fulltext,
+				mode: "insensitive",
+			},
 		});
 	}
 
