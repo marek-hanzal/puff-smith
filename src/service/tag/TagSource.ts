@@ -129,9 +129,9 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 
 	withFilter({filter: {fulltext, id, ...filter} = {}}: ISourceQuery<ITagSource>): IQueryFilter<ISourceQuery<ITagSource>> | undefined {
 		fulltext = fulltext?.toLowerCase();
-		return merge(filter || {}, fulltext ? {
+		return merge(filter || {}, fulltext || id ? {
 			OR: [
-				{
+				fulltext ? {
 					TagKeyword: {
 						some: {
 							keyword: {
@@ -142,12 +142,12 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 							},
 						},
 					},
-				},
-				{
+				} : undefined,
+				id ? {
 					id: {
 						in: Array.isArray(id) ? id : [id],
 					},
-				},
+				} : undefined,
 			],
 		} : {});
 	}

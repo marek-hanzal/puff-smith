@@ -4,14 +4,17 @@
 
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const UserApiLink = "/api/user/query";
 export const UserCountApiLink = "/api/user/query/count";
@@ -52,7 +58,7 @@ export type IUserQueryParams = any;
 export const useUserQuery = createQueryHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
 export const useUserCountQuery = createQueryHook<ISourceQuery<IUserSource>, number, IUserQueryParams>(UserCountApiLink, "post");
 
-export const useUserSource = () => useSourceContext<ISourceItem<IUserSource>>()
+export const useUserSource = () => useSourceContext<ISourceItem<IUserSource>>();
 
 export interface IUserSourceContext extends ISourceContext<ISourceItem<IUserSource>> {
 }
@@ -155,14 +161,23 @@ export const UserInfiniteListSource: FC<IUserInfiniteListSourceProps> = ({provid
 	</UserProvider>;
 }
 
+export interface IUserSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<IUserSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface IUserSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IUserSource>> {
 	toOption: IToOptionMapper<ISourceItem<IUserSource>>;
 	providerProps?: Partial<IUserProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: IUserSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: IUserProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<IUserSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -177,14 +192,40 @@ export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.User.title.tooltip"}
 					width={800}
-					type={'text'}
+					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<UserProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</UserProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <UserProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<IUserSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</UserProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>

@@ -4,14 +4,17 @@
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const AromaApiLink = "/api/aroma/query";
 export const AromaCountApiLink = "/api/aroma/query/count";
@@ -155,14 +161,23 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 	</AromaProvider>;
 }
 
+export interface IAromaSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<IAromaSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaSource>> {
 	toOption: IToOptionMapper<ISourceItem<IAromaSource>>;
 	providerProps?: Partial<IAromaProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: IAromaSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: IAromaProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<IAromaSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -179,12 +194,38 @@ export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, s
 					width={800}
 					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<AromaProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</AromaProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <AromaProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<IAromaSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</AromaProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>

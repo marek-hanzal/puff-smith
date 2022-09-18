@@ -20,7 +20,7 @@ export const VendorCreateDefaultForm: FC<IVendorCreateDefaultFormProps> = props 
 	useMutation={useVendorCreateMutation}
 	translation={VendorCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toVendorCreateLink = (queryParams?: IVendorCreateQueryParams) => toLink(VendorCreateApiLink, queryParams);
 export const useVendorCreateLink = () => toVendorCreateLink;

@@ -3,10 +3,12 @@ import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {TagCreateInline} from "@/puff-smith/ui/tag/form/TagCreateInline";
 import {TagSelect} from "@/puff-smith/ui/tag/form/TagSelect";
+import {TagList} from "@/puff-smith/ui/tag/list/TagList";
 import {VendorCreateInline} from "@/puff-smith/ui/vendor/form/VendorCreateInline";
 import {VendorSelect} from "@/puff-smith/ui/vendor/form/VendorSelect";
 import {AromaCreateDefaultForm, IAromaCreateDefaultFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
+import {TagProviderControl} from "@/sdk/api/tag/query";
 import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, message} from "antd";
 import {FC} from "react";
@@ -55,23 +57,42 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 		<FormItem field={"vendorId"} required extra={<VendorCreateInline/>}>
 			<VendorSelect/>
 		</FormItem>
-		<FormItem
-			field={"tasteIds"}
-			hasTooltip
-			extra={<TagCreateInline
-				group={"taste"}
-				title={"shared.tag.taste.create.title"}
-				label={"shared.tag.taste.create.button"}
-			/>}
+		<TagProviderControl
+			applyFilter={{
+				group: "taste",
+			}}
+			defaultOrderBy={{
+				sort: "asc",
+			}}
 		>
-			<TagSelect
-				translation={"common"}
-				mode={"multiple"}
-				applyFilter={{
-					group: "taste",
-				}}
-			/>
-		</FormItem>
+			<FormItem
+				field={"tasteIds"}
+				hasTooltip
+				extra={<TagCreateInline
+					group={"taste"}
+					title={"shared.tag.taste.create.title"}
+					label={"shared.tag.taste.create.button"}
+				/>}
+				withHelp
+			>
+				<TagSelect
+					translation={"common"}
+					mode={"multiple"}
+					selectionList={() => <TagList/>}
+					selectionProps={{
+						type: "multi",
+					}}
+					selectionProvider={{
+						applyFilter: {
+							group: "taste",
+						},
+					}}
+					selectionDrawer={{
+						title: "shared.taste.selection.title",
+					}}
+				/>
+			</FormItem>
+		</TagProviderControl>
 		<Divider/>
 		<Centered>
 			<Submit icon={<AromaIcon/>} label={"create"}/>

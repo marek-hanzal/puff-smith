@@ -4,14 +4,17 @@
 
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const VendorApiLink = "/api/vendor/query";
 export const VendorCountApiLink = "/api/vendor/query/count";
@@ -123,7 +129,7 @@ export const VendorTableSource: FC<IVendorTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</VendorProvider>;
-};
+}
 
 export interface IVendorListSourceProps extends Partial<IListProps<ISourceItem<IVendorSource>>> {
 	providerProps?: Partial<IVendorProviderProps>;
@@ -138,7 +144,7 @@ export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</VendorProvider>;
-};
+}
 
 export interface IVendorInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IVendorSource>>> {
 	providerProps?: Partial<IVendorProviderProps>;
@@ -155,14 +161,23 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 	</VendorProvider>;
 };
 
+export interface IVendorSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<IVendorSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IVendorSource>> {
 	toOption: IToOptionMapper<ISourceItem<IVendorSource>>;
 	providerProps?: Partial<IVendorProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: IVendorSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: IVendorProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<IVendorSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -179,12 +194,38 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps,
 					width={800}
 					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<VendorProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</VendorProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <VendorProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<IVendorSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</VendorProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>
@@ -196,7 +237,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IVendorSource>> {...props}/>;
-};
+}
 
 export const useVendorCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

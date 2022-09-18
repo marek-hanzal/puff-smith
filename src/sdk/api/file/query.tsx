@@ -4,14 +4,17 @@
 
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const FileApiLink = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
@@ -52,7 +58,7 @@ export type IFileQueryParams = any;
 export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 export const useFileCountQuery = createQueryHook<ISourceQuery<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");
 
-export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>()
+export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>();
 
 export interface IFileSourceContext extends ISourceContext<ISourceItem<IFileSource>> {
 }
@@ -155,14 +161,23 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 	</FileProvider>;
 }
 
+export interface IFileSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<IFileSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
 	toOption: IToOptionMapper<ISourceItem<IFileSource>>;
 	providerProps?: Partial<IFileProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: IFileSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: IFileProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<IFileSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -177,14 +192,40 @@ export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, sel
 					size={props.size}
 					tooltip={"common.selection.File.title.tooltip"}
 					width={800}
-					type={'text'}
+					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<FileProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</FileProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <FileProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<IFileSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</FileProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>

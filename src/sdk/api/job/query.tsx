@@ -4,14 +4,17 @@
 
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const JobApiLink = "/api/job/query";
 export const JobCountApiLink = "/api/job/query/count";
@@ -52,7 +58,7 @@ export type IJobQueryParams = any;
 export const useJobQuery = createQueryHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
 export const useJobCountQuery = createQueryHook<ISourceQuery<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");
 
-export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>()
+export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>();
 
 export interface IJobSourceContext extends ISourceContext<ISourceItem<IJobSource>> {
 }
@@ -155,14 +161,23 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 	</JobProvider>;
 }
 
+export interface IJobSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<IJobSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobSource>>;
 	providerProps?: Partial<IJobProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: IJobSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: IJobProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<IJobSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -177,14 +192,40 @@ export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selec
 					size={props.size}
 					tooltip={"common.selection.Job.title.tooltip"}
 					width={800}
-					type={'text'}
+					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<JobProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</JobProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <JobProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<IJobSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</JobProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>

@@ -4,14 +4,17 @@
 
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {SelectOutlined} from "@ant-design/icons";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
 	DrawerButton,
+	DrawerContext,
 	Filter,
 	FilterProvider,
+	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -26,6 +29,7 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
+	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -34,6 +38,7 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
+	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -42,7 +47,8 @@ import {
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {CheckOutline} from "antd-mobile-icons";
+import {ConsumerProps, FC, ReactNode, useRef} from "react";
 
 export const TagApiLink = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
@@ -123,7 +129,7 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagListSourceProps extends Partial<IListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -138,7 +144,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -155,14 +161,23 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 	</TagProvider>;
 };
 
+export interface ITagSourceSelection {
+	selectionContext: ISelectionContext<ISourceItem<ITagSource>>;
+	drawerContext: IDrawerContext;
+}
+
 export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITagSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITagSource>>;
 	providerProps?: Partial<ITagProviderProps>;
-	selectionList?: () => ReactNode;
+	selectionList?: (context: ITagSourceSelection) => ReactNode;
 	selectionProps?: Partial<ISelectionProviderProps>;
+	selectionProvider?: ITagProviderControlProps;
+	selectionDrawer?: IDrawerButtonProps;
 }
 
-export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, ...props}) => {
+export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+	const formItem = useOptionalFormItemContext();
+	const selection = useRef<Record<string, ISourceItem<ITagSource>>>();
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
@@ -179,12 +194,38 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 					width={800}
 					type={"text"}
 					ghost
+					{...selectionDrawer}
 				>
-					<TagProviderControl>
-						<SelectionProvider type={"single"} {...selectionProps}>
-							{selectionList()}
-						</SelectionProvider>
-					</TagProviderControl>
+					<DrawerContext.Consumer>
+						{drawerContext => <TagProviderControl
+							defaultSize={10}
+							{...selectionProvider}
+						>
+							<SelectionProvider<ISourceItem<ITagSource>>
+								type={"single"}
+								applySelection={selection.current}
+								onSelection={({selected, items}) => {
+									drawerContext.close();
+									formItem?.setValue(selected);
+									selection.current = items;
+								}}
+								{...selectionProps}
+							>
+								<SelectionContext.Consumer>
+									{selectionContext => <>
+										<BubbleButton
+											icon={<CheckOutline fontSize={32}/>}
+											onClick={() => selectionContext.handleSelection()}
+										/>
+										{selectionList({
+											selectionContext,
+											drawerContext,
+										})}
+									</>}
+								</SelectionContext.Consumer>
+							</SelectionProvider>
+						</TagProviderControl>}
+					</DrawerContext.Consumer>
 				</DrawerButton>}
 			</Col>
 		</Row>
@@ -196,7 +237,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-};
+}
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

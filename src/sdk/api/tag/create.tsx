@@ -20,7 +20,7 @@ export const TagCreateDefaultForm: FC<ITagCreateDefaultFormProps> = props => <Fo
 	useMutation={useTagCreateMutation}
 	translation={TagCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toTagCreateLink = (queryParams?: ITagCreateQueryParams) => toLink(TagCreateApiLink, queryParams);
 export const useTagCreateLink = () => toTagCreateLink;
