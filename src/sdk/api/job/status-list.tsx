@@ -177,12 +177,23 @@ export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IS
 
 export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IJobStatusSource>>>();
+	const selection = useRef<Record<string, ISourceItem<IJobStatusSource>>>({});
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<StatusListProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IJobStatusSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<IJobStatusSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</StatusListProvider>
 			</Col>
 			<Col push={0}>
@@ -193,7 +204,6 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({provid
 					tooltip={"common.selection.StatusList.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({provid
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>

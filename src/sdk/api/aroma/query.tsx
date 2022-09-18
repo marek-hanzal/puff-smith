@@ -177,12 +177,23 @@ export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISource
 
 export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IAromaSource>>>();
+	const selection = useRef<Record<string, ISourceItem<IAromaSource>>>({});
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<AromaProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IAromaSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<IAromaSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</AromaProvider>
 			</Col>
 			<Col push={0}>
@@ -193,7 +204,6 @@ export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, s
 					tooltip={"common.selection.Aroma.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, s
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>

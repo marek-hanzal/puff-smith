@@ -177,12 +177,23 @@ export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceI
 
 export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IFileSource>>>();
+	const selection = useRef<Record<string, ISourceItem<IFileSource>>>({});
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<FileProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IFileSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<IFileSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</FileProvider>
 			</Col>
 			<Col push={0}>
@@ -193,7 +204,6 @@ export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, sel
 					tooltip={"common.selection.File.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, sel
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>

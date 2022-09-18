@@ -177,12 +177,23 @@ export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 
 export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IJobSource>>>();
+	const selection = useRef<Record<string, ISourceItem<IJobSource>>>({});
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<JobProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IJobSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<IJobSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</JobProvider>
 			</Col>
 			<Col push={0}>
@@ -193,7 +204,6 @@ export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selec
 					tooltip={"common.selection.Job.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selec
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>

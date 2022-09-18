@@ -159,7 +159,7 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</VendorProvider>;
-};
+}
 
 export interface IVendorSourceSelection {
 	selectionContext: ISelectionContext<ISourceItem<IVendorSource>>;
@@ -177,12 +177,23 @@ export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<ISourc
 
 export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IVendorSource>>>();
+	const selection = useRef<Record<string, ISourceItem<IVendorSource>>>({});
 	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<VendorProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IVendorSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<IVendorSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</VendorProvider>
 			</Col>
 			<Col push={0}>
@@ -193,7 +204,6 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps,
 					tooltip={"common.selection.Vendor.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const VendorSourceSelect: FC<IVendorSourceSelectProps> = ({providerProps,
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>

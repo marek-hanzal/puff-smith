@@ -129,7 +129,7 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagListSourceProps extends Partial<IListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -144,7 +144,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -159,7 +159,7 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagSourceSelection {
 	selectionContext: ISelectionContext<ISourceItem<ITagSource>>;
@@ -177,23 +177,33 @@ export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 
 export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<ITagSource>>>();
-	return selectionList ? <Input.Group>
+	const selection = useRef<Record<string, ISourceItem<ITagSource>>>({});
+	return <Input.Group>
 		<Row>
 			<Col flex={"auto"}>
 				<TagProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<ITagSource>> {...props}/>
+					<QuerySourceSelect<ISourceItem<ITagSource>>
+						onSelect={({entity}) => {
+							selection.current[entity.id] = entity;
+						}}
+						onDeselect={({entity}) => {
+							delete selection.current[entity.id];
+						}}
+						onClear={() => {
+							selection.current = {};
+						}}
+						{...props}
+					/>
 				</TagProvider>
 			</Col>
 			<Col push={0}>
-				<DrawerButton
+				{selectionList && <DrawerButton
 					icon={<SelectOutlined/>}
 					title={"common.selection.Tag.title"}
 					size={props.size}
 					tooltip={"common.selection.Tag.title.tooltip"}
 					width={800}
 					type={"text"}
-					ghost
 					{...selectionDrawer}
 				>
 					<DrawerContext.Consumer>
@@ -205,9 +215,9 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 								type={"single"}
 								applySelection={selection.current}
 								onSelection={({selected, items}) => {
-									drawerContext.close();
 									formItem?.setValue(selected);
 									selection.current = items;
+									drawerContext.close();
 								}}
 								{...selectionProps}
 							>
@@ -226,12 +236,10 @@ export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selec
 							</SelectionProvider>
 						</TagProviderControl>}
 					</DrawerContext.Consumer>
-				</DrawerButton>
+				</DrawerButton>}
 			</Col>
 		</Row>
-	</Input.Group> : <TagProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<ITagSource>> {...props}/>
-	</TagProvider>;
+	</Input.Group>;
 };
 
 export interface ITagSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ITagSource>>> {
@@ -239,7 +247,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-};
+}
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
