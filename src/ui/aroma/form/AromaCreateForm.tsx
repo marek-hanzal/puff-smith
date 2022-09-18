@@ -73,7 +73,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 					title={"shared.tag.taste.create.title"}
 					label={"shared.tag.taste.create.button"}
 				/>}
-				withHelp
 			>
 				<TagSelect
 					translation={"common"}
