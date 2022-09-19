@@ -3,7 +3,7 @@
  */
 
 import {IChunkCommit, IFile} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {IChunkEndpointQuery} from "@leight-core/server";
 import {FC} from "react";
 
@@ -20,7 +20,16 @@ export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<ICh
 	useMutation={useCommitMutation}
 	translation={CommitApiLink}
 	{...props}
-/>
+/>;
+
+export interface ICommitDefaultMobileFormProps extends Partial<IMobileFormProps<IChunkCommit, IFile, IChunkEndpointQuery>> {
+}
+
+export const CommitDefaultMobileForm: FC<ICommitDefaultMobileFormProps> = props => <MobileForm<IChunkCommit, IFile, IChunkEndpointQuery>
+	useMutation={useCommitMutation}
+	translation={CommitApiLink}
+	{...props}
+/>;
 
 export const toCommitLink = (queryParams?: ICommitQueryParams) => toLink(CommitApiLink, queryParams);
 export const useCommitLink = () => toCommitLink;

@@ -4,7 +4,7 @@
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {FC} from "react";
 
 export const AromaCreateApiLink = "/api/aroma/create";
@@ -20,7 +20,16 @@ export const AromaCreateDefaultForm: FC<IAromaCreateDefaultFormProps> = props =>
 	useMutation={useAromaCreateMutation}
 	translation={AromaCreateApiLink}
 	{...props}
-/>
+/>;
+
+export interface IAromaCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>> {
+}
+
+export const AromaCreateDefaultMobileForm: FC<IAromaCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>
+	useMutation={useAromaCreateMutation}
+	translation={AromaCreateApiLink}
+	{...props}
+/>;
 
 export const toAromaCreateLink = (queryParams?: IAromaCreateQueryParams) => toLink(AromaCreateApiLink, queryParams);
 export const useAromaCreateLink = () => toAromaCreateLink;

@@ -4,7 +4,7 @@
 
 import {IJobQuery} from "@/puff-smith/service/job/interface";
 import {IQueryFilter} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {FC} from "react";
 
 export const CleanupApiLink = "/api/job/cleanup";
@@ -20,7 +20,16 @@ export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<I
 	useMutation={useCleanupMutation}
 	translation={CleanupApiLink}
 	{...props}
-/>
+/>;
+
+export interface ICleanupDefaultMobileFormProps extends Partial<IMobileFormProps<IQueryFilter<IJobQuery> | undefined, void>> {
+}
+
+export const CleanupDefaultMobileForm: FC<ICleanupDefaultMobileFormProps> = props => <MobileForm<IQueryFilter<IJobQuery> | undefined, void>
+	useMutation={useCleanupMutation}
+	translation={CleanupApiLink}
+	{...props}
+/>;
 
 export const toCleanupLink = (queryParams?: ICleanupQueryParams) => toLink(CleanupApiLink, queryParams);
 export const useCleanupLink = () => toCleanupLink;

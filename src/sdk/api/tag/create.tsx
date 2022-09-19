@@ -4,7 +4,7 @@
 
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {FC} from "react";
 
 export const TagCreateApiLink = "/api/tag/create";
@@ -20,7 +20,16 @@ export const TagCreateDefaultForm: FC<ITagCreateDefaultFormProps> = props => <Fo
 	useMutation={useTagCreateMutation}
 	translation={TagCreateApiLink}
 	{...props}
-/>
+/>;
+
+export interface ITagCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<ITagSource>, ISourceItem<ITagSource>>> {
+}
+
+export const TagCreateDefaultMobileForm: FC<ITagCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<ITagSource>, ISourceItem<ITagSource>>
+	useMutation={useTagCreateMutation}
+	translation={TagCreateApiLink}
+	{...props}
+/>;
 
 export const toTagCreateLink = (queryParams?: ITagCreateQueryParams) => toLink(TagCreateApiLink, queryParams);
 export const useTagCreateLink = () => toTagCreateLink;

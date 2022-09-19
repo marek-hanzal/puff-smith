@@ -4,7 +4,7 @@
 
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {ISourceCreate, ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {FC} from "react";
 
 export const VendorCreateApiLink = "/api/vendor/create";
@@ -20,7 +20,16 @@ export const VendorCreateDefaultForm: FC<IVendorCreateDefaultFormProps> = props 
 	useMutation={useVendorCreateMutation}
 	translation={VendorCreateApiLink}
 	{...props}
-/>
+/>;
+
+export interface IVendorCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<IVendorSource>, ISourceItem<IVendorSource>>> {
+}
+
+export const VendorCreateDefaultMobileForm: FC<IVendorCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<IVendorSource>, ISourceItem<IVendorSource>>
+	useMutation={useVendorCreateMutation}
+	translation={VendorCreateApiLink}
+	{...props}
+/>;
 
 export const toVendorCreateLink = (queryParams?: IVendorCreateQueryParams) => toLink(VendorCreateApiLink, queryParams);
 export const useVendorCreateLink = () => toVendorCreateLink;

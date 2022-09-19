@@ -3,29 +3,65 @@ import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
-import {TagCreateInline} from "@/puff-smith/ui/tag/form/TagCreateInline";
-import {TagSelect} from "@/puff-smith/ui/tag/form/TagSelect";
-import {TagList} from "@/puff-smith/ui/tag/list/TagList";
-import {VendorCreateInline} from "@/puff-smith/ui/vendor/form/VendorCreateInline";
-import {VendorSelect} from "@/puff-smith/ui/vendor/form/VendorSelect";
-import {VendorList} from "@/puff-smith/ui/vendor/list/VendorList";
-import {AromaCreateDefaultForm, IAromaCreateDefaultFormProps} from "@/sdk/api/aroma/create";
+import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {TagProviderControl} from "@/sdk/api/tag/query";
 import {VendorProviderControl} from "@/sdk/api/vendor/query";
 import {ITag} from "@leight-core/api";
-import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
+import {ButtonBar, ButtonLink, IMobileFormItemProps, MobileFormItem, MobileFormItemContext} from "@leight-core/client";
 import {Divider, message} from "antd";
+import {CheckList, Popup} from "antd-mobile";
 import {FC, useState} from "react";
 
-export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultFormProps> {
+export interface IMobileSelectProps extends IMobileFormItemProps {
+}
+
+export const MobileSelect: FC<IMobileSelectProps> = props => {
+	const [visible, setVisible] = useState(false);
+
+	/**
+	 * MAKE THE THING AS A DRAWER POPUP
+	 */
+
+	return <MobileFormItem
+		onClick={() => setVisible(true)}
+		{...props}
+	>
+		<MobileFormItemContext.Consumer>
+			{formItemContext => <>
+				{formItemContext.getValue()}
+				<Popup
+					visible={visible}
+					onMaskClick={() => {
+						setVisible(false);
+					}}
+					destroyOnClose
+				>
+					<CheckList
+						onChange={value => {
+							setVisible(false);
+							setTimeout(() => {
+								formItemContext.setValue(value);
+								formItemContext.setErrors([]);
+							}, 0);
+						}}
+					>
+						<CheckList.Item value="A">A</CheckList.Item>
+						<CheckList.Item value="B">B</CheckList.Item>
+					</CheckList>
+				</Popup>
+			</>}
+		</MobileFormItemContext.Consumer>
+	</MobileFormItem>;
+};
+
+export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
 }
 
 export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}) => {
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
 	const [vendors, setVendors] = useState<Record<string, IVendor>>();
 	const [tags, setTags] = useState<Record<string, ITag>>();
-	return <AromaCreateDefaultForm
+	return <AromaCreateDefaultMobileForm
 		onSuccess={async response => {
 			message.success(response.t("success", response.response));
 			await aromaQueryInvalidate();
@@ -57,71 +93,58 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				</>
 			}
 		}}
+		icon={<AromaIcon/>}
 		{...props}
 	>
-		<FormItem field={"name"} required hasTooltip/>
-		<FormItem field={"code"} hasTooltip/>
+		<MobileFormItem field={"name"} required hasTooltip/>
+		<MobileFormItem field={"code"} hasTooltip/>
 		<VendorProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
-			<FormItem
+			<MobileSelect
 				field={"vendorId"}
 				required
-				extra={<VendorCreateInline
-					onSuccess={vendor => setVendors({
-						[vendor.id]: vendor,
-					})}
-				/>}
-			>
-				<VendorSelect
-					selectionDefault={vendors}
-					selectionList={() => <VendorList/>}
-				/>
-			</FormItem>
+			/>
 		</VendorProviderControl>
-		<TagProviderControl
-			applyFilter={{
-				group: "taste",
-			}}
-			defaultOrderBy={{
-				sort: "asc",
-			}}
-		>
-			<FormItem
-				field={"tasteIds"}
-				hasTooltip
-				extra={<TagCreateInline
-					group={"taste"}
-					title={"shared.tag.taste.create.title"}
-					label={"shared.tag.taste.create.button"}
-					onSuccess={tag => setTags(tags => ({
-						...tags,
-						[tag.id]: tag,
-					}))}
-				/>}
-			>
-				<TagSelect
-					selectionDefault={tags}
-					translation={"common"}
-					mode={"multiple"}
-					selectionList={() => <TagList/>}
-					selectionProps={{
-						type: "multi",
-					}}
-					selectionProvider={{
-						applyFilter: {
-							group: "taste",
-						},
-					}}
-					selectionDrawer={{
-						title: "shared.taste.selection.title",
-					}}
-				/>
-			</FormItem>
-		</TagProviderControl>
-		<Divider/>
-		<Centered>
-			<Submit icon={<AromaIcon/>} label={"create"}/>
-		</Centered>
-	</AromaCreateDefaultForm>;
+		{/*<TagProviderControl*/}
+		{/*	applyFilter={{*/}
+		{/*		group: "taste",*/}
+		{/*	}}*/}
+		{/*	defaultOrderBy={{*/}
+		{/*		sort: "asc",*/}
+		{/*	}}*/}
+		{/*>*/}
+		{/*	<FormItem*/}
+		{/*		field={"tasteIds"}*/}
+		{/*		hasTooltip*/}
+		{/*		extra={<TagCreateInline*/}
+		{/*			group={"taste"}*/}
+		{/*			title={"shared.tag.taste.create.title"}*/}
+		{/*			label={"shared.tag.taste.create.button"}*/}
+		{/*			onSuccess={tag => setTags(tags => ({*/}
+		{/*				...tags,*/}
+		{/*				[tag.id]: tag,*/}
+		{/*			}))}*/}
+		{/*		/>}*/}
+		{/*	>*/}
+		{/*		<TagSelect*/}
+		{/*			selectionDefault={tags}*/}
+		{/*			translation={"common"}*/}
+		{/*			mode={"multiple"}*/}
+		{/*			selectionList={() => <TagList/>}*/}
+		{/*			selectionProps={{*/}
+		{/*				type: "multi",*/}
+		{/*			}}*/}
+		{/*			selectionProvider={{*/}
+		{/*				applyFilter: {*/}
+		{/*					group: "taste",*/}
+		{/*				},*/}
+		{/*			}}*/}
+		{/*			selectionDrawer={{*/}
+		{/*				title: "shared.taste.selection.title",*/}
+		{/*			}}*/}
+		{/*		/>*/}
+		{/*	</FormItem>*/}
+		{/*</TagProviderControl>*/}
+	</AromaCreateDefaultMobileForm>;
 };

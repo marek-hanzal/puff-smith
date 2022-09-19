@@ -3,7 +3,7 @@
  */
 
 import {IImportJob, IImportJobParams} from "@/puff-smith/jobs/import/interface";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, toLink} from "@leight-core/client";
+import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
 import {FC} from "react";
 
 export const ImportApiLink = "/api/file/import";
@@ -19,7 +19,16 @@ export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<IIm
 	useMutation={useImportMutation}
 	translation={ImportApiLink}
 	{...props}
-/>
+/>;
+
+export interface IImportDefaultMobileFormProps extends Partial<IMobileFormProps<IImportJobParams, IImportJob>> {
+}
+
+export const ImportDefaultMobileForm: FC<IImportDefaultMobileFormProps> = props => <MobileForm<IImportJobParams, IImportJob>
+	useMutation={useImportMutation}
+	translation={ImportApiLink}
+	{...props}
+/>;
 
 export const toImportLink = (queryParams?: IImportQueryParams) => toLink(ImportApiLink, queryParams);
 export const useImportLink = () => toImportLink;
