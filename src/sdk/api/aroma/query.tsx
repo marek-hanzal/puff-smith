@@ -173,12 +173,14 @@ export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISource
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: IAromaProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<IAromaSource>>;
 }
 
-export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<IAromaSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);

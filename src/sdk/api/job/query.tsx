@@ -173,12 +173,14 @@ export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: IJobProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<IJobSource>>;
 }
 
-export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<IJobSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);

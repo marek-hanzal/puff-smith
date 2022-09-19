@@ -2,6 +2,7 @@ import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
+import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {TagCreateInline} from "@/puff-smith/ui/tag/form/TagCreateInline";
 import {TagSelect} from "@/puff-smith/ui/tag/form/TagSelect";
 import {TagList} from "@/puff-smith/ui/tag/list/TagList";
@@ -12,15 +13,18 @@ import {AromaCreateDefaultForm, IAromaCreateDefaultFormProps} from "@/sdk/api/ar
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {TagProviderControl} from "@/sdk/api/tag/query";
 import {VendorProviderControl} from "@/sdk/api/vendor/query";
+import {ITag} from "@leight-core/api";
 import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
 import {Divider, message} from "antd";
-import {FC} from "react";
+import {FC, useState} from "react";
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultFormProps> {
 }
 
 export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}) => {
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
+	const [vendors, setVendors] = useState<Record<string, IVendor>>();
+	const [tags, setTags] = useState<Record<string, ITag>>();
 	return <AromaCreateDefaultForm
 		onSuccess={async response => {
 			message.success(response.t("success", response.response));
@@ -63,9 +67,14 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			<FormItem
 				field={"vendorId"}
 				required
-				extra={<VendorCreateInline/>}
+				extra={<VendorCreateInline
+					onSuccess={vendor => setVendors({
+						[vendor.id]: vendor,
+					})}
+				/>}
 			>
 				<VendorSelect
+					selectionDefault={vendors}
 					selectionList={() => <VendorList/>}
 				/>
 			</FormItem>
@@ -85,9 +94,14 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 					group={"taste"}
 					title={"shared.tag.taste.create.title"}
 					label={"shared.tag.taste.create.button"}
+					onSuccess={tag => setTags(tags => ({
+						...tags,
+						[tag.id]: tag,
+					}))}
 				/>}
 			>
 				<TagSelect
+					selectionDefault={tags}
 					translation={"common"}
 					mode={"multiple"}
 					selectionList={() => <TagList/>}

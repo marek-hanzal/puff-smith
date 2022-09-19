@@ -1,14 +1,14 @@
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
 import {IVendorInfiniteListSourceProps, VendorInfiniteListSource} from "@/sdk/api/vendor/query";
-import {ListItem, ListItemMeta} from "@leight-core/client";
+import {ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
+import {Typography} from "antd";
 import {FC} from "react";
-import {useTranslation} from "react-i18next";
 
 export interface IVendorListProps extends Partial<IVendorInfiniteListSourceProps> {
 }
 
 export const VendorList: FC<IVendorListProps> = props => {
-	const {t} = useTranslation();
+	const selectionContext = useOptionalSelectionContext();
 	return <VendorInfiniteListSource
 		withFulltext
 		{...props}
@@ -18,7 +18,9 @@ export const VendorList: FC<IVendorListProps> = props => {
 			extra={<SelectionBool selection={vendor}/>}
 		>
 			<ListItemMeta
-				title={vendor.name}
+				title={<Typography.Text onClick={() => selectionContext?.item(vendor)}>
+					{vendor.name}
+				</Typography.Text>}
 			/>
 		</ListItem>}
 	</VendorInfiniteListSource>;

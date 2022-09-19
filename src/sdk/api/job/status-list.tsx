@@ -173,12 +173,14 @@ export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IS
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: IStatusListProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<IJobStatusSource>>;
 }
 
-export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<IJobStatusSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);

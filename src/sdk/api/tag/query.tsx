@@ -129,7 +129,7 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagListSourceProps extends Partial<IListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -144,7 +144,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -159,7 +159,7 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</TagProvider>;
-};
+}
 
 export interface ITagSourceSelection {
 	selectionContext: ISelectionContext<ISourceItem<ITagSource>>;
@@ -173,12 +173,14 @@ export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: ITagProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<ITagSource>>;
 }
 
-export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<ITagSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);
@@ -243,7 +245,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
-};
+}
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();

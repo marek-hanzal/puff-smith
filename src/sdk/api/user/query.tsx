@@ -173,12 +173,14 @@ export interface IUserSourceSelectProps extends IQuerySourceSelectProps<ISourceI
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: IUserProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<IUserSource>>;
 }
 
-export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const UserSourceSelect: FC<IUserSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<IUserSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);

@@ -173,12 +173,14 @@ export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceI
 	selectionProps?: Partial<ISelectionProviderProps>;
 	selectionProvider?: IFileProviderControlProps;
 	selectionDrawer?: IDrawerButtonProps;
+	selectionDefault?: Record<string, ISourceItem<IFileSource>>;
 }
 
-export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
+export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
 	const formItem = useOptionalFormItemContext();
 	return selectionList ? <SelectionProvider<ISourceItem<IFileSource>>
 		type={"single"}
+		defaultSelection={selectionDefault}
 		onSelection={({selected}) => {
 			formItem?.setValue(selected);
 			formItem?.setErrors([]);
