@@ -48,7 +48,7 @@ import {
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {CheckOutline} from "antd-mobile-icons";
-import {ConsumerProps, FC, ReactNode, useRef} from "react";
+import {ConsumerProps, FC, ReactNode} from "react";
 
 export const StatusListApiLink = "/api/job/status-list";
 export const StatusListCountApiLink = "/api/job/status-list/count";
@@ -177,69 +177,65 @@ export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<IS
 
 export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IJobStatusSource>>>({});
-	return <Input.Group>
-		<Row>
-			<Col flex={"auto"}>
-				<StatusListProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IJobStatusSource>>
-						onSelect={({entity}) => {
-							selection.current[entity.id] = entity;
-						}}
-						onDeselect={({entity}) => {
-							delete selection.current[entity.id];
-						}}
-						onClear={() => {
-							selection.current = {};
-						}}
-						{...props}
-					/>
-				</StatusListProvider>
-			</Col>
-			<Col push={0}>
-				{selectionList && <DrawerButton
-					icon={<SelectOutlined/>}
-					title={"common.selection.StatusList.title"}
-					size={props.size}
-					tooltip={"common.selection.StatusList.title.tooltip"}
-					width={800}
-					type={"text"}
-					{...selectionDrawer}
-				>
-					<DrawerContext.Consumer>
-						{drawerContext => <StatusListProviderControl
-							defaultSize={10}
-							{...selectionProvider}
-						>
-							<SelectionProvider<ISourceItem<IJobStatusSource>>
-								type={"single"}
-								applySelection={selection.current}
-								onSelection={({selected, items}) => {
-									formItem?.setValue(selected);
-									selection.current = items;
-									drawerContext.close();
-								}}
-								{...selectionProps}
+	return selectionList ? <SelectionProvider<ISourceItem<IJobStatusSource>>
+		type={"single"}
+		onSelection={({selected}) => {
+			formItem?.setValue(selected);
+			formItem?.setErrors([]);
+		}}
+		{...selectionProps}
+	>
+		<SelectionContext.Consumer>
+			{selectionContext => <>
+				<Input.Group>
+					<Row>
+						<Col flex={"auto"}>
+							<StatusListProvider {...providerProps}>
+								<QuerySourceSelect<ISourceItem<IJobStatusSource>>
+									onSelect={({entity}) => selectionContext.item(entity)}
+									onDeselect={({entity}) => selectionContext.deItem(entity)}
+									onClear={() => selectionContext.clear()}
+									{...props}
+								/>
+							</StatusListProvider>
+						</Col>
+						<Col push={0}>
+							<DrawerButton
+								icon={<SelectOutlined/>}
+								title={"common.selection.StatusList.title"}
+								size={props.size}
+								tooltip={"common.selection.StatusList.title.tooltip"}
+								width={800}
+								type={"text"}
+								{...selectionDrawer}
 							>
-								<SelectionContext.Consumer>
-									{selectionContext => <>
+								<DrawerContext.Consumer>
+									{drawerContext => <StatusListProviderControl
+										defaultSize={10}
+										{...selectionProvider}
+									>
 										<BubbleButton
 											icon={<CheckOutline fontSize={32}/>}
-											onClick={() => selectionContext.handleSelection()}
+											onClick={() => {
+												selectionContext.handleSelection();
+												drawerContext.close();
+											}}
 										/>
 										{selectionList({
 											selectionContext,
 											drawerContext,
 										})}
-									</>}
-								</SelectionContext.Consumer>
-							</SelectionProvider>
-						</StatusListProviderControl>}
-					</DrawerContext.Consumer>
-				</DrawerButton>}
-			</Col>
-		</Row>
-	</Input.Group>;
+									</StatusListProviderControl>}
+								</DrawerContext.Consumer>
+							</DrawerButton>
+						</Col>
+					</Row>
+				</Input.Group>
+			</>}
+		</SelectionContext.Consumer>
+	</SelectionProvider> : <StatusListProvider {...providerProps}>
+		<QuerySourceSelect<ISourceItem<IJobStatusSource>> {...props}/>
+	</StatusListProvider>;
 };
 
 export interface IStatusListSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IJobStatusSource>>> {

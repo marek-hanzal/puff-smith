@@ -48,7 +48,7 @@ import {
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {CheckOutline} from "antd-mobile-icons";
-import {ConsumerProps, FC, ReactNode, useRef} from "react";
+import {ConsumerProps, FC, ReactNode} from "react";
 
 export const FileApiLink = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
@@ -177,69 +177,65 @@ export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceI
 
 export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IFileSource>>>({});
-	return <Input.Group>
-		<Row>
-			<Col flex={"auto"}>
-				<FileProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IFileSource>>
-						onSelect={({entity}) => {
-							selection.current[entity.id] = entity;
-						}}
-						onDeselect={({entity}) => {
-							delete selection.current[entity.id];
-						}}
-						onClear={() => {
-							selection.current = {};
-						}}
-						{...props}
-					/>
-				</FileProvider>
-			</Col>
-			<Col push={0}>
-				{selectionList && <DrawerButton
-					icon={<SelectOutlined/>}
-					title={"common.selection.File.title"}
-					size={props.size}
-					tooltip={"common.selection.File.title.tooltip"}
-					width={800}
-					type={"text"}
-					{...selectionDrawer}
-				>
-					<DrawerContext.Consumer>
-						{drawerContext => <FileProviderControl
-							defaultSize={10}
-							{...selectionProvider}
-						>
-							<SelectionProvider<ISourceItem<IFileSource>>
-								type={"single"}
-								applySelection={selection.current}
-								onSelection={({selected, items}) => {
-									formItem?.setValue(selected);
-									selection.current = items;
-									drawerContext.close();
-								}}
-								{...selectionProps}
+	return selectionList ? <SelectionProvider<ISourceItem<IFileSource>>
+		type={"single"}
+		onSelection={({selected}) => {
+			formItem?.setValue(selected);
+			formItem?.setErrors([]);
+		}}
+		{...selectionProps}
+	>
+		<SelectionContext.Consumer>
+			{selectionContext => <>
+				<Input.Group>
+					<Row>
+						<Col flex={"auto"}>
+							<FileProvider {...providerProps}>
+								<QuerySourceSelect<ISourceItem<IFileSource>>
+									onSelect={({entity}) => selectionContext.item(entity)}
+									onDeselect={({entity}) => selectionContext.deItem(entity)}
+									onClear={() => selectionContext.clear()}
+									{...props}
+								/>
+							</FileProvider>
+						</Col>
+						<Col push={0}>
+							<DrawerButton
+								icon={<SelectOutlined/>}
+								title={"common.selection.File.title"}
+								size={props.size}
+								tooltip={"common.selection.File.title.tooltip"}
+								width={800}
+								type={"text"}
+								{...selectionDrawer}
 							>
-								<SelectionContext.Consumer>
-									{selectionContext => <>
+								<DrawerContext.Consumer>
+									{drawerContext => <FileProviderControl
+										defaultSize={10}
+										{...selectionProvider}
+									>
 										<BubbleButton
 											icon={<CheckOutline fontSize={32}/>}
-											onClick={() => selectionContext.handleSelection()}
+											onClick={() => {
+												selectionContext.handleSelection();
+												drawerContext.close();
+											}}
 										/>
 										{selectionList({
 											selectionContext,
 											drawerContext,
 										})}
-									</>}
-								</SelectionContext.Consumer>
-							</SelectionProvider>
-						</FileProviderControl>}
-					</DrawerContext.Consumer>
-				</DrawerButton>}
-			</Col>
-		</Row>
-	</Input.Group>;
+									</FileProviderControl>}
+								</DrawerContext.Consumer>
+							</DrawerButton>
+						</Col>
+					</Row>
+				</Input.Group>
+			</>}
+		</SelectionContext.Consumer>
+	</SelectionProvider> : <FileProvider {...providerProps}>
+		<QuerySourceSelect<ISourceItem<IFileSource>> {...props}/>
+	</FileProvider>;
 };
 
 export interface IFileSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IFileSource>>> {

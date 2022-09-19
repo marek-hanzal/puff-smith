@@ -48,7 +48,7 @@ import {
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {CheckOutline} from "antd-mobile-icons";
-import {ConsumerProps, FC, ReactNode, useRef} from "react";
+import {ConsumerProps, FC, ReactNode} from "react";
 
 export const JobApiLink = "/api/job/query";
 export const JobCountApiLink = "/api/job/query/count";
@@ -177,69 +177,65 @@ export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 
 export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<IJobSource>>>({});
-	return <Input.Group>
-		<Row>
-			<Col flex={"auto"}>
-				<JobProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<IJobSource>>
-						onSelect={({entity}) => {
-							selection.current[entity.id] = entity;
-						}}
-						onDeselect={({entity}) => {
-							delete selection.current[entity.id];
-						}}
-						onClear={() => {
-							selection.current = {};
-						}}
-						{...props}
-					/>
-				</JobProvider>
-			</Col>
-			<Col push={0}>
-				{selectionList && <DrawerButton
-					icon={<SelectOutlined/>}
-					title={"common.selection.Job.title"}
-					size={props.size}
-					tooltip={"common.selection.Job.title.tooltip"}
-					width={800}
-					type={"text"}
-					{...selectionDrawer}
-				>
-					<DrawerContext.Consumer>
-						{drawerContext => <JobProviderControl
-							defaultSize={10}
-							{...selectionProvider}
-						>
-							<SelectionProvider<ISourceItem<IJobSource>>
-								type={"single"}
-								applySelection={selection.current}
-								onSelection={({selected, items}) => {
-									formItem?.setValue(selected);
-									selection.current = items;
-									drawerContext.close();
-								}}
-								{...selectionProps}
+	return selectionList ? <SelectionProvider<ISourceItem<IJobSource>>
+		type={"single"}
+		onSelection={({selected}) => {
+			formItem?.setValue(selected);
+			formItem?.setErrors([]);
+		}}
+		{...selectionProps}
+	>
+		<SelectionContext.Consumer>
+			{selectionContext => <>
+				<Input.Group>
+					<Row>
+						<Col flex={"auto"}>
+							<JobProvider {...providerProps}>
+								<QuerySourceSelect<ISourceItem<IJobSource>>
+									onSelect={({entity}) => selectionContext.item(entity)}
+									onDeselect={({entity}) => selectionContext.deItem(entity)}
+									onClear={() => selectionContext.clear()}
+									{...props}
+								/>
+							</JobProvider>
+						</Col>
+						<Col push={0}>
+							<DrawerButton
+								icon={<SelectOutlined/>}
+								title={"common.selection.Job.title"}
+								size={props.size}
+								tooltip={"common.selection.Job.title.tooltip"}
+								width={800}
+								type={"text"}
+								{...selectionDrawer}
 							>
-								<SelectionContext.Consumer>
-									{selectionContext => <>
+								<DrawerContext.Consumer>
+									{drawerContext => <JobProviderControl
+										defaultSize={10}
+										{...selectionProvider}
+									>
 										<BubbleButton
 											icon={<CheckOutline fontSize={32}/>}
-											onClick={() => selectionContext.handleSelection()}
+											onClick={() => {
+												selectionContext.handleSelection();
+												drawerContext.close();
+											}}
 										/>
 										{selectionList({
 											selectionContext,
 											drawerContext,
 										})}
-									</>}
-								</SelectionContext.Consumer>
-							</SelectionProvider>
-						</JobProviderControl>}
-					</DrawerContext.Consumer>
-				</DrawerButton>}
-			</Col>
-		</Row>
-	</Input.Group>;
+									</JobProviderControl>}
+								</DrawerContext.Consumer>
+							</DrawerButton>
+						</Col>
+					</Row>
+				</Input.Group>
+			</>}
+		</SelectionContext.Consumer>
+	</SelectionProvider> : <JobProvider {...providerProps}>
+		<QuerySourceSelect<ISourceItem<IJobSource>> {...props}/>
+	</JobProvider>;
 };
 
 export interface IJobSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IJobSource>>> {

@@ -48,7 +48,7 @@ import {
 import {useQueryClient} from "@tanstack/react-query";
 import {Col, Input, Row} from "antd";
 import {CheckOutline} from "antd-mobile-icons";
-import {ConsumerProps, FC, ReactNode, useRef} from "react";
+import {ConsumerProps, FC, ReactNode} from "react";
 
 export const TagApiLink = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
@@ -177,69 +177,65 @@ export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceIt
 
 export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, ...props}) => {
 	const formItem = useOptionalFormItemContext();
-	const selection = useRef<Record<string, ISourceItem<ITagSource>>>({});
-	return <Input.Group>
-		<Row>
-			<Col flex={"auto"}>
-				<TagProvider {...providerProps}>
-					<QuerySourceSelect<ISourceItem<ITagSource>>
-						onSelect={({entity}) => {
-							selection.current[entity.id] = entity;
-						}}
-						onDeselect={({entity}) => {
-							delete selection.current[entity.id];
-						}}
-						onClear={() => {
-							selection.current = {};
-						}}
-						{...props}
-					/>
-				</TagProvider>
-			</Col>
-			<Col push={0}>
-				{selectionList && <DrawerButton
-					icon={<SelectOutlined/>}
-					title={"common.selection.Tag.title"}
-					size={props.size}
-					tooltip={"common.selection.Tag.title.tooltip"}
-					width={800}
-					type={"text"}
-					{...selectionDrawer}
-				>
-					<DrawerContext.Consumer>
-						{drawerContext => <TagProviderControl
-							defaultSize={10}
-							{...selectionProvider}
-						>
-							<SelectionProvider<ISourceItem<ITagSource>>
-								type={"single"}
-								applySelection={selection.current}
-								onSelection={({selected, items}) => {
-									formItem?.setValue(selected);
-									selection.current = items;
-									drawerContext.close();
-								}}
-								{...selectionProps}
+	return selectionList ? <SelectionProvider<ISourceItem<ITagSource>>
+		type={"single"}
+		onSelection={({selected}) => {
+			formItem?.setValue(selected);
+			formItem?.setErrors([]);
+		}}
+		{...selectionProps}
+	>
+		<SelectionContext.Consumer>
+			{selectionContext => <>
+				<Input.Group>
+					<Row>
+						<Col flex={"auto"}>
+							<TagProvider {...providerProps}>
+								<QuerySourceSelect<ISourceItem<ITagSource>>
+									onSelect={({entity}) => selectionContext.item(entity)}
+									onDeselect={({entity}) => selectionContext.deItem(entity)}
+									onClear={() => selectionContext.clear()}
+									{...props}
+								/>
+							</TagProvider>
+						</Col>
+						<Col push={0}>
+							<DrawerButton
+								icon={<SelectOutlined/>}
+								title={"common.selection.Tag.title"}
+								size={props.size}
+								tooltip={"common.selection.Tag.title.tooltip"}
+								width={800}
+								type={"text"}
+								{...selectionDrawer}
 							>
-								<SelectionContext.Consumer>
-									{selectionContext => <>
+								<DrawerContext.Consumer>
+									{drawerContext => <TagProviderControl
+										defaultSize={10}
+										{...selectionProvider}
+									>
 										<BubbleButton
 											icon={<CheckOutline fontSize={32}/>}
-											onClick={() => selectionContext.handleSelection()}
+											onClick={() => {
+												selectionContext.handleSelection();
+												drawerContext.close();
+											}}
 										/>
 										{selectionList({
 											selectionContext,
 											drawerContext,
 										})}
-									</>}
-								</SelectionContext.Consumer>
-							</SelectionProvider>
-						</TagProviderControl>}
-					</DrawerContext.Consumer>
-				</DrawerButton>}
-			</Col>
-		</Row>
-	</Input.Group>;
+									</TagProviderControl>}
+								</DrawerContext.Consumer>
+							</DrawerButton>
+						</Col>
+					</Row>
+				</Input.Group>
+			</>}
+		</SelectionContext.Consumer>
+	</SelectionProvider> : <TagProvider {...providerProps}>
+		<QuerySourceSelect<ISourceItem<ITagSource>> {...props}/>
+	</TagProvider>;
 };
 
 export interface ITagSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ITagSource>>> {
