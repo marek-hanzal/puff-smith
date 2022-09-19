@@ -11,6 +11,7 @@ export const TagSelect: FC<ITagSelectProps> = ({translation, ...props}) => {
 	return <TagSourceSelect
 		showSearch
 		maxTagCount={2}
+		maxTagTextLength={9}
 		toOption={tag => ({
 			label: t(translation ? `${translation}.${tag.group}.${tag.tag}` : `${tag.group}.${tag.tag}`),
 			value: tag.id,
