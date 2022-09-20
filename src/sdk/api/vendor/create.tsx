@@ -20,7 +20,7 @@ export const VendorCreateDefaultForm: FC<IVendorCreateDefaultFormProps> = props 
 	useMutation={useVendorCreateMutation}
 	translation={VendorCreateApiLink}
 	{...props}
-/>;
+/>
 
 export interface IVendorCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<IVendorSource>, ISourceItem<IVendorSource>>> {
 }
@@ -29,7 +29,7 @@ export const VendorCreateDefaultMobileForm: FC<IVendorCreateDefaultMobileFormPro
 	useMutation={useVendorCreateMutation}
 	translation={VendorCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toVendorCreateLink = (queryParams?: IVendorCreateQueryParams) => toLink(VendorCreateApiLink, queryParams);
 export const useVendorCreateLink = () => toVendorCreateLink;

@@ -18,7 +18,7 @@ export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form
 	useMutation={useGenerateMutation}
 	translation={GenerateApiLink}
 	{...props}
-/>;
+/>
 
 export interface IGenerateDefaultMobileFormProps extends Partial<IMobileFormProps<void, string[]>> {
 }
@@ -27,7 +27,7 @@ export const GenerateDefaultMobileForm: FC<IGenerateDefaultMobileFormProps> = pr
 	useMutation={useGenerateMutation}
 	translation={GenerateApiLink}
 	{...props}
-/>;
+/>
 
 export const toGenerateLink = (queryParams?: IGenerateQueryParams) => toLink(GenerateApiLink, queryParams);
 export const useGenerateLink = () => toGenerateLink;

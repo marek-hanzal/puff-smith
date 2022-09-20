@@ -19,7 +19,7 @@ export const ImportDefaultForm: FC<IImportDefaultFormProps> = props => <Form<IIm
 	useMutation={useImportMutation}
 	translation={ImportApiLink}
 	{...props}
-/>;
+/>
 
 export interface IImportDefaultMobileFormProps extends Partial<IMobileFormProps<IImportJobParams, IImportJob>> {
 }
@@ -28,7 +28,7 @@ export const ImportDefaultMobileForm: FC<IImportDefaultMobileFormProps> = props 
 	useMutation={useImportMutation}
 	translation={ImportApiLink}
 	{...props}
-/>;
+/>
 
 export const toImportLink = (queryParams?: IImportQueryParams) => toLink(ImportApiLink, queryParams);
 export const useImportLink = () => toImportLink;

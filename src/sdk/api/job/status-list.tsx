@@ -3,18 +3,13 @@
  */
 
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
-import {SelectOutlined} from "@ant-design/icons";
-import {IDrawerContext, IQueryFilter, IQueryOrderBy, ISelectionContext, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BubbleButton,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
-	DrawerButton,
-	DrawerContext,
 	Filter,
 	FilterProvider,
-	IDrawerButtonProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -29,7 +24,6 @@ import {
 	List,
 	OrderByProvider,
 	QuerySourceSelect,
-	SelectionContext,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
@@ -38,7 +32,6 @@ import {
 	toLink,
 	useFilterContext,
 	useOptionalFilterContext,
-	useOptionalFormItemContext,
 	useOptionalOrderByContext,
 	useOptionalSelectionContext,
 	useOrderByContext,
@@ -46,9 +39,7 @@ import {
 	useSourceContext
 } from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {Col, Input, Row} from "antd";
-import {CheckOutline} from "antd-mobile-icons";
-import {ConsumerProps, FC, ReactNode} from "react";
+import {ConsumerProps, FC} from "react";
 
 export const StatusListApiLink = "/api/job/status-list";
 export const StatusListCountApiLink = "/api/job/status-list/count";
@@ -161,81 +152,13 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 	</StatusListProvider>;
 }
 
-export interface IStatusListSourceSelection {
-	selectionContext: ISelectionContext<ISourceItem<IJobStatusSource>>;
-	drawerContext: IDrawerContext;
-}
-
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobStatusSource>> {
 	toOption: IToOptionMapper<ISourceItem<IJobStatusSource>>;
 	providerProps?: Partial<IStatusListProviderProps>;
-	selectionList?: (context: IStatusListSourceSelection) => ReactNode;
-	selectionProps?: Partial<ISelectionProviderProps>;
-	selectionProvider?: IStatusListProviderControlProps;
-	selectionDrawer?: IDrawerButtonProps;
-	selectionDefault?: Record<string, ISourceItem<IJobStatusSource>>;
 }
 
-export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, selectionList, selectionProps, selectionProvider, selectionDrawer, selectionDefault, ...props}) => {
-	const formItem = useOptionalFormItemContext();
-	return selectionList ? <SelectionProvider<ISourceItem<IJobStatusSource>>
-		type={"single"}
-		defaultSelection={selectionDefault}
-		onSelection={({selected}) => {
-			formItem?.setValue(selected);
-			formItem?.setErrors([]);
-		}}
-		{...selectionProps}
-	>
-		<SelectionContext.Consumer>
-			{selectionContext => <>
-				<Input.Group>
-					<Row>
-						<Col flex={"auto"}>
-							<StatusListProvider {...providerProps}>
-								<QuerySourceSelect<ISourceItem<IJobStatusSource>>
-									onSelect={({entity}) => selectionContext.item(entity)}
-									onDeselect={({entity}) => selectionContext.deItem(entity)}
-									onClear={() => selectionContext.clear()}
-									{...props}
-								/>
-							</StatusListProvider>
-						</Col>
-						<Col push={0}>
-							<DrawerButton
-								icon={<SelectOutlined/>}
-								title={"common.selection.StatusList.title"}
-								size={props.size}
-								tooltip={"common.selection.StatusList.title.tooltip"}
-								width={800}
-								type={"text"}
-								{...selectionDrawer}
-							>
-								<DrawerContext.Consumer>
-									{drawerContext => <StatusListProviderControl
-										defaultSize={10}
-										{...selectionProvider}
-									>
-										<BubbleButton
-											icon={<CheckOutline fontSize={32}/>}
-											onClick={() => {
-												selectionContext.handleSelection();
-												drawerContext.close();
-											}}
-										/>
-										{selectionList({
-											selectionContext,
-											drawerContext,
-										})}
-									</StatusListProviderControl>}
-								</DrawerContext.Consumer>
-							</DrawerButton>
-						</Col>
-					</Row>
-				</Input.Group>
-			</>}
-		</SelectionContext.Consumer>
-	</SelectionProvider> : <StatusListProvider {...providerProps}>
+export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, ...props}) => {
+	return <StatusListProvider {...providerProps}>
 		<QuerySourceSelect<ISourceItem<IJobStatusSource>> {...props}/>
 	</StatusListProvider>;
 };

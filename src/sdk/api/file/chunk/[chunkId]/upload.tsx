@@ -19,7 +19,7 @@ export const UploadDefaultForm: FC<IUploadDefaultFormProps> = props => <Form<str
 	useMutation={useUploadMutation}
 	translation={UploadApiLink}
 	{...props}
-/>;
+/>
 
 export interface IUploadDefaultMobileFormProps extends Partial<IMobileFormProps<string, void, IChunkEndpointQuery>> {
 }
@@ -28,7 +28,7 @@ export const UploadDefaultMobileForm: FC<IUploadDefaultMobileFormProps> = props 
 	useMutation={useUploadMutation}
 	translation={UploadApiLink}
 	{...props}
-/>;
+/>
 
 export const toUploadLink = (queryParams?: IUploadQueryParams) => toLink(UploadApiLink, queryParams);
 export const useUploadLink = () => toUploadLink;

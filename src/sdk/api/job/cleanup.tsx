@@ -20,7 +20,7 @@ export const CleanupDefaultForm: FC<ICleanupDefaultFormProps> = props => <Form<I
 	useMutation={useCleanupMutation}
 	translation={CleanupApiLink}
 	{...props}
-/>;
+/>
 
 export interface ICleanupDefaultMobileFormProps extends Partial<IMobileFormProps<IQueryFilter<IJobQuery> | undefined, void>> {
 }
@@ -29,7 +29,7 @@ export const CleanupDefaultMobileForm: FC<ICleanupDefaultMobileFormProps> = prop
 	useMutation={useCleanupMutation}
 	translation={CleanupApiLink}
 	{...props}
-/>;
+/>
 
 export const toCleanupLink = (queryParams?: ICleanupQueryParams) => toLink(CleanupApiLink, queryParams);
 export const useCleanupLink = () => toCleanupLink;

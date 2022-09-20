@@ -20,7 +20,7 @@ export const CommitDefaultForm: FC<ICommitDefaultFormProps> = props => <Form<ICh
 	useMutation={useCommitMutation}
 	translation={CommitApiLink}
 	{...props}
-/>;
+/>
 
 export interface ICommitDefaultMobileFormProps extends Partial<IMobileFormProps<IChunkCommit, IFile, IChunkEndpointQuery>> {
 }
@@ -29,7 +29,7 @@ export const CommitDefaultMobileForm: FC<ICommitDefaultMobileFormProps> = props 
 	useMutation={useCommitMutation}
 	translation={CommitApiLink}
 	{...props}
-/>;
+/>
 
 export const toCommitLink = (queryParams?: ICommitQueryParams) => toLink(CommitApiLink, queryParams);
 export const useCommitLink = () => toCommitLink;
