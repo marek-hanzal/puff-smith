@@ -5,53 +5,73 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {VendorProviderControl} from "@/sdk/api/vendor/query";
+import {useVendorSource, VendorProvider, VendorProviderControl} from "@/sdk/api/vendor/query";
 import {ITag} from "@leight-core/api";
-import {ButtonBar, ButtonLink, IMobileFormItemProps, MobileFormItem, MobileFormItemContext} from "@leight-core/client";
+import {ButtonBar, ButtonLink, Drawer, IMobileFormItemProps, MobileFormItem, MobileFormItemContext, SelectionProvider, useSelectionContext, VisibleContext, VisibleProvider} from "@leight-core/client";
 import {Divider, message} from "antd";
-import {CheckList, Popup} from "antd-mobile";
-import {FC, useState} from "react";
+import {CheckList, Input} from "antd-mobile";
+import {ComponentProps, FC, useState} from "react";
+
+// export interface ICheckListItemProps {
+// }
+//
+// export const CheckListItem: FC<ICheckListItemProps> = () => {
+// }
+
+export interface IVendorCheckListProps extends Partial<ComponentProps<typeof CheckList>> {
+}
+
+export const VendorCheckList: FC<IVendorCheckListProps> = () => {
+	const sourceContext = useVendorSource();
+	const selectionContext = useSelectionContext();
+	return <CheckList>
+		{sourceContext.data().map(vendor => <CheckList.Item
+			key={`vendor-${vendor.id}`}
+			value={vendor.id}
+		>
+			{vendor.name}
+		</CheckList.Item>)}
+	</CheckList>;
+};
 
 export interface IMobileSelectProps extends IMobileFormItemProps {
 }
 
 export const MobileSelect: FC<IMobileSelectProps> = props => {
-	const [visible, setVisible] = useState(false);
+	console.log("Selection", useSelectionContext().selection());
 
-	/**
-	 * MAKE THE THING AS A DRAWER POPUP
-	 */
-
-	return <MobileFormItem
-		onClick={() => setVisible(true)}
-		{...props}
-	>
-		<MobileFormItemContext.Consumer>
-			{formItemContext => <>
-				{formItemContext.getValue()}
-				<Popup
-					visible={visible}
-					onMaskClick={() => {
-						setVisible(false);
-					}}
-					destroyOnClose
-				>
-					<CheckList
-						onChange={value => {
-							setVisible(false);
-							setTimeout(() => {
-								formItemContext.setValue(value);
-								formItemContext.setErrors([]);
-							}, 0);
-						}}
-					>
-						<CheckList.Item value="A">A</CheckList.Item>
-						<CheckList.Item value="B">B</CheckList.Item>
-					</CheckList>
-				</Popup>
-			</>}
-		</MobileFormItemContext.Consumer>
-	</MobileFormItem>;
+	return <VisibleProvider>
+		<VisibleContext.Consumer>
+			{visibleContext => <MobileFormItem
+				onClick={() => visibleContext.show()}
+				extra={<MobileFormItemContext.Consumer>
+					{formItemContext => <>
+						<Drawer
+							open={visibleContext.visible}
+							onClose={() => visibleContext.hide()}
+							destroyOnClose
+							closable={false}
+							bodyStyle={{padding: 0}}
+							title={"Blabla"}
+						>
+							<VendorProviderControl
+								defaultSize={DEFAULT_LIST_SIZE}
+							>
+								<VendorProvider
+									withCount
+								>
+									<VendorCheckList/>
+								</VendorProvider>
+							</VendorProviderControl>
+						</Drawer>
+					</>}
+				</MobileFormItemContext.Consumer>}
+				{...props}
+			>
+				<Input readOnly/>
+			</MobileFormItem>}
+		</VisibleContext.Consumer>
+	</VisibleProvider>;
 };
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
@@ -98,14 +118,12 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	>
 		<MobileFormItem field={"name"} required hasTooltip/>
 		<MobileFormItem field={"code"} hasTooltip/>
-		<VendorProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
-		>
+		<SelectionProvider type={"single"}>
 			<MobileSelect
 				field={"vendorId"}
 				required
 			/>
-		</VendorProviderControl>
+		</SelectionProvider>
 		{/*<TagProviderControl*/}
 		{/*	applyFilter={{*/}
 		{/*		group: "taste",*/}
