@@ -5,82 +5,16 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {useVendorSource, VendorProvider, VendorProviderControl} from "@/sdk/api/vendor/query";
-import {ITag} from "@leight-core/api";
-import {ButtonBar, ButtonLink, Drawer, IMobileFormItemProps, MobileFormItem, MobileFormItemContext, SelectionProvider, useSelectionContext, VisibleContext, VisibleProvider} from "@leight-core/client";
+import {VendorProvider, VendorProviderControl} from "@/sdk/api/vendor/query";
+import {ButtonBar, ButtonLink, DrawerSelectItem, ItemGroup, MobileFormItem} from "@leight-core/client";
 import {Divider, message} from "antd";
-import {CheckList, Input} from "antd-mobile";
-import {ComponentProps, FC, useState} from "react";
-
-// export interface ICheckListItemProps {
-// }
-//
-// export const CheckListItem: FC<ICheckListItemProps> = () => {
-// }
-
-export interface IVendorCheckListProps extends Partial<ComponentProps<typeof CheckList>> {
-}
-
-export const VendorCheckList: FC<IVendorCheckListProps> = () => {
-	const sourceContext = useVendorSource();
-	const selectionContext = useSelectionContext();
-	return <CheckList>
-		{sourceContext.data().map(vendor => <CheckList.Item
-			key={`vendor-${vendor.id}`}
-			value={vendor.id}
-		>
-			{vendor.name}
-		</CheckList.Item>)}
-	</CheckList>;
-};
-
-export interface IMobileSelectProps extends IMobileFormItemProps {
-}
-
-export const MobileSelect: FC<IMobileSelectProps> = props => {
-	console.log("Selection", useSelectionContext().selection());
-
-	return <VisibleProvider>
-		<VisibleContext.Consumer>
-			{visibleContext => <MobileFormItem
-				onClick={() => visibleContext.show()}
-				extra={<MobileFormItemContext.Consumer>
-					{formItemContext => <>
-						<Drawer
-							open={visibleContext.visible}
-							onClose={() => visibleContext.hide()}
-							destroyOnClose
-							closable={false}
-							bodyStyle={{padding: 0}}
-							title={"Blabla"}
-						>
-							<VendorProviderControl
-								defaultSize={DEFAULT_LIST_SIZE}
-							>
-								<VendorProvider
-									withCount
-								>
-									<VendorCheckList/>
-								</VendorProvider>
-							</VendorProviderControl>
-						</Drawer>
-					</>}
-				</MobileFormItemContext.Consumer>}
-				{...props}
-			>
-				<Input readOnly/>
-			</MobileFormItem>}
-		</VisibleContext.Consumer>
-	</VisibleProvider>;
-};
+import {FC} from "react";
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
 }
 
 export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}) => {
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
-	const [vendors, setVendors] = useState<Record<string, IVendor>>();
-	const [tags, setTags] = useState<Record<string, ITag>>();
 	return <AromaCreateDefaultMobileForm
 		onSuccess={async response => {
 			message.success(response.t("success", response.response));
@@ -118,12 +52,26 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	>
 		<MobileFormItem field={"name"} required hasTooltip/>
 		<MobileFormItem field={"code"} hasTooltip/>
-		<SelectionProvider type={"single"}>
-			<MobileSelect
-				field={"vendorId"}
-				required
-			/>
-		</SelectionProvider>
+		<ItemGroup prefix={"bla"}>
+			<VendorProviderControl
+				defaultSize={DEFAULT_LIST_SIZE}
+			>
+				<VendorProvider
+					withCount
+				>
+					<DrawerSelectItem<IVendor, string>
+						field={"vendorId"}
+						required
+						render={vendor => vendor.name}
+						drawerSelectProps={{
+							translation: {
+								text: "shared.vendor.select.title",
+							}
+						}}
+					/>
+				</VendorProvider>
+			</VendorProviderControl>
+		</ItemGroup>
 		{/*<TagProviderControl*/}
 		{/*	applyFilter={{*/}
 		{/*		group: "taste",*/}
