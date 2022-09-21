@@ -10,7 +10,11 @@ export default withMarketLayout(function Index() {
 			icon={<AromaIcon/>}
 			onBack={navigate => navigate("/market/aroma")}
 		>
-			<AromaCreateForm/>
+			<AromaCreateForm
+				onSuccess={({navigate, response}) => {
+					navigate("/market/aroma/[aromaId]", {aromaId: response.id});
+				}}
+			/>
 		</MobileMarketPage>
 	</>;
 });

@@ -1,3 +1,4 @@
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {AromaContentInline} from "@/puff-smith/ui/aroma/inline/AromaContentInline";
@@ -36,6 +37,7 @@ export const AromaView: FC<IAromaViewProps> = ({aroma, ...props}) => {
 					items: {
 						steep: aroma.steep ? dayjs.duration(aroma.steep, "days").humanize() : undefined,
 						tastes: aroma.tastes ? <Tags tags={aroma.tastes} translation={"common"}/> : undefined,
+						nicotine: <NicotineInline nicotine={aroma.nicotine}/>,
 					},
 				},
 			]}

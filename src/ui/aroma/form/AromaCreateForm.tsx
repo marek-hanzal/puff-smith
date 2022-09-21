@@ -5,7 +5,7 @@ import {AromaFields} from "@/puff-smith/ui/aroma/form/AromaFields";
 import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {ButtonBar, ButtonLink} from "@leight-core/client";
-import {Divider, message} from "antd";
+import {Divider} from "antd";
 import {FC} from "react";
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
@@ -15,7 +15,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	const aromaQueryInvalidate = useAromaQueryInvalidate();
 	return <AromaCreateDefaultMobileForm
 		onSuccess={async response => {
-			message.success(response.t("success", response.response));
 			await aromaQueryInvalidate();
 			onSuccess?.(response);
 		}}
