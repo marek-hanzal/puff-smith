@@ -52,7 +52,7 @@ export const useVendorQuery = createQueryHook<void, ISourceItem<IVendorSource>, 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
-};
+}
 
 export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;

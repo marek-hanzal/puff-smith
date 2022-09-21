@@ -5,6 +5,8 @@
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const UserDrawerItem: FC<IUserDrawerItemProps> = props => {
 	return <UserProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IUserSource>>
-			ofSelection={(values, selectionContext) => values ? UserPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: UserApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IUserSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? UserPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: UserApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</UserProvider>;
-};
+}

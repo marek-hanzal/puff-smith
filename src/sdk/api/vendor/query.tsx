@@ -5,6 +5,8 @@
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const VendorDrawerItem: FC<IVendorDrawerItemProps> = props => {
 	return <VendorProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IVendorSource>>
-			ofSelection={(values, selectionContext) => values ? VendorPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: VendorApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IVendorSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? VendorPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: VendorApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</VendorProvider>;
-};
+}

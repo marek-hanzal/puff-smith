@@ -5,6 +5,8 @@
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const AromaDrawerItem: FC<IAromaDrawerItemProps> = props => {
 	return <AromaProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IAromaSource>>
-			ofSelection={(values, selectionContext) => values ? AromaPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: AromaApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IAromaSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? AromaPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: AromaApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</AromaProvider>;
-};
+}

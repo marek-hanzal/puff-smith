@@ -5,6 +5,8 @@
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const TagDrawerItem: FC<ITagDrawerItemProps> = props => {
 	return <TagProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<ITagSource>>
-			ofSelection={(values, selectionContext) => values ? TagPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: TagApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<ITagSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? TagPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: TagApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</TagProvider>;
-};
+}

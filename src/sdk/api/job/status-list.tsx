@@ -5,6 +5,8 @@
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = props => {
 	return <StatusListProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IJobStatusSource>>
-			ofSelection={(values, selectionContext) => values ? StatusListPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: StatusListApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IJobStatusSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? StatusListPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: StatusListApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</StatusListProvider>;
-};
+}

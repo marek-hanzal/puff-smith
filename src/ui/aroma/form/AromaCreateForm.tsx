@@ -10,6 +10,7 @@ import {TagDrawerItem, TagProviderControl} from "@/sdk/api/tag/query";
 import {VendorDrawerItem, VendorProviderControl} from "@/sdk/api/vendor/query";
 import {ButtonBar, ButtonLink, MobileFormItem, Tags, Translate} from "@leight-core/client";
 import {Divider, message} from "antd";
+import {Form} from "antd-mobile";
 import {FC} from "react";
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
@@ -56,6 +57,9 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 		icon={<AromaIcon/>}
 		{...props}
 	>
+		<Form.Header>
+			<Translate text={"shared.aroma.form.common.header"}/>
+		</Form.Header>
 		<MobileFormItem field={"name"} required hasTooltip/>
 		<MobileFormItem field={"code"} hasTooltip/>
 		<VendorProviderControl
@@ -69,6 +73,9 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				icon={<VendorIcon/>}
 			/>
 		</VendorProviderControl>
+		<Form.Header>
+			<Translate text={"shared.aroma.form.properties.header"}/>
+		</Form.Header>
 		<TagProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 			applyFilter={{
@@ -86,41 +93,5 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				icon={<LiquidIcon/>}
 			/>
 		</TagProviderControl>
-
-		{/*<TagProviderControl*/}
-
-		{/*>*/}
-		{/*	<FormItem*/}
-		{/*		field={"tasteIds"}*/}
-		{/*		hasTooltip*/}
-		{/*		extra={<TagCreateInline*/}
-		{/*			group={"taste"}*/}
-		{/*			title={"shared.tag.taste.create.title"}*/}
-		{/*			label={"shared.tag.taste.create.button"}*/}
-		{/*			onSuccess={tag => setTags(tags => ({*/}
-		{/*				...tags,*/}
-		{/*				[tag.id]: tag,*/}
-		{/*			}))}*/}
-		{/*		/>}*/}
-		{/*	>*/}
-		{/*		<TagSelect*/}
-		{/*			selectionDefault={tags}*/}
-		{/*			translation={"common"}*/}
-		{/*			mode={"multiple"}*/}
-		{/*			selectionList={() => <TagList/>}*/}
-		{/*			selectionProps={{*/}
-		{/*				type: "multi",*/}
-		{/*			}}*/}
-		{/*			selectionProvider={{*/}
-		{/*				applyFilter: {*/}
-		{/*					group: "taste",*/}
-		{/*				},*/}
-		{/*			}}*/}
-		{/*			selectionDrawer={{*/}
-		{/*				title: "shared.taste.selection.title",*/}
-		{/*			}}*/}
-		{/*		/>*/}
-		{/*	</FormItem>*/}
-		{/*</TagProviderControl>*/}
 	</AromaCreateDefaultMobileForm>;
 };

@@ -5,6 +5,8 @@
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const JobDrawerItem: FC<IJobDrawerItemProps> = props => {
 	return <JobProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IJobSource>>
-			ofSelection={(values, selectionContext) => values ? JobPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: JobApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IJobSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? JobPromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: JobApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</JobProvider>;
-};
+}

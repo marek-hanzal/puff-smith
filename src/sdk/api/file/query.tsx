@@ -5,6 +5,8 @@
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
+	BlockContext,
+	BlockProvider,
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
@@ -195,15 +197,25 @@ export const FileDrawerItem: FC<IFileDrawerItemProps> = props => {
 	return <FileProvider
 		withCount
 	>
-		<DrawerSelectItem<ISourceItem<IFileSource>>
-			ofSelection={(values, selectionContext) => values ? FilePromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
-			drawerSelectProps={{
-				translation: {
-					namespace: FileApiLink,
-					text: "select.title",
-				}
-			}}
-			{...props}
-		/>
+		<BlockProvider>
+			<BlockContext.Consumer>
+				{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
+					ofSelection={({value, selectionContext}) => {
+						value && blockContext.block();
+						value ? FilePromise({filter: {id: value as any}}).then(items => {
+							selectionContext.items(items, true);
+							blockContext.unblock(true);
+						}) : undefined;
+					}}
+					drawerSelectProps={{
+						translation: {
+							namespace: FileApiLink,
+							text: "select.title",
+						}
+					}}
+					{...props}
+				/>}
+			</BlockContext.Consumer>
+		</BlockProvider>
 	</FileProvider>;
-};
+}
