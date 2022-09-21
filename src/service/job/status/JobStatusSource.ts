@@ -21,6 +21,7 @@ export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> impl
 
 	async map(status: ISourceEntity<IJobStatusSource>): Promise<ISourceItem<IJobStatusSource>> {
 		return {
+			id: status,
 			value: status,
 			label: status,
 		};
