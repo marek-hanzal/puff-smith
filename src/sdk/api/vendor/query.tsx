@@ -217,5 +217,5 @@ export const VendorDrawerItem: FC<IVendorDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</VendorProvider>;
+	</VendorProvider>
 }

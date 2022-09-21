@@ -2,6 +2,11 @@
 @import './json.css';
 @import "~nprogress/nprogress.css";
 
+body {
+	overflow: hidden;
+	overscroll-behavior: contain;
+}
+
 .module-menu {
 	border: none;
 	justify-content: end;

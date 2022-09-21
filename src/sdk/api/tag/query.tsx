@@ -217,5 +217,5 @@ export const TagDrawerItem: FC<ITagDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</TagProvider>;
+	</TagProvider>
 }

@@ -217,5 +217,5 @@ export const AromaDrawerItem: FC<IAromaDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</AromaProvider>;
+	</AromaProvider>
 }

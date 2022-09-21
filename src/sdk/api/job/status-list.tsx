@@ -217,5 +217,5 @@ export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</StatusListProvider>;
+	</StatusListProvider>
 }

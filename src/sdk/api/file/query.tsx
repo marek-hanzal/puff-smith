@@ -217,5 +217,5 @@ export const FileDrawerItem: FC<IFileDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</FileProvider>;
+	</FileProvider>
 }

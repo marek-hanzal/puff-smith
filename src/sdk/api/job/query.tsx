@@ -217,5 +217,5 @@ export const JobDrawerItem: FC<IJobDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</JobProvider>;
+	</JobProvider>
 }

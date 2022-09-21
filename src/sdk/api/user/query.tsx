@@ -217,5 +217,5 @@ export const UserDrawerItem: FC<IUserDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</UserProvider>;
+	</UserProvider>
 }
