@@ -67,7 +67,6 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				render={vendor => vendor.name}
 				toPreview={values => values?.single?.name}
 				icon={<VendorIcon/>}
-
 			/>
 		</VendorProviderControl>
 		<TagProviderControl
