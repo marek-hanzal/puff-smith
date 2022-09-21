@@ -9,8 +9,8 @@ import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {TagDrawerItem, TagProviderControl} from "@/sdk/api/tag/query";
 import {VendorDrawerItem, VendorProviderControl} from "@/sdk/api/vendor/query";
 import {ButtonBar, ButtonLink, MobileFormItem, Tags, Translate} from "@leight-core/client";
-import {Divider, message} from "antd";
-import {Form} from "antd-mobile";
+import {Divider, message, Space} from "antd";
+import {Form, Slider, Stepper} from "antd-mobile";
 import {FC} from "react";
 
 export interface IAromaCreateFormProps extends Partial<IAromaCreateDefaultMobileFormProps> {
@@ -28,16 +28,13 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			content: 12,
 			volume: 60,
 			steep: 14,
-			vgpg: 100,
-			tasteIds: [
-				"cl85yh06g5472g8kijif198t1",
-				"cl85ygzpo4610g8kicrjfmjp0",
-			],
+			nicotine: 0,
+			pg: 100,
 		})}
-		toMutation={({vgpg, ...values}) => ({
+		toMutation={({pg, ...values}) => ({
 			...values,
-			pg: vgpg,
-			vg: 100 - vgpg,
+			pg,
+			vg: 100 - pg,
 		})}
 		withTokenProps={{
 			tokens: [
@@ -73,6 +70,63 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				icon={<VendorIcon/>}
 			/>
 		</VendorProviderControl>
+		<Form.Header>
+			<Translate text={"shared.aroma.form.content.header"}/>
+		</Form.Header>
+		<MobileFormItem
+			field={"content"}
+			hasTooltip
+			required
+		>
+			<Stepper min={0} max={1000}/>
+		</MobileFormItem>
+		<MobileFormItem
+			field={"nicotine"}
+			hasTooltip
+		>
+			<Stepper min={0} max={50}/>
+		</MobileFormItem>
+		<MobileFormItem
+			field={"volume"}
+			hasTooltip
+			required
+		>
+			<Stepper min={0} max={1000}/>
+		</MobileFormItem>
+		<MobileFormItem
+			field={"pg"}
+			hasTooltip
+			required
+		>
+			<Slider
+				ticks
+				marks={{
+					100: 100,
+					90: 90,
+					80: 80,
+					70: 70,
+					60: 60,
+					50: 50,
+					40: 40,
+					20: 20,
+					30: 30,
+					10: 10,
+					0: 0,
+				}}
+				popover={value => <Space>
+					{100 - value}
+					/
+					{value}
+				</Space>}
+			/>
+		</MobileFormItem>
+		<MobileFormItem
+			field={"steep"}
+			hasTooltip
+			required
+		>
+			<Stepper min={0} max={365}/>
+		</MobileFormItem>
 		<Form.Header>
 			<Translate text={"shared.aroma.form.properties.header"}/>
 		</Form.Header>

@@ -558,6 +558,7 @@ model Aroma {
   volume   Int
   pg       Int
   vg       Int
+  nicotine Int?    @default(0)
   vendorId String
   vendor   Vendor  @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   steep    Int

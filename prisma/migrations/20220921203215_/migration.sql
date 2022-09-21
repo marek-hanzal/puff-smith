@@ -455,6 +455,7 @@ CREATE TABLE "Aroma" (
     "volume" INTEGER NOT NULL,
     "pg" INTEGER NOT NULL,
     "vg" INTEGER NOT NULL,
+    "nicotine" INTEGER DEFAULT 0,
     "vendorId" TEXT NOT NULL,
     "steep" INTEGER NOT NULL,
     "userId" TEXT,
