@@ -14,8 +14,11 @@ export const VendorCreateInline: FC<IVendorCreateInlineProps> = ({onSuccess, ...
 		type={"link"}
 		size={"small"}
 		icon={<PlusOutlined/>}
-		title={"shared.vendor.create.title"}
-		label={"shared.vendor.create.button"}
+		translation={{
+			namespace: "shared.vendor.create",
+			text: "title",
+		}}
+		label={"button"}
 		{...props}
 	>
 		<VendorCreateForm

@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,8 +76,8 @@ export const AromaProvider: FC<IAromaProviderProps> = props => {
 export const toAromaLink = (queryParams?: IAromaQueryParams) => toLink(AromaApiLink, queryParams);
 export const useAromaLink = () => toAromaLink;
 
-export const useAromaPromise = createPromiseHook<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>, IAromaQueryParams>(AromaApiLink, "post");
-export const AromaPromise = createPromise<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>, IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaPromise = createPromiseHook<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
+export const AromaPromise = createPromise<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
 
 export interface IAromaFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAromaSource>>>> {
 }
@@ -185,3 +187,23 @@ export const useAromaQueryInvalidate = (withCount: boolean = true) => {
 
 export const useAromaOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaSource>>();
 export const useAromaSelectionContext = () => useSelectionContext<ISourceItem<IAromaSource>>();
+
+export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IAromaSource>>, "ofSelection"> {
+}
+
+export const AromaDrawerItem: FC<IAromaDrawerItemProps> = props => {
+	return <AromaProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<IAromaSource>>
+			ofSelection={(values, selectionContext) => values ? AromaPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: AromaApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</AromaProvider>;
+};

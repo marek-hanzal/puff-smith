@@ -1,12 +1,14 @@
 import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
-import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
-import {VendorProvider, VendorProviderControl} from "@/sdk/api/vendor/query";
-import {ButtonBar, ButtonLink, DrawerSelectItem, ItemGroup, MobileFormItem} from "@leight-core/client";
+import {TagDrawerItem, TagProviderControl} from "@/sdk/api/tag/query";
+import {VendorDrawerItem, VendorProviderControl} from "@/sdk/api/vendor/query";
+import {ButtonBar, ButtonLink, MobileFormItem, Tags, Translate} from "@leight-core/client";
 import {Divider, message} from "antd";
 import {FC} from "react";
 
@@ -26,6 +28,10 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 			volume: 60,
 			steep: 14,
 			vgpg: 100,
+			tasteIds: [
+				"cl85yh06g5472g8kijif198t1",
+				"cl85ygzpo4610g8kicrjfmjp0",
+			],
 		})}
 		toMutation={({vgpg, ...values}) => ({
 			...values,
@@ -52,33 +58,38 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 	>
 		<MobileFormItem field={"name"} required hasTooltip/>
 		<MobileFormItem field={"code"} hasTooltip/>
-		<ItemGroup prefix={"bla"}>
-			<VendorProviderControl
-				defaultSize={DEFAULT_LIST_SIZE}
-			>
-				<VendorProvider
-					withCount
-				>
-					<DrawerSelectItem<IVendor, string>
-						field={"vendorId"}
-						required
-						render={vendor => vendor.name}
-						drawerSelectProps={{
-							translation: {
-								text: "shared.vendor.select.title",
-							}
-						}}
-					/>
-				</VendorProvider>
-			</VendorProviderControl>
-		</ItemGroup>
+		<VendorProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
+		>
+			<VendorDrawerItem
+				field={"vendorId"}
+				required
+				render={vendor => vendor.name}
+				toPreview={values => values?.single?.name}
+				icon={<VendorIcon/>}
+
+			/>
+		</VendorProviderControl>
+		<TagProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
+			applyFilter={{
+				group: "taste",
+			}}
+			defaultOrderBy={{
+				sort: "asc",
+			}}
+		>
+			<TagDrawerItem
+				type={"multi"}
+				field={"tasteIds"}
+				render={tag => <Translate namespace={"common.taste"} text={tag.tag}/>}
+				toPreview={values => <Tags translation={"common"} tags={values?.selection}/>}
+				icon={<LiquidIcon/>}
+			/>
+		</TagProviderControl>
+
 		{/*<TagProviderControl*/}
-		{/*	applyFilter={{*/}
-		{/*		group: "taste",*/}
-		{/*	}}*/}
-		{/*	defaultOrderBy={{*/}
-		{/*		sort: "asc",*/}
-		{/*	}}*/}
+
 		{/*>*/}
 		{/*	<FormItem*/}
 		{/*		field={"tasteIds"}*/}

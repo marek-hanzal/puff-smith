@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,8 +76,8 @@ export const VendorProvider: FC<IVendorProviderProps> = props => {
 export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
-export const useVendorPromise = createPromiseHook<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>, IVendorQueryParams>(VendorApiLink, "post");
-export const VendorPromise = createPromise<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>, IVendorQueryParams>(VendorApiLink, "post");
+export const useVendorPromise = createPromiseHook<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
+export const VendorPromise = createPromise<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 
 export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IVendorSource>>>> {
 }
@@ -185,3 +187,23 @@ export const useVendorQueryInvalidate = (withCount: boolean = true) => {
 
 export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IVendorSource>>();
 export const useVendorSelectionContext = () => useSelectionContext<ISourceItem<IVendorSource>>();
+
+export interface IVendorDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IVendorSource>>, "ofSelection"> {
+}
+
+export const VendorDrawerItem: FC<IVendorDrawerItemProps> = props => {
+	return <VendorProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<IVendorSource>>
+			ofSelection={(values, selectionContext) => values ? VendorPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: VendorApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</VendorProvider>;
+};

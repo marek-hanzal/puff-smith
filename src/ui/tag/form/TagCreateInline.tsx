@@ -16,8 +16,11 @@ export const TagCreateInline: FC<ITagCreateInlineProps> = ({group, onSuccess, ..
 		type={"link"}
 		size={"small"}
 		icon={<PlusOutlined/>}
-		title={"lab.tag.create.title"}
-		label={"lab.tag.create.button"}
+		translation={{
+			namespace: "lab.tag.create",
+			text: "title",
+		}}
+		label={"button"}
 		{...props}
 	>
 		<TagCreateForm

@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,16 +76,16 @@ export const UserProvider: FC<IUserProviderProps> = props => {
 export const toUserLink = (queryParams?: IUserQueryParams) => toLink(UserApiLink, queryParams);
 export const useUserLink = () => toUserLink;
 
-export const useUserPromise = createPromiseHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>, IUserQueryParams>(UserApiLink, "post");
-export const UserPromise = createPromise<ISourceQuery<IUserSource>, ISourceItem<IUserSource>, IUserQueryParams>(UserApiLink, "post");
+export const useUserPromise = createPromiseHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
+export const UserPromise = createPromise<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
 
 export interface IUserFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IUserSource>>>> {
 }
 
 export const UserFilterProvider: FC<IUserFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
-export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>()
-export const useUserFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>()
+export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
+export const useUserFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
 
 export interface IUserProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IUserSource>>> {
 }
@@ -185,3 +187,23 @@ export const useUserQueryInvalidate = (withCount: boolean = true) => {
 
 export const useUserOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserSource>>();
 export const useUserSelectionContext = () => useSelectionContext<ISourceItem<IUserSource>>();
+
+export interface IUserDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IUserSource>>, "ofSelection"> {
+}
+
+export const UserDrawerItem: FC<IUserDrawerItemProps> = props => {
+	return <UserProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<IUserSource>>
+			ofSelection={(values, selectionContext) => values ? UserPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: UserApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</UserProvider>;
+};

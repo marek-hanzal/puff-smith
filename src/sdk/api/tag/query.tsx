@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,8 +76,8 @@ export const TagProvider: FC<ITagProviderProps> = props => {
 export const toTagLink = (queryParams?: ITagQueryParams) => toLink(TagApiLink, queryParams);
 export const useTagLink = () => toTagLink;
 
-export const useTagPromise = createPromiseHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>, ITagQueryParams>(TagApiLink, "post");
-export const TagPromise = createPromise<ISourceQuery<ITagSource>, ISourceItem<ITagSource>, ITagQueryParams>(TagApiLink, "post");
+export const useTagPromise = createPromiseHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
+export const TagPromise = createPromise<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
 
 export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ITagSource>>>> {
 }
@@ -185,3 +187,23 @@ export const useTagQueryInvalidate = (withCount: boolean = true) => {
 
 export const useTagOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITagSource>>();
 export const useTagSelectionContext = () => useSelectionContext<ISourceItem<ITagSource>>();
+
+export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITagSource>>, "ofSelection"> {
+}
+
+export const TagDrawerItem: FC<ITagDrawerItemProps> = props => {
+	return <TagProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<ITagSource>>
+			ofSelection={(values, selectionContext) => values ? TagPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: TagApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</TagProvider>;
+};

@@ -16,6 +16,12 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		return vendor;
 	}
 
+	async $get(id: string): Promise<ISourceEntity<IVendorSource>> {
+		return this.prisma.vendor.findUniqueOrThrow({
+			where: {id},
+		});
+	}
+
 	async $create(create: ISourceCreate<IVendorSource>): Promise<ISourceEntity<IVendorSource>> {
 		return this.prisma.vendor.create({
 			data: {

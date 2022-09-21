@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,16 +76,16 @@ export const StatusListProvider: FC<IStatusListProviderProps> = props => {
 export const toStatusListLink = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
 export const useStatusListLink = () => toStatusListLink;
 
-export const useStatusListPromise = createPromiseHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>, IStatusListQueryParams>(StatusListApiLink, "post");
-export const StatusListPromise = createPromise<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>, IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListPromise = createPromiseHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const StatusListPromise = createPromise<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
 
 export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>>> {
 }
 
 export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>()
-export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>()
+export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
 
 export interface IStatusListProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobStatusSource>>> {
 }
@@ -185,3 +187,23 @@ export const useStatusListQueryInvalidate = (withCount: boolean = true) => {
 
 export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobStatusSource>>();
 export const useStatusListSelectionContext = () => useSelectionContext<ISourceItem<IJobStatusSource>>();
+
+export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobStatusSource>>, "ofSelection"> {
+}
+
+export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = props => {
+	return <StatusListProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<IJobStatusSource>>
+			ofSelection={(values, selectionContext) => values ? StatusListPromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: StatusListApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</StatusListProvider>;
+};

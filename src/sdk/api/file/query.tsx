@@ -8,8 +8,10 @@ import {
 	createPromise,
 	createPromiseHook,
 	createQueryHook,
+	DrawerSelectItem,
 	Filter,
 	FilterProvider,
+	IDrawerSelectItemProps,
 	IFilterProviderProps,
 	IFilterWithoutTranslationProps,
 	IInfiniteListProps,
@@ -74,16 +76,16 @@ export const FileProvider: FC<IFileProviderProps> = props => {
 export const toFileLink = (queryParams?: IFileQueryParams) => toLink(FileApiLink, queryParams);
 export const useFileLink = () => toFileLink;
 
-export const useFilePromise = createPromiseHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>, IFileQueryParams>(FileApiLink, "post");
-export const FilePromise = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>, IFileQueryParams>(FileApiLink, "post");
+export const useFilePromise = createPromiseHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const FilePromise = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 
 export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IFileSource>>>> {
 }
 
 export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>()
-export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>()
+export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
+export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
 
 export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFileSource>>> {
 }
@@ -185,3 +187,23 @@ export const useFileQueryInvalidate = (withCount: boolean = true) => {
 
 export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();
 export const useFileSelectionContext = () => useSelectionContext<ISourceItem<IFileSource>>();
+
+export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IFileSource>>, "ofSelection"> {
+}
+
+export const FileDrawerItem: FC<IFileDrawerItemProps> = props => {
+	return <FileProvider
+		withCount
+	>
+		<DrawerSelectItem<ISourceItem<IFileSource>>
+			ofSelection={(values, selectionContext) => values ? FilePromise({filter: {id: values as any}}).then(items => selectionContext.items(items, true)) : undefined}
+			drawerSelectProps={{
+				translation: {
+					namespace: FileApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>
+	</FileProvider>;
+};
