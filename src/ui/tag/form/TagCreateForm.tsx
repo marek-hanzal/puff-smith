@@ -1,19 +1,19 @@
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
-import {ITagCreateDefaultFormProps, TagCreateDefaultForm} from "@/sdk/api/tag/create";
+import {ITagCreateDefaultMobileFormProps, TagCreateDefaultMobileForm} from "@/sdk/api/tag/create";
 import {useTagQueryInvalidate} from "@/sdk/api/tag/query";
-import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
-import {Divider, InputNumber, message} from "antd";
+import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
+import {Divider} from "antd";
+import {Stepper} from "antd-mobile";
 import {FC} from "react";
 
-export interface ITagCreateFormProps extends Partial<ITagCreateDefaultFormProps> {
+export interface ITagCreateFormProps extends Partial<ITagCreateDefaultMobileFormProps> {
 }
 
 export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) => {
 	const tagQueryInvalidate = useTagQueryInvalidate();
-	return <TagCreateDefaultForm
+	return <TagCreateDefaultMobileForm
 		onSuccess={async response => {
-			message.success(response.t("shared.tag.create.success", response.response));
 			await tagQueryInvalidate();
 			onSuccess?.(response);
 		}}
@@ -34,14 +34,10 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 		}}
 		{...props}
 	>
-		<FormItem field={"tag"} required hasTooltip/>
-		<FormItem field={"sort"} hasTooltip>
-			<InputNumber min={0} style={{width: "100%"}}/>
-		</FormItem>
-		<FormItem field={"group"} required hasTooltip/>
-		<Divider/>
-		<Centered>
-			<Submit label={"create"}/>
-		</Centered>
-	</TagCreateDefaultForm>;
+		<MobileFormItem field={"tag"} required hasTooltip/>
+		<MobileFormItem field={"sort"} hasTooltip>
+			<Stepper min={-10000} max={10000}/>
+		</MobileFormItem>
+		<MobileFormItem field={"group"} required hasTooltip/>
+	</TagCreateDefaultMobileForm>;
 };

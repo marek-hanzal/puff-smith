@@ -1,20 +1,19 @@
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
-import {IVendorCreateDefaultFormProps, VendorCreateDefaultForm} from "@/sdk/api/vendor/create";
+import {IVendorCreateDefaultMobileFormProps, VendorCreateDefaultMobileForm} from "@/sdk/api/vendor/create";
 import {useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
-import {ButtonBar, ButtonLink, Centered, FormItem, Submit} from "@leight-core/client";
-import {Divider, message} from "antd";
+import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
+import {Divider} from "antd";
 import {FC} from "react";
 
-export interface IVendorCreateFormProps extends Partial<IVendorCreateDefaultFormProps> {
+export interface IVendorCreateFormProps extends Partial<IVendorCreateDefaultMobileFormProps> {
 }
 
 export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...props}) => {
 	const vendorQueryInvalidate = useVendorQueryInvalidate();
-	return <VendorCreateDefaultForm
+	return <VendorCreateDefaultMobileForm
 		onSuccess={async response => {
-			message.success(response.t("success", response.response));
 			await vendorQueryInvalidate();
 			onSuccess?.(response);
 		}}
@@ -39,12 +38,9 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 				</>
 			}
 		}}
+		icon={<VendorIcon/>}
 		{...props}
 	>
-		<FormItem field={"name"} required hasTooltip/>
-		<Divider/>
-		<Centered>
-			<Submit icon={<VendorIcon/>} label={"create"}/>
-		</Centered>
-	</VendorCreateDefaultForm>;
+		<MobileFormItem field={"name"} required hasTooltip/>
+	</VendorCreateDefaultMobileForm>;
 };
