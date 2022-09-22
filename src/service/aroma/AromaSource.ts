@@ -54,12 +54,13 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async $create({vendor, vendorId, tastes, tasteIds, code, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
+	async $create({vendor, vendorId, tastes, tasteIds, code, nicotine, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
 		return this.useTagSource(async tagSource => {
 			return this.useCodeService(async codeService => {
 				return this.updateKeywords(await this.prisma.aroma.create({
 					data: {
 						...aroma,
+						nicotine: nicotine || 0,
 						code: code || codeService.code(),
 						name: `${aroma.name}`,
 						vendor: {
