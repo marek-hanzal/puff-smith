@@ -1,5 +1,6 @@
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
+import {toTagError} from "@/puff-smith/ui/tag/form/toTagError";
 import {ITagCreateDefaultMobileFormProps, TagCreateDefaultMobileForm} from "@/sdk/api/tag/create";
 import {useTagQueryInvalidate} from "@/sdk/api/tag/query";
 import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
@@ -32,6 +33,7 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 				</>
 			}
 		}}
+		toError={toTagError}
 		{...props}
 	>
 		<MobileFormItem field={"tag"} required hasTooltip/>

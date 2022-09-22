@@ -1,6 +1,7 @@
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
+import {toVendorError} from "@/puff-smith/ui/vendor/form/toVendorError";
 import {IVendorCreateDefaultMobileFormProps, VendorCreateDefaultMobileForm} from "@/sdk/api/vendor/create";
 import {useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
 import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
@@ -38,6 +39,7 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 				</>
 			}
 		}}
+		toError={toVendorError}
 		icon={<VendorIcon/>}
 		{...props}
 	>

@@ -2,6 +2,7 @@ import {AromaIcon} from "@/puff-smith/component/icon/AromaIcon";
 import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
 import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
 import {AromaFields} from "@/puff-smith/ui/aroma/form/AromaFields";
+import {toAromaError} from "@/puff-smith/ui/aroma/form/toAromaError";
 import {AromaCreateDefaultMobileForm, IAromaCreateDefaultMobileFormProps} from "@/sdk/api/aroma/create";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {ButtonBar, ButtonLink} from "@leight-core/client";
@@ -45,6 +46,7 @@ export const AromaCreateForm: FC<IAromaCreateFormProps> = ({onSuccess, ...props}
 				</>
 			}
 		}}
+		toError={toAromaError}
 		icon={<AromaIcon/>}
 		{...props}
 	>
