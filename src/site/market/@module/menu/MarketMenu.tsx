@@ -8,13 +8,13 @@ import {ModIcon} from "@/puff-smith/component/icon/ModIcon";
 import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
 import {VoucherIcon} from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon} from "@/puff-smith/component/icon/WireIcon";
-import {IMenuProps, MobileMenu} from "@leight-core/client";
+import {MobileMenu} from "@leight-core/client";
 import {FC} from "react";
 
-export interface IMarketMenuProps extends Partial<IMenuProps> {
+export interface IMarketMenuProps {
 }
 
-export const MarketMenu: FC<IMarketMenuProps> = props => {
+export const MarketMenu: FC<IMarketMenuProps> = () => {
 	return <>
 		<MobileMenu
 			title={"market.liquid.menu"}
