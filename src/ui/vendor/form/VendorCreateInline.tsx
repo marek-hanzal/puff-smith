@@ -1,7 +1,7 @@
 import {IVendor} from "@/puff-smith/service/vendor/interface";
 import {VendorCreateForm} from "@/puff-smith/ui/vendor/form/VendorCreateForm";
 import {PlusOutlined} from "@ant-design/icons";
-import {DrawerButton, IDrawerButtonProps, useOptionalFormItemContext} from "@leight-core/client";
+import {DrawerButton, IDrawerButtonProps, useOptionalMobileFormItemContext} from "@leight-core/client";
 import {FC} from "react";
 
 export interface IVendorCreateInlineProps extends Partial<IDrawerButtonProps> {
@@ -9,7 +9,7 @@ export interface IVendorCreateInlineProps extends Partial<IDrawerButtonProps> {
 }
 
 export const VendorCreateInline: FC<IVendorCreateInlineProps> = ({onSuccess, ...props}) => {
-	const formItem = useOptionalFormItemContext();
+	const formItem = useOptionalMobileFormItemContext();
 	return <DrawerButton
 		type={"link"}
 		size={"small"}
