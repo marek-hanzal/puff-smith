@@ -21,25 +21,6 @@ export default withMarketLayout(function Index() {
 						bold: true,
 						onClick: ({navigate}) => navigate("/market/aroma/create"),
 					},
-					// {text: "bar", key: "bb"},
-					// {
-					// 	text: "bleh",
-					// 	key: "cc",
-					// 	onClick: async ({setVisible}) => {
-					// 		if (await Dialog.confirm({
-					// 			content: "Boo？",
-					// 			confirmText: "yep",
-					// 			cancelText: "nope",
-					// 			onConfirm: () => setVisible(false),
-					// 		})) {
-					// 			Toast.show({
-					// 				icon: "loading",
-					// 				duration: 5000,
-					// 				maskClickable: false,
-					// 			});
-					// 		}
-					// 	},
-					// },
 				]}
 			/>
 			<AromaProviderControl

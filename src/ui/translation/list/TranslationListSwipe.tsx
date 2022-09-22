@@ -1,26 +1,26 @@
-import {IAroma} from "@/puff-smith/service/aroma/interface";
-import {useAromaDeleteMutation} from "@/sdk/api/aroma/delete";
-import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
+import {useTranslationDeleteMutation} from "@/sdk/api/translation/delete";
+import {useTranslationQueryInvalidate} from "@/sdk/api/translation/query";
+import {ITranslation} from "@leight-core/api";
 import {DeleteItemIcon, EditIcon, useNavigate, useOptionalCursorContext, useOptionalFilterContext, useSourceContext} from "@leight-core/client";
 import {message} from "antd";
 import {SwipeAction, Toast} from "antd-mobile";
 import {ComponentProps, FC} from "react";
 import {useTranslation} from "react-i18next";
 
-export interface IAromaListSwipeProps extends Pick<ComponentProps<typeof SwipeAction>, "children"> {
-	aroma: IAroma;
+export interface ITranslationListSwipeProps extends Pick<ComponentProps<typeof SwipeAction>, "children"> {
+	translation: ITranslation;
 }
 
-export const AromaListSwipe: FC<IAromaListSwipeProps> = ({aroma, ...props}) => {
+export const TranslationListSwipe: FC<ITranslationListSwipeProps> = ({translation, ...props}) => {
 	const {t} = useTranslation();
 	const navigate = useNavigate();
-	const aromaDeleteMutation = useAromaDeleteMutation();
-	const aromaQueryInvalidate = useAromaQueryInvalidate();
+	const translationDeleteMutation = useTranslationDeleteMutation();
+	const translationQueryInvalidate = useTranslationQueryInvalidate();
 	const sourceContext = useSourceContext();
 	const filterContext = useOptionalFilterContext();
 	const cursorContext = useOptionalCursorContext();
 	return <SwipeAction
-		key={"aroma-" + aroma.id}
+		key={"translation-" + translation.id}
 		leftActions={[
 			{
 				key: "delete",
@@ -32,15 +32,15 @@ export const AromaListSwipe: FC<IAromaListSwipeProps> = ({aroma, ...props}) => {
 						maskClickable: false,
 						duration: 0,
 					});
-					aromaDeleteMutation.mutate([aroma.id], {
+					translationDeleteMutation.mutate([translation.id], {
 						onSuccess: async () => {
-							message.success(t("shared.aroma.delete.success"));
+							message.success(t("shared.translation.delete.success"));
 							Toast.show({
 								icon: "success",
 								maskClickable: false,
 								duration: 500,
 							});
-							await aromaQueryInvalidate();
+							await translationQueryInvalidate();
 							setTimeout(() => {
 								sourceContext.reset();
 								filterContext?.setFilter({});
@@ -63,7 +63,7 @@ export const AromaListSwipe: FC<IAromaListSwipeProps> = ({aroma, ...props}) => {
 				key: "edit",
 				text: <EditIcon/>,
 				color: "primary",
-				onClick: () => navigate("/market/aroma/[aromaId]/edit", {aromaId: aroma.id}),
+				onClick: () => navigate("/root/translation/[translationId]/edit", {translationId: translation.id}),
 			},
 		]}
 		{...props}

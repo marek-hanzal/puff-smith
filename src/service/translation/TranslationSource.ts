@@ -2,8 +2,9 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {sha256} from "@/puff-smith/service/utils/sha256";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
+import {IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
 import {pageOf} from "@leight-core/server";
+import {merge} from "@leight-core/utils";
 
 export const TranslationSource = () => new TranslationSourceClass();
 
@@ -12,23 +13,59 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 		super("translation", prisma);
 	}
 
-	async map({label: key, text: value}: ISourceEntity<ITranslationSource>): Promise<ISourceItem<ITranslationSource>> {
+	async map({id, language, label: key, text: value}: ISourceEntity<ITranslationSource>): Promise<ISourceItem<ITranslationSource>> {
 		return {
+			id,
+			language,
 			key,
 			value,
 		};
 	}
 
-	async $query({filter, ...query}: ISourceQuery<ITranslationSource>): Promise<ISourceEntity<ITranslationSource>[]> {
+	async $get(id: string): Promise<ISourceEntity<ITranslationSource>> {
+		return this.prisma.translation.findUniqueOrThrow({
+			where: {id},
+		});
+	}
+
+	async $query(query: ISourceQuery<ITranslationSource>): Promise<ISourceEntity<ITranslationSource>[]> {
 		return this.prisma.translation.findMany({
-			where: filter,
+			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
-	async $count({filter}: ISourceQuery<ITranslationSource>): Promise<number> {
+	async $count(query: ISourceQuery<ITranslationSource>): Promise<number> {
 		return this.prisma.translation.count({
-			where: filter,
+			where: this.withFilter(query),
+		});
+	}
+
+
+	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<ITranslationSource>): IQueryFilter<ISourceQuery<ITranslationSource>> | undefined {
+		return merge(filter || {}, {
+			AND: fulltext?.toLowerCase()?.split(/\s+/gi)?.map(fragment => ({
+				OR: [
+					{
+						language: {
+							contains: fragment,
+							mode: "insensitive",
+						},
+					},
+					{
+						label: {
+							contains: fragment,
+							mode: "insensitive",
+						},
+					},
+					{
+						text: {
+							contains: fragment,
+							mode: "insensitive",
+						},
+					},
+				],
+			})),
 		});
 	}
 
@@ -57,5 +94,20 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 			where: {id},
 			data: patch,
 		});
+	}
+
+	async $remove(ids: string[]): Promise<ISourceEntity<ITranslationSource>[]> {
+		const where = {
+			id: {
+				in: ids,
+			},
+		};
+		const items = await this.prisma.translation.findMany({
+			where,
+		});
+		await this.prisma.translation.deleteMany({
+			where,
+		});
+		return items;
 	}
 }

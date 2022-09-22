@@ -41,5 +41,6 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 			<Stepper min={-10000} max={10000}/>
 		</MobileFormItem>
 		<MobileFormItem field={"group"} required hasTooltip/>
+		<MobileFormItem field={"translation"} required hasTooltip/>
 	</TagCreateDefaultMobileForm>;
 };

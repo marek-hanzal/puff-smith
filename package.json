@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"@ant-design/icons": "^4.7.0",
-		"@leight-core/api": "^0.6.150",
+		"@leight-core/api": "^0.6.154",
 		"@leight-core/client": "^0.6.193",
 		"@leight-core/server": "^0.6.192",
 		"@leight-core/utils": "^0.5.36",
