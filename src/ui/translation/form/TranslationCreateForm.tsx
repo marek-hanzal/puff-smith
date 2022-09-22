@@ -7,7 +7,7 @@ import {ITranslationCreateDefaultMobileFormProps, TranslationCreateDefaultMobile
 import {useTranslationQueryInvalidate} from "@/sdk/api/translation/query";
 import {ButtonBar, ButtonLink} from "@leight-core/client";
 import {Divider} from "antd";
-import i18next from "i18next";
+import i18n from "i18next";
 import {FC} from "react";
 
 export interface ITranslationCreateFormProps extends Partial<ITranslationCreateDefaultMobileFormProps> {
@@ -21,7 +21,7 @@ export const TranslationCreateForm: FC<ITranslationCreateFormProps> = ({onSucces
 			onSuccess?.(response);
 		}}
 		toForm={() => ({
-			language: i18next.language,
+			language: i18n.language,
 		})}
 		toMutation={values => values}
 		withTokenProps={{

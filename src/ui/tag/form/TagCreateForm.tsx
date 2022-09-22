@@ -8,7 +8,7 @@ import {useTranslationPushMutation} from "@/sdk/api/translation/push";
 import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
 import {Divider} from "antd";
 import {Stepper} from "antd-mobile";
-import i18next from "i18next";
+import i18n from "i18next";
 import {FC} from "react";
 
 export interface ITagCreateFormProps extends Partial<ITagCreateDefaultMobileFormProps> {
@@ -22,10 +22,11 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 		onSuccess={async response => {
 			await tagQueryInvalidate();
 			await translationPushMutation.mutate({
-				language: i18next.language,
+				language: i18n.language,
 				text: response.values.translation,
 				label: `common.${response.values.group}.${response.values.tag}`,
 			}, {
+				onError: e => console.error(e),
 				onSettled: async () => {
 					await translationQueryInvalidate();
 					onSuccess?.(response);
