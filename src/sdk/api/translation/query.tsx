@@ -125,7 +125,7 @@ export const TranslationTableSource: FC<ITranslationTableSourceProps> = ({provid
 			{...props}
 		/>
 	</TranslationProvider>;
-};
+}
 
 export interface ITranslationListSourceProps extends Partial<IListProps<ISourceItem<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
@@ -140,7 +140,7 @@ export const TranslationListSource: FC<ITranslationListSourceProps> = ({provider
 			{...props}
 		/>
 	</TranslationProvider>;
-};
+}
 
 export interface ITranslationInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
@@ -155,7 +155,7 @@ export const TranslationInfiniteListSource: FC<ITranslationInfiniteListSourcePro
 			{...props}
 		/>
 	</TranslationProvider>;
-};
+}
 
 export interface ITranslationSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITranslationSource>> {
 	toOption: IToOptionMapper<ISourceItem<ITranslationSource>>;
@@ -173,7 +173,7 @@ export interface ITranslationSelectionProviderProps extends Partial<ISelectionPr
 
 export const TranslationSelectionProvider: FC<ITranslationSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ITranslationSource>> {...props}/>;
-};
+}
 
 export const useTranslationCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -218,5 +218,5 @@ export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</TranslationProvider>;
-};
+	</TranslationProvider>
+}

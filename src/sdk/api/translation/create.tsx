@@ -20,7 +20,7 @@ export const TranslationCreateDefaultForm: FC<ITranslationCreateDefaultFormProps
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>;
+/>
 
 export interface ITranslationCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>> {
 }
@@ -29,7 +29,7 @@ export const TranslationCreateDefaultMobileForm: FC<ITranslationCreateDefaultMob
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toTranslationCreateLink = (queryParams?: ITranslationCreateQueryParams) => toLink(TranslationCreateApiLink, queryParams);
 export const useTranslationCreateLink = () => toTranslationCreateLink;

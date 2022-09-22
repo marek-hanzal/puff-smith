@@ -20,7 +20,7 @@ export const TranslationPatchDefaultForm: FC<ITranslationPatchDefaultFormProps> 
 	useMutation={useTranslationPatchMutation}
 	translation={TranslationPatchApiLink}
 	{...props}
-/>;
+/>
 
 export interface ITranslationPatchDefaultMobileFormProps extends Partial<IMobileFormProps<ISourcePatch<ITranslationSource>, ISourceItem<ITranslationSource>>> {
 }
@@ -29,7 +29,7 @@ export const TranslationPatchDefaultMobileForm: FC<ITranslationPatchDefaultMobil
 	useMutation={useTranslationPatchMutation}
 	translation={TranslationPatchApiLink}
 	{...props}
-/>;
+/>
 
 export const toTranslationPatchLink = (queryParams?: ITranslationPatchQueryParams) => toLink(TranslationPatchApiLink, queryParams);
 export const useTranslationPatchLink = () => toTranslationPatchLink;
