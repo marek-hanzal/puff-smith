@@ -4,6 +4,7 @@ import {toTagError} from "@/puff-smith/ui/tag/form/toTagError";
 import {ITagCreateDefaultMobileFormProps, TagCreateDefaultMobileForm} from "@/sdk/api/tag/create";
 import {useTagQueryInvalidate} from "@/sdk/api/tag/query";
 import {useTranslationQueryInvalidate} from "@/sdk/api/translation";
+import {useTranslationCreateMutation} from "@/sdk/api/translation/create";
 import {useTranslationPushMutation} from "@/sdk/api/translation/push";
 import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
 import {Divider} from "antd";
@@ -17,21 +18,29 @@ export interface ITagCreateFormProps extends Partial<ITagCreateDefaultMobileForm
 export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) => {
 	const tagQueryInvalidate = useTagQueryInvalidate();
 	const translationPushMutation = useTranslationPushMutation();
+	const translationCreateMutation = useTranslationCreateMutation();
 	const translationQueryInvalidate = useTranslationQueryInvalidate();
 	return <TagCreateDefaultMobileForm
 		onSuccess={async response => {
 			await tagQueryInvalidate();
-			await translationPushMutation.mutate({
-				language: i18n.language,
-				text: response.values.translation,
-				label: `common.${response.values.group}.${response.values.tag}`,
-			}, {
-				onError: e => console.error(e),
-				onSettled: async () => {
-					await translationQueryInvalidate();
-					onSuccess?.(response);
-				},
-			});
+			await Promise.all(i18n.languages.map(async (language, i) => {
+				/**
+				 * A little trick: push only native language user is using, and the rest just create; the creation
+				 * could fail as the translation can already be present.
+				 */
+				const mutation = i > 0 ? translationCreateMutation : translationPushMutation;
+				return mutation.mutate({
+					language,
+					text: response.values.translation,
+					label: `common.${response.values.group}.${response.values.tag}`,
+				}, {
+					onError: e => console.error(e),
+					onSettled: async () => {
+						await translationQueryInvalidate();
+						onSuccess?.(response);
+					},
+				});
+			}));
 		}}
 		toMutation={({translation, ...values}) => values}
 		withTokenProps={{
