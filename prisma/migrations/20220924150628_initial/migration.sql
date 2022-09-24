@@ -245,26 +245,6 @@ CREATE TABLE "AtomizerComment" (
 );
 
 -- CreateTable
-CREATE TABLE "AtomizerInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "atomizerId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "AtomizerInventory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "AtomizerInventoryComment" (
-    "id" TEXT NOT NULL,
-    "atomizerInventoryId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "AtomizerInventoryComment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Cell" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -291,21 +271,9 @@ CREATE TABLE "CellComment" (
 );
 
 -- CreateTable
-CREATE TABLE "CellInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "cellId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "CellInventory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "CellHealth" (
     "id" TEXT NOT NULL,
     "cellId" TEXT NOT NULL,
-    "cellInventoryId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "capacity" INTEGER,
     "capacityRatio" DOUBLE PRECISION,
@@ -315,15 +283,6 @@ CREATE TABLE "CellHealth" (
     "created" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "CellHealth_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "CellInventoryComment" (
-    "id" TEXT NOT NULL,
-    "cellInventoryId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "CellInventoryComment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -358,26 +317,6 @@ CREATE TABLE "ModCell" (
 );
 
 -- CreateTable
-CREATE TABLE "ModInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "modId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "ModInventory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "ModInventoryComment" (
-    "id" TEXT NOT NULL,
-    "modInventoryId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "ModInventoryComment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Cotton" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -404,46 +343,6 @@ CREATE TABLE "CottonDraw" (
     "drawId" TEXT NOT NULL,
 
     CONSTRAINT "CottonDraw_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "CottonInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "cottonId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "CottonInventory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "CottonInventoryComment" (
-    "id" TEXT NOT NULL,
-    "cottonInventoryId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "CottonInventoryComment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Voucher" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "premium" DOUBLE PRECISION NOT NULL,
-    "maxFortune" DOUBLE PRECISION,
-
-    CONSTRAINT "Voucher_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "VoucherInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "voucherId" TEXT NOT NULL,
-
-    CONSTRAINT "VoucherInventory_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -491,29 +390,10 @@ CREATE TABLE "AromaComment" (
 );
 
 -- CreateTable
-CREATE TABLE "AromaInventory" (
-    "id" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "aromaId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "AromaInventory_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "AromaInventoryComment" (
-    "id" TEXT NOT NULL,
-    "aromaInventoryId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "AromaInventoryComment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Liquid" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
     "vendorId" TEXT NOT NULL,
@@ -525,62 +405,12 @@ CREATE TABLE "Liquid" (
 );
 
 -- CreateTable
-CREATE TABLE "Build" (
+CREATE TABLE "LiquidKeyword" (
     "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "created" TIMESTAMP(3) NOT NULL,
-    "coilId" TEXT NOT NULL,
-    "cottonId" TEXT NOT NULL,
-    "ohm" DECIMAL(5,3) NOT NULL,
-    "drain" DOUBLE PRECISION NOT NULL,
-    "watts" DOUBLE PRECISION NOT NULL,
-
-    CONSTRAINT "Build_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "BuildAtomizer" (
-    "id" TEXT NOT NULL,
-    "buildId" TEXT NOT NULL,
-    "atomizerId" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "rating" INTEGER,
-    "active" BOOLEAN NOT NULL DEFAULT true,
-    "transactionId" TEXT NOT NULL,
-
-    CONSTRAINT "BuildAtomizer_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "BuildAtomizerComment" (
-    "id" TEXT NOT NULL,
-    "buildAtomizerId" TEXT NOT NULL,
-    "commentId" TEXT NOT NULL,
-
-    CONSTRAINT "BuildAtomizerComment_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "BuildLiquidTasteRating" (
-    "id" TEXT NOT NULL,
-    "buildId" TEXT NOT NULL,
     "liquidId" TEXT NOT NULL,
-    "tasteId" TEXT NOT NULL,
-    "created" TIMESTAMP(3) NOT NULL,
-    "rating" INTEGER,
+    "keywordId" TEXT NOT NULL,
 
-    CONSTRAINT "BuildLiquidTasteRating_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "BuildLiquidRating" (
-    "id" TEXT NOT NULL,
-    "buildId" TEXT NOT NULL,
-    "liquidId" TEXT NOT NULL,
-    "created" TIMESTAMP(3) NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "BuildLiquidRating_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "LiquidKeyword_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -617,17 +447,6 @@ CREATE TABLE "Wire" (
     "userId" TEXT,
 
     CONSTRAINT "Wire_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "WireInventory" (
-    "id" TEXT NOT NULL,
-    "code" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "wireId" TEXT NOT NULL,
-    "rating" INTEGER,
-
-    CONSTRAINT "WireInventory_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -810,16 +629,10 @@ CREATE UNIQUE INDEX "Atomizer_code_key" ON "Atomizer"("code");
 CREATE UNIQUE INDEX "Atomizer_name_vendorId_key" ON "Atomizer"("name", "vendorId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "AtomizerInventory_code_key" ON "AtomizerInventory"("code");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Cell_code_key" ON "Cell"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cell_name_vendorId_key" ON "Cell"("name", "vendorId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "CellInventory_code_key" ON "CellInventory"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Mod_code_key" ON "Mod"("code");
@@ -828,22 +641,10 @@ CREATE UNIQUE INDEX "Mod_code_key" ON "Mod"("code");
 CREATE UNIQUE INDEX "Mod_name_vendorId_key" ON "Mod"("name", "vendorId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "ModInventory_code_key" ON "ModInventory"("code");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Cotton_code_key" ON "Cotton"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Cotton_name_vendorId_key" ON "Cotton"("name", "vendorId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "CottonInventory_code_key" ON "CottonInventory"("code");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Voucher_name_key" ON "Voucher"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "VoucherInventory_code_key" ON "VoucherInventory"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Aroma_code_key" ON "Aroma"("code");
@@ -852,22 +653,7 @@ CREATE UNIQUE INDEX "Aroma_code_key" ON "Aroma"("code");
 CREATE UNIQUE INDEX "Aroma_name_vendorId_key" ON "Aroma"("name", "vendorId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "AromaInventory_code_key" ON "AromaInventory"("code");
-
--- CreateIndex
-CREATE UNIQUE INDEX "AromaInventory_userId_aromaId_key" ON "AromaInventory"("userId", "aromaId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Build_code_key" ON "Build"("code");
-
--- CreateIndex
-CREATE UNIQUE INDEX "BuildLiquidTasteRating_buildId_liquidId_tasteId_key" ON "BuildLiquidTasteRating"("buildId", "liquidId", "tasteId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "BuildLiquidRating_buildId_liquidId_key" ON "BuildLiquidRating"("buildId", "liquidId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Coil_code_key" ON "Coil"("code");
@@ -880,12 +666,6 @@ CREATE UNIQUE INDEX "Wire_code_key" ON "Wire"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Wire_name_vendorId_key" ON "Wire"("name", "vendorId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "WireInventory_code_key" ON "WireInventory"("code");
-
--- CreateIndex
-CREATE UNIQUE INDEX "WireInventory_userId_wireId_key" ON "WireInventory"("userId", "wireId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Fiber_code_key" ON "Fiber"("code");
@@ -996,18 +776,6 @@ ALTER TABLE "AtomizerComment" ADD CONSTRAINT "AtomizerComment_atomizerId_fkey" F
 ALTER TABLE "AtomizerComment" ADD CONSTRAINT "AtomizerComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AtomizerInventory" ADD CONSTRAINT "AtomizerInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AtomizerInventory" ADD CONSTRAINT "AtomizerInventory_atomizerId_fkey" FOREIGN KEY ("atomizerId") REFERENCES "Atomizer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AtomizerInventoryComment" ADD CONSTRAINT "AtomizerInventoryComment_atomizerInventoryId_fkey" FOREIGN KEY ("atomizerInventoryId") REFERENCES "AtomizerInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AtomizerInventoryComment" ADD CONSTRAINT "AtomizerInventoryComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Cell" ADD CONSTRAINT "Cell_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -1023,25 +791,10 @@ ALTER TABLE "CellComment" ADD CONSTRAINT "CellComment_cellId_fkey" FOREIGN KEY (
 ALTER TABLE "CellComment" ADD CONSTRAINT "CellComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CellInventory" ADD CONSTRAINT "CellInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CellInventory" ADD CONSTRAINT "CellInventory_cellId_fkey" FOREIGN KEY ("cellId") REFERENCES "Cell"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "CellHealth" ADD CONSTRAINT "CellHealth_cellId_fkey" FOREIGN KEY ("cellId") REFERENCES "Cell"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CellHealth" ADD CONSTRAINT "CellHealth_cellInventoryId_fkey" FOREIGN KEY ("cellInventoryId") REFERENCES "CellInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "CellHealth" ADD CONSTRAINT "CellHealth_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CellInventoryComment" ADD CONSTRAINT "CellInventoryComment_cellInventoryId_fkey" FOREIGN KEY ("cellInventoryId") REFERENCES "CellInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CellInventoryComment" ADD CONSTRAINT "CellInventoryComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Mod" ADD CONSTRAINT "Mod_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -1062,18 +815,6 @@ ALTER TABLE "ModCell" ADD CONSTRAINT "ModCell_modId_fkey" FOREIGN KEY ("modId") 
 ALTER TABLE "ModCell" ADD CONSTRAINT "ModCell_cellId_fkey" FOREIGN KEY ("cellId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ModInventory" ADD CONSTRAINT "ModInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ModInventory" ADD CONSTRAINT "ModInventory_modId_fkey" FOREIGN KEY ("modId") REFERENCES "Mod"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ModInventoryComment" ADD CONSTRAINT "ModInventoryComment_modInventoryId_fkey" FOREIGN KEY ("modInventoryId") REFERENCES "ModInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ModInventoryComment" ADD CONSTRAINT "ModInventoryComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Cotton" ADD CONSTRAINT "Cotton_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -1090,24 +831,6 @@ ALTER TABLE "CottonDraw" ADD CONSTRAINT "CottonDraw_cottonId_fkey" FOREIGN KEY (
 
 -- AddForeignKey
 ALTER TABLE "CottonDraw" ADD CONSTRAINT "CottonDraw_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CottonInventory" ADD CONSTRAINT "CottonInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CottonInventory" ADD CONSTRAINT "CottonInventory_cottonId_fkey" FOREIGN KEY ("cottonId") REFERENCES "Cotton"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CottonInventoryComment" ADD CONSTRAINT "CottonInventoryComment_cottonInventoryId_fkey" FOREIGN KEY ("cottonInventoryId") REFERENCES "CottonInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CottonInventoryComment" ADD CONSTRAINT "CottonInventoryComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "VoucherInventory" ADD CONSTRAINT "VoucherInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "VoucherInventory" ADD CONSTRAINT "VoucherInventory_voucherId_fkey" FOREIGN KEY ("voucherId") REFERENCES "Voucher"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Aroma" ADD CONSTRAINT "Aroma_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -1134,18 +857,6 @@ ALTER TABLE "AromaComment" ADD CONSTRAINT "AromaComment_aromaId_fkey" FOREIGN KE
 ALTER TABLE "AromaComment" ADD CONSTRAINT "AromaComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AromaInventory" ADD CONSTRAINT "AromaInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AromaInventory" ADD CONSTRAINT "AromaInventory_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AromaInventoryComment" ADD CONSTRAINT "AromaInventoryComment_aromaInventoryId_fkey" FOREIGN KEY ("aromaInventoryId") REFERENCES "AromaInventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "AromaInventoryComment" ADD CONSTRAINT "AromaInventoryComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -1155,43 +866,10 @@ ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_aromaId_fkey" FOREIGN KEY ("aromaId"
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Build" ADD CONSTRAINT "Build_coilId_fkey" FOREIGN KEY ("coilId") REFERENCES "Coil"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "LiquidKeyword" ADD CONSTRAINT "LiquidKeyword_liquidId_fkey" FOREIGN KEY ("liquidId") REFERENCES "Liquid"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Build" ADD CONSTRAINT "Build_cottonId_fkey" FOREIGN KEY ("cottonId") REFERENCES "Cotton"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizer" ADD CONSTRAINT "BuildAtomizer_buildId_fkey" FOREIGN KEY ("buildId") REFERENCES "Build"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizer" ADD CONSTRAINT "BuildAtomizer_atomizerId_fkey" FOREIGN KEY ("atomizerId") REFERENCES "Atomizer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizer" ADD CONSTRAINT "BuildAtomizer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizer" ADD CONSTRAINT "BuildAtomizer_transactionId_fkey" FOREIGN KEY ("transactionId") REFERENCES "Transaction"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizerComment" ADD CONSTRAINT "BuildAtomizerComment_buildAtomizerId_fkey" FOREIGN KEY ("buildAtomizerId") REFERENCES "BuildAtomizer"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildAtomizerComment" ADD CONSTRAINT "BuildAtomizerComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildLiquidTasteRating" ADD CONSTRAINT "BuildLiquidTasteRating_buildId_fkey" FOREIGN KEY ("buildId") REFERENCES "Build"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildLiquidTasteRating" ADD CONSTRAINT "BuildLiquidTasteRating_liquidId_fkey" FOREIGN KEY ("liquidId") REFERENCES "Liquid"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildLiquidTasteRating" ADD CONSTRAINT "BuildLiquidTasteRating_tasteId_fkey" FOREIGN KEY ("tasteId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildLiquidRating" ADD CONSTRAINT "BuildLiquidRating_buildId_fkey" FOREIGN KEY ("buildId") REFERENCES "Build"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "BuildLiquidRating" ADD CONSTRAINT "BuildLiquidRating_liquidId_fkey" FOREIGN KEY ("liquidId") REFERENCES "Liquid"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "LiquidKeyword" ADD CONSTRAINT "LiquidKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Coil" ADD CONSTRAINT "Coil_wireId_fkey" FOREIGN KEY ("wireId") REFERENCES "Wire"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -1210,12 +888,6 @@ ALTER TABLE "Wire" ADD CONSTRAINT "Wire_vendorId_fkey" FOREIGN KEY ("vendorId") 
 
 -- AddForeignKey
 ALTER TABLE "Wire" ADD CONSTRAINT "Wire_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "WireInventory" ADD CONSTRAINT "WireInventory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "WireInventory" ADD CONSTRAINT "WireInventory_wireId_fkey" FOREIGN KEY ("wireId") REFERENCES "Wire"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "WireDraw" ADD CONSTRAINT "WireDraw_wireId_fkey" FOREIGN KEY ("wireId") REFERENCES "Wire"("id") ON DELETE CASCADE ON UPDATE CASCADE;

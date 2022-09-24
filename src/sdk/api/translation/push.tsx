@@ -20,7 +20,7 @@ export const TranslationPushDefaultForm: FC<ITranslationPushDefaultFormProps> = 
 	useMutation={useTranslationPushMutation}
 	translation={TranslationPushApiLink}
 	{...props}
-/>;
+/>
 
 export interface ITranslationPushDefaultMobileFormProps extends Partial<IMobileFormProps<ITranslationCreate, ITranslation>> {
 }
@@ -29,7 +29,7 @@ export const TranslationPushDefaultMobileForm: FC<ITranslationPushDefaultMobileF
 	useMutation={useTranslationPushMutation}
 	translation={TranslationPushApiLink}
 	{...props}
-/>;
+/>
 
 export const toTranslationPushLink = (queryParams?: ITranslationPushQueryParams) => toLink(TranslationPushApiLink, queryParams);
 export const useTranslationPushLink = () => toTranslationPushLink;

@@ -477,6 +477,7 @@ model AromaComment {
 model Liquid {
   id       String   @id @default(cuid())
   code     String   @unique
+  name     String
   userId   String
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   aromaId  String
