@@ -1,3 +1,4 @@
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {IAroma} from "@/puff-smith/service/aroma/interface";
 import {useAromaDeleteMutation} from "@/sdk/api/aroma/delete";
 import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
@@ -64,6 +65,12 @@ export const AromaListSwipe: FC<IAromaListSwipeProps> = ({aroma, ...props}) => {
 				text: <EditIcon/>,
 				color: "primary",
 				onClick: () => navigate("/market/aroma/[aromaId]/edit", {aromaId: aroma.id}),
+			},
+			{
+				key: "liquid.create",
+				text: <LiquidIcon/>,
+				color: "warning",
+				onClick: () => navigate("/lab/liquid/create", {aromaId: aroma.id}),
 			},
 		]}
 		{...props}
