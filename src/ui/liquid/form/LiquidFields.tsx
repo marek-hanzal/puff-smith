@@ -17,6 +17,14 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"aromaId"}
 				required
 				render={aroma => <AromaNameInline aroma={aroma}/>}
+				onSelection={selection => {
+
+					/**
+					 *    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					 */
+
+					console.log(selection);
+				}}
 				toPreview={selection => selection?.single ? <AromaNameInline aroma={selection.single}/> : undefined}
 				createWith={({formContext, visibleContext}) => <AromaCreateForm
 					onSuccess={({response}) => {
