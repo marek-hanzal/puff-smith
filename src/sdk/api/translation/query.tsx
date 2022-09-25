@@ -194,18 +194,20 @@ export const useTranslationSelectionContext = () => useSelectionContext<ISourceI
 export interface ITranslationDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITranslationSource>>, "ofSelection"> {
 }
 
-export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = props => {
+export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = ({onSelection, ...props}) => {
 	return <TranslationProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<ITranslationSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? TranslationPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

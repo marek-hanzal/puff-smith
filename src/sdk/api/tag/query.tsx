@@ -193,18 +193,20 @@ export const useTagSelectionContext = () => useSelectionContext<ISourceItem<ITag
 export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITagSource>>, "ofSelection"> {
 }
 
-export const TagDrawerItem: FC<ITagDrawerItemProps> = props => {
+export const TagDrawerItem: FC<ITagDrawerItemProps> = ({onSelection, ...props}) => {
 	return <TagProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<ITagSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? TagPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

@@ -193,18 +193,20 @@ export const useStatusListSelectionContext = () => useSelectionContext<ISourceIt
 export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobStatusSource>>, "ofSelection"> {
 }
 
-export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = props => {
+export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = ({onSelection, ...props}) => {
 	return <StatusListProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IJobStatusSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? StatusListPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

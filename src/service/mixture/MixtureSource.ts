@@ -13,17 +13,14 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 	}
 
 	async map(mixture: ISourceEntity<IMixtureSource>): Promise<ISourceItem<IMixtureSource>> {
-		return {
-			id: "123",
-			...mixture,
-		};
+		return mixture;
 	}
 
 	async $query({filter}: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
-		if (!filter) {
+		if (!filter || !filter.mixture) {
 			return [];
 		}
-		const {aroma, nicotine, vg, pg} = filter;
+		const {aroma, nicotine, vg, pg} = filter.mixture;
 
 		const baseList: IToMixtureBaseRequest [] = [];
 		const boosterList: IToMixtureBoosterRequest[] = [];
@@ -98,7 +95,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		console.log("Base count", baseList.length);
 		console.log("Booster count", boosterList.length);
 
-		return result.slice(0, 100);
+		return result.slice(0, 10);
 	}
 
 	async $count(query: ISourceQuery<IMixtureSource>): Promise<number> {

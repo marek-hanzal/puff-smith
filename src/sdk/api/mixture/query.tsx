@@ -124,7 +124,7 @@ export const MixtureTableSource: FC<IMixtureTableSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</MixtureProvider>;
-};
+}
 
 export interface IMixtureListSourceProps extends Partial<IListProps<ISourceItem<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -139,7 +139,7 @@ export const MixtureListSource: FC<IMixtureListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</MixtureProvider>;
-};
+}
 
 export interface IMixtureInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -154,7 +154,7 @@ export const MixtureInfiniteListSource: FC<IMixtureInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</MixtureProvider>;
-};
+}
 
 export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureSource>>;
@@ -172,7 +172,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>;
-};
+}
 
 export const useMixtureCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -193,18 +193,20 @@ export const useMixtureSelectionContext = () => useSelectionContext<ISourceItem<
 export interface IMixtureDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IMixtureSource>>, "ofSelection"> {
 }
 
-export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = props => {
+export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...props}) => {
 	return <MixtureProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IMixtureSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? MixturePromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{
@@ -217,5 +219,5 @@ export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</MixtureProvider>;
-};
+	</MixtureProvider>
+}

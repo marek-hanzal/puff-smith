@@ -193,18 +193,20 @@ export const useAromaSelectionContext = () => useSelectionContext<ISourceItem<IA
 export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IAromaSource>>, "ofSelection"> {
 }
 
-export const AromaDrawerItem: FC<IAromaDrawerItemProps> = props => {
+export const AromaDrawerItem: FC<IAromaDrawerItemProps> = ({onSelection, ...props}) => {
 	return <AromaProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IAromaSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? AromaPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

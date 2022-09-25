@@ -193,18 +193,20 @@ export const useJobSelectionContext = () => useSelectionContext<ISourceItem<IJob
 export interface IJobDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobSource>>, "ofSelection"> {
 }
 
-export const JobDrawerItem: FC<IJobDrawerItemProps> = props => {
+export const JobDrawerItem: FC<IJobDrawerItemProps> = ({onSelection, ...props}) => {
 	return <JobProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IJobSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? JobPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

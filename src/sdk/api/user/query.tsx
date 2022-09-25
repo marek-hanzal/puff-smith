@@ -193,18 +193,20 @@ export const useUserSelectionContext = () => useSelectionContext<ISourceItem<IUs
 export interface IUserDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IUserSource>>, "ofSelection"> {
 }
 
-export const UserDrawerItem: FC<IUserDrawerItemProps> = props => {
+export const UserDrawerItem: FC<IUserDrawerItemProps> = ({onSelection, ...props}) => {
 	return <UserProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IUserSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? UserPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

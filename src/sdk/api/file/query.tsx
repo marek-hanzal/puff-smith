@@ -193,18 +193,20 @@ export const useFileSelectionContext = () => useSelectionContext<ISourceItem<IFi
 export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IFileSource>>, "ofSelection"> {
 }
 
-export const FileDrawerItem: FC<IFileDrawerItemProps> = props => {
+export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}) => {
 	return <FileProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? FilePromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

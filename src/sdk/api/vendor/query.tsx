@@ -193,18 +193,20 @@ export const useVendorSelectionContext = () => useSelectionContext<ISourceItem<I
 export interface IVendorDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IVendorSource>>, "ofSelection"> {
 }
 
-export const VendorDrawerItem: FC<IVendorDrawerItemProps> = props => {
+export const VendorDrawerItem: FC<IVendorDrawerItemProps> = ({onSelection, ...props}) => {
 	return <VendorProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IVendorSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? VendorPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{

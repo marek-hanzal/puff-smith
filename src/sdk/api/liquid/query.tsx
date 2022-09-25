@@ -193,18 +193,20 @@ export const useLiquidSelectionContext = () => useSelectionContext<ISourceItem<I
 export interface ILiquidDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ILiquidSource>>, "ofSelection"> {
 }
 
-export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = props => {
+export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = ({onSelection, ...props}) => {
 	return <LiquidProvider
 		withCount
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<ILiquidSource>>
+					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
 						value && blockContext.block();
 						value ? LiquidPromise({filter: {id: value as any}}).then(items => {
 							selectionContext.items(items, true);
 							blockContext.unblock(true);
+							onSelection?.(selectionContext.selection());
 						}) : undefined;
 					}}
 					drawerSelectProps={{
