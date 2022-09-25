@@ -9,6 +9,9 @@ export interface IMixtureFilter {
 	mixture?: {
 		aroma: IToMixtureAromaRequest;
 		nicotine: number;
+		booster: {
+			volume?: number;
+		};
 		vg: number;
 		pg: number;
 	};

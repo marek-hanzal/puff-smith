@@ -30,6 +30,9 @@ export const MixtureInline: FC<IMixtureInlineProps> = ({mixture}) => {
 			<VgPgInline vgpg={mixture.booster}/>
 			<NicotineInline nicotine={mixture.booster.nicotine}/>
 			<ContentInline content={mixture.booster.volume}/>
+			{mixture.booster.count ? <Typography.Text>
+				({mixture.booster.count}x<ContentInline content={mixture.booster.volume / mixture.booster.count}/>)
+			</Typography.Text> : null}
 		</Space> : <Translate namespace={"shared.mixture.info"} text={"no-booster"}/>}
 		{mixture.base ? <Space>
 			<Typography.Text type={"secondary"}>

@@ -20,7 +20,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		if (!filter || !filter.mixture) {
 			return [];
 		}
-		const {aroma, nicotine, vg, pg} = filter.mixture;
+		const {aroma, nicotine, vg, pg, booster} = filter.mixture;
 
 		const baseList: IToMixtureBaseRequest [] = [];
 		const boosterList: IToMixtureBoosterRequest[] = [];
@@ -37,6 +37,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 						vg,
 						pg: 100 - vg,
 						nicotine: $nicotine,
+						volume: booster.volume,
 					});
 				}
 			}
@@ -92,10 +93,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			"Result count",
 			result.length
 		);
-		console.log("Base count", baseList.length);
-		console.log("Booster count", boosterList.length);
 
-		return result.slice(0, 10);
+		return result.sort((a, b) => {
+			return (b.booster?.nicotine || 0) - (a.booster?.nicotine || 0);
+		}).slice(0, 10);
 	}
 
 	async $count(query: ISourceQuery<IMixtureSource>): Promise<number> {

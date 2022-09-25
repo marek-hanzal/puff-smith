@@ -21,6 +21,7 @@ export interface ILiquidFieldsProps {
 export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 	const formContext = useMobileFormContext();
 	const nicotine = Form.useWatch(["nicotine", "amount"], formContext.form);
+	const nicotineVolume = Form.useWatch(["nicotine", "volume"], formContext.form);
 	const vgpg = Form.useWatch(["vgpg"], formContext.form);
 	const [aroma, setAroma] = useState<IAroma>();
 	return <>
@@ -141,6 +142,9 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 					},
 					vg: 100 - vgpg[0],
 					pg: vgpg[0],
+					booster: {
+						volume: nicotineVolume,
+					},
 					nicotine,
 				},
 			}}
