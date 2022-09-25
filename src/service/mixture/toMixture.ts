@@ -2,34 +2,103 @@ import {toPercent} from "@leight-core/utils";
 
 export type IMixtureError = "LESS" | "MORE" | "FULL";
 
+/**
+ * Request of one exact mixture computation based on all various things it needs for life.
+ */
 export interface IToMixtureInfoRequest {
+	/**
+	 * Source aroma info
+	 */
 	aroma: {
-		content: number,
-		volume: number,
-		vg: number,
-		pg: number,
+		/**
+		 * Content of an aroma (for SnV, for example, 12ml of 120ml volume).
+		 */
+		content: number;
+		/**
+		 * A volume of an aroma; for pre-made aromas should be the same as content, for others,
+		 * it should be a recommended volume of the target mixture.
+		 */
+		volume: number;
+		/**
+		 * Amount (percentage) of VG in the aroma.
+		 */
+		vg: number;
+		/**
+		 * Amount (percentage) of PG in the aroma (this is quite redundant).
+		 */
+		pg: number;
+		/**
+		 * Optional presence of a nicotine in the aroma (usually in the pre-made ones).
+		 */
+		nicotine?: number;
 	};
+	/**
+	 * Information about base used to make this mixture.
+	 */
 	base?: {
-		vg: number,
-		pg: number,
+		/**
+		 * Amount of VG in the base (percentage)
+		 */
+		vg: number;
+		/**
+		 * Amount of PG in the base (percentage)
+		 */
+		pg: number;
 	};
+	/**
+	 * Information about booster used to make this mixture.
+	 */
 	booster?: {
-		volume: number,
-		nicotine: number,
-		vg: number,
-		pg: number,
+		/**
+		 * Optional volume to compute splits (for example, EU makes only 10ml bottles, thus this could be used to round-up usage
+		 * of boosters to whole bottles instead of just ml.
+		 */
+		volume?: number;
+		/**
+		 * Amount of nicotine in the booster.
+		 */
+		nicotine: number;
+		/**
+		 * Amount of VG in the booster (percentage).
+		 */
+		vg: number;
+		/**
+		 * Amount of PG in the booster (percentage).
+		 */
+		pg: number;
 	};
+	/**
+	 * Requested amount of nicotine for the mixture.
+	 */
 	nicotine?: number;
 }
 
+/**
+ * Main structure with computed values of one mixture based on the given set of parameters.
+ */
 export interface IMixtureInfo {
+	/**
+	 * Aroma
+	 */
 	aroma: IAromaInfo;
+	/**
+	 * Base part of the recipe.
+	 */
 	base?: IBaseInfo;
+	/**
+	 * Booster part of the recipe.
+	 */
 	booster?: IBoosterInfo;
+	/**
+	 * Mixture result.
+	 */
 	result: IMixtureResult;
 	available: number;
 }
 
+/**
+ * Interface representing content of VG/PG in ml.
+ */
 export interface IVgPgMl {
 	pg: number;
 	vg: number;
