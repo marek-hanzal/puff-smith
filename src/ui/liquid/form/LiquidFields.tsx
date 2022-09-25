@@ -4,6 +4,7 @@ import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {AromaCreateForm} from "@/puff-smith/ui/aroma/form/AromaCreateForm";
 import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
 import {AromaDrawerItem, AromaProviderControl} from "@/sdk/api/aroma/query";
+import {MixtureDrawerItem, MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {ItemGroup, MobileFormItem, toLocalDate, Translate, useMobileFormContext} from "@leight-core/client";
 import {numbersOf} from "@leight-core/utils";
 import {DatePicker, Form, Picker, Selector, Stepper} from "antd-mobile";
@@ -95,9 +96,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 				cancelText={<Translate namespace={"common"} text={"cancel"}/>}
 				mouseWheel={true}
-				onConfirm={value => formContext.setValue([
-					{name: ["vgpg", "draw"], value: value},
-				])}
 				columns={[
 					numbersOf(101).map(number => ({value: `${100 - number}`, label: <VgPgInline disableTooltip vgpg={{vg: 100 - number, pg: number}}/>}))
 				]}
@@ -105,6 +103,18 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
 			</Picker>
 		</MobileFormItem>
+		<MixtureProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
+		>
+			<MixtureDrawerItem
+				withFulltext={false}
+				field={"mixture"}
+				required
+				hasTooltip
+				render={mixture => null}
+				toPreview={selection => null}
+			/>
+		</MixtureProviderControl>
 		<MobileFormItem
 			field={"mixed"}
 			trigger={"onConfirm"}

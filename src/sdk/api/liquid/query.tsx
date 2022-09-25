@@ -124,7 +124,7 @@ export const LiquidTableSource: FC<ILiquidTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</LiquidProvider>;
-};
+}
 
 export interface ILiquidListSourceProps extends Partial<IListProps<ISourceItem<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
@@ -139,7 +139,7 @@ export const LiquidListSource: FC<ILiquidListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</LiquidProvider>;
-};
+}
 
 export interface ILiquidInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
@@ -154,7 +154,7 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</LiquidProvider>;
-};
+}
 
 export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidSource>> {
 	toOption: IToOptionMapper<ISourceItem<ILiquidSource>>;
@@ -172,7 +172,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
-};
+}
 
 export const useLiquidCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -217,5 +217,5 @@ export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = props => {
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</LiquidProvider>;
-};
+	</LiquidProvider>
+}
