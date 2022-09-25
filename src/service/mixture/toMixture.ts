@@ -1,4 +1,3 @@
-import {sha256} from "@/puff-smith/service/utils/sha256";
 import {toPercent} from "@leight-core/utils";
 
 export type IMixtureError = "LESS" | "MORE" | "FULL";
@@ -138,6 +137,7 @@ export interface IBoosterInfo {
 }
 
 export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): IMixtureInfo => {
+	const id = JSON.stringify({aroma, booster, base, nicotine});
 	const aromaInfo: IAromaInfo = {
 		content: aroma.content,
 		volume: aroma.volume,
@@ -186,7 +186,8 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			}),
 		};
 
-		const info = {
+		return {
+			id,
 			aroma: aromaInfo,
 			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
@@ -200,11 +201,6 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 					boosterInfo.ml,
 				],
 			})
-		};
-
-		return {
-			id: sha256(JSON.stringify(info)),
-			...info,
 		};
 	}
 	if (booster && nicotine && nicotine > 0) {
@@ -224,7 +220,8 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			}),
 		};
 
-		const info = {
+		return {
+			id,
 			aroma: aromaInfo,
 			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			result: toMixtureResult({
@@ -235,11 +232,6 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 					boosterInfo.ml,
 				],
 			})
-		};
-
-		return {
-			id: sha256(JSON.stringify(info)),
-			...info,
 		};
 	}
 	if (base) {
@@ -254,7 +246,8 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			}),
 		};
 
-		const info = {
+		return {
+			id,
 			aroma: aromaInfo,
 			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			result: toMixtureResult({
@@ -266,13 +259,10 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 				],
 			})
 		};
-		return {
-			id: sha256(JSON.stringify(info)),
-			...info,
-		};
 	}
 
-	const info = {
+	return {
+		id,
 		aroma: aromaInfo,
 		result: toMixtureResult({
 			volume: aromaInfo.volume,
@@ -281,10 +271,6 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 				aromaInfo.ml,
 			],
 		})
-	};
-	return {
-		id: sha256(JSON.stringify(info)),
-		...info,
 	};
 };
 
