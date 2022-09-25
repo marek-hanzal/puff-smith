@@ -2,7 +2,6 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {ILiquidEntity, ILiquidSource} from "@/puff-smith/service/liquid/interface";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
 import {merge} from "@leight-core/utils";
 
 export const LiquidSource = () => new LiquidSourceClass();
@@ -54,83 +53,85 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 		});
 	}
 
-	async $create({vendor, vendorId, tastes, tasteIds, code, nicotine, ...liquid}: ISourceCreate<ILiquidSource>): Promise<ISourceEntity<ILiquidSource>> {
-		return this.useTagSource(async tagSource => {
-			return this.useCodeService(async codeService => {
-				return this.updateKeywords(await this.prisma.liquid.create({
-					data: {
-						...liquid,
-						nicotine: nicotine || 0,
-						code: code || codeService.code(),
-						name: `${liquid.name}`,
-						vendor: {
-							connect: {
-								name: vendor,
-								id: vendorId,
-							}
-						},
-						LiquidTaste: {
-							createMany: {
-								data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
-									tasteId: tag.id,
-								})),
-							}
-						},
-						user: this.user.optional() ? {
-							connect: {
-								id: this.user.optional(),
-							}
-						} : undefined,
-					},
-					include: {
-						vendor: true,
-						LiquidTaste: {
-							orderBy: {taste: {sort: "asc"}},
-							include: {
-								taste: true,
-							}
-						}
-					},
-				}));
-			});
-		});
+	async $create({vendor, vendorId, tastes, tasteIds, code, ...liquid}: ISourceCreate<ILiquidSource>): Promise<ISourceEntity<ILiquidSource>> {
+		throw new Error("not yet");
+		// return this.useTagSource(async tagSource => {
+		// 	return this.useCodeService(async codeService => {
+		// 		return this.updateKeywords(await this.prisma.liquid.create({
+		// 			data: {
+		// 				...liquid,
+		// 				nicotine: nicotine || 0,
+		// 				code: code || codeService.code(),
+		// 				name: `${liquid.name}`,
+		// 				vendor: {
+		// 					connect: {
+		// 						name: vendor,
+		// 						id: vendorId,
+		// 					}
+		// 				},
+		// 				LiquidTaste: {
+		// 					createMany: {
+		// 						data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+		// 							tasteId: tag.id,
+		// 						})),
+		// 					}
+		// 				},
+		// 				user: this.user.optional() ? {
+		// 					connect: {
+		// 						id: this.user.optional(),
+		// 					}
+		// 				} : undefined,
+		// 			},
+		// 			include: {
+		// 				vendor: true,
+		// 				LiquidTaste: {
+		// 					orderBy: {taste: {sort: "asc"}},
+		// 					include: {
+		// 						taste: true,
+		// 					}
+		// 				}
+		// 			},
+		// 		}));
+		// 	});
+		// });
 	}
 
 	async $patch({vendor, vendorId, tastes, tasteIds, id, name, ...patch}: UndefinableOptional<ISourceCreate<ILiquidSource>> & IWithIdentity): Promise<ISourceEntity<ILiquidSource>> {
-		return this.useTagSource(async tagSource => {
-			await this.prisma.liquidTaste.deleteMany({
-				where: {liquidId: id}
-			});
-			return this.updateKeywords(await this.prisma.liquid.update({
-				where: {id},
-				data: {
-					...patch,
-					name: `${name}`,
-					vendor: {
-						connect: {
-							name: vendor,
-							id: vendorId,
-						}
-					},
-					LiquidTaste: {
-						createMany: {
-							data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
-								tasteId: tag.id,
-							})),
-						}
-					},
-				},
-				include: {
-					vendor: true,
-					LiquidTaste: {
-						orderBy: {taste: {sort: "asc"}},
-						include: {
-							taste: true,
-						}
-					}
-				},
-			}));
-		});
+		throw new Error("not yet");
+		// return this.useTagSource(async tagSource => {
+		// 	await this.prisma.liquidTaste.deleteMany({
+		// 		where: {liquidId: id}
+		// 	});
+		// 	return this.updateKeywords(await this.prisma.liquid.update({
+		// 		where: {id},
+		// 		data: {
+		// 			...patch,
+		// 			name: `${name}`,
+		// 			vendor: {
+		// 				connect: {
+		// 					name: vendor,
+		// 					id: vendorId,
+		// 				}
+		// 			},
+		// 			LiquidTaste: {
+		// 				createMany: {
+		// 					data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
+		// 						tasteId: tag.id,
+		// 					})),
+		// 				}
+		// 			},
+		// 		},
+		// 		include: {
+		// 			vendor: true,
+		// 			LiquidTaste: {
+		// 				orderBy: {taste: {sort: "asc"}},
+		// 				include: {
+		// 					taste: true,
+		// 				}
+		// 			}
+		// 		},
+		// 	}));
+		// });
 	}
 
 	async createToId({vendor, vendorId, name, code}: ISourceCreate<ILiquidSource>): Promise<{ id: string }> {
@@ -161,60 +162,64 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $remove(ids: string[]): Promise<ISourceEntity<ILiquidSource>[]> {
-		const where = {
-			id: {
-				in: ids,
-			},
-		};
-		const items = await this.prisma.liquid.findMany({
-			where,
-			include: {
-				vendor: true,
-				LiquidTaste: {
-					orderBy: {taste: {sort: "asc"}},
-					include: {
-						taste: true,
-					}
-				}
-			},
-		});
-		await this.prisma.liquid.deleteMany({
-			where,
-		});
-		return items;
+		throw new Error("not yet");
+		// const where = {
+		// 	id: {
+		// 		in: ids,
+		// 	},
+		// };
+		// const items = await this.prisma.liquid.findMany({
+		// 	where,
+		// 	include: {
+		// 		vendor: true,
+		// 		LiquidTaste: {
+		// 			orderBy: {taste: {sort: "asc"}},
+		// 			include: {
+		// 				taste: true,
+		// 			}
+		// 		}
+		// 	},
+		// });
+		// await this.prisma.liquid.deleteMany({
+		// 	where,
+		// });
+		// return items;
 	}
 
 	async $get(id: string): Promise<ISourceEntity<ILiquidSource>> {
-		return this.prisma.liquid.findUniqueOrThrow({
-			where: {
-				id,
-			},
-			include: {
-				vendor: true,
-				LiquidTaste: {
-					orderBy: {taste: {sort: "asc"}},
-					include: {
-						taste: true,
-					}
-				}
-			},
-		});
+		throw new Error("not yet");
+
+		// return this.prisma.liquid.findUniqueOrThrow({
+		// 	where: {
+		// 		id,
+		// 	},
+		// 	include: {
+		// 		vendor: true,
+		// 		LiquidTaste: {
+		// 			orderBy: {taste: {sort: "asc"}},
+		// 			include: {
+		// 				taste: true,
+		// 			}
+		// 		}
+		// 	},
+		// });
 	}
 
 	async $query(query: ISourceQuery<ILiquidSource>): Promise<ISourceEntity<ILiquidSource>[]> {
-		return this.prisma.liquid.findMany({
-			where: this.withFilter(query),
-			include: {
-				vendor: true,
-				LiquidTaste: {
-					orderBy: {taste: {sort: "asc"}},
-					include: {
-						taste: true,
-					}
-				}
-			},
-			...pageOf(query),
-		});
+		throw new Error("not yet");
+		// return this.prisma.liquid.findMany({
+		// 	where: this.withFilter(query),
+		// 	include: {
+		// 		vendor: true,
+		// 		LiquidTaste: {
+		// 			orderBy: {taste: {sort: "asc"}},
+		// 			include: {
+		// 				taste: true,
+		// 			}
+		// 		}
+		// 	},
+		// 	...pageOf(query),
+		// });
 	}
 
 	async $count(query: ISourceQuery<ILiquidSource>): Promise<number> {

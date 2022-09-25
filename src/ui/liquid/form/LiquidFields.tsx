@@ -25,14 +25,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"aromaId"}
 				required
 				render={aroma => <AromaNameInline aroma={aroma}/>}
-				onSelection={selection => {
-
-					/**
-					 *    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					 */
-
-					console.log(selection);
-				}}
 				toPreview={selection => selection?.single ? <AromaNameInline aroma={selection.single}/> : undefined}
 				createWith={({formContext, visibleContext}) => <AromaCreateForm
 					onSuccess={({response}) => {
@@ -90,7 +82,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				<Stepper min={0} max={1000}/>
 			</MobileFormItem>
 		</ItemGroup>
-
 		<MobileFormItem
 			field={"vgpg"}
 			required
@@ -124,6 +115,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				title={<Translate text={"shared.liquid.mixed.title"}/>}
 				confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 				cancelText={<Translate namespace={"common"} text={"cancel"}/>}
+				mouseWheel={true}
 			>
 				{value => toLocalDate(value)}
 			</DatePicker>
