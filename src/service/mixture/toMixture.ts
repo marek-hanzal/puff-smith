@@ -2,6 +2,61 @@ import {toPercent} from "@leight-core/utils";
 
 export type IMixtureError = "LESS" | "MORE" | "FULL";
 
+export interface IToMixtureAromaRequest {
+	/**
+	 * Content of an aroma (for SnV, for example, 12ml of 120ml volume).
+	 */
+	content: number;
+	/**
+	 * A volume of an aroma; for pre-made aromas should be the same as content, for others,
+	 * it should be a recommended volume of the target mixture.
+	 */
+	volume: number;
+	/**
+	 * Amount (percentage) of VG in the aroma.
+	 */
+	vg: number;
+	/**
+	 * Amount (percentage) of PG in the aroma (this is quite redundant).
+	 */
+	pg: number;
+	/**
+	 * Optional presence of a nicotine in the aroma (usually in the pre-made ones).
+	 */
+	nicotine?: number;
+}
+
+export interface IToMixtureBaseRequest {
+	/**
+	 * Amount of VG in the base (percentage)
+	 */
+	vg: number;
+	/**
+	 * Amount of PG in the base (percentage)
+	 */
+	pg: number;
+}
+
+export interface IToMixtureBoosterRequest {
+	/**
+	 * Optional volume to compute splits (for example, EU makes only 10ml bottles, thus this could be used to round-up usage
+	 * of boosters to whole bottles instead of just ml.
+	 */
+	volume?: number;
+	/**
+	 * Amount of nicotine in the booster.
+	 */
+	nicotine: number;
+	/**
+	 * Amount of VG in the booster (percentage).
+	 */
+	vg: number;
+	/**
+	 * Amount of PG in the booster (percentage).
+	 */
+	pg: number;
+}
+
 /**
  * Request of one exact mixture computation based on all various things it needs for life.
  */
@@ -9,64 +64,15 @@ export interface IToMixtureInfoRequest {
 	/**
 	 * Source aroma info
 	 */
-	aroma: {
-		/**
-		 * Content of an aroma (for SnV, for example, 12ml of 120ml volume).
-		 */
-		content: number;
-		/**
-		 * A volume of an aroma; for pre-made aromas should be the same as content, for others,
-		 * it should be a recommended volume of the target mixture.
-		 */
-		volume: number;
-		/**
-		 * Amount (percentage) of VG in the aroma.
-		 */
-		vg: number;
-		/**
-		 * Amount (percentage) of PG in the aroma (this is quite redundant).
-		 */
-		pg: number;
-		/**
-		 * Optional presence of a nicotine in the aroma (usually in the pre-made ones).
-		 */
-		nicotine?: number;
-	};
+	aroma: IToMixtureAromaRequest;
 	/**
 	 * Information about base used to make this mixture.
 	 */
-	base?: {
-		/**
-		 * Amount of VG in the base (percentage)
-		 */
-		vg: number;
-		/**
-		 * Amount of PG in the base (percentage)
-		 */
-		pg: number;
-	};
+	base?: IToMixtureBaseRequest;
 	/**
 	 * Information about booster used to make this mixture.
 	 */
-	booster?: {
-		/**
-		 * Optional volume to compute splits (for example, EU makes only 10ml bottles, thus this could be used to round-up usage
-		 * of boosters to whole bottles instead of just ml.
-		 */
-		volume?: number;
-		/**
-		 * Amount of nicotine in the booster.
-		 */
-		nicotine: number;
-		/**
-		 * Amount of VG in the booster (percentage).
-		 */
-		vg: number;
-		/**
-		 * Amount of PG in the booster (percentage).
-		 */
-		pg: number;
-	};
+	booster?: IToMixtureBoosterRequest;
 	/**
 	 * Requested amount of nicotine for the mixture.
 	 */
@@ -93,7 +99,6 @@ export interface IMixtureInfo {
 	 * Mixture result.
 	 */
 	result: IMixtureResult;
-	available: number;
 }
 
 /**
@@ -123,19 +128,19 @@ export interface IBaseInfo {
 
 export interface IBoosterInfo {
 	volume: number;
-	count: number;
+	count?: number;
+	nicotine: number;
 	pg: number;
 	vg: number;
 	ml: IVgPgMl;
 }
 
 export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): IMixtureInfo => {
-	const available = aroma.volume - aroma.content;
 	const aromaInfo: IAromaInfo = {
 		content: aroma.content,
 		volume: aroma.volume,
 		ratio: toPercent(aroma.content, aroma.volume),
-		available,
+		available: aroma.volume - aroma.content,
 		pg: aroma.pg,
 		vg: aroma.vg,
 		ml: toMl({
@@ -154,11 +159,12 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	 */
 	if (base && booster && nicotine && nicotine > 0) {
 		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
-		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
-		const boosterVolume = booster.volume * boosterCount;
+		const boosterCount = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
+		const boosterVolume = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
 		const boosterInfo: IBoosterInfo = {
 			volume: boosterVolume,
 			count: boosterCount,
+			nicotine: booster.nicotine,
 			pg: booster.pg,
 			vg: booster.vg,
 			ml: toMl({
@@ -180,12 +186,11 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 
 		return {
 			aroma: aromaInfo,
-			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
-			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
-			available,
+			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
+			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume,
-				available,
+				available: aroma.volume - aroma.content,
 				nicotine: boosterVolume * booster.nicotine,
 				fluids: [
 					aromaInfo.ml,
@@ -197,11 +202,12 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	}
 	if (booster && nicotine && nicotine > 0) {
 		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
-		const boosterCount = Math.round(boosterBaseVolume / booster.volume);
-		const boosterVolume = booster.volume * boosterCount;
+		const boosterCount = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
+		const boosterVolume = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
 		const boosterInfo: IBoosterInfo = {
 			volume: boosterVolume,
 			count: boosterCount,
+			nicotine: booster.nicotine,
 			pg: booster.pg,
 			vg: booster.vg,
 			ml: toMl({
@@ -212,11 +218,10 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		};
 		return {
 			aroma: aromaInfo,
-			booster: available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
-			available,
+			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume,
-				available,
+				available: aroma.volume - aroma.content,
 				fluids: [
 					aromaInfo.ml,
 					boosterInfo.ml,
@@ -237,11 +242,10 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		};
 		return {
 			aroma: aromaInfo,
-			base: available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
-			available,
+			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			result: toMixtureResult({
 				volume: aromaInfo.volume,
-				available,
+				available: aroma.volume - aroma.content,
 				fluids: [
 					aromaInfo.ml,
 					baseInfo.ml,
@@ -251,10 +255,9 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	}
 	return {
 		aroma: aromaInfo,
-		available,
 		result: toMixtureResult({
 			volume: aromaInfo.volume,
-			available,
+			available: aroma.volume - aroma.content,
 			fluids: [
 				aromaInfo.ml,
 			],

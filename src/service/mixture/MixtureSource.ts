@@ -1,7 +1,9 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
+import {IMixtureInfo, IToMixtureBaseRequest, IToMixtureBoosterRequest, toMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
+import util from "node:util";
 
 export const MixtureSource = () => new MixtureSourceClass();
 
@@ -11,11 +13,92 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 	}
 
 	async map(mixture: ISourceEntity<IMixtureSource>): Promise<ISourceItem<IMixtureSource>> {
-		return {};
+		return {
+			id: "123",
+			...mixture,
+		};
 	}
 
-	async $query(query: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
-		return [];
+	async $query({filter}: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
+		if (!filter) {
+			return [];
+		}
+		const {aroma, nicotine, vg, pg} = filter;
+
+		const baseList: IToMixtureBaseRequest [] = [];
+		const boosterList: IToMixtureBoosterRequest[] = [];
+		for (let vg = 0; vg <= 100; vg += 10) {
+			baseList.push({
+				vg,
+				pg: 100 - vg,
+			});
+		}
+		if (nicotine && nicotine > 0) {
+			for (let $nicotine = 0; $nicotine <= 250; $nicotine++) {
+				for (let vg = 0; vg <= 100; vg += 10) {
+					boosterList.push({
+						vg,
+						pg: 100 - vg,
+						nicotine: $nicotine,
+					});
+				}
+			}
+		}
+
+		const result: IMixtureInfo[] = [];
+
+		function resolveInfo(info: IMixtureInfo): boolean {
+			if (info.result.error) {
+				return false;
+			}
+			if (nicotine && (info.result.nicotineToRound < nicotine || info.result.nicotineToRound > nicotine)) {
+				return false;
+			}
+			if (info.result.round.vg < vg || info.result.round.vg > vg) {
+				return false;
+			}
+			if (info.result.round.pg < pg || info.result.round.pg > pg) {
+				return false;
+			}
+
+			return true;
+		}
+
+		!nicotine && baseList.forEach(base => {
+			const info = toMixtureInfo({
+				aroma,
+				base,
+			});
+			resolveInfo(info) && result.push(info);
+		});
+		nicotine && boosterList.forEach(booster => {
+			const info = toMixtureInfo({
+				aroma,
+				booster,
+				nicotine,
+			});
+			resolveInfo(info) && result.push(info);
+		});
+		nicotine && baseList.forEach(base => boosterList.forEach(booster => {
+			const info = toMixtureInfo({
+				aroma,
+				base,
+				booster,
+				nicotine,
+			});
+			resolveInfo(info) && result.push(info);
+		}));
+
+		console.log(
+			"result",
+			util.inspect(result, {depth: null, colors: true}),
+			"Result count",
+			result.length
+		);
+		console.log("Base count", baseList.length);
+		console.log("Booster count", boosterList.length);
+
+		return result.slice(0, 100);
 	}
 
 	async $count(query: ISourceQuery<IMixtureSource>): Promise<number> {
