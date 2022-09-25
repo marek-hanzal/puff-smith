@@ -16,6 +16,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		return mixture;
 	}
 
+	async $get(id: string): Promise<ISourceEntity<IMixtureSource>> {
+		return toMixtureInfo(JSON.parse(id));
+	}
+
 	async $query({filter}: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
 		if (!filter || !filter.mixture) {
 			return [];
