@@ -35,8 +35,8 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"aromaId"}
 				required
 				onSelection={selection => setAroma(selection.single)}
-				render={aroma => <AromaNameInline aroma={aroma}/>}
-				toPreview={selection => selection?.single ? <AromaNameInline aroma={selection.single}/> : undefined}
+				render={aroma => <AromaNameInline inline={false} aroma={aroma}/>}
+				toPreview={selection => selection?.single ? <AromaNameInline inline={false} aroma={selection.single}/> : undefined}
 				createWith={({formContext, visibleContext}) => <AromaCreateForm
 					onSuccess={({response}) => {
 						formContext.setValue([
@@ -152,7 +152,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			</MobileFormItem>
 			<MobileFormItem
 				field={"vgpg"}
-				required={nicotine}
 				disabled={!nicotine}
 				hasTooltip
 				trigger={"onConfirm"}
@@ -179,9 +178,9 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"volume"}
 				hasTooltip
 				disabled={!nicotine}
-				toClear={() => 0}
+				toClear={() => null}
 			>
-				<Stepper min={0} max={1000}/>
+				<Stepper min={0} max={1000} allowEmpty/>
 			</MobileFormItem>
 		</ItemGroup>
 		<ItemGroup prefix={"base"}>
@@ -212,7 +211,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 		</ItemGroup>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
-			applyFilter={aroma && baseVgPg ? {
+			applyFilter={aroma ? {
 				mixture: {
 					aroma: {
 						content: aroma.content,
@@ -220,9 +219,9 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 						vg: aroma.vg,
 						pg: aroma.pg,
 					},
-					vg: parseInt(vgpg?.[0] || 0),
-					pg: vgpg?.[0] ? (100 - vgpg[0]) : 0,
-					booster: nicotine > 0 && boosterVolume && boosterVgPg ? uniqueOf([
+					vg: vgpg?.[0] ? parseInt(vgpg[0]) : undefined,
+					pg: vgpg?.[0] ? (100 - vgpg[0]) : undefined,
+					booster: nicotine > 0 && boosterVolume && boosterVgPg?.[0] ? uniqueOf([
 						{
 							volume: boosterVolume,
 							vg: parseInt(boosterVgPg[0]),
@@ -242,7 +241,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 							nicotine: boosterNicotine,
 						},
 					], "vg") : undefined,
-					base: uniqueOf([
+					base: baseVgPg?.[0] ? uniqueOf([
 						{
 							vg: parseInt(baseVgPg[0]),
 							pg: 100 - baseVgPg[0],
@@ -255,7 +254,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 							vg: Math.min(parseInt(baseVgPg[0]) + 10, 100),
 							pg: Math.max(100 - baseVgPg[0] - 10, 0),
 						},
-					], "vg"),
+					], "vg") : undefined,
 					nicotine,
 				},
 			} : undefined}

@@ -3,12 +3,20 @@ import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {IMixtureInfo, IToMixtureBaseRequest, IToMixtureBoosterRequest, toMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
+import LRUCache from "lru-cache";
+
+const mixtureCache: LRUCache<string, ISourceEntity<IMixtureSource>[]> = new LRUCache<string, ISourceEntity<IMixtureSource>[]>({
+	max: 2048,
+});
 
 export const MixtureSource = () => new MixtureSourceClass();
 
 export class MixtureSourceClass extends ContainerSource<IMixtureSource> implements IMixtureSource {
 	constructor() {
 		super("mixture", prisma);
+		this.cache = {
+			query: mixtureCache,
+		};
 	}
 
 	async map(mixture: ISourceEntity<IMixtureSource>): Promise<ISourceItem<IMixtureSource>> {
@@ -19,11 +27,12 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		return toMixtureInfo(JSON.parse(id));
 	}
 
-	async $query({filter}: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
-		if (!filter || !filter.mixture) {
+	async $query(query: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
+		if (!query.filter || !query.filter.mixture) {
 			return [];
 		}
-		const {aroma, nicotine, vg, pg, booster, base} = filter.mixture;
+		const {page, size} = query;
+		const {aroma, nicotine, vg, pg, booster, base} = query.filter.mixture;
 
 		const baseList: IToMixtureBaseRequest[] = base || [];
 		const boosterList: IToMixtureBoosterRequest[] = booster || [];
@@ -87,14 +96,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			resolveInfo($info) && info.push($info);
 		}));
 
-		console.log("Base", baseList);
-		console.log("Booster", boosterList);
-		console.log("Result", info);
-
-		return info;
+		return page !== undefined && size !== undefined ? info.slice(page * size, size) : info;
 	}
 
-	async $count(query: ISourceQuery<IMixtureSource>): Promise<number> {
-		return -1;
+	async $count({filter}: ISourceQuery<IMixtureSource>): Promise<number> {
+		return (await this.query({filter})).length;
 	}
 }

@@ -1,3 +1,6 @@
+import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
+import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
+import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
@@ -18,14 +21,14 @@ export const MixtureInline: FC<IMixtureInlineProps> = ({mixture}) => {
 	>
 		<Space>
 			<Typography.Text type={"secondary"}>
-				[Liquid]
+				<LiquidIcon/>
 			</Typography.Text>
 			<VgPgInline vgpg={mixture.result.ratio}/>
 			{mixture.result.nicotine > 0 && <NicotineInline nicotine={mixture.result.nicotine}/>}
 		</Space>
 		{mixture.booster ? <Space>
 			<Typography.Text type={"secondary"}>
-				[Booster]
+				<BoosterIcon/>
 			</Typography.Text>
 			<VgPgInline vgpg={mixture.booster}/>
 			<NicotineInline nicotine={mixture.booster.nicotine}/>
@@ -38,7 +41,7 @@ export const MixtureInline: FC<IMixtureInlineProps> = ({mixture}) => {
 		</Typography.Text>}
 		{mixture.base ? <Space>
 			<Typography.Text type={"secondary"}>
-				[Base]
+				<BaseIcon/>
 			</Typography.Text>
 			<VgPgInline vgpg={mixture.base}/>
 			<ContentInline content={mixture.base.volume}/>
