@@ -114,15 +114,16 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 		<MobileFormItem
 			field={"nicotine"}
 			hasTooltip
+			toClear={() => 0}
 		>
 			<Stepper min={0} max={50} digits={1}/>
 		</MobileFormItem>
 		<MobileFormItem
 			field={"vgpg"}
-			required
 			hasTooltip
 			trigger={"onConfirm"}
 			onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+			toClear={() => []}
 		>
 			<Picker
 				forceRender
@@ -156,6 +157,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				hasTooltip
 				trigger={"onConfirm"}
 				onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+				toClear={() => []}
 			>
 				<Picker
 					forceRender
@@ -177,6 +179,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"volume"}
 				hasTooltip
 				disabled={!nicotine}
+				toClear={() => 0}
 			>
 				<Stepper min={0} max={1000}/>
 			</MobileFormItem>
@@ -188,6 +191,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				hasTooltip
 				trigger={"onConfirm"}
 				onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+				toClear={() => []}
 			>
 				<Picker
 					forceRender
@@ -208,7 +212,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 		</ItemGroup>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
-			applyFilter={aroma && vgpg && baseVgPg ? {
+			applyFilter={aroma && baseVgPg ? {
 				mixture: {
 					aroma: {
 						content: aroma.content,
@@ -216,8 +220,8 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 						vg: aroma.vg,
 						pg: aroma.pg,
 					},
-					vg: parseInt(vgpg[0]),
-					pg: 100 - vgpg[0],
+					vg: parseInt(vgpg?.[0] || 0),
+					pg: vgpg?.[0] ? (100 - vgpg[0]) : 0,
 					booster: nicotine > 0 && boosterVolume && boosterVgPg ? uniqueOf([
 						{
 							volume: boosterVolume,
@@ -271,6 +275,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			trigger={"onConfirm"}
 			onClick={(_, ref: RefObject<DatePickerRef>) => ref.current?.open()}
 			hasTooltip
+			toClear={() => null}
 		>
 			<DatePicker
 				title={<Translate text={"shared.liquid.mixed.title"}/>}

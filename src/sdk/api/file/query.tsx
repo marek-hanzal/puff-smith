@@ -200,14 +200,18 @@ export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}
 		<BlockProvider>
 			<BlockContext.Consumer>
 				{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
+					toClear={() => undefined}
 					onSelection={onSelection}
 					ofSelection={({value, selectionContext}) => {
-						value && blockContext.block();
-						value ? FilePromise({filter: {id: value as any}}).then(items => {
-							selectionContext.items(items, true);
-							blockContext.unblock(true);
-							onSelection?.(selectionContext.selection());
-						}) : undefined;
+						selectionContext.clear();
+						if (value) {
+							blockContext.block();
+							AromaPromise({filter: {id: value as any}}).then(items => {
+								selectionContext.items(items, true);
+								blockContext.unblock(true);
+								onSelection?.(selectionContext.selection());
+							});
+						}
 					}}
 					drawerSelectProps={{
 						translation: {

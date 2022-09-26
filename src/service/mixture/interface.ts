@@ -11,8 +11,8 @@ export interface IMixtureFilter {
 		nicotine: number;
 		booster?: IToMixtureBoosterRequest[];
 		base?: IToMixtureBaseRequest[];
-		vg: number;
-		pg: number;
+		vg?: number;
+		pg?: number;
 	};
 }
 

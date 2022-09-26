@@ -56,14 +56,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			if (nicotine && (info.result.nicotineToRound < nicotine || info.result.nicotineToRound > nicotine)) {
 				return false;
 			}
-			if (info.result.round.vg < vg || info.result.round.vg > vg) {
+			if (vg && (info.result.round.vg < vg || info.result.round.vg > vg)) {
 				return false;
 			}
-			if (info.result.round.pg < pg || info.result.round.pg > pg) {
-				return false;
-			}
-
-			return true;
+			return !(pg && (info.result.round.pg < pg || info.result.round.pg > pg));
 		}
 
 		!nicotine && baseList.forEach(base => {
