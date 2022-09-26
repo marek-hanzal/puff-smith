@@ -8,9 +8,9 @@ import {MixtureInline} from "@/puff-smith/ui/mixture/inline/MixtureInline";
 import {AromaDrawerItem, AromaProviderControl} from "@/sdk/api/aroma/query";
 import {MixtureDrawerItem, MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {ItemGroup, MobileFormItem, toLocalDate, Translate, useMobileFormContext} from "@leight-core/client";
-import {numbersOf} from "@leight-core/utils";
+import {merge, numbersOf} from "@leight-core/utils";
 import {Typography} from "antd";
-import {DatePicker, Form, Picker, Space, Stepper} from "antd-mobile";
+import {CheckList, DatePicker, Form, Picker, Space, Stepper} from "antd-mobile";
 import {DatePickerRef} from "antd-mobile/es/components/date-picker";
 import {PickerRef} from "antd-mobile/es/components/picker";
 import {FC, RefObject, useState} from "react";
@@ -31,10 +31,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			<AromaDrawerItem
 				field={"aromaId"}
 				required
-				onSelection={selection => {
-					console.log("OnSelection", selection);
-					setAroma(selection.single);
-				}}
+				onSelection={selection => setAroma(selection.single)}
 				render={aroma => <AromaNameInline aroma={aroma}/>}
 				toPreview={selection => selection?.single ? <AromaNameInline aroma={selection.single}/> : undefined}
 				createWith={({formContext, visibleContext}) => <AromaCreateForm
@@ -132,22 +129,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 		</MobileFormItem>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
-			defaultFilter={aroma && vgpg && {
-				mixture: {
-					aroma: {
-						content: aroma.content,
-						volume: aroma.volume,
-						vg: aroma.vg,
-						pg: aroma.pg,
-					},
-					vg: 100 - vgpg[0],
-					pg: vgpg[0],
-					booster: {
-						volume: nicotineVolume,
-					},
-					nicotine,
-				},
-			}}
 		>
 			<MixtureDrawerItem
 				disabled={!aroma || !vgpg}
@@ -156,6 +137,71 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				required
 				hasTooltip
 				render={mixture => <MixtureInline mixture={mixture}/>}
+				renderList={({selectionContext, sourceContext, render, filterContext}) => {
+					const filter = aroma && vgpg && {
+						mixture: {
+							aroma: {
+								content: aroma.content,
+								volume: aroma.volume,
+								vg: aroma.vg,
+								pg: aroma.pg,
+							},
+							vg: 100 - vgpg[0],
+							pg: parseInt(vgpg[0]),
+							booster: {
+								volume: nicotineVolume,
+							},
+							nicotine,
+						},
+					};
+					return <>
+						<Form.Item
+							name={"base"}
+							trigger={"onConfirm"}
+							onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+						>
+							<Picker
+								title={<Translate text={"shared.base.vgpg.picker.title"}/>}
+								confirmText={<Translate namespace={"common"} text={"confirm"}/>}
+								cancelText={<Translate namespace={"common"} text={"cancel"}/>}
+								mouseWheel={true}
+								onConfirm={vgpg => {
+									filterContext?.setFilter(vgpg ? merge(filter || {}, {
+										mixture: {
+											base: {
+												vgpg: [
+													{
+														vg: 100 - vgpg[0],
+														pg: vgpg[0],
+													},
+												]
+											}
+										}
+									}) : {});
+								}}
+								columns={[
+									numbersOf(101).map(number => ({value: `${100 - number}`, label: <VgPgInline vgpg={{vg: number, pg: 100 - number}}/>}))
+								]}
+							>
+								{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
+							</Picker>
+						</Form.Item>
+						<CheckList
+							value={selectionContext.toSelection()}
+						>
+							{sourceContext.data().map(item => <CheckList.Item
+								key={item.id}
+								value={item.id}
+								onClick={e => {
+									e.stopPropagation();
+									selectionContext.item(item);
+								}}
+							>
+								{render(item)}
+							</CheckList.Item>)}
+						</CheckList>
+					</>;
+				}}
 				toPreview={selection => selection?.single ? <MixtureInline mixture={selection?.single}/> : undefined}
 			/>
 		</MixtureProviderControl>

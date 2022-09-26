@@ -1,4 +1,4 @@
-import {IMixtureInfo, IToMixtureAromaRequest} from "@/puff-smith/service/mixture/toMixture";
+import {IMixtureInfo, IToMixtureAromaRequest, IToMixtureBaseRequest, IToMixtureBoosterRequest} from "@/puff-smith/service/mixture/toMixture";
 import {IQuery, ISource} from "@leight-core/api";
 
 export interface IMixture extends IMixtureInfo {
@@ -9,8 +9,12 @@ export interface IMixtureFilter {
 	mixture?: {
 		aroma: IToMixtureAromaRequest;
 		nicotine: number;
-		booster: {
+		booster?: {
 			volume?: number;
+			vgpg?: IToMixtureBoosterRequest[];
+		};
+		base?: {
+			vgpg?: IToMixtureBaseRequest[];
 		};
 		vg: number;
 		pg: number;

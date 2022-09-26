@@ -3,7 +3,6 @@
  */
 
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
-import {toMixtureInfoBy} from "@/puff-smith/service/mixture/toMixtureInfoBy";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	BlockContext,
@@ -197,7 +196,6 @@ export interface IMixtureDrawerItemProps extends Omit<IDrawerSelectItemProps<ISo
 export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...props}) => {
 	return <MixtureProvider
 		withCount
-		onSuccess={info => console.log(toMixtureInfoBy(info))}
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
