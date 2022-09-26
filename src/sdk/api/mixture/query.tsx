@@ -3,6 +3,7 @@
  */
 
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
+import {toMixtureInfoBy} from "@/puff-smith/service/mixture/toMixtureInfoBy";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
 	BlockContext,
@@ -124,7 +125,7 @@ export const MixtureTableSource: FC<IMixtureTableSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureListSourceProps extends Partial<IListProps<ISourceItem<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -139,7 +140,7 @@ export const MixtureListSource: FC<IMixtureListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -154,7 +155,7 @@ export const MixtureInfiniteListSource: FC<IMixtureInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IMixtureSource>> {
 	toOption: IToOptionMapper<ISourceItem<IMixtureSource>>;
@@ -172,7 +173,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IMixtureSource>> {...props}/>;
-}
+};
 
 export const useMixtureCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -196,6 +197,7 @@ export interface IMixtureDrawerItemProps extends Omit<IDrawerSelectItemProps<ISo
 export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...props}) => {
 	return <MixtureProvider
 		withCount
+		onSuccess={info => console.log(toMixtureInfoBy(info))}
 	>
 		<BlockProvider>
 			<BlockContext.Consumer>
@@ -219,5 +221,5 @@ export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...
 				/>}
 			</BlockContext.Consumer>
 		</BlockProvider>
-	</MixtureProvider>
-}
+	</MixtureProvider>;
+};

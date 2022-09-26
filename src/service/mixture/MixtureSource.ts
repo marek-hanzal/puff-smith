@@ -3,7 +3,6 @@ import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {IMixtureInfo, IToMixtureBaseRequest, IToMixtureBoosterRequest, toMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
-import util from "node:util";
 
 export const MixtureSource = () => new MixtureSourceClass();
 
@@ -47,7 +46,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			}
 		}
 
-		const result: IMixtureInfo[] = [];
+		const info: IMixtureInfo[] = [];
 
 		function resolveInfo(info: IMixtureInfo): boolean {
 			if (info.result.error) {
@@ -67,40 +66,31 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		}
 
 		!nicotine && baseList.forEach(base => {
-			const info = toMixtureInfo({
+			const $info = toMixtureInfo({
 				aroma,
 				base,
 			});
-			resolveInfo(info) && result.push(info);
+			resolveInfo($info) && info.push($info);
 		});
 		nicotine && boosterList.forEach(booster => {
-			const info = toMixtureInfo({
+			const $info = toMixtureInfo({
 				aroma,
 				booster,
 				nicotine,
 			});
-			resolveInfo(info) && result.push(info);
+			resolveInfo($info) && info.push($info);
 		});
 		nicotine && baseList.forEach(base => boosterList.forEach(booster => {
-			const info = toMixtureInfo({
+			const $info = toMixtureInfo({
 				aroma,
 				base,
 				booster,
 				nicotine,
 			});
-			resolveInfo(info) && result.push(info);
+			resolveInfo($info) && info.push($info);
 		}));
 
-		console.log(
-			"result",
-			util.inspect(result, {depth: null, colors: true}),
-			"Result count",
-			result.length
-		);
-
-		return result.sort((a, b) => {
-			return (b.booster?.nicotine || 0) - (a.booster?.nicotine || 0);
-		}).slice(0, 10);
+		return info;
 	}
 
 	async $count(query: ISourceQuery<IMixtureSource>): Promise<number> {
