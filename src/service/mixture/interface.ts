@@ -9,13 +9,8 @@ export interface IMixtureFilter {
 	mixture?: {
 		aroma: IToMixtureAromaRequest;
 		nicotine: number;
-		booster?: {
-			volume?: number;
-			vgpg?: IToMixtureBoosterRequest[];
-		};
-		base?: {
-			vgpg?: IToMixtureBaseRequest[];
-		};
+		booster?: IToMixtureBoosterRequest[];
+		base?: IToMixtureBaseRequest[];
 		vg: number;
 		pg: number;
 	};

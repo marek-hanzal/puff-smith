@@ -8,9 +8,9 @@ import {MixtureInline} from "@/puff-smith/ui/mixture/inline/MixtureInline";
 import {AromaDrawerItem, AromaProviderControl} from "@/sdk/api/aroma/query";
 import {MixtureDrawerItem, MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {ItemGroup, MobileFormItem, toLocalDate, Translate, useMobileFormContext} from "@leight-core/client";
-import {merge, numbersOf} from "@leight-core/utils";
+import {numbersOf, uniqueOf} from "@leight-core/utils";
 import {Typography} from "antd";
-import {CheckList, DatePicker, Form, Picker, Space, Stepper} from "antd-mobile";
+import {DatePicker, Form, Picker, Space, Stepper} from "antd-mobile";
 import {DatePickerRef} from "antd-mobile/es/components/date-picker";
 import {PickerRef} from "antd-mobile/es/components/picker";
 import {FC, RefObject, useState} from "react";
@@ -20,8 +20,11 @@ export interface ILiquidFieldsProps {
 
 export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 	const formContext = useMobileFormContext();
-	const nicotine = Form.useWatch(["nicotine", "amount"], formContext.form);
-	const nicotineVolume = Form.useWatch(["nicotine", "volume"], formContext.form);
+	const nicotine = Form.useWatch(["nicotine"], formContext.form);
+	const boosterVolume = Form.useWatch(["booster", "volume"], formContext.form);
+	const boosterVgPg = Form.useWatch(["booster", "vgpg"], formContext.form);
+	const boosterNicotine = Form.useWatch(["booster", "nicotine"], formContext.form);
+	const baseVgPg = Form.useWatch(["base", "vgpg"], formContext.form);
 	const vgpg = Form.useWatch(["vgpg"], formContext.form);
 	const [aroma, setAroma] = useState<IAroma>();
 	return <>
@@ -70,8 +73,25 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 							value: [value],
 						},
 						{
-							name: ["nicotine", "amount"],
-							value: {"50": 6, "70": 3, "90": 1.5}[value],
+							name: ["nicotine"],
+							value: {
+								"50": 6,
+								"70": 3,
+							}[value],
+						},
+						{
+							name: ["booster", "vgpg"],
+							value: [{
+								"50": "70",
+								"70": "100",
+							}[value]],
+						},
+						{
+							name: ["base", "vgpg"],
+							value: [{
+								"50": "70",
+								"70": "100",
+							}[value]],
 						},
 					]);
 				}}
@@ -79,7 +99,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 					[
 						{type: "mtl", value: "50"},
 						{type: "dl", value: "70"},
-						{type: "cloud-chasing", value: "90"},
 					].map(({type, value}) => ({
 						value,
 						label: <Space>
@@ -92,21 +111,12 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
 			</Picker>
 		</MobileFormItem>
-		<ItemGroup prefix={"nicotine"}>
-			<MobileFormItem
-				field={"amount"}
-				hasTooltip
-			>
-				<Stepper min={0} max={50} digits={1}/>
-			</MobileFormItem>
-			<MobileFormItem
-				field={"volume"}
-				hasTooltip
-				disabled={!nicotine}
-			>
-				<Stepper min={0} max={1000}/>
-			</MobileFormItem>
-		</ItemGroup>
+		<MobileFormItem
+			field={"nicotine"}
+			hasTooltip
+		>
+			<Stepper min={0} max={50} digits={1}/>
+		</MobileFormItem>
 		<MobileFormItem
 			field={"vgpg"}
 			required
@@ -121,14 +131,130 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				cancelText={<Translate namespace={"common"} text={"cancel"}/>}
 				mouseWheel={true}
 				columns={[
-					numbersOf(101).map(number => ({value: `${100 - number}`, label: <VgPgInline vgpg={{vg: 100 - number, pg: number}}/>}))
+					numbersOf(101).map(number => ({
+						value: `${100 - number}`,
+						label: <VgPgInline vgpg={{vg: 100 - number, pg: number}}/>,
+					}))
 				]}
 			>
 				{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
 			</Picker>
 		</MobileFormItem>
+		<ItemGroup prefix={"booster"}>
+			<MobileFormItem
+				field={"nicotine"}
+				required={nicotine}
+				disabled={!nicotine}
+				hasTooltip
+			>
+				<Stepper min={1} max={250} digits={1}/>
+			</MobileFormItem>
+			<MobileFormItem
+				field={"vgpg"}
+				required={nicotine}
+				disabled={!nicotine}
+				hasTooltip
+				trigger={"onConfirm"}
+				onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+			>
+				<Picker
+					forceRender
+					title={<Translate text={"shared.booster.vgpg.picker.title"}/>}
+					confirmText={<Translate namespace={"common"} text={"confirm"}/>}
+					cancelText={<Translate namespace={"common"} text={"cancel"}/>}
+					mouseWheel={true}
+					columns={[
+						numbersOf(101).map(number => ({
+							value: `${100 - number}`,
+							label: <VgPgInline vgpg={{vg: 100 - number, pg: number}}/>,
+						}))
+					]}
+				>
+					{([value]) => value?.label || <Translate text={"shared.booster.vgpg.placeholder"}/>}
+				</Picker>
+			</MobileFormItem>
+			<MobileFormItem
+				field={"volume"}
+				hasTooltip
+				disabled={!nicotine}
+			>
+				<Stepper min={0} max={1000}/>
+			</MobileFormItem>
+		</ItemGroup>
+		<ItemGroup prefix={"base"}>
+			<MobileFormItem
+				field={"vgpg"}
+				required
+				hasTooltip
+				trigger={"onConfirm"}
+				onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
+			>
+				<Picker
+					forceRender
+					title={<Translate text={"shared.base.vgpg.picker.title"}/>}
+					confirmText={<Translate namespace={"common"} text={"confirm"}/>}
+					cancelText={<Translate namespace={"common"} text={"cancel"}/>}
+					mouseWheel={true}
+					columns={[
+						numbersOf(101).map(number => ({
+							value: `${100 - number}`,
+							label: <VgPgInline vgpg={{vg: 100 - number, pg: number}}/>,
+						}))
+					]}
+				>
+					{([value]) => value?.label || <Translate text={"shared.base.vgpg.placeholder"}/>}
+				</Picker>
+			</MobileFormItem>
+		</ItemGroup>
 		<MixtureProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
+			applyFilter={aroma && vgpg && baseVgPg ? {
+				mixture: {
+					aroma: {
+						content: aroma.content,
+						volume: aroma.volume,
+						vg: aroma.vg,
+						pg: aroma.pg,
+					},
+					vg: parseInt(vgpg[0]),
+					pg: 100 - vgpg[0],
+					booster: nicotine > 0 && boosterVolume && boosterVgPg ? uniqueOf([
+						{
+							volume: boosterVolume,
+							vg: parseInt(boosterVgPg[0]),
+							pg: 100 - boosterVgPg[0],
+							nicotine: boosterNicotine,
+						},
+						{
+							volume: boosterVolume,
+							vg: Math.max(parseInt(baseVgPg[0]) - 10, 0),
+							pg: Math.min(100 - baseVgPg[0] + 10, 100),
+							nicotine: boosterNicotine,
+						},
+						{
+							volume: boosterVolume,
+							vg: Math.min(parseInt(baseVgPg[0]) + 10, 100),
+							pg: Math.max(100 - baseVgPg[0] - 10, 0),
+							nicotine: boosterNicotine,
+						},
+					], "vg") : undefined,
+					base: uniqueOf([
+						{
+							vg: parseInt(baseVgPg[0]),
+							pg: 100 - baseVgPg[0],
+						},
+						{
+							vg: Math.max(parseInt(baseVgPg[0]) - 10, 0),
+							pg: Math.min(100 - baseVgPg[0] + 10, 100),
+						},
+						{
+							vg: Math.min(parseInt(baseVgPg[0]) + 10, 100),
+							pg: Math.max(100 - baseVgPg[0] - 10, 0),
+						},
+					], "vg"),
+					nicotine,
+				},
+			} : undefined}
 		>
 			<MixtureDrawerItem
 				disabled={!aroma || !vgpg}
@@ -137,74 +263,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				required
 				hasTooltip
 				render={mixture => <MixtureInline mixture={mixture}/>}
-				renderList={({selectionContext, sourceContext, render, filterContext}) => {
-					const filter = aroma && vgpg && {
-						mixture: {
-							aroma: {
-								content: aroma.content,
-								volume: aroma.volume,
-								vg: aroma.vg,
-								pg: aroma.pg,
-							},
-							vg: 100 - vgpg[0],
-							pg: parseInt(vgpg[0]),
-							booster: {
-								volume: nicotineVolume,
-							},
-							nicotine,
-						},
-					};
-					return <>
-						<Form.Item
-							name={"base"}
-							trigger={"onConfirm"}
-							onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
-						>
-							<Picker
-								title={<Translate text={"shared.base.vgpg.picker.title"}/>}
-								confirmText={<Translate namespace={"common"} text={"confirm"}/>}
-								cancelText={<Translate namespace={"common"} text={"cancel"}/>}
-								mouseWheel={true}
-								onConfirm={(vgpg: any) => {
-									sourceContext.reset();
-									setTimeout(() => {
-										filterContext?.setFilter(vgpg ? merge(filter || {}, {
-											mixture: {
-												base: {
-													vgpg: [
-														{
-															vg: 100 - parseInt(vgpg?.[0] || 0),
-															pg: vgpg[0],
-														},
-													]
-												}
-											}
-										}) : {});
-									}, 500);
-								}}
-								columns={[
-									numbersOf(11).map(number => ({value: `${100 - (number * 10)}`, label: <VgPgInline vgpg={{vg: (number * 10), pg: 100 - (number * 10)}}/>}))
-								]}
-							>
-								{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
-							</Picker>
-						</Form.Item>
-						<CheckList
-							value={selectionContext.toSelection()}
-						>
-							{sourceContext.data().map(item => <CheckList.Item
-								key={item.id}
-								value={item.id}
-								onClick={e => {
-									e.stopPropagation();
-									selectionContext.item(item);
-								}}
-							>
-								{render(item)}
-							</CheckList.Item>)}
-						</CheckList>
-					</>;
-				}}
 				toPreview={selection => selection?.single ? <MixtureInline mixture={selection?.single}/> : undefined}
 			/>
 		</MixtureProviderControl>

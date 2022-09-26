@@ -25,9 +25,9 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		}
 		const {aroma, nicotine, vg, pg, booster, base} = filter.mixture;
 
-		const baseList: IToMixtureBaseRequest[] = base?.vgpg || [];
-		const boosterList: IToMixtureBoosterRequest[] = booster?.vgpg || [];
-		if (!base?.vgpg) {
+		const baseList: IToMixtureBaseRequest[] = base || [];
+		const boosterList: IToMixtureBoosterRequest[] = booster || [];
+		if (!base) {
 			for (let vg = 0; vg <= 100; vg += 10) {
 				baseList.push({
 					vg,
@@ -35,17 +35,14 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 				});
 			}
 		}
-		if (nicotine && nicotine > 0) {
-			if (!booster?.vgpg && booster?.volume) {
-				for (let $nicotine = 0; $nicotine <= 250; $nicotine++) {
-					for (let vg = 0; vg <= 100; vg += 10) {
-						boosterList.push({
-							vg,
-							pg: 100 - vg,
-							nicotine: $nicotine,
-							volume: booster.volume,
-						});
-					}
+		if (nicotine && nicotine > 0 && !booster) {
+			for (let $nicotine = 0; $nicotine <= 250; $nicotine++) {
+				for (let vg = 0; vg <= 100; vg += 10) {
+					boosterList.push({
+						vg,
+						pg: 100 - vg,
+						nicotine: $nicotine,
+					});
 				}
 			}
 		}
@@ -93,6 +90,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		}));
+
+		console.log("Base", baseList);
+		console.log("Booster", boosterList);
+		console.log("Result", info);
 
 		return info;
 	}

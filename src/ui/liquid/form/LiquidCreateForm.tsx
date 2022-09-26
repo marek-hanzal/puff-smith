@@ -12,9 +12,14 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({toForm, ...props})
 		toForm={() => ({
 			draw: ["50"],
 			vgpg: ["50"],
-			nicotine: {
-				amount: 6,
+			nicotine: 6,
+			booster: {
+				vgpg: ["70"],
+				nicotine: 18,
 				volume: 10,
+			},
+			base: {
+				vgpg: ["70"],
 			},
 			mixed: new Date(),
 			...toForm?.(),
