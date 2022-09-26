@@ -165,22 +165,25 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 								confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 								cancelText={<Translate namespace={"common"} text={"cancel"}/>}
 								mouseWheel={true}
-								onConfirm={vgpg => {
-									filterContext?.setFilter(vgpg ? merge(filter || {}, {
-										mixture: {
-											base: {
-												vgpg: [
-													{
-														vg: 100 - vgpg[0],
-														pg: vgpg[0],
-													},
-												]
+								onConfirm={(vgpg: any) => {
+									sourceContext.reset();
+									setTimeout(() => {
+										filterContext?.setFilter(vgpg ? merge(filter || {}, {
+											mixture: {
+												base: {
+													vgpg: [
+														{
+															vg: 100 - parseInt(vgpg?.[0] || 0),
+															pg: vgpg[0],
+														},
+													]
+												}
 											}
-										}
-									}) : {});
+										}) : {});
+									}, 500);
 								}}
 								columns={[
-									numbersOf(101).map(number => ({value: `${100 - number}`, label: <VgPgInline vgpg={{vg: number, pg: 100 - number}}/>}))
+									numbersOf(11).map(number => ({value: `${100 - (number * 10)}`, label: <VgPgInline vgpg={{vg: (number * 10), pg: 100 - (number * 10)}}/>}))
 								]}
 							>
 								{([value]) => value?.label || <Translate text={"shared.vgpg.placeholder"}/>}
