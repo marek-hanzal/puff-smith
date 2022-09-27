@@ -28,7 +28,13 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 	}
 
 	async $query(query: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
-		if (!query.filter || !query.filter.mixture) {
+		if (!query.filter) {
+			return [];
+		}
+		if (query.filter.id) {
+			return [await this.get(query.filter.id)];
+		}
+		if (!query.filter.mixture) {
 			return [];
 		}
 		const {page, size} = query;

@@ -151,6 +151,14 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				<Stepper min={1} max={250} digits={1}/>
 			</MobileFormItem>
 			<MobileFormItem
+				field={"volume"}
+				hasTooltip
+				disabled={!nicotine}
+				toClear={() => null}
+			>
+				<Stepper min={0} max={1000} allowEmpty/>
+			</MobileFormItem>
+			<MobileFormItem
 				field={"vgpg"}
 				disabled={!nicotine}
 				hasTooltip
@@ -173,14 +181,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				>
 					{([value]) => value?.label || <Translate text={"shared.booster.vgpg.placeholder"}/>}
 				</Picker>
-			</MobileFormItem>
-			<MobileFormItem
-				field={"volume"}
-				hasTooltip
-				disabled={!nicotine}
-				toClear={() => null}
-			>
-				<Stepper min={0} max={1000} allowEmpty/>
 			</MobileFormItem>
 		</ItemGroup>
 		<ItemGroup prefix={"base"}>
@@ -266,9 +266,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				required
 				hasTooltip
 				render={mixture => <MixtureInline mixture={mixture}/>}
-				renderLoading={({cursorContext}) => {
-					return `${cursorContext?.page}/${cursorContext?.pages}`;
-				}}
 				toPreview={selection => selection?.single ? <MixtureInline mixture={selection?.single}/> : undefined}
 			/>
 		</MixtureProviderControl>
