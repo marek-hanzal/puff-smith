@@ -5,7 +5,6 @@
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -191,38 +190,36 @@ export const useTranslationQueryInvalidate = (withCount: boolean = true) => {
 export const useTranslationOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITranslationSource>>();
 export const useTranslationSelectionContext = () => useSelectionContext<ISourceItem<ITranslationSource>>();
 
-export interface ITranslationDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITranslationSource>>, "ofSelection"> {
+export interface ITranslationDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITranslationSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = ({onSelection, ...props}) => {
-	return <TranslationProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<ITranslationSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: TranslationApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</TranslationProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<ITranslationSource>>
+			sourceProviderProps={{
+				name: "Translation",
+				useQuery: useTranslationQuery,
+				useCountQuery: useTranslationCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					TranslationPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: TranslationApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

@@ -5,7 +5,6 @@
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useFileQueryInvalidate = (withCount: boolean = true) => {
 export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();
 export const useFileSelectionContext = () => useSelectionContext<ISourceItem<IFileSource>>();
 
-export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IFileSource>>, "ofSelection"> {
+export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IFileSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}) => {
-	return <FileProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: FileApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</FileProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
+			sourceProviderProps={{
+				name: "File",
+				useQuery: useFileQuery,
+				useCountQuery: useFileCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					FilePromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: FileApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

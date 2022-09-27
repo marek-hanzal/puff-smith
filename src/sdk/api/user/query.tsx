@@ -5,7 +5,6 @@
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useUserQueryInvalidate = (withCount: boolean = true) => {
 export const useUserOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IUserSource>>();
 export const useUserSelectionContext = () => useSelectionContext<ISourceItem<IUserSource>>();
 
-export interface IUserDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IUserSource>>, "ofSelection"> {
+export interface IUserDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IUserSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const UserDrawerItem: FC<IUserDrawerItemProps> = ({onSelection, ...props}) => {
-	return <UserProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IUserSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: UserApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</UserProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IUserSource>>
+			sourceProviderProps={{
+				name: "User",
+				useQuery: useUserQuery,
+				useCountQuery: useUserCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					UserPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: UserApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

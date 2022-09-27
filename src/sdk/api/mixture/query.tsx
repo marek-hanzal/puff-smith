@@ -5,7 +5,6 @@
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useMixtureQueryInvalidate = (withCount: boolean = true) => {
 export const useMixtureOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IMixtureSource>>();
 export const useMixtureSelectionContext = () => useSelectionContext<ISourceItem<IMixtureSource>>();
 
-export interface IMixtureDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IMixtureSource>>, "ofSelection"> {
+export interface IMixtureDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IMixtureSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...props}) => {
-	return <MixtureProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IMixtureSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: MixtureApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</MixtureProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IMixtureSource>>
+			sourceProviderProps={{
+				name: "Mixture",
+				useQuery: useMixtureQuery,
+				useCountQuery: useMixtureCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					MixturePromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: MixtureApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

@@ -5,7 +5,6 @@
 import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useLiquidQueryInvalidate = (withCount: boolean = true) => {
 export const useLiquidOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidSource>>();
 export const useLiquidSelectionContext = () => useSelectionContext<ISourceItem<ILiquidSource>>();
 
-export interface ILiquidDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ILiquidSource>>, "ofSelection"> {
+export interface ILiquidDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ILiquidSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = ({onSelection, ...props}) => {
-	return <LiquidProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<ILiquidSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: LiquidApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</LiquidProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<ILiquidSource>>
+			sourceProviderProps={{
+				name: "Liquid",
+				useQuery: useLiquidQuery,
+				useCountQuery: useLiquidCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					LiquidPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: LiquidApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

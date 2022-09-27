@@ -5,7 +5,6 @@
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useAromaQueryInvalidate = (withCount: boolean = true) => {
 export const useAromaOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaSource>>();
 export const useAromaSelectionContext = () => useSelectionContext<ISourceItem<IAromaSource>>();
 
-export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IAromaSource>>, "ofSelection"> {
+export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IAromaSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const AromaDrawerItem: FC<IAromaDrawerItemProps> = ({onSelection, ...props}) => {
-	return <AromaProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IAromaSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: AromaApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</AromaProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IAromaSource>>
+			sourceProviderProps={{
+				name: "Aroma",
+				useQuery: useAromaQuery,
+				useCountQuery: useAromaCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					AromaPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: AromaApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

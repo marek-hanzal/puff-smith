@@ -210,7 +210,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			</MobileFormItem>
 		</ItemGroup>
 		<MixtureProviderControl
-			defaultSize={DEFAULT_LIST_SIZE}
+			defaultSize={25}
 			applyFilter={aroma ? {
 				mixture: {
 					aroma: {
@@ -266,6 +266,9 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				required
 				hasTooltip
 				render={mixture => <MixtureInline mixture={mixture}/>}
+				renderLoading={({cursorContext}) => {
+					return `${cursorContext?.page}/${cursorContext?.pages}`;
+				}}
 				toPreview={selection => selection?.single ? <MixtureInline mixture={selection?.single}/> : undefined}
 			/>
 		</MixtureProviderControl>

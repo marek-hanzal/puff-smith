@@ -5,7 +5,6 @@
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useVendorQueryInvalidate = (withCount: boolean = true) => {
 export const useVendorOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IVendorSource>>();
 export const useVendorSelectionContext = () => useSelectionContext<ISourceItem<IVendorSource>>();
 
-export interface IVendorDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IVendorSource>>, "ofSelection"> {
+export interface IVendorDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IVendorSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const VendorDrawerItem: FC<IVendorDrawerItemProps> = ({onSelection, ...props}) => {
-	return <VendorProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IVendorSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: VendorApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</VendorProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IVendorSource>>
+			sourceProviderProps={{
+				name: "Vendor",
+				useQuery: useVendorQuery,
+				useCountQuery: useVendorCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					VendorPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: VendorApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

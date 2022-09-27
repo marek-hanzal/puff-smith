@@ -5,7 +5,6 @@
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useStatusListQueryInvalidate = (withCount: boolean = true) => {
 export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobStatusSource>>();
 export const useStatusListSelectionContext = () => useSelectionContext<ISourceItem<IJobStatusSource>>();
 
-export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobStatusSource>>, "ofSelection"> {
+export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobStatusSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = ({onSelection, ...props}) => {
-	return <StatusListProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<IJobStatusSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: StatusListApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</StatusListProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<IJobStatusSource>>
+			sourceProviderProps={{
+				name: "StatusList",
+				useQuery: useStatusListQuery,
+				useCountQuery: useStatusListCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					StatusListPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: StatusListApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }

@@ -5,7 +5,6 @@
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
 import {
-	BlockContext,
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -190,38 +189,36 @@ export const useTagQueryInvalidate = (withCount: boolean = true) => {
 export const useTagOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITagSource>>();
 export const useTagSelectionContext = () => useSelectionContext<ISourceItem<ITagSource>>();
 
-export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITagSource>>, "ofSelection"> {
+export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITagSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const TagDrawerItem: FC<ITagDrawerItemProps> = ({onSelection, ...props}) => {
-	return <TagProvider
-		withCount
-	>
-		<BlockProvider>
-			<BlockContext.Consumer>
-				{blockContext => <DrawerSelectItem<ISourceItem<ITagSource>>
-					toClear={() => undefined}
-					onSelection={onSelection}
-					ofSelection={({value, selectionContext}) => {
-						selectionContext.clear();
-						if (value) {
-							blockContext.block();
-							AromaPromise({filter: {id: value as any}}).then(items => {
-								selectionContext.items(items, true);
-								blockContext.unblock(true);
-								onSelection?.(selectionContext.selection());
-							});
-						}
-					}}
-					drawerSelectProps={{
-						translation: {
-							namespace: TagApiLink,
-							text: "select.title",
-						}
-					}}
-					{...props}
-				/>}
-			</BlockContext.Consumer>
-		</BlockProvider>
-	</TagProvider>
+	return <BlockProvider>
+		{blockContext => <DrawerSelectItem<ISourceItem<ITagSource>>
+			sourceProviderProps={{
+				name: "Tag",
+				useQuery: useTagQuery,
+				useCountQuery: useTagCountQuery,
+			}}
+			toClear={() => undefined}
+			onSelection={onSelection}
+			ofSelection={({value, selectionContext}) => {
+				if (value) {
+					blockContext.block();
+					TagPromise({filter: {id: value as any}}).then(items => {
+						selectionContext.defaults(items);
+						blockContext.unblock(true);
+						onSelection?.(selectionContext.selection());
+					});
+				}
+			}}
+			drawerSelectProps={{
+				translation: {
+					namespace: TagApiLink,
+					text: "select.title",
+				}
+			}}
+			{...props}
+		/>}
+	</BlockProvider>;
 }
