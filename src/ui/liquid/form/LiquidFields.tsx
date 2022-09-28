@@ -34,6 +34,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"liquid"}
 			title={<Translate namespace={"shared.liquid.form"} text={"liquid.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"liquid.tab.description"}/>}
+			forceRender
 		>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
@@ -294,6 +295,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"advanced"}
 			title={<Translate namespace={"shared.liquid.form"} text={"advanced.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"advanced.tab.description"}/>}
+			forceRender
 		>
 			{nicotine > 0 && <MobileFormItem
 				field={"nicotineTolerance"}
