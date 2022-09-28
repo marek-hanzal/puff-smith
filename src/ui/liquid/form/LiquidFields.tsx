@@ -294,7 +294,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"advanced"}
 			title={<Translate namespace={"shared.liquid.form"} text={"advanced.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"advanced.tab.description"}/>}
-			style={{padding: 0}}
 		>
 			{isFilled !== true && nicotine > 0 && <MobileFormItem
 				field={"nicotineTolerance"}

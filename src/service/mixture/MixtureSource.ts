@@ -114,7 +114,9 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		}
-		return page !== undefined && size !== undefined ? info.sort((a, b) => b.result.nicotineToRound - a.result.nicotineToRound).slice(page * size, (page * size) + size) : info;
+		return page !== undefined && size !== undefined ? info.sort((a, b) => {
+			return b.result.nicotineToRound - a.result.nicotineToRound || b.result.ratio.vg - a.result.ratio.vg;
+		}).slice(page * size, (page * size) + size) : info;
 	}
 
 	async $count({filter}: ISourceQuery<IMixtureSource>): Promise<number> {
