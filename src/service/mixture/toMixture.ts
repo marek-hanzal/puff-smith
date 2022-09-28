@@ -155,6 +155,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 			vg: aroma.vg,
 		})
 	};
+
 	/**
 	 * https://www.youtube.com/watch?v=qLTgaX9gYPE
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
@@ -267,6 +268,7 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		result: toMixtureResult({
 			volume: aromaInfo.volume,
 			available: aroma.volume - aroma.content,
+			nicotine: aroma.nicotine ? aroma.nicotine * aroma.volume : undefined,
 			fluids: [
 				aromaInfo.ml,
 			],
@@ -359,7 +361,7 @@ const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResult
 	return {
 		volume: total,
 		content: volume - total,
-		error: available <= 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
+		error: available < 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
 		nicotine: $nicotine,
 		nicotineToRound: Math.round($nicotine || 0),
 		ml: {

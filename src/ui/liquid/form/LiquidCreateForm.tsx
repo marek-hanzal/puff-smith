@@ -13,6 +13,7 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({toForm, ...props})
 			draw: ["50"],
 			vgpg: ["50"],
 			nicotine: 6,
+			nicotineTolerance: 1,
 			booster: {
 				vgpg: ["70"],
 				nicotine: 18,

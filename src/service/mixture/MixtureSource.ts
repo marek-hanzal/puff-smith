@@ -39,10 +39,10 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		}
 		const {page, size} = query;
 		const {aroma, nicotine, vg, pg, booster, base} = query.filter.mixture;
-
-		const baseList: IToMixtureBaseRequest[] = base || [];
-		const boosterList: IToMixtureBoosterRequest[] = booster || [];
-		if (!base) {
+		const isFilled = aroma.volume === aroma.content;
+		const baseList: IToMixtureBaseRequest[] = isFilled ? [] : (base || []);
+		const boosterList: IToMixtureBoosterRequest[] = isFilled ? [] : (booster || []);
+		if (!isFilled && !base) {
 			for (let vg = 0; vg <= 100; vg += 10) {
 				baseList.push({
 					vg,
@@ -50,7 +50,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 				});
 			}
 		}
-		if (nicotine && nicotine > 0 && !booster) {
+		if (!isFilled && nicotine && nicotine > 0 && !booster) {
 			for (let $nicotine = 0; $nicotine <= 250; $nicotine++) {
 				for (let vg = 0; vg <= 100; vg += 10) {
 					boosterList.push({
@@ -101,8 +101,16 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		}));
-
-		return page !== undefined && size !== undefined ? info.slice(page * size, size) : info;
+		/**
+		 * Last one just an aroma (for pre-made aromas)
+		 */
+		if (isFilled) {
+			const $info = toMixtureInfo({
+				aroma,
+			});
+			resolveInfo($info) && info.push($info);
+		}
+		return page !== undefined && size !== undefined ? info.slice(page * size, (page * size) + size) : info;
 	}
 
 	async $count({filter}: ISourceQuery<IMixtureSource>): Promise<number> {

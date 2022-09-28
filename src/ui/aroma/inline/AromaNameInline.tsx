@@ -1,4 +1,5 @@
 import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {Ellipsis} from "@leight-core/client";
 import {Space, SpaceProps, Typography} from "antd";
 import {FC} from "react";
 
@@ -12,7 +13,7 @@ export const AromaNameInline: FC<IAromaNameInlineProps> = ({aroma, inline = true
 		direction={inline ? "horizontal" : "vertical"}
 		{...props}
 	>
-		<Typography.Text>{aroma.name}</Typography.Text>
-		<Typography.Text type={"secondary"}>{aroma.vendor.name}</Typography.Text>
+		<Typography.Text><Ellipsis content={aroma.name}/></Typography.Text>
+		<Typography.Text type={"secondary"}><Ellipsis content={aroma.vendor.name}/></Typography.Text>
 	</Space>;
 };
