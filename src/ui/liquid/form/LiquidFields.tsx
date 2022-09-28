@@ -9,8 +9,8 @@ import {AromaDrawerItem, AromaProviderControl} from "@/sdk/api/aroma/query";
 import {MixtureDrawerItem, MixtureProviderControl} from "@/sdk/api/mixture/query";
 import {ItemGroup, MobileFormItem, toLocalDate, Translate, useMobileFormContext} from "@leight-core/client";
 import {numbersOf, uniqueOf} from "@leight-core/utils";
-import {Typography} from "antd";
-import {DatePicker, Form, Picker, Space, Stepper} from "antd-mobile";
+import {Space, Typography} from "antd";
+import {DatePicker, Form, Picker, Stepper} from "antd-mobile";
 import {DatePickerRef} from "antd-mobile/es/components/date-picker";
 import {PickerRef} from "antd-mobile/es/components/picker";
 import {FC, RefObject, useState} from "react";
@@ -35,6 +35,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				field={"aromaId"}
 				required
 				onSelection={selection => setAroma(selection.single)}
+				onClear={() => setAroma(undefined)}
 				render={aroma => <AromaNameInline inline={false} aroma={aroma}/>}
 				toPreview={selection => selection?.single ? <AromaNameInline inline={false} aroma={selection.single}/> : undefined}
 				createWith={({formContext, visibleContext}) => <AromaCreateForm
@@ -160,6 +161,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			</MobileFormItem>
 			<MobileFormItem
 				field={"vgpg"}
+				required={nicotine}
 				disabled={!nicotine}
 				hasTooltip
 				trigger={"onConfirm"}
@@ -260,9 +262,9 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			} : undefined}
 		>
 			<MixtureDrawerItem
-				disabled={!aroma || !vgpg}
-				withFulltext={false}
 				field={"mixture"}
+				disabled={!aroma || !baseVgPg?.length || !boosterVgPg?.length}
+				withFulltext={false}
 				required
 				hasTooltip
 				render={mixture => <MixtureInline mixture={mixture}/>}
