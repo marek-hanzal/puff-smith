@@ -116,6 +116,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			field={"nicotine"}
 			hasTooltip
 			toClear={() => 0}
+			extra={"mg/ml"}
 		>
 			<Stepper min={0} max={50} digits={1}/>
 		</MobileFormItem>
@@ -148,6 +149,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				required={nicotine}
 				disabled={!nicotine}
 				hasTooltip
+				extra={"mg/ml"}
 			>
 				<Stepper min={1} max={250} digits={1}/>
 			</MobileFormItem>
@@ -156,6 +158,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				hasTooltip
 				disabled={!nicotine}
 				toClear={() => null}
+				extra={"ml"}
 			>
 				<Stepper min={0} max={1000} allowEmpty/>
 			</MobileFormItem>
