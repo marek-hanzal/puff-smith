@@ -290,12 +290,12 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				</DatePicker>
 			</MobileFormItem>
 		</JumboTabs.Tab>
-		<JumboTabs.Tab
+		{isFilled !== true && <JumboTabs.Tab
 			key={"advanced"}
 			title={<Translate namespace={"shared.liquid.form"} text={"advanced.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"advanced.tab.description"}/>}
 		>
-			{isFilled !== true && nicotine > 0 && <MobileFormItem
+			{nicotine > 0 && <MobileFormItem
 				field={"nicotineTolerance"}
 				hasTooltip
 				toClear={() => 0}
@@ -303,7 +303,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			>
 				<Stepper min={0} max={6} step={0.5} digits={1}/>
 			</MobileFormItem>}
-			{isFilled !== true && nicotine > 0 && <ItemGroup prefix={"booster"}>
+			{nicotine > 0 && <ItemGroup prefix={"booster"}>
 				<MobileFormItem
 					field={"nicotine"}
 					hasTooltip
@@ -320,7 +320,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 					<Stepper min={0} max={1000} allowEmpty/>
 				</MobileFormItem>
 			</ItemGroup>}
-		</JumboTabs.Tab>
+		</JumboTabs.Tab>}
 	</JumboTabs>;
 };
 
