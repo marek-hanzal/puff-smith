@@ -19,3 +19,7 @@ body {
 table tr.inactive, .ant-list .ant-list-item.inactive {
 	opacity: 0.5;
 }
+
+.adm-jumbo-tabs .adm-jumbo-tabs-content {
+	padding: 0;
+}

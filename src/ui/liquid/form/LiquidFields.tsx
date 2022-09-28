@@ -34,7 +34,6 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"liquid"}
 			title={<Translate namespace={"shared.liquid.form"} text={"liquid.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"liquid.tab.description"}/>}
-			style={{padding: 0}}
 		>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
