@@ -38,7 +38,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			return [];
 		}
 		const {page, size} = query;
-		const {aroma, nicotine, vg, pg, booster, base} = query.filter.mixture;
+		const {aroma, nicotine, nicotineTolerance = 0, vg, pg, booster, base} = query.filter.mixture;
 		const isFilled = aroma.volume === aroma.content;
 		const baseList: IToMixtureBaseRequest[] = isFilled ? [] : (base || []);
 		const boosterList: IToMixtureBoosterRequest[] = isFilled ? [] : (booster || []);
@@ -68,7 +68,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			if (info.result.error) {
 				return false;
 			}
-			if (nicotine && (info.result.nicotineToRound < nicotine || info.result.nicotineToRound > nicotine)) {
+			if (nicotine && (info.result.nicotineToRound < (nicotine - nicotineTolerance) || info.result.nicotineToRound > (nicotine + nicotineTolerance))) {
 				return false;
 			}
 			if (vg && (info.result.round.vg < vg || info.result.round.vg > vg)) {
@@ -84,23 +84,27 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		});
-		nicotine && boosterList.forEach(booster => {
-			const $info = toMixtureInfo({
-				aroma,
-				booster,
-				nicotine,
-			});
-			resolveInfo($info) && info.push($info);
-		});
-		nicotine && baseList.forEach(base => boosterList.forEach(booster => {
-			const $info = toMixtureInfo({
-				aroma,
-				base,
-				booster,
-				nicotine,
-			});
-			resolveInfo($info) && info.push($info);
-		}));
+		if (nicotine) {
+			for (let $nicotine = Math.max(0, nicotine - nicotineTolerance); $nicotine <= (nicotine + nicotineTolerance); $nicotine++) {
+				boosterList.forEach(booster => {
+					const $info = toMixtureInfo({
+						aroma,
+						booster,
+						nicotine: $nicotine,
+					});
+					resolveInfo($info) && info.push($info);
+				});
+				baseList.forEach(base => boosterList.forEach(booster => {
+					const $info = toMixtureInfo({
+						aroma,
+						base,
+						booster,
+						nicotine: $nicotine,
+					});
+					resolveInfo($info) && info.push($info);
+				}));
+			}
+		}
 		/**
 		 * Last one just an aroma (for pre-made aromas)
 		 */
@@ -110,7 +114,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		}
-		return page !== undefined && size !== undefined ? info.slice(page * size, (page * size) + size) : info;
+		return page !== undefined && size !== undefined ? info.sort((a, b) => b.result.nicotineToRound - a.result.nicotineToRound).slice(page * size, (page * size) + size) : info;
 	}
 
 	async $count({filter}: ISourceQuery<IMixtureSource>): Promise<number> {

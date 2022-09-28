@@ -21,6 +21,7 @@ export interface ILiquidFieldsProps {
 export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 	const formContext = useMobileFormContext();
 	const nicotine = Form.useWatch(["nicotine"], formContext.form);
+	const nicotineTolerance = Form.useWatch(["nicotineTolerance"], formContext.form);
 	const boosterVolume = Form.useWatch(["booster", "volume"], formContext.form);
 	const boosterVgPg = Form.useWatch(["booster", "vgpg"], formContext.form);
 	const boosterNicotine = Form.useWatch(["booster", "nicotine"], formContext.form);
@@ -33,6 +34,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"liquid"}
 			title={<Translate namespace={"shared.liquid.form"} text={"liquid.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"liquid.tab.description"}/>}
+			style={{padding: 0}}
 		>
 			<AromaProviderControl
 				defaultSize={DEFAULT_LIST_SIZE}
@@ -53,7 +55,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 						});
 					}}
 					render={aroma => <AromaNameInline aroma={aroma}/>}
-					toPreview={selection => selection?.single ? <AromaNameInline inline={false} aroma={selection.single}/> : undefined}
+					toPreview={selection => selection?.single ? <AromaNameInline aroma={selection.single}/> : undefined}
 					createWith={({formContext, visibleContext}) => <AromaCreateForm
 						onSuccess={({response}) => {
 							formContext.setValue([
@@ -258,6 +260,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 							},
 						], "vg") : undefined,
 						nicotine,
+						nicotineTolerance,
 					},
 				} : undefined}
 			>
@@ -292,6 +295,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			key={"advanced"}
 			title={<Translate namespace={"shared.liquid.form"} text={"advanced.tab"}/>}
 			description={<Translate namespace={"shared.liquid.form"} text={"advanced.tab.description"}/>}
+			style={{padding: 0}}
 		>
 			{isFilled !== true && nicotine > 0 && <MobileFormItem
 				field={"nicotineTolerance"}
@@ -299,7 +303,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 				toClear={() => 0}
 				extra={"mg/ml"}
 			>
-				<Stepper min={0} max={6} digits={1}/>
+				<Stepper min={0} max={6} step={0.5} digits={1}/>
 			</MobileFormItem>}
 			{isFilled !== true && nicotine > 0 && <ItemGroup prefix={"booster"}>
 				<MobileFormItem
