@@ -21,7 +21,6 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 			onClick={(_, ref: RefObject<PickerRef>) => ref.current?.open()}
 		>
 			<Picker
-				forceRender
 				title={<Translate text={"shared.draw.picker"}/>}
 				confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 				cancelText={<Translate namespace={"common"} text={"cancel"}/>}
@@ -93,7 +92,6 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 			toClear={() => []}
 		>
 			<Picker
-				forceRender
 				title={<Translate text={"shared.vgpg.picker.title"}/>}
 				confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 				cancelText={<Translate namespace={"common"} text={"cancel"}/>}
@@ -116,7 +114,6 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 				toClear={() => []}
 			>
 				<Picker
-					forceRender
 					title={<Translate text={"shared.base.vgpg.picker.title"}/>}
 					confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 					cancelText={<Translate namespace={"common"} text={"cancel"}/>}
@@ -140,7 +137,6 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 				toClear={() => []}
 			>
 				<Picker
-					forceRender
 					title={<Translate text={"shared.booster.vgpg.picker.title"}/>}
 					confirmText={<Translate namespace={"common"} text={"confirm"}/>}
 					cancelText={<Translate namespace={"common"} text={"cancel"}/>}
