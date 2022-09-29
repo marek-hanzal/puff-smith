@@ -150,6 +150,9 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IVendorSource>>
+			translation={{
+				namespace: VendorApiLink,
+			}}
 			{...props}
 		/>
 	</VendorProvider>;
@@ -220,5 +223,5 @@ export const VendorDrawerItem: FC<IVendorDrawerItemProps> = ({onSelection, ...pr
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

@@ -150,6 +150,9 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IJobStatusSource>>
+			translation={{
+				namespace: StatusListApiLink,
+			}}
 			{...props}
 		/>
 	</StatusListProvider>;
@@ -220,5 +223,5 @@ export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = ({onSelectio
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

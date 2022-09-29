@@ -150,6 +150,9 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<ILiquidSource>>
+			translation={{
+				namespace: LiquidApiLink,
+			}}
 			{...props}
 		/>
 	</LiquidProvider>;
@@ -220,5 +223,5 @@ export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = ({onSelection, ...pr
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

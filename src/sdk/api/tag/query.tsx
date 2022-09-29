@@ -150,6 +150,9 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<ITagSource>>
+			translation={{
+				namespace: TagApiLink,
+			}}
 			{...props}
 		/>
 	</TagProvider>;
@@ -220,5 +223,5 @@ export const TagDrawerItem: FC<ITagDrawerItemProps> = ({onSelection, ...props}) 
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

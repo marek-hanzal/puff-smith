@@ -150,6 +150,9 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IAromaSource>>
+			translation={{
+				namespace: AromaApiLink,
+			}}
 			{...props}
 		/>
 	</AromaProvider>;
@@ -220,5 +223,5 @@ export const AromaDrawerItem: FC<IAromaDrawerItemProps> = ({onSelection, ...prop
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

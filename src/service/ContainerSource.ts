@@ -1,3 +1,5 @@
+import {IBaseSource} from "@/puff-smith/service/base/interface";
+import {IBoosterSource} from "@/puff-smith/service/booster/interface";
 import {ICodeService} from "@/puff-smith/service/code/interface";
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
@@ -40,5 +42,13 @@ export abstract class ContainerSource<TSource extends ISource<any, any, any>> ex
 
 	async useKeywordSource<T>(callback: (keywordSource: IKeywordSource) => Promise<T>) {
 		return callback((await import ("@/puff-smith/service/keyword/KeywordSource")).KeywordSource().ofSource(this));
+	}
+
+	async useBoosterSource<T>(callback: (boosterSource: IBoosterSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/booster/BoosterSource")).BoosterSource().ofSource(this));
+	}
+
+	async useBaseSource<T>(callback: (baseSource: IBaseSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/base/BaseSource")).BaseSource().ofSource(this));
 	}
 }

@@ -151,6 +151,9 @@ export const TranslationInfiniteListSource: FC<ITranslationInfiniteListSourcePro
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<ITranslationSource>>
+			translation={{
+				namespace: TranslationApiLink,
+			}}
 			{...props}
 		/>
 	</TranslationProvider>;
@@ -221,5 +224,5 @@ export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = ({onSelect
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

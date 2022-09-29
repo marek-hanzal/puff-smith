@@ -390,6 +390,71 @@ CREATE TABLE "AromaComment" (
 );
 
 -- CreateTable
+CREATE TABLE "Base" (
+    "id" TEXT NOT NULL,
+    "nicotine" DECIMAL(10,2),
+    "vg" INTEGER NOT NULL,
+    "pg" INTEGER NOT NULL,
+    "hash" TEXT NOT NULL,
+
+    CONSTRAINT "Base_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BaseKeyword" (
+    "id" TEXT NOT NULL,
+    "baseId" TEXT NOT NULL,
+    "keywordId" TEXT NOT NULL,
+
+    CONSTRAINT "BaseKeyword_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Booster" (
+    "id" TEXT NOT NULL,
+    "nicotine" DECIMAL(10,2) NOT NULL,
+    "vg" INTEGER NOT NULL,
+    "pg" INTEGER NOT NULL,
+    "volume" INTEGER,
+    "hash" TEXT NOT NULL,
+
+    CONSTRAINT "Booster_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "BoosterKeyword" (
+    "id" TEXT NOT NULL,
+    "boosterId" TEXT NOT NULL,
+    "keywordId" TEXT NOT NULL,
+
+    CONSTRAINT "BoosterKeyword_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Recipe" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "vg" INTEGER NOT NULL,
+    "pg" INTEGER NOT NULL,
+    "nicotine" DECIMAL(10,2),
+    "nicotineTolerance" DECIMAL(10,2),
+    "boosterId" TEXT,
+    "baseId" TEXT,
+    "hash" TEXT NOT NULL,
+
+    CONSTRAINT "Recipe_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RecipeKeyword" (
+    "id" TEXT NOT NULL,
+    "recipeId" TEXT NOT NULL,
+    "keywordId" TEXT NOT NULL,
+
+    CONSTRAINT "RecipeKeyword_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Liquid" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
@@ -653,6 +718,15 @@ CREATE UNIQUE INDEX "Aroma_code_key" ON "Aroma"("code");
 CREATE UNIQUE INDEX "Aroma_name_vendorId_key" ON "Aroma"("name", "vendorId");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Base_hash_key" ON "Base"("hash");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Booster_hash_key" ON "Booster"("hash");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Recipe_hash_key" ON "Recipe"("hash");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Liquid_code_key" ON "Liquid"("code");
 
 -- CreateIndex
@@ -855,6 +929,33 @@ ALTER TABLE "AromaComment" ADD CONSTRAINT "AromaComment_aromaId_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "AromaComment" ADD CONSTRAINT "AromaComment_commentId_fkey" FOREIGN KEY ("commentId") REFERENCES "Comment"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BaseKeyword" ADD CONSTRAINT "BaseKeyword_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BaseKeyword" ADD CONSTRAINT "BaseKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BoosterKeyword" ADD CONSTRAINT "BoosterKeyword_boosterId_fkey" FOREIGN KEY ("boosterId") REFERENCES "Booster"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BoosterKeyword" ADD CONSTRAINT "BoosterKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_boosterId_fkey" FOREIGN KEY ("boosterId") REFERENCES "Booster"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Recipe" ADD CONSTRAINT "Recipe_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RecipeKeyword" ADD CONSTRAINT "RecipeKeyword_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "Recipe"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "RecipeKeyword" ADD CONSTRAINT "RecipeKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

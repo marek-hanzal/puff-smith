@@ -150,6 +150,9 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IFileSource>>
+			translation={{
+				namespace: FileApiLink,
+			}}
 			{...props}
 		/>
 	</FileProvider>;
@@ -220,5 +223,5 @@ export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

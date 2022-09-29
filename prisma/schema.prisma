@@ -65,6 +65,7 @@ model User {
   Vendor                         Vendor[]
   CellHealth                     CellHealth[]
   CommentRating                  CommentRating[]
+  Recipe                         Recipe[]
 }
 
 model VerificationToken {
@@ -110,9 +111,12 @@ model Keyword {
   id   String @id @default(cuid())
   text String @unique @db.Text
 
-  AromaKeyword  AromaKeyword[]
-  TagKeyword    TagKeyword[]
-  LiquidKeyword LiquidKeyword[]
+  AromaKeyword   AromaKeyword[]
+  TagKeyword     TagKeyword[]
+  LiquidKeyword  LiquidKeyword[]
+  BoosterKeyword BoosterKeyword[]
+  BaseKeyword    BaseKeyword[]
+  RecipeKeyword  RecipeKeyword[]
 }
 
 model File {
@@ -472,6 +476,70 @@ model AromaComment {
   aroma     Aroma   @relation(fields: [aromaId], references: [id], onDelete: Cascade)
   commentId String
   comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model Base {
+  id       String   @id @default(cuid())
+  nicotine Decimal? @db.Decimal(10, 2)
+  vg       Int
+  pg       Int
+  hash     String   @unique
+
+  Recipe      Recipe[]
+  BaseKeyword BaseKeyword[]
+}
+
+model BaseKeyword {
+  id        String  @id @default(cuid())
+  baseId    String
+  base      Base    @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+}
+
+model Booster {
+  id       String  @id @default(cuid())
+  nicotine Decimal @db.Decimal(10, 2)
+  vg       Int
+  pg       Int
+  volume   Int?
+  hash     String  @unique
+
+  Recipe         Recipe[]
+  BoosterKeyword BoosterKeyword[]
+}
+
+model BoosterKeyword {
+  id        String  @id @default(cuid())
+  boosterId String
+  booster   Booster @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+}
+
+model Recipe {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vg                Int
+  pg                Int
+  nicotine          Decimal? @db.Decimal(10, 2)
+  nicotineTolerance Decimal? @db.Decimal(10, 2)
+  boosterId         String?
+  booster           Booster? @relation(fields: [boosterId], references: [id], onDelete: Cascade)
+  baseId            String?
+  base              Base?    @relation(fields: [baseId], references: [id], onDelete: Cascade)
+  hash              String   @unique
+
+  RecipeKeyword RecipeKeyword[]
+}
+
+model RecipeKeyword {
+  id        String  @id @default(cuid())
+  recipeId  String
+  recipe    Recipe  @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  keywordId String
+  keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
 }
 
 model Liquid {

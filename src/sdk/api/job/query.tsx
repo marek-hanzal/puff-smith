@@ -150,6 +150,9 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IJobSource>>
+			translation={{
+				namespace: JobApiLink,
+			}}
 			{...props}
 		/>
 	</JobProvider>;
@@ -220,5 +223,5 @@ export const JobDrawerItem: FC<IJobDrawerItemProps> = ({onSelection, ...props}) 
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

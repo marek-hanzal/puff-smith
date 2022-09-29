@@ -150,6 +150,9 @@ export const MixtureInfiniteListSource: FC<IMixtureInfiniteListSourceProps> = ({
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IMixtureSource>>
+			translation={{
+				namespace: MixtureApiLink,
+			}}
 			{...props}
 		/>
 	</MixtureProvider>;
@@ -220,5 +223,5 @@ export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }

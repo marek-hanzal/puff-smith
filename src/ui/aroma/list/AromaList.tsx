@@ -1,16 +1,17 @@
 import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
 import {AromaListSwipe} from "@/puff-smith/ui/aroma/list/AromaListSwipe";
-import {AromaInfiniteListSource} from "@/sdk/api/aroma/query";
+import {AromaInfiniteListSource, IAromaInfiniteListSourceProps} from "@/sdk/api/aroma/query";
 import {InfiniteListItem, MobileContent} from "@leight-core/client";
 import {FC} from "react";
 
-export interface IAromaListProps {
+export interface IAromaListProps extends Partial<IAromaInfiniteListSourceProps> {
 }
 
-export const AromaList: FC<IAromaListProps> = () => {
+export const AromaList: FC<IAromaListProps> = props => {
 	return <MobileContent>
 		<AromaInfiniteListSource
 			withFulltext
+			{...props}
 		>
 			{aroma => <AromaListSwipe aroma={aroma}>
 				<InfiniteListItem

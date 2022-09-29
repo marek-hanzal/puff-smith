@@ -150,6 +150,9 @@ export const UserInfiniteListSource: FC<IUserInfiniteListSourceProps> = ({provid
 		{...providerProps}
 	>
 		<InfiniteList<ISourceItem<IUserSource>>
+			translation={{
+				namespace: UserApiLink,
+			}}
 			{...props}
 		/>
 	</UserProvider>;
@@ -220,5 +223,5 @@ export const UserDrawerItem: FC<IUserDrawerItemProps> = ({onSelection, ...props}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
+	</BlockProvider>
 }
