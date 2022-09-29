@@ -79,13 +79,13 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			onSelection={selection => {
 				setAroma(selection.single);
 				formContext.setValues({
-					mixture: undefined,
+					mixtureId: undefined,
 				});
 			}}
 			onClear={() => {
 				setAroma(undefined);
 				formContext.setValues({
-					mixture: undefined,
+					mixtureId: undefined,
 				});
 			}}
 		/>
@@ -95,13 +95,13 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 			onSelection={selection => {
 				setRecipe(selection.single);
 				formContext.setValues({
-					mixture: undefined,
+					mixtureId: undefined,
 				});
 			}}
 			onClear={() => {
 				setRecipe(undefined);
 				formContext.setValues({
-					mixture: undefined,
+					mixtureId: undefined,
 				});
 			}}
 		/>

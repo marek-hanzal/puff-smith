@@ -1,4 +1,4 @@
-import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
+import {LiquidInline} from "@/puff-smith/ui/liquid/inline/LiquidInline";
 import {LiquidListSwipe} from "@/puff-smith/ui/liquid/list/LiquidListSwitpe";
 import {ILiquidInfiniteListSourceProps, LiquidInfiniteListSource} from "@/sdk/api/liquid/query";
 import {InfiniteListItem} from "@leight-core/client";
@@ -16,7 +16,7 @@ export const LiquidList: FC<ILiquidListProps> = props => {
 			<InfiniteListItem
 				onClick={navigate => navigate("/lab/liquid/[liquidId]", {liquidId: liquid.id})}
 			>
-				<AromaNameInline aroma={liquid.aroma}/>
+				<LiquidInline liquid={liquid}/>
 			</InfiniteListItem>
 		</LiquidListSwipe>}
 	</LiquidInfiniteListSource>;

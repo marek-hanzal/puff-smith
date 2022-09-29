@@ -1,5 +1,5 @@
+import {SteepIcon} from "@/puff-smith/component/icon/SteepIcon";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
-import {LineChartOutlined} from "@ant-design/icons";
 import {durationOf, toLocalDateTime} from "@leight-core/client";
 import {Space, Tooltip, Typography} from "antd";
 import dayjs from "dayjs";
@@ -27,7 +27,7 @@ export const LiquidSteeping: FC<ILiquidSteepingProps> = ({liquid}) => {
 	return <Tooltip title={t("lab.liquid.steeping.tooltip", {data: {mixed: toLocalDateTime(liquid.mixed)}})}>
 		<Space>
 			<Typography.Text type={"secondary"}>
-				<LineChartOutlined/>
+				<SteepIcon/>
 			</Typography.Text>
 			<Space size={4} split={<Typography.Text type={"secondary"}>/</Typography.Text>}>
 				<Typography.Text>{ageDuration}</Typography.Text>
