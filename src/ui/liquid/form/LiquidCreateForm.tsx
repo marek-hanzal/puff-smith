@@ -10,26 +10,10 @@ export const LiquidCreateForm: FC<ILiquidCreateFormProps> = ({toForm, ...props})
 	return <LiquidCreateDefaultMobileForm
 		icon={<LiquidIcon/>}
 		toForm={() => ({
-			draw: ["50"],
-			vgpg: ["50"],
-			nicotine: 6,
-			nicotineTolerance: 1.5,
-			booster: {
-				vgpg: ["70"],
-				nicotine: 18,
-				volume: 10,
-			},
-			base: {
-				vgpg: ["70"],
-			},
 			mixed: new Date(),
 			...toForm?.(),
 		})}
-		toMutation={({draw, vgpg: [vgpg], ...values}) => ({
-			...values,
-			vg: vgpg,
-			pg: 100 - vgpg,
-		})}
+		toMutation={values => values}
 		{...props}
 	>
 		<LiquidFields/>

@@ -1,8 +1,10 @@
+import {IAromaSource} from "@/puff-smith/service/aroma/interface";
 import {IBaseSource} from "@/puff-smith/service/base/interface";
 import {IBoosterSource} from "@/puff-smith/service/booster/interface";
 import {ICodeService} from "@/puff-smith/service/code/interface";
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
+import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
 import {IUserSource} from "@/puff-smith/service/user/interface";
@@ -50,5 +52,13 @@ export abstract class ContainerSource<TSource extends ISource<any, any, any>> ex
 
 	async useBaseSource<T>(callback: (baseSource: IBaseSource) => Promise<T>) {
 		return callback((await import ("@/puff-smith/service/base/BaseSource")).BaseSource().ofSource(this));
+	}
+
+	async useMixtureSource<T>(callback: (mixtureSource: IMixtureSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/mixture/MixtureSource")).MixtureSource().ofSource(this));
+	}
+
+	async useAromaSource<T>(callback: (aromaSource: IAromaSource) => Promise<T>) {
+		return callback((await import ("@/puff-smith/service/aroma/AromaSource")).AromaSource().ofSource(this));
 	}
 }

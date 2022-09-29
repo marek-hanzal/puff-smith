@@ -15,6 +15,9 @@ export default withLabLayout(function Create() {
 			toForm={() => ({
 				aromaId,
 			})}
+			onSuccess={({navigate, response}) => {
+				navigate("/lab/liquid/[liquidId]", {liquidId: response.id});
+			}}
 		/>
 	</MobileLabPage>;
 });

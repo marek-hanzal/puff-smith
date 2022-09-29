@@ -458,13 +458,25 @@ CREATE TABLE "RecipeKeyword" (
 CREATE TABLE "Liquid" (
     "id" TEXT NOT NULL,
     "code" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "aromaId" TEXT NOT NULL,
-    "vendorId" TEXT NOT NULL,
+    "recipeId" TEXT NOT NULL,
+    "vg" DOUBLE PRECISION NOT NULL,
+    "vgToRound" INTEGER NOT NULL,
+    "pg" DOUBLE PRECISION NOT NULL,
+    "pgToRound" INTEGER NOT NULL,
+    "nicotine" DECIMAL(10,2),
+    "nicotineToRound" INTEGER,
+    "boosterAmount" DOUBLE PRECISION,
+    "boosterCount" INTEGER,
+    "baseAmount" INTEGER,
+    "mixtureId" TEXT NOT NULL,
     "created" TIMESTAMP(3) NOT NULL,
     "mixed" TIMESTAMP(3) NOT NULL,
     "rating" INTEGER,
+    "vendorId" TEXT,
+    "baseId" TEXT,
+    "boosterId" TEXT,
 
     CONSTRAINT "Liquid_pkey" PRIMARY KEY ("id")
 );
@@ -964,7 +976,16 @@ ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_userId_fkey" FOREIGN KEY ("userId") 
 ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_aromaId_fkey" FOREIGN KEY ("aromaId") REFERENCES "Aroma"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_recipeId_fkey" FOREIGN KEY ("recipeId") REFERENCES "Recipe"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_vendorId_fkey" FOREIGN KEY ("vendorId") REFERENCES "Vendor"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_baseId_fkey" FOREIGN KEY ("baseId") REFERENCES "Base"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Liquid" ADD CONSTRAINT "Liquid_boosterId_fkey" FOREIGN KEY ("boosterId") REFERENCES "Booster"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "LiquidKeyword" ADD CONSTRAINT "LiquidKeyword_liquidId_fkey" FOREIGN KEY ("liquidId") REFERENCES "Liquid"("id") ON DELETE CASCADE ON UPDATE CASCADE;

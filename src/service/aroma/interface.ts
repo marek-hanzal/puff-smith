@@ -5,6 +5,7 @@ import {Aroma, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export type IAromaEntity = Aroma & IWithVendor & { AromaTaste: { taste: ITagEntity }[]; };
+export type IWithAroma = { aroma: IAromaEntity; };
 
 export interface IAroma extends Omit<Aroma, "userId"> {
 	vendor: IVendor;

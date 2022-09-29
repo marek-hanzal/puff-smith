@@ -8,7 +8,7 @@ export interface IMixtureFilter {
 	id?: string;
 	mixture?: {
 		aroma: IToMixtureAromaRequest;
-		nicotine: number;
+		nicotine?: number;
 		nicotineTolerance?: number;
 		booster?: IToMixtureBoosterRequest[];
 		base?: IToMixtureBaseRequest[];

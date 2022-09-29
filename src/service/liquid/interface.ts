@@ -1,21 +1,22 @@
-import {ITagEntity} from "@/puff-smith/service/tag/interface";
-import {IVendor, IVendorReference, IWithVendor} from "@/puff-smith/service/vendor/interface";
-import {IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
+import {IAroma, IWithAroma} from "@/puff-smith/service/aroma/interface";
+import {IMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
+import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
 import {Liquid, Prisma} from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export type ILiquidEntity = Liquid & IWithVendor & { LiquidTaste: { taste: ITagEntity }[]; };
+export type ILiquidEntity = Liquid & IWithAroma;
 
-export interface ILiquid extends Omit<Liquid, "userId"> {
-	vendor: IVendor;
-	tastes: ITag[];
-	tasteIds: string[];
+export interface ILiquid extends Omit<Liquid, "userId" | "nicotine" | "nicotineToRound" | "created" | "mixed"> {
+	created: string;
+	mixed: string;
+	nicotine?: number | null;
+	nicotineToRound?: number | null;
+	mixture: IMixtureInfo;
+	aroma: IAroma;
 }
 
-export interface ILiquidCreate extends Omit<Liquid, "id" | "userId" | "vendor" | "vendorId" | "code">, IVendorReference {
-	code?: string;
-	tastes?: string;
-	tasteIds?: string[];
+export interface ILiquidCreate extends Omit<Liquid, "id" | "userId" | "created" | "nicotine" | "nicotineToRound" | "vg" | "pg" | "vgToRound" | "pgToRound" | "mixtureId" | "baseAmount" | "boosterAmount"> {
+	mixtureId: string;
 }
 
 export type ILiquidQuery = IQuery<Prisma.LiquidWhereInput & IWithFulltext, Prisma.LiquidOrderByWithRelationInput>;

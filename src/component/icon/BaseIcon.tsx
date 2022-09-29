@@ -1,5 +1,4 @@
-import {AppstoreAddOutlined} from "@ant-design/icons";
-import {IIconProps} from "@leight-core/client";
-import {FC} from "react";
+import Icon from "@ant-design/icons";
+import {HiBeaker} from "react-icons/hi";
 
-export const BaseIcon: FC<IIconProps> = AppstoreAddOutlined;
+export const BaseIcon = () => <Icon component={HiBeaker}/>;

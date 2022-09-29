@@ -42,7 +42,7 @@ export interface IToMixtureBoosterRequest {
 	 * Optional volume to compute splits (for example, EU makes only 10ml bottles, thus this could be used to round-up usage
 	 * of boosters to whole bottles instead of just ml.
 	 */
-	volume?: number;
+	volume?: number | null;
 	/**
 	 * Amount of nicotine in the booster.
 	 */
@@ -286,7 +286,7 @@ interface IToMixtureResultRequest {
 interface IMixtureResult {
 	volume: number;
 	content: number;
-	error?: IMixtureError;
+	error: IMixtureError | null;
 	nicotine: number;
 	nicotineToRound: number;
 	ml: {
@@ -361,7 +361,7 @@ const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResult
 	return {
 		volume: total,
 		content: volume - total,
-		error: available < 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : undefined,
+		error: available < 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : null,
 		nicotine: $nicotine,
 		nicotineToRound: Math.round($nicotine || 0),
 		ml: {

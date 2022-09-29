@@ -1,5 +1,4 @@
-import {AppstoreAddOutlined} from "@ant-design/icons";
-import {IIconProps} from "@leight-core/client";
-import {FC} from "react";
+import Icon from "@ant-design/icons";
+import {BiCustomize} from "react-icons/bi";
 
-export const BuildIcon: FC<IIconProps> = AppstoreAddOutlined;
+export const BuildIcon = () => <Icon component={BiCustomize}/>;

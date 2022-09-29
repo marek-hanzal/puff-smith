@@ -31,17 +31,18 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		return this.useKeywordSource(async keywordSource => {
 			// const $recipe = await this.map(recipe);
 			const source: string[] = [
-				`VG-${recipe.vg}`,
-				`PG-${recipe.pg}`,
-				...(recipe.nicotine ? [`@${recipe.nicotine}mg`] : []),
+				`${recipe.vg}/${recipe.pg}`,
+				...(recipe.nicotine ? [
+					`@${recipe.nicotine}mg`,
+					`${recipe.vg}/${recipe.pg}@${recipe.nicotine}mg`,
+				] : []),
 				...(recipe?.booster ? [
-					`VG-${recipe.booster.vg}`,
-					`PG-${recipe.booster.pg}`,
 					`@${recipe.booster.nicotine}mg`,
+					`${recipe.booster.vg}/${recipe.booster.pg}`,
+					`${recipe.booster.vg}/${recipe.booster.pg}@${recipe.booster.nicotine}mg`,
 				] : []),
 				...(recipe?.base ? [
-					`VG-${recipe.base.vg}`,
-					`PG-${recipe.base.pg}`,
+					`${recipe.base.vg}/${recipe.base.pg}`,
 				] : []),
 			];
 			// (await this.prisma.translation.findMany({

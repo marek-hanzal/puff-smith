@@ -1,5 +1,4 @@
-import {RiseOutlined} from "@ant-design/icons";
-import {IIconProps} from "@leight-core/client";
-import {FC} from "react";
+import Icon from "@ant-design/icons";
+import {GiBottledBolt} from "react-icons/gi";
 
-export const BoosterIcon: FC<IIconProps> = RiseOutlined;
+export const BoosterIcon = () => <Icon component={GiBottledBolt}/>;

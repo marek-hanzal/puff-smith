@@ -487,6 +487,7 @@ model Base {
 
   Recipe      Recipe[]
   BaseKeyword BaseKeyword[]
+  Liquid      Liquid[]
 }
 
 model BaseKeyword {
@@ -507,6 +508,7 @@ model Booster {
 
   Recipe         Recipe[]
   BoosterKeyword BoosterKeyword[]
+  Liquid         Liquid[]
 }
 
 model BoosterKeyword {
@@ -532,6 +534,7 @@ model Recipe {
   hash              String   @unique
 
   RecipeKeyword RecipeKeyword[]
+  Liquid        Liquid[]
 }
 
 model RecipeKeyword {
@@ -543,20 +546,35 @@ model RecipeKeyword {
 }
 
 model Liquid {
-  id       String   @id @default(cuid())
-  code     String   @unique
-  name     String
-  userId   String
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  aromaId  String
-  aroma    Aroma    @relation(fields: [aromaId], references: [id], onDelete: Cascade)
-  vendorId String
-  vendor   Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  created  DateTime
-  mixed    DateTime
-  rating   Int?
+  id              String   @id @default(cuid())
+  code            String   @unique
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  aromaId         String
+  aroma           Aroma    @relation(fields: [aromaId], references: [id], onDelete: Cascade)
+  recipeId        String
+  recipe          Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  vg              Float
+  vgToRound       Int
+  pg              Float
+  pgToRound       Int
+  nicotine        Decimal? @db.Decimal(10, 2)
+  nicotineToRound Int?
+  boosterAmount   Float?
+  boosterCount    Int?
+  baseAmount      Int?
+  mixtureId       String
+  created         DateTime
+  mixed           DateTime
+  rating          Int?
 
   LiquidKeyword LiquidKeyword[]
+  Vendor        Vendor?         @relation(fields: [vendorId], references: [id])
+  vendorId      String?
+  Base          Base?           @relation(fields: [baseId], references: [id])
+  baseId        String?
+  Booster       Booster?        @relation(fields: [boosterId], references: [id])
+  boosterId     String?
 }
 
 model LiquidKeyword {
