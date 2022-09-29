@@ -12,7 +12,7 @@ export const RecipeList: FC<IRecipeListProps> = props => {
 		withFulltext
 		{...props}
 	>
-		{recipe => <RecipeListSwipe recipe={recipe}>
+		{recipe => <RecipeListSwipe key={recipe.id} recipe={recipe}>
 			<InfiniteListItem
 				onClick={navigate => navigate("/lab/recipe/[recipeId]", {recipeId: recipe.id})}
 			>

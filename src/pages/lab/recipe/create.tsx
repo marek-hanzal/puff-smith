@@ -10,8 +10,8 @@ export default withLabLayout(function Create() {
 		onBack={navigate => navigate("/lab/recipe")}
 	>
 		<RecipeCreateForm
-			onSuccess={({navigate}) => {
-				navigate("/lab/recipe");
+			onSuccess={({navigate, response}) => {
+				navigate("/lab/recipe/[recipeId]", {recipeId: response.id});
 			}}
 		/>
 	</MobileLabPage>;

@@ -1,7 +1,10 @@
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
 import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
-import {BubbleMenu} from "@leight-core/client";
+import {LiquidList} from "@/puff-smith/ui/liquid/list/LiquidList";
+import {LiquidIndexBubble} from "@/puff-smith/ui/liquid/menu/LiquidIndexBubble";
+import {LiquidProviderControl} from "@/sdk/api/liquid/query";
 
 export default withLabLayout(function Index() {
 	return <MobileLabPage
@@ -9,15 +12,11 @@ export default withLabLayout(function Index() {
 		icon={<LiquidIcon/>}
 		onBack={navigate => navigate("/lab")}
 	>
-		<BubbleMenu
-			translation={"lab.liquid"}
-			actions={[
-				{
-					key: "create.button",
-					bold: true,
-					onClick: ({navigate}) => navigate("/lab/liquid/create"),
-				},
-			]}
-		/>
+		<LiquidIndexBubble/>
+		<LiquidProviderControl
+			defaultSize={DEFAULT_LIST_SIZE}
+		>
+			<LiquidList/>
+		</LiquidProviderControl>
 	</MobileLabPage>;
 });

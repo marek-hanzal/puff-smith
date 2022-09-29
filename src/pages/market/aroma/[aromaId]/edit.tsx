@@ -8,7 +8,7 @@ import {AromaPatchForm} from "@/puff-smith/ui/aroma/form/AromaPatchForm";
 export default withMarketLayout(function Edit({aroma}: IAromaFetch) {
 	return <MobileMarketPage
 		onBack={navigate => navigate("/market/aroma")}
-		title={"market.aroma.aroma"}
+		title={"market.aroma.edit"}
 		values={{aroma}}
 		menuSelection={["/market/aroma", "/market/aroma/[aromaId]"]}
 		icon={<AromaIcon/>}

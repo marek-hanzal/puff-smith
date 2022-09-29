@@ -3,6 +3,7 @@ import {ILiquidFetch} from "@/puff-smith/service/liquid/interface";
 import {LiquidSource} from "@/puff-smith/service/liquid/LiquidSource";
 import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {LiquidLiquidBubble} from "@/puff-smith/ui/liquid/menu/LiquidLiquidBubble";
 import {LiquidView} from "@/puff-smith/ui/liquid/view/LiquidView";
 
 export default withLabLayout(function Index({liquid}: ILiquidFetch) {
@@ -13,8 +14,7 @@ export default withLabLayout(function Index({liquid}: ILiquidFetch) {
 		menuSelection={["/lab/liquid", "/lab/liquid/[liquidId]"]}
 		icon={<LiquidIcon/>}
 	>
-		<h1>ADD BUBBLE MENU WITH LOCAL ACTIONS!</h1>
-
+		<LiquidLiquidBubble liquid={liquid}/>
 		<LiquidView liquid={liquid}/>
 	</MobileLabPage>;
 });

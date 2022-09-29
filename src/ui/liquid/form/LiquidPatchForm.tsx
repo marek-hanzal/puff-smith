@@ -9,7 +9,14 @@ export interface ILiquidPatchFormProps extends Partial<ILiquidPatchDefaultMobile
 
 export const LiquidPatchForm: FC<ILiquidPatchFormProps> = ({liquid, ...props}) => {
 	return <LiquidPatchDefaultMobileForm
-		toForm={() => ({})}
+		toForm={() => ({
+			...liquid,
+			mixed: new Date(liquid.mixed),
+		})}
+		toMutation={values => ({
+			id: liquid.id,
+			...values,
+		})}
 		{...props}
 	>
 		<LiquidFields/>

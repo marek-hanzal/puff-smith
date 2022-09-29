@@ -99,42 +99,42 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 		});
 	}
 
-	async $patch({id, mixtureId, mixed, ...liquid}: UndefinableOptional<ISourceCreate<ILiquidSource>> & IWithIdentity): Promise<ISourceEntity<ILiquidSource>> {
-		throw new Error("not yet");
-		// return this.useTagSource(async tagSource => {
-		// 	await this.prisma.liquidTaste.deleteMany({
-		// 		where: {liquidId: id}
-		// 	});
-		// 	return this.updateKeywords(await this.prisma.liquid.update({
-		// 		where: {id},
-		// 		data: {
-		// 			...patch,
-		// 			name: `${name}`,
-		// 			vendor: {
-		// 				connect: {
-		// 					name: vendor,
-		// 					id: vendorId,
-		// 				}
-		// 			},
-		// 			LiquidTaste: {
-		// 				createMany: {
-		// 					data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
-		// 						tasteId: tag.id,
-		// 					})),
-		// 				}
-		// 			},
-		// 		},
-		// 		include: {
-		// 			vendor: true,
-		// 			LiquidTaste: {
-		// 				orderBy: {taste: {sort: "asc"}},
-		// 				include: {
-		// 					taste: true,
-		// 				}
-		// 			}
-		// 		},
-		// 	}));
-		// });
+	async $patch({id, mixtureId, ...liquid}: UndefinableOptional<ISourceCreate<ILiquidSource>> & IWithIdentity): Promise<ISourceEntity<ILiquidSource>> {
+		return this.useMixtureSource(async mixtureSource => {
+			const mixture = mixtureId ? await mixtureSource.get(mixtureId) : undefined;
+			if (mixture && mixture.result.error) {
+				throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
+			}
+			return this.updateKeywords(await this.prisma.liquid.update({
+				where: {id},
+				data: {
+					...liquid,
+					nicotine: mixture?.result?.nicotine,
+					nicotineToRound: mixture?.result?.nicotineToRound,
+					vg: mixture?.result.ratio.vg,
+					vgToRound: mixture?.result.round.vg,
+					pg: mixture?.result.ratio.pg,
+					pgToRound: mixture?.result.round.pg,
+					boosterAmount: mixture?.booster?.volume,
+					boosterCount: mixture?.booster?.count,
+					baseAmount: mixture?.base?.volume,
+					mixtureId,
+				},
+				include: {
+					aroma: {
+						include: {
+							vendor: true,
+							AromaTaste: {
+								orderBy: {taste: {sort: "asc"}},
+								include: {
+									taste: true,
+								},
+							},
+						},
+					},
+				},
+			}));
+		});
 	}
 
 	async createToId({code}: ISourceCreate<ILiquidSource>): Promise<{ id: string }> {

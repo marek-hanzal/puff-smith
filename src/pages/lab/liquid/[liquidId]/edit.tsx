@@ -7,8 +7,8 @@ import {LiquidPatchForm} from "@/puff-smith/ui/liquid/form/LiquidPatchForm";
 
 export default withLabLayout(function Edit({liquid}: ILiquidFetch) {
 	return <MobileLabPage
-		onBack={navigate => navigate("/lab/liquid")}
-		title={"lab.liquid.liquid"}
+		onBack={navigate => navigate("/lab/liquid/[liquidId]", {liquidId: liquid.id})}
+		title={"lab.liquid.edit"}
 		values={{liquid}}
 		menuSelection={["/lab/liquid", "/lab/liquid/[liquidId]"]}
 		icon={<LiquidIcon/>}

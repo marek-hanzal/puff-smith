@@ -3,6 +3,7 @@ import {IRecipeFetch} from "@/puff-smith/service/recipe/interface";
 import {RecipeSource} from "@/puff-smith/service/recipe/RecipeSource";
 import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {RecipeRecipeBubble} from "@/puff-smith/ui/recipe/menu/RecipeRecipeBubble";
 import {RecipeView} from "@/puff-smith/ui/recipe/view/RecipeView";
 
 export default withLabLayout(function Index({recipe}: IRecipeFetch) {
@@ -13,6 +14,7 @@ export default withLabLayout(function Index({recipe}: IRecipeFetch) {
 		menuSelection={["/lab/recipe", "/lab/recipe/[recipeId]"]}
 		icon={<RecipeIcon/>}
 	>
+		<RecipeRecipeBubble recipe={recipe}/>
 		<RecipeView recipe={recipe}/>
 	</MobileLabPage>;
 });

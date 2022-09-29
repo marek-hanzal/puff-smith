@@ -13,7 +13,7 @@ export const AromaList: FC<IAromaListProps> = props => {
 			withFulltext
 			{...props}
 		>
-			{aroma => <AromaListSwipe aroma={aroma}>
+			{aroma => <AromaListSwipe key={aroma.id} aroma={aroma}>
 				<InfiniteListItem
 					onClick={navigate => navigate("/market/aroma/[aromaId]", {aromaId: aroma.id})}
 				>
