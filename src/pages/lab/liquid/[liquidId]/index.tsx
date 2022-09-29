@@ -13,6 +13,8 @@ export default withLabLayout(function Index({liquid}: ILiquidFetch) {
 		menuSelection={["/lab/liquid", "/lab/liquid/[liquidId]"]}
 		icon={<LiquidIcon/>}
 	>
+		<h1>ADD BUBBLE MENU WITH LOCAL ACTIONS!</h1>
+
 		<LiquidView liquid={liquid}/>
 	</MobileLabPage>;
 });
