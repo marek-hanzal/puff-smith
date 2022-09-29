@@ -5,7 +5,7 @@ import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
 import {RecipeList} from "@/puff-smith/ui/recipe/list/RecipeList";
 import {RecipeProviderControl} from "@/sdk/api/recipe/query";
 import {CloseOutlined} from "@ant-design/icons";
-import {BubbleMenu, ButtonLink, FilterContext, Translate} from "@leight-core/client";
+import {BubbleMenu, ButtonLink, Translate} from "@leight-core/client";
 import {Button, Divider} from "antd";
 
 export default withLabLayout(function Index() {
@@ -27,31 +27,32 @@ export default withLabLayout(function Index() {
 		<RecipeProviderControl
 			defaultSize={DEFAULT_LIST_SIZE}
 		>
-			<FilterContext.Consumer>
-				{filterContext => <>
-					<RecipeList
-						renderNothing={({cursorContext}) => <>
-							<Divider>
-								{!cursorContext?.total ? <ButtonLink
-									type={"primary"}
-									href={"/lab/recipe/create"}
-									icon={<RecipeIcon/>}
-									label={"shared.recipe.create.button"}
-								/> : null}
-								{cursorContext?.total ? <Button
-									type={"link"}
-									icon={<CloseOutlined/>}
-									onClick={() => filterContext.setFilter({})}
-								>
+			{({filterContext}) => <>
+				<RecipeList
+					renderNothing={({sourceContext, cursorContext}) => <>
+						<Divider>
+							{!cursorContext?.total ? <ButtonLink
+								type={"primary"}
+								href={"/lab/recipe/create"}
+								icon={<RecipeIcon/>}
+								label={"shared.recipe.create.button"}
+							/> : null}
+							{cursorContext?.total ? <Button
+								type={"link"}
+								icon={<CloseOutlined/>}
+								onClick={() => {
+									sourceContext.reset();
+									filterContext.setFilter({});
+								}}
+							>
 									<span>
 										<Translate namespace={"common.filter"} text={"clear.button"}/>
 									</span>
-								</Button> : null}
-							</Divider>
-						</>}
-					/>
-				</>}
-			</FilterContext.Consumer>
+							</Button> : null}
+						</Divider>
+					</>}
+				/>
+			</>}
 		</RecipeProviderControl>
 	</MobileLabPage>;
 });
