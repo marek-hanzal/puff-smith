@@ -1,7 +1,9 @@
+import {CodeInline} from "@/puff-smith/component/inline/CodeInline";
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {AromaContentInline} from "@/puff-smith/ui/aroma/inline/AromaContentInline";
+import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
 import {LiquidSteeping} from "@/puff-smith/ui/liquid/inline/LiquidSteeping";
 import {Preview, Tags, Template} from "@leight-core/client";
 import {Typography} from "antd";
@@ -13,8 +15,8 @@ export interface ILiquidViewProps {
 
 export const LiquidView: FC<ILiquidViewProps> = ({liquid}) => {
 	return <Template
-		title={liquid.aroma.name}
-		subTitle={liquid.aroma.vendor.name}
+		title={<AromaNameInline aroma={liquid.aroma}/>}
+		subTitle={<CodeInline code={liquid}/>}
 	>
 		<Preview
 			name={"liquid"}

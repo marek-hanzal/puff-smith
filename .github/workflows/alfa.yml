@@ -129,5 +129,5 @@ jobs:
                         docker compose pull
                         docker compose down --remove-orphans
                         docker compose rm -f
-                        docker system prune -f --all
                         docker compose up -d
+                        docker system prune -f --all
