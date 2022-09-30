@@ -5,8 +5,9 @@ import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {AromaContentInline} from "@/puff-smith/ui/aroma/inline/AromaContentInline";
 import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
 import {LiquidSteeping} from "@/puff-smith/ui/liquid/inline/LiquidSteeping";
-import {Preview, Tags, Template} from "@leight-core/client";
+import {Preview, Tags, Template, toLocalDate} from "@leight-core/client";
 import {Typography} from "antd";
+import {Space} from "antd-mobile";
 import {FC} from "react";
 
 export interface ILiquidViewProps {
@@ -27,7 +28,10 @@ export const LiquidView: FC<ILiquidViewProps> = ({liquid}) => {
 					name: "info",
 					items: {
 						vgpg: <VgPgInline vgpg={liquid.mixture.result.ratio}/>,
-						steep: <LiquidSteeping liquid={liquid}/>,
+						steep: <Space>
+							<LiquidSteeping liquid={liquid}/>
+							{toLocalDate(liquid.mixed)}
+						</Space>,
 						aromaContent: <AromaContentInline aroma={liquid.aroma}/>,
 						tastes: liquid.aroma.tastes ? <Tags tags={liquid.aroma.tastes} translation={"common"}/> : undefined,
 					},
