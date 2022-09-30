@@ -491,6 +491,15 @@ CREATE TABLE "LiquidKeyword" (
 );
 
 -- CreateTable
+CREATE TABLE "LiquidDraw" (
+    "id" TEXT NOT NULL,
+    "liquidId" TEXT NOT NULL,
+    "drawId" TEXT NOT NULL,
+
+    CONSTRAINT "LiquidDraw_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Coil" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -992,6 +1001,12 @@ ALTER TABLE "LiquidKeyword" ADD CONSTRAINT "LiquidKeyword_liquidId_fkey" FOREIGN
 
 -- AddForeignKey
 ALTER TABLE "LiquidKeyword" ADD CONSTRAINT "LiquidKeyword_keywordId_fkey" FOREIGN KEY ("keywordId") REFERENCES "Keyword"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LiquidDraw" ADD CONSTRAINT "LiquidDraw_liquidId_fkey" FOREIGN KEY ("liquidId") REFERENCES "Liquid"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LiquidDraw" ADD CONSTRAINT "LiquidDraw_drawId_fkey" FOREIGN KEY ("drawId") REFERENCES "Tag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Coil" ADD CONSTRAINT "Coil_wireId_fkey" FOREIGN KEY ("wireId") REFERENCES "Wire"("id") ON DELETE CASCADE ON UPDATE CASCADE;

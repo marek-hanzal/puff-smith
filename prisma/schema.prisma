@@ -220,6 +220,7 @@ model Tag {
   WireDraw     WireDraw[]
   WishlistTag  WishlistTag[]
   TagKeyword   TagKeyword[]
+  LiquidDraw   LiquidDraw[]
 
   @@unique([tag, group])
 }
@@ -575,6 +576,7 @@ model Liquid {
   baseId        String?
   Booster       Booster?        @relation(fields: [boosterId], references: [id])
   boosterId     String?
+  LiquidDraw    LiquidDraw[]
 }
 
 model LiquidKeyword {
@@ -583,6 +585,14 @@ model LiquidKeyword {
   liquid    Liquid  @relation(fields: [liquidId], references: [id], onDelete: Cascade)
   keywordId String
   keyword   Keyword @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+}
+
+model LiquidDraw {
+  id       String @id @default(cuid())
+  liquidId String
+  liquid   Liquid @relation(fields: [liquidId], references: [id], onDelete: Cascade)
+  drawId   String
+  draw     Tag    @relation(fields: [drawId], references: [id], onDelete: Cascade)
 }
 
 // One of heating types for atomizer

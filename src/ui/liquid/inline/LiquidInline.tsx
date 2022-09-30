@@ -1,3 +1,4 @@
+import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
 import {AromaNameInline} from "@/puff-smith/ui/aroma/inline/AromaNameInline";
@@ -14,7 +15,8 @@ export const LiquidInline: FC<ILiquidInlineProps> = ({liquid}) => {
 		<AromaNameInline aroma={liquid.aroma}/>
 		<Space>
 			<VgPgInline vgpg={liquid}/>
-			<LiquidSteeping liquid={liquid}/>
+			<NicotineInline nicotine={liquid.nicotine}/>
 		</Space>
+		<LiquidSteeping liquid={liquid}/>
 	</Space>;
 };

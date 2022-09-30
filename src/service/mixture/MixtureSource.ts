@@ -3,6 +3,7 @@ import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {IMixtureInfo, IToMixtureBaseRequest, IToMixtureBoosterRequest, toMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
+import {uniqueOf} from "@leight-core/utils";
 import LRUCache from "lru-cache";
 
 const mixtureCache: LRUCache<string, ISourceEntity<IMixtureSource>[]> = new LRUCache<string, ISourceEntity<IMixtureSource>[]>({
@@ -65,16 +66,17 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		const info: IMixtureInfo[] = [];
 
 		function resolveInfo(info: IMixtureInfo): boolean {
+			const vgPgThreshold = 6;
 			if (info.result.error) {
 				return false;
 			}
 			if (nicotine && (info.result.nicotineToRound < (nicotine - nicotineTolerance) || info.result.nicotineToRound > (nicotine + nicotineTolerance))) {
 				return false;
 			}
-			if (vg && (info.result.round.vg < vg || info.result.round.vg > vg)) {
+			if (vg && (info.result.ratio.vg < (vg - vgPgThreshold) || info.result.ratio.vg > (vg + vgPgThreshold))) {
 				return false;
 			}
-			return !(pg && (info.result.round.pg < pg || info.result.round.pg > pg));
+			return !(pg && (info.result.ratio.pg < (pg - vgPgThreshold) || info.result.ratio.pg > (pg + vgPgThreshold)));
 		}
 
 		!nicotine && baseList.forEach(base => {
@@ -114,7 +116,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 			});
 			resolveInfo($info) && info.push($info);
 		}
-		return page !== undefined && size !== undefined ? info.sort((a, b) => {
+		return page !== undefined && size !== undefined ? uniqueOf(info, "hash").sort((a, b) => {
 			return b.result.nicotineToRound - a.result.nicotineToRound || b.result.ratio.vg - a.result.ratio.vg;
 		}).slice(page * size, (page * size) + size) : info;
 	}

@@ -1,6 +1,6 @@
 import {SteepIcon} from "@/puff-smith/component/icon/SteepIcon";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
-import {durationOf, toLocalDateTime} from "@leight-core/client";
+import {durationOf, toLocalDateTime, Translate} from "@leight-core/client";
 import {Space, Tooltip, Typography} from "antd";
 import dayjs from "dayjs";
 import {FC} from "react";
@@ -12,6 +12,11 @@ export interface ILiquidSteepingProps {
 
 export const LiquidSteeping: FC<ILiquidSteepingProps> = ({liquid}) => {
 	const {t} = useTranslation();
+	if (liquid.aroma.steep === 0) {
+		return <Typography.Text type={"success"}>
+			<Translate namespace={"lab.liquid.steep"} text={"snv"}/>
+		</Typography.Text>;
+	}
 	if (!liquid.aroma.steep) {
 		return <>-</>;
 	}

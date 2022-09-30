@@ -1,6 +1,7 @@
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {ILiquid} from "@/puff-smith/service/liquid/interface";
+import {AromaContentInline} from "@/puff-smith/ui/aroma/inline/AromaContentInline";
 import {LiquidSteeping} from "@/puff-smith/ui/liquid/inline/LiquidSteeping";
 import {Preview, Tags, Template} from "@leight-core/client";
 import {Typography} from "antd";
@@ -25,14 +26,8 @@ export const LiquidView: FC<ILiquidViewProps> = ({liquid}) => {
 					items: {
 						vgpg: <VgPgInline vgpg={liquid.mixture.result.ratio}/>,
 						steep: <LiquidSteeping liquid={liquid}/>,
+						aromaContent: <AromaContentInline aroma={liquid.aroma}/>,
 						tastes: liquid.aroma.tastes ? <Tags tags={liquid.aroma.tastes} translation={"common"}/> : undefined,
-					},
-				},
-				{
-					name: "base",
-					items: {
-						vgpg: <VgPgInline vgpg={liquid.mixture.base}/>,
-						baseContent: <ContentInline content={liquid.baseAmount}/>,
 					},
 				},
 				{
@@ -43,6 +38,13 @@ export const LiquidView: FC<ILiquidViewProps> = ({liquid}) => {
 						boosterCount: liquid.boosterCount && liquid.boosterAmount ? <Typography.Text>
 							{liquid.boosterCount}x<ContentInline content={liquid.boosterAmount / liquid.boosterCount}/>
 						</Typography.Text> : null,
+					},
+				},
+				{
+					name: "base",
+					items: {
+						vgpg: <VgPgInline vgpg={liquid.mixture.base}/>,
+						baseContent: <ContentInline content={liquid.baseAmount}/>,
 					},
 				},
 			]}

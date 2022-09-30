@@ -13,16 +13,20 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async map(liquid: ISourceEntity<ILiquidSource>): Promise<ISourceItem<ILiquidSource>> {
-		return this.useAromaSource(aromaSource => {
-			return this.useMixtureSource(async mixtureSource => {
-				return {
-					...liquid,
-					aroma: await aromaSource.map(liquid.aroma),
-					created: liquid.created.toUTCString(),
-					mixed: liquid.mixed.toUTCString(),
-					nicotine: liquid.nicotine?.toNumber(),
-					mixture: await mixtureSource.get(liquid.mixtureId),
-				};
+		return this.useTagSource(async tagSource => {
+			return this.useAromaSource(aromaSource => {
+				return this.useMixtureSource(async mixtureSource => {
+					return {
+						...liquid,
+						aroma: await aromaSource.map(liquid.aroma),
+						created: liquid.created.toUTCString(),
+						mixed: liquid.mixed.toUTCString(),
+						nicotine: liquid.nicotine?.toNumber(),
+						mixture: await mixtureSource.get(liquid.mixtureId),
+						draws: await tagSource.list(Promise.resolve(liquid.LiquidDraw.map(({draw}) => draw))),
+						drawIds: liquid.LiquidDraw.map(({draw}) => draw.id),
+					};
+				});
 			});
 		});
 	}
@@ -93,6 +97,12 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 								},
 							},
 						},
+						LiquidDraw: {
+							orderBy: {draw: {sort: "asc"}},
+							include: {
+								draw: true,
+							}
+						}
 					},
 				}));
 			});
@@ -100,40 +110,55 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $patch({id, mixtureId, ...liquid}: UndefinableOptional<ISourceCreate<ILiquidSource>> & IWithIdentity): Promise<ISourceEntity<ILiquidSource>> {
-		return this.useMixtureSource(async mixtureSource => {
-			const mixture = mixtureId ? await mixtureSource.get(mixtureId) : undefined;
-			if (mixture && mixture.result.error) {
-				throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
-			}
-			return this.updateKeywords(await this.prisma.liquid.update({
-				where: {id},
-				data: {
-					...liquid,
-					nicotine: mixture?.result?.nicotine,
-					nicotineToRound: mixture?.result?.nicotineToRound,
-					vg: mixture?.result.ratio.vg,
-					vgToRound: mixture?.result.round.vg,
-					pg: mixture?.result.ratio.pg,
-					pgToRound: mixture?.result.round.pg,
-					boosterAmount: mixture?.booster?.volume,
-					boosterCount: mixture?.booster?.count,
-					baseAmount: mixture?.base?.volume,
-					mixtureId,
-				},
-				include: {
-					aroma: {
-						include: {
-							vendor: true,
-							AromaTaste: {
-								orderBy: {taste: {sort: "asc"}},
-								include: {
-									taste: true,
-								},
+		return this.useTagSource(async tagSource => {
+			return this.useMixtureSource(async mixtureSource => {
+				const mixture = mixtureId ? await mixtureSource.get(mixtureId) : undefined;
+				if (mixture && mixture.result.error) {
+					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
+				}
+				return this.updateKeywords(await this.prisma.liquid.update({
+					where: {id},
+					data: {
+						...liquid,
+						nicotine: mixture?.result?.nicotine,
+						nicotineToRound: mixture?.result?.nicotineToRound,
+						vg: mixture?.result.ratio.vg,
+						vgToRound: mixture?.result.round.vg,
+						pg: mixture?.result.ratio.pg,
+						pgToRound: mixture?.result.round.pg,
+						boosterAmount: mixture?.booster?.volume,
+						boosterCount: mixture?.booster?.count,
+						baseAmount: mixture?.base?.volume,
+						mixtureId,
+						LiquidDraw: {
+							createMany: {
+								data: mixture?.result?.draws ? (await tagSource.fetchByTags(mixture?.result?.draws, "draw")).map(tag => ({
+									drawId: tag.id,
+								})) : []
 							},
 						},
 					},
-				},
-			}));
+					include: {
+						aroma: {
+							include: {
+								vendor: true,
+								AromaTaste: {
+									orderBy: {taste: {sort: "asc"}},
+									include: {
+										taste: true,
+									},
+								},
+							},
+						},
+						LiquidDraw: {
+							orderBy: {draw: {sort: "asc"}},
+							include: {
+								draw: true,
+							}
+						}
+					},
+				}));
+			});
 		});
 	}
 
@@ -168,6 +193,12 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						},
 					},
 				},
+				LiquidDraw: {
+					orderBy: {draw: {sort: "asc"}},
+					include: {
+						draw: true,
+					}
+				}
 			},
 		});
 		await this.prisma.liquid.deleteMany({
@@ -193,6 +224,12 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						},
 					},
 				},
+				LiquidDraw: {
+					orderBy: {draw: {sort: "asc"}},
+					include: {
+						draw: true,
+					}
+				}
 			},
 		});
 	}
@@ -213,6 +250,12 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						},
 					},
 				},
+				LiquidDraw: {
+					orderBy: {draw: {sort: "asc"}},
+					include: {
+						draw: true,
+					}
+				}
 			},
 		});
 	}
