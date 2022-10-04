@@ -123,7 +123,7 @@ export const RecipeTableSource: FC<IRecipeTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</RecipeProvider>;
-};
+}
 
 export interface IRecipeListSourceProps extends Partial<IListProps<ISourceItem<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
@@ -138,7 +138,7 @@ export const RecipeListSource: FC<IRecipeListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</RecipeProvider>;
-};
+}
 
 export interface IRecipeInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
@@ -156,7 +156,7 @@ export const RecipeInfiniteListSource: FC<IRecipeInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</RecipeProvider>;
-};
+}
 
 export interface IRecipeSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IRecipeSource>> {
 	toOption: IToOptionMapper<ISourceItem<IRecipeSource>>;
@@ -174,7 +174,7 @@ export interface IRecipeSelectionProviderProps extends Partial<ISelectionProvide
 
 export const RecipeSelectionProvider: FC<IRecipeSelectionProviderProps> = props => {
 	return <SelectionProvider<ISourceItem<IRecipeSource>> {...props}/>;
-};
+}
 
 export const useRecipeCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -223,5 +223,5 @@ export const RecipeDrawerItem: FC<IRecipeDrawerItemProps> = ({onSelection, ...pr
 			}}
 			{...props}
 		/>}
-	</BlockProvider>;
-};
+	</BlockProvider>
+}

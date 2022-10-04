@@ -3,7 +3,8 @@ import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserR
 import {MobileRootPage} from "@/puff-smith/site/root/@module/component/MobileRootPage";
 import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
 import {RootMenu} from "@/puff-smith/site/root/@module/menu/RootMenu";
-import {HomeIcon, Template} from "@leight-core/client";
+import {BackupButton} from "@/puff-smith/ui/root/button/BackupButton";
+import {ButtonBar, HomeIcon, Template} from "@leight-core/client";
 
 export default withRootLayout(function Index() {
 	return <>
@@ -16,6 +17,9 @@ export default withRootLayout(function Index() {
 				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
 				status={"info"}
 				label={"root.home"}
+				extra={<ButtonBar>
+					<BackupButton/>
+				</ButtonBar>}
 			/>
 		</BrowserRootPage>
 		<MobileRootPage>

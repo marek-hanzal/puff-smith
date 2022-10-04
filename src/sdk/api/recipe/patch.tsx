@@ -20,7 +20,7 @@ export const RecipePatchDefaultForm: FC<IRecipePatchDefaultFormProps> = props =>
 	useMutation={useRecipePatchMutation}
 	translation={RecipePatchApiLink}
 	{...props}
-/>;
+/>
 
 export interface IRecipePatchDefaultMobileFormProps extends Partial<IMobileFormProps<ISourcePatch<IRecipeSource>, ISourceItem<IRecipeSource>>> {
 }
@@ -29,7 +29,7 @@ export const RecipePatchDefaultMobileForm: FC<IRecipePatchDefaultMobileFormProps
 	useMutation={useRecipePatchMutation}
 	translation={RecipePatchApiLink}
 	{...props}
-/>;
+/>
 
 export const toRecipePatchLink = (queryParams?: IRecipePatchQueryParams) => toLink(RecipePatchApiLink, queryParams);
 export const useRecipePatchLink = () => toRecipePatchLink;
