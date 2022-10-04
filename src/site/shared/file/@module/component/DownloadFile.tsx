@@ -15,13 +15,7 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 	const [loading, setLoading] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const {t} = useTranslation();
-
-	const promise = useDownloadPromise()(undefined, {fileId: file.id}, {
-		responseType: "blob",
-		timeout: 0,
-		onDownloadProgress: event => setProgress(Math.round((event.loaded * 100) / event.total))
-	});
-
+	const promise = useDownloadPromise();
 	return <Tooltip title={t("shared.file.download")}>
 		<Button
 			size={"large"}
@@ -31,7 +25,11 @@ export const DownloadFile: FC<IDownloadFileProps> = ({file, name, ...props}) => 
 			onClick={() => {
 				setLoading(true);
 				setProgress(0);
-				promise
+				promise(undefined, {fileId: file.id}, {
+					responseType: "blob",
+					timeout: 0,
+					onDownloadProgress: event => setProgress(Math.round((event.loaded * 100) / event.total))
+				})
 					.then(data => {
 						message.success(t("puff-smith.file.download-success"));
 						fileDownload(data, name || file.name);
