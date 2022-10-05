@@ -1,10 +1,9 @@
 import {BACKUP_JOB} from "@/puff-smith/jobs/backup/interface";
 import {IJobButtonProps, JobButton} from "@/puff-smith/ui/shared/button/JobButton";
 import {useBackupMutation} from "@/sdk/api/root/backup";
-import {IBackupRequest} from "@leight-core/api";
 import {FC} from "react";
 
-export interface IBackupButtonProps extends Partial<IJobButtonProps<IBackupRequest>> {
+export interface IBackupButtonProps extends Partial<IJobButtonProps<any>> {
 }
 
 export const BackupButton: FC<IBackupButtonProps> = props => {

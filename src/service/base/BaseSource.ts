@@ -65,6 +65,14 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		}));
 	}
 
+	async toImport(entity: ISourceEntity<IBaseSource>): Promise<ISourceCreate<IBaseSource> | undefined> {
+		return {
+			vg: entity.vg,
+			pg: entity.vg,
+			nicotine: entity.nicotine,
+		};
+	}
+
 	async createToId(base: ISourceCreate<IBaseSource>): Promise<{ id: string }> {
 		return this.prisma.base.findFirstOrThrow({
 			select: {

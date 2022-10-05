@@ -17,6 +17,7 @@ export interface IAromaCreate extends Omit<Aroma, "id" | "userId" | "vendor" | "
 	code?: string;
 	tastes?: string;
 	tasteIds?: string[];
+	userId?: string | null;
 }
 
 export type IAromaQuery = IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput>;

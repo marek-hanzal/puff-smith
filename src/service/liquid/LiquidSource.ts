@@ -162,6 +162,15 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 		});
 	}
 
+	// async toImport(entity: ISourceEntity<ILiquidSource>): Promise<ISourceCreate<ILiquidSource> | undefined> {
+	// 	return {
+	// 		mixtureId: entity.mixtureId,
+	// 		mixed: entity.mixed,
+	// 		code: entity.code,
+	// 		vendorId: entity.vendorId,
+	// 	};
+	// }
+
 	async createToId({code}: ISourceCreate<ILiquidSource>): Promise<{ id: string }> {
 		return this.prisma.liquid.findFirstOrThrow({
 			select: {

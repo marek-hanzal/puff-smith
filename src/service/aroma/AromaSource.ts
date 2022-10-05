@@ -54,7 +54,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async $create({vendor, vendorId, tastes, tasteIds, code, nicotine, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
+	async $create({vendor, vendorId, tastes, tasteIds, code, nicotine, userId, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
 		return this.container.useTagSource(async tagSource => {
 			return this.container.useCodeService(async codeService => {
 				return this.updateKeywords(await this.prisma.aroma.create({
@@ -76,9 +76,9 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 								})),
 							}
 						},
-						user: this.user.optional() ? {
+						user: (userId || this.user.optional()) ? {
 							connect: {
-								id: this.user.optional(),
+								id: userId || this.user.optional(),
 							}
 						} : undefined,
 					},
@@ -96,7 +96,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async $patch({vendor, vendorId, tastes, tasteIds, id, name, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
+	async $patch({vendor, vendorId, tastes, tasteIds, id, name, userId, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
 		return this.container.useTagSource(async tagSource => {
 			await this.prisma.aromaTaste.deleteMany({
 				where: {aromaId: id}
@@ -112,6 +112,11 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 							id: vendorId,
 						}
 					},
+					user: (userId || this.user.optional()) ? {
+						connect: {
+							id: userId || this.user.optional(),
+						}
+					} : undefined,
 					AromaTaste: {
 						createMany: {
 							data: (await tagSource.fetchByTags(tasteIds || tastes, "taste")).map(tag => ({
@@ -158,6 +163,22 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 				],
 			},
 		});
+	}
+
+	async toImport(entity: ISourceEntity<IAromaSource>): Promise<ISourceCreate<IAromaSource> | undefined> {
+		return {
+			tasteIds: entity.AromaTaste.map(taste => taste.taste.id),
+			code: entity.code,
+			nicotine: entity.nicotine,
+			name: entity.name,
+			vg: entity.vg,
+			pg: entity.pg,
+			content: entity.content,
+			steep: entity.steep,
+			volume: entity.volume,
+			vendorId: entity.vendorId,
+			userId: entity.userId,
+		};
 	}
 
 	async $remove(ids: string[]): Promise<ISourceEntity<IAromaSource>[]> {

@@ -65,6 +65,15 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		}));
 	}
 
+	async toImport(entity: ISourceEntity<IBoosterSource>): Promise<ISourceCreate<IBoosterSource> | undefined> {
+		return {
+			vg: entity.vg,
+			pg: entity.vg,
+			nicotine: entity.nicotine,
+			volume: entity.volume,
+		};
+	}
+
 	async createToId(booster: ISourceCreate<IBoosterSource>): Promise<{ id: string }> {
 		return this.prisma.booster.findFirstOrThrow({
 			select: {
