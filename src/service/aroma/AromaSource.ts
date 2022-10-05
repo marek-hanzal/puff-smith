@@ -177,7 +177,9 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async restore(backup?: ISourceBackup<IAromaSource>): Promise<ISourceEntity<IAromaSource> | undefined> {
-		return undefined;
+		if (!backup) {
+			return;
+		}
 	}
 
 	async $remove(ids: string[]): Promise<ISourceEntity<IAromaSource>[]> {
