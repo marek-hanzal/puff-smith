@@ -13,6 +13,11 @@ export interface IBackupServiceDeps {
 	logger: Logger;
 }
 
+export interface IBackupItem<TSource, TEntity> {
+	source: TSource;
+	entity: TEntity;
+}
+
 export const BackupService = (deps: IBackupServiceDeps) => new BackupServiceClass(deps);
 
 export class BackupServiceClass implements IBackupService {
