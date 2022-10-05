@@ -1,5 +1,8 @@
-import {ITagSourceSelectProps, TagSourceSelect} from "@/sdk/api/tag/query";
-import {FC} from "react";
+import {
+	ITagSourceSelectProps,
+	TagSourceSelect
+}                       from "@/sdk/api/tag/query";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITagSelectProps extends Partial<ITagSourceSelectProps> {

@@ -1,5 +1,13 @@
-import {IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
-import {Prisma, Tag} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	ITag,
+	IWithFulltext
+} from "@leight-core/api";
+import {
+	Prisma,
+	Tag
+} from "@prisma/client";
 
 export interface ITagCreate extends Omit<ITag, "id"> {
 }

@@ -1,15 +1,29 @@
-import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {FullLogoIcon}      from "@/puff-smith/component/icon/FullLogoIcon";
 import {BrowserPublicPage} from "@/puff-smith/site/public/component/BrowserPublicPage";
-import {EmailButton} from "@/puff-smith/site/public/component/button/EmailButton";
-import {GithubButton} from "@/puff-smith/site/public/component/button/GithubButton";
-import {GoogleButton} from "@/puff-smith/site/public/component/button/GoogleButton";
-import {SignInButton} from "@/puff-smith/site/public/component/button/SignInButton";
-import {MobilePublicPage} from "@/puff-smith/site/public/component/MobilePublicPage";
-import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
-import {ButtonBar, Card, Centered, Template} from "@leight-core/client";
-import {numbersOf} from "@leight-core/utils";
-import {Col, Divider, Row, Space, Typography} from "antd";
-import {Trans, useTranslation} from "react-i18next";
+import {EmailButton}       from "@/puff-smith/site/public/component/button/EmailButton";
+import {GithubButton}      from "@/puff-smith/site/public/component/button/GithubButton";
+import {GoogleButton}      from "@/puff-smith/site/public/component/button/GoogleButton";
+import {SignInButton}      from "@/puff-smith/site/public/component/button/SignInButton";
+import {MobilePublicPage}  from "@/puff-smith/site/public/component/MobilePublicPage";
+import {withPublicLayout}  from "@/puff-smith/site/public/layout/layout";
+import {
+	ButtonBar,
+	Card,
+	Centered,
+	Template
+}                          from "@leight-core/client";
+import {numbersOf}         from "@leight-core/utils";
+import {
+	Col,
+	Divider,
+	Row,
+	Space,
+	Typography
+}                          from "antd";
+import {
+	Trans,
+	useTranslation
+}                          from "react-i18next";
 
 export default withPublicLayout(function Index() {
 	const {t} = useTranslation();

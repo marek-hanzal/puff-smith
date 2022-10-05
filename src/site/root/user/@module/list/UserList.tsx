@@ -1,7 +1,15 @@
-import {IUserListSourceProps, UserListSource} from "@/sdk/api/user/query";
-import {ButtonLink, ListItem, ListItemMeta, Tags} from "@leight-core/client";
+import {
+	IUserListSourceProps,
+	UserListSource
+}               from "@/sdk/api/user/query";
+import {
+	ButtonLink,
+	ListItem,
+	ListItemMeta,
+	Tags
+}               from "@leight-core/client";
 import {Avatar} from "antd";
-import {FC} from "react";
+import {FC}     from "react";
 
 export interface IUserListProps extends Partial<IUserListSourceProps> {
 }
@@ -21,9 +29,9 @@ export const UserList: FC<IUserListProps> = props => {
 					color={"red"}
 					translation={"common"}
 					tags={user.tokens.map(token => ({
-						id: token.id,
+						id:    token.id,
 						group: "token",
-						tag: token.name,
+						tag:   token.name,
 					}))}
 				/>}
 				avatar={<Avatar src={user.image}/>}

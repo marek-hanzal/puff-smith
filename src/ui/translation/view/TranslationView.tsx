@@ -1,7 +1,12 @@
 import {ITranslation} from "@leight-core/api";
-import {ITemplateProps, PlainText, Preview, Template} from "@leight-core/client";
-import {Divider} from "antd";
-import {FC} from "react";
+import {
+	ITemplateProps,
+	PlainText,
+	Preview,
+	Template
+}                     from "@leight-core/client";
+import {Divider}      from "antd";
+import {FC}           from "react";
 
 export interface ITranslationViewProps extends Partial<ITemplateProps> {
 	translation: ITranslation;
@@ -20,13 +25,13 @@ export const TranslationView: FC<ITranslationViewProps> = ({translation, ...prop
 		>
 			{[
 				{
-					name: "info",
+					name:  "info",
 					items: {
-						content: <PlainText>
-							{translation.value}
-						</PlainText>,
+						content:  <PlainText>
+									  {translation.value}
+								  </PlainText>,
 						language: translation.language,
-						key: translation.key,
+						key:      translation.key,
 					},
 				},
 			]}

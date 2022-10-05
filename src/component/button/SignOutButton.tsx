@@ -1,7 +1,11 @@
-import {SignOutIcon} from "@leight-core/client";
-import {Button, ButtonProps, Tooltip} from "antd";
-import {signOut} from "next-auth/react";
-import {FC} from "react";
+import {SignOutIcon}    from "@leight-core/client";
+import {
+	Button,
+	ButtonProps,
+	Tooltip
+}                       from "antd";
+import {signOut}        from "next-auth/react";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ISignOutButtonProps extends Partial<ButtonProps> {

@@ -1,6 +1,9 @@
 import {useOptionalSelectionContext} from "@leight-core/client";
-import {Checkbox} from "antd";
-import {ComponentProps, FC} from "react";
+import {Checkbox}                    from "antd";
+import {
+	ComponentProps,
+	FC
+}                                    from "react";
 
 export interface ISelectionBoolProps extends Partial<ComponentProps<typeof Checkbox>> {
 	selection: any;

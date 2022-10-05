@@ -1,6 +1,9 @@
 import {useOptionalSelectionContext} from "@leight-core/client";
-import {Switch} from "antd-mobile";
-import {ComponentProps, FC} from "react";
+import {Switch}                      from "antd-mobile";
+import {
+	ComponentProps,
+	FC
+}                                    from "react";
 
 export interface ISelectionSwitchProps extends Partial<ComponentProps<typeof Switch>> {
 	selection: any;

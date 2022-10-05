@@ -1,5 +1,13 @@
-import {IQuery, ISource, ITranslation, IWithFulltext} from "@leight-core/api";
-import {Prisma, Translation} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	ITranslation,
+	IWithFulltext
+}                       from "@leight-core/api";
+import {
+	Prisma,
+	Translation
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface ITranslationCreate {

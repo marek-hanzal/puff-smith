@@ -1,10 +1,17 @@
 import {SignOutButton} from "@/puff-smith/component/button/SignOutButton";
-import {LogoIcon} from "@/puff-smith/component/icon/LogoIcon";
+import {LogoIcon}      from "@/puff-smith/component/icon/LogoIcon";
 import {InventoryMenu} from "@/puff-smith/site/inventory/@module/menu/InventoryMenu";
-import {UserPuffies} from "@/puff-smith/site/shared/user/@module/component/UserPuffies";
-import {ButtonBar, LinkTo} from "@leight-core/client";
-import {Divider, PageHeader, PageHeaderProps} from "antd";
-import {FC} from "react";
+import {UserPuffies}   from "@/puff-smith/site/shared/user/@module/component/UserPuffies";
+import {
+	ButtonBar,
+	LinkTo
+}                      from "@leight-core/client";
+import {
+	Divider,
+	PageHeader,
+	PageHeaderProps
+}                      from "antd";
+import {FC}            from "react";
 
 export interface IHeaderProps extends Partial<PageHeaderProps> {
 }

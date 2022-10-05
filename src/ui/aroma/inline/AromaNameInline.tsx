@@ -1,7 +1,11 @@
-import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {IAroma}   from "@/puff-smith/service/aroma/interface";
 import {Ellipsis} from "@leight-core/client";
-import {Space, SpaceProps, Typography} from "antd";
-import {FC} from "react";
+import {
+	Space,
+	SpaceProps,
+	Typography
+}                 from "antd";
+import {FC}       from "react";
 
 export interface IAromaNameInlineProps extends Partial<SpaceProps> {
 	aroma: IAroma;

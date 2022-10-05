@@ -1,16 +1,40 @@
-import {useCommitPromise} from "@/sdk/api/file/chunk/[chunkId]/commit";
-import {UploadApiLink, useUploadLink} from "@/sdk/api/file/chunk/[chunkId]/upload";
+import {useCommitPromise}    from "@/sdk/api/file/chunk/[chunkId]/commit";
+import {
+	UploadApiLink,
+	useUploadLink
+}                            from "@/sdk/api/file/chunk/[chunkId]/upload";
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {IFile} from "@leight-core/api";
-import {DeleteItemIcon} from "@leight-core/client";
-import {isString, toHumanBytes} from "@leight-core/utils";
-import {Button, Divider, message, Progress, Result, Space, Upload, UploadProps} from "antd";
-import {RcFile, UploadChangeParam} from "antd/lib/upload";
-import axios from "axios";
+import {IFile}               from "@leight-core/api";
+import {DeleteItemIcon}      from "@leight-core/client";
+import {
+	isString,
+	toHumanBytes
+}                            from "@leight-core/utils";
+import {
+	Button,
+	Divider,
+	message,
+	Progress,
+	Result,
+	Space,
+	Upload,
+	UploadProps
+}                            from "antd";
+import {
+	RcFile,
+	UploadChangeParam
+}                            from "antd/lib/upload";
+import axios                 from "axios";
 import {UploadRequestOption} from "rc-upload/lib/interface";
-import {FC, ReactNode, useEffect, useRef, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {v4} from "uuid";
+import {
+	FC,
+	ReactNode,
+	useEffect,
+	useRef,
+	useState
+}                            from "react";
+import {useTranslation}      from "react-i18next";
+import {v4}                  from "uuid";
 
 export interface IUploaderProps extends Partial<UploadProps> {
 	translation: string;
@@ -44,24 +68,24 @@ export const Uploader: FC<IUploaderProps> = (
 		children,
 		...props
 	}) => {
-	const {t} = useTranslation();
-	const chunkLink = useUploadLink();
+	const {t}           = useTranslation();
+	const chunkLink     = useUploadLink();
 	const commitPromise = useCommitPromise();
 
 	const defaultChunkSize = 1048576 * chunkSize;
 
 	const [progress, setProgress] = useState(0);
 
-	const [counter, setCounter] = useState(1);
+	const [counter, setCounter]                         = useState(1);
 	const [beginningOfTheChunk, setBeginningOfTheChunk] = useState(0);
-	const [endOfTheChunk, setEndOfTheChunk] = useState(defaultChunkSize);
-	const [chunkCount, setChunkCount] = useState(0);
-	const [progressSize, setProgressSize] = useState(0);
-	const [fileSize, setFileSize] = useState(0);
-	const [uuid, setUuid] = useState<string>(v4());
-	const [option, setOption] = useState<UploadRequestOption>(undefined as any);
-	const [error, setError] = useState(false);
-	const currentName = useRef<string>(filename as string);
+	const [endOfTheChunk, setEndOfTheChunk]             = useState(defaultChunkSize);
+	const [chunkCount, setChunkCount]                   = useState(0);
+	const [progressSize, setProgressSize]               = useState(0);
+	const [fileSize, setFileSize]                       = useState(0);
+	const [uuid, setUuid]                               = useState<string>(v4());
+	const [option, setOption]                           = useState<UploadRequestOption>(undefined as any);
+	const [error, setError]                             = useState(false);
+	const currentName                                   = useRef<string>(filename as string);
 
 	function reset() {
 		setFileSize(0);
@@ -77,7 +101,10 @@ export const Uploader: FC<IUploaderProps> = (
 
 	useEffect(() => {
 		fileSize > 0 && option && upload();
-	}, [option, progress]);
+	}, [
+		option,
+		progress
+	]);
 
 	function upload() {
 		counter === 1 && (() => {
@@ -163,7 +190,10 @@ export const Uploader: FC<IUploaderProps> = (
 			beforeUpload={(file: RcFile): boolean => {
 				const hasValidSize = file.size / 1024 / 1024 < limit;
 				if (!hasValidSize) {
-					message.error(t([translation + ".file-too-large", "common.error.file-too-large"], {size: toHumanBytes(file.size), limit: toHumanBytes(limit * 1024 * 1024)}));
+					message.error(t([
+						translation + ".file-too-large",
+						"common.error.file-too-large"
+					], {size: toHumanBytes(file.size), limit: toHumanBytes(limit * 1024 * 1024)}));
 				}
 				return hasValidSize;
 			}}

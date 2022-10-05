@@ -1,15 +1,22 @@
-import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
-import {ITagInfiniteListSourceProps, TagInfiniteListSource} from "@/sdk/api/tag/query";
-import {ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
-import {Typography} from "antd";
-import {FC} from "react";
+import {SelectionBool}  from "@/puff-smith/component/inline/SelectionBool";
+import {
+	ITagInfiniteListSourceProps,
+	TagInfiniteListSource
+}                       from "@/sdk/api/tag/query";
+import {
+	ListItem,
+	ListItemMeta,
+	useOptionalSelectionContext
+}                       from "@leight-core/client";
+import {Typography}     from "antd";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ITagListProps extends Partial<ITagInfiniteListSourceProps> {
 }
 
 export const TagList: FC<ITagListProps> = props => {
-	const {t} = useTranslation();
+	const {t}              = useTranslation();
 	const selectionContext = useOptionalSelectionContext();
 	return <TagInfiniteListSource
 		withFulltext

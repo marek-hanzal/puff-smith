@@ -2,8 +2,13 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {IEntityContext, INavigate, ISourceItem, IWithIdentityQuery} from "@leight-core/api";
+import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
+import {
+	IEntityContext,
+	INavigate,
+	ISourceItem,
+	IWithIdentityQuery
+}                       from "@leight-core/api";
 import {
 	BrowserPage,
 	createPromise,
@@ -21,11 +26,19 @@ import {
 	useContext,
 	useOptionalContext,
 	useParams
-} from "@leight-core/client";
-import {isCallable} from "@leight-core/utils";
+}                       from "@leight-core/client";
+import {isCallable}     from "@leight-core/utils";
 import {useQueryClient} from "@tanstack/react-query";
-import {Breadcrumb, BreadcrumbProps} from "antd";
-import {createContext, FC, ReactElement, ReactNode} from "react";
+import {
+	Breadcrumb,
+	BreadcrumbProps
+}                       from "antd";
+import {
+	createContext,
+	FC,
+	ReactElement,
+	ReactNode
+}                       from "react";
 
 export const VendorApiLink = "/api/vendor/[id]/fetch";
 
@@ -33,7 +46,7 @@ export type IVendorQueryParams = IWithIdentityQuery;
 
 export const VendorContext = createContext(null as unknown as IEntityContext<ISourceItem<IVendorSource>>);
 
-export const useVendorContext = (): IEntityContext<ISourceItem<IVendorSource>> => useContext(VendorContext, "VendorContext");
+export const useVendorContext         = (): IEntityContext<ISourceItem<IVendorSource>> => useContext(VendorContext, "VendorContext");
 export const useOptionalVendorContext = () => useOptionalContext<IEntityContext<ISourceItem<IVendorSource>>>(VendorContext as any);
 
 export interface IVendorProvider extends IEntityProviderProps<ISourceItem<IVendorSource>> {

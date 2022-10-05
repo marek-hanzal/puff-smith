@@ -1,4 +1,10 @@
-import {default as CoolDocument, Head, Html, Main, NextScript} from "next/document";
+import {
+	default as CoolDocument,
+	Head,
+	Html,
+	Main,
+	NextScript
+} from "next/document";
 
 class Document extends CoolDocument {
 	render() {

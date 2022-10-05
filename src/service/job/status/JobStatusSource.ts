@@ -1,7 +1,12 @@
-import {ContainerSource} from "@/puff-smith/service/ContainerSource";
+import {ContainerSource}  from "@/puff-smith/service/ContainerSource";
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJobStatus, ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
+import prisma             from "@/puff-smith/service/side-effect/prisma";
+import {
+	IJobStatus,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery
+}                         from "@leight-core/api";
 
 const items: IJobStatus[] = [
 	"NEW",
@@ -20,14 +25,14 @@ export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> impl
 	}
 
 	async map(status: ISourceEntity<IJobStatusSource>): Promise<ISourceItem<IJobStatusSource>> {
-		return {
-			id: status,
-			value: status,
-			label: status,
-		};
+		return status;
 	}
 
 	async $query(query: ISourceQuery<IJobStatusSource>): Promise<ISourceEntity<IJobStatusSource>[]> {
-		return items;
+		return items.map(status => ({
+			id:    status,
+			value: status,
+			label: status,
+		}));
 	}
 }

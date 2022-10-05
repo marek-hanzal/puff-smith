@@ -4,7 +4,12 @@
 
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import {ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, toLink} from "@leight-core/client";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	toLink
+}                    from "@leight-core/client";
 
 export const FileDeleteApiLink = "/api/file/delete";
 

@@ -1,24 +1,31 @@
-import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
-import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
-import {toTagError} from "@/puff-smith/ui/tag/form/toTagError";
-import {ITagCreateDefaultMobileFormProps, TagCreateDefaultMobileForm} from "@/sdk/api/tag/create";
-import {useTagQueryInvalidate} from "@/sdk/api/tag/query";
+import {CertificateIcon}               from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon}                   from "@/puff-smith/component/icon/LicenseIcon";
+import {toTagError}                    from "@/puff-smith/ui/tag/form/toTagError";
+import {
+	ITagCreateDefaultMobileFormProps,
+	TagCreateDefaultMobileForm
+}                                      from "@/sdk/api/tag/create";
+import {useTagQueryInvalidate}         from "@/sdk/api/tag/query";
 import {useTranslationQueryInvalidate} from "@/sdk/api/translation";
-import {useTranslationCreateMutation} from "@/sdk/api/translation/create";
-import {useTranslationPushMutation} from "@/sdk/api/translation/push";
-import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
-import {Divider} from "antd";
-import {Stepper} from "antd-mobile";
-import i18n from "i18next";
-import {FC} from "react";
+import {useTranslationCreateMutation}  from "@/sdk/api/translation/create";
+import {useTranslationPushMutation}    from "@/sdk/api/translation/push";
+import {
+	ButtonBar,
+	ButtonLink,
+	MobileFormItem
+}                                      from "@leight-core/client";
+import {Divider}                       from "antd";
+import {Stepper}                       from "antd-mobile";
+import i18n                            from "i18next";
+import {FC}                            from "react";
 
 export interface ITagCreateFormProps extends Partial<ITagCreateDefaultMobileFormProps> {
 }
 
 export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) => {
-	const tagQueryInvalidate = useTagQueryInvalidate();
-	const translationPushMutation = useTranslationPushMutation();
-	const translationCreateMutation = useTranslationCreateMutation();
+	const tagQueryInvalidate         = useTagQueryInvalidate();
+	const translationPushMutation    = useTranslationPushMutation();
+	const translationCreateMutation  = useTranslationCreateMutation();
 	const translationQueryInvalidate = useTranslationQueryInvalidate();
 	return <TagCreateDefaultMobileForm
 		onSuccess={async response => {
@@ -31,10 +38,10 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 				const mutation = i > 0 ? translationCreateMutation : translationPushMutation;
 				return mutation.mutate({
 					language,
-					text: response.values.translation,
+					text:  response.values.translation,
 					label: `common.${response.values.group}.${response.values.tag}`,
 				}, {
-					onError: e => console.error(e),
+					onError:   e => console.error(e),
 					onSettled: async () => {
 						await translationQueryInvalidate();
 						onSuccess?.(response);
@@ -44,18 +51,18 @@ export const TagCreateForm: FC<ITagCreateFormProps> = ({onSuccess, ...props}) =>
 		}}
 		toMutation={({translation, ...values}) => values}
 		withTokenProps={{
-			tokens: [
+			tokens:   [
 				"*",
 				"feature.aroma.create",
 			],
 			template: {
 				extra: <>
-					<Divider/>
-					<ButtonBar split={<Divider type={"vertical"}/>}>
-						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
-						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
-					</ButtonBar>
-				</>
+						   <Divider/>
+						   <ButtonBar split={<Divider type={"vertical"}/>}>
+							   <ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+							   <ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+						   </ButtonBar>
+					   </>
 			}
 		}}
 		toError={toTagError}

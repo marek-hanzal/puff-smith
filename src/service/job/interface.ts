@@ -1,6 +1,17 @@
-import {IJob, IJobHandlerRequest, IJobProcessor, IJobProgress, IQuery, IQueryFilter, ISource} from "@leight-core/api";
-import {Job, Prisma} from "@prisma/client";
-import PQueue from "p-queue";
+import {
+	IJob,
+	IJobHandlerRequest,
+	IJobProcessor,
+	IJobProgress,
+	IQuery,
+	IQueryFilter,
+	ISource
+}                       from "@leight-core/api";
+import {
+	Job,
+	Prisma
+}                       from "@prisma/client";
+import PQueue           from "p-queue";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IJobCreate {

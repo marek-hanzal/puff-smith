@@ -1,8 +1,8 @@
-import {RecipeIcon} from "@/puff-smith/component/icon/RecipeIcon";
-import {IRecipeFetch} from "@/puff-smith/service/recipe/interface";
-import {RecipeSource} from "@/puff-smith/service/recipe/RecipeSource";
-import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {RecipeIcon}      from "@/puff-smith/component/icon/RecipeIcon";
+import {IRecipeFetch}    from "@/puff-smith/service/recipe/interface";
+import {RecipeSource}    from "@/puff-smith/service/recipe/RecipeSource";
+import {MobileLabPage}   from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}   from "@/puff-smith/site/lab/@module/layout/layout";
 import {RecipePatchForm} from "@/puff-smith/ui/recipe/form/RecipePatchForm";
 
 export default withLabLayout(function Edit({recipe}: IRecipeFetch) {
@@ -10,7 +10,10 @@ export default withLabLayout(function Edit({recipe}: IRecipeFetch) {
 		onBack={navigate => navigate("/lab/recipe/[recipeId]", {recipeId: recipe.id})}
 		title={"lab.recipe.edit"}
 		values={{recipe}}
-		menuSelection={["/lab/recipe", "/lab/recipe/[recipeId]"]}
+		menuSelection={[
+			"/lab/recipe",
+			"/lab/recipe/[recipeId]"
+		]}
 		icon={<RecipeIcon/>}
 	>
 		<RecipePatchForm

@@ -1,10 +1,19 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
-import {IMixtureInfo, IToMixtureBaseRequest, IToMixtureBoosterRequest, toMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
-import {uniqueOf} from "@leight-core/utils";
-import LRUCache from "lru-cache";
+import {IMixtureSource}  from "@/puff-smith/service/mixture/interface";
+import {
+	IMixtureInfo,
+	IToMixtureBaseRequest,
+	IToMixtureBoosterRequest,
+	toMixtureInfo
+}                        from "@/puff-smith/service/mixture/toMixture";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery
+}                        from "@leight-core/api";
+import {uniqueOf}        from "@leight-core/utils";
+import LRUCache          from "lru-cache";
 
 const mixtureCache: LRUCache<string, ISourceEntity<IMixtureSource>[]> = new LRUCache<string, ISourceEntity<IMixtureSource>[]>({
 	max: 2048,
@@ -38,11 +47,11 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		if (!query.filter.mixture) {
 			return [];
 		}
-		const {page, size} = query;
+		const {page, size}                                                    = query;
 		const {aroma, nicotine, nicotineTolerance = 0, vg, pg, booster, base} = query.filter.mixture;
-		const isFilled = aroma.volume === aroma.content;
-		const baseList: IToMixtureBaseRequest[] = isFilled ? [] : (base || []);
-		const boosterList: IToMixtureBoosterRequest[] = isFilled ? [] : (booster || []);
+		const isFilled                                                        = aroma.volume === aroma.content;
+		const baseList: IToMixtureBaseRequest[]                               = isFilled ? [] : (base || []);
+		const boosterList: IToMixtureBoosterRequest[]                         = isFilled ? [] : (booster || []);
 		if (!isFilled && !base) {
 			for (let vg = 0; vg <= 100; vg += 10) {
 				baseList.push({
@@ -56,7 +65,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 				for (let vg = 0; vg <= 100; vg += 10) {
 					boosterList.push({
 						vg,
-						pg: 100 - vg,
+						pg:       100 - vg,
 						nicotine: $nicotine,
 					});
 				}

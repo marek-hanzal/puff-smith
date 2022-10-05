@@ -3,7 +3,14 @@
  */
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                           from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,16 +47,19 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
-import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+}                           from "@leight-core/client";
+import {useQueryClient}     from "@tanstack/react-query";
+import {
+	ConsumerProps,
+	FC
+}                           from "react";
 
-export const TranslationApiLink = "/api/translation/query";
+export const TranslationApiLink      = "/api/translation/query";
 export const TranslationCountApiLink = "/api/translation/query/count";
 
 export type ITranslationQueryParams = any;
 
-export const useTranslationQuery = createQueryHook<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
+export const useTranslationQuery      = createQueryHook<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
 export const useTranslationCountQuery = createQueryHook<ISourceQuery<ITranslationSource>, number, ITranslationQueryParams>(TranslationCountApiLink, "post");
 
 export const useTranslationSource = () => useSourceContext<ISourceItem<ITranslationSource>>();
@@ -74,11 +84,11 @@ export const TranslationProvider: FC<ITranslationProviderProps> = props => {
 	/>;
 };
 
-export const toTranslationLink = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
+export const toTranslationLink  = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;
 
 export const useTranslationPromise = createPromiseHook<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
-export const TranslationPromise = createPromise<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
+export const TranslationPromise    = createPromise<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
 
 export interface ITranslationFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ITranslationSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface ITranslationFilterProviderProps extends Partial<IFilterProvider
 export const TranslationFilterProvider: FC<ITranslationFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITranslationSource>>> name={"Translation"} {...props}/>;
 
 export const useTranslationOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITranslationSource>>>();
-export const useTranslationFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITranslationSource>>>();
+export const useTranslationFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ITranslationSource>>>();
 
 export interface ITranslationProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITranslationSource>>> {
 }
@@ -102,7 +112,7 @@ export interface ITranslationOrderByProviderProps extends Partial<IOrderByProvid
 export const TranslationOrderByProvider: FC<ITranslationOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITranslationSource>>> name={"Translation"} {...props}/>;
 
 export const useTranslationOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITranslationSource>>>();
-export const useTranslationOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITranslationSource>>>();
+export const useTranslationOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITranslationSource>>>();
 
 export interface ITranslationProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITranslationSource>>, IQueryOrderBy<ISourceQuery<ITranslationSource>>, ITranslationQueryParams>> {
 }

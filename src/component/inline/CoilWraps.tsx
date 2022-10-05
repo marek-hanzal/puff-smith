@@ -1,6 +1,10 @@
 import {ReloadOutlined} from "@ant-design/icons";
-import {Space, Tooltip, Typography} from "antd";
-import {FC} from "react";
+import {
+	Space,
+	Tooltip,
+	Typography
+}                       from "antd";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ICoilWrapsProps {

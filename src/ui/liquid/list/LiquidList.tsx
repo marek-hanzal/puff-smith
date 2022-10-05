@@ -1,8 +1,11 @@
-import {LiquidInline} from "@/puff-smith/ui/liquid/inline/LiquidInline";
-import {LiquidListSwipe} from "@/puff-smith/ui/liquid/list/LiquidListSwitpe";
-import {ILiquidInfiniteListSourceProps, LiquidInfiniteListSource} from "@/sdk/api/liquid/query";
+import {LiquidInline}     from "@/puff-smith/ui/liquid/inline/LiquidInline";
+import {LiquidListSwipe}  from "@/puff-smith/ui/liquid/list/LiquidListSwitpe";
+import {
+	ILiquidInfiniteListSourceProps,
+	LiquidInfiniteListSource
+}                         from "@/sdk/api/liquid/query";
 import {InfiniteListItem} from "@leight-core/client";
-import {FC} from "react";
+import {FC}               from "react";
 
 export interface ILiquidListProps extends Partial<ILiquidInfiniteListSourceProps> {
 }

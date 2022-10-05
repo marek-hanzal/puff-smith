@@ -1,20 +1,24 @@
-import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {IBaseSource} from "@/puff-smith/service/base/interface";
-import {IBoosterSource} from "@/puff-smith/service/booster/interface";
-import {ICodeService} from "@/puff-smith/service/code/interface";
-import {IFileSource} from "@/puff-smith/service/file/interface";
-import {IJobSource} from "@/puff-smith/service/job/interface";
-import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
-import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
-import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
-import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {ITagSource} from "@/puff-smith/service/tag/interface";
-import {ITokenSource} from "@/puff-smith/service/token/interface";
+import {IAromaSource}       from "@/puff-smith/service/aroma/interface";
+import {IBaseSource}        from "@/puff-smith/service/base/interface";
+import {IBoosterSource}     from "@/puff-smith/service/booster/interface";
+import {ICodeService}       from "@/puff-smith/service/code/interface";
+import {IFileSource}        from "@/puff-smith/service/file/interface";
+import {IJobSource}         from "@/puff-smith/service/job/interface";
+import {IKeywordSource}     from "@/puff-smith/service/keyword/interface";
+import {ILiquidSource}      from "@/puff-smith/service/liquid/interface";
+import {IMixtureSource}     from "@/puff-smith/service/mixture/interface";
+import {IRecipeSource}      from "@/puff-smith/service/recipe/interface";
+import {ITagSource}         from "@/puff-smith/service/tag/interface";
+import {ITokenSource}       from "@/puff-smith/service/token/interface";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {IUserSource} from "@/puff-smith/service/user/interface";
-import {IUserTokenSource} from "@/puff-smith/service/user/token/interface";
-import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {IContainer, IContainerCallback, ISource} from "@leight-core/api";
+import {IUserSource}        from "@/puff-smith/service/user/interface";
+import {IUserTokenSource}   from "@/puff-smith/service/user/token/interface";
+import {IVendorSource}      from "@/puff-smith/service/vendor/interface";
+import {
+	IContainer,
+	IContainerCallback,
+	ISource
+}                           from "@leight-core/api";
 
 export const Container = () => new ContainerClass();
 

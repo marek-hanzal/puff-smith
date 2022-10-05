@@ -1,11 +1,27 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {IJobQuery, IJobSource} from "@/puff-smith/service/job/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IJobHandlerRequest, IJobProcessor, IJobProgress, IJobStatus, IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
-import {Logger, pageOf} from "@leight-core/server";
-import {toPercent} from "@leight-core/utils";
-import delay from "delay";
-import PQueue from "p-queue";
+import {
+	IJobQuery,
+	IJobSource
+}                        from "@/puff-smith/service/job/interface";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	IJobHandlerRequest,
+	IJobProcessor,
+	IJobProgress,
+	IJobStatus,
+	IQueryFilter,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery
+}                        from "@leight-core/api";
+import {
+	Logger,
+	pageOf
+}                        from "@leight-core/server";
+import {toPercent}       from "@leight-core/utils";
+import delay             from "delay";
+import PQueue            from "p-queue";
 
 export const JobSource = () => new JobSourceClass();
 
@@ -25,14 +41,14 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		return this.prisma.job.create({
 			data: {
 				...job,
-				success: 0,
+				success:      0,
 				successRatio: 0,
-				failure: 0,
+				failure:      0,
 				failureRatio: 0,
-				skip: 0,
-				skipRatio: 0,
-				params: job.params && JSON.stringify(job.params),
-				created: new Date(),
+				skip:         0,
+				skipRatio:    0,
+				params:       job.params && JSON.stringify(job.params),
+				created:      new Date(),
 			}
 		});
 	}
@@ -61,10 +77,14 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		return this.prisma.job.updateMany({
 			where: {
 				status: {
-					in: ["REVIEW", "FAILURE", "SUCCESS"],
+					in: [
+						"REVIEW",
+						"FAILURE",
+						"SUCCESS"
+					],
 				}
 			},
-			data: {
+			data:  {
 				status: "DONE",
 			}
 		});
@@ -72,19 +92,19 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 
 	createProgress(jobId: string): IJobProgress {
 		let $result: IJobStatus | undefined;
-		let $total: number = 0;
+		let $total: number     = 0;
 		let $processed: number = 0;
-		let $success = 0;
-		let $failure = 0;
-		let $skip = 0;
+		let $success           = 0;
+		let $failure           = 0;
+		let $skip              = 0;
 		return {
 			jobId,
-			result: () => $result,
-			success: () => $success,
-			failure: () => $failure,
-			skip: () => $skip,
-			setTotal: total => this.prisma.job.update({
-				data: {
+			result:    () => $result,
+			success:   () => $success,
+			failure:   () => $failure,
+			skip:      () => $skip,
+			setTotal:  total => this.prisma.job.update({
+				data:  {
 					total: ($total = total),
 				},
 				where: {
@@ -92,40 +112,44 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 				}
 			}),
 			setStatus: status => this.prisma.job.update({
-				data: {
+				data:  {
 					status,
-					started: ["RUNNING"].includes(status) ? new Date() : undefined,
-					finished: ["REVIEW", "SUCCESS", "FAILURE"].includes(status) ? new Date() : (["RUNNING"].includes(status) ? null : undefined),
+					started:  ["RUNNING"].includes(status) ? new Date() : undefined,
+					finished: [
+								  "REVIEW",
+								  "SUCCESS",
+								  "FAILURE"
+							  ].includes(status) ? new Date() : (["RUNNING"].includes(status) ? null : undefined),
 				},
 				where: {
 					id: jobId,
 				},
 			}),
 			onSuccess: () => this.prisma.job.update({
-				data: {
-					success: ++$success,
+				data:  {
+					success:      ++$success,
 					successRatio: toPercent($success, $total),
-					progress: toPercent(++$processed, $total),
+					progress:     toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
 				}
 			}),
 			onFailure: () => this.prisma.job.update({
-				data: {
-					failure: ++$failure,
+				data:  {
+					failure:      ++$failure,
 					failureRatio: toPercent($failure, $total),
-					progress: toPercent(++$processed, $total),
+					progress:     toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
 				}
 			}),
-			onSkip: () => this.prisma.job.update({
-				data: {
-					skip: ++$skip,
+			onSkip:    () => this.prisma.job.update({
+				data:  {
+					skip:      ++$skip,
 					skipRatio: toPercent($skip, $total),
-					progress: toPercent(++$processed, $total),
+					progress:  toPercent(++$processed, $total),
 				},
 				where: {
 					id: jobId,
@@ -134,30 +158,30 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 			setResult: result => {
 				$result = result;
 			},
-			isReview: () => $failure > 0 || $skip > 0,
+			isReview:  () => $failure > 0 || $skip > 0,
 		};
 	}
 
 	processor<TParams>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>, queue?: (options?: ConstructorParameters<typeof PQueue>[0]) => PQueue): IJobProcessor<TParams> {
-		const $queue = (queue || (options => new PQueue(options)))({
-			autoStart: true,
-			concurrency: 5,
-			throwOnTimeout: true,
-			interval: 5 * 1000,
-			intervalCap: 5,
+		const $queue                        = (queue || (options => new PQueue(options)))({
+			autoStart:                 true,
+			concurrency:               5,
+			throwOnTimeout:            true,
+			interval:                  5 * 1000,
+			intervalCap:               5,
 			carryoverConcurrencyCount: true,
 		});
 		const async: IJobProcessor["async"] = async (params, userId, queue) => this.container.useUserSource(async userSource => {
 			return this.container.useJobSource(async jobSource => {
 				jobSource.withUser(await userSource.asUser(userId));
-				let logger = Logger(name);
-				const job = await jobSource.map(await jobSource.create({
+				let logger        = Logger(name);
+				const job         = await jobSource.map(await jobSource.create({
 					userId,
 					name,
 					params,
 				}));
-				const labels = {name, jobId: job.id};
-				logger = logger.child({labels, jobId: labels.jobId, name});
+				const labels      = {name, jobId: job.id};
+				logger            = logger.child({labels, jobId: labels.jobId, name});
 				const jobProgress = jobSource.createProgress(job.id);
 				setTimeout(() => $queue.add(() => new Promise(async (resolve, reject) => {
 					try {
@@ -166,8 +190,8 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 						resolve(await handler({
 							name,
 							job,
-							params: job.params,
-							userId: job.userId,
+							params:   job.params,
+							userId:   job.userId,
 							jobProgress,
 							logger,
 							progress: async (callback, $sleep = 0) => {

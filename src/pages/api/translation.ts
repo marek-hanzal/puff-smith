@@ -1,6 +1,6 @@
-import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
+import {TranslationSource}  from "@/puff-smith/service/translation/TranslationSource";
 import {ITranslationBundle} from "@leight-core/api";
-import {ListEndpoint} from "@leight-core/server";
+import {ListEndpoint}       from "@leight-core/server";
 
 export default ListEndpoint<"Translation", ITranslationBundle>({
 	handler: async ({user}) => {
@@ -8,7 +8,7 @@ export default ListEndpoint<"Translation", ITranslationBundle>({
 		return {
 			bundles: [
 				{
-					language: "cs",
+					language:     "cs",
 					translations: (await translationSource.list(translationSource.query({
 						filter: {
 							language: "cs",

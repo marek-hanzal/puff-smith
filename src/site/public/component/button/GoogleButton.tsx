@@ -1,7 +1,10 @@
 import {GoogleOutlined} from "@ant-design/icons";
-import {Button, ButtonProps} from "antd";
-import {signIn} from "next-auth/react";
-import {FC} from "react";
+import {
+	Button,
+	ButtonProps
+}                       from "antd";
+import {signIn}         from "next-auth/react";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IGoogleButtonProps extends Partial<ButtonProps> {

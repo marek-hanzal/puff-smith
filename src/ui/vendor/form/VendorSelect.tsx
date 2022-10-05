@@ -1,4 +1,7 @@
-import {IVendorSourceSelectProps, VendorSourceSelect} from "@/sdk/api/vendor/query";
+import {
+	IVendorSourceSelectProps,
+	VendorSourceSelect
+}           from "@/sdk/api/vendor/query";
 import {FC} from "react";
 
 export interface IVendorSelectProps extends Partial<IVendorSourceSelectProps> {

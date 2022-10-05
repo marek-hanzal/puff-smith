@@ -1,12 +1,15 @@
 import "@/puff-smith/service/side-effect/bootstrap";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {sha256} from "@/puff-smith/service/utils/sha256";
-import {executeSql, runSql} from "@leight-core/server";
+import prisma         from "@/puff-smith/service/side-effect/prisma";
+import {sha256}       from "@/puff-smith/service/utils/sha256";
+import {
+	executeSql,
+	runSql
+}                     from "@leight-core/server";
 import {PrismaClient} from "@prisma/client";
-import fs from "node:fs";
-import path from "node:path";
-import {Umzug} from "umzug";
-import {v4} from "uuid";
+import fs             from "node:fs";
+import path           from "node:path";
+import {Umzug}        from "umzug";
+import {v4}           from "uuid";
 
 const EMPTY_MIGRATION = "__empty__";
 
@@ -33,10 +36,10 @@ const ensureMigrationTable = async (prisma: PrismaClient) => {
 
 const umzug = new Umzug({
 	migrations: {
-		glob: process.cwd() + "/prisma/migrations/**/*.{ts,sql}",
+		glob:    process.cwd() + "/prisma/migrations/**/*.{ts,sql}",
 		resolve: params => {
 			const {context: prisma} = params;
-			const name = path.normalize(params.path!.replace(process.cwd(), ""))
+			const name              = path.normalize(params.path!.replace(process.cwd(), ""))
 				.replaceAll("\\", "/")
 				.replaceAll("/prisma/migrations", "")
 				.replaceAll(/migration.(ts|sql)/g, "")
@@ -44,7 +47,7 @@ const umzug = new Umzug({
 			if (fs.readFileSync(params.path!).length === 0) {
 				return {
 					name: EMPTY_MIGRATION,
-					up: async () => {
+					up:   async () => {
 					},
 				};
 			}
@@ -61,8 +64,8 @@ const umzug = new Umzug({
 			};
 		},
 	},
-	storage: {
-		logMigration: async ({context: prisma, ...params}) => {
+	storage:    {
+		logMigration:   async ({context: prisma, ...params}) => {
 			if (params.name === EMPTY_MIGRATION) {
 				return;
 			}
@@ -72,13 +75,13 @@ const umzug = new Umzug({
 		},
 		unlogMigration: async params => {
 		},
-		executed: async ({context: prisma}) => {
+		executed:       async ({context: prisma}) => {
 			await ensureMigrationTable(prisma);
 			return (await prisma.$queryRaw<{ migration_name: string }[]>`SELECT migration_name FROM _prisma_migrations ORDER BY migration_name ASC`).map(({migration_name}) => migration_name);
 		},
 	},
-	context: prisma,
-	logger: undefined,
+	context:    prisma,
+	logger:     undefined,
 });
 
 export type IMigration = typeof umzug._types.migration;

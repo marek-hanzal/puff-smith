@@ -1,5 +1,5 @@
 import {Typography} from "antd";
-import {FC} from "react";
+import {FC}         from "react";
 
 export interface IVersionStampProps {
 }

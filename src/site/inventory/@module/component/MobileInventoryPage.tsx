@@ -1,7 +1,10 @@
 import {InventoryIcon} from "@/puff-smith/component/icon/InventoryIcon";
-import {MobileMenu} from "@/puff-smith/site/shared/@mobile/menu/MobileMenu";
-import {IMobilePageProps, MobilePage} from "@leight-core/client";
-import {FC} from "react";
+import {MobileMenu}    from "@/puff-smith/site/shared/@mobile/menu/MobileMenu";
+import {
+	IMobilePageProps,
+	MobilePage
+}                      from "@leight-core/client";
+import {FC}            from "react";
 
 export interface IMobileInventoryPageProps extends IMobilePageProps {
 }

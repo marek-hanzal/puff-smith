@@ -1,7 +1,10 @@
-import {GithubIcon} from "@leight-core/client";
-import {Button, ButtonProps} from "antd";
-import {signIn} from "next-auth/react";
-import {FC} from "react";
+import {GithubIcon}     from "@leight-core/client";
+import {
+	Button,
+	ButtonProps
+}                       from "antd";
+import {signIn}         from "next-auth/react";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IGithubButtonProps extends Partial<ButtonProps> {

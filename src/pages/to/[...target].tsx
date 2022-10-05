@@ -1,6 +1,11 @@
 import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
-import {LoaderLayout, ResponsiveProvider, useNavigate, useParams} from "@leight-core/client";
-import {useEffect} from "react";
+import {
+	LoaderLayout,
+	ResponsiveProvider,
+	useNavigate,
+	useParams
+}                     from "@leight-core/client";
+import {useEffect}    from "react";
 
 export default function Target() {
 	const {target} = useParams();

@@ -1,10 +1,20 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {IRecipeEntity, IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {sha256} from "@/puff-smith/service/utils/sha256";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import {
+	IRecipeEntity,
+	IRecipeSource
+}                        from "@/puff-smith/service/recipe/interface";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {sha256}          from "@/puff-smith/service/utils/sha256";
+import {
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const RecipeSource = () => new RecipeSourceClass();
 
@@ -18,9 +28,9 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 			return this.container.useBoosterSource(async boosterSource => {
 				return {
 					...recipe,
-					booster: booster ? await boosterSource.map(booster) : null,
-					base: base ? await baseSource.map(base) : null,
-					nicotine: recipe.nicotine?.toNumber(),
+					booster:           booster ? await boosterSource.map(booster) : null,
+					base:              base ? await baseSource.map(base) : null,
+					nicotine:          recipe.nicotine?.toNumber(),
 					nicotineTolerance: recipe.nicotineTolerance?.toNumber(),
 				};
 			});
@@ -57,7 +67,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 			});
 			await this.prisma.recipeKeyword.createMany({
 				data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
-					recipeId: recipe.id,
+					recipeId:  recipe.id,
 					keywordId: (await keyword).id,
 				}))),
 			});
@@ -70,10 +80,10 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
 				return this.updateKeywords(await this.prisma.recipe.create({
-					data: {
+					data:    {
 						...recipe,
 						hash,
-						base: base ? {
+						base:    base ? {
 							connect: {
 								id: (await baseSource.import(base)).id,
 							}
@@ -83,14 +93,14 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 								id: (await boosterSource.import(booster)).id,
 							}
 						} : undefined,
-						user: {
+						user:    {
 							connect: {
 								id: this.user.required(),
 							}
 						},
 					},
 					include: {
-						base: true,
+						base:    true,
 						booster: true,
 					},
 				}));
@@ -103,11 +113,11 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
 				return this.updateKeywords(await this.prisma.recipe.update({
-					where: {id},
-					data: {
+					where:   {id},
+					data:    {
 						...recipe,
 						hash,
-						base: base ? {
+						base:    base ? {
 							connect: {
 								id: (await baseSource.import(base)).id,
 							}
@@ -119,7 +129,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 						} : undefined,
 					},
 					include: {
-						base: true,
+						base:    true,
 						booster: true,
 					},
 				}));
@@ -147,7 +157,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		const items = await this.prisma.recipe.findMany({
 			where,
 			include: {
-				base: true,
+				base:    true,
 				booster: true,
 			},
 		});
@@ -159,11 +169,11 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 
 	async $get(id: string): Promise<ISourceEntity<IRecipeSource>> {
 		return this.prisma.recipe.findUniqueOrThrow({
-			where: {
+			where:   {
 				id,
 			},
 			include: {
-				base: true,
+				base:    true,
 				booster: true,
 			},
 		});
@@ -174,7 +184,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 			where: this.withFilter(query),
 			...pageOf(query),
 			include: {
-				base: true,
+				base:    true,
 				booster: true,
 			},
 		});
@@ -194,7 +204,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 						keyword: {
 							text: {
 								contains: fragment,
-								mode: "insensitive",
+								mode:     "insensitive",
 							},
 						},
 					},

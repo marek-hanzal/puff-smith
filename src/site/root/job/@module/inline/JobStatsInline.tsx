@@ -1,7 +1,16 @@
-import {CheckCircleOutlined, CloseCircleOutlined, MinusCircleOutlined, RiseOutlined} from "@ant-design/icons";
+import {
+	CheckCircleOutlined,
+	CloseCircleOutlined,
+	MinusCircleOutlined,
+	RiseOutlined
+}             from "@ant-design/icons";
 import {IJob} from "@leight-core/api";
-import {Divider, Space, Typography} from "antd";
-import {FC} from "react";
+import {
+	Divider,
+	Space,
+	Typography
+}             from "antd";
+import {FC}   from "react";
 
 export interface IJobStatsInlineProps {
 	job: IJob;

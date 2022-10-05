@@ -1,7 +1,13 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ISourceCreate, ISourceEntity, ISourceItem, IWithIdentity, UndefinableOptional} from "@leight-core/api";
+import {IKeywordSource}  from "@/puff-smith/service/keyword/interface";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
 
 export const KeywordSource = () => new KeywordSourceClass();
 

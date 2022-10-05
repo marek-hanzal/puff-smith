@@ -1,5 +1,12 @@
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
-import {Keyword, Prisma} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	IWithFulltext
+} from "@leight-core/api";
+import {
+	Keyword,
+	Prisma
+} from "@prisma/client";
 
 export type IKeywordEntity = Keyword;
 

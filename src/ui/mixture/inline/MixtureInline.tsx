@@ -1,14 +1,14 @@
-import {BaseIcon} from "@/puff-smith/component/icon/BaseIcon";
-import {BoosterIcon} from "@/puff-smith/component/icon/BoosterIcon";
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
+import {BaseIcon}       from "@/puff-smith/component/icon/BaseIcon";
+import {BoosterIcon}    from "@/puff-smith/component/icon/BoosterIcon";
+import {LiquidIcon}     from "@/puff-smith/component/icon/LiquidIcon";
+import {ContentInline}  from "@/puff-smith/component/inline/ContentInline";
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
-import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
-import {IMixture} from "@/puff-smith/service/mixture/interface";
-import {Translate} from "@leight-core/client";
-import {Typography} from "antd";
-import {Space} from "antd-mobile";
-import {FC} from "react";
+import {VgPgInline}     from "@/puff-smith/component/inline/VgPgInline";
+import {IMixture}       from "@/puff-smith/service/mixture/interface";
+import {Translate}      from "@leight-core/client";
+import {Typography}     from "antd";
+import {Space}          from "antd-mobile";
+import {FC}             from "react";
 
 export interface IMixtureInlineProps {
 	mixture: IMixture;

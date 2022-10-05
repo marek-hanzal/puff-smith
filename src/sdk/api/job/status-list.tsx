@@ -3,7 +3,14 @@
  */
 
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                         from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,16 +47,19 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
-import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+}                         from "@leight-core/client";
+import {useQueryClient}   from "@tanstack/react-query";
+import {
+	ConsumerProps,
+	FC
+}                         from "react";
 
-export const StatusListApiLink = "/api/job/status-list";
+export const StatusListApiLink      = "/api/job/status-list";
 export const StatusListCountApiLink = "/api/job/status-list/count";
 
 export type IStatusListQueryParams = any;
 
-export const useStatusListQuery = createQueryHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListQuery      = createQueryHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
 export const useStatusListCountQuery = createQueryHook<ISourceQuery<IJobStatusSource>, number, IStatusListQueryParams>(StatusListCountApiLink, "post");
 
 export const useStatusListSource = () => useSourceContext<ISourceItem<IJobStatusSource>>();
@@ -74,11 +84,11 @@ export const StatusListProvider: FC<IStatusListProviderProps> = props => {
 	/>;
 };
 
-export const toStatusListLink = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
+export const toStatusListLink  = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
 export const useStatusListLink = () => toStatusListLink;
 
 export const useStatusListPromise = createPromiseHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
-export const StatusListPromise = createPromise<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const StatusListPromise    = createPromise<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
 
 export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IStatusListFilterProviderProps extends Partial<IFilterProviderP
 export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
 export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
 
 export interface IStatusListProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobStatusSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IStatusListOrderByProviderProps extends Partial<IOrderByProvide
 export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
 export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
 
 export interface IStatusListProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>, IStatusListQueryParams>> {
 }

@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {ILiquidSource}  from "@/puff-smith/service/liquid/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const LiquidApiLink = "/api/liquid/query";
 export const LiquidCountApiLink = "/api/liquid/query/count";
@@ -74,11 +84,11 @@ export const LiquidProvider: FC<ILiquidProviderProps> = props => {
 	/>;
 };
 
-export const toLiquidLink = (queryParams?: ILiquidQueryParams) => toLink(LiquidApiLink, queryParams);
+export const toLiquidLink  = (queryParams?: ILiquidQueryParams) => toLink(LiquidApiLink, queryParams);
 export const useLiquidLink = () => toLiquidLink;
 
 export const useLiquidPromise = createPromiseHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
-export const LiquidPromise = createPromise<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
+export const LiquidPromise    = createPromise<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
 
 export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ILiquidSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps
 export const LiquidFilterProvider: FC<ILiquidFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
 export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
-export const useLiquidFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
+export const useLiquidFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
 
 export interface ILiquidProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidSource>>> {
 }
@@ -102,7 +112,7 @@ export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderPro
 export const LiquidOrderByProvider: FC<ILiquidOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
 export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
-export const useLiquidOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
+export const useLiquidOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
 
 export interface ILiquidProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidSource>>, IQueryOrderBy<ISourceQuery<ILiquidSource>>, ILiquidQueryParams>> {
 }

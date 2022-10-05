@@ -1,10 +1,20 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {IFileEntity, IFileSource} from "@/puff-smith/service/file/interface";
-import fileService from "@/puff-smith/service/side-effect/fileService";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IFileStoreRequest, IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import fs from "node:fs";
+import {
+	IFileEntity,
+	IFileSource
+}                        from "@/puff-smith/service/file/interface";
+import fileService       from "@/puff-smith/service/side-effect/fileService";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	IFileStoreRequest,
+	IQueryFilter,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import fs                from "node:fs";
 
 export const FileSource = () => new FileSourceClass();
 
@@ -18,7 +28,7 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 			...file,
 			created: file.created.toUTCString(),
 			updated: file?.updated?.toUTCString(),
-			ttl: file.ttl || undefined,
+			ttl:     file.ttl || undefined,
 		};
 	}
 

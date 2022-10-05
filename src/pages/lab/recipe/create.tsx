@@ -1,6 +1,6 @@
-import {RecipeIcon} from "@/puff-smith/component/icon/RecipeIcon";
-import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {RecipeIcon}       from "@/puff-smith/component/icon/RecipeIcon";
+import {MobileLabPage}    from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}    from "@/puff-smith/site/lab/@module/layout/layout";
 import {RecipeCreateForm} from "@/puff-smith/ui/recipe/form/RecipeCreateForm";
 
 export default withLabLayout(function Create() {

@@ -1,10 +1,18 @@
-import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
+import {ContainerSource}    from "@/puff-smith/service/ContainerSource";
+import prisma               from "@/puff-smith/service/side-effect/prisma";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {sha256} from "@/puff-smith/service/utils/sha256";
-import {IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import {sha256}             from "@/puff-smith/service/utils/sha256";
+import {
+	IQueryFilter,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                           from "@leight-core/api";
+import {pageOf}             from "@leight-core/server";
+import {merge}              from "@leight-core/utils";
 
 export const TranslationSource = () => new TranslationSourceClass();
 
@@ -49,19 +57,19 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 					{
 						language: {
 							contains: fragment,
-							mode: "insensitive",
+							mode:     "insensitive",
 						},
 					},
 					{
 						label: {
 							contains: fragment,
-							mode: "insensitive",
+							mode:     "insensitive",
 						},
 					},
 					{
 						text: {
 							contains: fragment,
-							mode: "insensitive",
+							mode:     "insensitive",
 						},
 					},
 				],
@@ -92,7 +100,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	async $patch({id, ...patch}: UndefinableOptional<ISourceCreate<ITranslationSource>> & IWithIdentity): Promise<ISourceEntity<ITranslationSource>> {
 		return this.prisma.translation.update({
 			where: {id},
-			data: patch,
+			data:  patch,
 		});
 	}
 

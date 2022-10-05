@@ -1,8 +1,19 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {IToken, ITokenEntity, ITokenSource} from "@/puff-smith/service/token/interface";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	IToken,
+	ITokenEntity,
+	ITokenSource
+}                        from "@/puff-smith/service/token/interface";
+import {
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
 
 export const TokenSource = () => new TokenSourceClass();
 
@@ -20,7 +31,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 			where: {
 				name: {
 					contains: fulltext,
-					mode: "insensitive",
+					mode:     "insensitive",
 				},
 			},
 		});
@@ -31,7 +42,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 			where: {
 				name: {
 					contains: fulltext,
-					mode: "insensitive",
+					mode:     "insensitive",
 				},
 			},
 			orderBy,

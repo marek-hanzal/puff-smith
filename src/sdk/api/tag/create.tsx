@@ -3,9 +3,21 @@
  */
 
 import {ITagSource} from "@/puff-smith/service/tag/interface";
-import {ISourceCreate, ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
-import {FC} from "react";
+import {
+	ISourceCreate,
+	ISourceItem
+}                   from "@leight-core/api";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	Form,
+	IFormProps,
+	IMobileFormProps,
+	MobileForm,
+	toLink
+}                   from "@leight-core/client";
+import {FC}         from "react";
 
 export const TagCreateApiLink = "/api/tag/create";
 

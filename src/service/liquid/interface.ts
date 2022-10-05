@@ -1,11 +1,26 @@
-import {IAroma, IWithAroma} from "@/puff-smith/service/aroma/interface";
-import {IMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
-import {ITagEntity} from "@/puff-smith/service/tag/interface";
-import {IQuery, ISource, ITag, IWithFulltext} from "@leight-core/api";
-import {Liquid, LiquidDraw, Prisma} from "@prisma/client";
+import {
+	IAroma,
+	IWithAroma
+}                       from "@/puff-smith/service/aroma/interface";
+import {IMixtureInfo}   from "@/puff-smith/service/mixture/toMixture";
+import {ITagEntity}     from "@/puff-smith/service/tag/interface";
+import {
+	IQuery,
+	ISource,
+	ITag,
+	IWithFulltext
+}                       from "@leight-core/api";
+import {
+	Liquid,
+	LiquidDraw,
+	Prisma
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export type ILiquidEntity = Liquid & IWithAroma & { LiquidDraw: (LiquidDraw & { draw: ITagEntity; })[] };
+export type ILiquidEntity =
+	Liquid
+	& IWithAroma
+	& { LiquidDraw: (LiquidDraw & { draw: ITagEntity; })[] };
 
 export interface ILiquid extends Omit<Liquid, "userId" | "nicotine" | "nicotineToRound" | "created" | "mixed"> {
 	created: string;

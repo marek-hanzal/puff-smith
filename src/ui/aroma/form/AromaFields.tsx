@@ -1,14 +1,29 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
+import {LiquidIcon}        from "@/puff-smith/component/icon/LiquidIcon";
+import {VendorIcon}        from "@/puff-smith/component/icon/VendorIcon";
 import {DEFAULT_LIST_SIZE} from "@/puff-smith/component/misc";
-import {TagCreateForm} from "@/puff-smith/ui/tag/form/TagCreateForm";
-import {VendorCreateForm} from "@/puff-smith/ui/vendor/form/VendorCreateForm";
-import {TagDrawerItem, TagProviderControl} from "@/sdk/api/tag/query";
-import {VendorDrawerItem, VendorProviderControl} from "@/sdk/api/vendor/query";
-import {Ellipsis, MobileFormItem, Tags, Translate} from "@leight-core/client";
-import {Space} from "antd";
-import {Form, Slider, Stepper} from "antd-mobile";
-import {FC} from "react";
+import {TagCreateForm}     from "@/puff-smith/ui/tag/form/TagCreateForm";
+import {VendorCreateForm}  from "@/puff-smith/ui/vendor/form/VendorCreateForm";
+import {
+	TagDrawerItem,
+	TagProviderControl
+}                          from "@/sdk/api/tag/query";
+import {
+	VendorDrawerItem,
+	VendorProviderControl
+}                          from "@/sdk/api/vendor/query";
+import {
+	Ellipsis,
+	MobileFormItem,
+	Tags,
+	Translate
+}                          from "@leight-core/client";
+import {Space}             from "antd";
+import {
+	Form,
+	Slider,
+	Stepper
+}                          from "antd-mobile";
+import {FC}                from "react";
 
 export interface IAromaFieldsProps {
 }
@@ -38,7 +53,7 @@ export const AromaFields: FC<IAromaFieldsProps> = () => {
 				createWithDrawer={{
 					translation: {
 						namespace: "shared.vendor.create",
-						text: "title",
+						text:      "title",
 					}
 				}}
 				icon={<VendorIcon/>}
@@ -76,16 +91,16 @@ export const AromaFields: FC<IAromaFieldsProps> = () => {
 				ticks
 				marks={{
 					100: 100,
-					90: 90,
-					80: 80,
-					70: 70,
-					60: 60,
-					50: 50,
-					40: 40,
-					20: 20,
-					30: 30,
-					10: 10,
-					0: 0,
+					90:  90,
+					80:  80,
+					70:  70,
+					60:  60,
+					50:  50,
+					40:  40,
+					20:  20,
+					30:  30,
+					10:  10,
+					0:   0,
 				}}
 				popover={value => <Space>
 					{100 - value}
@@ -126,7 +141,13 @@ export const AromaFields: FC<IAromaFieldsProps> = () => {
 					})}
 					onSuccess={({response}) => {
 						formContext.setValue([
-							{name: "tasteIds", value: [...(formContext.values()?.tasteIds || []), response.id]},
+							{
+								name:  "tasteIds",
+								value: [
+									...(formContext.values()?.tasteIds || []),
+									response.id
+								]
+							},
 						]);
 						visibleContext.hide();
 					}}
@@ -134,7 +155,7 @@ export const AromaFields: FC<IAromaFieldsProps> = () => {
 				createWithDrawer={{
 					translation: {
 						namespace: "shared.taste.create",
-						text: "title",
+						text:      "title",
 					}
 				}}
 			/>

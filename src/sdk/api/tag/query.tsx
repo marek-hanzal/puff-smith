@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ITagSource} from "@/puff-smith/service/tag/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {ITagSource}     from "@/puff-smith/service/tag/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const TagApiLink = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
@@ -74,11 +84,11 @@ export const TagProvider: FC<ITagProviderProps> = props => {
 	/>;
 };
 
-export const toTagLink = (queryParams?: ITagQueryParams) => toLink(TagApiLink, queryParams);
+export const toTagLink  = (queryParams?: ITagQueryParams) => toLink(TagApiLink, queryParams);
 export const useTagLink = () => toTagLink;
 
 export const useTagPromise = createPromiseHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
-export const TagPromise = createPromise<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
+export const TagPromise    = createPromise<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
 
 export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ITagSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<IQ
 export const TagFilterProvider: FC<ITagFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
 
 export const useTagOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
-export const useTagFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
+export const useTagFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
 
 export interface ITagProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITagSource>>> {
 }
@@ -102,7 +112,7 @@ export interface ITagOrderByProviderProps extends Partial<IOrderByProviderProps<
 export const TagOrderByProvider: FC<ITagOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
 
 export const useTagOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
-export const useTagOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
+export const useTagOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
 
 export interface ITagProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITagSource>>, IQueryOrderBy<ISourceQuery<ITagSource>>, ITagQueryParams>> {
 }

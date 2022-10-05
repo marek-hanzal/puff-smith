@@ -1,5 +1,13 @@
-import {IMixtureInfo, IToMixtureAromaRequest, IToMixtureBaseRequest, IToMixtureBoosterRequest} from "@/puff-smith/service/mixture/toMixture";
-import {IQuery, ISource} from "@leight-core/api";
+import {
+	IMixtureInfo,
+	IToMixtureAromaRequest,
+	IToMixtureBaseRequest,
+	IToMixtureBoosterRequest
+} from "@/puff-smith/service/mixture/toMixture";
+import {
+	IQuery,
+	ISource
+} from "@leight-core/api";
 
 export interface IMixture extends IMixtureInfo {
 }
@@ -53,10 +61,10 @@ export interface IMixtureInfoBy {
 	nicotine: IMixtureInfoList<IMixtureInfoByNicotine>;
 }
 
-export type IMixtureQuery = IQuery<IMixtureFilter, void>;
+export type IMixtureQuery = IQuery<IMixtureFilter>;
 
 export interface IMixtureSource extends ISource
-	<void,
+	<any,
 		IMixtureInfo,
 		IMixture,
 		IMixtureQuery> {

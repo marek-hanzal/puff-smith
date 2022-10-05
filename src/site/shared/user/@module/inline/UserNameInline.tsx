@@ -1,6 +1,6 @@
-import {IUser} from "@/puff-smith/service/user/interface";
+import {IUser}      from "@/puff-smith/service/user/interface";
 import {Typography} from "antd";
-import {FC} from "react";
+import {FC}         from "react";
 
 export interface IUserNameInlineProps {
 	user?: IUser | null;

@@ -1,8 +1,8 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {LiquidIcon}       from "@/puff-smith/component/icon/LiquidIcon";
+import {MobileLabPage}    from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}    from "@/puff-smith/site/lab/@module/layout/layout";
 import {LiquidCreateForm} from "@/puff-smith/ui/liquid/form/LiquidCreateForm";
-import {useParams} from "@leight-core/client";
+import {useParams}        from "@leight-core/client";
 
 export default withLabLayout(function Create() {
 	const {aromaId} = useParams();

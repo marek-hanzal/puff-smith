@@ -1,7 +1,13 @@
 import {RecipeCreateForm} from "@/puff-smith/ui/recipe/form/RecipeCreateForm";
-import {RecipeInline} from "@/puff-smith/ui/recipe/inline/RecipeInline";
-import {RecipeDrawerItem, RecipeProviderControl} from "@/sdk/api/recipe/query";
-import {ComponentProps, FC} from "react";
+import {RecipeInline}     from "@/puff-smith/ui/recipe/inline/RecipeInline";
+import {
+	RecipeDrawerItem,
+	RecipeProviderControl
+}                         from "@/sdk/api/recipe/query";
+import {
+	ComponentProps,
+	FC
+}                         from "react";
 
 export interface IRecipeSelectProps extends Omit<ComponentProps<typeof RecipeDrawerItem>, "render" | "toPreview"> {
 }
@@ -24,7 +30,7 @@ export const RecipeSelect: FC<IRecipeSelectProps> = props => {
 			createWithDrawer={{
 				translation: {
 					namespace: "shared.recipe.create",
-					text: "title",
+					text:      "title",
 				},
 			}}
 			{...props}

@@ -1,13 +1,24 @@
-import {IToken, IWithTokenEntity} from "@/puff-smith/service/token/interface";
+import {
+	IToken,
+	IWithTokenEntity
+}                           from "@/puff-smith/service/token/interface";
 import {IWithNullUserToken} from "@/puff-smith/service/user/token/interface";
-import {IQuery, ISource, IUser as ICoolUser} from "@leight-core/api";
-import {Prisma, User} from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
+import {
+	IfVoid,
+	IQuery,
+	ISource,
+	IUser as ICoolUser
+}                           from "@leight-core/api";
+import {
+	Prisma,
+	User
+}                           from "@prisma/client";
+import {ParsedUrlQuery}     from "querystring";
 
 interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
 
-export type IUserEntity<T = void> = T extends void ? User : User & T;
+export type IUserEntity<T = void> = IfVoid<User, T>;
 export type IWithUser<T = void> = { user: IUserEntity<T>; };
 export type IWithNullUser<T = void> = { user?: IUserEntity<T> | null; };
 
@@ -30,12 +41,12 @@ export interface IUserFetchParams extends ParsedUrlQuery {
 
 export type IUserSourceEntity = IUserEntity<IWithNullUserToken<IWithTokenEntity>>;
 
-export interface IUserSource extends ISource<undefined, IUserSourceEntity, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
+export interface IUserSource extends ISource<any, IUserSourceEntity, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
 	handleRootUser(): Promise<any>;
 
 	handleCommonUser(): Promise<any>;
 
-	createToken(token: string): Promise<void>;
+	createToken(token: string): Promise<any>;
 
 	asUser(userId?: string | null): Promise<ICoolUser>;
 }

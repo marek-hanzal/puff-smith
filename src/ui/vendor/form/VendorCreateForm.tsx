@@ -1,12 +1,19 @@
-import {CertificateIcon} from "@/puff-smith/component/icon/CertificateIcon";
-import {LicenseIcon} from "@/puff-smith/component/icon/LicenseIcon";
-import {VendorIcon} from "@/puff-smith/component/icon/VendorIcon";
-import {toVendorError} from "@/puff-smith/ui/vendor/form/toVendorError";
-import {IVendorCreateDefaultMobileFormProps, VendorCreateDefaultMobileForm} from "@/sdk/api/vendor/create";
+import {CertificateIcon}          from "@/puff-smith/component/icon/CertificateIcon";
+import {LicenseIcon}              from "@/puff-smith/component/icon/LicenseIcon";
+import {VendorIcon}               from "@/puff-smith/component/icon/VendorIcon";
+import {toVendorError}            from "@/puff-smith/ui/vendor/form/toVendorError";
+import {
+	IVendorCreateDefaultMobileFormProps,
+	VendorCreateDefaultMobileForm
+}                                 from "@/sdk/api/vendor/create";
 import {useVendorQueryInvalidate} from "@/sdk/api/vendor/query";
-import {ButtonBar, ButtonLink, MobileFormItem} from "@leight-core/client";
-import {Divider} from "antd";
-import {FC} from "react";
+import {
+	ButtonBar,
+	ButtonLink,
+	MobileFormItem
+}                                 from "@leight-core/client";
+import {Divider}                  from "antd";
+import {FC}                       from "react";
 
 export interface IVendorCreateFormProps extends Partial<IVendorCreateDefaultMobileFormProps> {
 }
@@ -19,7 +26,7 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 			onSuccess?.(response);
 		}}
 		withTokenProps={{
-			tokens: [
+			tokens:   [
 				"*",
 				"feature.aroma.create",
 				"feature.booster.create",
@@ -31,12 +38,12 @@ export const VendorCreateForm: FC<IVendorCreateFormProps> = ({onSuccess, ...prop
 			],
 			template: {
 				extra: <>
-					<Divider/>
-					<ButtonBar split={<Divider type={"vertical"}/>}>
-						<ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
-						<ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
-					</ButtonBar>
-				</>
+						   <Divider/>
+						   <ButtonBar split={<Divider type={"vertical"}/>}>
+							   <ButtonLink icon={<CertificateIcon/>} href={"/to/market/certificate"} label={"shared.certificate.link.button"}/>
+							   <ButtonLink icon={<LicenseIcon/>} href={"/to/market/license"} label={"shared.license.link.button"}/>
+						   </ButtonBar>
+					   </>
 			}
 		}}
 		toError={toVendorError}

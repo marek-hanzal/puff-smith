@@ -1,9 +1,12 @@
-import {IJobQuery} from "@/puff-smith/service/job/interface";
-import {useJobQuery} from "@/sdk/api/job/query";
-import {IQueryFilter} from "@leight-core/api";
-import {toHumanNumber} from "@leight-core/utils";
-import {Alert} from "antd";
-import {ComponentProps, FC} from "react";
+import {IJobQuery}      from "@/puff-smith/service/job/interface";
+import {useJobQuery}    from "@/sdk/api/job/query";
+import {IQueryFilter}   from "@leight-core/api";
+import {toHumanNumber}  from "@leight-core/utils";
+import {Alert}          from "antd";
+import {
+	ComponentProps,
+	FC
+}                       from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IJobAlertProps extends Partial<ComponentProps<typeof Alert>> {
@@ -12,25 +15,28 @@ export interface IJobAlertProps extends Partial<ComponentProps<typeof Alert>> {
 }
 
 export const JobAlert: FC<IJobAlertProps> = ({translation, filter, ...props}) => {
-	const {t} = useTranslation();
-	const jobQuery = useJobQuery({
-		size: 1,
-		page: 0,
-		filter: {
+	const {t}       = useTranslation();
+	const jobQuery  = useJobQuery({
+		size:    1,
+		page:    0,
+		filter:  {
 			...filter,
 			status: {
-				in: ["NEW", "RUNNING"],
+				in: [
+					"NEW",
+					"RUNNING"
+				],
 			},
 		},
 		orderBy: [
-			{created: "desc"}
-		] as any,
+					 {created: "desc"}
+				 ] as any,
 	}, undefined, {
 		keepPreviousData: true,
-		refetchInterval: 2500,
+		refetchInterval:  2500,
 	});
 	const isRunning = jobQuery.isSuccess && jobQuery.data.length > 0;
-	const job = isRunning ? jobQuery.data[0] : null;
+	const job       = isRunning ? jobQuery.data[0] : null;
 
 	return job ? <Alert
 		type={"success"}

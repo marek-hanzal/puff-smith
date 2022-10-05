@@ -1,8 +1,16 @@
-import {TranslationListSwipe} from "@/puff-smith/ui/translation/list/TranslationListSwipe";
+import {TranslationListSwipe}          from "@/puff-smith/ui/translation/list/TranslationListSwipe";
 import {TranslationInfiniteListSource} from "@/sdk/api/translation/query";
-import {Ellipsis, InfiniteListItem, MobileContent} from "@leight-core/client";
-import {Divider, Space, Typography} from "antd";
-import {FC} from "react";
+import {
+	Ellipsis,
+	InfiniteListItem,
+	MobileContent
+}                                      from "@leight-core/client";
+import {
+	Divider,
+	Space,
+	Typography
+}                                      from "antd";
+import {FC}                            from "react";
 
 export interface ITranslationListProps {
 }

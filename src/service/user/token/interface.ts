@@ -1,5 +1,11 @@
-import {IQuery, ISource} from "@leight-core/api";
-import {Prisma, UserToken} from "@prisma/client";
+import {
+	IQuery,
+	ISource
+} from "@leight-core/api";
+import {
+	Prisma,
+	UserToken
+} from "@prisma/client";
 
 export interface IUserTokenCreate {
 	userId: string;

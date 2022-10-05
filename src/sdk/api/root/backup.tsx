@@ -3,8 +3,17 @@
  */
 
 import {IJob} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
-import {FC} from "react";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	Form,
+	IFormProps,
+	IMobileFormProps,
+	MobileForm,
+	toLink
+}             from "@leight-core/client";
+import {FC}   from "react";
 
 export const BackupApiLink = "/api/root/backup";
 
@@ -19,7 +28,7 @@ export const BackupDefaultForm: FC<IBackupDefaultFormProps> = props => <Form<voi
 	useMutation={useBackupMutation}
 	translation={BackupApiLink}
 	{...props}
-/>;
+/>
 
 export interface IBackupDefaultMobileFormProps extends Partial<IMobileFormProps<void, IJob<void>>> {
 }
@@ -28,7 +37,7 @@ export const BackupDefaultMobileForm: FC<IBackupDefaultMobileFormProps> = props 
 	useMutation={useBackupMutation}
 	translation={BackupApiLink}
 	{...props}
-/>;
+/>
 
 export const toBackupLink = (queryParams?: IBackupQueryParams) => toLink(BackupApiLink, queryParams);
 export const useBackupLink = () => toBackupLink;

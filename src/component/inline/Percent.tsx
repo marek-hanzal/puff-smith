@@ -1,7 +1,10 @@
 import {PercentageOutlined} from "@ant-design/icons";
-import {toHumanNumber} from "@leight-core/utils";
-import {Space, Typography} from "antd";
-import {FC} from "react";
+import {toHumanNumber}      from "@leight-core/utils";
+import {
+	Space,
+	Typography
+}                           from "antd";
+import {FC}                 from "react";
 
 export interface IPercentProps {
 	value?: number;

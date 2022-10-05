@@ -1,8 +1,16 @@
-import {DeleteItemIcon, IModalButtonProps, ModalButton, useSelectionContext} from "@leight-core/client";
+import {
+	DeleteItemIcon,
+	IModalButtonProps,
+	ModalButton,
+	useSelectionContext
+}                          from "@leight-core/client";
 import {UseMutationResult} from "@tanstack/react-query";
-import {message} from "antd";
-import {FC} from "react";
-import {Trans, useTranslation} from "react-i18next";
+import {message}           from "antd";
+import {FC}                from "react";
+import {
+	Trans,
+	useTranslation
+}                          from "react-i18next";
 
 export interface IDeleteConfirmButtonProps extends Partial<IModalButtonProps> {
 	translation: string;
@@ -11,31 +19,31 @@ export interface IDeleteConfirmButtonProps extends Partial<IModalButtonProps> {
 }
 
 export const DeleteConfirmButton: FC<IDeleteConfirmButtonProps> = ({translation, mutator, invalidator = async () => null, button, ...props}) => {
-	const {t} = useTranslation();
+	const {t}              = useTranslation();
 	const selectionContext = useSelectionContext();
 	return <ModalButton
 		button={{
-			type: "link",
+			type:     "link",
 			disabled: selectionContext.isEmpty(),
-			icon: <DeleteItemIcon/>,
-			danger: true,
+			icon:     <DeleteItemIcon/>,
+			danger:   true,
 			children: "common.delete.modal.button",
-			size: "large",
-			loading: mutator.isLoading,
+			size:     "large",
+			loading:  mutator.isLoading,
 			...button,
 		}}
 		okButtonProps={{
-			danger: true,
-			size: "large",
+			danger:  true,
+			size:    "large",
 			loading: mutator.isLoading,
-			icon: <DeleteItemIcon/>,
+			icon:    <DeleteItemIcon/>,
 		}}
 		title={`${translation}.delete.modal.title`}
 		confirmLoading={mutator.isLoading}
 		cancelButtonProps={{
 			disabled: mutator.isLoading,
-			type: "link",
-			size: "large",
+			type:     "link",
+			size:     "large",
 		}}
 		closable={!mutator.isLoading}
 		maskClosable={!mutator.isLoading}

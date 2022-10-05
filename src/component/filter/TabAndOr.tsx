@@ -1,7 +1,14 @@
-import {CloseOutlined, PlusOutlined} from "@ant-design/icons";
+import {
+	CloseOutlined,
+	PlusOutlined
+}                 from "@ant-design/icons";
 import {IconText} from "@leight-core/client";
-import {Tabs} from "antd";
-import {ComponentProps, FC, ReactNode} from "react";
+import {Tabs}     from "antd";
+import {
+	ComponentProps,
+	FC,
+	ReactNode
+}                 from "react";
 
 export interface ITabAndOrProps extends Partial<ComponentProps<typeof Tabs>> {
 	name: string;

@@ -1,4 +1,8 @@
-import {IUserSourceSelectProps, UserProviderControl, UserSourceSelect} from "@/sdk/api/user/query";
+import {
+	IUserSourceSelectProps,
+	UserProviderControl,
+	UserSourceSelect
+}           from "@/sdk/api/user/query";
 import {FC} from "react";
 
 export interface IUserSelectProps extends Partial<IUserSourceSelectProps> {

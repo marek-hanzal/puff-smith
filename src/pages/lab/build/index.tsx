@@ -1,10 +1,16 @@
-import {BuildIcon} from "@/puff-smith/component/icon/BuildIcon";
-import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {BuildIcon}         from "@/puff-smith/component/icon/BuildIcon";
+import {MobileLabPage}     from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}     from "@/puff-smith/site/lab/@module/layout/layout";
 import {SelectionProvider} from "@leight-core/client";
-import {Swiper, Tabs as MobileTabs} from "antd-mobile";
-import {SwiperRef} from "antd-mobile/es/components/swiper";
-import {useRef, useState} from "react";
+import {
+	Swiper,
+	Tabs as MobileTabs
+}                          from "antd-mobile";
+import {SwiperRef}         from "antd-mobile/es/components/swiper";
+import {
+	useRef,
+	useState
+}                          from "react";
 
 const tabItems = [
 	{key: "a", title: "AAA"},
@@ -13,7 +19,7 @@ const tabItems = [
 ];
 
 export default withLabLayout(function Index() {
-	const swiperRef = useRef<SwiperRef>(null);
+	const swiperRef                     = useRef<SwiperRef>(null);
 	const [activeIndex, setActiveIndex] = useState(0);
 	return <SelectionProvider type={"multi"}>
 		<MobileLabPage
@@ -45,13 +51,13 @@ export default withLabLayout(function Index() {
 				<Swiper.Item>
 					<div
 						style={{
-							height: "120px",
-							color: "#999999",
-							display: "flex",
+							height:         "120px",
+							color:          "#999999",
+							display:        "flex",
 							justifyContent: "center",
-							alignItems: "center",
-							fontSize: "24px",
-							userSelect: "none",
+							alignItems:     "center",
+							fontSize:       "24px",
+							userSelect:     "none",
 						}}
 					>
 						AAA
@@ -60,13 +66,13 @@ export default withLabLayout(function Index() {
 				<Swiper.Item>
 					<div
 						style={{
-							height: "120px",
-							color: "#999999",
-							display: "flex",
+							height:         "120px",
+							color:          "#999999",
+							display:        "flex",
 							justifyContent: "center",
-							alignItems: "center",
-							fontSize: "24px",
-							userSelect: "none",
+							alignItems:     "center",
+							fontSize:       "24px",
+							userSelect:     "none",
 						}}
 					>
 						BBB
@@ -75,13 +81,13 @@ export default withLabLayout(function Index() {
 				<Swiper.Item>
 					<div
 						style={{
-							height: "120px",
-							color: "#999999",
-							display: "flex",
+							height:         "120px",
+							color:          "#999999",
+							display:        "flex",
 							justifyContent: "center",
-							alignItems: "center",
-							fontSize: "24px",
-							userSelect: "none",
+							alignItems:     "center",
+							fontSize:       "24px",
+							userSelect:     "none",
 						}}
 					>
 						CCC

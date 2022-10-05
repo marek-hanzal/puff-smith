@@ -11,19 +11,19 @@ const createPrismaClient = () => {
 		errorFormat: "pretty",
 		log: [
 			{
-				emit: "event",
+				emit:  "event",
 				level: "query",
 			},
 			{
-				emit: "event",
+				emit:  "event",
 				level: "error",
 			},
 			{
-				emit: "event",
+				emit:  "event",
 				level: "info",
 			},
 			{
-				emit: "event",
+				emit:  "event",
 				level: "warn",
 			},
 		],

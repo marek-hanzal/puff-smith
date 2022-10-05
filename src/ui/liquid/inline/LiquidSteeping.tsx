@@ -1,9 +1,17 @@
-import {SteepIcon} from "@/puff-smith/component/icon/SteepIcon";
-import {ILiquid} from "@/puff-smith/service/liquid/interface";
-import {durationOf, toLocalDateTime, Translate} from "@leight-core/client";
-import {Space, Tooltip, Typography} from "antd";
-import dayjs from "dayjs";
-import {FC} from "react";
+import {SteepIcon}      from "@/puff-smith/component/icon/SteepIcon";
+import {ILiquid}        from "@/puff-smith/service/liquid/interface";
+import {
+	durationOf,
+	toLocalDateTime,
+	Translate
+}                       from "@leight-core/client";
+import {
+	Space,
+	Tooltip,
+	Typography
+}                       from "antd";
+import dayjs            from "dayjs";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface ILiquidSteepingProps {
@@ -26,7 +34,7 @@ export const LiquidSteeping: FC<ILiquidSteepingProps> = ({liquid}) => {
 			<Typography.Text type={"success"}>{t("lab.liquid.steep.done")}</Typography.Text>
 		</Tooltip>;
 	}
-	const ageDuration = dayjs.duration(age, "day").humanize();
+	const ageDuration   = dayjs.duration(age, "day").humanize();
 	const steepDuration = dayjs.duration(liquid.aroma.steep, "day").humanize();
 
 	return <Tooltip title={t("lab.liquid.steeping.tooltip", {data: {mixed: toLocalDateTime(liquid.mixed)}})}>

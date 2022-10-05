@@ -1,5 +1,12 @@
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
-import {Booster, Prisma} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	IWithFulltext
+}                       from "@leight-core/api";
+import {
+	Booster,
+	Prisma
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export type IBoosterEntity = Booster;

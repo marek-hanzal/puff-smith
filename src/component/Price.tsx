@@ -1,7 +1,10 @@
-import {PurchaseIcon} from "@/puff-smith/component/icon/PurchaseIcon";
-import {toHumanNumber} from "@leight-core/utils";
-import {Space, Typography} from "antd";
-import {FC} from "react";
+import {PurchaseIcon}   from "@/puff-smith/component/icon/PurchaseIcon";
+import {toHumanNumber}  from "@leight-core/utils";
+import {
+	Space,
+	Typography
+}                       from "antd";
+import {FC}             from "react";
 import {useTranslation} from "react-i18next";
 
 export interface IPriceProps {

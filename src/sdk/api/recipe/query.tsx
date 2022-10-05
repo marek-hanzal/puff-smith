@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IRecipeSource}  from "@/puff-smith/service/recipe/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const RecipeApiLink = "/api/recipe/query";
 export const RecipeCountApiLink = "/api/recipe/query/count";
@@ -74,11 +84,11 @@ export const RecipeProvider: FC<IRecipeProviderProps> = props => {
 	/>;
 };
 
-export const toRecipeLink = (queryParams?: IRecipeQueryParams) => toLink(RecipeApiLink, queryParams);
+export const toRecipeLink  = (queryParams?: IRecipeQueryParams) => toLink(RecipeApiLink, queryParams);
 export const useRecipeLink = () => toRecipeLink;
 
 export const useRecipePromise = createPromiseHook<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
-export const RecipePromise = createPromise<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
+export const RecipePromise    = createPromise<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
 
 export interface IRecipeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IRecipeSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IRecipeFilterProviderProps extends Partial<IFilterProviderProps
 export const RecipeFilterProvider: FC<IRecipeFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IRecipeSource>>> name={"Recipe"} {...props}/>;
 
 export const useRecipeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IRecipeSource>>>();
-export const useRecipeFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IRecipeSource>>>();
+export const useRecipeFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IRecipeSource>>>();
 
 export interface IRecipeProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IRecipeSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IRecipeOrderByProviderProps extends Partial<IOrderByProviderPro
 export const RecipeOrderByProvider: FC<IRecipeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IRecipeSource>>> name={"Recipe"} {...props}/>;
 
 export const useRecipeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IRecipeSource>>>();
-export const useRecipeOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IRecipeSource>>>();
+export const useRecipeOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IRecipeSource>>>();
 
 export interface IRecipeProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IRecipeSource>>, IQueryOrderBy<ISourceQuery<IRecipeSource>>, IRecipeQueryParams>> {
 }

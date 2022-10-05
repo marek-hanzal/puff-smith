@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IFileSource} from "@/puff-smith/service/file/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IFileSource}    from "@/puff-smith/service/file/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const FileApiLink = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
@@ -74,11 +84,11 @@ export const FileProvider: FC<IFileProviderProps> = props => {
 	/>;
 };
 
-export const toFileLink = (queryParams?: IFileQueryParams) => toLink(FileApiLink, queryParams);
+export const toFileLink  = (queryParams?: IFileQueryParams) => toLink(FileApiLink, queryParams);
 export const useFileLink = () => toFileLink;
 
 export const useFilePromise = createPromiseHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
-export const FilePromise = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const FilePromise    = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 
 export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IFileSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<I
 export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
 export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
-export const useFileFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
+export const useFileFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
 
 export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFileSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps
 export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
 
 export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
-export const useFileOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
+export const useFileOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
 
 export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>, IFileQueryParams>> {
 }

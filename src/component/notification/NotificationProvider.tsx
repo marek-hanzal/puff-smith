@@ -1,4 +1,7 @@
-import {FC, useState} from "react";
+import {
+	FC,
+	useState
+}                            from "react";
 import {NotificationContext} from "./NotificationContext";
 
 export interface INotificationProviderProps {

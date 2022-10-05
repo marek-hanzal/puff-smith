@@ -3,8 +3,13 @@
  */
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {ISourceItem} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, toLink} from "@leight-core/client";
+import {ISourceItem}  from "@leight-core/api";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	toLink
+}                     from "@leight-core/client";
 
 export const AromaDeleteApiLink = "/api/aroma/delete";
 
@@ -12,7 +17,7 @@ export type IAromaDeleteQueryParams = any;
 
 export const useAromaDeleteMutation = createMutationHook<string[], ISourceItem<IAromaSource>, IAromaDeleteQueryParams>(AromaDeleteApiLink, "post");
 
-export const toAromaDeleteLink = (queryParams?: IAromaDeleteQueryParams) => toLink(AromaDeleteApiLink, queryParams);
+export const toAromaDeleteLink  = (queryParams?: IAromaDeleteQueryParams) => toLink(AromaDeleteApiLink, queryParams);
 export const useAromaDeleteLink = () => toAromaDeleteLink;
 
 export const useAromaDeletePromise = createPromiseHook<string[], ISourceItem<IAromaSource>, IAromaDeleteQueryParams>(AromaDeleteApiLink, "post");

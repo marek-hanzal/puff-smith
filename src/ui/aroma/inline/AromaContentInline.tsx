@@ -1,9 +1,15 @@
-import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
-import {IAroma} from "@/puff-smith/service/aroma/interface";
+import {ContentInline}      from "@/puff-smith/component/inline/ContentInline";
+import {IAroma}             from "@/puff-smith/service/aroma/interface";
 import {PercentageOutlined} from "@ant-design/icons";
-import {toHumanNumber, toPercent} from "@leight-core/utils";
-import {Space, Typography} from "antd";
-import {FC} from "react";
+import {
+	toHumanNumber,
+	toPercent
+}                           from "@leight-core/utils";
+import {
+	Space,
+	Typography
+}                           from "antd";
+import {FC}                 from "react";
 
 export interface IAromaContentInlineProps {
 	aroma: IAroma;

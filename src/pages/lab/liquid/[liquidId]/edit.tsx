@@ -1,8 +1,8 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
-import {ILiquidFetch} from "@/puff-smith/service/liquid/interface";
-import {LiquidSource} from "@/puff-smith/service/liquid/LiquidSource";
-import {MobileLabPage} from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout} from "@/puff-smith/site/lab/@module/layout/layout";
+import {LiquidIcon}      from "@/puff-smith/component/icon/LiquidIcon";
+import {ILiquidFetch}    from "@/puff-smith/service/liquid/interface";
+import {LiquidSource}    from "@/puff-smith/service/liquid/LiquidSource";
+import {MobileLabPage}   from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}   from "@/puff-smith/site/lab/@module/layout/layout";
 import {LiquidPatchForm} from "@/puff-smith/ui/liquid/form/LiquidPatchForm";
 
 export default withLabLayout(function Edit({liquid}: ILiquidFetch) {
@@ -10,7 +10,10 @@ export default withLabLayout(function Edit({liquid}: ILiquidFetch) {
 		onBack={navigate => navigate("/lab/liquid/[liquidId]", {liquidId: liquid.id})}
 		title={"lab.liquid.edit"}
 		values={{liquid}}
-		menuSelection={["/lab/liquid", "/lab/liquid/[liquidId]"]}
+		menuSelection={[
+			"/lab/liquid",
+			"/lab/liquid/[liquidId]"
+		]}
 		icon={<LiquidIcon/>}
 	>
 		<LiquidPatchForm

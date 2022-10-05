@@ -1,8 +1,12 @@
 import {TagCreateForm} from "@/puff-smith/ui/tag/form/TagCreateForm";
-import {PlusOutlined} from "@ant-design/icons";
-import {ITag} from "@leight-core/api";
-import {DrawerButton, IDrawerButtonProps, useOptionalFormItemContext} from "@leight-core/client";
-import {FC} from "react";
+import {PlusOutlined}  from "@ant-design/icons";
+import {ITag}          from "@leight-core/api";
+import {
+	DrawerButton,
+	IDrawerButtonProps,
+	useOptionalFormItemContext
+}                      from "@leight-core/client";
+import {FC}            from "react";
 
 export interface ITagCreateInlineProps extends Partial<IDrawerButtonProps> {
 	group?: string;
@@ -18,7 +22,7 @@ export const TagCreateInline: FC<ITagCreateInlineProps> = ({group, onSuccess, ..
 		icon={<PlusOutlined/>}
 		translation={{
 			namespace: "lab.tag.create",
-			text: "title",
+			text:      "title",
 		}}
 		label={"button"}
 		{...props}

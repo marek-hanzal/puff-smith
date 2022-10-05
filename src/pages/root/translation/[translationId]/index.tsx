@@ -1,9 +1,9 @@
-import {TranslationIcon} from "@/puff-smith/component/icon/TranslationIcon";
+import {TranslationIcon}   from "@/puff-smith/component/icon/TranslationIcon";
 import {ITranslationFetch} from "@/puff-smith/service/translation/interface";
 import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
-import {MobileRootPage} from "@/puff-smith/site/root/@module/component/MobileRootPage";
-import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
-import {TranslationView} from "@/puff-smith/ui/translation/view/TranslationView";
+import {MobileRootPage}    from "@/puff-smith/site/root/@module/component/MobileRootPage";
+import {withRootLayout}    from "@/puff-smith/site/root/@module/layout/layout";
+import {TranslationView}   from "@/puff-smith/ui/translation/view/TranslationView";
 
 export default withRootLayout(function Index({translation}: ITranslationFetch) {
 	return <MobileRootPage

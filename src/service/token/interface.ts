@@ -1,5 +1,12 @@
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
-import {Prisma, Token} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	IWithFulltext
+}                       from "@leight-core/api";
+import {
+	Prisma,
+	Token
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export interface IToken {

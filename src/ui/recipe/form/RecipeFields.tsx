@@ -1,10 +1,23 @@
 import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
-import {ItemGroup, MobileFormItem, Translate, useMobileFormContext} from "@leight-core/client";
-import {numbersOf} from "@leight-core/utils";
+import {
+	ItemGroup,
+	MobileFormItem,
+	Translate,
+	useMobileFormContext
+}                   from "@leight-core/client";
+import {numbersOf}  from "@leight-core/utils";
 import {Typography} from "antd";
-import {Form, Picker, Space, Stepper} from "antd-mobile";
-import {PickerRef} from "antd-mobile/es/components/picker";
-import {FC, RefObject} from "react";
+import {
+	Form,
+	Picker,
+	Space,
+	Stepper
+}                   from "antd-mobile";
+import {PickerRef}  from "antd-mobile/es/components/picker";
+import {
+	FC,
+	RefObject
+}                   from "react";
 
 export interface IRecipeFieldsProps {
 	hidden?: ("draw")[];
@@ -12,8 +25,8 @@ export interface IRecipeFieldsProps {
 
 export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 	const formContext = useMobileFormContext();
-	let nicotine = Form.useWatch(["nicotine"], formContext.form);
-	nicotine = nicotine === undefined ? 6 : nicotine;
+	let nicotine      = Form.useWatch(["nicotine"], formContext.form);
+	nicotine          = nicotine === undefined ? 6 : nicotine;
 	return <>
 		{!hidden?.includes("draw") && <MobileFormItem
 			field={"draw"}
@@ -28,36 +41,46 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 				onConfirm={([value]) => {
 					value && setTimeout(() => formContext.setValue([
 						{
-							name: ["vgpg"],
+							name:  ["vgpg"],
 							value: [value],
 						},
 						{
-							name: ["nicotine"],
+							name:  ["nicotine"],
 							value: {
-								"50": 6,
-								"70": 3,
-							}[value],
+									   "50": 6,
+									   "70": 3,
+								   }[value],
 						},
 						{
-							name: ["nicotineTolerance"],
+							name:  ["nicotineTolerance"],
 							value: {
-								"50": 1.5,
-								"70": 0.5,
-							}[value],
+									   "50": 1.5,
+									   "70": 0.5,
+								   }[value],
 						},
 						{
-							name: ["booster", "vgpg"],
-							value: [{
-								"50": "70",
-								"70": "100",
-							}[value]],
+							name:  [
+								"booster",
+								"vgpg"
+							],
+							value: [
+								{
+									"50": "70",
+									"70": "100",
+								}[value]
+							],
 						},
 						{
-							name: ["base", "vgpg"],
-							value: [{
-								"50": "70",
-								"70": "100",
-							}[value]],
+							name:  [
+								"base",
+								"vgpg"
+							],
+							value: [
+								{
+									"50": "70",
+									"70": "100",
+								}[value]
+							],
 						},
 					]), 150);
 				}}
@@ -68,9 +91,9 @@ export const RecipeFields: FC<IRecipeFieldsProps> = ({hidden}) => {
 					].map(({type, value}) => ({
 						value,
 						label: <Space>
-							<Translate namespace={"common.draw"} text={type}/>
-							<Typography.Text type={"secondary"}><Translate namespace={"common.draw"} text={`${type}.hint`}/></Typography.Text>
-						</Space>,
+								   <Translate namespace={"common.draw"} text={type}/>
+								   <Typography.Text type={"secondary"}><Translate namespace={"common.draw"} text={`${type}.hint`}/></Typography.Text>
+							   </Space>,
 					}))
 				]}
 			>

@@ -1,5 +1,12 @@
-import {MobileFormItem, TextArea, Translate} from "@leight-core/client";
-import {Form, Input} from "antd-mobile";
+import {
+	MobileFormItem,
+	TextArea,
+	Translate
+}           from "@leight-core/client";
+import {
+	Form,
+	Input
+}           from "antd-mobile";
 import {FC} from "react";
 
 export interface ITranslationFieldsProps {

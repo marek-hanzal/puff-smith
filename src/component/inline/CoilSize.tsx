@@ -1,7 +1,11 @@
 import {ArrowsAltOutlined} from "@ant-design/icons";
-import {Space, Tooltip, Typography} from "antd";
-import {FC} from "react";
-import {useTranslation} from "react-i18next";
+import {
+	Space,
+	Tooltip,
+	Typography
+}                          from "antd";
+import {FC}                from "react";
+import {useTranslation}    from "react-i18next";
 
 export interface ICoilSizeProps {
 	size: number;

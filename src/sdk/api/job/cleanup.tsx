@@ -2,10 +2,19 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IJobQuery} from "@/puff-smith/service/job/interface";
+import {IJobQuery}    from "@/puff-smith/service/job/interface";
 import {IQueryFilter} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
-import {FC} from "react";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	Form,
+	IFormProps,
+	IMobileFormProps,
+	MobileForm,
+	toLink
+}                     from "@leight-core/client";
+import {FC}           from "react";
 
 export const CleanupApiLink = "/api/job/cleanup";
 

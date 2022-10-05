@@ -1,5 +1,12 @@
-import {IQuery, ISource, IWithFulltext} from "@leight-core/api";
-import {Base, Prisma} from "@prisma/client";
+import {
+	IQuery,
+	ISource,
+	IWithFulltext
+}                       from "@leight-core/api";
+import {
+	Base,
+	Prisma
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
 export type IBaseEntity = Base;

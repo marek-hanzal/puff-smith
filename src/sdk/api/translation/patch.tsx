@@ -3,9 +3,21 @@
  */
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {ISourceItem, ISourcePatch} from "@leight-core/api";
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
-import {FC} from "react";
+import {
+	ISourceItem,
+	ISourcePatch
+}                           from "@leight-core/api";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	Form,
+	IFormProps,
+	IMobileFormProps,
+	MobileForm,
+	toLink
+}                           from "@leight-core/client";
+import {FC}                 from "react";
 
 export const TranslationPatchApiLink = "/api/translation/patch";
 

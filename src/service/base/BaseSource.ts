@@ -1,10 +1,20 @@
-import {IBaseEntity, IBaseSource} from "@/puff-smith/service/base/interface";
+import {
+	IBaseEntity,
+	IBaseSource
+}                        from "@/puff-smith/service/base/interface";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {sha256} from "@/puff-smith/service/utils/sha256";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {sha256}          from "@/puff-smith/service/utils/sha256";
+import {
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const BaseSource = () => new BaseSourceClass();
 
@@ -61,14 +71,14 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 	async $patch({id, ...base}: UndefinableOptional<ISourceCreate<IBaseSource>> & IWithIdentity): Promise<ISourceEntity<IBaseSource>> {
 		return this.updateKeywords(await this.prisma.base.update({
 			where: {id},
-			data: base,
+			data:  base,
 		}));
 	}
 
 	async toImport(entity: ISourceEntity<IBaseSource>): Promise<ISourceCreate<IBaseSource> | undefined> {
 		return {
-			vg: entity.vg,
-			pg: entity.vg,
+			vg:       entity.vg,
+			pg:       entity.vg,
 			nicotine: entity.nicotine,
 		};
 	}
@@ -128,7 +138,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 						keyword: {
 							text: {
 								contains: fragment,
-								mode: "insensitive",
+								mode:     "insensitive",
 							},
 						},
 					},

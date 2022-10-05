@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const VendorApiLink = "/api/vendor/query";
 export const VendorCountApiLink = "/api/vendor/query/count";
@@ -74,11 +84,11 @@ export const VendorProvider: FC<IVendorProviderProps> = props => {
 	/>;
 };
 
-export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
+export const toVendorLink  = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
 export const useVendorPromise = createPromiseHook<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
-export const VendorPromise = createPromise<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
+export const VendorPromise    = createPromise<ISourceQuery<IVendorSource>, ISourceItem<IVendorSource>[], IVendorQueryParams>(VendorApiLink, "post");
 
 export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IVendorSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IVendorFilterProviderProps extends Partial<IFilterProviderProps
 export const VendorFilterProvider: FC<IVendorFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IVendorSource>>> name={"Vendor"} {...props}/>;
 
 export const useVendorOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IVendorSource>>>();
-export const useVendorFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IVendorSource>>>();
+export const useVendorFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IVendorSource>>>();
 
 export interface IVendorProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IVendorSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IVendorOrderByProviderProps extends Partial<IOrderByProviderPro
 export const VendorOrderByProvider: FC<IVendorOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IVendorSource>>> name={"Vendor"} {...props}/>;
 
 export const useVendorOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IVendorSource>>>();
-export const useVendorOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IVendorSource>>>();
+export const useVendorOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IVendorSource>>>();
 
 export interface IVendorProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IVendorSource>>, IQueryOrderBy<ISourceQuery<IVendorSource>>, IVendorQueryParams>> {
 }

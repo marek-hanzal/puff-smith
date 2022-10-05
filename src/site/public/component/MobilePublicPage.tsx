@@ -1,4 +1,7 @@
-import {IMobilePageProps, MobilePage} from "@leight-core/client";
+import {
+	IMobilePageProps,
+	MobilePage
+}           from "@leight-core/client";
 import {FC} from "react";
 
 export interface IMobilePublicPageProps extends IMobilePageProps {

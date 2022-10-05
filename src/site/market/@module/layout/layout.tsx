@@ -1,11 +1,18 @@
-import {FullLogoIcon} from "@/puff-smith/component/icon/FullLogoIcon";
+import {FullLogoIcon}         from "@/puff-smith/component/icon/FullLogoIcon";
 import {NotificationProvider} from "@/puff-smith/component/notification/NotificationProvider";
-import {Footer} from "@/puff-smith/site/market/@module/component/Footer";
-import {Header} from "@/puff-smith/site/market/@module/component/Header";
-import {AppLayout} from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
-import {IPageWithLayout} from "@leight-core/api";
-import {ApplicationLayout, BlockProvider, IApplicationLayoutProps, User, UserProvider, useSession} from "@leight-core/client";
-import {FC} from "react";
+import {Footer}               from "@/puff-smith/site/market/@module/component/Footer";
+import {Header}               from "@/puff-smith/site/market/@module/component/Header";
+import {AppLayout}            from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
+import {IPageWithLayout}      from "@leight-core/api";
+import {
+	ApplicationLayout,
+	BlockProvider,
+	IApplicationLayoutProps,
+	User,
+	UserProvider,
+	useSession
+}                             from "@leight-core/client";
+import {FC}                   from "react";
 
 export interface IMarketLayoutProps extends Partial<IApplicationLayoutProps> {
 }

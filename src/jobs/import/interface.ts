@@ -1,4 +1,7 @@
-import {IJob, IQueryParams} from "@leight-core/api";
+import {
+	IJob,
+	IQueryParams
+} from "@leight-core/api";
 
 export const IMPORT_JOB = "import";
 

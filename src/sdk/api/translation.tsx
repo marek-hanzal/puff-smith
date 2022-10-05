@@ -2,7 +2,13 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IEntityContext, INavigate, ISourceItem, ITranslationBundle, IWithIdentityQuery} from "@leight-core/api";
+import {
+	IEntityContext,
+	INavigate,
+	ISourceItem,
+	ITranslationBundle,
+	IWithIdentityQuery
+}                       from "@leight-core/api";
 import {
 	BrowserPage,
 	createPromise,
@@ -20,11 +26,19 @@ import {
 	useContext,
 	useOptionalContext,
 	useParams
-} from "@leight-core/client";
-import {isCallable} from "@leight-core/utils";
+}                       from "@leight-core/client";
+import {isCallable}     from "@leight-core/utils";
 import {useQueryClient} from "@tanstack/react-query";
-import {Breadcrumb, BreadcrumbProps} from "antd";
-import {createContext, FC, ReactElement, ReactNode} from "react";
+import {
+	Breadcrumb,
+	BreadcrumbProps
+}                       from "antd";
+import {
+	createContext,
+	FC,
+	ReactElement,
+	ReactNode
+}                       from "react";
 
 export const TranslationApiLink = "/api/translation";
 
@@ -32,7 +46,7 @@ export type ITranslationQueryParams = IWithIdentityQuery;
 
 export const TranslationContext = createContext(null as unknown as IEntityContext<ISourceItem<ITranslationBundle>>);
 
-export const useTranslationContext = (): IEntityContext<ISourceItem<ITranslationBundle>> => useContext(TranslationContext, "TranslationContext");
+export const useTranslationContext         = (): IEntityContext<ISourceItem<ITranslationBundle>> => useContext(TranslationContext, "TranslationContext");
 export const useOptionalTranslationContext = () => useOptionalContext<IEntityContext<ISourceItem<ITranslationBundle>>>(TranslationContext as any);
 
 export interface ITranslationProvider extends IEntityProviderProps<ISourceItem<ITranslationBundle>> {

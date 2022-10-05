@@ -2,9 +2,18 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {createMutationHook, createPromise, createPromiseHook, Form, IFormProps, IMobileFormProps, MobileForm, toLink} from "@leight-core/client";
+import {
+	createMutationHook,
+	createPromise,
+	createPromiseHook,
+	Form,
+	IFormProps,
+	IMobileFormProps,
+	MobileForm,
+	toLink
+}                            from "@leight-core/client";
 import {IChunkEndpointQuery} from "@leight-core/server";
-import {FC} from "react";
+import {FC}                  from "react";
 
 export const UploadApiLink = "/api/file/chunk/[chunkId]/upload";
 

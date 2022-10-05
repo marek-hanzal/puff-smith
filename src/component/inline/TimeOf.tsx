@@ -1,9 +1,13 @@
 import {FieldTimeOutlined} from "@ant-design/icons";
-import {durationOf} from "@leight-core/client";
-import {Space, Tooltip, Typography} from "antd";
-import {ConfigType} from "dayjs";
-import {FC} from "react";
-import {useTranslation} from "react-i18next";
+import {durationOf}        from "@leight-core/client";
+import {
+	Space,
+	Tooltip,
+	Typography
+}                          from "antd";
+import {ConfigType}        from "dayjs";
+import {FC}                from "react";
+import {useTranslation}    from "react-i18next";
 
 export interface ITimeOfProps {
 	date: ConfigType;

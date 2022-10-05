@@ -1,9 +1,20 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ITagEntity, ITagSource} from "@/puff-smith/service/tag/interface";
-import {IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	ITagEntity,
+	ITagSource
+}                        from "@/puff-smith/service/tag/interface";
+import {
+	IQueryFilter,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const TagSource = () => new TagSourceClass();
 
@@ -137,7 +148,7 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 							keyword: {
 								text: {
 									contains: fulltext,
-									mode: "insensitive",
+									mode:     "insensitive",
 								},
 							},
 						},

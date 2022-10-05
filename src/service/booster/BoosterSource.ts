@@ -1,10 +1,20 @@
-import {IBoosterEntity, IBoosterSource} from "@/puff-smith/service/booster/interface";
+import {
+	IBoosterEntity,
+	IBoosterSource
+}                        from "@/puff-smith/service/booster/interface";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {sha256} from "@/puff-smith/service/utils/sha256";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {sha256}          from "@/puff-smith/service/utils/sha256";
+import {
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const BoosterSource = () => new BoosterSourceClass();
 
@@ -61,16 +71,16 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	async $patch({id, ...booster}: UndefinableOptional<ISourceCreate<IBoosterSource>> & IWithIdentity): Promise<ISourceEntity<IBoosterSource>> {
 		return this.updateKeywords(await this.prisma.booster.update({
 			where: {id},
-			data: booster,
+			data:  booster,
 		}));
 	}
 
 	async toImport(entity: ISourceEntity<IBoosterSource>): Promise<ISourceCreate<IBoosterSource> | undefined> {
 		return {
-			vg: entity.vg,
-			pg: entity.vg,
+			vg:       entity.vg,
+			pg:       entity.vg,
 			nicotine: entity.nicotine,
-			volume: entity.volume,
+			volume:   entity.volume,
 		};
 	}
 
@@ -129,7 +139,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 						keyword: {
 							text: {
 								contains: fragment,
-								mode: "insensitive",
+								mode:     "insensitive",
 							},
 						},
 					},

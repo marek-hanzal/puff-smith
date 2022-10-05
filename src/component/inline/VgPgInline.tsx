@@ -1,6 +1,9 @@
 import {toHumanNumber} from "@leight-core/utils";
-import {Space, Typography} from "antd";
-import {FC} from "react";
+import {
+	Space,
+	Typography
+}                      from "antd";
+import {FC}            from "react";
 
 export interface IPgVgInlineProps {
 	vgpg?: { pg: number; vg: number } | null;

@@ -1,8 +1,11 @@
-import {RecipeInline} from "@/puff-smith/ui/recipe/inline/RecipeInline";
-import {RecipeListSwipe} from "@/puff-smith/ui/recipe/list/RecipeListSwipe";
-import {IRecipeInfiniteListSourceProps, RecipeInfiniteListSource} from "@/sdk/api/recipe/query";
+import {RecipeInline}     from "@/puff-smith/ui/recipe/inline/RecipeInline";
+import {RecipeListSwipe}  from "@/puff-smith/ui/recipe/list/RecipeListSwipe";
+import {
+	IRecipeInfiniteListSourceProps,
+	RecipeInfiniteListSource
+}                         from "@/sdk/api/recipe/query";
 import {InfiniteListItem} from "@leight-core/client";
-import {FC} from "react";
+import {FC}               from "react";
 
 export interface IRecipeListProps extends Partial<IRecipeInfiniteListSourceProps> {
 }

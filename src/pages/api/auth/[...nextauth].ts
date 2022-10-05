@@ -1,35 +1,38 @@
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import prismaClient from "@/puff-smith/service/side-effect/prisma";
-import {UserSource} from "@/puff-smith/service/user/UserSource";
-import {Logger, User} from "@leight-core/server";
-import {PrismaAdapter} from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
+import prisma              from "@/puff-smith/service/side-effect/prisma";
+import prismaClient        from "@/puff-smith/service/side-effect/prisma";
+import {UserSource}        from "@/puff-smith/service/user/UserSource";
+import {
+	Logger,
+	User
+}                          from "@leight-core/server";
+import {PrismaAdapter}     from "@next-auth/prisma-adapter";
+import NextAuth            from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import EmailProvider from "next-auth/providers/email";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
+import EmailProvider       from "next-auth/providers/email";
+import GitHub              from "next-auth/providers/github";
+import Google              from "next-auth/providers/google";
 
 const logger = Logger("auth");
 
 const providers: any = [
 	GitHub({
-		name: "github",
-		clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
+		name:         "github",
+		clientId:     process.env.NEXTAUTH_GITHUB_CLIENT_ID as string,
 		clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET as string,
 	}),
 	Google({
-		name: "google",
-		clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
+		name:         "google",
+		clientId:     process.env.NEXTAUTH_GOOGLE_CLIENT_ID as string,
 		clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET as string,
 	}),
 	// https://next-auth.js.org/providers/email
 	EmailProvider({
 		server: process.env.EMAIL_SERVER,
-		from: process.env.EMAIL_FROM,
+		from:   process.env.EMAIL_FROM,
 	}),
 ];
 process.env.NODE_ENV === "development" && providers.push(CredentialsProvider({
-	name: "Credentials",
+	name:        "Credentials",
 	credentials: {
 		secret: {label: "Dark Secret", type: "text"},
 	},
@@ -46,13 +49,13 @@ process.env.NODE_ENV === "development" && providers.push(CredentialsProvider({
 }));
 
 export default NextAuth({
-	theme: {
-		logo: "/logo.png",
-		brandColor: "#1890ff",
+	theme:   {
+		logo:        "/logo.png",
+		brandColor:  "#1890ff",
 		colorScheme: "light",
 	},
-	events: {
-		signIn: ({user}) => {
+	events:  {
+		signIn:  ({user}) => {
 			logger.debug("User sign-in", {label: {userId: user.id}});
 		},
 		signOut: ({token: {sub}}) => {
@@ -63,13 +66,13 @@ export default NextAuth({
 	session: {
 		strategy: "jwt",
 	},
-	pages: {
+	pages:   {
 		newUser: "/lab/welcome",
 	},
 	// debug: process.env.NODE_ENV === 'development',
 	providers,
 	callbacks: {
-		jwt: async ({token, isNewUser}) => {
+		jwt:     async ({token, isNewUser}) => {
 			try {
 				logger.debug("Resolving JWT token", {isNewUser});
 				if (token?.sub) {
@@ -78,7 +81,7 @@ export default NextAuth({
 						userId: token.sub,
 						tokens: ["*"],
 					}));
-					const user = await userService.asUser(token.sub);
+					const user        = await userService.asUser(token.sub);
 					if (isNewUser) {
 						(await prismaClient.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();
 					}
@@ -104,8 +107,8 @@ export default NextAuth({
 			return session;
 		},
 	},
-	secret: process.env.NEXTAUTH_SECRET,
-	jwt: {
+	secret:    process.env.NEXTAUTH_SECRET,
+	jwt:       {
 		secret: process.env.NEXTAUTH_SECRET,
 	},
 });

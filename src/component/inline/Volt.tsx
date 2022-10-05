@@ -1,5 +1,5 @@
 import {toHumanNumber} from "@leight-core/utils";
-import {FC} from "react";
+import {FC}            from "react";
 
 export interface IVoltProps {
 	volt?: number | null;

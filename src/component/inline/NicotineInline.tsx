@@ -1,8 +1,12 @@
 import {ThunderboltOutlined} from "@ant-design/icons";
-import {toHumanNumber} from "@leight-core/utils";
-import {Space, Tooltip, Typography} from "antd";
-import {FC} from "react";
-import {useTranslation} from "react-i18next";
+import {toHumanNumber}       from "@leight-core/utils";
+import {
+	Space,
+	Tooltip,
+	Typography
+}                            from "antd";
+import {FC}                  from "react";
+import {useTranslation}      from "react-i18next";
 
 export interface INicotineInlineProps {
 	nicotine?: number | null;

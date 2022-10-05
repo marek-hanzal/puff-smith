@@ -1,17 +1,23 @@
-import {ImportIcon} from "@/puff-smith/component/icon/ImportIcon";
-import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
-import {MobileRootPage} from "@/puff-smith/site/root/@module/component/MobileRootPage";
-import {withRootLayout} from "@/puff-smith/site/root/@module/layout/layout";
-import {Uploader} from "@/puff-smith/site/shared/file/@module/component/Uploader";
+import {ImportIcon}        from "@/puff-smith/component/icon/ImportIcon";
+import {BrowserRootPage}   from "@/puff-smith/site/root/@module/component/BrowserRootPage";
+import {MobileRootPage}    from "@/puff-smith/site/root/@module/component/MobileRootPage";
+import {withRootLayout}    from "@/puff-smith/site/root/@module/layout/layout";
+import {Uploader}          from "@/puff-smith/site/shared/file/@module/component/Uploader";
 import {useImportMutation} from "@/sdk/api/file/import";
-import {Template, useNavigate} from "@leight-core/client";
-import {message, Result} from "antd";
-import {useTranslation} from "react-i18next";
+import {
+	Template,
+	useNavigate
+}                          from "@leight-core/client";
+import {
+	message,
+	Result
+}                          from "antd";
+import {useTranslation}    from "react-i18next";
 
 export default withRootLayout(function Index() {
-	const {t} = useTranslation();
+	const {t}            = useTranslation();
 	const importMutation = useImportMutation();
-	const navigate = useNavigate<{ name: string }>();
+	const navigate       = useNavigate<{ name: string }>();
 	return <>
 		<BrowserRootPage
 			title={"root.import"}

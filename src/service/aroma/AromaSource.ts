@@ -1,9 +1,20 @@
-import {IAromaEntity, IAromaSource} from "@/puff-smith/service/aroma/interface";
+import {
+	IAromaEntity,
+	IAromaSource
+}                        from "@/puff-smith/service/aroma/interface";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	ISourceBackup,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const AromaSource = () => new AromaSourceClass();
 
@@ -17,8 +28,8 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 			return this.container.useTagSource(async tagSource => {
 				return {
 					...aroma,
-					vendor: await vendorSource.map(aroma.vendor),
-					tastes: await tagSource.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
+					vendor:   await vendorSource.map(aroma.vendor),
+					tastes:   await tagSource.list(Promise.resolve(aroma.AromaTaste.map(({taste}) => taste))),
 					tasteIds: aroma.AromaTaste.map(({taste}) => taste.id),
 				};
 			});
@@ -27,7 +38,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 
 	async updateKeywords(aroma: IAromaEntity): Promise<IAromaEntity> {
 		return this.container.useKeywordSource(async keywordSource => {
-			const $aroma = await this.map(aroma);
+			const $aroma           = await this.map(aroma);
 			const source: string[] = [
 				$aroma.code,
 				$aroma.vendor.name,
@@ -46,7 +57,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 			});
 			await this.prisma.aromaKeyword.createMany({
 				data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
-					aromaId: aroma.id,
+					aromaId:   aroma.id,
 					keywordId: (await keyword).id,
 				}))),
 			});
@@ -58,15 +69,15 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		return this.container.useTagSource(async tagSource => {
 			return this.container.useCodeService(async codeService => {
 				return this.updateKeywords(await this.prisma.aroma.create({
-					data: {
+					data:    {
 						...aroma,
-						nicotine: nicotine || 0,
-						code: code || codeService.code(),
-						name: `${aroma.name}`,
-						vendor: {
+						nicotine:   nicotine || 0,
+						code:       code || codeService.code(),
+						name:       `${aroma.name}`,
+						vendor:     {
 							connect: {
 								name: vendor,
-								id: vendorId,
+								id:   vendorId,
 							}
 						},
 						AromaTaste: {
@@ -76,14 +87,14 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 								})),
 							}
 						},
-						user: (userId || this.user.optional()) ? {
+						user:       (userId || this.user.optional()) ? {
 							connect: {
 								id: userId || this.user.optional(),
 							}
 						} : undefined,
 					},
 					include: {
-						vendor: true,
+						vendor:     true,
 						AromaTaste: {
 							orderBy: {taste: {sort: "asc"}},
 							include: {
@@ -102,17 +113,17 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 				where: {aromaId: id}
 			});
 			return this.updateKeywords(await this.prisma.aroma.update({
-				where: {id},
-				data: {
+				where:   {id},
+				data:    {
 					...patch,
-					name: `${name}`,
-					vendor: {
+					name:       `${name}`,
+					vendor:     {
 						connect: {
 							name: vendor,
-							id: vendorId,
+							id:   vendorId,
 						}
 					},
-					user: (userId || this.user.optional()) ? {
+					user:       (userId || this.user.optional()) ? {
 						connect: {
 							id: userId || this.user.optional(),
 						}
@@ -126,7 +137,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 					},
 				},
 				include: {
-					vendor: true,
+					vendor:     true,
 					AromaTaste: {
 						orderBy: {taste: {sort: "asc"}},
 						include: {
@@ -143,16 +154,16 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 			select: {
 				id: true,
 			},
-			where: {
+			where:  {
 				OR: [
 					{
-						name: `${name}`,
+						name:   `${name}`,
 						vendor: {
 							name: vendor,
 						}
 					},
 					{
-						name: `${name}`,
+						name:   `${name}`,
 						vendor: {
 							id: vendorId,
 						}
@@ -165,20 +176,8 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async toImport(entity: ISourceEntity<IAromaSource>): Promise<ISourceCreate<IAromaSource> | undefined> {
-		return {
-			tasteIds: entity.AromaTaste.map(taste => taste.taste.id),
-			code: entity.code,
-			nicotine: entity.nicotine,
-			name: entity.name,
-			vg: entity.vg,
-			pg: entity.pg,
-			content: entity.content,
-			steep: entity.steep,
-			volume: entity.volume,
-			vendorId: entity.vendorId,
-			userId: entity.userId,
-		};
+	async restore(backup?: ISourceBackup<IAromaSource>): Promise<ISourceEntity<IAromaSource> | undefined> {
+		return undefined;
 	}
 
 	async $remove(ids: string[]): Promise<ISourceEntity<IAromaSource>[]> {
@@ -190,7 +189,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		const items = await this.prisma.aroma.findMany({
 			where,
 			include: {
-				vendor: true,
+				vendor:     true,
 				AromaTaste: {
 					orderBy: {taste: {sort: "asc"}},
 					include: {
@@ -207,11 +206,11 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 
 	async $get(id: string): Promise<ISourceEntity<IAromaSource>> {
 		return this.prisma.aroma.findUniqueOrThrow({
-			where: {
+			where:   {
 				id,
 			},
 			include: {
-				vendor: true,
+				vendor:     true,
 				AromaTaste: {
 					orderBy: {taste: {sort: "asc"}},
 					include: {
@@ -224,9 +223,9 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 
 	async $query(query: ISourceQuery<IAromaSource>): Promise<ISourceEntity<IAromaSource>[]> {
 		return this.prisma.aroma.findMany({
-			where: this.withFilter(query),
+			where:   this.withFilter(query),
 			include: {
-				vendor: true,
+				vendor:     true,
 				AromaTaste: {
 					orderBy: {taste: {sort: "asc"}},
 					include: {
@@ -252,7 +251,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 						keyword: {
 							text: {
 								contains: fragment,
-								mode: "insensitive",
+								mode:     "insensitive",
 							},
 						},
 					},

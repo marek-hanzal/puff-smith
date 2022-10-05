@@ -1,8 +1,16 @@
 import {MailOutlined} from "@ant-design/icons";
-import {Form, FormItem, ISubmitProps, Submit} from "@leight-core/client";
-import {Input, Space} from "antd";
-import {signIn} from "next-auth/react";
-import {FC} from "react";
+import {
+	Form,
+	FormItem,
+	ISubmitProps,
+	Submit
+}                     from "@leight-core/client";
+import {
+	Input,
+	Space
+}                     from "antd";
+import {signIn}       from "next-auth/react";
+import {FC}           from "react";
 
 export interface IEmailButtonProps extends Partial<ISubmitProps> {
 }

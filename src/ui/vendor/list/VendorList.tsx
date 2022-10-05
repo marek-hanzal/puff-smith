@@ -1,8 +1,15 @@
 import {SelectionBool} from "@/puff-smith/component/inline/SelectionBool";
-import {IVendorInfiniteListSourceProps, VendorInfiniteListSource} from "@/sdk/api/vendor/query";
-import {ListItem, ListItemMeta, useOptionalSelectionContext} from "@leight-core/client";
-import {Typography} from "antd";
-import {FC} from "react";
+import {
+	IVendorInfiniteListSourceProps,
+	VendorInfiniteListSource
+}                      from "@/sdk/api/vendor/query";
+import {
+	ListItem,
+	ListItemMeta,
+	useOptionalSelectionContext
+}                      from "@leight-core/client";
+import {Typography}    from "antd";
+import {FC}            from "react";
 
 export interface IVendorListProps extends Partial<IVendorInfiniteListSourceProps> {
 }

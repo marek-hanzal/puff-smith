@@ -2,8 +2,15 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {IUserSource} from "@/puff-smith/service/user/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {IUserSource}    from "@/puff-smith/service/user/interface";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const UserApiLink = "/api/user/query";
 export const UserCountApiLink = "/api/user/query/count";
@@ -74,11 +84,11 @@ export const UserProvider: FC<IUserProviderProps> = props => {
 	/>;
 };
 
-export const toUserLink = (queryParams?: IUserQueryParams) => toLink(UserApiLink, queryParams);
+export const toUserLink  = (queryParams?: IUserQueryParams) => toLink(UserApiLink, queryParams);
 export const useUserLink = () => toUserLink;
 
 export const useUserPromise = createPromiseHook<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
-export const UserPromise = createPromise<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
+export const UserPromise    = createPromise<ISourceQuery<IUserSource>, ISourceItem<IUserSource>[], IUserQueryParams>(UserApiLink, "post");
 
 export interface IUserFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IUserSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IUserFilterProviderProps extends Partial<IFilterProviderProps<I
 export const UserFilterProvider: FC<IUserFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
 export const useUserOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
-export const useUserFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
+export const useUserFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IUserSource>>>();
 
 export interface IUserProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IUserSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IUserOrderByProviderProps extends Partial<IOrderByProviderProps
 export const UserOrderByProvider: FC<IUserOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IUserSource>>> name={"User"} {...props}/>;
 
 export const useUserOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
-export const useUserOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
+export const useUserOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IUserSource>>>();
 
 export interface IUserProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IUserSource>>, IQueryOrderBy<ISourceQuery<IUserSource>>, IUserQueryParams>> {
 }

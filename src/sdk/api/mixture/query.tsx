@@ -3,7 +3,14 @@
  */
 
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
-import {IQueryFilter, IQueryOrderBy, ISourceContext, ISourceItem, ISourceQuery, IToOptionMapper} from "@leight-core/api";
+import {
+	IQueryFilter,
+	IQueryOrderBy,
+	ISourceContext,
+	ISourceItem,
+	ISourceQuery,
+	IToOptionMapper
+}                       from "@leight-core/api";
 import {
 	BlockProvider,
 	createPromise,
@@ -40,9 +47,12 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-} from "@leight-core/client";
+}                       from "@leight-core/client";
 import {useQueryClient} from "@tanstack/react-query";
-import {ConsumerProps, FC} from "react";
+import {
+	ConsumerProps,
+	FC
+}                       from "react";
 
 export const MixtureApiLink = "/api/mixture/query";
 export const MixtureCountApiLink = "/api/mixture/query/count";
@@ -74,11 +84,11 @@ export const MixtureProvider: FC<IMixtureProviderProps> = props => {
 	/>;
 };
 
-export const toMixtureLink = (queryParams?: IMixtureQueryParams) => toLink(MixtureApiLink, queryParams);
+export const toMixtureLink  = (queryParams?: IMixtureQueryParams) => toLink(MixtureApiLink, queryParams);
 export const useMixtureLink = () => toMixtureLink;
 
 export const useMixturePromise = createPromiseHook<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
-export const MixturePromise = createPromise<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
+export const MixturePromise    = createPromise<ISourceQuery<IMixtureSource>, ISourceItem<IMixtureSource>[], IMixtureQueryParams>(MixtureApiLink, "post");
 
 export interface IMixtureFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IMixtureSource>>>> {
 }
@@ -86,7 +96,7 @@ export interface IMixtureFilterProviderProps extends Partial<IFilterProviderProp
 export const MixtureFilterProvider: FC<IMixtureFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IMixtureSource>>> name={"Mixture"} {...props}/>;
 
 export const useMixtureOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>();
-export const useMixtureFilterContext = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>();
+export const useMixtureFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IMixtureSource>>>();
 
 export interface IMixtureProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IMixtureSource>>> {
 }
@@ -102,7 +112,7 @@ export interface IMixtureOrderByProviderProps extends Partial<IOrderByProviderPr
 export const MixtureOrderByProvider: FC<IMixtureOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IMixtureSource>>> name={"Mixture"} {...props}/>;
 
 export const useMixtureOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>();
-export const useMixtureOrderByContext = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>();
+export const useMixtureOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IMixtureSource>>>();
 
 export interface IMixtureProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IMixtureSource>>, IQueryOrderBy<ISourceQuery<IMixtureSource>>, IMixtureQueryParams>> {
 }

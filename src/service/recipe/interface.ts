@@ -1,10 +1,28 @@
-import {IBase, IWithBase} from "@/puff-smith/service/base/interface";
-import {IBooster, IBoosterCreate, IWithBooster} from "@/puff-smith/service/booster/interface";
-import {IQuery, ISource, IWithFulltext, Nullable} from "@leight-core/api";
-import {Prisma, Recipe} from "@prisma/client";
+import {
+	IBase,
+	IWithBase
+}                       from "@/puff-smith/service/base/interface";
+import {
+	IBooster,
+	IBoosterCreate,
+	IWithBooster
+}                       from "@/puff-smith/service/booster/interface";
+import {
+	IQuery,
+	ISource,
+	IWithFulltext,
+	Nullable
+}                       from "@leight-core/api";
+import {
+	Prisma,
+	Recipe
+}                       from "@prisma/client";
 import {ParsedUrlQuery} from "querystring";
 
-export type IRecipeEntity = Recipe & Nullable<IWithBooster> & Nullable<IWithBase>;
+export type IRecipeEntity =
+	Recipe
+	& Nullable<IWithBooster>
+	& Nullable<IWithBase>;
 
 export interface IRecipe extends Omit<Recipe, "userId" | "nicotine" | "nicotineTolerance"> {
 	base: IBase | null;

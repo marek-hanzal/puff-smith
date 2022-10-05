@@ -1,7 +1,10 @@
-import {sha256} from "@/puff-smith/service/utils/sha256";
+import {sha256}    from "@/puff-smith/service/utils/sha256";
 import {toPercent} from "@leight-core/utils";
 
-export type IMixtureError = "LESS" | "MORE" | "FULL";
+export type IMixtureError =
+	"LESS"
+	| "MORE"
+	| "FULL";
 
 export interface IToMixtureAromaRequest {
 	/**
@@ -142,22 +145,22 @@ export interface IBoosterInfo {
 }
 
 export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRequest): IMixtureInfo => {
-	const id = JSON.stringify({aroma, booster, base, nicotine});
+	const id                    = JSON.stringify({aroma, booster, base, nicotine});
 	const aromaInfo: IAromaInfo = {
-		content: aroma.content,
-		volume: aroma.volume,
-		ratio: toPercent(aroma.content, aroma.volume),
+		content:   aroma.content,
+		volume:    aroma.volume,
+		ratio:     toPercent(aroma.content, aroma.volume),
 		available: aroma.volume - aroma.content,
-		pg: aroma.pg,
-		vg: aroma.vg,
-		ml: toMl({
+		pg:        aroma.pg,
+		vg:        aroma.vg,
+		ml:        toMl({
 			/**
 			 * looks like a bug, but it's not - toMl accepts "volume" but we're counting
 			 * "content" of a liquid (not the size of a bottle).
 			 */
 			volume: aroma.content,
-			pg: aroma.pg,
-			vg: aroma.vg,
+			pg:     aroma.pg,
+			vg:     aroma.vg,
 		})
 	};
 
@@ -166,41 +169,41 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	 * https://www.youtube.com/watch?v=0nZJSkYWkvg
 	 */
 	if (base && booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
-		const boosterCount = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
-		const boosterVolume = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
+		const boosterBaseVolume         = nicotine * aromaInfo.volume / booster.nicotine;
+		const boosterCount              = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
+		const boosterVolume             = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
 		const boosterInfo: IBoosterInfo = {
-			volume: boosterVolume,
-			count: boosterCount,
+			volume:   boosterVolume,
+			count:    boosterCount,
 			nicotine: booster.nicotine,
-			pg: booster.pg,
-			vg: booster.vg,
-			ml: toMl({
+			pg:       booster.pg,
+			vg:       booster.vg,
+			ml:       toMl({
 				volume: boosterVolume,
-				pg: booster.pg,
-				vg: booster.vg,
+				pg:     booster.pg,
+				vg:     booster.vg,
 			}),
 		};
-		const baseInfo: IBaseInfo = {
+		const baseInfo: IBaseInfo       = {
 			volume: aromaInfo.available - boosterInfo.volume,
-			pg: base.pg,
-			vg: base.vg,
-			ml: toMl({
+			pg:     base.pg,
+			vg:     base.vg,
+			ml:     toMl({
 				volume: aromaInfo.available - boosterInfo.volume,
-				pg: base.pg,
-				vg: base.vg,
+				pg:     base.pg,
+				vg:     base.vg,
 			}),
 		};
 
 		const info = {
-			aroma: aromaInfo,
-			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
+			aroma:   aromaInfo,
+			base:    aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
-			result: toMixtureResult({
-				volume: aromaInfo.volume,
+			result:  toMixtureResult({
+				volume:    aromaInfo.volume,
 				available: aroma.volume - aroma.content,
-				nicotine: boosterVolume * booster.nicotine,
-				fluids: [
+				nicotine:  boosterVolume * booster.nicotine,
+				fluids:    [
 					aromaInfo.ml,
 					baseInfo.volume > 0 ? baseInfo.ml : undefined,
 					boosterInfo.ml,
@@ -215,29 +218,29 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 		};
 	}
 	if (booster && nicotine && nicotine > 0) {
-		const boosterBaseVolume = nicotine * aromaInfo.volume / booster.nicotine;
-		const boosterCount = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
-		const boosterVolume = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
+		const boosterBaseVolume         = nicotine * aromaInfo.volume / booster.nicotine;
+		const boosterCount              = booster.volume ? Math.round(boosterBaseVolume / booster.volume) : undefined;
+		const boosterVolume             = booster.volume ? booster.volume * (boosterCount || 1) : boosterBaseVolume;
 		const boosterInfo: IBoosterInfo = {
-			volume: boosterVolume,
-			count: boosterCount,
+			volume:   boosterVolume,
+			count:    boosterCount,
 			nicotine: booster.nicotine,
-			pg: booster.pg,
-			vg: booster.vg,
-			ml: toMl({
+			pg:       booster.pg,
+			vg:       booster.vg,
+			ml:       toMl({
 				volume: boosterVolume,
-				pg: booster.pg,
-				vg: booster.vg,
+				pg:     booster.pg,
+				vg:     booster.vg,
 			}),
 		};
 
 		const info = {
-			aroma: aromaInfo,
+			aroma:   aromaInfo,
 			booster: aromaInfo.available > 0 && boosterInfo.volume > 0 ? boosterInfo : undefined,
-			result: toMixtureResult({
-				volume: aromaInfo.volume,
+			result:  toMixtureResult({
+				volume:    aromaInfo.volume,
 				available: aroma.volume - aroma.content,
-				fluids: [
+				fluids:    [
 					aromaInfo.ml,
 					boosterInfo.ml,
 				],
@@ -253,22 +256,22 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	if (base) {
 		const baseInfo: IBaseInfo = {
 			volume: aromaInfo.available,
-			pg: base.pg,
-			vg: base.vg,
-			ml: toMl({
+			pg:     base.pg,
+			vg:     base.vg,
+			ml:     toMl({
 				volume: aromaInfo.available,
-				pg: base.pg,
-				vg: base.vg,
+				pg:     base.pg,
+				vg:     base.vg,
 			}),
 		};
 
 		const info = {
-			aroma: aromaInfo,
-			base: aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
+			aroma:  aromaInfo,
+			base:   aromaInfo.available > 0 && baseInfo.volume > 0 ? baseInfo : undefined,
 			result: toMixtureResult({
-				volume: aromaInfo.volume,
+				volume:    aromaInfo.volume,
 				available: aroma.volume - aroma.content,
-				fluids: [
+				fluids:    [
 					aromaInfo.ml,
 					baseInfo.ml,
 				],
@@ -283,12 +286,12 @@ export const toMixtureInfo = ({aroma, booster, base, nicotine}: IToMixtureInfoRe
 	}
 
 	const info = {
-		aroma: aromaInfo,
+		aroma:  aromaInfo,
 		result: toMixtureResult({
-			volume: aromaInfo.volume,
+			volume:    aromaInfo.volume,
 			available: aroma.volume - aroma.content,
-			nicotine: aroma.nicotine ? aroma.nicotine * aroma.volume : undefined,
-			fluids: [
+			nicotine:  aroma.nicotine ? aroma.nicotine * aroma.volume : undefined,
+			fluids:    [
 				aromaInfo.ml,
 			],
 		})
@@ -331,7 +334,7 @@ interface IMixtureResult {
 
 /** VG is an input */
 const drawMap: { [index in string | number]: string[] } = {
-	0: [
+	0:  [
 		"x-pg",
 	],
 	10: [
@@ -374,34 +377,34 @@ const drawMap: { [index in string | number]: string[] } = {
 };
 
 const toMixtureResult = ({volume, nicotine, fluids, available}: IToMixtureResultRequest): IMixtureResult => {
-	const _fluids = fluids.filter((ml): ml is IVgPgMl => !!ml);
-	const vgToMl = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
-	const pgToMl = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
-	const total = pgToMl + vgToMl;
+	const _fluids   = fluids.filter((ml): ml is IVgPgMl => !!ml);
+	const vgToMl    = _fluids.map(ml => ml.vg).reduce((prev, current) => prev + current, 0);
+	const pgToMl    = _fluids.map(ml => ml.pg).reduce((prev, current) => prev + current, 0);
+	const total     = pgToMl + vgToMl;
 	const vgToRatio = 100 * vgToMl / volume;
 	const pgToRatio = 100 * pgToMl / volume;
 	const vgToRound = Math.round(vgToRatio * 0.1) / 0.1;
 	const $nicotine = nicotine && nicotine > 0 ? nicotine / volume : 0;
 
 	return {
-		volume: total,
-		content: volume - total,
-		error: available < 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : null,
-		nicotine: $nicotine,
+		volume:          total,
+		content:         volume - total,
+		error:           available < 0 ? "FULL" : total > volume ? "MORE" : total < volume ? "LESS" : null,
+		nicotine:        $nicotine,
 		nicotineToRound: Math.round($nicotine || 0),
-		ml: {
+		ml:              {
 			vg: vgToMl,
 			pg: pgToMl,
 		},
-		round: {
+		round:           {
 			vg: vgToRound,
 			pg: 100 - vgToRound,
 		},
-		ratio: {
+		ratio:           {
 			pg: pgToRatio,
 			vg: vgToRatio,
 		},
-		draws: drawMap?.[vgToRound] || [],
+		draws:           drawMap?.[vgToRound] || [],
 	};
 };
 

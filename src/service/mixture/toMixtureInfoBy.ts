@@ -1,9 +1,9 @@
 import {IMixtureInfoBy} from "@/puff-smith/service/mixture/interface";
-import {IMixtureInfo} from "@/puff-smith/service/mixture/toMixture";
+import {IMixtureInfo}   from "@/puff-smith/service/mixture/toMixture";
 
 export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 	const result: IMixtureInfoBy = {
-		vgpg: {
+		vgpg:    {
 			info: new Map(),
 			list: [],
 		},
@@ -11,7 +11,7 @@ export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 			info: new Map(),
 			list: [],
 		},
-		base: {
+		base:    {
 			info: new Map(),
 			list: [],
 		},
@@ -25,8 +25,8 @@ export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 	}).forEach(info => {
 		const key = `${info.result.round.vg}/${info.result.round.pg}`;
 		result.vgpg.info.set(key, result.vgpg.info.get(key) || {
-			vg: info.result.round.vg,
-			pg: info.result.round.pg,
+			vg:   info.result.round.vg,
+			pg:   info.result.round.pg,
 			info: [],
 		});
 		result.vgpg.info.get(key)?.info.push(info);
@@ -37,10 +37,10 @@ export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 		if (info.booster) {
 			const key = `${info.booster.vg}/${info.booster.pg}`;
 			result.booster.info.set(key, result.booster.info.get(key) || {
-				vg: info.booster.vg,
-				pg: info.booster.pg,
+				vg:       info.booster.vg,
+				pg:       info.booster.pg,
 				nicotine: info.booster?.nicotine,
-				info: [],
+				info:     [],
 			});
 			result.booster.info.get(key)?.info.push(info);
 		}
@@ -51,8 +51,8 @@ export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 		if (info.base) {
 			const key = `${info.base.vg}/${info.base.pg}`;
 			result.base.info.set(key, result.base.info.get(key) || {
-				vg: info.base.vg,
-				pg: info.base.pg,
+				vg:   info.base.vg,
+				pg:   info.base.pg,
 				info: [],
 			});
 			result.base.info.get(key)?.info.push(info);
@@ -65,15 +65,15 @@ export const toMixtureInfoBy = (infoList: IMixtureInfo[]): IMixtureInfoBy => {
 			const key = `${info.result.nicotine}`;
 			result.nicotine.info.set(key, result.nicotine.info.get(key) || {
 				nicotine: info.result.nicotine,
-				info: [],
+				info:     [],
 			});
 			result.nicotine.info.get(key)?.info.push(info);
 		}
 	});
 
-	result.vgpg.list = [...result.vgpg.info.keys()];
-	result.booster.list = [...result.booster.info.keys()];
-	result.base.list = [...result.base.info.keys()];
+	result.vgpg.list     = [...result.vgpg.info.keys()];
+	result.booster.list  = [...result.booster.info.keys()];
+	result.base.list     = [...result.base.info.keys()];
 	result.nicotine.list = [...result.nicotine.info.keys()];
 
 	return result;

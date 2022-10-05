@@ -1,4 +1,7 @@
-import {BrowserPage, IBrowserPageProps} from "@leight-core/client";
+import {
+	BrowserPage,
+	IBrowserPageProps
+}           from "@leight-core/client";
 import {FC} from "react";
 
 export interface IBrowserMarketPageProps extends IBrowserPageProps {

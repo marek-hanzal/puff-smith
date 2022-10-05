@@ -1,7 +1,10 @@
-import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
+import {LiquidIcon}   from "@/puff-smith/component/icon/LiquidIcon";
 import {LiquidFields} from "@/puff-smith/ui/liquid/form/LiquidFields";
-import {ILiquidCreateDefaultMobileFormProps, LiquidCreateDefaultMobileForm} from "@/sdk/api/liquid/create";
-import {FC} from "react";
+import {
+	ILiquidCreateDefaultMobileFormProps,
+	LiquidCreateDefaultMobileForm
+}                     from "@/sdk/api/liquid/create";
+import {FC}           from "react";
 
 export interface ILiquidCreateFormProps extends Partial<ILiquidCreateDefaultMobileFormProps> {
 }

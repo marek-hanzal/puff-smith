@@ -1,12 +1,21 @@
 import {BrowserPublicPage} from "@/puff-smith/site/public/component/BrowserPublicPage";
-import {withPublicLayout} from "@/puff-smith/site/public/layout/layout";
-import {BackIcon, ButtonBar, ButtonLink, HomeIcon, Template} from "@leight-core/client";
-import {Button, Divider} from "antd";
-import {useRouter} from "next/router";
-import {useTranslation} from "react-i18next";
+import {withPublicLayout}  from "@/puff-smith/site/public/layout/layout";
+import {
+	BackIcon,
+	ButtonBar,
+	ButtonLink,
+	HomeIcon,
+	Template
+}                          from "@leight-core/client";
+import {
+	Button,
+	Divider
+}                          from "antd";
+import {useRouter}         from "next/router";
+import {useTranslation}    from "react-i18next";
 
 export default withPublicLayout(function Custom404() {
-	const {t} = useTranslation();
+	const {t}    = useTranslation();
 	const router = useRouter();
 	return <BrowserPublicPage
 		title={"public.404"}

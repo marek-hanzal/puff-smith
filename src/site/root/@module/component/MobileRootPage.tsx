@@ -1,7 +1,10 @@
-import {MobileMenu} from "@/puff-smith/site/shared/@mobile/menu/MobileMenu";
+import {MobileMenu}      from "@/puff-smith/site/shared/@mobile/menu/MobileMenu";
 import {SlidersOutlined} from "@ant-design/icons";
-import {IMobilePageProps, MobilePage} from "@leight-core/client";
-import {FC} from "react";
+import {
+	IMobilePageProps,
+	MobilePage
+}                        from "@leight-core/client";
+import {FC}              from "react";
 
 export interface IMobileRootPageProps extends IMobilePageProps {
 }

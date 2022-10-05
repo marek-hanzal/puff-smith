@@ -1,6 +1,9 @@
 import {ContentInline} from "@/puff-smith/component/inline/ContentInline";
-import {Space, Typography} from "antd";
-import {FC} from "react";
+import {
+	Space,
+	Typography
+}                      from "antd";
+import {FC}            from "react";
 
 export interface IContent2InlineProps {
 	value1?: number | null;

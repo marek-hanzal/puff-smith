@@ -1,9 +1,20 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import {ILiquidEntity, ILiquidSource} from "@/puff-smith/service/liquid/interface";
-import prisma from "@/puff-smith/service/side-effect/prisma";
-import {ClientError, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery, IWithIdentity, UndefinableOptional} from "@leight-core/api";
-import {pageOf} from "@leight-core/server";
-import {merge} from "@leight-core/utils";
+import {
+	ILiquidEntity,
+	ILiquidSource
+}                        from "@/puff-smith/service/liquid/interface";
+import prisma            from "@/puff-smith/service/side-effect/prisma";
+import {
+	ClientError,
+	ISourceCreate,
+	ISourceEntity,
+	ISourceItem,
+	ISourceQuery,
+	IWithIdentity,
+	UndefinableOptional
+}                        from "@leight-core/api";
+import {pageOf}          from "@leight-core/server";
+import {merge}           from "@leight-core/utils";
 
 export const LiquidSource = () => new LiquidSourceClass();
 
@@ -18,13 +29,13 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 				return this.container.useMixtureSource(async mixtureSource => {
 					return {
 						...liquid,
-						aroma: await aromaSource.map(liquid.aroma),
-						created: liquid.created.toUTCString(),
-						mixed: liquid.mixed.toUTCString(),
+						aroma:    await aromaSource.map(liquid.aroma),
+						created:  liquid.created.toUTCString(),
+						mixed:    liquid.mixed.toUTCString(),
 						nicotine: liquid.nicotine?.toNumber(),
-						mixture: await mixtureSource.get(liquid.mixtureId),
-						draws: await tagSource.list(Promise.resolve(liquid.LiquidDraw.map(({draw}) => draw))),
-						drawIds: liquid.LiquidDraw.map(({draw}) => draw.id),
+						mixture:  await mixtureSource.get(liquid.mixtureId),
+						draws:    await tagSource.list(Promise.resolve(liquid.LiquidDraw.map(({draw}) => draw))),
+						drawIds:  liquid.LiquidDraw.map(({draw}) => draw.id),
 					};
 				});
 			});
@@ -68,27 +79,27 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
 				}
 				return this.updateKeywords(await this.prisma.liquid.create({
-					data: {
+					data:    {
 						...liquid,
-						code: codeService.code(),
-						nicotine: mixture.result.nicotine,
+						code:            codeService.code(),
+						nicotine:        mixture.result.nicotine,
 						nicotineToRound: mixture.result.nicotineToRound,
-						vg: mixture.result.ratio.vg,
-						vgToRound: mixture.result.round.vg,
-						pg: mixture.result.ratio.pg,
-						pgToRound: mixture.result.round.pg,
-						boosterAmount: mixture.booster?.volume,
-						boosterCount: mixture.booster?.count,
-						baseAmount: mixture.base?.volume,
+						vg:              mixture.result.ratio.vg,
+						vgToRound:       mixture.result.round.vg,
+						pg:              mixture.result.ratio.pg,
+						pgToRound:       mixture.result.round.pg,
+						boosterAmount:   mixture.booster?.volume,
+						boosterCount:    mixture.booster?.count,
+						baseAmount:      mixture.base?.volume,
 						mixtureId,
-						userId: this.user.required(),
-						created: new Date(),
-						mixed: mixed || new Date(),
+						userId:          this.user.required(),
+						created:         new Date(),
+						mixed:           mixed || new Date(),
 					},
 					include: {
 						aroma: {
 							include: {
-								vendor: true,
+								vendor:     true,
 								AromaTaste: {
 									orderBy: {taste: {sort: "asc"}},
 									include: {
@@ -117,20 +128,20 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
 				}
 				return this.updateKeywords(await this.prisma.liquid.update({
-					where: {id},
-					data: {
+					where:   {id},
+					data:    {
 						...liquid,
-						nicotine: mixture?.result?.nicotine,
+						nicotine:        mixture?.result?.nicotine,
 						nicotineToRound: mixture?.result?.nicotineToRound,
-						vg: mixture?.result.ratio.vg,
-						vgToRound: mixture?.result.round.vg,
-						pg: mixture?.result.ratio.pg,
-						pgToRound: mixture?.result.round.pg,
-						boosterAmount: mixture?.booster?.volume,
-						boosterCount: mixture?.booster?.count,
-						baseAmount: mixture?.base?.volume,
+						vg:              mixture?.result.ratio.vg,
+						vgToRound:       mixture?.result.round.vg,
+						pg:              mixture?.result.ratio.pg,
+						pgToRound:       mixture?.result.round.pg,
+						boosterAmount:   mixture?.booster?.volume,
+						boosterCount:    mixture?.booster?.count,
+						baseAmount:      mixture?.base?.volume,
 						mixtureId,
-						LiquidDraw: {
+						LiquidDraw:      {
 							createMany: {
 								data: mixture?.result?.draws ? (await tagSource.fetchByTags(mixture?.result?.draws, "draw")).map(tag => ({
 									drawId: tag.id,
@@ -141,7 +152,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 					include: {
 						aroma: {
 							include: {
-								vendor: true,
+								vendor:     true,
 								AromaTaste: {
 									orderBy: {taste: {sort: "asc"}},
 									include: {
@@ -193,7 +204,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 			include: {
 				aroma: {
 					include: {
-						vendor: true,
+						vendor:     true,
 						AromaTaste: {
 							orderBy: {taste: {sort: "asc"}},
 							include: {
@@ -218,13 +229,13 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 
 	async $get(id: string): Promise<ISourceEntity<ILiquidSource>> {
 		return this.prisma.liquid.findUniqueOrThrow({
-			where: {
+			where:   {
 				id,
 			},
 			include: {
 				aroma: {
 					include: {
-						vendor: true,
+						vendor:     true,
 						AromaTaste: {
 							orderBy: {taste: {sort: "asc"}},
 							include: {
@@ -250,7 +261,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 			include: {
 				aroma: {
 					include: {
-						vendor: true,
+						vendor:     true,
 						AromaTaste: {
 							orderBy: {taste: {sort: "asc"}},
 							include: {
@@ -283,7 +294,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						keyword: {
 							text: {
 								contains: fragment,
-								mode: "insensitive",
+								mode:     "insensitive",
 							},
 						},
 					},

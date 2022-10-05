@@ -1,5 +1,5 @@
 import {prettyPrintJson} from "pretty-print-json";
-import {FC} from "react";
+import {FC}              from "react";
 
 export interface IJsonPrintProps {
 	json: any;
