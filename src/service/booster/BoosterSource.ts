@@ -21,7 +21,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	}
 
 	async updateKeywords(booster: IBoosterEntity): Promise<IBoosterEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			const $booster = await this.map(booster);
 			// const source: string[] = [
 			// 	$booster.code,

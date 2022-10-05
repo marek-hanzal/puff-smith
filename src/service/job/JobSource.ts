@@ -147,8 +147,8 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 			intervalCap: 5,
 			carryoverConcurrencyCount: true,
 		});
-		const async: IJobProcessor["async"] = async (params, userId, queue) => this.useUserSource(async userSource => {
-			return this.useJobSource(async jobSource => {
+		const async: IJobProcessor["async"] = async (params, userId, queue) => this.container.useUserSource(async userSource => {
+			return this.container.useJobSource(async jobSource => {
 				jobSource.withUser(await userSource.asUser(userId));
 				let logger = Logger(name);
 				const job = await jobSource.map(await jobSource.create({

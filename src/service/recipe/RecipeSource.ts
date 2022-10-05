@@ -14,8 +14,8 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 	}
 
 	async map({base, booster, ...recipe}: ISourceEntity<IRecipeSource>): Promise<ISourceItem<IRecipeSource>> {
-		return this.useBaseSource(async baseSource => {
-			return this.useBoosterSource(async boosterSource => {
+		return this.container.useBaseSource(async baseSource => {
+			return this.container.useBoosterSource(async boosterSource => {
 				return {
 					...recipe,
 					booster: booster ? await boosterSource.map(booster) : null,
@@ -28,7 +28,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 	}
 
 	async updateKeywords(recipe: IRecipeEntity): Promise<IRecipeEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			// const $recipe = await this.map(recipe);
 			const source: string[] = [
 				`${recipe.vg}/${recipe.pg}`,
@@ -66,8 +66,8 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 	}
 
 	async $create({base, booster, ...recipe}: ISourceCreate<IRecipeSource>): Promise<ISourceEntity<IRecipeSource>> {
-		return this.useBaseSource(async baseSource => {
-			return this.useBoosterSource(async boosterSource => {
+		return this.container.useBaseSource(async baseSource => {
+			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
 				return this.updateKeywords(await this.prisma.recipe.create({
 					data: {
@@ -99,8 +99,8 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 	}
 
 	async $patch({id, base, booster, ...recipe}: UndefinableOptional<ISourceCreate<IRecipeSource>> & IWithIdentity): Promise<ISourceEntity<IRecipeSource>> {
-		return this.useBaseSource(async baseSource => {
-			return this.useBoosterSource(async boosterSource => {
+		return this.container.useBaseSource(async baseSource => {
+			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
 				return this.updateKeywords(await this.prisma.recipe.update({
 					where: {id},

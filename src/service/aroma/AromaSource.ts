@@ -13,8 +13,8 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async map(aroma: ISourceEntity<IAromaSource>): Promise<ISourceItem<IAromaSource>> {
-		return this.useVendorSource(async vendorSource => {
-			return this.useTagSource(async tagSource => {
+		return this.container.useVendorSource(async vendorSource => {
+			return this.container.useTagSource(async tagSource => {
 				return {
 					...aroma,
 					vendor: await vendorSource.map(aroma.vendor),
@@ -26,7 +26,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async updateKeywords(aroma: IAromaEntity): Promise<IAromaEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			const $aroma = await this.map(aroma);
 			const source: string[] = [
 				$aroma.code,
@@ -55,8 +55,8 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async $create({vendor, vendorId, tastes, tasteIds, code, nicotine, ...aroma}: ISourceCreate<IAromaSource>): Promise<ISourceEntity<IAromaSource>> {
-		return this.useTagSource(async tagSource => {
-			return this.useCodeService(async codeService => {
+		return this.container.useTagSource(async tagSource => {
+			return this.container.useCodeService(async codeService => {
 				return this.updateKeywords(await this.prisma.aroma.create({
 					data: {
 						...aroma,
@@ -97,7 +97,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 	}
 
 	async $patch({vendor, vendorId, tastes, tasteIds, id, name, ...patch}: UndefinableOptional<ISourceCreate<IAromaSource>> & IWithIdentity): Promise<ISourceEntity<IAromaSource>> {
-		return this.useTagSource(async tagSource => {
+		return this.container.useTagSource(async tagSource => {
 			await this.prisma.aromaTaste.deleteMany({
 				where: {aromaId: id}
 			});

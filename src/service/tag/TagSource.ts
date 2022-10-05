@@ -37,7 +37,7 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 	}
 
 	async updateKeywords(tag: ITagEntity): Promise<ITagEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			const source: string[] = [
 				`${tag.group}.${tag.tag}`,
 			];

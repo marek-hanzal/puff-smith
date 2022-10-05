@@ -145,8 +145,8 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 	}
 
 	async createToken(token: string): Promise<void> {
-		return this.useUserTokenSource(async userTokenSource => {
-			return this.useTokenSource(async tokenSource => {
+		return this.container.useUserTokenSource(async userTokenSource => {
+			return this.container.useTokenSource(async tokenSource => {
 				const $token = await tokenSource.import({
 					name: token,
 				});

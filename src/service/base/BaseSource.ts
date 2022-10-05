@@ -21,7 +21,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 	}
 
 	async updateKeywords(base: IBaseEntity): Promise<IBaseEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			const $base = await this.map(base);
 			// const source: string[] = [
 			// 	$base.code,

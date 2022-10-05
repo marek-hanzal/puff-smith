@@ -1,5 +1,6 @@
-export interface IBackupJobParams {
+export interface IBackupRequest {
 }
 
-export interface IBackupRequest {
+export interface IBackupService {
+	backup(backup: IBackupRequest): Promise<void>;
 }

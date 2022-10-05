@@ -13,9 +13,9 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async map(liquid: ISourceEntity<ILiquidSource>): Promise<ISourceItem<ILiquidSource>> {
-		return this.useTagSource(async tagSource => {
-			return this.useAromaSource(aromaSource => {
-				return this.useMixtureSource(async mixtureSource => {
+		return this.container.useTagSource(async tagSource => {
+			return this.container.useAromaSource(aromaSource => {
+				return this.container.useMixtureSource(async mixtureSource => {
 					return {
 						...liquid,
 						aroma: await aromaSource.map(liquid.aroma),
@@ -32,7 +32,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async updateKeywords(liquid: ILiquidEntity): Promise<ILiquidEntity> {
-		return this.useKeywordSource(async keywordSource => {
+		return this.container.useKeywordSource(async keywordSource => {
 			// const $liquid = await this.map(liquid);
 			// const source: string[] = [
 			// 	$liquid.code,
@@ -61,8 +61,8 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $create({mixtureId, mixed, ...liquid}: ISourceCreate<ILiquidSource>): Promise<ISourceEntity<ILiquidSource>> {
-		return this.useCodeService(codeService => {
-			return this.useMixtureSource(async mixtureSource => {
+		return this.container.useCodeService(codeService => {
+			return this.container.useMixtureSource(async mixtureSource => {
 				const mixture = await mixtureSource.get(mixtureId);
 				if (mixture.result.error) {
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
@@ -110,8 +110,8 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $patch({id, mixtureId, ...liquid}: UndefinableOptional<ISourceCreate<ILiquidSource>> & IWithIdentity): Promise<ISourceEntity<ILiquidSource>> {
-		return this.useTagSource(async tagSource => {
-			return this.useMixtureSource(async mixtureSource => {
+		return this.container.useTagSource(async tagSource => {
+			return this.container.useMixtureSource(async mixtureSource => {
 				const mixture = mixtureId ? await mixtureSource.get(mixtureId) : undefined;
 				if (mixture && mixture.result.error) {
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
