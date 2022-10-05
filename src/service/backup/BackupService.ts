@@ -1,11 +1,10 @@
 import {IBackupRequest, IBackupService} from "@/puff-smith/service/backup/interface";
 import {ContainerClass} from "@/puff-smith/service/Container";
 import {IJobProgress, ISource, IUser} from "@leight-core/api";
+import {zipOf} from "@leight-core/server";
 import dayjs from "dayjs";
 import fs from "node:fs";
 import {Logger} from "winston";
-// @ts-ignore
-import zipper from "zip-local";
 
 export interface IBackupServiceDeps {
 	user: IUser;
@@ -52,7 +51,8 @@ export class BackupServiceClass implements IBackupService {
 			await this.container.useUserSource(async source => this.export(backup, source));
 			await this.container.useVendorSource(async source => this.export(backup, source));
 
-			zipper.sync.zip(backup).compress().save(file.location);
+			zipOf(backup, file.location);
+
 			fs.rmSync(backup, {recursive: true, force: true});
 			const $file = await fileSource.refresh(file.id);
 			this.logger.debug(`Finished backup of ${file.location} ${$file.mime}.`);
@@ -66,8 +66,11 @@ export class BackupServiceClass implements IBackupService {
 		const total = await source.count({});
 		const pages = Math.ceil(total / size);
 		for (let page = 0; page <= pages; page++) {
-			for (let entity of await source.list(source.query({page, size}))) {
-				fs.writeFileSync(`${path}/${entity.id}.json`, JSON.stringify(entity));
+			for (let entity of await source.query({page, size})) {
+				fs.writeFileSync(`${path}/${entity.id}.json`, JSON.stringify({
+					source: entity,
+					entity: await source.map(entity),
+				}));
 			}
 		}
 	}
