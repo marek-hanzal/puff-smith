@@ -61,7 +61,7 @@ export class BackupServiceClass implements IBackupService {
 
 	async export(backup: string, source: ISource<any, any, any>) {
 		fs.mkdirSync(`${backup}/entity/${source.name}`, {recursive: true});
-		const size = 50;
+		const size = 250;
 		const total = await source.count({});
 		const pages = Math.ceil(total / size);
 		for (let page = 0; page <= pages; page++) {
