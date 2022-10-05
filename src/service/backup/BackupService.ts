@@ -5,6 +5,7 @@ import {zipOf} from "@leight-core/server";
 import dayjs from "dayjs";
 import fs from "node:fs";
 import os from "node:os";
+import path from "node:path";
 import {Logger} from "winston";
 
 export interface IBackupServiceDeps {
@@ -46,10 +47,10 @@ export class BackupServiceClass implements IBackupService {
 				name: `Backup-${stamp}.zip`,
 				replace: true,
 			});
-			const backup = `${this.temp}/backup/${stamp}`;
+			const backup = path.normalize(`${this.temp}/backup/${stamp}`);
 			fs.mkdirSync(backup, {recursive: true});
 
-			[
+			await Promise.all([
 				await this.container.useAromaSource(async source => source),
 				await this.container.useBaseSource(async source => source),
 				await this.container.useBoosterSource(async source => source),
@@ -60,7 +61,7 @@ export class BackupServiceClass implements IBackupService {
 				await this.container.useTranslationSource(async source => source),
 				await this.container.useUserSource(async source => source),
 				await this.container.useVendorSource(async source => source),
-			].map(source => this.export(backup, source));
+			].map(async source => this.export(backup, source)));
 
 			zipOf(backup, file.location);
 
@@ -71,14 +72,14 @@ export class BackupServiceClass implements IBackupService {
 	}
 
 	async export(backup: string, source: ISource<any, any, any>) {
-		const path = `${backup}/source/${source.name}`;
-		fs.mkdirSync(path, {recursive: true});
+		const $path = path.normalize(`${backup}/source/${source.name}`);
+		fs.mkdirSync($path, {recursive: true});
 		const size = 250;
 		const total = await source.count({});
 		const pages = Math.ceil(total / size);
 		for (let page = 0; page <= pages; page++) {
 			for (let entity of await source.query({page, size})) {
-				fs.writeFileSync(`${path}/${entity.id}.json`, JSON.stringify({
+				fs.writeFileSync(path.normalize(`${$path}/${entity.id}.json`), JSON.stringify({
 					source: entity,
 					entity: await source.map(entity),
 				}));
