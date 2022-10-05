@@ -14,13 +14,11 @@ import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {IUserTokenSource} from "@/puff-smith/service/user/token/interface";
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {ISource} from "@leight-core/api";
+import {IContainer, IContainerCallback, ISource} from "@leight-core/api";
 
 export const Container = () => new ContainerClass();
 
-export type IContainerCallback<TService, T> = (service: TService) => Promise<T>;
-
-export class ContainerClass {
+export class ContainerClass implements IContainer<IFileSource> {
 	async useAromaSource<T>(callback: IContainerCallback<IAromaSource, T>, source?: ISource<any, any, any>) {
 		return callback((await import ("@/puff-smith/service/aroma/AromaSource")).AromaSource().ofSource(source).withContainer(this));
 	}
