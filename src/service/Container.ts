@@ -5,9 +5,12 @@ import {ICodeService} from "@/puff-smith/service/code/interface";
 import {IFileSource} from "@/puff-smith/service/file/interface";
 import {IJobSource} from "@/puff-smith/service/job/interface";
 import {IKeywordSource} from "@/puff-smith/service/keyword/interface";
+import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
+import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
 import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {ITokenSource} from "@/puff-smith/service/token/interface";
+import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {IUserSource} from "@/puff-smith/service/user/interface";
 import {IUserTokenSource} from "@/puff-smith/service/user/token/interface";
 import {IVendorSource} from "@/puff-smith/service/vendor/interface";
@@ -60,11 +63,23 @@ export class ContainerClass {
 		return callback((await import ("@/puff-smith/service/base/BaseSource")).BaseSource().ofSource(source).withContainer(this));
 	}
 
+	async useRecipeSource<T>(callback: (recipeSource: IRecipeSource) => Promise<T>, source?: ISource<any, any, any>) {
+		return callback((await import ("@/puff-smith/service/recipe/RecipeSource")).RecipeSource().ofSource(source).withContainer(this));
+	}
+
+	async useTranslationSource<T>(callback: (translationSource: ITranslationSource) => Promise<T>, source?: ISource<any, any, any>) {
+		return callback((await import ("@/puff-smith/service/translation/TranslationSource")).TranslationSource().ofSource(source).withContainer(this));
+	}
+
 	async useMixtureSource<T>(callback: (mixtureSource: IMixtureSource) => Promise<T>, source?: ISource<any, any, any>) {
 		return callback((await import ("@/puff-smith/service/mixture/MixtureSource")).MixtureSource().ofSource(source).withContainer(this));
 	}
 
 	async useAromaSource<T>(callback: (aromaSource: IAromaSource) => Promise<T>, source?: ISource<any, any, any>) {
 		return callback((await import ("@/puff-smith/service/aroma/AromaSource")).AromaSource().ofSource(source).withContainer(this));
+	}
+
+	async useLiquidSource<T>(callback: (liquidSource: ILiquidSource) => Promise<T>, source?: ISource<any, any, any>) {
+		return callback((await import ("@/puff-smith/service/liquid/LiquidSource")).LiquidSource().ofSource(source).withContainer(this));
 	}
 }

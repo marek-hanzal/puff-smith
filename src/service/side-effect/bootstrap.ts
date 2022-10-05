@@ -1,3 +1,4 @@
+import {BACKUP_JOB} from "@/puff-smith/jobs/backup/interface";
 import {IMPORT_JOB} from "@/puff-smith/jobs/import/interface";
 import {BootstrapLogger} from "@leight-core/server";
 
@@ -10,6 +11,7 @@ const Bootstrap = (version: string = process.env.NEXT_PUBLIC_VERSION || "edge") 
 			"auth",
 			"query",
 			IMPORT_JOB,
+			BACKUP_JOB,
 		],
 		version,
 		level: "debug",

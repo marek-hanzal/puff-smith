@@ -77,4 +77,16 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 	async store(store: IFileStoreRequest): Promise<IFileEntity> {
 		return this.create(fileService.store(store));
 	}
+
+	async refresh(fileId: string): Promise<IFileEntity> {
+		const file = await this.get(fileId);
+		const info = fileService.infoOf(file.location);
+		return this.prisma.file.update({
+			where: {id: fileId},
+			data: {
+				mime: info.mime,
+				size: info.size,
+			},
+		});
+	}
 }

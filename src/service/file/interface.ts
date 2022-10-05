@@ -14,4 +14,6 @@ export type IFileEntity = File;
 
 export interface IFileSource extends ISource<IFileCreate, IFileEntity, IFile, IFileQuery> {
 	store(store: IFileStoreRequest): Promise<IFileEntity>;
+
+	refresh(fileId: string): Promise<IFileEntity>;
 }
