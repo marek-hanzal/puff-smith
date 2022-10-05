@@ -49,22 +49,24 @@ export class BackupServiceClass implements IBackupService {
 			const backup = `${this.temp}/backup/${stamp}`;
 			fs.mkdirSync(backup, {recursive: true});
 
-			await this.container.useAromaSource(async source => this.export(backup, source));
-			await this.container.useBaseSource(async source => this.export(backup, source));
-			await this.container.useBoosterSource(async source => this.export(backup, source));
-			await this.container.useLiquidSource(async source => this.export(backup, source));
-			await this.container.useRecipeSource(async source => this.export(backup, source));
-			await this.container.useTagSource(async source => this.export(backup, source));
-			await this.container.useTokenSource(async source => this.export(backup, source));
-			await this.container.useTranslationSource(async source => this.export(backup, source));
-			await this.container.useUserSource(async source => this.export(backup, source));
-			await this.container.useVendorSource(async source => this.export(backup, source));
+			[
+				await this.container.useAromaSource(async source => source),
+				await this.container.useBaseSource(async source => source),
+				await this.container.useBoosterSource(async source => source),
+				await this.container.useLiquidSource(async source => source),
+				await this.container.useRecipeSource(async source => source),
+				await this.container.useTagSource(async source => source),
+				await this.container.useTokenSource(async source => source),
+				await this.container.useTranslationSource(async source => source),
+				await this.container.useUserSource(async source => source),
+				await this.container.useVendorSource(async source => source),
+			].map(source => this.export(backup, source));
 
 			zipOf(backup, file.location);
 
 			fs.rmSync(backup, {recursive: true, force: true});
-			const $file = await fileSource.refresh(file.id);
-			this.logger.debug(`Finished backup of ${file.location} ${$file.mime}.`);
+			await fileSource.refresh(file.id);
+			this.logger.debug(`Finished backup of ${file.location}.`);
 		});
 	}
 
