@@ -20,7 +20,7 @@ export const BackupDefaultForm: FC<IBackupDefaultFormProps> = props => <Form<IBa
 	useMutation={useBackupMutation}
 	translation={BackupApiLink}
 	{...props}
-/>;
+/>
 
 export interface IBackupDefaultMobileFormProps extends Partial<IMobileFormProps<IBackupRequest, IJob<IBackupRequest>>> {
 }
@@ -29,7 +29,7 @@ export const BackupDefaultMobileForm: FC<IBackupDefaultMobileFormProps> = props 
 	useMutation={useBackupMutation}
 	translation={BackupApiLink}
 	{...props}
-/>;
+/>
 
 export const toBackupLink = (queryParams?: IBackupQueryParams) => toLink(BackupApiLink, queryParams);
 export const useBackupLink = () => toBackupLink;

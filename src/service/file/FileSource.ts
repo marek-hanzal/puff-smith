@@ -4,6 +4,7 @@ import fileService from "@/puff-smith/service/side-effect/fileService";
 import prisma from "@/puff-smith/service/side-effect/prisma";
 import {IFileStoreRequest, IQueryFilter, ISourceCreate, ISourceEntity, ISourceItem, ISourceQuery} from "@leight-core/api";
 import {pageOf} from "@leight-core/server";
+import fs from "node:fs";
 
 export const FileSource = () => new FileSourceClass();
 
@@ -52,6 +53,25 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 				userId: this.user.required(),
 			},
 		});
+	}
+
+	async $remove(ids: string[]): Promise<ISourceEntity<IFileSource>[]> {
+		const where = {
+			id: {
+				in: ids,
+			},
+		};
+		const items = await this.prisma.file.findMany({
+			where,
+		});
+		for (const file of items) {
+			await fs.unlink(file.location, () => {
+			});
+		}
+		await this.prisma.file.deleteMany({
+			where,
+		});
+		return items;
 	}
 
 	async store(store: IFileStoreRequest): Promise<IFileEntity> {
