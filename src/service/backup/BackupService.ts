@@ -4,6 +4,7 @@ import {IJobProgress, ISource, IUser} from "@leight-core/api";
 import {zipOf} from "@leight-core/server";
 import dayjs from "dayjs";
 import fs from "node:fs";
+import os from "node:os";
 import {Logger} from "winston";
 
 export interface IBackupServiceDeps {
@@ -11,6 +12,7 @@ export interface IBackupServiceDeps {
 	container: ContainerClass;
 	jobProgress: IJobProgress;
 	logger: Logger;
+	temp?: string;
 }
 
 export interface IBackupItem<TSource, TEntity> {
@@ -21,12 +23,14 @@ export interface IBackupItem<TSource, TEntity> {
 export const BackupService = (deps: IBackupServiceDeps) => new BackupServiceClass(deps);
 
 export class BackupServiceClass implements IBackupService {
+	readonly temp: string;
 	readonly container: ContainerClass;
 	readonly user: IUser;
 	readonly logger: Logger;
 	readonly jobProgress: IJobProgress;
 
-	constructor({container, user, logger, jobProgress}: IBackupServiceDeps) {
+	constructor({container, user, logger, jobProgress, temp}: IBackupServiceDeps) {
+		this.temp = temp || os.tmpdir();
 		this.container = container;
 		this.user = user;
 		this.logger = logger;
@@ -42,7 +46,7 @@ export class BackupServiceClass implements IBackupService {
 				name: `Backup-${stamp}.zip`,
 				replace: true,
 			});
-			const backup = `.data/backup/${stamp}`;
+			const backup = `${this.temp}/backup/${stamp}`;
 			fs.mkdirSync(backup, {recursive: true});
 
 			await this.container.useAromaSource(async source => this.export(backup, source));
