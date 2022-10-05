@@ -60,13 +60,14 @@ export class BackupServiceClass implements IBackupService {
 	}
 
 	async export(backup: string, source: ISource<any, any, any>) {
-		fs.mkdirSync(`${backup}/entity/${source.name}`, {recursive: true});
+		const path = `${backup}/source/${source.name}`;
+		fs.mkdirSync(path, {recursive: true});
 		const size = 250;
 		const total = await source.count({});
 		const pages = Math.ceil(total / size);
 		for (let page = 0; page <= pages; page++) {
 			for (let entity of await source.list(source.query({page, size}))) {
-				fs.writeFileSync(`${backup}/entity/${source.name}/${entity.id}.json`, JSON.stringify(entity));
+				fs.writeFileSync(`${path}/${entity.id}.json`, JSON.stringify(entity));
 			}
 		}
 	}
