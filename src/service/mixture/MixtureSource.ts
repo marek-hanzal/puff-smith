@@ -7,15 +7,11 @@ import {
 	toMixtureInfo
 }                        from "@/puff-smith/service/mixture/toMixture";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
-import {
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery
-}                        from "@leight-core/api";
+import {SourceInfer}     from "@leight-core/api";
 import {uniqueOf}        from "@leight-core/utils";
 import LRUCache          from "lru-cache";
 
-const mixtureCache: LRUCache<string, ISourceEntity<IMixtureSource>[]> = new LRUCache<string, ISourceEntity<IMixtureSource>[]>({
+const mixtureCache: LRUCache<string, SourceInfer.Entity<IMixtureSource>[]> = new LRUCache<string, SourceInfer.Entity<IMixtureSource>[]>({
 	max: 2048,
 });
 
@@ -29,15 +25,15 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		};
 	}
 
-	async map(mixture: ISourceEntity<IMixtureSource>): Promise<ISourceItem<IMixtureSource>> {
+	async map(mixture: SourceInfer.Entity<IMixtureSource>): Promise<SourceInfer.Item<IMixtureSource>> {
 		return mixture;
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IMixtureSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IMixtureSource>> {
 		return toMixtureInfo(JSON.parse(id));
 	}
 
-	async $query(query: ISourceQuery<IMixtureSource>): Promise<ISourceEntity<IMixtureSource>[]> {
+	async $query(query: SourceInfer.Query<IMixtureSource>): Promise<SourceInfer.Entity<IMixtureSource>[]> {
 		if (!query.filter) {
 			return [];
 		}
@@ -130,7 +126,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		}).slice(page * size, (page * size) + size) : info;
 	}
 
-	async $count({filter}: ISourceQuery<IMixtureSource>): Promise<number> {
+	async $count({filter}: SourceInfer.Query<IMixtureSource>): Promise<number> {
 		return (await this.query({filter})).length;
 	}
 }

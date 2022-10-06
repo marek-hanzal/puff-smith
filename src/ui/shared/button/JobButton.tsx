@@ -7,7 +7,7 @@ import {
 }                             from "@/sdk/api/job/query";
 import {
 	IJob,
-	IQueryFilter
+	QueryInfer,
 }                             from "@leight-core/api";
 import {UseToken}             from "@leight-core/client";
 import {
@@ -33,7 +33,7 @@ export interface IJobButtonProps<TJobParams extends Record<string, any>> extends
 	translation: string;
 	scheduler: UseMutationResult<IJob<TJobParams>, any, TJobParams>;
 	schedule: TJobParams;
-	filter?: IQueryFilter<IJobQuery>;
+	filter?: QueryInfer.Filter<IJobQuery>;
 	label?: ReactNode;
 	tokens?: string[];
 

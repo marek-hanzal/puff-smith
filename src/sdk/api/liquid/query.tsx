@@ -4,12 +4,10 @@
 
 import {ILiquidSource}  from "@/puff-smith/service/liquid/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const LiquidApiLink = "/api/liquid/query";
+export const LiquidApiLink      = "/api/liquid/query";
 export const LiquidCountApiLink = "/api/liquid/query/count";
 
 export type ILiquidQueryParams = any;
 
-export const useLiquidQuery = createQueryHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
-export const useLiquidCountQuery = createQueryHook<ISourceQuery<ILiquidSource>, number, ILiquidQueryParams>(LiquidCountApiLink, "post");
+export const useLiquidQuery      = createQueryHook<SourceInfer.Query<ILiquidSource>, SourceInfer.Item<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
+export const useLiquidCountQuery = createQueryHook<SourceInfer.Query<ILiquidSource>, number, ILiquidQueryParams>(LiquidCountApiLink, "post");
 
-export const useLiquidSource = () => useSourceContext<ISourceItem<ILiquidSource>>();
+export const useLiquidSource = () => useSourceContext<SourceInfer.Item<ILiquidSource>>();
 
-export interface ILiquidSourceContext extends ISourceContext<ISourceItem<ILiquidSource>> {
+export interface ILiquidSourceContext extends ISourceContext<SourceInfer.Item<ILiquidSource>> {
 }
 
-export interface ILiquidSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ILiquidSource>>> {
+export interface ILiquidSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<ILiquidSource>>> {
 }
 
 export const LiquidSourceConsumer: FC<ILiquidSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ILiquidProviderProps extends Partial<ISourceProviderProps<ISourceItem<ILiquidSource>>> {
+export interface ILiquidProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<ILiquidSource>>> {
 }
 
 export const LiquidProvider: FC<ILiquidProviderProps> = props => {
-	return <SourceProvider<ISourceItem<ILiquidSource>>
+	return <SourceProvider<SourceInfer.Item<ILiquidSource>>
 		name={"Liquid"}
 		useQuery={useLiquidQuery}
 		useCountQuery={useLiquidCountQuery}
@@ -87,18 +85,18 @@ export const LiquidProvider: FC<ILiquidProviderProps> = props => {
 export const toLiquidLink  = (queryParams?: ILiquidQueryParams) => toLink(LiquidApiLink, queryParams);
 export const useLiquidLink = () => toLiquidLink;
 
-export const useLiquidPromise = createPromiseHook<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
-export const LiquidPromise    = createPromise<ISourceQuery<ILiquidSource>, ISourceItem<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
+export const useLiquidPromise = createPromiseHook<SourceInfer.Query<ILiquidSource>, SourceInfer.Item<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
+export const LiquidPromise    = createPromise<SourceInfer.Query<ILiquidSource>, SourceInfer.Item<ILiquidSource>[], ILiquidQueryParams>(LiquidApiLink, "post");
 
-export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ILiquidSource>>>> {
+export interface ILiquidFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>>> {
 }
 
-export const LiquidFilterProvider: FC<ILiquidFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
+export const LiquidFilterProvider: FC<ILiquidFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
-export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
-export const useLiquidFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ILiquidSource>>>();
+export const useLiquidOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>>();
+export const useLiquidFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>>();
 
-export interface ILiquidProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ILiquidSource>>> {
+export interface ILiquidProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>> {
 }
 
 export const LiquidProviderFilter: FC<ILiquidProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const LiquidProviderFilter: FC<ILiquidProviderFilterProps> = props => <Fi
 	translation={"common.filter.Liquid"}
 />;
 
-export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ILiquidSource>>>> {
+export interface ILiquidOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>>> {
 }
 
-export const LiquidOrderByProvider: FC<ILiquidOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
+export const LiquidOrderByProvider: FC<ILiquidOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
-export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
-export const useLiquidOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ILiquidSource>>>();
+export const useLiquidOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>>();
+export const useLiquidOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>>();
 
-export interface ILiquidProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ILiquidSource>>, IQueryOrderBy<ISourceQuery<ILiquidSource>>, ILiquidQueryParams>> {
+export interface ILiquidProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>, QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>, ILiquidQueryParams>> {
 }
 
-export const LiquidProviderControl: FC<ILiquidProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ILiquidSource>>, IQueryOrderBy<ISourceQuery<ILiquidSource>>> name={"Liquid"} {...props}/>;
+export const LiquidProviderControl: FC<ILiquidProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<ILiquidSource>>, QueryInfer.OrderBy<SourceInfer.Query<ILiquidSource>>> name={"Liquid"} {...props}/>;
 
-export interface ILiquidTableSourceProps extends Partial<ITableProps<ISourceItem<ILiquidSource>>> {
+export interface ILiquidTableSourceProps extends Partial<ITableProps<SourceInfer.Item<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const LiquidTableSource: FC<ILiquidTableSourceProps> = ({providerProps, .
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<ILiquidSource>>
+		<Table<SourceInfer.Item<ILiquidSource>>
 			translation={LiquidApiLink}
 			{...props}
 		/>
 	</LiquidProvider>;
 }
 
-export interface ILiquidListSourceProps extends Partial<IListProps<ISourceItem<ILiquidSource>>> {
+export interface ILiquidListSourceProps extends Partial<IListProps<SourceInfer.Item<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const LiquidListSource: FC<ILiquidListSourceProps> = ({providerProps, ...
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<ILiquidSource>>
+		<List<SourceInfer.Item<ILiquidSource>>
 			{...props}
 		/>
 	</LiquidProvider>;
 }
 
-export interface ILiquidInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ILiquidSource>>> {
+export interface ILiquidInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<ILiquidSource>>
+		<InfiniteList<SourceInfer.Item<ILiquidSource>>
 			translation={{
 				namespace: LiquidApiLink,
 			}}
@@ -168,22 +166,22 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 	</LiquidProvider>;
 }
 
-export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ILiquidSource>> {
-	toOption: IToOptionMapper<ISourceItem<ILiquidSource>>;
+export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ILiquidSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<ILiquidSource>>;
 	providerProps?: Partial<ILiquidProviderProps>;
 }
 
 export const LiquidSourceSelect: FC<ILiquidSourceSelectProps> = ({providerProps, ...props}) => {
 	return <LiquidProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<ILiquidSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<ILiquidSource>> {...props}/>
 	</LiquidProvider>;
 };
 
-export interface ILiquidSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ILiquidSource>>> {
+export interface ILiquidSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<ILiquidSource>>> {
 }
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ILiquidSource>> {...props}/>;
+	return <SelectionProvider<SourceInfer.Item<ILiquidSource>> {...props}/>;
 }
 
 export const useLiquidCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useLiquidQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useLiquidOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ILiquidSource>>();
-export const useLiquidSelectionContext = () => useSelectionContext<ISourceItem<ILiquidSource>>();
+export const useLiquidOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<ILiquidSource>>();
+export const useLiquidSelectionContext         = () => useSelectionContext<SourceInfer.Item<ILiquidSource>>();
 
-export interface ILiquidDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ILiquidSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface ILiquidDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<ILiquidSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<ILiquidSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<ILiquidSource>>
 			sourceProviderProps={{
-				name: "Liquid",
-				useQuery: useLiquidQuery,
+				name:          "Liquid",
+				useQuery:      useLiquidQuery,
 				useCountQuery: useLiquidCountQuery,
 			}}
 			toClear={() => undefined}

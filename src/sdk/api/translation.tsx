@@ -5,9 +5,9 @@
 import {
 	IEntityContext,
 	INavigate,
-	ISourceItem,
 	ITranslationBundle,
-	IWithIdentityQuery
+	IWithIdentityQuery,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BrowserPage,
@@ -44,12 +44,12 @@ export const TranslationApiLink = "/api/translation";
 
 export type ITranslationQueryParams = IWithIdentityQuery;
 
-export const TranslationContext = createContext(null as unknown as IEntityContext<ISourceItem<ITranslationBundle>>);
+export const TranslationContext = createContext(null as unknown as IEntityContext<SourceInfer.Item<ITranslationBundle>>);
 
-export const useTranslationContext         = (): IEntityContext<ISourceItem<ITranslationBundle>> => useContext(TranslationContext, "TranslationContext");
-export const useOptionalTranslationContext = () => useOptionalContext<IEntityContext<ISourceItem<ITranslationBundle>>>(TranslationContext as any);
+export const useTranslationContext         = (): IEntityContext<SourceInfer.Item<ITranslationBundle>> => useContext(TranslationContext, "TranslationContext");
+export const useOptionalTranslationContext = () => useOptionalContext<IEntityContext<SourceInfer.Item<ITranslationBundle>>>(TranslationContext as any);
 
-export interface ITranslationProvider extends IEntityProviderProps<ISourceItem<ITranslationBundle>> {
+export interface ITranslationProvider extends IEntityProviderProps<SourceInfer.Item<ITranslationBundle>> {
 }
 
 export const TranslationProvider: FC<ITranslationProvider> = ({defaultEntity, ...props}) => {
@@ -60,24 +60,24 @@ export const TranslationProvider: FC<ITranslationProvider> = ({defaultEntity, ..
 	</EntityProvider>;
 };
 
-export const useTranslationQuery = createQueryHook<void, ISourceItem<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
+export const useTranslationQuery = createQueryHook<void, SourceInfer.Item<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
 
 export const useTranslationQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationApiLink]);
-}
+};
 
-export const toTranslationLink = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
+export const toTranslationLink  = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;
 
-export const useTranslationPromise = createPromiseHook<void, ISourceItem<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
-export const TranslationPromise = createPromise<void, ISourceItem<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
+export const useTranslationPromise = createPromiseHook<void, SourceInfer.Item<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
+export const TranslationPromise    = createPromise<void, SourceInfer.Item<ITranslationBundle>, ITranslationQueryParams>(TranslationApiLink, "get");
 
-export interface IFetchTranslationProps extends Partial<IQueryProps<void, ISourceItem<ITranslationBundle>, ITranslationQueryParams>> {
+export interface IFetchTranslationProps extends Partial<IQueryProps<void, SourceInfer.Item<ITranslationBundle>, ITranslationQueryParams>> {
 	id: string;
 }
 
-export const FetchTranslation: FC<IFetchTranslationProps> = ({id, ...props}) => <Query<void, ISourceItem<ITranslationBundle>, ITranslationQueryParams>
+export const FetchTranslation: FC<IFetchTranslationProps> = ({id, ...props}) => <Query<void, SourceInfer.Item<ITranslationBundle>, ITranslationQueryParams>
 	useQuery={useTranslationQuery}
 	request={undefined}
 	context={useOptionalTranslationContext()}
@@ -85,13 +85,20 @@ export const FetchTranslation: FC<IFetchTranslationProps> = ({id, ...props}) => 
 	{...props}
 />;
 
-export type ITranslationPageExtra = ReactElement | ((entityContext: IEntityContext<ISourceItem<ITranslationBundle>>) => ReactElement);
-export type ITranslationPageFooter = ReactElement | ((entityContext: IEntityContext<ISourceItem<ITranslationBundle>>) => ReactElement);
-export type ITranslationPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<ISourceItem<ITranslationBundle>>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+export type ITranslationPageExtra =
+	ReactElement
+	| ((entityContext: IEntityContext<SourceInfer.Item<ITranslationBundle>>) => ReactElement);
+export type ITranslationPageFooter =
+	ReactElement
+	| ((entityContext: IEntityContext<SourceInfer.Item<ITranslationBundle>>) => ReactElement);
+export type ITranslationPageBreadcrumb =
+	BreadcrumbProps
+	| ReactElement<typeof Breadcrumb>
+	| ((entityContext: IEntityContext<SourceInfer.Item<ITranslationBundle>>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
 
 export interface ITranslationBrowserPageProps extends Omit<IBrowserPageProps, "children" | "breadcrumbProps" | "extra" | "footer" | "onBack"> {
-	onBack?: (navigate: INavigate, entityContext: IEntityContext<ISourceItem<ITranslationBundle>>) => void;
-	children?: ReactNode | ((data: ISourceItem<ITranslationBundle>) => ReactNode);
+	onBack?: (navigate: INavigate, entityContext: IEntityContext<SourceInfer.Item<ITranslationBundle>>) => void;
+	children?: ReactNode | ((data: SourceInfer.Item<ITranslationBundle>) => ReactNode);
 	breadcrumbProps?: ITranslationPageBreadcrumb;
 	extra?: ITranslationPageExtra;
 	footer?: ITranslationPageFooter;
@@ -125,7 +132,7 @@ export const TranslationBrowserPage: FC<ITranslationBrowserPageProps> = ({childr
 };
 
 export interface ITranslationMobilePageProps extends Omit<IMobilePageProps, "children"> {
-	children?: ReactNode | ((data: ISourceItem<ITranslationBundle>) => ReactNode);
+	children?: ReactNode | ((data: SourceInfer.Item<ITranslationBundle>) => ReactNode);
 }
 
 export const TranslationMobilePage: FC<ITranslationMobilePageProps> = ({children, title, values, ...props}) => {

@@ -6,11 +6,8 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
 	IWithIdentity,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
@@ -23,7 +20,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		super("booster", prisma);
 	}
 
-	async map(booster: ISourceEntity<IBoosterSource>): Promise<ISourceItem<IBoosterSource>> {
+	async map(booster: SourceInfer.Entity<IBoosterSource>): Promise<SourceInfer.Item<IBoosterSource>> {
 		return {
 			...booster,
 			nicotine: booster.nicotine.toNumber(),
@@ -59,7 +56,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		});
 	}
 
-	async $create(booster: ISourceCreate<IBoosterSource>): Promise<ISourceEntity<IBoosterSource>> {
+	async $create(booster: SourceInfer.Create<IBoosterSource>): Promise<SourceInfer.Entity<IBoosterSource>> {
 		return this.updateKeywords(await this.prisma.booster.create({
 			data: {
 				...booster,
@@ -68,14 +65,14 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		}));
 	}
 
-	async $patch({id, ...booster}: UndefinableOptional<ISourceCreate<IBoosterSource>> & IWithIdentity): Promise<ISourceEntity<IBoosterSource>> {
+	async $patch({id, ...booster}: UndefinableOptional<SourceInfer.Create<IBoosterSource>> & IWithIdentity): Promise<SourceInfer.Entity<IBoosterSource>> {
 		return this.updateKeywords(await this.prisma.booster.update({
 			where: {id},
 			data:  booster,
 		}));
 	}
 
-	async toImport(entity: ISourceEntity<IBoosterSource>): Promise<ISourceCreate<IBoosterSource> | undefined> {
+	async toImport(entity: SourceInfer.Entity<IBoosterSource>): Promise<SourceInfer.Create<IBoosterSource> | undefined> {
 		return {
 			vg:       entity.vg,
 			pg:       entity.vg,
@@ -84,18 +81,18 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		};
 	}
 
-	async createToId(booster: ISourceCreate<IBoosterSource>): Promise<{ id: string }> {
+	async createToId(booster: SourceInfer.Create<IBoosterSource>): Promise<{ id: string }> {
 		return this.prisma.booster.findFirstOrThrow({
 			select: {
 				id: true,
 			},
-			where: {
+			where:  {
 				hash: sha256(JSON.stringify(booster)),
 			},
 		});
 	}
 
-	async $remove(ids: string[]): Promise<ISourceEntity<IBoosterSource>[]> {
+	async $remove(ids: string[]): Promise<SourceInfer.Entity<IBoosterSource>[]> {
 		const where = {
 			id: {
 				in: ids,
@@ -110,7 +107,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		return items;
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IBoosterSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IBoosterSource>> {
 		return this.prisma.booster.findUniqueOrThrow({
 			where: {
 				id,
@@ -118,20 +115,20 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		});
 	}
 
-	async $query(query: ISourceQuery<IBoosterSource>): Promise<ISourceEntity<IBoosterSource>[]> {
+	async $query(query: SourceInfer.Query<IBoosterSource>): Promise<SourceInfer.Entity<IBoosterSource>[]> {
 		return this.prisma.booster.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
-	async $count(query: ISourceQuery<IBoosterSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IBoosterSource>): Promise<number> {
 		return this.prisma.booster.count({
 			where: this.withFilter(query),
 		});
 	}
 
-	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IBoosterSource>) {
+	withFilter({filter: {fulltext, ...filter} = {}}: SourceInfer.Query<IBoosterSource>) {
 		return merge(filter || {}, {
 			AND: (fulltext?.toLowerCase()?.split(/\s+/gi) || []).map(fragment => ({
 				BoosterKeyword: {

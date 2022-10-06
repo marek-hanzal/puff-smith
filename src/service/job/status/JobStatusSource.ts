@@ -3,9 +3,7 @@ import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import prisma             from "@/puff-smith/service/side-effect/prisma";
 import {
 	IJobStatus,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery
+	SourceInfer,
 }                         from "@leight-core/api";
 
 const items: IJobStatus[] = [
@@ -24,11 +22,11 @@ export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> impl
 		super("job.status", prisma);
 	}
 
-	async map(status: ISourceEntity<IJobStatusSource>): Promise<ISourceItem<IJobStatusSource>> {
+	async map(status: SourceInfer.Entity<IJobStatusSource>): Promise<SourceInfer.Item<IJobStatusSource>> {
 		return status;
 	}
 
-	async $query(query: ISourceQuery<IJobStatusSource>): Promise<ISourceEntity<IJobStatusSource>[]> {
+	async $query(query: SourceInfer.Query<IJobStatusSource>): Promise<SourceInfer.Entity<IJobStatusSource>[]> {
 		return items.map(status => ({
 			id:    status,
 			value: status,

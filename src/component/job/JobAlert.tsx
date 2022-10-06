@@ -1,6 +1,6 @@
 import {IJobQuery}      from "@/puff-smith/service/job/interface";
 import {useJobQuery}    from "@/sdk/api/job/query";
-import {IQueryFilter}   from "@leight-core/api";
+import {QueryInfer}     from "@leight-core/api";
 import {toHumanNumber}  from "@leight-core/utils";
 import {Alert}          from "antd";
 import {
@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 
 export interface IJobAlertProps extends Partial<ComponentProps<typeof Alert>> {
 	translation: string;
-	filter?: IQueryFilter<IJobQuery>;
+	filter?: QueryInfer.Filter<IJobQuery>;
 }
 
 export const JobAlert: FC<IJobAlertProps> = ({translation, filter, ...props}) => {

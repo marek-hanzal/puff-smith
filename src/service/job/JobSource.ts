@@ -9,11 +9,8 @@ import {
 	IJobProcessor,
 	IJobProgress,
 	IJobStatus,
-	IQueryFilter,
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery
+	QueryInfer,
+	SourceInfer,
 }                        from "@leight-core/api";
 import {
 	Logger,
@@ -30,14 +27,14 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		super("job", prisma);
 	}
 
-	async map(job: ISourceEntity<IJobSource>): Promise<ISourceItem<IJobSource>> {
+	async map(job: SourceInfer.Entity<IJobSource>): Promise<SourceInfer.Item<IJobSource>> {
 		return {
 			...job,
 			params: job.params && JSON.parse(job.params)
 		};
 	}
 
-	async $create(job: ISourceCreate<IJobSource>): Promise<ISourceEntity<IJobSource>> {
+	async $create(job: SourceInfer.Create<IJobSource>): Promise<SourceInfer.Entity<IJobSource>> {
 		return this.prisma.job.create({
 			data: {
 				...job,
@@ -53,13 +50,13 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		});
 	}
 
-	async $count({filter}: ISourceQuery<IJobSource>): Promise<number> {
+	async $count({filter}: SourceInfer.Query<IJobSource>): Promise<number> {
 		return this.prisma.job.count({
 			where: filter,
 		});
 	}
 
-	async $query({filter, orderBy, ...query}: ISourceQuery<IJobSource>): Promise<ISourceEntity<IJobSource>[]> {
+	async $query({filter, orderBy, ...query}: SourceInfer.Query<IJobSource>): Promise<SourceInfer.Entity<IJobSource>[]> {
 		return this.prisma.job.findMany({
 			where: filter,
 			orderBy,
@@ -67,7 +64,7 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		});
 	}
 
-	async cleanup(filter?: IQueryFilter<IJobQuery>): Promise<any> {
+	async cleanup(filter?: QueryInfer.Filter<IJobQuery>): Promise<any> {
 		return this.prisma.job.deleteMany(filter && {
 			where: filter,
 		});

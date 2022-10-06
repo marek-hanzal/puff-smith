@@ -6,11 +6,8 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
 	IWithIdentity,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
@@ -23,7 +20,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		super("base", prisma);
 	}
 
-	async map(base: ISourceEntity<IBaseSource>): Promise<ISourceItem<IBaseSource>> {
+	async map(base: SourceInfer.Entity<IBaseSource>): Promise<SourceInfer.Item<IBaseSource>> {
 		return {
 			...base,
 			nicotine: base.nicotine?.toNumber() || null,
@@ -59,7 +56,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		});
 	}
 
-	async $create(base: ISourceCreate<IBaseSource>): Promise<ISourceEntity<IBaseSource>> {
+	async $create(base: SourceInfer.Create<IBaseSource>): Promise<SourceInfer.Entity<IBaseSource>> {
 		return this.updateKeywords(await this.prisma.base.create({
 			data: {
 				...base,
@@ -68,14 +65,14 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		}));
 	}
 
-	async $patch({id, ...base}: UndefinableOptional<ISourceCreate<IBaseSource>> & IWithIdentity): Promise<ISourceEntity<IBaseSource>> {
+	async $patch({id, ...base}: UndefinableOptional<SourceInfer.Create<IBaseSource>> & IWithIdentity): Promise<SourceInfer.Entity<IBaseSource>> {
 		return this.updateKeywords(await this.prisma.base.update({
 			where: {id},
 			data:  base,
 		}));
 	}
 
-	async toImport(entity: ISourceEntity<IBaseSource>): Promise<ISourceCreate<IBaseSource> | undefined> {
+	async toImport(entity: SourceInfer.Entity<IBaseSource>): Promise<SourceInfer.Create<IBaseSource> | undefined> {
 		return {
 			vg:       entity.vg,
 			pg:       entity.vg,
@@ -83,18 +80,18 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		};
 	}
 
-	async createToId(base: ISourceCreate<IBaseSource>): Promise<{ id: string }> {
+	async createToId(base: SourceInfer.Create<IBaseSource>): Promise<{ id: string }> {
 		return this.prisma.base.findFirstOrThrow({
 			select: {
 				id: true,
 			},
-			where: {
+			where:  {
 				hash: sha256(JSON.stringify(base)),
 			},
 		});
 	}
 
-	async $remove(ids: string[]): Promise<ISourceEntity<IBaseSource>[]> {
+	async $remove(ids: string[]): Promise<SourceInfer.Entity<IBaseSource>[]> {
 		const where = {
 			id: {
 				in: ids,
@@ -109,7 +106,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		return items;
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IBaseSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IBaseSource>> {
 		return this.prisma.base.findUniqueOrThrow({
 			where: {
 				id,
@@ -117,20 +114,20 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		});
 	}
 
-	async $query(query: ISourceQuery<IBaseSource>): Promise<ISourceEntity<IBaseSource>[]> {
+	async $query(query: SourceInfer.Query<IBaseSource>): Promise<SourceInfer.Entity<IBaseSource>[]> {
 		return this.prisma.base.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
-	async $count(query: ISourceQuery<IBaseSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IBaseSource>): Promise<number> {
 		return this.prisma.base.count({
 			where: this.withFilter(query),
 		});
 	}
 
-	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IBaseSource>) {
+	withFilter({filter: {fulltext, ...filter} = {}}: SourceInfer.Query<IBaseSource>) {
 		return merge(filter || {}, {
 			AND: (fulltext?.toLowerCase()?.split(/\s+/gi) || []).map(fragment => ({
 				BaseKeyword: {

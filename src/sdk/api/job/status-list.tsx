@@ -4,12 +4,10 @@
 
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                         from "@leight-core/api";
 import {
 	BlockProvider,
@@ -59,24 +57,24 @@ export const StatusListCountApiLink = "/api/job/status-list/count";
 
 export type IStatusListQueryParams = any;
 
-export const useStatusListQuery      = createQueryHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
-export const useStatusListCountQuery = createQueryHook<ISourceQuery<IJobStatusSource>, number, IStatusListQueryParams>(StatusListCountApiLink, "post");
+export const useStatusListQuery      = createQueryHook<SourceInfer.Query<IJobStatusSource>, SourceInfer.Item<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListCountQuery = createQueryHook<SourceInfer.Query<IJobStatusSource>, number, IStatusListQueryParams>(StatusListCountApiLink, "post");
 
-export const useStatusListSource = () => useSourceContext<ISourceItem<IJobStatusSource>>();
+export const useStatusListSource = () => useSourceContext<SourceInfer.Item<IJobStatusSource>>();
 
-export interface IStatusListSourceContext extends ISourceContext<ISourceItem<IJobStatusSource>> {
+export interface IStatusListSourceContext extends ISourceContext<SourceInfer.Item<IJobStatusSource>> {
 }
 
-export interface IStatusListSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<IJobStatusSource>>> {
 }
 
 export const StatusListSourceConsumer: FC<IStatusListSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IStatusListProviderProps extends Partial<ISourceProviderProps<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<IJobStatusSource>>> {
 }
 
 export const StatusListProvider: FC<IStatusListProviderProps> = props => {
-	return <SourceProvider<ISourceItem<IJobStatusSource>>
+	return <SourceProvider<SourceInfer.Item<IJobStatusSource>>
 		name={"StatusList"}
 		useQuery={useStatusListQuery}
 		useCountQuery={useStatusListCountQuery}
@@ -87,18 +85,18 @@ export const StatusListProvider: FC<IStatusListProviderProps> = props => {
 export const toStatusListLink  = (queryParams?: IStatusListQueryParams) => toLink(StatusListApiLink, queryParams);
 export const useStatusListLink = () => toStatusListLink;
 
-export const useStatusListPromise = createPromiseHook<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
-export const StatusListPromise    = createPromise<ISourceQuery<IJobStatusSource>, ISourceItem<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const useStatusListPromise = createPromiseHook<SourceInfer.Query<IJobStatusSource>, SourceInfer.Item<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
+export const StatusListPromise    = createPromise<SourceInfer.Query<IJobStatusSource>, SourceInfer.Item<IJobStatusSource>[], IStatusListQueryParams>(StatusListApiLink, "post");
 
-export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>>> {
+export interface IStatusListFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>>> {
 }
 
-export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
+export const StatusListFilterProvider: FC<IStatusListFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>>();
+export const useStatusListFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>>();
 
-export interface IStatusListProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobStatusSource>>> {
+export interface IStatusListProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>> {
 }
 
 export const StatusListProviderFilter: FC<IStatusListProviderFilterProps> = props => <Filter
@@ -106,20 +104,21 @@ export const StatusListProviderFilter: FC<IStatusListProviderFilterProps> = prop
 	translation={"common.filter.StatusList"}
 />;
 
-export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>> {
+export interface IStatusListOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>>> {
 }
 
-export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
+export const StatusListOrderByProvider: FC<IStatusListOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
-export const useStatusListOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobStatusSource>>>();
+export const useStatusListOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>>();
+export const useStatusListOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>>();
 
-export interface IStatusListProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>, IStatusListQueryParams>> {
+export interface IStatusListProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>, QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>, IStatusListQueryParams>> {
 }
 
-export const StatusListProviderControl: FC<IStatusListProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IJobStatusSource>>, IQueryOrderBy<ISourceQuery<IJobStatusSource>>> name={"StatusList"} {...props}/>;
+export const StatusListProviderControl: FC<IStatusListProviderControlProps> = props =>
+	<SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<IJobStatusSource>>, QueryInfer.OrderBy<SourceInfer.Query<IJobStatusSource>>> name={"StatusList"} {...props}/>;
 
-export interface IStatusListTableSourceProps extends Partial<ITableProps<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListTableSourceProps extends Partial<ITableProps<SourceInfer.Item<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;
 }
 
@@ -128,14 +127,14 @@ export const StatusListTableSource: FC<IStatusListTableSourceProps> = ({provider
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<IJobStatusSource>>
+		<Table<SourceInfer.Item<IJobStatusSource>>
 			translation={StatusListApiLink}
 			{...props}
 		/>
 	</StatusListProvider>;
 }
 
-export interface IStatusListListSourceProps extends Partial<IListProps<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListListSourceProps extends Partial<IListProps<SourceInfer.Item<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;
 }
 
@@ -144,13 +143,13 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({providerPr
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<IJobStatusSource>>
+		<List<SourceInfer.Item<IJobStatusSource>>
 			{...props}
 		/>
 	</StatusListProvider>;
 }
 
-export interface IStatusListInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;
 }
 
@@ -159,7 +158,7 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<IJobStatusSource>>
+		<InfiniteList<SourceInfer.Item<IJobStatusSource>>
 			translation={{
 				namespace: StatusListApiLink,
 			}}
@@ -168,22 +167,22 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 	</StatusListProvider>;
 }
 
-export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobStatusSource>> {
-	toOption: IToOptionMapper<ISourceItem<IJobStatusSource>>;
+export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IJobStatusSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<IJobStatusSource>>;
 	providerProps?: Partial<IStatusListProviderProps>;
 }
 
 export const StatusListSourceSelect: FC<IStatusListSourceSelectProps> = ({providerProps, ...props}) => {
 	return <StatusListProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<IJobStatusSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<IJobStatusSource>> {...props}/>
 	</StatusListProvider>;
 };
 
-export interface IStatusListSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IJobStatusSource>>> {
+export interface IStatusListSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<IJobStatusSource>>> {
 }
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IJobStatusSource>> {...props}/>
+	return <SelectionProvider<SourceInfer.Item<IJobStatusSource>> {...props}/>;
 }
 
 export const useStatusListCountQueryInvalidate = () => {
@@ -199,18 +198,18 @@ export const useStatusListQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobStatusSource>>();
-export const useStatusListSelectionContext = () => useSelectionContext<ISourceItem<IJobStatusSource>>();
+export const useStatusListOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<IJobStatusSource>>();
+export const useStatusListSelectionContext         = () => useSelectionContext<SourceInfer.Item<IJobStatusSource>>();
 
-export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobStatusSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface IStatusListDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<IJobStatusSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<IJobStatusSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<IJobStatusSource>>
 			sourceProviderProps={{
-				name: "StatusList",
-				useQuery: useStatusListQuery,
+				name:          "StatusList",
+				useQuery:      useStatusListQuery,
 				useCountQuery: useStatusListCountQuery,
 			}}
 			toClear={() => undefined}

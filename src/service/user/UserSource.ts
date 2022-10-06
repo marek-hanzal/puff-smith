@@ -2,10 +2,8 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {IUserSource}     from "@/puff-smith/service/user/interface";
 import {
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
-	IUser
+	IUser,
+	SourceInfer
 }                        from "@leight-core/api";
 import {
 	pageOf,
@@ -20,7 +18,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 		super("user", prisma);
 	}
 
-	async map({UserToken, name, id, image, email}: ISourceEntity<IUserSource>): Promise<ISourceItem<IUserSource>> {
+	async map({UserToken, name, id, image, email}: SourceInfer.Entity<IUserSource>): Promise<SourceInfer.Item<IUserSource>> {
 		let tokens     = UserToken?.map(({token}) => token) || [];
 		const tokenIds = UserToken?.map(({token}) => token.id) || [];
 		// for (const {certificate} of UserCertificate) {
@@ -45,7 +43,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 		};
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IUserSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IUserSource>> {
 		return this.prisma.user.findUniqueOrThrow({
 			where:   {id},
 			include: {
@@ -92,11 +90,11 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 		});
 	}
 
-	async $count(query: ISourceQuery<IUserSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IUserSource>): Promise<number> {
 		return this.prisma.user.count({});
 	}
 
-	async $query({orderBy, ...query}: ISourceQuery<IUserSource>): Promise<ISourceEntity<IUserSource>[]> {
+	async $query({orderBy, ...query}: SourceInfer.Query<IUserSource>): Promise<SourceInfer.Entity<IUserSource>[]> {
 		return this.prisma.user.findMany({
 			orderBy,
 			include: {

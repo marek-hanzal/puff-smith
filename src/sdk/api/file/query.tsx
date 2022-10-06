@@ -4,12 +4,10 @@
 
 import {IFileSource}    from "@/puff-smith/service/file/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const FileApiLink = "/api/file/query";
+export const FileApiLink      = "/api/file/query";
 export const FileCountApiLink = "/api/file/query/count";
 
 export type IFileQueryParams = any;
 
-export const useFileQuery = createQueryHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
-export const useFileCountQuery = createQueryHook<ISourceQuery<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");
+export const useFileQuery      = createQueryHook<SourceInfer.Query<IFileSource>, SourceInfer.Item<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const useFileCountQuery = createQueryHook<SourceInfer.Query<IFileSource>, number, IFileQueryParams>(FileCountApiLink, "post");
 
-export const useFileSource = () => useSourceContext<ISourceItem<IFileSource>>();
+export const useFileSource = () => useSourceContext<SourceInfer.Item<IFileSource>>();
 
-export interface IFileSourceContext extends ISourceContext<ISourceItem<IFileSource>> {
+export interface IFileSourceContext extends ISourceContext<SourceInfer.Item<IFileSource>> {
 }
 
-export interface IFileSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IFileSource>>> {
+export interface IFileSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<IFileSource>>> {
 }
 
 export const FileSourceConsumer: FC<IFileSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IFileProviderProps extends Partial<ISourceProviderProps<ISourceItem<IFileSource>>> {
+export interface IFileProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<IFileSource>>> {
 }
 
 export const FileProvider: FC<IFileProviderProps> = props => {
-	return <SourceProvider<ISourceItem<IFileSource>>
+	return <SourceProvider<SourceInfer.Item<IFileSource>>
 		name={"File"}
 		useQuery={useFileQuery}
 		useCountQuery={useFileCountQuery}
@@ -87,18 +85,18 @@ export const FileProvider: FC<IFileProviderProps> = props => {
 export const toFileLink  = (queryParams?: IFileQueryParams) => toLink(FileApiLink, queryParams);
 export const useFileLink = () => toFileLink;
 
-export const useFilePromise = createPromiseHook<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
-export const FilePromise    = createPromise<ISourceQuery<IFileSource>, ISourceItem<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const useFilePromise = createPromiseHook<SourceInfer.Query<IFileSource>, SourceInfer.Item<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
+export const FilePromise    = createPromise<SourceInfer.Query<IFileSource>, SourceInfer.Item<IFileSource>[], IFileQueryParams>(FileApiLink, "post");
 
-export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IFileSource>>>> {
+export interface IFileFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<IFileSource>>>> {
 }
 
-export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
+export const FileFilterProvider: FC<IFileFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
-export const useFileFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IFileSource>>>();
+export const useFileOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<IFileSource>>>();
+export const useFileFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<IFileSource>>>();
 
-export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IFileSource>>> {
+export interface IFileProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<IFileSource>>> {
 }
 
 export const FileProviderFilter: FC<IFileProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const FileProviderFilter: FC<IFileProviderFilterProps> = props => <Filter
 	translation={"common.filter.File"}
 />;
 
-export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IFileSource>>>> {
+export interface IFileOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>>> {
 }
 
-export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
+export const FileOrderByProvider: FC<IFileOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>> name={"File"} {...props}/>;
 
-export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
-export const useFileOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IFileSource>>>();
+export const useFileOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>>();
+export const useFileOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>>();
 
-export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>, IFileQueryParams>> {
+export interface IFileProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<IFileSource>>, QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>, IFileQueryParams>> {
 }
 
-export const FileProviderControl: FC<IFileProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IFileSource>>, IQueryOrderBy<ISourceQuery<IFileSource>>> name={"File"} {...props}/>;
+export const FileProviderControl: FC<IFileProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<IFileSource>>, QueryInfer.OrderBy<SourceInfer.Query<IFileSource>>> name={"File"} {...props}/>;
 
-export interface IFileTableSourceProps extends Partial<ITableProps<ISourceItem<IFileSource>>> {
+export interface IFileTableSourceProps extends Partial<ITableProps<SourceInfer.Item<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const FileTableSource: FC<IFileTableSourceProps> = ({providerProps, ...pr
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<IFileSource>>
+		<Table<SourceInfer.Item<IFileSource>>
 			translation={FileApiLink}
 			{...props}
 		/>
 	</FileProvider>;
 }
 
-export interface IFileListSourceProps extends Partial<IListProps<ISourceItem<IFileSource>>> {
+export interface IFileListSourceProps extends Partial<IListProps<SourceInfer.Item<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...prop
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<IFileSource>>
+		<List<SourceInfer.Item<IFileSource>>
 			{...props}
 		/>
 	</FileProvider>;
 }
 
-export interface IFileInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IFileSource>>> {
+export interface IFileInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<IFileSource>>
+		<InfiniteList<SourceInfer.Item<IFileSource>>
 			translation={{
 				namespace: FileApiLink,
 			}}
@@ -168,22 +166,22 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 	</FileProvider>;
 }
 
-export interface IFileSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IFileSource>> {
-	toOption: IToOptionMapper<ISourceItem<IFileSource>>;
+export interface IFileSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IFileSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<IFileSource>>;
 	providerProps?: Partial<IFileProviderProps>;
 }
 
 export const FileSourceSelect: FC<IFileSourceSelectProps> = ({providerProps, ...props}) => {
 	return <FileProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<IFileSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<IFileSource>> {...props}/>
 	</FileProvider>;
 };
 
-export interface IFileSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IFileSource>>> {
+export interface IFileSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<IFileSource>>> {
 }
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IFileSource>> {...props}/>
+	return <SelectionProvider<SourceInfer.Item<IFileSource>> {...props}/>;
 }
 
 export const useFileCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useFileQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IFileSource>>();
-export const useFileSelectionContext = () => useSelectionContext<ISourceItem<IFileSource>>();
+export const useFileOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<IFileSource>>();
+export const useFileSelectionContext         = () => useSelectionContext<SourceInfer.Item<IFileSource>>();
 
-export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IFileSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface IFileDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<IFileSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<IFileSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<IFileSource>>
 			sourceProviderProps={{
-				name: "File",
-				useQuery: useFileQuery,
+				name:          "File",
+				useQuery:      useFileQuery,
 				useCountQuery: useFileCountQuery,
 			}}
 			toClear={() => undefined}

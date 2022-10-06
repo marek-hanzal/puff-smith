@@ -4,12 +4,10 @@
 
 import {IAromaSource}   from "@/puff-smith/service/aroma/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const AromaApiLink = "/api/aroma/query";
+export const AromaApiLink      = "/api/aroma/query";
 export const AromaCountApiLink = "/api/aroma/query/count";
 
 export type IAromaQueryParams = any;
 
-export const useAromaQuery = createQueryHook<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
-export const useAromaCountQuery = createQueryHook<ISourceQuery<IAromaSource>, number, IAromaQueryParams>(AromaCountApiLink, "post");
+export const useAromaQuery      = createQueryHook<SourceInfer.Query<IAromaSource>, SourceInfer.Item<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaCountQuery = createQueryHook<SourceInfer.Query<IAromaSource>, number, IAromaQueryParams>(AromaCountApiLink, "post");
 
-export const useAromaSource = () => useSourceContext<ISourceItem<IAromaSource>>();
+export const useAromaSource = () => useSourceContext<SourceInfer.Item<IAromaSource>>();
 
-export interface IAromaSourceContext extends ISourceContext<ISourceItem<IAromaSource>> {
+export interface IAromaSourceContext extends ISourceContext<SourceInfer.Item<IAromaSource>> {
 }
 
-export interface IAromaSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IAromaSource>>> {
+export interface IAromaSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<IAromaSource>>> {
 }
 
 export const AromaSourceConsumer: FC<IAromaSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IAromaProviderProps extends Partial<ISourceProviderProps<ISourceItem<IAromaSource>>> {
+export interface IAromaProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<IAromaSource>>> {
 }
 
 export const AromaProvider: FC<IAromaProviderProps> = props => {
-	return <SourceProvider<ISourceItem<IAromaSource>>
+	return <SourceProvider<SourceInfer.Item<IAromaSource>>
 		name={"Aroma"}
 		useQuery={useAromaQuery}
 		useCountQuery={useAromaCountQuery}
@@ -87,18 +85,18 @@ export const AromaProvider: FC<IAromaProviderProps> = props => {
 export const toAromaLink  = (queryParams?: IAromaQueryParams) => toLink(AromaApiLink, queryParams);
 export const useAromaLink = () => toAromaLink;
 
-export const useAromaPromise = createPromiseHook<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
-export const AromaPromise    = createPromise<ISourceQuery<IAromaSource>, ISourceItem<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
+export const useAromaPromise = createPromiseHook<SourceInfer.Query<IAromaSource>, SourceInfer.Item<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
+export const AromaPromise    = createPromise<SourceInfer.Query<IAromaSource>, SourceInfer.Item<IAromaSource>[], IAromaQueryParams>(AromaApiLink, "post");
 
-export interface IAromaFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IAromaSource>>>> {
+export interface IAromaFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>>> {
 }
 
-export const AromaFilterProvider: FC<IAromaFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IAromaSource>>> name={"Aroma"} {...props}/>;
+export const AromaFilterProvider: FC<IAromaFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>> name={"Aroma"} {...props}/>;
 
-export const useAromaOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IAromaSource>>>();
-export const useAromaFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IAromaSource>>>();
+export const useAromaOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>>();
+export const useAromaFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>>();
 
-export interface IAromaProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IAromaSource>>> {
+export interface IAromaProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>> {
 }
 
 export const AromaProviderFilter: FC<IAromaProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const AromaProviderFilter: FC<IAromaProviderFilterProps> = props => <Filt
 	translation={"common.filter.Aroma"}
 />;
 
-export interface IAromaOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IAromaSource>>>> {
+export interface IAromaOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>>> {
 }
 
-export const AromaOrderByProvider: FC<IAromaOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IAromaSource>>> name={"Aroma"} {...props}/>;
+export const AromaOrderByProvider: FC<IAromaOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>> name={"Aroma"} {...props}/>;
 
-export const useAromaOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IAromaSource>>>();
-export const useAromaOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IAromaSource>>>();
+export const useAromaOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>>();
+export const useAromaOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>>();
 
-export interface IAromaProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IAromaSource>>, IQueryOrderBy<ISourceQuery<IAromaSource>>, IAromaQueryParams>> {
+export interface IAromaProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>, QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>, IAromaQueryParams>> {
 }
 
-export const AromaProviderControl: FC<IAromaProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IAromaSource>>, IQueryOrderBy<ISourceQuery<IAromaSource>>> name={"Aroma"} {...props}/>;
+export const AromaProviderControl: FC<IAromaProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<IAromaSource>>, QueryInfer.OrderBy<SourceInfer.Query<IAromaSource>>> name={"Aroma"} {...props}/>;
 
-export interface IAromaTableSourceProps extends Partial<ITableProps<ISourceItem<IAromaSource>>> {
+export interface IAromaTableSourceProps extends Partial<ITableProps<SourceInfer.Item<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const AromaTableSource: FC<IAromaTableSourceProps> = ({providerProps, ...
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<IAromaSource>>
+		<Table<SourceInfer.Item<IAromaSource>>
 			translation={AromaApiLink}
 			{...props}
 		/>
 	</AromaProvider>;
 }
 
-export interface IAromaListSourceProps extends Partial<IListProps<ISourceItem<IAromaSource>>> {
+export interface IAromaListSourceProps extends Partial<IListProps<SourceInfer.Item<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const AromaListSource: FC<IAromaListSourceProps> = ({providerProps, ...pr
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<IAromaSource>>
+		<List<SourceInfer.Item<IAromaSource>>
 			{...props}
 		/>
 	</AromaProvider>;
 }
 
-export interface IAromaInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IAromaSource>>> {
+export interface IAromaInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<IAromaSource>>
+		<InfiniteList<SourceInfer.Item<IAromaSource>>
 			translation={{
 				namespace: AromaApiLink,
 			}}
@@ -168,22 +166,22 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 	</AromaProvider>;
 }
 
-export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IAromaSource>> {
-	toOption: IToOptionMapper<ISourceItem<IAromaSource>>;
+export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IAromaSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<IAromaSource>>;
 	providerProps?: Partial<IAromaProviderProps>;
 }
 
 export const AromaSourceSelect: FC<IAromaSourceSelectProps> = ({providerProps, ...props}) => {
 	return <AromaProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<IAromaSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<IAromaSource>> {...props}/>
 	</AromaProvider>;
 };
 
-export interface IAromaSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IAromaSource>>> {
+export interface IAromaSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<IAromaSource>>> {
 }
 
 export const AromaSelectionProvider: FC<IAromaSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IAromaSource>> {...props}/>;
+	return <SelectionProvider<SourceInfer.Item<IAromaSource>> {...props}/>;
 }
 
 export const useAromaCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useAromaQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useAromaOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IAromaSource>>();
-export const useAromaSelectionContext = () => useSelectionContext<ISourceItem<IAromaSource>>();
+export const useAromaOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<IAromaSource>>();
+export const useAromaSelectionContext         = () => useSelectionContext<SourceInfer.Item<IAromaSource>>();
 
-export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IAromaSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface IAromaDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<IAromaSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const AromaDrawerItem: FC<IAromaDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<IAromaSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<IAromaSource>>
 			sourceProviderProps={{
-				name: "Aroma",
-				useQuery: useAromaQuery,
+				name:          "Aroma",
+				useQuery:      useAromaQuery,
 				useCountQuery: useAromaCountQuery,
 			}}
 			toClear={() => undefined}

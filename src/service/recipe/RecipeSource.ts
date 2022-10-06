@@ -6,11 +6,8 @@ import {
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
 	IWithIdentity,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
@@ -23,7 +20,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		super("recipe", prisma);
 	}
 
-	async map({base, booster, ...recipe}: ISourceEntity<IRecipeSource>): Promise<ISourceItem<IRecipeSource>> {
+	async map({base, booster, ...recipe}: SourceInfer.Entity<IRecipeSource>): Promise<SourceInfer.Item<IRecipeSource>> {
 		return this.container.useBaseSource(async baseSource => {
 			return this.container.useBoosterSource(async boosterSource => {
 				return {
@@ -75,12 +72,12 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async $create({base, booster, ...recipe}: ISourceCreate<IRecipeSource>): Promise<ISourceEntity<IRecipeSource>> {
+	async $create({base, booster, ...recipe}: SourceInfer.Create<IRecipeSource>): Promise<SourceInfer.Entity<IRecipeSource>> {
 		return this.container.useBaseSource(async baseSource => {
 			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
 				return this.updateKeywords(await this.prisma.recipe.create({
-					data:    {
+					data: {
 						...recipe,
 						hash,
 						base:    base ? {
@@ -108,7 +105,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async $patch({id, base, booster, ...recipe}: UndefinableOptional<ISourceCreate<IRecipeSource>> & IWithIdentity): Promise<ISourceEntity<IRecipeSource>> {
+	async $patch({id, base, booster, ...recipe}: UndefinableOptional<SourceInfer.Create<IRecipeSource>> & IWithIdentity): Promise<SourceInfer.Entity<IRecipeSource>> {
 		return this.container.useBaseSource(async baseSource => {
 			return this.container.useBoosterSource(async boosterSource => {
 				const hash = sha256(JSON.stringify({base, booster, ...recipe}));
@@ -137,18 +134,18 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async createToId({base, booster, ...recipe}: ISourceCreate<IRecipeSource>): Promise<{ id: string }> {
+	async createToId({base, booster, ...recipe}: SourceInfer.Create<IRecipeSource>): Promise<{ id: string }> {
 		return this.prisma.recipe.findFirstOrThrow({
 			select: {
 				id: true,
 			},
-			where: {
+			where:  {
 				hash: sha256(JSON.stringify({base, booster, ...recipe})),
 			},
 		});
 	}
 
-	async $remove(ids: string[]): Promise<ISourceEntity<IRecipeSource>[]> {
+	async $remove(ids: string[]): Promise<SourceInfer.Entity<IRecipeSource>[]> {
 		const where = {
 			id: {
 				in: ids,
@@ -167,7 +164,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		return items;
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IRecipeSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IRecipeSource>> {
 		return this.prisma.recipe.findUniqueOrThrow({
 			where:   {
 				id,
@@ -179,7 +176,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async $query(query: ISourceQuery<IRecipeSource>): Promise<ISourceEntity<IRecipeSource>[]> {
+	async $query(query: SourceInfer.Query<IRecipeSource>): Promise<SourceInfer.Entity<IRecipeSource>[]> {
 		return this.prisma.recipe.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
@@ -190,13 +187,13 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async $count(query: ISourceQuery<IRecipeSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IRecipeSource>): Promise<number> {
 		return this.prisma.recipe.count({
 			where: this.withFilter(query),
 		});
 	}
 
-	withFilter({filter: {fulltext, ...filter} = {}}: ISourceQuery<IRecipeSource>) {
+	withFilter({filter: {fulltext, ...filter} = {}}: SourceInfer.Query<IRecipeSource>) {
 		return merge(filter || {}, {
 			AND: (fulltext?.toLowerCase()?.split(/\s+/gi) || []).map(fragment => ({
 				RecipeKeyword: {

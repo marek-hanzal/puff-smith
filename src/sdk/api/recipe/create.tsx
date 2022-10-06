@@ -3,10 +3,7 @@
  */
 
 import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {
-	ISourceCreate,
-	ISourceItem
-}                      from "@leight-core/api";
+import {SourceInfer}   from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -23,29 +20,29 @@ export const RecipeCreateApiLink = "/api/recipe/create";
 
 export type IRecipeCreateQueryParams = any;
 
-export const useRecipeCreateMutation = createMutationHook<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>(RecipeCreateApiLink, "post");
+export const useRecipeCreateMutation = createMutationHook<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>(RecipeCreateApiLink, "post");
 
-export interface IRecipeCreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>> {
+export interface IRecipeCreateDefaultFormProps extends Partial<IFormProps<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>> {
 }
 
-export const RecipeCreateDefaultForm: FC<IRecipeCreateDefaultFormProps> = props => <Form<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>
+export const RecipeCreateDefaultForm: FC<IRecipeCreateDefaultFormProps> = props => <Form<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>
+/>;
 
-export interface IRecipeCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>> {
+export interface IRecipeCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>> {
 }
 
-export const RecipeCreateDefaultMobileForm: FC<IRecipeCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>
+export const RecipeCreateDefaultMobileForm: FC<IRecipeCreateDefaultMobileFormProps> = props => <MobileForm<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>
+/>;
 
 export const toRecipeCreateLink = (queryParams?: IRecipeCreateQueryParams) => toLink(RecipeCreateApiLink, queryParams);
 export const useRecipeCreateLink = () => toRecipeCreateLink;
 
-export const useRecipeCreatePromise = createPromiseHook<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>(RecipeCreateApiLink, "post");
+export const useRecipeCreatePromise = createPromiseHook<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>(RecipeCreateApiLink, "post");
 
-export const RecipeCreatePromise = createPromise<ISourceCreate<IRecipeSource>, ISourceItem<IRecipeSource>>(RecipeCreateApiLink, "post");
+export const RecipeCreatePromise = createPromise<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>(RecipeCreateApiLink, "post");

@@ -4,12 +4,10 @@
 
 import {IRecipeSource}  from "@/puff-smith/service/recipe/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const RecipeApiLink = "/api/recipe/query";
+export const RecipeApiLink      = "/api/recipe/query";
 export const RecipeCountApiLink = "/api/recipe/query/count";
 
 export type IRecipeQueryParams = any;
 
-export const useRecipeQuery = createQueryHook<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
-export const useRecipeCountQuery = createQueryHook<ISourceQuery<IRecipeSource>, number, IRecipeQueryParams>(RecipeCountApiLink, "post");
+export const useRecipeQuery      = createQueryHook<SourceInfer.Query<IRecipeSource>, SourceInfer.Item<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
+export const useRecipeCountQuery = createQueryHook<SourceInfer.Query<IRecipeSource>, number, IRecipeQueryParams>(RecipeCountApiLink, "post");
 
-export const useRecipeSource = () => useSourceContext<ISourceItem<IRecipeSource>>();
+export const useRecipeSource = () => useSourceContext<SourceInfer.Item<IRecipeSource>>();
 
-export interface IRecipeSourceContext extends ISourceContext<ISourceItem<IRecipeSource>> {
+export interface IRecipeSourceContext extends ISourceContext<SourceInfer.Item<IRecipeSource>> {
 }
 
-export interface IRecipeSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IRecipeSource>>> {
+export interface IRecipeSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<IRecipeSource>>> {
 }
 
 export const RecipeSourceConsumer: FC<IRecipeSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IRecipeProviderProps extends Partial<ISourceProviderProps<ISourceItem<IRecipeSource>>> {
+export interface IRecipeProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<IRecipeSource>>> {
 }
 
 export const RecipeProvider: FC<IRecipeProviderProps> = props => {
-	return <SourceProvider<ISourceItem<IRecipeSource>>
+	return <SourceProvider<SourceInfer.Item<IRecipeSource>>
 		name={"Recipe"}
 		useQuery={useRecipeQuery}
 		useCountQuery={useRecipeCountQuery}
@@ -87,18 +85,18 @@ export const RecipeProvider: FC<IRecipeProviderProps> = props => {
 export const toRecipeLink  = (queryParams?: IRecipeQueryParams) => toLink(RecipeApiLink, queryParams);
 export const useRecipeLink = () => toRecipeLink;
 
-export const useRecipePromise = createPromiseHook<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
-export const RecipePromise    = createPromise<ISourceQuery<IRecipeSource>, ISourceItem<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
+export const useRecipePromise = createPromiseHook<SourceInfer.Query<IRecipeSource>, SourceInfer.Item<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
+export const RecipePromise    = createPromise<SourceInfer.Query<IRecipeSource>, SourceInfer.Item<IRecipeSource>[], IRecipeQueryParams>(RecipeApiLink, "post");
 
-export interface IRecipeFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IRecipeSource>>>> {
+export interface IRecipeFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>>> {
 }
 
-export const RecipeFilterProvider: FC<IRecipeFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IRecipeSource>>> name={"Recipe"} {...props}/>;
+export const RecipeFilterProvider: FC<IRecipeFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>> name={"Recipe"} {...props}/>;
 
-export const useRecipeOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IRecipeSource>>>();
-export const useRecipeFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IRecipeSource>>>();
+export const useRecipeOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>>();
+export const useRecipeFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>>();
 
-export interface IRecipeProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IRecipeSource>>> {
+export interface IRecipeProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>> {
 }
 
 export const RecipeProviderFilter: FC<IRecipeProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const RecipeProviderFilter: FC<IRecipeProviderFilterProps> = props => <Fi
 	translation={"common.filter.Recipe"}
 />;
 
-export interface IRecipeOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IRecipeSource>>>> {
+export interface IRecipeOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>>> {
 }
 
-export const RecipeOrderByProvider: FC<IRecipeOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IRecipeSource>>> name={"Recipe"} {...props}/>;
+export const RecipeOrderByProvider: FC<IRecipeOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>> name={"Recipe"} {...props}/>;
 
-export const useRecipeOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IRecipeSource>>>();
-export const useRecipeOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IRecipeSource>>>();
+export const useRecipeOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>>();
+export const useRecipeOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>>();
 
-export interface IRecipeProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IRecipeSource>>, IQueryOrderBy<ISourceQuery<IRecipeSource>>, IRecipeQueryParams>> {
+export interface IRecipeProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>, QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>, IRecipeQueryParams>> {
 }
 
-export const RecipeProviderControl: FC<IRecipeProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IRecipeSource>>, IQueryOrderBy<ISourceQuery<IRecipeSource>>> name={"Recipe"} {...props}/>;
+export const RecipeProviderControl: FC<IRecipeProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<IRecipeSource>>, QueryInfer.OrderBy<SourceInfer.Query<IRecipeSource>>> name={"Recipe"} {...props}/>;
 
-export interface IRecipeTableSourceProps extends Partial<ITableProps<ISourceItem<IRecipeSource>>> {
+export interface IRecipeTableSourceProps extends Partial<ITableProps<SourceInfer.Item<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const RecipeTableSource: FC<IRecipeTableSourceProps> = ({providerProps, .
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<IRecipeSource>>
+		<Table<SourceInfer.Item<IRecipeSource>>
 			translation={RecipeApiLink}
 			{...props}
 		/>
 	</RecipeProvider>;
 }
 
-export interface IRecipeListSourceProps extends Partial<IListProps<ISourceItem<IRecipeSource>>> {
+export interface IRecipeListSourceProps extends Partial<IListProps<SourceInfer.Item<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const RecipeListSource: FC<IRecipeListSourceProps> = ({providerProps, ...
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<IRecipeSource>>
+		<List<SourceInfer.Item<IRecipeSource>>
 			{...props}
 		/>
 	</RecipeProvider>;
 }
 
-export interface IRecipeInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IRecipeSource>>> {
+export interface IRecipeInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const RecipeInfiniteListSource: FC<IRecipeInfiniteListSourceProps> = ({pr
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<IRecipeSource>>
+		<InfiniteList<SourceInfer.Item<IRecipeSource>>
 			translation={{
 				namespace: RecipeApiLink,
 			}}
@@ -168,22 +166,22 @@ export const RecipeInfiniteListSource: FC<IRecipeInfiniteListSourceProps> = ({pr
 	</RecipeProvider>;
 }
 
-export interface IRecipeSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IRecipeSource>> {
-	toOption: IToOptionMapper<ISourceItem<IRecipeSource>>;
+export interface IRecipeSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IRecipeSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<IRecipeSource>>;
 	providerProps?: Partial<IRecipeProviderProps>;
 }
 
 export const RecipeSourceSelect: FC<IRecipeSourceSelectProps> = ({providerProps, ...props}) => {
 	return <RecipeProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<IRecipeSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<IRecipeSource>> {...props}/>
 	</RecipeProvider>;
 };
 
-export interface IRecipeSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IRecipeSource>>> {
+export interface IRecipeSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<IRecipeSource>>> {
 }
 
 export const RecipeSelectionProvider: FC<IRecipeSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IRecipeSource>> {...props}/>;
+	return <SelectionProvider<SourceInfer.Item<IRecipeSource>> {...props}/>;
 }
 
 export const useRecipeCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useRecipeQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useRecipeOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IRecipeSource>>();
-export const useRecipeSelectionContext = () => useSelectionContext<ISourceItem<IRecipeSource>>();
+export const useRecipeOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<IRecipeSource>>();
+export const useRecipeSelectionContext         = () => useSelectionContext<SourceInfer.Item<IRecipeSource>>();
 
-export interface IRecipeDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IRecipeSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface IRecipeDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<IRecipeSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const RecipeDrawerItem: FC<IRecipeDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<IRecipeSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<IRecipeSource>>
 			sourceProviderProps={{
-				name: "Recipe",
-				useQuery: useRecipeQuery,
+				name:          "Recipe",
+				useQuery:      useRecipeQuery,
 				useCountQuery: useRecipeCountQuery,
 			}}
 			toClear={() => undefined}

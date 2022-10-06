@@ -3,10 +3,7 @@
  */
 
 import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
-import {
-	ISourceItem,
-	ISourcePatch
-}                      from "@leight-core/api";
+import {SourceInfer}   from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -23,29 +20,29 @@ export const LiquidPatchApiLink = "/api/liquid/patch";
 
 export type ILiquidPatchQueryParams = any;
 
-export const useLiquidPatchMutation = createMutationHook<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>(LiquidPatchApiLink, "post");
+export const useLiquidPatchMutation = createMutationHook<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>(LiquidPatchApiLink, "post");
 
-export interface ILiquidPatchDefaultFormProps extends Partial<IFormProps<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>> {
+export interface ILiquidPatchDefaultFormProps extends Partial<IFormProps<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>> {
 }
 
-export const LiquidPatchDefaultForm: FC<ILiquidPatchDefaultFormProps> = props => <Form<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>
+export const LiquidPatchDefaultForm: FC<ILiquidPatchDefaultFormProps> = props => <Form<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>
+/>;
 
-export interface ILiquidPatchDefaultMobileFormProps extends Partial<IMobileFormProps<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>> {
+export interface ILiquidPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>> {
 }
 
-export const LiquidPatchDefaultMobileForm: FC<ILiquidPatchDefaultMobileFormProps> = props => <MobileForm<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>
+export const LiquidPatchDefaultMobileForm: FC<ILiquidPatchDefaultMobileFormProps> = props => <MobileForm<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>
+/>;
 
 export const toLiquidPatchLink = (queryParams?: ILiquidPatchQueryParams) => toLink(LiquidPatchApiLink, queryParams);
 export const useLiquidPatchLink = () => toLiquidPatchLink;
 
-export const useLiquidPatchPromise = createPromiseHook<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>(LiquidPatchApiLink, "post");
+export const useLiquidPatchPromise = createPromiseHook<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>(LiquidPatchApiLink, "post");
 
-export const LiquidPatchPromise = createPromise<ISourcePatch<ILiquidSource>, ISourceItem<ILiquidSource>>(LiquidPatchApiLink, "post");
+export const LiquidPatchPromise = createPromise<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>(LiquidPatchApiLink, "post");

@@ -2,10 +2,8 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IKeywordSource}  from "@/puff-smith/service/keyword/interface";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
 	IWithIdentity,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 
@@ -16,11 +14,11 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 		super("keyword", prisma);
 	}
 
-	async map(keyword: ISourceEntity<IKeywordSource>): Promise<ISourceItem<IKeywordSource>> {
+	async map(keyword: SourceInfer.Entity<IKeywordSource>): Promise<SourceInfer.Item<IKeywordSource>> {
 		return keyword;
 	}
 
-	async $create({text}: ISourceCreate<IKeywordSource>): Promise<ISourceEntity<IKeywordSource>> {
+	async $create({text}: SourceInfer.Create<IKeywordSource>): Promise<SourceInfer.Entity<IKeywordSource>> {
 		return this.prisma.keyword.create({
 			data: {
 				text: `${text}`,
@@ -28,13 +26,13 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 		});
 	}
 
-	async $patch({id}: UndefinableOptional<ISourceCreate<IKeywordSource>> & IWithIdentity): Promise<ISourceEntity<IKeywordSource>> {
+	async $patch({id}: UndefinableOptional<SourceInfer.Create<IKeywordSource>> & IWithIdentity): Promise<SourceInfer.Entity<IKeywordSource>> {
 		return this.prisma.keyword.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
-	async createToId({text}: ISourceCreate<IKeywordSource>): Promise<{ id: string }> {
+	async createToId({text}: SourceInfer.Create<IKeywordSource>): Promise<{ id: string }> {
 		return this.prisma.keyword.findUniqueOrThrow({
 			where: {text: `${text}`},
 		});

@@ -4,8 +4,8 @@ import {
 	IJobProcessor,
 	IJobProgress,
 	IQuery,
-	IQueryFilter,
-	ISource
+	ISource,
+	QueryInfer
 }                       from "@leight-core/api";
 import {
 	Job,
@@ -38,7 +38,7 @@ export interface IJobSource extends ISource<IJobCreate, IJobEntity, IJob, IJobQu
 
 	commit(): Promise<any>;
 
-	cleanup(filter?: IQueryFilter<IJobQuery>): Promise<any>;
+	cleanup(filter?: QueryInfer.Filter<IJobQuery>): Promise<any>;
 
 	processor<TParams>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>, queue?: (options?: ConstructorParameters<typeof PQueue>[0]) => PQueue): IJobProcessor<TParams>;
 }

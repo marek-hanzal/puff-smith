@@ -3,10 +3,7 @@
  */
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {
-	ISourceCreate,
-	ISourceItem
-}                           from "@leight-core/api";
+import {SourceInfer}        from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -23,29 +20,29 @@ export const TranslationCreateApiLink = "/api/translation/create";
 
 export type ITranslationCreateQueryParams = any;
 
-export const useTranslationCreateMutation = createMutationHook<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>(TranslationCreateApiLink, "post");
+export const useTranslationCreateMutation = createMutationHook<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>(TranslationCreateApiLink, "post");
 
-export interface ITranslationCreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>> {
+export interface ITranslationCreateDefaultFormProps extends Partial<IFormProps<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>> {
 }
 
-export const TranslationCreateDefaultForm: FC<ITranslationCreateDefaultFormProps> = props => <Form<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>
+export const TranslationCreateDefaultForm: FC<ITranslationCreateDefaultFormProps> = props => <Form<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>
+/>;
 
-export interface ITranslationCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>> {
+export interface ITranslationCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>> {
 }
 
-export const TranslationCreateDefaultMobileForm: FC<ITranslationCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>
+export const TranslationCreateDefaultMobileForm: FC<ITranslationCreateDefaultMobileFormProps> = props => <MobileForm<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>
+/>;
 
 export const toTranslationCreateLink = (queryParams?: ITranslationCreateQueryParams) => toLink(TranslationCreateApiLink, queryParams);
 export const useTranslationCreateLink = () => toTranslationCreateLink;
 
-export const useTranslationCreatePromise = createPromiseHook<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>(TranslationCreateApiLink, "post");
+export const useTranslationCreatePromise = createPromiseHook<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>(TranslationCreateApiLink, "post");
 
-export const TranslationCreatePromise = createPromise<ISourceCreate<ITranslationSource>, ISourceItem<ITranslationSource>>(TranslationCreateApiLink, "post");
+export const TranslationCreatePromise = createPromise<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>(TranslationCreateApiLink, "post");

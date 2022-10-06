@@ -6,12 +6,9 @@ import {
 	IVendorSource
 }                        from "@/puff-smith/service/vendor/interface";
 import {
-	IQueryFilter,
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
 	IWithIdentity,
+	QueryInfer,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
@@ -24,17 +21,17 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		super("vendor", prisma);
 	}
 
-	async map(vendor: ISourceEntity<IVendorSource>): Promise<ISourceItem<IVendorSource>> {
+	async map(vendor: SourceInfer.Entity<IVendorSource>): Promise<SourceInfer.Item<IVendorSource>> {
 		return vendor;
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IVendorSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IVendorSource>> {
 		return this.prisma.vendor.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
-	async $create(create: ISourceCreate<IVendorSource>): Promise<ISourceEntity<IVendorSource>> {
+	async $create(create: SourceInfer.Create<IVendorSource>): Promise<SourceInfer.Entity<IVendorSource>> {
 		return this.prisma.vendor.create({
 			data: {
 				...create,
@@ -43,13 +40,13 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	async $patch({id}: UndefinableOptional<ISourceCreate<IVendorSource>> & IWithIdentity): Promise<ISourceEntity<IVendorSource>> {
+	async $patch({id}: UndefinableOptional<SourceInfer.Create<IVendorSource>> & IWithIdentity): Promise<SourceInfer.Entity<IVendorSource>> {
 		return this.prisma.vendor.findFirstOrThrow({
 			where: {id},
 		});
 	}
 
-	async createToId({name}: ISourceCreate<IVendorSource>): Promise<{ id: string }> {
+	async createToId({name}: SourceInfer.Create<IVendorSource>): Promise<{ id: string }> {
 		return this.prisma.vendor.findUniqueOrThrow({
 			where: {
 				name,
@@ -57,13 +54,13 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	async $count(query: ISourceQuery<IVendorSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IVendorSource>): Promise<number> {
 		return this.prisma.vendor.count({
 			where: this.withFilter(query),
 		});
 	}
 
-	async $query(query: ISourceQuery<IVendorSource>): Promise<ISourceEntity<IVendorSource>[]> {
+	async $query(query: SourceInfer.Query<IVendorSource>): Promise<SourceInfer.Entity<IVendorSource>[]> {
 		return this.prisma.vendor.findMany({
 			where:   this.withFilter(query),
 			orderBy: [
@@ -73,7 +70,7 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	withFilter({filter: {fulltext, id, ...filter} = {}}: ISourceQuery<IVendorSource>): IQueryFilter<ISourceQuery<IVendorSource>> | undefined {
+	withFilter({filter: {fulltext, id, ...filter} = {}}: SourceInfer.Query<IVendorSource>): QueryInfer.Filter<SourceInfer.Query<IVendorSource>> | undefined {
 		return merge(filter, {
 			id:   Array.isArray(id) ? {
 				in: id,
@@ -85,7 +82,7 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	async $remove(ids: string[]): Promise<ISourceEntity<IVendorSource>[]> {
+	async $remove(ids: string[]): Promise<SourceInfer.Entity<IVendorSource>[]> {
 		const where = {
 			id: {
 				in: ids,

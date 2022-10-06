@@ -6,8 +6,8 @@ import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
 import {
 	IEntityContext,
 	INavigate,
-	ISourceItem,
-	IWithIdentityQuery
+	IWithIdentityQuery,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BrowserPage,
@@ -44,12 +44,12 @@ export const VendorApiLink = "/api/vendor/[id]/fetch";
 
 export type IVendorQueryParams = IWithIdentityQuery;
 
-export const VendorContext = createContext(null as unknown as IEntityContext<ISourceItem<IVendorSource>>);
+export const VendorContext = createContext(null as unknown as IEntityContext<SourceInfer.Item<IVendorSource>>);
 
-export const useVendorContext         = (): IEntityContext<ISourceItem<IVendorSource>> => useContext(VendorContext, "VendorContext");
-export const useOptionalVendorContext = () => useOptionalContext<IEntityContext<ISourceItem<IVendorSource>>>(VendorContext as any);
+export const useVendorContext         = (): IEntityContext<SourceInfer.Item<IVendorSource>> => useContext(VendorContext, "VendorContext");
+export const useOptionalVendorContext = () => useOptionalContext<IEntityContext<SourceInfer.Item<IVendorSource>>>(VendorContext as any);
 
-export interface IVendorProvider extends IEntityProviderProps<ISourceItem<IVendorSource>> {
+export interface IVendorProvider extends IEntityProviderProps<SourceInfer.Item<IVendorSource>> {
 }
 
 export const VendorProvider: FC<IVendorProvider> = ({defaultEntity, ...props}) => {
@@ -60,24 +60,24 @@ export const VendorProvider: FC<IVendorProvider> = ({defaultEntity, ...props}) =
 	</EntityProvider>;
 };
 
-export const useVendorQuery = createQueryHook<void, ISourceItem<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
+export const useVendorQuery = createQueryHook<void, SourceInfer.Item<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
 
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
-}
+};
 
-export const toVendorLink = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
+export const toVendorLink  = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;
 
-export const useVendorPromise = createPromiseHook<void, ISourceItem<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
-export const VendorPromise = createPromise<void, ISourceItem<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
+export const useVendorPromise = createPromiseHook<void, SourceInfer.Item<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
+export const VendorPromise    = createPromise<void, SourceInfer.Item<IVendorSource>, IVendorQueryParams>(VendorApiLink, "get");
 
-export interface IFetchVendorProps extends Partial<IQueryProps<void, ISourceItem<IVendorSource>, IVendorQueryParams>> {
+export interface IFetchVendorProps extends Partial<IQueryProps<void, SourceInfer.Item<IVendorSource>, IVendorQueryParams>> {
 	id: string;
 }
 
-export const FetchVendor: FC<IFetchVendorProps> = ({id, ...props}) => <Query<void, ISourceItem<IVendorSource>, IVendorQueryParams>
+export const FetchVendor: FC<IFetchVendorProps> = ({id, ...props}) => <Query<void, SourceInfer.Item<IVendorSource>, IVendorQueryParams>
 	useQuery={useVendorQuery}
 	request={undefined}
 	context={useOptionalVendorContext()}
@@ -85,13 +85,20 @@ export const FetchVendor: FC<IFetchVendorProps> = ({id, ...props}) => <Query<voi
 	{...props}
 />;
 
-export type IVendorPageExtra = ReactElement | ((entityContext: IEntityContext<ISourceItem<IVendorSource>>) => ReactElement);
-export type IVendorPageFooter = ReactElement | ((entityContext: IEntityContext<ISourceItem<IVendorSource>>) => ReactElement);
-export type IVendorPageBreadcrumb = BreadcrumbProps | ReactElement<typeof Breadcrumb> | ((entityContext: IEntityContext<ISourceItem<IVendorSource>>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
+export type IVendorPageExtra =
+	ReactElement
+	| ((entityContext: IEntityContext<SourceInfer.Item<IVendorSource>>) => ReactElement);
+export type IVendorPageFooter =
+	ReactElement
+	| ((entityContext: IEntityContext<SourceInfer.Item<IVendorSource>>) => ReactElement);
+export type IVendorPageBreadcrumb =
+	BreadcrumbProps
+	| ReactElement<typeof Breadcrumb>
+	| ((entityContext: IEntityContext<SourceInfer.Item<IVendorSource>>) => BreadcrumbProps | ReactElement<typeof Breadcrumb>);
 
 export interface IVendorBrowserPageProps extends Omit<IBrowserPageProps, "children" | "breadcrumbProps" | "extra" | "footer" | "onBack"> {
-	onBack?: (navigate: INavigate, entityContext: IEntityContext<ISourceItem<IVendorSource>>) => void;
-	children?: ReactNode | ((data: ISourceItem<IVendorSource>) => ReactNode);
+	onBack?: (navigate: INavigate, entityContext: IEntityContext<SourceInfer.Item<IVendorSource>>) => void;
+	children?: ReactNode | ((data: SourceInfer.Item<IVendorSource>) => ReactNode);
 	breadcrumbProps?: IVendorPageBreadcrumb;
 	extra?: IVendorPageExtra;
 	footer?: IVendorPageFooter;
@@ -125,7 +132,7 @@ export const VendorBrowserPage: FC<IVendorBrowserPageProps> = ({children, breadc
 };
 
 export interface IVendorMobilePageProps extends Omit<IMobilePageProps, "children"> {
-	children?: ReactNode | ((data: ISourceItem<IVendorSource>) => ReactNode);
+	children?: ReactNode | ((data: SourceInfer.Item<IVendorSource>) => ReactNode);
 }
 
 export const VendorMobilePage: FC<IVendorMobilePageProps> = ({children, title, values, ...props}) => {

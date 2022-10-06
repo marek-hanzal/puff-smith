@@ -12,7 +12,7 @@ import {
 import {JobProviderControl} from "@/sdk/api/job/query";
 import {
 	IJobStatus,
-	IQueryOrderBy
+	QueryInfer,
 }                           from "@leight-core/api";
 import {
 	useNavigate,
@@ -23,7 +23,7 @@ import {useTranslation}     from "react-i18next";
 
 interface IJobConfig {
 	filter?: IJobStatus[];
-	orderBy?: IQueryOrderBy<IJobQuery>;
+	orderBy?: QueryInfer.OrderBy<IJobQuery>;
 	listProps?: Partial<IJobListProps>;
 }
 

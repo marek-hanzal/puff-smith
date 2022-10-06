@@ -8,7 +8,7 @@ import {
 	MixtureDrawerItem,
 	MixtureProviderControl
 }                      from "@/sdk/api/mixture/query";
-import {IQueryFilter}  from "@leight-core/api";
+import {QueryInfer}    from "@leight-core/api";
 import {
 	MobileFormItem,
 	toLocalDate,
@@ -32,7 +32,7 @@ export const LiquidFields: FC<ILiquidFieldsProps> = () => {
 	const [aroma, setAroma]   = useState<IAroma>();
 	const [recipe, setRecipe] = useState<IRecipe>();
 	const isFilled            = aroma ? aroma.volume === aroma.content : undefined;
-	const toMixtureFilter     = (): IQueryFilter<IMixtureQuery> | undefined => {
+	const toMixtureFilter     = (): QueryInfer.Filter<IMixtureQuery> | undefined => {
 		return aroma && recipe ? {
 			mixture: {
 				aroma:             {

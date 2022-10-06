@@ -4,12 +4,10 @@
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                           from "@leight-core/api";
 import {
 	BlockProvider,
@@ -59,24 +57,24 @@ export const TranslationCountApiLink = "/api/translation/query/count";
 
 export type ITranslationQueryParams = any;
 
-export const useTranslationQuery      = createQueryHook<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
-export const useTranslationCountQuery = createQueryHook<ISourceQuery<ITranslationSource>, number, ITranslationQueryParams>(TranslationCountApiLink, "post");
+export const useTranslationQuery      = createQueryHook<SourceInfer.Query<ITranslationSource>, SourceInfer.Item<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
+export const useTranslationCountQuery = createQueryHook<SourceInfer.Query<ITranslationSource>, number, ITranslationQueryParams>(TranslationCountApiLink, "post");
 
-export const useTranslationSource = () => useSourceContext<ISourceItem<ITranslationSource>>();
+export const useTranslationSource = () => useSourceContext<SourceInfer.Item<ITranslationSource>>();
 
-export interface ITranslationSourceContext extends ISourceContext<ISourceItem<ITranslationSource>> {
+export interface ITranslationSourceContext extends ISourceContext<SourceInfer.Item<ITranslationSource>> {
 }
 
-export interface ITranslationSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ITranslationSource>>> {
+export interface ITranslationSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<ITranslationSource>>> {
 }
 
 export const TranslationSourceConsumer: FC<ITranslationSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ITranslationProviderProps extends Partial<ISourceProviderProps<ISourceItem<ITranslationSource>>> {
+export interface ITranslationProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<ITranslationSource>>> {
 }
 
 export const TranslationProvider: FC<ITranslationProviderProps> = props => {
-	return <SourceProvider<ISourceItem<ITranslationSource>>
+	return <SourceProvider<SourceInfer.Item<ITranslationSource>>
 		name={"Translation"}
 		useQuery={useTranslationQuery}
 		useCountQuery={useTranslationCountQuery}
@@ -87,18 +85,18 @@ export const TranslationProvider: FC<ITranslationProviderProps> = props => {
 export const toTranslationLink  = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;
 
-export const useTranslationPromise = createPromiseHook<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
-export const TranslationPromise    = createPromise<ISourceQuery<ITranslationSource>, ISourceItem<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
+export const useTranslationPromise = createPromiseHook<SourceInfer.Query<ITranslationSource>, SourceInfer.Item<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
+export const TranslationPromise    = createPromise<SourceInfer.Query<ITranslationSource>, SourceInfer.Item<ITranslationSource>[], ITranslationQueryParams>(TranslationApiLink, "post");
 
-export interface ITranslationFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ITranslationSource>>>> {
+export interface ITranslationFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>>> {
 }
 
-export const TranslationFilterProvider: FC<ITranslationFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITranslationSource>>> name={"Translation"} {...props}/>;
+export const TranslationFilterProvider: FC<ITranslationFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>> name={"Translation"} {...props}/>;
 
-export const useTranslationOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITranslationSource>>>();
-export const useTranslationFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ITranslationSource>>>();
+export const useTranslationOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>>();
+export const useTranslationFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>>();
 
-export interface ITranslationProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITranslationSource>>> {
+export interface ITranslationProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>> {
 }
 
 export const TranslationProviderFilter: FC<ITranslationProviderFilterProps> = props => <Filter
@@ -106,21 +104,21 @@ export const TranslationProviderFilter: FC<ITranslationProviderFilterProps> = pr
 	translation={"common.filter.Translation"}
 />;
 
-export interface ITranslationOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ITranslationSource>>>> {
+export interface ITranslationOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>>> {
 }
 
-export const TranslationOrderByProvider: FC<ITranslationOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITranslationSource>>> name={"Translation"} {...props}/>;
+export const TranslationOrderByProvider: FC<ITranslationOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>> name={"Translation"} {...props}/>;
 
-export const useTranslationOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITranslationSource>>>();
-export const useTranslationOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITranslationSource>>>();
+export const useTranslationOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>>();
+export const useTranslationOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>>();
 
-export interface ITranslationProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITranslationSource>>, IQueryOrderBy<ISourceQuery<ITranslationSource>>, ITranslationQueryParams>> {
+export interface ITranslationProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>, QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>, ITranslationQueryParams>> {
 }
 
 export const TranslationProviderControl: FC<ITranslationProviderControlProps> = props =>
-	<SourceControlProvider<IQueryFilter<ISourceQuery<ITranslationSource>>, IQueryOrderBy<ISourceQuery<ITranslationSource>>> name={"Translation"} {...props}/>;
+	<SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<ITranslationSource>>, QueryInfer.OrderBy<SourceInfer.Query<ITranslationSource>>> name={"Translation"} {...props}/>;
 
-export interface ITranslationTableSourceProps extends Partial<ITableProps<ISourceItem<ITranslationSource>>> {
+export interface ITranslationTableSourceProps extends Partial<ITableProps<SourceInfer.Item<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
 }
 
@@ -129,14 +127,14 @@ export const TranslationTableSource: FC<ITranslationTableSourceProps> = ({provid
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<ITranslationSource>>
+		<Table<SourceInfer.Item<ITranslationSource>>
 			translation={TranslationApiLink}
 			{...props}
 		/>
 	</TranslationProvider>;
 }
 
-export interface ITranslationListSourceProps extends Partial<IListProps<ISourceItem<ITranslationSource>>> {
+export interface ITranslationListSourceProps extends Partial<IListProps<SourceInfer.Item<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
 }
 
@@ -145,13 +143,13 @@ export const TranslationListSource: FC<ITranslationListSourceProps> = ({provider
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<ITranslationSource>>
+		<List<SourceInfer.Item<ITranslationSource>>
 			{...props}
 		/>
 	</TranslationProvider>;
 }
 
-export interface ITranslationInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITranslationSource>>> {
+export interface ITranslationInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
 }
 
@@ -160,7 +158,7 @@ export const TranslationInfiniteListSource: FC<ITranslationInfiniteListSourcePro
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<ITranslationSource>>
+		<InfiniteList<SourceInfer.Item<ITranslationSource>>
 			translation={{
 				namespace: TranslationApiLink,
 			}}
@@ -169,22 +167,22 @@ export const TranslationInfiniteListSource: FC<ITranslationInfiniteListSourcePro
 	</TranslationProvider>;
 }
 
-export interface ITranslationSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITranslationSource>> {
-	toOption: IToOptionMapper<ISourceItem<ITranslationSource>>;
+export interface ITranslationSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ITranslationSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<ITranslationSource>>;
 	providerProps?: Partial<ITranslationProviderProps>;
 }
 
 export const TranslationSourceSelect: FC<ITranslationSourceSelectProps> = ({providerProps, ...props}) => {
 	return <TranslationProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<ITranslationSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<ITranslationSource>> {...props}/>
 	</TranslationProvider>;
 };
 
-export interface ITranslationSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ITranslationSource>>> {
+export interface ITranslationSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<ITranslationSource>>> {
 }
 
 export const TranslationSelectionProvider: FC<ITranslationSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ITranslationSource>> {...props}/>;
+	return <SelectionProvider<SourceInfer.Item<ITranslationSource>> {...props}/>;
 }
 
 export const useTranslationCountQueryInvalidate = () => {
@@ -200,18 +198,18 @@ export const useTranslationQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useTranslationOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITranslationSource>>();
-export const useTranslationSelectionContext = () => useSelectionContext<ISourceItem<ITranslationSource>>();
+export const useTranslationOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<ITranslationSource>>();
+export const useTranslationSelectionContext         = () => useSelectionContext<SourceInfer.Item<ITranslationSource>>();
 
-export interface ITranslationDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITranslationSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface ITranslationDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<ITranslationSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<ITranslationSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<ITranslationSource>>
 			sourceProviderProps={{
-				name: "Translation",
-				useQuery: useTranslationQuery,
+				name:          "Translation",
+				useQuery:      useTranslationQuery,
 				useCountQuery: useTranslationCountQuery,
 			}}
 			toClear={() => undefined}

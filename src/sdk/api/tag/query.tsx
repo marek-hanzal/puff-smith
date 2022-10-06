@@ -4,12 +4,10 @@
 
 import {ITagSource}     from "@/puff-smith/service/tag/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const TagApiLink = "/api/tag/query";
+export const TagApiLink      = "/api/tag/query";
 export const TagCountApiLink = "/api/tag/query/count";
 
 export type ITagQueryParams = any;
 
-export const useTagQuery = createQueryHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
-export const useTagCountQuery = createQueryHook<ISourceQuery<ITagSource>, number, ITagQueryParams>(TagCountApiLink, "post");
+export const useTagQuery      = createQueryHook<SourceInfer.Query<ITagSource>, SourceInfer.Item<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
+export const useTagCountQuery = createQueryHook<SourceInfer.Query<ITagSource>, number, ITagQueryParams>(TagCountApiLink, "post");
 
-export const useTagSource = () => useSourceContext<ISourceItem<ITagSource>>();
+export const useTagSource = () => useSourceContext<SourceInfer.Item<ITagSource>>();
 
-export interface ITagSourceContext extends ISourceContext<ISourceItem<ITagSource>> {
+export interface ITagSourceContext extends ISourceContext<SourceInfer.Item<ITagSource>> {
 }
 
-export interface ITagSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<ITagSource>>> {
+export interface ITagSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<ITagSource>>> {
 }
 
 export const TagSourceConsumer: FC<ITagSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface ITagProviderProps extends Partial<ISourceProviderProps<ISourceItem<ITagSource>>> {
+export interface ITagProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<ITagSource>>> {
 }
 
 export const TagProvider: FC<ITagProviderProps> = props => {
-	return <SourceProvider<ISourceItem<ITagSource>>
+	return <SourceProvider<SourceInfer.Item<ITagSource>>
 		name={"Tag"}
 		useQuery={useTagQuery}
 		useCountQuery={useTagCountQuery}
@@ -87,18 +85,18 @@ export const TagProvider: FC<ITagProviderProps> = props => {
 export const toTagLink  = (queryParams?: ITagQueryParams) => toLink(TagApiLink, queryParams);
 export const useTagLink = () => toTagLink;
 
-export const useTagPromise = createPromiseHook<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
-export const TagPromise    = createPromise<ISourceQuery<ITagSource>, ISourceItem<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
+export const useTagPromise = createPromiseHook<SourceInfer.Query<ITagSource>, SourceInfer.Item<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
+export const TagPromise    = createPromise<SourceInfer.Query<ITagSource>, SourceInfer.Item<ITagSource>[], ITagQueryParams>(TagApiLink, "post");
 
-export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<ITagSource>>>> {
+export interface ITagFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<ITagSource>>>> {
 }
 
-export const TagFilterProvider: FC<ITagFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
+export const TagFilterProvider: FC<ITagFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<ITagSource>>> name={"Tag"} {...props}/>;
 
-export const useTagOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
-export const useTagFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<ITagSource>>>();
+export const useTagOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<ITagSource>>>();
+export const useTagFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<ITagSource>>>();
 
-export interface ITagProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<ITagSource>>> {
+export interface ITagProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<ITagSource>>> {
 }
 
 export const TagProviderFilter: FC<ITagProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const TagProviderFilter: FC<ITagProviderFilterProps> = props => <Filter
 	translation={"common.filter.Tag"}
 />;
 
-export interface ITagOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<ITagSource>>>> {
+export interface ITagOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>>> {
 }
 
-export const TagOrderByProvider: FC<ITagOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
+export const TagOrderByProvider: FC<ITagOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>> name={"Tag"} {...props}/>;
 
-export const useTagOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
-export const useTagOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<ITagSource>>>();
+export const useTagOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>>();
+export const useTagOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>>();
 
-export interface ITagProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<ITagSource>>, IQueryOrderBy<ISourceQuery<ITagSource>>, ITagQueryParams>> {
+export interface ITagProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<ITagSource>>, QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>, ITagQueryParams>> {
 }
 
-export const TagProviderControl: FC<ITagProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<ITagSource>>, IQueryOrderBy<ISourceQuery<ITagSource>>> name={"Tag"} {...props}/>;
+export const TagProviderControl: FC<ITagProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<ITagSource>>, QueryInfer.OrderBy<SourceInfer.Query<ITagSource>>> name={"Tag"} {...props}/>;
 
-export interface ITagTableSourceProps extends Partial<ITableProps<ISourceItem<ITagSource>>> {
+export interface ITagTableSourceProps extends Partial<ITableProps<SourceInfer.Item<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<ITagSource>>
+		<Table<SourceInfer.Item<ITagSource>>
 			translation={TagApiLink}
 			{...props}
 		/>
 	</TagProvider>;
 }
 
-export interface ITagListSourceProps extends Partial<IListProps<ISourceItem<ITagSource>>> {
+export interface ITagListSourceProps extends Partial<IListProps<SourceInfer.Item<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<ITagSource>>
+		<List<SourceInfer.Item<ITagSource>>
 			{...props}
 		/>
 	</TagProvider>;
 }
 
-export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<ITagSource>>> {
+export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<ITagSource>>
+		<InfiniteList<SourceInfer.Item<ITagSource>>
 			translation={{
 				namespace: TagApiLink,
 			}}
@@ -168,22 +166,22 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 	</TagProvider>;
 }
 
-export interface ITagSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<ITagSource>> {
-	toOption: IToOptionMapper<ISourceItem<ITagSource>>;
+export interface ITagSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ITagSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<ITagSource>>;
 	providerProps?: Partial<ITagProviderProps>;
 }
 
 export const TagSourceSelect: FC<ITagSourceSelectProps> = ({providerProps, ...props}) => {
 	return <TagProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<ITagSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<ITagSource>> {...props}/>
 	</TagProvider>;
 };
 
-export interface ITagSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<ITagSource>>> {
+export interface ITagSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<ITagSource>>> {
 }
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<ITagSource>> {...props}/>;
+	return <SelectionProvider<SourceInfer.Item<ITagSource>> {...props}/>;
 }
 
 export const useTagCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useTagQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useTagOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<ITagSource>>();
-export const useTagSelectionContext = () => useSelectionContext<ISourceItem<ITagSource>>();
+export const useTagOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<ITagSource>>();
+export const useTagSelectionContext         = () => useSelectionContext<SourceInfer.Item<ITagSource>>();
 
-export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<ITagSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface ITagDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<ITagSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const TagDrawerItem: FC<ITagDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<ITagSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<ITagSource>>
 			sourceProviderProps={{
-				name: "Tag",
-				useQuery: useTagQuery,
+				name:          "Tag",
+				useQuery:      useTagQuery,
 				useCountQuery: useTagCountQuery,
 			}}
 			toClear={() => undefined}

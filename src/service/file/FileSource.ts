@@ -7,11 +7,8 @@ import fileService       from "@/puff-smith/service/side-effect/fileService";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IFileStoreRequest,
-	IQueryFilter,
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery
+	QueryInfer,
+	SourceInfer,
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
 import fs                from "node:fs";
@@ -23,7 +20,7 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		super("file", prisma);
 	}
 
-	async map(file: ISourceEntity<IFileSource>): Promise<ISourceItem<IFileSource>> {
+	async map(file: SourceInfer.Entity<IFileSource>): Promise<SourceInfer.Item<IFileSource>> {
 		return {
 			...file,
 			created: file.created.toUTCString(),
@@ -32,13 +29,13 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		};
 	}
 
-	async $get(id: string): Promise<ISourceEntity<IFileSource>> {
+	async $get(id: string): Promise<SourceInfer.Entity<IFileSource>> {
 		return this.prisma.file.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
-	async $query({orderBy, ...query}: ISourceQuery<IFileSource>): Promise<ISourceEntity<IFileSource>[]> {
+	async $query({orderBy, ...query}: SourceInfer.Query<IFileSource>): Promise<SourceInfer.Entity<IFileSource>[]> {
 		return this.prisma.file.findMany({
 			where: this.withFilter(query),
 			orderBy,
@@ -46,17 +43,17 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		});
 	}
 
-	async $count(query: ISourceQuery<IFileSource>): Promise<number> {
+	async $count(query: SourceInfer.Query<IFileSource>): Promise<number> {
 		return this.prisma.file.count({
 			where: this.withFilter(query),
 		});
 	}
 
-	withFilter({filter}: ISourceQuery<IFileSource>): IQueryFilter<ISourceQuery<IFileSource>> | undefined {
+	withFilter({filter}: SourceInfer.Query<IFileSource>): QueryInfer.Filter<SourceInfer.Query<IFileSource>> | undefined {
 		return filter;
 	}
 
-	async $create(file: ISourceCreate<IFileSource>): Promise<ISourceEntity<IFileSource>> {
+	async $create(file: SourceInfer.Create<IFileSource>): Promise<SourceInfer.Entity<IFileSource>> {
 		return this.prisma.file.create({
 			data: {
 				...file,
@@ -65,7 +62,7 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		});
 	}
 
-	async $remove(ids: string[]): Promise<ISourceEntity<IFileSource>[]> {
+	async $remove(ids: string[]): Promise<SourceInfer.Entity<IFileSource>[]> {
 		const where = {
 			id: {
 				in: ids,

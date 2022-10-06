@@ -3,10 +3,7 @@
  */
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {
-	ISourceCreate,
-	ISourceItem
-}                     from "@leight-core/api";
+import {SourceInfer}  from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -23,29 +20,29 @@ export const AromaCreateApiLink = "/api/aroma/create";
 
 export type IAromaCreateQueryParams = any;
 
-export const useAromaCreateMutation = createMutationHook<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>(AromaCreateApiLink, "post");
+export const useAromaCreateMutation = createMutationHook<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>(AromaCreateApiLink, "post");
 
-export interface IAromaCreateDefaultFormProps extends Partial<IFormProps<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>> {
+export interface IAromaCreateDefaultFormProps extends Partial<IFormProps<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>> {
 }
 
-export const AromaCreateDefaultForm: FC<IAromaCreateDefaultFormProps> = props => <Form<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>
+export const AromaCreateDefaultForm: FC<IAromaCreateDefaultFormProps> = props => <Form<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>
 	useMutation={useAromaCreateMutation}
 	translation={AromaCreateApiLink}
 	{...props}
-/>
+/>;
 
-export interface IAromaCreateDefaultMobileFormProps extends Partial<IMobileFormProps<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>> {
+export interface IAromaCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>> {
 }
 
-export const AromaCreateDefaultMobileForm: FC<IAromaCreateDefaultMobileFormProps> = props => <MobileForm<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>
+export const AromaCreateDefaultMobileForm: FC<IAromaCreateDefaultMobileFormProps> = props => <MobileForm<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>
 	useMutation={useAromaCreateMutation}
 	translation={AromaCreateApiLink}
 	{...props}
-/>
+/>;
 
 export const toAromaCreateLink = (queryParams?: IAromaCreateQueryParams) => toLink(AromaCreateApiLink, queryParams);
 export const useAromaCreateLink = () => toAromaCreateLink;
 
-export const useAromaCreatePromise = createPromiseHook<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>(AromaCreateApiLink, "post");
+export const useAromaCreatePromise = createPromiseHook<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>(AromaCreateApiLink, "post");
 
-export const AromaCreatePromise = createPromise<ISourceCreate<IAromaSource>, ISourceItem<IAromaSource>>(AromaCreateApiLink, "post");
+export const AromaCreatePromise = createPromise<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>(AromaCreateApiLink, "post");

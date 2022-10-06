@@ -6,11 +6,8 @@ import {
 	ITokenSource
 }                        from "@/puff-smith/service/token/interface";
 import {
-	ISourceCreate,
-	ISourceEntity,
-	ISourceItem,
-	ISourceQuery,
 	IWithIdentity,
+	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
@@ -22,11 +19,11 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		super("token", prisma);
 	}
 
-	async map(token: ISourceEntity<ITokenSource>): Promise<ISourceItem<ITokenSource>> {
+	async map(token: SourceInfer.Entity<ITokenSource>): Promise<SourceInfer.Item<ITokenSource>> {
 		return token;
 	}
 
-	async $count({filter: {fulltext, ...filter} = {}}: ISourceQuery<ITokenSource>): Promise<number> {
+	async $count({filter: {fulltext, ...filter} = {}}: SourceInfer.Query<ITokenSource>): Promise<number> {
 		return this.prisma.token.count({
 			where: {
 				name: {
@@ -37,7 +34,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		});
 	}
 
-	async $query({filter: {fulltext, ...filter} = {}, orderBy, ...query}: ISourceQuery<ITokenSource>): Promise<ISourceEntity<ITokenSource>[]> {
+	async $query({filter: {fulltext, ...filter} = {}, orderBy, ...query}: SourceInfer.Query<ITokenSource>): Promise<SourceInfer.Entity<ITokenSource>[]> {
 		return this.prisma.token.findMany({
 			where: {
 				name: {
@@ -50,7 +47,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		});
 	}
 
-	async $create({name}: ISourceCreate<ITokenSource>): Promise<ISourceEntity<ITokenSource>> {
+	async $create({name}: SourceInfer.Create<ITokenSource>): Promise<SourceInfer.Entity<ITokenSource>> {
 		return this.prisma.token.create({
 			data: {
 				name,
@@ -58,7 +55,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		});
 	}
 
-	async createToId({name}: ISourceCreate<ITokenSource>): Promise<{ id: string }> {
+	async createToId({name}: SourceInfer.Create<ITokenSource>): Promise<{ id: string }> {
 		return this.prisma.token.findFirstOrThrow({
 			where: {
 				name,
@@ -66,7 +63,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		});
 	}
 
-	async $patch({id}: UndefinableOptional<ISourceCreate<ITokenSource>> & IWithIdentity): Promise<ISourceEntity<ITokenSource>> {
+	async $patch({id}: UndefinableOptional<SourceInfer.Create<ITokenSource>> & IWithIdentity): Promise<SourceInfer.Entity<ITokenSource>> {
 		return this.prisma.token.findFirstOrThrow({
 			where: {id},
 		});

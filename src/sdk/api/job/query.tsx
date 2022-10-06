@@ -4,12 +4,10 @@
 
 import {IJobSource}     from "@/puff-smith/service/job/interface";
 import {
-	IQueryFilter,
-	IQueryOrderBy,
 	ISourceContext,
-	ISourceItem,
-	ISourceQuery,
-	IToOptionMapper
+	IToOptionMapper,
+	QueryInfer,
+	SourceInfer
 }                       from "@leight-core/api";
 import {
 	BlockProvider,
@@ -54,29 +52,29 @@ import {
 	FC
 }                       from "react";
 
-export const JobApiLink = "/api/job/query";
+export const JobApiLink      = "/api/job/query";
 export const JobCountApiLink = "/api/job/query/count";
 
 export type IJobQueryParams = any;
 
-export const useJobQuery = createQueryHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
-export const useJobCountQuery = createQueryHook<ISourceQuery<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");
+export const useJobQuery      = createQueryHook<SourceInfer.Query<IJobSource>, SourceInfer.Item<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
+export const useJobCountQuery = createQueryHook<SourceInfer.Query<IJobSource>, number, IJobQueryParams>(JobCountApiLink, "post");
 
-export const useJobSource = () => useSourceContext<ISourceItem<IJobSource>>();
+export const useJobSource = () => useSourceContext<SourceInfer.Item<IJobSource>>();
 
-export interface IJobSourceContext extends ISourceContext<ISourceItem<IJobSource>> {
+export interface IJobSourceContext extends ISourceContext<SourceInfer.Item<IJobSource>> {
 }
 
-export interface IJobSourceConsumerProps extends ConsumerProps<ISourceContext<ISourceItem<IJobSource>>> {
+export interface IJobSourceConsumerProps extends ConsumerProps<ISourceContext<SourceInfer.Item<IJobSource>>> {
 }
 
 export const JobSourceConsumer: FC<IJobSourceConsumerProps> = props => <SourceContext.Consumer {...props}/>;
 
-export interface IJobProviderProps extends Partial<ISourceProviderProps<ISourceItem<IJobSource>>> {
+export interface IJobProviderProps extends Partial<ISourceProviderProps<SourceInfer.Item<IJobSource>>> {
 }
 
 export const JobProvider: FC<IJobProviderProps> = props => {
-	return <SourceProvider<ISourceItem<IJobSource>>
+	return <SourceProvider<SourceInfer.Item<IJobSource>>
 		name={"Job"}
 		useQuery={useJobQuery}
 		useCountQuery={useJobCountQuery}
@@ -87,18 +85,18 @@ export const JobProvider: FC<IJobProviderProps> = props => {
 export const toJobLink  = (queryParams?: IJobQueryParams) => toLink(JobApiLink, queryParams);
 export const useJobLink = () => toJobLink;
 
-export const useJobPromise = createPromiseHook<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
-export const JobPromise    = createPromise<ISourceQuery<IJobSource>, ISourceItem<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
+export const useJobPromise = createPromiseHook<SourceInfer.Query<IJobSource>, SourceInfer.Item<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
+export const JobPromise    = createPromise<SourceInfer.Query<IJobSource>, SourceInfer.Item<IJobSource>[], IJobQueryParams>(JobApiLink, "post");
 
-export interface IJobFilterProviderProps extends Partial<IFilterProviderProps<IQueryFilter<ISourceQuery<IJobSource>>>> {
+export interface IJobFilterProviderProps extends Partial<IFilterProviderProps<QueryInfer.Filter<SourceInfer.Query<IJobSource>>>> {
 }
 
-export const JobFilterProvider: FC<IJobFilterProviderProps> = props => <FilterProvider<IQueryFilter<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
+export const JobFilterProvider: FC<IJobFilterProviderProps> = props => <FilterProvider<QueryInfer.Filter<SourceInfer.Query<IJobSource>>> name={"Job"} {...props}/>;
 
-export const useJobOptionalFilterContext = () => useOptionalFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>();
-export const useJobFilterContext         = () => useFilterContext<IQueryFilter<ISourceQuery<IJobSource>>>();
+export const useJobOptionalFilterContext = () => useOptionalFilterContext<QueryInfer.Filter<SourceInfer.Query<IJobSource>>>();
+export const useJobFilterContext         = () => useFilterContext<QueryInfer.Filter<SourceInfer.Query<IJobSource>>>();
 
-export interface IJobProviderFilterProps extends IFilterWithoutTranslationProps<IQueryFilter<ISourceQuery<IJobSource>>> {
+export interface IJobProviderFilterProps extends IFilterWithoutTranslationProps<QueryInfer.Filter<SourceInfer.Query<IJobSource>>> {
 }
 
 export const JobProviderFilter: FC<IJobProviderFilterProps> = props => <Filter
@@ -106,20 +104,20 @@ export const JobProviderFilter: FC<IJobProviderFilterProps> = props => <Filter
 	translation={"common.filter.Job"}
 />;
 
-export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<IQueryOrderBy<ISourceQuery<IJobSource>>>> {
+export interface IJobOrderByProviderProps extends Partial<IOrderByProviderProps<QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>>> {
 }
 
-export const JobOrderByProvider: FC<IJobOrderByProviderProps> = props => <OrderByProvider<IQueryOrderBy<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
+export const JobOrderByProvider: FC<IJobOrderByProviderProps> = props => <OrderByProvider<QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>> name={"Job"} {...props}/>;
 
-export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
-export const useJobOrderByContext         = () => useOrderByContext<IQueryOrderBy<ISourceQuery<IJobSource>>>();
+export const useJobOptionalOrderByContext = () => useOptionalOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>>();
+export const useJobOrderByContext         = () => useOrderByContext<QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>>();
 
-export interface IJobProviderControlProps extends Partial<ISourceControlProviderProps<IQueryFilter<ISourceQuery<IJobSource>>, IQueryOrderBy<ISourceQuery<IJobSource>>, IJobQueryParams>> {
+export interface IJobProviderControlProps extends Partial<ISourceControlProviderProps<QueryInfer.Filter<SourceInfer.Query<IJobSource>>, QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>, IJobQueryParams>> {
 }
 
-export const JobProviderControl: FC<IJobProviderControlProps> = props => <SourceControlProvider<IQueryFilter<ISourceQuery<IJobSource>>, IQueryOrderBy<ISourceQuery<IJobSource>>> name={"Job"} {...props}/>;
+export const JobProviderControl: FC<IJobProviderControlProps> = props => <SourceControlProvider<QueryInfer.Filter<SourceInfer.Query<IJobSource>>, QueryInfer.OrderBy<SourceInfer.Query<IJobSource>>> name={"Job"} {...props}/>;
 
-export interface IJobTableSourceProps extends Partial<ITableProps<ISourceItem<IJobSource>>> {
+export interface IJobTableSourceProps extends Partial<ITableProps<SourceInfer.Item<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;
 }
 
@@ -128,14 +126,14 @@ export const JobTableSource: FC<IJobTableSourceProps> = ({providerProps, ...prop
 		withCount
 		{...providerProps}
 	>
-		<Table<ISourceItem<IJobSource>>
+		<Table<SourceInfer.Item<IJobSource>>
 			translation={JobApiLink}
 			{...props}
 		/>
 	</JobProvider>;
 }
 
-export interface IJobListSourceProps extends Partial<IListProps<ISourceItem<IJobSource>>> {
+export interface IJobListSourceProps extends Partial<IListProps<SourceInfer.Item<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;
 }
 
@@ -144,13 +142,13 @@ export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}
 		withCount
 		{...providerProps}
 	>
-		<List<ISourceItem<IJobSource>>
+		<List<SourceInfer.Item<IJobSource>>
 			{...props}
 		/>
 	</JobProvider>;
 }
 
-export interface IJobInfiniteListSourceProps extends Partial<IInfiniteListProps<ISourceItem<IJobSource>>> {
+export interface IJobInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;
 }
 
@@ -159,7 +157,7 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 		withCount
 		{...providerProps}
 	>
-		<InfiniteList<ISourceItem<IJobSource>>
+		<InfiniteList<SourceInfer.Item<IJobSource>>
 			translation={{
 				namespace: JobApiLink,
 			}}
@@ -168,22 +166,22 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 	</JobProvider>;
 }
 
-export interface IJobSourceSelectProps extends IQuerySourceSelectProps<ISourceItem<IJobSource>> {
-	toOption: IToOptionMapper<ISourceItem<IJobSource>>;
+export interface IJobSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IJobSource>> {
+	toOption: IToOptionMapper<SourceInfer.Item<IJobSource>>;
 	providerProps?: Partial<IJobProviderProps>;
 }
 
 export const JobSourceSelect: FC<IJobSourceSelectProps> = ({providerProps, ...props}) => {
 	return <JobProvider {...providerProps}>
-		<QuerySourceSelect<ISourceItem<IJobSource>> {...props}/>
+		<QuerySourceSelect<SourceInfer.Item<IJobSource>> {...props}/>
 	</JobProvider>;
 };
 
-export interface IJobSelectionProviderProps extends Partial<ISelectionProviderProps<ISourceItem<IJobSource>>> {
+export interface IJobSelectionProviderProps extends Partial<ISelectionProviderProps<SourceInfer.Item<IJobSource>>> {
 }
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
-	return <SelectionProvider<ISourceItem<IJobSource>> {...props}/>
+	return <SelectionProvider<SourceInfer.Item<IJobSource>> {...props}/>;
 }
 
 export const useJobCountQueryInvalidate = () => {
@@ -199,18 +197,18 @@ export const useJobQueryInvalidate = (withCount: boolean = true) => {
 	]);
 };
 
-export const useJobOptionalSelectionContext = () => useOptionalSelectionContext<ISourceItem<IJobSource>>();
-export const useJobSelectionContext = () => useSelectionContext<ISourceItem<IJobSource>>();
+export const useJobOptionalSelectionContext = () => useOptionalSelectionContext<SourceInfer.Item<IJobSource>>();
+export const useJobSelectionContext         = () => useSelectionContext<SourceInfer.Item<IJobSource>>();
 
-export interface IJobDrawerItemProps extends Omit<IDrawerSelectItemProps<ISourceItem<IJobSource>>, "ofSelection" | "sourceProviderProps"> {
+export interface IJobDrawerItemProps extends Omit<IDrawerSelectItemProps<SourceInfer.Item<IJobSource>>, "ofSelection" | "sourceProviderProps"> {
 }
 
 export const JobDrawerItem: FC<IJobDrawerItemProps> = ({onSelection, ...props}) => {
 	return <BlockProvider>
-		{blockContext => <DrawerSelectItem<ISourceItem<IJobSource>>
+		{blockContext => <DrawerSelectItem<SourceInfer.Item<IJobSource>>
 			sourceProviderProps={{
-				name: "Job",
-				useQuery: useJobQuery,
+				name:          "Job",
+				useQuery:      useJobQuery,
 				useCountQuery: useJobCountQuery,
 			}}
 			toClear={() => undefined}
