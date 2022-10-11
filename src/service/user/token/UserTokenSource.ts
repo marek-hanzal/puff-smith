@@ -24,7 +24,7 @@ export class UserTokenSourceClass extends ContainerSource<IUserTokenSource> impl
 		});
 	}
 
-	createToId({userId, tokenId}: SourceInfer.Create<IUserTokenSource>): Promise<{ id: string }> {
+	resolveId({userId, tokenId}: SourceInfer.Create<IUserTokenSource>): Promise<IWithIdentity> {
 		return this.prisma.userToken.findUniqueOrThrow({
 			where: {
 				userId_tokenId: {

@@ -29,7 +29,7 @@ export const RecipeCreateDefaultForm: FC<IRecipeCreateDefaultFormProps> = props 
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>;
+/>
 
 export interface IRecipeCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>> {
 }
@@ -38,7 +38,7 @@ export const RecipeCreateDefaultMobileForm: FC<IRecipeCreateDefaultMobileFormPro
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toRecipeCreateLink = (queryParams?: IRecipeCreateQueryParams) => toLink(RecipeCreateApiLink, queryParams);
 export const useRecipeCreateLink = () => toRecipeCreateLink;

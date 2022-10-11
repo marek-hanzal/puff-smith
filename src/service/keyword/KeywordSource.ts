@@ -32,7 +32,7 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 		});
 	}
 
-	async createToId({text}: SourceInfer.Create<IKeywordSource>): Promise<{ id: string }> {
+	async resolveId({text}: SourceInfer.Create<IKeywordSource>): Promise<IWithIdentity> {
 		return this.prisma.keyword.findUniqueOrThrow({
 			where: {text: `${text}`},
 		});

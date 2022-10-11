@@ -145,7 +145,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		});
 	}
 
-	async createToId({vendor, vendorId, name, code}: SourceInfer.Create<IAromaSource>): Promise<{ id: string }> {
+	async resolveId({vendor, vendorId, name, code}: SourceInfer.Create<IAromaSource>): Promise<IWithIdentity> {
 		return this.prisma.aroma.findFirstOrThrow({
 			select: {
 				id: true,
@@ -176,6 +176,7 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 		if (!backup) {
 			return;
 		}
+
 	}
 
 	async $remove(ids: string[]): Promise<SourceInfer.Entity<IAromaSource>[]> {

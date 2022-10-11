@@ -29,7 +29,7 @@ export const LiquidPatchDefaultForm: FC<ILiquidPatchDefaultFormProps> = props =>
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>;
+/>
 
 export interface ILiquidPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>> {
 }
@@ -38,7 +38,7 @@ export const LiquidPatchDefaultMobileForm: FC<ILiquidPatchDefaultMobileFormProps
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>;
+/>
 
 export const toLiquidPatchLink = (queryParams?: ILiquidPatchQueryParams) => toLink(LiquidPatchApiLink, queryParams);
 export const useLiquidPatchLink = () => toLiquidPatchLink;

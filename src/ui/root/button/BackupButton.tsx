@@ -4,12 +4,14 @@ import {
 	JobButton
 }                          from "@/puff-smith/ui/shared/button/JobButton";
 import {useBackupMutation} from "@/sdk/api/root/backup";
+import {useNavigate}       from "@leight-core/client";
 import {FC}                from "react";
 
 export interface IBackupButtonProps extends Partial<IJobButtonProps<any>> {
 }
 
 export const BackupButton: FC<IBackupButtonProps> = props => {
+	const navigate = useNavigate();
 	return <JobButton
 		translation={"root.backup"}
 		scheduler={useBackupMutation()}
@@ -18,6 +20,9 @@ export const BackupButton: FC<IBackupButtonProps> = props => {
 			name: {
 				in: [BACKUP_JOB],
 			},
+		}}
+		onDone={async () => {
+			navigate("/root/file");
 		}}
 		{...props}
 	/>;

@@ -81,7 +81,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		};
 	}
 
-	async createToId(booster: SourceInfer.Create<IBoosterSource>): Promise<{ id: string }> {
+	async resolveId(booster: SourceInfer.Create<IBoosterSource>): Promise<IWithIdentity> {
 		return this.prisma.booster.findFirstOrThrow({
 			select: {
 				id: true,

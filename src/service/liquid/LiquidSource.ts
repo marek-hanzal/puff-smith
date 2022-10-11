@@ -179,7 +179,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	// 	};
 	// }
 
-	async createToId({code}: SourceInfer.Create<ILiquidSource>): Promise<{ id: string }> {
+	async resolveId({code}: SourceInfer.Create<ILiquidSource>): Promise<IWithIdentity> {
 		return this.prisma.liquid.findFirstOrThrow({
 			select: {
 				id: true,

@@ -55,7 +55,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		});
 	}
 
-	async createToId({name}: SourceInfer.Create<ITokenSource>): Promise<{ id: string }> {
+	async resolveId({name}: SourceInfer.Create<ITokenSource>): Promise<IWithIdentity> {
 		return this.prisma.token.findFirstOrThrow({
 			where: {
 				name,

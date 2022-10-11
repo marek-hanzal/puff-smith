@@ -80,7 +80,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		};
 	}
 
-	async createToId(base: SourceInfer.Create<IBaseSource>): Promise<{ id: string }> {
+	async resolveId(base: SourceInfer.Create<IBaseSource>): Promise<IWithIdentity> {
 		return this.prisma.base.findFirstOrThrow({
 			select: {
 				id: true,

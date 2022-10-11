@@ -65,7 +65,7 @@ export const useTranslationQuery = createQueryHook<void, SourceInfer.Item<ITrans
 export const useTranslationQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationApiLink]);
-};
+}
 
 export const toTranslationLink  = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;

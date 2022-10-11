@@ -66,8 +66,8 @@ export default NextAuth({
 	session: {
 		strategy: "jwt",
 	},
-	pages:   {
-		newUser: "/lab/welcome",
+	pages:     {
+		newUser: "/welcome",
 	},
 	// debug: process.env.NODE_ENV === 'development',
 	providers,
@@ -99,7 +99,7 @@ export default NextAuth({
 		},
 		session: async ({session, token}) => {
 			if (session && token?.sub) {
-				session.withUser = {
+				(session as any).withUser = {
 					userId: token.sub,
 					tokens: token.tokens,
 				};

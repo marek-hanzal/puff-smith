@@ -86,7 +86,7 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 		}));
 	}
 
-	async createToId({tag, group}: SourceInfer.Create<ITagSource>): Promise<{ id: string }> {
+	async resolveId({tag, group}: SourceInfer.Create<ITagSource>): Promise<IWithIdentity> {
 		return this.prisma.tag.findFirstOrThrow({
 			where: {
 				tag: `${tag}`,

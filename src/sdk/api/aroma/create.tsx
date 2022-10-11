@@ -29,7 +29,7 @@ export const AromaCreateDefaultForm: FC<IAromaCreateDefaultFormProps> = props =>
 	useMutation={useAromaCreateMutation}
 	translation={AromaCreateApiLink}
 	{...props}
-/>;
+/>
 
 export interface IAromaCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<IAromaSource>, SourceInfer.Item<IAromaSource>>> {
 }
@@ -38,7 +38,7 @@ export const AromaCreateDefaultMobileForm: FC<IAromaCreateDefaultMobileFormProps
 	useMutation={useAromaCreateMutation}
 	translation={AromaCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toAromaCreateLink = (queryParams?: IAromaCreateQueryParams) => toLink(AromaCreateApiLink, queryParams);
 export const useAromaCreateLink = () => toAromaCreateLink;

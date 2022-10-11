@@ -32,6 +32,7 @@ export const DeleteButton: FC<IDeleteButtonProps> = props => {
 		onClick={() => fileDeleteMutation.mutate(selectionContext.toSelection(), {
 			onSuccess: async () => {
 				await fileQueryInvalidate();
+				selectionContext.clear();
 				message.success(t("root.file.delete.success"));
 			},
 			onError:   async () => {

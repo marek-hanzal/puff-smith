@@ -29,7 +29,7 @@ export const AromaPatchDefaultForm: FC<IAromaPatchDefaultFormProps> = props => <
 	useMutation={useAromaPatchMutation}
 	translation={AromaPatchApiLink}
 	{...props}
-/>;
+/>
 
 export interface IAromaPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<IAromaSource>, SourceInfer.Item<IAromaSource>>> {
 }
@@ -38,7 +38,7 @@ export const AromaPatchDefaultMobileForm: FC<IAromaPatchDefaultMobileFormProps> 
 	useMutation={useAromaPatchMutation}
 	translation={AromaPatchApiLink}
 	{...props}
-/>;
+/>
 
 export const toAromaPatchLink = (queryParams?: IAromaPatchQueryParams) => toLink(AromaPatchApiLink, queryParams);
 export const useAromaPatchLink = () => toAromaPatchLink;

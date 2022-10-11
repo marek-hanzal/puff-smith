@@ -83,7 +83,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 		});
 	}
 
-	async createToId({label, language}: SourceInfer.Create<ITranslationSource>): Promise<{ id: string }> {
+	async resolveId({label, language}: SourceInfer.Create<ITranslationSource>): Promise<IWithIdentity> {
 		return this.prisma.translation.findUniqueOrThrow({
 			where: {
 				language_hash: {

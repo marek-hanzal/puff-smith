@@ -46,7 +46,7 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		});
 	}
 
-	async createToId({name}: SourceInfer.Create<IVendorSource>): Promise<{ id: string }> {
+	async resolveId({name}: SourceInfer.Create<IVendorSource>): Promise<IWithIdentity> {
 		return this.prisma.vendor.findUniqueOrThrow({
 			where: {
 				name,

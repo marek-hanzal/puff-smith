@@ -29,7 +29,7 @@ export const LiquidCreateDefaultForm: FC<ILiquidCreateDefaultFormProps> = props 
 	useMutation={useLiquidCreateMutation}
 	translation={LiquidCreateApiLink}
 	{...props}
-/>;
+/>
 
 export interface ILiquidCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<ILiquidSource>, SourceInfer.Item<ILiquidSource>>> {
 }
@@ -38,7 +38,7 @@ export const LiquidCreateDefaultMobileForm: FC<ILiquidCreateDefaultMobileFormPro
 	useMutation={useLiquidCreateMutation}
 	translation={LiquidCreateApiLink}
 	{...props}
-/>;
+/>
 
 export const toLiquidCreateLink = (queryParams?: ILiquidCreateQueryParams) => toLink(LiquidCreateApiLink, queryParams);
 export const useLiquidCreateLink = () => toLiquidCreateLink;

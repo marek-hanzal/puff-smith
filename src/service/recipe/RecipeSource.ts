@@ -134,7 +134,7 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		});
 	}
 
-	async createToId({base, booster, ...recipe}: SourceInfer.Create<IRecipeSource>): Promise<{ id: string }> {
+	async resolveId({base, booster, ...recipe}: SourceInfer.Create<IRecipeSource>): Promise<IWithIdentity> {
 		return this.prisma.recipe.findFirstOrThrow({
 			select: {
 				id: true,
