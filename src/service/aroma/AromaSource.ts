@@ -177,6 +177,8 @@ export class AromaSourceClass extends ContainerSource<IAromaSource> implements I
 			return;
 		}
 
+
+		console.log("Restoring from", backup);
 	}
 
 	async $remove(ids: string[]): Promise<SourceInfer.Entity<IAromaSource>[]> {

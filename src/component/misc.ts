@@ -1,1 +1,1 @@
-export const DEFAULT_LIST_SIZE = 10;
+export const DEFAULT_LIST_SIZE = 5;
