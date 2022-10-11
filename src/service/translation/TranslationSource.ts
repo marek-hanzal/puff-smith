@@ -18,7 +18,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 		super("translation", prisma);
 	}
 
-	async map({id, language, label: key, text: value}: SourceInfer.Entity<ITranslationSource>): Promise<SourceInfer.Item<ITranslationSource>> {
+	async toItem({id, language, label: key, text: value}: SourceInfer.Entity<ITranslationSource>): Promise<SourceInfer.Item<ITranslationSource>> {
 		return {
 			id,
 			language,
@@ -28,20 +28,20 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<ITranslationSource>> {
-		return this.prisma.translation.findUniqueOrThrow({
+		return this.container.prisma.translation.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
 	async $query(query: SourceInfer.Query<ITranslationSource>): Promise<SourceInfer.Entity<ITranslationSource>[]> {
-		return this.prisma.translation.findMany({
+		return this.container.prisma.translation.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
 	async $count(query: SourceInfer.Query<ITranslationSource>): Promise<number> {
-		return this.prisma.translation.count({
+		return this.container.prisma.translation.count({
 			where: this.withFilter(query),
 		});
 	}
@@ -75,7 +75,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	}
 
 	async $create(translation: SourceInfer.Create<ITranslationSource>): Promise<SourceInfer.Entity<ITranslationSource>> {
-		return this.prisma.translation.create({
+		return this.container.prisma.translation.create({
 			data: {
 				...translation,
 				hash: sha256(translation.label),
@@ -84,7 +84,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	}
 
 	async resolveId({label, language}: SourceInfer.Create<ITranslationSource>): Promise<IWithIdentity> {
-		return this.prisma.translation.findUniqueOrThrow({
+		return this.container.prisma.translation.findUniqueOrThrow({
 			where: {
 				language_hash: {
 					hash: sha256(label),
@@ -95,7 +95,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	}
 
 	async $patch({id, ...patch}: UndefinableOptional<SourceInfer.Create<ITranslationSource>> & IWithIdentity): Promise<SourceInfer.Entity<ITranslationSource>> {
-		return this.prisma.translation.update({
+		return this.container.prisma.translation.update({
 			where: {id},
 			data:  patch,
 		});
@@ -107,10 +107,10 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 				in: ids,
 			},
 		};
-		const items = await this.prisma.translation.findMany({
+		const items = await this.container.prisma.translation.findMany({
 			where,
 		});
-		await this.prisma.translation.deleteMany({
+		await this.container.prisma.translation.deleteMany({
 			where,
 		});
 		return items;

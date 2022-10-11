@@ -20,18 +20,18 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 		super("liquid", prisma);
 	}
 
-	async map(liquid: SourceInfer.Entity<ILiquidSource>): Promise<SourceInfer.Item<ILiquidSource>> {
+	async toItem(liquid: SourceInfer.Entity<ILiquidSource>): Promise<SourceInfer.Item<ILiquidSource>> {
 		return this.container.useTagSource(async tagSource => {
 			return this.container.useAromaSource(aromaSource => {
 				return this.container.useMixtureSource(async mixtureSource => {
 					return {
 						...liquid,
-						aroma:    await aromaSource.map(liquid.aroma),
+						aroma:    await aromaSource.mapper.toItem.map(liquid.aroma),
 						created:  liquid.created.toUTCString(),
 						mixed:    liquid.mixed.toUTCString(),
 						nicotine: liquid.nicotine?.toNumber(),
 						mixture:  await mixtureSource.get(liquid.mixtureId),
-						draws:    await tagSource.list(Promise.resolve(liquid.LiquidDraw.map(({draw}) => draw))),
+						draws:    await tagSource.mapper.toItem.list(Promise.resolve(liquid.LiquidDraw.map(({draw}) => draw))),
 						drawIds:  liquid.LiquidDraw.map(({draw}) => draw.id),
 					};
 				});
@@ -40,32 +40,33 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async updateKeywords(liquid: ILiquidEntity): Promise<ILiquidEntity> {
-		return this.container.useKeywordSource(async keywordSource => {
-			// const $liquid = await this.map(liquid);
-			// const source: string[] = [
-			// 	$liquid.code,
-			// 	$liquid.vendor.name,
-			// 	$liquid.name,
-			// 	...$liquid.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// ];
-			// (await this.prisma.translation.findMany({
-			// 	where: {
-			// 		label: {
-			// 			in: $liquid.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// 		},
-			// 	}
-			// })).map(({text}) => source.push(text));
-			// await this.prisma.liquidKeyword.deleteMany({
-			// 	where: {liquidId: liquid.id},
-			// });
-			// await this.prisma.liquidKeyword.createMany({
-			// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
-			// 		liquidId: liquid.id,
-			// 		keywordId: (await keyword).id,
-			// 	}))),
-			// });
-			return liquid;
-		});
+		return liquid;
+		// return this.container.useKeywordSource(async keywordSource => {
+		// const $liquid = await this.map(liquid);
+		// const source: string[] = [
+		// 	$liquid.code,
+		// 	$liquid.vendor.name,
+		// 	$liquid.name,
+		// 	...$liquid.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// ];
+		// (await this.container.prisma.translation.findMany({
+		// 	where: {
+		// 		label: {
+		// 			in: $liquid.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// 		},
+		// 	}
+		// })).map(({text}) => source.push(text));
+		// await this.container.prisma.liquidKeyword.deleteMany({
+		// 	where: {liquidId: liquid.id},
+		// });
+		// await this.container.prisma.liquidKeyword.createMany({
+		// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
+		// 		liquidId: liquid.id,
+		// 		keywordId: (await keyword).id,
+		// 	}))),
+		// });
+		// return liquid;
+		// });
 	}
 
 	async $create({mixtureId, mixed, ...liquid}: SourceInfer.Create<ILiquidSource>): Promise<SourceInfer.Entity<ILiquidSource>> {
@@ -75,7 +76,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 				if (mixture.result.error) {
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
 				}
-				return this.updateKeywords(await this.prisma.liquid.create({
+				return this.updateKeywords(await this.container.prisma.liquid.create({
 					data:    {
 						...liquid,
 						code:            codeService.code(),
@@ -89,7 +90,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						boosterCount:    mixture.booster?.count,
 						baseAmount:      mixture.base?.volume,
 						mixtureId,
-						userId:          this.user.required(),
+						userId:          this.container.user.required(),
 						created:         new Date(),
 						mixed:           mixed || new Date(),
 					},
@@ -124,9 +125,9 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 				if (mixture && mixture.result.error) {
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
 				}
-				return this.updateKeywords(await this.prisma.liquid.update({
-					where:   {id},
-					data:    {
+				return this.updateKeywords(await this.container.prisma.liquid.update({
+					where: {id},
+					data:  {
 						...liquid,
 						nicotine:        mixture?.result?.nicotine,
 						nicotineToRound: mixture?.result?.nicotineToRound,
@@ -180,7 +181,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	// }
 
 	async resolveId({code}: SourceInfer.Create<ILiquidSource>): Promise<IWithIdentity> {
-		return this.prisma.liquid.findFirstOrThrow({
+		return this.container.prisma.liquid.findFirstOrThrow({
 			select: {
 				id: true,
 			},
@@ -196,7 +197,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 				in: ids,
 			},
 		};
-		const items = await this.prisma.liquid.findMany({
+		const items = await this.container.prisma.liquid.findMany({
 			where,
 			include: {
 				aroma:      {
@@ -218,14 +219,14 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 				}
 			},
 		});
-		await this.prisma.liquid.deleteMany({
+		await this.container.prisma.liquid.deleteMany({
 			where,
 		});
 		return items;
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<ILiquidSource>> {
-		return this.prisma.liquid.findUniqueOrThrow({
+		return this.container.prisma.liquid.findUniqueOrThrow({
 			where:   {
 				id,
 			},
@@ -252,7 +253,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $query(query: SourceInfer.Query<ILiquidSource>): Promise<SourceInfer.Entity<ILiquidSource>[]> {
-		return this.prisma.liquid.findMany({
+		return this.container.prisma.liquid.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 			include: {
@@ -278,7 +279,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 	}
 
 	async $count(query: SourceInfer.Query<ILiquidSource>): Promise<number> {
-		return this.prisma.liquid.count({
+		return this.container.prisma.liquid.count({
 			where: this.withFilter(query),
 		});
 	}

@@ -1,3 +1,4 @@
+import {ContainerClass}     from "@/puff-smith/service/Container";
 import {
 	IToken,
 	IWithTokenEntity
@@ -13,7 +14,6 @@ import {
 	Prisma,
 	User
 }                           from "@prisma/client";
-import {ParsedUrlQuery}     from "querystring";
 
 interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWithRelationInput> {
 }
@@ -31,17 +31,13 @@ export interface IUser {
 	tokenIds: string[];
 }
 
-export interface IUserFetch {
-	user: IUser;
-}
-
-export interface IUserFetchParams extends ParsedUrlQuery {
-	userId: string;
-}
-
 export type IUserSourceEntity = IUserEntity<IWithNullUserToken<IWithTokenEntity>>;
 
-export interface IUserSource extends ISource<any, IUserSourceEntity, IUser, IUserQuery, IUserFetch, IUserFetchParams> {
+export interface IUserSource extends ISource<//
+	ContainerClass,
+	IUserSourceEntity,
+	IUser,
+	IUserQuery> {
 	handleRootUser(): Promise<any>;
 
 	handleCommonUser(): Promise<any>;

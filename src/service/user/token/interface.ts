@@ -1,11 +1,12 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource
-} from "@leight-core/api";
+}                       from "@leight-core/api";
 import {
 	Prisma,
 	UserToken
-} from "@prisma/client";
+}                       from "@prisma/client";
 
 export interface IUserTokenCreate {
 	userId: string;
@@ -25,5 +26,10 @@ export interface IUserToken {
 	tokenId: string;
 }
 
-export interface IUserTokenSource extends ISource<IUserTokenCreate, IUserTokenEntity, IUserToken, IUserTokenQuery> {
+export interface IUserTokenSource extends ISource<//
+	ContainerClass,
+	IUserTokenEntity,
+	IUserToken,
+	IUserTokenQuery,
+	IUserTokenCreate> {
 }

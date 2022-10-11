@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
@@ -7,7 +8,6 @@ import {
 	Prisma,
 	Vendor
 }                       from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IVendorReference {
 	vendorId?: string;
@@ -29,15 +29,12 @@ export interface IVendor {
 	name: string;
 }
 
-export interface IVendorFetch {
-	vendor: IVendor;
-}
-
-export interface IVendorFetchParams extends ParsedUrlQuery {
-	vendorId: string;
-}
-
-export interface IVendorSource extends ISource<IVendorCreate, IVendorEntity, IVendor, IVendorQuery, IVendorFetch, IVendorFetchParams> {
+export interface IVendorSource extends ISource<//
+	ContainerClass,
+	IVendorEntity,
+	IVendor,
+	IVendorQuery,
+	IVendorCreate> {
 	fetchByReference(request: IVendorReference): Promise<IVendorEntity>;
 
 	fetchByReferenceOptional(request: IVendorReference): Promise<IVendorEntity | undefined>;

@@ -2,6 +2,7 @@ import {
 	IAroma,
 	IWithAroma
 }                       from "@/puff-smith/service/aroma/interface";
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {IMixtureInfo}   from "@/puff-smith/service/mixture/toMixture";
 import {ITagEntity}     from "@/puff-smith/service/tag/interface";
 import {
@@ -47,11 +48,10 @@ export interface ILiquidFetchParams extends ParsedUrlQuery {
 	liquidId: string;
 }
 
-export interface ILiquidSource extends ISource
-	<ILiquidCreate,
-		ILiquidEntity,
-		ILiquid,
-		ILiquidQuery,
-		ILiquidFetch,
-		ILiquidFetchParams> {
+export interface ILiquidSource extends ISource<//
+	ContainerClass,
+	ILiquidEntity,
+	ILiquid,
+	ILiquidQuery,
+	ILiquidCreate> {
 }

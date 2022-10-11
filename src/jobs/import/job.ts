@@ -15,13 +15,13 @@ import {toImport}          from "@leight-core/server";
 import PQueue              from "p-queue";
 import xlsx                from "xlsx";
 
-const importers = {
-	...AromaSource().importers(),
-	...TagSource().importers(),
-	...TokenSource().importers(),
-	...TranslationSource().importers(),
-	...VendorSource().importers(),
-};
+const importers = [
+	AromaSource(),
+	TagSource(),
+	TokenSource(),
+	TranslationSource(),
+	VendorSource(),
+];
 
 export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(IMPORT_JOB, async ({logger, job, params: {fileId}, jobProgress}) => {
 	const labels = {jobId: job.id};
@@ -36,11 +36,11 @@ export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(
 	const workbook = xlsx.readFile(fileService.toLocation(fileId));
 	logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 	await toImport({
-		user: await UserSource().asUser(job.userId),
+		user:      await UserSource().asUser(job.userId),
 		job,
 		jobProgress,
 		workbook,
-		importers,
+		importers: {},
 	});
 }, options => new PQueue({
 	...options,

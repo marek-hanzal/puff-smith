@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
@@ -29,11 +30,10 @@ export interface IBoosterFetchParams extends ParsedUrlQuery {
 	boosterId: string;
 }
 
-export interface IBoosterSource extends ISource
-	<IBoosterCreate,
-		IBoosterEntity,
-		IBooster,
-		IBoosterQuery,
-		IBoosterFetch,
-		IBoosterFetchParams> {
+export interface IBoosterSource extends ISource<//
+	ContainerClass,
+	IBoosterEntity,
+	IBooster,
+	IBoosterQuery,
+	IBoosterCreate> {
 }

@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {ITagEntity}     from "@/puff-smith/service/tag/interface";
 import {
 	IVendor,
@@ -47,10 +48,9 @@ export interface IAromaFetchParams extends ParsedUrlQuery {
 }
 
 export interface IAromaSource extends ISource<//
-	IAromaCreate,
+	ContainerClass,
 	IAromaEntity,
 	IAroma,
 	IAromaQuery,
-	IAromaFetch,
-	IAromaFetchParams> {
+	IAromaCreate> {
 }

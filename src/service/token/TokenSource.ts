@@ -19,12 +19,12 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		super("token", prisma);
 	}
 
-	async map(token: SourceInfer.Entity<ITokenSource>): Promise<SourceInfer.Item<ITokenSource>> {
+	async toItem(token: SourceInfer.Entity<ITokenSource>): Promise<SourceInfer.Item<ITokenSource>> {
 		return token;
 	}
 
 	async $count({filter: {fulltext, ...filter} = {}}: SourceInfer.Query<ITokenSource>): Promise<number> {
-		return this.prisma.token.count({
+		return this.container.prisma.token.count({
 			where: {
 				name: {
 					contains: fulltext,
@@ -35,7 +35,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 	}
 
 	async $query({filter: {fulltext, ...filter} = {}, orderBy, ...query}: SourceInfer.Query<ITokenSource>): Promise<SourceInfer.Entity<ITokenSource>[]> {
-		return this.prisma.token.findMany({
+		return this.container.prisma.token.findMany({
 			where: {
 				name: {
 					contains: fulltext,
@@ -48,7 +48,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 	}
 
 	async $create({name}: SourceInfer.Create<ITokenSource>): Promise<SourceInfer.Entity<ITokenSource>> {
-		return this.prisma.token.create({
+		return this.container.prisma.token.create({
 			data: {
 				name,
 			},
@@ -56,7 +56,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 	}
 
 	async resolveId({name}: SourceInfer.Create<ITokenSource>): Promise<IWithIdentity> {
-		return this.prisma.token.findFirstOrThrow({
+		return this.container.prisma.token.findFirstOrThrow({
 			where: {
 				name,
 			},
@@ -64,14 +64,14 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 	}
 
 	async $patch({id}: UndefinableOptional<SourceInfer.Create<ITokenSource>> & IWithIdentity): Promise<SourceInfer.Entity<ITokenSource>> {
-		return this.prisma.token.findFirstOrThrow({
+		return this.container.prisma.token.findFirstOrThrow({
 			where: {id},
 		});
 	}
 
 	async fetchByNames(tokens: string[] | string): Promise<ITokenEntity[]> {
 		const $names = Array.isArray(tokens) ? tokens : tokens.split(/,\s*/ig).map(tokens => `${tokens}`.toLowerCase());
-		return this.prisma.token.findMany({
+		return this.container.prisma.token.findMany({
 			where: {
 				OR: [
 					{name: {in: $names}},
@@ -82,7 +82,7 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 	}
 
 	async tokensOf(userId: string): Promise<IToken[]> {
-		return this.list(this.prisma.token.findMany({
+		return this.mapper.toItem.list(this.container.prisma.token.findMany({
 			where: {
 				UserToken: {
 					every: {

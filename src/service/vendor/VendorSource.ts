@@ -21,7 +21,7 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		super("vendor", prisma);
 	}
 
-	async map(vendor: SourceInfer.Entity<IVendorSource>): Promise<SourceInfer.Item<IVendorSource>> {
+	async toItem(vendor: SourceInfer.Entity<IVendorSource>): Promise<SourceInfer.Item<IVendorSource>> {
 		return vendor;
 	}
 

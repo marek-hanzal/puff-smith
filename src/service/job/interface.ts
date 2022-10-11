@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IJob,
 	IJobHandlerRequest,
@@ -12,7 +13,6 @@ import {
 	Prisma
 }                       from "@prisma/client";
 import PQueue           from "p-queue";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IJobCreate {
 	userId?: string | null;
@@ -23,17 +23,14 @@ export interface IJobCreate {
 export interface IJobQuery extends IQuery<Prisma.JobWhereInput, Prisma.JobOrderByWithRelationInput> {
 }
 
-export interface IJobFetchProps {
-	job: IJob;
-}
-
-export interface IJobFetchParams extends ParsedUrlQuery {
-	jobId: string;
-}
-
 export type IJobEntity = Job;
 
-export interface IJobSource extends ISource<IJobCreate, IJobEntity, IJob, IJobQuery, IJobFetchProps, IJobFetchParams> {
+export interface IJobSource extends ISource<//
+	ContainerClass,
+	IJobEntity,
+	IJob,
+	IJobQuery,
+	IJobCreate> {
 	createProgress(jobId: string): IJobProgress;
 
 	commit(): Promise<any>;

@@ -20,7 +20,7 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 		super("base", prisma);
 	}
 
-	async map(base: SourceInfer.Entity<IBaseSource>): Promise<SourceInfer.Item<IBaseSource>> {
+	async toItem(base: SourceInfer.Entity<IBaseSource>): Promise<SourceInfer.Item<IBaseSource>> {
 		return {
 			...base,
 			nicotine: base.nicotine?.toNumber() || null,
@@ -28,36 +28,36 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 	}
 
 	async updateKeywords(base: IBaseEntity): Promise<IBaseEntity> {
-		return this.container.useKeywordSource(async keywordSource => {
-			const $base = await this.map(base);
-			// const source: string[] = [
-			// 	$base.code,
-			// 	$base.vendor.name,
-			// 	$base.name,
-			// 	...$base.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// ];
-			// (await this.prisma.translation.findMany({
-			// 	where: {
-			// 		label: {
-			// 			in: $base.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// 		},
-			// 	}
-			// })).map(({text}) => source.push(text));
-			// await this.prisma.baseKeyword.deleteMany({
-			// 	where: {baseId: base.id},
-			// });
-			// await this.prisma.baseKeyword.createMany({
-			// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
-			// 		baseId: base.id,
-			// 		keywordId: (await keyword).id,
-			// 	}))),
-			// });
-			return base;
-		});
+		// return this.container.useKeywordSource(async keywordSource => {
+		// const $base = await this.toItem(base);
+		// const source: string[] = [
+		// 	$base.code,
+		// 	$base.vendor.name,
+		// 	$base.name,
+		// 	...$base.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// ];
+		// (await this.container.prisma.translation.findMany({
+		// 	where: {
+		// 		label: {
+		// 			in: $base.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// 		},
+		// 	}
+		// })).map(({text}) => source.push(text));
+		// await this.container.prisma.baseKeyword.deleteMany({
+		// 	where: {baseId: base.id},
+		// });
+		// await this.container.prisma.baseKeyword.createMany({
+		// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
+		// 		baseId: base.id,
+		// 		keywordId: (await keyword).id,
+		// 	}))),
+		// });
+		return base;
+		// });
 	}
 
 	async $create(base: SourceInfer.Create<IBaseSource>): Promise<SourceInfer.Entity<IBaseSource>> {
-		return this.updateKeywords(await this.prisma.base.create({
+		return this.updateKeywords(await this.container.prisma.base.create({
 			data: {
 				...base,
 				hash: sha256(JSON.stringify(base)),
@@ -66,22 +66,14 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 	}
 
 	async $patch({id, ...base}: UndefinableOptional<SourceInfer.Create<IBaseSource>> & IWithIdentity): Promise<SourceInfer.Entity<IBaseSource>> {
-		return this.updateKeywords(await this.prisma.base.update({
+		return this.updateKeywords(await this.container.prisma.base.update({
 			where: {id},
 			data:  base,
 		}));
 	}
 
-	async toImport(entity: SourceInfer.Entity<IBaseSource>): Promise<SourceInfer.Create<IBaseSource> | undefined> {
-		return {
-			vg:       entity.vg,
-			pg:       entity.vg,
-			nicotine: entity.nicotine,
-		};
-	}
-
 	async resolveId(base: SourceInfer.Create<IBaseSource>): Promise<IWithIdentity> {
-		return this.prisma.base.findFirstOrThrow({
+		return this.container.prisma.base.findFirstOrThrow({
 			select: {
 				id: true,
 			},
@@ -97,17 +89,17 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 				in: ids,
 			},
 		};
-		const items = await this.prisma.base.findMany({
+		const items = await this.container.prisma.base.findMany({
 			where,
 		});
-		await this.prisma.base.deleteMany({
+		await this.container.prisma.base.deleteMany({
 			where,
 		});
 		return items;
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<IBaseSource>> {
-		return this.prisma.base.findUniqueOrThrow({
+		return this.container.prisma.base.findUniqueOrThrow({
 			where: {
 				id,
 			},
@@ -115,14 +107,14 @@ export class BaseSourceClass extends ContainerSource<IBaseSource> implements IBa
 	}
 
 	async $query(query: SourceInfer.Query<IBaseSource>): Promise<SourceInfer.Entity<IBaseSource>[]> {
-		return this.prisma.base.findMany({
+		return this.container.prisma.base.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
 	async $count(query: SourceInfer.Query<IBaseSource>): Promise<number> {
-		return this.prisma.base.count({
+		return this.container.prisma.base.count({
 			where: this.withFilter(query),
 		});
 	}

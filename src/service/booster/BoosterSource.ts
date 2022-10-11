@@ -20,7 +20,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 		super("booster", prisma);
 	}
 
-	async map(booster: SourceInfer.Entity<IBoosterSource>): Promise<SourceInfer.Item<IBoosterSource>> {
+	async toItem(booster: SourceInfer.Entity<IBoosterSource>): Promise<SourceInfer.Item<IBoosterSource>> {
 		return {
 			...booster,
 			nicotine: booster.nicotine.toNumber(),
@@ -28,36 +28,37 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	}
 
 	async updateKeywords(booster: IBoosterEntity): Promise<IBoosterEntity> {
-		return this.container.useKeywordSource(async keywordSource => {
-			const $booster = await this.map(booster);
-			// const source: string[] = [
-			// 	$booster.code,
-			// 	$booster.vendor.name,
-			// 	$booster.name,
-			// 	...$booster.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// ];
-			// (await this.prisma.translation.findMany({
-			// 	where: {
-			// 		label: {
-			// 			in: $booster.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
-			// 		},
-			// 	}
-			// })).map(({text}) => source.push(text));
-			// await this.prisma.boosterKeyword.deleteMany({
-			// 	where: {boosterId: booster.id},
-			// });
-			// await this.prisma.boosterKeyword.createMany({
-			// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
-			// 		boosterId: booster.id,
-			// 		keywordId: (await keyword).id,
-			// 	}))),
-			// });
-			return booster;
-		});
+		return booster;
+		// return this.container.useKeywordSource(async keywordSource => {
+		// 	const $booster = await this.map(booster);
+		// const source: string[] = [
+		// 	$booster.code,
+		// 	$booster.vendor.name,
+		// 	$booster.name,
+		// 	...$booster.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// ];
+		// (await this.container.prisma.translation.findMany({
+		// 	where: {
+		// 		label: {
+		// 			in: $booster.tastes.map(taste => `common.${taste.group}.${taste.tag}`),
+		// 		},
+		// 	}
+		// })).map(({text}) => source.push(text));
+		// await this.container.prisma.boosterKeyword.deleteMany({
+		// 	where: {boosterId: booster.id},
+		// });
+		// await this.container.prisma.boosterKeyword.createMany({
+		// 	data: await Promise.all(source.map(text => keywordSource.import({text})).map(async keyword => ({
+		// 		boosterId: booster.id,
+		// 		keywordId: (await keyword).id,
+		// 	}))),
+		// });
+		// return booster;
+		// });
 	}
 
 	async $create(booster: SourceInfer.Create<IBoosterSource>): Promise<SourceInfer.Entity<IBoosterSource>> {
-		return this.updateKeywords(await this.prisma.booster.create({
+		return this.updateKeywords(await this.container.prisma.booster.create({
 			data: {
 				...booster,
 				hash: sha256(JSON.stringify(booster)),
@@ -66,7 +67,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	}
 
 	async $patch({id, ...booster}: UndefinableOptional<SourceInfer.Create<IBoosterSource>> & IWithIdentity): Promise<SourceInfer.Entity<IBoosterSource>> {
-		return this.updateKeywords(await this.prisma.booster.update({
+		return this.updateKeywords(await this.container.prisma.booster.update({
 			where: {id},
 			data:  booster,
 		}));
@@ -82,7 +83,7 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	}
 
 	async resolveId(booster: SourceInfer.Create<IBoosterSource>): Promise<IWithIdentity> {
-		return this.prisma.booster.findFirstOrThrow({
+		return this.container.prisma.booster.findFirstOrThrow({
 			select: {
 				id: true,
 			},
@@ -98,17 +99,17 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 				in: ids,
 			},
 		};
-		const items = await this.prisma.booster.findMany({
+		const items = await this.container.prisma.booster.findMany({
 			where,
 		});
-		await this.prisma.booster.deleteMany({
+		await this.container.prisma.booster.deleteMany({
 			where,
 		});
 		return items;
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<IBoosterSource>> {
-		return this.prisma.booster.findUniqueOrThrow({
+		return this.container.prisma.booster.findUniqueOrThrow({
 			where: {
 				id,
 			},
@@ -116,14 +117,14 @@ export class BoosterSourceClass extends ContainerSource<IBoosterSource> implemen
 	}
 
 	async $query(query: SourceInfer.Query<IBoosterSource>): Promise<SourceInfer.Entity<IBoosterSource>[]> {
-		return this.prisma.booster.findMany({
+		return this.container.prisma.booster.findMany({
 			where: this.withFilter(query),
 			...pageOf(query),
 		});
 	}
 
 	async $count(query: SourceInfer.Query<IBoosterSource>): Promise<number> {
-		return this.prisma.booster.count({
+		return this.container.prisma.booster.count({
 			where: this.withFilter(query),
 		});
 	}

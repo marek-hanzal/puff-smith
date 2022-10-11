@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
@@ -7,7 +8,6 @@ import {
 	Prisma,
 	Token
 }                       from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export interface IToken {
 	id: string;
@@ -24,15 +24,12 @@ export interface ITokenQuery extends IQuery<Prisma.TokenWhereInput & IWithFullte
 export type ITokenEntity<T = void> = T extends void ? Token : Token & T;
 export type IWithTokenEntity<T = void> = { token: ITokenEntity<T>; };
 
-export interface ITokenFetch {
-	token: IToken;
-}
-
-export interface ITokenFetchParams extends ParsedUrlQuery {
-	tokenId: string;
-}
-
-export interface ITokenSource extends ISource<ITokenCreate, ITokenEntity, IToken, ITokenQuery, ITokenFetch, ITokenFetchParams> {
+export interface ITokenSource extends ISource<//
+	ContainerClass,
+	ITokenEntity,
+	IToken,
+	ITokenQuery,
+	ITokenCreate> {
 	tokensOf(userId: string): Promise<IToken[]>;
 
 	fetchByNames(tokens: string[] | string): Promise<ITokenEntity[]>;

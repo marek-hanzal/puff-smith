@@ -14,12 +14,12 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 		super("keyword", prisma);
 	}
 
-	async map(keyword: SourceInfer.Entity<IKeywordSource>): Promise<SourceInfer.Item<IKeywordSource>> {
+	async toItem(keyword: SourceInfer.Entity<IKeywordSource>): Promise<SourceInfer.Item<IKeywordSource>> {
 		return keyword;
 	}
 
 	async $create({text}: SourceInfer.Create<IKeywordSource>): Promise<SourceInfer.Entity<IKeywordSource>> {
-		return this.prisma.keyword.create({
+		return this.container.prisma.keyword.create({
 			data: {
 				text: `${text}`,
 			}
@@ -27,13 +27,13 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 	}
 
 	async $patch({id}: UndefinableOptional<SourceInfer.Create<IKeywordSource>> & IWithIdentity): Promise<SourceInfer.Entity<IKeywordSource>> {
-		return this.prisma.keyword.findUniqueOrThrow({
+		return this.container.prisma.keyword.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
 	async resolveId({text}: SourceInfer.Create<IKeywordSource>): Promise<IWithIdentity> {
-		return this.prisma.keyword.findUniqueOrThrow({
+		return this.container.prisma.keyword.findUniqueOrThrow({
 			where: {text: `${text}`},
 		});
 	}

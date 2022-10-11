@@ -1,13 +1,14 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IMixtureInfo,
 	IToMixtureAromaRequest,
 	IToMixtureBaseRequest,
 	IToMixtureBoosterRequest
-} from "@/puff-smith/service/mixture/toMixture";
+}                       from "@/puff-smith/service/mixture/toMixture";
 import {
 	IQuery,
 	ISource
-} from "@leight-core/api";
+}                       from "@leight-core/api";
 
 export interface IMixture extends IMixtureInfo {
 }
@@ -63,9 +64,9 @@ export interface IMixtureInfoBy {
 
 export type IMixtureQuery = IQuery<IMixtureFilter>;
 
-export interface IMixtureSource extends ISource
-	<any,
-		IMixtureInfo,
-		IMixture,
-		IMixtureQuery> {
+export interface IMixtureSource extends ISource<//
+	ContainerClass,
+	IMixtureInfo,
+	IMixture,
+	IMixtureQuery> {
 }

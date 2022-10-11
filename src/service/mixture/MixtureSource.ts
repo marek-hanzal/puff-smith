@@ -25,7 +25,7 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		};
 	}
 
-	async map(mixture: SourceInfer.Entity<IMixtureSource>): Promise<SourceInfer.Item<IMixtureSource>> {
+	async toItem(mixture: SourceInfer.Entity<IMixtureSource>): Promise<SourceInfer.Item<IMixtureSource>> {
 		return mixture;
 	}
 

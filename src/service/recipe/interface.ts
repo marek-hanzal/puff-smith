@@ -7,6 +7,7 @@ import {
 	IBoosterCreate,
 	IWithBooster
 }                       from "@/puff-smith/service/booster/interface";
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
@@ -17,7 +18,6 @@ import {
 	Prisma,
 	Recipe
 }                       from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export type IRecipeEntity =
 	Recipe
@@ -38,19 +38,10 @@ export interface IRecipeCreate extends Omit<Recipe, "id" | "userId" | "boosterId
 
 export type IRecipeQuery = IQuery<Prisma.RecipeWhereInput & IWithFulltext, Prisma.RecipeOrderByWithRelationInput>;
 
-export interface IRecipeFetch {
-	recipe: IRecipe;
-}
-
-export interface IRecipeFetchParams extends ParsedUrlQuery {
-	recipeId: string;
-}
-
-export interface IRecipeSource extends ISource
-	<IRecipeCreate,
-		IRecipeEntity,
-		IRecipe,
-		IRecipeQuery,
-		IRecipeFetch,
-		IRecipeFetchParams> {
+export interface IRecipeSource extends ISource<//
+	ContainerClass,
+	IRecipeEntity,
+	IRecipe,
+	IRecipeQuery,
+	IRecipeCreate> {
 }

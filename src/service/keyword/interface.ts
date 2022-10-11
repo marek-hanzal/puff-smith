@@ -1,12 +1,13 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
 	IWithFulltext
-} from "@leight-core/api";
+}                       from "@leight-core/api";
 import {
 	Keyword,
 	Prisma
-} from "@prisma/client";
+}                       from "@prisma/client";
 
 export type IKeywordEntity = Keyword;
 
@@ -17,9 +18,10 @@ export interface IKeywordCreate extends Omit<Keyword, "id"> {
 
 export type IKeywordQuery = IQuery<Prisma.KeywordWhereInput & IWithFulltext, Prisma.KeywordOrderByWithRelationInput>;
 
-export interface IKeywordSource extends ISource
-	<IKeywordCreate,
-		IKeywordEntity,
-		IKeyword,
-		IKeywordQuery> {
+export interface IKeywordSource extends ISource<//
+	ContainerClass,
+	IKeywordEntity,
+	IKeyword,
+	IKeywordQuery,
+	IKeywordCreate> {
 }

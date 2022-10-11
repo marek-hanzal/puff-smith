@@ -20,13 +20,13 @@ export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements
 		super("recipe", prisma);
 	}
 
-	async map({base, booster, ...recipe}: SourceInfer.Entity<IRecipeSource>): Promise<SourceInfer.Item<IRecipeSource>> {
+	async toItem({base, booster, ...recipe}: SourceInfer.Entity<IRecipeSource>): Promise<SourceInfer.Item<IRecipeSource>> {
 		return this.container.useBaseSource(async baseSource => {
 			return this.container.useBoosterSource(async boosterSource => {
 				return {
 					...recipe,
-					booster:           booster ? await boosterSource.map(booster) : null,
-					base:              base ? await baseSource.map(base) : null,
+					booster:           booster ? await boosterSource.mapper.toItem.map(booster) : null,
+					base:              base ? await baseSource.mapper.toItem.map(base) : null,
 					nicotine:          recipe.nicotine?.toNumber(),
 					nicotineTolerance: recipe.nicotineTolerance?.toNumber(),
 				};

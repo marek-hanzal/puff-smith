@@ -20,7 +20,7 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		super("file", prisma);
 	}
 
-	async map(file: SourceInfer.Entity<IFileSource>): Promise<SourceInfer.Item<IFileSource>> {
+	async toItem(file: SourceInfer.Entity<IFileSource>): Promise<SourceInfer.Item<IFileSource>> {
 		return {
 			...file,
 			created: file.created.toUTCString(),
@@ -30,13 +30,13 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<IFileSource>> {
-		return this.prisma.file.findUniqueOrThrow({
+		return this.container.prisma.file.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
 	async $query({orderBy, ...query}: SourceInfer.Query<IFileSource>): Promise<SourceInfer.Entity<IFileSource>[]> {
-		return this.prisma.file.findMany({
+		return this.container.prisma.file.findMany({
 			where: this.withFilter(query),
 			orderBy,
 			...pageOf(query),
@@ -44,7 +44,7 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 	}
 
 	async $count(query: SourceInfer.Query<IFileSource>): Promise<number> {
-		return this.prisma.file.count({
+		return this.container.prisma.file.count({
 			where: this.withFilter(query),
 		});
 	}
@@ -54,10 +54,10 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 	}
 
 	async $create(file: SourceInfer.Create<IFileSource>): Promise<SourceInfer.Entity<IFileSource>> {
-		return this.prisma.file.create({
+		return this.container.prisma.file.create({
 			data: {
 				...file,
-				userId: this.user.required(),
+				userId: this.container.user.required(),
 			},
 		});
 	}
@@ -68,14 +68,14 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 				in: ids,
 			},
 		};
-		const items = await this.prisma.file.findMany({
+		const items = await this.container.prisma.file.findMany({
 			where,
 		});
 		for (const file of items) {
 			await fs.unlink(file.location, () => {
 			});
 		}
-		await this.prisma.file.deleteMany({
+		await this.container.prisma.file.deleteMany({
 			where,
 		});
 		return items;
@@ -88,9 +88,9 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 	async refresh(fileId: string): Promise<IFileEntity> {
 		const file = await this.get(fileId);
 		const info = fileService.infoOf(file.location);
-		return this.prisma.file.update({
+		return this.container.prisma.file.update({
 			where: {id: fileId},
-			data: {
+			data:  {
 				mime: info.mime,
 				size: info.size,
 			},

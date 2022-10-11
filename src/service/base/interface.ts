@@ -1,3 +1,4 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
@@ -30,10 +31,9 @@ export interface IBaseFetchParams extends ParsedUrlQuery {
 }
 
 export interface IBaseSource extends ISource
-	<IBaseCreate,
+	<ContainerClass,
 		IBaseEntity,
 		IBase,
 		IBaseQuery,
-		IBaseFetch,
-		IBaseFetchParams> {
+		IBaseCreate> {
 }

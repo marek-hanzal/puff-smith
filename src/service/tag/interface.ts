@@ -1,13 +1,14 @@
+import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource,
 	ITag,
 	IWithFulltext
-} from "@leight-core/api";
+}                       from "@leight-core/api";
 import {
 	Prisma,
 	Tag
-} from "@prisma/client";
+}                       from "@prisma/client";
 
 export interface ITagCreate extends Omit<ITag, "id"> {
 }
@@ -18,10 +19,11 @@ export interface ITagQuery extends IQuery<Prisma.TagWhereInput & IWithFulltext, 
 }
 
 export interface ITagSource extends ISource<//
-	ITagCreate,
+	ContainerClass,
 	ITagEntity,
 	ITag,
-	ITagQuery> {
+	ITagQuery,
+	ITagCreate> {
 	fetchByTags(tags: string | string[] | undefined, group: string): Promise<ITagEntity[]>;
 
 	fetchTag(group: string, tag?: string, tagId?: string): Promise<ITagEntity>;

@@ -18,7 +18,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 		super("user", prisma);
 	}
 
-	async map({UserToken, name, id, image, email}: SourceInfer.Entity<IUserSource>): Promise<SourceInfer.Item<IUserSource>> {
+	async toItem({UserToken, name, id, image, email}: SourceInfer.Entity<IUserSource>): Promise<SourceInfer.Item<IUserSource>> {
 		let tokens     = UserToken?.map(({token}) => token) || [];
 		const tokenIds = UserToken?.map(({token}) => token.id) || [];
 		// for (const {certificate} of UserCertificate) {
@@ -44,7 +44,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<IUserSource>> {
-		return this.prisma.user.findUniqueOrThrow({
+		return this.container.prisma.user.findUniqueOrThrow({
 			where:   {id},
 			include: {
 				UserToken:       {
@@ -91,11 +91,11 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 	}
 
 	async $count(query: SourceInfer.Query<IUserSource>): Promise<number> {
-		return this.prisma.user.count({});
+		return this.container.prisma.user.count({});
 	}
 
 	async $query({orderBy, ...query}: SourceInfer.Query<IUserSource>): Promise<SourceInfer.Entity<IUserSource>[]> {
-		return this.prisma.user.findMany({
+		return this.container.prisma.user.findMany({
 			orderBy,
 			include: {
 				UserToken:       {
