@@ -1,10 +1,10 @@
-import {ContainerPromise}  from "@/puff-smith/service/Container";
+import {asyncContainer}    from "@/puff-smith/service/Container";
 import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
 import {ListEndpoint}      from "@leight-core/server";
 
 export default ListEndpoint({
 	name:      "Translation",
-	container: ContainerPromise,
+	container: asyncContainer,
 	handler:   async ({container}) => {
 		const translationSource = TranslationSource().withContainer(container);
 		return {

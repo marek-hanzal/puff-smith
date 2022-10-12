@@ -13,8 +13,6 @@ import {
 import {pageOf}          from "@leight-core/server";
 import fs                from "node:fs";
 
-export const FileSource = () => new FileSourceClass();
-
 export class FileSourceClass extends ContainerSource<IFileSource> implements IFileSource {
 	constructor() {
 		super("file", prisma);
@@ -97,3 +95,5 @@ export class FileSourceClass extends ContainerSource<IFileSource> implements IFi
 		});
 	}
 }
+
+export const FileSource = () => new FileSourceClass();

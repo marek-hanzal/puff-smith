@@ -1,9 +1,9 @@
-import {AromaSource}      from "@/puff-smith/service/aroma/AromaSource";
-import {ContainerPromise} from "@/puff-smith/service/Container";
-import {QueryEndpoint}    from "@leight-core/server";
+import {AromaSource}    from "@/puff-smith/service/aroma/AromaSource";
+import {asyncContainer} from "@/puff-smith/service/Container";
+import {QueryEndpoint}  from "@leight-core/server";
 
 export default QueryEndpoint({
 	name:      "Aroma",
-	container: ContainerPromise,
+	container: asyncContainer,
 	source:    AromaSource,
 });

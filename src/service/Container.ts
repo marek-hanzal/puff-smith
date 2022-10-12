@@ -16,18 +16,18 @@ import {IUserSource}         from "@/puff-smith/service/user/interface";
 import {IUserTokenSource}    from "@/puff-smith/service/user/token/interface";
 import {IVendorSource}       from "@/puff-smith/service/vendor/interface";
 import {
-	IContainer,
 	IContainerCallback,
 	IPrismaTransaction,
+	IServiceContainer,
 	IUser
 }                            from "@leight-core/api";
 import {User}                from "@leight-core/client";
 import {RestoreServiceClass} from "@leight-core/server";
 
-export const Container        = (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => new ContainerClass(prisma, user);
-export const ContainerPromise = async (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => Container(prisma, user);
+export const Container      = (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => new ContainerClass(prisma, user);
+export const asyncContainer = async (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => Container(prisma, user);
 
-export class ContainerClass implements IContainer<IFileSource> {
+export class ContainerClass implements IServiceContainer<IFileSource> {
 	prisma: IPrismaTransaction;
 	user: IUser;
 
@@ -70,7 +70,7 @@ export class ContainerClass implements IContainer<IFileSource> {
 		return callback((await import ("@/puff-smith/service/mixture/MixtureSource")).MixtureSource().withContainer(this));
 	}
 
-	async useFileSource<T>(callback: IContainerCallback<IFileSource, T>): Promise<T> {
+	async useFileSource<T>(callback: IContainerCallback<IFileSource, T>) {
 		return callback((await import("@/puff-smith/service/file/FileSource")).FileSource().withContainer(this));
 	}
 

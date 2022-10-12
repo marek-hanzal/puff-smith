@@ -1,7 +1,7 @@
 import {chunkService} from "@/puff-smith/service/chunk/service";
 import {
-	ContainerClass,
-	ContainerPromise
+	asyncContainer,
+	ContainerClass
 }                     from "@/puff-smith/service/Container";
 import prismaClient   from "@/puff-smith/service/side-effect/prisma";
 import {
@@ -15,7 +15,7 @@ import {
 }                     from "@leight-core/server";
 
 export default Endpoint<ContainerClass, IChunkCommit, IFile, IChunkEndpointQuery>(CommitChunkEndpoint({
-	container:        ContainerPromise,
+	container:        asyncContainer,
 	chunkService,
 	chunkCommitEvent: async (file, {user}) => {
 		await prismaClient.file.create({

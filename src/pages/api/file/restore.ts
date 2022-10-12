@@ -4,13 +4,13 @@ import {
 }                         from "@/puff-smith/jobs/restore/interface";
 import {RestoreJob}       from "@/puff-smith/jobs/restore/job";
 import {
-	ContainerClass,
-	ContainerPromise
+	asyncContainer,
+	ContainerClass
 }                         from "@/puff-smith/service/Container";
 import {MutationEndpoint} from "@leight-core/server";
 
 export default MutationEndpoint<ContainerClass, IRestoreJobParams, IRestoreJob>({
 	name:      "Restore",
-	container: ContainerPromise,
+	container: asyncContainer,
 	handler:   RestoreJob.request,
 });

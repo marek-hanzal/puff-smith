@@ -1,9 +1,9 @@
-import {AromaSource}      from "@/puff-smith/service/aroma/AromaSource";
-import {ContainerPromise} from "@/puff-smith/service/Container";
-import {DeleteEndpoint}   from "@leight-core/server";
+import {AromaSource}    from "@/puff-smith/service/aroma/AromaSource";
+import {asyncContainer} from "@/puff-smith/service/Container";
+import {DeleteEndpoint} from "@leight-core/server";
 
 export default DeleteEndpoint({
 	name:      "AromaDelete",
-	container: ContainerPromise,
+	container: asyncContainer,
 	source:    AromaSource,
 });

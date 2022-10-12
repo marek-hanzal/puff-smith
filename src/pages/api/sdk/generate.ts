@@ -1,6 +1,6 @@
 import {
-	ContainerClass,
-	ContainerPromise
+	asyncContainer,
+	ContainerClass
 } from "@/puff-smith/service/Container";
 import {
 	Endpoint,
@@ -9,5 +9,5 @@ import {
 
 export default Endpoint<ContainerClass, void, string[]>(GenerateEndpoint({
 	name:      "Generate",
-	container: ContainerPromise,
+	container: asyncContainer,
 }));

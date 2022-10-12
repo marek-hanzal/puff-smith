@@ -1,7 +1,7 @@
 import {chunkService} from "@/puff-smith/service/chunk/service";
 import {
-	ContainerClass,
-	ContainerPromise
+	asyncContainer,
+	ContainerClass
 }                     from "@/puff-smith/service/Container";
 import {
 	Endpoint,
@@ -16,6 +16,6 @@ export const config = {
 };
 
 export default Endpoint<ContainerClass, string, void, IChunkEndpointQuery>(UploadChunkEndpoint({
-	container: ContainerPromise,
+	container: asyncContainer,
 	chunkService,
 }));

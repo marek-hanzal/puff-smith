@@ -1,9 +1,9 @@
-import {ContainerPromise}  from "@/puff-smith/service/Container";
+import {asyncContainer}    from "@/puff-smith/service/Container";
 import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
 import {PatchEndpoint}     from "@leight-core/server";
 
 export default PatchEndpoint({
 	name:      "TranslationPatch",
-	container: ContainerPromise,
+	container: asyncContainer,
 	source:    TranslationSource,
 });

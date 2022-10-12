@@ -1,9 +1,9 @@
-import {ContainerPromise} from "@/puff-smith/service/Container";
-import {FileSource}       from "@/puff-smith/service/file/FileSource";
-import {QueryEndpoint}    from "@leight-core/server";
+import {asyncContainer} from "@/puff-smith/service/Container";
+import {FileSource}     from "@/puff-smith/service/file/FileSource";
+import {QueryEndpoint}  from "@leight-core/server";
 
 export default QueryEndpoint({
 	name:      "File",
-	container: ContainerPromise,
+	container: asyncContainer,
 	source:    FileSource,
 });
