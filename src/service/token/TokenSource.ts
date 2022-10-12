@@ -1,5 +1,4 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IToken,
 	ITokenEntity,
@@ -12,11 +11,9 @@ import {
 }                        from "@leight-core/api";
 import {pageOf}          from "@leight-core/server";
 
-export const TokenSource = () => new TokenSourceClass();
-
 export class TokenSourceClass extends ContainerSource<ITokenSource> implements ITokenSource {
 	constructor() {
-		super("token", prisma);
+		super("token");
 	}
 
 	async toItem(token: SourceInfer.Entity<ITokenSource>): Promise<SourceInfer.Item<ITokenSource>> {
@@ -93,3 +90,5 @@ export class TokenSourceClass extends ContainerSource<ITokenSource> implements I
 		}));
 	}
 }
+
+export const TokenSource = () => new TokenSourceClass();

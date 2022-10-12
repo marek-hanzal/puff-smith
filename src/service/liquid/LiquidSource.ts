@@ -4,7 +4,6 @@ import {
 	ILiquidEntity,
 	ILiquidSource
 }                        from "@/puff-smith/service/liquid/interface";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	ClientError,
 	IWithIdentity,
@@ -19,7 +18,7 @@ import {merge}           from "@leight-core/utils";
 
 export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements ILiquidSource {
 	constructor() {
-		super("liquid", prisma);
+		super("liquid");
 	}
 
 	async toItem(liquid: SourceInfer.Entity<ILiquidSource>): Promise<SourceInfer.Item<ILiquidSource>> {

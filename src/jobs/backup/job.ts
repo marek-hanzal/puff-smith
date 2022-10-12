@@ -7,10 +7,11 @@ import {BackupService} from "@leight-core/server";
 import PQueue          from "p-queue";
 
 export const BackupJob: IJobProcessor<void> = JobSource().processor(BACKUP_JOB, async ({logger, job, userId, jobProgress}) => {
-	const container = Container();
+	const container = Container({
+		user: await UserSource().asUser(userId),
+	});
 	await BackupService({
 		version: process.env.NEXT_PUBLIC_BUILD || "-snapshot-",
-		user:    await UserSource().asUser(userId),
 		container,
 		jobProgress,
 		logger:  logger.child({labels: {jobId: job.id}, jobId: job.id}),

@@ -17,7 +17,7 @@ export abstract class ContainerSource<TSource extends ISource<ContainerClass, an
 	SourceInfer.Query<TSource>,
 	SourceInfer.Create<TSource>,
 	SourceInfer.Backup<TSource>> {
-	protected constructor(name: string, prisma: IPrismaTransaction, user?: IUser) {
-		super(name, Container(prisma, user));
+	protected constructor(name: string, prisma?: IPrismaTransaction, user?: IUser) {
+		super(name, Container({prisma, user}));
 	}
 }

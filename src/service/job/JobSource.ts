@@ -25,7 +25,7 @@ export const JobSource = () => new JobSourceClass();
 
 export class JobSourceClass extends ContainerSource<IJobSource> implements IJobSource {
 	constructor() {
-		super("job", prisma);
+		super("job");
 	}
 
 	async toItem(job: SourceInfer.Entity<IJobSource>): Promise<SourceInfer.Item<IJobSource>> {
@@ -161,7 +161,7 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 	}
 
 	processor<TParams>(name: string, handler: (request: IJobHandlerRequest<TParams>) => Promise<any>, queue?: (options?: ConstructorParameters<typeof PQueue>[0]) => PQueue): IJobProcessor<TParams> {
-		const $queue = (queue || (options => new PQueue(options)))({
+		const $queue                        = (queue || (options => new PQueue(options)))({
 			autoStart:                 true,
 			concurrency:               5,
 			throwOnTimeout:            true,
@@ -171,7 +171,9 @@ export class JobSourceClass extends ContainerSource<IJobSource> implements IJobS
 		});
 		const async: IJobProcessor["async"] = async (params, userId, queue) => this.container.useUserSource(async userSource => {
 			return this.container.useJobSource(async jobSource => {
-				jobSource.withContainer(Container(this.container.prisma, await userSource.asUser(userId)));
+				jobSource.withContainer(Container({
+					user: await userSource.asUser(userId),
+				}));
 				let logger        = Logger(name);
 				const job         = await jobSource.mapper.toItem.map(await jobSource.create({
 					userId,

@@ -6,7 +6,6 @@ import {
 	IToMixtureBoosterRequest,
 	toMixtureInfo
 }                        from "@/puff-smith/service/mixture/toMixture";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {SourceInfer}     from "@leight-core/api";
 import {uniqueOf}        from "@leight-core/utils";
 import LRUCache          from "lru-cache";
@@ -15,11 +14,9 @@ const mixtureCache: LRUCache<string, SourceInfer.Entity<IMixtureSource>[]> = new
 	max: 2048,
 });
 
-export const MixtureSource = () => new MixtureSourceClass();
-
 export class MixtureSourceClass extends ContainerSource<IMixtureSource> implements IMixtureSource {
 	constructor() {
-		super("mixture", prisma);
+		super("mixture");
 		this.cache = {
 			query: mixtureCache,
 		};
@@ -130,3 +127,5 @@ export class MixtureSourceClass extends ContainerSource<IMixtureSource> implemen
 		return (await this.query({filter})).length;
 	}
 }
+
+export const MixtureSource = () => new MixtureSourceClass();

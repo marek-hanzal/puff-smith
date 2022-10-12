@@ -4,7 +4,6 @@ import {
 	IRecipeEntity,
 	IRecipeSource
 }                        from "@/puff-smith/service/recipe/interface";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
 	IWithIdentity,
@@ -19,7 +18,7 @@ import {merge}           from "@leight-core/utils";
 
 export class RecipeSourceClass extends ContainerSource<IRecipeSource> implements IRecipeSource {
 	constructor() {
-		super("recipe", prisma);
+		super("recipe");
 	}
 
 	async toItem({base, booster, ...recipe}: SourceInfer.Entity<IRecipeSource>): Promise<SourceInfer.Item<IRecipeSource>> {

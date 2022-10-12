@@ -1,5 +1,4 @@
 import {ContainerSource}  from "@/puff-smith/service/ContainerSource";
-import prisma             from "@/puff-smith/service/side-effect/prisma";
 import {IUserTokenSource} from "@/puff-smith/service/user/token/interface";
 import {
 	IWithIdentity,
@@ -9,7 +8,7 @@ import {
 
 export class UserTokenSourceClass extends ContainerSource<IUserTokenSource> implements IUserTokenSource {
 	constructor() {
-		super("user.token", prisma);
+		super("user.token");
 	}
 
 	async toItem(userToken: SourceInfer.Entity<IUserTokenSource>): Promise<SourceInfer.Item<IUserTokenSource>> {

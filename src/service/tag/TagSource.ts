@@ -1,5 +1,4 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	ITagEntity,
 	ITagSource
@@ -15,7 +14,7 @@ import {merge}           from "@leight-core/utils";
 
 export class TagSourceClass extends ContainerSource<ITagSource> implements ITagSource {
 	constructor() {
-		super("tag", prisma);
+		super("tag");
 	}
 
 	async toItem(tag: SourceInfer.Entity<ITagSource>): Promise<SourceInfer.Item<ITagSource>> {

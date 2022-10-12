@@ -4,7 +4,6 @@ import {
 }                        from "@/puff-smith/service/aroma/interface";
 import {Container}       from "@/puff-smith/service/Container";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IWithIdentity,
 	SourceInfer,
@@ -18,7 +17,7 @@ import {merge}           from "@leight-core/utils";
 
 export class AromaSourceClass extends ContainerSource<IAromaSource> implements IAromaSource {
 	constructor() {
-		super("aroma", prisma);
+		super("aroma");
 	}
 
 	async toItem(aroma: SourceInfer.Entity<IAromaSource>): Promise<SourceInfer.Item<IAromaSource>> {

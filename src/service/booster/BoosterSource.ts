@@ -3,7 +3,6 @@ import {
 	IBoosterSource
 }                        from "@/puff-smith/service/booster/interface";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
 	IWithIdentity,
@@ -17,7 +16,7 @@ export const BoosterSource = () => new BoosterSourceClass();
 
 export class BoosterSourceClass extends ContainerSource<IBoosterSource> implements IBoosterSource {
 	constructor() {
-		super("booster", prisma);
+		super("booster");
 	}
 
 	async toItem(booster: SourceInfer.Entity<IBoosterSource>): Promise<SourceInfer.Item<IBoosterSource>> {

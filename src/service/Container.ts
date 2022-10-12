@@ -24,8 +24,13 @@ import {
 import {User}                from "@leight-core/client";
 import {RestoreServiceClass} from "@leight-core/server";
 
-export const Container      = (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => new ContainerClass(prisma, user);
-export const asyncContainer = async (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => Container(prisma, user);
+export interface IContainerDeps {
+	prisma?: IPrismaTransaction;
+	user?: IUser;
+}
+
+export const Container      = ({prisma = CoolPrisma, user = User()}: IContainerDeps = {}) => new ContainerClass(prisma, user);
+export const asyncContainer = async (deps?: IContainerDeps) => Container(deps);
 
 export class ContainerClass implements IServiceContainer<IFileSource> {
 	prisma: IPrismaTransaction;

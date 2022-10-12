@@ -3,6 +3,7 @@ import {
 	IMPORT_JOB
 }                          from "@/puff-smith/jobs/import/interface";
 import {AromaSource}       from "@/puff-smith/service/aroma/AromaSource";
+import {Container}         from "@/puff-smith/service/Container";
 import {JobSource}         from "@/puff-smith/service/job/JobSource";
 import fileService         from "@/puff-smith/service/side-effect/fileService";
 import {TagSource}         from "@/puff-smith/service/tag/TagSource";
@@ -15,7 +16,7 @@ import {toImport}          from "@leight-core/server";
 import PQueue              from "p-queue";
 import xlsx                from "xlsx";
 
-const importers = [
+const sources = [
 	AromaSource(),
 	TagSource(),
 	TokenSource(),
@@ -36,11 +37,11 @@ export const ImportJob: IJobProcessor<IImportJobParams> = JobSource().processor(
 	const workbook = xlsx.readFile(fileService.toLocation(fileId));
 	logger.debug(` - Available sheets [${workbook.SheetNames.join(", ")}]`);
 	await toImport({
-		user:      await UserSource().asUser(job.userId),
+		container: Container({user: await UserSource().asUser(job.userId)}),
 		job,
 		jobProgress,
 		workbook,
-		importers: {},
+		sources,
 	});
 }, options => new PQueue({
 	...options,

@@ -1,17 +1,14 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IKeywordSource}  from "@/puff-smith/service/keyword/interface";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IWithIdentity,
 	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
 
-export const KeywordSource = () => new KeywordSourceClass();
-
 export class KeywordSourceClass extends ContainerSource<IKeywordSource> implements IKeywordSource {
 	constructor() {
-		super("keyword", prisma);
+		super("keyword");
 	}
 
 	async toItem(keyword: SourceInfer.Entity<IKeywordSource>): Promise<SourceInfer.Item<IKeywordSource>> {
@@ -38,3 +35,5 @@ export class KeywordSourceClass extends ContainerSource<IKeywordSource> implemen
 		});
 	}
 }
+
+export const KeywordSource = () => new KeywordSourceClass();

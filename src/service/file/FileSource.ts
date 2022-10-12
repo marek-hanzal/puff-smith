@@ -4,7 +4,6 @@ import {
 	IFileSource
 }                        from "@/puff-smith/service/file/interface";
 import fileService       from "@/puff-smith/service/side-effect/fileService";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IFileStoreRequest,
 	QueryInfer,
@@ -15,7 +14,7 @@ import fs                from "node:fs";
 
 export class FileSourceClass extends ContainerSource<IFileSource> implements IFileSource {
 	constructor() {
-		super("file", prisma);
+		super("file");
 	}
 
 	async toItem(file: SourceInfer.Entity<IFileSource>): Promise<SourceInfer.Item<IFileSource>> {

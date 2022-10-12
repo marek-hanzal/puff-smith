@@ -50,12 +50,12 @@ process.env.NODE_ENV === "development" && providers.push(CredentialsProvider({
 }));
 
 export default NextAuth({
-	theme:     {
+	theme:   {
 		logo:        "/logo.png",
 		brandColor:  "#1890ff",
 		colorScheme: "light",
 	},
-	events:    {
+	events:  {
 		signIn:  ({user}) => {
 			logger.debug("User sign-in", {label: {userId: user.id}});
 		},
@@ -63,11 +63,11 @@ export default NextAuth({
 			logger.debug("User sign-out", {label: {userId: sub}});
 		},
 	},
-	adapter:   PrismaAdapter(prismaClient),
-	session:   {
+	adapter: PrismaAdapter(prismaClient),
+	session: {
 		strategy: "jwt",
 	},
-	pages:     {
+	pages:   {
 		newUser: "/welcome",
 	},
 	// debug: process.env.NODE_ENV === 'development',
@@ -78,10 +78,12 @@ export default NextAuth({
 				logger.debug("Resolving JWT token", {isNewUser});
 				if (token?.sub) {
 					logger.debug("Token found with sub");
-					const userService = UserSource().withContainer(Container(prisma, User({
-						userId: token.sub,
-						tokens: ["*"],
-					})));
+					const userService = UserSource().withContainer(Container({
+						user: User({
+							userId: token.sub,
+							tokens: ["*"],
+						}),
+					}));
 					const user        = await userService.asUser(token.sub);
 					if (isNewUser) {
 						(await prismaClient.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();
@@ -108,8 +110,8 @@ export default NextAuth({
 			return session;
 		},
 	},
-	secret: process.env.NEXTAUTH_SECRET,
-	jwt:    {
+	secret:    process.env.NEXTAUTH_SECRET,
+	jwt:       {
 		secret: process.env.NEXTAUTH_SECRET,
 	},
 });

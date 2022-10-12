@@ -1,6 +1,5 @@
 import {Container}          from "@/puff-smith/service/Container";
 import {ContainerSource}    from "@/puff-smith/service/ContainerSource";
-import prisma               from "@/puff-smith/service/side-effect/prisma";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {sha256}             from "@/puff-smith/service/utils/sha256";
 import {
@@ -17,7 +16,7 @@ import {merge}              from "@leight-core/utils";
 
 export class TranslationSourceClass extends ContainerSource<ITranslationSource> implements ITranslationSource {
 	constructor() {
-		super("translation", prisma);
+		super("translation");
 	}
 
 	async toItem({id, language, label: key, text: value}: SourceInfer.Entity<ITranslationSource>): Promise<SourceInfer.Item<ITranslationSource>> {
@@ -99,7 +98,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	async $patch({id, ...patch}: UndefinableOptional<SourceInfer.Create<ITranslationSource>> & IWithIdentity): Promise<SourceInfer.Entity<ITranslationSource>> {
 		return this.container.prisma.translation.update({
 			where: {id},
-			data: patch,
+			data:  patch,
 		});
 	}
 

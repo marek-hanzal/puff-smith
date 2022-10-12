@@ -1,6 +1,5 @@
 import {Container}       from "@/puff-smith/service/Container";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {IUserSource}     from "@/puff-smith/service/user/interface";
 import {
 	IUser,
@@ -15,7 +14,7 @@ import {uniqueOf}        from "@leight-core/utils";
 
 export class UserSourceClass extends ContainerSource<IUserSource> implements IUserSource {
 	constructor() {
-		super("user", prisma);
+		super("user");
 	}
 
 	async toItem({UserToken, name, id, image, email}: SourceInfer.Entity<IUserSource>): Promise<SourceInfer.Item<IUserSource>> {

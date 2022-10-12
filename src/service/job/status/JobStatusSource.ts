@@ -1,6 +1,5 @@
 import {ContainerSource}  from "@/puff-smith/service/ContainerSource";
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
-import prisma             from "@/puff-smith/service/side-effect/prisma";
 import {
 	IJobStatus,
 	SourceInfer,
@@ -19,7 +18,7 @@ export const JobStatusSource = () => new JobStatusSourceClass();
 
 export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> implements IJobStatusSource {
 	constructor() {
-		super("job.status", prisma);
+		super("job.status");
 	}
 
 	async toItem(status: SourceInfer.Entity<IJobStatusSource>): Promise<SourceInfer.Item<IJobStatusSource>> {

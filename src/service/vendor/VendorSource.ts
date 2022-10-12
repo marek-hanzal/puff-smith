@@ -1,5 +1,4 @@
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
-import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {
 	IVendorEntity,
 	IVendorReference,
@@ -16,7 +15,7 @@ import {merge}           from "@leight-core/utils";
 
 export class VendorSourceClass extends ContainerSource<IVendorSource> implements IVendorSource {
 	constructor() {
-		super("vendor", prisma);
+		super("vendor");
 	}
 
 	async toItem(vendor: SourceInfer.Entity<IVendorSource>): Promise<SourceInfer.Item<IVendorSource>> {
