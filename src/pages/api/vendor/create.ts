@@ -1,7 +1,9 @@
-import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
-import {VendorSource}   from "@/puff-smith/service/vendor/VendorSource";
-import {CreateEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {VendorSource}     from "@/puff-smith/service/vendor/VendorSource";
+import {CreateEndpoint}   from "@leight-core/server";
 
-export default CreateEndpoint<"VendorCreate", IVendorSource>({
-	source: VendorSource,
+export default CreateEndpoint({
+	name:      "VendorCreate",
+	container: ContainerPromise,
+	source:    VendorSource,
 });

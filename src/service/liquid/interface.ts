@@ -1,6 +1,6 @@
 import {
 	IAroma,
-	IWithAroma
+	IWithAromaEntity
 }                       from "@/puff-smith/service/aroma/interface";
 import {ContainerClass} from "@/puff-smith/service/Container";
 import {IMixtureInfo}   from "@/puff-smith/service/mixture/toMixture";
@@ -16,11 +16,10 @@ import {
 	LiquidDraw,
 	Prisma
 }                       from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export type ILiquidEntity =
 	Liquid
-	& IWithAroma
+	& IWithAromaEntity
 	& { LiquidDraw: (LiquidDraw & { draw: ITagEntity; })[] };
 
 export interface ILiquid extends Omit<Liquid, "userId" | "nicotine" | "nicotineToRound" | "created" | "mixed"> {
@@ -34,19 +33,15 @@ export interface ILiquid extends Omit<Liquid, "userId" | "nicotine" | "nicotineT
 	drawIds: string[];
 }
 
+export interface IWithLiquid {
+	liquid: ILiquid;
+}
+
 export interface ILiquidCreate extends Omit<Liquid, "id" | "userId" | "created" | "nicotine" | "nicotineToRound" | "vg" | "pg" | "vgToRound" | "pgToRound" | "mixtureId" | "baseAmount" | "boosterAmount"> {
 	mixtureId: string;
 }
 
 export type ILiquidQuery = IQuery<Prisma.LiquidWhereInput & IWithFulltext, Prisma.LiquidOrderByWithRelationInput>;
-
-export interface ILiquidFetch {
-	liquid: ILiquid;
-}
-
-export interface ILiquidFetchParams extends ParsedUrlQuery {
-	liquidId: string;
-}
 
 export interface ILiquidSource extends ISource<//
 	ContainerClass,

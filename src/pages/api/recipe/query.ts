@@ -1,7 +1,9 @@
-import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {RecipeSource}  from "@/puff-smith/service/recipe/RecipeSource";
-import {QueryEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {RecipeSource}     from "@/puff-smith/service/recipe/RecipeSource";
+import {QueryEndpoint}    from "@leight-core/server";
 
-export default QueryEndpoint<"Recipe", IRecipeSource>({
-	source: RecipeSource,
+export default QueryEndpoint({
+	name:      "Recipe",
+	container: ContainerPromise,
+	source:    RecipeSource,
 });

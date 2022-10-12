@@ -22,7 +22,7 @@ export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> impl
 		super("job.status", prisma);
 	}
 
-	async map(status: SourceInfer.Entity<IJobStatusSource>): Promise<SourceInfer.Item<IJobStatusSource>> {
+	async toItem(status: SourceInfer.Entity<IJobStatusSource>): Promise<SourceInfer.Item<IJobStatusSource>> {
 		return status;
 	}
 

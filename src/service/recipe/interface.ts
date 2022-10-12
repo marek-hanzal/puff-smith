@@ -31,6 +31,10 @@ export interface IRecipe extends Omit<Recipe, "userId" | "nicotine" | "nicotineT
 	nicotineTolerance?: number;
 }
 
+export interface IWithRecipe {
+	recipe: IRecipe;
+}
+
 export interface IRecipeCreate extends Omit<Recipe, "id" | "userId" | "boosterId" | "baseId" | "hash"> {
 	base?: IBoosterCreate;
 	booster?: IBoosterCreate;

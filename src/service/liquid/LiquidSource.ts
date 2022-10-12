@@ -1,3 +1,4 @@
+import {Container}       from "@/puff-smith/service/Container";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {
 	ILiquidEntity,
@@ -10,10 +11,11 @@ import {
 	SourceInfer,
 	UndefinableOptional
 }                        from "@leight-core/api";
-import {pageOf}          from "@leight-core/server";
+import {
+	pageOf,
+	withFetch
+}                        from "@leight-core/server";
 import {merge}           from "@leight-core/utils";
-
-export const LiquidSource = () => new LiquidSourceClass();
 
 export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements ILiquidSource {
 	constructor() {
@@ -95,7 +97,7 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 						mixed:           mixed || new Date(),
 					},
 					include: {
-						aroma: {
+						aroma:      {
 							include: {
 								vendor:     true,
 								AromaTaste: {
@@ -126,8 +128,8 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 					throw new ClientError(`Resolved invalid mixture [${mixture.result.error}]!`);
 				}
 				return this.updateKeywords(await this.container.prisma.liquid.update({
-					where: {id},
-					data:  {
+					where:   {id},
+					data:    {
 						...liquid,
 						nicotine:        mixture?.result?.nicotine,
 						nicotineToRound: mixture?.result?.nicotineToRound,
@@ -301,3 +303,6 @@ export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements
 		});
 	}
 }
+
+export const LiquidSource     = () => new LiquidSourceClass();
+export const nextLiquidSource = () => withFetch(async () => Container().useLiquidSource(async t => t), "liquid", "liquidId");

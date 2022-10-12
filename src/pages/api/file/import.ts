@@ -1,10 +1,14 @@
+import {IImportJobParams}   from "@/puff-smith/jobs/import/interface";
+import {ImportJob}          from "@/puff-smith/jobs/import/job";
 import {
-	IImportJob,
-	IImportJobParams
-}                         from "@/puff-smith/jobs/import/interface";
-import {ImportJob}        from "@/puff-smith/jobs/import/job";
-import {MutationEndpoint} from "@leight-core/server";
+	ContainerClass,
+	ContainerPromise
+}                           from "@/puff-smith/service/Container";
+import {IImportQueryParams} from "@/sdk/api/file/import";
+import {MutationEndpoint}   from "@leight-core/server";
 
-export default MutationEndpoint<"Import", IImportJobParams, IImportJob>({
-	handler: ImportJob.request,
+export default MutationEndpoint<ContainerClass, IImportJobParams, IImportQueryParams>({
+	name:      "Import",
+	container: ContainerPromise,
+	handler:   ImportJob.request,
 });

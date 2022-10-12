@@ -1,7 +1,9 @@
-import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {VendorSource}  from "@/puff-smith/service/vendor/VendorSource";
-import {FetchEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {VendorSource}     from "@/puff-smith/service/vendor/VendorSource";
+import {FetchEndpoint}    from "@leight-core/server";
 
-export default FetchEndpoint<"Vendor", IVendorSource>({
-	source: VendorSource,
+export default FetchEndpoint({
+	name:      "Vendor",
+	container: ContainerPromise,
+	source:    VendorSource,
 });

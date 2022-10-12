@@ -14,8 +14,6 @@ import {
 import {pageOf}          from "@leight-core/server";
 import {merge}           from "@leight-core/utils";
 
-export const VendorSource = () => new VendorSourceClass();
-
 export class VendorSourceClass extends ContainerSource<IVendorSource> implements IVendorSource {
 	constructor() {
 		super("vendor", prisma);
@@ -26,28 +24,28 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 	}
 
 	async $get(id: string): Promise<SourceInfer.Entity<IVendorSource>> {
-		return this.prisma.vendor.findUniqueOrThrow({
+		return this.container.prisma.vendor.findUniqueOrThrow({
 			where: {id},
 		});
 	}
 
 	async $create(create: SourceInfer.Create<IVendorSource>): Promise<SourceInfer.Entity<IVendorSource>> {
-		return this.prisma.vendor.create({
+		return this.container.prisma.vendor.create({
 			data: {
 				...create,
-				userId: this.user.optional(),
+				userId: this.container.user.optional(),
 			},
 		});
 	}
 
 	async $patch({id}: UndefinableOptional<SourceInfer.Create<IVendorSource>> & IWithIdentity): Promise<SourceInfer.Entity<IVendorSource>> {
-		return this.prisma.vendor.findFirstOrThrow({
+		return this.container.prisma.vendor.findFirstOrThrow({
 			where: {id},
 		});
 	}
 
 	async resolveId({name}: SourceInfer.Create<IVendorSource>): Promise<IWithIdentity> {
-		return this.prisma.vendor.findUniqueOrThrow({
+		return this.container.prisma.vendor.findUniqueOrThrow({
 			where: {
 				name,
 			}
@@ -55,13 +53,13 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 	}
 
 	async $count(query: SourceInfer.Query<IVendorSource>): Promise<number> {
-		return this.prisma.vendor.count({
+		return this.container.prisma.vendor.count({
 			where: this.withFilter(query),
 		});
 	}
 
 	async $query(query: SourceInfer.Query<IVendorSource>): Promise<SourceInfer.Entity<IVendorSource>[]> {
-		return this.prisma.vendor.findMany({
+		return this.container.prisma.vendor.findMany({
 			where:   this.withFilter(query),
 			orderBy: [
 				{name: "asc"},
@@ -88,10 +86,10 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 				in: ids,
 			},
 		};
-		const items = await this.prisma.vendor.findMany({
+		const items = await this.container.prisma.vendor.findMany({
 			where,
 		});
-		await this.prisma.vendor.deleteMany({
+		await this.container.prisma.vendor.deleteMany({
 			where,
 		});
 		return items;
@@ -101,7 +99,7 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		if (!vendor && !vendorId) {
 			throw new Error(`Provide [vendor] or [vendorId].`);
 		}
-		return this.prisma.vendor.findUniqueOrThrow({
+		return this.container.prisma.vendor.findUniqueOrThrow({
 			where: vendorId ? {
 				id: vendorId,
 			} : {
@@ -118,3 +116,5 @@ export class VendorSourceClass extends ContainerSource<IVendorSource> implements
 		}
 	}
 }
+
+export const VendorSource = () => new VendorSourceClass();

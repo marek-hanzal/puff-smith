@@ -1,7 +1,9 @@
-import {IVendorSource} from "@/puff-smith/service/vendor/interface";
-import {VendorSource}  from "@/puff-smith/service/vendor/VendorSource";
-import {CountEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {VendorSource}     from "@/puff-smith/service/vendor/VendorSource";
+import {CountEndpoint}    from "@leight-core/server";
 
-export default CountEndpoint<"VendorCount", IVendorSource>({
-	source: VendorSource,
+export default CountEndpoint({
+	name:      "VendorCount",
+	container: ContainerPromise,
+	source:    VendorSource,
 });

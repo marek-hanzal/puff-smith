@@ -1,9 +1,15 @@
+import {
+	ContainerClass,
+	ContainerPromise
+}                    from "@/puff-smith/service/Container";
 import {FileSource}  from "@/puff-smith/service/file/FileSource";
 import {GetEndpoint} from "@leight-core/server";
 import fs            from "node:fs";
 
-export default GetEndpoint<"Download", string, { fileId: string }>({
-	handler: async ({res, query: {fileId}}) => {
+export default GetEndpoint<ContainerClass, string, { fileId: string }>({
+	name:      "Download",
+	container: ContainerPromise,
+	handler:   async ({res, query: {fileId}}) => {
 		try {
 			const file = await FileSource().get(fileId);
 			res.writeHead(200, {

@@ -24,7 +24,8 @@ import {
 import {User}                from "@leight-core/client";
 import {RestoreServiceClass} from "@leight-core/server";
 
-export const Container = (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => new ContainerClass(prisma, user);
+export const Container        = (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => new ContainerClass(prisma, user);
+export const ContainerPromise = async (prisma: IPrismaTransaction = CoolPrisma, user: IUser = User()) => Container(prisma, user);
 
 export class ContainerClass implements IContainer<IFileSource> {
 	prisma: IPrismaTransaction;
@@ -69,7 +70,7 @@ export class ContainerClass implements IContainer<IFileSource> {
 		return callback((await import ("@/puff-smith/service/mixture/MixtureSource")).MixtureSource().withContainer(this));
 	}
 
-	async useFileSource<T>(callback: IContainerCallback<IFileSource, T>) {
+	async useFileSource<T>(callback: IContainerCallback<IFileSource, T>): Promise<T> {
 		return callback((await import("@/puff-smith/service/file/FileSource")).FileSource().withContainer(this));
 	}
 

@@ -1,7 +1,9 @@
-import {FileSource}    from "@/puff-smith/service/file/FileSource";
-import {IFileSource}   from "@/puff-smith/service/file/interface";
-import {QueryEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {FileSource}       from "@/puff-smith/service/file/FileSource";
+import {QueryEndpoint}    from "@leight-core/server";
 
-export default QueryEndpoint<"File", IFileSource>({
-	source: FileSource,
+export default QueryEndpoint({
+	name:      "File",
+	container: ContainerPromise,
+	source:    FileSource,
 });

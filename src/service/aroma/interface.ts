@@ -15,19 +15,21 @@ import {
 	Aroma,
 	Prisma
 }                       from "@prisma/client";
-import {ParsedUrlQuery} from "querystring";
 
 export type IAromaEntity =
 	Aroma
 	& IWithVendor
 	& { AromaTaste: { taste: ITagEntity }[]; };
-
-export type IWithAroma = { aroma: IAromaEntity; };
+export type IWithAromaEntity = { aroma: IAromaEntity; };
 
 export interface IAroma extends Omit<Aroma, "userId"> {
 	vendor: IVendor;
 	tastes: ITag[];
 	tasteIds: string[];
+}
+
+export interface IWithAroma {
+	aroma: IAroma;
 }
 
 export interface IAromaCreate extends Omit<Aroma, "id" | "userId" | "vendor" | "vendorId" | "code">, IVendorReference {
@@ -38,14 +40,6 @@ export interface IAromaCreate extends Omit<Aroma, "id" | "userId" | "vendor" | "
 }
 
 export type IAromaQuery = IQuery<Prisma.AromaWhereInput & IWithFulltext, Prisma.AromaOrderByWithRelationInput>;
-
-export interface IAromaFetch {
-	aroma: IAroma;
-}
-
-export interface IAromaFetchParams extends ParsedUrlQuery {
-	aromaId: string;
-}
 
 export interface IAromaSource extends ISource<//
 	ContainerClass,

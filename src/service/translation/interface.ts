@@ -16,6 +16,8 @@ export interface ITranslationCreate {
 	text: string;
 }
 
+export type IWithTranslation = { translation: ITranslation };
+
 export interface ITranslationQuery extends IQuery<Prisma.TranslationWhereInput & IWithFulltext, Prisma.TranslationOrderByWithRelationInput> {
 }
 

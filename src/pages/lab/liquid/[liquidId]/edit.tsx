@@ -1,11 +1,11 @@
-import {LiquidIcon}      from "@/puff-smith/component/icon/LiquidIcon";
-import {ILiquidFetch}    from "@/puff-smith/service/liquid/interface";
-import {LiquidSource}    from "@/puff-smith/service/liquid/LiquidSource";
-import {MobileLabPage}   from "@/puff-smith/site/lab/@module/component/MobileLabPage";
-import {withLabLayout}   from "@/puff-smith/site/lab/@module/layout/layout";
-import {LiquidPatchForm} from "@/puff-smith/ui/liquid/form/LiquidPatchForm";
+import {LiquidIcon}       from "@/puff-smith/component/icon/LiquidIcon";
+import {IWithLiquid}      from "@/puff-smith/service/liquid/interface";
+import {nextLiquidSource} from "@/puff-smith/service/liquid/LiquidSource";
+import {MobileLabPage}    from "@/puff-smith/site/lab/@module/component/MobileLabPage";
+import {withLabLayout}    from "@/puff-smith/site/lab/@module/layout/layout";
+import {LiquidPatchForm}  from "@/puff-smith/ui/liquid/form/LiquidPatchForm";
 
-export default withLabLayout(function Edit({liquid}: ILiquidFetch) {
+export default withLabLayout(function Edit({liquid}: IWithLiquid) {
 	return <MobileLabPage
 		onBack={navigate => navigate("/lab/liquid/[liquidId]", {liquidId: liquid.id})}
 		title={"lab.liquid.edit"}
@@ -25,4 +25,4 @@ export default withLabLayout(function Edit({liquid}: ILiquidFetch) {
 	</MobileLabPage>;
 });
 
-export const getServerSideProps = LiquidSource().withFetch("liquid", "liquidId");
+export const getServerSideProps = nextLiquidSource();

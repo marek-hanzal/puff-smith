@@ -1,7 +1,9 @@
-import {AromaSource}   from "@/puff-smith/service/aroma/AromaSource";
-import {IAromaSource}  from "@/puff-smith/service/aroma/interface";
-import {CountEndpoint} from "@leight-core/server";
+import {AromaSource}      from "@/puff-smith/service/aroma/AromaSource";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {CountEndpoint}    from "@leight-core/server";
 
-export default CountEndpoint<"AromaCount", IAromaSource>({
-	source: AromaSource,
+export default CountEndpoint({
+	name:      "AromaCount",
+	container: ContainerPromise,
+	source:    AromaSource,
 });

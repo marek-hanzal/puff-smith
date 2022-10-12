@@ -1,12 +1,12 @@
 import {LiquidIcon}         from "@/puff-smith/component/icon/LiquidIcon";
-import {ILiquidFetch}       from "@/puff-smith/service/liquid/interface";
-import {LiquidSource}       from "@/puff-smith/service/liquid/LiquidSource";
+import {IWithLiquid}        from "@/puff-smith/service/liquid/interface";
+import {nextLiquidSource}   from "@/puff-smith/service/liquid/LiquidSource";
 import {MobileLabPage}      from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout}      from "@/puff-smith/site/lab/@module/layout/layout";
 import {LiquidLiquidBubble} from "@/puff-smith/ui/liquid/menu/LiquidLiquidBubble";
 import {LiquidView}         from "@/puff-smith/ui/liquid/view/LiquidView";
 
-export default withLabLayout(function Index({liquid}: ILiquidFetch) {
+export default withLabLayout(function Index({liquid}: IWithLiquid) {
 	return <MobileLabPage
 		onBack={navigate => navigate("/lab/liquid")}
 		title={"lab.liquid.liquid"}
@@ -22,4 +22,4 @@ export default withLabLayout(function Index({liquid}: ILiquidFetch) {
 	</MobileLabPage>;
 });
 
-export const getServerSideProps = LiquidSource().withFetch("liquid", "liquidId");
+export const getServerSideProps = nextLiquidSource();

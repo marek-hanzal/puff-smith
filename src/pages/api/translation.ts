@@ -1,15 +1,17 @@
-import {TranslationSource}  from "@/puff-smith/service/translation/TranslationSource";
-import {ITranslationBundle} from "@leight-core/api";
-import {ListEndpoint}       from "@leight-core/server";
+import {ContainerPromise}  from "@/puff-smith/service/Container";
+import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
+import {ListEndpoint}      from "@leight-core/server";
 
-export default ListEndpoint<"Translation", ITranslationBundle>({
-	handler: async ({user}) => {
-		const translationSource = TranslationSource().withUser(user);
+export default ListEndpoint({
+	name:      "Translation",
+	container: ContainerPromise,
+	handler:   async ({container}) => {
+		const translationSource = TranslationSource().withContainer(container);
 		return {
 			bundles: [
 				{
 					language:     "cs",
-					translations: (await translationSource.list(translationSource.query({
+					translations: (await translationSource.mapper.toItem.list(translationSource.query({
 						filter: {
 							language: "cs",
 						}

@@ -1,3 +1,4 @@
+import {Container}       from "@/puff-smith/service/Container";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import prisma            from "@/puff-smith/service/side-effect/prisma";
 import {IUserSource}     from "@/puff-smith/service/user/interface";
@@ -7,11 +8,10 @@ import {
 }                        from "@leight-core/api";
 import {
 	pageOf,
-	User
+	User,
+	withFetch
 }                        from "@leight-core/server";
 import {uniqueOf}        from "@leight-core/utils";
-
-export const UserSource = () => new UserSourceClass();
 
 export class UserSourceClass extends ContainerSource<IUserSource> implements IUserSource {
 	constructor() {
@@ -143,7 +143,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 	}
 
 	async asUser(userId?: string | null): Promise<IUser> {
-		const $user = userId ? await this.map(await this.get(userId)) : null;
+		const $user = userId ? await this.mapper.toItem.map(await this.get(userId)) : null;
 		return User({
 			userId,
 			tokens: $user?.tokens?.map(({name}) => name),
@@ -157,7 +157,7 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 					name: token,
 				});
 				await userTokenSource.import({
-					userId:  this.user.required(),
+					userId:  this.container.user.required(),
 					tokenId: $token.id,
 				});
 			});
@@ -178,3 +178,6 @@ export class UserSourceClass extends ContainerSource<IUserSource> implements IUs
 		]);
 	}
 }
+
+export const UserSource     = () => new UserSourceClass();
+export const nextUserSource = () => withFetch(async () => Container().useUserSource(async t => t), "user", "userId");

@@ -7,8 +7,6 @@ import {
 	UndefinableOptional
 }                         from "@leight-core/api";
 
-export const UserTokenSource = () => new UserTokenSourceClass();
-
 export class UserTokenSourceClass extends ContainerSource<IUserTokenSource> implements IUserTokenSource {
 	constructor() {
 		super("user.token", prisma);
@@ -41,3 +39,5 @@ export class UserTokenSourceClass extends ContainerSource<IUserTokenSource> impl
 		});
 	}
 }
+
+export const UserTokenSource = () => new UserTokenSourceClass();

@@ -1,7 +1,9 @@
-import {FileSource}     from "@/puff-smith/service/file/FileSource";
-import {IFileSource}    from "@/puff-smith/service/file/interface";
-import {DeleteEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {FileSource}       from "@/puff-smith/service/file/FileSource";
+import {DeleteEndpoint}   from "@leight-core/server";
 
-export default DeleteEndpoint<"FileDelete", IFileSource>({
-	source: FileSource,
+export default DeleteEndpoint({
+	name:      "FileDelete",
+	container: ContainerPromise,
+	source:    FileSource,
 });

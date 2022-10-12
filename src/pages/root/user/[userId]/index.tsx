@@ -1,5 +1,5 @@
-import {IUserFetch}      from "@/puff-smith/service/user/interface";
-import {UserSource}      from "@/puff-smith/service/user/UserSource";
+import {IWithUser}       from "@/puff-smith/service/user/interface";
+import {nextUserSource}  from "@/puff-smith/service/user/UserSource";
 import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
 import {withRootLayout}  from "@/puff-smith/site/root/@module/layout/layout";
 import {UserIndexMenu}   from "@/puff-smith/site/root/user/@module/menu/UserIndexMenu";
@@ -10,7 +10,7 @@ import {
 	Row
 }                        from "antd";
 
-export default withRootLayout(function Index({user}: IUserFetch) {
+export default withRootLayout(function Index({user}: IWithUser) {
 	return <BrowserRootPage
 		onBack={navigate => navigate("/root/user")}
 		title={"root.user.index"}
@@ -29,4 +29,4 @@ export default withRootLayout(function Index({user}: IUserFetch) {
 	</BrowserRootPage>;
 });
 
-export const getServerSideProps = UserSource().withFetch("user", "userId");
+export const getServerSideProps = nextUserSource();

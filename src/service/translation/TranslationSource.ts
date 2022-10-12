@@ -1,3 +1,4 @@
+import {Container}          from "@/puff-smith/service/Container";
 import {ContainerSource}    from "@/puff-smith/service/ContainerSource";
 import prisma               from "@/puff-smith/service/side-effect/prisma";
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
@@ -8,10 +9,11 @@ import {
 	SourceInfer,
 	UndefinableOptional
 }                           from "@leight-core/api";
-import {pageOf}             from "@leight-core/server";
+import {
+	pageOf,
+	withFetch
+}                           from "@leight-core/server";
 import {merge}              from "@leight-core/utils";
-
-export const TranslationSource = () => new TranslationSourceClass();
 
 export class TranslationSourceClass extends ContainerSource<ITranslationSource> implements ITranslationSource {
 	constructor() {
@@ -97,7 +99,7 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 	async $patch({id, ...patch}: UndefinableOptional<SourceInfer.Create<ITranslationSource>> & IWithIdentity): Promise<SourceInfer.Entity<ITranslationSource>> {
 		return this.container.prisma.translation.update({
 			where: {id},
-			data:  patch,
+			data: patch,
 		});
 	}
 
@@ -116,3 +118,6 @@ export class TranslationSourceClass extends ContainerSource<ITranslationSource> 
 		return items;
 	}
 }
+
+export const TranslationSource     = () => new TranslationSourceClass();
+export const nextTranslationSource = () => withFetch(async () => Container().useTranslationSource(async t => t), "translation", "translationId");

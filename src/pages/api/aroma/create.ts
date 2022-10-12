@@ -1,7 +1,9 @@
-import {AromaSource}    from "@/puff-smith/service/aroma/AromaSource";
-import {IAromaSource}   from "@/puff-smith/service/aroma/interface";
-import {CreateEndpoint} from "@leight-core/server";
+import {AromaSource}      from "@/puff-smith/service/aroma/AromaSource";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {CreateEndpoint}   from "@leight-core/server";
 
-export default CreateEndpoint<"AromaCreate", IAromaSource>({
-	source: AromaSource,
+export default CreateEndpoint({
+	name:      "AromaCreate",
+	container: ContainerPromise,
+	source:    AromaSource,
 });

@@ -1,7 +1,9 @@
-import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {TranslationSource}  from "@/puff-smith/service/translation/TranslationSource";
-import {QueryEndpoint}      from "@leight-core/server";
+import {ContainerPromise}  from "@/puff-smith/service/Container";
+import {TranslationSource} from "@/puff-smith/service/translation/TranslationSource";
+import {QueryEndpoint}     from "@leight-core/server";
 
-export default QueryEndpoint<"Translation", ITranslationSource>({
-	source: TranslationSource,
+export default QueryEndpoint({
+	name:      "Translation",
+	container: ContainerPromise,
+	source:    TranslationSource,
 });

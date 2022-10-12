@@ -1,7 +1,9 @@
-import {IUserSource}   from "@/puff-smith/service/user/interface";
-import {UserSource}    from "@/puff-smith/service/user/UserSource";
-import {CountEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {UserSource}       from "@/puff-smith/service/user/UserSource";
+import {CountEndpoint}    from "@leight-core/server";
 
-export default CountEndpoint<"UserCount", IUserSource>({
-	source: UserSource,
+export default CountEndpoint({
+	name:      "UserCount",
+	container: ContainerPromise,
+	source:    UserSource,
 });

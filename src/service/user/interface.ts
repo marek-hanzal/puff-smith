@@ -19,7 +19,7 @@ interface IUserQuery extends IQuery<Prisma.UserWhereInput, Prisma.UserOrderByWit
 }
 
 export type IUserEntity<T = void> = IfVoid<User, T>;
-export type IWithUser<T = void> = { user: IUserEntity<T>; };
+export type IWithUserEntity<T = void> = { user: IUserEntity<T>; };
 export type IWithNullUser<T = void> = { user?: IUserEntity<T> | null; };
 
 export interface IUser {
@@ -29,6 +29,10 @@ export interface IUser {
 	image?: string | null;
 	tokens: IToken[];
 	tokenIds: string[];
+}
+
+export interface IWithUser {
+	user: IUser;
 }
 
 export type IUserSourceEntity = IUserEntity<IWithNullUserToken<IWithTokenEntity>>;

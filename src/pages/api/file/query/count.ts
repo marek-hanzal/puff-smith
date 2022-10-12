@@ -1,7 +1,9 @@
-import {FileSource}    from "@/puff-smith/service/file/FileSource";
-import {IFileSource}   from "@/puff-smith/service/file/interface";
-import {CountEndpoint} from "@leight-core/server";
+import {ContainerPromise} from "@/puff-smith/service/Container";
+import {FileSource}       from "@/puff-smith/service/file/FileSource";
+import {CountEndpoint}    from "@leight-core/server";
 
-export default CountEndpoint<"FileCount", IFileSource>({
-	source: FileSource,
+export default CountEndpoint({
+	name:      "FileCount",
+	container: ContainerPromise,
+	source:    FileSource,
 });

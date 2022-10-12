@@ -13,8 +13,6 @@ import {
 import {pageOf}          from "@leight-core/server";
 import {merge}           from "@leight-core/utils";
 
-export const TagSource = () => new TagSourceClass();
-
 export class TagSourceClass extends ContainerSource<ITagSource> implements ITagSource {
 	constructor() {
 		super("tag", prisma);
@@ -160,3 +158,5 @@ export class TagSourceClass extends ContainerSource<ITagSource> implements ITagS
 		} : {});
 	}
 }
+
+export const TagSource = () => new TagSourceClass();
