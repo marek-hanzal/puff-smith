@@ -13,7 +13,7 @@ import {
 	ISource,
 	IWithFulltext,
 	Nullable
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Prisma,
 	Recipe

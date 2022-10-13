@@ -3,7 +3,7 @@ import {MobileMenu}    from "@/puff-smith/site/shared/@mobile/menu/MobileMenu";
 import {
 	IMobilePageProps,
 	MobilePage
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {FC}            from "react";
 
 export interface IMobileInventoryPageProps extends IMobilePageProps {

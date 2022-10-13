@@ -9,7 +9,7 @@ import {
 	IQuery,
 	ISource,
 	IUser as ICoolUser
-}                           from "@leight-core/api";
+}                           from "@leight-core/viv";
 import {
 	Prisma,
 	User

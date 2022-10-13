@@ -6,10 +6,10 @@ import {
 import fileService       from "@/puff-smith/service/side-effect/fileService";
 import {
 	IFileStoreRequest,
+	pageOf,
 	QueryInfer,
 	SourceInfer,
-}                        from "@leight-core/api";
-import {pageOf}          from "@leight-core/server";
+}                        from "@leight-core/viv";
 import fs                from "node:fs";
 
 export class FileSourceClass extends ContainerSource<IFileSource> implements IFileSource {

@@ -7,7 +7,7 @@ import {
 	asyncContainer,
 	ContainerClass
 }                         from "@/puff-smith/service/Container";
-import {MutationEndpoint} from "@leight-core/server";
+import {MutationEndpoint} from "@leight-core/viv";
 
 export default MutationEndpoint<ContainerClass, IRestoreJobParams, IRestoreJob>({
 	name:      "Restore",

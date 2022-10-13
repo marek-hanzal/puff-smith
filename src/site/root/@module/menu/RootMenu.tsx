@@ -15,7 +15,7 @@ import {
 	Menu,
 	MobileContent,
 	MobileMenu
-}                        from "@leight-core/client";
+}                        from "@leight-core/viv";
 import {FC}              from "react";
 
 export interface IRootMenuProps {

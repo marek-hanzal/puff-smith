@@ -7,7 +7,7 @@ import {
 import {
 	InfiniteListItem,
 	MobileContent
-}                        from "@leight-core/client";
+}                        from "@leight-core/viv";
 import {FC}              from "react";
 
 export interface IAromaListProps extends Partial<IAromaInfiniteListSourceProps> {

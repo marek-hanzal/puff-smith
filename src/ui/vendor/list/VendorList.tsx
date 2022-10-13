@@ -7,7 +7,7 @@ import {
 	ListItem,
 	ListItemMeta,
 	useOptionalSelectionContext
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {Typography}    from "antd";
 import {FC}            from "react";
 

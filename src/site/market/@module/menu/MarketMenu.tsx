@@ -8,7 +8,7 @@ import {ModIcon}         from "@/puff-smith/component/icon/ModIcon";
 import {VendorIcon}      from "@/puff-smith/component/icon/VendorIcon";
 import {VoucherIcon}     from "@/puff-smith/component/icon/VoucherIcon";
 import {WireIcon}        from "@/puff-smith/component/icon/WireIcon";
-import {MobileMenu}      from "@leight-core/client";
+import {MobileMenu}      from "@leight-core/viv";
 import {FC}              from "react";
 
 export interface IMarketMenuProps {

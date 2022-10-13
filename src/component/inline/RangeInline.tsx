@@ -1,4 +1,4 @@
-import {toHumanNumber} from "@leight-core/utils";
+import {toHumanNumber} from "@leight-core/viv";
 import {FC}            from "react";
 
 export interface IRangeInlineProps {

@@ -3,7 +3,7 @@ import {useRecipeDeleteMutation} from "@/sdk/api/recipe/delete";
 import {
 	BubbleMenu,
 	DeleteConfirmDialog
-}                                from "@leight-core/client";
+}                                from "@leight-core/viv";
 import {message}                 from "antd";
 import {Toast}                   from "antd-mobile";
 import {FC}                      from "react";

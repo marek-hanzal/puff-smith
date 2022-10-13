@@ -4,7 +4,7 @@ import {
 	durationOf,
 	toLocalDateTime,
 	Translate
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {
 	Space,
 	Tooltip,

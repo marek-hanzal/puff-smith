@@ -11,7 +11,7 @@ import {useAromaQueryInvalidate} from "@/sdk/api/aroma/query";
 import {
 	ButtonBar,
 	ButtonLink
-}                                from "@leight-core/client";
+}                                from "@leight-core/viv";
 import {Divider}                 from "antd";
 import {FC}                      from "react";
 

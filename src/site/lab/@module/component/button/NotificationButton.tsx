@@ -1,5 +1,5 @@
 import {useNotificationContext} from "@/puff-smith/component/notification/NotificationContext";
-import {NotificationIcon}       from "@leight-core/client";
+import {NotificationIcon}       from "@leight-core/viv";
 import {
 	Badge,
 	Button,

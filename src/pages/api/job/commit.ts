@@ -1,6 +1,6 @@
 import {asyncContainer}   from "@/puff-smith/service/Container";
 import {JobSource}        from "@/puff-smith/service/job/JobSource";
-import {MutationEndpoint} from "@leight-core/server";
+import {MutationEndpoint} from "@leight-core/viv";
 
 export default MutationEndpoint({
 	name:      "Commit",

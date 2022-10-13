@@ -1,4 +1,4 @@
-import {GithubIcon}     from "@leight-core/client";
+import {GithubIcon}     from "@leight-core/viv";
 import {
 	Button,
 	ButtonProps

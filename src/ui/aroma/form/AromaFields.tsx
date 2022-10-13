@@ -16,7 +16,7 @@ import {
 	MobileFormItem,
 	Tags,
 	Translate
-}                          from "@leight-core/client";
+}                          from "@leight-core/viv";
 import {Space}             from "antd";
 import {
 	Form,

@@ -2,7 +2,7 @@ import {
 	MobileFormItem,
 	TextArea,
 	Translate
-}           from "@leight-core/client";
+}           from "@leight-core/viv";
 import {
 	Form,
 	Input

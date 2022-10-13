@@ -7,7 +7,7 @@ import {
 	CreateMenuItem,
 	IMenuProps,
 	Menu
-}                        from "@leight-core/client";
+}                        from "@leight-core/viv";
 import {FC}              from "react";
 
 export interface IUserIndexMenuProps extends Partial<IMenuProps> {

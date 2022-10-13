@@ -4,7 +4,7 @@ import {
 	Ellipsis,
 	InfiniteListItem,
 	MobileContent
-}                                      from "@leight-core/client";
+}                                      from "@leight-core/viv";
 import {
 	Divider,
 	Space,

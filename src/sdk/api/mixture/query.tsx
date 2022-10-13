@@ -4,12 +4,6 @@
 
 import {IMixtureSource} from "@/puff-smith/service/mixture/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -132,7 +130,7 @@ export const MixtureTableSource: FC<IMixtureTableSourceProps> = ({providerProps,
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureListSourceProps extends Partial<IListProps<SourceInfer.Item<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -147,7 +145,7 @@ export const MixtureListSource: FC<IMixtureListSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IMixtureSource>>> {
 	providerProps?: Partial<IMixtureProviderProps>;
@@ -165,7 +163,7 @@ export const MixtureInfiniteListSource: FC<IMixtureInfiniteListSourceProps> = ({
 			{...props}
 		/>
 	</MixtureProvider>;
-}
+};
 
 export interface IMixtureSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IMixtureSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IMixtureSource>>;
@@ -183,7 +181,7 @@ export interface IMixtureSelectionProviderProps extends Partial<ISelectionProvid
 
 export const MixtureSelectionProvider: FC<IMixtureSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IMixtureSource>> {...props}/>;
-}
+};
 
 export const useMixtureCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -227,10 +225,10 @@ export const MixtureDrawerItem: FC<IMixtureDrawerItemProps> = ({onSelection, ...
 			drawerSelectProps={{
 				translation: {
 					namespace: MixtureApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

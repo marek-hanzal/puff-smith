@@ -7,7 +7,7 @@ import {
 	Endpoint,
 	IChunkEndpointQuery,
 	UploadChunkEndpoint
-}                     from "@leight-core/server";
+}                     from "@leight-core/viv";
 
 export const config = {
 	api: {

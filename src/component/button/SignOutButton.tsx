@@ -1,4 +1,4 @@
-import {SignOutIcon}    from "@leight-core/client";
+import {SignOutIcon}    from "@leight-core/viv";
 import {
 	Button,
 	ButtonProps,

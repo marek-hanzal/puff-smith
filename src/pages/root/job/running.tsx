@@ -13,11 +13,9 @@ import {JobProviderControl} from "@/sdk/api/job/query";
 import {
 	IJobStatus,
 	QueryInfer,
-}                           from "@leight-core/api";
-import {
 	useNavigate,
-	useParams
-}                           from "@leight-core/client";
+	useParams,
+}                           from "@leight-core/viv";
 import {message}            from "antd";
 import {useTranslation}     from "react-i18next";
 

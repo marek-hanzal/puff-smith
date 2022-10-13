@@ -1,7 +1,7 @@
 import {
 	toLocalDate,
 	toLocalDateTime
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {Tooltip}        from "antd";
 import {ConfigType}     from "dayjs";
 import {FC}             from "react";

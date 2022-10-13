@@ -4,7 +4,7 @@ import {
 	ISource,
 	ITag,
 	IWithFulltext
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Prisma,
 	Tag

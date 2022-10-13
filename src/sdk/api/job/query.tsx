@@ -4,12 +4,6 @@
 
 import {IJobSource}     from "@/puff-smith/service/job/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const JobTableSource: FC<IJobTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</JobProvider>;
-}
+};
 
 export interface IJobListSourceProps extends Partial<IListProps<SourceInfer.Item<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;
@@ -146,7 +144,7 @@ export const JobListSource: FC<IJobListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</JobProvider>;
-}
+};
 
 export interface IJobInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IJobSource>>> {
 	providerProps?: Partial<IJobProviderProps>;
@@ -164,7 +162,7 @@ export const JobInfiniteListSource: FC<IJobInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</JobProvider>;
-}
+};
 
 export interface IJobSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IJobSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IJobSource>>;
@@ -182,7 +180,7 @@ export interface IJobSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const JobSelectionProvider: FC<IJobSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IJobSource>> {...props}/>;
-}
+};
 
 export const useJobCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const JobDrawerItem: FC<IJobDrawerItemProps> = ({onSelection, ...props}) 
 			drawerSelectProps={{
 				translation: {
 					namespace: JobApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

@@ -4,7 +4,7 @@ import {
 	DeleteItemIcon,
 	Translate,
 	useSelectionContext
-}                               from "@leight-core/client";
+}                               from "@leight-core/viv";
 import {
 	Button,
 	message

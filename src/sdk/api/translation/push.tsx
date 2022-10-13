@@ -3,7 +3,6 @@
  */
 
 import {ITranslationCreate} from "@/puff-smith/service/translation/interface";
-import {ITranslation}       from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -11,9 +10,10 @@ import {
 	Form,
 	IFormProps,
 	IMobileFormProps,
+	ITranslation,
 	MobileForm,
 	toLink
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {FC}                 from "react";
 
 export const TranslationPushApiLink = "/api/translation/push";
@@ -29,7 +29,7 @@ export const TranslationPushDefaultForm: FC<ITranslationPushDefaultFormProps> = 
 	useMutation={useTranslationPushMutation}
 	translation={TranslationPushApiLink}
 	{...props}
-/>
+/>;
 
 export interface ITranslationPushDefaultMobileFormProps extends Partial<IMobileFormProps<ITranslationCreate, ITranslation>> {
 }
@@ -38,10 +38,10 @@ export const TranslationPushDefaultMobileForm: FC<ITranslationPushDefaultMobileF
 	useMutation={useTranslationPushMutation}
 	translation={TranslationPushApiLink}
 	{...props}
-/>
+/>;
 
-export const toTranslationPushLink = (queryParams?: ITranslationPushQueryParams) => toLink(TranslationPushApiLink, queryParams);
+export const toTranslationPushLink  = (queryParams?: ITranslationPushQueryParams) => toLink(TranslationPushApiLink, queryParams);
 export const useTranslationPushLink = () => toTranslationPushLink;
 
-export const useTranslationPushPromise = createPromiseHook<ITranslationCreate, ITranslation>(TranslationPushApiLink, "post");
+export const useTranslationPushPromise    = createPromiseHook<ITranslationCreate, ITranslation>(TranslationPushApiLink, "post");
 export const createTranslationPushPromise = createPromise<ITranslationCreate, ITranslation>(TranslationPushApiLink, "post");

@@ -1,6 +1,6 @@
 import {DownloadIcon}       from "@/puff-smith/component/icon/DownloadIcon";
 import {useDownloadPromise} from "@/sdk/api/file/[fileId]/download";
-import {IFile}              from "@leight-core/api";
+import {IFile}              from "@leight-core/viv";
 import {
 	Button,
 	ButtonProps,

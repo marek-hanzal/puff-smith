@@ -1,5 +1,5 @@
 import {PurchaseIcon}   from "@/puff-smith/component/icon/PurchaseIcon";
-import {toHumanNumber}  from "@leight-core/utils";
+import {toHumanNumber}  from "@leight-core/viv";
 import {
 	Space,
 	Typography

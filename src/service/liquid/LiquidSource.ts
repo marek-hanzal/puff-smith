@@ -7,14 +7,12 @@ import {
 import {
 	ClientError,
 	IWithIdentity,
-	SourceInfer,
-	UndefinableOptional
-}                        from "@leight-core/api";
-import {
+	merge,
 	pageOf,
+	SourceInfer,
+	UndefinableOptional,
 	withFetch
-}                        from "@leight-core/server";
-import {merge}           from "@leight-core/utils";
+}                        from "@leight-core/viv";
 
 export class LiquidSourceClass extends ContainerSource<ILiquidSource> implements ILiquidSource {
 	constructor() {

@@ -5,7 +5,7 @@ import {UserSource}        from "@/puff-smith/service/user/UserSource";
 import {
 	Logger,
 	User
-}                          from "@leight-core/server";
+}                          from "@leight-core/viv";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
 import NextAuth            from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

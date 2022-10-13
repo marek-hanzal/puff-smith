@@ -3,7 +3,7 @@ import {
 	ContainerClass
 }                    from "@/puff-smith/service/Container";
 import {FileSource}  from "@/puff-smith/service/file/FileSource";
-import {GetEndpoint} from "@leight-core/server";
+import {GetEndpoint} from "@leight-core/viv";
 import fs            from "node:fs";
 
 export default GetEndpoint<ContainerClass, string, { fileId: string }>({

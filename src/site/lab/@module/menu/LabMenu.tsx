@@ -1,7 +1,7 @@
 import {BuildIcon}  from "@/puff-smith/component/icon/BuildIcon";
 import {LiquidIcon} from "@/puff-smith/component/icon/LiquidIcon";
 import {RecipeIcon} from "@/puff-smith/component/icon/RecipeIcon";
-import {MobileMenu} from "@leight-core/client";
+import {MobileMenu} from "@leight-core/viv";
 import {FC}         from "react";
 
 export interface ILabMenuProps {

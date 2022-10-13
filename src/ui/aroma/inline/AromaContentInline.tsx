@@ -4,7 +4,7 @@ import {PercentageOutlined} from "@ant-design/icons";
 import {
 	toHumanNumber,
 	toPercent
-}                           from "@leight-core/utils";
+}                           from "@leight-core/viv";
 import {
 	Space,
 	Typography

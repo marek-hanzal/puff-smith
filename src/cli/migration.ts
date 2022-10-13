@@ -4,7 +4,7 @@ import {sha256}       from "@/puff-smith/service/utils/sha256";
 import {
 	executeSql,
 	runSql
-}                     from "@leight-core/server";
+}                     from "@leight-core/viv";
 import {PrismaClient} from "@prisma/client";
 import fs             from "node:fs";
 import path           from "node:path";

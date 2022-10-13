@@ -4,12 +4,6 @@
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                           from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {useQueryClient}     from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -132,7 +130,7 @@ export const TranslationTableSource: FC<ITranslationTableSourceProps> = ({provid
 			{...props}
 		/>
 	</TranslationProvider>;
-}
+};
 
 export interface ITranslationListSourceProps extends Partial<IListProps<SourceInfer.Item<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
@@ -147,7 +145,7 @@ export const TranslationListSource: FC<ITranslationListSourceProps> = ({provider
 			{...props}
 		/>
 	</TranslationProvider>;
-}
+};
 
 export interface ITranslationInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ITranslationSource>>> {
 	providerProps?: Partial<ITranslationProviderProps>;
@@ -165,7 +163,7 @@ export const TranslationInfiniteListSource: FC<ITranslationInfiniteListSourcePro
 			{...props}
 		/>
 	</TranslationProvider>;
-}
+};
 
 export interface ITranslationSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ITranslationSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<ITranslationSource>>;
@@ -183,7 +181,7 @@ export interface ITranslationSelectionProviderProps extends Partial<ISelectionPr
 
 export const TranslationSelectionProvider: FC<ITranslationSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<ITranslationSource>> {...props}/>;
-}
+};
 
 export const useTranslationCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -227,10 +225,10 @@ export const TranslationDrawerItem: FC<ITranslationDrawerItemProps> = ({onSelect
 			drawerSelectProps={{
 				translation: {
 					namespace: TranslationApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

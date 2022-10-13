@@ -5,7 +5,7 @@ import {SlidersOutlined} from "@ant-design/icons";
 import {
 	TabBarMenu,
 	useUserContext
-}                        from "@leight-core/client";
+}                        from "@leight-core/viv";
 import {FC}              from "react";
 
 export interface IMobileMenuProps {

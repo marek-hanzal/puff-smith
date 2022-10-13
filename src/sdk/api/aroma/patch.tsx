@@ -3,7 +3,6 @@
  */
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {SourceInfer}  from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,8 +11,9 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                     from "@leight-core/client";
+}                     from "@leight-core/viv";
 import {FC}           from "react";
 
 export const AromaPatchApiLink = "/api/aroma/patch";
@@ -29,7 +29,7 @@ export const AromaPatchDefaultForm: FC<IAromaPatchDefaultFormProps> = props => <
 	useMutation={useAromaPatchMutation}
 	translation={AromaPatchApiLink}
 	{...props}
-/>
+/>;
 
 export interface IAromaPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<IAromaSource>, SourceInfer.Item<IAromaSource>>> {
 }
@@ -38,9 +38,9 @@ export const AromaPatchDefaultMobileForm: FC<IAromaPatchDefaultMobileFormProps> 
 	useMutation={useAromaPatchMutation}
 	translation={AromaPatchApiLink}
 	{...props}
-/>
+/>;
 
-export const toAromaPatchLink = (queryParams?: IAromaPatchQueryParams) => toLink(AromaPatchApiLink, queryParams);
+export const toAromaPatchLink  = (queryParams?: IAromaPatchQueryParams) => toLink(AromaPatchApiLink, queryParams);
 export const useAromaPatchLink = () => toAromaPatchLink;
 
 export const useAromaPatchPromise = createPromiseHook<SourceInfer.Patch<IAromaSource>, SourceInfer.Item<IAromaSource>>(AromaPatchApiLink, "post");

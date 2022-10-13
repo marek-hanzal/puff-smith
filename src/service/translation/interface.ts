@@ -4,7 +4,7 @@ import {
 	ISource,
 	ITranslation,
 	IWithFulltext
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Prisma,
 	Translation

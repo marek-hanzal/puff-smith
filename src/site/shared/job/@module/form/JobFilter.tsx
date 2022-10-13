@@ -6,7 +6,7 @@ import {StatusListSourceSelect} from "@/sdk/api/job/status-list";
 import {
 	FormItem,
 	toOption
-}                               from "@leight-core/client";
+}                               from "@leight-core/viv";
 import {FC}                     from "react";
 
 export interface IJobFilterProps extends Partial<IJobProviderFilterProps> {

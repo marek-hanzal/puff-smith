@@ -1,9 +1,11 @@
 import "@/puff-smith/assets/styles/app.css";
-import {IPageWithLayout} from "@leight-core/api";
-import {BootstrapLoader} from "@leight-core/client";
+import {
+	BootstrapLoader,
+	IPageWithLayout
+}                      from "@leight-core/viv";
 import "kothing-editor/dist/css/kothing-editor.min.css";
-import type {AppProps}   from "next/app";
-import Head              from "next/head";
+import type {AppProps} from "next/app";
+import Head            from "next/head";
 
 export default function PuffSmith({Component, pageProps}: AppProps) {
 	return <BootstrapLoader>

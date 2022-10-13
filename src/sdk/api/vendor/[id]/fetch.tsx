@@ -4,12 +4,6 @@
 
 import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
 import {
-	IEntityContext,
-	INavigate,
-	IWithIdentityQuery,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BrowserPage,
 	createPromise,
 	createPromiseHook,
@@ -17,17 +11,21 @@ import {
 	EntityContext,
 	EntityProvider,
 	IBrowserPageProps,
+	IEntityContext,
 	IEntityProviderProps,
 	IMobilePageProps,
+	INavigate,
 	IQueryProps,
+	isCallable,
+	IWithIdentityQuery,
 	MobilePage,
 	Query,
+	SourceInfer,
 	toLink,
 	useContext,
 	useOptionalContext,
 	useParams
-}                       from "@leight-core/client";
-import {isCallable}     from "@leight-core/utils";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	Breadcrumb,
@@ -65,7 +63,7 @@ export const useVendorQuery = createQueryHook<void, SourceInfer.Item<IVendorSour
 export const useVendorQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([VendorApiLink]);
-}
+};
 
 export const toVendorLink  = (queryParams?: IVendorQueryParams) => toLink(VendorApiLink, queryParams);
 export const useVendorLink = () => toVendorLink;

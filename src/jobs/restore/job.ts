@@ -7,7 +7,7 @@ import {JobSource}     from "@/puff-smith/service/job/JobSource";
 import fileService     from "@/puff-smith/service/side-effect/fileService";
 import prisma          from "@/puff-smith/service/side-effect/prisma";
 import {UserSource}    from "@/puff-smith/service/user/UserSource";
-import {IJobProcessor} from "@leight-core/api";
+import {IJobProcessor} from "@leight-core/viv";
 import PQueue          from "p-queue";
 
 export const RestoreJob: IJobProcessor<IRestoreJobParams> = JobSource().processor(RESTORE_JOB, async ({logger, job, params: {fileId}, jobProgress, userId}) => {

@@ -3,7 +3,7 @@ import {
 	FileTableSource,
 	IFileTableSourceProps
 }                     from "@/sdk/api/file/query";
-import {toHumanBytes} from "@leight-core/utils";
+import {toHumanBytes} from "@leight-core/viv";
 import {FC}           from "react";
 
 export interface IFileListProps extends Partial<IFileTableSourceProps> {

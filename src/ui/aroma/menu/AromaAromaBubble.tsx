@@ -3,7 +3,7 @@ import {useAromaDeleteMutation} from "@/sdk/api/aroma/delete";
 import {
 	BubbleMenu,
 	DeleteConfirmDialog
-}                               from "@leight-core/client";
+}                               from "@leight-core/viv";
 import {message}                from "antd";
 import {Toast}                  from "antd-mobile";
 import {FC}                     from "react";

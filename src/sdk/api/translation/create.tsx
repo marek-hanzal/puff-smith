@@ -3,7 +3,6 @@
  */
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {SourceInfer}        from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,8 +11,9 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {FC}                 from "react";
 
 export const TranslationCreateApiLink = "/api/translation/create";
@@ -29,7 +29,7 @@ export const TranslationCreateDefaultForm: FC<ITranslationCreateDefaultFormProps
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>
+/>;
 
 export interface ITranslationCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>> {
 }
@@ -38,9 +38,9 @@ export const TranslationCreateDefaultMobileForm: FC<ITranslationCreateDefaultMob
 	useMutation={useTranslationCreateMutation}
 	translation={TranslationCreateApiLink}
 	{...props}
-/>
+/>;
 
-export const toTranslationCreateLink = (queryParams?: ITranslationCreateQueryParams) => toLink(TranslationCreateApiLink, queryParams);
+export const toTranslationCreateLink  = (queryParams?: ITranslationCreateQueryParams) => toLink(TranslationCreateApiLink, queryParams);
 export const useTranslationCreateLink = () => toTranslationCreateLink;
 
 export const useTranslationCreatePromise = createPromiseHook<SourceInfer.Create<ITranslationSource>, SourceInfer.Item<ITranslationSource>>(TranslationCreateApiLink, "post");

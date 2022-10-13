@@ -3,7 +3,6 @@
  */
 
 import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {SourceInfer}   from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,8 +11,9 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {FC}            from "react";
 
 export const RecipeCreateApiLink = "/api/recipe/create";
@@ -29,7 +29,7 @@ export const RecipeCreateDefaultForm: FC<IRecipeCreateDefaultFormProps> = props 
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>
+/>;
 
 export interface IRecipeCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>> {
 }
@@ -38,9 +38,9 @@ export const RecipeCreateDefaultMobileForm: FC<IRecipeCreateDefaultMobileFormPro
 	useMutation={useRecipeCreateMutation}
 	translation={RecipeCreateApiLink}
 	{...props}
-/>
+/>;
 
-export const toRecipeCreateLink = (queryParams?: IRecipeCreateQueryParams) => toLink(RecipeCreateApiLink, queryParams);
+export const toRecipeCreateLink  = (queryParams?: IRecipeCreateQueryParams) => toLink(RecipeCreateApiLink, queryParams);
 export const useRecipeCreateLink = () => toRecipeCreateLink;
 
 export const useRecipeCreatePromise = createPromiseHook<SourceInfer.Create<IRecipeSource>, SourceInfer.Item<IRecipeSource>>(RecipeCreateApiLink, "post");

@@ -1,12 +1,12 @@
-import {ITranslation} from "@leight-core/api";
 import {
 	ITemplateProps,
+	ITranslation,
 	PlainText,
 	Preview,
 	Template
-}                     from "@leight-core/client";
-import {Divider}      from "antd";
-import {FC}           from "react";
+}                from "@leight-core/viv";
+import {Divider} from "antd";
+import {FC}      from "react";
 
 export interface ITranslationViewProps extends Partial<ITemplateProps> {
 	translation: ITranslation;

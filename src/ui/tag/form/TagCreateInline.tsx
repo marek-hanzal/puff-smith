@@ -1,11 +1,11 @@
 import {TagCreateForm} from "@/puff-smith/ui/tag/form/TagCreateForm";
 import {PlusOutlined}  from "@ant-design/icons";
-import {ITag}          from "@leight-core/api";
 import {
 	DrawerButton,
 	IDrawerButtonProps,
+	ITag,
 	useOptionalFormItemContext
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {FC}            from "react";
 
 export interface ITagCreateInlineProps extends Partial<IDrawerButtonProps> {

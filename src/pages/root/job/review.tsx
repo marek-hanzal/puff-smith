@@ -5,7 +5,7 @@ import {withRootLayout}     from "@/puff-smith/site/root/@module/layout/layout";
 import {JobMenu}            from "@/puff-smith/site/root/job/@module/menu/JobMenu";
 import {JobList}            from "@/puff-smith/site/shared/job/@module/list/JobList";
 import {JobProviderControl} from "@/sdk/api/job/query";
-import {useParams}          from "@leight-core/client";
+import {useParams}          from "@leight-core/viv";
 
 export default withRootLayout(function Index() {
 	const {name} = useParams();

@@ -1,4 +1,4 @@
-import {FileService} from "@leight-core/server";
+import {FileService} from "@leight-core/viv";
 
 const fileService = FileService({
 	config: {

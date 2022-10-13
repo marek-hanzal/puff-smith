@@ -4,7 +4,7 @@ import {MobileRootPage}             from "@/puff-smith/site/root/@module/compone
 import {withRootLayout}             from "@/puff-smith/site/root/@module/layout/layout";
 import {TranslationList}            from "@/puff-smith/ui/translation/list/TranslationList";
 import {TranslationProviderControl} from "@/sdk/api/translation/query";
-import {BubbleMenu}                 from "@leight-core/client";
+import {BubbleMenu}                 from "@leight-core/viv";
 
 export default withRootLayout(function Index() {
 	return <>

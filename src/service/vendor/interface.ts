@@ -3,7 +3,7 @@ import {
 	IQuery,
 	ISource,
 	IWithFulltext
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Prisma,
 	Vendor

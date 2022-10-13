@@ -1,14 +1,14 @@
 import {useTranslationDeleteMutation}  from "@/sdk/api/translation/delete";
 import {useTranslationQueryInvalidate} from "@/sdk/api/translation/query";
-import {ITranslation}                  from "@leight-core/api";
 import {
 	DeleteItemIcon,
 	EditIcon,
+	ITranslation,
 	useNavigate,
 	useOptionalCursorContext,
 	useOptionalFilterContext,
 	useSourceContext
-}                                      from "@leight-core/client";
+}                                      from "@leight-core/viv";
 import {message}                       from "antd";
 import {
 	SwipeAction,

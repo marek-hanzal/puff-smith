@@ -1,7 +1,7 @@
 import {
 	IJob,
 	IQueryParams
-} from "@leight-core/api";
+} from "@leight-core/viv";
 
 export const RESTORE_JOB = "restore";
 

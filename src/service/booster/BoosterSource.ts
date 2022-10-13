@@ -6,11 +6,11 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {sha256}          from "@/puff-smith/service/utils/sha256";
 import {
 	IWithIdentity,
+	merge,
+	pageOf,
 	SourceInfer,
 	UndefinableOptional
-}                        from "@leight-core/api";
-import {pageOf}          from "@leight-core/server";
-import {merge}           from "@leight-core/utils";
+}                        from "@leight-core/viv";
 
 export const BoosterSource = () => new BoosterSourceClass();
 

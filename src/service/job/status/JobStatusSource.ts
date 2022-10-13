@@ -3,7 +3,7 @@ import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import {
 	IJobStatus,
 	SourceInfer,
-}                         from "@leight-core/api";
+}                         from "@leight-core/viv";
 
 const items: IJobStatus[] = [
 	"NEW",

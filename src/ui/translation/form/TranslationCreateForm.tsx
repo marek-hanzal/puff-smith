@@ -11,7 +11,7 @@ import {useTranslationQueryInvalidate} from "@/sdk/api/translation/query";
 import {
 	ButtonBar,
 	ButtonLink
-}                                      from "@leight-core/client";
+}                                      from "@leight-core/viv";
 import {Divider}                       from "antd";
 import i18n                            from "i18next";
 import {FC}                            from "react";

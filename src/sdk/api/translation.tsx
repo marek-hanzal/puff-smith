@@ -3,13 +3,6 @@
  */
 
 import {
-	IEntityContext,
-	INavigate,
-	ITranslationBundle,
-	IWithIdentityQuery,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BrowserPage,
 	createPromise,
 	createPromiseHook,
@@ -17,17 +10,22 @@ import {
 	EntityContext,
 	EntityProvider,
 	IBrowserPageProps,
+	IEntityContext,
 	IEntityProviderProps,
 	IMobilePageProps,
+	INavigate,
 	IQueryProps,
+	isCallable,
+	ITranslationBundle,
+	IWithIdentityQuery,
 	MobilePage,
 	Query,
+	SourceInfer,
 	toLink,
 	useContext,
 	useOptionalContext,
 	useParams
-}                       from "@leight-core/client";
-import {isCallable}     from "@leight-core/utils";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	Breadcrumb,
@@ -65,7 +63,7 @@ export const useTranslationQuery = createQueryHook<void, SourceInfer.Item<ITrans
 export const useTranslationQueryInvalidate = () => {
 	const queryClient = useQueryClient();
 	return () => queryClient.invalidateQueries([TranslationApiLink]);
-}
+};
 
 export const toTranslationLink  = (queryParams?: ITranslationQueryParams) => toLink(TranslationApiLink, queryParams);
 export const useTranslationLink = () => toTranslationLink;

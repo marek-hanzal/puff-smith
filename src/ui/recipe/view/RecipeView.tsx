@@ -2,7 +2,7 @@ import {ContentInline}  from "@/puff-smith/component/inline/ContentInline";
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline}     from "@/puff-smith/component/inline/VgPgInline";
 import {IRecipe}        from "@/puff-smith/service/recipe/interface";
-import {Preview}        from "@leight-core/client";
+import {Preview}        from "@leight-core/viv";
 import {FC}             from "react";
 
 export interface IRecipeViewProps {

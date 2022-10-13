@@ -4,12 +4,6 @@
 
 import {IJobStatusSource} from "@/puff-smith/service/job/status/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                         from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                         from "@leight-core/client";
+}                         from "@leight-core/viv";
 import {useQueryClient}   from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -132,7 +130,7 @@ export const StatusListTableSource: FC<IStatusListTableSourceProps> = ({provider
 			{...props}
 		/>
 	</StatusListProvider>;
-}
+};
 
 export interface IStatusListListSourceProps extends Partial<IListProps<SourceInfer.Item<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;
@@ -147,7 +145,7 @@ export const StatusListListSource: FC<IStatusListListSourceProps> = ({providerPr
 			{...props}
 		/>
 	</StatusListProvider>;
-}
+};
 
 export interface IStatusListInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IJobStatusSource>>> {
 	providerProps?: Partial<IStatusListProviderProps>;
@@ -165,7 +163,7 @@ export const StatusListInfiniteListSource: FC<IStatusListInfiniteListSourceProps
 			{...props}
 		/>
 	</StatusListProvider>;
-}
+};
 
 export interface IStatusListSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IJobStatusSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IJobStatusSource>>;
@@ -183,7 +181,7 @@ export interface IStatusListSelectionProviderProps extends Partial<ISelectionPro
 
 export const StatusListSelectionProvider: FC<IStatusListSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IJobStatusSource>> {...props}/>;
-}
+};
 
 export const useStatusListCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -227,10 +225,10 @@ export const StatusListDrawerItem: FC<IStatusListDrawerItemProps> = ({onSelectio
 			drawerSelectProps={{
 				translation: {
 					namespace: StatusListApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

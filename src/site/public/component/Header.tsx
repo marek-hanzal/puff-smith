@@ -1,6 +1,6 @@
 import {LogoIcon}   from "@/puff-smith/component/icon/LogoIcon";
 import {PublicMenu} from "@/puff-smith/site/public/menu/PublicMenu";
-import {LinkTo}     from "@leight-core/client";
+import {LinkTo}     from "@leight-core/viv";
 import {
 	PageHeader,
 	PageHeaderProps

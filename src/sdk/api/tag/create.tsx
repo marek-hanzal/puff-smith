@@ -2,8 +2,7 @@
  * Generated file; DO NOT modify as it could be overridden by a generator.
  */
 
-import {ITagSource}  from "@/puff-smith/service/tag/interface";
-import {SourceInfer} from "@leight-core/api";
+import {ITagSource} from "@/puff-smith/service/tag/interface";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,9 +11,10 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                    from "@leight-core/client";
-import {FC}          from "react";
+}                   from "@leight-core/viv";
+import {FC}         from "react";
 
 export const TagCreateApiLink = "/api/tag/create";
 
@@ -29,7 +29,7 @@ export const TagCreateDefaultForm: FC<ITagCreateDefaultFormProps> = props => <Fo
 	useMutation={useTagCreateMutation}
 	translation={TagCreateApiLink}
 	{...props}
-/>
+/>;
 
 export interface ITagCreateDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Create<ITagSource>, SourceInfer.Item<ITagSource>>> {
 }
@@ -38,9 +38,9 @@ export const TagCreateDefaultMobileForm: FC<ITagCreateDefaultMobileFormProps> = 
 	useMutation={useTagCreateMutation}
 	translation={TagCreateApiLink}
 	{...props}
-/>
+/>;
 
-export const toTagCreateLink = (queryParams?: ITagCreateQueryParams) => toLink(TagCreateApiLink, queryParams);
+export const toTagCreateLink  = (queryParams?: ITagCreateQueryParams) => toLink(TagCreateApiLink, queryParams);
 export const useTagCreateLink = () => toTagCreateLink;
 
 export const useTagCreatePromise = createPromiseHook<SourceInfer.Create<ITagSource>, SourceInfer.Item<ITagSource>>(TagCreateApiLink, "post");

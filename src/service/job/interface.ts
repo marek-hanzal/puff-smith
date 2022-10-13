@@ -7,7 +7,7 @@ import {
 	IQuery,
 	ISource,
 	QueryInfer
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Job,
 	Prisma

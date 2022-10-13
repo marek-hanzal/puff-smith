@@ -8,7 +8,7 @@ export default withPlugins([
 	images,
 	withTM([
 		'antd-mobile',
-		'@leight-core/client',
+		'@leight-core/viv',
 	]),
 ], {
 	swcMinify:                   true,

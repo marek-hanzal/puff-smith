@@ -1,7 +1,9 @@
 import {IJobQuery}      from "@/puff-smith/service/job/interface";
 import {useJobQuery}    from "@/sdk/api/job/query";
-import {QueryInfer}     from "@leight-core/api";
-import {toHumanNumber}  from "@leight-core/utils";
+import {
+	QueryInfer,
+	toHumanNumber
+}                       from "@leight-core/viv";
 import {Alert}          from "antd";
 import {
 	ComponentProps,

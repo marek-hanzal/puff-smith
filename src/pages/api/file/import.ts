@@ -5,7 +5,7 @@ import {
 	ContainerClass
 }                           from "@/puff-smith/service/Container";
 import {IImportQueryParams} from "@/sdk/api/file/import";
-import {MutationEndpoint}   from "@leight-core/server";
+import {MutationEndpoint}   from "@leight-core/viv";
 
 export default MutationEndpoint<ContainerClass, IImportJobParams, IImportQueryParams>({
 	name:      "Import",

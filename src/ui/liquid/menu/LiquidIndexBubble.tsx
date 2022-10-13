@@ -1,4 +1,4 @@
-import {BubbleMenu} from "@leight-core/client";
+import {BubbleMenu} from "@leight-core/viv";
 import {FC}         from "react";
 
 export interface ILiquidIndexBubbleProps {

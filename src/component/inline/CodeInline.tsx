@@ -1,4 +1,4 @@
-import {isString}       from "@leight-core/utils";
+import {isString}       from "@leight-core/viv";
 import {
 	Tooltip,
 	Typography

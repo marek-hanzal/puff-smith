@@ -2,7 +2,7 @@ import {IUser} from "@/puff-smith/service/user/interface";
 import {
 	Preview,
 	Tags
-}              from "@leight-core/client";
+}              from "@leight-core/viv";
 import {FC}    from "react";
 
 export interface IUserViewProps {

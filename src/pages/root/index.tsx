@@ -8,7 +8,7 @@ import {
 	ButtonBar,
 	HomeIcon,
 	Template
-}                        from "@leight-core/client";
+}                        from "@leight-core/viv";
 
 export default withRootLayout(function Index() {
 	return <>

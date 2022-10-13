@@ -5,7 +5,7 @@ import {
 	DrawerButton,
 	IDrawerButtonProps,
 	useOptionalMobileFormItemContext
-}                         from "@leight-core/client";
+}                         from "@leight-core/viv";
 import {FC}               from "react";
 
 export interface IVendorCreateInlineProps extends Partial<IDrawerButtonProps> {

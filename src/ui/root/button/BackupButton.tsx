@@ -4,7 +4,7 @@ import {
 	JobButton
 }                          from "@/puff-smith/ui/shared/button/JobButton";
 import {useBackupMutation} from "@/sdk/api/root/backup";
-import {useNavigate}       from "@leight-core/client";
+import {useNavigate}       from "@leight-core/viv";
 import {FC}                from "react";
 
 export interface IBackupButtonProps extends Partial<IJobButtonProps<any>> {

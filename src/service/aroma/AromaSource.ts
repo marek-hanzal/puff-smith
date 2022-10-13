@@ -6,14 +6,12 @@ import {Container}       from "@/puff-smith/service/Container";
 import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {
 	IWithIdentity,
-	SourceInfer,
-	UndefinableOptional
-}                        from "@leight-core/api";
-import {
+	merge,
 	pageOf,
+	SourceInfer,
+	UndefinableOptional,
 	withFetch
-}                        from "@leight-core/server";
-import {merge}           from "@leight-core/utils";
+}                        from "@leight-core/viv";
 
 export class AromaSourceClass extends ContainerSource<IAromaSource> implements IAromaSource {
 	constructor() {

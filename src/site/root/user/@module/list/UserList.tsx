@@ -7,7 +7,7 @@ import {
 	ListItem,
 	ListItemMeta,
 	Tags
-}               from "@leight-core/client";
+}               from "@leight-core/viv";
 import {Avatar} from "antd";
 import {FC}     from "react";
 

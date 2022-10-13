@@ -4,7 +4,7 @@ import {
 	MinusCircleOutlined,
 	RiseOutlined
 }             from "@ant-design/icons";
-import {IJob} from "@leight-core/api";
+import {IJob} from "@leight-core/viv";
 import {
 	Divider,
 	Space,

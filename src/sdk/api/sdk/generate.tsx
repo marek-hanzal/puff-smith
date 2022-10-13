@@ -11,7 +11,7 @@ import {
 	IMobileFormProps,
 	MobileForm,
 	toLink
-}           from "@leight-core/client";
+}           from "@leight-core/viv";
 import {FC} from "react";
 
 export const GenerateApiLink = "/api/sdk/generate";
@@ -27,7 +27,7 @@ export const GenerateDefaultForm: FC<IGenerateDefaultFormProps> = props => <Form
 	useMutation={useGenerateMutation}
 	translation={GenerateApiLink}
 	{...props}
-/>
+/>;
 
 export interface IGenerateDefaultMobileFormProps extends Partial<IMobileFormProps<void, string[]>> {
 }
@@ -36,10 +36,10 @@ export const GenerateDefaultMobileForm: FC<IGenerateDefaultMobileFormProps> = pr
 	useMutation={useGenerateMutation}
 	translation={GenerateApiLink}
 	{...props}
-/>
+/>;
 
-export const toGenerateLink = (queryParams?: IGenerateQueryParams) => toLink(GenerateApiLink, queryParams);
+export const toGenerateLink  = (queryParams?: IGenerateQueryParams) => toLink(GenerateApiLink, queryParams);
 export const useGenerateLink = () => toGenerateLink;
 
-export const useGeneratePromise = createPromiseHook<void, string[]>(GenerateApiLink, "post");
+export const useGeneratePromise    = createPromiseHook<void, string[]>(GenerateApiLink, "post");
 export const createGeneratePromise = createPromise<void, string[]>(GenerateApiLink, "post");

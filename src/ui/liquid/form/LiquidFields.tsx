@@ -8,14 +8,14 @@ import {
 	MixtureDrawerItem,
 	MixtureProviderControl
 }                      from "@/sdk/api/mixture/query";
-import {QueryInfer}    from "@leight-core/api";
 import {
 	MobileFormItem,
+	QueryInfer,
 	toLocalDate,
 	Translate,
+	uniqueOf,
 	useMobileFormContext
-}                      from "@leight-core/client";
-import {uniqueOf}      from "@leight-core/utils";
+}                      from "@leight-core/viv";
 import {DatePicker}    from "antd-mobile";
 import {DatePickerRef} from "antd-mobile/es/components/date-picker";
 import {

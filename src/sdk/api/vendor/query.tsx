@@ -4,12 +4,6 @@
 
 import {IVendorSource}  from "@/puff-smith/service/vendor/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const VendorTableSource: FC<IVendorTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</VendorProvider>;
-}
+};
 
 export interface IVendorListSourceProps extends Partial<IListProps<SourceInfer.Item<IVendorSource>>> {
 	providerProps?: Partial<IVendorProviderProps>;
@@ -146,7 +144,7 @@ export const VendorListSource: FC<IVendorListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</VendorProvider>;
-}
+};
 
 export interface IVendorInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IVendorSource>>> {
 	providerProps?: Partial<IVendorProviderProps>;
@@ -164,7 +162,7 @@ export const VendorInfiniteListSource: FC<IVendorInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</VendorProvider>;
-}
+};
 
 export interface IVendorSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IVendorSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IVendorSource>>;
@@ -182,7 +180,7 @@ export interface IVendorSelectionProviderProps extends Partial<ISelectionProvide
 
 export const VendorSelectionProvider: FC<IVendorSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IVendorSource>> {...props}/>;
-}
+};
 
 export const useVendorCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const VendorDrawerItem: FC<IVendorDrawerItemProps> = ({onSelection, ...pr
 			drawerSelectProps={{
 				translation: {
 					namespace: VendorApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

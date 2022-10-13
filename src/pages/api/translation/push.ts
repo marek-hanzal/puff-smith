@@ -4,8 +4,10 @@ import {
 }                           from "@/puff-smith/service/Container";
 import {ITranslationCreate} from "@/puff-smith/service/translation/interface";
 import {TranslationSource}  from "@/puff-smith/service/translation/TranslationSource";
-import {ITranslation}       from "@leight-core/api";
-import {MutationEndpoint}   from "@leight-core/server";
+import {
+	ITranslation,
+	MutationEndpoint
+}                           from "@leight-core/viv";
 
 export default MutationEndpoint<ContainerClass, ITranslationCreate, ITranslation>({
 	name:      "TranslationPush",

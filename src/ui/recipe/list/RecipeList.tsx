@@ -4,7 +4,7 @@ import {
 	IRecipeInfiniteListSourceProps,
 	RecipeInfiniteListSource
 }                         from "@/sdk/api/recipe/query";
-import {InfiniteListItem} from "@leight-core/client";
+import {InfiniteListItem} from "@leight-core/viv";
 import {FC}               from "react";
 
 export interface IRecipeListProps extends Partial<IRecipeInfiniteListSourceProps> {

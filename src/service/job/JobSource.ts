@@ -10,14 +10,12 @@ import {
 	IJobProcessor,
 	IJobProgress,
 	IJobStatus,
+	Logger,
+	pageOf,
 	QueryInfer,
 	SourceInfer,
-}                        from "@leight-core/api";
-import {
-	Logger,
-	pageOf
-}                        from "@leight-core/server";
-import {toPercent}       from "@leight-core/utils";
+	toPercent,
+}                        from "@leight-core/viv";
 import delay             from "delay";
 import PQueue            from "p-queue";
 

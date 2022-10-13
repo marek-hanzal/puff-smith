@@ -1,5 +1,5 @@
 import Logo         from "@/puff-smith/assets/logo/logo-full.svg";
-import {useMobile}  from "@leight-core/client";
+import {useMobile}  from "@leight-core/viv";
 import {Image}      from "antd";
 import {ImageProps} from "rc-image";
 import {FC}         from "react";

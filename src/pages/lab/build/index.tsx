@@ -1,7 +1,7 @@
 import {BuildIcon}         from "@/puff-smith/component/icon/BuildIcon";
 import {MobileLabPage}     from "@/puff-smith/site/lab/@module/component/MobileLabPage";
 import {withLabLayout}     from "@/puff-smith/site/lab/@module/layout/layout";
-import {SelectionProvider} from "@leight-core/client";
+import {SelectionProvider} from "@leight-core/viv";
 import {
 	Swiper,
 	Tabs as MobileTabs

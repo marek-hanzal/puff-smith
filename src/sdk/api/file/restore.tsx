@@ -15,7 +15,7 @@ import {
 	IMobileFormProps,
 	MobileForm,
 	toLink
-}           from "@leight-core/client";
+}           from "@leight-core/viv";
 import {FC} from "react";
 
 export const RestoreApiLink = "/api/file/restore";

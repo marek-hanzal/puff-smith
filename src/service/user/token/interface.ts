@@ -2,7 +2,7 @@ import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IQuery,
 	ISource
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	Prisma,
 	UserToken

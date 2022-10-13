@@ -1,6 +1,6 @@
 import {BrowserPublicPage} from "@/puff-smith/site/public/component/BrowserPublicPage";
 import {withPublicLayout}  from "@/puff-smith/site/public/layout/layout";
-import {Template}          from "@leight-core/client";
+import {Template}          from "@leight-core/viv";
 import {Trans}             from "react-i18next";
 
 export default withPublicLayout(function Index() {

@@ -3,14 +3,12 @@ import {ContainerSource} from "@/puff-smith/service/ContainerSource";
 import {IUserSource}     from "@/puff-smith/service/user/interface";
 import {
 	IUser,
-	SourceInfer
-}                        from "@leight-core/api";
-import {
 	pageOf,
+	SourceInfer,
+	uniqueOf,
 	User,
 	withFetch
-}                        from "@leight-core/server";
-import {uniqueOf}        from "@leight-core/utils";
+}                        from "@leight-core/viv";
 
 export class UserSourceClass extends ContainerSource<IUserSource> implements IUserSource {
 	constructor() {

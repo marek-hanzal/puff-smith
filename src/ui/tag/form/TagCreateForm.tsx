@@ -13,7 +13,7 @@ import {
 	ButtonBar,
 	ButtonLink,
 	MobileFormItem
-}                                      from "@leight-core/client";
+}                                      from "@leight-core/viv";
 import {Divider}                       from "antd";
 import {Stepper}                       from "antd-mobile";
 import i18n                            from "i18next";

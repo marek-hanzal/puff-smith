@@ -4,12 +4,6 @@
 
 import {IRecipeSource}  from "@/puff-smith/service/recipe/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const RecipeTableSource: FC<IRecipeTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</RecipeProvider>;
-}
+};
 
 export interface IRecipeListSourceProps extends Partial<IListProps<SourceInfer.Item<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
@@ -146,7 +144,7 @@ export const RecipeListSource: FC<IRecipeListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</RecipeProvider>;
-}
+};
 
 export interface IRecipeInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IRecipeSource>>> {
 	providerProps?: Partial<IRecipeProviderProps>;
@@ -164,7 +162,7 @@ export const RecipeInfiniteListSource: FC<IRecipeInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</RecipeProvider>;
-}
+};
 
 export interface IRecipeSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IRecipeSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IRecipeSource>>;
@@ -182,7 +180,7 @@ export interface IRecipeSelectionProviderProps extends Partial<ISelectionProvide
 
 export const RecipeSelectionProvider: FC<IRecipeSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IRecipeSource>> {...props}/>;
-}
+};
 
 export const useRecipeCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const RecipeDrawerItem: FC<IRecipeDrawerItemProps> = ({onSelection, ...pr
 			drawerSelectProps={{
 				translation: {
 					namespace: RecipeApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

@@ -4,15 +4,13 @@ import {ITranslationSource} from "@/puff-smith/service/translation/interface";
 import {sha256}             from "@/puff-smith/service/utils/sha256";
 import {
 	IWithIdentity,
+	merge,
+	pageOf,
 	QueryInfer,
 	SourceInfer,
-	UndefinableOptional
-}                           from "@leight-core/api";
-import {
-	pageOf,
+	UndefinableOptional,
 	withFetch
-}                           from "@leight-core/server";
-import {merge}              from "@leight-core/utils";
+}                           from "@leight-core/viv";
 
 export class TranslationSourceClass extends ContainerSource<ITranslationSource> implements ITranslationSource {
 	constructor() {

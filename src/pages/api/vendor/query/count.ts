@@ -1,6 +1,6 @@
 import {asyncContainer} from "@/puff-smith/service/Container";
 import {VendorSource}   from "@/puff-smith/service/vendor/VendorSource";
-import {CountEndpoint}  from "@leight-core/server";
+import {CountEndpoint}  from "@leight-core/viv";
 
 export default CountEndpoint({
 	name:      "VendorCount",

@@ -2,7 +2,7 @@ import {ContainerClass} from "@/puff-smith/service/Container";
 import {
 	IFileSource as ICoolFileSource,
 	IQuery
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 import {
 	File,
 	Prisma

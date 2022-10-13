@@ -1,5 +1,5 @@
 import {QuestionCircleOutlined} from "@ant-design/icons";
-import {toHumanNumber}          from "@leight-core/utils";
+import {toHumanNumber}          from "@leight-core/viv";
 import {
 	Space,
 	Tooltip,

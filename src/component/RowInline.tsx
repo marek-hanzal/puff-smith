@@ -1,4 +1,4 @@
-import {PushRight} from "@leight-core/client";
+import {PushRight} from "@leight-core/viv";
 import {
 	Col,
 	Divider,

@@ -9,7 +9,7 @@ import {
 	TabTitle,
 	Template,
 	useNavigate
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {
 	message,
 	Result,

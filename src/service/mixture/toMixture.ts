@@ -1,5 +1,5 @@
 import {sha256}    from "@/puff-smith/service/utils/sha256";
-import {toPercent} from "@leight-core/utils";
+import {toPercent} from "@leight-core/viv";
 
 export type IMixtureError =
 	"LESS"

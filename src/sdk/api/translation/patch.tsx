@@ -3,7 +3,6 @@
  */
 
 import {ITranslationSource} from "@/puff-smith/service/translation/interface";
-import {SourceInfer}        from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,8 +11,9 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {FC}                 from "react";
 
 export const TranslationPatchApiLink = "/api/translation/patch";
@@ -29,7 +29,7 @@ export const TranslationPatchDefaultForm: FC<ITranslationPatchDefaultFormProps> 
 	useMutation={useTranslationPatchMutation}
 	translation={TranslationPatchApiLink}
 	{...props}
-/>
+/>;
 
 export interface ITranslationPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<ITranslationSource>, SourceInfer.Item<ITranslationSource>>> {
 }
@@ -38,9 +38,9 @@ export const TranslationPatchDefaultMobileForm: FC<ITranslationPatchDefaultMobil
 	useMutation={useTranslationPatchMutation}
 	translation={TranslationPatchApiLink}
 	{...props}
-/>
+/>;
 
-export const toTranslationPatchLink = (queryParams?: ITranslationPatchQueryParams) => toLink(TranslationPatchApiLink, queryParams);
+export const toTranslationPatchLink  = (queryParams?: ITranslationPatchQueryParams) => toLink(TranslationPatchApiLink, queryParams);
 export const useTranslationPatchLink = () => toTranslationPatchLink;
 
 export const useTranslationPatchPromise = createPromiseHook<SourceInfer.Patch<ITranslationSource>, SourceInfer.Item<ITranslationSource>>(TranslationPatchApiLink, "post");

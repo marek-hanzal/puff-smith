@@ -3,13 +3,13 @@
  */
 
 import {IAromaSource} from "@/puff-smith/service/aroma/interface";
-import {SourceInfer}  from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
 	createPromiseHook,
+	SourceInfer,
 	toLink
-}                     from "@leight-core/client";
+}                     from "@leight-core/viv";
 
 export const AromaDeleteApiLink = "/api/aroma/delete";
 

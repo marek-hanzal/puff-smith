@@ -1,10 +1,12 @@
-import {IJob}          from "@leight-core/api";
-import {toHumanNumber} from "@leight-core/utils";
+import {
+	IJob,
+	toHumanNumber
+}           from "@leight-core/viv";
 import {
 	Progress,
 	ProgressProps
-}                      from "antd";
-import {FC}            from "react";
+}           from "antd";
+import {FC} from "react";
 
 export interface IJobProgressProps extends Partial<ProgressProps> {
 	job: IJob;

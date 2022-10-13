@@ -5,7 +5,7 @@ import {UserPuffies}   from "@/puff-smith/site/shared/user/@module/component/Use
 import {
 	ButtonBar,
 	LinkTo
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {
 	Divider,
 	PageHeader,

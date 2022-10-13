@@ -5,7 +5,7 @@ import {ContentInline}  from "@/puff-smith/component/inline/ContentInline";
 import {NicotineInline} from "@/puff-smith/component/inline/NicotineInline";
 import {VgPgInline}     from "@/puff-smith/component/inline/VgPgInline";
 import {IRecipe}        from "@/puff-smith/service/recipe/interface";
-import {Translate}      from "@leight-core/client";
+import {Translate}      from "@leight-core/viv";
 import {Typography}     from "antd";
 import {Space}          from "antd-mobile";
 import {FC}             from "react";

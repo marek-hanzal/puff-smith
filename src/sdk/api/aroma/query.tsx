@@ -4,12 +4,6 @@
 
 import {IAromaSource}   from "@/puff-smith/service/aroma/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const AromaTableSource: FC<IAromaTableSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</AromaProvider>;
-}
+};
 
 export interface IAromaListSourceProps extends Partial<IListProps<SourceInfer.Item<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
@@ -146,7 +144,7 @@ export const AromaListSource: FC<IAromaListSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</AromaProvider>;
-}
+};
 
 export interface IAromaInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IAromaSource>>> {
 	providerProps?: Partial<IAromaProviderProps>;
@@ -164,7 +162,7 @@ export const AromaInfiniteListSource: FC<IAromaInfiniteListSourceProps> = ({prov
 			{...props}
 		/>
 	</AromaProvider>;
-}
+};
 
 export interface IAromaSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IAromaSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IAromaSource>>;
@@ -182,7 +180,7 @@ export interface IAromaSelectionProviderProps extends Partial<ISelectionProvider
 
 export const AromaSelectionProvider: FC<IAromaSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IAromaSource>> {...props}/>;
-}
+};
 
 export const useAromaCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const AromaDrawerItem: FC<IAromaDrawerItemProps> = ({onSelection, ...prop
 			drawerSelectProps={{
 				translation: {
 					namespace: AromaApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

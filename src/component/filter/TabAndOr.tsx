@@ -2,7 +2,7 @@ import {
 	CloseOutlined,
 	PlusOutlined
 }                 from "@ant-design/icons";
-import {IconText} from "@leight-core/client";
+import {IconText} from "@leight-core/viv";
 import {Tabs}     from "antd";
 import {
 	ComponentProps,

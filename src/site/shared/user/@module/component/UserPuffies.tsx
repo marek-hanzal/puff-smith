@@ -1,7 +1,7 @@
 import {PurchaseIcon}    from "@/puff-smith/component/icon/PurchaseIcon";
 import {Price}           from "@/puff-smith/component/Price";
 import {usePuffiesQuery} from "@/sdk/api/user/puffies";
-import {LoaderIcon}      from "@leight-core/client";
+import {LoaderIcon}      from "@leight-core/viv";
 import {Space}           from "antd";
 import {FC}              from "react";
 

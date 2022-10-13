@@ -3,13 +3,13 @@
  */
 
 import {IRecipeSource} from "@/puff-smith/service/recipe/interface";
-import {SourceInfer}   from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
 	createPromiseHook,
+	SourceInfer,
 	toLink
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 
 export const RecipeDeleteApiLink = "/api/recipe/delete";
 

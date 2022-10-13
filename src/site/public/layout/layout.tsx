@@ -1,12 +1,12 @@
-import {Footer}          from "@/puff-smith/site/public/component/Footer";
-import {Header}          from "@/puff-smith/site/public/component/Header";
-import {AppLayout}       from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
-import {IPageWithLayout} from "@leight-core/api";
+import {Footer}    from "@/puff-smith/site/public/component/Footer";
+import {Header}    from "@/puff-smith/site/public/component/Header";
+import {AppLayout} from "@/puff-smith/site/shared/@module/layout/@module/AppLayout";
 import {
 	ApplicationLayout,
-	IApplicationLayoutProps
-}                        from "@leight-core/client";
-import {FC}              from "react";
+	IApplicationLayoutProps,
+	IPageWithLayout
+}                  from "@leight-core/viv";
+import {FC}        from "react";
 
 export interface IPublicLayoutProps extends Partial<IApplicationLayoutProps> {
 }

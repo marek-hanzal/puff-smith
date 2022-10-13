@@ -5,7 +5,7 @@ import {
 import {
 	Endpoint,
 	GenerateEndpoint
-} from "@leight-core/server";
+} from "@leight-core/viv";
 
 export default Endpoint<ContainerClass, void, string[]>(GenerateEndpoint({
 	name:      "Generate",

@@ -6,12 +6,12 @@ import {
 }                        from "@/puff-smith/service/vendor/interface";
 import {
 	IWithIdentity,
+	merge,
+	pageOf,
 	QueryInfer,
 	SourceInfer,
 	UndefinableOptional
-}                        from "@leight-core/api";
-import {pageOf}          from "@leight-core/server";
-import {merge}           from "@leight-core/utils";
+}                        from "@leight-core/viv";
 
 export class VendorSourceClass extends ContainerSource<IVendorSource> implements IVendorSource {
 	constructor() {

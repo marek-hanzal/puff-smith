@@ -1,5 +1,5 @@
 import {IAroma}   from "@/puff-smith/service/aroma/interface";
-import {Ellipsis} from "@leight-core/client";
+import {Ellipsis} from "@leight-core/viv";
 import {
 	Space,
 	SpaceProps,

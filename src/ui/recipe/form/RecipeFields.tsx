@@ -2,10 +2,10 @@ import {VgPgInline} from "@/puff-smith/component/inline/VgPgInline";
 import {
 	ItemGroup,
 	MobileFormItem,
+	numbersOf,
 	Translate,
 	useMobileFormContext
-}                   from "@leight-core/client";
-import {numbersOf}  from "@leight-core/utils";
+}                   from "@leight-core/viv";
 import {Typography} from "antd";
 import {
 	Form,

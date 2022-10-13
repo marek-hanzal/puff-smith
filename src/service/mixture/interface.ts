@@ -8,7 +8,7 @@ import {
 import {
 	IQuery,
 	ISource
-}                       from "@leight-core/api";
+}                       from "@leight-core/viv";
 
 export interface IMixture extends IMixtureInfo {
 }

@@ -4,7 +4,7 @@ import {
 	FormItem,
 	ISubmitProps,
 	Submit
-}                     from "@leight-core/client";
+}                     from "@leight-core/viv";
 import {
 	Input,
 	Space

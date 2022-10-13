@@ -4,12 +4,12 @@ import {
 	useUploadLink
 }                            from "@/sdk/api/file/chunk/[chunkId]/upload";
 import {CheckCircleOutlined} from "@ant-design/icons";
-import {IFile}               from "@leight-core/api";
-import {DeleteItemIcon}      from "@leight-core/client";
 import {
+	DeleteItemIcon,
+	IFile,
 	isString,
 	toHumanBytes
-}                            from "@leight-core/utils";
+}                            from "@leight-core/viv";
 import {
 	Button,
 	Divider,

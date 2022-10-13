@@ -1,5 +1,5 @@
 import {VersionStamp} from "@/puff-smith/component/VersionStamp";
-import {Centered}     from "@leight-core/client";
+import {Centered}     from "@leight-core/viv";
 import {FC}           from "react";
 
 export interface IFooterProps {

@@ -1,5 +1,7 @@
-import {IJob}           from "@leight-core/api";
-import {toHumanNumber}  from "@leight-core/utils";
+import {
+	IJob,
+	toHumanNumber
+}                       from "@leight-core/viv";
 import {
 	Space,
 	Tooltip

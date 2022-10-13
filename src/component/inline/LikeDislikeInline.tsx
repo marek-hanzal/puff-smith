@@ -1,5 +1,5 @@
 import Icon                from "@ant-design/icons";
-import {IWithIdentity}     from "@leight-core/api";
+import {IWithIdentity}     from "@leight-core/viv";
 import {UseMutationResult} from "@tanstack/react-query";
 import {
 	Rate,

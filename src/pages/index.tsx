@@ -1,4 +1,4 @@
-import {getOptionalToken}   from "@leight-core/server";
+import {getOptionalToken}   from "@leight-core/viv";
 import {GetServerSideProps} from "next";
 
 export default function Index() {

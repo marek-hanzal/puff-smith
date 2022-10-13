@@ -4,7 +4,7 @@ import {
 	IWithIdentity,
 	SourceInfer,
 	UndefinableOptional
-}                         from "@leight-core/api";
+}                         from "@leight-core/viv";
 
 export class UserTokenSourceClass extends ContainerSource<IUserTokenSource> implements IUserTokenSource {
 	constructor() {

@@ -3,7 +3,7 @@ import {
 	IModalButtonProps,
 	ModalButton,
 	useSelectionContext
-}                          from "@leight-core/client";
+}                          from "@leight-core/viv";
 import {UseMutationResult} from "@tanstack/react-query";
 import {message}           from "antd";
 import {FC}                from "react";

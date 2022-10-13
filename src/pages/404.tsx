@@ -6,7 +6,7 @@ import {
 	ButtonLink,
 	HomeIcon,
 	Template
-}                          from "@leight-core/client";
+}                          from "@leight-core/viv";
 import {
 	Button,
 	Divider

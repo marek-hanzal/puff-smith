@@ -1,4 +1,4 @@
-import {useOptionalSelectionContext} from "@leight-core/client";
+import {useOptionalSelectionContext} from "@leight-core/viv";
 import {Checkbox}                    from "antd";
 import {
 	ComponentProps,

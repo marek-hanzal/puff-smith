@@ -1,5 +1,5 @@
 import {FieldTimeOutlined} from "@ant-design/icons";
-import {durationOf}        from "@leight-core/client";
+import {durationOf}        from "@leight-core/viv";
 import {
 	Space,
 	Tooltip,

@@ -4,7 +4,7 @@ import {
 	ILiquidInfiniteListSourceProps,
 	LiquidInfiniteListSource
 }                         from "@/sdk/api/liquid/query";
-import {InfiniteListItem} from "@leight-core/client";
+import {InfiniteListItem} from "@leight-core/viv";
 import {FC}               from "react";
 
 export interface ILiquidListProps extends Partial<ILiquidInfiniteListSourceProps> {

@@ -10,9 +10,9 @@ import {
 	ButtonBar,
 	Card,
 	Centered,
+	numbersOf,
 	Template
-}                          from "@leight-core/client";
-import {numbersOf}         from "@leight-core/utils";
+}                          from "@leight-core/viv";
 import {
 	Col,
 	Divider,

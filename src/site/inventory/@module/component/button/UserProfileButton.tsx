@@ -2,7 +2,7 @@ import {UserIcon}       from "@/puff-smith/component/icon/UserIcon";
 import {
 	ButtonLink,
 	IButtonLinkProps
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {Tooltip}        from "antd";
 import {FC}             from "react";
 import {useTranslation} from "react-i18next";

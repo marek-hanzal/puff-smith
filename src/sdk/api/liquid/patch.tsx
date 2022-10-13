@@ -3,7 +3,6 @@
  */
 
 import {ILiquidSource} from "@/puff-smith/service/liquid/interface";
-import {SourceInfer}   from "@leight-core/api";
 import {
 	createMutationHook,
 	createPromise,
@@ -12,8 +11,9 @@ import {
 	IFormProps,
 	IMobileFormProps,
 	MobileForm,
+	SourceInfer,
 	toLink
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {FC}            from "react";
 
 export const LiquidPatchApiLink = "/api/liquid/patch";
@@ -29,7 +29,7 @@ export const LiquidPatchDefaultForm: FC<ILiquidPatchDefaultFormProps> = props =>
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>
+/>;
 
 export interface ILiquidPatchDefaultMobileFormProps extends Partial<IMobileFormProps<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>> {
 }
@@ -38,9 +38,9 @@ export const LiquidPatchDefaultMobileForm: FC<ILiquidPatchDefaultMobileFormProps
 	useMutation={useLiquidPatchMutation}
 	translation={LiquidPatchApiLink}
 	{...props}
-/>
+/>;
 
-export const toLiquidPatchLink = (queryParams?: ILiquidPatchQueryParams) => toLink(LiquidPatchApiLink, queryParams);
+export const toLiquidPatchLink  = (queryParams?: ILiquidPatchQueryParams) => toLink(LiquidPatchApiLink, queryParams);
 export const useLiquidPatchLink = () => toLiquidPatchLink;
 
 export const useLiquidPatchPromise = createPromiseHook<SourceInfer.Patch<ILiquidSource>, SourceInfer.Item<ILiquidSource>>(LiquidPatchApiLink, "post");

@@ -5,14 +5,12 @@ import {
 }                     from "@/puff-smith/service/Container";
 import prismaClient   from "@/puff-smith/service/side-effect/prisma";
 import {
-	IChunkCommit,
-	IFile
-}                     from "@leight-core/api";
-import {
 	CommitChunkEndpoint,
 	Endpoint,
-	IChunkEndpointQuery
-}                     from "@leight-core/server";
+	IChunkCommit,
+	IChunkEndpointQuery,
+	IFile
+}                     from "@leight-core/viv";
 
 export default Endpoint<ContainerClass, IChunkCommit, IFile, IChunkEndpointQuery>(CommitChunkEndpoint({
 	container:        asyncContainer,

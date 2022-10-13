@@ -6,7 +6,7 @@ import {
 	useJobOptionalFilterContext,
 	useJobQueryInvalidate
 }                           from "@/sdk/api/job/query";
-import {DeleteItemIcon}     from "@leight-core/client";
+import {DeleteItemIcon}     from "@leight-core/viv";
 import {
 	Button,
 	message

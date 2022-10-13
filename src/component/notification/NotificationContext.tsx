@@ -1,4 +1,4 @@
-import {useContext}           from "@leight-core/client";
+import {useContext}           from "@leight-core/viv";
 import {createContext}        from "react";
 import {INotificationContext} from "./interface";
 

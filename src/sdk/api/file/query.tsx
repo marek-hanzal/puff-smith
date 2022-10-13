@@ -4,12 +4,6 @@
 
 import {IFileSource}    from "@/puff-smith/service/file/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const FileTableSource: FC<IFileTableSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</FileProvider>;
-}
+};
 
 export interface IFileListSourceProps extends Partial<IListProps<SourceInfer.Item<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;
@@ -146,7 +144,7 @@ export const FileListSource: FC<IFileListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</FileProvider>;
-}
+};
 
 export interface IFileInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IFileSource>>> {
 	providerProps?: Partial<IFileProviderProps>;
@@ -164,7 +162,7 @@ export const FileInfiniteListSource: FC<IFileInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</FileProvider>;
-}
+};
 
 export interface IFileSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IFileSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IFileSource>>;
@@ -182,7 +180,7 @@ export interface IFileSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const FileSelectionProvider: FC<IFileSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IFileSource>> {...props}/>;
-}
+};
 
 export const useFileCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const FileDrawerItem: FC<IFileDrawerItemProps> = ({onSelection, ...props}
 			drawerSelectProps={{
 				translation: {
 					namespace: FileApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

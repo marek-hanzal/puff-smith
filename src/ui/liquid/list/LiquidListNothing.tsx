@@ -6,7 +6,7 @@ import {
 	useCursorContext,
 	useFilterContext,
 	useSourceContext
-}                      from "@leight-core/client";
+}                      from "@leight-core/viv";
 import {
 	Button,
 	Divider

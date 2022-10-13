@@ -1,14 +1,14 @@
 import {FullLogoIcon}        from "@/puff-smith/component/icon/FullLogoIcon";
 import {useTranslationQuery} from "@/sdk/api/translation";
 import {useVersionQuery}     from "@/sdk/api/version";
-import {IPageWithLayout}     from "@leight-core/api";
 import {
 	App,
 	createQueryClient,
 	DeployRefreshManager,
 	IAppProps,
+	IPageWithLayout,
 	useQueryPersistence
-}                            from "@leight-core/client";
+}                            from "@leight-core/viv";
 import dayjs                 from "dayjs";
 import i18next               from "i18next";
 import {FC}                  from "react";

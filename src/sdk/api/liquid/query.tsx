@@ -4,12 +4,6 @@
 
 import {ILiquidSource}  from "@/puff-smith/service/liquid/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const LiquidTableSource: FC<ILiquidTableSourceProps> = ({providerProps, .
 			{...props}
 		/>
 	</LiquidProvider>;
-}
+};
 
 export interface ILiquidListSourceProps extends Partial<IListProps<SourceInfer.Item<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
@@ -146,7 +144,7 @@ export const LiquidListSource: FC<ILiquidListSourceProps> = ({providerProps, ...
 			{...props}
 		/>
 	</LiquidProvider>;
-}
+};
 
 export interface ILiquidInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ILiquidSource>>> {
 	providerProps?: Partial<ILiquidProviderProps>;
@@ -164,7 +162,7 @@ export const LiquidInfiniteListSource: FC<ILiquidInfiniteListSourceProps> = ({pr
 			{...props}
 		/>
 	</LiquidProvider>;
-}
+};
 
 export interface ILiquidSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ILiquidSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<ILiquidSource>>;
@@ -182,7 +180,7 @@ export interface ILiquidSelectionProviderProps extends Partial<ISelectionProvide
 
 export const LiquidSelectionProvider: FC<ILiquidSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<ILiquidSource>> {...props}/>;
-}
+};
 
 export const useLiquidCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const LiquidDrawerItem: FC<ILiquidDrawerItemProps> = ({onSelection, ...pr
 			drawerSelectProps={{
 				translation: {
 					namespace: LiquidApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

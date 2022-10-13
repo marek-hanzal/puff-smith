@@ -6,10 +6,10 @@ import {
 }                        from "@/puff-smith/service/token/interface";
 import {
 	IWithIdentity,
+	pageOf,
 	SourceInfer,
 	UndefinableOptional
-}                        from "@leight-core/api";
-import {pageOf}          from "@leight-core/server";
+}                        from "@leight-core/viv";
 
 export class TokenSourceClass extends ContainerSource<ITokenSource> implements ITokenSource {
 	constructor() {

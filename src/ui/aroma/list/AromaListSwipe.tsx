@@ -9,7 +9,7 @@ import {
 	useOptionalCursorContext,
 	useOptionalFilterContext,
 	useSourceContext
-}                                from "@leight-core/client";
+}                                from "@leight-core/viv";
 import {message}                 from "antd";
 import {
 	SwipeAction,

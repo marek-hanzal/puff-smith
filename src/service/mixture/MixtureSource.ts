@@ -6,8 +6,10 @@ import {
 	IToMixtureBoosterRequest,
 	toMixtureInfo
 }                        from "@/puff-smith/service/mixture/toMixture";
-import {SourceInfer}     from "@leight-core/api";
-import {uniqueOf}        from "@leight-core/utils";
+import {
+	SourceInfer,
+	uniqueOf
+}                        from "@leight-core/viv";
 import LRUCache          from "lru-cache";
 
 const mixtureCache: LRUCache<string, SourceInfer.Entity<IMixtureSource>[]> = new LRUCache<string, SourceInfer.Entity<IMixtureSource>[]>({

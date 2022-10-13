@@ -10,7 +10,7 @@ import {
 	Tags,
 	Template,
 	toLocalDate
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import {Typography}         from "antd";
 import {Space}              from "antd-mobile";
 import {FC}                 from "react";

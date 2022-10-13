@@ -8,11 +8,11 @@ import {
 	TranslationPatchDefaultMobileForm
 }                                      from "@/sdk/api/translation/patch";
 import {useTranslationQueryInvalidate} from "@/sdk/api/translation/query";
-import {ITranslation}                  from "@leight-core/api";
 import {
 	ButtonBar,
-	ButtonLink
-}                                      from "@leight-core/client";
+	ButtonLink,
+	ITranslation
+}                                      from "@leight-core/viv";
 import {Divider}                       from "antd";
 import {FC}                            from "react";
 

@@ -1,6 +1,6 @@
 import {asyncContainer} from "@/puff-smith/service/Container";
 import {VendorSource}   from "@/puff-smith/service/vendor/VendorSource";
-import {CreateEndpoint} from "@leight-core/server";
+import {CreateEndpoint} from "@leight-core/viv";
 
 export default CreateEndpoint({
 	name:      "VendorCreate",

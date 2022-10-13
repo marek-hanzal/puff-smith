@@ -1,28 +1,28 @@
-import {IAromaSource}        from "@/puff-smith/service/aroma/interface";
-import {IBaseSource}         from "@/puff-smith/service/base/interface";
-import {IBoosterSource}      from "@/puff-smith/service/booster/interface";
-import {ICodeService}        from "@/puff-smith/service/code/interface";
-import {IFileSource}         from "@/puff-smith/service/file/interface";
-import {IJobSource}          from "@/puff-smith/service/job/interface";
-import {IKeywordSource}      from "@/puff-smith/service/keyword/interface";
-import {ILiquidSource}       from "@/puff-smith/service/liquid/interface";
-import {IMixtureSource}      from "@/puff-smith/service/mixture/interface";
-import {IRecipeSource}       from "@/puff-smith/service/recipe/interface";
-import CoolPrisma            from "@/puff-smith/service/side-effect/prisma";
-import {ITagSource}          from "@/puff-smith/service/tag/interface";
-import {ITokenSource}        from "@/puff-smith/service/token/interface";
-import {ITranslationSource}  from "@/puff-smith/service/translation/interface";
-import {IUserSource}         from "@/puff-smith/service/user/interface";
-import {IUserTokenSource}    from "@/puff-smith/service/user/token/interface";
-import {IVendorSource}       from "@/puff-smith/service/vendor/interface";
+import {IAromaSource}       from "@/puff-smith/service/aroma/interface";
+import {IBaseSource}        from "@/puff-smith/service/base/interface";
+import {IBoosterSource}     from "@/puff-smith/service/booster/interface";
+import {ICodeService}       from "@/puff-smith/service/code/interface";
+import {IFileSource}        from "@/puff-smith/service/file/interface";
+import {IJobSource}         from "@/puff-smith/service/job/interface";
+import {IKeywordSource}     from "@/puff-smith/service/keyword/interface";
+import {ILiquidSource}      from "@/puff-smith/service/liquid/interface";
+import {IMixtureSource}     from "@/puff-smith/service/mixture/interface";
+import {IRecipeSource}      from "@/puff-smith/service/recipe/interface";
+import CoolPrisma           from "@/puff-smith/service/side-effect/prisma";
+import {ITagSource}         from "@/puff-smith/service/tag/interface";
+import {ITokenSource}       from "@/puff-smith/service/token/interface";
+import {ITranslationSource} from "@/puff-smith/service/translation/interface";
+import {IUserSource}        from "@/puff-smith/service/user/interface";
+import {IUserTokenSource}   from "@/puff-smith/service/user/token/interface";
+import {IVendorSource}      from "@/puff-smith/service/vendor/interface";
 import {
 	IContainerCallback,
 	IPrismaTransaction,
 	IServiceContainer,
-	IUser
-}                            from "@leight-core/api";
-import {User}                from "@leight-core/client";
-import {RestoreServiceClass} from "@leight-core/server";
+	IUser,
+	RestoreServiceClass,
+	User
+}                           from "@leight-core/viv";
 
 export interface IContainerDeps {
 	prisma?: IPrismaTransaction;
@@ -116,6 +116,6 @@ export class ContainerClass implements IServiceContainer<IFileSource> {
 	}
 
 	async useRestoreService<T>(callback: IContainerCallback<RestoreServiceClass, T>) {
-		return callback((await import("@leight-core/server")).RestoreService());
+		return callback((await import("@leight-core/viv")).RestoreService());
 	}
 }

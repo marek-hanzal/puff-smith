@@ -4,12 +4,6 @@
 
 import {IUserSource}    from "@/puff-smith/service/user/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const UserTableSource: FC<IUserTableSourceProps> = ({providerProps, ...pr
 			{...props}
 		/>
 	</UserProvider>;
-}
+};
 
 export interface IUserListSourceProps extends Partial<IListProps<SourceInfer.Item<IUserSource>>> {
 	providerProps?: Partial<IUserProviderProps>;
@@ -146,7 +144,7 @@ export const UserListSource: FC<IUserListSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</UserProvider>;
-}
+};
 
 export interface IUserInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<IUserSource>>> {
 	providerProps?: Partial<IUserProviderProps>;
@@ -164,7 +162,7 @@ export const UserInfiniteListSource: FC<IUserInfiniteListSourceProps> = ({provid
 			{...props}
 		/>
 	</UserProvider>;
-}
+};
 
 export interface IUserSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<IUserSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<IUserSource>>;
@@ -182,7 +180,7 @@ export interface IUserSelectionProviderProps extends Partial<ISelectionProviderP
 
 export const UserSelectionProvider: FC<IUserSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<IUserSource>> {...props}/>;
-}
+};
 
 export const useUserCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const UserDrawerItem: FC<IUserDrawerItemProps> = ({onSelection, ...props}
 			drawerSelectProps={{
 				translation: {
 					namespace: UserApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

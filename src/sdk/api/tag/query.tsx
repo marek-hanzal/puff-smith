@@ -4,12 +4,6 @@
 
 import {ITagSource}     from "@/puff-smith/service/tag/interface";
 import {
-	ISourceContext,
-	IToOptionMapper,
-	QueryInfer,
-	SourceInfer
-}                       from "@leight-core/api";
-import {
 	BlockProvider,
 	createPromise,
 	createPromiseHook,
@@ -26,15 +20,19 @@ import {
 	IOrderByProviderProps,
 	IQuerySourceSelectProps,
 	ISelectionProviderProps,
+	ISourceContext,
 	ISourceControlProviderProps,
 	ISourceProviderProps,
 	ITableProps,
+	IToOptionMapper,
 	List,
 	OrderByProvider,
+	QueryInfer,
 	QuerySourceSelect,
 	SelectionProvider,
 	SourceContext,
 	SourceControlProvider,
+	SourceInfer,
 	SourceProvider,
 	Table,
 	toLink,
@@ -45,7 +43,7 @@ import {
 	useOrderByContext,
 	useSelectionContext,
 	useSourceContext
-}                       from "@leight-core/client";
+}                       from "@leight-core/viv";
 import {useQueryClient} from "@tanstack/react-query";
 import {
 	ConsumerProps,
@@ -131,7 +129,7 @@ export const TagTableSource: FC<ITagTableSourceProps> = ({providerProps, ...prop
 			{...props}
 		/>
 	</TagProvider>;
-}
+};
 
 export interface ITagListSourceProps extends Partial<IListProps<SourceInfer.Item<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -146,7 +144,7 @@ export const TagListSource: FC<ITagListSourceProps> = ({providerProps, ...props}
 			{...props}
 		/>
 	</TagProvider>;
-}
+};
 
 export interface ITagInfiniteListSourceProps extends Partial<IInfiniteListProps<SourceInfer.Item<ITagSource>>> {
 	providerProps?: Partial<ITagProviderProps>;
@@ -164,7 +162,7 @@ export const TagInfiniteListSource: FC<ITagInfiniteListSourceProps> = ({provider
 			{...props}
 		/>
 	</TagProvider>;
-}
+};
 
 export interface ITagSourceSelectProps extends IQuerySourceSelectProps<SourceInfer.Item<ITagSource>> {
 	toOption: IToOptionMapper<SourceInfer.Item<ITagSource>>;
@@ -182,7 +180,7 @@ export interface ITagSelectionProviderProps extends Partial<ISelectionProviderPr
 
 export const TagSelectionProvider: FC<ITagSelectionProviderProps> = props => {
 	return <SelectionProvider<SourceInfer.Item<ITagSource>> {...props}/>;
-}
+};
 
 export const useTagCountQueryInvalidate = () => {
 	const queryClient = useQueryClient();
@@ -226,10 +224,10 @@ export const TagDrawerItem: FC<ITagDrawerItemProps> = ({onSelection, ...props}) 
 			drawerSelectProps={{
 				translation: {
 					namespace: TagApiLink,
-					text: "select.title",
+					text:      "select.title",
 				}
 			}}
 			{...props}
 		/>}
-	</BlockProvider>
-}
+	</BlockProvider>;
+};

@@ -1,4 +1,4 @@
-import {IMobileFormErrorMap} from "@leight-core/api";
+import {IMobileFormErrorMap} from "@leight-core/viv";
 
 export const toAromaError = (): IMobileFormErrorMap<any> => ({
 	"Unique error on [aroma.name,vendorId]": {id: ["name"], error: "Unique error on [aroma.name,vendorId]"},

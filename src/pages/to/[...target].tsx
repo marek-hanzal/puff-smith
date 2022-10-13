@@ -4,7 +4,7 @@ import {
 	ResponsiveProvider,
 	useNavigate,
 	useParams
-}                     from "@leight-core/client";
+}                     from "@leight-core/viv";
 import {useEffect}    from "react";
 
 export default function Target() {

@@ -7,7 +7,7 @@ import {
 	Preview,
 	Tags,
 	Template
-}                           from "@leight-core/client";
+}                           from "@leight-core/viv";
 import dayjs                from "dayjs";
 import {FC}                 from "react";
 
