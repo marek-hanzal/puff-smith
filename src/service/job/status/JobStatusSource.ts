@@ -14,8 +14,6 @@ const items: IJobStatus[] = [
 	"DONE",
 ];
 
-export const JobStatusSource = () => new JobStatusSourceClass();
-
 export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> implements IJobStatusSource {
 	constructor() {
 		super("job.status");
@@ -33,3 +31,5 @@ export class JobStatusSourceClass extends ContainerSource<IJobStatusSource> impl
 		}));
 	}
 }
+
+export const JobStatusSource = () => new JobStatusSourceClass();
