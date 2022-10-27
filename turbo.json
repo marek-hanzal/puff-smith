@@ -1,27 +1,57 @@
 {
-    "$schema": "https://turborepo.org/schema.json",
-    "pipeline": {
-        "prisma-format": {
-            "dependsOn": [
-                "^prisma-generate"
-            ],
-            "outputs": []
-        },
-        "prisma-generate": {
-            "dependsOn": [
-                "prisma-format",
-                "^prisma-generate"
-            ],
-            "outputs": []
-        },
-        "build": {
-            "dependsOn": [
-                "prisma-generate",
-                "^build"
-            ],
-            "outputs": [
-                "lib"
-            ]
-        }
-    }
+	"$schema": "https://turborepo.org/schema.json",
+	"globalDependencies": [
+		".env",
+		"tsconfig.json"
+	],
+	"pipeline": {
+		"prisma-format": {
+			"outputMode": "new-only",
+			"dependsOn": [
+				"^prisma-generate"
+			],
+			"outputs": [],
+			"inputs": [
+				"prisma/schema.prisma"
+			]
+		},
+		"prisma-generate": {
+			"outputMode": "new-only",
+			"dependsOn": [
+				"prisma-format",
+				"^prisma-generate"
+			],
+			"outputs": [],
+			"inputs": [
+				"prisma/schema.prisma"
+			]
+		},
+		"lint": {
+			"outputMode": "new-only",
+			"inputs": [
+				"src"
+			]
+		},
+		"build": {
+			"outputMode": "new-only",
+			"dependsOn": [
+				"prisma-generate",
+				"lint",
+				"^build"
+			],
+			"outputs": [
+				"lib"
+			],
+			"inputs": [
+				"prisma",
+				"src"
+			],
+			"env": [
+				"NEXT_PUBLIC_BUILD"
+			]
+		},
+		"dev": {
+			"cache": false
+		}
+	}
 }

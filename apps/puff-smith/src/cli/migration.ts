@@ -1,10 +1,6 @@
-import "@/puff-smith/service/side-effect/bootstrap";
 import prisma         from "@/puff-smith/service/side-effect/prisma";
 import {sha256}       from "@/puff-smith/service/utils/sha256";
-import {
-	executeSql,
-	runSql
-}                     from "@leight-core/viv";
+import {Sql}          from "@leight/prisma";
 import {PrismaClient} from "@prisma/client";
 import fs             from "node:fs";
 import path           from "node:path";
@@ -15,7 +11,7 @@ const EMPTY_MIGRATION = "__empty__";
 
 const ensureMigrationTable = async (prisma: PrismaClient) => {
 	try {
-		await executeSql(`
+        await Sql.execute(`
 			create table _prisma_migrations
 			(
 				id                  varchar(36)                            not null primary key,
@@ -53,9 +49,9 @@ const umzug = new Umzug({
 			}
 			if (params.path?.endsWith(".sql")) {
 				return {
-					name,
-					up: async () => runSql(params.path as string, prisma),
-				};
+                    name,
+                    up: async () => Sql.run(params.path as string, prisma),
+                };
 			}
 			const defaults = Umzug.defaultResolver(params);
 			return {

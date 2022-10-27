@@ -4,6 +4,15 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/apps/puff-smith/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/logger/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/antd/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/context/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/icon/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/prisma/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/selection/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/shared/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/ui/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/utils/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
@@ -12,6 +21,24 @@
       <excludeFolder url="file://$MODULE_DIR$/rootfs" />
       <excludeFolder url="file://$MODULE_DIR$/public" />
       <excludeFolder url="file://$MODULE_DIR$/.swc" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/logger/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/shared/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/shared/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/utils/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/utils/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/ui/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/selection/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/context/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/context/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/antd/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/antd/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/prisma/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/prisma/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/logger/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/ui/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/icon/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/icon/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/@leight-core/selection/lib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
