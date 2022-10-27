@@ -1,8 +1,9 @@
-/node_modules
-/.next/
-/build
-/dist
-/.swc
+node_modules
+.next
+build
+dist
+.swc
 .env.development.local
 .env.production.local
 ~*.xlsx
+.turbo
