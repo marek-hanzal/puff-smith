@@ -1,0 +1,20 @@
+
+> puff-smith@0.7.0 build C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\apps\puff-smith
+> next build
+
+info  - Loaded env from C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\apps\puff-smith\.env
+
+> Build error occurred
+Error: next-transpile-modules - an unexpected error happened when trying to resolve "@leight-core/viv". Are you sure the name of the module you are trying to transpile is correct, and it has a package.json with a "main" or an "exports" field?
+Error: Can't resolve '@leight-core\viv\package.json' in 'C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\apps\puff-smith'
+    at getPackageRootDirectory (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next-transpile-modules@9.1.0\node_modules\next-transpile-modules\src\next-transpile-modules.js:123:15)
+    at Array.map (<anonymous>)
+    at withTM (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next-transpile-modules@9.1.0\node_modules\next-transpile-modules\src\next-transpile-modules.js:132:34)
+    at C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next-compose-plugins@2.2.1\node_modules\next-compose-plugins\lib\compose.js:100:23
+    at Array.forEach (<anonymous>)
+    at composePlugins (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next-compose-plugins@2.2.1\node_modules\next-compose-plugins\lib\compose.js:77:11)
+    at C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next-compose-plugins@2.2.1\node_modules\next-compose-plugins\lib\index.js:22:38
+    at Object.normalizeConfig (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next@12.3.1_biqbaboplfbrettd7655fr4n2y\node_modules\next\dist\server\config-shared.js:123:18)
+    at Object.loadConfig [as default] (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next@12.3.1_biqbaboplfbrettd7655fr4n2y\node_modules\next\dist\server\config.js:74:53)
+    at async Span.traceAsyncFn (C:\Users\Marek Hanzal\Projects\github.com\marek-hanzal\puff-smith\node_modules\.pnpm\next@12.3.1_biqbaboplfbrettd7655fr4n2y\node_modules\next\dist\trace\trace.js:79:20)
+ ELIFECYCLE  Command failed with exit code 1.
