@@ -21,6 +21,7 @@
         "lint": "eslint src"
     },
     "dependencies": {
+        "filesize": "^10.0.5",
         "is-callable": "^1.2.7",
         "is-string": "^1.0.7"
     },

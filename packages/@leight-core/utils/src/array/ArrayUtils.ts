@@ -24,4 +24,13 @@ export class ArrayUtils {
         }
         return alfa.filter(x => beta.includes(x));
     }
+
+    static uniqueOf<T>(array: T[], key?: keyof T): T[] {
+        return key ? [
+            ...new Map(array.map(item => [
+                item[key],
+                item
+            ])).values()
+        ] : [...new Set(array)];
+    }
 }
