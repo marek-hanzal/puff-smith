@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/shared/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/ui/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight-core/utils/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

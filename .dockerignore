@@ -1,8 +1,0 @@
-.git
-.data
-.docker
-.local
-.next
-build
-dist
-node_modules

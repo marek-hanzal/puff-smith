@@ -1,5 +1,0 @@
-mode: chatops
-silent: false
-branchName: full
-autoCloseIssue: true
-gitSafeReplacementChar: '-'
