@@ -18,7 +18,7 @@ const Home: NextPage = () => {
                     Create <span className="text-purple-300">T3</span> App
                 </h1>
                 <p className="text-2xl text-gray-700">This stack uses:</p>
-                <div className="mt-3 grid gap-3 pt-3 text-center md:grid-cols-3 lg:w-2/3">
+                <div className="dark:bg-black mt-3 grid gap-3 pt-3 text-center md:grid-cols-3 lg:w-2/3">
                     <TechnologyCard
                         name="NextJS"
                         description="The React framework for production"
