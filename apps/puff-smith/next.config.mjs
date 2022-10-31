@@ -1,38 +1,18 @@
-import withTM from 'next-transpile-modules';
+// @ts-check
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
+ * This is especially useful for Docker builds.
+ */
+!process.env.SKIP_ENV_VALIDATION && (await import("./src/env/server.mjs"));
 
-export default {
-    swcMinify:                   true,
-    poweredByHeader:             false,
-    productionBrowserSourceMaps: false,
-    webpack:                     (config, {
-        webpack,
-        buildId,
-        isServer,
-        nextRuntime,
-        ...options
-    }) => {
-		config.plugins.push(
-			new webpack.DefinePlugin({
-				'process.env.BUILD_ID': JSON.stringify(buildId),
-			}),
-		);
-		if (isServer && nextRuntime === 'nodejs') {
-			return patchWebpackConfig(merge(config, {
-				entry() {
-					return config.entry().then(entry => {
-						Object.keys(entry).map(key => {
-							entry[key] = {import: ['./src/service/side-effect/bootstrap.ts', ...entry[key]]};
-                        });
-                        return entry;
-                    });
-                }
-            }), options);
-        }
-        return config;
+/** @type {import("next").NextConfig} */
+const config = {
+    reactStrictMode: true,
+    swcMinify:       true,
+    output:          "standalone",
+    i18n:            {
+        locales:       ["en"],
+        defaultLocale: "en",
     },
-    reactStrictMode:             true,
-    staticPageGenerationTimeout: 20,
-    ...withTM([
-        'antd-mobile',
-    ]),
 };
+export default config;

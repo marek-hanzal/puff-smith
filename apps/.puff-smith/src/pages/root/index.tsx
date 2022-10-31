@@ -1,0 +1,33 @@
+import {FullLogoIcon}    from "@/puff-smith/component/icon/FullLogoIcon";
+import {BrowserRootPage} from "@/puff-smith/site/root/@module/component/BrowserRootPage";
+import {MobileRootPage}  from "@/puff-smith/site/root/@module/component/MobileRootPage";
+import {withRootLayout}  from "@/puff-smith/site/root/@module/layout/layout";
+import {RootMenu}        from "@/puff-smith/site/root/@module/menu/RootMenu";
+import {BackupButton}    from "@/puff-smith/ui/root/button/BackupButton";
+import {
+    ButtonBar,
+    HomeIcon,
+    Template
+}                        from "@leight-core/viv";
+
+export default withRootLayout(function Index() {
+	return <>
+		<BrowserRootPage
+			title={"root.index"}
+			menuSelection={["/root"]}
+			icon={<HomeIcon/>}
+		>
+			<Template
+				icon={<FullLogoIcon style={{width: "20vw", maxWidth: "30em"}}/>}
+				status={"info"}
+				label={"root.home"}
+				extra={<ButtonBar>
+					<BackupButton/>
+				</ButtonBar>}
+			/>
+		</BrowserRootPage>
+		<MobileRootPage>
+			<RootMenu/>
+		</MobileRootPage>
+	</>;
+});

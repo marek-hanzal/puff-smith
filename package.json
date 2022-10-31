@@ -1,23 +1,23 @@
 {
     "name": "@puff-smith/puff-smith",
-	"private": true,
-	"description": "All-in-one solution for fullstack Next.js development.",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/leight-core/viv.git"
-	},
-	"engines": {
-		"node": ">=16.0.0"
-	},
-	"scripts": {
-		"build": "turbo run build --no-daemon",
-		"lint": "turbo run lint --no-daemon",
-		"dev": "turbo run dev --no-daemon"
-	},
-	"dependencies": {
-	},
-	"devDependencies": {
-		"turbo": "^1.6.1"
-	}
+    "private": true,
+    "description": "All-in-one solution for fullstack Next.js development.",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/leight-core/viv.git"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "build": "turbo run build --no-daemon",
+        "lint": "turbo run lint --no-daemon",
+        "dev": "turbo run dev --no-daemon --parallel"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "turbo": "^1.6.1"
+    }
 }

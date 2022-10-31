@@ -1,17 +1,20 @@
-import "@/puff-smith/assets/styles/app.css";
-import {
-	BootstrapLoader,
-	IPageWithLayout
-}                      from "@leight-core/viv";
-import "kothing-editor/dist/css/kothing-editor.min.css";
-import type {AppProps} from "next/app";
-import Head            from "next/head";
+import {type Session}    from "next-auth";
+import {SessionProvider} from "next-auth/react";
+import {type AppType}    from "next/app";
 
-export default function PuffSmith({Component, pageProps}: AppProps) {
-	return <BootstrapLoader>
-		<Head>
-			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
-		</Head>
-		{((Component as unknown as IPageWithLayout<any>).layout || (page => page))(<Component {...pageProps}/>)}
-	</BootstrapLoader>;
-}
+import "../styles/globals.css";
+
+import {trpc} from "../utils/trpc";
+
+const MyApp: AppType<{ session: Session | null }> = ({
+                                                         Component,
+                                                         pageProps: {session, ...pageProps},
+                                                     }) => {
+    return (
+        <SessionProvider session={session}>
+            <Component {...pageProps} />
+        </SessionProvider>
+    );
+};
+
+export default trpc.withTRPC(MyApp);
