@@ -15,9 +15,7 @@
         "lint": "turbo run lint --no-daemon",
         "dev": "turbo run dev --no-daemon --parallel"
     },
-    "dependencies": {
-    },
     "devDependencies": {
-        "turbo": "^1.6.1"
+        "turbo": "^1.6.2"
     }
 }

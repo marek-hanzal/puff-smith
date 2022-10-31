@@ -1,3 +1,4 @@
+import {type AppRouter}           from "@/puff-smith/server/trpc/router/_app";
 import {
     httpBatchLink,
     loggerLink
@@ -5,8 +6,6 @@ import {
 import {createTRPCNext}           from "@trpc/next";
 import {type GetInferenceHelpers} from "@trpc/server";
 import superjson                  from "superjson";
-
-import {type AppRouter} from "../server/trpc/router/_app";
 
 const getBaseUrl = () => {
     if (typeof window !== "undefined") {
@@ -24,9 +23,7 @@ export const trpc = createTRPCNext<AppRouter>({
             transformer: superjson,
             links:       [
                 loggerLink({
-                    enabled: (opts) =>
-                                 process.env.NODE_ENV === "development" ||
-                                 (opts.direction === "down" && opts.result instanceof Error),
+                    enabled: opts => process.env.NODE_ENV === "development" || (opts.direction === "down" && opts.result instanceof Error),
                 }),
                 httpBatchLink({
                     url: `${getBaseUrl()}/api/trpc`,
