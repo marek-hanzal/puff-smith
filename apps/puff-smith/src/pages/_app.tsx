@@ -1,5 +1,4 @@
 import "@/puff-smith/styles/globals.css";
-
 import {trpc}         from "@/puff-smith/utils/trpc";
 import {type AppType} from "next/app";
 

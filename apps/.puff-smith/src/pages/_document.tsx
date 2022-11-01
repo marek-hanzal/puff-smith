@@ -22,5 +22,4 @@ class Document extends CoolDocument {
 	}
 }
 
-// noinspection JSUnusedGlobalSymbols
 export default Document;
