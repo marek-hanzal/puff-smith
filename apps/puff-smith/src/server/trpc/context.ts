@@ -1,6 +1,5 @@
-import {prisma}                        from "@/puff-smith/server/db/client";
-import {type inferAsyncReturnType}     from "@trpc/server";
-import {type CreateNextContextOptions} from "@trpc/server/adapters/next";
+import {prisma}                    from "@/puff-smith/server/db/client";
+import {type inferAsyncReturnType} from "@trpc/server";
 
 /** Use this helper for:
  * - testing, so we dont have to mock Next.js' req/res
@@ -17,7 +16,7 @@ export const createContextInner = async () => {
  * This is the actual context you'll use in your router
  * @link https://trpc.io/docs/context
  **/
-export const createContext = async (_: CreateNextContextOptions) => {
+export const createContext = async () => {
     return await createContextInner();
 };
 

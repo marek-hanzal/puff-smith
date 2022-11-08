@@ -1,11 +1,14 @@
-import {type AppRouter}           from "@/puff-smith/server/trpc/router/_app";
+import {type AppRouter} from "@/puff-smith/server/trpc/router/_app";
 import {
     httpBatchLink,
     loggerLink
-}                                 from "@trpc/client";
-import {createTRPCNext}           from "@trpc/next";
-import {type GetInferenceHelpers} from "@trpc/server";
-import superjson                  from "superjson";
+}                       from "@trpc/client";
+import {createTRPCNext} from "@trpc/next";
+import type {
+    inferRouterInputs,
+    inferRouterOutputs
+}                       from "@trpc/server";
+import superjson        from "superjson";
 
 export const trpc = createTRPCNext<AppRouter>({
     config() {
@@ -29,4 +32,5 @@ export const trpc = createTRPCNext<AppRouter>({
  * Inference helpers
  * @example type HelloOutput = RouterTypes['example']['hello']['output']
  **/
-export type RouterTypes = GetInferenceHelpers<AppRouter>;
+export type RouterInputTypes = inferRouterInputs<AppRouter>;
+export type RouterOutputTypes = inferRouterOutputs<AppRouter>;

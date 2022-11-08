@@ -16,6 +16,6 @@
         "dev": "turbo run dev --no-daemon --parallel"
     },
     "devDependencies": {
-        "turbo": "^1.6.2"
+        "turbo": "^1.6.3"
     }
 }
