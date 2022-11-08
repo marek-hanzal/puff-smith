@@ -9,8 +9,13 @@
 const config = {
     reactStrictMode: true,
     swcMinify:       true,
-    experimental:    {
-        appDir: true,
+    images:          {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "flowbite.com",
+            }
+        ]
     }
 };
 export default config;
