@@ -28,6 +28,7 @@ importers:
             clsx: ^1.2.1
             eslint: ^8.22.0
             eslint-config-next: ^13.0.0
+            flowbite: ^1.5.3
             jotai: ^1.9.1
             next: ^13.0.2
             postcss: ^8.4.18
@@ -36,6 +37,7 @@ importers:
             prisma: ^4.5.0
             react: ^18.2.0
             react-dom: ^18.2.0
+            react-icons: ^4.6.0
             sharp: ^0.31.2
             superjson: ^1.11.0
             tailwindcss: ^3.2.2
@@ -50,10 +52,12 @@ importers:
             '@trpc/react-query': 10.0.0-rc.6_h3mjqjiubmd4hdgk2olt4mjdpm
             '@trpc/server': 10.0.0-rc.6
             clsx: 1.2.1
+            flowbite: 1.5.3
             jotai: 1.9.1_react@18.2.0
             next: 13.0.2_biqbaboplfbrettd7655fr4n2y
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
+            react-icons: 4.6.0_react@18.2.0
             sharp: 0.31.2
             superjson: 1.11.0
             zod: 3.19.1
@@ -278,6 +282,10 @@ packages:
             '@nodelib/fs.scandir': 2.1.5
             fastq: 1.13.0
         dev: true
+
+    /@popperjs/core/2.11.6:
+        resolution: { integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw== }
+        dev: false
 
     /@prisma/client/4.5.0_prisma@4.5.0:
         resolution: { integrity: sha512-B2cV0OPI1smhdYUxsJoLYQLoMlLH06MUxgFUWQnHodGMX98VRVXKmQE/9OcrTNkqtke5RC+YU24Szxd04tZA2g== }
@@ -1420,6 +1428,13 @@ packages:
         resolution: { integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ== }
         dev: true
 
+    /flowbite/1.5.3:
+        resolution: { integrity: sha512-e2OHfndxTHtGMqcPqvqwg3gGLg57hmIDVgE/BazMDccgirQ0JEtirKnbZZ4WSOIEhNDgO9pJZuyC8rRlcMm6pQ== }
+        dependencies:
+            '@popperjs/core': 2.11.6
+            mini-svg-data-uri: 1.4.4
+        dev: false
+
     /fraction.js/4.2.0:
         resolution: { integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA== }
         dev: true
@@ -1882,7 +1897,6 @@ packages:
     /mini-svg-data-uri/1.4.4:
         resolution: { integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg== }
         hasBin: true
-        dev: true
 
     /minimatch/3.1.2:
         resolution: { integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw== }
@@ -2303,6 +2317,14 @@ packages:
             loose-envify: 1.4.0
             react: 18.2.0
             scheduler: 0.23.0
+        dev: false
+
+    /react-icons/4.6.0_react@18.2.0:
+        resolution: { integrity: sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g== }
+        peerDependencies:
+            react: '*'
+        dependencies:
+            react: 18.2.0
         dev: false
 
     /react-is/16.13.1:
