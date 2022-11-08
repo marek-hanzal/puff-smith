@@ -13,7 +13,8 @@
     "scripts": {
         "build": "turbo run build --no-daemon",
         "lint": "turbo run lint --no-daemon",
-        "dev": "turbo run dev --no-daemon --parallel"
+        "dev": "turbo run dev --no-daemon --parallel",
+        "start": "turbo run start --no-daemon --parallel"
     },
     "devDependencies": {
         "turbo": "^1.6.3"
