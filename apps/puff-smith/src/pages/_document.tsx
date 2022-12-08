@@ -1,15 +1,19 @@
-import {
-    default as CoolDocument,
+import {createGetInitialProps} from "@mantine/next";
+import Document, {
     Head,
     Html,
     Main,
     NextScript
-} from "next/document";
+}                              from "next/document";
 
-export default class extends CoolDocument {
+const getInitialProps = createGetInitialProps();
+
+export default class extends Document {
+    static getInitialProps = getInitialProps;
+
     render() {
         return (
-            <Html className={"dark"}>
+            <Html>
                 <Head/>
                 <body
                     className={"bg-white dark:bg-gray-900"}
@@ -21,4 +25,3 @@ export default class extends CoolDocument {
         );
     }
 }
-
