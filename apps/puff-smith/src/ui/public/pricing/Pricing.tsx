@@ -1,5 +1,5 @@
 import {
-    IPriceCardProps,
+    type IPriceCardProps,
     PriceCard
 }                from "@/puff-smith/ui/public/pricing/PriceCard";
 import type {FC} from "react";

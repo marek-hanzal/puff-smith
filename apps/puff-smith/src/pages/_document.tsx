@@ -1,27 +1,27 @@
-import {createGetInitialProps} from "@mantine/next";
-import Document, {
-    Head,
-    Html,
-    Main,
-    NextScript
-}                              from "next/document";
+import {emotionCache}         from "@/puff-smith/emotion-cache";
+import {
+    createGetInitialProps,
+    createStylesServer,
+    ServerStyles
+}                             from "@mantine/next";
+import type {DocumentContext} from "next/document";
+import Document               from "next/document";
 
 const getInitialProps = createGetInitialProps();
+const stylesServer    = createStylesServer(emotionCache);
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Document {
-    static getInitialProps = getInitialProps;
-
-    render() {
-        return (
-            <Html>
-                <Head/>
-                <body
-                    className={"bg-white dark:bg-gray-900"}
-                >
-                    <Main/>
-                    <NextScript/>
-                </body>
-            </Html>
-        );
+    static async getInitialProps(ctx: DocumentContext) {
+        const props = await getInitialProps(ctx);
+        return {
+            ...props,
+            styles: (
+                        <>
+                            {props.styles}
+                            <ServerStyles html={props.html} server={stylesServer}/>
+                        </>
+                    ),
+        };
     }
 }
