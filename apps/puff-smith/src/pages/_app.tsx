@@ -1,3 +1,4 @@
+import {bootstrap}                      from "@/puff-smith/bootstrap/bootstrap";
 import {emotionCache}                   from "@/puff-smith/emotion-cache";
 import "@/puff-smith/styles/globals.css";
 import {trpc}                           from "@/puff-smith/utils/trpc";
@@ -14,9 +15,17 @@ import {
 import type {GetServerSidePropsContext} from "next";
 import type {AppProps}                  from "next/app";
 import Head                             from "next/head";
-import {useState}                       from "react";
+import {
+    useEffect,
+    useState
+}                                       from "react";
 
 const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
+    useEffect(() => {
+        (async () => {
+            await bootstrap();
+        })();
+    }, []);
     const {Component, pageProps}        = props;
     const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
 

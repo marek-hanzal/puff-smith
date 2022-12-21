@@ -16,6 +16,6 @@ const config = {
                 hostname: "flowbite.com",
             }
         ]
-    }
+    },
 };
 export default config;

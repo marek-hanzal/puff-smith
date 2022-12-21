@@ -29,12 +29,15 @@ export const i18n = async () => {
                     "navigator",
                 ],
             },
-            backend:       {
-                loadPath:          "/api/translation/{{lng}}/{{ns}}.json",
-                addPath:           "/api/translation/{{lng}}/{{ns}}/create",
+            backend: {
+                loadPath:          "/api/translation/{{lng}}/{{ns}}/fetch",
                 allowMultiLoading: false,
                 crossDomain:       true,
-                reloadInterval:    10,
+                reloadInterval:    1000 * 60 * 60,
+                parse:             (data: any) => {
+                    console.log("Parse", JSON.parse(data));
+                    return JSON.parse(data);
+                },
             },
         });
     return coolI18n;
