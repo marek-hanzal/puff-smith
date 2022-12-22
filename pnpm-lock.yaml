@@ -49,10 +49,10 @@ importers:
             eslint-config-next: ^13.0.7
             i18next: ^22.4.6
             i18next-browser-languagedetector: ^7.0.1
-            i18next-http-backend: ^2.1.1
             jotai: ^1.12.0
             next: ^13.0.7
             next-auth: ^4.18.6
+            next-i18next: ^13.0.2
             postcss: ^8.4.20
             prettier: ^2.8.1
             prettier-plugin-tailwindcss: ^0.2.1
@@ -97,10 +97,10 @@ importers:
             embla-carousel-react: 7.0.5_react@18.2.0
             i18next: 22.4.6
             i18next-browser-languagedetector: 7.0.1
-            i18next-http-backend: 2.1.1
             jotai: 1.12.0_zavbqmrropwrojvx6ojaa4s7im
             next: 13.0.7_672uxklweod7ene3nqtsh262ca
             next-auth: 4.18.6_gvvct4imq5upoiloat43sswrza
+            next-i18next: 13.0.2_vr2ld2zypzwifyvdbfyqot4dai
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
             react-i18next: 12.1.1_6vygckh2jgtx4nucc3no6lnm3y
@@ -1250,6 +1250,13 @@ packages:
         resolution: { integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q== }
         dev: false
 
+    /@types/hoist-non-react-statics/3.3.1:
+        resolution: { integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA== }
+        dependencies:
+            '@types/react': 18.0.26
+            hoist-non-react-statics: 3.3.2
+        dev: false
+
     /@types/json-schema/7.0.11:
         resolution: { integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ== }
         dev: true
@@ -1812,6 +1819,11 @@ packages:
         requiresBuild: true
         dev: true
 
+    /core-js/3.26.1:
+        resolution: { integrity: sha512-21491RRQVzUn0GGM9Z1Jrpr6PNPxPi+Za8OM9q4tksTSnlbXXGKK1nXNg/QvwFYettXvSX6zWKCtHHfjN4puyA== }
+        requiresBuild: true
+        dev: false
+
     /core-util-is/1.0.3:
         resolution: { integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ== }
         dev: false
@@ -1825,14 +1837,6 @@ packages:
             parse-json: 5.2.0
             path-type: 4.0.0
             yaml: 1.10.2
-        dev: false
-
-    /cross-fetch/3.1.5:
-        resolution: { integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw== }
-        dependencies:
-            node-fetch: 2.6.7
-        transitivePeerDependencies:
-            - encoding
         dev: false
 
     /cross-spawn/7.0.3:
@@ -2756,12 +2760,8 @@ packages:
             '@babel/runtime': 7.20.6
         dev: false
 
-    /i18next-http-backend/2.1.1:
-        resolution: { integrity: sha512-jByfUCDVgQ8+/Wens7queQhYYvMcGTW/lR4IJJNEDDXnmqjLrwi8ubXKpmp76/JIWEZHffNdWqnxFJcTVGeaOw== }
-        dependencies:
-            cross-fetch: 3.1.5
-        transitivePeerDependencies:
-            - encoding
+    /i18next-fs-backend/2.1.1:
+        resolution: { integrity: sha512-FTnj+UmNgT3YRml5ruRv0jMZDG7odOL/OP5PF5mOqvXud2vHrPOOs68Zdk6iqzL47cnnM0ZVkK2BAvpFeDJToA== }
         dev: false
 
     /i18next/22.4.6:
@@ -3230,6 +3230,26 @@ packages:
             uuid: 8.3.2
         dev: false
 
+    /next-i18next/13.0.2_vr2ld2zypzwifyvdbfyqot4dai:
+        resolution: { integrity: sha512-aUHyKT2kztMgEP44zDB5KoW8XZUQawIdOYWXcrMH6lxAcS0kBsKX0uKMzGS5XlgLW88gvOVc3D7NdfCznLgyyg== }
+        engines: { node: '>=14' }
+        peerDependencies:
+            i18next: ^22.0.6
+            next: '>= 12.0.0'
+            react: '>= 17.0.2'
+            react-i18next: ^12.1.1
+        dependencies:
+            '@babel/runtime': 7.20.6
+            '@types/hoist-non-react-statics': 3.3.1
+            core-js: 3.26.1
+            hoist-non-react-statics: 3.3.2
+            i18next: 22.4.6
+            i18next-fs-backend: 2.1.1
+            next: 13.0.7_672uxklweod7ene3nqtsh262ca
+            react: 18.2.0
+            react-i18next: 12.1.1_6vygckh2jgtx4nucc3no6lnm3y
+        dev: false
+
     /next/13.0.7_672uxklweod7ene3nqtsh262ca:
         resolution: { integrity: sha512-YfTifqX9vfHm+rSU/H/3xvzOHDkYuMuh4wsvTjiqj9h7qHEF7KHB66X4qrH96Po+ohdid4JY8YVGPziDwdXL0A== }
         engines: { node: '>=14.6.0' }
@@ -3283,18 +3303,6 @@ packages:
 
     /node-addon-api/5.0.0:
         resolution: { integrity: sha512-CvkDw2OEnme7ybCykJpVcKH+uAOLV2qLqiyla128dN9TkEWfrYmxG6C2boDe5KcNQqZF3orkqzGgOMvZ/JNekA== }
-        dev: false
-
-    /node-fetch/2.6.7:
-        resolution: { integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ== }
-        engines: { node: 4.x || >=6.0.0 }
-        peerDependencies:
-            encoding: ^0.1.0
-        peerDependenciesMeta:
-            encoding:
-                optional: true
-        dependencies:
-            whatwg-url: 5.0.0
         dev: false
 
     /node-releases/2.0.6:
@@ -4267,10 +4275,6 @@ packages:
             is-number: 7.0.0
         dev: true
 
-    /tr46/0.0.3:
-        resolution: { integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw== }
-        dev: false
-
     /tsconfig-paths/3.14.1:
         resolution: { integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ== }
         dependencies:
@@ -4461,17 +4465,6 @@ packages:
     /void-elements/3.1.0:
         resolution: { integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w== }
         engines: { node: '>=0.10.0' }
-        dev: false
-
-    /webidl-conversions/3.0.1:
-        resolution: { integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ== }
-        dev: false
-
-    /whatwg-url/5.0.0:
-        resolution: { integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw== }
-        dependencies:
-            tr46: 0.0.3
-            webidl-conversions: 3.0.1
         dev: false
 
     /which-boxed-primitive/1.0.2:

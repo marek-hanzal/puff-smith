@@ -13,19 +13,25 @@ import {
     setCookies
 }                                       from "cookies-next";
 import type {GetServerSidePropsContext} from "next";
+import {appWithTranslation}             from "next-i18next";
 import type {AppProps}                  from "next/app";
 import Head                             from "next/head";
+import {useRouter}                      from "next/router";
 import {
     useEffect,
     useState
 }                                       from "react";
 
 const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
+    const router = useRouter();
     useEffect(() => {
         (async () => {
-            await bootstrap();
+            await bootstrap(router.locale || router.defaultLocale || "en");
         })();
-    }, []);
+    }, [
+        router.locale,
+        router.defaultLocale,
+    ]);
     const {Component, pageProps}        = props;
     const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
 
@@ -38,7 +44,7 @@ const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
     return <>
         <Head>
             <title>Puff Smith</title>
-            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+            <meta name={"viewport"} content={"minimum-scale=1, initial-scale=1, width=device-width"}/>
             {/*<link rel="shortcut icon" href="/favicon.svg" />*/}
         </Head>
         <ColorSchemeProvider
@@ -63,4 +69,4 @@ PuffSmith.getInitialProps = ({ctx}: { ctx: GetServerSidePropsContext }) => ({
     colorScheme: getCookie("mantine-color-scheme", ctx) || "light",
 });
 
-export default trpc.withTRPC(PuffSmith);
+export default trpc.withTRPC(appWithTranslation(PuffSmith));
