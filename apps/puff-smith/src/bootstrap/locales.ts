@@ -8,13 +8,19 @@ export interface ILocales {
 
 export const locales = {
     "en":    {
-        dayjs: "en-gb",
+        dayjs: "en",
     },
     "en-gb": {
         dayjs: "en-gb",
     },
+    "en-us": {
+        dayjs: "en",
+    },
     "cs":    {
         dayjs: "cs",
+    },
+    "sk":    {
+        dayjs: "sk",
     },
 } satisfies ILocales;
 
