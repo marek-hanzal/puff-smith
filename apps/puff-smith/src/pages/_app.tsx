@@ -2,6 +2,7 @@ import {bootstrap}                      from "@/puff-smith/bootstrap/bootstrap";
 import {emotionCache}                   from "@/puff-smith/emotion-cache";
 import "@/puff-smith/styles/globals.css";
 import {trpc}                           from "@/puff-smith/utils/trpc";
+import type {IPageWithLayout}           from "@leight/layout";
 import type {ColorScheme}               from "@mantine/core";
 import {
     ColorSchemeProvider,
@@ -45,7 +46,7 @@ const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
         <Head>
             <title>Puff Smith</title>
             <meta name={"viewport"} content={"minimum-scale=1, initial-scale=1, width=device-width"}/>
-            <link rel="shortcut icon" href="/favicon.ico"/>
+            <link rel={"shortcut icon"} href={"/favicon.ico"}/>
         </Head>
         <ColorSchemeProvider
             colorScheme={colorScheme}
@@ -58,7 +59,7 @@ const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
                 emotionCache={emotionCache}
             >
                 <NotificationsProvider>
-                    <Component {...pageProps} />
+                    {((Component as unknown as IPageWithLayout).layout || (page => page))(<Component {...pageProps}/>)}
                 </NotificationsProvider>
             </MantineProvider>
         </ColorSchemeProvider>

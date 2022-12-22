@@ -1,3 +1,4 @@
+import {withTranslation} from "@leight/i18n";
 import {
     Button,
     Divider,
@@ -7,8 +8,8 @@ import {
     Stack,
     Text,
     TextInput
-}                from "@mantine/core";
-import {useForm} from "@mantine/form";
+}                        from "@mantine/core";
+import {useForm}         from "@mantine/form";
 
 export default function SignIn() {
     const form = useForm({
@@ -63,3 +64,5 @@ export default function SignIn() {
         </Paper>
     );
 }
+
+export const getServerSideProps = withTranslation();

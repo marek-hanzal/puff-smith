@@ -1,9 +1,9 @@
-import {Features}               from "@/puff-smith/ui/public/Features";
-import {Hero}                   from "@/puff-smith/ui/public/Hero";
-import {Footer}                 from "@/puff-smith/ui/public/layout/Footer";
-import {Header}                 from "@/puff-smith/ui/public/layout/Header";
-import {Pricing}                from "@/puff-smith/ui/public/pricing/Pricing";
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {Features}        from "@/puff-smith/ui/public/Features";
+import {Hero}            from "@/puff-smith/ui/public/Hero";
+import {Footer}          from "@/puff-smith/ui/public/layout/Footer";
+import {Header}          from "@/puff-smith/ui/public/layout/Header";
+import {Pricing}         from "@/puff-smith/ui/public/pricing/Pricing";
+import {withTranslation} from "@leight/i18n";
 
 export default function Index() {
     return (
@@ -56,12 +56,4 @@ export default function Index() {
     );
 }
 
-export async function getServerSideProps({locale}: { locale: string }) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, [
-                "common",
-            ])),
-        },
-    };
-}
+export const getServerSideProps = withTranslation();
