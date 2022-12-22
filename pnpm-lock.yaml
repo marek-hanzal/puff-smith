@@ -17,6 +17,7 @@ importers:
             '@mantine/core': ^5.9.5
             '@mantine/dates': ^5.9.5
             '@mantine/dropzone': ^5.9.5
+            '@mantine/ds': ^5.9.5
             '@mantine/form': ^5.9.5
             '@mantine/hooks': ^5.9.5
             '@mantine/modals': ^5.9.5
@@ -27,6 +28,7 @@ importers:
             '@mantine/rte': ^5.9.5
             '@mantine/spotlight': ^5.9.5
             '@prisma/client': ^4.8.0
+            '@tabler/icons': ^1.118.0
             '@tailwindcss/forms': ^0.5.3
             '@tailwindcss/typography': ^0.5.8
             '@tanstack/react-query': ^4.20.4
@@ -60,7 +62,6 @@ importers:
             react: ^18.2.0
             react-dom: ^18.2.0
             react-i18next: ^12.1.1
-            react-icons: ^4.7.1
             sharp: ^0.31.2
             stylis: ^4.1.3
             superjson: ^1.12.1
@@ -76,6 +77,7 @@ importers:
             '@mantine/core': 5.9.5_hzg3oku4uxnt5crkeceagoktyy
             '@mantine/dates': 5.9.5_q32zbbv6l2fjmvb2dpa2q3dhma
             '@mantine/dropzone': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
+            '@mantine/ds': 5.9.5_fiyxyadk24qtxi6yv2aq7dgpiy
             '@mantine/form': 5.9.5_react@18.2.0
             '@mantine/hooks': 5.9.5_react@18.2.0
             '@mantine/modals': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
@@ -86,6 +88,7 @@ importers:
             '@mantine/rte': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
             '@mantine/spotlight': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
             '@prisma/client': 4.8.0_prisma@4.8.0
+            '@tabler/icons': 1.118.0_biqbaboplfbrettd7655fr4n2y
             '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
             '@trpc/client': 10.6.0_@trpc+server@10.6.0
             '@trpc/next': 10.6.0_wwo3ofp5elrju5zvl65jn6mjpm
@@ -104,7 +107,6 @@ importers:
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
             react-i18next: 12.1.1_6vygckh2jgtx4nucc3no6lnm3y
-            react-icons: 4.7.1_react@18.2.0
             sharp: 0.31.2
             stylis: 4.1.3
             superjson: 1.12.1
@@ -664,6 +666,25 @@ packages:
             react-dropzone: 14.2.3_react@18.2.0
         dev: false
 
+    /@mantine/ds/5.9.5_fiyxyadk24qtxi6yv2aq7dgpiy:
+        resolution: { integrity: sha512-peVRdq2/E3JeACAgiu0nQ0AS31wVt7LD5lLa1nwPSktepD2XNAo39zkrlk3Pij/TF1FM+SgNOSWarPdAGF0Mng== }
+        peerDependencies:
+            '@mantine/core': 5.9.5
+            '@mantine/hooks': 5.9.5
+            '@mantine/prism': 5.9.5
+            '@tabler/icons': '*'
+            react: '>=16.8.0'
+            react-dom: '>=16.8.0'
+        dependencies:
+            '@mantine/core': 5.9.5_hzg3oku4uxnt5crkeceagoktyy
+            '@mantine/hooks': 5.9.5_react@18.2.0
+            '@mantine/prism': 5.9.5_h4zmljtfubfbwzvuu4gizrlimy
+            '@mantine/utils': 5.9.5_react@18.2.0
+            '@tabler/icons': 1.118.0_biqbaboplfbrettd7655fr4n2y
+            react: 18.2.0
+            react-dom: 18.2.0_react@18.2.0
+        dev: false
+
     /@mantine/form/5.9.5_react@18.2.0:
         resolution: { integrity: sha512-paOJggdQR+KGUtpCW3inH8hu12TwHMwDrOmMbqgaWuuRuwY+kZUnLtf7akLLnwH/C9S/YsDJ9B9QGHaQElilFw== }
         peerDependencies:
@@ -771,7 +792,7 @@ packages:
         dependencies:
             '@mantine/core': 5.9.5_hzg3oku4uxnt5crkeceagoktyy
             '@mantine/hooks': 5.9.5_react@18.2.0
-            '@tabler/icons': 1.110.0_biqbaboplfbrettd7655fr4n2y
+            '@tabler/icons': 1.118.0_biqbaboplfbrettd7655fr4n2y
             quill-mention: 3.1.0
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
@@ -1139,8 +1160,8 @@ packages:
             tslib: 2.4.1
         dev: false
 
-    /@tabler/icons/1.110.0_biqbaboplfbrettd7655fr4n2y:
-        resolution: { integrity: sha512-F7PGsboF35YRnSSMpAdco0VTBi0XkFzTHaaCX/jvwZChyZKeohJ99xALlS+zn23/SIUlWCrVvezpDzoqMhT/vA== }
+    /@tabler/icons/1.118.0_biqbaboplfbrettd7655fr4n2y:
+        resolution: { integrity: sha512-/DFANTIQBz+Moissilo47WPOp598Ht4gxvAtK0f/OC5eL8bjzxbzd4dx7d1uwf1oQ/PvaQ3Sh2UhXKP0I1D1wg== }
         peerDependencies:
             react: ^16.x || 17.x || 18.x
             react-dom: ^16.x || 17.x || 18.x
@@ -3768,14 +3789,6 @@ packages:
             i18next: 22.4.6
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
-        dev: false
-
-    /react-icons/4.7.1_react@18.2.0:
-        resolution: { integrity: sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw== }
-        peerDependencies:
-            react: '*'
-        dependencies:
-            react: 18.2.0
         dev: false
 
     /react-is/16.13.1:

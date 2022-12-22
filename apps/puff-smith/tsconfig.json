@@ -25,6 +25,9 @@
             ],
             "@/puff-smith/*": [
                 "./src/*"
+            ],
+            "@/puff-smith/assets/*": [
+                "./public/assets/*"
             ]
         },
         "plugins": [

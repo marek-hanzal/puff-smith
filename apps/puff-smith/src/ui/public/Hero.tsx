@@ -1,51 +1,120 @@
-import type {FC}             from "react";
-import {AiOutlineArrowRight} from "react-icons/ai";
 import {
-    GiFireBottle,
-    GiSmokeBomb
-}                            from "react-icons/gi";
-import {IoBuildOutline}      from "react-icons/io5";
+    Button,
+    Container,
+    createStyles,
+    Group,
+    Text
+}                   from "@mantine/core";
+import {GithubIcon} from "@mantine/ds";
+import type {FC}    from "react";
+
+const BREAKPOINT = "@media (max-width: 755px)";
+
+const useStyles = createStyles((theme) => ({
+    wrapper: {
+        position:        "relative",
+        boxSizing:       "border-box",
+        backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.white,
+    },
+
+    inner: {
+        position:      "relative",
+        paddingTop:    200,
+        paddingBottom: 120,
+
+        [BREAKPOINT]: {
+            paddingBottom: 80,
+            paddingTop:    80,
+        },
+    },
+
+    title: {
+        fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+        fontSize:   62,
+        fontWeight: 900,
+        lineHeight: 1.1,
+        margin:     0,
+        padding:    0,
+        color:      theme.colorScheme === "dark" ? theme.white : theme.black,
+
+        [BREAKPOINT]: {
+            fontSize:   42,
+            lineHeight: 1.2,
+        },
+    },
+
+    description: {
+        marginTop: theme.spacing.xl,
+        fontSize:  24,
+
+        [BREAKPOINT]: {
+            fontSize: 18,
+        },
+    },
+
+    controls: {
+        marginTop: theme.spacing.xl * 2,
+
+        [BREAKPOINT]: {
+            marginTop: theme.spacing.xl,
+        },
+    },
+
+    control: {
+        height:       54,
+        paddingLeft:  38,
+        paddingRight: 38,
+
+        [BREAKPOINT]: {
+            height:       54,
+            paddingLeft:  18,
+            paddingRight: 18,
+            flex:         1,
+        },
+    },
+}));
 
 export const Hero: FC = () => {
-    return <section>
-        <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-            <a href="#" className="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700" role="alert">
-                <span className="text-xs bg-primary-600 rounded-full text-white px-4 py-1.5 mr-3">New</span> <span className="text-sm font-medium">Flowbite is out! See whats new</span>
-                <svg className="ml-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
-                </svg>
-            </a>
-            <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Hunt down the perfect puff</h1>
-            <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Here you can find all the tools needed to manage your liquids, builds and find the best puff ever.</p>
-            <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-                <a href="#" className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
-                    Learn more
-                    <AiOutlineArrowRight className={"ml-2 -mr-1 w-5 h-5"}/>
-                </a>
-                <a href="#" className="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                    <svg className="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-                    </svg>
-                    Watch video
-                </a>
-            </div>
-            <div className="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-                <hr className="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
-                <div className="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
-                    <a href="#" className="mr-5 mb-5 text-5xl flex flex-col items-center font-extrabold lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400 mr-0">
-                        <IoBuildOutline/>
-                        Build
-                    </a>
-                    <a href="#" className="mr-5 mb-5 text-5xl flex flex-col items-center font-extrabold lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400 mr-0">
-                        <GiFireBottle/>
-                        Mix
-                    </a>
-                    <a href="#" className="mr-5 mb-5 text-5xl flex flex-col items-center font-extrabold lg:mb-0 hover:text-gray-800 dark:hover:text-gray-400 mr-0">
-                        <GiSmokeBomb/>
-                        Vape
-                    </a>
-                </div>
-            </div>
+    const {classes} = useStyles();
+
+    return (
+        <div className={classes.wrapper}>
+            <Container size={700} className={classes.inner}>
+                <h1 className={classes.title}>
+                    A{" "}
+                    <Text component={"span"} variant={"gradient"} gradient={{from: "red", to: "purple"}} inherit>
+                        fully featured
+                    </Text>{" "}
+                    React components and hooks library
+                </h1>
+
+                <Text className={classes.description} color={"dimmed"}>
+                    Build fully functional accessible web applications with ease – Mantine includes more than
+                    100 customizable components and hooks to cover you in any situation
+                </Text>
+
+                <Group className={classes.controls}>
+                    <Button
+                        size="xl"
+                        className={classes.control}
+                        variant="gradient"
+                        gradient={{from: "red", to: "purple"}}
+                    >
+                        Get started
+                    </Button>
+
+                    <Button
+                        component={"a"}
+                        href="https://github.com/mantinedev/mantine"
+                        size="xl"
+                        variant="default"
+                        className={classes.control}
+                        leftIcon={<GithubIcon size={20}/>}
+                    >
+                        GitHub
+                    </Button>
+                </Group>
+            </Container>
         </div>
-    </section>;
+    );
 };

@@ -1,5 +1,4 @@
 import type {FC} from "react";
-import {TiTick}  from "react-icons/ti";
 
 export interface IPriceCardProps {
     title: string;
@@ -17,7 +16,7 @@ export const PriceCard: FC<IPriceCardProps> = ({title, price, features}) => {
         </div>
         <ul role="list" className="mb-8 space-y-4 text-left">
             {features.map(feature => <li key={feature} className="flex items-center space-x-3">
-                <TiTick className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"/>
+                {/*<TiTick className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"/>*/}
                 <span>{feature}</span>
             </li>)}
         </ul>
