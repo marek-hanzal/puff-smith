@@ -1,14 +1,17 @@
-import {Features}        from "@/puff-smith/ui/public/Features";
-import {Hero}            from "@/puff-smith/ui/public/Hero";
-import {Footer}          from "@/puff-smith/ui/public/layout/Footer";
-import {Header}          from "@/puff-smith/ui/public/layout/Header";
-import {Pricing}         from "@/puff-smith/ui/public/pricing/Pricing";
+import logo              from "@/puff-smith/assets/logo/logo.svg";
 import {withTranslation} from "@leight/i18n";
+import {
+    Features,
+    Footer,
+    Header,
+    Hero,
+    Pricing
+}                        from "@puff-smith/public";
 
 export default function Index() {
     return (
         <>
-            <Header/>
+            <Header logo={logo}/>
             <Hero/>
             <Features
                 translation={"public.index.features"}

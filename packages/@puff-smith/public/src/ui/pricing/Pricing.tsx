@@ -1,9 +1,9 @@
-import {
-    type IPriceCardProps,
-    PriceCard
-}                       from "@/puff-smith/ui/public/pricing/PriceCard";
 import {useTranslation} from "next-i18next";
 import type {FC}        from "react";
+import {
+    IPriceCardProps,
+    PriceCard
+}                       from "./PriceCard";
 
 export interface IPricingProps {
     translation: string;

@@ -10,7 +10,7 @@ import type {FC}    from "react";
 
 const BREAKPOINT = "@media (max-width: 755px)";
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
     wrapper: {
         position:        "relative",
         boxSizing:       "border-box",
