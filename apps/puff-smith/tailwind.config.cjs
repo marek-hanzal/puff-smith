@@ -20,9 +20,10 @@ module.exports = {
             }
         },
     },
-    content:  [
+    content: [
         "./public/**/*.html",
         "./src/**/*.{js,ts,jsx,tsx}",
+        "../../packages/**/src/**/*.{js,ts,jsx,tsx}",
     ],
     plugins:  [
         require("@tailwindcss/forms"),

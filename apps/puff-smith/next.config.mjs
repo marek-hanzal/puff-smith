@@ -12,10 +12,10 @@ const config = {
     reactStrictMode:   true,
     swcMinify:         true,
     i18n:              i18n.i18n,
-    modularizeImports: {
-        // "@mantine/core": {
-        //     transform: "@mantine/core/lib/{{member}}",
-        // }
-    }
+    transpilePackages: [
+        "@leight/winston",
+        "@puff-smith/public",
+    ],
+    modularizeImports: {}
 };
 export default config;

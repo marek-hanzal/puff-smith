@@ -1,4 +1,3 @@
-import {env}            from "@/puff-smith/env/server.mjs";
 import {type AppRouter} from "@/puff-smith/server/trpc/router/_app";
 import {
     httpBatchLink,
@@ -18,7 +17,7 @@ export const trpc = createTRPCNext<AppRouter>({
             transformer: superjson,
             links:       [
                 loggerLink({
-                    enabled: opts => env.NODE_ENV === "development" || (opts.direction === "down" && opts.result instanceof Error),
+                    enabled: opts => process.env.NODE_ENV === "development" || (opts.direction === "down" && opts.result instanceof Error),
                 }),
                 httpBatchLink({
                     url: `${resolveApiUrl()}/api/trpc`,
