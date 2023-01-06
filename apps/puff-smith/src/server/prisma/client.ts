@@ -24,4 +24,4 @@ if (env.NODE_ENV !== "production") {
 
 export const $PrismaClient = Symbol.for("PrismaClient");
 
-container.bind<PrismaClient>($PrismaClient).to(prisma);
+container.bind<typeof prisma>($PrismaClient).to(prisma);
