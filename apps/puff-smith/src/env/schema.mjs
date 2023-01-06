@@ -11,9 +11,9 @@ export const serverSchema = z.object({
     NEXTAUTH_SECRET:               z.string(),
     NEXTAUTH_GITHUB_CLIENT_ID:     z.string(),
     NEXTAUTH_GITHUB_CLIENT_SECRET: z.string(),
-    NEXTAUTH_GOOGLE_CLIENT_ID:     z.string(),
-    NEXTAUTH_GOOGLE_CLIENT_SECRET: z.string(),
-    NEXTAUTH_URL:                  z.string().url(),
+    // NEXTAUTH_GOOGLE_CLIENT_ID:     z.string(),
+    // NEXTAUTH_GOOGLE_CLIENT_SECRET: z.string(),
+    NEXTAUTH_URL: z.string().url(),
 });
 
 /**

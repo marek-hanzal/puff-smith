@@ -6,7 +6,6 @@ import NextAuth            from "next-auth";
 import type {Provider}     from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHub              from "next-auth/providers/github";
-import Google              from "next-auth/providers/google";
 
 const logger = Logger("auth");
 
@@ -16,11 +15,11 @@ const providers: Provider[] = [
         clientId:     env.NEXTAUTH_GITHUB_CLIENT_ID,
         clientSecret: env.NEXTAUTH_GITHUB_CLIENT_SECRET,
     }),
-    Google({
-        name:         "google",
-        clientId:     env.NEXTAUTH_GOOGLE_CLIENT_ID,
-        clientSecret: env.NEXTAUTH_GOOGLE_CLIENT_SECRET,
-    }),
+    // Google({
+    //     name:         "google",
+    //     clientId:     env.NEXTAUTH_GOOGLE_CLIENT_ID,
+    //     clientSecret: env.NEXTAUTH_GOOGLE_CLIENT_SECRET,
+    // }),
 ];
 env.NODE_ENV === "development" && providers.push(CredentialsProvider({
     name:        "Credentials",
