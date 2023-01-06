@@ -1,4 +1,4 @@
-import {prisma}                    from "@/puff-smith/server/db/client";
+import {prisma}                    from "@/puff-smith/server/prisma/client";
 import {type inferAsyncReturnType} from "@trpc/server";
 
 /** Use this helper for:

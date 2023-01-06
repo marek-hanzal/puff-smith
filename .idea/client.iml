@@ -17,6 +17,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/core/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/i18n/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/layout/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight/winston/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

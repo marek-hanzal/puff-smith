@@ -9,8 +9,13 @@ import i18n from "./next-i18next.config.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
-    reactStrictMode: true,
-    swcMinify:       true,
-    i18n:            i18n.i18n,
+    reactStrictMode:   true,
+    swcMinify:         true,
+    i18n:              i18n.i18n,
+    modularizeImports: {
+        // "@mantine/core": {
+        //     transform: "@mantine/core/lib/{{member}}",
+        // }
+    }
 };
 export default config;

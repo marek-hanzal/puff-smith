@@ -1,6 +1,6 @@
 import {
-    FC,
-    ReactNode
+    type FC,
+    type ReactNode
 } from "react";
 
 export interface IPageWithLayout extends FC {

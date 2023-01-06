@@ -1,4 +1,4 @@
-import {IWithLocale} from "@leight/i18n";
+import {type IWithLocale} from "@leight/i18n";
 
 export const withTranslation = (namespaces: string[] = ["common"]) => {
     return async ({locale}: IWithLocale) => {

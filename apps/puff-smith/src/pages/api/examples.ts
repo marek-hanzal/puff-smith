@@ -3,7 +3,7 @@ import {
     type NextApiResponse
 } from "next";
 
-import {prisma} from "../../server/db/client";
+import {prisma} from "../../server/./prisma/client";
 
 const examples = async (req: NextApiRequest, res: NextApiResponse) => {
     const examples = await prisma.example.findMany();
