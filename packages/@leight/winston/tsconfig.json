@@ -31,12 +31,7 @@
         "types": [
             "node"
         ],
-        "baseUrl": "src",
-        "paths": {
-            "@leight/winston": [
-                "."
-            ]
-        }
+        "baseUrl": "src"
     },
     "include": [
         "src/**/*",

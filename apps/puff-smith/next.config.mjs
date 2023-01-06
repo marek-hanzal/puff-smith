@@ -12,6 +12,9 @@ const config = {
     reactStrictMode:   true,
     swcMinify:         true,
     i18n:              i18n.i18n,
+    transpilePackages: [
+        "@leight/winston",
+    ],
     modularizeImports: {
         // "@mantine/core": {
         //     transform: "@mantine/core/lib/{{member}}",

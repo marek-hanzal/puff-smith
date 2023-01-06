@@ -1,8 +1,6 @@
-import {
-    createDefaultLogger,
-    type ILogLevel
-}              from "@leight/winston";
-import winston from "winston";
+import winston               from "winston";
+import {createDefaultLogger} from "./createDefaultLogger";
+import {type ILogLevel}      from "./interface";
 
 export interface IBootstrapLoggerRequest {
     loggers: string[];
@@ -14,7 +12,7 @@ export interface IBootstrapLoggerRequest {
 export const BootstrapLogger = (
     {
         loggers,
-        version = process.env.NEXT_PUBLIC_BUILD || "edge",
+        version = "edge",
         level = "info",
     }: IBootstrapLoggerRequest) => {
     return loggers.map(name => winston.loggers.add(name, createDefaultLogger(name, version, level)));

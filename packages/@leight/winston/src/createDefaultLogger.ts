@@ -1,9 +1,7 @@
-import {
-    createConsole,
-    createDefaultMeta,
-    type ILogLevel
-}              from "@leight/winston";
-import winston from "winston";
+import winston             from "winston";
+import {createConsole}     from "./createConsole";
+import {createDefaultMeta} from "./createDefaultMeta";
+import {ILogLevel}         from "./interface";
 
 export const createDefaultLogger = (service: string, version: string, level: ILogLevel) => ({
     level,
