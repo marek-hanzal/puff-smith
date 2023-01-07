@@ -1,5 +1,4 @@
 import {env}          from "@/puff-smith/env/server.mjs";
-import {container}    from "@/puff-smith/server/container/container";
 import {PrismaClient} from "@prisma/client";
 
 declare global {
@@ -23,5 +22,3 @@ if (env.NODE_ENV !== "production") {
 }
 
 export const $PrismaClient = Symbol.for("PrismaClient");
-
-container.bind<typeof prisma>($PrismaClient).toConstantValue(prisma);
