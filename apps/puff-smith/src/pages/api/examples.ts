@@ -1,9 +1,17 @@
 import {
+    container,
+    ContainerSymbol
+}                          from "@/puff-smith/server/container/container";
+import type {PrismaClient} from "@prisma/client";
+import {
     type NextApiRequest,
     type NextApiResponse
-} from "next";
+}                          from "next";
 
-import {prisma} from "../../server/./prisma/client";
+/**
+ * @TODO this is not typed, find way how to fix this :O !!
+ */
+const prisma = container.get<PrismaClient>(ContainerSymbol.PrismaClient);
 
 const examples = async (req: NextApiRequest, res: NextApiResponse) => {
     const examples = await prisma.example.findMany();
