@@ -1,7 +1,11 @@
 import {env}               from "@/puff-smith/env/server.mjs";
-import {prisma}            from "@/puff-smith/server/prisma/client";
+import {
+    container,
+    ContainerSymbol
+}                          from "@/puff-smith/server/container/container";
 import {Logger}            from "@leight/winston";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
+import {PrismaClient}      from "@prisma/client";
 import NextAuth            from "next-auth";
 import type {Provider}     from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -31,7 +35,10 @@ env.NODE_ENV === "development" && providers.push(CredentialsProvider({
         if (!secret) {
             return null;
         }
-        return prisma.user.findUnique({
+        /**
+         * @TODO this is not typed, find way how to fix this :O !!
+         */
+        return container.get<PrismaClient>(ContainerSymbol.PrismaClient).user.findUnique({
             where: {
                 email: secret,
             }
