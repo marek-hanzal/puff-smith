@@ -53,6 +53,9 @@
         "dev": {
             "cache": false
         },
+        "migration": {
+            "cache": false
+        },
         "start": {
             "cache": false,
             "dependsOn": [
