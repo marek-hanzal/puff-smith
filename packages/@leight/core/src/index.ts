@@ -1,1 +1,1 @@
-export const A = true;
+export * from "./sha256";

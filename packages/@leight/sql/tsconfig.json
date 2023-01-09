@@ -3,6 +3,8 @@
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "noFallthroughCasesInSwitch": false,
         "resolveJsonModule": true,
         "isolatedModules": true,

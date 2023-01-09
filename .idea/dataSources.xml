@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Puff Smith - Local" uuid="6823711f-1a14-4b90-8ccf-46a9913a903f">
+    <data-source source="LOCAL" name="Dev" uuid="33338f62-43a5-42a7-bfe1-613300a3aff0">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <remarks>Localhost development database in docker-compose</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:42532/puff-smith</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="Dev" uuid="8c196ad8-6160-47ca-a601-710e35fc3e42">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5532/puff-smith</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5532/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -31,12 +31,7 @@
         "types": [
             "node"
         ],
-        "baseUrl": "src",
-        "paths": {
-            "@leight/layout": [
-                "."
-            ]
-        }
+        "baseUrl": "src"
     },
     "include": [
         "src/**/*",

@@ -54,7 +54,10 @@
             "cache": false
         },
         "start": {
-            "cache": false
+            "cache": false,
+            "dependsOn": [
+                "migration"
+            ]
         }
     }
 }

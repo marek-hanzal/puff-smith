@@ -13,8 +13,6 @@ const config = {
     swcMinify:         true,
     i18n:              i18n.i18n,
     transpilePackages: [
-        "@leight/winston",
-        "@puff-smith/public",
     ],
     modularizeImports: {}
 };
