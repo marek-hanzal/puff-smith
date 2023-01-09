@@ -1,11 +1,8 @@
-import {
-    container,
-    ContainerSymbol
-}                                  from "@/puff-smith/server/container/container";
-import type {PrismaClient}         from "@prisma/client";
+import {container,}                from "@/puff-smith/server/container/container";
+import {PrismaClient}              from "@prisma/client";
 import type {inferAsyncReturnType} from "@trpc/server";
 
-const prisma = container.resolve<PrismaClient>(ContainerSymbol.PrismaClient);
+const prisma = container.resolve(PrismaClient);
 
 /** Use this helper for:
  * - testing, so we dont have to mock Next.js' req/res

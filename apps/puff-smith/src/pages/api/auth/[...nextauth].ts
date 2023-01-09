@@ -1,18 +1,15 @@
 import {env}               from "@/puff-smith/env/server.mjs";
-import {
-    container,
-    ContainerSymbol
-}                          from "@/puff-smith/server/container/container";
+import {container,}        from "@/puff-smith/server/container/container";
 import {Logger}            from "@leight/winston";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
-import type {PrismaClient} from "@prisma/client";
+import {PrismaClient}      from "@prisma/client";
 import NextAuth            from "next-auth";
 import type {Provider}     from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHub              from "next-auth/providers/github";
 
 const logger = Logger("auth");
-const prisma = container.resolve<PrismaClient>(ContainerSymbol.PrismaClient);
+const prisma = container.resolve(PrismaClient);
 
 const providers: Provider[] = [
     GitHub({
