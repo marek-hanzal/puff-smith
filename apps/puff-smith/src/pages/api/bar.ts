@@ -1,19 +1,18 @@
-import type {Bar}          from "@/puff-smith/server/container/container";
 import {
-    container,
-    ContainerSymbol
-}                          from "@/puff-smith/server/container/container";
-import type {PrismaClient} from "@prisma/client";
+    Bar,
+    container
+}                     from "@/puff-smith/server/container/container";
+import {PrismaClient} from "@prisma/client";
 import {
     type NextApiRequest,
     type NextApiResponse
-}                          from "next";
+}                     from "next";
 
-const prisma = container.resolve<PrismaClient>(ContainerSymbol.PrismaClient);
-container.resolve<PrismaClient>(ContainerSymbol.PrismaClient);
+container.resolve(PrismaClient);
+container.resolve(PrismaClient);
 
 const bar = async (req: NextApiRequest, res: NextApiResponse) => {
-    const bar = container.resolve<Bar>(ContainerSymbol.Bar);
+    const bar = container.resolve(Bar);
     console.log("bar", bar.bbb());
     console.log("foo", bar.foo.aaa());
 

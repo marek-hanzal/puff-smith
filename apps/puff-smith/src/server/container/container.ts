@@ -3,18 +3,11 @@ import {PrismaClient} from "@prisma/client";
 import "reflect-metadata";
 import {
     container,
-    inject,
     injectable,
     instanceCachingFactory
 }                     from "tsyringe";
 
-export const ContainerSymbol = {
-    PrismaClient: Symbol.for("Container.PrismaClient"),
-    Foo:          Symbol.for("Container.Foo"),
-    Bar:          Symbol.for("Container.Bar"),
-};
-
-container.register<PrismaClient>(ContainerSymbol.PrismaClient, {
+container.register<PrismaClient>(PrismaClient, {
     useFactory: instanceCachingFactory<PrismaClient>(() => {
         console.log("Creating Prisma");
         return new PrismaClient({
@@ -30,6 +23,9 @@ container.register<PrismaClient>(ContainerSymbol.PrismaClient, {
 
 @injectable()
 export class Foo {
+    constructor(public prisma: PrismaClient) {
+    }
+
     aaa(): boolean {
         return false;
     }
@@ -37,15 +33,12 @@ export class Foo {
 
 @injectable()
 export class Bar {
-    constructor(@inject(ContainerSymbol.Foo) public foo: Foo) {
+    constructor(public foo: Foo) {
     }
 
     bbb(): boolean {
         return true;
     }
 }
-
-container.register<Foo>(ContainerSymbol.Foo, Foo);
-container.register<Bar>(ContainerSymbol.Bar, Bar);
 
 export {container} from "tsyringe";
