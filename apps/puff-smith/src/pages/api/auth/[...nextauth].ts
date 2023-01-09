@@ -1,8 +1,7 @@
 import {env}               from "@/puff-smith/env/server.mjs";
 import {
     container,
-    ContainerSymbol,
-    Foo
+    ContainerSymbol
 }                          from "@/puff-smith/server/container/container";
 import {Logger}            from "@leight/winston";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
@@ -13,12 +12,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHub              from "next-auth/providers/github";
 
 const logger = Logger("auth");
-/**
- * @TODO this is not typed, find way how to fix this :O !!
- */
-const prisma = container.get<typeof PrismaClient>(ContainerSymbol.PrismaClient);
-
-const foo = container.get<Foo>(ContainerSymbol.Foo);
+const prisma = container.resolve<PrismaClient>(ContainerSymbol.PrismaClient);
 
 const providers: Provider[] = [
     GitHub({
