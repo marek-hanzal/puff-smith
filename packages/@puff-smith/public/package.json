@@ -23,7 +23,6 @@
     "dependencies": {
         "@babel/core": "^7.20.12",
         "@emotion/react": "^11.10.5",
-        "@leight/i18n": "*",
         "@leight/layout": "*",
         "@leight/mantine": "*",
         "@mantine/core": "^5.10.0",

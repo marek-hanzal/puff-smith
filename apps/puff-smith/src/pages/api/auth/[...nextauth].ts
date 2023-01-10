@@ -93,9 +93,10 @@ export default NextAuth({
         },
         session: async ({session, token}) => {
             if (session && token?.sub) {
-                (session as any).withUser = {
+                session.user = {
                     userId: token.sub,
                     tokens: token.tokens,
+                    ...session.user,
                 };
             }
             return session;
