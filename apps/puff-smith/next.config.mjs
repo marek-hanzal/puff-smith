@@ -12,8 +12,10 @@ const config = {
     reactStrictMode:   true,
     swcMinify:         true,
     i18n:              i18n.i18n,
-    transpilePackages: [
-    ],
+    experimental:      {
+        appDir: true,
+    },
+    transpilePackages: [],
     modularizeImports: {}
 };
 export default config;
