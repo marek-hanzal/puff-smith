@@ -20,6 +20,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/winston/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/public/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/sql/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight/umzug/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

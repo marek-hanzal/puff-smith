@@ -1,18 +1,23 @@
-import {container}    from "@/puff-smith/server/container/container";
 import {sha256}       from "@leight/core";
 import {SqlUtils}     from "@leight/sql";
 import {PrismaClient} from "@prisma/client";
+import chalk          from "chalk";
+import clear          from "clear";
+import figlet         from "figlet";
 import fs             from "node:fs";
 import path           from "node:path";
-import {injectable}   from "tsyringe";
+import {
+    inject,
+    injectable
+}                     from "tsyringe";
 import {Umzug}        from "umzug";
 import {v4}           from "uuid";
 
 const EMPTY_MIGRATION = "__empty__";
 
 @injectable()
-class MigrationService {
-    constructor(protected sqlUtils: SqlUtils, protected prisma: PrismaClient) {
+export class MigrationService {
+    constructor(protected sqlUtils: SqlUtils, @inject("PrismaClient") protected prisma: PrismaClient) {
     }
 
     async ensureMigrationTable() {
@@ -32,17 +37,18 @@ class MigrationService {
                 alter table _prisma_migrations owner to "puff-smith";
             `);
         } catch (e) {
+            // nope
         }
     }
 
     umzug(): Umzug {
         return new Umzug({
             migrations: {
-                glob:    process.cwd() + "/prisma/migrations/**/*.{ts,sql}",
+                glob:    "prisma/migrations/**/*.{ts,sql}",
                 resolve: params => {
                     const name = path.normalize(params.path!.replace(process.cwd(), ""))
                         .replaceAll("\\", "/")
-                        .replaceAll("/prisma/migrations", "")
+                        .replaceAll("prisma/migrations", "")
                         .replaceAll(/migration.(ts|sql)/g, "")
                         .replaceAll("/", "");
                     if (fs.readFileSync(params.path!).length === 0) {
@@ -72,7 +78,7 @@ class MigrationService {
                         return;
                     }
                     await this.ensureMigrationTable();
-                    const hash = sha256(fs.readFileSync(params.path!).toString());
+                    const hash = await sha256(fs.readFileSync(params.path!).toString());
                     await this.prisma.$executeRaw`INSERT INTO _prisma_migrations VALUES (${v4()}, ${hash}, NOW(), ${params.name}, NULL, NULL, now(), 1)`;
                 },
                 unlogMigration: async () => {
@@ -80,7 +86,7 @@ class MigrationService {
                 },
                 executed:       async () => {
                     await this.ensureMigrationTable();
-                    return (await this.prisma.$queryRaw<{ migration_name: string }[]>`SELECT migration_name FROM _prisma_migrations ORDER BY migration_name ASC`).map(({migration_name}) => migration_name);
+                    return (await this.prisma.$queryRaw<{ migration_name: string }[]>`SELECT migration_name FROM _prisma_migrations ORDER BY migration_name ASC`).map(({migration_name}: { migration_name: string }) => migration_name);
                 },
             },
             logger:     undefined,
@@ -88,13 +94,30 @@ class MigrationService {
     }
 
     migrate() {
+        clear();
+        console.log(
+            chalk.yellowBright(
+                figlet.textSync("Leight - Umzug", {horizontalLayout: "full"})
+            )
+        );
+        console.log("Searching in", "prisma/migrations/**/*.{ts,sql}");
         this.umzug().up()
-            .then(() => process.exit(0))
+            .then(() => {
+                console.log(
+                    chalk.greenBright(
+                        figlet.textSync("Done", {horizontalLayout: "full"})
+                    )
+                );
+                process.exit(0);
+            })
             .catch(e => {
+                console.log(
+                    chalk.redBright(
+                        figlet.textSync("Kaboom!", {horizontalLayout: "full"})
+                    )
+                );
                 console.error(e);
                 process.exit(1);
             });
     }
 }
-
-await container.resolve(MigrationService).migrate();

@@ -1,9 +1,12 @@
 import {type PrismaClient} from "@prisma/client";
-import {injectable}        from "tsyringe";
+import {
+    inject,
+    injectable
+}                          from "tsyringe";
 
 @injectable()
 export class SqlUtils {
-    constructor(protected prisma: PrismaClient) {
+    constructor(@inject("PrismaClient") protected prisma: PrismaClient) {
     }
 
     parse(source: string): string[] {

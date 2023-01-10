@@ -1,4 +1,3 @@
-import {env}          from "@/puff-smith/env/server.mjs";
 import {PrismaClient} from "@prisma/client";
 import "reflect-metadata";
 import {
@@ -6,20 +5,13 @@ import {
     instanceCachingFactory
 }                     from "tsyringe";
 
-container.register<PrismaClient>(PrismaClient, {
+container.register<PrismaClient>("PrismaClient", {
     useFactory: instanceCachingFactory<PrismaClient>(() => {
         return new PrismaClient({
             errorFormat: "pretty",
-            log:         env.NODE_ENV === "development" ? [
-                "query",
-                "error",
-                "warn"
-            ] : ["error"],
+            log:         ["error"],
         });
     }),
-});
-container.register("PrismaClient", {
-    useToken: PrismaClient,
 });
 
 export {container} from "tsyringe";

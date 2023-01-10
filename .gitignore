@@ -6,3 +6,4 @@ lib
 .env.production.local
 ~*.xlsx
 .turbo
+tsconfig.tsbuildinfo
