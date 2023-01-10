@@ -16,6 +16,7 @@ importers:
             '@leight/core': '*'
             '@leight/i18n': '*'
             '@leight/layout': '*'
+            '@leight/mantine': '*'
             '@leight/sql': '*'
             '@leight/umzug': '*'
             '@leight/winston': '*'
@@ -88,6 +89,7 @@ importers:
             '@leight/core': link:../../packages/@leight/core
             '@leight/i18n': link:../../packages/@leight/i18n
             '@leight/layout': link:../../packages/@leight/layout
+            '@leight/mantine': link:../../packages/@leight/mantine
             '@leight/sql': link:../../packages/@leight/sql
             '@leight/umzug': link:../../packages/@leight/umzug
             '@leight/winston': link:../../packages/@leight/winston
@@ -213,6 +215,39 @@ importers:
             react-dom: ^18.2.0
             typescript: ^4.9.4
         dependencies:
+            react: 18.2.0
+            react-dom: 18.2.0_react@18.2.0
+        devDependencies:
+            '@types/node': 18.11.18
+            '@types/react': 18.0.26
+            '@types/react-dom': 18.0.10
+            '@typescript-eslint/eslint-plugin': 5.48.0_k73wpmdolxikpyqun3p36akaaq
+            '@typescript-eslint/parser': 5.48.0_iukboom6ndih5an6iafl45j2fe
+            eslint: 8.31.0
+            eslint-plugin-unicorn: 45.0.2_eslint@8.31.0
+            typescript: 4.9.4
+
+    packages/@leight/mantine:
+        specifiers:
+            '@babel/core': ^7.20.12
+            '@emotion/react': ^11.10.5
+            '@mantine/core': ^5.10.0
+            '@mantine/hooks': ^5.10.0
+            '@types/node': ^18.11.18
+            '@types/react': ^18.0.26
+            '@types/react-dom': ^18.0.10
+            '@typescript-eslint/eslint-plugin': ^5.48.0
+            '@typescript-eslint/parser': ^5.48.0
+            eslint: ^8.31.0
+            eslint-plugin-unicorn: ^45.0.2
+            react: ^18.2.0
+            react-dom: ^18.2.0
+            typescript: ^4.9.4
+        dependencies:
+            '@babel/core': 7.20.12
+            '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
+            '@mantine/core': 5.10.0_lbfixegkxal6rwioqxubxet6s4
+            '@mantine/hooks': 5.10.0_react@18.2.0
             react: 18.2.0
             react-dom: 18.2.0_react@18.2.0
         devDependencies:
@@ -547,13 +582,6 @@ packages:
             regenerator-runtime: 0.13.11
         dev: true
 
-    /@babel/runtime/7.20.1:
-        resolution: { integrity: sha512-mrzLkl6U9YLF8qpqI7TB82PESyEGjm/0Ly91jG575eVxMMlb8fYfOXFZIJ8XfLrJZQbm7dlKry2bJmXBUEkdFg== }
-        engines: { node: '>=6.9.0' }
-        dependencies:
-            regenerator-runtime: 0.13.11
-        dev: false
-
     /@babel/runtime/7.20.6:
         resolution: { integrity: sha512-Q+8MqP7TiHMWzSfwiJwXCjyf4GYA4Dgw3emg/7xmwsdLJOZUp+nMqcOwOzzYheuM1rhDu8FSj2l0aoMygEuXuA== }
         engines: { node: '>=6.9.0' }
@@ -669,7 +697,7 @@ packages:
                 optional: true
         dependencies:
             '@babel/core': 7.20.12
-            '@babel/runtime': 7.20.1
+            '@babel/runtime': 7.20.6
             '@emotion/babel-plugin': 11.10.5_@babel+core@7.20.12
             '@emotion/cache': 11.10.5
             '@emotion/serialize': 1.1.1

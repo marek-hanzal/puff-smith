@@ -21,7 +21,7 @@ module.exports = {
     debug:                    false,
     initImmediate:            true,
     keySeparator:             false,
-    nsSeparator:              false,
+    nsSeparator:              ":",
     interpolation:            {
         prefix:      "{",
         suffix:      "}",
@@ -29,7 +29,7 @@ module.exports = {
     },
     localeStructure:          "{lng}/{ns}",
     nonExplicitSupportedLngs: true,
-    ns:                       ["common"],
+    ns:                       ["common", "public"],
     supportedLngs:            supported,
     detection:                {
         order: [

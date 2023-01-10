@@ -21,6 +21,7 @@
         "@leight/core": "*",
         "@leight/i18n": "*",
         "@leight/layout": "*",
+        "@leight/mantine": "*",
         "@leight/sql": "*",
         "@leight/umzug": "*",
         "@leight/winston": "*",
