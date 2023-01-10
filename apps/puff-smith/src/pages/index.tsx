@@ -1,3 +1,4 @@
+import logo              from "@/puff-smith/assets/logo/logo.svg";
 import {withTranslation} from "@leight/i18n";
 import {switchScheme}    from "@leight/mantine";
 import {
@@ -7,8 +8,8 @@ import {
     Group,
     Header
 }                        from "@mantine/core";
-import {MantineLogo}     from "@mantine/ds";
 import {useTranslation}  from "next-i18next";
+import Image             from "next/image";
 import Link              from "next/link";
 
 const useStyles = createStyles(theme => ({
@@ -35,7 +36,9 @@ export default function Index() {
         <Box pb={120}>
             <Header height={60} px={"md"}>
                 <Group position={"apart"} sx={{height: "100%"}}>
-                    <MantineLogo size={30}/>
+                    <Link href={"/"}>
+                        <Image width={96} height={138} src={logo} className="mr-3 h-6 sm:h-9" alt="logo"/>
+                    </Link>
                     <Group sx={{height: "100%"}} spacing={0}>
                         <Link href={"/"} className={classes.link}>{t("link.home")}</Link>
                     </Group>
