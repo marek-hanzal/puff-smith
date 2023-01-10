@@ -351,6 +351,9 @@ importers:
         specifiers:
             '@babel/core': ^7.20.12
             '@emotion/react': ^11.10.5
+            '@leight/i18n': '*'
+            '@leight/layout': '*'
+            '@leight/mantine': '*'
             '@mantine/core': ^5.10.0
             '@mantine/ds': ^5.10.0
             '@mantine/hooks': ^5.10.0
@@ -373,6 +376,9 @@ importers:
         dependencies:
             '@babel/core': 7.20.12
             '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
+            '@leight/i18n': link:../../@leight/i18n
+            '@leight/layout': link:../../@leight/layout
+            '@leight/mantine': link:../../@leight/mantine
             '@mantine/core': 5.10.0_lbfixegkxal6rwioqxubxet6s4
             '@mantine/ds': 5.10.0_yfewi7uazu6f2vx3txqkui6zre
             '@mantine/hooks': 5.10.0_react@18.2.0

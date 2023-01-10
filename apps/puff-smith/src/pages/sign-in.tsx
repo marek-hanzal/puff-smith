@@ -1,4 +1,5 @@
-import {withTranslation} from "@leight/i18n";
+import logo                from "@/puff-smith/assets/logo/logo.svg";
+import {withTranslation}   from "@leight/i18n";
 import {
     Button,
     Divider,
@@ -8,10 +9,11 @@ import {
     Stack,
     Text,
     TextInput
-}                        from "@mantine/core";
-import {useForm}         from "@mantine/form";
+}                          from "@mantine/core";
+import {useForm}           from "@mantine/form";
+import {withPublicLayout,} from "@puff-smith/public";
 
-export default function SignIn() {
+export default withPublicLayout(function SignIn() {
     const form = useForm({
         initialValues: {
             email:    "",
@@ -63,6 +65,9 @@ export default function SignIn() {
             </form>
         </Paper>
     );
-}
+}, {logo});
 
-export const getServerSideProps = withTranslation();
+export const getServerSideProps = withTranslation([
+    "common",
+    "public"
+]);
