@@ -7,9 +7,6 @@
     "pipeline": {
         "prisma-format": {
             "outputMode": "new-only",
-            "dependsOn": [
-                "^prisma-generate"
-            ],
             "outputs": [],
             "inputs": [
                 "prisma/schema.prisma"

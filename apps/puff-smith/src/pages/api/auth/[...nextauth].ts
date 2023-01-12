@@ -3,15 +3,19 @@ import {container}         from "@/puff-smith/server/container";
 import {Logger}            from "@leight/winston";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
 import {PrismaClient}      from "@prisma/client";
-import {UserService}       from "@puff-smith/user-server";
+import {
+    RegistrationService,
+    UserJwtService
+}                          from "@puff-smith/user-server";
 import NextAuth            from "next-auth";
 import type {Provider}     from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHub              from "next-auth/providers/github";
 
-const logger      = Logger("auth");
-const prisma      = container.resolve(PrismaClient);
-const userService = container.resolve(UserService);
+const logger              = Logger("auth");
+const prisma              = container.resolve(PrismaClient);
+const registrationService = container.resolve(RegistrationService);
+const userJwtService      = container.resolve(UserJwtService);
 
 const providers: Provider[] = [
     GitHub({
@@ -65,22 +69,8 @@ export default NextAuth({
     callbacks: {
         jwt: async token => {
             try {
-                return userService.handleToken(token);
-                // if (token?.sub) {
-                //     logger.debug("Token found with sub");
-                //     const userService = UserSource().withContainer(Container({
-                //         user: User({
-                //             userId: token.sub,
-                //             tokens: ["*"],
-                //         }),
-                //     }));
-                //     const user        = await userService.asUser(token.sub);
-                //     if (isNewUser) {
-                //         (await prisma.user.count()) === 1 ? await userService.handleRootUser() : await userService.handleCommonUser();
-                //     }
-                //     token.tokens = user.tokens;
-                //     logger.debug("Resolved user with access tokens", {tokens: token.tokens});
-                // }
+                await registrationService.handle(token);
+                return userJwtService.token(token.token);
             } catch (e) {
                 if (e instanceof Error) {
                     logger.error(e.message);

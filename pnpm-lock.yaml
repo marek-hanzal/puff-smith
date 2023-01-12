@@ -642,6 +642,7 @@ importers:
             '@types/node': ^18.11.18
             '@typescript-eslint/eslint-plugin': ^5.48.1
             '@typescript-eslint/parser': ^5.48.1
+            dotenv-cli: ^6.0.0
             eslint: ^8.31.0
             eslint-plugin-unicorn: ^45.0.2
             prisma: ^4.8.1
@@ -655,6 +656,7 @@ importers:
             '@types/node': 18.11.18
             '@typescript-eslint/eslint-plugin': 5.48.1_3jon24igvnqaqexgwtxk6nkpse
             '@typescript-eslint/parser': 5.48.1_iukboom6ndih5an6iafl45j2fe
+            dotenv-cli: 6.0.0
             eslint: 8.31.0
             eslint-plugin-unicorn: 45.0.2_eslint@8.31.0
             prisma: 4.8.1
