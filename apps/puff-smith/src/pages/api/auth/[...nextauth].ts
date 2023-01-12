@@ -1,15 +1,17 @@
 import {env}               from "@/puff-smith/env/server.mjs";
-import {container,}        from "@/puff-smith/server/container/container";
+import {container}         from "@/puff-smith/server/container";
 import {Logger}            from "@leight/winston";
 import {PrismaAdapter}     from "@next-auth/prisma-adapter";
 import {PrismaClient}      from "@prisma/client";
+import {UserService}       from "@puff-smith/user-server";
 import NextAuth            from "next-auth";
 import type {Provider}     from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHub              from "next-auth/providers/github";
 
-const logger = Logger("auth");
-const prisma = container.resolve(PrismaClient);
+const logger      = Logger("auth");
+const prisma      = container.resolve(PrismaClient);
+const userService = container.resolve(UserService);
 
 const providers: Provider[] = [
     GitHub({
@@ -61,9 +63,9 @@ export default NextAuth({
     },
     providers,
     callbacks: {
-        jwt:     async ({token, isNewUser}) => {
+        jwt: async token => {
             try {
-                logger.debug("Resolving JWT token", {isNewUser});
+                return userService.handleToken(token);
                 // if (token?.sub) {
                 //     logger.debug("Token found with sub");
                 //     const userService = UserSource().withContainer(Container({
@@ -79,7 +81,6 @@ export default NextAuth({
                 //     token.tokens = user.tokens;
                 //     logger.debug("Resolved user with access tokens", {tokens: token.tokens});
                 // }
-                return token;
             } catch (e) {
                 if (e instanceof Error) {
                     logger.error(e.message);

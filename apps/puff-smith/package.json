@@ -45,6 +45,8 @@
         "@puff-smith/lab": "*",
         "@puff-smith/public": "*",
         "@puff-smith/ui": "*",
+        "@puff-smith/user": "*",
+        "@puff-smith/user-server": "*",
         "@tabler/icons": "^1.119.0",
         "@tanstack/react-query": "^4.22.0",
         "@trpc/client": "^10.9.0",

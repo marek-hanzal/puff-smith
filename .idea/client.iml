@@ -28,6 +28,8 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/utils/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/i18n-client/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/i18n-server/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/user-server/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/user/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
