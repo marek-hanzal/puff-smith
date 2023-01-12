@@ -1,22 +1,24 @@
-import {switchScheme}               from "@leight/mantine";
+import {switchScheme}   from "@leight/mantine";
 import {
     Box,
     Button,
     createStyles,
     Group,
-    Header,
-    LoadingOverlay
-}                                   from "@mantine/core";
-import {useUnauthenticatedRedirect} from "@puff-smith/ui";
-import {signOut}                    from "next-auth/react";
-import {useTranslation}             from "next-i18next";
-import Image                        from "next/image";
-import Link                         from "next/link";
+    Header
+}                       from "@mantine/core";
+import {
+    SessionOverlay,
+    useUnauthenticatedRedirect
+}                       from "@puff-smith/ui";
+import {signOut}        from "next-auth/react";
+import {useTranslation} from "next-i18next";
+import Image            from "next/image";
+import Link             from "next/link";
 import {
     ComponentProps,
     type FC,
     type PropsWithChildren
-}                                   from "react";
+}                       from "react";
 
 const useStyles = createStyles(theme => ({
     link: {
@@ -41,11 +43,11 @@ export interface ILabLayoutProps extends PropsWithChildren {
 }
 
 export const LabLayout: FC<ILabLayoutProps> = ({logo, children}) => {
-    const session          = useUnauthenticatedRedirect();
+    useUnauthenticatedRedirect();
     const {classes, theme} = useStyles();
     const {t}              = useTranslation("lab");
     return <>
-        <LoadingOverlay visible={session.status === "loading"} overlayBlur={2}/>
+        <SessionOverlay/>
         <Box>
             <Header height={72} px={"md"}>
                 <Group position={"apart"} sx={{height: "100%"}}>
