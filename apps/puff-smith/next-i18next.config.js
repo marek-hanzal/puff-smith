@@ -29,7 +29,7 @@ module.exports = {
     },
     localeStructure:          "{lng}/{ns}",
     nonExplicitSupportedLngs: true,
-    ns:                       ["common", "public"],
+    ns:                       ["common", "public", "lab"],
     supportedLngs:            supported,
     detection:                {
         order: [

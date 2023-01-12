@@ -1,14 +1,14 @@
-import logo               from "@/puff-smith/assets/logo/logo.svg";
-import {withTranslation}  from "@leight/i18n-server";
-import {withPublicLayout} from "@puff-smith/public";
+import logo              from "@/puff-smith/assets/logo/logo.svg";
+import {withTranslation} from "@leight/i18n-server";
+import {withLabLayout}   from "@puff-smith/lab";
 
-export default withPublicLayout(function Index() {
+export default withLabLayout(function Index() {
     return (
-        <h1>Bello!</h1>
+        <h1>Lab here!!</h1>
     );
 }, {logo});
 
 export const getServerSideProps = withTranslation([
     "common",
-    "public"
+    "lab"
 ]);

@@ -14,6 +14,7 @@ import {
     setCookies
 }                                       from "cookies-next";
 import type {GetServerSidePropsContext} from "next";
+import {SessionProvider}                from "next-auth/react";
 import {appWithTranslation}             from "next-i18next";
 import type {AppProps}                  from "next/app";
 import Head                             from "next/head";
@@ -59,7 +60,12 @@ const PuffSmith = (props: AppProps & { colorScheme: ColorScheme }) => {
                 emotionCache={emotionCache}
             >
                 <NotificationsProvider>
-                    {((Component as unknown as IPageWithLayout).layout || (page => page))(<Component {...pageProps}/>)}
+                    <SessionProvider
+                        refetchInterval={30}
+                        refetchOnWindowFocus={true}
+                    >
+                        {((Component as unknown as IPageWithLayout).layout || (page => page))(<Component {...pageProps}/>)}
+                    </SessionProvider>
                 </NotificationsProvider>
             </MantineProvider>
         </ColorSchemeProvider>

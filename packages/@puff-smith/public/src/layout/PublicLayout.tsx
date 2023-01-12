@@ -3,9 +3,13 @@ import {
     Box,
     createStyles,
     Group,
-    Header
+    Header,
+    LoadingOverlay
 }                       from "@mantine/core";
-import {PrimaryButton}  from "@puff-smith/ui";
+import {
+    PrimaryButton,
+    useAuthenticatedSession
+}                       from "@puff-smith/ui";
 import {signIn}         from "next-auth/react";
 import {useTranslation} from "next-i18next";
 import Image            from "next/image";
@@ -39,10 +43,11 @@ export interface IPublicLayoutProps extends PropsWithChildren {
 }
 
 export const PublicLayout: FC<IPublicLayoutProps> = ({logo, children}) => {
+    const session          = useAuthenticatedSession({redirect: "/lab"});
     const {classes, theme} = useStyles();
     const {t}              = useTranslation("public");
-
     return <>
+        <LoadingOverlay visible={session.status === "loading"} overlayBlur={2}/>
         <Box>
             <Header height={72} px={"md"}>
                 <Group position={"apart"} sx={{height: "100%"}}>

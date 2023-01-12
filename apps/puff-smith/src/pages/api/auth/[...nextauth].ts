@@ -59,9 +59,6 @@ export default NextAuth({
     session:   {
         strategy: "jwt",
     },
-    pages:     {
-        newUser: "/welcome",
-    },
     providers,
     callbacks: {
         jwt:     async ({token, isNewUser}) => {
