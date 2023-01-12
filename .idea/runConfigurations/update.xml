@@ -1,7 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="update" type="js.build_tools.npm" nameIsGenerated="true">
+  <configuration default="false" name="update" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="update" />
+    <arguments value="--latest -r" />
     <node-interpreter value="project" />
     <package-manager value="pnpm" />
     <envs />
