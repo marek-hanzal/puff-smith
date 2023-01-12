@@ -23,6 +23,11 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/umzug/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@leight/mantine/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/assets/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/lab/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@puff-smith/ui/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight/utils/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight/i18n-client/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/@leight/i18n-server/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.data" />
       <excludeFolder url="file://$MODULE_DIR$/.github" />
       <excludeFolder url="file://$MODULE_DIR$/.idea" />

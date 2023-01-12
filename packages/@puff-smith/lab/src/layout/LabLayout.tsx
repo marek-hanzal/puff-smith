@@ -1,12 +1,12 @@
 import {switchScheme}   from "@leight/mantine";
 import {
     Box,
+    Button,
     createStyles,
     Group,
     Header
 }                       from "@mantine/core";
-import {PrimaryButton}  from "@puff-smith/ui";
-import {signIn}         from "next-auth/react";
+import {signOut}        from "next-auth/react";
 import {useTranslation} from "next-i18next";
 import Image            from "next/image";
 import Link             from "next/link";
@@ -34,13 +34,13 @@ const useStyles = createStyles(theme => ({
     },
 }));
 
-export interface IPublicLayoutProps extends PropsWithChildren {
+export interface ILabLayoutProps extends PropsWithChildren {
     logo: ComponentProps<typeof Image>["src"];
 }
 
-export const PublicLayout: FC<IPublicLayoutProps> = ({logo, children}) => {
+export const LabLayout: FC<ILabLayoutProps> = ({logo, children}) => {
     const {classes, theme} = useStyles();
-    const {t}              = useTranslation("public");
+    const {t}              = useTranslation("lab");
 
     return <>
         <Box>
@@ -53,13 +53,13 @@ export const PublicLayout: FC<IPublicLayoutProps> = ({logo, children}) => {
                         <Link href={"/"} className={classes.link}>{t("link.home")}</Link>
                     </Group>
                     <Group>
-                        <PrimaryButton
-                            onClick={() => signIn()}
-                            withTranslation={{
-                                label:     "button.sign-in",
-                                namespace: "public",
-                            }}
-                        />
+                        <Button
+                            variant={"gradient"}
+                            gradient={{from: "red.7", to: "orange.7"}}
+                            onClick={() => signOut()}
+                        >
+                            {t("button.sign-out")}
+                        </Button>
                     </Group>
                 </Group>
             </Header>

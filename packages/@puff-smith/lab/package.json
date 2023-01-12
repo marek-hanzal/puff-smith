@@ -1,7 +1,7 @@
 {
     "version": "0.5.0",
-    "name": "@puff-smith/public",
-    "description": "Public components of the Puff Smith application.",
+    "name": "@puff-smith/lab",
+    "description": "Components used in lab section of the @puff-smith app.",
     "license": "MIT",
     "repository": {
         "type": "git",
